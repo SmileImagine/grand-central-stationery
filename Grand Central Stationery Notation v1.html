@@ -375,7 +375,7 @@
       }
       const cursorControl = {
         onStart() { clearPlaying(); },
-        onFinish() { clearPlaying(); },
+        onFinished() { clearPlaying(); },     // abcjs's name for the end-of-tune callback
         onEvent(ev) {
           clearPlaying();
           if (!ev || !ev.elements) return;

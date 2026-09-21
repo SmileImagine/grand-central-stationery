@@ -116,9 +116,12 @@
     .paper .accg { font-family: 'Noto Music'; pointer-events: none; stroke: none; }
     .paper .abcjs-lyric { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 400; }
     .paper svg { color: var(--ink); }   /* abcjs fills staff, clef, bars, rests and ledger lines with currentColor */
+    /* Proportional spacing moves note, rest and bar groups by --dx (set by JS);
+       the pop keyframes include the same translation so it survives the animation. */
+    .paper .abcjs-note, .paper .abcjs-rest, .paper .abcjs-bar { transform: translate(var(--dx, 0px), 0); }
     .paper .playing { animation: pop 0.32s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
     .paper .playing text.abcjs-lyric { font-weight: 700; }
-    @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
+    @keyframes pop { 0% { transform: translate(var(--dx, 0px), 0) scale(1); } 40% { transform: translate(var(--dx, 0px), 0) scale(1.22); } 100% { transform: translate(var(--dx, 0px), 0) scale(1); } }
     .paper .cursorbar { fill: var(--cursor); stroke: none; opacity: 0.85; filter: drop-shadow(0 0 3px var(--cursor)); transition: opacity 0.4s; }
     .paper .cursorbar.done { opacity: 0; }
     .strip { height: 26%; min-height: 60px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
@@ -148,6 +151,7 @@
     <button id="present3d" title="Fly between cells laid out in 3D (impress.js). Starts on an overview of every cell.">Present 3D</button>
     <span class="spacer"></span>
     <label>Text font <select id="fontpick"></select></label>
+    <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional</label>
     <button id="theme" title="Light / dark">☾</button>
     <button id="export">Export</button>
     <button id="import">Import</button>
@@ -430,8 +434,9 @@
     }
     function collect(tune) {
       const out = [];
-      for (const line of tune.lines) for (const staff of line.staff || []) for (const voice of staff.voices || [])
-        for (const el of voice) if (el.el_type === 'note' || el.el_type === 'bar') out.push(el);
+      tune.lines.forEach((line, li) => (line.staff || []).forEach(staff => (staff.voices || []).forEach((voice, vi) => {
+        for (const el of voice) if (el.el_type === 'note' || el.el_type === 'bar') { el._line = li; el._voice = vi; out.push(el); }
+      })));
       return out;
     }
     function spell(tune, elems) {
@@ -461,12 +466,12 @@
       if (document.fonts && document.fonts.check("400 100px 'Noto Music'", ACC_GLYPH[acc])) accCentre[acc] = centre;
       return centre;
     }
-    function svgText(svg, cls, x, y, size, fill, content, anchor, baseline = 'central') {
+    function svgText(parent, cls, x, y, size, fill, content, anchor, baseline = 'central') {
       const t = document.createElementNS(NS, 'text');
       t.setAttribute('class', cls); t.setAttribute('x', x.toFixed(2)); t.setAttribute('y', y.toFixed(2));
       t.setAttribute('text-anchor', anchor); t.setAttribute('dominant-baseline', baseline);
       t.setAttribute('font-size', size.toFixed(2)); t.setAttribute('fill', fill);
-      t.textContent = content; svg.appendChild(t); return t;
+      t.textContent = content; parent.appendChild(t); return t;
     }
     function fitLyricSize(svg, size) {
       if (!svg) return null;
@@ -504,6 +509,10 @@
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
         this.entry.value = text;
         this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
+        this.shift = new Map();          // displayed element -> horizontal shift from proportional spacing
+        this.pending = false;            // a render was requested during playback
+        // A pause from the transport also applies a pending render (finish is handled by the cursor control).
+        body.querySelector('.audio').addEventListener('click', () => setTimeout(() => { if (this.pending && !(this.synth && this.synth.isStarted)) this.render(); }, 250));
         this.entry.addEventListener('input', () => { this.render(); onChange(this.entry.value); });
         this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
         this.ro.observe(this.scoreEl);
@@ -533,6 +542,11 @@
                  H: this.scoreEl.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
       }
       render() {
+        // While the synthesiser is playing, its timer refers to the current
+        // hidden render and abcjs's setTune would stop it; re-render when it
+        // finishes or pauses instead.
+        if (this.synth && this.synth.isStarted) { this.pending = true; return; }
+        this.pending = false;
         this.warnEl.textContent = '';
         const abc = withHeader(this.entry.value);
         this.original = this.renderAt(this.hidden, abc, 600);
@@ -556,8 +570,74 @@
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
         this.decorate(abcForDisplay !== abc);
+        this.shift.clear();
+        if (proportional) this.proportionalize();
         this.fit();
         if (this.synth) this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
+      }
+
+      // Proportional spacing: on each line, every note, rest and bar line is
+      // moved so that its horizontal position is linear in time, keeping the
+      // first note and the final bar line where abcjs put them. Beams, ties and
+      // slurs are stretched between the notes they join.
+      proportionalize() {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return;
+        const lines = new Map();
+        for (const el of this.dispElems) {
+          if (el._voice !== 0 || !el.abselem || !el.abselem.elemset || !el.abselem.elemset.length) continue;
+          if (!lines.has(el._line)) lines.set(el._line, []);
+          lines.get(el._line).push(el);
+        }
+        const groupBox = el => el.abselem.elemset[0].getBBox();
+        const headX = el => { const h = el.abselem.heads && el.abselem.heads[0] && el.abselem.heads[0].graphelem; return (h ? h.getBBox() : groupBox(el)).x; };
+        const GAP = 5;                                        // bar line to next note
+        for (const [li, elems] of lines) {
+          const notes = elems.filter(e => e.el_type === 'note');
+          if (notes.length < 2) continue;
+          let t = 0; const items = [];
+          for (const el of elems) {
+            if (el.el_type === 'bar') items.push({ el, t, bar: true });
+            else { items.push({ el, t, bar: false }); t += el.duration || 0; }
+          }
+          const T = t; if (T <= 0) continue;
+          const x1 = headX(notes[0]);
+          const lastBar = [...items].reverse().find(i => i.bar && i.t >= T - 1e-9);
+          const staff = svg.querySelector(`.abcjs-staff.abcjs-l${li}`);
+          const xEnd = lastBar ? groupBox(lastBar.el).x : (staff ? staff.getBBox().x + staff.getBBox().width - 4 : null);
+          if (xEnd === null || xEnd <= x1) continue;
+          const perWhole = (xEnd - x1) / T;
+          for (const it of items) {
+            const cur = it.bar ? groupBox(it.el).x : headX(it.el);
+            let target = x1 + it.t * perWhole;
+            if (it.bar) target = it === lastBar ? xEnd : target - GAP;
+            const dx = target - cur;
+            this.shift.set(it.el, dx);
+            for (const g of it.el.abselem.elemset) g.style.setProperty('--dx', dx.toFixed(2) + 'px');
+          }
+        }
+        // Lyrics were sized for abcjs's spacing; after the shift, shrink them
+        // (all together) until no two neighbouring syllables touch.
+        const syls = [...svg.querySelectorAll('g.abcjs-note text.abcjs-lyric')].map(t => {
+          const g = t.closest('g.abcjs-note'); const dx = parseFloat(g.style.getPropertyValue('--dx')) || 0; const b = t.getBBox();
+          return { t, cx: b.x + b.width / 2 + dx, w: b.width, row: Math.round(b.y / 5) };
+        });
+        const rows = new Map(); for (const y of syls) { if (!rows.has(y.row)) rows.set(y.row, []); rows.get(y.row).push(y); }
+        let f = 1;
+        for (const row of rows.values()) { row.sort((a, b) => a.cx - b.cx); for (let i = 1; i < row.length; i++) f = Math.min(f, (row[i].cx - row[i - 1].cx) / ((row[i].w + row[i - 1].w) / 2 + 3)); }
+        if (f < 1) for (const y of syls) { const size = parseFloat(y.t.getAttribute('font-size')) || 12; y.t.setAttribute('font-size', Math.max(4, size * f).toFixed(2)); }
+        // Spanning shapes: stretch each between the nearest note at each end.
+        const anchors = this.dispElems.filter(e => e.el_type === 'note' && this.shift.has(e)).map(e => { const b = groupBox(e); return { cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: this.shift.get(e) }; });
+        if (!anchors.length) return;
+        const nearest = (x, y) => anchors.reduce((a, b) => Math.hypot(b.cx - x, b.cy - y) < Math.hypot(a.cx - x, a.cy - y) ? b : a);
+        for (const path of svg.querySelectorAll('path.abcjs-beam-elem, path.abcjs-slur, path.abcjs-tie, path.abcjs-legato')) {
+          const b = path.getBBox();
+          if (b.width < 1) continue;
+          const L = nearest(b.x, b.y + b.height / 2), R = nearest(b.x + b.width, b.y + b.height / 2);
+          const sx = (b.width + R.dx - L.dx) / b.width;
+          path.style.transformOrigin = `${b.x.toFixed(2)}px 0px`;
+          path.style.transform = `translate(${L.dx.toFixed(2)}px, 0) scaleX(${sx.toFixed(4)})`;
+        }
       }
       decorate(drawAccidentals) {
         const svg = this.paper.querySelector('svg');
@@ -572,11 +652,12 @@
             if (!node) return;
             node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
             const bb = node.getBBox(), hollow = el.duration >= 0.5;
-            svgText(svg, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * 1.05, hollow ? p.color : letterOn(), p.letter, 'middle');
+            const group = abs.elemset[0] || svg;      // inside the group: moves and pops with the note
+            svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * 1.05, hollow ? p.color : letterOn(), p.letter, 'middle');
             if (drawAccidentals && p.explicit) {
               const size = bb.height * accScale;
               const baselineY = bb.y + bb.height / 2 + accidentalCentre(p.explicit) * size;
-              svgText(svg, 'accg', bb.x - bb.width * 0.2, baselineY, size, p.color, ACC_GLYPH[p.explicit], 'end', 'alphabetic');
+              svgText(group, 'accg', bb.x - bb.width * 0.2, baselineY, size, p.color, ACC_GLYPH[p.explicit], 'end', 'alphabetic');
             }
           });
           const color = pitches[0].color;
@@ -610,7 +691,8 @@
           if (i === undefined || !this.dispElems[i] || !this.dispElems[i].abselem) continue;
           const sp = this.spelled[i];
           if (sp && sp.length && !color) color = sp[0].color;
-          for (const g of this.dispElems[i].abselem.elemset || []) { groups.push(g); const bb = g.getBBox(); x = x === null ? bb.x : Math.min(x, bb.x); }
+          const dx = this.shift.get(this.dispElems[i]) || 0;
+          for (const g of this.dispElems[i].abselem.elemset || []) { groups.push(g); const bb = g.getBBox(); const gx = bb.x + dx; x = x === null ? gx : Math.min(x, gx); }
         }
         return { x, color: color || 'var(--cursor)', groups };
       }
@@ -628,8 +710,37 @@
         };
         return {
           onStart: () => { this.clearPlaying(); const r = bar(); if (r) r.classList.remove('done'); },
-          onFinish: () => { this.clearPlaying(); const r = bar(); if (r) r.classList.add('done'); },
+          onFinished: () => {                       // abcjs's name for the end-of-tune callback
+            this.clearPlaying(); const r = bar(); if (r) r.classList.add('done');
+            // abcjs still reports isStarted inside this callback; apply a
+            // pending render once it has really stopped.
+            if (this.pending) { let tries = 0; const t = setInterval(() => { if (!(this.synth && this.synth.isStarted) || ++tries > 30) { clearInterval(t); if (this.pending) this.render(); } }, 100); }
+          },
           onEvent: ev => {
+            // The synthesiser's timer runs ahead of what the speakers emit by
+            // the audio output latency (tens of ms on built-in speakers, far
+            // more over Bluetooth); delay the picture by the same amount.
+            const ctx = ABCJS.synth.activeAudioContext && ABCJS.synth.activeAudioContext();
+            const latencyMs = ctx ? ((ctx.baseLatency || 0) + (ctx.outputLatency || 0)) * 1000 : 0;
+            if (latencyMs > 4) { setTimeout(() => this.showEvent(ev), latencyMs); return; }
+            this.showEvent(ev);
+          },
+        };
+      }
+      showEvent(ev) {
+        const bar = () => {
+          const svg = this.paper.querySelector('svg');
+          if (!svg) return null;
+          let r = svg.querySelector('rect.cursorbar');
+          if (!r) {
+            r = document.createElementNS(NS, 'rect');
+            r.setAttribute('class', 'cursorbar'); r.setAttribute('x', 0); r.setAttribute('width', 2.4); r.setAttribute('rx', 1.2);
+            svg.appendChild(r);
+          }
+          return r;
+        };
+        {
+          {
             this.clearPlaying();
             if (!ev || !ev.elements) return;
             const here = this.eventGeometry(ev);
@@ -666,19 +777,25 @@
             if (there.x !== null && there.x > here.x && dt > 120) {
               const x1 = there.x - 3;
               const settle = Math.min(0.12, 70 / dt);                  // fraction of dt spent arriving
-              const hop = Math.min(0.35, Math.max(0.2, 240 / dt));    // fraction of dt spent hopping
-              const headW = Math.min(12, (x1 - x0) * 0.3);            // drift distance: about a notehead
-              r._motion = r.animate([
-                { transform: tx(cur), easing: 'ease-out' },
-                { transform: tx(x0), offset: settle, easing: 'linear' },
-                { transform: tx(x0 + headW), offset: 1 - hop, easing: 'cubic-bezier(.5,0,.3,1)' },
-                { transform: tx(x1) },
-              ], { duration: dt, fill: 'forwards' });
+              if (proportional) {
+                // Position is linear in time, so a constant-speed sweep is exact;
+                // start from wherever the bar is (normally already on the note).
+                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x1) }], { duration: dt, easing: 'linear', fill: 'forwards' });
+              } else {
+                const hop = Math.min(0.35, Math.max(0.2, 240 / dt));    // fraction of dt spent hopping
+                const headW = Math.min(12, (x1 - x0) * 0.3);            // drift distance: about a notehead
+                r._motion = r.animate([
+                  { transform: tx(cur), easing: 'ease-out' },
+                  { transform: tx(x0), offset: settle, easing: 'linear' },
+                  { transform: tx(x0 + headW), offset: 1 - hop, easing: 'cubic-bezier(.5,0,.3,1)' },
+                  { transform: tx(x1) },
+                ], { duration: dt, fill: 'forwards' });
+              }
             } else {
               r._motion = r.animate([{ transform: tx(cur), easing: 'ease-out' }, { transform: tx(x0) }], { duration: 90, fill: 'forwards' });
             }
-          },
-        };
+          }
+        }
       }
     }
 
@@ -686,6 +803,7 @@
        Cells: model, persistence, edit and present modes
        ====================================================================== */
     const STORE = 'gcs-cells-v1';
+    let proportional = localStorage.getItem('gcs-proportional') !== 'off';
     const SAMPLE = [
       { type: 'heading', text: 'Grand Central Stationery' },
       { type: 'text', text: 'Welcome!\nOpen your books' },
@@ -899,6 +1017,12 @@
     /* ---------- toolbar ---------- */
     document.getElementById('addText').addEventListener('click', () => addCell('text'));
     document.getElementById('addHeading').addEventListener('click', () => addCell('heading'));
+    const propBox = document.getElementById('proportional');
+    propBox.checked = proportional;
+    propBox.addEventListener('change', () => {
+      proportional = propBox.checked; localStorage.setItem('gcs-proportional', proportional ? 'on' : 'off');
+      for (const en of engines.values()) if (en.render) en.render();
+    });
     // Theme: follows the system until the button is used; the choice is remembered.
     const themeBtn = document.getElementById('theme');
     const isDark = () => document.documentElement.dataset.theme === 'dark' ||
