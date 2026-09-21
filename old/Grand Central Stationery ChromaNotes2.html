@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Central Stationery – ChromaNotes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fafcff 0%, #e0e7ff 100%);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+        }
+        .app-container {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 3vh 0;
+        }
+        .inputbox {
+            min-height: 2em;
+            min-width: 300px;
+            max-width: 80vw;
+            padding: 1.1em 1.5em;
+            border-radius: 1.3em;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 4px 24px rgba(20,40,80,0.10);
+            border: 1px solid rgba(130,140,160,0.18);
+            backdrop-filter: blur(8px);
+            font-size: 1.2em;
+            margin-bottom: 2vh;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+        .inputbox:focus {
+            box-shadow: 0 8px 36px rgba(20,40,80,0.16);
+            background: rgba(255,255,255,0.93);
+        }
+        .output-container {
+            width: 80vw;
+            max-width: 900px;
+            min-height: 33vh;
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1em;
+            background: rgba(255,255,255,0.4);
+            box-shadow: 0 2px 14px rgba(20,40,80,0.09);
+            margin-bottom: 2vh;
+        }
+        .output {
+            width: 100%;
+            word-break: break-word;
+            font-family: 'Fira Mono', 'Menlo', 'Consolas', monospace;
+            white-space: pre-wrap;
+            text-align: center;
+            transition: font-size 0.2s;
+            line-height: 1.12;
+            min-height: 2em;
+            user-select: text;
+        }
+        @media (max-width: 1000px) {
+            .output-container {
+                width: 98vw;
+                max-width: 98vw;
+            }
+            .inputbox {
+                max-width: 98vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="inputbox" contenteditable="true" spellcheck="false" aria-label="Type or paste your music notes here..."></div>
+        <div class="output-container">
+            <div class="output" aria-live="polite"></div>
+        </div>
+    </div>
+    <script>
+        // ChromaNotes chromatic colours, including accidentals
+        const chromaNotesColors = {
+            'C':  '#e72829', // Red
+            'C#': '#ef5523',
+            'Db': '#ef5523',
+            'D':  '#f39322', // Orange
+            'D#': '#ffd259',
+            'Eb': '#ffd259',
+            'E':  '#f2e716', // Yellow
+            'E#': '#69b944',
+            'Fb': '#f2e716',
+            'F':  '#69b944', // Green
+            'F#': '#53cf84',
+            'Gb': '#53cf84',
+            'G':  '#019696', // Teal
+            'G#': '#087fca',
+            'Ab': '#087fca',
+            'A':  '#79569f', // Purple
+            'A#': '#9f5a8f',
+            'Bb': '#9f5a8f',
+            'B':  '#FF77A9', // Pink
+            'Cb': '#ec6ca4',
+            'B#': '#e72829'
+        };
+
+        // DOM references
+        const inputDiv = document.querySelector('.inputbox');
+        const outputDiv = document.querySelector('.output');
+        const outputContainer = document.querySelector('.output-container');
+
+        // Colour notes in the text, preserving whitespace/newlines
+        function renderColoured(text) {
+            // Escape HTML special characters to prevent injection
+            function escapeHTML(s) {
+                return s.replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;");
+            }
+            // Regex for single A-G with optional # or b (e.g. C#, Eb)
+            const noteRegex = /([A-G](?:#|b)?)/g;
+
+            // 1. Escape HTML, 2. Replace notes with coloured <span>
+            let safeText = escapeHTML(text);
+            safeText = safeText.replace(noteRegex, (match) => {
+                const colour = chromaNotesColors[match];
+                if (colour) {
+                    return `<span style="color: ${colour}; font-weight: bold;">${match}</span>`;
+                }
+                return match;
+            });
+            // White-space/newlines are preserved by CSS (pre-wrap)
+            return safeText;
+        }
+
+        // Efficient, px-independent font sizing
+        function updateOutput() {
+            const text = inputDiv.innerText;
+            outputDiv.innerHTML = renderColoured(text);
+
+            // Container height in vh (relative to window)
+            const container = outputContainer;
+            const containerHeightVh = (container.clientHeight / window.innerHeight) * 100;
+            // The 1.2 multiplier: tweak for "how close" you want text to fill area
+            const fontSizeVh = (containerHeightVh * 1.2) / Math.sqrt(text.length + 1);
+            // Clamp for aesthetics (never too tiny or overflowing)
+            const clampedFontSizeVh = Math.max(2, Math.min(fontSizeVh, containerHeightVh * 2));
+            outputDiv.style.fontSize = clampedFontSizeVh + 'vh';
+        }
+
+        // Event listeners: input and window resize
+        inputDiv.addEventListener('input', updateOutput);
+        window.addEventListener('resize', updateOutput);
+
+        // Optional: initial example text for demo
+        inputDiv.innerText = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb\n";
+        updateOutput();
+        inputDiv.focus();
+    </script>
+</body>
+</html>

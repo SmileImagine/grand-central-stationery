@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – Notation v1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="vendor/abcjs-audio.css" rel="stylesheet">
+  <script src="vendor/abcjs-basic-min.js"></script>   <!-- abcjs 6.7.0, vendored -->
+  <style>
+    :root {
+      --font: 'Atkinson Hyperlegible', system-ui, sans-serif;
+      --mono: 'Atkinson Hyperlegible Mono', ui-monospace, Menlo, monospace;
+      --ink: #222;
+      --strip: 14vh;             /* height of the typing strip */
+      --acc-size: 1.8;           /* accidental height in noteheads (abcjs draws about 2.2) */
+      --lyric-min: 9;            /* layout size for lyrics: abcjs widens only where a syllable exceeds this */
+      --lyric-max: 20;           /* lyric font ceiling, staff units */
+    }
+    html, body { margin: 0; height: 100%; background: #fff; overflow: hidden; font-family: var(--font); }
+    .app { display: flex; flex-direction: column; height: 100vh; }
+
+    /* Score: fills everything above the strip; the SVG is scaled to fit it. */
+    .score { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
+    .paper { line-height: 0; }         /* abcjs renders here; the SVG is sized by fit() */
+    .paper svg { display: block; }
+    /* Our own additions hang off the SVG root, which abcjs gives stroke="currentColor";
+       without stroke: none every letter would carry a dark one-unit outline. */
+    .paper .letter { font-family: var(--font); font-weight: 700; pointer-events: none; stroke: none; }
+    .paper .acc { font-family: 'Noto Music'; pointer-events: none; stroke: none; }
+    .paper .abcjs-lyric { font-family: var(--font); font-weight: 400; }
+    .paper .playing { filter: drop-shadow(0 0 2.5px rgba(0,0,0,0.55)); }
+    .paper .cursor { stroke: #f39322; stroke-width: 1.5; stroke-linecap: round; opacity: 0.9; }   /* the one thing meant to be a stroke */
+    .hidden { position: absolute; left: -100000px; top: 0; width: 1000px; visibility: hidden; }
+
+    /* Typing strip */
+    .strip { height: var(--strip); display: flex; align-items: stretch; gap: 1vh; padding: 1vh; box-sizing: border-box; border-top: 1px solid #ddd; background: #fafafa; }
+    .entry {
+      flex: 1; resize: none; border: 1px solid #ddd; border-radius: 6px; padding: 0.6vh 1vh;
+      font: 700 3.2vh/1.3 var(--mono); color: var(--ink); background: #fff; outline: none;
+      white-space: pre; overflow: auto;
+    }
+    .entry:focus { border-color: #087fca; }
+    .side { display: flex; flex-direction: column; gap: 1vh; justify-content: space-between; min-width: 24vh; }
+    .warn { font: 400 1.8vh/1.3 var(--mono); color: #b00; white-space: pre-wrap; overflow: auto; flex: 1; }
+    .audio { font-size: 2vh; }
+    /* abcjs audio controls: its stylesheet assumes a dark grey box; keep the box
+       transparent and draw the icons, progress bar and clock in the theme's ink. */
+    .audio .abcjs-inline-audio { background: transparent; }
+    .audio .abcjs-btn g { fill: var(--ink); }
+    .audio .abcjs-inline-audio .abcjs-btn:hover g { fill: #087fca; }
+    .audio .abcjs-inline-audio .abcjs-midi-progress-background { background-color: #ddd; }
+    .audio .abcjs-inline-audio .abcjs-midi-progress-indicator { background-color: #087fca; }
+    .audio .abcjs-inline-audio .abcjs-midi-clock, .audio .abcjs-inline-audio .abcjs-tempo-wrapper { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="score" id="score"><div class="paper" id="paper"></div></div>
+    <div class="strip">
+      <textarea class="entry" id="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+        aria-label="ABC notation"></textarea>
+      <div class="side">
+        <div class="audio" id="audio"></div>
+        <div class="warn" id="warn"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden" id="hidden" aria-hidden="true"></div>
+  <script>
+    (() => {
+      'use strict';
+
+      // ChromaNotes by pitch class (enharmonics share a colour in this palette).
+      const PC_COLORS = ['#e72829', '#ef5523', '#f39322', '#ffd259', '#f2e716', '#69b944',
+                         '#53cf84', '#019696', '#087fca', '#79569f', '#9f5a8f', '#FF77A9'];
+      const LETTER_PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+      const ACC_GLYPH = { sharp: '\u266F', flat: '\u266D', natural: '\u266E', dblsharp: '\u{1D12A}', dblflat: '\u{1D12B}' };
+      const ACC_SEMI  = { sharp: 1, flat: -1, natural: 0, dblsharp: 2, dblflat: -2 };
+
+      const scoreEl = document.getElementById('score');
+      const paper   = document.getElementById('paper');
+      const hidden  = document.getElementById('hidden');
+      const entry   = document.getElementById('entry');
+      const warnEl  = document.getElementById('warn');
+
+      // Users type just music; a header is supplied unless they wrote their own K: line.
+      function withHeader(text) {
+        if (/^K:/m.test(text)) return text;
+        return 'X:1\nL:1/4\nK:C\n' + text;
+      }
+
+      // The displayed staff is laid out from a copy with the accidentals
+      // removed, so notes sit where they would without them; the accidentals
+      // are then drawn small by decorate(). Header, lyric and directive lines,
+      // quoted chord symbols, inline fields and decorations are left alone.
+      function stripAccidentals(abc) {
+        return abc.split('\n').map(line => {
+          if (/^[A-Za-z]:/.test(line) || /^%/.test(line)) return line;
+          return line.replace(/("[^"]*"|\[[A-Za-z]:[^\]]*\]|![^!]*!)|[\^_=]+(?=[A-Ga-g])/g, (m, keep) => keep || '');
+        }).join('\n');
+      }
+
+      /* ---------------- tune walking ---------------- */
+
+      // Every note, rest and bar line of a tune, in playing order.
+      function collect(tune) {
+        const out = [];
+        for (const line of tune.lines) {
+          for (const staff of line.staff || []) {
+            for (const voice of staff.voices || []) {
+              for (const el of voice) if (el.el_type === 'note' || el.el_type === 'bar') out.push(el);
+            }
+          }
+        }
+        return out;
+      }
+
+      // Sounding pitch of every pitch of every note: written letter plus the
+      // explicit accidental, else one from earlier in the bar, else the key.
+      function spell(tune, elems) {
+        const key = tune.getKeySignature ? tune.getKeySignature() : null;
+        const keyAcc = {};
+        for (const a of (key && key.accidentals) || []) keyAcc[a.note.toUpperCase()] = a.acc;
+        let barAcc = {};
+        return elems.map(el => {
+          if (el.el_type === 'bar') { barAcc = {}; return null; }
+          if (!el.pitches) return [];                      // rest
+          return el.pitches.map(p => {
+            const letter = p.name.replace(/[^A-Ga-g]/g, '').toUpperCase();
+            const octKey = letter + p.pitch;
+            let acc = p.accidental;
+            if (acc) barAcc[octKey] = acc;
+            else acc = barAcc[octKey] || keyAcc[letter] || 'natural';
+            const pc = ((LETTER_PC[letter] + ACC_SEMI[acc]) % 12 + 12) % 12;
+            return { letter, acc, explicit: p.accidental || null, pc, color: PC_COLORS[pc] };
+          });
+        });
+      }
+
+      /* ---------------- rendering ---------------- */
+      let displayed = null;      // tune drawn on screen (accidentals stripped)
+      let original  = null;      // tune with accidentals: pitches, audio, timing
+      let origElems = [], dispElems = [], spelled = [];
+      let synthControl = null;
+      const hiddenIndex = new Map();   // original SVG group -> element index (for the cursor)
+
+      const SOUNDFONT = 'vendor/soundfont/';   // local piano samples: playback works offline
+
+      /* ---------------- playback from file:// ----------------
+         abcjs fetches each piano sample with an XMLHttpRequest and resolves
+         only on HTTP 200, so on a page opened from disk the request fails
+         silently and the Play button spins forever. Script tags do load from
+         disk, so the samples are embedded in piano-embedded.js and, on file://
+         pages only, requests for them are answered from that data. */
+      (function embeddedSoundfont() {
+        if (location.protocol !== 'file:' && !/[?&]embeddedsf/.test(location.search)) return;
+        const ready = new Promise(resolve => {
+          const s = document.createElement('script');
+          s.src = 'vendor/soundfont/piano-embedded.js';
+          s.onload = resolve; s.onerror = resolve;      // on error the map is missing and requests fall through
+          document.head.appendChild(s);
+        });
+        const bytes = b64 => { const bin = atob(b64); const out = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out.buffer; };
+        const Native = window.XMLHttpRequest;
+        window.XMLHttpRequest = function EmbeddedXHR() {
+          const xhr = new Native();
+          const open = xhr.open, send = xhr.send;
+          let url = '';
+          xhr.open = function(method, u, ...rest) { url = String(u); return open.call(xhr, method, u, ...rest); };
+          xhr.send = function(...args) {
+            const m = url.match(/vendor\/soundfont\/(.+\.mp3)$/);
+            if (!m) return send.apply(xhr, args);
+            ready.then(() => {
+              const map = window.GCS_SOUNDFONT;
+              if (!map || !map[m[1]]) return send.apply(xhr, args);
+              Object.defineProperty(xhr, 'status', { value: 200, configurable: true });
+              Object.defineProperty(xhr, 'readyState', { value: 4, configurable: true });
+              Object.defineProperty(xhr, 'response', { value: bytes(map[m[1]]), configurable: true });
+              if (typeof xhr.onload === 'function') xhr.onload(new Event('load')); else xhr.dispatchEvent(new Event('load'));
+            });
+          };
+          return xhr;
+        };
+      })();
+    const PAD = 10;
+      const trace = [];
+      const cssNum = (name, dflt) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || dflt;
+      function renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
+        const t0 = performance.now();
+        // No 'responsive' option: that mode rewrites the container's inline
+        // style (padding-bottom aspect hack, absolute SVG) and breaks the flex box.
+        const tunes = ABCJS.renderAbc(target, abc, {
+          add_classes: true,
+          staffwidth,
+          paddingtop: PAD, paddingbottom: PAD, paddingleft: PAD, paddingright: PAD,
+          format: { vocalfont: `Atkinson Hyperlegible ${vocal}` },   // abcjs measures with this; weight matches the CSS
+        });
+        const svg = target.querySelector('svg');
+        if (svg && !svg.getAttribute('viewBox')) {
+          svg.setAttribute('viewBox', `0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
+        }
+        trace.push({ staffwidth, vb: svg && svg.getAttribute('viewBox'), ms: +(performance.now() - t0).toFixed(1) });
+        if (trace.length > 20) trace.shift();
+        return tunes && tunes[0];
+      }
+
+      function boxSize() {
+        const cs = getComputedStyle(scoreEl);
+        return {
+          W: scoreEl.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+          H: scoreEl.clientHeight - parseFloat(cs.paddingTop)  - parseFloat(cs.paddingBottom),
+        };
+      }
+
+      // The typed newlines fix the number of staff lines, so the score's
+      // height does not depend on the staff width. Render once to learn the
+      // height, then choose the staff width whose aspect matches the box and
+      // render again: the result is height-limited and fills the width.
+      function render() {
+        warnEl.textContent = '';
+        const abc = withHeader(entry.value);
+        original = renderAt(hidden, abc, 600);
+        if (!original) return;
+        origElems = collect(original);
+        spelled = spell(original, origElems);
+
+        let abcForDisplay = stripAccidentals(abc);
+        let tune = renderAt(paper, abcForDisplay, 600);
+        if (!tune) return;
+        if (collect(tune).length !== origElems.length) {     // stripping changed the parse: show the original
+          abcForDisplay = abc;
+          tune = renderAt(paper, abcForDisplay, 600);
+        }
+        const { W, H } = boxSize();
+        const vb = paper.querySelector('svg').viewBox.baseVal;
+        const ideal = Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
+        if (Math.abs(ideal - 600) > 2) tune = renderAt(paper, abcForDisplay, ideal);
+        // Lyrics: the music was laid out with tiny syllables; now grow them to
+        // the largest size at which no syllable touches its neighbours, and
+        // render once more so abcjs allots the vertical room for that size.
+        const lyricMin = cssNum('--lyric-min', 9);
+        const vocal = fitLyricSize(paper.querySelector('svg'), lyricMin);
+        if (vocal !== null && Math.abs(vocal - lyricMin) > 0.25) tune = renderAt(paper, abcForDisplay, ideal, vocal);
+        displayed = tune;
+        dispElems = collect(tune);
+        const drawAccidentals = abcForDisplay !== abc;
+
+        hiddenIndex.clear();
+        origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) hiddenIndex.set(g, i); });
+
+        if (original.warnings) warnEl.textContent = original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
+        decorate(drawAccidentals);
+        fit();
+        if (synthControl) synthControl.setTune(original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
+      }
+
+      // Largest lyric size (staff units) at which, on every line, adjacent
+      // syllables keep a small gap and none runs past the staff edges.
+      function fitLyricSize(svg, size) {
+        if (!svg) return null;
+        const texts = [...svg.querySelectorAll('text.abcjs-lyric')];
+        if (!texts.length) return null;
+        const lines = new Map();
+        for (const t of texts) {
+          const bb = t.getBBox();
+          const key = Math.round(bb.y / 5);          // same baseline -> same line
+          if (!lines.has(key)) lines.set(key, []);
+          lines.get(key).push({ x: bb.x, w: bb.width, cx: bb.x + bb.width / 2 });
+        }
+        const vb = svg.viewBox.baseVal, left = PAD, right = vb.width - PAD;
+        let f = Infinity;
+        for (const syl of lines.values()) {
+          syl.sort((a, b) => a.cx - b.cx);
+          for (let i = 0; i < syl.length; i++) {
+            const a = syl[i];
+            if (i + 1 < syl.length) { const b = syl[i + 1]; f = Math.min(f, (b.cx - a.cx) / ((a.w + b.w) / 2 + 3)); }   // 3 units of air between syllables
+            f = Math.min(f, (a.cx - left) / (a.w / 2), (right - a.cx) / (a.w / 2));
+          }
+        }
+        if (!isFinite(f)) return null;
+        const max = cssNum('--lyric-max', 20);
+        return Math.max(size, Math.min(max, Math.floor(size * f * 10) / 10));
+      }
+
+      // Where each accidental's optical centre sits above its baseline (em):
+      // the whole ink for ♯ and ♮, the bowl for ♭. Measured once from the font.
+      const accCentre = {};
+      function accidentalCentre(acc) {
+        if (accCentre[acc] !== undefined) return accCentre[acc];
+        const c = document.createElement('canvas').getContext('2d');
+        c.font = "400 100px 'Noto Music'";
+        const m = c.measureText(ACC_GLYPH[acc]);
+        const up = m.actualBoundingBoxAscent, down = m.actualBoundingBoxDescent;
+        // ♭: the bowl fills roughly the lower half of the ink; centre that on the line.
+        const centre = (acc === 'flat' || acc === 'dblflat') ? (-down + 0.25 * (up + down)) / 100 : (up - down) / 2 / 100;
+        // Only cache once the real font is in; before that the numbers are a fallback's.
+        if (document.fonts && document.fonts.check("400 100px 'Noto Music'", ACC_GLYPH[acc])) accCentre[acc] = centre;
+        return centre;
+      }
+
+      const NS = 'http://www.w3.org/2000/svg';
+      function svgText(svg, cls, x, y, size, fill, content, anchor, baseline = 'central') {
+        const t = document.createElementNS(NS, 'text');
+        t.setAttribute('class', cls);
+        t.setAttribute('x', x.toFixed(2)); t.setAttribute('y', y.toFixed(2));
+        t.setAttribute('text-anchor', anchor);
+        t.setAttribute('dominant-baseline', baseline);
+        t.setAttribute('font-size', size.toFixed(2));
+        t.setAttribute('fill', fill);
+        t.textContent = content;
+        svg.appendChild(t);
+        return t;
+      }
+
+      // Colour every note by pitch, write the letter in the notehead, draw
+      // the small accidentals, colour the lyric under the note.
+      function decorate(drawAccidentals) {
+        const svg = paper.querySelector('svg');
+        if (!svg) return;
+        const accScale = cssNum('--acc-size', 1.8);
+        dispElems.forEach((el, i) => {
+          const abs = el.abselem, pitches = spelled[i];
+          if (!abs || !pitches || !pitches.length) return;
+          const heads = abs.heads || [];
+          heads.forEach((head, j) => {
+            const p = pitches[j] || pitches[0];
+            const node = head.graphelem;
+            if (!node) return;
+            node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
+            const bb = node.getBBox();
+            const hollow = el.duration >= 0.5;
+            svgText(svg, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * 1.05,
+                    hollow ? p.color : '#fff', p.letter, 'middle');
+            if (drawAccidentals && p.explicit) {
+              // Put the glyph's optical centre exactly on the notehead's centre
+              // (its line or space): baseline = centre + offset × size.
+              const size = bb.height * accScale;
+              const baselineY = bb.y + bb.height / 2 + accidentalCentre(p.explicit) * size;
+              svgText(svg, 'acc', bb.x - bb.width * 0.2, baselineY, size, p.color, ACC_GLYPH[p.explicit], 'end', 'alphabetic');
+            }
+          });
+          // stems, flags, beams, dots and the lyric take the first pitch's colour;
+          // ledger lines stay black
+          const color = pitches[0].color;
+          for (const g of abs.elemset || []) {
+            for (const path of g.querySelectorAll('path')) {
+              if (path.classList.contains('abcjs-ledger')) continue;
+              if (heads.some(h => h.graphelem === path)) continue;
+              path.setAttribute('fill', color);
+            }
+            for (const t of g.querySelectorAll('text.abcjs-lyric')) t.setAttribute('fill', color);
+          }
+        });
+      }
+
+      // Scale the SVG to the largest size that fits the score box.
+      function fit() {
+        const svg = paper.querySelector('svg');
+        if (!svg) return;
+        const vb = svg.viewBox.baseVal;
+        const { W, H } = boxSize();
+        const k = Math.min(W / vb.width, H / vb.height);
+        svg.setAttribute('width',  (vb.width  * k).toFixed(2));
+        svg.setAttribute('height', (vb.height * k).toFixed(2));
+        paper.style.height = '';       // abcjs pins the container to the unscaled height
+        paper.style.overflow = '';
+      }
+
+      /* ---------------- playback cursor ---------------- */
+      let cursorLine = null;
+      function clearPlaying() {
+        for (const g of paper.querySelectorAll('.playing')) g.classList.remove('playing');
+        if (cursorLine) { cursorLine.remove(); cursorLine = null; }
+      }
+      const cursorControl = {
+        onStart() { clearPlaying(); },
+        onFinish() { clearPlaying(); },
+        onEvent(ev) {
+          clearPlaying();
+          if (!ev || !ev.elements) return;
+          const svg = paper.querySelector('svg');
+          let x = null;
+          for (const arr of ev.elements) {
+            for (const el of (Array.isArray(arr) ? arr : [arr])) {
+              const i = hiddenIndex.get(el);
+              if (i === undefined || !dispElems[i] || !dispElems[i].abselem) continue;
+              for (const g of dispElems[i].abselem.elemset || []) {
+                g.classList.add('playing');
+                const bb = g.getBBox();
+                x = x === null ? bb.x : Math.min(x, bb.x);
+              }
+            }
+          }
+          if (x === null || !svg) return;
+          cursorLine = document.createElementNS(NS, 'line');
+          cursorLine.setAttribute('class', 'cursor');
+          cursorLine.setAttribute('x1', x - 3); cursorLine.setAttribute('x2', x - 3);
+          const staff = svg.querySelector(`.abcjs-staff.abcjs-l${ev.line}`) || svg.querySelectorAll('.abcjs-staff')[ev.line || 0];
+          let top = ev.top, height = ev.height;      // the event describes the hidden render; use the displayed staff
+          if (staff) { const sb = staff.getBBox(); top = sb.y - sb.height * 0.6; height = sb.height * 2.2; }
+          cursorLine.setAttribute('y1', top.toFixed(2)); cursorLine.setAttribute('y2', (top + height).toFixed(2));
+          svg.appendChild(cursorLine);
+        },
+      };
+
+      /* ---------------- audio ---------------- */
+      if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
+        synthControl = new ABCJS.synth.SynthController();
+        synthControl.load('#audio', cursorControl, { displayPlay: true, displayProgress: true, displayRestart: true });
+      }
+
+      /* ---------------- wiring ---------------- */
+      entry.addEventListener('input', render);
+      let frame = null;
+      new ResizeObserver(() => {                 // aspect changed: choose the staff width again
+        if (frame !== null) return;
+        frame = requestAnimationFrame(() => { frame = null; render(); });
+      }).observe(scoreEl);
+      if (document.fonts) {
+        document.fonts.ready.then(render).catch(() => {});
+        // Google Fonts splits Noto Music into unicode-range subsets; naming the
+        // accidentals makes the music subset load (a bare load fetches only Latin).
+        document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(render).catch(() => {});
+      }
+
+      window.GCS = { render, fit, stripAccidentals, boxSize, trace, cursorControl, fitLyricSize, accidentalCentre,
+                     get displayed() { return displayed; }, get original() { return original; },
+                     get spelled() { return spelled; }, get dispElems() { return dispElems; } };
+
+      entry.value = 'C D E F | G A B c |\nw: Do re mi fa sol la ti do\nc B A G | F E D C |';
+      render();
+      entry.focus();
+    })();
+  </script>
+</body>
+</html>

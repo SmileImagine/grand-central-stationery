@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – Cells v1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="vendor/abcjs-audio.css" rel="stylesheet">
+  <script src="vendor/abcjs-basic-min.js"></script>   <!-- abcjs 6.7.0, vendored -->
+  <script src="vendor/impress.js" defer></script>     <!-- impress.js 2.0.0, vendored: 3D present mode. defer: it touches document.body while loading -->
+  <style>
+    /* Zero-advance ♯ and ♭ (see ANALYSIS §8): "C♭" is exactly as wide as "C". */
+    @font-face {
+      font-family: 'GCS Accidentals';
+      src: url(data:font/woff2;base64,d09GMgABAAAAAAKYAAoAAAAABTQAAAJOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqBPIEvATYCJAMICwgABCAFhG0HMxtsBCAeB7lJ65q1UxwiI661ZfsQPLxj/7vbvrhIFatiWbNBJnOIWsqzcs0iCLtCld3LKgKhMsk9NYAFnsdd77c80CgwbkusLdPbIjhu4Jy6sCiBBNBooEpK33Ag8R8h8Xa6nS5wi9SDH8i+OzdexwoaJiU05N5REBNtWohIA6Z+hrQx7DOq3F4cVPcdIG4OlUABK4oAVrT4AR1aBJlJptHgPY97dBcBAAAUAB2gBZJAugYAWgBAks3YqbYa8mh4eM/anVfc0ZFV6Omj7emlWD8xOLiyahRe8Y0hsTHEl5elDRJle6UWj6a/zH9s7c2fbcyTXErONLXql19+/X1g+lNPzzCA+86b3sx0zFtscdl2xE7edtR2i2mDXcTJpnd5Fvl2eTQABBB4s832bDVN+vWU+gv4/cUNmv1GsbNYjgBFAhBow0sABm/boiZChK8wYEAAxY0EIEGop8f50xpBRjA1zUi6tnYb83CIIqo+8N8BRnDJKSOZ5GmLsay858q/LRVixN3mtGQ0GtXyxK8y/6xkLq68KRPMIjwk3D9oG20o8DkEav/LSWRuv86uvatWZAS4el5mkJv5ukTbZzKcsNVfmnLD1j8NDwknl/RnlWBUEkkVjQTQwzMUKGFEBhRLggoHfiodnEEpi2iQw9AiKFLhiBYQCBcinL8gbiZxjEQEaKcJMIFYRlCJKoZGhCy50RjFJgxgShnCUHEwFxkKJ6kCv65gIdfeC6TjuIpAtIiRgidSSCTGCyaK06lBvKDKmqgLSNRSEEUorXHC6g5EAA==) format('woff2');
+      unicode-range: U+266D, U+266F;
+    }
+    :root {
+      --font: 'GCS Accidentals', 'Atkinson Hyperlegible', 'Noto Music', system-ui, sans-serif;  /* set by the font picker */
+      --mono: 'Atkinson Hyperlegible Mono', ui-monospace, Menlo, monospace;
+      --ui: 13px system-ui, sans-serif;
+      --lh: 1.1;
+      --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #777;
+      --caret: #aaa; --accent: #087fca; --cursor: #f39322;
+      --text-cell-h: 34vh;      /* edit-mode heights */
+      --heading-cell-h: 18vh;
+      --abc-cell-h: 46vh;
+      --acc-size: 1.8;          /* notation: accidental height in noteheads */
+      --lyric-min: 9;           /* notation: lyric layout size; abcjs widens only where a syllable exceeds it */
+      --lyric-max: 20;
+    }
+    :root[data-theme="dark"] {
+      --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --panel-2: #161616; --line: #333; --line-2: #2a2a2a; --muted: #999;
+      --caret: #888; color-scheme: dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --panel-2: #161616; --line: #333; --line-2: #2a2a2a; --muted: #999;
+        --caret: #888; color-scheme: dark;
+      }
+    }
+    html, body { margin: 0; height: 100%; background: var(--bg); }
+    body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; font: var(--ui); color: var(--ink); }
+
+    /* ---------- chrome ---------- */
+    .toolbar { display: flex; gap: 8px; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+    .toolbar .spacer, .cell-head .spacer { flex: 1; }
+    button, select { font: var(--ui); padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    button:hover { border-color: var(--accent); }
+    .cells { flex: 1; overflow: auto; padding: 12px; }
+    .cell { border: 1px solid var(--line); border-radius: 8px; margin: 0 auto 12px; max-width: 1500px; background: var(--bg); }
+    .cell.focused { border-color: var(--accent); }
+    .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px; border-bottom: 1px solid var(--line-2); color: var(--muted); }
+    .cell-head button { padding: 2px 7px; }
+    .cell-body { position: relative; height: var(--text-cell-h); overflow: hidden; border-radius: 0 0 8px 8px; }
+    .cell[data-type="abc"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
+    .cell[data-type="heading"] .cell-body { height: var(--heading-cell-h); }
+    .cell[data-type="heading"] .layer { text-align: center; }   /* vertical centring is set by the engine */
+    .hint { color: var(--muted); }
+
+    /* ---------- present mode ---------- */
+    body.present .toolbar, body.present .cell-head { display: none; }
+    body.present .cells { padding: 0; overflow: hidden; }
+    body.present .cell { display: none; border: 0; border-radius: 0; margin: 0; max-width: none; }
+    body.present .cell.current { display: block; }
+    body.present .cell .cell-body, body.present .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
+    .present-nav { position: fixed; right: 10px; bottom: 8px; z-index: 9; display: none; gap: 6px; align-items: center; opacity: 0.35; transition: opacity 0.2s; }
+    .present-nav:hover { opacity: 1; }
+    body.present .present-nav { display: flex; }
+
+    /* ---------- 3D present mode (impress.js) ---------- */
+    body.present3d .toolbar, body.present3d .cell-head, body.present3d .cells { display: none; }
+    body.present3d { background: var(--stage-bg, var(--bg)); transition: background 0.9s ease; }
+    #impress { display: none; }
+    body.present3d #impress { display: block; }
+    body.present3d #impress .cell {
+      width: 100vw; height: 100vh; margin: 0; max-width: none; border: 0; border-radius: 0;
+      background: var(--cell-bg, var(--bg)); box-shadow: 0 0 0 1px var(--line), 0 30px 80px rgba(0,0,0,0.25);
+      transition: box-shadow 0.9s ease;
+    }
+    body.present3d #impress .cell.active { box-shadow: 0 0 0 1px var(--line), 0 0 0 rgba(0,0,0,0); }
+    body.present3d #impress .cell { transition: box-shadow 0.9s ease, opacity 0.9s ease; }
+    body.present3d:not(.impress-on-overview) #impress .cell:not(.active) { opacity: 0.35; }   /* dim the others; the overview shows all */
+    body.present3d #impress .cell .cell-body, body.present3d #impress .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
+    body.present3d #impress .overview { width: 100vw; height: 100vh; pointer-events: none; }
+    body.present3d .present-nav { display: flex; }
+    body.impress-enabled .impress-help { display: none; }   /* no help overlay */
+    .pos { display: none; gap: 4px; align-items: center; padding: 2px 8px 6px; color: var(--muted); border-bottom: 1px solid var(--line-2); }
+    .pos.open { display: flex; flex-wrap: wrap; }
+    .pos input[type="number"] { width: 5em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); }
+    .pos input[type="color"] { width: 2.2em; height: 1.8em; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: none; }
+
+    /* ---------- text engine (three stacked layers) ---------- */
+    .layer {
+      position: absolute; inset: 0; margin: 0; border: 0;
+      padding: 1.5vh 1.5vw; box-sizing: border-box;
+      font-family: var(--font); font-weight: 700; font-size: 10vmin;
+      line-height: var(--lh); white-space: pre-wrap; word-break: break-word;
+      letter-spacing: 0; font-variant-ligatures: none; font-kerning: none;
+      overflow: hidden;
+    }
+    .shadow, .inputbox { transform-origin: 0 0; }
+    .shadow { color: var(--ink); z-index: 1; pointer-events: none; }
+    .inputbox { color: transparent; caret-color: var(--caret); background: transparent; z-index: 2; outline: none; resize: none; }
+    .measure { visibility: hidden; z-index: 0; pointer-events: none; transition: none; }
+    .note { color: var(--c); }
+    .acc { position: relative; }
+
+    /* ---------- notation engine ---------- */
+    .score { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
+    .paper { line-height: 0; }
+    .paper svg { display: block; }
+    /* Our own additions hang off the SVG root, which abcjs gives stroke="currentColor";
+       without stroke: none every letter would carry a dark one-unit outline. */
+    .paper .letter { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: none; }
+    .paper .accg { font-family: 'Noto Music'; pointer-events: none; stroke: none; }
+    .paper .abcjs-lyric { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 400; }
+    .paper svg { color: var(--ink); }   /* abcjs fills staff, clef, bars, rests and ledger lines with currentColor */
+    .paper .playing { animation: pop 0.32s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
+    .paper .playing text.abcjs-lyric { font-weight: 700; }
+    @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
+    .paper .cursorbar { fill: var(--cursor); stroke: none; opacity: 0.85; filter: drop-shadow(0 0 3px var(--cursor)); transition: transform 0ms linear, opacity 0.4s; }
+    .paper .cursorbar.done { opacity: 0; }
+    .strip { height: 26%; min-height: 60px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
+    body.present .strip { height: 14vh; }
+    .entry { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
+    .entry:focus { border-color: var(--accent); }
+    .side { display: flex; flex-direction: column; gap: 4px; min-width: 200px; }
+    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex: 1; }
+    /* abcjs audio controls: its stylesheet assumes a dark grey box; keep the box
+       transparent and draw the icons, progress bar and clock in the theme's ink. */
+    .audio .abcjs-inline-audio { background: transparent; }
+    .audio .abcjs-btn g { fill: var(--ink); }
+    .audio .abcjs-inline-audio .abcjs-btn:hover g { fill: var(--accent); }
+    .audio .abcjs-inline-audio .abcjs-midi-progress-background { background-color: var(--line); }
+    .audio .abcjs-inline-audio .abcjs-midi-progress-indicator { background-color: var(--accent); }
+    .audio .abcjs-inline-audio .abcjs-midi-clock, .audio .abcjs-inline-audio .abcjs-tempo-wrapper { color: var(--ink); }
+    .hidden { position: absolute; left: -100000px; top: 0; width: 1000px; visibility: hidden; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <strong>Grand Central Stationery</strong>
+    <button id="addText" title="Cmd+Enter in a cell adds a text cell below it">+ Text</button>
+    <button id="addHeading">+ Heading</button>
+    <button id="addAbc" title="Cmd+Shift+Enter in a cell adds a notation cell below it">+ Notation</button>
+    <button id="present" title="Show one cell at a time. PageDown / PageUp move, Esc returns.">Present</button>
+    <button id="present3d" title="Fly between cells laid out in 3D (impress.js). Starts on an overview of every cell.">Present 3D</button>
+    <span class="spacer"></span>
+    <label>Text font <select id="fontpick"></select></label>
+    <button id="theme" title="Light / dark">☾</button>
+    <button id="export">Export</button>
+    <button id="import">Import</button>
+    <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
+    <button id="clear">Clear</button>
+  </div>
+  <div class="cells" id="cells"></div>
+  <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
+  <div class="present-nav">
+    <button id="navPrev">◀</button><span id="navPos"></span><button id="navNext">▶</button><button id="navExit">Esc</button>
+  </div>
+  <script>
+  (() => {
+    'use strict';
+
+    /* ======================================================================
+       Shared: ChromaNotes palette and accidental helpers
+       ====================================================================== */
+    const COLORS = {
+      'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+      'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+      'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+      'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+      'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+      'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+      'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+    };
+    const PC_COLORS = ['#e72829', '#ef5523', '#f39322', '#ffd259', '#f2e716', '#69b944',
+                       '#53cf84', '#019696', '#087fca', '#79569f', '#9f5a8f', '#FF77A9'];
+    const SHARP = '\u266F', FLAT = '\u266D';
+    const toAscii  = { '#': '#', 'b': 'b', [SHARP]: '#', [FLAT]: 'b' };
+    const toSymbol = { '#': SHARP, 'b': FLAT };
+    const cssNum = (name, dflt) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || dflt;
+    const escapeHTML = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+    // "Ab" is A-flat, "About" is A + "bout": an accidental unless a lowercase letter follows.
+    function normalizeAccidentals(text) {
+      return text.replace(/([A-G])([#b\u266F\u266D])(?=([a-z]?))/g,
+        (m, note, acc, next) => note + (next ? toAscii[acc] : toSymbol[toAscii[acc]]));
+    }
+    function renderColouredText(text) {
+      const html = escapeHTML(text).replace(/([A-G])([#b\u266F\u266D])?/g, (m, note, accRaw, offset, str) => {
+        const nextIsLower = /[a-z]/.test(str[offset + 2] || '');
+        const acc  = accRaw && !nextIsLower ? accRaw : '';
+        const tail = accRaw && nextIsLower ? accRaw : '';
+        const color = COLORS[note + (acc ? toAscii[acc] : '')];
+        if (!color) return m;
+        return `<span class="note" style="--c:${color}">${note}${acc ? `<span class="acc">${acc}</span>` : ''}</span>${tail}`;
+      });
+      return html + '\u200b';    // makes a div count trailing newlines like a textarea does
+    }
+
+    /* ======================================================================
+       Text engine (from Proportional v1): canvas-measured greedy wrap,
+       binary search on size, transform-scale animation, shadow layer.
+       ====================================================================== */
+    const FONTS = {
+      hyperlegible:     { family: 'Atkinson Hyperlegible',      label: 'Atkinson Hyperlegible' },
+      hyperlegibleNext: { family: 'Atkinson Hyperlegible Next', label: 'Atkinson Hyperlegible Next' },
+      hyperlegibleMono: { family: 'Atkinson Hyperlegible Mono', label: 'Atkinson Hyperlegible Mono' },
+      lexend:           { family: 'Lexend',                     label: 'Lexend' },
+      andika:           { family: 'Andika',                     label: 'Andika (SIL literacy)' },
+    };
+    const ACC_FONT = 'Noto Music', ACC_GLYPH_FONT = 'GCS Accidentals';
+    const MIN_PX = 8, WHOLE_WORDS = true, WHOLE_WORD_MAX = 15, REF_PX = 100;
+    const EASE = 'cubic-bezier(.2,.7,.3,1)';
+    let fontKey = localStorage.getItem('gcs-font') in FONTS ? localStorage.getItem('gcs-font') : 'hyperlegible';
+    const fontSpec = () => `700 ${REF_PX}px '${ACC_GLYPH_FONT}', '${FONTS[fontKey].family}', '${ACC_FONT}'`;
+    const ctx = document.createElement('canvas').getContext('2d');
+    const widthCache = new Map();
+    const shared = { spaceW: 30 };
+    function primeCanvas() {
+      ctx.font = fontSpec(); ctx.fontKerning = 'none';
+      widthCache.clear();
+      shared.spaceW = ctx.measureText(' ').width;
+    }
+    function widthOf(token) {
+      let w = widthCache.get(token);
+      if (w === undefined) { w = ctx.measureText(token).width; widthCache.set(token, w); }
+      return w;
+    }
+    const TOKEN_RE = /[ \t]+|[^ \t\-\u2013\u2014]*[-\u2013\u2014]|[^ \t\-\u2013\u2014]+/g;
+    function rowsForParagraph(para, px, W) {
+      const k = px / REF_PX, tabW = 8 * shared.spaceW * k;
+      let rows = 1, x = 0;
+      for (const tok of para.match(TOKEN_RE) || []) {
+        if (tok[0] === ' ' || tok[0] === '\t') {
+          for (const ch of tok) x = ch === '\t' ? (Math.floor(x / tabW) + 1) * tabW : x + shared.spaceW * k;
+          continue;
+        }
+        const w = widthOf(tok) * k;
+        if (x > 0 && x + w > W) { rows++; x = 0; }
+        if (w > W) {
+          for (const ch of tok) {
+            const cw = widthOf(ch) * k;
+            if (cw > W) return Infinity;
+            if (x > 0 && x + cw > W) { rows++; x = 0; }
+            x += cw;
+          }
+        } else x += w;
+      }
+      return rows;
+    }
+    function widestWord(paras) {
+      let w = 0;
+      for (const p of paras) for (const tok of p.match(TOKEN_RE) || []) {
+        if (tok[0] === ' ' || tok[0] === '\t' || tok.length > WHOLE_WORD_MAX) continue;
+        w = Math.max(w, widthOf(tok));
+      }
+      return w;
+    }
+    function fitFontPx(text, m) {
+      const paras = text.split('\n');
+      const W = m.innerW - 0.5, H = m.innerH;
+      const fits = px => {
+        let rows = 0;
+        for (const p of paras) { rows += rowsForParagraph(p, px, W); if (rows === Infinity) return false; }
+        return (m.lhPerPx * rows + m.overhangPerPx) * px <= H;
+      };
+      let hi = H / (m.lhPerPx + m.overhangPerPx);
+      if (WHOLE_WORDS) { const ww = widestWord(paras); if (ww > 0) hi = Math.min(hi, W / ww * REF_PX); }
+      if (hi <= MIN_PX || !fits(MIN_PX)) return MIN_PX;
+      let lo = MIN_PX;
+      for (let i = 0; i < 24 && hi - lo > 0.01; i++) { const mid = (lo + hi) / 2; if (fits(mid)) lo = mid; else hi = mid; }
+      return Math.floor(lo * 100) / 100;
+    }
+
+    const textCells = new Set();
+    class TextCell {
+      constructor(body, text, onChange, opts = {}) {
+        this.centered = !!opts.centered;
+        body.innerHTML = `<div class="layer measure" aria-hidden="true"></div><div class="layer shadow" aria-hidden="true"></div>
+          <textarea class="layer inputbox" aria-label="Text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off"></textarea>`;
+        this.measure = body.querySelector('.measure');
+        this.shadow  = body.querySelector('.shadow');
+        this.input   = body.querySelector('.inputbox');
+        this.metrics = { lhPerPx: 1.1, overhangPerPx: 0, innerW: 0, innerH: 0 };
+        this.appliedPx = 0;
+        this.input.value = normalizeAccidentals(text);
+        this.input.addEventListener('input', e => { if (!e.isComposing) this.syncAccidentals(); this.update(); onChange(this.input.value); });
+        this.input.addEventListener('scroll', () => { this.shadow.scrollTop = this.input.scrollTop; this.shadow.scrollLeft = this.input.scrollLeft; });
+        this.ro = new ResizeObserver(() => this.remeasure());
+        this.ro.observe(body);
+        textCells.add(this);
+        this.measureMetrics(); this.update();    // synchronous first paint; later changes go through rAF
+      }
+      getText() { return this.input.value; }
+      focus() { this.input.focus(); }
+      destroy() { this.ro.disconnect(); textCells.delete(this); }
+      syncAccidentals() {
+        const want = normalizeAccidentals(this.input.value);
+        if (want === this.input.value) return;
+        const have = this.input.value, s = this.input.selectionStart, e = this.input.selectionEnd;
+        for (let i = 0; i < have.length; i++) if (have[i] !== want[i]) this.input.setRangeText(want[i], i, i + 1, 'preserve');
+        this.input.setSelectionRange(s, e);
+      }
+      measureMetrics() {
+        const m = this.measure, mt = this.metrics;
+        if (!m.clientWidth) { mt.innerW = 0; return; }     // hidden cell (present mode): nothing to measure
+        m.style.fontSize = '1000px';
+        m.innerHTML = '<div style="overflow:hidden;height:1px;white-space:pre"></div>';
+        const probe = m.firstElementChild;
+        probe.textContent = '0'; const oneRow = probe.scrollHeight;
+        probe.textContent = '0\n0'; const pitch = probe.scrollHeight - oneRow;
+        mt.lhPerPx = pitch / 1000; mt.overhangPerPx = Math.max(0, oneRow - pitch) / 1000;
+        m.textContent = '';
+        const cs = getComputedStyle(m);
+        mt.padTop = parseFloat(cs.paddingTop);
+        mt.innerW = m.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        mt.innerH = m.clientHeight - mt.padTop - parseFloat(cs.paddingBottom);
+      }
+      remeasure() { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.measureMetrics(); this.update(); }); }
+      verify(px, text) {
+        const m = this.measure; m.textContent = text + '\u200b';
+        for (let i = 0; i < 8 && px > MIN_PX; i++) {
+          m.style.fontSize = px + 'px';
+          if (m.scrollHeight <= m.clientHeight && m.scrollWidth <= m.clientWidth) return px;
+          px = Math.max(MIN_PX, px * 0.98);
+        }
+        return px;
+      }
+      currentScale() { const t = getComputedStyle(this.shadow).transform; return t.startsWith('matrix(') ? parseFloat(t.slice(7)) : 1; }
+      update() {
+        if (!(this.metrics.innerW > 0 && this.metrics.lhPerPx > 0)) return;
+        const text = this.input.value;
+        this.shadow.innerHTML = renderColouredText(text);
+        const px = this.verify(fitFontPx(text, this.metrics), text);
+        const layers = [this.shadow, this.input];
+        if (this.appliedPx && Math.abs(px - this.appliedPx) > 0.01) {
+          const k = this.appliedPx * this.currentScale() / px;
+          for (const el of layers) { el.style.transition = 'none'; el.style.transform = `scale(${k})`; }
+        }
+        this.shadow.style.fontSize = this.input.style.fontSize = px + 'px';
+        if (this.centered) {
+          // Headings sit in the vertical middle: pad the visible layers (not the
+          // measuring one) by half the unused height. Both layers get the same
+          // padding, so the caret stays aligned.
+          let rows = 0;
+          for (const p of text.split('\n')) rows += rowsForParagraph(p, px, this.metrics.innerW - 0.5);
+          const contentH = (this.metrics.lhPerPx * rows + this.metrics.overhangPerPx) * px;
+          const extra = Math.max(0, (this.metrics.innerH - contentH) / 2);
+          this.shadow.style.paddingTop = this.input.style.paddingTop = (this.metrics.padTop + extra) + 'px';
+        }
+        void this.shadow.offsetWidth;
+        for (const el of layers) { el.style.transition = `transform 0.22s ${EASE}`; el.style.transform = 'scale(1)'; }
+        this.appliedPx = px;
+        this.shadow.style.overflow = this.input.style.overflow = px <= MIN_PX ? 'auto' : 'hidden';
+      }
+    }
+    function applyFont(key) {
+      fontKey = key; localStorage.setItem('gcs-font', key);
+      document.documentElement.style.setProperty('--font', `'${ACC_GLYPH_FONT}', '${FONTS[key].family}', '${ACC_FONT}', system-ui, sans-serif`);
+      primeCanvas();
+      for (const c of textCells) c.remeasure();
+      if (document.fonts) {
+        Promise.all([document.fonts.load(fontSpec()), document.fonts.load(`400 ${REF_PX}px '${ACC_FONT}'`), document.fonts.load(`400 ${REF_PX}px '${ACC_GLYPH_FONT}'`)])
+          .then(() => { primeCanvas(); for (const c of textCells) c.remeasure(); }).catch(() => {});
+      }
+    }
+
+    /* ======================================================================
+       Notation engine (from Notation v1): abcjs, stripped-accidental layout,
+       ChromaNotes colours, letters in heads, small accidentals, lyric fit,
+       playback cursor.
+       ====================================================================== */
+    const LETTER_PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+    const ACC_GLYPH = { sharp: '\u266F', flat: '\u266D', natural: '\u266E', dblsharp: '\u{1D12A}', dblflat: '\u{1D12B}' };
+    const ACC_SEMI  = { sharp: 1, flat: -1, natural: 0, dblsharp: 2, dblflat: -2 };
+    const NS = 'http://www.w3.org/2000/svg';
+    // Letter colour on a filled notehead: white in the light theme, black in
+    // the dark theme (white and the brighter heads merge against a dark page).
+    const darkTheme = () => document.documentElement.dataset.theme === 'dark' ||
+      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    const letterOn = () => darkTheme() ? '#111' : '#fff';
+    const SOUNDFONT = 'vendor/soundfont/';   // local piano samples: playback works offline
+
+    /* ---------------- playback from file:// ----------------
+       abcjs fetches each piano sample with an XMLHttpRequest and resolves
+       only on HTTP 200, so on a page opened from disk the request fails
+       silently and the Play button spins forever. Script tags do load from
+       disk, so the samples are embedded in piano-embedded.js and, on file://
+       pages only, requests for them are answered from that data. */
+    (function embeddedSoundfont() {
+      if (location.protocol !== 'file:' && !/[?&]embeddedsf/.test(location.search)) return;
+      const ready = new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = 'vendor/soundfont/piano-embedded.js';
+        s.onload = resolve; s.onerror = resolve;      // on error the map is missing and requests fall through
+        document.head.appendChild(s);
+      });
+      const bytes = b64 => { const bin = atob(b64); const out = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out.buffer; };
+      const Native = window.XMLHttpRequest;
+      window.XMLHttpRequest = function EmbeddedXHR() {
+        const xhr = new Native();
+        const open = xhr.open, send = xhr.send;
+        let url = '';
+        xhr.open = function(method, u, ...rest) { url = String(u); return open.call(xhr, method, u, ...rest); };
+        xhr.send = function(...args) {
+          const m = url.match(/vendor\/soundfont\/(.+\.mp3)$/);
+          if (!m) return send.apply(xhr, args);
+          ready.then(() => {
+            const map = window.GCS_SOUNDFONT;
+            if (!map || !map[m[1]]) return send.apply(xhr, args);
+            Object.defineProperty(xhr, 'status', { value: 200, configurable: true });
+            Object.defineProperty(xhr, 'readyState', { value: 4, configurable: true });
+            Object.defineProperty(xhr, 'response', { value: bytes(map[m[1]]), configurable: true });
+            if (typeof xhr.onload === 'function') xhr.onload(new Event('load')); else xhr.dispatchEvent(new Event('load'));
+          });
+        };
+        return xhr;
+      };
+    })();
+    const PAD = 10;
+    const withHeader = t => /^K:/m.test(t) ? t : 'X:1\nL:1/4\nK:C\n' + t;
+    function stripAccidentals(abc) {
+      return abc.split('\n').map(line => {
+        if (/^[A-Za-z]:/.test(line) || /^%/.test(line)) return line;
+        return line.replace(/("[^"]*"|\[[A-Za-z]:[^\]]*\]|![^!]*!)|[\^_=]+(?=[A-Ga-g])/g, (m, keep) => keep || '');
+      }).join('\n');
+    }
+    function collect(tune) {
+      const out = [];
+      for (const line of tune.lines) for (const staff of line.staff || []) for (const voice of staff.voices || [])
+        for (const el of voice) if (el.el_type === 'note' || el.el_type === 'bar') out.push(el);
+      return out;
+    }
+    function spell(tune, elems) {
+      const key = tune.getKeySignature ? tune.getKeySignature() : null;
+      const keyAcc = {};
+      for (const a of (key && key.accidentals) || []) keyAcc[a.note.toUpperCase()] = a.acc;
+      let barAcc = {};
+      return elems.map(el => {
+        if (el.el_type === 'bar') { barAcc = {}; return null; }
+        if (!el.pitches) return [];
+        return el.pitches.map(p => {
+          const letter = p.name.replace(/[^A-Ga-g]/g, '').toUpperCase(), octKey = letter + p.pitch;
+          let acc = p.accidental;
+          if (acc) barAcc[octKey] = acc; else acc = barAcc[octKey] || keyAcc[letter] || 'natural';
+          const pc = ((LETTER_PC[letter] + ACC_SEMI[acc]) % 12 + 12) % 12;
+          return { letter, acc, explicit: p.accidental || null, pc, color: PC_COLORS[pc] };
+        });
+      });
+    }
+    const accCentre = {};
+    function accidentalCentre(acc) {
+      if (accCentre[acc] !== undefined) return accCentre[acc];
+      const c = document.createElement('canvas').getContext('2d');
+      c.font = "400 100px 'Noto Music'";
+      const m = c.measureText(ACC_GLYPH[acc]), up = m.actualBoundingBoxAscent, down = m.actualBoundingBoxDescent;
+      const centre = (acc === 'flat' || acc === 'dblflat') ? (-down + 0.25 * (up + down)) / 100 : (up - down) / 2 / 100;
+      if (document.fonts && document.fonts.check("400 100px 'Noto Music'", ACC_GLYPH[acc])) accCentre[acc] = centre;
+      return centre;
+    }
+    function svgText(svg, cls, x, y, size, fill, content, anchor, baseline = 'central') {
+      const t = document.createElementNS(NS, 'text');
+      t.setAttribute('class', cls); t.setAttribute('x', x.toFixed(2)); t.setAttribute('y', y.toFixed(2));
+      t.setAttribute('text-anchor', anchor); t.setAttribute('dominant-baseline', baseline);
+      t.setAttribute('font-size', size.toFixed(2)); t.setAttribute('fill', fill);
+      t.textContent = content; svg.appendChild(t); return t;
+    }
+    function fitLyricSize(svg, size) {
+      if (!svg) return null;
+      const texts = [...svg.querySelectorAll('text.abcjs-lyric')];
+      if (!texts.length) return null;
+      const lines = new Map();
+      for (const t of texts) {
+        const bb = t.getBBox(), key = Math.round(bb.y / 5);
+        if (!lines.has(key)) lines.set(key, []);
+        lines.get(key).push({ w: bb.width, cx: bb.x + bb.width / 2 });
+      }
+      const vb = svg.viewBox.baseVal, left = PAD, right = vb.width - PAD;
+      let f = Infinity;
+      for (const syl of lines.values()) {
+        syl.sort((a, b) => a.cx - b.cx);
+        for (let i = 0; i < syl.length; i++) {
+          const a = syl[i];
+          if (i + 1 < syl.length) { const b = syl[i + 1]; f = Math.min(f, (b.cx - a.cx) / ((a.w + b.w) / 2 + 3)); }   // 3 units of air between syllables
+          f = Math.min(f, (a.cx - left) / (a.w / 2), (right - a.cx) / (a.w / 2));
+        }
+      }
+      if (!isFinite(f)) return null;
+      return Math.max(size, Math.min(cssNum('--lyric-max', 20), Math.floor(size * f * 10) / 10));
+    }
+
+    let abcSeq = 0;
+    class AbcCell {
+      constructor(body, text, onChange) {
+        const id = 'abc' + (++abcSeq);
+        body.innerHTML = `<div class="score"><div class="paper"></div></div>
+          <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
+          <div class="side"><div class="audio" id="${id}-audio"></div><div class="warn"></div></div></div>`;
+        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper');
+        this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
+        this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
+        this.entry.value = text;
+        this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
+        this.entry.addEventListener('input', () => { this.render(); onChange(this.entry.value); });
+        this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
+        this.ro.observe(this.scoreEl);
+        this.synth = null;
+        if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
+          this.synth = new ABCJS.synth.SynthController();
+          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayProgress: true, displayRestart: true });
+        }
+        this.render();
+      }
+      getText() { return this.entry.value; }
+      focus() { this.entry.focus(); }
+      destroy() { this.ro.disconnect(); this.hidden.remove(); }
+      renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
+        const tunes = ABCJS.renderAbc(target, abc, {
+          add_classes: true, staffwidth,
+          paddingtop: PAD, paddingbottom: PAD, paddingleft: PAD, paddingright: PAD,
+          format: { vocalfont: `Atkinson Hyperlegible ${vocal}` },
+        });
+        const svg = target.querySelector('svg');
+        if (svg && !svg.getAttribute('viewBox')) svg.setAttribute('viewBox', `0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
+        return tunes && tunes[0];
+      }
+      boxSize() {
+        const cs = getComputedStyle(this.scoreEl);
+        return { W: this.scoreEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+                 H: this.scoreEl.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
+      }
+      render() {
+        this.warnEl.textContent = '';
+        const abc = withHeader(this.entry.value);
+        this.original = this.renderAt(this.hidden, abc, 600);
+        if (!this.original) return;
+        this.origElems = collect(this.original);
+        this.spelled = spell(this.original, this.origElems);
+        let abcForDisplay = stripAccidentals(abc);
+        let tune = this.renderAt(this.paper, abcForDisplay, 600);
+        if (!tune) return;
+        if (collect(tune).length !== this.origElems.length) { abcForDisplay = abc; tune = this.renderAt(this.paper, abcForDisplay, 600); }
+        const { W, H } = this.boxSize();
+        if (!(W > 0 && H > 0)) return;            // hidden cell: paddings read as NaN
+        const vb = this.paper.querySelector('svg').viewBox.baseVal;
+        const ideal = Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
+        if (Math.abs(ideal - 600) > 2) tune = this.renderAt(this.paper, abcForDisplay, ideal);
+        const lyricMin = cssNum('--lyric-min', 9);
+        const vocal = fitLyricSize(this.paper.querySelector('svg'), lyricMin);
+        if (vocal !== null && Math.abs(vocal - lyricMin) > 0.25) tune = this.renderAt(this.paper, abcForDisplay, ideal, vocal);
+        this.displayed = tune; this.dispElems = collect(tune);
+        this.hiddenIndex.clear();
+        this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
+        if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
+        this.decorate(abcForDisplay !== abc);
+        this.fit();
+        if (this.synth) this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
+      }
+      decorate(drawAccidentals) {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return;
+        const accScale = cssNum('--acc-size', 1.8);
+        this.dispElems.forEach((el, i) => {
+          const abs = el.abselem, pitches = this.spelled[i];
+          if (!abs || !pitches || !pitches.length) return;
+          const heads = abs.heads || [];
+          heads.forEach((head, j) => {
+            const p = pitches[j] || pitches[0], node = head.graphelem;
+            if (!node) return;
+            node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
+            const bb = node.getBBox(), hollow = el.duration >= 0.5;
+            svgText(svg, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * 1.05, hollow ? p.color : letterOn(), p.letter, 'middle');
+            if (drawAccidentals && p.explicit) {
+              const size = bb.height * accScale;
+              const baselineY = bb.y + bb.height / 2 + accidentalCentre(p.explicit) * size;
+              svgText(svg, 'accg', bb.x - bb.width * 0.2, baselineY, size, p.color, ACC_GLYPH[p.explicit], 'end', 'alphabetic');
+            }
+          });
+          const color = pitches[0].color;
+          for (const g of abs.elemset || []) {
+            for (const path of g.querySelectorAll('path')) {
+              if (path.classList.contains('abcjs-ledger') || heads.some(h => h.graphelem === path)) continue;
+              path.setAttribute('fill', color);
+            }
+            for (const t of g.querySelectorAll('text.abcjs-lyric')) t.setAttribute('fill', color);
+          }
+        });
+      }
+      fit() {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return;
+        const vb = svg.viewBox.baseVal, { W, H } = this.boxSize();
+        if (!(W > 0 && H > 0)) return;
+        const k = Math.min(W / vb.width, H / vb.height);
+        svg.setAttribute('width', (vb.width * k).toFixed(2)); svg.setAttribute('height', (vb.height * k).toFixed(2));
+        this.paper.style.height = ''; this.paper.style.overflow = '';
+      }
+      clearPlaying() {
+        for (const g of this.paper.querySelectorAll('.playing')) { g.classList.remove('playing'); g.style.filter = ''; }
+      }
+      // Displayed x (left edge) and colour of the notes in a timing event.
+      eventGeometry(ev) {
+        let x = null, color = null;
+        const groups = [];
+        for (const arr of ev.elements || []) for (const el of (Array.isArray(arr) ? arr : [arr])) {
+          const i = this.hiddenIndex.get(el);
+          if (i === undefined || !this.dispElems[i] || !this.dispElems[i].abselem) continue;
+          const sp = this.spelled[i];
+          if (sp && sp.length && !color) color = sp[0].color;
+          for (const g of this.dispElems[i].abselem.elemset || []) { groups.push(g); const bb = g.getBBox(); x = x === null ? bb.x : Math.min(x, bb.x); }
+        }
+        return { x, color: color || 'var(--cursor)', groups };
+      }
+      cursorControl() {
+        const bar = () => {
+          const svg = this.paper.querySelector('svg');
+          if (!svg) return null;
+          let r = svg.querySelector('rect.cursorbar');
+          if (!r) {
+            r = document.createElementNS(NS, 'rect');
+            r.setAttribute('class', 'cursorbar'); r.setAttribute('x', 0); r.setAttribute('width', 2.4); r.setAttribute('rx', 1.2);
+            svg.appendChild(r);
+          }
+          return r;
+        };
+        return {
+          onStart: () => { this.clearPlaying(); const r = bar(); if (r) r.classList.remove('done'); },
+          onFinish: () => { this.clearPlaying(); const r = bar(); if (r) r.classList.add('done'); },
+          onEvent: ev => {
+            this.clearPlaying();
+            if (!ev || !ev.elements) return;
+            const here = this.eventGeometry(ev);
+            if (here.x === null) return;
+            for (const g of here.groups) { g.classList.add('playing'); g.style.filter = `drop-shadow(0 0 5px ${here.color})`; }
+            const r = bar(); if (!r) return;
+            r.classList.remove('done');
+            // Vertical extent from the displayed staff of this line: the event's
+            // own top/height describe the hidden render, whose line spacing
+            // differs once the lyrics have been resized.
+            const svg = this.paper.querySelector('svg');
+            const staff = svg.querySelector(`.abcjs-staff.abcjs-l${ev.line}`) || svg.querySelectorAll('.abcjs-staff')[ev.line || 0];
+            let top = ev.top, height = ev.height;
+            if (staff) { const sb = staff.getBBox(); top = sb.y - sb.height * 0.6; height = sb.height * 2.2; }
+            r.setAttribute('y', top.toFixed(2)); r.setAttribute('height', height.toFixed(2));
+            // Land on this note now, then glide to the next note so the bar
+            // arrives exactly as it sounds (the next event re-syncs it).
+            r.style.transition = 'transform 0ms linear, opacity 0.4s';
+            r.style.transform = `translateX(${(here.x - 3).toFixed(2)}px)`;
+            const timings = (this.original && this.original.noteTimings) || [];
+            let idx = timings.indexOf(ev);
+            if (idx < 0) idx = timings.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
+            const next = timings.slice(idx + 1).find(t => t.type === 'event' && t.elements && t.elements.length);
+            if (next && next.top === ev.top) {
+              const there = this.eventGeometry(next);
+              const dt = next.milliseconds - ev.milliseconds;
+              if (there.x !== null && there.x > here.x && dt > 0) {
+                void r.getBoundingClientRect();
+                r.style.transition = `transform ${dt}ms linear, opacity 0.4s`;
+                r.style.transform = `translateX(${(there.x - 3).toFixed(2)}px)`;
+              }
+            }
+          },
+        };
+      }
+    }
+
+    /* ======================================================================
+       Cells: model, persistence, edit and present modes
+       ====================================================================== */
+    const STORE = 'gcs-cells-v1';
+    const SAMPLE = [
+      { type: 'heading', text: 'Grand Central Stationery' },
+      { type: 'text', text: 'Welcome!\nOpen your books' },
+      { type: 'abc',  text: 'C D E F | G A B c |\nw: Do re mi fa sol la ti do' },
+      { type: 'text', text: 'C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb' },
+    ];
+    let cells = [];
+    try { const saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved && Array.isArray(saved.cells) && saved.cells.length) cells = saved.cells; } catch (e) {}
+    if (!cells.length) cells = SAMPLE.map(c => ({ ...c }));
+    let seq = 0; for (const c of cells) c.id = ++seq;
+
+    const cellsEl = document.getElementById('cells');
+    const engines = new Map();       // cell id -> engine
+    let saveTimer = null;
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg }) => ({ type, text, pos, bg })) })), 300); }
+
+    function buildCell(cell) {
+      const el = document.createElement('div');
+      el.className = 'cell'; el.dataset.type = cell.type; el.dataset.id = cell.id;
+      el.innerHTML = `<div class="cell-head">
+          <select class="type"><option value="heading">Heading</option><option value="text">Text</option><option value="abc">Notation</option></select>
+          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
+          <span class="spacer"></span>
+          <button class="up" title="Move up">▲</button><button class="down" title="Move down">▼</button>
+          <button class="show" title="Present from this cell">Present</button>
+          <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
+          <button class="del" title="Delete cell">✕</button>
+        </div>
+        <div class="pos">
+          <label>x <input type="number" step="100" data-k="x"></label>
+          <label>y <input type="number" step="100" data-k="y"></label>
+          <label>z <input type="number" step="100" data-k="z"></label>
+          <label>roll <input type="number" step="5" data-k="r" title="rotate about the screen's normal (z)"></label>
+          <label>pitch <input type="number" step="5" data-k="rx" title="rotate about x"></label>
+          <label>yaw <input type="number" step="5" data-k="ry" title="rotate about y"></label>
+          <label>scale <input type="number" step="0.1" min="0.1" data-k="s"></label>
+          <label>background <input type="color" data-k="bg"></label>
+          <button class="posclear">auto</button>
+        </div><div class="cell-body"></div>`;
+      el.querySelector('.type').value = cell.type;
+      cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
+      const body = el.querySelector('.cell-body');
+      const onChange = text => { cell.text = text; save(); };
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange)
+                   : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
+      engines.set(cell.id, engine);
+      el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
+      el.querySelector('.up').addEventListener('click', () => move(cell, -1));
+      el.querySelector('.down').addEventListener('click', () => move(cell, 1));
+      el.querySelector('.del').addEventListener('click', () => { if (cells.length === 1 || confirm('Delete this cell?')) { cells = cells.filter(c => c !== cell); if (!cells.length) cells = [{ id: ++seq, type: 'text', text: '' }]; rebuild(); save(); } });
+      el.querySelector('.show').addEventListener('click', () => present(cells.indexOf(cell)));
+      const posEl = el.querySelector('.pos');
+      el.querySelector('.xyz').addEventListener('click', () => posEl.classList.toggle('open'));
+      for (const inp of posEl.querySelectorAll('input')) {
+        const k = inp.dataset.k;
+        if (k === 'bg') { if (cell.bg) inp.value = cell.bg; }
+        else if (cell.pos && cell.pos[k] !== undefined) inp.value = cell.pos[k];
+        inp.addEventListener('input', () => {
+          if (k === 'bg') cell.bg = inp.value;
+          else { cell.pos = cell.pos || {}; if (inp.value === '') delete cell.pos[k]; else cell.pos[k] = parseFloat(inp.value); }
+          save();
+        });
+      }
+      el.querySelector('.posclear').addEventListener('click', () => { delete cell.pos; delete cell.bg; for (const inp of posEl.querySelectorAll('input')) inp.value = inp.type === 'color' ? '#ffffff' : ''; save(); });
+      body.addEventListener('focusin', () => { for (const c of cellsEl.querySelectorAll('.cell.focused')) c.classList.remove('focused'); el.classList.add('focused'); });
+      // Keys typed in a cell never leave the field: impress.js plugins listen on
+      // the document and window (navigation, help on H, speaker console on P),
+      // and some of those listeners outlive its teardown.
+      for (const ta of body.querySelectorAll('textarea')) {
+        ta.addEventListener('keydown', e => {
+          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); addCell(e.shiftKey ? 'abc' : 'text', cells.indexOf(cell) + 1); }
+          else navKey(e);
+          e.stopPropagation();
+        });
+        ta.addEventListener('keyup', e => e.stopPropagation());
+      }
+      return el;
+    }
+    function rebuild() {
+      for (const en of engines.values()) en.destroy();
+      engines.clear();
+      cellsEl.innerHTML = '';
+      for (const c of cells) buildCell(c);
+    }
+    function addCell(type, at = cells.length) {
+      const cell = { id: ++seq, type, text: '' };
+      cells.splice(at, 0, cell);
+      rebuild(); save();
+      const en = engines.get(cell.id); if (en) en.focus();
+      cellsEl.querySelector(`.cell[data-id="${cell.id}"]`).scrollIntoView({ block: 'nearest' });
+    }
+    function move(cell, dir) {
+      const i = cells.indexOf(cell), j = i + dir;
+      if (j < 0 || j >= cells.length) return;
+      [cells[i], cells[j]] = [cells[j], cells[i]];
+      rebuild(); save();
+    }
+
+    /* ---------- present mode ---------- */
+    let current = -1;
+    function present(i) {
+      current = Math.max(0, Math.min(cells.length - 1, i));
+      document.body.classList.add('present');
+      showCurrent();
+    }
+    function showCurrent() {
+      cellsEl.querySelectorAll('.cell').forEach((el, i) => el.classList.toggle('current', i === current));
+      document.getElementById('navPos').textContent = `${current + 1} / ${cells.length}`;
+      const en = engines.get(cells[current].id);
+      if (en) requestAnimationFrame(() => en.focus());
+    }
+    function exitPresent() {
+      document.body.classList.remove('present');
+      cellsEl.querySelectorAll('.cell.current').forEach(el => el.classList.remove('current'));
+      current = -1;
+    }
+    document.getElementById('present').addEventListener('click', () => present(Math.max(0, cells.findIndex(c => cellsEl.querySelector(`.cell[data-id="${c.id}"]`).classList.contains('focused')))));
+    /* ---------- 3D present mode ---------- */
+    const impressRoot = document.getElementById('impress');
+    let in3d = false;
+    // Automatic layout: a gentle zigzag row, four cells per row, slightly rotated.
+    function autoPos(i) {
+      const W = innerWidth, H = innerHeight;
+      return { x: (i % 4) * W * 1.35, y: Math.floor(i / 4) * H * 1.45 + (i % 2 ? H * 0.12 : 0), z: 0, r: ((i % 3) - 1) * 4, rx: 0, ry: 0, s: 1 };
+    }
+    function cellPos(cell, i) { return { ...autoPos(i), ...(cell.pos || {}) }; }
+    function present3d() {
+      if (in3d) return;
+      const W = innerWidth, H = innerHeight;
+      impressRoot.setAttribute('data-width', W); impressRoot.setAttribute('data-height', H);
+      impressRoot.innerHTML = '';
+      // Overview first: the camera starts pulled back to show every cell.
+      const ov = document.createElement('div'); ov.className = 'step overview'; ov.id = 'overview';
+      const ps = cells.map(cellPos);
+      const minX = Math.min(...ps.map(p => p.x)) - W / 2, maxX = Math.max(...ps.map(p => p.x)) + W / 2;
+      const minY = Math.min(...ps.map(p => p.y)) - H / 2, maxY = Math.max(...ps.map(p => p.y)) + H / 2;
+      ov.dataset.x = (minX + maxX) / 2; ov.dataset.y = (minY + maxY) / 2; ov.dataset.z = 0;
+      ov.dataset.scale = Math.max((maxX - minX) / W, (maxY - minY) / H) * 1.08;
+      impressRoot.appendChild(ov);
+      cells.forEach((cell, i) => {
+        const el = cellsEl.querySelector(`.cell[data-id="${cell.id}"]`);
+        const p = ps[i];
+        el.classList.add('step'); el.id = 'cell-' + cell.id;
+        el.dataset.x = p.x; el.dataset.y = p.y; el.dataset.z = p.z; el.dataset.scale = p.s;
+        el.dataset.rotateZ = p.r; el.dataset.rotateX = p.rx; el.dataset.rotateY = p.ry;   // roll, pitch, yaw
+        el.style.setProperty('--cell-bg', cell.bg || 'var(--bg)');
+        impressRoot.appendChild(el);
+      });
+      in3d = true;
+      document.body.classList.add('present3d');
+      impressRoot.addEventListener('impress:stepenter', onStepEnter);
+      // impress.js writes the active step into the URL hash and restores it on
+      // init; every session should start on the overview instead.
+      history.replaceState(null, '', location.pathname + location.search);
+      impress().init();
+    }
+    function onStepEnter(e) {
+      const step = e.target;
+      const cell = cells.find(c => 'cell-' + c.id === step.id);
+      document.body.style.setProperty('--stage-bg', cell && cell.bg ? cell.bg : 'var(--bg)');
+      const i = cell ? cells.indexOf(cell) : -1;
+      document.getElementById('navPos').textContent = i >= 0 ? `${i + 1} / ${cells.length}` : 'overview';
+      if (cell) { const en = engines.get(cell.id); if (en) setTimeout(() => en.focus(), 50); }
+    }
+    function exit3d() {
+      if (!in3d) return;
+      impressRoot.removeEventListener('impress:stepenter', onStepEnter);
+      // impress.js's teardown rebuilds its root through innerHTML, which would
+      // clone every cell (losing textarea values and orphaning the engines).
+      // So: make the overview the active step, move the original cells out
+      // first, and let impress tear down a root that holds only the overview.
+      impress().goto('overview', 0);
+      for (const cell of cells) {
+        const el = document.getElementById('cell-' + cell.id);
+        if (!el) continue;
+        el.classList.remove('step', 'active', 'past', 'future', 'present');
+        el.removeAttribute('id'); el.removeAttribute('style');
+        for (const k of ['x', 'y', 'z', 'rotateZ', 'rotateX', 'rotateY', 'scale']) delete el.dataset[k];
+        cellsEl.appendChild(el);
+      }
+      impress().tear();
+      impressRoot.innerHTML = '';
+      history.replaceState(null, '', location.pathname + location.search);
+      document.body.classList.remove('present3d', 'impress-enabled', 'impress-supported');
+      document.body.style.removeProperty('--stage-bg');
+      in3d = false;
+    }
+    function navKey(e) {
+      const classic = document.body.classList.contains('present');
+      if (!classic && !in3d) return;
+      if (e.key === 'Escape') { e.preventDefault(); in3d ? exit3d() : exitPresent(); }
+      else if (e.key === 'PageDown') { e.preventDefault(); in3d ? impress().next() : (current < cells.length - 1 && (current++, showCurrent())); }
+      else if (e.key === 'PageUp') { e.preventDefault(); in3d ? impress().prev() : (current > 0 && (current--, showCurrent())); }
+    }
+    document.getElementById('present3d').addEventListener('click', present3d);
+    document.getElementById('navPrev').addEventListener('click', () => { if (in3d) return impress().prev(); if (current > 0) { current--; showCurrent(); } });
+    document.getElementById('navNext').addEventListener('click', () => { if (in3d) return impress().next(); if (current < cells.length - 1) { current++; showCurrent(); } });
+    document.getElementById('navExit').addEventListener('click', () => in3d ? exit3d() : exitPresent());
+    document.addEventListener('keydown', e => {
+      if (e.target.matches('textarea, input, select')) return;     // handled at the field
+      navKey(e);
+    });
+    // impress.js's help (H, ?) and speaker-console (P) plugins keep permanent
+    // key handlers; neither belongs in this page, so those keys are swallowed
+    // before any document or window listener sees them.
+    for (const type of ['keydown', 'keyup']) window.addEventListener(type, e => {
+      if (e.target && e.target.matches && e.target.matches('textarea, input, select')) return;
+      if (['p', 'P', 'h', 'H', '?'].includes(e.key)) e.stopImmediatePropagation();
+    }, true);
+
+    /* ---------- toolbar ---------- */
+    document.getElementById('addText').addEventListener('click', () => addCell('text'));
+    document.getElementById('addHeading').addEventListener('click', () => addCell('heading'));
+    // Theme: follows the system until the button is used; the choice is remembered.
+    const themeBtn = document.getElementById('theme');
+    const isDark = () => document.documentElement.dataset.theme === 'dark' ||
+      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    const paintTheme = () => { themeBtn.textContent = isDark() ? '☀' : '☾'; };
+    const savedTheme = localStorage.getItem('gcs-theme');
+    if (savedTheme === 'dark' || savedTheme === 'light') document.documentElement.dataset.theme = savedTheme;
+    paintTheme();
+    const rerenderNotation = () => { for (const en of engines.values()) if (en.render) en.render(); };
+    themeBtn.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next; localStorage.setItem('gcs-theme', next); paintTheme();
+      rerenderNotation();                     // letter colours on light noteheads depend on the theme
+    });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { paintTheme(); rerenderNotation(); });
+    document.getElementById('addAbc').addEventListener('click', () => addCell('abc'));
+    const picker = document.getElementById('fontpick');
+    for (const [key, f] of Object.entries(FONTS)) picker.add(new Option(f.label, key));
+    picker.value = fontKey;
+    picker.addEventListener('change', () => applyFont(picker.value));
+    const SEP = /^=== (text|abc|heading)\s*(\{.*\})?\s*$/;
+    document.getElementById('export').addEventListener('click', () => {
+      const meta = c => (c.pos && Object.keys(c.pos).length) || c.bg ? ' ' + JSON.stringify({ ...(c.pos || {}), ...(c.bg ? { bg: c.bg } : {}) }) : '';
+      const body = cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n');
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([body + '\n'], { type: 'text/plain' }));
+      a.download = 'grand-central-stationery.gcs.txt'; a.click(); URL.revokeObjectURL(a.href);
+    });
+    document.getElementById('import').addEventListener('click', () => document.getElementById('file').click());
+    document.getElementById('file').addEventListener('change', async e => {
+      const f = e.target.files[0]; if (!f) return;
+      const lines = (await f.text()).split('\n'); const out = []; let cur = null;
+      for (const line of lines) {
+        const m = line.match(SEP);
+        if (m) {
+          cur = { id: ++seq, type: m[1], text: '' };
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; delete j.bg; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          out.push(cur);
+        }
+        else if (cur) cur.text += (cur.text ? '\n' : '') + line;
+      }
+      if (!out.length) { out.push({ id: ++seq, type: 'text', text: lines.join('\n') }); }
+      for (const c of out) c.text = c.text.replace(/\n$/, '');
+      cells = out; rebuild(); save(); e.target.value = '';
+    });
+    document.getElementById('clear').addEventListener('click', () => { if (confirm('Remove all cells?')) { cells = [{ id: ++seq, type: 'text', text: '' }]; rebuild(); save(); } });
+
+    /* ---------- go ---------- */
+    applyFont(fontKey);
+    rebuild();
+    // Google Fonts splits Noto Music into unicode-range subsets; name the
+    // accidentals so the music subset loads, then re-render everything.
+    const rerenderAll = () => { primeCanvas(); for (const en of engines.values()) (en.remeasure ? en.remeasure() : en.render()); };
+    if (document.fonts) {
+      document.fonts.ready.then(rerenderAll).catch(() => {});
+      document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
+    }
+    window.GCS = { cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, applyFont };
+  })();
+  </script>
+</body>
+</html>

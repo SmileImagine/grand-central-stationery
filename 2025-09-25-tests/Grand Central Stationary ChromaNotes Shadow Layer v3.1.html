@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – ChromaNotes Shadow Layer Hybrid Fit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      background: #fff;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    .shadow, .inputbox {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      padding: 2vh;
+      box-sizing: border-box;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow: auto;
+      line-height: 1.1;
+      font-size: 10vmin; /* fallback */
+      transition: font-size 0.22s cubic-bezier(.4,1.2,.5,1);
+    }
+    .shadow {
+      color: #222;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .shadow span {
+      font-weight: bold;
+    }
+    .inputbox {
+      color: transparent;
+      caret-color: #aaa;
+      background: transparent;
+      z-index: 2;
+      border: none;
+      outline: none;
+      resize: none;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      letter-spacing: 0;
+      font-variant-ligatures: none;
+      /* font-optical-sizing removed for strict monospace */
+    }
+    .note-token {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 1ch;
+      font-weight: bold;
+    }
+    .note-token--double {
+      width: 2ch;
+    }
+    .note-token .note-letter,
+    .note-token .accidental {
+      width: 1ch;
+      text-align: center;
+      letter-spacing: 0;
+    }
+    .note-token .accidental {
+      font-weight: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="shadow"></div>
+    <textarea class="inputbox"
+      aria-label="Note input"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      autocapitalize="off"></textarea>
+    </div>
+  <script>
+    (() => {
+      const chromaNotesColors = {
+        'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+        'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+        'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+        'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+        'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+        'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+        'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+      };
+
+      const container = document.querySelector('.container');
+      const shadow = document.querySelector('.shadow');
+      const input = document.querySelector('.inputbox');
+      const minFont = 8;
+      const maxFont = 480;
+
+      function escapeHTML(str) {
+        const escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;' };
+        if (typeof str !== "string") return str; // Handle non-string input gracefully
+        // Use a regex to replace all occurrences of &, <, and > with their HTML entities
+        return str.replace(/[&<>]/g, char => escapeMap[char]);
+      }
+
+      function renderColouredText(text) {
+        const noteRegex = /([A-G])(#|b)?/g;
+        const escaped = escapeHTML(text);
+        return escaped.replace(noteRegex, (match, note, accidental) => {
+          const color = chromaNotesColors[match];
+          const accidentalHTML = accidental === '#'
+            ? '<span class="accidental">&#x266F;</span>'
+            : accidental === 'b'
+              ? '<span class="accidental">&#x266D;</span>'
+              : '';
+
+          const styleAttr = color ? ` style="color:${color};"` : '';
+          const classList = accidentalHTML
+            ? 'note-token note-token--double'
+            : 'note-token';
+
+          if (accidentalHTML) {
+            return `<span class="${classList}"${styleAttr}><span class="note-letter">${note}</span>${accidentalHTML}</span>`;
+          }
+
+          return `<span class="${classList}"${styleAttr}><span class="note-letter">${note}</span></span>`;
+        });
+      }
+
+      function measureMetrics() {
+        const probe = document.createElement('span');
+        const baseStyle = getComputedStyle(shadow);
+        probe.textContent = '0';
+        probe.style.position = 'absolute';
+        probe.style.visibility = 'hidden';
+        probe.style.pointerEvents = 'none';
+        probe.style.whiteSpace = 'pre';
+        probe.style.margin = '0';
+        probe.style.padding = '0';
+        probe.style.fontFamily = baseStyle.fontFamily;
+        probe.style.fontWeight = baseStyle.fontWeight;
+        probe.style.fontStyle = baseStyle.fontStyle;
+        probe.style.letterSpacing = baseStyle.letterSpacing;
+        probe.style.lineHeight = baseStyle.lineHeight;
+        probe.style.fontSize = '100px';
+        document.body.appendChild(probe);
+
+        const charWidthPx = probe.getBoundingClientRect().width;
+        probe.textContent = '0\n0';
+        const twoLineHeightPx = probe.getBoundingClientRect().height;
+        document.body.removeChild(probe);
+
+        return {
+          charWidthPerPx: charWidthPx / 100,
+          lineHeightPerPx: (twoLineHeightPx / 2) / 100
+        };
+      }
+
+      let metrics = measureMetrics();
+
+      function computeFontSize(text) {
+        const lines = text.length ? text.split('\n') : [''];
+        const availableWidth = shadow.clientWidth;
+        const availableHeight = shadow.clientHeight;
+
+        if (availableWidth === 0 || availableHeight === 0) {
+          return minFont;
+        }
+
+        const tokenBound = (() => {
+          const parts = text.split(/\s+/).filter(Boolean);
+          const longestToken = parts.reduce((max, token) => Math.max(max, token.length), 1);
+          return availableWidth / (Math.max(1, longestToken) * metrics.charWidthPerPx);
+        })();
+
+        let size = Math.max(minFont, Math.min(maxFont, tokenBound));
+
+        for (let i = 0; i < 4; i++) {
+          const columns = Math.max(1, availableWidth / (metrics.charWidthPerPx * size));
+          let wrappedLines = 0;
+          for (const line of lines) {
+            const len = Math.max(line.length, 1);
+            wrappedLines += Math.max(1, Math.ceil(len / columns));
+          }
+
+          const heightLimit = availableHeight / (wrappedLines * metrics.lineHeightPerPx);
+          const newSize = Math.max(minFont, Math.min(maxFont, Math.min(tokenBound, heightLimit)));
+
+          if (Math.abs(newSize - size) < 0.5) {
+            size = newSize;
+            break;
+          }
+
+          size = newSize;
+        }
+
+        if (!Number.isFinite(size) || size <= 0) return minFont;
+        return Math.floor(size);
+      }
+
+      function applyFontSize(sizePx) {
+        const sizeValue = `${sizePx}px`;
+        shadow.style.fontSize = sizeValue;
+        input.style.fontSize = sizeValue;
+      }
+
+      function update() {
+        const text = input.value;
+        shadow.innerHTML = renderColouredText(text);
+        const computed = getComputedStyle(shadow);
+        input.style.padding = computed.padding;
+        input.style.boxSizing = computed.boxSizing;
+        input.style.lineHeight = computed.lineHeight;
+
+        if (metrics.charWidthPerPx === 0 || metrics.lineHeightPerPx === 0) {
+          metrics = measureMetrics();
+        }
+
+        const size = computeFontSize(text || ' ');
+        applyFontSize(size);
+      }
+
+      let pendingFrame = null;
+      function scheduleUpdate() {
+        if (pendingFrame !== null) return;
+        pendingFrame = requestAnimationFrame(() => {
+          pendingFrame = null;
+          update();
+        });
+      }
+
+      input.addEventListener('input', scheduleUpdate);
+      window.addEventListener('resize', scheduleUpdate);
+
+      if (window.ResizeObserver) {
+        const resizeObserver = new ResizeObserver(scheduleUpdate);
+        resizeObserver.observe(container);
+      }
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          metrics = measureMetrics();
+          scheduleUpdate();
+        }).catch(() => {
+          // ignore font loading errors; proceed with existing metrics
+        });
+      }
+      input.addEventListener('scroll', () => {
+        shadow.scrollTop = input.scrollTop;
+        shadow.scrollLeft = input.scrollLeft;
+      });
+
+      input.value = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb";
+      update();
+    })();
+  </script>
+</body>
+</html>

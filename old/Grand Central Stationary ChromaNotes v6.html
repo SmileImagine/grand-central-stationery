@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Central Stationery – ChromaNotes v5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Atkinson Hyperlegible fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        html, body {
+            margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden;
+            background: #fff;
+        }
+        body {
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .output, .inputbox {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            line-height: 1.08;
+            margin: 0;
+            padding: 0;
+            font-size: inherit;
+            border: none;
+            background: transparent;
+            resize: none;
+            outline: none;
+            overflow: hidden;
+        }
+        .inputbox {
+            z-index: 2;
+            opacity: 0.65;
+            color: #1a1a1a;
+            pointer-events: auto;
+            font-weight: normal;
+            transition: opacity 0.16s;
+        }
+        .inputbox.hide {
+            opacity: 0;
+            /* pointer-events: none; */
+        }
+        .output {
+            z-index: 1;
+            /* pointer-events: none; */
+            color: #222;
+        }
+        .output span {
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            font-size: inherit;
+            font-weight: 800;
+            display: contents;
+        }
+        /* @media (max-width: 700px) {
+            .output, .inputbox { font-size: 8vw !important; }
+        } */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea class="inputbox hide" rows="6" autocomplete="off" spellcheck="false"></textarea>
+        <div class="output" aria-live="polite"></div>
+    </div>
+    <script>
+        (() => {
+            // ChromaNotes chromatic colours, including accidentals
+            const chromaNotesColors = {
+                'C':  '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+                'D':  '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+                'E':  '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+                'F':  '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+                'G':  '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+                'A':  '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+                'B':  '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+            };
+
+            const inputBox = document.querySelector('.inputbox');
+            const outputDiv = document.querySelector('.output');
+
+            function renderColoured(text) {
+                function escapeHTML(s) {
+                    return s.replace(/&/g, "&amp;")
+                            .replace(/</g, "&lt;")
+                            .replace(/>/g, "&gt;");
+                }
+                const noteRegex = /([A-G](?:#|b)?)/g;
+                let safeText = escapeHTML(text);
+                safeText = safeText.replace(noteRegex, (match) => {
+                    const colour = chromaNotesColors[match];
+                    if (colour) {
+                        return `<span style="color: ${colour}; font-weight: bold;">${match}</span>`;
+                    }
+                    return match;
+                });
+                safeText = safeText.replace(/\n/g, "<br>");
+                return safeText;
+            }
+
+            function getFontSize(text) {
+                const fontScale = 120;
+                return (fontScale) / Math.max(Math.sqrt(text.length - 3), 1);
+            }
+
+            function syncFontSize() {
+                const text = inputBox.value || ' ';
+                const size = getFontSize(text);
+                outputDiv.style.fontSize = size + 'vh';
+                inputBox.style.fontSize = size + 'vh';
+            }
+
+            function updateOutput() {
+                let text = inputBox.value;
+                outputDiv.innerHTML = renderColoured(text);
+                syncFontSize();
+            }
+
+            function showInput() {
+                inputBox.classList.remove('hide');
+                inputBox.focus();
+            }
+            function hideInput() {
+                inputBox.classList.add('hide');
+            }
+
+            inputBox.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    inputBox.blur();
+                    hideInput();
+                }
+            });
+            inputBox.addEventListener('input', updateOutput);
+            inputBox.addEventListener('blur', hideInput);
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && inputBox.classList.contains('hide')) {
+                    e.preventDefault();
+                    showInput();
+                }
+            });
+            window.addEventListener('resize', syncFontSize);
+
+            inputBox.value = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb";
+            updateOutput();
+            hideInput();
+        })();
+    </script>
+</body>
+</html>

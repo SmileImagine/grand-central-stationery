@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Central Stationery – ChromaNotes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Fonts: Atkinson Hyperlegible Mono & Next -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            font-family: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', Arial, sans-serif;
+            background: #f9f9f9;
+        }
+        .app-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .inputbox {
+            min-height: 2em;
+            min-width: 200px;
+            width: 80vw;
+            max-width: 800px;
+            padding: 0.6em 0.6em;
+            border: none;
+            border-bottom: 2.5px solid #1a1a1a;
+            background: transparent;
+            font-size: 1.6em;
+            font-family: inherit;
+            color: #1a1a1a;
+            margin: 3vh auto 2vh auto;
+            outline: none;
+            transition: border-color 0.2s;
+            resize: none;
+        }
+        .inputbox:focus {
+            border-bottom: 2.5px solid #3178f5;
+        }
+        .output-container {
+            width: 100vw;
+            height: 100vh;
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .output {
+        	span { display: contents; }
+            width: 100vw;
+            height: 100vh;
+            /* Use Atkinson Hyperlegible Mono for output */
+            font-family: 'Atkinson Hyperlegible Mono', 'Fira Mono', 'Menlo', 'Consolas', monospace;
+            white-space: pre-wrap;
+            word-break: break-word;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            line-height: 1.08;
+            user-select: text;
+            transition: font-size 0.18s;
+        }
+        @media (max-width: 700px) {
+            .inputbox, .output {
+                width: 98vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="inputbox" contenteditable="true" spellcheck="false" aria-label="Type or paste your music notes here..."></div>
+        <div class="output-container">
+            <div class="output" aria-live="polite"></div>
+        </div>
+    </div>
+    <script>
+        // ChromaNotes chromatic colours, including accidentals
+        const chromaNotesColors = {
+            'C':  '#e72829', // Red
+            'C#': '#ef5523',
+            'Db': '#ef5523',
+            'D':  '#f39322', // Orange
+            'D#': '#ffd259',
+            'Eb': '#ffd259',
+            'E':  '#f2e716', // Yellow
+            'E#': '#69b944',
+            'Fb': '#f2e716',
+            'F':  '#69b944', // Green
+            'F#': '#53cf84',
+            'Gb': '#53cf84',
+            'G':  '#019696', // Teal
+            'G#': '#087fca',
+            'Ab': '#087fca',
+            'A':  '#79569f', // Purple
+            'A#': '#9f5a8f',
+            'Bb': '#9f5a8f',
+            'B':  '#FF77A9', // Pink
+            'Cb': '#ec6ca4',
+            'B#': '#e72829'
+        };
+
+        const inputDiv = document.querySelector('.inputbox');
+        const outputDiv = document.querySelector('.output');
+        const outputContainer = document.querySelector('.output-container');
+
+        function renderColoured(text) {
+            function escapeHTML(s) {
+                return s.replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;");
+            }
+            const noteRegex = /([A-G](?:#|b)?)/g;
+            let safeText = escapeHTML(text);
+            safeText = safeText.replace(noteRegex, (match) => {
+                const colour = chromaNotesColors[match];
+                if (colour) {
+                    return `<span style="color: ${colour}; font-weight: bold;">${match}</span>`;
+                }
+                return match;
+            });
+            return safeText;
+        }
+
+        function updateOutput() {
+            const text = inputDiv.innerText;
+            outputDiv.innerHTML = renderColoured(text);
+
+            // Use the smaller of the two viewport dimensions, so it fills screen both orientations
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const minV = Math.min(vw, vh);
+            // Absurdly large scaling for short input; adjust fontScale as desired
+            const fontScale = 96;
+            const fontSizeVh = (fontScale) / Math.sqrt(text.length + 0.15);
+            outputDiv.style.fontSize = fontSizeVh + 'vh';
+        }
+
+        inputDiv.addEventListener('input', updateOutput);
+        window.addEventListener('resize', updateOutput);
+
+        // Optional initial text for demo
+        inputDiv.innerText = "C";
+        updateOutput();
+        inputDiv.focus();
+    </script>
+</body>
+</html>

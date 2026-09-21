@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Central Stationery</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f4f4f4;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .inputbox {
+            font-size: 1em;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 300px;
+            max-width: 80%;
+        }
+        .output {
+            font-family: monospace;
+            width: 100%;
+            text-align: center;
+            word-wrap: break-word;
+            word-break: break-word;
+            transition: width 0.3s ease; font-size 0.3s ease; /* Smooth font-size transition */
+            animation: width: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-container">
+        <input type="text" class="inputbox" placeholder="Have you heard...?  ,//|':^D' ">
+        <div class="output"></div>
+    </div>
+    <script>
+        document.querySelector('.inputbox').addEventListener('input', function() {
+            const text = this.value;
+            const fontSize = 130 / Math.sqrt(text.length + 1) + 'vh';
+            const outputDiv = document.querySelector('.output');
+            outputDiv.style.fontSize = fontSize;
+            outputDiv.textContent = text;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – ChromaNotes Shadow Layer Hybrid Fit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      background: #fff;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    .shadow, .inputbox {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      padding: 2vh;
+      box-sizing: border-box;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow: auto;
+      line-height: 1.1;
+      font-size: 10vmin; /* fallback */
+      transition: font-size 0.22s cubic-bezier(.4,1.2,.5,1);
+    }
+    .shadow {
+      color: #222;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .shadow span {
+      font-weight: bold;
+    }
+    .inputbox {
+      color: transparent;
+      caret-color: #aaa;
+      background: transparent;
+      z-index: 2;
+      border: none;
+      outline: none;
+      resize: none;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      letter-spacing: 0;
+      font-variant-ligatures: none;
+      /* font-optical-sizing removed for strict monospace */
+    }
+    .note-group {
+      display: inline;
+      font-weight: bold;
+      position: relative;
+    }
+    .note-letter {
+      /* Remove margin-left for all notes */
+      font-weight: bold;
+    }
+    .note-letter-accidental {
+      margin-left: 0.15em;
+      font-weight: bold;
+    }
+    .accidental {
+      margin-left: -0.15em;
+      /* Remove width and flex for natural flow */
+      letter-spacing: 0;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="shadow"></div>
+    <textarea class="inputbox"
+      aria-label="Note input"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      autocapitalize="off"></textarea>
+    </div>
+  <script>
+    (() => {
+      const chromaNotesColors = {
+        'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+        'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+        'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+        'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+        'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+        'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+        'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+      };
+
+      const shadow = document.querySelector('.shadow');
+      const input = document.querySelector('.inputbox');
+      const minFont = 4, maxFont = 100;
+
+      function escapeHTML(str) {
+        const escapeMap = { '&': '&amp;', '<': '&lt;', '>': '&gt;' };
+        if (typeof str !== 'string') return str; // Handle non-string input gracefully
+        // Use a regex to replace all occurrences of &, <, and > with their HTML entities
+        return str.replace(/[&<>]/g, char => escapeMap[char]);
+      }
+
+      function renderColouredText(text) {
+        const noteRegex = /([A-G])(#|b)?/g;
+        const escaped = escapeHTML(text);
+        return escaped.replace(noteRegex, (match, note, accidental) => {
+          const color = chromaNotesColors[match];
+          let accidentalHTML = '';
+          if (accidental === '#') accidentalHTML = '<span class="accidental">&#x266F;</span>';
+          if (accidental === 'b') accidentalHTML = '<span class="accidental">&#x266D;</span>';
+          // If color exists, wrap both note and accidental in one span for color/bold; else output plain text
+          if (color) {
+            if (accidental) {
+              return `<span class="note-letter-accidental" style="color:${color}; font-weight:bold;">${note}${accidentalHTML}</span>`;
+            } else {
+              return `<span class="note-letter" style="color:${color}; font-weight:bold;">${note}</span>`;
+            }
+          } else {
+            // No color: just plain text
+            return accidental ? `${note}${accidentalHTML}` : note;
+          }
+        });
+      }
+
+      // Area estimate (monospace, multiline): quick guess
+      function estimateFontSize(text) {
+        const k = 130; // tuning constant
+        const length = text.length;
+        const lines = text.split('\n').length;
+        return Math.max(minFont, Math.min(maxFont, k / Math.sqrt(length + lines/2)));
+      }
+
+      // Binary search for perfect fit below a starting guess, with decimal precision
+      /*
+      function binaryFit(container, input, fontGuess, minFont, maxFont) {
+        const box = container.getBoundingClientRect();
+        let low = minFont, high = fontGuess, best = minFont;
+        while (high - low > 0.1) {
+          const mid = (low + high) / 2;
+          container.style.fontSize = mid + 'vmin';
+          input.style.fontSize = mid + 'vmin';
+          if (container.scrollWidth <= box.width && container.scrollHeight <= box.height) {
+            best = mid;
+            low = mid + 0.05;
+          } else {
+            high = mid - 0.05;
+          }
+        }
+        container.style.fontSize = best + 'vmin';
+        input.style.fontSize = best + 'vmin';
+      }
+      */
+
+      function update() {
+        const text = input.value;
+        shadow.innerHTML = renderColouredText(text);
+        input.style.padding = getComputedStyle(shadow).padding;
+        input.style.boxSizing = getComputedStyle(shadow).boxSizing;
+
+        // Step 1: Fast formula guess
+        const guess = estimateFontSize(text);
+        shadow.style.fontSize = guess + 'vmin';
+        input.style.fontSize = guess + 'vmin';
+
+        // Step 2: Binary search correction if overflow (disabled)
+        /*
+        const box = shadow.getBoundingClientRect();
+        if (shadow.scrollWidth > box.width || shadow.scrollHeight > box.height) {
+          binaryFit(shadow, input, guess, minFont, guess);
+        }
+        */
+      }
+
+      let resizeTimeout;
+      input.addEventListener('input', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          requestAnimationFrame(update);
+        }, 50);
+      });
+
+      window.addEventListener('resize', update);
+      input.addEventListener('scroll', () => {
+        shadow.scrollTop = input.scrollTop;
+        shadow.scrollLeft = input.scrollLeft;
+      });
+
+      input.value = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb";
+      update();
+    })();
+  </script>
+</body>
+</html>

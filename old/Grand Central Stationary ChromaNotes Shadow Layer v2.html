@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – ChromaNotes Shadow Layer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dyn-font-size: 10vh;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      background: #fff;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    .shadow, .inputbox {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      padding: 2vh;
+      box-sizing: border-box;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      font-optical-sizing: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow: auto;
+      line-height: 1.1;
+      font-size: var(--dyn-font-size);
+      transition: font-size 0.25s ease;
+    }
+    .shadow {
+      color: #222;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .shadow span {
+      font-weight: bold;
+    }
+    .inputbox {
+      color: transparent;
+      caret-color: #aaa;
+      background: transparent;
+      z-index: 2;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="shadow"></div>
+    <textarea class="inputbox"
+      aria-label="Note input"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"></textarea>
+  </div>
+  <script>
+    (() => {
+      const chromaNotesColors = {
+        'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+        'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+        'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+        'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+        'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+        'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+        'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+      };
+
+      const shadow = document.querySelector('.shadow');
+      const input = document.querySelector('.inputbox');
+
+      function escapeHTML(str) {
+        return str.replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;");
+      }
+
+      function renderColouredText(text) {
+        const noteRegex = /([A-G](?:#|b)?)/g;
+        const escaped = escapeHTML(text);
+        return escaped.replace(noteRegex, match => {
+          const color = chromaNotesColors[match];
+          return color ? `<span style="color:${color};">${match}</span>` : match;
+        });
+      }
+
+      function getFontSize(text) {
+        const fontScale = 130;
+        const lines = text.split('\n').length;
+        return fontScale / Math.sqrt(text.length + lines);
+      }
+
+      function update() {
+        const text = input.value;
+        const size = getFontSize(text);
+
+        document.documentElement.style.setProperty('--dyn-font-size', size + 'vh');
+        shadow.innerHTML = renderColouredText(text);
+
+        input.style.padding = getComputedStyle(shadow).padding;
+        input.style.boxSizing = getComputedStyle(shadow).boxSizing;
+      }
+
+      let resizeTimeout;
+      input.addEventListener('input', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(update, 50);
+      });
+      window.addEventListener('resize', update);
+      input.addEventListener('scroll', () => {
+        shadow.scrollTop = input.scrollTop;
+        shadow.scrollLeft = input.scrollLeft;
+      });
+
+      input.value = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb";
+      update();
+    })();
+  </script>
+</body>
+</html>

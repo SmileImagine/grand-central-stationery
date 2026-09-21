@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Central Stationery – ChromaNotes Small Input</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Atkinson Hyperlegible fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden;
+        }
+        body {
+            background: #fff;
+            font-family: 'Atkinson Hyperlegible Next', Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .output {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            line-height: 1.08;
+            margin: 0;
+            padding: 0;
+            transition: font-size 0.18s;
+            z-index: 1;
+            pointer-events: none;
+            user-select: text;
+        }
+        /* Small, ghosted input at top center */
+        .inputbox {
+            position: fixed;
+            top: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 340px;
+            height: 2.3em;
+            max-width: 85vw;
+            font-size: 1.35em;
+            font-family: 'Atkinson Hyperlegible Mono', monospace;
+            color: #1a1a1a;
+            background: rgba(255,255,255,0.5);
+            border: 1.5px solid #999;
+            border-radius: 0.5em;
+            padding: 0.4em 0.9em;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            opacity: 0.6;
+            pointer-events: auto;
+            transition: opacity 0.15s, box-shadow 0.18s;
+            z-index: 10;
+            outline: none;
+        }
+        .inputbox:focus {
+            opacity: 1;
+            box-shadow: 0 8px 24px rgba(30,80,200,0.15);
+            border-color: #3178f5;
+        }
+        .inputbox.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .edit-hint {
+            position: fixed;
+            top: 2.6em;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.88);
+            color: #444;
+            border-radius: 0.6em;
+            padding: 0.25em 1em;
+            font-size: 1.03em;
+            font-family: inherit;
+            z-index: 9;
+            opacity: 0.7;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .inputbox:focus ~ .edit-hint,
+        .inputbox:not(.hide) ~ .edit-hint {
+            opacity: 0;
+        }
+        .output span { display: contents; }
+        @media (max-width: 700px) {
+            .inputbox { width: 96vw; font-size: 1.15em;}
+        }
+        .output, .output span {
+    font-family: 'Atkinson Hyperlegible Mono', monospace;
+    font-size: inherit;
+    font-weight: inherit; /* or normal, or 400, as desired */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea class="inputbox" rows="2" autocomplete="off" spellcheck="false"></textarea>
+        <div class="edit-hint"> <kbd>Enter</kbd> to edit. <kbd>Escape</kbd> to hide input.</div>
+        <div class="output" aria-live="polite"></div>
+    </div>
+    <script>
+        // ChromaNotes chromatic colours, including accidentals
+        const chromaNotesColors = {
+            'C':  '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+            'D':  '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+            'E':  '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+            'F':  '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+            'G':  '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+            'A':  '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+            'B':  '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+        };
+
+        const inputBox = document.querySelector('.inputbox');
+        const outputDiv = document.querySelector('.output');
+        const hint = document.querySelector('.edit-hint');
+
+        function renderColoured(text) {
+            function escapeHTML(s) {
+                return s.replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;");
+            }
+            const noteRegex = /([A-G](?:#|b)?)/g;
+            let safeText = escapeHTML(text);
+            safeText = safeText.replace(noteRegex, (match) => {
+                const colour = chromaNotesColors[match];
+                if (colour) {
+                    return `<span style="color: ${colour}; font-weight: bold;">${match}</span>`;
+                }
+                return match;
+            });
+            safeText = safeText.replace(/\n/g, "<br>");
+            return safeText;
+        }
+
+        function getFontSize(text) {
+            const vw = window.innerWidth, vh = window.innerHeight;
+            const fontScale = 96;
+            return (fontScale) / Math.sqrt(text.length + 0.15);
+        }
+
+        function syncFontSize() {
+            const text = inputBox.value || ' ';
+            const size = getFontSize(text);
+            outputDiv.style.fontSize = size + 'vh';
+        }
+
+        function updateOutput() {
+            const text = inputBox.value;
+            outputDiv.innerHTML = renderColoured(text);
+            syncFontSize();
+        }
+
+        function showInput() {
+            inputBox.classList.remove('hide');
+            inputBox.focus();
+        }
+        function hideInput() {
+            inputBox.classList.add('hide');
+            hint.style.opacity = 0.7;
+        }
+
+        // Edit mode handlers
+        inputBox.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                inputBox.blur();
+                hideInput();
+            }
+        });
+        inputBox.addEventListener('input', updateOutput);
+        inputBox.addEventListener('blur', hideInput);
+        outputDiv.addEventListener('click', showInput);
+        hint.addEventListener('click', showInput);
+
+        // Show input on Enter or '/'
+        window.addEventListener('keydown', (e) => {
+            if ((e.key === 'Enter' || e.key === '/') && inputBox.classList.contains('hide')) {
+                e.preventDefault();
+                showInput();
+            }
+        });
+        window.addEventListener('resize', syncFontSize);
+
+        // Initial example
+        inputBox.value = "C D E F G A B";
+        updateOutput();
+        hideInput();
+
+    </script>
+</body>
+</html>

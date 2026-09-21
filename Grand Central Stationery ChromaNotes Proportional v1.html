@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – ChromaNotes Proportional v1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <style>
+    /* Zero-advance ♯ and ♭: a small raised accidental drawn to the right of
+       the letter's origin, so "C♭" is exactly as wide as "C" in the textarea,
+       the shadow and the fitter. Outlines from Noto Music (OFL), 654 bytes. */
+    @font-face {
+      font-family: 'GCS Accidentals';
+      src: url(data:font/woff2;base64,d09GMgABAAAAAAKYAAoAAAAABTQAAAJOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqBPIEvATYCJAMICwgABCAFhG0HMxtsBCAeB7lJ65q1UxwiI661ZfsQPLxj/7vbvrhIFatiWbNBJnOIWsqzcs0iCLtCld3LKgKhMsk9NYAFnsdd77c80CgwbkusLdPbIjhu4Jy6sCiBBNBooEpK33Ag8R8h8Xa6nS5wi9SDH8i+OzdexwoaJiU05N5REBNtWohIA6Z+hrQx7DOq3F4cVPcdIG4OlUABK4oAVrT4AR1aBJlJptHgPY97dBcBAAAUAB2gBZJAugYAWgBAks3YqbYa8mh4eM/anVfc0ZFV6Omj7emlWD8xOLiyahRe8Y0hsTHEl5elDRJle6UWj6a/zH9s7c2fbcyTXErONLXql19+/X1g+lNPzzCA+86b3sx0zFtscdl2xE7edtR2i2mDXcTJpnd5Fvl2eTQABBB4s832bDVN+vWU+gv4/cUNmv1GsbNYjgBFAhBow0sABm/boiZChK8wYEAAxY0EIEGop8f50xpBRjA1zUi6tnYb83CIIqo+8N8BRnDJKSOZ5GmLsay858q/LRVixN3mtGQ0GtXyxK8y/6xkLq68KRPMIjwk3D9oG20o8DkEav/LSWRuv86uvatWZAS4el5mkJv5ukTbZzKcsNVfmnLD1j8NDwknl/RnlWBUEkkVjQTQwzMUKGFEBhRLggoHfiodnEEpi2iQw9AiKFLhiBYQCBcinL8gbiZxjEQEaKcJMIFYRlCJKoZGhCy50RjFJgxgShnCUHEwFxkKJ6kCv65gIdfeC6TjuIpAtIiRgidSSCTGCyaK06lBvKDKmqgLSNRSEEUorXHC6g5EAA==) format('woff2');
+      unicode-range: U+266D, U+266F;
+    }
+    :root {
+      --font: 'GCS Accidentals', 'Atkinson Hyperlegible', 'Noto Music', system-ui, sans-serif;   /* overwritten by the picker */
+      --pad: 2vh;
+      --lh: 1.1;                 /* unitless: line box = 1.1 × font-size, always */
+      --ink: #222;
+      --caret: #aaa;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
+      background: #fff;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100vw; height: 100vh;
+    }
+
+    /* All three layers share one box model and one text-layout model so the
+       browser wraps them identically. The textarea must never differ from the
+       shadow in any property that affects line breaking. */
+    .layer {
+      position: absolute; inset: 0;
+      margin: 0; border: 0;
+      padding: var(--pad);
+      box-sizing: border-box;
+      font-family: var(--font);
+      font-weight: 700;          /* same weight everywhere: identical advances */
+      font-size: 10vmin;         /* fallback until JS runs */
+      line-height: var(--lh);
+      white-space: pre-wrap;
+      word-break: break-word;
+      letter-spacing: 0;
+      font-variant-ligatures: none;
+      font-kerning: none;
+      overflow: hidden;          /* JS switches to auto only when clamped at MIN_PX */
+    }
+    .shadow, .inputbox {
+      /* The dramatic per-keystroke size shift is a transform animation set
+         from JS (see update()). Never measure these two while they animate. */
+      transform-origin: 0 0;
+    }
+    .shadow {
+      color: var(--ink);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .inputbox {
+      color: transparent;
+      caret-color: var(--caret);
+      background: transparent;
+      z-index: 2;
+      outline: none;
+      resize: none;
+    }
+    .measure {
+      /* Hidden, transition-free twin used for the one-shot overflow check. */
+      visibility: hidden;
+      z-index: 0;
+      pointer-events: none;
+      transition: none;
+    }
+
+    .note { color: var(--c); }
+
+    /* Accidentals are real ♯/♭ characters in BOTH layers, drawn by the music
+       font through the font-family fallback, so they wrap identically and sit
+       tight against the note letter like printed notation. The shadow only
+       nudges them vertically (position: relative never affects layout). */
+    .acc { position: relative; }   /* placement lives in the GCS Accidentals font */
+
+    /* Font picker: nearly invisible until hovered, never in the text's way. */
+    .fontpick {
+      position: absolute; top: 8px; right: 8px; z-index: 3;
+      font: 14px system-ui, sans-serif;
+      opacity: 0.12; transition: opacity 0.2s;
+    }
+    .fontpick:hover, .fontpick:focus-within { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <select class="fontpick" aria-label="Text font"></select>
+    <div class="layer measure" aria-hidden="true"></div>
+    <div class="layer shadow" aria-hidden="true"></div>
+    <textarea class="layer inputbox"
+      aria-label="Note input"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      autocapitalize="off"></textarea>
+  </div>
+  <script>
+    (() => {
+      'use strict';
+
+      const COLORS = {
+        'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+        'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+        'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+        'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+        'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+        'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+        'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+      };
+
+      const MIN_PX = 8;          // below this we give up and let the box scroll
+      const WHOLE_WORDS = true;  // never split a word to gain size ("book|s"); false = pure maximum
+      const WHOLE_WORD_MAX = 15; // runs longer than this (unspaced melodies, URLs) may still break
+      const ZWSP = '\u200b';     // makes a div count trailing newlines like a textarea does
+
+      const container = document.querySelector('.container');
+      const shadow    = document.querySelector('.shadow');
+      const input     = document.querySelector('.inputbox');
+      const measure   = document.querySelector('.measure');
+
+      /* ------------------------------------------------------------------ */
+      /* Rendering                                                           */
+      /* ------------------------------------------------------------------ */
+
+      const escapeHTML = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+      const SHARP = '\u266F', FLAT = '\u266D';
+      const toAscii  = { '#': '#', 'b': 'b', [SHARP]: '#', [FLAT]: 'b' };
+      const toSymbol = { '#': SHARP, 'b': FLAT };
+
+      // A '#' or 'b' after a note letter is an accidental unless a lowercase
+      // letter follows ("Ab" is A-flat, "About" is A + "bout"). The textarea's
+      // own text is rewritten so accidentals are the real ♯/♭ characters, and
+      // back to ASCII when a lowercase letter is typed after them. Every
+      // replacement is one character for one, so the caret never moves.
+      function normalizeAccidentals(text) {
+        return text.replace(/([A-G])([#b\u266F\u266D])(?=([a-z]?))/g,
+          (m, note, acc, next) => note + (next ? toAscii[acc] : toSymbol[toAscii[acc]]));
+      }
+
+      function syncAccidentals() {
+        const want = normalizeAccidentals(input.value);
+        if (want === input.value) return;
+        const have = input.value;
+        const s = input.selectionStart, e = input.selectionEnd;
+        for (let i = 0; i < have.length; i++) {
+          if (have[i] !== want[i]) input.setRangeText(want[i], i, i + 1, 'preserve');
+        }
+        input.setSelectionRange(s, e);       // 1:1 replacements: offsets are unchanged
+      }
+
+      function renderColouredText(text) {
+        const html = escapeHTML(text).replace(/([A-G])([#b\u266F\u266D])?/g, (m, note, accRaw, offset, str) => {
+          const nextIsLower = /[a-z]/.test(str[offset + 2] || '');
+          const acc  = accRaw && !nextIsLower ? accRaw : '';
+          const tail = accRaw && nextIsLower ? accRaw : '';
+          const color = COLORS[note + (acc ? toAscii[acc] : '')];
+          if (!color) return m;
+          const accHTML = acc
+            ? `<span class="acc ${toAscii[acc] === '#' ? 'sharp' : 'flat'}">${acc}</span>`
+            : '';
+          return `<span class="note" style="--c:${color}">${note}${accHTML}</span>${tail}`;
+        });
+        return html + ZWSP;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Metrics: glyph advances from a canvas, line geometry from the DOM    */
+      /* ------------------------------------------------------------------ */
+
+      // Text faces. Any family works: the fitter measures whatever is chosen.
+      // Pick with the dropdown or ?font=<key>.
+      const FONTS = {
+        hyperlegible:      { family: 'Atkinson Hyperlegible',      label: 'Atkinson Hyperlegible' },
+        hyperlegibleNext:  { family: 'Atkinson Hyperlegible Next', label: 'Atkinson Hyperlegible Next' },
+        hyperlegibleMono:  { family: 'Atkinson Hyperlegible Mono', label: 'Atkinson Hyperlegible Mono' },
+        lexend:            { family: 'Lexend',                     label: 'Lexend' },
+        andika:            { family: 'Andika',                     label: 'Andika (SIL literacy)' },
+      };
+      const ACC_FONT = 'Noto Music';
+      let fontKey = Object.keys(FONTS).includes(new URLSearchParams(location.search).get('font'))
+        ? new URLSearchParams(location.search).get('font') : 'hyperlegible';
+
+      const REF_PX = 100;                    // widths are measured at 100px and scaled linearly
+      const ACC_GLYPH_FONT = 'GCS Accidentals';   // zero-advance ♯ ♭ (embedded above)
+      const fontSpec = () => `700 ${REF_PX}px '${ACC_GLYPH_FONT}', '${FONTS[fontKey].family}', '${ACC_FONT}'`;
+      const ctx = document.createElement('canvas').getContext('2d');
+      const widthCache = new Map();          // token -> advance at REF_PX
+
+      const metrics = { lhPerPx: 1.1, overhangPerPx: 0, innerW: 0, innerH: 0, spaceW: 30 };
+
+      function primeCanvas() {
+        ctx.font = fontSpec();
+        ctx.fontKerning = 'none';            // layers use font-kerning: none, so advances are additive
+        widthCache.clear();
+        metrics.spaceW = ctx.measureText(' ').width;
+      }
+
+      function widthOf(token) {
+        let w = widthCache.get(token);
+        if (w === undefined) { w = ctx.measureText(token).width; widthCache.set(token, w); }
+        return w;
+      }
+
+      function measureMetrics() {
+        // Line pitch and bottom overhang from a 1px inner probe, read through
+        // scroll properties (immune to ancestor transforms, unlike client rects).
+        measure.style.fontSize = '1000px';
+        measure.innerHTML = '<div style="overflow:hidden;height:1px;white-space:pre"></div>';
+        const probe = measure.firstElementChild;
+        probe.textContent = '0';
+        const oneRow = probe.scrollHeight;
+        probe.textContent = '0\n0';
+        const pitch = probe.scrollHeight - oneRow;
+        metrics.lhPerPx = pitch / 1000;
+        metrics.overhangPerPx = Math.max(0, oneRow - pitch) / 1000;
+        measure.textContent = '';
+
+        const cs = getComputedStyle(measure);
+        metrics.innerW = measure.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        metrics.innerH = measure.clientHeight - parseFloat(cs.paddingTop)  - parseFloat(cs.paddingBottom);
+        primeCanvas();
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Fitting: greedy wrap in pixels, binary search on the font size      */
+      /* ------------------------------------------------------------------ */
+
+      const TOKEN_RE = /[ \t]+|[^ \t\-–—]*[-–—]|[^ \t\-–—]+/g;
+
+      // Rows one paragraph occupies at font size `px` in a row `W` wide, or
+      // Infinity if a single glyph is wider than the row. Mirrors
+      // `white-space: pre-wrap; word-break: break-word`:
+      //   - break at spaces, and after hyphens and dashes;
+      //   - trailing spaces hang past the edge instead of wrapping;
+      //   - a word wider than a row moves to a fresh row, then breaks per glyph;
+      //   - a tab advances to the next multiple of 8 space widths.
+      function rowsForParagraph(para, px, W) {
+        const k = px / REF_PX;
+        const tabW = 8 * metrics.spaceW * k;
+        let rows = 1, x = 0;
+        for (const tok of para.match(TOKEN_RE) || []) {
+          if (tok[0] === ' ' || tok[0] === '\t') {
+            for (const ch of tok) x = ch === '\t' ? (Math.floor(x / tabW) + 1) * tabW : x + metrics.spaceW * k;
+            continue;
+          }
+          const w = widthOf(tok) * k;
+          if (x > 0 && x + w > W) { rows++; x = 0; }
+          if (w > W) {
+            for (const ch of tok) {
+              const cw = widthOf(ch) * k;
+              if (cw > W) return Infinity;
+              if (x > 0 && x + cw > W) { rows++; x = 0; }
+              x += cw;
+            }
+          } else {
+            x += w;
+          }
+        }
+        return rows;
+      }
+
+      // Widest run we insist on keeping whole, at REF_PX.
+      function widestWord(paras) {
+        let w = 0;
+        for (const p of paras) {
+          for (const tok of p.match(TOKEN_RE) || []) {
+            if (tok[0] === ' ' || tok[0] === '\t' || tok.length > WHOLE_WORD_MAX) continue;
+            w = Math.max(w, widthOf(tok));
+          }
+        }
+        return w;
+      }
+
+      // Largest font size (px) at which the text fits the inner box. Height
+      // used is monotone in the size (bigger glyphs never need fewer rows),
+      // so a binary search on the size converges in ~24 steps.
+      function fitFontPx(text) {
+        const paras = text.split('\n');
+        const W = metrics.innerW - 0.5;          // half a pixel of slack for sub-pixel rounding
+        const H = metrics.innerH;
+
+        const fits = px => {
+          let rows = 0;
+          for (const p of paras) {
+            rows += rowsForParagraph(p, px, W);
+            if (rows === Infinity) return false;
+          }
+          return (metrics.lhPerPx * rows + metrics.overhangPerPx) * px <= H;
+        };
+
+        let hi = H / (metrics.lhPerPx + metrics.overhangPerPx);   // one row, height-limited
+        if (WHOLE_WORDS) {
+          const ww = widestWord(paras);
+          if (ww > 0) hi = Math.min(hi, W / ww * REF_PX);
+        }
+        if (hi <= MIN_PX || !fits(MIN_PX)) return MIN_PX;
+        let lo = MIN_PX;
+        for (let i = 0; i < 24 && hi - lo > 0.01; i++) {
+          const mid = (lo + hi) / 2;
+          if (fits(mid)) lo = mid; else hi = mid;
+        }
+        return Math.floor(lo * 100) / 100;
+      }
+
+      // Safety net: one real layout on the hidden twin. Catches anything the
+      // grid model does not know about (odd punctuation, fallback glyphs).
+      function verifyFontPx(px, text) {
+        measure.textContent = text + ZWSP;
+        for (let i = 0; i < 8 && px > MIN_PX; i++) {
+          measure.style.fontSize = px + 'px';
+          if (measure.scrollHeight <= measure.clientHeight &&
+              measure.scrollWidth  <= measure.clientWidth) return px;
+          px = Math.max(MIN_PX, px * 0.98);
+        }
+        return px;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Update loop                                                         */
+      /* ------------------------------------------------------------------ */
+
+      // The size change is animated with a transform, not with font-size:
+      // both layers are laid out at the final size at once (so words never hop
+      // between lines mid-animation) and scale from the size the viewer is
+      // currently looking at to 1. Transforms skip layout, so this is also
+      // cheaper than animating font-size.
+      const EASE = 'cubic-bezier(.2,.7,.3,1)';
+      let appliedPx = 0;
+      function currentScale(el) {
+        const t = getComputedStyle(el).transform;      // "matrix(a, b, c, d, tx, ty)" or "none"
+        return t.startsWith('matrix(') ? parseFloat(t.slice(7)) : 1;
+      }
+      function update() {
+        const text = input.value;
+        shadow.innerHTML = renderColouredText(text);
+        const px = verifyFontPx(fitFontPx(text), text);
+        if (appliedPx && Math.abs(px - appliedPx) > 0.01) {
+          const k = appliedPx * currentScale(shadow) / px;
+          for (const el of [shadow, input]) { el.style.transition = 'none'; el.style.transform = `scale(${k})`; }
+        }
+        shadow.style.fontSize = input.style.fontSize = px + 'px';
+        void shadow.offsetWidth;                         // commit the start state
+        for (const el of [shadow, input]) { el.style.transition = `transform 0.22s ${EASE}`; el.style.transform = 'scale(1)'; }
+        appliedPx = px;
+        const clamped = px <= MIN_PX;
+        shadow.style.overflow = input.style.overflow = clamped ? 'auto' : 'hidden';
+      }
+
+      let frame = null;
+      function scheduleRemeasure() {
+        if (frame !== null) return;
+        frame = requestAnimationFrame(() => { frame = null; measureMetrics(); update(); });
+      }
+
+      input.addEventListener('input', e => {               // instant: no debounce
+        if (!e.isComposing) syncAccidentals();
+        update();
+      });
+      input.addEventListener('scroll', () => {
+        shadow.scrollTop = input.scrollTop;
+        shadow.scrollLeft = input.scrollLeft;
+      });
+      new ResizeObserver(scheduleRemeasure).observe(container);
+      const picker = document.querySelector('.fontpick');
+      for (const [key, f] of Object.entries(FONTS)) picker.add(new Option(f.label, key));
+
+      function applyFont(key) {
+        fontKey = key;
+        picker.value = key;
+        document.documentElement.style.setProperty('--font', `'${ACC_GLYPH_FONT}', '${FONTS[key].family}', '${ACC_FONT}', system-ui, sans-serif`);
+        measureMetrics();
+        update();
+        if (document.fonts) {
+          // Canvas and DOM both fall back until the face is loaded; re-measure then.
+          Promise.all([document.fonts.load(fontSpec()), document.fonts.load(`400 ${REF_PX}px '${ACC_FONT}'`), document.fonts.load(`400 ${REF_PX}px '${ACC_GLYPH_FONT}'`)])
+            .then(scheduleRemeasure).catch(() => {});
+        }
+      }
+      picker.addEventListener('change', () => { applyFont(picker.value); input.focus(); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleRemeasure).catch(() => {});
+
+      // Exposed for the test harness; harmless otherwise.
+      window.GCS = { fitFontPx, rowsForParagraph, measureMetrics, metrics, update, widthOf, applyFont, normalizeAccidentals, FONTS, MIN_PX };
+
+      input.value = normalizeAccidentals("C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb");
+      applyFont(fontKey);
+      input.focus();
+    })();
+  </script>
+</body>
+</html>

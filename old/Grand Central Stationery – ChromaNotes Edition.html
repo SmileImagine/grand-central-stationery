@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Central Stationery – ChromaNotes Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fafcff 0%, #e0e7ff 100%);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+        }
+        .app-container {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 3vh 0;
+        }
+        .inputbox {
+            min-height: 2em;
+            min-width: 300px;
+            max-width: 80vw;
+            padding: 1.1em 1.5em;
+            border-radius: 1.3em;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 4px 24px rgba(20,40,80,0.10);
+            border: 1px solid rgba(130,140,160,0.18);
+            backdrop-filter: blur(8px);
+            font-size: 1.2em;
+            margin-bottom: 2vh;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+        .inputbox:focus {
+            box-shadow: 0 8px 36px rgba(20,40,80,0.16);
+            background: rgba(255,255,255,0.93);
+        }
+        .output-container {
+            width: 80vw;
+            max-width: 900px;
+            min-height: 33vh;
+            flex: 1 1 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1em;
+            background: rgba(255,255,255,0.4);
+            box-shadow: 0 2px 14px rgba(20,40,80,0.09);
+            margin-bottom: 2vh;
+        }
+        .output {
+            width: 100%;
+            word-break: break-word;
+            font-family: 'Fira Mono', 'Menlo', 'Consolas', monospace;
+            white-space: pre-wrap;
+            text-align: center;
+            transition: font-size 0.2s;
+            line-height: 1.12;
+            min-height: 2em;
+            user-select: text;
+        }
+        /* Nice touch: chromatic underline for chords (optional)
+        .output span {
+            border-bottom: 0.15em solid currentColor;
+        }
+        */
+        @media (max-width: 700px) {
+            .output-container {
+                width: 98vw;
+                max-width: 98vw;
+            }
+            .inputbox {
+                max-width: 98vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="inputbox" contenteditable="true" spellcheck="false" aria-label="Type or paste your music notes here..."></div>
+        <div class="output-container">
+            <div class="output" aria-live="polite"></div>
+        </div>
+    </div>
+    <script>
+        // Chroma-Notes full chromatic color palette, your sampled hexes
+        const chromaNotesColors = {
+            'C':  '#e72829', // Red
+            'C#': '#ef5523',
+            'Db': '#ef5523',
+            'D':  '#f39322', // Orange
+            'D#': '#ffd259',
+            'Eb': '#ffd259',
+            'E':  '#f2e716', // Yellow
+            'E#': '#69b944',
+            'Fb': '#f2e716',
+            'F':  '#69b944', // Green
+            'F#': '#53cf84',
+            'Gb': '#53cf84',
+            'G':  '#019696', // Teal
+            'G#': '#087fca',
+            'Ab': '#087fca',
+            'A':  '#79569f', // Purple
+            'A#': '#9f5a8f',
+            'Bb': '#9f5a8f',
+            'B':  '#FF77A9', // Pink
+            'Cb': '#ec6ca4',
+            'B#': '#e72829'
+        };
+
+        const inputDiv = document.querySelector('.inputbox');
+        const outputDiv = document.querySelector('.output');
+        const outputContainer = document.querySelector('.output-container');
+
+        function renderColoured(text) {
+            // Convert whitespace/newlines to HTML
+            // We use pre-wrap, but must keep <span> mark-up
+            // Use a regex that matches chords, then split/join
+            // (1) Replace notes and accidentals with colored <span>
+            // (2) Escape HTML special characters to prevent injection (for non-chord text)
+            function escapeHTML(s) {
+                return s.replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;");
+            }
+
+            // Regex for A-G, optional # or b (but not eg. C##)
+            // Use a negative lookahead for double sharps/flats if you want to block them.
+            const noteRegex = /([A-G](?:#|b)?)/g;
+
+            // We escape, then restore chords with <span>
+            let safeText = escapeHTML(text);
+            safeText = safeText.replace(noteRegex, (match) => {
+                const colour = chromaNotesColors[match];
+                if (colour) {
+                    return `<span style="color: ${colour}; font-weight: bold;">${match}</span>`;
+                }
+                return match;
+            });
+
+            // No need to replace spaces/newlines: white-space: pre-wrap in CSS does it for us!
+            return safeText;
+        }
+
+        function adjustFontSize() {
+            // Start big, shrink until it fits
+            let min = 1.4; // vw
+            let max = 8.0; // vw
+            let fontSize = max;
+            outputDiv.style.fontSize = fontSize + 'vw';
+
+            // Use binary search for efficiency
+            function fits() {
+                return (
+                    outputDiv.scrollWidth <= outputContainer.clientWidth &&
+                    outputDiv.scrollHeight <= outputContainer.clientHeight
+                );
+            }
+
+            // First, if it fits at max, done
+            if (fits()) return;
+
+            // Binary search
+            let lo = min, hi = max;
+            for (let i = 0; i < 16; i++) {
+                fontSize = (lo + hi) / 2;
+                outputDiv.style.fontSize = fontSize + 'vw';
+                if (fits()) {
+                    lo = fontSize;
+                } else {
+                    hi = fontSize;
+                }
+            }
+            // Set to largest that fits
+            outputDiv.style.fontSize = lo + 'vw';
+        }
+
+        function updateOutput() {
+            // Use innerText for multiline, or textContent for plain
+            const text = inputDiv.innerText;
+            outputDiv.innerHTML = renderColoured(text);
+            adjustFontSize();
+        }
+
+        inputDiv.addEventListener('input', updateOutput);
+        window.addEventListener('resize', updateOutput);
+
+        // Optional: Initial greeting text
+        inputDiv.innerText = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb\n";
+        updateOutput();
+
+        // Optional: Accessibility keyboard focus
+        inputDiv.focus();
+    </script>
+</body>
+</html>

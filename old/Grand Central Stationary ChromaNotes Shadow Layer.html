@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – ChromaNotes Shadow Layer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      background: #fff;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    .shadow, .inputbox {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      padding: 2vh;
+      box-sizing: border-box;
+      font-family: 'Atkinson Hyperlegible Mono', monospace;
+      font-optical-sizing: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow: auto;
+      line-height: 1.1;
+      font-size: inherit;
+      transition: font-size 0.01s ease-in-out, padding 0.01s ease-in-out;
+
+  
+    }
+    .shadow {
+      color: #222;
+      z-index: 1;
+      pointer-events: none; /* Prevent interaction with shadow layer */
+    }
+    .shadow span {
+      font-weight: bold; /* Highlight notes */
+    }
+    .inputbox {
+      color: transparent; /* low opacity layer used for input, caret */
+      caret-color: #aaa; /* Show caret */
+      background: transparent;
+      z-index: 2;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Display layer that reflects colored notes -->
+    <div class="shadow"></div>
+    <!-- Invisible text input layer overlaid on top -->
+    <textarea class="inputbox"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      aria-label="Note input"></textarea>
+  </div>
+  <script>
+    (() => {
+      // Mapping from note names to ChromaNotes colors
+      const chromaNotesColors = {
+        'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+        'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+        'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+        'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+        'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+        'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+        'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+      };
+
+      const shadow = document.querySelector('.shadow');
+      const input = document.querySelector('.inputbox');
+
+      // Escape HTML to safely render user input
+      function escapeHTML(str) {
+        return str.replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;");
+      }
+
+      // Wrap note names in span with corresponding color
+      function renderColoured(text) {
+        const noteRegex = /([A-G](?:#|b)?)/g;
+        const safe = escapeHTML(text);
+        return safe.replace(noteRegex, match => {
+          const color = chromaNotesColors[match];
+          return color ? `<span style="color:${color};">${match}</span>` : match;
+        });
+      }
+
+      // Determine font size based on input length (larger for shorter input)
+      function getFontSize(text) {
+        const fontScale = 120;
+        return fontScale / Math.max(Math.sqrt(text.length), 1);
+      }
+
+      // Update shadow layer and font sizes
+      function update() {
+        const text = input.value;
+        const size = getFontSize(text);
+
+        input.style.fontSize = size + 'vh';
+        shadow.style.fontSize = size + 'vh';
+        shadow.innerHTML = renderColoured(text);
+
+        // Sync layout settings
+        input.style.padding = getComputedStyle(shadow).padding;
+        input.style.boxSizing = getComputedStyle(shadow).boxSizing;
+      }
+
+      // React to typing and resizing
+      input.addEventListener('input', update);
+      window.addEventListener('resize', update);
+
+      // Keep scroll position synced between layers
+      input.addEventListener('scroll', () => {
+        shadow.scrollTop = input.scrollTop;
+        shadow.scrollLeft = input.scrollLeft;
+      });
+
+      // Initial text and render
+      input.value = "C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb";
+      update();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – ChromaNotes Shadow Layer v4</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <style>
+    /* Zero-advance ♯ and ♭: a small raised accidental drawn to the right of
+       the letter's origin, so "C♭" is exactly as wide as "C" in the textarea,
+       the shadow and the fitter. Outlines from Noto Music (OFL), 654 bytes. */
+    @font-face {
+      font-family: 'GCS Accidentals';
+      src: url(data:font/woff2;base64,d09GMgABAAAAAAKYAAoAAAAABTQAAAJOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqBPIEvATYCJAMICwgABCAFhG0HMxtsBCAeB7lJ65q1UxwiI661ZfsQPLxj/7vbvrhIFatiWbNBJnOIWsqzcs0iCLtCld3LKgKhMsk9NYAFnsdd77c80CgwbkusLdPbIjhu4Jy6sCiBBNBooEpK33Ag8R8h8Xa6nS5wi9SDH8i+OzdexwoaJiU05N5REBNtWohIA6Z+hrQx7DOq3F4cVPcdIG4OlUABK4oAVrT4AR1aBJlJptHgPY97dBcBAAAUAB2gBZJAugYAWgBAks3YqbYa8mh4eM/anVfc0ZFV6Omj7emlWD8xOLiyahRe8Y0hsTHEl5elDRJle6UWj6a/zH9s7c2fbcyTXErONLXql19+/X1g+lNPzzCA+86b3sx0zFtscdl2xE7edtR2i2mDXcTJpnd5Fvl2eTQABBB4s832bDVN+vWU+gv4/cUNmv1GsbNYjgBFAhBow0sABm/boiZChK8wYEAAxY0EIEGop8f50xpBRjA1zUi6tnYb83CIIqo+8N8BRnDJKSOZ5GmLsay858q/LRVixN3mtGQ0GtXyxK8y/6xkLq68KRPMIjwk3D9oG20o8DkEav/LSWRuv86uvatWZAS4el5mkJv5ukTbZzKcsNVfmnLD1j8NDwknl/RnlWBUEkkVjQTQwzMUKGFEBhRLggoHfiodnEEpi2iQw9AiKFLhiBYQCBcinL8gbiZxjEQEaKcJMIFYRlCJKoZGhCy50RjFJgxgShnCUHEwFxkKJ6kCv65gIdfeC6TjuIpAtIiRgidSSCTGCyaK06lBvKDKmqgLSNRSEEUorXHC6g5EAA==) format('woff2');
+      unicode-range: U+266D, U+266F;
+    }
+    :root {
+      --font: 'GCS Accidentals', 'Atkinson Hyperlegible Mono', 'Noto Music', ui-monospace, Menlo, Consolas, monospace;
+      --pad: 2vh;
+      --lh: 1.1;                 /* unitless: line box = 1.1 × font-size, always */
+      --ink: #222;
+      --caret: #aaa;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      width: 100vw; height: 100vh;
+      background: #fff;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 100vw; height: 100vh;
+    }
+
+    /* All three layers share one box model and one text-layout model so the
+       browser wraps them identically. The textarea must never differ from the
+       shadow in any property that affects line breaking. */
+    .layer {
+      position: absolute; inset: 0;
+      margin: 0; border: 0;
+      padding: var(--pad);
+      box-sizing: border-box;
+      font-family: var(--font);
+      font-weight: 700;          /* same weight everywhere: identical advances */
+      font-size: 10vmin;         /* fallback until JS runs */
+      line-height: var(--lh);
+      white-space: pre-wrap;
+      word-break: break-word;
+      letter-spacing: 0;
+      font-variant-ligatures: none;
+      font-kerning: none;
+      overflow: hidden;          /* JS switches to auto only when clamped at MIN_PX */
+    }
+    .shadow, .inputbox {
+      /* The dramatic per-keystroke size shift is a transform animation set
+         from JS (see update()). Never measure these two while they animate. */
+      transform-origin: 0 0;
+    }
+    .shadow {
+      color: var(--ink);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .inputbox {
+      color: transparent;
+      caret-color: var(--caret);
+      background: transparent;
+      z-index: 2;
+      outline: none;
+      resize: none;
+    }
+    .measure {
+      /* Hidden, transition-free twin used for the one-shot overflow check. */
+      visibility: hidden;
+      z-index: 0;
+      pointer-events: none;
+      transition: none;
+    }
+
+    .note { color: var(--c); }
+
+    /* Accidentals are real ♯/♭ characters in BOTH layers, drawn by the music
+       font through the font-family fallback, so they wrap identically and sit
+       tight against the note letter. The grid fitter counts them as one cell;
+       they are narrower, which only makes it conservative. The shadow nudges
+       them vertically (position: relative never affects layout). */
+    .acc { position: relative; }   /* placement lives in the GCS Accidentals font */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="layer measure" aria-hidden="true"></div>
+    <div class="layer shadow" aria-hidden="true"></div>
+    <textarea class="layer inputbox"
+      aria-label="Note input"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      autocapitalize="off"></textarea>
+  </div>
+  <script>
+    (() => {
+      'use strict';
+
+      const COLORS = {
+        'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+        'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+        'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+        'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+        'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+        'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+        'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+      };
+
+      const MIN_PX = 8;          // below this we give up and let the box scroll
+      const WHOLE_WORDS = true;  // never split a word to gain size ("book|s"); false = pure maximum
+      const WHOLE_WORD_MAX = 15; // runs longer than this (unspaced melodies, URLs) may still break
+      const ZWSP = '\u200b';     // makes a div count trailing newlines like a textarea does
+
+      const container = document.querySelector('.container');
+      const shadow    = document.querySelector('.shadow');
+      const input     = document.querySelector('.inputbox');
+      const measure   = document.querySelector('.measure');
+
+      /* ------------------------------------------------------------------ */
+      /* Rendering                                                           */
+      /* ------------------------------------------------------------------ */
+
+      const escapeHTML = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+      const SHARP = '\u266F', FLAT = '\u266D';
+      const toAscii  = { '#': '#', 'b': 'b', [SHARP]: '#', [FLAT]: 'b' };
+      const toSymbol = { '#': SHARP, 'b': FLAT };
+
+      // A '#' or 'b' after a note letter is an accidental unless a lowercase
+      // letter follows ("Ab" is A-flat, "About" is A + "bout"). The textarea's
+      // own text is rewritten so accidentals are the real ♯/♭ characters, and
+      // back to ASCII when a lowercase letter is typed after them. Every
+      // replacement is one character for one, so the caret never moves.
+      function normalizeAccidentals(text) {
+        return text.replace(/([A-G])([#b\u266F\u266D])(?=([a-z]?))/g,
+          (m, note, acc, next) => note + (next ? toAscii[acc] : toSymbol[toAscii[acc]]));
+      }
+
+      function syncAccidentals() {
+        const want = normalizeAccidentals(input.value);
+        if (want === input.value) return;
+        const have = input.value;
+        const s = input.selectionStart, e = input.selectionEnd;
+        for (let i = 0; i < have.length; i++) {
+          if (have[i] !== want[i]) input.setRangeText(want[i], i, i + 1, 'preserve');
+        }
+        input.setSelectionRange(s, e);       // 1:1 replacements: offsets are unchanged
+      }
+
+      function renderColouredText(text) {
+        const html = escapeHTML(text).replace(/([A-G])([#b\u266F\u266D])?/g, (m, note, accRaw, offset, str) => {
+          const nextIsLower = /[a-z]/.test(str[offset + 2] || '');
+          const acc  = accRaw && !nextIsLower ? accRaw : '';
+          const tail = accRaw && nextIsLower ? accRaw : '';
+          const color = COLORS[note + (acc ? toAscii[acc] : '')];
+          if (!color) return m;
+          const accHTML = acc
+            ? `<span class="acc ${toAscii[acc] === '#' ? 'sharp' : 'flat'}">${acc}</span>`
+            : '';
+          return `<span class="note" style="--c:${color}">${note}${accHTML}</span>${tail}`;
+        });
+        return html + ZWSP;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Metrics: measured once per font load / resize, never per keystroke  */
+      /* ------------------------------------------------------------------ */
+
+      const metrics = { chPerPx: 0.6, lhPerPx: 1.1, overhangPerPx: 0, innerW: 0, innerH: 0 };
+
+      function measureMetrics() {
+        // Everything is read from offset/scroll properties, which are in the
+        // element's own CSS pixels and immune to ancestor transforms or zoom
+        // (getBoundingClientRect is not). A 1000px probe gives 3 decimals.
+        measure.style.fontSize = '1000px';
+        // white-space: pre so the ten zeros never wrap or shrink to the
+        // available width; scrollWidth then reports their full advance.
+        measure.innerHTML = '<div style="overflow:hidden;height:1px;white-space:pre"></div>';
+        const probe = measure.firstElementChild;
+        probe.textContent = '0000000000';
+        metrics.chPerPx = probe.scrollWidth / 10 / 1000;
+
+        // Line pitch = growth from one row to two. The font's content box is
+        // taller than the line box and the part that pokes out below the last
+        // row counts as overflow (and clips descenders at very large sizes).
+        probe.textContent = '0';
+        const oneRow = probe.scrollHeight;
+        probe.textContent = '0\n0';
+        const pitch = probe.scrollHeight - oneRow;
+        metrics.lhPerPx = pitch / 1000;
+        metrics.overhangPerPx = Math.max(0, oneRow - pitch) / 1000;
+        measure.textContent = '';
+
+        const cs = getComputedStyle(measure);
+        metrics.innerW = measure.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        metrics.innerH = measure.clientHeight - parseFloat(cs.paddingTop)  - parseFloat(cs.paddingBottom);
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Fitting: exact for a monospace grid, no feedback loop               */
+      /* ------------------------------------------------------------------ */
+
+      // Visual rows one paragraph occupies when `cols` characters fit per row.
+      // Mirrors `white-space: pre-wrap; word-break: break-word`:
+      //   - break at spaces, and after hyphens and dashes;
+      //   - trailing spaces hang past the edge instead of wrapping;
+      //   - a word longer than a row moves to a fresh row, then breaks in place;
+      //   - a tab advances to the next multiple of 8 cells.
+      function rowsForParagraph(para, cols) {
+        if (cellsForParagraph(para) <= cols) return 1;
+        let rows = 1, col = 0;
+        const tokens = para.match(/[ \t]+|[^ \t\-\u2013\u2014]*[-\u2013\u2014]|[^ \t\-\u2013\u2014]+/g) || [];
+        for (const tok of tokens) {
+          if (tok[0] === ' ' || tok[0] === '\t') {
+            for (const ch of tok) col = ch === '\t' ? (Math.floor(col / 8) + 1) * 8 : col + 1;
+            continue;
+          }
+          if (col > 0 && col + tok.length > cols) { rows++; col = 0; }
+          if (tok.length > cols) {
+            rows += Math.ceil(tok.length / cols) - 1;
+            col = tok.length % cols || cols;
+          } else {
+            col += tok.length;
+          }
+        }
+        return rows;
+      }
+
+      // Largest font size (px) such that the whole text fits the inner box.
+      //   widthBound(c)  = innerW / (chPerPx · c)         — decreasing in c
+      //   heightBound(c) = innerH / (lhPerPx · rows(c) + overhang) — non-decreasing in c
+      // The answer is max over c of min(widthBound, heightBound); the two curves
+      // cross once, so a binary search on c finds it in ~log2(longest line) steps.
+      // Cells a paragraph occupies on one unwrapped row (tabs expanded).
+      function cellsForParagraph(para) {
+        if (para.indexOf('\t') === -1) return para.length;
+        let col = 0;
+        for (const ch of para) col = ch === '\t' ? (Math.floor(col / 8) + 1) * 8 : col + 1;
+        return col;
+      }
+
+      // Longest run we insist on keeping whole (same break rules as rowsForParagraph).
+      function longestWord(paras) {
+        let n = 1;
+        for (const p of paras) {
+          for (const tok of p.match(/[^ \t\-\u2013\u2014]*[-\u2013\u2014]|[^ \t\-\u2013\u2014]+/g) || []) {
+            if (tok.length > n && tok.length <= WHOLE_WORD_MAX) n = tok.length;
+          }
+        }
+        return n;
+      }
+
+      function fitFontPx(text) {
+        // ♯ and ♭ have zero advance (GCS Accidentals), so they leave the grid model.
+        const paras = text.replace(/[\u266F\u266D]/g, '').split('\n');
+        let longest = 1;
+        for (const p of paras) longest = Math.max(longest, cellsForParagraph(p));
+        const minCols = WHOLE_WORDS ? Math.min(longest, longestWord(paras)) : 1;
+
+        const W = metrics.innerW - 0.5;          // half a pixel of slack for sub-pixel rounding
+        const H = metrics.innerH;
+        const widthBound  = c => W / (metrics.chPerPx * c);
+        const heightBound = c => {
+          let rows = 0;
+          for (const p of paras) rows += rowsForParagraph(p, c);
+          return H / (metrics.lhPerPx * rows + metrics.overhangPerPx);
+        };
+
+        let lo = minCols, hi = longest;
+        while (lo < hi) {
+          const mid = (lo + hi) >> 1;
+          if (widthBound(mid) <= heightBound(mid)) hi = mid; else lo = mid + 1;
+        }
+        let best = Math.min(widthBound(lo), heightBound(lo));
+        if (lo > minCols) best = Math.max(best, Math.min(widthBound(lo - 1), heightBound(lo - 1)));
+        return Math.max(MIN_PX, Math.floor(best * 100) / 100);
+      }
+
+      // Safety net: one real layout on the hidden twin. Catches anything the
+      // grid model does not know about (odd punctuation, fallback glyphs).
+      function verifyFontPx(px, text) {
+        measure.textContent = text + ZWSP;
+        for (let i = 0; i < 8 && px > MIN_PX; i++) {
+          measure.style.fontSize = px + 'px';
+          if (measure.scrollHeight <= measure.clientHeight &&
+              measure.scrollWidth  <= measure.clientWidth) return px;
+          px = Math.max(MIN_PX, px * 0.98);
+        }
+        return px;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Update loop                                                         */
+      /* ------------------------------------------------------------------ */
+
+      // The size change is animated with a transform, not with font-size:
+      // both layers are laid out at the final size at once (so words never hop
+      // between lines mid-animation) and scale from the size the viewer is
+      // currently looking at to 1. Transforms skip layout, so this is also
+      // cheaper than animating font-size.
+      const EASE = 'cubic-bezier(.2,.7,.3,1)';
+      let appliedPx = 0;
+      function currentScale(el) {
+        const t = getComputedStyle(el).transform;      // "matrix(a, b, c, d, tx, ty)" or "none"
+        return t.startsWith('matrix(') ? parseFloat(t.slice(7)) : 1;
+      }
+      function update() {
+        const text = input.value;
+        shadow.innerHTML = renderColouredText(text);
+        const px = verifyFontPx(fitFontPx(text), text);
+        if (appliedPx && Math.abs(px - appliedPx) > 0.01) {
+          const k = appliedPx * currentScale(shadow) / px;
+          for (const el of [shadow, input]) { el.style.transition = 'none'; el.style.transform = `scale(${k})`; }
+        }
+        shadow.style.fontSize = input.style.fontSize = px + 'px';
+        void shadow.offsetWidth;                         // commit the start state
+        for (const el of [shadow, input]) { el.style.transition = `transform 0.22s ${EASE}`; el.style.transform = 'scale(1)'; }
+        appliedPx = px;
+        const clamped = px <= MIN_PX;
+        shadow.style.overflow = input.style.overflow = clamped ? 'auto' : 'hidden';
+      }
+
+      let frame = null;
+      function scheduleRemeasure() {
+        if (frame !== null) return;
+        frame = requestAnimationFrame(() => { frame = null; measureMetrics(); update(); });
+      }
+
+      input.addEventListener('input', e => {               // instant: no debounce
+        if (!e.isComposing) syncAccidentals();
+        update();
+      });
+      input.addEventListener('scroll', () => {
+        shadow.scrollTop = input.scrollTop;
+        shadow.scrollLeft = input.scrollLeft;
+      });
+      new ResizeObserver(scheduleRemeasure).observe(container);
+      if (document.fonts) {
+        document.fonts.load("400 100px 'Noto Music'").then(scheduleRemeasure).catch(() => {});
+        document.fonts.load("400 100px 'GCS Accidentals'").then(scheduleRemeasure).catch(() => {});
+        document.fonts.ready.then(scheduleRemeasure).catch(() => {});
+      }
+
+      // Exposed for the test harness; harmless otherwise.
+      window.GCS = { fitFontPx, rowsForParagraph, measureMetrics, metrics, update, normalizeAccidentals, MIN_PX };
+
+      input.value = normalizeAccidentals("C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb");
+      measureMetrics();
+      update();
+      input.focus();
+    })();
+  </script>
+</body>
+</html>
