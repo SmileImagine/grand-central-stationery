@@ -119,7 +119,7 @@
     .paper .playing { animation: pop 0.32s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
     .paper .playing text.abcjs-lyric { font-weight: 700; }
     @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.22); } 100% { transform: scale(1); } }
-    .paper .cursorbar { fill: var(--cursor); stroke: none; opacity: 0.85; filter: drop-shadow(0 0 3px var(--cursor)); transition: transform 0ms linear, opacity 0.4s; }
+    .paper .cursorbar { fill: var(--cursor); stroke: none; opacity: 0.85; filter: drop-shadow(0 0 3px var(--cursor)); transition: opacity 0.4s; }
     .paper .cursorbar.done { opacity: 0; }
     .strip { height: 26%; min-height: 60px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
     body.present .strip { height: 14vh; }
@@ -645,28 +645,37 @@
             let top = ev.top, height = ev.height;
             if (staff) { const sb = staff.getBBox(); top = sb.y - sb.height * 0.6; height = sb.height * 2.2; }
             r.setAttribute('y', top.toFixed(2)); r.setAttribute('height', height.toFixed(2));
-            // Land on this note now and rest on it while it sounds; shortly
-            // before the next note the bar hops across, arriving as it sounds.
-            // (A bar that glides for the whole duration reads as running ahead:
-            // it spends most of a long note hovering in the space after it.)
-            // The rest and the hop are one CSS transition with a delay, so the
-            // next event, which is on the synthesiser's clock, re-syncs it.
-            r.style.transition = 'transform 0ms linear, opacity 0.4s';
-            r.style.transform = `translateX(${(here.x - 3).toFixed(2)}px)`;
+            // One continuous motion per note, as a keyframe animation:
+            //   settle: from wherever the bar is onto this note (a few frames);
+            //   drift:  creep across the notehead while the note sounds;
+            //   hop:    accelerate to the next note, arriving as it sounds.
+            // A bar that glides for the whole duration reads as running ahead
+            // (it hovers in the space after a long note); one that stops dead
+            // and then jumps reads as a jerk. Each event from the synthesiser's
+            // clock starts a fresh motion from the bar's current position.
+            const x0 = here.x - 3;
+            const cur = (() => { const m = getComputedStyle(r).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : x0; })();
+            if (r._motion) r._motion.cancel();
             const timings = (this.original && this.original.noteTimings) || [];
             let idx = timings.indexOf(ev);
             if (idx < 0) idx = timings.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
             const next = timings.slice(idx + 1).find(t => t.type === 'event' && t.elements && t.elements.length);
-            if (next && next.top === ev.top) {
-              const there = this.eventGeometry(next);
-              const dt = next.milliseconds - ev.milliseconds;
-              if (there.x !== null && there.x > here.x && dt > 120) {
-                const hop = Math.min(220, dt * 0.3);          // hop duration
-                const rest = dt - hop;                          // time spent on the note
-                void r.getBoundingClientRect();
-                r.style.transition = `transform ${hop}ms ease-in-out ${rest}ms, opacity 0.4s`;
-                r.style.transform = `translateX(${(there.x - 3).toFixed(2)}px)`;
-              }
+            const there = next && next.top === ev.top ? this.eventGeometry(next) : { x: null };
+            const dt = next ? next.milliseconds - ev.milliseconds : 0;
+            const tx = x => `translateX(${x.toFixed(2)}px)`;
+            if (there.x !== null && there.x > here.x && dt > 120) {
+              const x1 = there.x - 3;
+              const settle = Math.min(0.12, 70 / dt);                  // fraction of dt spent arriving
+              const hop = Math.min(0.35, Math.max(0.2, 240 / dt));    // fraction of dt spent hopping
+              const headW = Math.min(12, (x1 - x0) * 0.3);            // drift distance: about a notehead
+              r._motion = r.animate([
+                { transform: tx(cur), easing: 'ease-out' },
+                { transform: tx(x0), offset: settle, easing: 'linear' },
+                { transform: tx(x0 + headW), offset: 1 - hop, easing: 'cubic-bezier(.5,0,.3,1)' },
+                { transform: tx(x1) },
+              ], { duration: dt, fill: 'forwards' });
+            } else {
+              r._motion = r.animate([{ transform: tx(cur), easing: 'ease-out' }, { transform: tx(x0) }], { duration: 90, fill: 'forwards' });
             }
           },
         };
