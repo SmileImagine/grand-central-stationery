@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="vendor/abcjs-audio.css" rel="stylesheet">
+  <script src="vendor/abcjs-basic-min.js" id="abcjs" defer></script>   <!-- abcjs 6.7.0, vendored. defer: text cells paint before its 500 KB is parsed; notation cells finish setting up on its load event -->
+  <script src="vendor/impress.js" defer></script>     <!-- impress.js 2.0.0, vendored: 3D present mode. defer: it touches document.body while loading -->
+  <style>
+    /* Zero-advance ♯ and ♭ (see ANALYSIS §8): "C♭" is exactly as wide as "C". */
+    @font-face {
+      font-family: 'GCS Accidentals';
+      src: url(data:font/woff2;base64,d09GMgABAAAAAAKYAAoAAAAABTQAAAJOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABmAAPAqBPIEvATYCJAMICwgABCAFhG0HMxtsBCAeB7lJ65q1UxwiI661ZfsQPLxj/7vbvrhIFatiWbNBJnOIWsqzcs0iCLtCld3LKgKhMsk9NYAFnsdd77c80CgwbkusLdPbIjhu4Jy6sCiBBNBooEpK33Ag8R8h8Xa6nS5wi9SDH8i+OzdexwoaJiU05N5REBNtWohIA6Z+hrQx7DOq3F4cVPcdIG4OlUABK4oAVrT4AR1aBJlJptHgPY97dBcBAAAUAB2gBZJAugYAWgBAks3YqbYa8mh4eM/anVfc0ZFV6Omj7emlWD8xOLiyahRe8Y0hsTHEl5elDRJle6UWj6a/zH9s7c2fbcyTXErONLXql19+/X1g+lNPzzCA+86b3sx0zFtscdl2xE7edtR2i2mDXcTJpnd5Fvl2eTQABBB4s832bDVN+vWU+gv4/cUNmv1GsbNYjgBFAhBow0sABm/boiZChK8wYEAAxY0EIEGop8f50xpBRjA1zUi6tnYb83CIIqo+8N8BRnDJKSOZ5GmLsay858q/LRVixN3mtGQ0GtXyxK8y/6xkLq68KRPMIjwk3D9oG20o8DkEav/LSWRuv86uvatWZAS4el5mkJv5ukTbZzKcsNVfmnLD1j8NDwknl/RnlWBUEkkVjQTQwzMUKGFEBhRLggoHfiodnEEpi2iQw9AiKFLhiBYQCBcinL8gbiZxjEQEaKcJMIFYRlCJKoZGhCy50RjFJgxgShnCUHEwFxkKJ6kCv65gIdfeC6TjuIpAtIiRgidSSCTGCyaK06lBvKDKmqgLSNRSEEUorXHC6g5EAA==) format('woff2');
+      unicode-range: U+266D, U+266F;
+      font-weight: 100 900;   /* covers bold too: a synthetic bold smears the glyph sideways and closes the gap between the sharp's bars at large sizes */
+    }
+    :root {
+      --font: 'GCS Accidentals', 'Atkinson Hyperlegible', 'Noto Music', system-ui, sans-serif;  /* set by the font picker */
+      --mono: 'Atkinson Hyperlegible Mono', ui-monospace, Menlo, monospace;
+      --ui: 13px system-ui, sans-serif;
+      --lh: 1.1;
+      --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #777;
+      --caret: #aaa; --accent: #087fca; --cursor: #f39322;
+      --text-cell-h: 34vh;      /* edit-mode heights */
+      --heading-cell-h: 18vh;
+      --abc-cell-h: 46vh;
+      --acc-size: 1.8;          /* notation: accidental height in noteheads */
+      --lyric-min: 9;           /* notation: lyric layout size; abcjs widens only where a syllable exceeds it */
+      --lyric-max: 20;
+    }
+    :root[data-theme="dark"] {
+      --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --panel-2: #161616; --line: #333; --line-2: #2a2a2a; --muted: #999;
+      --caret: #888; color-scheme: dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --panel-2: #161616; --line: #333; --line-2: #2a2a2a; --muted: #999;
+        --caret: #888; color-scheme: dark;
+      }
+    }
+    html, body { margin: 0; height: 100%; background: var(--bg); }
+    body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; font: var(--ui); color: var(--ink); }
+
+    /* ---------- chrome ---------- */
+    .toolbar { display: flex; gap: 8px; align-items: center; padding: 6px 10px; background: var(--panel); flex-wrap: wrap; position: relative; }
+    /* Engraved letterhead rule: thick over thin. */
+    .toolbar::after, .cell-head::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); opacity: 0.55; }
+    .cell-head::after { opacity: 0.22; }
+    .wordmark { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; margin-right: 22px; }
+    .wordmark .mark { width: 22px; height: 27px; display: block; }
+    .wordmark { position: relative; padding-bottom: 4px; }
+    .wordmark .name { display: block; height: 24px; fill: currentColor; }
+    .wordmark .hand { opacity: 0.85; }
+    /* One drawn line under the name: a pencil stroke, tapered at both ends. */
+    .wordmark::after { content: ''; position: absolute; left: 30px; right: 0; bottom: 0; height: 2px; background: currentColor; opacity: 0.7;
+      clip-path: polygon(0 60%, 4% 25%, 50% 0, 96% 35%, 100% 70%, 96% 100%, 50% 80%, 4% 95%); }
+    .toolbar .spacer, .cell-head .spacer { flex: 1; }
+    .toolbar .group { display: inline-flex; }
+    .toolbar .group button { border-radius: 0; margin-left: -1px; }
+    .toolbar .group button:first-child { border-radius: 6px 0 0 6px; margin-left: 0; }
+    .toolbar .group button:last-child { border-radius: 0 6px 6px 0; }
+    .toolbar .group button:hover { position: relative; }   /* the highlighted border on top of its neighbours */
+    /* The menu: everything used occasionally lives one click away. */
+    .menu { position: relative; }
+    .menu summary { list-style: none; cursor: pointer; font: var(--ui); padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); line-height: 1.15; }
+    .menu summary::-webkit-details-marker { display: none; }
+    .menu summary:hover, .menu[open] summary { border-color: var(--accent); }
+    .menu .panel { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; display: flex; flex-direction: column; gap: 8px; min-width: 230px; padding: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+    .menu .panel hr { border: 0; border-top: 1px solid var(--line-2); margin: 0; }
+    .menu .panel label { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .menu .panel label select { flex: 1; }
+    .menu .panel button { text-align: left; }
+    button, select { font: var(--ui); padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    button:hover { border-color: var(--accent); }
+    .cells { flex: 1; overflow: auto; padding: 12px; }
+    .cell { border: 1px solid var(--line); border-radius: 8px; margin: 0 auto 12px; max-width: 1500px; background: var(--bg); }
+    .cell.focused { border-color: var(--accent); }
+    .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px 6px; color: var(--muted); position: relative; }
+    .cell-head button { padding: 2px 7px; }
+    .cell-head .tools { display: inline-flex; gap: 6px; }
+    .cell-head .hint, .cell-head .tools { opacity: 0; transition: opacity 0.15s; }
+    .cell:hover .cell-head .hint, .cell:hover .cell-head .tools, .cell.focused .cell-head .hint, .cell.focused .cell-head .tools,
+    .cell-head .tools:focus-within, .cell-head:focus-within .hint { opacity: 1; }
+    .cell-head .grip { cursor: grab; user-select: none; font-size: 15px; line-height: 1; padding: 0 2px; }
+    .cell-head .grip:active { cursor: grabbing; }
+    .cell-head .order { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    .cell.dragging { opacity: 0.4; }
+    .cell.drop-before { box-shadow: 0 -4px 0 0 var(--accent); }
+    .cell.drop-after { box-shadow: 0 4px 0 0 var(--accent); }
+    /* Toast: quiet grey, one action, an × to dismiss early. */
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 20; display: none; gap: 10px; align-items: center; padding: 7px 8px 7px 14px; border-radius: 8px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); font: var(--ui); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+    .toast.show { display: flex; }
+    .toast button { background: transparent; color: inherit; border-color: var(--line); }
+    .toast button:hover { border-color: var(--ink); }
+    .toast .close { border: 0; padding: 2px 6px; font-size: 15px; line-height: 1; color: var(--muted); }
+    .toast .close:hover { color: var(--ink); }
+    .cell-body { position: relative; height: var(--text-cell-h); overflow: hidden; border-radius: 0 0 8px 8px; }
+    .cell[data-type="abc"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
+    .cell[data-type="heading"] .cell-body { height: var(--heading-cell-h); }
+    .cell[data-type="heading"] .layer { text-align: center; }   /* vertical centring is set by the engine */
+    /* Exercise-book margin: one thin rule a little in from the left of text cells. */
+    .cell[data-type="text"] .cell-body::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0.9vw; width: 0; border-left: 1px solid var(--ink); opacity: 0.18; pointer-events: none; z-index: 3; }
+    .hint { color: var(--muted); }
+
+    /* ---------- present mode ---------- */
+    body.present .toolbar, body.present .cell-head { display: none; }
+    body.present .cells { padding: 0; overflow: hidden; }
+    /* The concourse: a barrel-vault vignette over the stage, and at night the
+       ceiling's constellations, painted backwards as they are in the terminal. */
+    .vault { position: fixed; inset: 0; pointer-events: none; z-index: 8; display: none; }
+    body.present .vault, body.present3d .vault { display: block; }
+    .vault::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 60%, transparent 55%, rgba(0,0,0,0.07) 100%); }
+    .vault .stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s; transform: scaleX(-1); }
+    /* Daylight: the beams from the east windows in the 1930s photographs,
+       falling from the upper right; the shade between them is the ink. */
+    .vault .rays { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.05; transition: opacity 1.2s; }
+    :root[data-theme="dark"] .vault .rays { opacity: 0; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .vault .rays { opacity: 0; } }
+    :root[data-theme="dark"] .vault .stars { opacity: 0.13; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .vault .stars { opacity: 0.13; } }
+    :root[data-theme="dark"] .vault::before { background: radial-gradient(ellipse 80% 70% at 50% 60%, transparent 55%, rgba(0,0,0,0.35) 100%); }
+    body.present .cell { display: none; border: 0; border-radius: 0; margin: 0; max-width: none; }
+    body.present .cell.current { display: block; }
+    body.present .cell .cell-body, body.present .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
+    .present-nav { position: fixed; right: 10px; bottom: 8px; z-index: 9; display: none; gap: 6px; align-items: center; opacity: 0.35; transition: opacity 0.2s; }
+    .present-nav:hover { opacity: 1; }
+    .present-nav input { width: 3em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    body.present .present-nav { display: flex; }
+
+    /* ---------- 3D present mode (impress.js) ---------- */
+    body.present3d .toolbar, body.present3d .cell-head, body.present3d .cells { display: none; }
+    body.present3d { background: var(--stage-bg, var(--bg)); transition: background 0.9s ease; }
+    #impress { display: none; }
+    body.present3d #impress { display: block; }
+    body.present3d #impress .cell {
+      width: 100vw; height: 100vh; margin: 0; max-width: none; border: 0; border-radius: 0;
+      background: var(--cell-bg, var(--bg)); box-shadow: 0 0 0 1px var(--line), 0 30px 80px rgba(0,0,0,0.25);
+      transition: box-shadow 0.9s ease;
+    }
+    body.present3d #impress .cell.active { box-shadow: 0 0 0 1px var(--line), 0 0 0 rgba(0,0,0,0); }
+    body.present3d #impress .cell { transition: box-shadow 0.9s ease, opacity 0.9s ease; }
+    /* Only the active cell is shown: any cell placed in front of it in space
+       fades out completely, so nothing can obscure the one being presented.
+       The overview shows all. */
+    body.present3d:not(.impress-on-overview) #impress .cell:not(.active) { opacity: 0; pointer-events: none; }
+    body.present3d #impress .cell .cell-body, body.present3d #impress .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
+    body.present3d #impress .overview { width: 100vw; height: 100vh; pointer-events: none; }
+    body.present3d .present-nav { display: flex; }
+    #nav3dReset { display: none; }
+    body.present3d.impress-on-overview #nav3dReset { display: inline-block; }
+    body.impress-enabled .impress-help { display: none; }   /* no help overlay */
+    .pos { display: none; gap: 4px; align-items: center; padding: 2px 8px 6px; color: var(--muted); border-bottom: 1px solid var(--line-2); }
+    .pos.open { display: flex; flex-wrap: wrap; }
+    .pos input[type="number"] { width: 5em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); }
+    .pos input[type="color"] { width: 2.2em; height: 1.8em; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: none; }
+
+    /* ---------- text engine (three stacked layers) ---------- */
+    .layer {
+      position: absolute; inset: 0; margin: 0; border: 0;
+      padding: 1.5vh 1.5vw; box-sizing: border-box;
+      font-family: var(--font); font-weight: 700; font-size: 10vmin;
+      line-height: var(--lh); white-space: pre-wrap; word-break: break-word;
+      letter-spacing: 0; font-variant-ligatures: none; font-kerning: none;
+      overflow: hidden;
+    }
+    .shadow, .inputbox { transform-origin: 0 0; }
+    .shadow { color: var(--ink); z-index: 1; pointer-events: none; }
+    .inputbox { color: transparent; caret-color: var(--caret); background: transparent; z-index: 2; outline: none; resize: none; }
+    .measure { visibility: hidden; z-index: 0; pointer-events: none; transition: none; }
+    .note { color: var(--c); }
+
+    /* ---------- notation engine ---------- */
+    .score { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
+    .paper { line-height: 0; }
+    .paper svg { display: block; }
+    /* Our own additions hang off the SVG root, which abcjs gives stroke="currentColor";
+       without stroke: none every letter would carry a dark one-unit outline. */
+    .paper .letter { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: none; }
+    .paper .accg { font-family: 'Noto Music'; pointer-events: none; stroke: none; }
+    .paper .abcjs-lyric { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 400; }
+    .paper svg { color: var(--ink); }   /* abcjs fills staff, clef, bars, rests and ledger lines with currentColor */
+    /* Proportional spacing moves note, rest and bar groups by --dx (set by JS);
+       the pop keyframes include the same translation so it survives the animation. */
+    .paper .abcjs-note, .paper .abcjs-rest, .paper .abcjs-bar { transform: translate(var(--dx, 0px), 0); }
+    .paper .playing { animation: pop 0.32s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
+    .paper .playing text.abcjs-lyric { font-weight: 700; }
+    @keyframes pop { 0% { transform: translate(var(--dx, 0px), 0) scale(1); } 40% { transform: translate(var(--dx, 0px), 0) scale(1.22); } 100% { transform: translate(var(--dx, 0px), 0) scale(1); } }
+    /* Playback cursor: a bar in the colour of the sounding note with a small
+       lamp at its top that pulses on the beat. It waits faintly before the first
+       note, runs past the last note to the end of the line, fades, and resets
+       while invisible. */
+    .paper .cursorg { opacity: 0.9; stroke: none; transition: opacity 0.45s ease; }
+    .paper .cursorg.ready { opacity: 0.3; }
+    .paper .cursorg.done { opacity: 0; }
+    .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
+    .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
+    .strip { height: 26%; min-height: 72px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); position: relative; }
+    /* Guastavino herringbone from the Whispering Gallery, at a whisper. */
+    .strip::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.06;
+      background-image: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 9px), repeating-linear-gradient(-45deg, var(--ink) 0 1px, transparent 1px 9px);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0 70%, #000 100%); mask-image: linear-gradient(90deg, transparent 0 70%, #000 100%); }
+    .strip > * { position: relative; }
+    body.present .strip { height: 14vh; }
+    .entry { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
+    .entry:focus { border-color: var(--accent); }
+    /* Transport panel: one wrapping row of small controls, vertically centred. */
+    .side { display: flex; flex-wrap: wrap; align-items: center; align-content: center; gap: 4px 14px; min-width: 300px; max-width: 46%; }
+    .side .audio { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+    .side .abcjs-inline-audio { display: inline-flex; align-items: center; gap: 2px; height: auto; }
+    .side .abcjs-inline-audio .abcjs-btn { width: 26px; height: 26px; padding: 3px; margin: 0; border-radius: 6px; }
+    .side .abcjs-inline-audio .abcjs-btn:hover { background: var(--line-2); }
+    .side .abcjs-inline-audio .abcjs-midi-clock { display: none; }
+    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex-basis: 100%; max-height: 2.6em; }
+    .warn:empty { display: none; }
+    .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
+    .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    .audio .abcjs-inline-audio { padding: 0; }
+    .xpose .abcjs-tempo-wrapper { display: inline-flex; align-items: center; gap: 3px; font: var(--ui); color: var(--muted); white-space: nowrap; }
+    .xpose { white-space: nowrap; }
+    .xpose .abcjs-inline-audio .abcjs-midi-tempo, .xpose .abcjs-midi-tempo { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    /* Draggable cursor: a wide invisible handle around the bar. */
+    .paper .cursorg { cursor: ew-resize; }
+    .paper .cursorhit { fill: transparent; pointer-events: all; }
+    .paper .cursorbar, .paper .cursorlamp { pointer-events: none; }   /* the handle beneath takes the drag */
+    /* abcjs audio controls: its stylesheet assumes a dark grey box; keep the box
+       transparent and draw the icons, progress bar and clock in the theme's ink. */
+    .audio .abcjs-inline-audio { background: transparent; }
+    .audio .abcjs-btn g { fill: var(--ink); }
+    .audio .abcjs-inline-audio .abcjs-btn:hover g { fill: var(--accent); }
+    .audio .abcjs-inline-audio .abcjs-midi-progress-background { background-color: var(--line); }
+    .audio .abcjs-inline-audio .abcjs-midi-progress-indicator { background-color: var(--accent); }
+    .audio .abcjs-inline-audio .abcjs-midi-clock, .audio .abcjs-inline-audio .abcjs-tempo-wrapper { color: var(--ink); }
+    .hidden { position: absolute; left: -100000px; top: 0; width: 1000px; visibility: hidden; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <a class="wordmark" href="#" onclick="return false" title="Grand Central Stationery">
+      <svg class="mark" viewBox="0 0 28 34" aria-hidden="true">
+        <!-- a concourse window: a round-topped arch whose mullions are five staff lines -->
+        <path d="M2.5 32.5 V14 A11.5 11.5 0 0 1 25.5 14 V32.5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <g stroke="currentColor" stroke-width="1">
+          <line x1="2.5" y1="15" x2="25.5" y2="15"/><line x1="2.5" y1="19" x2="25.5" y2="19"/><line x1="2.5" y1="23" x2="25.5" y2="23"/><line x1="2.5" y1="27" x2="25.5" y2="27"/><line x1="2.5" y1="31" x2="25.5" y2="31"/>
+        </g>
+        <!-- the information-booth clock as a whole note on its post -->
+        <circle cx="14" cy="8.5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="11.1" x2="14" y2="15" stroke="currentColor" stroke-width="1"/>
+      </svg>
+      <!-- Wordmark as outlines (Cinzel, Roman inscriptional capitals; Caveat for the handwritten insertion): no font request, crisp at any size. -->
+      <svg class="name" viewBox="0 0 217 24" height="24" aria-label="Grand Central Stationery"><path d="M9.4 13.9V16Q9.1 16.4 8.6 16.8Q8 17.2 7.2 17.4Q6.5 17.7 5.5 17.7Q4.1 17.7 3 17.1Q1.9 16.5 1.3 15.4Q0.7 14.4 0.7 12.9Q0.7 11.5 1.3 10.5Q1.9 9.4 3 8.8Q4.1 8.2 5.5 8.2Q6.2 8.2 6.8 8.3Q7.4 8.4 7.9 8.6Q8.4 8.8 8.8 9.1L9 11H8.9Q8.6 10.2 8.2 9.7Q7.7 9.2 7.1 8.9Q6.4 8.7 5.6 8.7Q4.5 8.7 3.7 9.2Q2.9 9.7 2.5 10.7Q2.1 11.7 2.1 13Q2.1 14.2 2.5 15.2Q2.9 16.2 3.7 16.7Q4.5 17.2 5.5 17.2Q6.1 17.2 6.6 17.1Q7.1 17 7.5 16.7Q7.9 16.4 8.2 16.1L8.2 13.9Q8.2 13.3 7.6 13.3H7.3V13.1H10.3V13.3H10.1Q9.4 13.3 9.4 13.9Z M14.2 8.4H16Q16.6 8.4 17.1 8.6Q17.6 8.7 17.9 9Q18.3 9.3 18.5 9.8Q18.7 10.2 18.7 10.8Q18.7 11.4 18.4 12Q18.2 12.6 17.7 12.9Q17.2 13.3 16.5 13.3Q16.8 13.4 17.1 13.7Q17.4 14 17.6 14.3Q17.6 14.3 17.8 14.6Q17.9 14.8 18.2 15.1Q18.4 15.5 18.7 15.8Q18.9 16.2 19.1 16.4Q19.4 16.7 19.6 16.9Q19.9 17.1 20.2 17.2Q20.5 17.4 20.8 17.4V17.5H19.9Q19.3 17.5 18.8 17.3Q18.3 17.2 18 16.9Q17.6 16.6 17.4 16.3Q17.3 16.2 17.2 16Q17 15.7 16.8 15.4Q16.6 15.1 16.4 14.8Q16.2 14.4 16.1 14.2Q15.9 14 15.9 13.9Q15.7 13.6 15.4 13.3Q15.1 13.1 14.8 13.1V12.9Q14.8 12.9 15 12.9Q15.2 12.9 15.4 12.9Q15.7 12.9 16.1 12.8Q16.5 12.7 16.8 12.4Q17.1 12.1 17.3 11.5Q17.3 11.4 17.4 11.2Q17.4 11 17.4 10.8Q17.3 9.9 16.9 9.4Q16.5 8.9 15.8 8.9Q15.5 8.8 15.1 8.8Q14.8 8.9 14.6 8.9Q14.4 8.9 14.3 8.9Q14.3 8.8 14.3 8.7Q14.3 8.6 14.2 8.5Q14.2 8.4 14.2 8.4ZM14.4 8.4V17.5H13.2V8.4ZM13.2 16.6V17.5H12.2V17.4Q12.2 17.4 12.2 17.4Q12.3 17.4 12.3 17.4Q12.7 17.4 12.9 17.1Q13.1 16.9 13.2 16.6ZM13.2 9.3H13.2Q13.1 9 12.9 8.8Q12.7 8.5 12.3 8.5Q12.3 8.5 12.2 8.5Q12.2 8.5 12.2 8.5V8.4H13.2ZM14.3 16.6H14.4Q14.4 16.9 14.6 17.1Q14.9 17.4 15.2 17.4Q15.2 17.4 15.3 17.4Q15.4 17.4 15.4 17.4V17.5H14.3Z M26.1 8.2 30.1 17.4H28.6L25.7 9.9ZM23.3 16.6Q23.2 16.8 23.3 17Q23.3 17.2 23.5 17.3Q23.6 17.4 23.8 17.4H23.9V17.5H21.2V17.4Q21.2 17.4 21.3 17.4Q21.4 17.4 21.4 17.4Q21.7 17.4 22 17.2Q22.3 17 22.5 16.6ZM26.1 8.2 26.2 9.3 22.9 17.5H22.1L25.4 9.6Q25.4 9.6 25.5 9.4Q25.6 9.3 25.7 9Q25.8 8.8 25.9 8.5Q26 8.3 26 8.2ZM27.8 14.1V14.5H23.8V14.1ZM28.2 16.6H29.7Q29.9 17 30.2 17.2Q30.5 17.4 30.8 17.4Q30.8 17.4 30.9 17.4Q30.9 17.4 30.9 17.4V17.5H27.6V17.4H27.7Q28 17.4 28.2 17.2Q28.4 16.9 28.2 16.6Z M33.2 8.2 41 16.2 41.1 17.7 33.3 9.7ZM33.2 16.6V17.5H32.1V17.4Q32.1 17.4 32.3 17.4Q32.4 17.4 32.4 17.4Q32.7 17.4 33 17.1Q33.2 16.9 33.2 16.6ZM34.2 16.6Q34.2 16.9 34.4 17.1Q34.7 17.4 35 17.4Q35 17.4 35.1 17.4Q35.2 17.4 35.2 17.4V17.5H34.2V16.6ZM33.2 8.2 34.2 9.3 34.2 17.5H33.2V9.8Q33.2 9.1 33.1 8.7Q33.1 8.2 33.1 8.2ZM41.1 8.4V16Q41.1 16.5 41.1 16.8Q41.2 17.2 41.2 17.5Q41.2 17.7 41.2 17.7H41.1L40.1 16.5V8.4ZM42.1 8.4V8.5Q42.1 8.5 42 8.5Q41.9 8.5 41.9 8.5Q41.6 8.5 41.3 8.8Q41.1 9 41.1 9.3H41.1V8.4ZM39 8.4H40.1V9.3H40.1Q40.1 9 39.9 8.8Q39.6 8.5 39.3 8.5Q39.3 8.5 39.2 8.5Q39.1 8.5 39 8.5Z M48.8 8.4Q50.2 8.4 51.3 9Q52.3 9.5 52.9 10.5Q53.5 11.6 53.5 12.9Q53.5 14.3 52.9 15.3Q52.3 16.4 51.3 16.9Q50.2 17.5 48.8 17.5H45.9L45.9 17.1Q46 17.1 46.3 17.1Q46.6 17.1 47.1 17.1Q47.5 17.1 47.9 17.1Q48.2 17.1 48.5 17.1Q48.7 17.1 48.7 17.1Q49.8 17.1 50.6 16.6Q51.3 16 51.8 15.1Q52.2 14.2 52.2 12.9Q52.2 11.7 51.8 10.8Q51.3 9.9 50.6 9.3Q49.8 8.8 48.7 8.8Q48.7 8.8 48.5 8.8Q48.2 8.8 47.8 8.8Q47.4 8.8 47 8.8Q46.6 8.8 46.2 8.8Q45.9 8.8 45.7 8.8V8.4ZM46.5 8.4V17.5H45.3V8.4ZM45.3 16.6V17.5H44.3V17.4Q44.3 17.4 44.3 17.4Q44.4 17.4 44.4 17.4Q44.8 17.4 45 17.1Q45.3 16.9 45.3 16.6ZM45.3 9.3H45.3Q45.3 9 45 8.8Q44.8 8.5 44.4 8.5Q44.4 8.5 44.4 8.5Q44.3 8.5 44.3 8.5L44.3 8.4H45.3Z M68.5 13.7 68.4 15.8Q68.1 16.3 67.6 16.8Q67.1 17.2 66.4 17.4Q65.7 17.7 64.8 17.7Q63.3 17.7 62.2 17.1Q61.1 16.5 60.5 15.5Q59.9 14.4 59.9 12.9Q59.9 11.5 60.5 10.4Q61.1 9.4 62.2 8.8Q63.3 8.2 64.8 8.2Q65.8 8.2 66.6 8.5Q67.4 8.7 68 9.1L68.1 11H68Q67.7 9.8 66.9 9.2Q66 8.7 64.9 8.7Q63.8 8.7 63 9.2Q62.1 9.7 61.7 10.7Q61.3 11.6 61.3 12.9Q61.3 14.2 61.7 15.2Q62.1 16.1 62.9 16.7Q63.7 17.2 64.8 17.2Q65.7 17.2 66.5 16.9Q67.2 16.6 67.7 15.8Q68.2 15 68.4 13.7Z M73 8.4V17.5H71.8V8.4ZM76.5 17 76.6 17.5H72.9V17ZM75.9 12.8V13.2H72.9V12.8ZM76.5 8.4V8.9H72.9V8.4ZM77.3 15.2 76.6 17.5H74.3L74.8 17Q75.5 17 75.9 16.8Q76.4 16.6 76.7 16.2Q77 15.8 77.2 15.2ZM75.9 13.2V14.2H75.8V14Q75.8 13.7 75.6 13.5Q75.4 13.2 75 13.2V13.2ZM75.9 11.8V12.8H75V12.8Q75.4 12.8 75.6 12.5Q75.8 12.3 75.8 12V11.8ZM76.5 8.8V10H76.4V9.8Q76.4 9.4 76.1 9.1Q75.8 8.9 75.4 8.8V8.8ZM76.5 8.2V8.5L74.9 8.4Q75.2 8.4 75.5 8.4Q75.8 8.3 76.1 8.3Q76.4 8.2 76.5 8.2ZM71.8 16.6V17.5H70.8V17.4Q70.8 17.4 70.9 17.4Q70.9 17.4 70.9 17.4Q71.3 17.4 71.5 17.1Q71.8 16.9 71.8 16.6ZM71.8 9.3H71.8Q71.8 9 71.5 8.8Q71.3 8.5 70.9 8.5Q70.9 8.5 70.9 8.5Q70.8 8.5 70.8 8.5L70.8 8.4H71.8Z M80.3 8.2 88.1 16.2 88.2 17.7 80.4 9.7ZM80.3 16.6V17.5H79.2V17.4Q79.2 17.4 79.3 17.4Q79.5 17.4 79.5 17.4Q79.8 17.4 80 17.1Q80.3 16.9 80.3 16.6ZM81.3 16.6Q81.3 16.9 81.5 17.1Q81.7 17.4 82.1 17.4Q82.1 17.4 82.2 17.4Q82.3 17.4 82.3 17.4V17.5H81.2V16.6ZM80.3 8.2 81.3 9.3 81.3 17.5H80.3V9.8Q80.3 9.1 80.2 8.7Q80.1 8.2 80.1 8.2ZM88.2 8.4V16Q88.2 16.5 88.2 16.8Q88.2 17.2 88.3 17.5Q88.3 17.7 88.3 17.7H88.2L87.2 16.5V8.4ZM89.2 8.4V8.5Q89.2 8.5 89.1 8.5Q89 8.5 89 8.5Q88.7 8.5 88.4 8.8Q88.2 9 88.2 9.3H88.1V8.4ZM86.1 8.4H87.2V9.3H87.2Q87.2 9 86.9 8.8Q86.7 8.5 86.4 8.5Q86.4 8.5 86.3 8.5Q86.1 8.5 86.1 8.5Z M95.4 8.4V17.5H94.2V8.4ZM98.7 8.4V8.8H90.9V8.4ZM98.7 8.8V10L98.5 10V9.8Q98.5 9.4 98.3 9.1Q98 8.8 97.6 8.8V8.8ZM98.7 8.2V8.5L97.1 8.4Q97.4 8.4 97.7 8.3Q98 8.3 98.3 8.3Q98.5 8.2 98.7 8.2ZM94.2 16.6V17.5H93.2V17.4Q93.2 17.4 93.2 17.4Q93.3 17.4 93.3 17.4Q93.7 17.4 93.9 17.1Q94.1 16.9 94.2 16.6ZM95.3 16.6H95.4Q95.4 16.9 95.6 17.1Q95.9 17.4 96.2 17.4Q96.2 17.4 96.3 17.4Q96.4 17.4 96.4 17.4V17.5H95.3ZM92 8.8V8.8Q91.5 8.8 91.3 9.1Q91 9.4 91 9.8V10L90.9 10V8.8ZM90.9 8.2Q91 8.2 91.3 8.3Q91.5 8.3 91.9 8.3Q92.2 8.4 92.5 8.4L90.9 8.5Z M102.5 8.4H104.3Q104.9 8.4 105.4 8.6Q105.9 8.7 106.3 9Q106.6 9.3 106.8 9.8Q107 10.2 107 10.8Q107 11.4 106.8 12Q106.5 12.6 106 12.9Q105.5 13.3 104.9 13.3Q105.1 13.4 105.4 13.7Q105.7 14 105.9 14.3Q105.9 14.3 106.1 14.6Q106.3 14.8 106.5 15.1Q106.7 15.5 107 15.8Q107.3 16.2 107.4 16.4Q107.7 16.7 108 16.9Q108.2 17.1 108.5 17.2Q108.8 17.4 109.2 17.4V17.5H108.3Q107.6 17.5 107.2 17.3Q106.7 17.2 106.3 16.9Q106 16.6 105.7 16.3Q105.7 16.2 105.5 16Q105.3 15.7 105.1 15.4Q104.9 15.1 104.7 14.8Q104.5 14.4 104.4 14.2Q104.3 14 104.2 13.9Q104 13.6 103.7 13.3Q103.5 13.1 103.1 13.1V12.9Q103.1 12.9 103.3 12.9Q103.5 12.9 103.7 12.9Q104.1 12.9 104.5 12.8Q104.8 12.7 105.2 12.4Q105.5 12.1 105.6 11.5Q105.7 11.4 105.7 11.2Q105.7 11 105.7 10.8Q105.7 9.9 105.2 9.4Q104.8 8.9 104.1 8.9Q103.8 8.8 103.5 8.8Q103.2 8.9 102.9 8.9Q102.7 8.9 102.7 8.9Q102.7 8.8 102.6 8.7Q102.6 8.6 102.6 8.5Q102.5 8.4 102.5 8.4ZM102.7 8.4V17.5H101.5V8.4ZM101.5 16.6V17.5H100.5V17.4Q100.5 17.4 100.6 17.4Q100.7 17.4 100.7 17.4Q101 17.4 101.2 17.1Q101.5 16.9 101.5 16.6ZM101.5 9.3H101.5Q101.5 9 101.2 8.8Q101 8.5 100.7 8.5Q100.7 8.5 100.6 8.5Q100.5 8.5 100.5 8.5V8.4H101.5ZM102.7 16.6H102.7Q102.7 16.9 103 17.1Q103.2 17.4 103.5 17.4Q103.5 17.4 103.6 17.4Q103.7 17.4 103.7 17.4V17.5H102.7Z M114.4 8.2 118.4 17.4H116.9L114 9.9ZM111.6 16.6Q111.5 16.8 111.6 17Q111.7 17.2 111.8 17.3Q112 17.4 112.1 17.4H112.2V17.5H109.6V17.4Q109.6 17.4 109.6 17.4Q109.7 17.4 109.7 17.4Q110 17.4 110.3 17.2Q110.6 17 110.8 16.6ZM114.4 8.2 114.5 9.3 111.3 17.5H110.4L113.8 9.6Q113.8 9.6 113.9 9.4Q114 9.3 114 9Q114.1 8.8 114.2 8.5Q114.3 8.3 114.3 8.2ZM116.1 14.1V14.5H112.1V14.1ZM116.6 16.6H118Q118.2 17 118.5 17.2Q118.9 17.4 119.2 17.4Q119.2 17.4 119.2 17.4Q119.3 17.4 119.3 17.4V17.5H115.9V17.4H116.1Q116.3 17.4 116.5 17.2Q116.7 16.9 116.6 16.6Z M122.9 8.4V17.5H121.7V8.4ZM126.4 17 126.5 17.5H122.8V17ZM127.2 15.2 126.5 17.5H124.2L124.7 17Q125.4 17 125.8 16.8Q126.3 16.6 126.6 16.2Q126.9 15.8 127.1 15.2ZM121.7 16.6V17.5H120.7V17.4Q120.7 17.4 120.7 17.4Q120.8 17.4 120.8 17.4Q121.2 17.4 121.4 17.1Q121.7 16.9 121.7 16.6ZM121.7 9.3H121.7Q121.7 9 121.4 8.8Q121.2 8.5 120.8 8.5Q120.8 8.5 120.7 8.5Q120.7 8.5 120.7 8.5V8.4H121.7ZM122.8 9.3V8.4H123.9V8.5Q123.9 8.5 123.8 8.5Q123.7 8.5 123.7 8.5Q123.4 8.5 123.1 8.8Q122.9 9 122.9 9.3Z M135.9 8.2Q136.2 8.2 136.4 8.2Q136.7 8.3 137 8.3Q137.3 8.4 137.5 8.4Q137.8 8.5 137.9 8.5L137.8 10.1H137.7Q137.7 9.4 137.2 9Q136.8 8.7 136.1 8.7Q135.4 8.7 134.9 9.1Q134.5 9.5 134.5 10.1Q134.5 10.4 134.6 10.7Q134.8 11 135.1 11.3L137.7 13.4Q138.1 13.7 138.3 14.2Q138.5 14.7 138.5 15.2Q138.5 16.3 137.7 17Q137 17.7 135.7 17.7Q135.3 17.7 134.8 17.6Q134.4 17.5 134 17.4Q133.6 17.2 133.3 16.9Q133.3 16.7 133.3 16.4Q133.3 16 133.4 15.7Q133.4 15.3 133.5 15H133.7Q133.6 15.7 133.8 16.2Q134.1 16.7 134.6 17Q135.1 17.3 135.7 17.2Q136.5 17.2 137 16.8Q137.5 16.3 137.5 15.6Q137.5 15.2 137.3 14.9Q137.1 14.6 136.8 14.3L134.4 12.3Q133.9 11.9 133.7 11.4Q133.5 10.9 133.5 10.4Q133.5 9.9 133.8 9.3Q134.1 8.8 134.6 8.5Q135.2 8.2 135.9 8.2ZM137.9 8.3V8.6H136.7V8.3Z M144.8 8.4V17.5H143.6V8.4ZM148.1 8.4V8.8H140.3V8.4ZM148.1 8.8V10L148 10V9.8Q148 9.4 147.7 9.1Q147.4 8.8 147 8.8V8.8ZM148.1 8.2V8.5L146.5 8.4Q146.8 8.4 147.1 8.3Q147.4 8.3 147.7 8.3Q148 8.2 148.1 8.2ZM143.6 16.6V17.5H142.6V17.4Q142.6 17.4 142.7 17.4Q142.8 17.4 142.8 17.4Q143.1 17.4 143.3 17.1Q143.6 16.9 143.6 16.6ZM144.8 16.6H144.8Q144.8 16.9 145.1 17.1Q145.3 17.4 145.6 17.4Q145.6 17.4 145.7 17.4Q145.8 17.4 145.8 17.4V17.5H144.8ZM141.4 8.8V8.8Q141 8.8 140.7 9.1Q140.4 9.4 140.4 9.8V10L140.3 10V8.8ZM140.3 8.2Q140.4 8.2 140.7 8.3Q141 8.3 141.3 8.3Q141.6 8.4 141.9 8.4L140.3 8.5Z M153.9 8.2 157.8 17.4H156.3L153.4 9.9ZM151.1 16.6Q151 16.8 151 17Q151.1 17.2 151.2 17.3Q151.4 17.4 151.6 17.4H151.7V17.5H149V17.4Q149 17.4 149.1 17.4Q149.1 17.4 149.1 17.4Q149.4 17.4 149.7 17.2Q150.1 17 150.3 16.6ZM153.9 8.2 154 9.3 150.7 17.5H149.9L153.2 9.6Q153.2 9.6 153.3 9.4Q153.4 9.3 153.5 9Q153.6 8.8 153.7 8.5Q153.7 8.3 153.7 8.2ZM155.5 14.1V14.5H151.6V14.1ZM156 16.6H157.5Q157.7 17 158 17.2Q158.3 17.4 158.6 17.4Q158.6 17.4 158.6 17.4Q158.7 17.4 158.7 17.4V17.5H155.4V17.4H155.5Q155.7 17.4 155.9 17.2Q156.1 16.9 156 16.6Z M164.1 8.4V17.5H162.9V8.4ZM167.4 8.4V8.8H159.6V8.4ZM167.4 8.8V10L167.3 10V9.8Q167.3 9.4 167 9.1Q166.8 8.8 166.3 8.8V8.8ZM167.4 8.2V8.5L165.8 8.4Q166.1 8.4 166.4 8.3Q166.8 8.3 167 8.3Q167.3 8.2 167.4 8.2ZM163 16.6V17.5H161.9V17.4Q161.9 17.4 162 17.4Q162.1 17.4 162.1 17.4Q162.4 17.4 162.7 17.1Q162.9 16.9 162.9 16.6ZM164.1 16.6H164.1Q164.1 16.9 164.4 17.1Q164.6 17.4 165 17.4Q165 17.4 165 17.4Q165.1 17.4 165.1 17.4V17.5H164.1ZM160.7 8.8V8.8Q160.3 8.8 160 9.1Q159.8 9.4 159.8 9.8V10L159.6 10V8.8ZM159.6 8.2Q159.8 8.2 160 8.3Q160.3 8.3 160.6 8.3Q160.9 8.4 161.2 8.4L159.6 8.5Z M171.4 8.4V17.5H170.2V8.4ZM170.3 16.6V17.5H169.2V17.4Q169.2 17.4 169.3 17.4Q169.4 17.4 169.4 17.4Q169.7 17.4 170 17.1Q170.2 16.9 170.2 16.6ZM170.3 9.3H170.2Q170.2 9 170 8.8Q169.7 8.5 169.4 8.5Q169.4 8.5 169.3 8.5Q169.2 8.5 169.2 8.5V8.4H170.3ZM171.4 16.6H171.4Q171.5 16.9 171.7 17.1Q171.9 17.4 172.3 17.4Q172.3 17.4 172.4 17.4Q172.4 17.4 172.4 17.4V17.5H171.4ZM171.4 9.3V8.4H172.4V8.5Q172.4 8.5 172.4 8.5Q172.3 8.5 172.3 8.5Q171.9 8.5 171.7 8.8Q171.5 9 171.4 9.3Z M179.7 8.2Q181.1 8.2 182.2 8.8Q183.3 9.4 183.9 10.5Q184.5 11.5 184.5 12.9Q184.5 14.4 183.9 15.4Q183.3 16.5 182.2 17.1Q181.1 17.7 179.7 17.7Q178.2 17.7 177.1 17.1Q176.1 16.5 175.5 15.4Q174.9 14.4 174.9 12.9Q174.9 11.5 175.5 10.5Q176.1 9.4 177.1 8.8Q178.2 8.2 179.7 8.2ZM179.7 17.2Q180.7 17.2 181.5 16.7Q182.3 16.2 182.7 15.2Q183.1 14.2 183.1 12.9Q183.1 11.7 182.7 10.7Q182.3 9.7 181.5 9.2Q180.7 8.7 179.7 8.7Q178.6 8.7 177.9 9.2Q177.1 9.7 176.7 10.7Q176.2 11.7 176.2 12.9Q176.2 14.2 176.7 15.2Q177.1 16.2 177.9 16.7Q178.6 17.2 179.7 17.2Z M187.6 8.2 195.4 16.2 195.5 17.7 187.7 9.7ZM187.6 16.6V17.5H186.5V17.4Q186.5 17.4 186.6 17.4Q186.8 17.4 186.8 17.4Q187.1 17.4 187.3 17.1Q187.6 16.9 187.6 16.6ZM188.6 16.6Q188.6 16.9 188.8 17.1Q189.1 17.4 189.4 17.4Q189.4 17.4 189.5 17.4Q189.6 17.4 189.6 17.4V17.5H188.5V16.6ZM187.6 8.2 188.6 9.3 188.6 17.5H187.6V9.8Q187.6 9.1 187.5 8.7Q187.4 8.2 187.4 8.2ZM195.5 8.4V16Q195.5 16.5 195.5 16.8Q195.6 17.2 195.6 17.5Q195.6 17.7 195.6 17.7H195.5L194.5 16.5V8.4ZM196.5 8.4V8.5Q196.5 8.5 196.4 8.5Q196.3 8.5 196.3 8.5Q196 8.5 195.7 8.8Q195.5 9 195.5 9.3H195.4V8.4ZM193.4 8.4H194.5V9.3H194.5Q194.5 9 194.2 8.8Q194 8.5 193.7 8.5Q193.7 8.5 193.6 8.5Q193.4 8.5 193.4 8.5Z"/><g class="hand"><path d="M204.5 9.1Q204.2 9.3 203.8 9.4Q203.3 9.4 202.9 9.2Q202.6 9.1 202.3 8.7Q202.1 8.5 202 8Q201.9 7.6 202 6.9Q202 6.3 202.3 5.7Q202.7 5.1 203.1 4.6Q203.6 4.2 204.1 4Q204.3 3.9 204.5 3.9Q204.6 3.9 205 3.9Q205.3 3.9 205.5 4Q205.7 4.1 205.8 4.3Q206 4.5 206.1 4.7Q206.2 4.9 206.2 5.1Q206.1 5.5 205.7 6Q205.4 6.5 204.8 6.7Q204.5 6.8 204.1 6.8Q203.8 6.8 203.4 6.7Q203.1 6.6 203 6.7Q202.9 6.9 202.9 7.4Q202.8 7.9 203 8.1Q203.1 8.3 203.3 8.4Q203.7 8.5 203.8 8.4Q204 8.4 204.2 8.3Q204.4 8.2 204.5 8.2Q204.6 8.1 204.6 8.1Q204.7 8 204.8 7.9Q204.9 7.8 205 7.8Q205 7.7 205.1 7.7Q205.2 7.7 205.3 7.8Q205.4 7.9 205.4 8Q205.5 8 205.4 8.2Q205.3 8.4 205.1 8.6Q204.8 8.9 204.5 9.1ZM204.5 5.9Q204.6 5.9 204.8 5.7Q205 5.6 205.1 5.4Q205.2 5.2 205.2 5.1Q205.2 4.9 205 4.8Q204.8 4.7 204.5 4.8Q204.3 4.8 204.1 5Q204 5.1 203.8 5.3Q203.6 5.5 203.5 5.7Q203.4 5.8 203.4 5.9Q203.4 5.9 203.6 6Q203.8 6 204.1 6Q204.3 6 204.5 5.9Z M206.9 9Q206.8 8.9 206.7 8.8Q206.6 8.7 206.7 8.4Q206.7 8 206.8 7.7Q206.9 7.4 207 7Q207 6.8 207.1 6.4Q207.3 5.9 207.5 5.5Q207.6 5 207.8 4.5Q208 4.1 208.2 3.9Q208.3 3.8 208.5 3.8Q208.7 3.8 208.9 3.9Q209 4 208.9 4.3Q208.8 4.7 208.5 5.4Q208.4 5.7 208.3 5.9Q208.2 6.1 208.2 6.1Q208.2 6.2 208.3 6.2Q208.4 6 208.6 5.8Q208.8 5.6 209.1 5.4Q209.3 5.2 209.6 5Q209.8 4.8 209.9 4.8Q210 4.7 210.2 4.7Q210.3 4.6 210.4 4.6Q210.7 4.4 211.1 4.5Q211.4 4.5 211.5 4.7Q211.5 4.9 211.6 4.9Q211.7 5 211.7 5Q211.7 5 211.8 5Q211.8 5.1 211.8 5.1Q211.8 5.2 211.6 5.2Q211.4 5.3 211.2 5.3Q211 5.3 210.9 5.4Q210.7 5.5 210.5 5.5Q210 5.9 209.5 6.2Q209 6.4 208.5 6.9Q208.4 7.1 208.3 7.2Q208.2 7.3 208.1 7.5Q208 7.6 208 7.8Q207.9 8.1 207.8 8.3Q207.8 8.5 207.8 8.6Q207.8 8.6 207.7 8.7Q207.7 8.9 207.6 9Q207.4 9.2 207.3 9.2Q207.2 9.3 206.9 9Z M211.6 12.4Q211.2 12.5 210.8 12.5Q210.3 12.4 210 12.2Q209.7 12 209.6 11.8Q209.6 11.6 209.7 11.5Q209.8 11.4 209.9 11.3Q210.1 11.3 210.2 11.4Q210.3 11.5 210.6 11.6Q210.9 11.7 211.2 11.6Q211.6 11.6 211.9 11.3Q212.2 11 212.4 10.7Q212.5 10.5 212.8 10.1Q213 9.6 213.3 9.1Q213.6 8.5 213.8 8.1Q213.9 8 213.9 7.8Q214 7.6 214.1 7.5Q214.2 7.4 214.2 7.2Q214.3 7.1 214.3 7Q214.3 6.9 214.5 6.7Q214.6 6.5 214.7 6.3Q214.7 6.1 214.9 5.6Q215 5.2 215.2 5Q215.4 4.6 215.5 4.4Q215.6 4.2 215.7 4.2Q215.8 4.1 215.9 4.1Q216 4.1 216.1 4.1Q216.3 4.3 216.4 4.5Q216.4 4.7 216.4 4.9Q216.3 5.1 216.1 5.5Q216 5.9 215.8 6.2Q215.7 6.5 215.6 6.5Q215.6 6.7 215.5 6.9Q215.4 7.1 215.3 7.3Q215 7.9 214.8 8.3Q214.7 8.6 214.5 8.9Q214.4 9.2 214.2 9.6Q213.9 10.2 213.6 10.7Q213.3 11.1 212.9 11.6Q212.8 11.7 212.5 11.9Q212.3 12.1 212 12.2Q211.8 12.4 211.6 12.4ZM213.5 9Q213.3 9 213.1 8.7Q212.8 8.5 212.7 8.2Q212.6 8 212.6 7.8Q212.6 7.8 212.6 7.7Q212.6 7.7 212.6 7.7Q212.5 7.7 212.5 7.5Q212.4 7.2 212.4 6.9Q212.4 6.5 212.3 6.1Q212.3 5.7 212.4 5.4Q212.4 5.1 212.4 4.8Q212.4 4.5 212.4 4.3Q212.4 4.1 212.5 4Q212.6 3.9 212.6 3.9Q213.1 3.7 213.3 4.1Q213.4 4.5 213.4 5.5Q213.3 6.1 213.4 6.7Q213.4 7.3 213.5 7.7Q213.6 8.1 213.9 8.2Q214 8.3 214 8.4Q213.9 8.6 213.9 8.7Q213.8 8.8 213.7 8.9Q213.6 9 213.5 9Z"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" d="M198.7 22 Q201.4 17.6 201.9 16.8 Q202.6 17.8 205.3 22.2"/></g></svg>
+    </a>
+    <span class="group">
+      <button id="addText" title="Add a text cell (Cmd+Enter in a cell adds one below it)">+ Text</button>
+      <button id="addHeading" title="Add a heading cell">+ Heading</button>
+      <button id="addAbc" title="Add a notation cell (Cmd+Shift+Enter in a cell adds one below it)">+ Notation</button>
+    </span>
+    <span class="group">
+      <button id="present" title="Show one cell at a time. PageDown / PageUp move, Esc returns.">Present</button>
+      <button id="present3d" title="Fly between cells laid out in 3D (impress.js). Starts on an overview of every cell.">Present 3D</button>
+    </span>
+    <span class="spacer"></span>
+    <button id="theme" title="Light / dark">☾</button>
+    <details class="menu" id="menu">
+      <summary title="Font, spacing, sharing and files">⋯</summary>
+      <div class="panel">
+        <label>Text font <select id="fontpick"></select></label>
+        <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional spacing</label>
+        <hr>
+        <button id="share" title="Copy a link that carries every cell (compressed into the address)">Share link</button>
+        <button id="export">Export file</button>
+        <button id="import">Import file</button>
+        <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
+        <hr>
+        <button id="clear">Clear all cells</button>
+      </div>
+    </details>
+  </div>
+  <div class="cells" id="cells"></div>
+  <div class="vault" aria-hidden="true">
+    <svg class="rays" viewBox="0 0 1600 900" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="rayfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--ink)" stop-opacity="1"/><stop offset="0.85" stop-color="var(--ink)" stop-opacity="0"/></linearGradient>
+        <filter id="raysoft"><feGaussianBlur stdDeviation="9"/></filter>
+      </defs>
+      <g fill="url(#rayfade)" filter="url(#raysoft)">
+        <polygon points="1600,0 1600,120 700,900 520,900"/>
+        <polygon points="1600,160 1600,300 1000,900 860,900"/>
+        <polygon points="1600,380 1600,470 1250,900 1150,900"/>
+        <polygon points="1360,0 1500,0 380,900 300,900"/>
+      </g>
+    </svg>
+    <svg class="stars" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <g stroke="#fff" stroke-width="0.7" fill="#fff">
+        <!-- Orion, high on the right -->
+        <polyline points="1210,120 1250,160 1330,150 1370,110" fill="none"/><polyline points="1250,160 1262,250 1285,255 1308,245 1330,150" fill="none"/><polyline points="1262,250 1240,370 1308,245 1350,360" fill="none"/>
+        <circle cx="1210" cy="120" r="2.2"/><circle cx="1250" cy="160" r="3"/><circle cx="1330" cy="150" r="2.2"/><circle cx="1370" cy="110" r="1.8"/><circle cx="1262" cy="250" r="2"/><circle cx="1285" cy="255" r="2"/><circle cx="1308" cy="245" r="2"/><circle cx="1240" cy="370" r="3.2"/><circle cx="1350" cy="360" r="2.4"/>
+        <!-- Taurus, the V, upper middle -->
+        <polyline points="900,90 860,150 840,210" fill="none"/><polyline points="900,90 960,140 990,200" fill="none"/>
+        <circle cx="900" cy="90" r="2"/><circle cx="860" cy="150" r="2.6"/><circle cx="840" cy="210" r="1.8"/><circle cx="960" cy="140" r="2"/><circle cx="990" cy="200" r="2.2"/>
+        <!-- Gemini, the pair, upper left -->
+        <polyline points="420,80 440,170 430,260" fill="none"/><polyline points="500,90 515,180 505,270" fill="none"/><line x1="440" y1="170" x2="515" y2="180"/>
+        <circle cx="420" cy="80" r="2.4"/><circle cx="500" cy="90" r="2.4"/><circle cx="430" cy="260" r="2"/><circle cx="505" cy="270" r="2"/><circle cx="440" cy="170" r="1.6"/><circle cx="515" cy="180" r="1.6"/>
+        <!-- Pegasus, the square, lower left corner -->
+        <polyline points="120,620 260,600 280,740 140,760 120,620" fill="none"/>
+        <circle cx="120" cy="620" r="2.4"/><circle cx="260" cy="600" r="2"/><circle cx="280" cy="740" r="2"/><circle cx="140" cy="760" r="2.2"/>
+        <!-- scattered field -->
+        <circle cx="60" cy="60" r="1.2"/><circle cx="200" cy="130" r="1"/><circle cx="330" cy="40" r="1.4"/><circle cx="640" cy="60" r="1.1"/><circle cx="720" cy="230" r="1"/><circle cx="1090" cy="60" r="1.3"/><circle cx="1500" cy="70" r="1.2"/><circle cx="1540" cy="300" r="1"/><circle cx="1470" cy="520" r="1.2"/><circle cx="1560" cy="800" r="1.4"/><circle cx="1380" cy="820" r="1"/><circle cx="80" cy="400" r="1.1"/><circle cx="40" cy="860" r="1.2"/><circle cx="300" cy="860" r="1"/>
+      </g>
+    </svg>
+  </div>
+  <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
+  <div class="present-nav">
+    <button id="nav3dReset" title="Forget every cell's 3D position, rotation, scale and background (Undo in the toast)">Reset 3D layout</button>
+    <button id="navPrev">◀</button><input id="navPos" type="number" min="1" title="Go to cell"><span id="navCount"></span><button id="navNext">▶</button><button id="navExit">Esc</button>
+  </div>
+  <div class="toast" id="toast" role="status"><span></span><button class="act"></button><button class="close" title="Dismiss" aria-label="Dismiss">×</button></div>
+  <script>
+  (() => {
+    'use strict';
+
+    /* ======================================================================
+       Shared: ChromaNotes palette and accidental helpers
+       ====================================================================== */
+    const COLORS = {
+      'C': '#e72829', 'C#': '#ef5523', 'Db': '#ef5523',
+      'D': '#f39322', 'D#': '#ffd259', 'Eb': '#ffd259',
+      'E': '#f2e716', 'E#': '#69b944', 'Fb': '#f2e716',
+      'F': '#69b944', 'F#': '#53cf84', 'Gb': '#53cf84',
+      'G': '#019696', 'G#': '#087fca', 'Ab': '#087fca',
+      'A': '#79569f', 'A#': '#9f5a8f', 'Bb': '#9f5a8f',
+      'B': '#FF77A9', 'Cb': '#ec6ca4', 'B#': '#e72829'
+    };
+    const PC_COLORS = ['#e72829', '#ef5523', '#f39322', '#ffd259', '#f2e716', '#69b944',
+                       '#53cf84', '#019696', '#087fca', '#79569f', '#9f5a8f', '#FF77A9'];
+    const SHARP = '\u266F', FLAT = '\u266D';
+    const toAscii  = { '#': '#', 'b': 'b', [SHARP]: '#', [FLAT]: 'b' };
+    const toSymbol = { '#': SHARP, 'b': FLAT };
+    const cssNum = (name, dflt) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || dflt;
+    const escapeHTML = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+    // "Ab" is A-flat, "About" is A + "bout": an accidental unless a lowercase letter follows.
+    function normalizeAccidentals(text) {
+      return text.replace(/([A-G])([#b\u266F\u266D])(?=([a-z]?))/g,
+        (m, note, acc, next) => note + (next ? toAscii[acc] : toSymbol[toAscii[acc]]));
+    }
+    function renderColouredText(text) {
+      const html = escapeHTML(text).replace(/([A-G])([#b\u266F\u266D])?/g, (m, note, accRaw, offset, str) => {
+        const nextIsLower = /[a-z]/.test(str[offset + 2] || '');
+        const acc  = accRaw && !nextIsLower ? accRaw : '';
+        const tail = accRaw && nextIsLower ? accRaw : '';
+        const color = COLORS[note + (acc ? toAscii[acc] : '')];
+        if (!color) return m;
+        // Letter and accidental share one span. WebKit does not paint an
+        // inline box whose width is zero (the accidental glyph has no
+        // advance), so a span of its own made ♯ and ♭ invisible in Safari.
+        return `<span class="note" style="--c:${color}">${note}${acc}</span>${tail}`;
+      });
+      return html + '\u200b';    // makes a div count trailing newlines like a textarea does
+    }
+
+    /* ======================================================================
+       Text engine (from Proportional v1): canvas-measured greedy wrap,
+       binary search on size, transform-scale animation, shadow layer.
+       ====================================================================== */
+    const FONTS = {
+      hyperlegible:     { family: 'Atkinson Hyperlegible',      label: 'Atkinson Hyperlegible' },
+      hyperlegibleNext: { family: 'Atkinson Hyperlegible Next', label: 'Atkinson Hyperlegible Next' },
+      hyperlegibleMono: { family: 'Atkinson Hyperlegible Mono', label: 'Atkinson Hyperlegible Mono' },
+      lexend:           { family: 'Lexend',                     label: 'Lexend' },
+      andika:           { family: 'Andika',                     label: 'Andika (SIL literacy)' },
+    };
+    const ACC_FONT = 'Noto Music', ACC_GLYPH_FONT = 'GCS Accidentals';
+    const MIN_PX = 8, WHOLE_WORDS = true, WHOLE_WORD_MAX = 15, REF_PX = 100;
+    const EASE = 'cubic-bezier(.2,.7,.3,1)';
+    let fontKey = localStorage.getItem('gcs-font') in FONTS ? localStorage.getItem('gcs-font') : 'hyperlegible';
+    const fontSpec = () => `700 ${REF_PX}px '${ACC_GLYPH_FONT}', '${FONTS[fontKey].family}', '${ACC_FONT}'`;
+    const ctx = document.createElement('canvas').getContext('2d');
+    const widthCache = new Map();
+    const shared = { spaceW: 30 };
+    function primeCanvas() {
+      ctx.font = fontSpec(); ctx.fontKerning = 'none';
+      widthCache.clear();
+      shared.spaceW = ctx.measureText(' ').width;
+    }
+    function widthOf(token) {
+      let w = widthCache.get(token);
+      if (w === undefined) { w = ctx.measureText(token).width; widthCache.set(token, w); }
+      return w;
+    }
+    const TOKEN_RE = /[ \t]+|[^ \t\-\u2013\u2014]*[-\u2013\u2014]|[^ \t\-\u2013\u2014]+/g;
+    function rowsForParagraph(para, px, W) {
+      const k = px / REF_PX, tabW = 8 * shared.spaceW * k;
+      let rows = 1, x = 0;
+      for (const tok of para.match(TOKEN_RE) || []) {
+        if (tok[0] === ' ' || tok[0] === '\t') {
+          for (const ch of tok) x = ch === '\t' ? (Math.floor(x / tabW) + 1) * tabW : x + shared.spaceW * k;
+          continue;
+        }
+        const w = widthOf(tok) * k;
+        if (x > 0 && x + w > W) { rows++; x = 0; }
+        if (w > W) {
+          for (const ch of tok) {
+            const cw = widthOf(ch) * k;
+            if (cw > W) return Infinity;
+            if (x > 0 && x + cw > W) { rows++; x = 0; }
+            x += cw;
+          }
+        } else x += w;
+      }
+      return rows;
+    }
+    function widestWord(paras) {
+      let w = 0;
+      for (const p of paras) for (const tok of p.match(TOKEN_RE) || []) {
+        if (tok[0] === ' ' || tok[0] === '\t' || tok.length > WHOLE_WORD_MAX) continue;
+        w = Math.max(w, widthOf(tok));
+      }
+      return w;
+    }
+    function fitFontPx(text, m) {
+      const paras = text.split('\n');
+      const W = m.innerW - 0.5, H = m.innerH;
+      const fits = px => {
+        let rows = 0;
+        for (const p of paras) { rows += rowsForParagraph(p, px, W); if (rows === Infinity) return false; }
+        return (m.lhPerPx * rows + m.overhangPerPx) * px <= H;
+      };
+      let hi = H / (m.lhPerPx + m.overhangPerPx);
+      if (WHOLE_WORDS) { const ww = widestWord(paras); if (ww > 0) hi = Math.min(hi, W / ww * REF_PX); }
+      if (hi <= MIN_PX || !fits(MIN_PX)) return MIN_PX;
+      let lo = MIN_PX;
+      for (let i = 0; i < 24 && hi - lo > 0.01; i++) { const mid = (lo + hi) / 2; if (fits(mid)) lo = mid; else hi = mid; }
+      return Math.floor(lo * 100) / 100;
+    }
+
+    const textCells = new Set();
+    class TextCell {
+      constructor(body, text, onChange, opts = {}) {
+        this.centered = !!opts.centered;
+        body.innerHTML = `<div class="layer measure" aria-hidden="true"></div><div class="layer shadow" aria-hidden="true"></div>
+          <textarea class="layer inputbox" aria-label="Text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off"></textarea>`;
+        this.measure = body.querySelector('.measure');
+        this.shadow  = body.querySelector('.shadow');
+        this.input   = body.querySelector('.inputbox');
+        this.metrics = { lhPerPx: 1.1, overhangPerPx: 0, innerW: 0, innerH: 0 };
+        this.appliedPx = 0;
+        this.input.value = normalizeAccidentals(text);
+        this.input.addEventListener('input', e => { if (!e.isComposing) this.syncAccidentals(); this.update(); onChange(this.input.value); });
+        this.input.addEventListener('scroll', () => { this.shadow.scrollTop = this.input.scrollTop; this.shadow.scrollLeft = this.input.scrollLeft; });
+        this.ro = new ResizeObserver(() => this.remeasure());
+        this.ro.observe(body);
+        textCells.add(this);
+        this.measureMetrics(); this.update();    // synchronous first paint; later changes go through rAF
+      }
+      getText() { return this.input.value; }
+      focus() { this.input.focus(); }
+      destroy() { this.ro.disconnect(); textCells.delete(this); }
+      syncAccidentals() {
+        const want = normalizeAccidentals(this.input.value);
+        if (want === this.input.value) return;
+        const have = this.input.value, s = this.input.selectionStart, e = this.input.selectionEnd;
+        for (let i = 0; i < have.length; i++) if (have[i] !== want[i]) this.input.setRangeText(want[i], i, i + 1, 'preserve');
+        this.input.setSelectionRange(s, e);
+      }
+      measureMetrics() {
+        const m = this.measure, mt = this.metrics;
+        if (!m.clientWidth) { mt.innerW = 0; return; }     // hidden cell (present mode): nothing to measure
+        m.style.fontSize = '1000px';
+        m.innerHTML = '<div style="overflow:hidden;height:1px;white-space:pre"></div>';
+        const probe = m.firstElementChild;
+        probe.textContent = '0'; const oneRow = probe.scrollHeight;
+        probe.textContent = '0\n0'; const pitch = probe.scrollHeight - oneRow;
+        mt.lhPerPx = pitch / 1000; mt.overhangPerPx = Math.max(0, oneRow - pitch) / 1000;
+        m.textContent = '';
+        const cs = getComputedStyle(m);
+        mt.padTop = parseFloat(cs.paddingTop);
+        mt.innerW = m.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+        mt.innerH = m.clientHeight - mt.padTop - parseFloat(cs.paddingBottom);
+      }
+      remeasure() { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.measureMetrics(); this.update(); }); }
+      verify(px, text) {
+        const m = this.measure; m.textContent = text + '\u200b';
+        for (let i = 0; i < 8 && px > MIN_PX; i++) {
+          m.style.fontSize = px + 'px';
+          if (m.scrollHeight <= m.clientHeight && m.scrollWidth <= m.clientWidth) return px;
+          px = Math.max(MIN_PX, px * 0.98);
+        }
+        return px;
+      }
+      currentScale() { const t = getComputedStyle(this.shadow).transform; return t.startsWith('matrix(') ? parseFloat(t.slice(7)) : 1; }
+      update() {
+        if (!(this.metrics.innerW > 0 && this.metrics.lhPerPx > 0)) return;
+        const text = this.input.value;
+        this.shadow.innerHTML = renderColouredText(text);
+        const px = this.verify(fitFontPx(text, this.metrics), text);
+        const layers = [this.shadow, this.input];
+        if (this.appliedPx && Math.abs(px - this.appliedPx) > 0.01) {
+          const k = this.appliedPx * this.currentScale() / px;
+          for (const el of layers) { el.style.transition = 'none'; el.style.transform = `scale(${k})`; }
+        }
+        this.shadow.style.fontSize = this.input.style.fontSize = px + 'px';
+        if (this.centered) {
+          // Headings sit in the vertical middle: pad the visible layers (not the
+          // measuring one) by half the unused height. Both layers get the same
+          // padding, so the caret stays aligned.
+          let rows = 0;
+          for (const p of text.split('\n')) rows += rowsForParagraph(p, px, this.metrics.innerW - 0.5);
+          const contentH = (this.metrics.lhPerPx * rows + this.metrics.overhangPerPx) * px;
+          const extra = Math.max(0, (this.metrics.innerH - contentH) / 2);
+          this.shadow.style.paddingTop = this.input.style.paddingTop = (this.metrics.padTop + extra) + 'px';
+        }
+        void this.shadow.offsetWidth;
+        for (const el of layers) { el.style.transition = `transform 0.22s ${EASE}`; el.style.transform = 'scale(1)'; }
+        this.appliedPx = px;
+        this.shadow.style.overflow = this.input.style.overflow = px <= MIN_PX ? 'auto' : 'hidden';
+      }
+    }
+    function applyFont(key) {
+      fontKey = key; localStorage.setItem('gcs-font', key);
+      document.documentElement.style.setProperty('--font', `'${ACC_GLYPH_FONT}', '${FONTS[key].family}', '${ACC_FONT}', system-ui, sans-serif`);
+      primeCanvas();
+      for (const c of textCells) c.remeasure();
+      if (document.fonts) {
+        Promise.all([document.fonts.load(fontSpec()), document.fonts.load(`400 ${REF_PX}px '${ACC_FONT}'`), document.fonts.load(`400 ${REF_PX}px '${ACC_GLYPH_FONT}'`)])
+          .then(() => { primeCanvas(); for (const c of textCells) c.remeasure(); }).catch(() => {});
+      }
+    }
+
+    /* ======================================================================
+       Notation engine (from Notation v1): abcjs, stripped-accidental layout,
+       ChromaNotes colours, letters in heads, small accidentals, lyric fit,
+       playback cursor.
+       ====================================================================== */
+    const LETTER_PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+    const ACC_GLYPH = { sharp: '\u266F', flat: '\u266D', natural: '\u266E', dblsharp: '\u{1D12A}', dblflat: '\u{1D12B}' };
+    const ACC_SEMI  = { sharp: 1, flat: -1, natural: 0, dblsharp: 2, dblflat: -2 };
+    const NS = 'http://www.w3.org/2000/svg';
+    // Letter colour on a filled notehead: white in the light theme, black in
+    // the dark theme (white and the brighter heads merge against a dark page).
+    const darkTheme = () => document.documentElement.dataset.theme === 'dark' ||
+      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    const letterOn = () => darkTheme() ? '#111' : '#fff';
+    const SOUNDFONT = 'vendor/soundfont/';   // local piano samples: playback works offline
+
+    /* ---------------- playback from file:// ----------------
+       abcjs fetches each piano sample with an XMLHttpRequest and resolves
+       only on HTTP 200, so on a page opened from disk the request fails
+       silently and the Play button spins forever. Script tags do load from
+       disk, so the samples are embedded in piano-embedded.js and, on file://
+       pages only, requests for them are answered from that data. */
+    (function embeddedSoundfont() {
+      if (location.protocol !== 'file:' && !/[?&]embeddedsf/.test(location.search)) return;
+      const ready = new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = 'vendor/soundfont/piano-embedded.js';
+        s.onload = resolve; s.onerror = resolve;      // on error the map is missing and requests fall through
+        document.head.appendChild(s);
+      });
+      const bytes = b64 => { const bin = atob(b64); const out = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out.buffer; };
+      const Native = window.XMLHttpRequest;
+      window.XMLHttpRequest = function EmbeddedXHR() {
+        const xhr = new Native();
+        const open = xhr.open, send = xhr.send;
+        let url = '';
+        xhr.open = function(method, u, ...rest) { url = String(u); return open.call(xhr, method, u, ...rest); };
+        xhr.send = function(...args) {
+          const m = url.match(/vendor\/soundfont\/(.+\.mp3)$/);
+          if (!m) return send.apply(xhr, args);
+          ready.then(() => {
+            const map = window.GCS_SOUNDFONT;
+            if (!map || !map[m[1]]) return send.apply(xhr, args);
+            Object.defineProperty(xhr, 'status', { value: 200, configurable: true });
+            Object.defineProperty(xhr, 'readyState', { value: 4, configurable: true });
+            Object.defineProperty(xhr, 'response', { value: bytes(map[m[1]]), configurable: true });
+            if (typeof xhr.onload === 'function') xhr.onload(new Event('load')); else xhr.dispatchEvent(new Event('load'));
+          });
+        };
+        return xhr;
+      };
+    })();
+    const PAD = 10;
+    const LEAD_IN_BEATS = 2;          // count-in before the first note when playing from the top
+    const withHeader = t => /^K:/m.test(t) ? t : 'X:1\nL:1/4\nK:C\n' + t;
+    function stripAccidentals(abc) {
+      return abc.split('\n').map(line => {
+        if (/^[A-Za-z]:/.test(line) || /^%/.test(line)) return line;
+        return line.replace(/("[^"]*"|\[[A-Za-z]:[^\]]*\]|![^!]*!)|[\^_=]+(?=[A-Ga-g])/g, (m, keep) => keep || '');
+      }).join('\n');
+    }
+    function collect(tune) {
+      const out = [];
+      tune.lines.forEach((line, li) => (line.staff || []).forEach(staff => (staff.voices || []).forEach((voice, vi) => {
+        for (const el of voice) if (el.el_type === 'note' || el.el_type === 'bar') { el._line = li; el._voice = vi; out.push(el); }
+      })));
+      return out;
+    }
+    function spell(tune, elems) {
+      const key = tune.getKeySignature ? tune.getKeySignature() : null;
+      const keyAcc = {};
+      for (const a of (key && key.accidentals) || []) keyAcc[a.note.toUpperCase()] = a.acc;
+      let barAcc = {};
+      return elems.map(el => {
+        if (el.el_type === 'bar') { barAcc = {}; return null; }
+        if (!el.pitches) return [];
+        return el.pitches.map(p => {
+          const letter = p.name.replace(/[^A-Ga-g]/g, '').toUpperCase(), octKey = letter + p.pitch;
+          let acc = p.accidental;
+          if (acc) barAcc[octKey] = acc; else acc = barAcc[octKey] || keyAcc[letter] || 'natural';
+          const pc = ((LETTER_PC[letter] + ACC_SEMI[acc]) % 12 + 12) % 12;
+          return { letter, acc, explicit: p.accidental || null, pc, color: PC_COLORS[pc] };
+        });
+      });
+    }
+    const accCentre = {};
+    function accidentalCentre(acc) {
+      if (accCentre[acc] !== undefined) return accCentre[acc];
+      const c = document.createElement('canvas').getContext('2d');
+      c.font = "400 100px 'Noto Music'";
+      const m = c.measureText(ACC_GLYPH[acc]), up = m.actualBoundingBoxAscent, down = m.actualBoundingBoxDescent;
+      const centre = (acc === 'flat' || acc === 'dblflat') ? (-down + 0.25 * (up + down)) / 100 : (up - down) / 2 / 100;
+      if (document.fonts && document.fonts.check("400 100px 'Noto Music'", ACC_GLYPH[acc])) accCentre[acc] = centre;
+      return centre;
+    }
+    function svgText(parent, cls, x, y, size, fill, content, anchor, baseline = 'central') {
+      const t = document.createElementNS(NS, 'text');
+      t.setAttribute('class', cls); t.setAttribute('x', x.toFixed(2)); t.setAttribute('y', y.toFixed(2));
+      t.setAttribute('text-anchor', anchor); t.setAttribute('dominant-baseline', baseline);
+      t.setAttribute('font-size', size.toFixed(2)); t.setAttribute('fill', fill);
+      t.textContent = content; parent.appendChild(t); return t;
+    }
+    function fitLyricSize(svg, size) {
+      if (!svg) return null;
+      const texts = [...svg.querySelectorAll('text.abcjs-lyric')];
+      if (!texts.length) return null;
+      const lines = new Map();
+      for (const t of texts) {
+        const bb = t.getBBox(), key = Math.round(bb.y / 5);
+        if (!lines.has(key)) lines.set(key, []);
+        lines.get(key).push({ w: bb.width, cx: bb.x + bb.width / 2 });
+      }
+      const vb = svg.viewBox.baseVal, left = PAD, right = vb.width - PAD;
+      let f = Infinity;
+      for (const syl of lines.values()) {
+        syl.sort((a, b) => a.cx - b.cx);
+        for (let i = 0; i < syl.length; i++) {
+          const a = syl[i];
+          if (i + 1 < syl.length) { const b = syl[i + 1]; f = Math.min(f, (b.cx - a.cx) / ((a.w + b.w) / 2 + 3)); }   // 3 units of air between syllables
+          f = Math.min(f, (a.cx - left) / (a.w / 2), (right - a.cx) / (a.w / 2));
+        }
+      }
+      if (!isFinite(f)) return null;
+      return Math.max(size, Math.min(cssNum('--lyric-max', 20), Math.floor(size * f * 10) / 10));
+    }
+
+    let abcSeq = 0;
+    class AbcCell {
+      constructor(body, text, onChange, opts = {}) {
+        const id = 'abc' + (++abcSeq);
+        this.transpose = opts.transpose || 0;
+        body.innerHTML = `<div class="score"><div class="paper"></div></div>
+          <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
+          <div class="side"><div class="audio" id="${id}-audio"></div>
+          <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
+          <div class="warn"></div></div></div>`;
+        const xp = body.querySelector('.xpose input');
+        xp.addEventListener('input', () => {
+          const n = Math.max(-12, Math.min(12, parseInt(xp.value, 10) || 0));
+          if (n === this.transpose) return;
+          this.transpose = n; this.render();
+          if (opts.onTranspose) opts.onTranspose(n);
+        });
+        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper');
+        this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
+        this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
+        this.entry.value = text;
+        this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
+        this.shift = new Map();          // displayed element -> horizontal shift from proportional spacing
+        this.pending = false;            // a render was requested during playback
+        // A pause from the transport also applies a pending render (finish is handled by the cursor control).
+        body.querySelector('.audio').addEventListener('click', () => setTimeout(() => { if (this.pending && !(this.synth && this.synth.isStarted)) this.render(); }, 250));
+        this.entry.addEventListener('input', () => { this.render(); onChange(this.entry.value); });
+        this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
+        this.ro.observe(this.scoreEl);
+        this.synth = null;
+        // abcjs is deferred: on a cold load it may arrive after the cells are built.
+        if (!window.ABCJS) { document.getElementById('abcjs').addEventListener('load', () => this.boot(body, id), { once: true }); return; }
+        this.boot(body, id);
+      }
+      boot(body, id) {
+        if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
+          this.synth = new ABCJS.synth.SynthController();
+          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayRestart: true, displayProgress: false, displayClock: true, displayWarp: true });
+          // abcjs puts its tempo box in the transport row; give it a row and a
+          // name of its own, like Transpose. Seeking is done by dragging the
+          // cursor on the staff, so there is no progress bar.
+          const tw = body.querySelector('.abcjs-tempo-wrapper');
+          if (tw) {
+            const lab = document.createElement('label'); lab.className = 'xpose tempo';
+            lab.title = 'Playback speed as a percentage of the written tempo (Q:1/4=90 in the ABC sets it)';
+            lab.append('Tempo ', tw);
+            body.querySelector('.audio').appendChild(lab);   // abcjs finds the box inside its own container
+          }
+          // Play from the top gets a lead-in: the bar glides from its waiting
+          // place into the first note over two beats while the lamp counts
+          // them, and the transport starts as it arrives. Capture phase, so
+          // abcjs's own click handler on the button is held back.
+          body.querySelector('.audio').addEventListener('click', e => this.onTransportClick(e), true);
+        }
+        this.render();
+      }
+      getText() { return this.entry.value; }
+      focus() { this.entry.focus(); }
+      destroy() { this.ro.disconnect(); this.hidden.remove(); }
+      async onTransportClick(e) {
+        const s = this.synth;
+        const btn = e.target.closest && e.target.closest('.abcjs-midi-start');
+        if (!btn || !s || s.isStarted || s.percent > 0 || this.leadIn) return;   // pause, resume, or already counting in
+        e.stopPropagation(); e.preventDefault();
+        this.leadIn = true;
+        try {
+          if (!s.isLoaded) await s.go();                     // samples and timer, without starting
+          const beats = LEAD_IN_BEATS, beatMs = 60000 / (s.currentTempo || 120);
+          const g = this.cursor(), first = this.firstNote(), x0 = this.startX();
+          if (g && first && x0 !== null) {
+            const fx = first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0) - 3;
+            const sp = this.spelled[this.dispElems.indexOf(first)];
+            g.classList.remove('done', 'ready'); this.shapeCursor(g, 0);
+            this.colourCursor(g, sp && sp[0] ? sp[0].color : 'var(--cursor)');
+            if (g._motion) g._motion.cancel();
+            g.style.transform = `translateX(${x0.toFixed(2)}px)`;
+            this.moveCursor(g, fx, beats * beatMs, 'linear');
+            for (let b = 0; b < beats; b++) setTimeout(() => this.pulseLamp(), b * beatMs);
+          }
+          await new Promise(r => setTimeout(r, beats * beatMs));
+        } catch (err) { console.warn('lead-in skipped', err); }
+        this.leadIn = false;
+        this.leadInDone = true;
+        s.play();
+      }
+      pulseLamp() {
+        const g = this.cursor(); if (!g || g.classList.contains('ready')) return;
+        g._lamp.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 170, easing: 'ease-out' });
+      }
+      renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
+        const tunes = ABCJS.renderAbc(target, abc, {
+          add_classes: true, staffwidth, visualTranspose: this.transpose || 0,
+          paddingtop: PAD, paddingbottom: PAD, paddingleft: PAD, paddingright: PAD,
+          format: { vocalfont: `Atkinson Hyperlegible ${vocal}` },
+        });
+        const svg = target.querySelector('svg');
+        if (svg && !svg.getAttribute('viewBox')) svg.setAttribute('viewBox', `0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
+        return tunes && tunes[0];
+      }
+      boxSize() {
+        const cs = getComputedStyle(this.scoreEl);
+        return { W: this.scoreEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+                 H: this.scoreEl.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
+      }
+      render() {
+        if (!window.ABCJS) return;               // still loading; boot() renders when it lands
+        // While the synthesiser is playing, its timer refers to the current
+        // hidden render and abcjs's setTune would stop it; re-render when it
+        // finishes or pauses instead.
+        if (this.synth && this.synth.isStarted) { this.pending = true; return; }
+        this.pending = false;
+        this.warnEl.textContent = '';
+        const abc = withHeader(this.entry.value);
+        this.original = this.renderAt(this.hidden, abc, 600);
+        if (!this.original) return;
+        this.origElems = collect(this.original);
+        this.spelled = spell(this.original, this.origElems);
+        let abcForDisplay = stripAccidentals(abc);
+        let tune = this.renderAt(this.paper, abcForDisplay, 600);
+        if (!tune) return;
+        if (collect(tune).length !== this.origElems.length) { abcForDisplay = abc; tune = this.renderAt(this.paper, abcForDisplay, 600); }
+        const { W, H } = this.boxSize();
+        if (!(W > 0 && H > 0)) return;            // hidden cell: paddings read as NaN
+        const vb = this.paper.querySelector('svg').viewBox.baseVal;
+        const ideal = Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
+        if (Math.abs(ideal - 600) > 2) tune = this.renderAt(this.paper, abcForDisplay, ideal);
+        const lyricMin = cssNum('--lyric-min', 9);
+        const vocal = fitLyricSize(this.paper.querySelector('svg'), lyricMin);
+        if (vocal !== null && Math.abs(vocal - lyricMin) > 0.25) tune = this.renderAt(this.paper, abcForDisplay, ideal, vocal);
+        this.displayed = tune; this.dispElems = collect(tune);
+        this.hiddenIndex.clear();
+        this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
+        if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
+        // Post-processing must never keep the tune from reaching the
+        // synthesiser: with a stale tune the transport plays the old music
+        // while the cursor maps to nothing.
+        try {
+          this.decorate(abcForDisplay !== abc);
+          this.shift.clear();
+          if (proportional) this.proportionalize();
+        } catch (err) {
+          console.warn('notation post-processing failed', err);
+        }
+        this.fit();
+        this.placeReady();
+        if (this.synth) {
+          // abcjs's setTune does not clear its isLoaded flag, so after one play
+          // it would keep the previous tune's timer and audio buffer for every
+          // later Play: old music, and timing events that map to nothing.
+          this.synth.destroy();
+          // abcjs treats a visual transposition as a transposing instrument's
+          // part and cancels it in the audio; a matching midiTranspose makes
+          // the sound follow the page.
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0 }).catch(() => {});
+          this.synth.isLoaded = false;
+          // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
+          const warp = this.synth.warp || 100;
+          if (this.synth.control && this.original.getBpm) this.synth.control.setWarp(this.original.getBpm() * warp / 100, warp);
+        }
+      }
+
+      // Proportional spacing: on each line, every note, rest and bar line is
+      // moved so that its horizontal position is linear in time, keeping the
+      // first note and the final bar line where abcjs put them. Beams, ties and
+      // slurs are stretched between the notes they join.
+      proportionalize() {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return;
+        const lines = new Map();
+        for (const el of this.dispElems) {
+          if (el._voice !== 0 || !el.abselem || !el.abselem.elemset || !el.abselem.elemset.length) continue;
+          if (!lines.has(el._line)) lines.set(el._line, []);
+          lines.get(el._line).push(el);
+        }
+        const groupBox = el => el.abselem.elemset[0].getBBox();
+        const headX = el => { const h = el.abselem.heads && el.abselem.heads[0] && el.abselem.heads[0].graphelem; return (h ? h.getBBox() : groupBox(el)).x; };
+        const GAP = 5;                                        // bar line to next note
+        for (const [li, elems] of lines) {
+          const notes = elems.filter(e => e.el_type === 'note');
+          if (notes.length < 2) continue;
+          let t = 0; const items = [];
+          for (const el of elems) {
+            if (el.el_type === 'bar') items.push({ el, t, bar: true });
+            else { items.push({ el, t, bar: false }); t += el.duration || 0; }
+          }
+          const T = t; if (T <= 0) continue;
+          const x1 = headX(notes[0]);
+          const lastBar = [...items].reverse().find(i => i.bar && i.t >= T - 1e-9);
+          const staff = svg.querySelector(`.abcjs-staff.abcjs-l${li}`);
+          const xEnd = lastBar ? groupBox(lastBar.el).x : (staff ? staff.getBBox().x + staff.getBBox().width - 4 : null);
+          if (xEnd === null || xEnd <= x1) continue;
+          const perWhole = (xEnd - x1) / T;
+          for (const it of items) {
+            const cur = it.bar ? groupBox(it.el).x : headX(it.el);
+            let target = x1 + it.t * perWhole;
+            if (it.bar) target = it === lastBar ? xEnd : target - GAP;
+            const dx = target - cur;
+            this.shift.set(it.el, dx);
+            for (const g of it.el.abselem.elemset) g.style.setProperty('--dx', dx.toFixed(2) + 'px');
+          }
+        }
+        // Lyrics were sized for abcjs's spacing; after the shift, shrink them
+        // (all together) until no two neighbouring syllables touch.
+        const syls = [...svg.querySelectorAll('text.abcjs-lyric')].map(t => {
+          const g = t.closest('g.abcjs-note, g.abcjs-rest');       // a syllable can sit under a rest
+          const dx = g ? parseFloat(g.style.getPropertyValue('--dx')) || 0 : 0; const b = t.getBBox();
+          return { t, cx: b.x + b.width / 2 + dx, w: b.width, row: Math.round(b.y / 5) };
+        });
+        const rows = new Map(); for (const y of syls) { if (!rows.has(y.row)) rows.set(y.row, []); rows.get(y.row).push(y); }
+        let f = 1;
+        for (const row of rows.values()) { row.sort((a, b) => a.cx - b.cx); for (let i = 1; i < row.length; i++) f = Math.min(f, (row[i].cx - row[i - 1].cx) / ((row[i].w + row[i - 1].w) / 2 + 3)); }
+        if (f < 1) for (const y of syls) { const size = parseFloat(y.t.getAttribute('font-size')) || 12; y.t.setAttribute('font-size', Math.max(4, size * f).toFixed(2)); }
+        // Spanning shapes: stretch each between the nearest note at each end.
+        const anchors = this.dispElems.filter(e => e.el_type === 'note' && this.shift.has(e)).map(e => { const b = groupBox(e); return { cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: this.shift.get(e) }; });
+        if (!anchors.length) return;
+        const nearest = (x, y) => anchors.reduce((a, b) => Math.hypot(b.cx - x, b.cy - y) < Math.hypot(a.cx - x, a.cy - y) ? b : a);
+        for (const path of svg.querySelectorAll('path.abcjs-beam-elem, path.abcjs-slur, path.abcjs-tie, path.abcjs-legato')) {
+          const b = path.getBBox();
+          if (b.width < 1) continue;
+          const L = nearest(b.x, b.y + b.height / 2), R = nearest(b.x + b.width, b.y + b.height / 2);
+          const sx = (b.width + R.dx - L.dx) / b.width;
+          path.style.transformOrigin = `${b.x.toFixed(2)}px 0px`;
+          path.style.transform = `translate(${L.dx.toFixed(2)}px, 0) scaleX(${sx.toFixed(4)})`;
+        }
+      }
+      decorate(drawAccidentals) {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return;
+        const accScale = cssNum('--acc-size', 1.8);
+        this.dispElems.forEach((el, i) => {
+          const abs = el.abselem, pitches = this.spelled[i];
+          if (!abs || !pitches || !pitches.length) return;
+          const heads = abs.heads || [];
+          heads.forEach((head, j) => {
+            const p = pitches[j] || pitches[0], node = head.graphelem;
+            if (!node) return;
+            node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
+            const bb = node.getBBox(), hollow = el.duration >= 0.5;
+            const group = abs.elemset[0] || svg;      // inside the group: moves and pops with the note
+            svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * 1.05, hollow ? p.color : letterOn(), p.letter, 'middle');
+            if (drawAccidentals && p.explicit) {
+              const size = bb.height * accScale;
+              const baselineY = bb.y + bb.height / 2 + accidentalCentre(p.explicit) * size;
+              svgText(group, 'accg', bb.x - bb.width * 0.2, baselineY, size, p.color, ACC_GLYPH[p.explicit], 'end', 'alphabetic');
+            }
+          });
+          const color = pitches[0].color;
+          for (const g of abs.elemset || []) {
+            for (const path of g.querySelectorAll('path')) {
+              if (path.classList.contains('abcjs-ledger') || heads.some(h => h.graphelem === path)) continue;
+              path.setAttribute('fill', color);
+            }
+            for (const t of g.querySelectorAll('text.abcjs-lyric')) t.setAttribute('fill', color);
+          }
+        });
+      }
+      fit() {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return;
+        const vb = svg.viewBox.baseVal, { W, H } = this.boxSize();
+        if (!(W > 0 && H > 0)) return;
+        const k = Math.min(W / vb.width, H / vb.height);
+        svg.setAttribute('width', (vb.width * k).toFixed(2)); svg.setAttribute('height', (vb.height * k).toFixed(2));
+        this.paper.style.height = ''; this.paper.style.overflow = '';
+      }
+      clearPlaying() {
+        for (const g of this.paper.querySelectorAll('.playing')) { g.classList.remove('playing'); g.style.filter = ''; }
+      }
+      // The cursor: a group (moved as one) holding the bar and the lamp.
+      cursor() {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return null;
+        let g = svg.querySelector('g.cursorg');
+        if (!g) {
+          g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'cursorg ready');
+          const bar = document.createElementNS(NS, 'rect'); bar.setAttribute('class', 'cursorbar'); bar.setAttribute('x', 0); bar.setAttribute('width', 2.4); bar.setAttribute('rx', 1.2);
+          const lamp = document.createElementNS(NS, 'circle'); lamp.setAttribute('class', 'cursorlamp'); lamp.setAttribute('cx', 1.2); lamp.setAttribute('r', 2.6);
+          const hit = document.createElementNS(NS, 'rect'); hit.setAttribute('class', 'cursorhit'); hit.setAttribute('x', -7); hit.setAttribute('width', 16.4);
+          g.appendChild(hit); g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
+          g._bar = bar; g._lamp = lamp; g._hit = hit;
+          g.addEventListener('pointerdown', e => this.dragStart(e));
+        }
+        return g;
+      }
+      // Vertical extent for a staff line, from the displayed staff.
+      cursorSpan(line) {
+        const svg = this.paper.querySelector('svg');
+        const staff = svg && (svg.querySelector(`.abcjs-staff.abcjs-l${line}`) || svg.querySelectorAll('.abcjs-staff')[line || 0]);
+        if (!staff) return { top: 0, height: 60 };
+        const sb = staff.getBBox();
+        return { top: sb.y - sb.height * 0.6, height: sb.height * 2.2 };
+      }
+      shapeCursor(g, line) {
+        const { top, height } = this.cursorSpan(line);
+        g._bar.setAttribute('y', top.toFixed(2)); g._bar.setAttribute('height', height.toFixed(2));
+        g._lamp.setAttribute('cy', (top - 4).toFixed(2));
+        g._hit.setAttribute('y', (top - 9).toFixed(2)); g._hit.setAttribute('height', (height + 12).toFixed(2));
+      }
+      colourCursor(g, color) { g._bar.style.fill = color; g._lamp.style.fill = color; g.style.filter = `drop-shadow(0 0 3px ${color})`; }
+      moveCursor(g, x, ms, easing = 'linear') {
+        if (g._motion) g._motion.cancel();
+        const cur = (() => { const m = getComputedStyle(g).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : x; })();
+        g._motion = g.animate([{ transform: `translateX(${cur.toFixed(2)}px)` }, { transform: `translateX(${x.toFixed(2)}px)` }], { duration: Math.max(0, ms), easing, fill: 'forwards' });
+        return g._motion;
+      }
+      // Where the bar waits: just after the clef and key signature, before the
+      // first note. The lead-in glides from here into the first note.
+      startX() {
+        const first = this.firstNote();
+        if (!first) return null;
+        const svg = this.paper.querySelector('svg');
+        const fx = first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0);
+        // Right after the clef (the bar may cross the key signature on its way).
+        const clef = svg && svg.querySelector('.abcjs-clef.abcjs-l0');
+        const after = clef ? clef.getBBox().x + clef.getBBox().width + 3 : fx - 24;
+        return Math.min(after, fx - 4);
+      }
+      firstNote() {
+        return this.dispElems.find(e => e.el_type === 'note' && e._voice === 0 && e.abselem && e.abselem.elemset && e.abselem.elemset.length) || null;
+      }
+      // Where it ends: the final bar line of a line, else the staff's right edge.
+      endX(line) {
+        const bars = this.dispElems.filter(e => e.el_type === 'bar' && e._line === line && e.abselem && e.abselem.elemset && e.abselem.elemset.length);
+        if (bars.length) { const b = bars[bars.length - 1]; return b.abselem.elemset[0].getBBox().x + (this.shift.get(b) || 0) - 1; }
+        const svg = this.paper.querySelector('svg');
+        const staff = svg && svg.querySelector(`.abcjs-staff.abcjs-l${line}`);
+        return staff ? staff.getBBox().x + staff.getBBox().width - 3 : null;
+      }
+      // After a render: park the cursor faintly at the start.
+      placeReady() {
+        const x = this.startX();
+        const g = this.cursor();
+        if (!g || x === null) return;
+        this.shapeCursor(g, 0);
+        g.style.filter = ''; g._bar.style.fill = ''; g._lamp.style.fill = '';
+        if (g._motion) g._motion.cancel();
+        g.style.transform = `translateX(${x.toFixed(2)}px)`;
+        g.classList.remove('done'); g.classList.add('ready');
+      }
+      // Displayed x (left edge) and colour of the notes in a timing event.
+      eventGeometry(ev) {
+        let x = null, color = null;
+        const groups = [];
+        for (const arr of ev.elements || []) for (const el of (Array.isArray(arr) ? arr : [arr])) {
+          const i = this.hiddenIndex.get(el);
+          if (i === undefined || !this.dispElems[i] || !this.dispElems[i].abselem) continue;
+          const sp = this.spelled[i];
+          if (sp && sp.length && !color) color = sp[0].color;
+          const dx = this.shift.get(this.dispElems[i]) || 0;
+          for (const g of this.dispElems[i].abselem.elemset || []) { groups.push(g); const bb = g.getBBox(); const gx = bb.x + dx; x = x === null ? gx : Math.min(x, gx); }
+        }
+        return { x, color: color || 'var(--cursor)', groups };
+      }
+      cursorControl() {
+        return {
+          beatSubdivisions: 1,
+          onStart: () => {
+            this.clearPlaying();
+            const g = this.cursor(); if (!g) return;
+            if (!this.leadInDone && !(this.synth && this.synth.percent > 0)) {
+              // Starting from the top without a lead-in: appear at the start
+              // instantly, no travel back from the end. A resume from a pause
+              // leaves the bar where it stopped.
+              const x = this.startX(); if (x !== null) { if (g._motion) g._motion.cancel(); g.style.transform = `translateX(${x.toFixed(2)}px)`; }
+            }
+            this.leadInDone = false;
+            this.shapeCursor(g, 0);
+            g.classList.remove('done', 'ready');
+          },
+          onBeat: () => { if (this.timerRunning()) this.pulseLamp(); },
+          onFinished: () => {                       // abcjs's name for the end-of-tune callback
+            this.clearPlaying();
+            const g = this.cursor();
+            if (g) {
+              g.classList.add('done');                // fade out where it stopped
+              setTimeout(() => { if (g.isConnected && g.classList.contains('done')) this.placeReady(); }, 600);   // then reset while invisible
+            }
+            // abcjs still reports isStarted inside this callback; apply a
+            // pending render once it has really stopped.
+            if (this.pending) { let tries = 0; const t = setInterval(() => { if (!(this.synth && this.synth.isStarted) || ++tries > 30) { clearInterval(t); if (this.pending) this.render(); } }, 100); }
+          },
+          onEvent: ev => {
+            // abcjs reports the event under a seek (the restart button, or the
+            // progress bar) even while the timer is stopped. Nothing is
+            // sounding, so nothing should look as though it is: a seek to the
+            // top parks the bar at its waiting place; any other seek sets it
+            // on the note it will resume from, without motion.
+            if (!this.timerRunning()) { this.seekTo(ev); return; }
+            // The synthesiser's timer runs ahead of what the speakers emit by
+            // the audio output latency (tens of ms on built-in speakers, far
+            // more over Bluetooth); delay the picture by the same amount.
+            const ctx = ABCJS.synth.activeAudioContext && ABCJS.synth.activeAudioContext();
+            const latencyMs = ctx ? ((ctx.baseLatency || 0) + (ctx.outputLatency || 0)) * 1000 : 0;
+            if (latencyMs > 4) { setTimeout(() => this.showEvent(ev), latencyMs); return; }
+            this.showEvent(ev);
+          },
+        };
+      }
+      timerRunning() { const t = this.synth && this.synth.timer; return !!(t && t.isRunning); }
+      /* ---- dragging the cursor seeks ----
+         Each line of the score is a time axis: the displayed x of every
+         timing event, then the end of the line at the next line's first
+         moment (or the end of the tune). Dragging interpolates between them,
+         which is exact under proportional spacing and close enough otherwise.
+         The drop seeks the synthesiser; a drag during playback pauses first
+         and resumes from the new place. */
+      timeline() {
+        const t = this.original; if (!t) return { lines: [], total: 0 };
+        // abcjs fills noteTimings when the audio is prepared (first Play);
+        // before that, compute them for the tune's tempo.
+        if (!t.noteTimings || !t.noteTimings.length) { try { t.setTiming(0, 0); } catch (err) {} }
+        const timings = (t.noteTimings || []).filter(e => e.type === 'event' && e.elements && e.elements.length);
+        const total = t.getTotalTime ? t.getTotalTime() * 1000 : (timings.length ? timings[timings.length - 1].milliseconds : 0);
+        const lines = new Map();
+        for (const ev of timings) {
+          const geo = this.eventGeometry(ev); if (geo.x === null) continue;
+          const ln = ev.line || 0;
+          if (!lines.has(ln)) { const span = this.cursorSpan(ln); lines.set(ln, { line: ln, events: [], endX: this.endX(ln), cy: span.top + span.height / 2 }); }
+          lines.get(ln).events.push({ x: geo.x - 3, ms: ev.milliseconds, color: geo.color, ev });
+        }
+        const arr = [...lines.values()].sort((a, b) => a.line - b.line);
+        arr.forEach((L, i) => { L.endMs = i + 1 < arr.length ? arr[i + 1].events[0].ms : total; if (L.endX === null || L.endX <= L.events[L.events.length - 1].x) L.endX = L.events[L.events.length - 1].x + 1; });
+        return { lines: arr, total };
+      }
+      // Position along the timeline nearest a point in SVG units.
+      locate(tl, px, py) {
+        if (!tl.lines.length) return null;
+        let L = tl.lines[0], best = Infinity;
+        for (const l of tl.lines) { const d = Math.abs(l.cy - py); if (d < best) { best = d; L = l; } }
+        const ev = L.events;
+        const x = Math.max(ev[0].x, Math.min(L.endX, px));
+        let i = 0; while (i + 1 < ev.length && ev[i + 1].x <= x) i++;
+        const x0 = ev[i].x, x1 = i + 1 < ev.length ? ev[i + 1].x : L.endX;
+        const m0 = ev[i].ms, m1 = i + 1 < ev.length ? ev[i + 1].ms : L.endMs;
+        const f = x1 > x0 ? (x - x0) / (x1 - x0) : 0;
+        return { x, line: L.line, ms: m0 + f * (m1 - m0), color: ev[i].color, event: ev[i].ev };
+      }
+      svgPoint(e) {
+        const svg = this.paper.querySelector('svg');
+        return new DOMPoint(e.clientX, e.clientY).matrixTransform(svg.getScreenCTM().inverse());
+      }
+      dragStart(e) {
+        const s = this.synth, g = this.cursor();
+        if (!s || !g || !this.original || this.leadIn || e.button !== 0) return;
+        e.preventDefault(); e.stopPropagation();
+        const tl = this.timeline(); if (!tl.lines || !tl.lines.length) return;
+        const d = this.drag = { id: e.pointerId, tl, wasPlaying: !!s.isStarted, at: null };
+        if (d.wasPlaying) s.play();                       // toggles: pause
+        if (g._motion) g._motion.cancel();
+        g.classList.remove('done', 'ready');
+        this.clearPlaying();
+        const hit = g._hit;
+        try { hit.setPointerCapture(e.pointerId); } catch (err) {}
+        const move = ev => { if (ev.pointerId === d.id) this.dragTo(ev); };
+        const up = ev => {
+          if (ev.pointerId !== d.id) return;
+          hit.removeEventListener('pointermove', move); hit.removeEventListener('pointerup', up); hit.removeEventListener('pointercancel', up);
+          this.dragEnd();
+        };
+        hit.addEventListener('pointermove', move); hit.addEventListener('pointerup', up); hit.addEventListener('pointercancel', up);
+        this.dragTo(e);
+      }
+      dragTo(e) {
+        const d = this.drag, g = this.cursor(); if (!d || !g) return;
+        const p = this.svgPoint(e);
+        const at = this.locate(d.tl, p.x, p.y); if (!at) return;
+        d.at = at;
+        this.shapeCursor(g, at.line);
+        this.colourCursor(g, at.color);
+        g.style.transform = `translateX(${at.x.toFixed(2)}px)`;
+      }
+      async dragEnd() {
+        const d = this.drag, s = this.synth; this.drag = null;
+        if (!d || !d.at || !s) return;
+        try {
+          if (!s.isLoaded) await s.go();
+          const pct = d.tl.total > 0 ? Math.max(0, Math.min(1, d.at.ms / d.tl.total)) : 0;
+          this.dragX = d.at.x;                          // seekTo keeps the bar where it was dropped
+          s.seek(pct); s.percent = pct;                 // abcjs updates percent only on beat changes
+          this.dragX = null;
+          if (d.wasPlaying) s.play();                   // resume from the new place
+        } catch (err) { console.warn('seek failed', err); this.dragX = null; }
+      }
+      seekTo(ev) {
+        this.clearPlaying();
+        const g = this.cursor(); if (!g) return;
+        if (g._motion) g._motion.cancel();
+        if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) { this.placeReady(); return; }
+        const here = this.eventGeometry(ev);
+        if (here.x === null) { this.placeReady(); return; }
+        this.shapeCursor(g, ev.line || 0);
+        this.colourCursor(g, here.color);
+        g.style.transform = `translateX(${(this.dragX !== null && this.dragX !== undefined ? this.dragX : here.x - 3).toFixed(2)}px)`;
+        g.classList.remove('done', 'ready');
+      }
+      showEvent(ev) {
+        {
+          {
+            this.clearPlaying();
+            if (!ev || !ev.elements) return;
+            const here = this.eventGeometry(ev);
+            if (here.x === null) return;
+            for (const g of here.groups) { g.classList.add('playing'); g.style.filter = `drop-shadow(0 0 5px ${here.color})`; }
+            const r = this.cursor(); if (!r) return;
+            r.classList.remove('done', 'ready');
+            this.shapeCursor(r, ev.line || 0);          // vertical extent from the displayed staff of this line
+            this.colourCursor(r, here.color);           // the bar wears the sounding note's colour
+            // One continuous motion per note, as a keyframe animation:
+            //   settle: from wherever the bar is onto this note (a few frames);
+            //   drift:  creep across the notehead while the note sounds;
+            //   hop:    accelerate to the next note, arriving as it sounds.
+            // A bar that glides for the whole duration reads as running ahead
+            // (it hovers in the space after a long note); one that stops dead
+            // and then jumps reads as a jerk. Each event from the synthesiser's
+            // clock starts a fresh motion from the bar's current position.
+            const x0 = here.x - 3;
+            const cur = (() => { const m = getComputedStyle(r).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : x0; })();
+            if (r._motion) r._motion.cancel();
+            const timings = (this.original && this.original.noteTimings) || [];
+            let idx = timings.indexOf(ev);
+            if (idx < 0) idx = timings.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
+            const next = timings.slice(idx + 1).find(t => t.type === 'event' && t.elements && t.elements.length);
+            const tx = x => `translateX(${x.toFixed(2)}px)`;
+            if (!next) {
+              // Last note: keep going to the end of the line for its duration.
+              const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
+              const xe = this.endX(ev.line || 0);
+              const dtEnd = Math.max(0, totalMs - ev.milliseconds);
+              if (xe !== null && xe > x0 && dtEnd > 0) {
+                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0), offset: Math.min(0.1, 60 / dtEnd) }, { transform: tx(xe) }], { duration: dtEnd, easing: 'linear', fill: 'forwards' });
+              } else {
+                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0) }], { duration: 90, easing: 'ease-out', fill: 'forwards' });
+              }
+              return;
+            }
+            const there = next.top === ev.top ? this.eventGeometry(next) : { x: null };
+            const dt = next.milliseconds - ev.milliseconds;
+            if (there.x !== null && there.x > here.x && dt > 120) {
+              const x1 = there.x - 3;
+              const settle = Math.min(0.12, 70 / dt);                  // fraction of dt spent arriving
+              if (proportional) {
+                // Position is linear in time, so a constant-speed sweep is exact;
+                // start from wherever the bar is (normally already on the note).
+                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x1) }], { duration: dt, easing: 'linear', fill: 'forwards' });
+              } else {
+                const hop = Math.min(0.35, Math.max(0.2, 240 / dt));    // fraction of dt spent hopping
+                const headW = Math.min(12, (x1 - x0) * 0.3);            // drift distance: about a notehead
+                r._motion = r.animate([
+                  { transform: tx(cur), easing: 'ease-out' },
+                  { transform: tx(x0), offset: settle, easing: 'linear' },
+                  { transform: tx(x0 + headW), offset: 1 - hop, easing: 'cubic-bezier(.5,0,.3,1)' },
+                  { transform: tx(x1) },
+                ], { duration: dt, fill: 'forwards' });
+              }
+            } else {
+              r._motion = r.animate([{ transform: tx(cur), easing: 'ease-out' }, { transform: tx(x0) }], { duration: 90, fill: 'forwards' });
+            }
+          }
+        }
+      }
+    }
+
+    /* ======================================================================
+       Cells: model, persistence, edit and present modes
+       ====================================================================== */
+    const STORE = 'gcs-cells-v1';
+    let proportional = localStorage.getItem('gcs-proportional') !== 'off';
+    const SAMPLE = [
+      { type: 'heading', text: 'Grand Central Stationery' },
+      { type: 'text', text: 'Welcome!\nOpen your books' },
+      { type: 'abc',  text: 'C D E F | G A B c |\nw: Do re mi fa sol la ti do' },
+      { type: 'text', text: 'C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb' },
+    ];
+    let cells = [];
+    try { const saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved && Array.isArray(saved.cells) && saved.cells.length) cells = saved.cells; } catch (e) {}
+    if (!cells.length) cells = SAMPLE.map(c => ({ ...c }));
+    let seq = 0; for (const c of cells) c.id = ++seq;
+
+    const cellsEl = document.getElementById('cells');
+    const engines = new Map();       // cell id -> engine
+    let saveTimer = null;
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr }) => ({ type, text, pos, bg, tr })) })), 300); }
+    /* ---------- toast with one action (undo) ---------- */
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+    function toast(msg, action, fn, ms = 8000) {
+      toastEl.firstElementChild.textContent = msg;
+      const b = toastEl.querySelector('.act');
+      b.textContent = action || ''; b.hidden = !action;
+      b.onclick = () => { hideToast(); if (fn) fn(); };
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, ms);
+    }
+    toastEl.querySelector('.close').addEventListener('click', hideToast);
+    function hideToast() { toastEl.classList.remove('show'); }
+    /* ---------- undo for deleted cells ---------- */
+    const trash = [];                 // { cell, index }, most recent last
+    function undoDelete() {
+      const t = trash.pop(); if (!t) return;
+      const at = Math.min(t.index, cells.length);
+      cells.splice(at, 0, t.cell);
+      const el = buildCell(t.cell);
+      cellsEl.insertBefore(el, cellsEl.children[at] || null);
+      renumber(); save();
+      const en = engines.get(t.cell.id); if (en) en.focus();
+      el.scrollIntoView({ block: 'nearest' });
+    }
+    /* ---------- undo / redo of the text inside a cell ----------
+       The browser's own history dies with the textarea (cells are rebuilt on
+       reorder and type change, and abcjs and the accidental sync rewrite
+       values), so each cell keeps its own: a snapshot of text and selection
+       taken before each burst of typing. Bursts are closed by a pause of
+       600 ms, so undo steps back a phrase, not a character. */
+    function attachHistory(cell, ta) {
+      const h = cell.hist || (cell.hist = { undo: [], redo: [], t: 0, before: null, applying: false });
+      const snap = () => ({ text: ta.value, s: ta.selectionStart, e: ta.selectionEnd });
+      const apply = st => {
+        h.applying = true;
+        ta.value = st.text;
+        try { ta.setSelectionRange(st.s, st.e); } catch (e) {}
+        ta.dispatchEvent(new Event('input', { bubbles: true }));   // engines re-fit and the model saves
+        h.applying = false;
+      };
+      ta.addEventListener('beforeinput', () => { if (!h.applying) h.before = snap(); });
+      ta.addEventListener('input', () => {
+        if (h.applying) return;
+        const now = performance.now();
+        if (h.before && now - h.t > 600) { h.undo.push(h.before); if (h.undo.length > 300) h.undo.shift(); }
+        h.t = now; h.redo = []; h.before = null;
+      });
+      h.undo_ = () => { if (!h.undo.length) return; h.redo.push(snap()); apply(h.undo.pop()); h.t = 0; };
+      h.redo_ = () => { if (!h.redo.length) return; h.undo.push(snap()); apply(h.redo.pop()); h.t = 0; };
+      return h;
+    }
+    function renumber() {
+      cells.forEach((c, i) => { const inp = cellsEl.querySelector(`.cell[data-id="${c.id}"] .order`); if (inp && document.activeElement !== inp) inp.value = i + 1; });
+    }
+    // Move a cell to index j without rebuilding: the engines keep running.
+    function reorder(cell, j) {
+      const i = cells.indexOf(cell);
+      j = Math.max(0, Math.min(cells.length - 1, j));
+      if (i < 0 || i === j) return;
+      cells.splice(i, 1); cells.splice(j, 0, cell);
+      const el = cellsEl.querySelector(`.cell[data-id="${cell.id}"]`);
+      el.remove();
+      cellsEl.insertBefore(el, cellsEl.children[j] || null);
+      renumber(); save();
+      el.scrollIntoView({ block: 'nearest' });
+    }
+    /* ---------- drag to reorder (the grip in each cell's header) ---------- */
+    let dragCell = null;
+    function clearDropMarks() { for (const c of cellsEl.querySelectorAll('.drop-before, .drop-after')) c.classList.remove('drop-before', 'drop-after'); }
+    function dropTarget(e) {
+      const over = e.target.closest && e.target.closest('.cell');
+      if (!over || over.dataset.id === String(dragCell && dragCell.id)) return null;
+      const r = over.getBoundingClientRect();
+      return { el: over, after: e.clientY > r.top + r.height / 2 };
+    }
+    cellsEl.addEventListener('dragover', e => {
+      if (!dragCell) return;
+      e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+      clearDropMarks();
+      const t = dropTarget(e); if (t) t.el.classList.add(t.after ? 'drop-after' : 'drop-before');
+    });
+    cellsEl.addEventListener('dragleave', e => { if (!cellsEl.contains(e.relatedTarget)) clearDropMarks(); });
+    cellsEl.addEventListener('drop', e => {
+      if (!dragCell) return;
+      e.preventDefault();
+      const t = dropTarget(e); clearDropMarks();
+      if (!t) return;
+      const target = cells.find(c => String(c.id) === t.el.dataset.id);
+      let j = cells.indexOf(target) + (t.after ? 1 : 0);
+      if (cells.indexOf(dragCell) < j) j--;             // the dragged cell leaves its slot first
+      reorder(dragCell, j);
+    });
+
+    function buildCell(cell) {
+      const el = document.createElement('div');
+      el.className = 'cell'; el.dataset.type = cell.type; el.dataset.id = cell.id;
+      el.innerHTML = `<div class="cell-head">
+          <span class="grip" draggable="true" title="Drag to reorder">⠿</span>
+          <input class="order" type="number" min="1" title="Position: type a number to move this cell">
+          <select class="type"><option value="heading">Heading</option><option value="text">Text</option><option value="abc">Notation</option></select>
+          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
+          <span class="spacer"></span>
+          <span class="tools">
+            <button class="show" title="Present from this cell">Present</button>
+            <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
+            <button class="del" title="Delete cell (Undo in the toast, or Cmd+Z)">✕</button>
+          </span>
+        </div>
+        <div class="pos">
+          <label>x <input type="number" step="100" data-k="x"></label>
+          <label>y <input type="number" step="100" data-k="y"></label>
+          <label>z <input type="number" step="100" data-k="z"></label>
+          <label>roll <input type="number" step="5" data-k="r" title="rotate about the screen's normal (z)"></label>
+          <label>pitch <input type="number" step="5" data-k="rx" title="rotate about x"></label>
+          <label>yaw <input type="number" step="5" data-k="ry" title="rotate about y"></label>
+          <label>scale <input type="number" step="0.1" min="0.1" data-k="s"></label>
+          <label>background <input type="color" data-k="bg"></label>
+          <button class="posclear">auto</button>
+        </div><div class="cell-body"></div>`;
+      el.querySelector('.type').value = cell.type;
+      el.querySelector('.order').value = cells.indexOf(cell) + 1;
+      cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
+      const body = el.querySelector('.cell-body');
+      const onChange = text => { cell.text = text; save(); };
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); } })
+                   : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
+      engines.set(cell.id, engine);
+      el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
+      const order = el.querySelector('.order');
+      const goOrder = () => { const n = parseInt(order.value, 10); if (n >= 1) reorder(cell, n - 1); renumber(); };
+      order.addEventListener('change', goOrder);
+      order.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); goOrder(); order.blur(); } });
+      const grip = el.querySelector('.grip');
+      grip.addEventListener('dragstart', e => {
+        dragCell = cell; el.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(cell.id));
+        e.dataTransfer.setDragImage(el.querySelector('.cell-head'), 20, 14);
+      });
+      grip.addEventListener('dragend', () => { dragCell = null; el.classList.remove('dragging'); clearDropMarks(); });
+      // Delete at once; the toast (or Cmd+Z outside a field) brings it back.
+      el.querySelector('.del').addEventListener('click', () => {
+        const index = cells.indexOf(cell);
+        cells.splice(index, 1);
+        const en = engines.get(cell.id); if (en) en.destroy(); engines.delete(cell.id);
+        el.remove();
+        trash.push({ cell, index });
+        if (!cells.length) { cells.push({ id: ++seq, type: 'text', text: '' }); cellsEl.appendChild(buildCell(cells[0])); }
+        renumber(); save();
+        toast(`${cell.type === 'abc' ? 'Notation' : cell.type === 'heading' ? 'Heading' : 'Text'} cell deleted`, 'Undo', undoDelete);
+      });
+      el.querySelector('.show').addEventListener('click', () => present(cells.indexOf(cell)));
+      const posEl = el.querySelector('.pos');
+      el.querySelector('.xyz').addEventListener('click', () => posEl.classList.toggle('open'));
+      for (const inp of posEl.querySelectorAll('input')) {
+        const k = inp.dataset.k;
+        if (k === 'bg') { if (cell.bg) inp.value = cell.bg; }
+        else if (cell.pos && cell.pos[k] !== undefined) inp.value = cell.pos[k];
+        inp.addEventListener('input', () => {
+          if (k === 'bg') cell.bg = inp.value;
+          else { cell.pos = cell.pos || {}; if (inp.value === '') delete cell.pos[k]; else cell.pos[k] = parseFloat(inp.value); }
+          save();
+        });
+      }
+      el.querySelector('.posclear').addEventListener('click', () => { delete cell.pos; delete cell.bg; for (const inp of posEl.querySelectorAll('input')) inp.value = inp.type === 'color' ? '#ffffff' : ''; save(); });
+      body.addEventListener('focusin', () => { for (const c of cellsEl.querySelectorAll('.cell.focused')) c.classList.remove('focused'); el.classList.add('focused'); });
+      // Keys typed in a cell never leave the field: impress.js plugins listen on
+      // the document and window (navigation, help on H, speaker console on P),
+      // and some of those listeners outlive its teardown.
+      for (const ta of body.querySelectorAll('textarea')) {
+        const h = attachHistory(cell, ta);
+        ta.addEventListener('keydown', e => {
+          const mod = (e.metaKey || e.ctrlKey) && !e.altKey;
+          if (e.key === 'Enter' && mod) { e.preventDefault(); addCell(e.shiftKey ? 'abc' : 'text', cells.indexOf(cell) + 1); }
+          else if (mod && (e.key === 'z' || e.key === 'Z')) { e.preventDefault(); e.shiftKey ? h.redo_() : h.undo_(); }
+          else if (mod && (e.key === 'y' || e.key === 'Y')) { e.preventDefault(); h.redo_(); }
+          else navKey(e);
+          e.stopPropagation();
+        });
+        ta.addEventListener('keyup', e => e.stopPropagation());
+      }
+      return el;
+    }
+    function rebuild() {
+      for (const en of engines.values()) en.destroy();
+      engines.clear();
+      cellsEl.innerHTML = '';
+      for (const c of cells) buildCell(c);
+    }
+    function addCell(type, at = cells.length) {
+      const cell = { id: ++seq, type, text: '' };
+      cells.splice(at, 0, cell);
+      const el = buildCell(cell);
+      cellsEl.insertBefore(el, cellsEl.children[at] || null);
+      renumber(); save();
+      const en = engines.get(cell.id); if (en) en.focus();
+      cellsEl.querySelector(`.cell[data-id="${cell.id}"]`).scrollIntoView({ block: 'nearest' });
+    }
+
+    /* ---------- present mode ---------- */
+    let current = -1;
+    function present(i) {
+      current = Math.max(0, Math.min(cells.length - 1, i));
+      document.body.classList.add('present');
+      showCurrent();
+    }
+    const navPos = document.getElementById('navPos'), navCount = document.getElementById('navCount');
+    function setNav(i) { navPos.value = i >= 0 ? i + 1 : ''; navPos.max = cells.length; navCount.textContent = `/ ${cells.length}`; }
+    const goNav = () => {
+      const n = parseInt(navPos.value, 10); if (!(n >= 1 && n <= cells.length)) return;
+      if (in3d) impress().goto('cell-' + cells[n - 1].id); else { current = n - 1; showCurrent(); }
+      navPos.blur();
+    };
+    navPos.addEventListener('change', goNav);
+    navPos.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); goNav(); } if (e.key === 'Escape') { e.preventDefault(); in3d ? exit3d() : exitPresent(); } });
+    function showCurrent() {
+      cellsEl.querySelectorAll('.cell').forEach((el, i) => el.classList.toggle('current', i === current));
+      setNav(current);
+      const en = engines.get(cells[current].id);
+      if (en) requestAnimationFrame(() => en.focus());
+    }
+    function exitPresent() {
+      document.body.classList.remove('present');
+      cellsEl.querySelectorAll('.cell.current').forEach(el => el.classList.remove('current'));
+      current = -1;
+    }
+    document.getElementById('present').addEventListener('click', () => present(Math.max(0, cells.findIndex(c => cellsEl.querySelector(`.cell[data-id="${c.id}"]`).classList.contains('focused')))));
+    /* ---------- 3D present mode ---------- */
+    const impressRoot = document.getElementById('impress');
+    let in3d = false;
+    // Automatic layout: a gentle zigzag row, four cells per row, slightly rotated.
+    function autoPos(i) {
+      const W = innerWidth, H = innerHeight;
+      return { x: (i % 4) * W * 1.35, y: Math.floor(i / 4) * H * 1.45 + (i % 2 ? H * 0.12 : 0), z: 0, r: ((i % 3) - 1) * 4, rx: 0, ry: 0, s: 1 };
+    }
+    function cellPos(cell, i) { return { ...autoPos(i), ...(cell.pos || {}) }; }
+    function present3d() {
+      if (in3d) return;
+      const W = innerWidth, H = innerHeight;
+      impressRoot.setAttribute('data-width', W); impressRoot.setAttribute('data-height', H);
+      impressRoot.innerHTML = '';
+      // Overview first: the camera starts pulled back to show every cell.
+      const ov = document.createElement('div'); ov.className = 'step overview'; ov.id = 'overview';
+      const ps = cells.map(cellPos);
+      const minX = Math.min(...ps.map(p => p.x)) - W / 2, maxX = Math.max(...ps.map(p => p.x)) + W / 2;
+      const minY = Math.min(...ps.map(p => p.y)) - H / 2, maxY = Math.max(...ps.map(p => p.y)) + H / 2;
+      ov.dataset.x = (minX + maxX) / 2; ov.dataset.y = (minY + maxY) / 2; ov.dataset.z = 0;
+      ov.dataset.scale = Math.max((maxX - minX) / W, (maxY - minY) / H) * 1.08;
+      impressRoot.appendChild(ov);
+      cells.forEach((cell, i) => {
+        const el = cellsEl.querySelector(`.cell[data-id="${cell.id}"]`);
+        const p = ps[i];
+        el.classList.add('step'); el.id = 'cell-' + cell.id;
+        el.dataset.x = p.x; el.dataset.y = p.y; el.dataset.z = p.z; el.dataset.scale = p.s;
+        el.dataset.rotateZ = p.r; el.dataset.rotateX = p.rx; el.dataset.rotateY = p.ry;   // roll, pitch, yaw
+        el.style.setProperty('--cell-bg', cell.bg || 'var(--bg)');
+        impressRoot.appendChild(el);
+      });
+      in3d = true;
+      document.body.classList.add('present3d');
+      impressRoot.addEventListener('impress:stepenter', onStepEnter);
+      // impress.js writes the active step into the URL hash and restores it on
+      // init; every session should start on the overview instead.
+      history.replaceState(null, '', location.pathname + location.search);
+      impress().init();
+    }
+    function onStepEnter(e) {
+      const step = e.target;
+      const cell = cells.find(c => 'cell-' + c.id === step.id);
+      document.body.style.setProperty('--stage-bg', cell && cell.bg ? cell.bg : 'var(--bg)');
+      const i = cell ? cells.indexOf(cell) : -1;
+      setNav(i);
+      if (cell) { const en = engines.get(cell.id); if (en) setTimeout(() => en.focus(), 50); }
+    }
+    function exit3d() {
+      if (!in3d) return;
+      impressRoot.removeEventListener('impress:stepenter', onStepEnter);
+      // impress.js's teardown rebuilds its root through innerHTML, which would
+      // clone every cell (losing textarea values and orphaning the engines).
+      // So: make the overview the active step, move the original cells out
+      // first, and let impress tear down a root that holds only the overview.
+      impress().goto('overview', 0);
+      for (const cell of cells) {
+        const el = document.getElementById('cell-' + cell.id);
+        if (!el) continue;
+        el.classList.remove('step', 'active', 'past', 'future', 'present');
+        el.removeAttribute('id'); el.removeAttribute('style');
+        for (const k of ['x', 'y', 'z', 'rotateZ', 'rotateX', 'rotateY', 'scale']) delete el.dataset[k];
+        cellsEl.appendChild(el);
+      }
+      impress().tear();
+      impressRoot.innerHTML = '';
+      history.replaceState(null, '', location.pathname + location.search);
+      document.body.classList.remove('present3d', 'impress-enabled', 'impress-supported');
+      document.body.style.removeProperty('--stage-bg');
+      in3d = false;
+    }
+    document.getElementById('nav3dReset').addEventListener('click', () => {
+      const kept = cells.map(c => ({ c, pos: c.pos, bg: c.bg }));
+      if (!kept.some(k => k.pos || k.bg)) { toast('Every cell already uses the automatic layout', null, null, 3000); return; }
+      const relayout = () => { exit3d(); rebuild(); present3d(); };
+      for (const c of cells) { delete c.pos; delete c.bg; }
+      save(); relayout();
+      toast('3D layout reset', 'Undo', () => { for (const k of kept) { if (k.pos) k.c.pos = k.pos; if (k.bg) k.c.bg = k.bg; } save(); relayout(); }, 4000);
+    });
+    function navKey(e) {
+      const classic = document.body.classList.contains('present');
+      if (!classic && !in3d) return;
+      if (e.key === 'Escape') { e.preventDefault(); in3d ? exit3d() : exitPresent(); }
+      else if (e.key === 'PageDown') { e.preventDefault(); in3d ? impress().next() : (current < cells.length - 1 && (current++, showCurrent())); }
+      else if (e.key === 'PageUp') { e.preventDefault(); in3d ? impress().prev() : (current > 0 && (current--, showCurrent())); }
+    }
+    document.getElementById('present3d').addEventListener('click', present3d);
+    document.getElementById('navPrev').addEventListener('click', () => { if (in3d) return impress().prev(); if (current > 0) { current--; showCurrent(); } });
+    document.getElementById('navNext').addEventListener('click', () => { if (in3d) return impress().next(); if (current < cells.length - 1) { current++; showCurrent(); } });
+    document.getElementById('navExit').addEventListener('click', () => in3d ? exit3d() : exitPresent());
+    document.addEventListener('keydown', e => {
+      if (e.target.matches('textarea, input, select')) return;     // handled at the field
+      if (e.key === 'Escape' && menu.open) { menu.open = false; return; }
+      if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && (e.key === 'z' || e.key === 'Z') && trash.length) { e.preventDefault(); undoDelete(); return; }
+      navKey(e);
+    });
+    // impress.js's help (H, ?) and speaker-console (P) plugins keep permanent
+    // key handlers; neither belongs in this page, so those keys are swallowed
+    // before any document or window listener sees them.
+    for (const type of ['keydown', 'keyup']) window.addEventListener(type, e => {
+      if (e.target && e.target.matches && e.target.matches('textarea, input, select')) return;
+      if (['p', 'P', 'h', 'H', '?'].includes(e.key)) e.stopImmediatePropagation();
+    }, true);
+
+    /* ---------- toolbar ---------- */
+    const menu = document.getElementById('menu');
+    document.addEventListener('click', e => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+    for (const id of ['share', 'export', 'import', 'clear']) document.getElementById(id).addEventListener('click', () => { menu.open = false; });
+    document.getElementById('addText').addEventListener('click', () => addCell('text'));
+    document.getElementById('addHeading').addEventListener('click', () => addCell('heading'));
+    const propBox = document.getElementById('proportional');
+    propBox.checked = proportional;
+    propBox.addEventListener('change', () => {
+      proportional = propBox.checked; localStorage.setItem('gcs-proportional', proportional ? 'on' : 'off');
+      for (const en of engines.values()) if (en.render) en.render();
+    });
+    // Theme: follows the system until the button is used; the choice is remembered.
+    const themeBtn = document.getElementById('theme');
+    const isDark = () => document.documentElement.dataset.theme === 'dark' ||
+      (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    const paintTheme = () => { themeBtn.textContent = isDark() ? '☀' : '☾'; };
+    const savedTheme = localStorage.getItem('gcs-theme');
+    if (savedTheme === 'dark' || savedTheme === 'light') document.documentElement.dataset.theme = savedTheme;
+    paintTheme();
+    const rerenderNotation = () => { for (const en of engines.values()) if (en.render) en.render(); };
+    themeBtn.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next; localStorage.setItem('gcs-theme', next); paintTheme();
+      rerenderNotation();                     // letter colours on light noteheads depend on the theme
+    });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { paintTheme(); rerenderNotation(); });
+    document.getElementById('addAbc').addEventListener('click', () => addCell('abc'));
+    const picker = document.getElementById('fontpick');
+    for (const [key, f] of Object.entries(FONTS)) picker.add(new Option(f.label, key));
+    picker.value = fontKey;
+    picker.addEventListener('change', () => applyFont(picker.value));
+    /* ---------- the document format ----------
+       Plain text. An optional first line `=== page {json}` carries the page
+       settings (text font, proportional spacing); then one block per cell:
+       `=== type {json}` (type: heading, text or abc; the json, when present,
+       holds 3D position x y z r rx ry s, background bg, and transposition tr)
+       followed by the cell's text, verbatim, until the next separator. A file
+       with no separators becomes one text cell. */
+    const SEP = /^=== (page|text|abc|heading)\s*(\{.*\})?\s*$/;
+    function serialize() {
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const page = JSON.stringify({ font: fontKey, proportional });
+      return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
+    }
+    function parse(text) {
+      const lines = text.split('\n'); const out = []; let cur = null, page = null;
+      for (const line of lines) {
+        const m = line.match(SEP);
+        if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
+        else if (m) {
+          cur = { id: ++seq, type: m[1], text: '' };
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; delete j.bg; delete j.tr; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          out.push(cur);
+        }
+        else if (cur) cur.text += (cur.text ? '\n' : '') + line;
+      }
+      if (!out.length) out.push({ id: ++seq, type: 'text', text: lines.join('\n') });
+      for (const c of out) c.text = c.text.replace(/\n$/, '');
+      return { cells: out, page };
+    }
+    function loadDocument(doc) {
+      if (doc.page) {
+        if (doc.page.font in FONTS && doc.page.font !== fontKey) { applyFont(doc.page.font); picker.value = doc.page.font; }
+        if (typeof doc.page.proportional === 'boolean' && doc.page.proportional !== proportional) { proportional = doc.page.proportional; propBox.checked = proportional; localStorage.setItem('gcs-proportional', proportional ? 'on' : 'off'); }
+      }
+      cells = doc.cells; trash.length = 0; rebuild(); save();
+    }
+    document.getElementById('export').addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([serialize()], { type: 'text/plain' }));
+      a.download = 'grand-central-stationery.gcs.txt'; a.click(); URL.revokeObjectURL(a.href);
+    });
+    document.getElementById('import').addEventListener('click', () => document.getElementById('file').click());
+    document.getElementById('file').addEventListener('change', async e => {
+      const f = e.target.files[0]; if (!f) return;
+      loadDocument(parse(await f.text())); e.target.value = '';
+    });
+    /* ---------- share link ----------
+       The whole document rides in the URL fragment: deflate (the browser's
+       CompressionStream, where present) then base64url. The fragment is
+       never sent to a server, so the link works for pages opened from disk
+       or from any copy of this folder. */
+    const b64u = { enc: bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); },
+                   dec: str => Uint8Array.from(atob(str.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)) };
+    const pipe = async (bytes, Stream, kind) => new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new Stream(kind))).arrayBuffer());
+    async function shareLink() {
+      const bytes = new TextEncoder().encode(serialize());
+      let tag = 't', payload = bytes;
+      if (typeof CompressionStream === 'function') { try { payload = await pipe(bytes, CompressionStream, 'deflate-raw'); tag = 'z'; } catch (err) {} }
+      return { url: location.href.split('#')[0] + '#gcs=' + tag + b64u.enc(payload), raw: bytes.length, packed: payload.length };
+    }
+    async function readShared(hash) {
+      const m = hash.match(/^#gcs=([zt])([A-Za-z0-9_-]+)$/); if (!m) return null;
+      let bytes = b64u.dec(m[2]);
+      if (m[1] === 'z') bytes = await pipe(bytes, DecompressionStream, 'deflate-raw');
+      return parse(new TextDecoder().decode(bytes));
+    }
+    document.getElementById('share').addEventListener('click', async () => {
+      const { url, raw, packed } = await shareLink();
+      const kb = n => (n / 1024).toFixed(1) + ' KB';
+      try { await navigator.clipboard.writeText(url); toast(`Link copied: ${kb(url.length)} for ${kb(raw)} of text`); }
+      catch (err) { prompt('Copy this link:', url); }
+    });
+    (async () => {
+      let doc = null;
+      try { doc = await readShared(location.hash); } catch (err) { console.warn('shared link not readable', err); }
+      if (!doc) return;
+      history.replaceState(null, '', location.pathname + location.search);
+      const own = cells.map(c => c.text).join('\n').trim();
+      const sample = SAMPLE.map(c => c.text).join('\n').trim();
+      if (own && own !== sample && own !== doc.cells.map(c => c.text).join('\n').trim() && !confirm('Open the lesson from this link? It replaces the cells on this page (Export first to keep them).')) return;
+      loadDocument(doc);
+    })();
+    document.getElementById('clear').addEventListener('click', () => { if (confirm('Remove all cells?')) { cells = [{ id: ++seq, type: 'text', text: '' }]; rebuild(); save(); } });
+
+    /* ---------- go ---------- */
+    applyFont(fontKey);
+    rebuild();
+    // Google Fonts splits Noto Music into unicode-range subsets; name the
+    // accidentals so the music subset loads, then re-render everything.
+    const rerenderAll = () => { primeCanvas(); for (const en of engines.values()) (en.remeasure ? en.remeasure() : en.render()); };
+    if (document.fonts) {
+      document.fonts.ready.then(rerenderAll).catch(() => {});
+      document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
+    }
+    window.GCS = { cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, applyFont, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
+  })();
+  </script>
+</body>
+</html>
