@@ -2,6 +2,10 @@
 
 A classroom display page for music lessons: typed text and typed music shown at the largest size that fits the screen, with note names colour-coded (ChromaNotes). One HTML file, no build step, and everything needed to run offline is in this folder.
 
+**Live:** https://smileimagine.github.io/grand-central-stationery/
+
+Nothing is uploaded: lessons are saved in the browser you use, and a Share link carries a lesson inside the address itself.
+
 ## Layout
 
 | Path | What it is |
@@ -35,6 +39,10 @@ The page opens directly from Finder, playback included. `serve.command` starts a
 
 Plain text. An optional first line `=== page {json}` holds page settings (text font, proportional spacing). Then, per cell, a separator line `=== heading`, `=== text` or `=== abc`, optionally followed by json (`x y z r rx ry s` for 3D position, `bg` background, `tr` transposition), and the cell's text verbatim until the next separator. A file without separators becomes one text cell.
 
+## Sample cells
+
+A first visit (or an empty page after Clear) shows four sample cells. They live in the `SAMPLE` list near the top of the *Cells* section of `Grand Central Stationery.html`, one entry per cell with a `type` (`heading`, `text` or `abc`) and its `text`; edit that list to change them. Once a lesson has been saved in a browser, the samples are not shown again there.
+
 ## Offline assets
 
 - `vendor/abcjs-basic-min.js`, `vendor/abcjs-audio.css`: abcjs 6.7.0 (MIT).
@@ -43,3 +51,7 @@ Plain text. An optional first line `=== page {json}` holds page settings (text f
 - `fonts/`: local copies of Atkinson Hyperlegible, Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, Lexend, Andika and Noto Music (all SIL Open Font License), with `fonts/fonts.css`.
 - The wordmark is inline SVG outlines made from Cinzel and Caveat (both SIL Open Font License), so it needs no font request.
 - `gcs-accidentals.woff2`: two zero-advance glyphs (♯ ♭) derived from Noto Music so "C♭" is as wide as "C"; also embedded in the pages.
+
+## Licence
+
+MIT (see `LICENSE`). Bundled libraries and samples are MIT (`vendor/LICENSES.md`); fonts are SIL Open Font License 1.1 (`fonts/LICENSES.md`).
