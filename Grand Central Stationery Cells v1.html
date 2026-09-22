@@ -122,8 +122,15 @@
     .paper .playing { animation: pop 0.32s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
     .paper .playing text.abcjs-lyric { font-weight: 700; }
     @keyframes pop { 0% { transform: translate(var(--dx, 0px), 0) scale(1); } 40% { transform: translate(var(--dx, 0px), 0) scale(1.22); } 100% { transform: translate(var(--dx, 0px), 0) scale(1); } }
-    .paper .cursorbar { fill: var(--cursor); stroke: none; opacity: 0.85; filter: drop-shadow(0 0 3px var(--cursor)); transition: opacity 0.4s; }
-    .paper .cursorbar.done { opacity: 0; }
+    /* Playback cursor: a bar in the colour of the sounding note with a small
+       lamp at its top that pulses on the beat. It waits faintly before the first
+       note, runs past the last note to the end of the line, fades, and resets
+       while invisible. */
+    .paper .cursorg { opacity: 0.9; stroke: none; transition: opacity 0.45s ease; }
+    .paper .cursorg.ready { opacity: 0.3; }
+    .paper .cursorg.done { opacity: 0; }
+    .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
+    .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
     .strip { height: 26%; min-height: 60px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
     body.present .strip { height: 14vh; }
     .entry { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
@@ -580,6 +587,7 @@
           console.warn('notation post-processing failed', err);
         }
         this.fit();
+        this.placeReady();
         if (this.synth) {
           // abcjs's setTune does not clear its isLoaded flag, so after one play
           // it would keep the previous tune's timer and audio buffer for every
@@ -697,6 +705,65 @@
       clearPlaying() {
         for (const g of this.paper.querySelectorAll('.playing')) { g.classList.remove('playing'); g.style.filter = ''; }
       }
+      // The cursor: a group (moved as one) holding the bar and the lamp.
+      cursor() {
+        const svg = this.paper.querySelector('svg');
+        if (!svg) return null;
+        let g = svg.querySelector('g.cursorg');
+        if (!g) {
+          g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'cursorg ready');
+          const bar = document.createElementNS(NS, 'rect'); bar.setAttribute('class', 'cursorbar'); bar.setAttribute('x', 0); bar.setAttribute('width', 2.4); bar.setAttribute('rx', 1.2);
+          const lamp = document.createElementNS(NS, 'circle'); lamp.setAttribute('class', 'cursorlamp'); lamp.setAttribute('cx', 1.2); lamp.setAttribute('r', 2.6);
+          g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
+          g._bar = bar; g._lamp = lamp;
+        }
+        return g;
+      }
+      // Vertical extent for a staff line, from the displayed staff.
+      cursorSpan(line) {
+        const svg = this.paper.querySelector('svg');
+        const staff = svg && (svg.querySelector(`.abcjs-staff.abcjs-l${line}`) || svg.querySelectorAll('.abcjs-staff')[line || 0]);
+        if (!staff) return { top: 0, height: 60 };
+        const sb = staff.getBBox();
+        return { top: sb.y - sb.height * 0.6, height: sb.height * 2.2 };
+      }
+      shapeCursor(g, line) {
+        const { top, height } = this.cursorSpan(line);
+        g._bar.setAttribute('y', top.toFixed(2)); g._bar.setAttribute('height', height.toFixed(2));
+        g._lamp.setAttribute('cy', (top - 4).toFixed(2));
+      }
+      colourCursor(g, color) { g._bar.style.fill = color; g._lamp.style.fill = color; g.style.filter = `drop-shadow(0 0 3px ${color})`; }
+      moveCursor(g, x, ms, easing = 'linear') {
+        if (g._motion) g._motion.cancel();
+        const cur = (() => { const m = getComputedStyle(g).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : x; })();
+        g._motion = g.animate([{ transform: `translateX(${cur.toFixed(2)}px)` }, { transform: `translateX(${x.toFixed(2)}px)` }], { duration: Math.max(0, ms), easing, fill: 'forwards' });
+        return g._motion;
+      }
+      // Where the bar waits: just before the first note of the first line.
+      startX() {
+        const first = this.dispElems.find(e => e.el_type === 'note' && e._voice === 0 && e.abselem && e.abselem.elemset && e.abselem.elemset.length);
+        if (!first) return null;
+        return first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0) - 9;
+      }
+      // Where it ends: the final bar line of a line, else the staff's right edge.
+      endX(line) {
+        const bars = this.dispElems.filter(e => e.el_type === 'bar' && e._line === line && e.abselem && e.abselem.elemset && e.abselem.elemset.length);
+        if (bars.length) { const b = bars[bars.length - 1]; return b.abselem.elemset[0].getBBox().x + (this.shift.get(b) || 0) - 1; }
+        const svg = this.paper.querySelector('svg');
+        const staff = svg && svg.querySelector(`.abcjs-staff.abcjs-l${line}`);
+        return staff ? staff.getBBox().x + staff.getBBox().width - 3 : null;
+      }
+      // After a render: park the cursor faintly at the start.
+      placeReady() {
+        const x = this.startX();
+        const g = this.cursor();
+        if (!g || x === null) return;
+        this.shapeCursor(g, 0);
+        g.style.filter = ''; g._bar.style.fill = ''; g._lamp.style.fill = '';
+        if (g._motion) g._motion.cancel();
+        g.style.transform = `translateX(${x.toFixed(2)}px)`;
+        g.classList.remove('done'); g.classList.add('ready');
+      }
       // Displayed x (left edge) and colour of the notes in a timing event.
       eventGeometry(ev) {
         let x = null, color = null;
@@ -712,21 +779,27 @@
         return { x, color: color || 'var(--cursor)', groups };
       }
       cursorControl() {
-        const bar = () => {
-          const svg = this.paper.querySelector('svg');
-          if (!svg) return null;
-          let r = svg.querySelector('rect.cursorbar');
-          if (!r) {
-            r = document.createElementNS(NS, 'rect');
-            r.setAttribute('class', 'cursorbar'); r.setAttribute('x', 0); r.setAttribute('width', 2.4); r.setAttribute('rx', 1.2);
-            svg.appendChild(r);
-          }
-          return r;
-        };
         return {
-          onStart: () => { this.clearPlaying(); const r = bar(); if (r) r.classList.remove('done'); },
+          beatSubdivisions: 1,
+          onStart: () => {
+            this.clearPlaying();
+            const g = this.cursor(); if (!g) return;
+            // Appear at the start instantly (no travel back from the end).
+            const x = this.startX(); if (x !== null) { if (g._motion) g._motion.cancel(); g.style.transform = `translateX(${x.toFixed(2)}px)`; }
+            this.shapeCursor(g, 0);
+            g.classList.remove('done', 'ready');
+          },
+          onBeat: () => {
+            const g = this.cursor(); if (!g || g.classList.contains('ready')) return;
+            g._lamp.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 170, easing: 'ease-out' });
+          },
           onFinished: () => {                       // abcjs's name for the end-of-tune callback
-            this.clearPlaying(); const r = bar(); if (r) r.classList.add('done');
+            this.clearPlaying();
+            const g = this.cursor();
+            if (g) {
+              g.classList.add('done');                // fade out where it stopped
+              setTimeout(() => { if (g.isConnected && g.classList.contains('done')) this.placeReady(); }, 600);   // then reset while invisible
+            }
             // abcjs still reports isStarted inside this callback; apply a
             // pending render once it has really stopped.
             if (this.pending) { let tries = 0; const t = setInterval(() => { if (!(this.synth && this.synth.isStarted) || ++tries > 30) { clearInterval(t); if (this.pending) this.render(); } }, 100); }
@@ -743,17 +816,6 @@
         };
       }
       showEvent(ev) {
-        const bar = () => {
-          const svg = this.paper.querySelector('svg');
-          if (!svg) return null;
-          let r = svg.querySelector('rect.cursorbar');
-          if (!r) {
-            r = document.createElementNS(NS, 'rect');
-            r.setAttribute('class', 'cursorbar'); r.setAttribute('x', 0); r.setAttribute('width', 2.4); r.setAttribute('rx', 1.2);
-            svg.appendChild(r);
-          }
-          return r;
-        };
         {
           {
             this.clearPlaying();
@@ -761,16 +823,10 @@
             const here = this.eventGeometry(ev);
             if (here.x === null) return;
             for (const g of here.groups) { g.classList.add('playing'); g.style.filter = `drop-shadow(0 0 5px ${here.color})`; }
-            const r = bar(); if (!r) return;
-            r.classList.remove('done');
-            // Vertical extent from the displayed staff of this line: the event's
-            // own top/height describe the hidden render, whose line spacing
-            // differs once the lyrics have been resized.
-            const svg = this.paper.querySelector('svg');
-            const staff = svg.querySelector(`.abcjs-staff.abcjs-l${ev.line}`) || svg.querySelectorAll('.abcjs-staff')[ev.line || 0];
-            let top = ev.top, height = ev.height;
-            if (staff) { const sb = staff.getBBox(); top = sb.y - sb.height * 0.6; height = sb.height * 2.2; }
-            r.setAttribute('y', top.toFixed(2)); r.setAttribute('height', height.toFixed(2));
+            const r = this.cursor(); if (!r) return;
+            r.classList.remove('done', 'ready');
+            this.shapeCursor(r, ev.line || 0);          // vertical extent from the displayed staff of this line
+            this.colourCursor(r, here.color);           // the bar wears the sounding note's colour
             // One continuous motion per note, as a keyframe animation:
             //   settle: from wherever the bar is onto this note (a few frames);
             //   drift:  creep across the notehead while the note sounds;
@@ -786,9 +842,21 @@
             let idx = timings.indexOf(ev);
             if (idx < 0) idx = timings.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
             const next = timings.slice(idx + 1).find(t => t.type === 'event' && t.elements && t.elements.length);
-            const there = next && next.top === ev.top ? this.eventGeometry(next) : { x: null };
-            const dt = next ? next.milliseconds - ev.milliseconds : 0;
             const tx = x => `translateX(${x.toFixed(2)}px)`;
+            if (!next) {
+              // Last note: keep going to the end of the line for its duration.
+              const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
+              const xe = this.endX(ev.line || 0);
+              const dtEnd = Math.max(0, totalMs - ev.milliseconds);
+              if (xe !== null && xe > x0 && dtEnd > 0) {
+                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0), offset: Math.min(0.1, 60 / dtEnd) }, { transform: tx(xe) }], { duration: dtEnd, easing: 'linear', fill: 'forwards' });
+              } else {
+                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0) }], { duration: 90, easing: 'ease-out', fill: 'forwards' });
+              }
+              return;
+            }
+            const there = next.top === ev.top ? this.eventGeometry(next) : { x: null };
+            const dt = next.milliseconds - ev.milliseconds;
             if (there.x !== null && there.x > here.x && dt > 120) {
               const x1 = there.x - 3;
               const settle = Math.min(0.12, 70 / dt);                  // fraction of dt spent arriving
