@@ -432,6 +432,7 @@
       };
     })();
     const PAD = 10;
+    const LEAD_IN_BEATS = 2;          // count-in before the first note when playing from the top
     const withHeader = t => /^K:/m.test(t) ? t : 'X:1\nL:1/4\nK:C\n' + t;
     function stripAccidentals(abc) {
       return abc.split('\n').map(line => {
@@ -527,12 +528,47 @@
         if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
           this.synth = new ABCJS.synth.SynthController();
           this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayProgress: true, displayRestart: true });
+          // Play from the top gets a lead-in: the bar glides from its waiting
+          // place into the first note over two beats while the lamp counts
+          // them, and the transport starts as it arrives. Capture phase, so
+          // abcjs's own click handler on the button is held back.
+          body.querySelector('.audio').addEventListener('click', e => this.onTransportClick(e), true);
         }
         this.render();
       }
       getText() { return this.entry.value; }
       focus() { this.entry.focus(); }
       destroy() { this.ro.disconnect(); this.hidden.remove(); }
+      async onTransportClick(e) {
+        const s = this.synth;
+        const btn = e.target.closest && e.target.closest('.abcjs-midi-start');
+        if (!btn || !s || s.isStarted || s.percent > 0 || this.leadIn) return;   // pause, resume, or already counting in
+        e.stopPropagation(); e.preventDefault();
+        this.leadIn = true;
+        try {
+          if (!s.isLoaded) await s.go();                     // samples and timer, without starting
+          const beats = LEAD_IN_BEATS, beatMs = 60000 / (s.currentTempo || 120);
+          const g = this.cursor(), first = this.firstNote(), x0 = this.startX();
+          if (g && first && x0 !== null) {
+            const fx = first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0) - 3;
+            const sp = this.spelled[this.dispElems.indexOf(first)];
+            g.classList.remove('done', 'ready'); this.shapeCursor(g, 0);
+            this.colourCursor(g, sp && sp[0] ? sp[0].color : 'var(--cursor)');
+            if (g._motion) g._motion.cancel();
+            g.style.transform = `translateX(${x0.toFixed(2)}px)`;
+            this.moveCursor(g, fx, beats * beatMs, 'linear');
+            for (let b = 0; b < beats; b++) setTimeout(() => this.pulseLamp(), b * beatMs);
+          }
+          await new Promise(r => setTimeout(r, beats * beatMs));
+        } catch (err) { console.warn('lead-in skipped', err); }
+        this.leadIn = false;
+        this.leadInDone = true;
+        s.play();
+      }
+      pulseLamp() {
+        const g = this.cursor(); if (!g || g.classList.contains('ready')) return;
+        g._lamp.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 170, easing: 'ease-out' });
+      }
       renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
         const tunes = ABCJS.renderAbc(target, abc, {
           add_classes: true, staffwidth,
@@ -739,11 +775,20 @@
         g._motion = g.animate([{ transform: `translateX(${cur.toFixed(2)}px)` }, { transform: `translateX(${x.toFixed(2)}px)` }], { duration: Math.max(0, ms), easing, fill: 'forwards' });
         return g._motion;
       }
-      // Where the bar waits: just before the first note of the first line.
+      // Where the bar waits: just after the clef and key signature, before the
+      // first note. The lead-in glides from here into the first note.
       startX() {
-        const first = this.dispElems.find(e => e.el_type === 'note' && e._voice === 0 && e.abselem && e.abselem.elemset && e.abselem.elemset.length);
+        const first = this.firstNote();
         if (!first) return null;
-        return first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0) - 9;
+        const svg = this.paper.querySelector('svg');
+        const fx = first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0);
+        // Right after the clef (the bar may cross the key signature on its way).
+        const clef = svg && svg.querySelector('.abcjs-clef.abcjs-l0');
+        const after = clef ? clef.getBBox().x + clef.getBBox().width + 3 : fx - 24;
+        return Math.min(after, fx - 4);
+      }
+      firstNote() {
+        return this.dispElems.find(e => e.el_type === 'note' && e._voice === 0 && e.abselem && e.abselem.elemset && e.abselem.elemset.length) || null;
       }
       // Where it ends: the final bar line of a line, else the staff's right edge.
       endX(line) {
@@ -784,15 +829,16 @@
           onStart: () => {
             this.clearPlaying();
             const g = this.cursor(); if (!g) return;
-            // Appear at the start instantly (no travel back from the end).
-            const x = this.startX(); if (x !== null) { if (g._motion) g._motion.cancel(); g.style.transform = `translateX(${x.toFixed(2)}px)`; }
+            if (!this.leadInDone) {
+              // No lead-in (resume, or restart from the transport): appear at
+              // the start instantly, no travel back from the end.
+              const x = this.startX(); if (x !== null) { if (g._motion) g._motion.cancel(); g.style.transform = `translateX(${x.toFixed(2)}px)`; }
+            }
+            this.leadInDone = false;
             this.shapeCursor(g, 0);
             g.classList.remove('done', 'ready');
           },
-          onBeat: () => {
-            const g = this.cursor(); if (!g || g.classList.contains('ready')) return;
-            g._lamp.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 170, easing: 'ease-out' });
-          },
+          onBeat: () => this.pulseLamp(),
           onFinished: () => {                       // abcjs's name for the end-of-tune callback
             this.clearPlaying();
             const g = this.cursor();
