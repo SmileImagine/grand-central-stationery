@@ -829,16 +829,17 @@
           onStart: () => {
             this.clearPlaying();
             const g = this.cursor(); if (!g) return;
-            if (!this.leadInDone) {
-              // No lead-in (resume, or restart from the transport): appear at
-              // the start instantly, no travel back from the end.
+            if (!this.leadInDone && !(this.synth && this.synth.percent > 0)) {
+              // Starting from the top without a lead-in: appear at the start
+              // instantly, no travel back from the end. A resume from a pause
+              // leaves the bar where it stopped.
               const x = this.startX(); if (x !== null) { if (g._motion) g._motion.cancel(); g.style.transform = `translateX(${x.toFixed(2)}px)`; }
             }
             this.leadInDone = false;
             this.shapeCursor(g, 0);
             g.classList.remove('done', 'ready');
           },
-          onBeat: () => this.pulseLamp(),
+          onBeat: () => { if (this.timerRunning()) this.pulseLamp(); },
           onFinished: () => {                       // abcjs's name for the end-of-tune callback
             this.clearPlaying();
             const g = this.cursor();
@@ -851,6 +852,12 @@
             if (this.pending) { let tries = 0; const t = setInterval(() => { if (!(this.synth && this.synth.isStarted) || ++tries > 30) { clearInterval(t); if (this.pending) this.render(); } }, 100); }
           },
           onEvent: ev => {
+            // abcjs reports the event under a seek (the restart button, or the
+            // progress bar) even while the timer is stopped. Nothing is
+            // sounding, so nothing should look as though it is: a seek to the
+            // top parks the bar at its waiting place; any other seek sets it
+            // on the note it will resume from, without motion.
+            if (!this.timerRunning()) { this.seekTo(ev); return; }
             // The synthesiser's timer runs ahead of what the speakers emit by
             // the audio output latency (tens of ms on built-in speakers, far
             // more over Bluetooth); delay the picture by the same amount.
@@ -860,6 +867,19 @@
             this.showEvent(ev);
           },
         };
+      }
+      timerRunning() { const t = this.synth && this.synth.timer; return !!(t && t.isRunning); }
+      seekTo(ev) {
+        this.clearPlaying();
+        const g = this.cursor(); if (!g) return;
+        if (g._motion) g._motion.cancel();
+        if (!ev || !ev.elements || !ev.milliseconds) { this.placeReady(); return; }
+        const here = this.eventGeometry(ev);
+        if (here.x === null) { this.placeReady(); return; }
+        this.shapeCursor(g, ev.line || 0);
+        this.colourCursor(g, here.color);
+        g.style.transform = `translateX(${(here.x - 3).toFixed(2)}px)`;
+        g.classList.remove('done', 'ready');
       }
       showEvent(ev) {
         {
