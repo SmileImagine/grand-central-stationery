@@ -25,7 +25,7 @@ The page opens directly from Finder, playback included. `serve.command` starts a
 
 **Notation.** Type ABC, e.g. `C D E F | G A B c |` with `w: do re mi fa` for lyrics. `L:1/4` is the default length, `C2` doubles, `z` rests, `[CEG]` chords, `K:G` for a key, `Q:1/4=90` for a tempo. Noteheads carry their letter and colour; accidentals sit small beside the head. Play gives a two-beat count-in, a cursor in the colour of each note, and a lamp that pulses on the beat. Drag the cursor along the staff to seek, before or during playback. Tempo scales the speed; Transpose shifts letters, colours and sound together. Proportional (toolbar) spaces notes by duration so the cursor sweeps evenly.
 
-**Presenting.** Present shows one cell at a time: PageDown / PageUp move, the number box jumps, Esc returns. Present 3D lays the cells out in space (impress.js), starting from an overview; the 3D button in a cell's header sets its position, rotation, scale and stage background.
+**Presenting.** Present shows one cell at a time: PageDown / PageUp move, the number box jumps, Esc returns. Present 3D lays the cells out in space (impress.js), starting from an overview; the 3D button in a cell's header sets its position, rotation, scale and stage background, and Reset 3D layout on the overview clears them all (with Undo). Plain Present is the lighter mode: no 3D transforms, so text stays crisp and it works on any machine.
 
 **Menu (⋯).** Text font, proportional spacing, Share link, Export, Import and Clear.
 

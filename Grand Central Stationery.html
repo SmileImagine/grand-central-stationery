@@ -117,6 +117,8 @@
     body.present3d #impress .cell .cell-body, body.present3d #impress .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
     body.present3d #impress .overview { width: 100vw; height: 100vh; pointer-events: none; }
     body.present3d .present-nav { display: flex; }
+    #nav3dReset { display: none; }
+    body.present3d.impress-on-overview #nav3dReset { display: inline-block; }
     body.impress-enabled .impress-help { display: none; }   /* no help overlay */
     .pos { display: none; gap: 4px; align-items: center; padding: 2px 8px 6px; color: var(--muted); border-bottom: 1px solid var(--line-2); }
     .pos.open { display: flex; flex-wrap: wrap; }
@@ -183,8 +185,9 @@
     .xpose { white-space: nowrap; }
     .xpose .abcjs-inline-audio .abcjs-midi-tempo, .xpose .abcjs-midi-tempo { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     /* Draggable cursor: a wide invisible handle around the bar. */
-    .paper .cursorhit { fill: transparent; pointer-events: all; cursor: ew-resize; }
-    .paper .cursorg.ready .cursorhit { cursor: ew-resize; }
+    .paper .cursorg { cursor: ew-resize; }
+    .paper .cursorhit { fill: transparent; pointer-events: all; }
+    .paper .cursorbar, .paper .cursorlamp { pointer-events: none; }   /* the handle beneath takes the drag */
     /* abcjs audio controls: its stylesheet assumes a dark grey box; keep the box
        transparent and draw the icons, progress bar and clock in the theme's ink. */
     .audio .abcjs-inline-audio { background: transparent; }
@@ -228,6 +231,7 @@
   <div class="cells" id="cells"></div>
   <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
   <div class="present-nav">
+    <button id="nav3dReset" title="Forget every cell's 3D position, rotation, scale and background (Undo in the toast)">Reset 3D layout</button>
     <button id="navPrev">◀</button><input id="navPos" type="number" min="1" title="Go to cell"><span id="navCount"></span><button id="navNext">▶</button><button id="navExit">Esc</button>
   </div>
   <div class="toast" id="toast" role="status"><span></span><button></button></div>
@@ -843,7 +847,7 @@
           const hit = document.createElementNS(NS, 'rect'); hit.setAttribute('class', 'cursorhit'); hit.setAttribute('x', -7); hit.setAttribute('width', 16.4);
           g.appendChild(hit); g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
           g._bar = bar; g._lamp = lamp; g._hit = hit;
-          hit.addEventListener('pointerdown', e => this.dragStart(e));
+          g.addEventListener('pointerdown', e => this.dragStart(e));
         }
         return g;
       }
@@ -1441,6 +1445,14 @@
       document.body.style.removeProperty('--stage-bg');
       in3d = false;
     }
+    document.getElementById('nav3dReset').addEventListener('click', () => {
+      const kept = cells.map(c => ({ c, pos: c.pos, bg: c.bg }));
+      if (!kept.some(k => k.pos || k.bg)) { toast('Every cell already uses the automatic layout'); return; }
+      const relayout = () => { exit3d(); rebuild(); present3d(); };
+      for (const c of cells) { delete c.pos; delete c.bg; }
+      save(); relayout();
+      toast('3D layout reset', 'Undo', () => { for (const k of kept) { if (k.pos) k.c.pos = k.pos; if (k.bg) k.c.bg = k.bg; } save(); relayout(); });
+    });
     function navKey(e) {
       const classic = document.body.classList.contains('present');
       if (!classic && !in3d) return;
