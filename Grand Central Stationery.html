@@ -171,6 +171,12 @@
     .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex: 1; }
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    .audio .abcjs-inline-audio { padding: 0; }
+    .xpose .abcjs-tempo-wrapper { display: inline-flex; align-items: center; gap: 3px; font: var(--ui); color: var(--muted); }
+    .xpose .abcjs-inline-audio .abcjs-midi-tempo, .xpose .abcjs-midi-tempo { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    /* Draggable cursor: a wide invisible handle around the bar. */
+    .paper .cursorhit { fill: transparent; pointer-events: all; cursor: ew-resize; }
+    .paper .cursorg.ready .cursorhit { cursor: ew-resize; }
     /* abcjs audio controls: its stylesheet assumes a dark grey box; keep the box
        transparent and draw the icons, progress bar and clock in the theme's ink. */
     .audio .abcjs-inline-audio { background: transparent; }
@@ -563,7 +569,7 @@
         body.innerHTML = `<div class="score"><div class="paper"></div></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
           <div class="side"><div class="audio" id="${id}-audio"></div>
-          <label class="xpose" title="Semitones up or down; letters, colours and sound follow. The tempo box beside the clock scales the speed (or write Q:1/4=90 in the ABC).">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
+          <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <div class="warn"></div></div></div>`;
         const xp = body.querySelector('.xpose input');
         xp.addEventListener('input', () => {
@@ -587,7 +593,17 @@
         this.synth = null;
         if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
           this.synth = new ABCJS.synth.SynthController();
-          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayProgress: true, displayRestart: true, displayWarp: true });
+          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayRestart: true, displayProgress: false, displayClock: true, displayWarp: true });
+          // abcjs puts its tempo box in the transport row; give it a row and a
+          // name of its own, like Transpose. Seeking is done by dragging the
+          // cursor on the staff, so there is no progress bar.
+          const tw = body.querySelector('.abcjs-tempo-wrapper');
+          if (tw) {
+            const lab = document.createElement('label'); lab.className = 'xpose tempo';
+            lab.title = 'Playback speed as a percentage of the written tempo (Q:1/4=90 in the ABC sets it)';
+            lab.append('Tempo ', tw);
+            body.querySelector('.audio').appendChild(lab);   // abcjs finds the box inside its own container
+          }
           // Play from the top gets a lead-in: the bar glides from its waiting
           // place into the first note over two beats while the lamp counts
           // them, and the transport starts as it arrives. Capture phase, so
@@ -816,8 +832,10 @@
           g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'cursorg ready');
           const bar = document.createElementNS(NS, 'rect'); bar.setAttribute('class', 'cursorbar'); bar.setAttribute('x', 0); bar.setAttribute('width', 2.4); bar.setAttribute('rx', 1.2);
           const lamp = document.createElementNS(NS, 'circle'); lamp.setAttribute('class', 'cursorlamp'); lamp.setAttribute('cx', 1.2); lamp.setAttribute('r', 2.6);
-          g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
-          g._bar = bar; g._lamp = lamp;
+          const hit = document.createElementNS(NS, 'rect'); hit.setAttribute('class', 'cursorhit'); hit.setAttribute('x', -7); hit.setAttribute('width', 16.4);
+          g.appendChild(hit); g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
+          g._bar = bar; g._lamp = lamp; g._hit = hit;
+          hit.addEventListener('pointerdown', e => this.dragStart(e));
         }
         return g;
       }
@@ -833,6 +851,7 @@
         const { top, height } = this.cursorSpan(line);
         g._bar.setAttribute('y', top.toFixed(2)); g._bar.setAttribute('height', height.toFixed(2));
         g._lamp.setAttribute('cy', (top - 4).toFixed(2));
+        g._hit.setAttribute('y', (top - 9).toFixed(2)); g._hit.setAttribute('height', (height + 12).toFixed(2));
       }
       colourCursor(g, color) { g._bar.style.fill = color; g._lamp.style.fill = color; g.style.filter = `drop-shadow(0 0 3px ${color})`; }
       moveCursor(g, x, ms, easing = 'linear') {
@@ -935,16 +954,100 @@
         };
       }
       timerRunning() { const t = this.synth && this.synth.timer; return !!(t && t.isRunning); }
+      /* ---- dragging the cursor seeks ----
+         Each line of the score is a time axis: the displayed x of every
+         timing event, then the end of the line at the next line's first
+         moment (or the end of the tune). Dragging interpolates between them,
+         which is exact under proportional spacing and close enough otherwise.
+         The drop seeks the synthesiser; a drag during playback pauses first
+         and resumes from the new place. */
+      timeline() {
+        const t = this.original; if (!t) return { lines: [], total: 0 };
+        // abcjs fills noteTimings when the audio is prepared (first Play);
+        // before that, compute them for the tune's tempo.
+        if (!t.noteTimings || !t.noteTimings.length) { try { t.setTiming(0, 0); } catch (err) {} }
+        const timings = (t.noteTimings || []).filter(e => e.type === 'event' && e.elements && e.elements.length);
+        const total = t.getTotalTime ? t.getTotalTime() * 1000 : (timings.length ? timings[timings.length - 1].milliseconds : 0);
+        const lines = new Map();
+        for (const ev of timings) {
+          const geo = this.eventGeometry(ev); if (geo.x === null) continue;
+          const ln = ev.line || 0;
+          if (!lines.has(ln)) { const span = this.cursorSpan(ln); lines.set(ln, { line: ln, events: [], endX: this.endX(ln), cy: span.top + span.height / 2 }); }
+          lines.get(ln).events.push({ x: geo.x - 3, ms: ev.milliseconds, color: geo.color, ev });
+        }
+        const arr = [...lines.values()].sort((a, b) => a.line - b.line);
+        arr.forEach((L, i) => { L.endMs = i + 1 < arr.length ? arr[i + 1].events[0].ms : total; if (L.endX === null || L.endX <= L.events[L.events.length - 1].x) L.endX = L.events[L.events.length - 1].x + 1; });
+        return { lines: arr, total };
+      }
+      // Position along the timeline nearest a point in SVG units.
+      locate(tl, px, py) {
+        if (!tl.lines.length) return null;
+        let L = tl.lines[0], best = Infinity;
+        for (const l of tl.lines) { const d = Math.abs(l.cy - py); if (d < best) { best = d; L = l; } }
+        const ev = L.events;
+        const x = Math.max(ev[0].x, Math.min(L.endX, px));
+        let i = 0; while (i + 1 < ev.length && ev[i + 1].x <= x) i++;
+        const x0 = ev[i].x, x1 = i + 1 < ev.length ? ev[i + 1].x : L.endX;
+        const m0 = ev[i].ms, m1 = i + 1 < ev.length ? ev[i + 1].ms : L.endMs;
+        const f = x1 > x0 ? (x - x0) / (x1 - x0) : 0;
+        return { x, line: L.line, ms: m0 + f * (m1 - m0), color: ev[i].color, event: ev[i].ev };
+      }
+      svgPoint(e) {
+        const svg = this.paper.querySelector('svg');
+        return new DOMPoint(e.clientX, e.clientY).matrixTransform(svg.getScreenCTM().inverse());
+      }
+      dragStart(e) {
+        const s = this.synth, g = this.cursor();
+        if (!s || !g || !this.original || this.leadIn || e.button !== 0) return;
+        e.preventDefault(); e.stopPropagation();
+        const tl = this.timeline(); if (!tl.lines || !tl.lines.length) return;
+        const d = this.drag = { id: e.pointerId, tl, wasPlaying: !!s.isStarted, at: null };
+        if (d.wasPlaying) s.play();                       // toggles: pause
+        if (g._motion) g._motion.cancel();
+        g.classList.remove('done', 'ready');
+        this.clearPlaying();
+        const hit = g._hit;
+        try { hit.setPointerCapture(e.pointerId); } catch (err) {}
+        const move = ev => { if (ev.pointerId === d.id) this.dragTo(ev); };
+        const up = ev => {
+          if (ev.pointerId !== d.id) return;
+          hit.removeEventListener('pointermove', move); hit.removeEventListener('pointerup', up); hit.removeEventListener('pointercancel', up);
+          this.dragEnd();
+        };
+        hit.addEventListener('pointermove', move); hit.addEventListener('pointerup', up); hit.addEventListener('pointercancel', up);
+        this.dragTo(e);
+      }
+      dragTo(e) {
+        const d = this.drag, g = this.cursor(); if (!d || !g) return;
+        const p = this.svgPoint(e);
+        const at = this.locate(d.tl, p.x, p.y); if (!at) return;
+        d.at = at;
+        this.shapeCursor(g, at.line);
+        this.colourCursor(g, at.color);
+        g.style.transform = `translateX(${at.x.toFixed(2)}px)`;
+      }
+      async dragEnd() {
+        const d = this.drag, s = this.synth; this.drag = null;
+        if (!d || !d.at || !s) return;
+        try {
+          if (!s.isLoaded) await s.go();
+          const pct = d.tl.total > 0 ? Math.max(0, Math.min(1, d.at.ms / d.tl.total)) : 0;
+          this.dragX = d.at.x;                          // seekTo keeps the bar where it was dropped
+          s.seek(pct); s.percent = pct;                 // abcjs updates percent only on beat changes
+          this.dragX = null;
+          if (d.wasPlaying) s.play();                   // resume from the new place
+        } catch (err) { console.warn('seek failed', err); this.dragX = null; }
+      }
       seekTo(ev) {
         this.clearPlaying();
         const g = this.cursor(); if (!g) return;
         if (g._motion) g._motion.cancel();
-        if (!ev || !ev.elements || !ev.milliseconds) { this.placeReady(); return; }
+        if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) { this.placeReady(); return; }
         const here = this.eventGeometry(ev);
         if (here.x === null) { this.placeReady(); return; }
         this.shapeCursor(g, ev.line || 0);
         this.colourCursor(g, here.color);
-        g.style.transform = `translateX(${(here.x - 3).toFixed(2)}px)`;
+        g.style.transform = `translateX(${(this.dragX !== null && this.dragX !== undefined ? this.dragX : here.x - 3).toFixed(2)}px)`;
         g.classList.remove('done', 'ready');
       }
       showEvent(ev) {
@@ -1137,7 +1240,6 @@
           <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
           <span class="spacer"></span>
           <span class="tools">
-            <button class="up" title="Move up">▲</button><button class="down" title="Move down">▼</button>
             <button class="show" title="Present from this cell">Present</button>
             <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
             <button class="del" title="Delete cell (Undo in the toast, or Cmd+Z)">✕</button>
@@ -1163,8 +1265,6 @@
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
-      el.querySelector('.up').addEventListener('click', () => move(cell, -1));
-      el.querySelector('.down').addEventListener('click', () => move(cell, 1));
       const order = el.querySelector('.order');
       const goOrder = () => { const n = parseInt(order.value, 10); if (n >= 1) reorder(cell, n - 1); renumber(); };
       order.addEventListener('change', goOrder);
@@ -1234,7 +1334,6 @@
       const en = engines.get(cell.id); if (en) en.focus();
       cellsEl.querySelector(`.cell[data-id="${cell.id}"]`).scrollIntoView({ block: 'nearest' });
     }
-    function move(cell, dir) { reorder(cell, cells.indexOf(cell) + dir); }
 
     /* ---------- present mode ---------- */
     let current = -1;
