@@ -163,16 +163,24 @@
     .paper .cursorg.done { opacity: 0; }
     .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
     .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
-    .strip { height: 26%; min-height: 60px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
+    .strip { height: 26%; min-height: 72px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
     body.present .strip { height: 14vh; }
     .entry { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
     .entry:focus { border-color: var(--accent); }
-    .side { display: flex; flex-direction: column; gap: 4px; min-width: 200px; }
-    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex: 1; }
+    /* Transport panel: one wrapping row of small controls, vertically centred. */
+    .side { display: flex; flex-wrap: wrap; align-items: center; align-content: center; gap: 4px 14px; min-width: 300px; max-width: 46%; }
+    .side .audio { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+    .side .abcjs-inline-audio { display: inline-flex; align-items: center; gap: 2px; height: auto; }
+    .side .abcjs-inline-audio .abcjs-btn { width: 26px; height: 26px; padding: 3px; margin: 0; border-radius: 6px; }
+    .side .abcjs-inline-audio .abcjs-btn:hover { background: var(--line-2); }
+    .side .abcjs-inline-audio .abcjs-midi-clock { display: none; }
+    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex-basis: 100%; max-height: 2.6em; }
+    .warn:empty { display: none; }
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     .audio .abcjs-inline-audio { padding: 0; }
-    .xpose .abcjs-tempo-wrapper { display: inline-flex; align-items: center; gap: 3px; font: var(--ui); color: var(--muted); }
+    .xpose .abcjs-tempo-wrapper { display: inline-flex; align-items: center; gap: 3px; font: var(--ui); color: var(--muted); white-space: nowrap; }
+    .xpose { white-space: nowrap; }
     .xpose .abcjs-inline-audio .abcjs-midi-tempo, .xpose .abcjs-midi-tempo { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     /* Draggable cursor: a wide invisible handle around the bar. */
     .paper .cursorhit { fill: transparent; pointer-events: all; cursor: ew-resize; }
