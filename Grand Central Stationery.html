@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Grand Central Stationery – Cells v1</title>
+  <title>Grand Central Stationery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
   <link href="vendor/abcjs-audio.css" rel="stylesheet">
@@ -52,6 +52,16 @@
     .cell.focused { border-color: var(--accent); }
     .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px; border-bottom: 1px solid var(--line-2); color: var(--muted); }
     .cell-head button { padding: 2px 7px; }
+    .cell-head .grip { cursor: grab; user-select: none; font-size: 15px; line-height: 1; padding: 0 2px; }
+    .cell-head .grip:active { cursor: grabbing; }
+    .cell-head .order { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
+    .cell.dragging { opacity: 0.4; }
+    .cell.drop-before { box-shadow: 0 -4px 0 0 var(--accent); }
+    .cell.drop-after { box-shadow: 0 4px 0 0 var(--accent); }
+    .toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 20; display: none; gap: 12px; align-items: center; padding: 8px 14px; border-radius: 8px; background: var(--ink); color: var(--bg); font: var(--ui); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    .toast.show { display: flex; }
+    .toast button { background: transparent; color: inherit; border-color: currentColor; opacity: 0.85; }
+    .toast button:hover { opacity: 1; }
     .cell-body { position: relative; height: var(--text-cell-h); overflow: hidden; border-radius: 0 0 8px 8px; }
     .cell[data-type="abc"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
     .cell[data-type="heading"] .cell-body { height: var(--heading-cell-h); }
@@ -66,6 +76,7 @@
     body.present .cell .cell-body, body.present .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
     .present-nav { position: fixed; right: 10px; bottom: 8px; z-index: 9; display: none; gap: 6px; align-items: center; opacity: 0.35; transition: opacity 0.2s; }
     .present-nav:hover { opacity: 1; }
+    .present-nav input { width: 3em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     body.present .present-nav { display: flex; }
 
     /* ---------- 3D present mode (impress.js) ---------- */
@@ -80,7 +91,10 @@
     }
     body.present3d #impress .cell.active { box-shadow: 0 0 0 1px var(--line), 0 0 0 rgba(0,0,0,0); }
     body.present3d #impress .cell { transition: box-shadow 0.9s ease, opacity 0.9s ease; }
-    body.present3d:not(.impress-on-overview) #impress .cell:not(.active) { opacity: 0.35; }   /* dim the others; the overview shows all */
+    /* Only the active cell is shown: any cell placed in front of it in space
+       fades out completely, so nothing can obscure the one being presented.
+       The overview shows all. */
+    body.present3d:not(.impress-on-overview) #impress .cell:not(.active) { opacity: 0; pointer-events: none; }
     body.present3d #impress .cell .cell-body, body.present3d #impress .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
     body.present3d #impress .overview { width: 100vw; height: 100vh; pointer-events: none; }
     body.present3d .present-nav { display: flex; }
@@ -137,6 +151,8 @@
     .entry:focus { border-color: var(--accent); }
     .side { display: flex; flex-direction: column; gap: 4px; min-width: 200px; }
     .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex: 1; }
+    .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
+    .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     /* abcjs audio controls: its stylesheet assumes a dark grey box; keep the box
        transparent and draw the icons, progress bar and clock in the theme's ink. */
     .audio .abcjs-inline-audio { background: transparent; }
@@ -160,6 +176,7 @@
     <label>Text font <select id="fontpick"></select></label>
     <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional</label>
     <button id="theme" title="Light / dark">☾</button>
+    <button id="share" title="Copy a link that carries every cell (compressed into the address)">Share link</button>
     <button id="export">Export</button>
     <button id="import">Import</button>
     <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
@@ -168,8 +185,9 @@
   <div class="cells" id="cells"></div>
   <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
   <div class="present-nav">
-    <button id="navPrev">◀</button><span id="navPos"></span><button id="navNext">▶</button><button id="navExit">Esc</button>
+    <button id="navPrev">◀</button><input id="navPos" type="number" min="1" title="Go to cell"><span id="navCount"></span><button id="navNext">▶</button><button id="navExit">Esc</button>
   </div>
+  <div class="toast" id="toast" role="status"><span></span><button></button></div>
   <script>
   (() => {
     'use strict';
@@ -507,11 +525,21 @@
 
     let abcSeq = 0;
     class AbcCell {
-      constructor(body, text, onChange) {
+      constructor(body, text, onChange, opts = {}) {
         const id = 'abc' + (++abcSeq);
+        this.transpose = opts.transpose || 0;
         body.innerHTML = `<div class="score"><div class="paper"></div></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
-          <div class="side"><div class="audio" id="${id}-audio"></div><div class="warn"></div></div></div>`;
+          <div class="side"><div class="audio" id="${id}-audio"></div>
+          <label class="xpose" title="Semitones up or down; letters, colours and sound follow. The tempo box beside the clock scales the speed (or write Q:1/4=90 in the ABC).">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
+          <div class="warn"></div></div></div>`;
+        const xp = body.querySelector('.xpose input');
+        xp.addEventListener('input', () => {
+          const n = Math.max(-12, Math.min(12, parseInt(xp.value, 10) || 0));
+          if (n === this.transpose) return;
+          this.transpose = n; this.render();
+          if (opts.onTranspose) opts.onTranspose(n);
+        });
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
@@ -527,7 +555,7 @@
         this.synth = null;
         if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
           this.synth = new ABCJS.synth.SynthController();
-          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayProgress: true, displayRestart: true });
+          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayProgress: true, displayRestart: true, displayWarp: true });
           // Play from the top gets a lead-in: the bar glides from its waiting
           // place into the first note over two beats while the lamp counts
           // them, and the transport starts as it arrives. Capture phase, so
@@ -571,7 +599,7 @@
       }
       renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
         const tunes = ABCJS.renderAbc(target, abc, {
-          add_classes: true, staffwidth,
+          add_classes: true, staffwidth, visualTranspose: this.transpose || 0,
           paddingtop: PAD, paddingbottom: PAD, paddingleft: PAD, paddingright: PAD,
           format: { vocalfont: `Atkinson Hyperlegible ${vocal}` },
         });
@@ -631,6 +659,9 @@
           this.synth.destroy();
           this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
           this.synth.isLoaded = false;
+          // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
+          const warp = this.synth.warp || 100;
+          if (this.synth.control && this.original.getBpm) this.synth.control.setWarp(this.original.getBpm() * warp / 100, warp);
         }
       }
 
@@ -967,12 +998,106 @@
     const cellsEl = document.getElementById('cells');
     const engines = new Map();       // cell id -> engine
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg }) => ({ type, text, pos, bg })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr }) => ({ type, text, pos, bg, tr })) })), 300); }
+    /* ---------- toast with one action (undo) ---------- */
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+    function toast(msg, action, fn) {
+      toastEl.firstElementChild.textContent = msg;
+      const b = toastEl.lastElementChild;
+      b.textContent = action || ''; b.hidden = !action;
+      b.onclick = () => { hideToast(); if (fn) fn(); };
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, 8000);
+    }
+    function hideToast() { toastEl.classList.remove('show'); }
+    /* ---------- undo for deleted cells ---------- */
+    const trash = [];                 // { cell, index }, most recent last
+    function undoDelete() {
+      const t = trash.pop(); if (!t) return;
+      const at = Math.min(t.index, cells.length);
+      cells.splice(at, 0, t.cell);
+      const el = buildCell(t.cell);
+      cellsEl.insertBefore(el, cellsEl.children[at] || null);
+      renumber(); save();
+      const en = engines.get(t.cell.id); if (en) en.focus();
+      el.scrollIntoView({ block: 'nearest' });
+    }
+    /* ---------- undo / redo of the text inside a cell ----------
+       The browser's own history dies with the textarea (cells are rebuilt on
+       reorder and type change, and abcjs and the accidental sync rewrite
+       values), so each cell keeps its own: a snapshot of text and selection
+       taken before each burst of typing. Bursts are closed by a pause of
+       600 ms, so undo steps back a phrase, not a character. */
+    function attachHistory(cell, ta) {
+      const h = cell.hist || (cell.hist = { undo: [], redo: [], t: 0, before: null, applying: false });
+      const snap = () => ({ text: ta.value, s: ta.selectionStart, e: ta.selectionEnd });
+      const apply = st => {
+        h.applying = true;
+        ta.value = st.text;
+        try { ta.setSelectionRange(st.s, st.e); } catch (e) {}
+        ta.dispatchEvent(new Event('input', { bubbles: true }));   // engines re-fit and the model saves
+        h.applying = false;
+      };
+      ta.addEventListener('beforeinput', () => { if (!h.applying) h.before = snap(); });
+      ta.addEventListener('input', () => {
+        if (h.applying) return;
+        const now = performance.now();
+        if (h.before && now - h.t > 600) { h.undo.push(h.before); if (h.undo.length > 300) h.undo.shift(); }
+        h.t = now; h.redo = []; h.before = null;
+      });
+      h.undo_ = () => { if (!h.undo.length) return; h.redo.push(snap()); apply(h.undo.pop()); h.t = 0; };
+      h.redo_ = () => { if (!h.redo.length) return; h.undo.push(snap()); apply(h.redo.pop()); h.t = 0; };
+      return h;
+    }
+    function renumber() {
+      cells.forEach((c, i) => { const inp = cellsEl.querySelector(`.cell[data-id="${c.id}"] .order`); if (inp && document.activeElement !== inp) inp.value = i + 1; });
+    }
+    // Move a cell to index j without rebuilding: the engines keep running.
+    function reorder(cell, j) {
+      const i = cells.indexOf(cell);
+      j = Math.max(0, Math.min(cells.length - 1, j));
+      if (i < 0 || i === j) return;
+      cells.splice(i, 1); cells.splice(j, 0, cell);
+      const el = cellsEl.querySelector(`.cell[data-id="${cell.id}"]`);
+      el.remove();
+      cellsEl.insertBefore(el, cellsEl.children[j] || null);
+      renumber(); save();
+      el.scrollIntoView({ block: 'nearest' });
+    }
+    /* ---------- drag to reorder (the grip in each cell's header) ---------- */
+    let dragCell = null;
+    function clearDropMarks() { for (const c of cellsEl.querySelectorAll('.drop-before, .drop-after')) c.classList.remove('drop-before', 'drop-after'); }
+    function dropTarget(e) {
+      const over = e.target.closest && e.target.closest('.cell');
+      if (!over || over.dataset.id === String(dragCell && dragCell.id)) return null;
+      const r = over.getBoundingClientRect();
+      return { el: over, after: e.clientY > r.top + r.height / 2 };
+    }
+    cellsEl.addEventListener('dragover', e => {
+      if (!dragCell) return;
+      e.preventDefault(); e.dataTransfer.dropEffect = 'move';
+      clearDropMarks();
+      const t = dropTarget(e); if (t) t.el.classList.add(t.after ? 'drop-after' : 'drop-before');
+    });
+    cellsEl.addEventListener('dragleave', e => { if (!cellsEl.contains(e.relatedTarget)) clearDropMarks(); });
+    cellsEl.addEventListener('drop', e => {
+      if (!dragCell) return;
+      e.preventDefault();
+      const t = dropTarget(e); clearDropMarks();
+      if (!t) return;
+      const target = cells.find(c => String(c.id) === t.el.dataset.id);
+      let j = cells.indexOf(target) + (t.after ? 1 : 0);
+      if (cells.indexOf(dragCell) < j) j--;             // the dragged cell leaves its slot first
+      reorder(dragCell, j);
+    });
 
     function buildCell(cell) {
       const el = document.createElement('div');
       el.className = 'cell'; el.dataset.type = cell.type; el.dataset.id = cell.id;
       el.innerHTML = `<div class="cell-head">
+          <span class="grip" draggable="true" title="Drag to reorder">⠿</span>
+          <input class="order" type="number" min="1" title="Position: type a number to move this cell">
           <select class="type"><option value="heading">Heading</option><option value="text">Text</option><option value="abc">Notation</option></select>
           <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
           <span class="spacer"></span>
@@ -993,16 +1118,38 @@
           <button class="posclear">auto</button>
         </div><div class="cell-body"></div>`;
       el.querySelector('.type').value = cell.type;
+      el.querySelector('.order').value = cells.indexOf(cell) + 1;
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange)
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
       el.querySelector('.up').addEventListener('click', () => move(cell, -1));
       el.querySelector('.down').addEventListener('click', () => move(cell, 1));
-      el.querySelector('.del').addEventListener('click', () => { if (cells.length === 1 || confirm('Delete this cell?')) { cells = cells.filter(c => c !== cell); if (!cells.length) cells = [{ id: ++seq, type: 'text', text: '' }]; rebuild(); save(); } });
+      const order = el.querySelector('.order');
+      const goOrder = () => { const n = parseInt(order.value, 10); if (n >= 1) reorder(cell, n - 1); renumber(); };
+      order.addEventListener('change', goOrder);
+      order.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); goOrder(); order.blur(); } });
+      const grip = el.querySelector('.grip');
+      grip.addEventListener('dragstart', e => {
+        dragCell = cell; el.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(cell.id));
+        e.dataTransfer.setDragImage(el.querySelector('.cell-head'), 20, 14);
+      });
+      grip.addEventListener('dragend', () => { dragCell = null; el.classList.remove('dragging'); clearDropMarks(); });
+      // Delete at once; the toast (or Cmd+Z outside a field) brings it back.
+      el.querySelector('.del').addEventListener('click', () => {
+        const index = cells.indexOf(cell);
+        cells.splice(index, 1);
+        const en = engines.get(cell.id); if (en) en.destroy(); engines.delete(cell.id);
+        el.remove();
+        trash.push({ cell, index });
+        if (!cells.length) { cells.push({ id: ++seq, type: 'text', text: '' }); cellsEl.appendChild(buildCell(cells[0])); }
+        renumber(); save();
+        toast(`${cell.type === 'abc' ? 'Notation' : cell.type === 'heading' ? 'Heading' : 'Text'} cell deleted`, 'Undo', undoDelete);
+      });
       el.querySelector('.show').addEventListener('click', () => present(cells.indexOf(cell)));
       const posEl = el.querySelector('.pos');
       el.querySelector('.xyz').addEventListener('click', () => posEl.classList.toggle('open'));
@@ -1022,8 +1169,12 @@
       // the document and window (navigation, help on H, speaker console on P),
       // and some of those listeners outlive its teardown.
       for (const ta of body.querySelectorAll('textarea')) {
+        const h = attachHistory(cell, ta);
         ta.addEventListener('keydown', e => {
-          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); addCell(e.shiftKey ? 'abc' : 'text', cells.indexOf(cell) + 1); }
+          const mod = (e.metaKey || e.ctrlKey) && !e.altKey;
+          if (e.key === 'Enter' && mod) { e.preventDefault(); addCell(e.shiftKey ? 'abc' : 'text', cells.indexOf(cell) + 1); }
+          else if (mod && (e.key === 'z' || e.key === 'Z')) { e.preventDefault(); e.shiftKey ? h.redo_() : h.undo_(); }
+          else if (mod && (e.key === 'y' || e.key === 'Y')) { e.preventDefault(); h.redo_(); }
           else navKey(e);
           e.stopPropagation();
         });
@@ -1040,16 +1191,13 @@
     function addCell(type, at = cells.length) {
       const cell = { id: ++seq, type, text: '' };
       cells.splice(at, 0, cell);
-      rebuild(); save();
+      const el = buildCell(cell);
+      cellsEl.insertBefore(el, cellsEl.children[at] || null);
+      renumber(); save();
       const en = engines.get(cell.id); if (en) en.focus();
       cellsEl.querySelector(`.cell[data-id="${cell.id}"]`).scrollIntoView({ block: 'nearest' });
     }
-    function move(cell, dir) {
-      const i = cells.indexOf(cell), j = i + dir;
-      if (j < 0 || j >= cells.length) return;
-      [cells[i], cells[j]] = [cells[j], cells[i]];
-      rebuild(); save();
-    }
+    function move(cell, dir) { reorder(cell, cells.indexOf(cell) + dir); }
 
     /* ---------- present mode ---------- */
     let current = -1;
@@ -1058,9 +1206,18 @@
       document.body.classList.add('present');
       showCurrent();
     }
+    const navPos = document.getElementById('navPos'), navCount = document.getElementById('navCount');
+    function setNav(i) { navPos.value = i >= 0 ? i + 1 : ''; navPos.max = cells.length; navCount.textContent = `/ ${cells.length}`; }
+    const goNav = () => {
+      const n = parseInt(navPos.value, 10); if (!(n >= 1 && n <= cells.length)) return;
+      if (in3d) impress().goto('cell-' + cells[n - 1].id); else { current = n - 1; showCurrent(); }
+      navPos.blur();
+    };
+    navPos.addEventListener('change', goNav);
+    navPos.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); goNav(); } if (e.key === 'Escape') { e.preventDefault(); in3d ? exit3d() : exitPresent(); } });
     function showCurrent() {
       cellsEl.querySelectorAll('.cell').forEach((el, i) => el.classList.toggle('current', i === current));
-      document.getElementById('navPos').textContent = `${current + 1} / ${cells.length}`;
+      setNav(current);
       const en = engines.get(cells[current].id);
       if (en) requestAnimationFrame(() => en.focus());
     }
@@ -1114,7 +1271,7 @@
       const cell = cells.find(c => 'cell-' + c.id === step.id);
       document.body.style.setProperty('--stage-bg', cell && cell.bg ? cell.bg : 'var(--bg)');
       const i = cell ? cells.indexOf(cell) : -1;
-      document.getElementById('navPos').textContent = i >= 0 ? `${i + 1} / ${cells.length}` : 'overview';
+      setNav(i);
       if (cell) { const en = engines.get(cell.id); if (en) setTimeout(() => en.focus(), 50); }
     }
     function exit3d() {
@@ -1153,6 +1310,7 @@
     document.getElementById('navExit').addEventListener('click', () => in3d ? exit3d() : exitPresent());
     document.addEventListener('keydown', e => {
       if (e.target.matches('textarea, input, select')) return;     // handled at the field
+      if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && (e.key === 'z' || e.key === 'Z') && trash.length) { e.preventDefault(); undoDelete(); return; }
       navKey(e);
     });
     // impress.js's help (H, ?) and speaker-console (P) plugins keep permanent
@@ -1192,31 +1350,88 @@
     for (const [key, f] of Object.entries(FONTS)) picker.add(new Option(f.label, key));
     picker.value = fontKey;
     picker.addEventListener('change', () => applyFont(picker.value));
-    const SEP = /^=== (text|abc|heading)\s*(\{.*\})?\s*$/;
+    /* ---------- the document format ----------
+       Plain text. An optional first line `=== page {json}` carries the page
+       settings (text font, proportional spacing); then one block per cell:
+       `=== type {json}` (type: heading, text or abc; the json, when present,
+       holds 3D position x y z r rx ry s, background bg, and transposition tr)
+       followed by the cell's text, verbatim, until the next separator. A file
+       with no separators becomes one text cell. */
+    const SEP = /^=== (page|text|abc|heading)\s*(\{.*\})?\s*$/;
+    function serialize() {
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const page = JSON.stringify({ font: fontKey, proportional });
+      return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
+    }
+    function parse(text) {
+      const lines = text.split('\n'); const out = []; let cur = null, page = null;
+      for (const line of lines) {
+        const m = line.match(SEP);
+        if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
+        else if (m) {
+          cur = { id: ++seq, type: m[1], text: '' };
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; delete j.bg; delete j.tr; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          out.push(cur);
+        }
+        else if (cur) cur.text += (cur.text ? '\n' : '') + line;
+      }
+      if (!out.length) out.push({ id: ++seq, type: 'text', text: lines.join('\n') });
+      for (const c of out) c.text = c.text.replace(/\n$/, '');
+      return { cells: out, page };
+    }
+    function loadDocument(doc) {
+      if (doc.page) {
+        if (doc.page.font in FONTS && doc.page.font !== fontKey) { applyFont(doc.page.font); picker.value = doc.page.font; }
+        if (typeof doc.page.proportional === 'boolean' && doc.page.proportional !== proportional) { proportional = doc.page.proportional; propBox.checked = proportional; localStorage.setItem('gcs-proportional', proportional ? 'on' : 'off'); }
+      }
+      cells = doc.cells; trash.length = 0; rebuild(); save();
+    }
     document.getElementById('export').addEventListener('click', () => {
-      const meta = c => (c.pos && Object.keys(c.pos).length) || c.bg ? ' ' + JSON.stringify({ ...(c.pos || {}), ...(c.bg ? { bg: c.bg } : {}) }) : '';
-      const body = cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n');
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([body + '\n'], { type: 'text/plain' }));
+      a.href = URL.createObjectURL(new Blob([serialize()], { type: 'text/plain' }));
       a.download = 'grand-central-stationery.gcs.txt'; a.click(); URL.revokeObjectURL(a.href);
     });
     document.getElementById('import').addEventListener('click', () => document.getElementById('file').click());
     document.getElementById('file').addEventListener('change', async e => {
       const f = e.target.files[0]; if (!f) return;
-      const lines = (await f.text()).split('\n'); const out = []; let cur = null;
-      for (const line of lines) {
-        const m = line.match(SEP);
-        if (m) {
-          cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; delete j.bg; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
-          out.push(cur);
-        }
-        else if (cur) cur.text += (cur.text ? '\n' : '') + line;
-      }
-      if (!out.length) { out.push({ id: ++seq, type: 'text', text: lines.join('\n') }); }
-      for (const c of out) c.text = c.text.replace(/\n$/, '');
-      cells = out; rebuild(); save(); e.target.value = '';
+      loadDocument(parse(await f.text())); e.target.value = '';
     });
+    /* ---------- share link ----------
+       The whole document rides in the URL fragment: deflate (the browser's
+       CompressionStream, where present) then base64url. The fragment is
+       never sent to a server, so the link works for pages opened from disk
+       or from any copy of this folder. */
+    const b64u = { enc: bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); },
+                   dec: str => Uint8Array.from(atob(str.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0)) };
+    const pipe = async (bytes, Stream, kind) => new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new Stream(kind))).arrayBuffer());
+    async function shareLink() {
+      const bytes = new TextEncoder().encode(serialize());
+      let tag = 't', payload = bytes;
+      if (typeof CompressionStream === 'function') { try { payload = await pipe(bytes, CompressionStream, 'deflate-raw'); tag = 'z'; } catch (err) {} }
+      return { url: location.href.split('#')[0] + '#gcs=' + tag + b64u.enc(payload), raw: bytes.length, packed: payload.length };
+    }
+    async function readShared(hash) {
+      const m = hash.match(/^#gcs=([zt])([A-Za-z0-9_-]+)$/); if (!m) return null;
+      let bytes = b64u.dec(m[2]);
+      if (m[1] === 'z') bytes = await pipe(bytes, DecompressionStream, 'deflate-raw');
+      return parse(new TextDecoder().decode(bytes));
+    }
+    document.getElementById('share').addEventListener('click', async () => {
+      const { url, raw, packed } = await shareLink();
+      const kb = n => (n / 1024).toFixed(1) + ' KB';
+      try { await navigator.clipboard.writeText(url); toast(`Link copied: ${kb(url.length)} for ${kb(raw)} of text`); }
+      catch (err) { prompt('Copy this link:', url); }
+    });
+    (async () => {
+      let doc = null;
+      try { doc = await readShared(location.hash); } catch (err) { console.warn('shared link not readable', err); }
+      if (!doc) return;
+      history.replaceState(null, '', location.pathname + location.search);
+      const own = cells.map(c => c.text).join('\n').trim();
+      const sample = SAMPLE.map(c => c.text).join('\n').trim();
+      if (own && own !== sample && own !== doc.cells.map(c => c.text).join('\n').trim() && !confirm('Open the lesson from this link? It replaces the cells on this page (Export first to keep them).')) return;
+      loadDocument(doc);
+    })();
     document.getElementById('clear').addEventListener('click', () => { if (confirm('Remove all cells?')) { cells = [{ id: ++seq, type: 'text', text: '' }]; rebuild(); save(); } });
 
     /* ---------- go ---------- */
@@ -1229,7 +1444,7 @@
       document.fonts.ready.then(rerenderAll).catch(() => {});
       document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
     }
-    window.GCS = { cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, applyFont };
+    window.GCS = { cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, applyFont, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
   })();
   </script>
 </body>

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <title>Grand Central Stationery – Notation v1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
-  <link href="vendor/abcjs-audio.css" rel="stylesheet">
-  <script src="vendor/abcjs-basic-min.js"></script>   <!-- abcjs 6.7.0, vendored -->
+  <link href="../fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="../vendor/abcjs-audio.css" rel="stylesheet">
+  <script src="../vendor/abcjs-basic-min.js"></script>   <!-- abcjs 6.7.0, vendored -->
   <style>
     :root {
       --font: 'Atkinson Hyperlegible', system-ui, sans-serif;
@@ -145,7 +145,7 @@
       let synthControl = null;
       const hiddenIndex = new Map();   // original SVG group -> element index (for the cursor)
 
-      const SOUNDFONT = 'vendor/soundfont/';   // local piano samples: playback works offline
+      const SOUNDFONT = '../vendor/soundfont/';   // local piano samples: playback works offline
 
       /* ---------------- playback from file:// ----------------
          abcjs fetches each piano sample with an XMLHttpRequest and resolves
@@ -157,7 +157,7 @@
         if (location.protocol !== 'file:' && !/[?&]embeddedsf/.test(location.search)) return;
         const ready = new Promise(resolve => {
           const s = document.createElement('script');
-          s.src = 'vendor/soundfont/piano-embedded.js';
+          s.src = '../vendor/soundfont/piano-embedded.js';
           s.onload = resolve; s.onerror = resolve;      // on error the map is missing and requests fall through
           document.head.appendChild(s);
         });
