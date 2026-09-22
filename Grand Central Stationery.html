@@ -44,7 +44,20 @@
     body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; font: var(--ui); color: var(--ink); }
 
     /* ---------- chrome ---------- */
-    .toolbar { display: flex; gap: 8px; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
+    .toolbar { display: flex; gap: 8px; align-items: center; padding: 6px 10px; background: var(--panel); flex-wrap: wrap; position: relative; }
+    /* Engraved letterhead rule: thick over thin. */
+    .toolbar::after, .cell-head::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); opacity: 0.55; }
+    .cell-head::after { opacity: 0.22; }
+    .wordmark { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; margin-right: 22px; }
+    .wordmark .mark { width: 22px; height: 27px; display: block; }
+    .wordmark .name { font: 600 14px/1 var(--ui); letter-spacing: 0.02em; position: relative; padding-bottom: 5px; padding-top: 8px; }
+    /* One drawn line under the name: a pencil stroke, tapered at both ends. */
+    .wordmark .name::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; opacity: 0.7;
+      clip-path: polygon(0 60%, 4% 25%, 50% 0, 96% 35%, 100% 70%, 96% 100%, 50% 80%, 4% 95%); }
+    /* Proofreader's caret: "Station" corrected to "Stationery". */
+    .wordmark .caret { position: relative; display: inline-block; width: 1.1em; height: 1em; vertical-align: baseline; }
+    .wordmark .caret::before { content: ''; position: absolute; left: 0.28em; bottom: -0.32em; width: 0.36em; height: 0.36em; border-left: 1px solid currentColor; border-top: 1px solid currentColor; transform: translateX(-50%) rotate(45deg); }
+    .wordmark .ins { position: absolute; left: 0; bottom: 1.05em; font-size: 0.72em; line-height: 1; font-style: italic; font-weight: 500; letter-spacing: 0; }
     .toolbar .spacer, .cell-head .spacer { flex: 1; }
     .toolbar .group { display: inline-flex; }
     .toolbar .group button { border-radius: 0; margin-left: -1px; }
@@ -66,7 +79,7 @@
     .cells { flex: 1; overflow: auto; padding: 12px; }
     .cell { border: 1px solid var(--line); border-radius: 8px; margin: 0 auto 12px; max-width: 1500px; background: var(--bg); }
     .cell.focused { border-color: var(--accent); }
-    .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px; border-bottom: 1px solid var(--line-2); color: var(--muted); }
+    .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px 6px; color: var(--muted); position: relative; }
     .cell-head button { padding: 2px 7px; }
     .cell-head .tools { display: inline-flex; gap: 6px; }
     .cell-head .hint, .cell-head .tools { opacity: 0; transition: opacity 0.15s; }
@@ -86,11 +99,22 @@
     .cell[data-type="abc"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
     .cell[data-type="heading"] .cell-body { height: var(--heading-cell-h); }
     .cell[data-type="heading"] .layer { text-align: center; }   /* vertical centring is set by the engine */
+    /* Exercise-book margin: one thin rule a little in from the left of text cells. */
+    .cell[data-type="text"] .cell-body::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0.9vw; width: 0; border-left: 1px solid var(--ink); opacity: 0.18; pointer-events: none; z-index: 3; }
     .hint { color: var(--muted); }
 
     /* ---------- present mode ---------- */
     body.present .toolbar, body.present .cell-head { display: none; }
     body.present .cells { padding: 0; overflow: hidden; }
+    /* The concourse: a barrel-vault vignette over the stage, and at night the
+       ceiling's constellations, painted backwards as they are in the terminal. */
+    .vault { position: fixed; inset: 0; pointer-events: none; z-index: 8; display: none; }
+    body.present .vault, body.present3d .vault { display: block; }
+    .vault::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 60%, transparent 55%, rgba(0,0,0,0.07) 100%); }
+    .vault .stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s; transform: scaleX(-1); }
+    :root[data-theme="dark"] .vault .stars { opacity: 0.13; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .vault .stars { opacity: 0.13; } }
+    :root[data-theme="dark"] .vault::before { background: radial-gradient(ellipse 80% 70% at 50% 60%, transparent 55%, rgba(0,0,0,0.35) 100%); }
     body.present .cell { display: none; border: 0; border-radius: 0; margin: 0; max-width: none; }
     body.present .cell.current { display: block; }
     body.present .cell .cell-body, body.present .cell[data-type="abc"] .cell-body { height: 100vh; border-radius: 0; }
@@ -166,7 +190,12 @@
     .paper .cursorg.done { opacity: 0; }
     .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
     .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
-    .strip { height: 26%; min-height: 72px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); }
+    .strip { height: 26%; min-height: 72px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); position: relative; }
+    /* Guastavino herringbone from the Whispering Gallery, at a whisper. */
+    .strip::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.06;
+      background-image: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 9px), repeating-linear-gradient(-45deg, var(--ink) 0 1px, transparent 1px 9px);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0 70%, #000 100%); mask-image: linear-gradient(90deg, transparent 0 70%, #000 100%); }
+    .strip > * { position: relative; }
     body.present .strip { height: 14vh; }
     .entry { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
     .entry:focus { border-color: var(--accent); }
@@ -202,7 +231,18 @@
 </head>
 <body>
   <div class="toolbar">
-    <strong>Grand Central Stationery</strong>
+    <a class="wordmark" href="#" onclick="return false" title="Grand Central Stationery">
+      <svg class="mark" viewBox="0 0 28 34" aria-hidden="true">
+        <!-- a concourse window: a round-topped arch whose mullions are five staff lines -->
+        <path d="M2.5 32.5 V14 A11.5 11.5 0 0 1 25.5 14 V32.5 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <g stroke="currentColor" stroke-width="1">
+          <line x1="2.5" y1="15" x2="25.5" y2="15"/><line x1="2.5" y1="19" x2="25.5" y2="19"/><line x1="2.5" y1="23" x2="25.5" y2="23"/><line x1="2.5" y1="27" x2="25.5" y2="27"/><line x1="2.5" y1="31" x2="25.5" y2="31"/>
+        </g>
+        <!-- the information-booth clock as a whole note on its post -->
+        <circle cx="14" cy="8.5" r="2.6" fill="none" stroke="currentColor" stroke-width="1.2"/><line x1="14" y1="11.1" x2="14" y2="15" stroke="currentColor" stroke-width="1"/>
+      </svg>
+      <span class="name">Grand Central Station<span class="caret"><span class="ins">ery</span></span></span>
+    </a>
     <span class="group">
       <button id="addText" title="Add a text cell (Cmd+Enter in a cell adds one below it)">+ Text</button>
       <button id="addHeading" title="Add a heading cell">+ Heading</button>
@@ -230,6 +270,26 @@
     </details>
   </div>
   <div class="cells" id="cells"></div>
+  <div class="vault" aria-hidden="true">
+    <svg class="stars" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <g stroke="#fff" stroke-width="0.7" fill="#fff">
+        <!-- Orion, high on the right -->
+        <polyline points="1210,120 1250,160 1330,150 1370,110" fill="none"/><polyline points="1250,160 1262,250 1285,255 1308,245 1330,150" fill="none"/><polyline points="1262,250 1240,370 1308,245 1350,360" fill="none"/>
+        <circle cx="1210" cy="120" r="2.2"/><circle cx="1250" cy="160" r="3"/><circle cx="1330" cy="150" r="2.2"/><circle cx="1370" cy="110" r="1.8"/><circle cx="1262" cy="250" r="2"/><circle cx="1285" cy="255" r="2"/><circle cx="1308" cy="245" r="2"/><circle cx="1240" cy="370" r="3.2"/><circle cx="1350" cy="360" r="2.4"/>
+        <!-- Taurus, the V, upper middle -->
+        <polyline points="900,90 860,150 840,210" fill="none"/><polyline points="900,90 960,140 990,200" fill="none"/>
+        <circle cx="900" cy="90" r="2"/><circle cx="860" cy="150" r="2.6"/><circle cx="840" cy="210" r="1.8"/><circle cx="960" cy="140" r="2"/><circle cx="990" cy="200" r="2.2"/>
+        <!-- Gemini, the pair, upper left -->
+        <polyline points="420,80 440,170 430,260" fill="none"/><polyline points="500,90 515,180 505,270" fill="none"/><line x1="440" y1="170" x2="515" y2="180"/>
+        <circle cx="420" cy="80" r="2.4"/><circle cx="500" cy="90" r="2.4"/><circle cx="430" cy="260" r="2"/><circle cx="505" cy="270" r="2"/><circle cx="440" cy="170" r="1.6"/><circle cx="515" cy="180" r="1.6"/>
+        <!-- Pegasus, the square, lower left corner -->
+        <polyline points="120,620 260,600 280,740 140,760 120,620" fill="none"/>
+        <circle cx="120" cy="620" r="2.4"/><circle cx="260" cy="600" r="2"/><circle cx="280" cy="740" r="2"/><circle cx="140" cy="760" r="2.2"/>
+        <!-- scattered field -->
+        <circle cx="60" cy="60" r="1.2"/><circle cx="200" cy="130" r="1"/><circle cx="330" cy="40" r="1.4"/><circle cx="640" cy="60" r="1.1"/><circle cx="720" cy="230" r="1"/><circle cx="1090" cy="60" r="1.3"/><circle cx="1500" cy="70" r="1.2"/><circle cx="1540" cy="300" r="1"/><circle cx="1470" cy="520" r="1.2"/><circle cx="1560" cy="800" r="1.4"/><circle cx="1380" cy="820" r="1"/><circle cx="80" cy="400" r="1.1"/><circle cx="40" cy="860" r="1.2"/><circle cx="300" cy="860" r="1"/>
+      </g>
+    </svg>
+  </div>
   <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
   <div class="present-nav">
     <button id="nav3dReset" title="Forget every cell's 3D position, rotation, scale and background (Undo in the toast)">Reset 3D layout</button>
