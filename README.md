@@ -41,5 +41,5 @@ Plain text. An optional first line `=== page {json}` holds page settings (text f
 - `vendor/impress.js`: impress.js 2.0.0 (MIT), used by Present 3D.
 - `vendor/soundfont/`: piano samples from midi-js-soundfonts (MIT), used by abcjs playback; `piano-embedded.js` holds the same samples as base64 for pages opened from disk.
 - `fonts/`: local copies of Atkinson Hyperlegible, Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, Lexend, Andika and Noto Music (all SIL Open Font License), with `fonts/fonts.css`.
-- The wordmark is inline SVG outlines made from Inter Display Medium and Caveat (both SIL Open Font License), so it needs no font request.
+- The wordmark is inline SVG outlines made from Cinzel and Caveat (both SIL Open Font License), so it needs no font request.
 - `gcs-accidentals.woff2`: two zero-advance glyphs (♯ ♭) derived from Noto Music so "C♭" is as wide as "C"; also embedded in the pages.
