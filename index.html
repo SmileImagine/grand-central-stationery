@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <title>Grand Central Stationery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
   <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
   <link href="vendor/abcjs-audio.css" rel="stylesheet">
   <script src="vendor/abcjs-basic-min.js" id="abcjs" defer></script>   <!-- abcjs 6.7.0, vendored. defer: text cells paint before its 500 KB is parsed; notation cells finish setting up on its load event -->
@@ -233,6 +238,44 @@
     .audio .abcjs-inline-audio .abcjs-midi-progress-indicator { background-color: var(--accent); }
     .audio .abcjs-inline-audio .abcjs-midi-clock, .audio .abcjs-inline-audio .abcjs-tempo-wrapper { color: var(--ink); }
     .hidden { position: absolute; left: -100000px; top: 0; width: 1000px; visibility: hidden; }
+
+    /* ---------- small screens and touch ---------- */
+    @media (pointer: coarse) {
+      /* No hover on touch: a cell's tools are always there. */
+      .cell-head .hint, .cell-head .tools { opacity: 1; }
+      .cell-head button, .toolbar button, .menu summary { padding: 6px 10px; }
+      .paper .cursorhit { width: 28px; x: -13px; }
+    }
+    @media (max-width: 700px) {
+      .toolbar { gap: 6px; padding: 6px 8px; }
+      .wordmark { margin-right: 4px; }
+      .wordmark .name { display: none; }          /* the mark alone; the name would wrap the bar */
+      .toolbar .group button { padding: 4px 7px; }
+      .cells { padding: 8px 6px; }
+      .cell { margin-bottom: 8px; }
+      .cell-head { flex-wrap: wrap; row-gap: 4px; }
+      .cell-head .hint { display: none; }
+      .cell-head .order { width: 2.6em; }
+      .menu .panel { right: -8px; min-width: min(260px, calc(100vw - 16px)); }
+      /* Notation: the transport goes under the ABC text instead of beside it. */
+      .strip { flex-direction: column; height: auto; min-height: 0; max-height: 46%; }
+      .entry { min-height: 3.2em; }
+      .side { min-width: 0; max-width: none; gap: 4px 10px; }
+      .side .audio { gap: 4px 10px; }
+      .cell[data-type="abc"] .cell-body { height: 56vh; }
+      .pos { padding: 2px 6px 6px; }
+      .pos input[type="number"] { width: 4em; }
+      .present-nav { right: 6px; bottom: 6px; }
+      .present-nav input { width: 2.6em; }
+      .toast { left: 8px; right: 8px; transform: none; justify-content: space-between; }
+      /* Presenting on a phone: the strip takes what it needs, and the nav moves to the top corner, clear of it. */
+      body.present .strip { height: auto; max-height: 40vh; }
+      body.present .present-nav, body.present3d .present-nav { bottom: auto; top: 6px; }
+    }
+    @media (max-width: 700px) and (orientation: landscape) {
+      .cell-body { height: 60vh; }
+      .cell[data-type="heading"] .cell-body { height: 40vh; }
+    }
   </style>
 </head>
 <body>

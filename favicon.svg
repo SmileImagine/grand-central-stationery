@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 34">
+  <!-- Grand Central Stationery: a concourse window whose mullions are a staff, the clock as a whole note -->
+  <style>path,line,circle{stroke:#111}@media (prefers-color-scheme:dark){path,line,circle{stroke:#eee}}</style>
+  <path d="M2.5 32.5 V14 A11.5 11.5 0 0 1 25.5 14 V32.5 Z" fill="none" stroke-width="1.8" stroke-linejoin="round"/>
+  <g stroke-width="1.2"><line x1="2.5" y1="15" x2="25.5" y2="15"/><line x1="2.5" y1="19" x2="25.5" y2="19"/><line x1="2.5" y1="23" x2="25.5" y2="23"/><line x1="2.5" y1="27" x2="25.5" y2="27"/><line x1="2.5" y1="31" x2="25.5" y2="31"/></g>
+  <circle cx="14" cy="8.5" r="2.6" fill="none" stroke-width="1.4"/><line x1="14" y1="11.1" x2="14" y2="15" stroke-width="1.2"/>
+</svg>

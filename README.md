@@ -39,6 +39,10 @@ The page opens directly from Finder, playback included. `serve.command` starts a
 
 Plain text. An optional first line `=== page {json}` holds page settings (text font, proportional spacing). Then, per cell, a separator line `=== heading`, `=== text` or `=== abc`, optionally followed by json (`x y z r rx ry s` for 3D position, `bg` background, `tr` transposition), and the cell's text verbatim until the next separator. A file without separators becomes one text cell.
 
+## On a phone or tablet
+
+The page adapts below 700 px: the notation transport moves under the ABC text, cell tools are always visible on touch screens, and in Present mode the navigation sits at the top corner. The playback cursor's drag handle is wider for fingers.
+
 ## Sample cells
 
 A first visit (or an empty page after Clear) shows four sample cells. They live in the `SAMPLE` list near the top of the *Cells* section of `index.html`, one entry per cell with a `type` (`heading`, `text` or `abc`) and its `text`; edit that list to change them. Once a lesson has been saved in a browser, the samples are not shown again there.
@@ -50,6 +54,7 @@ A first visit (or an empty page after Clear) shows four sample cells. They live 
 - `vendor/soundfont/`: piano samples from midi-js-soundfonts (MIT), used by abcjs playback; `piano-embedded.js` holds the same samples as base64 for pages opened from disk.
 - `fonts/`: local copies of Atkinson Hyperlegible, Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, Lexend, Andika and Noto Music (all SIL Open Font License), with `fonts/fonts.css`.
 - The wordmark is inline SVG outlines made from Cinzel and Caveat (both SIL Open Font License), so it needs no font request.
+- `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`: the arch-and-staff mark (the SVG follows the system's light or dark mode).
 - `gcs-accidentals.woff2`: two zero-advance glyphs (♯ ♭) derived from Noto Music so "C♭" is as wide as "C"; also embedded in the pages.
 
 ## Licence
