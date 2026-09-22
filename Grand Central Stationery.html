@@ -45,6 +45,21 @@
     /* ---------- chrome ---------- */
     .toolbar { display: flex; gap: 8px; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--line); background: var(--panel); flex-wrap: wrap; }
     .toolbar .spacer, .cell-head .spacer { flex: 1; }
+    .toolbar .group { display: inline-flex; }
+    .toolbar .group button { border-radius: 0; margin-left: -1px; }
+    .toolbar .group button:first-child { border-radius: 6px 0 0 6px; margin-left: 0; }
+    .toolbar .group button:last-child { border-radius: 0 6px 6px 0; }
+    .toolbar .group button:hover { position: relative; }   /* the highlighted border on top of its neighbours */
+    /* The menu: everything used occasionally lives one click away. */
+    .menu { position: relative; }
+    .menu summary { list-style: none; cursor: pointer; font: var(--ui); padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); line-height: 1.15; }
+    .menu summary::-webkit-details-marker { display: none; }
+    .menu summary:hover, .menu[open] summary { border-color: var(--accent); }
+    .menu .panel { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; display: flex; flex-direction: column; gap: 8px; min-width: 230px; padding: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+    .menu .panel hr { border: 0; border-top: 1px solid var(--line-2); margin: 0; }
+    .menu .panel label { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .menu .panel label select { flex: 1; }
+    .menu .panel button { text-align: left; }
     button, select { font: var(--ui); padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); cursor: pointer; }
     button:hover { border-color: var(--accent); }
     .cells { flex: 1; overflow: auto; padding: 12px; }
@@ -52,6 +67,10 @@
     .cell.focused { border-color: var(--accent); }
     .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px; border-bottom: 1px solid var(--line-2); color: var(--muted); }
     .cell-head button { padding: 2px 7px; }
+    .cell-head .tools { display: inline-flex; gap: 6px; }
+    .cell-head .hint, .cell-head .tools { opacity: 0; transition: opacity 0.15s; }
+    .cell:hover .cell-head .hint, .cell:hover .cell-head .tools, .cell.focused .cell-head .hint, .cell.focused .cell-head .tools,
+    .cell-head .tools:focus-within, .cell-head:focus-within .hint { opacity: 1; }
     .cell-head .grip { cursor: grab; user-select: none; font-size: 15px; line-height: 1; padding: 0 2px; }
     .cell-head .grip:active { cursor: grabbing; }
     .cell-head .order { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
@@ -118,7 +137,6 @@
     .inputbox { color: transparent; caret-color: var(--caret); background: transparent; z-index: 2; outline: none; resize: none; }
     .measure { visibility: hidden; z-index: 0; pointer-events: none; transition: none; }
     .note { color: var(--c); }
-    .acc { position: relative; }
 
     /* ---------- notation engine ---------- */
     .score { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
@@ -167,20 +185,31 @@
 <body>
   <div class="toolbar">
     <strong>Grand Central Stationery</strong>
-    <button id="addText" title="Cmd+Enter in a cell adds a text cell below it">+ Text</button>
-    <button id="addHeading">+ Heading</button>
-    <button id="addAbc" title="Cmd+Shift+Enter in a cell adds a notation cell below it">+ Notation</button>
-    <button id="present" title="Show one cell at a time. PageDown / PageUp move, Esc returns.">Present</button>
-    <button id="present3d" title="Fly between cells laid out in 3D (impress.js). Starts on an overview of every cell.">Present 3D</button>
+    <span class="group">
+      <button id="addText" title="Add a text cell (Cmd+Enter in a cell adds one below it)">+ Text</button>
+      <button id="addHeading" title="Add a heading cell">+ Heading</button>
+      <button id="addAbc" title="Add a notation cell (Cmd+Shift+Enter in a cell adds one below it)">+ Notation</button>
+    </span>
+    <span class="group">
+      <button id="present" title="Show one cell at a time. PageDown / PageUp move, Esc returns.">Present</button>
+      <button id="present3d" title="Fly between cells laid out in 3D (impress.js). Starts on an overview of every cell.">Present 3D</button>
+    </span>
     <span class="spacer"></span>
-    <label>Text font <select id="fontpick"></select></label>
-    <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional</label>
     <button id="theme" title="Light / dark">☾</button>
-    <button id="share" title="Copy a link that carries every cell (compressed into the address)">Share link</button>
-    <button id="export">Export</button>
-    <button id="import">Import</button>
-    <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
-    <button id="clear">Clear</button>
+    <details class="menu" id="menu">
+      <summary title="Font, spacing, sharing and files">⋯</summary>
+      <div class="panel">
+        <label>Text font <select id="fontpick"></select></label>
+        <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional spacing</label>
+        <hr>
+        <button id="share" title="Copy a link that carries every cell (compressed into the address)">Share link</button>
+        <button id="export">Export file</button>
+        <button id="import">Import file</button>
+        <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
+        <hr>
+        <button id="clear">Clear all cells</button>
+      </div>
+    </details>
   </div>
   <div class="cells" id="cells"></div>
   <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
@@ -224,7 +253,10 @@
         const tail = accRaw && nextIsLower ? accRaw : '';
         const color = COLORS[note + (acc ? toAscii[acc] : '')];
         if (!color) return m;
-        return `<span class="note" style="--c:${color}">${note}${acc ? `<span class="acc">${acc}</span>` : ''}</span>${tail}`;
+        // Letter and accidental share one span. WebKit does not paint an
+        // inline box whose width is zero (the accidental glyph has no
+        // advance), so a span of its own made ♯ and ♭ invisible in Safari.
+        return `<span class="note" style="--c:${color}">${note}${acc}</span>${tail}`;
       });
       return html + '\u200b';    // makes a div count trailing newlines like a textarea does
     }
@@ -657,7 +689,10 @@
           // it would keep the previous tune's timer and audio buffer for every
           // later Play: old music, and timing events that map to nothing.
           this.synth.destroy();
-          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
+          // abcjs treats a visual transposition as a transposing instrument's
+          // part and cancels it in the audio; a matching midiTranspose makes
+          // the sound follow the page.
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0 }).catch(() => {});
           this.synth.isLoaded = false;
           // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
           const warp = this.synth.warp || 100;
@@ -1099,12 +1134,14 @@
           <span class="grip" draggable="true" title="Drag to reorder">⠿</span>
           <input class="order" type="number" min="1" title="Position: type a number to move this cell">
           <select class="type"><option value="heading">Heading</option><option value="text">Text</option><option value="abc">Notation</option></select>
-          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
+          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
           <span class="spacer"></span>
-          <button class="up" title="Move up">▲</button><button class="down" title="Move down">▼</button>
-          <button class="show" title="Present from this cell">Present</button>
-          <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
-          <button class="del" title="Delete cell">✕</button>
+          <span class="tools">
+            <button class="up" title="Move up">▲</button><button class="down" title="Move down">▼</button>
+            <button class="show" title="Present from this cell">Present</button>
+            <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
+            <button class="del" title="Delete cell (Undo in the toast, or Cmd+Z)">✕</button>
+          </span>
         </div>
         <div class="pos">
           <label>x <input type="number" step="100" data-k="x"></label>
@@ -1310,6 +1347,7 @@
     document.getElementById('navExit').addEventListener('click', () => in3d ? exit3d() : exitPresent());
     document.addEventListener('keydown', e => {
       if (e.target.matches('textarea, input, select')) return;     // handled at the field
+      if (e.key === 'Escape' && menu.open) { menu.open = false; return; }
       if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && (e.key === 'z' || e.key === 'Z') && trash.length) { e.preventDefault(); undoDelete(); return; }
       navKey(e);
     });
@@ -1322,6 +1360,9 @@
     }, true);
 
     /* ---------- toolbar ---------- */
+    const menu = document.getElementById('menu');
+    document.addEventListener('click', e => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+    for (const id of ['share', 'export', 'import', 'clear']) document.getElementById(id).addEventListener('click', () => { menu.open = false; });
     document.getElementById('addText').addEventListener('click', () => addCell('text'));
     document.getElementById('addHeading').addEventListener('click', () => addCell('heading'));
     const propBox = document.getElementById('proportional');

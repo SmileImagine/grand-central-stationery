@@ -19,13 +19,15 @@ The page opens directly from Finder, playback included. `serve.command` starts a
 
 ## Using it
 
-**Cells.** `+ Text`, `+ Heading`, `+ Notation` add cells; Cmd+Enter inside a cell adds a text cell below it (Cmd+Shift+Enter a notation cell). Reorder with the arrows, by dragging the grip (⠿), or by typing a position in the number box. ✕ deletes at once; Undo in the toast (or Cmd+Z outside a text field) brings the cell back. Cmd+Z and Shift+Cmd+Z inside a cell undo and redo its text.
+**Cells.** `+ Text`, `+ Heading`, `+ Notation` add cells; Cmd+Enter inside a cell adds a text cell below it (Cmd+Shift+Enter a notation cell). Reorder by dragging the grip (⠿), by typing a position in the number box, or with the arrows that appear when a cell is hovered. ✕ deletes at once; Undo in the toast (or Cmd+Z outside a text field) brings the cell back. Cmd+Z and Shift+Cmd+Z inside a cell undo and redo its text.
 
 **Text.** Type; note names A–G colour themselves, and `#` or `b` after a note becomes ♯ or ♭ at no extra width. Newlines are respected. The font menu offers several legible faces.
 
 **Notation.** Type ABC, e.g. `C D E F | G A B c |` with `w: do re mi fa` for lyrics. `L:1/4` is the default length, `C2` doubles, `z` rests, `[CEG]` chords, `K:G` for a key, `Q:1/4=90` for a tempo. Noteheads carry their letter and colour; accidentals sit small beside the head. Play gives a two-beat count-in, a cursor in the colour of each note, and a lamp that pulses on the beat. The tempo box scales the speed; Transpose shifts letters, colours and sound together. Proportional (toolbar) spaces notes by duration so the cursor sweeps evenly.
 
 **Presenting.** Present shows one cell at a time: PageDown / PageUp move, the number box jumps, Esc returns. Present 3D lays the cells out in space (impress.js), starting from an overview; the 3D button in a cell's header sets its position, rotation, scale and stage background.
+
+**Menu (⋯).** Text font, proportional spacing, Share link, Export, Import and Clear.
 
 **Sharing.** Share link copies a URL that carries every cell, compressed, in the address itself (no server involved). Export writes the same content as a text file; Import reads one back.
 
