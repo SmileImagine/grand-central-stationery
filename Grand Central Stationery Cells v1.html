@@ -569,11 +569,25 @@
         this.hiddenIndex.clear();
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
-        this.decorate(abcForDisplay !== abc);
-        this.shift.clear();
-        if (proportional) this.proportionalize();
+        // Post-processing must never keep the tune from reaching the
+        // synthesiser: with a stale tune the transport plays the old music
+        // while the cursor maps to nothing.
+        try {
+          this.decorate(abcForDisplay !== abc);
+          this.shift.clear();
+          if (proportional) this.proportionalize();
+        } catch (err) {
+          console.warn('notation post-processing failed', err);
+        }
         this.fit();
-        if (this.synth) this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
+        if (this.synth) {
+          // abcjs's setTune does not clear its isLoaded flag, so after one play
+          // it would keep the previous tune's timer and audio buffer for every
+          // later Play: old music, and timing events that map to nothing.
+          this.synth.destroy();
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT }).catch(() => {});
+          this.synth.isLoaded = false;
+        }
       }
 
       // Proportional spacing: on each line, every note, rest and bar line is
@@ -618,8 +632,9 @@
         }
         // Lyrics were sized for abcjs's spacing; after the shift, shrink them
         // (all together) until no two neighbouring syllables touch.
-        const syls = [...svg.querySelectorAll('g.abcjs-note text.abcjs-lyric')].map(t => {
-          const g = t.closest('g.abcjs-note'); const dx = parseFloat(g.style.getPropertyValue('--dx')) || 0; const b = t.getBBox();
+        const syls = [...svg.querySelectorAll('text.abcjs-lyric')].map(t => {
+          const g = t.closest('g.abcjs-note, g.abcjs-rest');       // a syllable can sit under a rest
+          const dx = g ? parseFloat(g.style.getPropertyValue('--dx')) || 0 : 0; const b = t.getBBox();
           return { t, cx: b.x + b.width / 2 + dx, w: b.width, row: Math.round(b.y / 5) };
         });
         const rows = new Map(); for (const y of syls) { if (!rows.has(y.row)) rows.set(y.row, []); rows.get(y.row).push(y); }
