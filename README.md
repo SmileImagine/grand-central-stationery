@@ -10,7 +10,7 @@ Nothing is uploaded: lessons are saved in the browser you use, and a Share link 
 
 | Path | What it is |
 |---|---|
-| `Grand Central Stationery.html` | **The page.** Heading, text and notation cells; edit, present and 3D present modes; dark mode; undo; share link; export and import. |
+| `index.html` | **The page.** Heading, text and notation cells; edit, present and 3D present modes; dark mode; undo; share link; export and import. |
 | `serve.command` | macOS launcher: serves this folder locally and opens the page. Optional (see Running). |
 | `docs/ANALYSIS-2026-09-20.md` | Design notes: findings, verified behaviour, and the reasons behind each choice. |
 | `lab/` | Single-cell test pages the main page grew out of: `Notation v1.html` (abcjs), `Text Proportional v1.html` (canvas fitter, font picker), `Text Mono Grid v4.html` (monospace grid fitter). |
@@ -41,7 +41,7 @@ Plain text. An optional first line `=== page {json}` holds page settings (text f
 
 ## Sample cells
 
-A first visit (or an empty page after Clear) shows four sample cells. They live in the `SAMPLE` list near the top of the *Cells* section of `Grand Central Stationery.html`, one entry per cell with a `type` (`heading`, `text` or `abc`) and its `text`; edit that list to change them. Once a lesson has been saved in a browser, the samples are not shown again there.
+A first visit (or an empty page after Clear) shows four sample cells. They live in the `SAMPLE` list near the top of the *Cells* section of `index.html`, one entry per cell with a `type` (`heading`, `text` or `abc`) and its `text`; edit that list to change them. Once a lesson has been saved in a browser, the samples are not shown again there.
 
 ## Offline assets
 

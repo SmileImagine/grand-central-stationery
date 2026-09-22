@@ -4,7 +4,7 @@
 # file:// path from fetching the piano samples; everything else works offline too.
 cd "$(dirname "$0")"
 PORT=8765
-URL="http://localhost:$PORT/Grand%20Central%20Stationery.html"
+URL="http://localhost:$PORT/index.html"
 if command -v python3 >/dev/null 2>&1; then
   (sleep 1; open "$URL") &
   echo "Serving $(pwd) at $URL  (close this window to stop)"
@@ -14,5 +14,5 @@ elif command -v php >/dev/null 2>&1; then
   php -S "127.0.0.1:$PORT"
 else
   echo "Neither python3 nor php was found. Open the .html files directly; only playback needs a server."
-  open "Grand Central Stationery.html"
+  open "index.html"
 fi
