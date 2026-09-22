@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
   <link href="vendor/abcjs-audio.css" rel="stylesheet">
-  <script src="vendor/abcjs-basic-min.js"></script>   <!-- abcjs 6.7.0, vendored -->
+  <script src="vendor/abcjs-basic-min.js" id="abcjs" defer></script>   <!-- abcjs 6.7.0, vendored. defer: text cells paint before its 500 KB is parsed; notation cells finish setting up on its load event -->
   <script src="vendor/impress.js" defer></script>     <!-- impress.js 2.0.0, vendored: 3D present mode. defer: it touches document.body while loading -->
   <style>
     /* Zero-advance ♯ and ♭ (see ANALYSIS §8): "C♭" is exactly as wide as "C". */
@@ -113,6 +113,11 @@
     body.present .vault, body.present3d .vault { display: block; }
     .vault::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 60%, transparent 55%, rgba(0,0,0,0.07) 100%); }
     .vault .stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s; transform: scaleX(-1); }
+    /* Daylight: the beams from the east windows in the 1930s photographs,
+       falling from the upper right; the shade between them is the ink. */
+    .vault .rays { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.05; transition: opacity 1.2s; }
+    :root[data-theme="dark"] .vault .rays { opacity: 0; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .vault .rays { opacity: 0; } }
     :root[data-theme="dark"] .vault .stars { opacity: 0.13; }
     @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .vault .stars { opacity: 0.13; } }
     :root[data-theme="dark"] .vault::before { background: radial-gradient(ellipse 80% 70% at 50% 60%, transparent 55%, rgba(0,0,0,0.35) 100%); }
@@ -273,6 +278,18 @@
   </div>
   <div class="cells" id="cells"></div>
   <div class="vault" aria-hidden="true">
+    <svg class="rays" viewBox="0 0 1600 900" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="rayfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--ink)" stop-opacity="1"/><stop offset="0.85" stop-color="var(--ink)" stop-opacity="0"/></linearGradient>
+        <filter id="raysoft"><feGaussianBlur stdDeviation="9"/></filter>
+      </defs>
+      <g fill="url(#rayfade)" filter="url(#raysoft)">
+        <polygon points="1600,0 1600,120 700,900 520,900"/>
+        <polygon points="1600,160 1600,300 1000,900 860,900"/>
+        <polygon points="1600,380 1600,470 1250,900 1150,900"/>
+        <polygon points="1360,0 1500,0 380,900 300,900"/>
+      </g>
+    </svg>
     <svg class="stars" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
       <g stroke="#fff" stroke-width="0.7" fill="#fff">
         <!-- Orion, high on the right -->
@@ -666,6 +683,11 @@
         this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
         this.ro.observe(this.scoreEl);
         this.synth = null;
+        // abcjs is deferred: on a cold load it may arrive after the cells are built.
+        if (!window.ABCJS) { document.getElementById('abcjs').addEventListener('load', () => this.boot(body, id), { once: true }); return; }
+        this.boot(body, id);
+      }
+      boot(body, id) {
         if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
           this.synth = new ABCJS.synth.SynthController();
           this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayRestart: true, displayProgress: false, displayClock: true, displayWarp: true });
@@ -736,6 +758,7 @@
                  H: this.scoreEl.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
       }
       render() {
+        if (!window.ABCJS) return;               // still loading; boot() renders when it lands
         // While the synthesiser is playing, its timer refers to the current
         // hidden render and abcjs's setTune would stop it; re-render when it
         // finishes or pauses instead.
