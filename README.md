@@ -27,7 +27,7 @@ The page opens directly from Finder, playback included. `serve.command` starts a
 
 **Text.** Type; note names A–G colour themselves, and `#` or `b` after a note becomes ♯ or ♭ at no extra width. Newlines are respected. The font menu offers several legible faces.
 
-**Notation.** Type ABC, e.g. `C D E F | G A B c |` with `w: do re mi fa` for lyrics. `L:1/4` is the default length, `C2` doubles, `z` rests, `[CEG]` chords, `K:G` for a key, `Q:1/4=90` for a tempo. Noteheads carry their letter and colour; accidentals sit small beside the head. Play gives a two-beat count-in, a cursor in the colour of each note, and a lamp that pulses on the beat. Drag the cursor along the staff to seek, before or during playback. Tempo scales the speed; Transpose shifts letters, colours and sound together. Proportional (toolbar) spaces notes by duration so the cursor sweeps evenly.
+**Notation.** Type ABC, e.g. `C D E F | G A B c |` with `w: do re mi fa` for lyrics. `L:1/4` is the default length, `C2` doubles, `z` rests, `[CEG]` chords, `K:G` for a key, `Q:1/4=90` for a tempo. Noteheads carry their letter and colour; accidentals sit small beside the head. Play gives a two-beat count-in, a cursor in the colour of each note, and a lamp that pulses on the beat. Drag the cursor along the staff to seek, before or during playback. Tempo scales the speed; Transpose shifts letters, colours and sound together. Instrument shows a piano, a Wicki-Hayden (QWERTY) keyboard, a ukulele fretboard or a recorder fingering chart under the staff that plays along: the sounding note's key is lit, the next note's key is marked on deck, and a runner leaves the sounding key as it plays and arrives on the next as it sounds, so its speed shows how far the hand must move in the time it has. The ukulele picks the place nearest the hand's last fret; fixed-range instruments shift the tune by octaves to fit. Proportional (toolbar) spaces notes by duration so the cursor sweeps evenly.
 
 **Presenting.** Present shows one cell at a time: PageDown / PageUp move, the number box jumps, Esc returns. Present 3D lays the cells out in space (impress.js), starting from an overview; the 3D button in a cell's header sets its position, rotation, scale and stage background, and Reset 3D layout on the overview clears them all (with Undo). Plain Present is the lighter mode: no 3D transforms, so text stays crisp and it works on any machine.
 
@@ -37,7 +37,7 @@ The page opens directly from Finder, playback included. `serve.command` starts a
 
 ### Document format
 
-Plain text. An optional first line `=== page {json}` holds page settings (text font, proportional spacing). Then, per cell, a separator line `=== heading`, `=== text` or `=== abc`, optionally followed by json (`x y z r rx ry s` for 3D position, `bg` background, `tr` transposition), and the cell's text verbatim until the next separator. A file without separators becomes one text cell.
+Plain text. An optional first line `=== page {json}` holds page settings (text font, proportional spacing). Then, per cell, a separator line `=== heading`, `=== text` or `=== abc`, optionally followed by json (`x y z r rx ry s` for 3D position, `bg` background, `tr` transposition, `inst` instrument view), and the cell's text verbatim until the next separator. A file without separators becomes one text cell.
 
 ## On a phone or tablet
 
