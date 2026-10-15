@@ -176,6 +176,32 @@
     .measure { visibility: hidden; z-index: 0; pointer-events: none; transition: none; }
     .note { color: var(--c); }
 
+    /* ---------- game mode (a present mode) ---------- */
+    .cell:not([data-type="abc"]) .game { display: none; }
+    body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #fff4e0, #e3f2fd 55%, #f3e5f5); }
+    :root[data-theme="dark"] body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #1d1238, #0b2740 55%, #0f2e1e); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #1d1238, #0b2740 55%, #0f2e1e); } }
+    body.game .score { flex: 0 0 36vh; padding: 0; overflow: hidden; justify-content: flex-start; align-items: center; position: relative;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+    body.game .paper { will-change: transform; }
+    body.game .paper svg { color: var(--ink); }
+    body.game .paper .cursorbar { width: 4px; }
+    body.game .inst { flex: 1 1 0 !important; min-height: 0; border-top: 0; padding: 1vh 2vw; }
+    body.game .strip { height: auto; flex: 0 0 auto; min-height: 0; padding: 6px 8px; background: transparent; border-top: 0; }
+    body.game .strip::before, body.game .entry, body.game .warn { display: none; }
+    body.game .side { max-width: none; width: 100%; justify-content: center; }
+    .gamebar { display: none; position: relative; height: 6px; background: var(--line); flex: 0 0 auto; }
+    body.game .gamebar { display: block; }
+    .gamebar .prog { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, #e72829, #f39322, #f2e716, #69b944, #087fca, #79569f, #FF77A9); transition: width 0.25s linear; }
+    .gamebar .count { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 2; font: 700 14vh 'Atkinson Hyperlegible', sans-serif; color: var(--cursor); opacity: 0; pointer-events: none; }
+    .gamebar .count.on { animation: countpop 0.6s ease-out; }
+    @keyframes countpop { 0% { opacity: 1; transform: translateX(-50%) scale(0.6); } 100% { opacity: 0; transform: translateX(-50%) scale(1.3); } }
+    .gamebar .cheer { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 2; font: 700 12vh 'Atkinson Hyperlegible', sans-serif; opacity: 0; pointer-events: none; white-space: nowrap;
+      background: linear-gradient(90deg, #e72829, #f39322, #f2e716, #69b944, #087fca, #79569f, #FF77A9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .cell-body.done .cheer { animation: cheer 2.4s ease-out; }
+    @keyframes cheer { 0% { opacity: 0; transform: translateX(-50%) scale(0.5); } 15% { opacity: 1; transform: translateX(-50%) scale(1.1); } 80% { opacity: 1; transform: translateX(-50%) scale(1); } 100% { opacity: 0; transform: translateX(-50%) scale(1); } }
+    .cell-body.done .inst svg { animation: instglow 1.6s ease-out; }
+    @keyframes instglow { 0% { filter: drop-shadow(0 0 0 transparent); } 30% { filter: drop-shadow(0 0 18px var(--cursor)); } 100% { filter: drop-shadow(0 0 0 transparent); } }
     /* ---------- notation engine ---------- */
     .score { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
     .paper { line-height: 0; }
@@ -1206,7 +1232,7 @@
         this.transpose = opts.transpose || 0;
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
         this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
-        body.innerHTML = `<div class="score"><div class="paper"></div></div><div class="inst"></div>
+        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="paper"></div></div><div class="inst"></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
           <div class="side"><div class="audio" id="${id}-audio"></div>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
@@ -1225,7 +1251,8 @@
         np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
         const ip = body.querySelector('.instpick select');
         ip.addEventListener('change', () => { this.inst = ip.value; this.vizPrepare(); if (opts.onInst) opts.onInst(this.inst); });
-        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper');
+        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
+        this.gamebar = body.querySelector('.gamebar');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
         this.entry.value = text;
@@ -1296,6 +1323,7 @@
         if (!btn || !s || s.isStarted || s.percent > 0 || this.leadIn) return;   // pause, resume, or already counting in
         e.stopPropagation(); e.preventDefault();
         this.leadIn = true;
+        this.body.classList.remove('done'); if (gameMode) this.progress(0);
         try {
           if (!s.isLoaded) await s.go();                     // samples and timer, without starting
           const beats = LEAD_IN_BEATS, beatMs = 60000 / (s.currentTempo || 120);
@@ -1308,7 +1336,8 @@
             if (g._motion) g._motion.cancel();
             g.style.transform = `translateX(${x0.toFixed(2)}px)`;
             this.moveCursor(g, fx, beats * beatMs, 'linear');
-            for (let b = 0; b < beats; b++) setTimeout(() => this.pulseLamp(), b * beatMs);
+            this.scrollTo(x0, fx, beats * beatMs);
+            for (let b = 0; b < beats; b++) setTimeout(() => { this.pulseLamp(); if (gameMode) this.count(b + 1); }, b * beatMs);
           }
           const firstEv = this.firstTiming(); if (firstEv) { this.vizSchedule(); this.viz.leadIn(this.eventMidis(firstEv), beats * beatMs, { index: -1 }); }
           await new Promise(r => setTimeout(r, beats * beatMs));
@@ -1347,7 +1376,7 @@
         if (this.warping) { this.pending = true; clearTimeout(this.warpRetry); this.warpRetry = setTimeout(() => { if (this.pending && !this.warping) this.render(); }, 400); return; }
         this.pending = false;
         this.warnEl.textContent = '';
-        const abc = withHeader(this.entry.value);
+        const abc = withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value);
         this.original = this.renderAt(this.hidden, abc, 600);
         if (!this.original) return;
         this.origElems = collect(this.original);
@@ -1359,7 +1388,8 @@
         const { W, H } = this.boxSize();
         if (!(W > 0 && H > 0)) return;            // hidden cell: paddings read as NaN
         const vb = this.paper.querySelector('svg').viewBox.baseVal;
-        const ideal = Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
+        const ideal = gameMode ? Math.max(1200, 90 * this.origElems.filter(e => e.el_type === 'note').length)   // one long line; it scrolls
+                               : Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
         if (Math.abs(ideal - 600) > 2) tune = this.renderAt(this.paper, abcForDisplay, ideal);
         const lyricMin = cssNum('--lyric-min', 9);
         const vocal = fitLyricSize(this.paper.querySelector('svg'), lyricMin);
@@ -1369,7 +1399,7 @@
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
         const added = abc.split('\n').length - this.entry.value.split('\n').length;   // header lines the page supplied
-        this.lintNotes = [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint()];
+        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint()];
         this.showNotes();
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
@@ -1377,7 +1407,7 @@
         try {
           this.decorate(abcForDisplay !== abc);
           this.shift.clear();
-          if (proportional) this.proportionalize();
+          if (proportional || gameMode) this.proportionalize();
         } catch (err) {
           console.warn('notation post-processing failed', err);
         }
@@ -1650,7 +1680,7 @@
         if (!svg) return;
         const vb = svg.viewBox.baseVal, { W, H } = this.boxSize();
         if (!(W > 0 && H > 0)) return;
-        const k = Math.min(W / vb.width, H / vb.height);
+        const k = gameMode ? H / vb.height : Math.min(W / vb.width, H / vb.height);   // game: fill the height, the width scrolls
         svg.setAttribute('width', (vb.width * k).toFixed(2)); svg.setAttribute('height', (vb.height * k).toFixed(2));
         this.paper.style.height = ''; this.paper.style.overflow = '';
       }
@@ -1717,6 +1747,39 @@
         const staff = svg && svg.querySelector(`.abcjs-staff.abcjs-l${line}`);
         return staff ? staff.getBBox().x + staff.getBBox().width - 3 : null;
       }
+      /* ---- game mode ----
+         The tune on one line: header fields first, the music lines joined,
+         and each verse's w: lines joined in order. abcjs then lays it out
+         as a single system, proportional spacing makes position linear in
+         time, and the paper slides so the sounding note sits under a fixed
+         cursor near the left. */
+      oneLine(text) {
+        const head = [], music = [], verses = [];   // verses[k] = w: text per music line
+        let li = -1;
+        for (const raw of text.split('\n')) {
+          if (/^%/.test(raw) || raw.trim() === '') continue;
+          if (/^w:/i.test(raw)) { if (li < 0) continue; const k = (verses._n = verses._n || new Map()).get(li) || 0; verses._n.set(li, k + 1); (verses[k] = verses[k] || [])[li] = raw.slice(2).trim(); }
+          else if (/^[A-Za-z]:/.test(raw)) head.push(raw);
+          else { music.push(raw.replace(/\\\s*$/, '').trim()); li++; }
+        }
+        const out = [...head, music.join(' ')];
+        for (const v of verses) if (v) out.push('w: ' + music.map((_, i) => v[i] || '').join(' '));
+        return out.join('\n');
+      }
+      // Slide the paper so that score x `to` (after `from`, settling first) ends under the fixed cursor.
+      scrollTo(from, to, ms) {
+        if (!gameMode) return;
+        const svg = this.paper.querySelector('svg'); if (!svg) return;
+        const k = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize();
+        const at = x => W * 0.28 - x * k;
+        const cur = (() => { const m = getComputedStyle(this.paper).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : at(from); })();
+        if (this.paper._motion) this.paper._motion.cancel();
+        const tr = v => ({ transform: `translateX(${v.toFixed(1)}px)` });
+        const frames = ms > 150 && Math.abs(cur - at(from)) > 0.5 ? [tr(cur), { ...tr(at(from)), offset: Math.min(0.1, 60 / ms) }, tr(at(to))] : [tr(cur), tr(at(to))];
+        this.paper._motion = this.paper.animate(frames, { duration: Math.max(0, ms), easing: 'linear', fill: 'forwards' });
+      }
+      progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }
+      count(n) { const c = this.gamebar.querySelector('.count'); c.textContent = n; c.classList.remove('on'); void c.offsetWidth; c.classList.add('on'); }
       /* ---- the instrument view ---- */
       allMidis() { const out = []; for (const sp of this.spelled) if (sp) for (const p of sp) out.push(p.midi + this.transpose); return out; }
       // The written pitches of a timing event, transposed as the page is.
@@ -1806,6 +1869,7 @@
         if (g._motion) g._motion.cancel();
         g.style.transform = `translateX(${x.toFixed(2)}px)`;
         g.classList.remove('done'); g.classList.add('ready');
+        this.scrollTo(x, x, 0);
       }
       // Displayed x (left edge) and colour of the notes in a timing event.
       eventGeometry(ev) {
@@ -1826,6 +1890,7 @@
           beatSubdivisions: 1,
           onStart: () => {
             this.clearPlaying();
+            this.body.classList.remove('done'); if (gameMode) this.progress(0);
             const g = this.cursor(); if (!g) return;
             if (!this.leadInDone && !(this.synth && this.synth.percent > 0)) {
               // Starting from the top without a lead-in: appear at the start
@@ -1840,6 +1905,7 @@
           onBeat: () => { if (this.timerRunning()) this.pulseLamp(); },
           onFinished: () => {                       // abcjs's name for the end-of-tune callback
             this.clearPlaying(); this.viz.clear();
+            if (gameMode) { this.progress(1); this.body.classList.remove('done'); void this.body.offsetWidth; this.body.classList.add('done'); }
             const g = this.cursor();
             if (g) {
               g.classList.add('done');                // fade out where it stopped
@@ -1962,6 +2028,7 @@
         if (here.x === null) { this.placeReady(); return; }
         this.shapeCursor(g, ev.line || 0);
         this.colourCursor(g, here.color);
+        this.scrollTo(here.x - 3, here.x - 3, 0);
         g.style.transform = `translateX(${(this.dragX !== null && this.dragX !== undefined ? this.dragX : here.x - 3).toFixed(2)}px)`;
         g.classList.remove('done', 'ready');
       }
@@ -1994,11 +2061,14 @@
             if (idx < 0) idx = timings.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
             const next = timings.slice(idx + 1).find(t => t.type === 'event' && t.elements && t.elements.length);
             const tx = x => `translateX(${x.toFixed(2)}px)`;
+            const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : 0;
+            if (gameMode && total > 0) this.progress(ev.milliseconds / total);
             if (!next) {
               // Last note: keep going to the end of the line for its duration.
               const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
               const xe = this.endX(ev.line || 0);
               const dtEnd = Math.max(0, totalMs - ev.milliseconds);
+              this.scrollTo(x0, xe !== null && xe > x0 && dtEnd > 0 ? xe : x0, dtEnd > 0 ? dtEnd : 90);
               if (xe !== null && xe > x0 && dtEnd > 0) {
                 r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0), offset: Math.min(0.1, 60 / dtEnd) }, { transform: tx(xe) }], { duration: dtEnd, easing: 'linear', fill: 'forwards' });
               } else {
@@ -2011,7 +2081,8 @@
             if (there.x !== null && there.x > here.x && dt > 120) {
               const x1 = there.x - 3;
               const settle = Math.min(0.12, 70 / dt);                  // fraction of dt spent arriving
-              if (proportional) {
+              this.scrollTo(x0, x1, dt);
+              if (proportional || gameMode) {
                 // Position is linear in time, so a constant-speed sweep is exact;
                 // start from wherever the bar is (normally already on the note).
                 r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x1) }], { duration: dt, easing: 'linear', fill: 'forwards' });
@@ -2026,6 +2097,7 @@
                 ], { duration: dt, fill: 'forwards' });
               }
             } else {
+              this.scrollTo(x0, x0, 90);
               r._motion = r.animate([{ transform: tx(cur), easing: 'ease-out' }, { transform: tx(x0) }], { duration: 90, fill: 'forwards' });
             }
           }
@@ -2038,6 +2110,7 @@
        ====================================================================== */
     const STORE = 'gcs-cells-v1';
     let proportional = localStorage.getItem('gcs-proportional') !== 'off';
+    let gameMode = false;   // Game: one cell full screen, the tune on one scrolling line under a fixed cursor, the instrument large
     const SAMPLE = [
       { type: 'heading', text: 'Grand Central Stationery' },
       { type: 'text', text: 'EYES, EARS, and MINDS open;\nHANDS, FEET, and VOICES quiet and ready.' },
@@ -2158,6 +2231,7 @@
           <span class="spacer"></span>
           <span class="tools">
             <button class="show" title="Present from this cell">Present</button>
+            <button class="game" title="Game: this tune on one scrolling line with the instrument large, full screen (Esc returns)">Game</button>
             <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
             <button class="del" title="Delete cell (Undo in the toast, or Cmd+Z)">✕</button>
           </span>
@@ -2194,6 +2268,7 @@
       });
       grip.addEventListener('dragend', () => { dragCell = null; el.classList.remove('dragging'); clearDropMarks(); });
       // Delete at once; the toast (or Cmd+Z outside a field) brings it back.
+      el.querySelector('.game').addEventListener('click', () => { gameMode = true; document.body.classList.add('game'); present(cells.indexOf(cell)); for (const en of engines.values()) if (en.oneLine) en.render(); });
       el.querySelector('.del').addEventListener('click', () => {
         const index = cells.indexOf(cell);
         cells.splice(index, 1);
@@ -2276,6 +2351,7 @@
     }
     function exitPresent() {
       document.body.classList.remove('present');
+      if (gameMode) { gameMode = false; document.body.classList.remove('game'); for (const en of engines.values()) if (en.oneLine) en.render(); }
       cellsEl.querySelectorAll('.cell.current').forEach(el => el.classList.remove('current'));
       current = -1;
     }
