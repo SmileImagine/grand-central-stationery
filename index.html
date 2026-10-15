@@ -253,7 +253,12 @@
     .side .abcjs-inline-audio .abcjs-btn { width: 26px; height: 26px; padding: 3px; margin: 0; border-radius: 6px; }
     .side .abcjs-inline-audio .abcjs-btn:hover { background: var(--line-2); }
     .side .abcjs-inline-audio .abcjs-midi-clock { display: none; }
-    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex-basis: 100%; max-height: 5.2em; }
+    /* Warnings (red) and tips (muted) under the transport; ? opens an explanation with a corrected example. */
+    .warn { font: 12px var(--mono); color: #d33; overflow: auto; flex-basis: 100%; max-height: 7.5em; }
+    .warn .w { white-space: pre-wrap; }
+    .warn .tip { color: var(--muted); }
+    .warn .why { font: 11px var(--ui); padding: 0 5px; margin-left: 6px; border-radius: 8px; line-height: 1.3; color: inherit; border-color: currentColor; background: transparent; opacity: 0.8; }
+    .warn .more { color: var(--muted); white-space: pre-wrap; margin: 2px 0 6px 1em; }
     .warn:empty { display: none; }
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
@@ -660,7 +665,15 @@
     })();
     const PAD = 10;
     const LEAD_IN_BEATS = 2;          // count-in before the first note when playing from the top
-    const withHeader = t => /^K:/m.test(t) ? t : 'X:1\nL:1/4\nK:C\n' + t;
+    // The page's defaults: X:1, L:1/4 and K:C for whatever the text leaves
+    // out. abcjs would otherwise take the unit length from the metre (an
+    // eighth in 4/4), so a tune with K: but no L: would play twice as fast.
+    const withHeader = t => {
+      const hasK = /^K:/m.test(t), hasL = /^L:/m.test(t), hasX = /^X:/m.test(t);
+      if (!hasK) return (hasX ? '' : 'X:1\n') + (hasL ? '' : 'L:1/4\n') + 'K:C\n' + t;
+      let out = hasL ? t : t.replace(/^K:/m, 'L:1/4\nK:');
+      return hasX ? out : 'X:1\n' + out;
+    };
     function stripAccidentals(abc) {
       return abc.split('\n').map(line => {
         if (/^[A-Za-z]:/.test(line) || /^%/.test(line)) return line;
@@ -769,6 +782,8 @@
     class KeyedLayout {
       constructor() { this.keys = new Map(); this.shift = 0; this.runnerR = 7; this.panel = '30%'; }
       key(m) { return this.keys.get(m + this.shift) || null; }
+      has(m) { return !!this.key(m); }
+      octaves() { return 0; }
       mark(now, next) {
         for (const k of this.keys.values()) { k.el.classList.remove('active', 'ondeck'); if (k.lbl) k.lbl.setAttribute('fill', k.idleFill); }
         const pts = { now: [], next: [] };
@@ -843,6 +858,7 @@
       }
       // The keyboard shows this.shift octaves away from written pitch.
       key(m) { return this.keys.get(m - this.shift) || this.keys.get(m - this.shift + 12) || this.keys.get(m - this.shift - 12) || null; }
+      octaves() { return -this.shift / 12; }
     }
 
     // Ukulele, re-entrant GCEA, twelve frets. A pitch has several places; the
@@ -905,6 +921,8 @@
         if (fretted.length) this.hand = fretted.reduce((a, p) => a + p.fret, 0) / fretted.length;
         return out;
       }
+      has(m) { return this.strings.some(o => m + this.shift - o >= 0 && m + this.shift - o <= this.frets); }
+      octaves() { return this.shift / 12; }
       pt(p) { return { x: p.fret === 0 ? this.left - 14 : this.left + (p.fret - 0.5) * this.F, y: this.top + p.s * this.S }; }
       // The tune's events in order ({ ms, midis }), with the beat length at
       // the current tempo: places every note once, from the top with the hand
@@ -1017,6 +1035,8 @@
         });
       }
       mark(now, next) { this.set(this.now, now); this.set(this.next, next); return { now: null, next: null }; }
+      has(m) { return RECORDER[m + this.shift - 60] !== undefined; }
+      octaves() { return this.shift / 12; }
       start() { return null; }
     }
 
@@ -1042,6 +1062,16 @@
         }
       }
       schedule(events, beatMs) { if (this.layout && this.layout.schedule) this.layout.schedule(events, beatMs); }
+      // Notes about how the tune fits the instrument: shifted by octaves, or notes it cannot show.
+      notes(midis) {
+        const L = this.layout; if (!L) return [];
+        const out = [], name = INSTRUMENT_NAMES[this.name].toLowerCase();
+        const oct = L.octaves ? L.octaves() : 0;
+        if (oct) out.push({ tip: true, more: MORE.range, text: `Shown ${Math.abs(oct)} octave${Math.abs(oct) > 1 ? 's' : ''} ${oct > 0 ? 'up' : 'down'}: the ${name} does not reach the written notes.` });
+        const missing = [...new Set(midis.filter(m => L.has && !L.has(m)))].sort((a, b) => a - b).map(m => NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1));
+        if (missing.length) out.push({ more: MORE.range, text: `${missing.join(', ')} ${missing.length > 1 ? 'are' : 'is'} not on the ${name} and will not be shown.` });
+        return out;
+      }
       // The sounding note(s) and the next, with the time until the next.
       show(now, next, dt, info) {
         if (!this.layout) return;
@@ -1082,6 +1112,21 @@
       }
     }
 
+    // Explanations behind the ? on each warning or tip.
+    const MORE = {
+      tie: 'ABC ties with a hyphen and slurs with parentheses. A tie joins two notes of the same pitch into one longer note, so abcjs plays the first and holds it when the same pitch comes round again.\n  C-C D    one C, held for two notes\n  (C D)    a slur: both notes sound, joined smoothly',
+      bars: 'Each bar must add up to the metre. With the default L:1/4 a plain letter is a quarter note: C2 doubles it, C/2 halves it, C3/4 is a dotted eighth and C/4 a sixteenth, so a dotted pair that fills one beat is C3/4 D/4. Triplets are written (3CDE. The metre comes from M: (M:3/4, M:6/8); with no M: line, 4/4 is assumed.',
+      lyrics: 'Each word or syllable in a w: line goes under the next note; rests are skipped.\n  w: Twin-kle twin-kle    a hyphen splits a word across notes\n  w: moon_ light          _ holds the syllable through another note\n  w: * la                 * leaves a note without a syllable\n  w: a~long~way           ~ joins words under one note',
+      rests: 'Syllables skip rests: the next word goes under the next note. If a word should fall where a rest is, give it a note instead.',
+      broken: 'C>D makes the first note dotted and the second half as long: in L:1/4 it is C3/2 D/2, a beat and a half then a half. C<D is the other way round. C D with no mark keeps them equal.',
+      octave: 'Capital letters are the octave starting at middle C (C D E F G A B); lower-case letters the octave above (c d e f g a b). A comma drops an octave (C, is below middle C) and an apostrophe raises one (c\' is two above).',
+      accidental: 'A sharp, flat or natural lasts until the bar line, so ^F ^F G ^F can be written ^F F G F. After a bar line it must be written again; =F cancels it early.',
+      key: 'With no K: line the tune is in C major. K:G has one sharp, K:D two; K:F has one flat, K:Bb two; K:Am is A minor. Put K: on its own line before the music.',
+      transpose: 'Transpose moves every note by the same number of semitones and respells the key. Some intervals land in keys with many sharps or flats; a semitone or two either way often lands somewhere easier to read.',
+      range: 'The instrument view shows the tune where the instrument can play it. When the written notes lie beyond its range they are shifted by whole octaves; notes that fit in no octave are left out.',
+    };
+    const KEY_NAMES = ['C', 'D\u266D', 'D', 'E\u266D', 'E', 'F', 'F\u266F', 'G', 'A\u266D', 'A', 'B\u266D', 'B'];
+    const KEY_ACCS  = [0, 5, 2, 3, 4, 1, 6, 1, 4, 3, 2, 5];   // sharps or flats in the major key on each pitch class
     let abcSeq = 0;
     class AbcCell {
       constructor(body, text, onChange, opts = {}) {
@@ -1231,7 +1276,9 @@
         this.hiddenIndex.clear();
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
-        this.warnEl.textContent = [...(this.original.warnings || []).map(w => this.friendly(w, abc !== this.entry.value)), ...this.lint()].join('\n');
+        const added = abc.split('\n').length - this.entry.value.split('\n').length;   // header lines the page supplied
+        this.lintNotes = [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint()];
+        this.showNotes();
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
         // while the cursor maps to nothing.
@@ -1265,11 +1312,11 @@
          rest is silent: a bar that is too long plays too long, a tie to a
          different note swallows a note, a lyric with the wrong number of
          syllables drifts. The score looks right in every case. */
-      friendly(w, headerAdded) {
+      friendly(w, added) {
         // "Music Line:4:3: Unknown character ignored:  C <span ...>^</span>^^D |"
         const m = w.match(/^Music Line:(\d+):(\d+):\s*([^:]*):\s*(.*)$/);
         if (!m) return w.replace(/<[^>]+>/g, '');
-        const line = parseInt(m[1], 10) - (headerAdded ? 3 : 0), col = m[2];
+        const line = parseInt(m[1], 10) - added, col = m[2];
         const at = (w.match(/<span[^>]*>([^<]*)<\/span>/) || [])[1];
         const what = { 'Unknown character ignored': `Unknown character ${at ? '‹' + at + '› ' : ''}skipped`,
                        "Expected ']' to end the chords": 'A chord opened with [ was never closed' }[m[3]] || m[3];
@@ -1284,7 +1331,7 @@
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = notes[i], b = notes[i + 1];
           const p = a.pitches.find(p => p.startTie && !b.pitches.some(q => q.pitch === p.pitch));
-          if (p) { out.push(`A tie (-) joins different notes (${p.name}-${b.pitches[0].name}); the next ${p.name} will not sound. For a slur, use ( ) instead.`); break; }
+          if (p) { out.push({ more: MORE.tie, text: `A tie (-) joins different notes (${p.name}-${b.pitches[0].name}); the next ${p.name} will not sound. For a slur, use ( ) instead.` }); break; }
         }
         // Bar lengths. With M: the metre is known; without it (abcjs then
         // assumes 4/4) the most common complete bar sets the length. The
@@ -1324,7 +1371,7 @@
             // length mean a missing M: or wrong note lengths.
             if (Math.abs(common - 1) > 1e-6) {
               const beats = common / unit, whole = Math.abs(beats - Math.round(beats)) < 1e-6;
-              out.push(`Bars hold ${fmt(beats)} beats; without an M: line the metre is 4/4. ` + (whole ? `Add M:${Math.round(beats)}/4 if that is intended.` : 'Check the note lengths.') + dottedTip(bars.flatMap(b => b.items)));
+              out.push({ more: MORE.bars, text: `Bars hold ${fmt(beats)} beats; without an M: line the metre is 4/4. ` + (whole ? `Add M:${Math.round(beats)}/4 if that is intended.` : 'Check the note lengths.') + dottedTip(bars.flatMap(b => b.items)) });
             }
           }
         }
@@ -1332,7 +1379,7 @@
           if (b.expected === null || Math.abs(b.len - b.expected) < 1e-6) return;
           if (b.len < b.expected && (i === 0 || i === bars.length - 1)) return;   // a pickup, or the bar that completes it
           const against = hasMeter ? `the metre has ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'without an M: line the metre is 4/4';
-          out.push(`Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items));
+          out.push({ more: MORE.bars, text: `Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items) });
         });
         // Lyrics: one syllable per note (rests are skipped). A hyphen splits
         // a word across notes, _ holds a syllable, * skips a note.
@@ -1354,9 +1401,44 @@
             texts.forEach((t, v) => {
               const toks = t.replace(/\\-/g, '\u0000').replace(/\|/g, ' ').trim().split(/[\s-]+/).filter(Boolean);
               const slots = toks.reduce((a, tok) => { const holds = (tok.match(/_+$/) || [''])[0].length; return a + (tok.length > holds ? 1 : 0) + holds; }, 0);
-              if (slots !== n && n > 0) out.push(`Line ${li + 1}${texts.length > 1 ? ', verse ' + (v + 1) : ''}: ${n} note${n === 1 ? '' : 's'}, ${slots} syllable${slots === 1 ? '' : 's'}. A hyphen splits a word across notes, _ holds a syllable for another note, * skips a note.`);
+              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, text: `Line ${li + 1}${texts.length > 1 ? ', verse ' + (v + 1) : ''}: ${n} note${n === 1 ? '' : 's'}, ${slots} syllable${slots === 1 ? '' : 's'}. A hyphen splits a word across notes, _ holds a syllable for another note, * skips a note.` });
             });
           }
+        }
+        /* ---- tips: not wrong, but worth knowing ---- */
+        if (!/^K:/m.test(text)) out.push({ tip: true, more: MORE.key, text: 'No K: line, so the key is C major. K:G for one sharp, K:F for one flat.' });
+        if (/[A-Ga-gz][,']*[\d\/]*\s*[<>]+\s*[\^_=]*[A-Ga-gz]/.test(text.split('\n').filter(l => !/^[A-Za-z]:/.test(l)).join('\n')))
+          out.push({ tip: true, more: MORE.broken, text: `C>D is a dotted pair: in L:${Lstr} it plays as C3/2 D/2.` });
+        if (lyricFor.size && voice.some(e => e.el_type === 'note' && e.rest)) out.push({ tip: true, more: MORE.rests, text: 'Syllables skip rests; the next word goes under the next note.' });
+        // A leap of more than an octave between neighbours is usually a missed octave mark.
+        for (let i = 0; i + 1 < notes.length; i++) {
+          const a = this.spelled[this.origElems.indexOf(notes[i])], b = this.spelled[this.origElems.indexOf(notes[i + 1])];
+          if (a && b && a[0] && b[0] && Math.abs(b[0].midi - a[0].midi) > 12) { out.push({ tip: true, more: MORE.octave, text: `${a[0].letter} to ${b[0].letter} leaps more than an octave. c is the octave above C; a comma lowers an octave, an apostrophe raises one.` }); break; }
+        }
+        // The same accidental written again inside one bar.
+        { const seen = new Set(); let said = false;
+          for (const el of voice) {
+            if (el.el_type === 'bar') { seen.clear(); continue; }
+            if (el.el_type !== 'note' || !el.pitches || said) continue;
+            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, text: `${p.name} repeats its accidental in one bar; a sharp or flat lasts until the bar line.` }); said = true; break; } seen.add(k); }
+          } }
+        // Transposition: the key it lands in, and a friendlier neighbour when it is heavy with accidentals.
+        if (this.transpose && this.displayed && this.displayed.getKeySignature) {
+          const k = this.displayed.getKeySignature();
+          const minor = /^m(in)?/i.test((k.mode || '')) && !/^maj/i.test(k.mode || '');
+          const n = (k.accidentals || []).length, acc = n ? (k.accidentals[0].acc === 'flat' ? 'flat' : 'sharp') + (n > 1 ? 's' : '') : '';
+          const name = k.root + (k.acc === '#' ? '\u266F' : k.acc === 'b' ? '\u266D' : '') + (minor ? ' minor' : ' major');
+          let text = `Transposed ${this.transpose > 0 ? '+' : ''}${this.transpose}: the key is ${name}${n ? ` (${n} ${acc})` : ''}.`;
+          if (n >= 5 && k.root && (k.mode === '' || minor)) {
+            // The major key's pitch class as displayed (the relative major for a minor key); neighbours step from there.
+            const pcK = ((LETTER_PC[k.root.toUpperCase()] + (k.acc === '#' ? 1 : k.acc === 'b' ? -1 : 0) + (minor ? 3 : 0)) % 12 + 12) % 12;
+            for (const d of [-1, 1, -2, 2]) {
+              const t = this.transpose + d; if (t === 0 || t < -12 || t > 12) continue;
+              const pc = ((pcK + d) % 12 + 12) % 12;
+              if (KEY_ACCS[pc] <= 3) { text += ` ${t > 0 ? '+' : ''}${t} would be ${minor ? KEY_NAMES[(pc + 9) % 12] + ' minor' : KEY_NAMES[pc] + ' major'} (${KEY_ACCS[pc]}).`; break; }
+            }
+          }
+          out.push({ tip: n < 5, more: MORE.transpose, text });
         }
         return out;
       }
@@ -1556,7 +1638,22 @@
         if (i < 0) i = ts.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
         return ts[i + 1] || null;
       }
-      vizPrepare() { if (!this.viz) return; this.viz.set(this.inst, this.allMidis()); this.vizSchedule(); }
+      vizPrepare() { if (!this.viz) return; const midis = this.allMidis(); this.viz.set(this.inst, midis); this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule(); }
+      // Warnings and tips, each with a ? that opens its explanation.
+      showNotes() {
+        this.warnEl.innerHTML = '';
+        for (const n of [...(this.lintNotes || []), ...(this.vizNotes || [])]) {
+          const row = document.createElement('div'); row.className = 'w' + (n.tip ? ' tip' : '');
+          const t = document.createElement('span'); t.textContent = n.text; row.appendChild(t);
+          if (n.more) {
+            const b = document.createElement('button'); b.className = 'why'; b.type = 'button'; b.textContent = '?'; b.title = 'Explain';
+            const m = document.createElement('div'); m.className = 'more'; m.hidden = true; m.textContent = n.more;
+            b.addEventListener('click', () => { m.hidden = !m.hidden; });
+            row.appendChild(b); row.appendChild(m);
+          }
+          this.warnEl.appendChild(row);
+        }
+      }
       // The tune's events at the current tempo, for layouts that lay the
       // whole tune out (the ukulele's tab lane).
       vizSchedule() {
