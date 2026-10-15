@@ -1112,7 +1112,7 @@
         this.shift = new Map();          // displayed element -> horizontal shift from proportional spacing
         this.pending = false;            // a render was requested during playback
         // A pause from the transport also applies a pending render (finish is handled by the cursor control).
-        body.querySelector('.audio').addEventListener('click', () => setTimeout(() => { if (this.pending && !(this.synth && this.synth.isStarted)) this.render(); }, 250));
+        body.querySelector('.audio').addEventListener('click', () => setTimeout(() => { if (this.pending && !this.warping && !(this.synth && this.synth.isStarted)) this.render(); }, 250));   // not during a tempo restart, when isStarted is briefly false
         this.entry.addEventListener('input', () => { this.render(); onChange(this.entry.value); });
         this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
         this.ro.observe(this.scoreEl);
@@ -1134,6 +1134,16 @@
             lab.title = 'Playback speed as a percentage of the written tempo (Q:1/4=90 in the ABC sets it)';
             lab.append('Tempo ', tw);
             body.querySelector('.audio').appendChild(lab);   // abcjs finds the box inside its own container
+            // A tempo change restarts the synthesiser and seeks to its idea
+            // of the current position, which it only updates on each beat:
+            // the music jumps back to the start of the beat (up to a whole
+            // beat, long at slow tempos). Give it the exact position first,
+            // from its timer, in the capture phase so this runs before abcjs.
+            lab.addEventListener('change', () => {
+              const t = this.synth.timer;
+              if (t && t.lastMoment > 0 && typeof t.currentTime === 'number') this.synth.percent = Math.max(0, Math.min(1, t.currentTime / t.lastMoment));
+              this.warping = true; setTimeout(() => { this.warping = false; }, 2000);
+            }, true);
           }
           // Play from the top gets a lead-in: the bar glides from its waiting
           // place into the first note over two beats while the lamp counts
@@ -1718,7 +1728,7 @@
     const cellsEl = document.getElementById('cells');
     const engines = new Map();       // cell id -> engine
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr }) => ({ type, text, pos, bg, tr })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst }) => ({ type, text, pos, bg, tr, inst })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
