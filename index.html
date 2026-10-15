@@ -224,6 +224,11 @@
     .inst .dot { fill: var(--c); stroke: var(--c); }
     .inst .dot.ondeck { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke-width: 2.5; stroke-dasharray: 5 3; }
     .inst .dot.active { filter: drop-shadow(0 0 6px var(--c)); animation: instpop 0.3s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
+    .inst .tabline { stroke: var(--ink); stroke-opacity: 0.35; }
+    .inst .nowline { stroke: var(--cursor); stroke-width: 2; opacity: 0.8; }
+    .inst .tab.past { opacity: 0.3; }
+    .inst .tab.active { font-size: 13px; filter: drop-shadow(0 0 3px currentColor); }
+    .inst .tab.rest { font-size: 10px; }
     /* recorder */
     .inst .rec .body { fill: color-mix(in srgb, var(--ink) 10%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.5; }
     .inst .rec.lit .body { stroke: var(--c); stroke-width: 2; filter: drop-shadow(0 0 5px var(--c)); }
@@ -841,14 +846,19 @@
     }
 
     // Ukulele, re-entrant GCEA, twelve frets. A pitch has several places; the
-    // one nearest the hand's last fret is chosen, lowest fret on a tie.
+    // one nearest the hand's last fret is chosen, lowest fret on a tie. Under
+    // the fretboard, a tab lane scrolls past a now-line at the nut: one
+    // column per note, spaced by musical time, so the distance between
+    // columns is the time between notes and the lane's speed is the tempo.
     class UkuleleLayout {
-      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '30%'; }
+      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '40%'; this.BEAT = 36; }
       build(svg, midis) {
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
         const F = 44, S = 22, left = 30, top = 12;
         this.F = F; this.S = S; this.left = left; this.top = top;
-        const W = left + F * this.frets + 20, H = top + S * 3 + 14;
+        const W = left + F * this.frets + 20, laneTop = top + S * 3 + 28, L = 12;
+        this.laneTop = laneTop; this.L = L;
+        const H = laneTop + L * 3 + 10;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
         const g = svgEl(svg, 'g');
         svgEl(g, 'rect', { class: 'board', x: left, y: top - 6, width: F * this.frets, height: S * 3 + 12, rx: 3 });
@@ -861,9 +871,20 @@
           const y = top + s * S;
           svgEl(g, 'line', { class: 'string', x1: left - 3, y1: y, x2: left + F * this.frets + 10, y2: y, 'stroke-width': (1 + s * 0.4).toFixed(1) });
           svgText(g, 'lbl str', left - 14, y + 0.5, 9, midiColor(open), names[s], 'middle');
+          svgText(g, 'lbl str', left - 14, laneTop + s * L + 0.5, 8, midiColor(open), names[s], 'middle');
         });
+        // The tab lane: four lines, a clip so columns appear at the right
+        // edge and vanish past the now-line, and the scrolling group.
+        const clipId = 'tabclip' + (++UkuleleLayout.seq);
+        const clip = svgEl(svgEl(svg, 'defs'), 'clipPath', { id: clipId });
+        svgEl(clip, 'rect', { x: left - 12, y: laneTop - 8, width: F * this.frets + 24, height: L * 3 + 16 });
+        const lane = svgEl(svg, 'g', { 'clip-path': `url(#${clipId})` });
+        for (let s = 0; s < 4; s++) svgEl(lane, 'line', { class: 'tabline', x1: left - 12, y1: laneTop + s * L, x2: left + F * this.frets + 12, y2: laneTop + s * L });
+        this.laneG = svgEl(lane, 'g', { class: 'lane' });
+        svgEl(svg, 'line', { class: 'nowline', x1: left, y1: laneTop - 7, x2: left, y2: laneTop + L * 3 + 7 });
         this.marksG = svgEl(svg, 'g');
         this.startPt = { x: left - 14, y: top + S * 3 + 10 };
+        this.sig = null; this.events = [];
       }
       start() { return this.startPt; }
       // Where to play a set of pitches: one place per pitch, on distinct strings.
@@ -880,15 +901,47 @@
           });
           if (best) { used.add(best.s); out.push(best); }
         }
+        const fretted = out.filter(p => p.fret > 0);
+        if (fretted.length) this.hand = fretted.reduce((a, p) => a + p.fret, 0) / fretted.length;
         return out;
       }
       pt(p) { return { x: p.fret === 0 ? this.left - 14 : this.left + (p.fret - 0.5) * this.F, y: this.top + p.s * this.S }; }
-      mark(now, next) {
+      // The tune's events in order ({ ms, midis }), with the beat length at
+      // the current tempo: places every note once, from the top with the hand
+      // at the nut, and lays the lane out. Cheap, so it may be called on each
+      // event; it only rebuilds when the timings change (a tempo change).
+      schedule(events, beatMs) {
+        const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
+        if (sig === this.sig) return;
+        this.sig = sig; this.beatMs = beatMs; this.hand = 1;
+        this.events = events.map(e => ({ ms: e.ms, midis: e.midis, pos: this.place(e.midis), x: e.ms / beatMs * this.BEAT }));
+        this.laneG.innerHTML = '';
+        this.events.forEach((e, i) => {
+          e.cols = e.pos.map(p => {
+            const t = svgText(this.laneG, 'lbl tab', e.x, this.laneTop + p.s * this.L + 0.5, 10, midiColor(p.m), String(p.fret), 'middle');
+            t.dataset.i = i; return t;
+          });
+          if (!e.pos.length) e.cols.push(svgText(this.laneG, 'lbl tab rest', e.x, this.laneTop + 1.5 * this.L + 0.5, 7, 'var(--muted)', '·', 'middle'));
+        });
+      }
+      laneX(i) { const e = this.events[i]; return this.left - (e ? e.x : 0); }   // lane transform that puts event i on the now-line
+      scroll(i, j, ms) {
+        const g = this.laneG; if (g._motion) g._motion.cancel();
+        const tr = x => `translateX(${x.toFixed(1)}px)`;
+        const from = i < 0 ? this.laneX(0) + (ms / this.beatMs) * this.BEAT : this.laneX(i);
+        const to = j === null ? from : (this.events[j] ? this.laneX(j) : this.laneX(i) - (ms / this.beatMs) * this.BEAT);
+        g._motion = g.animate([{ transform: tr(from) }, { transform: tr(to) }], { duration: Math.max(0, ms || 0), easing: 'linear', fill: 'forwards' });
+        for (const t of g.querySelectorAll('.tab')) { const k = +t.dataset.i; t.classList.toggle('past', k < i); t.classList.toggle('active', k === i); t.classList.toggle('ondeck', k === i + 1); }
+      }
+      // info: { index } of the sounding event in the schedule (-1 before the
+      // first), and ms until the next; the fretboard uses the scheduled places.
+      mark(now, next, info) {
         for (const m of this.marks) m.remove(); this.marks = [];
-        const nowP = this.place(now);
-        const fretted = nowP.filter(p => p.fret > 0);
-        if (fretted.length) this.hand = fretted.reduce((a, p) => a + p.fret, 0) / fretted.length;
-        const nextP = this.place(next);
+        const sched = info && this.events.length;
+        const i = sched ? info.index : -1;
+        const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
+        const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
+        if (sched) this.scroll(i, info.still ? null : i + 1, info.ms);
         const draw = (p, cls) => {
           const q = this.pt(p);
           const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls, cx: q.x, cy: q.y, r: 8 });
@@ -901,6 +954,7 @@
         return { now: centroid(aPts), next: centroid(nPts) };
       }
     }
+    UkuleleLayout.seq = 0;
 
     // Soprano recorder, baroque fingering, written at the pitch it is usually
     // notated for beginners (middle C = all holes covered); shifted by
@@ -987,10 +1041,11 @@
           svgEl(this.runner, 'circle', { r: this.layout.runnerR });
         }
       }
+      schedule(events, beatMs) { if (this.layout && this.layout.schedule) this.layout.schedule(events, beatMs); }
       // The sounding note(s) and the next, with the time until the next.
-      show(now, next, dt) {
+      show(now, next, dt, info) {
         if (!this.layout) return;
-        const pts = this.layout.mark(now, next);
+        const pts = this.layout.mark(now, next, info && { ...info, ms: dt });
         this.travel(pts.now, pts.next, dt, next);
       }
       travel(from, to, dt, next) {
@@ -1005,23 +1060,23 @@
         r._motion = r.animate([{ transform: tr(cur) }, { transform: tr(to) }], { duration: Math.max(0, dt || 0), easing: 'linear', fill: 'forwards' });
       }
       // A seek: show the state without motion.
-      seek(now, next) {
+      seek(now, next, info) {
         if (!this.layout) return;
-        const pts = this.layout.mark(now, next);
+        const pts = this.layout.mark(now, next, info && { ...info, still: true, ms: 0 });
         const r = this.runner; if (!r) return;
         if (r._motion) r._motion.cancel();
         if (pts.now) { this.at = pts.now; r.style.transform = `translate(${pts.now.x}px, ${pts.now.y}px)`; r.style.setProperty('--c', midiColor(now[0])); r.classList.remove('hide'); }
         else r.classList.add('hide');
       }
       // The count-in: the first note on deck, the runner approaching it.
-      leadIn(first, ms) {
+      leadIn(first, ms, info) {
         if (!this.layout) return;
-        const pts = this.layout.mark([], first);
+        const pts = this.layout.mark([], first, info && { ...info, index: -1, ms });
         this.travel(this.layout.start() || pts.next, pts.next, ms, first);
       }
       clear() {
         if (!this.layout) return;
-        this.layout.mark([], []);
+        this.layout.mark([], [], this.layout.events ? { index: -1, still: true, reset: true, ms: 0 } : null);
         if (this.runner) { if (this.runner._motion) this.runner._motion.cancel(); this.runner.classList.add('hide'); }
         this.at = null;
       }
@@ -1111,7 +1166,7 @@
             this.moveCursor(g, fx, beats * beatMs, 'linear');
             for (let b = 0; b < beats; b++) setTimeout(() => this.pulseLamp(), b * beatMs);
           }
-          const firstEv = this.firstTiming(); if (firstEv) this.viz.leadIn(this.eventMidis(firstEv), beats * beatMs);
+          const firstEv = this.firstTiming(); if (firstEv) { this.vizSchedule(); this.viz.leadIn(this.eventMidis(firstEv), beats * beatMs, { index: -1 }); }
           await new Promise(r => setTimeout(r, beats * beatMs));
         } catch (err) { console.warn('lead-in skipped', err); }
         this.leadIn = false;
@@ -1150,7 +1205,6 @@
         if (!this.original) return;
         this.origElems = collect(this.original);
         this.spelled = spell(this.original, this.origElems);
-        this.vizPrepare();
         let abcForDisplay = stripAccidentals(abc);
         let tune = this.renderAt(this.paper, abcForDisplay, 600);
         if (!tune) return;
@@ -1166,6 +1220,7 @@
         this.displayed = tune; this.dispElems = collect(tune);
         this.hiddenIndex.clear();
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
+        this.vizPrepare();
         if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
@@ -1385,12 +1440,21 @@
         if (i < 0) i = ts.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
         return ts[i + 1] || null;
       }
-      vizPrepare() { if (this.viz) this.viz.set(this.inst, this.allMidis()); }
+      vizPrepare() { if (!this.viz) return; this.viz.set(this.inst, this.allMidis()); this.vizSchedule(); }
+      // The tune's events at the current tempo, for layouts that lay the
+      // whole tune out (the ukulele's tab lane).
+      vizSchedule() {
+        if (!this.viz.layout || !this.viz.layout.schedule || !this.original) return;
+        const bpm = (this.synth && this.synth.currentTempo) || (this.original.getBpm && this.original.getBpm()) || 120;
+        this.viz.schedule(this.timings().map(t => ({ ms: t.milliseconds, midis: this.eventMidis(t) })), 60000 / bpm);
+      }
+      vizIndex(ev) { const ts = this.timings(); let i = ts.indexOf(ev); if (i < 0) i = ts.findIndex(t => t.milliseconds > ev.milliseconds) - 1; return i; }
       vizEvent(ev) {
         if (!this.viz || !this.viz.layout) return;
+        this.vizSchedule();
         const next = this.nextTiming(ev);
         const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
-        this.viz.show(this.eventMidis(ev), this.eventMidis(next), next ? next.milliseconds - ev.milliseconds : totalMs - ev.milliseconds);
+        this.viz.show(this.eventMidis(ev), this.eventMidis(next), next ? next.milliseconds - ev.milliseconds : totalMs - ev.milliseconds, { index: this.vizIndex(ev) });
       }
       // After a render: park the cursor faintly at the start.
       placeReady() {
@@ -1550,7 +1614,7 @@
       seekTo(ev) {
         this.clearPlaying();
         if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) this.viz.clear();
-        else this.viz.seek(this.eventMidis(ev), this.eventMidis(this.nextTiming(ev)));
+        else { this.vizSchedule(); this.viz.seek(this.eventMidis(ev), this.eventMidis(this.nextTiming(ev)), { index: this.vizIndex(ev) }); }
         const g = this.cursor(); if (!g) return;
         if (g._motion) g._motion.cancel();
         if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) { this.placeReady(); return; }
