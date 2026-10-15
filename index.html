@@ -1111,11 +1111,12 @@
         if (pts.now) { this.at = pts.now; r.style.transform = `translate(${pts.now.x}px, ${pts.now.y}px)`; r.style.setProperty('--c', midiColor(now[0])); r.classList.remove('hide'); }
         else r.classList.add('hide');
       }
-      // The count-in: the first note on deck, the runner approaching it.
+      // The count-in: the first note on deck with the runner waiting on it,
+      // as after a rest (a glide in from the edge read as an awkward drift).
       leadIn(first, ms, info) {
         if (!this.layout) return;
         const pts = this.layout.mark([], first, info && { ...info, index: -1, ms });
-        this.travel(this.layout.start() || pts.next, pts.next, ms, first);
+        this.travel(pts.next, pts.next, 0, first);
       }
       clear() {
         if (!this.layout) return;
