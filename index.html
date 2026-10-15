@@ -1232,6 +1232,11 @@
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
         if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
+        // A tie (-) between different notes is a common slip for a slur: the
+        // score looks right, but abcjs's audio holds the tie open and
+        // swallows the next note of that pitch, so it never sounds.
+        const tied = this.tieMismatch();
+        if (tied) this.warnEl.textContent += (this.warnEl.textContent ? '\n' : '') + `A tie (-) joins different notes (${tied}); the next note of the first pitch will not sound. For a slur, use ( ) instead.`;
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
         // while the cursor maps to nothing.
@@ -1260,6 +1265,14 @@
         }
       }
 
+      tieMismatch() {
+        const notes = this.origElems.filter(e => e.el_type === 'note' && e.pitches);
+        for (let i = 0; i + 1 < notes.length; i++) {
+          const a = notes[i], b = notes[i + 1];
+          for (const p of a.pitches) if (p.startTie && !b.pitches.some(q => q.pitch === p.pitch)) return `${p.name}-${b.pitches[0].name}`;
+        }
+        return null;
+      }
       // Proportional spacing: on each line, every note, rest and bar line is
       // moved so that its horizontal position is linear in time, keeping the
       // first note and the final bar line where abcjs put them. Beams, ties and
