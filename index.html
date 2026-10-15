@@ -213,6 +213,11 @@
     .inst .key.active { fill: var(--c); stroke: var(--c); stroke-opacity: 1; filter: drop-shadow(0 0 6px var(--c)); animation: instpop 0.3s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
     @keyframes instpop { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
     .inst .bump { fill: var(--ink); opacity: 0.45; pointer-events: none; }
+    .inst .key.chord { stroke: var(--c); stroke-opacity: 0.9; stroke-width: 2; }
+    .inst .key.root { stroke: var(--c); stroke-opacity: 1; stroke-width: 3.5; }
+    .inst .runner text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
+    .paper .chordshape rect { stroke: none; }
+    .paper .chordshape rect.root { stroke: var(--ink); stroke-width: 1; }
     .inst .runner { opacity: 0.95; transition: opacity 0.25s; }
     .inst .runner circle { fill: var(--c); stroke: var(--panel-2); stroke-width: 2; filter: drop-shadow(0 0 4px var(--c)); }
     .inst .runner.hide { opacity: 0; }
@@ -760,6 +765,49 @@
        ====================================================================== */
     const NOTE_NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
     const midiColor = m => PC_COLORS[((m % 12) + 12) % 12];
+    // Movable-do solfège: degrees above do, raised (sharp) and lowered (flat) spellings.
+    const SOL_UP   = ['do', 'di', 're', 'ri', 'mi', 'fa', 'fi', 'sol', 'si', 'la', 'li', 'ti'];
+    const SOL_DOWN = ['do', 'ra', 're', 'me', 'mi', 'fa', 'se', 'sol', 'le', 'la', 'te', 'ti'];
+    const SOL_MIX  = ['do', 'di', 're', 'me', 'mi', 'fa', 'fi', 'sol', 'le', 'la', 'te', 'ti'];   // the usual names when the spelling is unknown
+    const solfege = (pc, doPc, dir) => (dir === 'down' ? SOL_DOWN : dir === 'up' ? SOL_UP : SOL_MIX)[((pc - doPc) % 12 + 12) % 12];
+    // A chord symbol's root and pitch classes: C, Am, G7, F#m7, Bb, Dsus4, Cdim, C+, Cmaj7, C6 (a bass note after / is ignored).
+    function chordPcs(name) {
+      const m = (name || '').trim().match(/^([A-G])([#b\u266F\u266D]?)([^/]*)/);
+      if (!m) return null;
+      const root = ((LETTER_PC[m[1]] + (/[#\u266F]/.test(m[2]) ? 1 : m[2] ? -1 : 0)) % 12 + 12) % 12, q = m[3];
+      let iv;
+      if (/^(dim|\u00B0|o)/.test(q)) iv = [0, 3, 6];
+      else if (/^(aug|\+)/.test(q)) iv = [0, 4, 8];
+      else if (/^sus2/.test(q)) iv = [0, 2, 7];
+      else if (/^sus/.test(q)) iv = [0, 5, 7];
+      else if (/^(m(?!aj)|min|-)/.test(q)) iv = [0, 3, 7];
+      else iv = [0, 4, 7];
+      if (/maj7|M7|\u0394/.test(q)) iv.push(11); else if (/7/.test(q)) iv.push(/^(dim|\u00B0|o)7/.test(q) ? 9 : 10);
+      if (/(^|[^1])6/.test(q)) iv.push(9);
+      return { root, pcs: iv.map(i => (root + i) % 12), name: name.trim() };
+    }
+    // Where each chord tone sits on the Wicki-Hayden lattice relative to the
+    // root: a key to the right is +2, a row up is +5 and shifts half a key left.
+    function whShape(pcs, root) {
+      return pcs.map(pc => {
+        const i = ((pc - root) % 12 + 12) % 12;
+        let best = null;
+        for (let r = 0; r <= 3; r++) { if ((i - 5 * r) % 2) continue; const c = (i - 5 * r) / 2, x = c - r / 2; if (!best || Math.abs(x) < Math.abs(best.x)) best = { x, r, pc }; }
+        return best;
+      });
+    }
+    // A small picture of that shape: rounded keys in their note colours, the root outlined.
+    function chordGlyph(parent, chord, x0, y0, k = 6) {
+      const g = svgEl(parent, 'g', { class: 'chordshape' });
+      const cells = whShape(chord.pcs, chord.root);
+      const minX = Math.min(...cells.map(c => c.x)), maxR = Math.max(...cells.map(c => c.r));
+      for (const c of cells) {
+        const r = svgEl(g, 'rect', { x: x0 + (c.x - minX) * k, y: y0 + (maxR - c.r) * k, width: k - 1, height: k - 1, rx: 1.5, fill: PC_COLORS[c.pc] });
+        if (c.pc === chord.root) r.setAttribute('class', 'root');
+      }
+      const w = (Math.max(...cells.map(c => c.x)) - minX + 1) * k;
+      return { g, w, h: (maxR + 1) * k };
+    }
     const isBlackKey = m => [1, 3, 6, 8, 10].includes(((m % 12) + 12) % 12);
     function svgEl(parent, tag, attrs = {}) {
       const e = document.createElementNS(NS, tag);
@@ -786,8 +834,12 @@
       key(m) { return this.keys.get(m + this.shift) || null; }
       has(m) { return !!this.key(m); }
       octaves() { return 0; }
-      mark(now, next) {
-        for (const k of this.keys.values()) { k.el.classList.remove('active', 'ondeck'); if (k.lbl) k.lbl.setAttribute('fill', k.idleFill); }
+      mark(now, next, info) {
+        const chord = info && info.chord;
+        for (const k of this.keys.values()) {
+          k.el.classList.remove('active', 'ondeck', 'chord', 'root'); if (k.lbl) k.lbl.setAttribute('fill', k.idleFill);
+          if (chord && k.pc !== undefined && chord.pcs.includes(k.pc)) k.el.classList.add(k.pc === chord.root ? 'root' : 'chord');
+        }
         const pts = { now: [], next: [] };
         for (const m of next) { const k = this.key(m); if (!k) continue; k.el.classList.add('ondeck'); pts.next.push(k); }
         for (const m of now) { const k = this.key(m); if (!k) continue; k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) k.lbl.setAttribute('fill', letterOn()); pts.now.push(k); }
@@ -797,7 +849,7 @@
     }
 
     class PianoLayout extends KeyedLayout {
-      build(svg, midis) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
         const min = midis.length ? Math.min(...midis) : 60, max = midis.length ? Math.max(...midis) : 71;
         let lo = Math.floor(min / 12) * 12, hi = Math.ceil((max + 1) / 12) * 12 - 1;   // whole octaves, C to B
         if (hi - lo < 23) hi = lo + 23;
@@ -809,9 +861,9 @@
         for (const w of whites) {
           const el = svgEl(g, 'rect', { class: 'key white', x: w.x, y: 0, width: W, height: H, rx: 2.5 });
           el.style.setProperty('--c', midiColor(w.m));
-          const lbl = svgText(g, 'lbl', w.x + W / 2, H - 13, 11, midiColor(w.m), NOTE_NAMES[w.m % 12], 'middle');
+          const nm = nameOf(w.m), lbl = svgText(g, 'lbl', w.x + W / 2, H - 13, nm.length > 2 ? 9 : 11, midiColor(w.m), nm, 'middle');
           if (w.m % 12 === 0) svgText(g, 'lbl oct', w.x + W / 2, H - 26, 7, 'var(--muted)', 'C' + (Math.floor(w.m / 12) - 1), 'middle');   // octave numbers on the Cs
-          this.keys.set(w.m, { el, lbl, idleFill: midiColor(w.m), x: w.x + W / 2, y: H - 36 });
+          this.keys.set(w.m, { el, lbl, idleFill: midiColor(w.m), x: w.x + W / 2, y: H - 36, pc: w.m % 12 });
         }
         for (let m = lo; m <= hi; m++) {
           if (!isBlackKey(m)) continue;
@@ -819,7 +871,7 @@
           const bx = left.x + W - BW / 2;
           const el = svgEl(g, 'rect', { class: 'key black', x: bx, y: 0, width: BW, height: BH, rx: 2 });
           el.style.setProperty('--c', midiColor(m));
-          this.keys.set(m, { el, lbl: null, idleFill: null, x: bx + BW / 2, y: BH - 14 });
+          this.keys.set(m, { el, lbl: null, idleFill: null, x: bx + BW / 2, y: BH - 14, pc: m % 12 });
         }
         this.startPt = { x: -2, y: H - 36 };
       }
@@ -843,7 +895,7 @@
     ];
     const WH_J = 60;   // the J key: middle C (the sixth key of the A row, 5 + 2 * 6 above Z)
     class WickiHaydenLayout extends KeyedLayout {
-      build(svg, midis, transpose = 0) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
         this.panel = '44%';
         // Transpose moves the pitches on the keys, so J stays the root and
         // the fingering of a tune does not change when it is transposed.
@@ -861,8 +913,8 @@
             el.style.setProperty('--c', midiColor(m));
             svgText(g, 'lbl qw', x + 4, y + 8, 7, 'var(--muted)', ch, 'start');
             if (ch === 'F' || ch === 'J') svgEl(g, 'rect', { class: 'bump', x: x + K / 2 - 5, y: y + K - 6, width: 10, height: 2, rx: 1 });   // the home-row bumps
-            const lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, 13, midiColor(m), NOTE_NAMES[m % 12], 'middle');
-            this.keys.set(m, { el, lbl, idleFill: midiColor(m), x: x + K / 2, y: y + K / 2 });
+            const nm = nameOf(m), lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, nm.length > 2 ? 11 : 13, midiColor(m), nm, 'middle');
+            this.keys.set(m, { el, lbl, idleFill: midiColor(m), x: x + K / 2, y: y + K / 2, pc: ((m % 12) + 12) % 12 });
           });
         }
         svg.setAttribute('viewBox', `-2 -2 ${maxX + 4} ${4 * U + 4}`);
@@ -881,7 +933,8 @@
     // columns is the time between notes and the lane's speed is the tempo.
     class UkuleleLayout {
       constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '40%'; this.BEAT = 36; }
-      build(svg, midis) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+        this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
         const F = 44, S = 22, left = 30, top = 12;
         this.F = F; this.S = S; this.left = left; this.top = top;
@@ -1005,7 +1058,8 @@
     };
     class RecorderLayout {
       constructor() { this.runnerR = 0; this.panel = '42%'; }
-      build(svg, midis) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+        this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 86);
         // Two diagrams: the note sounding (large) and the next (smaller, dim).
         svg.setAttribute('viewBox', '0 0 200 130');
@@ -1036,7 +1090,7 @@
         const f = m !== null ? RECORDER[m - 60] : null;
         d.g.classList.toggle('lit', !!f); d.g.classList.toggle('empty', !midis.length);
         d.g.style.setProperty('--c', m !== null ? midiColor(m) : 'var(--muted)');
-        d.name.textContent = m !== null ? (f ? NOTE_NAMES[((m % 12) + 12) % 12] : '?') : '';
+        d.name.textContent = m !== null ? (f ? this.nameOf(m) : '?') : '';
         d.name.setAttribute('fill', m !== null ? midiColor(m) : 'var(--muted)');
         d.holes.forEach((pair, i) => {
           const v = f ? f[i] : 0;
@@ -1061,17 +1115,19 @@
         this.host = host; this.name = 'off'; this.layout = null;
         this.svg = svgEl(host, 'svg', { preserveAspectRatio: 'xMidYMid meet' });
       }
-      set(name, midis, transpose = 0) {
+      set(name, midis, transpose = 0, nameOf) {
+        this.nameOf = nameOf || (m => NOTE_NAMES[((m % 12) + 12) % 12]);
         this.name = INSTRUMENTS[name] ? name : 'off';
         this.host.classList.toggle('on', this.name !== 'off');
         this.svg.innerHTML = ''; this.layout = null; this.runner = null;
         if (this.name === 'off') return;
         this.layout = new INSTRUMENTS[this.name]();
-        this.layout.build(this.svg, midis, transpose);
+        this.layout.build(this.svg, midis, transpose, this.nameOf);
         this.host.style.setProperty('--inst-h', this.layout.panel || '32%');
         if (this.layout.runnerR) {
           this.runner = svgEl(this.svg, 'g', { class: 'runner hide' });
           svgEl(this.runner, 'circle', { r: this.layout.runnerR });
+          this.runnerLbl = svgText(this.runner, 'lbl', 0, 0.5, this.layout.runnerR * 0.95, letterOn(), '', 'middle');   // carries the next note's name
         }
       }
       schedule(events, beatMs) { if (this.layout && this.layout.schedule) this.layout.schedule(events, beatMs); }
@@ -1096,19 +1152,21 @@
         if (r._motion) r._motion.cancel();
         if (!to) { r.classList.add('hide'); return; }
         r.style.setProperty('--c', midiColor(next[0]));
+        this.label(next[0]);
         r.classList.remove('hide');
         const tr = p => `translate(${p.x.toFixed(1)}px, ${p.y.toFixed(1)}px)`;
         const cur = from || this.at || to;
         this.at = to;
         r._motion = r.animate([{ transform: tr(cur) }, { transform: tr(to) }], { duration: Math.max(0, dt || 0), easing: 'linear', fill: 'forwards' });
       }
+      label(m) { if (!this.runnerLbl) return; const nm = this.nameOf(m); this.runnerLbl.textContent = nm; this.runnerLbl.setAttribute('font-size', (this.layout.runnerR * (nm.length > 2 ? 0.7 : 0.95)).toFixed(2)); this.runnerLbl.setAttribute('fill', letterOn()); }
       // A seek: show the state without motion.
       seek(now, next, info) {
         if (!this.layout) return;
         const pts = this.layout.mark(now, next, info && { ...info, still: true, ms: 0 });
         const r = this.runner; if (!r) return;
         if (r._motion) r._motion.cancel();
-        if (pts.now) { this.at = pts.now; r.style.transform = `translate(${pts.now.x}px, ${pts.now.y}px)`; r.style.setProperty('--c', midiColor(now[0])); r.classList.remove('hide'); }
+        if (pts.now) { this.at = pts.now; r.style.transform = `translate(${pts.now.x}px, ${pts.now.y}px)`; r.style.setProperty('--c', midiColor(now[0])); this.label(now[0]); r.classList.remove('hide'); }
         else r.classList.add('hide');
       }
       // The count-in: the first note on deck with the runner waiting on it,
@@ -1147,11 +1205,13 @@
         const id = 'abc' + (++abcSeq);
         this.transpose = opts.transpose || 0;
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
+        this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
         body.innerHTML = `<div class="score"><div class="paper"></div></div><div class="inst"></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
           <div class="side"><div class="audio" id="${id}-audio"></div>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+          <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
           <div class="warn"></div></div></div>`;
         const xp = body.querySelector('.xpose input');
         xp.addEventListener('input', () => {
@@ -1161,6 +1221,8 @@
           if (opts.onTranspose) opts.onTranspose(n);
         });
         this.viz = new InstrumentView(body.querySelector('.inst'));
+        const np = body.querySelector('.namepick select');
+        np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
         const ip = body.querySelector('.instpick select');
         ip.addEventListener('change', () => { this.inst = ip.value; this.vizPrepare(); if (opts.onInst) opts.onInst(this.inst); });
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper');
@@ -1280,6 +1342,9 @@
         // hidden render and abcjs's setTune would stop it; re-render when it
         // finishes or pauses instead.
         if (this.synth && this.synth.isStarted) { this.pending = true; return; }
+        // A tempo change rebuilds the audio asynchronously; a render in the
+        // middle would destroy the buffer it is filling. Come back after.
+        if (this.warping) { this.pending = true; clearTimeout(this.warpRetry); this.warpRetry = setTimeout(() => { if (this.pending && !this.warping) this.render(); }, 400); return; }
         this.pending = false;
         this.warnEl.textContent = '';
         const abc = withHeader(this.entry.value);
@@ -1543,6 +1608,14 @@
       decorate(drawAccidentals) {
         const svg = this.paper.querySelector('svg');
         if (!svg) return;
+        this.key = null;
+        // Chord symbols get a small Wicki-Hayden shape beside the name.
+        for (const t of svg.querySelectorAll('text.abcjs-chord')) {
+          const chord = chordPcs(t.textContent); if (!chord) continue;
+          const bb = t.getBBox(), k = Math.max(4, bb.height * 0.3);
+          const { g, h } = chordGlyph(t.parentNode, chord, bb.x + bb.width + 3, 0, k);
+          g.setAttribute('transform', `translate(0 ${(bb.y + bb.height / 2 - h / 2).toFixed(1)})`);
+        }
         const accScale = cssNum('--acc-size', 1.8);
         this.dispElems.forEach((el, i) => {
           const abs = el.abselem, pitches = this.spelled[i];
@@ -1554,7 +1627,8 @@
             node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
             const bb = node.getBBox(), hollow = el.duration >= 0.5;
             const group = abs.elemset[0] || svg;      // inside the group: moves and pops with the note
-            svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * 1.05, hollow ? p.color : letterOn(), p.letter, 'middle');
+            const nm = this.names === 'solfege' ? this.nameOf(p.midi, p.acc) : p.letter;
+            svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * (nm.length > 2 ? 0.6 : nm.length > 1 ? 0.72 : 1.05), hollow ? p.color : letterOn(), nm, 'middle');
             if (drawAccidentals && p.explicit) {
               const size = bb.height * accScale;
               const baselineY = bb.y + bb.height / 2 + accidentalCentre(p.explicit) * size;
@@ -1666,7 +1740,32 @@
         if (i < 0) i = ts.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
         return ts[i + 1] || null;
       }
-      vizPrepare() { if (!this.viz) return; const midis = this.allMidis(); this.viz.set(this.inst, midis, this.transpose || 0); this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule(); }
+      // The tonic (do) and whether the key leans to flats, from the displayed key signature; minor keys are la-based.
+      keyInfo() {
+        const k = this.displayed && this.displayed.getKeySignature ? this.displayed.getKeySignature() : null;
+        if (!k || !k.root) return { doPc: 0, flats: false };
+        const minor = /^m(in)?/i.test(k.mode || '') && !/^maj/i.test(k.mode || '');
+        const pc = ((LETTER_PC[k.root.toUpperCase()] + (k.acc === '#' ? 1 : k.acc === 'b' ? -1 : 0) + (minor ? 3 : 0)) % 12 + 12) % 12;
+        return { doPc: pc, flats: !!(k.accidentals && k.accidentals.length && k.accidentals[0].acc === 'flat') };
+      }
+      // The name of a pitch (or a spelled note) in the chosen naming.
+      nameOf(m, acc) {
+        const pc = ((m % 12) + 12) % 12;
+        if (this.names !== 'solfege') return NOTE_NAMES[pc];
+        const { doPc, flats } = this.key || (this.key = this.keyInfo());
+        const dir = /flat/.test(acc || '') ? 'down' : /sharp/.test(acc || '') ? 'up' : acc === 'natural' ? (flats ? 'up' : 'down') : null;
+        return solfege(pc, doPc, dir);
+      }
+      // The chord symbol in force at a timing event: the last one at or before it.
+      chordAt(ev) {
+        const ts = this.timings(); const i = this.vizIndex(ev); let found = null;
+        for (let j = 0; j <= i && j < ts.length; j++) for (const arr of ts[j].elements || []) for (const el of (Array.isArray(arr) ? arr : [arr])) {
+          const k = this.hiddenIndex.get(el); const oe = k === undefined ? null : this.origElems[k];
+          if (oe && oe.chord && oe.chord.length) { const c = chordPcs(oe.chord[0].name); if (c) found = c; }
+        }
+        return found;
+      }
+      vizPrepare() { if (!this.viz) return; this.key = null; const midis = this.allMidis(); this.viz.set(this.inst, midis, this.transpose || 0, m => this.nameOf(m)); this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule(); }
       // Warnings and tips, each with a ? that opens its explanation.
       showNotes() {
         this.warnEl.innerHTML = '';
@@ -1695,7 +1794,7 @@
         this.vizSchedule();
         const next = this.nextTiming(ev);
         const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
-        this.viz.show(this.eventMidis(ev), this.eventMidis(next), next ? next.milliseconds - ev.milliseconds : totalMs - ev.milliseconds, { index: this.vizIndex(ev) });
+        this.viz.show(this.eventMidis(ev), this.eventMidis(next), next ? next.milliseconds - ev.milliseconds : totalMs - ev.milliseconds, { index: this.vizIndex(ev), chord: this.chordAt(ev) });
       }
       // After a render: park the cursor faintly at the start.
       placeReady() {
@@ -1855,7 +1954,7 @@
       seekTo(ev) {
         this.clearPlaying();
         if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) this.viz.clear();
-        else { this.vizSchedule(); this.viz.seek(this.eventMidis(ev), this.eventMidis(this.nextTiming(ev)), { index: this.vizIndex(ev) }); }
+        else { this.vizSchedule(); this.viz.seek(this.eventMidis(ev), this.eventMidis(this.nextTiming(ev)), { index: this.vizIndex(ev), chord: this.chordAt(ev) }); }
         const g = this.cursor(); if (!g) return;
         if (g._motion) g._motion.cancel();
         if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) { this.placeReady(); return; }
@@ -1953,7 +2052,7 @@
     const cellsEl = document.getElementById('cells');
     const engines = new Map();       // cell id -> engine
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst }) => ({ type, text, pos, bg, tr, inst })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names }) => ({ type, text, pos, bg, tr, inst, names })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -2079,7 +2178,7 @@
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
@@ -2326,7 +2425,7 @@
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ font: fontKey, proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -2337,7 +2436,7 @@
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; delete j.bg; delete j.tr; delete j.inst; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; delete j.bg; delete j.tr; delete j.inst; delete j.names; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
