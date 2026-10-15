@@ -1181,7 +1181,7 @@
         const tunes = ABCJS.renderAbc(target, abc, {
           add_classes: true, staffwidth, visualTranspose: this.transpose || 0,
           paddingtop: PAD, paddingbottom: PAD, paddingleft: PAD, paddingright: PAD,
-          format: { vocalfont: `Atkinson Hyperlegible ${vocal}` },
+          format: { vocalfont: `Atkinson Hyperlegible ${vocal}`, stretchlast: proportional ? true : 0.6 },   // the last line is justified like the others (in plain spacing, only when it is mostly full)
         });
         const svg = target.querySelector('svg');
         if (svg && !svg.getAttribute('viewBox')) svg.setAttribute('viewBox', `0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
@@ -1266,6 +1266,10 @@
         const groupBox = el => el.abselem.elemset[0].getBBox();
         const headX = el => { const h = el.abselem.heads && el.abselem.heads[0] && el.abselem.heads[0].graphelem; return (h ? h.getBBox() : groupBox(el)).x; };
         const GAP = 5;                                        // bar line to next note
+        // A short last line is spaced like the line above it rather than
+        // stretched across the width, so every line reads at the same speed.
+        const lastLine = Math.max(...lines.keys());
+        let prevPerWhole = null;
         for (const [li, elems] of lines) {
           const notes = elems.filter(e => e.el_type === 'note');
           if (notes.length < 2) continue;
@@ -1278,9 +1282,11 @@
           const x1 = headX(notes[0]);
           const lastBar = [...items].reverse().find(i => i.bar && i.t >= T - 1e-9);
           const staff = svg.querySelector(`.abcjs-staff.abcjs-l${li}`);
-          const xEnd = lastBar ? groupBox(lastBar.el).x : (staff ? staff.getBBox().x + staff.getBBox().width - 4 : null);
+          let xEnd = lastBar ? groupBox(lastBar.el).x : (staff ? staff.getBBox().x + staff.getBBox().width - 4 : null);
           if (xEnd === null || xEnd <= x1) continue;
-          const perWhole = (xEnd - x1) / T;
+          let perWhole = (xEnd - x1) / T;
+          if (li === lastLine && prevPerWhole !== null && perWhole > prevPerWhole * 1.05) { perWhole = prevPerWhole; xEnd = x1 + T * perWhole; }
+          prevPerWhole = perWhole;
           for (const it of items) {
             const cur = it.bar ? groupBox(it.el).x : headX(it.el);
             let target = x1 + it.t * perWhole;
