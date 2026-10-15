@@ -253,7 +253,7 @@
     .side .abcjs-inline-audio .abcjs-btn { width: 26px; height: 26px; padding: 3px; margin: 0; border-radius: 6px; }
     .side .abcjs-inline-audio .abcjs-btn:hover { background: var(--line-2); }
     .side .abcjs-inline-audio .abcjs-midi-clock { display: none; }
-    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex-basis: 100%; max-height: 2.6em; }
+    .warn { font: 12px var(--mono); color: #d33; white-space: pre-wrap; overflow: auto; flex-basis: 100%; max-height: 5.2em; }
     .warn:empty { display: none; }
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
@@ -1231,12 +1231,7 @@
         this.hiddenIndex.clear();
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
-        if (this.original.warnings) this.warnEl.textContent = this.original.warnings.map(w => w.replace(/<[^>]+>/g, '')).join('\n');
-        // A tie (-) between different notes is a common slip for a slur: the
-        // score looks right, but abcjs's audio holds the tie open and
-        // swallows the next note of that pitch, so it never sounds.
-        const tied = this.tieMismatch();
-        if (tied) this.warnEl.textContent += (this.warnEl.textContent ? '\n' : '') + `A tie (-) joins different notes (${tied}); the next note of the first pitch will not sound. For a slur, use ( ) instead.`;
+        this.warnEl.textContent = [...(this.original.warnings || []).map(w => this.friendly(w, abc !== this.entry.value)), ...this.lint()].join('\n');
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
         // while the cursor maps to nothing.
@@ -1265,13 +1260,105 @@
         }
       }
 
-      tieMismatch() {
-        const notes = this.origElems.filter(e => e.el_type === 'note' && e.pitches);
+      /* ---- warnings ----
+         abcjs reports only what it cannot parse, in parser's terms. The
+         rest is silent: a bar that is too long plays too long, a tie to a
+         different note swallows a note, a lyric with the wrong number of
+         syllables drifts. The score looks right in every case. */
+      friendly(w, headerAdded) {
+        // "Music Line:4:3: Unknown character ignored:  C <span ...>^</span>^^D |"
+        const m = w.match(/^Music Line:(\d+):(\d+):\s*([^:]*):\s*(.*)$/);
+        if (!m) return w.replace(/<[^>]+>/g, '');
+        const line = parseInt(m[1], 10) - (headerAdded ? 3 : 0), col = m[2];
+        const at = (w.match(/<span[^>]*>([^<]*)<\/span>/) || [])[1];
+        const what = { 'Unknown character ignored': `Unknown character ${at ? '‹' + at + '› ' : ''}skipped`,
+                       "Expected ']' to end the chords": 'A chord opened with [ was never closed' }[m[3]] || m[3];
+        return `Line ${line}, character ${col}: ${what}.`;
+      }
+      lint() {
+        const out = [];
+        const voice = this.origElems.filter(e => e._voice === 0);
+        const notes = voice.filter(e => e.el_type === 'note' && e.pitches);
+        // A tie (-) between different notes is a common slip for a slur:
+        // abcjs's audio holds the tie open and swallows the next note of that pitch.
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = notes[i], b = notes[i + 1];
-          for (const p of a.pitches) if (p.startTie && !b.pitches.some(q => q.pitch === p.pitch)) return `${p.name}-${b.pitches[0].name}`;
+          const p = a.pitches.find(p => p.startTie && !b.pitches.some(q => q.pitch === p.pitch));
+          if (p) { out.push(`A tie (-) joins different notes (${p.name}-${b.pitches[0].name}); the next ${p.name} will not sound. For a slur, use ( ) instead.`); break; }
         }
-        return null;
+        // Bar lengths. With M: the metre is known; without it (abcjs then
+        // assumes 4/4) the most common complete bar sets the length. The
+        // first bar may be a pickup and the last may complete it, so a
+        // short first or last bar passes; an unfinished final bar is not
+        // counted at all, so nothing nags while a bar is being typed.
+        const text = this.entry.value;
+        const hasMeter = /^M:/m.test(text) || /\[M:/.test(text);
+        let unit = (this.original.getBeatLength && this.original.getBeatLength()) || 0.25;
+        const meterLen = f => f && f.num ? parseInt(f.num, 10) / parseInt(f.den, 10) : null;
+        let expected = hasMeter ? meterLen(this.original.getMeterFraction && this.original.getMeterFraction()) : 1;   // abcjs assumes 4/4 without M:
+        let inferred = false;
+        const bars = []; let len = 0, count = 0, mult = 1, inTuplet = false, items = [];
+        for (const el of voice) {
+          if (el.el_type === 'meter' && el.value && el.value[0]) expected = meterLen(el.value[0]);
+          if (el.el_type === 'note') {
+            if (el.startTriplet) { inTuplet = true; mult = el.tripletMultiplier || 1; }
+            len += (el.duration || 0) * (inTuplet ? mult : 1); count++; items.push(el);
+            if (el.endTriplet) { inTuplet = false; mult = 1; }
+          } else if (el.el_type === 'bar') {
+            if (count) bars.push({ len, items, expected });
+            len = 0; count = 0; items = [];
+          }
+        }
+        const fmt = x => { const r = Math.round(x * 4) / 4; return Number.isInteger(r) ? String(r) : r.toFixed(2).replace(/0$/, '').replace(/\.5$/, '\u00BD').replace(/\.25$/, '\u00BC').replace(/\.75$/, '\u00BE'); };
+        const L = text.match(/^L:\s*(\S+)/m), Lstr = L ? L[1] : '1/4';
+        const dottedTip = items => items.some((el, j) => j + 1 < items.length && Math.abs(el.duration - 0.75 * unit) < 1e-6 && Math.abs(items[j + 1].duration - 0.5 * unit) < 1e-6)
+          ? ` (In L:${Lstr}, a dotted pair is C3/4 D/4, not C3/4 D/2.)` : '';
+        if (!hasMeter && bars.length >= 2) {
+          const tally = new Map(); for (const b of bars) { const k = b.len.toFixed(6); tally.set(k, (tally.get(k) || 0) + 1); }
+          const mode = [...tally.entries()].sort((a, b) => b[1] - a[1] || parseFloat(b[0]) - parseFloat(a[0]))[0];
+          if (mode[1] >= 2) {
+            const common = parseFloat(mode[0]);
+            for (const b of bars) b.expected = common;
+            inferred = true;
+            // abcjs assumes 4/4 when there is no M: line; bars of another
+            // length mean a missing M: or wrong note lengths.
+            if (Math.abs(common - 1) > 1e-6) {
+              const beats = common / unit, whole = Math.abs(beats - Math.round(beats)) < 1e-6;
+              out.push(`Bars hold ${fmt(beats)} beats; without an M: line the metre is 4/4. ` + (whole ? `Add M:${Math.round(beats)}/4 if that is intended.` : 'Check the note lengths.') + dottedTip(bars.flatMap(b => b.items)));
+            }
+          }
+        }
+        bars.forEach((b, i) => {
+          if (b.expected === null || Math.abs(b.len - b.expected) < 1e-6) return;
+          if (b.len < b.expected && (i === 0 || i === bars.length - 1)) return;   // a pickup, or the bar that completes it
+          const against = hasMeter ? `the metre has ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'without an M: line the metre is 4/4';
+          out.push(`Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items));
+        });
+        // Lyrics: one syllable per note (rests are skipped). A hyphen splits
+        // a word across notes, _ holds a syllable, * skips a note.
+        const musicLines = text.split('\n').filter(l => !/^[A-Za-z]:/.test(l) && !/^%/.test(l) && l.trim() !== '');
+        const lyricFor = new Map();   // music line index -> array of w: texts
+        {
+          let li = -1;
+          for (const raw of text.split('\n')) {
+            if (/^w:/i.test(raw)) { if (li >= 0) { if (!lyricFor.has(li)) lyricFor.set(li, []); lyricFor.get(li).push(raw.slice(2)); } }
+            else if (/^[A-Za-z]:/.test(raw) || /^%/.test(raw) || raw.trim() === '') continue;
+            else li++;
+          }
+        }
+        if (lyricFor.size && this.original.lines) {
+          const tuneLines = this.original.lines.filter(l => l.staff);
+          for (const [li, texts] of lyricFor) {
+            const L = tuneLines[li]; if (!L) continue;
+            const n = ((L.staff[0] || {}).voices || [[]])[0].filter(e => e.el_type === 'note' && e.pitches).length;
+            texts.forEach((t, v) => {
+              const toks = t.replace(/\\-/g, '\u0000').replace(/\|/g, ' ').trim().split(/[\s-]+/).filter(Boolean);
+              const slots = toks.reduce((a, tok) => { const holds = (tok.match(/_+$/) || [''])[0].length; return a + (tok.length > holds ? 1 : 0) + holds; }, 0);
+              if (slots !== n && n > 0) out.push(`Line ${li + 1}${texts.length > 1 ? ', verse ' + (v + 1) : ''}: ${n} note${n === 1 ? '' : 's'}, ${slots} syllable${slots === 1 ? '' : 's'}. A hyphen splits a word across notes, _ holds a syllable for another note, * skips a note.`);
+            });
+          }
+        }
+        return out;
       }
       // Proportional spacing: on each line, every note, rest and bar line is
       // moved so that its horizontal position is linear in time, keeping the
