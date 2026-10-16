@@ -1157,6 +1157,13 @@
 
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
     const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
+    // The sound each view plays with (General MIDI programs; the sample
+    // folders are in vendor/soundfont/). Ukulele has no GM sound: nylon
+    // guitar is the nearest. The Wicki-Hayden keyboard is a controller, so
+    // it takes an electric piano. A page opened from disk can only load the
+    // embedded piano, so it keeps the piano for every view.
+    const INSTRUMENT_PROGRAMS = { off: 0, piano: 0, wh: 4, uke: 24, recorder: 74 };
+    const soundProgram = inst => location.protocol === 'file:' ? 0 : (INSTRUMENT_PROGRAMS[inst] || 0);
 
     class InstrumentView {
       constructor(host) {
@@ -1272,7 +1279,7 @@
         const np = body.querySelector('.namepick select');
         np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
         const ip = body.querySelector('.instpick select');
-        ip.addEventListener('change', () => { this.inst = ip.value; this.vizPrepare(); if (opts.onInst) opts.onInst(this.inst); });
+        ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); });   // a full render: the sound changes with the view
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
         this.gamebar = body.querySelector('.gamebar');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
@@ -1443,7 +1450,7 @@
           // abcjs treats a visual transposition as a transposing instrument's
           // part and cancels it in the audio; a matching midiTranspose makes
           // the sound follow the page.
-          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0 }).catch(() => {});
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst) }).catch(() => {});
           this.synth.isLoaded = false;
           // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
           const warp = this.synth.warp || 100;

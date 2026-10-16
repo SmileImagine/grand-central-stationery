@@ -56,7 +56,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## midi-js-soundfonts (vendor/soundfont/): acoustic grand piano samples, also embedded as base64 in piano-embedded.js
+## midi-js-soundfonts (vendor/soundfont/): acoustic grand piano samples (also embedded as base64 in piano-embedded.js), and the MusyngKite recorder, acoustic_guitar_nylon and electric_piano_1 sets for the instrument views
 
 https://github.com/gleitz/midi-js-soundfonts
 
