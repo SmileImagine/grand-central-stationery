@@ -53,7 +53,7 @@ A first visit (or an empty page after Clear) shows four sample cells. They live 
 
 - `vendor/abcjs-basic-min.js`, `vendor/abcjs-audio.css`: abcjs 6.7.0 (MIT).
 - `vendor/impress.js`: impress.js 2.0.0 (MIT), used by Present 3D.
-- `vendor/soundfont/`: samples from midi-js-soundfonts (MIT), used by abcjs playback: piano, and the recorder, nylon guitar (for the ukulele) and electric piano (for the Wicki-Hayden keyboard) that the Instrument views play with; `piano-embedded.js` holds the piano as base64 for pages opened from disk, which therefore play every view on the piano.
+- `vendor/soundfont/`: samples from midi-js-soundfonts (MIT, the FluidR3_GM set throughout, so every instrument plays at the same level), used by abcjs playback: piano, and the recorder, nylon guitar (for the ukulele) and electric piano (for the Wicki-Hayden keyboard) that the Instrument views play with; `piano-embedded.js` holds the piano as base64 for pages opened from disk, which therefore play every view on the piano.
 - `fonts/`: local copies of Atkinson Hyperlegible, Atkinson Hyperlegible Next, Atkinson Hyperlegible Mono, Lexend, Andika and Noto Music (all SIL Open Font License), with `fonts/fonts.css`.
 - The wordmark is inline SVG outlines made from Cinzel and Caveat (both SIL Open Font License), so it needs no font request.
 - `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`: the arch-and-staff mark (the SVG follows the system's light or dark mode).
