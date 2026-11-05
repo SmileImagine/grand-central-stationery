@@ -243,6 +243,7 @@
     .inst .key.root { stroke: var(--c); stroke-opacity: 1; stroke-width: 3.5; }
     .inst .runner text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
     .paper .chordshape rect { stroke: none; }
+    .paper .numeral text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; }
     .paper .chordshape rect.root { stroke: var(--ink); stroke-width: 1; }
     .inst .runner { opacity: 0.95; transition: opacity 0.25s; }
     .inst .runner circle { fill: var(--c); stroke: var(--panel-2); stroke-width: 2; filter: drop-shadow(0 0 4px var(--c)); }
@@ -1158,6 +1159,111 @@
       start() { return null; }
     }
 
+    /* ---- harmony: numerals for chord symbols, and chords from the melody ----
+       Function colours: tonic (I, vi, iii), subdominant (IV, ii), dominant (V, vii). */
+    const FUNCTION_OF = { I: 'T', vi: 'T', iii: 'T', IV: 'S', ii: 'S', V: 'D', 'vii\u00B0': 'D', i: 'T', VI: 'T', III: 'T', iv: 'S', VII: 'D' };
+    const FUNCTION_COLOR = { T: '#2f9a68', S: '#4a73d8', D: '#d9533a' };
+    const FUNCTION_NAME = { T: 'tonic', S: 'subdominant', D: 'dominant' };
+    // Diatonic triads: semitones above do (major) or above la (minor), with numerals.
+    const TRIADS = {
+      major: [{ n: 'I', r: 0, q: '' }, { n: 'ii', r: 2, q: 'm' }, { n: 'iii', r: 4, q: 'm' }, { n: 'IV', r: 5, q: '' }, { n: 'V', r: 7, q: '' }, { n: 'vi', r: 9, q: 'm' }],
+      minor: [{ n: 'i', r: 0, q: 'm' }, { n: 'III', r: 3, q: '' }, { n: 'iv', r: 5, q: 'm' }, { n: 'V', r: 7, q: '' }, { n: 'VI', r: 8, q: '' }, { n: 'VII', r: 10, q: '' }],
+    };
+    const triadPcs = (root, q) => (q === 'm' ? [0, 3, 7] : [0, 4, 7]).map(i => (root + i) % 12);
+    // A written chord's numeral in the key, by root and quality; chromatic chords fall back to a flat or plain numeral.
+    function romanOf(chord, tonicPc, minor) {
+      const deg = ((chord.root - tonicPc) % 12 + 12) % 12;
+      const isMinor = chord.pcs.includes((chord.root + 3) % 12) && !chord.pcs.includes((chord.root + 4) % 12);
+      const seventh = chord.pcs.includes((chord.root + 10) % 12) || chord.pcs.includes((chord.root + 11) % 12);
+      const hit = TRIADS[minor ? 'minor' : 'major'].find(t => t.r === deg && (t.q === 'm') === isMinor);
+      if (hit) return { n: hit.n + (seventh ? '7' : ''), f: FUNCTION_OF[hit.n] };
+      const NUM = ['I', '\u266DII', 'II', '\u266DIII', 'III', 'IV', '\u266DV', 'V', '\u266DVI', 'VI', '\u266DVII', 'VII'];
+      const base = isMinor ? NUM[deg].toLowerCase() : NUM[deg];
+      return { n: base + (seventh ? '7' : ''), f: deg === 7 || deg === 11 ? 'D' : deg === 5 || deg === 2 ? 'S' : 'T' };
+    }
+    // One chord per bar from the melody, by dynamic programming over the
+    // diatonic triads. A bar's score for a chord is the share of its notes'
+    // time spent on chord tones (notes on the beat weigh more, the root a
+    // little more), with a small bias to I, IV and V, a push to I at the
+    // start and the end, V before the final I, and a cost for every change,
+    // so the harmony moves no more than the tune makes it.
+    function detectChords(bars, minor) {
+      const set = TRIADS[minor ? 'minor' : 'major'], n = bars.length, prim = minor ? ['i', 'iv', 'V'] : ['I', 'IV', 'V'];
+      if (!n) return [];
+      // Chord tones count in full (the root a little more); a non-chord tone
+      // costs more on the beat than off it, where it is probably passing.
+      const score = (seg, t) => {
+        const pcs = triadPcs(t.r, t.q); let sc = 0, tot = 0;
+        for (const x of seg) { const w = x.dur * (x.onBeat ? 1.6 : 1); tot += w; sc += pcs.includes(x.pc) ? w * (x.pc === pcs[0] ? 1.05 : 1) : -(x.onBeat ? 0.5 : 0.2) * w; }
+        return (tot ? sc / tot : 0) + (t.n === prim[0] ? 0.35 : prim.includes(t.n) ? 0.3 : 0);
+      };
+      const best = [], from = [];
+      for (let b = 0; b < n; b++) {
+        best[b] = []; from[b] = [];
+        for (let j = 0; j < set.length; j++) {
+          let sc = score(bars[b], set[j]);
+          if (b === 0 && set[j].n === prim[0]) sc += 0.5;
+          if (b === n - 1 && set[j].n === prim[0]) sc += 0.6;
+          if (b === 0) { best[b][j] = sc; from[b][j] = -1; continue; }
+          let bv = -Infinity, bi = 0;
+          for (let k = 0; k < set.length; k++) {
+            let v = best[b - 1][k] + (k === j ? 0 : -0.15);
+            if (b === n - 1 && set[j].n === prim[0] && set[k].n === 'V') v += 0.3;   // the cadence
+            if (v > bv) { bv = v; bi = k; }
+          }
+          best[b][j] = sc + bv; from[b][j] = bi;
+        }
+      }
+      let j = best[n - 1].indexOf(Math.max(...best[n - 1])); const out = [];
+      for (let b = n - 1; b >= 0; b--) { out[b] = set[j]; j = from[b][j]; }
+      return out;
+    }
+    const SHARP_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'], FLAT_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+    // The ABC with a chord symbol before the first note of each bar, from the
+    // melody and the key. Written symbols, if any, are left alone.
+    function withDetectedChords(abc) {
+      if (/"[A-G][#b\u266F\u266D]?[^"]*"/.test(abc) || !window.ABCJS) return abc;
+      let tune; try { tune = ABCJS.parseOnly(abc)[0]; } catch (err) { return abc; }
+      if (!tune || !tune.lines) return abc;
+      const elems = collect(tune), sp = spell(tune, elems);
+      const key = tune.getKeySignature ? tune.getKeySignature() : null;
+      if (!key || !key.root) return abc;
+      const minor = /^m(in)?/i.test(key.mode || '') && !/^maj/i.test(key.mode || '');
+      const tonic = ((LETTER_PC[key.root.toUpperCase()] + (key.acc === '#' ? 1 : key.acc === 'b' ? -1 : 0)) % 12 + 12) % 12;   // do, or la in minor
+      const flats = !!(key.accidentals && key.accidentals.length && key.accidentals[0].acc === 'flat');
+      const beat = (tune.getBeatLength && tune.getBeatLength()) || 0.25;
+      const mf = tune.getMeterFraction ? tune.getMeterFraction() : null;
+      const barLen = mf && mf.num ? parseInt(mf.num, 10) / parseInt(mf.den, 10) : 1;
+      // Harmony moves by the half bar in duple metres (two chords in a 4/4
+      // bar), by the bar in triple ones. Each note belongs to the segment it
+      // starts in, so a long note holds its chord across the boundary.
+      const segLen = Math.round(barLen / beat) % 2 === 0 ? barLen / 2 : barLen;
+      const segs = []; let bar = null, pos = 0;
+      const newBar = () => { bar = [{ notes: [], first: null }, { notes: [], first: null }].slice(0, segLen < barLen ? 2 : 1); pos = 0; };
+      newBar();
+      elems.forEach((el, i) => {
+        if (el._voice !== 0) return;
+        if (el.el_type === 'bar') { if (bar.some(sg => sg.notes.length)) segs.push(...bar); newBar(); return; }
+        if (el.el_type !== 'note') return;
+        const sg = bar[Math.min(bar.length - 1, Math.floor(pos / segLen + 1e-6))];
+        if (sg.first === null && el.pitches) sg.first = el;
+        for (const p of sp[i] || []) sg.notes.push({ pc: ((p.pc - tonic) % 12 + 12) % 12, dur: el.duration || 0, onBeat: Math.abs(pos / beat - Math.round(pos / beat)) < 1e-6 });
+        pos += el.duration || 0;
+      });
+      if (bar.some(sg => sg.notes.length)) segs.push(...bar);
+      const chords = detectChords(segs.map(sg => sg.notes), minor);
+      const names = flats ? FLAT_NAMES : SHARP_NAMES;
+      let out = abc;
+      for (let b = segs.length - 1; b >= 0; b--) {
+        const el = segs[b].first; if (!el || el.startChar === undefined) continue;
+        const t = chords[b];
+        if (b > 0 && chords[b - 1] === t) continue;   // the chord carries on: no new symbol
+        const name = names[(tonic + t.r) % 12] + t.q;
+        let at = el.startChar; while (at < out.length && /\s/.test(out[at])) at++;
+        out = out.slice(0, at) + '"' + name + '"' + out.slice(at);
+      }
+      return out;
+    }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
     const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
     // The sound each view plays with (General MIDI programs; the sample
@@ -1264,12 +1370,16 @@
         this.transpose = opts.transpose || 0;
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
         this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
+        this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
+        this.harmony = ['off', 'numerals', 'detect'].includes(opts.harm) ? opts.harm : 'off';
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="paper"></div></div><div class="inst"></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
           <div class="side"><div class="audio" id="${id}-audio"></div>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
+          <label class="xpose playpick" title="What sounds: the melody with its chord symbols, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + chords</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Chords only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
+          <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
           <div class="warn"></div></div></div>`;
         const xp = body.querySelector('.xpose input');
         xp.addEventListener('input', () => {
@@ -1279,6 +1389,10 @@
           if (opts.onTranspose) opts.onTranspose(n);
         });
         this.viz = new InstrumentView(body.querySelector('.inst'));
+        const pp = body.querySelector('.playpick select');
+        pp.addEventListener('change', () => { this.playMode = pp.value; this.render(); if (opts.onPlay) opts.onPlay(this.playMode); });
+        const hp = body.querySelector('.harmpick select');
+        hp.addEventListener('change', () => { this.harmony = hp.value; this.render(); if (opts.onHarm) opts.onHarm(this.harmony); });
         const np = body.querySelector('.namepick select');
         np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
         const ip = body.querySelector('.instpick select');
@@ -1304,7 +1418,7 @@
       boot(body, id) {
         if (ABCJS.synth && ABCJS.synth.supportsAudio()) {
           this.synth = new ABCJS.synth.SynthController();
-          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayRestart: true, displayProgress: false, displayClock: true, displayWarp: true });
+          this.synth.load('#' + id + '-audio', this.cursorControl(), { displayPlay: true, displayRestart: true, displayLoop: true, displayProgress: false, displayClock: true, displayWarp: true });   // loop: abcjs repeats the tune without a gap
           // abcjs puts its tempo box in the transport row; give it a row and a
           // name of its own, like Transpose. Seeking is done by dragging the
           // cursor on the staff, so there is no progress bar.
@@ -1422,7 +1536,8 @@
         if (this.warping || this.busy) { this.pending = true; clearTimeout(this.warpRetry); this.warpRetry = setTimeout(() => { if (this.pending && !this.warping && !this.busy) this.render(); }, 400); return; }
         this.pending = false;
         this.warnEl.textContent = '';
-        const abc = withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value);
+        let abc = withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value);
+        if (this.harmony === 'detect') abc = withDetectedChords(abc);
         this.original = this.renderAt(this.hidden, abc, 600);
         if (!this.original) return;
         this.origElems = collect(this.original);
@@ -1467,7 +1582,7 @@
           // abcjs treats a visual transposition as a transposing instrument's
           // part and cancels it in the audio; a matching midiTranspose makes
           // the sound follow the page.
-          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst) }).catch(() => {});
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst), voicesOff: this.playMode === 'backing', chordsOff: this.playMode === 'melody' }).catch(() => {});
           this.synth.isLoaded = false;
           // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
           const warp = this.synth.warp || 100;
@@ -1685,12 +1800,22 @@
         const svg = this.paper.querySelector('svg');
         if (!svg) return;
         this.key = null;
-        // Chord symbols get a small Wicki-Hayden shape beside the name.
+        // Chord symbols get a small Wicki-Hayden shape beside the name, and,
+        // with Harmony on, a numeral pill below in the colour of its function.
+        const ki = this.harmony !== 'off' ? this.keyInfo() : null;
         for (const t of svg.querySelectorAll('text.abcjs-chord')) {
           const chord = chordPcs(t.textContent); if (!chord) continue;
           const bb = t.getBBox(), k = Math.max(4, bb.height * 0.3);
           const { g, h } = chordGlyph(t.parentNode, chord, bb.x + bb.width + 3, 0, k);
           g.setAttribute('transform', `translate(0 ${(bb.y + bb.height / 2 - h / 2).toFixed(1)})`);
+          if (ki) {
+            const rn = romanOf(chord, ki.minor ? (ki.doPc + 9) % 12 : ki.doPc, ki.minor), col = FUNCTION_COLOR[rn.f];   // numerals count from the key's own tonic
+            const fs = bb.height * 0.62, w = Math.max(fs * 0.75 * rn.n.length + 6, fs * 1.4), ph = fs * 1.25;
+            const pill = svgEl(t.parentNode, 'g', { class: 'numeral' });
+            pill.innerHTML = `<title>${FUNCTION_NAME[rn.f]}</title>`;
+            svgEl(pill, 'rect', { x: (bb.x + bb.width / 2 - w / 2).toFixed(1), y: (bb.y + bb.height + 1).toFixed(1), width: w.toFixed(1), height: ph.toFixed(1), rx: (ph / 2).toFixed(1), fill: col, 'fill-opacity': 0.18, stroke: col, 'stroke-width': 0.8 });
+            svgText(pill, 'lbl', bb.x + bb.width / 2, bb.y + bb.height + 1 + ph / 2 + 0.5, fs, col, rn.n, 'middle');
+          }
         }
         const accScale = cssNum('--acc-size', 1.8);
         this.dispElems.forEach((el, i) => {
@@ -1847,7 +1972,8 @@
         if (motion) motion.cancel();
         const tr = v => ({ transform: `translateX(${v.toFixed(1)}px)` });
         const blend = 350;
-        const frames = Math.abs(cur - target) > 0.5 && dur > blend * 2 ? [tr(cur), { ...tr(target + speed * blend), offset: blend / dur }, tr(end)] : [tr(target), tr(end)];
+        const far = Math.abs(cur - target) > W * 0.5;   // a loop wrapping round, or a long seek: jump, do not slide back
+        const frames = !far && Math.abs(cur - target) > 0.5 && dur > blend * 2 ? [tr(cur), { ...tr(target + speed * blend), offset: blend / dur }, tr(end)] : [tr(target), tr(end)];
         this.paper._motion = this.paper.animate(frames, { duration: dur, easing: 'linear', fill: 'forwards' });
         this.paper._motion._glide = true;
       }
@@ -1886,10 +2012,10 @@
       // The tonic (do) and whether the key leans to flats, from the displayed key signature; minor keys are la-based.
       keyInfo() {
         const k = this.displayed && this.displayed.getKeySignature ? this.displayed.getKeySignature() : null;
-        if (!k || !k.root) return { doPc: 0, flats: false };
+        if (!k || !k.root) return { doPc: 0, minor: false, flats: false };
         const minor = /^m(in)?/i.test(k.mode || '') && !/^maj/i.test(k.mode || '');
         const pc = ((LETTER_PC[k.root.toUpperCase()] + (k.acc === '#' ? 1 : k.acc === 'b' ? -1 : 0) + (minor ? 3 : 0)) % 12 + 12) % 12;
-        return { doPc: pc, flats: !!(k.accidentals && k.accidentals.length && k.accidentals[0].acc === 'flat') };
+        return { doPc: pc, minor, flats: !!(k.accidentals && k.accidentals.length && k.accidentals[0].acc === 'flat') };
       }
       // The name of a pitch (or a spelled note) in the chosen naming.
       nameOf(m, acc) {
@@ -2210,7 +2336,7 @@
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names }) => ({ type, text, pos, bg, tr, inst, names })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names, play, harm }) => ({ type, text, pos, bg, tr, inst, names, play, harm })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -2337,7 +2463,7 @@
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm, onHarm: v => { if (v && v !== 'off') cell.harm = v; else delete cell.harm; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
@@ -2586,7 +2712,7 @@
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ font: fontKey, proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -2597,7 +2723,7 @@
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; delete j.bg; delete j.tr; delete j.inst; delete j.names; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; delete j.bg; delete j.tr; delete j.inst; delete j.names; delete j.play; delete j.harm; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
