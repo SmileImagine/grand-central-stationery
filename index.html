@@ -708,8 +708,11 @@
     // out. abcjs would otherwise take the unit length from the metre (an
     // eighth in 4/4), so a tune with K: but no L: would play twice as fast.
     const withHeader = t => {
+      // Every note at the same strength: abcjs accents the first beat of
+      // each bar unless told not to, and a class hears that as uneven notes.
+      if (!/beataccents/.test(t)) t = t.replace(/^K:/m, '%%MIDI nobeataccents\nK:');
       const hasK = /^K:/m.test(t), hasL = /^L:/m.test(t), hasX = /^X:/m.test(t);
-      if (!hasK) return (hasX ? '' : 'X:1\n') + (hasL ? '' : 'L:1/4\n') + 'K:C\n' + t;
+      if (!hasK) return (hasX ? '' : 'X:1\n') + (hasL ? '' : 'L:1/4\n') + (/beataccents/.test(t) ? '' : '%%MIDI nobeataccents\n') + 'K:C\n' + t;
       let out = hasL ? t : t.replace(/^K:/m, 'L:1/4\nK:');
       return hasX ? out : 'X:1\n' + out;
     };
@@ -1349,12 +1352,20 @@
       async onTransportClick(e) {
         const s = this.synth;
         const btn = e.target.closest && e.target.closest('.abcjs-midi-start');
-        if (!btn || !s || s.isStarted || s.percent > 0 || this.leadIn) return;   // pause, resume, or already counting in
+        if (!btn || !s) return;
+        if (this.leadIn || this.busy) { e.stopPropagation(); e.preventDefault(); return; }   // already counting in or loading: a second click is ignored
+        // Pause and resume are abcjs's own; the animations in flight (cursor,
+        // paper, runner, lane) freeze and thaw with them so nothing drifts.
+        if (s.isStarted) { this.freeze(true); return; }
+        if (s.percent > 0) { this.freeze(false); return; }
         e.stopPropagation(); e.preventDefault();
-        this.leadIn = true;
+        this.leadIn = true; this.busy = true;
         this.body.classList.remove('done'); if (gameMode) this.progress(0);
         try {
+          if (!s.visualObj) { this.busy = false; this.render(); this.busy = true; }   // the cell was laid out at no size: the tune never reached the synthesiser
+          if (!s.visualObj) throw new Error('no tune to play');
           if (!s.isLoaded) await s.go();                     // samples and timer, without starting
+          if (!s.visualObj) throw new Error('tune changed while loading');
           const beats = LEAD_IN_BEATS, beatMs = 60000 / (s.currentTempo || 120);
           const g = this.cursor(), first = this.firstNote(), x0 = this.startX();
           if (g && first && x0 !== null) {
@@ -1370,10 +1381,16 @@
           }
           const firstEv = this.firstTiming(); if (firstEv) { this.vizSchedule(); this.viz.leadIn(this.eventMidis(firstEv), beats * beatMs, { index: -1 }); }
           await new Promise(r => setTimeout(r, beats * beatMs));
-        } catch (err) { console.warn('lead-in skipped', err); }
-        this.leadIn = false;
+        } catch (err) {
+          console.warn('lead-in skipped', err);
+          this.leadIn = false; this.busy = false; this.placeReady(); this.viz.clear();
+          if (this.pending) this.render();
+          return;                                          // nothing loaded: nothing to play
+        }
+        this.leadIn = false; this.busy = false;
         this.leadInDone = true;
         s.play();
+        if (this.pending) { /* an edit arrived during the count-in; it is applied when playback pauses or ends */ }
       }
       pulseLamp() {
         const g = this.cursor(); if (!g || g.classList.contains('ready')) return;
@@ -1402,7 +1419,7 @@
         if (this.synth && this.synth.isStarted) { this.pending = true; return; }
         // A tempo change rebuilds the audio asynchronously; a render in the
         // middle would destroy the buffer it is filling. Come back after.
-        if (this.warping) { this.pending = true; clearTimeout(this.warpRetry); this.warpRetry = setTimeout(() => { if (this.pending && !this.warping) this.render(); }, 400); return; }
+        if (this.warping || this.busy) { this.pending = true; clearTimeout(this.warpRetry); this.warpRetry = setTimeout(() => { if (this.pending && !this.warping && !this.busy) this.render(); }, 400); return; }
         this.pending = false;
         this.warnEl.textContent = '';
         const abc = withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value);
@@ -1835,6 +1852,12 @@
         this.paper._motion._glide = true;
       }
       pauseScroll() { const m = this.paper && this.paper._motion; if (m && m.playState === 'running') m.pause(); }
+      freeze(on) {
+        const f = m => { if (!m) return; try { if (on && m.playState === 'running') m.pause(); else if (!on && m.playState === 'paused') m.play(); } catch (err) {} };
+        const g = this.paper.querySelector('.cursorg'); if (g) f(g._motion);
+        f(this.paper._motion);
+        if (this.viz) { if (this.viz.runner) f(this.viz.runner._motion); const L = this.viz.layout; if (L) { if (L.laneG) f(L.laneG._motion); if (L.anims) L.anims.forEach(f); } }
+      }
       progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }
       count(n) { const c = this.gamebar.querySelector('.count'); c.textContent = n; c.classList.remove('on'); void c.offsetWidth; c.classList.add('on'); }
       /* ---- the instrument view ---- */
@@ -1927,6 +1950,7 @@
         g.style.transform = `translateX(${x.toFixed(2)}px)`;
         g.classList.remove('done'); g.classList.add('ready');
         this.scrollTo(x, x, 0);
+        if (gameMode && !this.body.classList.contains('done')) this.progress(0);   // back at the start (the finish flourish keeps its full bar)
       }
       // Displayed x (left edge) and colour of the notes in a timing event.
       eventGeometry(ev) {
@@ -2038,7 +2062,7 @@
         e.preventDefault(); e.stopPropagation();
         const tl = this.timeline(); if (!tl.lines || !tl.lines.length) return;
         const d = this.drag = { id: e.pointerId, tl, wasPlaying: !!s.isStarted, at: null };
-        if (d.wasPlaying) s.play();                       // toggles: pause
+        if (d.wasPlaying) { s.play(); this.freeze(true); }   // toggles: pause
         if (g._motion) g._motion.cancel();
         g.classList.remove('done', 'ready');
         this.clearPlaying();
@@ -2065,6 +2089,7 @@
       async dragEnd() {
         const d = this.drag, s = this.synth; this.drag = null;
         if (!d || !d.at || !s) return;
+        this.busy = true;
         try {
           if (!s.isLoaded) await s.go();
           const pct = d.tl.total > 0 ? Math.max(0, Math.min(1, d.at.ms / d.tl.total)) : 0;
@@ -2073,6 +2098,8 @@
           this.dragX = null;
           if (d.wasPlaying) s.play();                   // resume from the new place
         } catch (err) { console.warn('seek failed', err); this.dragX = null; }
+        this.busy = false;
+        if (this.pending && !(s.isStarted)) this.render();
       }
       seekTo(ev) {
         this.clearPlaying();
@@ -2181,6 +2208,7 @@
 
     const cellsEl = document.getElementById('cells');
     const engines = new Map();       // cell id -> engine
+    window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
     function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names }) => ({ type, text, pos, bg, tr, inst, names })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
