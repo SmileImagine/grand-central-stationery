@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Route Board</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
+  <link href="../fonts/fonts.css" rel="stylesheet">
+  <script src="../vendor/abcjs-basic-min.js" defer></script>
+  <style>
+    /*
+      The route board: the current set of tunes laid out like a climbing
+      gym's wall, one column per level, several tunes ("routes") in each.
+      A teacher marks who has sent which route; a student picks their name
+      to see their own sends and what to try next. Open plays a tune in the
+      main page through a share link; nothing leaves the browser.
+    */
+    :root {
+      --font: 'Atkinson Hyperlegible', system-ui, sans-serif;
+      --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #777;
+      --accent: #087fca; --sent: #69b944;
+      --l1: #69b944; --l2: #e0b800; --l3: #f39322; --l4: #e72829; --l5: #087fca; --l6: #79569f;
+    }
+    :root[data-theme="dark"] { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #9a9a9a; --accent: #4fa8e8; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #9a9a9a; --accent: #4fa8e8; } }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); }
+    body { padding: 0 16px 40px; }
+    button, select, input, textarea { font: inherit; color: inherit; }
+    button { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+    button:hover { border-color: var(--accent); }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    select { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+    a { color: var(--accent); }
+
+    header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 0 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 3; }
+    header h1 { font-size: 20px; margin: 0; font-weight: 700; letter-spacing: 0.01em; }
+    header h1 small { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+    header .spacer { flex: 1; }
+    header label { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+    #theme { width: 36px; padding: 6px 0; }
+
+    .summary { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 0 0 10px; color: var(--muted); font-size: 14px; min-height: 30px; }
+    .summary .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); background: var(--panel); }
+    .summary .pill i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .summary .next { font-weight: 700; color: var(--ink); }
+
+    .wall { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding-top: 10px; align-items: start; }
+    .col { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 10px; }
+    .col h2 { margin: 2px 4px 8px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    .col h2 .tape { width: 14px; height: 26px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; }
+    .col h2 small { font-weight: 400; color: var(--muted); font-size: 13px; margin-left: auto; }
+    .col .rungs { font-size: 12px; color: var(--muted); margin: -4px 4px 10px; line-height: 1.35; }
+    .col.next { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .empty { color: var(--muted); font-size: 13px; padding: 10px 4px; font-style: italic; }
+
+    .route { background: var(--panel-2); border: 1px solid var(--line); border-left: 6px solid var(--lvl); border-radius: 10px; padding: 8px 10px 8px 10px; margin-bottom: 10px; }
+    .route.sent { border-color: var(--sent); border-left-color: var(--sent); background: color-mix(in srgb, var(--sent) 10%, var(--panel-2)); }
+    .route .top { display: flex; align-items: baseline; gap: 8px; }
+    .route h3 { font-size: 15px; margin: 0; flex: 1; line-height: 1.25; }
+    .route .meta { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .route .incipit { margin: 4px -4px 0; min-height: 44px; overflow: hidden; }
+    .route .incipit svg { color: var(--ink); max-width: 100%; height: auto; }
+    .route .tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
+    .route .tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px; }
+    .route .tag.new { color: var(--ink); border-color: var(--lvl); }
+    .route .actions { display: flex; gap: 6px; align-items: center; }
+    .route .actions .count { margin-left: auto; font-size: 13px; color: var(--muted); }
+    .route .actions .count b { color: var(--ink); }
+    .route .send { min-width: 86px; }
+    .route.sent .send { background: var(--sent); border-color: var(--sent); color: #fff; }
+    .route .who { display: none; flex-wrap: wrap; gap: 6px; padding-top: 8px; margin-top: 8px; border-top: 1px dashed var(--line); }
+    .route.open .who { display: flex; }
+    .chip { border-radius: 999px; padding: 3px 10px; font-size: 13px; }
+    .chip.on { background: var(--sent); border-color: var(--sent); color: #fff; }
+    .nobody { font-size: 13px; color: var(--muted); }
+
+    dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 460px; width: calc(100vw - 32px); }
+    dialog::backdrop { background: rgba(0,0,0,0.35); }
+    dialog h2 { margin: 0 0 6px; font-size: 18px; }
+    dialog p { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+    dialog textarea { width: 100%; min-height: 160px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; resize: vertical; }
+    dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; flex-wrap: wrap; }
+    dialog .row .left { margin-right: auto; display: flex; gap: 8px; }
+    #toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    #toast.on { opacity: 1; }
+    @media (max-width: 700px) { header h1 small { display: block; margin: 2px 0 0; } .route .meta { white-space: normal; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Route Board<small id="setname"></small></h1>
+    <span class="spacer"></span>
+    <label>Student <select id="student"><option value="">Everyone</option></select></label>
+    <button id="roster">Roster</button>
+    <button id="theme" title="Light or dark">☾</button>
+    <div class="summary" id="summary"></div>
+  </header>
+  <div class="wall" id="wall"></div>
+
+  <dialog id="rosterDlg">
+    <h2>Roster</h2>
+    <p>One name per line. Names and sends stay in this browser; Export writes them to a file so another computer can Import them.</p>
+    <textarea id="names" placeholder="Ada&#10;Ben&#10;Chloé"></textarea>
+    <div class="row">
+      <div class="left"><button id="export">Export</button><button id="import">Import</button><input type="file" id="file" accept=".json,application/json" hidden></div>
+      <button id="cancel">Cancel</button><button id="saveRoster" class="primary">Save</button>
+    </div>
+  </dialog>
+  <div id="toast"></div>
+
+  <script>
+    'use strict';
+    const STORE = 'gcs-course-v1';
+    const LEVEL_COLOR = { 1: 'var(--l1)', 2: 'var(--l2)', 3: 'var(--l3)', 4: 'var(--l4)', 5: 'var(--l5)', 6: 'var(--l6)' };
+    const $ = s => document.querySelector(s);
+    let set = null;
+    let state = { roster: [], sends: {} };     // sends[tuneId][name] = ISO date
+    try { const s = JSON.parse(localStorage.getItem(STORE) || 'null'); if (s && Array.isArray(s.roster)) state = { roster: s.roster, sends: s.sends || {} }; } catch (e) {}
+    const persist = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} };
+    let student = '';
+    try { student = sessionStorage.getItem('gcs-course-student') || ''; } catch (e) {}
+
+    /* ---- theme, shared with the main page ---- */
+    const isDark = () => document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    try { const t = localStorage.getItem('gcs-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+    const paintTheme = () => { $('#theme').textContent = isDark() ? '☀' : '☾'; };
+    $('#theme').addEventListener('click', () => { const next = isDark() ? 'light' : 'dark'; document.documentElement.dataset.theme = next; try { localStorage.setItem('gcs-theme', next); } catch (e) {} paintTheme(); });
+    paintTheme();
+
+    /* ---- the skill tags in words ---- */
+    const DEGREE = { do: 'do', di: 'di', re: 're', ri: 'ri', mi: 'mi', fa: 'fa', fi: 'fi', so: 'so', si: 'si', la: 'la', te: 'te', ti: 'ti' };
+    function wordsFor(tag) {
+      const [k, v] = tag.split(':');
+      if (k === 'degree') return DEGREE[v] || v;
+      if (k === 'dur') return ({ '1': 'one-beat notes', '2': 'two-beat notes', '3': 'three-beat notes', '4': 'four-beat notes', '1/2': 'half beats', '1/4': 'quarter beats', '3/2': 'dotted beats', '3/4': 'dotted half beats', '1/3': 'thirds of a beat', '2/3': 'two-thirds of a beat', '1/6': 'sixths of a beat' })[v] || `${v}-beat notes`;
+      if (k === 'leap') return v === 'over-octave' ? 'leaps over an octave' : `leaps of a ${v}`;
+      if (k === 'range') return ({ '6th': 'range of a 6th', octave: 'range of an octave', 'over-octave': 'range over an octave' })[v] || tag;
+      if (k === 'metre') return v;
+      if (k === 'syncopation') return v ? 'much syncopation' : 'syncopation';
+      if (k === 'key') return null;
+      return ({ tie: 'ties', 'tie-over-bar': 'ties over the bar', pickup: 'a pickup', rest: 'rests', 'rest-off-beat': 'rests off the beat', repeat: 'repeats', endings: 'first and second endings', triplet: 'triplets', 'triplet-in-compound': 'triplets', tuplet: 'tuplets', accidentals: 'accidentals', 'grace-notes': 'grace notes', 'double-stops': 'two notes at once', 'metre-change': 'a change of metre', 'key-change': 'a change of key' })[k] || tag;
+    }
+
+    /* ---- the share link the main page reads: "=== type" blocks, deflated, base64url ---- */
+    const b64u = bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+    async function openLink(tune) {
+      const doc = `=== heading\n${tune.title}\n=== abc\n${tune.abc}`;
+      const bytes = new TextEncoder().encode(doc);
+      let tag = 't', payload = bytes;
+      if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
+      return new URL('../index.html', location.href).href + '#gcs=' + tag + b64u(payload);
+    }
+
+    /* ---- incipit: the header fields and the first two bars ---- */
+    function incipit(abc) {
+      const lines = abc.split('\n');
+      const head = lines.filter(l => /^[KLMQ]:/.test(l));
+      const body = lines.find(l => l.trim() && !/^[A-Za-z]:/.test(l) && !/^%/.test(l) && !/^w:/.test(l)) || '';
+      const bars = body.replace(/^\s*\|?:?/, '').split('|').filter(s => s.trim());
+      return `X:1\n${head.join('\n')}\n${bars.slice(0, 2).join('|')}|`;
+    }
+
+    /* ---- rendering ---- */
+    const sentBy = id => state.sends[id] || {};
+    const sentCount = id => Object.keys(sentBy(id)).length;
+    const isSent = (id, name) => !!sentBy(id)[name];
+
+    function render() {
+      $('#setname').textContent = set.name;
+      const sel = $('#student'); sel.innerHTML = '<option value="">Everyone</option>';
+      for (const n of state.roster) sel.add(new Option(n, n));
+      if (!state.roster.includes(student)) student = '';
+      sel.value = student;
+
+      // Summary and the level to try next: the lowest with a route unsent.
+      const sum = $('#summary'); sum.innerHTML = '';
+      let nextLevel = null;
+      if (student) {
+        for (let l = 1; l <= 6; l++) {
+          const routes = set.tunes.filter(t => t.level === l); if (!routes.length) continue;
+          const done = routes.filter(t => isSent(t.id, student)).length;
+          if (nextLevel === null && done < routes.length) nextLevel = l;
+          const pill = document.createElement('span'); pill.className = 'pill';
+          pill.innerHTML = `<i style="background:${LEVEL_COLOR[l]}"></i> Level ${l}: ${done} of ${routes.length}`; sum.appendChild(pill);
+        }
+        const nx = document.createElement('span'); nx.className = 'next';
+        nx.textContent = nextLevel ? `${student}: try level ${nextLevel} next` : `${student} has sent every route in this set`;
+        sum.prepend(nx);
+      } else {
+        const total = set.tunes.length, sends = set.tunes.reduce((s, t) => s + sentCount(t.id), 0);
+        sum.textContent = state.roster.length ? `${state.roster.length} students, ${sends} sends across ${total} routes. Pick a student to see their wall.` : `${total} routes. Add names with Roster to start marking sends.`;
+      }
+
+      const wall = $('#wall'); wall.innerHTML = '';
+      for (let l = 1; l <= 6; l++) {
+        const col = document.createElement('section'); col.className = 'col' + (l === nextLevel ? ' next' : '');
+        const routes = set.tunes.filter(t => t.level === l);
+        const done = student ? routes.filter(t => isSent(t.id, student)).length : null;
+        col.innerHTML = `<h2><span class="tape" style="background:${LEVEL_COLOR[l]}"></span>Level ${l}<small>${student ? `${done} of ${routes.length} sent` : `${routes.length} route${routes.length === 1 ? '' : 's'}`}</small></h2>
+          <div class="rungs">${(set.levels && set.levels[l] || []).slice(0, 4).join(' · ')}</div>`;
+        if (!routes.length) { const e = document.createElement('div'); e.className = 'empty'; e.textContent = 'No routes at this level in this set yet.'; col.appendChild(e); }
+        for (const t of routes) col.appendChild(routeCard(t, l));
+        wall.appendChild(col);
+      }
+    }
+
+    function routeCard(t, level) {
+      const el = document.createElement('article');
+      el.className = 'route' + (student && isSent(t.id, student) ? ' sent' : '');
+      el.style.setProperty('--lvl', LEVEL_COLOR[level]);
+      const intro = new Set(t.introduces || []);
+      const tags = (t.skills || []).map(s => [s, wordsFor(s)]).filter(([, w]) => w);
+      const shown = tags.filter(([s]) => intro.has(s)).concat(tags.filter(([s]) => !intro.has(s) && !/^(degree|dur|metre|range):/.test(s))).slice(0, 6);
+      const who = t.origin || t.composer || '';
+      el.innerHTML = `
+        <div class="top"><h3>${esc(t.title)}</h3><span class="meta">${esc(t.key)} · ${esc(t.metre)} · ${t.bars} bars</span></div>
+        <div class="incipit"></div>
+        <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${esc(who)}</span>` : ''}</div>
+        <div class="actions">
+          <button class="open" title="Open this tune in the main page, ready to play">Open</button>
+          ${student ? `<button class="send">${isSent(t.id, student) ? 'Sent ✓' : 'Mark sent'}</button>` : `<button class="toggle">Who sent it</button>`}
+          <span class="count"><b>${sentCount(t.id)}</b> sent</span>
+        </div>
+        <div class="who"></div>`;
+      el.querySelector('.open').addEventListener('click', async () => { window.open(await openLink(t), 'gcs-page'); });
+      if (student) el.querySelector('.send').addEventListener('click', () => { toggleSend(t.id, student); render(); });
+      else {
+        const who = el.querySelector('.who');
+        if (!state.roster.length) who.innerHTML = '<span class="nobody">No roster yet.</span>';
+        for (const n of state.roster) {
+          const b = document.createElement('button'); b.className = 'chip' + (isSent(t.id, n) ? ' on' : ''); b.textContent = n;
+          b.addEventListener('click', () => { toggleSend(t.id, n); b.classList.toggle('on'); el.querySelector('.count b').textContent = sentCount(t.id); });
+          who.appendChild(b);
+        }
+        el.querySelector('.toggle').addEventListener('click', () => el.classList.toggle('open'));
+      }
+      queueRender(el.querySelector('.incipit'), incipit(t.abc));
+      return el;
+    }
+    function toggleSend(id, name) {
+      const s = state.sends[id] || (state.sends[id] = {});
+      if (s[name]) delete s[name]; else s[name] = new Date().toISOString().slice(0, 10);
+      if (!Object.keys(s).length) delete state.sends[id];
+      persist();
+    }
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+    // abcjs loads deferred; draw incipits once it is here, a few per frame.
+    const queue = [];
+    function queueRender(el, abc) { queue.push([el, abc]); drain(); }
+    let draining = false;
+    function drain() {
+      if (draining || !window.ABCJS) return; draining = true;
+      const step = () => {
+        for (let i = 0; i < 4 && queue.length; i++) {
+          const [el, abc] = queue.shift();
+          if (!el.isConnected) continue;
+          try { ABCJS.renderAbc(el, abc, { scale: 0.62, staffwidth: Math.max(180, el.clientWidth - 8), paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, responsive: 'resize' }); } catch (e) { el.textContent = ''; }
+        }
+        if (queue.length) requestAnimationFrame(step); else draining = false;
+      };
+      requestAnimationFrame(step);
+    }
+    document.querySelector('script[src$="abcjs-basic-min.js"]').addEventListener('load', drain);
+
+    /* ---- roster dialog, export and import ---- */
+    const dlg = $('#rosterDlg');
+    $('#roster').addEventListener('click', () => { $('#names').value = state.roster.join('\n'); dlg.showModal(); });
+    $('#cancel').addEventListener('click', () => dlg.close());
+    $('#saveRoster').addEventListener('click', () => {
+      state.roster = [...new Set($('#names').value.split('\n').map(s => s.trim()).filter(Boolean))];
+      persist(); dlg.close(); render();
+    });
+    $('#export').addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify({ set: set.name, ...state }, null, 1)], { type: 'application/json' }));
+      a.download = 'route-board-sends.json'; a.click(); URL.revokeObjectURL(a.href);
+    });
+    $('#import').addEventListener('click', () => $('#file').click());
+    $('#file').addEventListener('change', async e => {
+      const f = e.target.files[0]; if (!f) return;
+      try {
+        const j = JSON.parse(await f.text());
+        if (!Array.isArray(j.roster)) throw new Error('no roster');
+        state.roster = [...new Set([...state.roster, ...j.roster])];
+        for (const [id, m] of Object.entries(j.sends || {})) state.sends[id] = { ...(state.sends[id] || {}), ...m };
+        persist(); dlg.close(); render(); toast('Imported');
+      } catch (err) { toast('That file is not a route board export'); }
+      e.target.value = '';
+    });
+    $('#student').addEventListener('change', e => { student = e.target.value; try { sessionStorage.setItem('gcs-course-student', student); } catch (err) {} render(); });
+    let toastTimer;
+    function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2200); }
+
+    /* ---- go ---- */
+    fetch('set.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(s => { set = s; render(); })
+      .catch(err => { $('#summary').textContent = location.protocol === 'file:' ? 'The board needs to be served (double-click serve.command, then open course/board.html from there): a page opened from disk cannot read set.json.' : `Could not load set.json (${err.message}).`; });
+  </script>
+</body>
+</html>

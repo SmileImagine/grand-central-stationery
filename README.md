@@ -13,6 +13,7 @@ Nothing is uploaded: lessons are saved in the browser you use, and a Share link 
 | `index.html` | **The page.** Heading, text and notation cells; edit, present and 3D present modes; dark mode; undo; share link; export and import. |
 | `serve.command` | macOS launcher: serves this folder locally and opens the page. Optional (see Running). |
 | `docs/ANALYSIS-2026-09-20.md` | Design notes: findings, verified behaviour, and the reasons behind each choice. |
+| `course/` | Tune grading and sequencing for a practice course: `analyze.js` measures an ABC tune, tags the skills it needs and grades it on a skill lattice; `analyze-cli.js` runs it over a folder of tunes and writes a suggested sequence and a tune set; `board.html` shows the set as a climbing-gym route board (levels, sends per student, Open plays a tune in the page). See `course/README.md`. |
 | `lab/` | Single-cell test pages the main page grew out of: `Notation v1.html` (abcjs), `Text Proportional v1.html` (canvas fitter, font picker), `Text Mono Grid v4.html` (monospace grid fitter). |
 | `old/` | Earlier versions and experiments, kept for reference. |
 | `fonts/`, `vendor/`, `gcs-accidentals.woff2` | Offline assets (below). |

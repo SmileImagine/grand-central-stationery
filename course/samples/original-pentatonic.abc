@@ -1,0 +1,69 @@
+% Original pentatonic tunes written for this course, released to the public
+% domain (CC0). Each stays within a 6th, leaps no further than a 5th, and uses
+% beats and half beats, so it sits at level 2; each brings in one thing: a
+% rest, a waltz, the low so, pairs of eighths, a call and answer.
+% Chord symbols give the backing track something to play.
+
+X:1
+T:Morning Walk
+C:Grand Central Stationery (original, CC0)
+M:4/4
+L:1/4
+K:C
+"C"C D E D | C E G2 | "G"E D C D | "C"E2 G2 | "C"C D E D | C E G2 | "G"E D C D | "C"C4 |]
+
+X:2
+T:Crows on the Fence
+C:Grand Central Stationery (original, CC0)
+M:4/4
+L:1/4
+K:C
+"Am"A G E G | A A G2 | "C"E G A G | E D C2 | "Am"E G A G | A A G2 | "G"E G D E | "C"C4 |]
+
+X:3
+T:Rest Stop
+C:Grand Central Stationery (original, CC0)
+M:4/4
+L:1/4
+K:C
+"C"E E G z | E E G z | "G"D D E D | "C"C2 z2 | "C"E E G z | E E G z | "G"G E D D | "C"C2 z2 |]
+
+X:4
+T:Round the Maypole
+C:Grand Central Stationery (original, CC0)
+M:3/4
+L:1/4
+K:C
+"C"C D E | "G"D2 D | "C"E G G | E3 | "C"C D E | "G"D2 D | "C"E D C | C3 |]
+
+X:5
+T:Down to the River
+C:Grand Central Stationery (original, CC0)
+M:4/4
+L:1/4
+K:C
+"C"G, C D E | "G"D C G,2 | "C"G, C D E | "G"D2 "C"C2 | "Am"E D C D | "Am"E D C G, | "G"G, C D D | "C"C4 |]
+
+X:6
+T:Ti-ti Train
+C:Grand Central Stationery (original, CC0)
+M:2/4
+L:1/8
+K:C
+"C"CC DD | E2 G2 | "G"EE DD | "C"C4 | "C"CC EE | G2 A2 | "G"GG EE | "C"D2 C2 |]
+
+X:7
+T:Echo
+C:Grand Central Stationery (original, CC0)
+M:4/4
+L:1/4
+K:C
+"C"G G E z | G G E z | "Am"A A G E | "C"C2 z2 | "C"G G E z | G G E z | "G"A G E D | "C"C2 z2 |]
+
+X:8
+T:Evening Bells
+C:Grand Central Stationery (original, CC0)
+M:4/4
+L:1/4
+K:C
+"Am"A2 G2 | "C"E2 G2 | "G"D2 E2 | "C"C4 | "Am"E A G G | "C"E E G G | "G"D D E D | "C"C4 |]
