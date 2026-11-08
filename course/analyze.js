@@ -296,7 +296,7 @@
     }
     f.maxLeap = maxLeap; f.meanInterval = steps ? sumAbs / steps : 0; f.leapFraction = steps ? leaps / steps : 0;
     if (maxLeap > 12) tags.add('leap:over-octave'); else if (maxLeap > 2) tags.add('leap:' + INTERVAL_NAME[maxLeap]);
-    if (f.rangeSemitones > 12) tags.add('range:over-octave'); else if (f.rangeSemitones > 7) tags.add('range:octave'); else if (f.rangeSemitones > 5) tags.add('range:5th');
+    if (f.rangeSemitones > 12) tags.add('range:over-octave'); else if (f.rangeSemitones > 9) tags.add('range:octave'); else if (f.rangeSemitones > 5) tags.add('range:6th');
 
     // Rhythm
     const durSet = new Map();

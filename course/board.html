@@ -137,7 +137,7 @@
       if (k === 'degree') return DEGREE[v] || v;
       if (k === 'dur') return ({ '1': 'one-beat notes', '2': 'two-beat notes', '3': 'three-beat notes', '4': 'four-beat notes', '1/2': 'half beats', '1/4': 'quarter beats', '3/2': 'dotted beats', '3/4': 'dotted half beats', '1/3': 'thirds of a beat', '2/3': 'two-thirds of a beat', '1/6': 'sixths of a beat' })[v] || `${v}-beat notes`;
       if (k === 'leap') return v === 'over-octave' ? 'leaps over an octave' : `leaps of a ${v}`;
-      if (k === 'range') return ({ '5th': 'range of a 5th', octave: 'range of an octave', 'over-octave': 'range over an octave' })[v] || tag;
+      if (k === 'range') return ({ '6th': 'range of a 6th', octave: 'range of an octave', 'over-octave': 'range over an octave' })[v] || tag;
       if (k === 'metre') return v;
       if (k === 'syncopation') return v ? 'much syncopation' : 'syncopation';
       if (k === 'key') return null;

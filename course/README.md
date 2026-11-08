@@ -8,7 +8,7 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
 | `board.html` | **The route board.** The current set as a climbing wall: one column per level, several tunes in each, with an incipit, the skills each asks for, who has sent it, and Open, which plays it in the main page. |
 | `set.json` | The current tune set, written by the CLI. |
-| `samples/` | Public domain tunes typed as test material: a dozen well-known tunes across the levels, and twenty beginner songs (so-mi-la chants, do-re-mi songs, first classroom songs) for levels 1 and 2. |
+| `samples/` | Public domain tunes typed as test material: a dozen well-known tunes across the levels, twenty-one beginner songs (so-mi-la chants, do-re-mi songs, first classroom songs), eight original pentatonic tunes written for the course and released CC0 to fill level 2, and four famous classical openings. |
 
 ## Running
 

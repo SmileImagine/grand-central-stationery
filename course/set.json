@@ -217,6 +217,37 @@
    "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.\n"
   },
   {
+   "id": "original-pentatonic-6-ti-ti-train",
+   "title": "Ti-ti Train",
+   "level": 2,
+   "score": 2.88,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "",
+   "composer": "Grand Central Stationery (original, CC0)",
+   "rhythm": "",
+   "source": "course/samples/original-pentatonic.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:3rd",
+    "metre:2/4",
+    "range:6th"
+   ],
+   "introduces": [
+    "range:6th"
+   ],
+   "abc": "X:6\nT:Ti-ti Train\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\"CC DD | E2 G2 | \"G\"EE DD | \"C\"C4 | \"C\"CC EE | G2 A2 | \"G\"GG EE | \"C\"D2 C2 |]\n"
+  },
+  {
    "id": "beginner-songs-8-rocky-mountain",
    "title": "Rocky Mountain",
    "level": 2,
@@ -238,12 +269,70 @@
     "key:0",
     "leap:3rd",
     "metre:2/4",
-    "range:5th"
+    "range:6th"
+   ],
+   "introduces": [],
+   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n"
+  },
+  {
+   "id": "original-pentatonic-8-evening-bells",
+   "title": "Evening Bells",
+   "level": 2,
+   "score": 2.46,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "",
+   "composer": "Grand Central Stationery (original, CC0)",
+   "rhythm": "",
+   "source": "course/samples/original-pentatonic.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "dur:4",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:6th"
    ],
    "introduces": [
-    "range:5th"
+    "dur:4"
    ],
-   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n"
+   "abc": "X:8\nT:Evening Bells\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A2 G2 | \"C\"E2 G2 | \"G\"D2 E2 | \"C\"C4 | \"Am\"E A G G | \"C\"E E G G | \"G\"D D E D | \"C\"C4 |]\n"
+  },
+  {
+   "id": "original-pentatonic-2-crows-on-the-fence",
+   "title": "Crows on the Fence",
+   "level": 2,
+   "score": 2.54,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "",
+   "composer": "Grand Central Stationery (original, CC0)",
+   "rhythm": "",
+   "source": "course/samples/original-pentatonic.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "dur:4",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "abc": "X:2\nT:Crows on the Fence\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A G E G | A A G2 | \"C\"E G A G | E D C2 | \"Am\"E G A G | A A G2 | \"G\"E G D E | \"C\"C4 |]\n"
   },
   {
    "id": "beginner-songs-20-merrily-we-roll-along",
@@ -268,11 +357,9 @@
     "key:0",
     "leap:3rd",
     "metre:4/4",
-    "range:5th"
+    "range:6th"
    ],
-   "introduces": [
-    "dur:4"
-   ],
+   "introduces": [],
    "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nM:4/4\nL:1/4\nK:C\nE D C D | E E E2 | D D D2 | E G G2 | E D C D | E E E E | D D E D | C4 |]\n"
   },
   {
@@ -298,7 +385,7 @@
     "key:1",
     "leap:3rd",
     "metre:4/4",
-    "range:5th"
+    "range:6th"
    ],
    "introduces": [],
    "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nM:4/4\nL:1/4\nK:G\nB A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]\n"
@@ -328,11 +415,10 @@
     "key:0",
     "leap:4th",
     "metre:4/4",
-    "range:octave"
+    "range:6th"
    ],
    "introduces": [
-    "degree:ti",
-    "range:octave"
+    "degree:ti"
    ],
    "abc": "X:7\nT:Au Clair de la Lune\nO:France\nM:4/4\nL:1/4\nK:C\nC C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |\nD D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]\n"
   },
@@ -360,7 +446,7 @@
     "key:0",
     "leap:4th",
     "metre:2/4",
-    "range:octave"
+    "range:6th"
    ],
    "introduces": [
     "degree:fa"
@@ -391,11 +477,9 @@
     "key:0",
     "leap:5th",
     "metre:4/4",
-    "range:octave"
+    "range:6th"
    ],
-   "introduces": [
-    "leap:5th"
-   ],
+   "introduces": [],
    "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\n"
   },
   {
@@ -423,7 +507,7 @@
     "key:0",
     "leap:5th",
     "metre:4/4",
-    "range:octave"
+    "range:6th"
    ],
    "introduces": [],
    "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\nC C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]\n"
@@ -453,7 +537,7 @@
     "key:0",
     "leap:5th",
     "metre:4/4",
-    "range:octave"
+    "range:6th"
    ],
    "introduces": [],
    "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\nG2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4 | E F G2 C C C C | C D E F G4 | G2 D2 D D E F | G2 C2 C4 |]\n"
@@ -482,7 +566,7 @@
     "key:0",
     "leap:5th",
     "metre:4/4",
-    "range:5th"
+    "range:6th"
    ],
    "introduces": [],
    "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\nG E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |\nD D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]\n"
