@@ -1429,6 +1429,13 @@
             const accent = b === 0 || Math.abs(b - 2.5) < 0.01 ? 1 : (b % 1 === 0 ? 0.85 : 0.72);
             prevVoicing.forEach((m, vi) => add('chords', at(b) + vi * 6, dur, m, (0.45 + 0.3 * energy) * accent));
           });
+          // At low energy a pad holds each chord softly for its whole stretch, under the sparse hits.
+          if (energy < 0.35 && hits.length) {
+            const spans = []; let b0 = 0;
+            for (let b = 0; b < nb; b += 0.5) { if (b > 0 && chordOn(b).name !== chordOn(b0).name) { spans.push([b0, b]); b0 = b; } }
+            spans.push([b0, nb]);
+            for (const [s0, s1] of spans) { const v = voice(chordOn(s0)); v.forEach(m => add('chords', at(s0) + 15, (s1 - s0) * beatMs / 1000 * 0.98, m - 12 >= 40 ? m - 12 : m, 0.22)); }
+          }
           // ---- bass: roots and fifths, approaching the next chord ----
           if (full || bi > 0) {
             const bassNote = (pc, near = 43) => { let m = pc + 36; while (m < near - 6) m += 12; while (m > near + 5) m -= 12; return Math.max(28, Math.min(55, m)); };
@@ -1478,40 +1485,60 @@
         this.notes = out;
         // Fetch the samples the parts need; playback skips any not yet decoded.
         const need = new Set(out.map(n => (n.part === 'drums' ? 'percussion' : n.part === 'bass' ? 'acoustic_bass' : 'electric_piano_1') + ':' + n.midi));
+        need.add('percussion:' + DRUM.hatC);   // the count-in click
         for (const k of need) { const [f, m] = k.split(':'); sampler.load(f, +m); }
         this.ptr = 0;
       }
       /* ---- playing against the clock ---- */
       folder(part) { return part === 'drums' ? 'percussion' : part === 'bass' ? 'acoustic_bass' : 'electric_piano_1'; }
-      // abcjs reported its timer at T ms: our schedule is pinned to the AudioContext clock there.
+      // Where abcjs's audio is, in ms of the tune, from the AudioContext time
+      // at which it started its buffer. Exact, with none of the jitter of the
+      // JavaScript callbacks; undefined while the audio is not running.
+      audioTime() {
+        const mb = this.cell.synth && this.cell.synth.midiBuffer, ctx = sampler.ctx();
+        if (!mb || !ctx || !mb.isRunning || mb.startTimeSec === undefined) return null;
+        return { ms: (ctx.currentTime - mb.startTimeSec) * 1000, start: mb.startTimeSec };
+      }
+      // abcjs reported a note: make sure the scheduler runs (the schedule itself is read off the audio clock).
       anchor(T) {
         if (!this.active() || !this.notes.length) return;
-        const ctx = sampler.ctx(); if (!ctx) return;
-        if (this.anchorT !== null && T < this.anchorT - 200) this.stopAll();   // a loop wrapping round, or a seek back
-        this.anchorT = T; this.anchorC = ctx.currentTime;
-        this.ptr = this.notes.findIndex(n => n.t >= T - 40); if (this.ptr < 0) this.ptr = this.notes.length;
+        if (this.anchorT !== null && T < this.anchorT - 200) { this.stopAll(); this.ptr = 0; }   // a loop wrapping round, or a seek back
+        this.anchorT = T;
         if (!this.timer) this.timer = setInterval(() => this.tick(), 40);
         this.tick();
       }
-      // Each tick schedules what falls in the next quarter second.
+      // Each tick schedules what falls in the next quarter second, at the
+      // AudioContext time abcjs's own notes will sound.
       tick() {
-        const ctx = sampler.ctx(), parts = this.gains(); if (!ctx || !parts || this.anchorT === null) return;
-        const now = this.anchorT + (ctx.currentTime - this.anchorC) * 1000, horizon = now + 260;
+        const ctx = sampler.ctx(), parts = this.gains(), a = this.audioTime(); if (!ctx || !parts || !a) return;
+        if (this.lastMs !== undefined && a.ms < this.lastMs - 200) { this.stopAll(); this.ptr = 0; }   // the audio jumped back
+        this.lastMs = a.ms;
+        if (this.ptr === 0 || this.notes[this.ptr - 1].t > a.ms + 300) { this.ptr = this.notes.findIndex(n => n.t >= a.ms - 40); if (this.ptr < 0) this.ptr = this.notes.length; }
+        const horizon = a.ms + 260;
         while (this.ptr < this.notes.length && this.notes[this.ptr].t < horizon) {
           const n = this.notes[this.ptr++];
-          const when = Math.max(ctx.currentTime, this.anchorC + (n.t - this.anchorT) / 1000);
-          if (n.t < now - 60) continue;                        // too late to matter
+          if (n.t < a.ms - 60) continue;                        // too late to matter
+          const when = Math.max(ctx.currentTime, a.start + n.t / 1000);
           const src = sampler.play(this.folder(n.part), n.midi, when, n.dur, n.vel, parts[n.part]);
           if (src) { this.live.add(src); src.onended = () => this.live.delete(src); }
         }
       }
+      // The count-in: a click on each beat, from the AudioContext's own clock.
+      countIn(beats, beatMs) {
+        if (!this.active()) return;
+        const ctx = sampler.ctx(), parts = this.gains(); if (!ctx || !parts) return;
+        sampler.load('percussion', DRUM.hatC).then(() => {
+          const t0 = ctx.currentTime + 0.02;
+          for (let b = 0; b < beats; b++) { const src = sampler.play('percussion', DRUM.hatC, t0 + b * beatMs / 1000, 0, b === 0 ? 0.9 : 0.6, parts.drums); if (src) this.live.add(src); }
+        });
+      }
       stopAll() { for (const s of this.live) { try { s.stop(); } catch (err) {} } this.live.clear(); }
-      stop() { this.stopAll(); if (this.timer) { clearInterval(this.timer); this.timer = null; } this.anchorT = null; }
+      stop() { this.stopAll(); if (this.timer) { clearInterval(this.timer); this.timer = null; } this.anchorT = null; this.lastMs = undefined; }
       // The cell's clock changed: running or not.
       sync(running) {
         if (!this.active()) { this.stop(); return; }
         if (!running) { this.stop(); return; }
-        if (this.anchorT === null) { const t = this.cell.now(); if (t >= -1) this.anchor(t); }   // a resume without an abcjs event yet: start from the display clock; the next note corrects
+        if (!this.timer) this.timer = setInterval(() => this.tick(), 40);   // the ticks wait until abcjs's audio is running
       }
     }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
@@ -1739,6 +1766,7 @@
           this.idle = false; this.beatK = -1;                // so the first beat of the count-in pulses and shows its digit
           const lead = this.tl.lead;
           this.setTime(-lead, true);
+          this.bandPlayer.countIn(LEAD_IN_BEATS, this.tl.beatMs);
           await new Promise(r => setTimeout(r, lead));
         } catch (err) {
           console.warn('lead-in skipped', err);
@@ -2187,7 +2215,13 @@
          instrument, the lane and the progress bar from that one number, so a
          pause simply stops the clock, and a seek, a tempo change or a loop
          wrapping round simply set it. */
-      now() { const c = this.clock; return c.running ? c.t0 + (performance.now() - c.at0) : c.t0; }
+      // The playhead: while abcjs's audio runs, its exact position (less the
+      // output latency); otherwise the clock set at the last event or seek.
+      now() {
+        const c = this.clock;
+        if (c.running && this.bandPlayer) { const a = this.bandPlayer.audioTime(); if (a && a.ms >= 0) return a.ms - (this.latencyMs || 0); }
+        return c.running ? c.t0 + (performance.now() - c.at0) : c.t0;
+      }
       setTime(t, running) { const c = this.clock; c.t0 = t; c.at0 = performance.now(); c.running = running; this.wake(); if (this.bandPlayer) this.bandPlayer.sync(running); }
       wake() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); }); }
       // The timeline: every abcjs timing event with its time, display
@@ -2419,6 +2453,7 @@
             // Bluetooth): the clock is set that much behind it.
             const ctx = ABCJS.synth.activeAudioContext && ABCJS.synth.activeAudioContext();
             const latencyMs = ctx ? ((ctx.baseLatency || 0) + (ctx.outputLatency || 0)) * 1000 : 0;
+            this.latencyMs = latencyMs;
             this.idle = false;
             this.setTime(ev.milliseconds - latencyMs, true);
             if (this.bandPlayer) this.bandPlayer.anchor(ev.milliseconds);
