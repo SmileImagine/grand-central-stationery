@@ -281,7 +281,7 @@
     .inst .hole.flick { animation: flick 0.5s steps(2, jump-none) infinite; transform-box: fill-box; transform-origin: center; }
     @keyframes flick { 0% { transform: scale(1); } 100% { transform: scale(1.18); } }
     .inst .rec .name { font-size: 16px; }
-    .strip { height: 26%; min-height: 72px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); position: relative; }
+    .strip { height: 26%; min-height: 96px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); position: relative; }
     /* Guastavino herringbone from the Whispering Gallery, at a whisper. */
     .strip::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.06;
       background-image: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 9px), repeating-linear-gradient(-45deg, var(--ink) 0 1px, transparent 1px 9px);
@@ -291,7 +291,8 @@
     .entry { flex: 1; resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
     .entry:focus { border-color: var(--accent); }
     /* Transport panel: one wrapping row of small controls, vertically centred. */
-    .side { display: flex; flex-wrap: wrap; align-items: center; align-content: center; gap: 4px 14px; min-width: 300px; max-width: 46%; }
+    /* The row may need more height than a small window gives the strip: it scrolls rather than hiding fields. */
+    .side { display: flex; flex-wrap: wrap; align-items: center; align-content: flex-start; align-content: safe center; gap: 4px 14px; min-width: 300px; max-width: 46%; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; }
     .side .audio { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
     .side .abcjs-inline-audio { display: inline-flex; align-items: center; gap: 2px; height: auto; }
     .side .abcjs-inline-audio .abcjs-btn { width: 26px; height: 26px; padding: 3px; margin: 0; border-radius: 6px; }
@@ -713,13 +714,15 @@
     // The page's defaults: X:1, L:1/4 and K:C for whatever the text leaves
     // out. abcjs would otherwise take the unit length from the metre (an
     // eighth in 4/4), so a tune with K: but no L: would play twice as fast.
+    const DEFAULT_BPM = 80;           // abcjs would assume 180 without a Q: line; 80 is a walking tempo for a class
     const withHeader = t => {
       // Every note at the same strength: abcjs accents the first beat of
       // each bar unless told not to, and a class hears that as uneven notes.
       if (!/beataccents/.test(t)) t = t.replace(/^K:/m, '%%MIDI nobeataccents\nK:');
-      const hasK = /^K:/m.test(t), hasL = /^L:/m.test(t), hasX = /^X:/m.test(t);
-      if (!hasK) return (hasX ? '' : 'X:1\n') + (hasL ? '' : 'L:1/4\n') + (/beataccents/.test(t) ? '' : '%%MIDI nobeataccents\n') + 'K:C\n' + t;
+      const hasK = /^K:/m.test(t), hasL = /^L:/m.test(t), hasX = /^X:/m.test(t), hasQ = /^Q:/m.test(t);
+      if (!hasK) return (hasX ? '' : 'X:1\n') + (hasL ? '' : 'L:1/4\n') + (hasQ ? '' : `Q:1/4=${DEFAULT_BPM}\n`) + (/beataccents/.test(t) ? '' : '%%MIDI nobeataccents\n') + 'K:C\n' + t;
       let out = hasL ? t : t.replace(/^K:/m, 'L:1/4\nK:');
+      if (!hasQ) out = out.replace(/^K:/m, `Q:1/4=${DEFAULT_BPM}\nK:`);
       return hasX ? out : 'X:1\n' + out;
     };
     function stripAccidentals(abc) {
@@ -2680,7 +2683,7 @@
           <span class="grip" draggable="true" title="Drag to reorder">⠿</span>
           <input class="order" type="number" min="1" title="Position: type a number to move this cell">
           <select class="type"><option value="heading">Heading</option><option value="text">Text</option><option value="abc">Notation</option></select>
-          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 default, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
+          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 and 80 BPM defaults, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
           <span class="spacer"></span>
           <span class="tools">
             <button class="show" title="Present from this cell">Present</button>
