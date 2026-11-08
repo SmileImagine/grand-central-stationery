@@ -249,10 +249,15 @@
     .bandctl .regen { padding: 1px 7px; }
     .bandctl .arrange { font: var(--ui); padding: 2px 8px; }
     /* The mixer: a drawer under the controls with the band's members; closed while the music plays. */
-    .mixbtn { font: var(--ui); padding: 2px 8px; }
-    .mixbtn[aria-expanded="true"] { background: var(--line-2); }
-    .mixer { flex-basis: 100%; display: flex; gap: 16px; justify-content: center; align-items: flex-end; padding: 4px 0 2px; }
-    .mixer[hidden] { display: none; }
+    .tabs { display: inline-flex; gap: 4px; }
+    .tabs .tab { font: var(--ui); padding: 2px 9px; }
+    .tabs .tab[aria-pressed="true"] { background: var(--line-2); border-color: var(--accent); }
+    .drawer { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; padding-top: 5px; border-top: 1px dashed var(--line); }
+    .drawer[hidden] { display: none; }
+    .cell-body.drawer-open .strip { height: 40%; }   /* room for the open drawer; the score gives a little */
+    body.game .cell-body.drawer-open .strip { height: auto; }
+    .mixer { gap: 16px; justify-content: center; align-items: flex-end; padding: 6px 0 2px; }
+    body.present .cell[data-type="abc"] .strip { padding-right: 150px; }   /* clear of the slide selector in the corner */
     .member { display: flex; flex-direction: column; align-items: center; gap: 2px; font: var(--ui); color: var(--muted); }
     .member .lvl { writing-mode: vertical-lr; direction: rtl; -webkit-appearance: slider-vertical; appearance: auto; width: 20px; height: 62px; margin: 0; accent-color: var(--accent); }
     .member .figure { width: 46px; height: 46px; padding: 2px; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 8px; }
@@ -319,7 +324,7 @@
     .transport.playing .i-pause { display: block; }
     .transport.playing .i-play { display: none; }
     /* Warnings (red) and tips (muted) under the transport; ? opens an explanation with a corrected example. */
-    .warn { font: 12px var(--mono); color: #d33; overflow: auto; flex-basis: 100%; max-height: 7.5em; }
+    .warn { font: 12px var(--mono); color: #d33; overflow: auto; flex-basis: 100%; max-height: 7.5em; order: 9; }
     .warn .w { white-space: pre-wrap; }
     .warn .tip { color: var(--muted); }
     .warn .why { font: 11px var(--ui); padding: 0 5px; margin-left: 6px; border-radius: 8px; line-height: 1.3; color: inherit; border-color: currentColor; background: transparent; opacity: 0.8; }
@@ -1312,7 +1317,7 @@
         if (el.el_type !== 'note') return;
         if (el.startTriplet) { inT = true; mult = el.tripletMultiplier || 1; }
         const d = (el.duration || 0) * (inT ? mult : 1);
-        cur.notes.push({ pos: cur.len, dur: d, pcs: (sp[i] || []).map(p => p.pc), el, rest: !el.pitches, chord: el.chord && el.chord.length ? el.chord[0].name : null });
+        cur.notes.push({ pos: cur.len, dur: d, pcs: (sp[i] || []).map(p => p.pc), el, rest: !el.pitches, chord: el.chord && el.chord.length ? el.chord[0].name : null, slurStart: !!(el.pitches && el.pitches.some(p => p.startSlur)), slurEnd: !!(el.pitches && el.pitches.some(p => p.endSlur)) });
         cur.len += d;
         if (el.endTriplet) { inT = false; mult = 1; }
       });
@@ -1706,18 +1711,23 @@
       bars.forEach((bar, bi) => {
         for (const n of bar.notes) {
           if (n.rest) { if (notes.length) notes[notes.length - 1].restAfter += n.dur; }
-          else if (n.el.startChar !== undefined) notes.push({ startChar: n.el.startChar, start: abs + n.pos, dur: n.dur, pos: n.pos, barLen: bar.len, bar: bi, pitch: n.pcs.length ? Math.max(...n.pcs) : 0, midi: null, restAfter: 0, el: n.el });
+          else if (n.el.startChar !== undefined) notes.push({ startChar: n.el.startChar, start: abs + n.pos, dur: n.dur, pos: n.pos, barLen: bar.len, bar: bi, pitch: n.pcs.length ? Math.max(...n.pcs) : 0, midi: null, restAfter: 0, el: n.el, slurStart: n.slurStart, slurEnd: n.slurEnd });
         }
         abs += bar.len;
       });
-      // Phrases: a rest, a note of a beat and a half or more ending at a bar line, or four bars since the last one.
+      // Phrases: slurs when the tune writes them (a slur is a phrase; a rest
+      // still ends one); otherwise a rest, a note of a beat and a half or
+      // more ending at a bar line, or four bars since the last one.
       const beat = (tune.getBeatLength && tune.getBeatLength()) || 0.25;
-      let ph = { from: 0 }, phrases = [];
+      const slurred = notes.some(n => n.slurStart || n.slurEnd);
+      let ph = { from: 0 }, phrases = [], depth = 0;
       notes.forEach((n, i) => {
         n.phrase = ph;
         const next = notes[i + 1];
         const barEnd = Math.abs(n.pos + n.dur - n.barLen) < 1e-6;
-        const cut = !next || n.restAfter > 1e-6 || (n.dur >= 1.5 * beat && barEnd) || (next.bar - notes[ph.from].bar >= 4 && next.pos < 1e-6);
+        if (n.slurStart) depth++; if (n.slurEnd) depth = Math.max(0, depth - 1);
+        n.inSlur = depth > 0 || n.slurEnd;
+        const cut = !next || n.restAfter > 1e-6 || (slurred ? (n.slurEnd && depth === 0) || (next.slurStart && depth === 0) : (n.dur >= 1.5 * beat && barEnd) || (next.bar - notes[ph.from].bar >= 4 && next.pos < 1e-6));
         if (cut) { ph.to = i; phrases.push(ph); ph = { from: i + 1 }; }
       });
       const map = new Map();
@@ -1742,21 +1752,24 @@
           const inBeat = m.pos / beat, onBeat = Math.abs(inBeat - Math.round(inBeat)) < 1e-6, downbeat = m.pos < 1e-6;
           // Strength: the beat's weight, the phrase's arc by height, a soft landing.
           let v = 0;
-          v += downbeat ? 0.07 : onBeat ? 0.02 : -0.06;
-          if (ph.hi > ph.lo) v += ((m.midi - ph.lo) / (ph.hi - ph.lo) - 0.5) * 0.18;
-          if (last) v -= 0.07;
-          if (first && !downbeat) v -= 0.03;                                   // a pickup leads in gently
+          v += downbeat ? 0.1 : onBeat ? 0.03 : -0.1;
+          if (ph.hi > ph.lo) v += ((m.midi - ph.lo) / (ph.hi - ph.lo) - 0.5) * 0.36;   // up to the high point, down from it
+          const span = mm.notes[ph.to].start + mm.notes[ph.to].dur - mm.notes[ph.from].start, where = span > 0 ? (m.start - mm.notes[ph.from].start) / span : 0;
+          v += Math.sin(where * Math.PI) * 0.12 - 0.06;                         // and the phrase swells through its middle
+          if (last) v -= 0.14;
+          if (first && !downbeat) v -= 0.05;                                   // a pickup leads in gently
           v += (rng() - 0.5) * 0.05;
           note.vel = Math.max(0.12, Math.min(1, note.vel * (1 + v * feel)));
           // Time: the off-beat lies back a touch; a phrase begins after a breath.
           let shift = 0;
-          if (!onBeat) shift += 0.012 * beat;
-          if (first && prev && prev.restAfter < 1e-6) shift += 0.05 * beat;
+          if (!onBeat) shift += 0.015 * beat;
+          if (first && prev && prev.restAfter < 1e-6) shift += 0.08 * beat;
           note.start += shift * feel;
           // Length: steps join, repeats and leaps separate, the phrase's last note lingers, a breath before the next phrase.
           let k = 0.97;
-          if (next && next.midi !== null && m.midi !== null) { const iv = Math.abs(next.midi - m.midi); k = iv === 0 ? 0.82 : iv <= 2 ? 0.99 : 0.92; }
-          if (last) k = next && next.restAfter < 1e-6 && m.restAfter < 1e-6 ? 0.9 : 1.04;      // (into a rest it can ring; into the next phrase it breathes)
+          if (next && next.midi !== null && m.midi !== null) { const iv = Math.abs(next.midi - m.midi); k = iv === 0 ? 0.8 : iv <= 2 ? 0.99 : 0.9; }
+          if (m.inSlur && !last) k = Math.max(k, 1.0);                                        // under a slur the notes join
+          if (last) k = next && next.restAfter < 1e-6 && m.restAfter < 1e-6 ? 0.88 : 1.08;    // (into a rest it can ring; into the next phrase it breathes)
           note.dur *= 1 + (k - 1) * feel;
           // What the instrument does.
           if (inst === 'recorder') {
@@ -2011,9 +2024,9 @@
     /* The mixer's band members: a figure each, drawn in strokes so they take the theme's ink. */
     const FIGURE = inner => `<svg viewBox="0 0 44 44" aria-hidden="true">${inner}<path class="slash" d="M7 37L37 7"/></svg>`;
     const MIXER_MEMBERS = [
-      { part: 'melody', name: 'Melody', svg: FIGURE('<circle cx="19" cy="12" r="5"/><path d="M10 31c0-6 4-10 9-10s9 4 9 10"/><path d="M33 8v11"/><ellipse class="fill" cx="30.5" cy="20" rx="3" ry="2.2"/><path d="M33 8c2 1 4 2 5 4"/>') },
+      { part: 'melody', name: 'Melody', svg: FIGURE('<circle cx="19" cy="11" r="5"/><path d="M14.5 10c-1 5-2 9-4 12M23.5 10c1 5 2 9 4 12"/><path d="M12 31c0-5 3-9 7-9s7 4 7 9"/><path d="M34 7v11"/><ellipse class="fill" cx="31.5" cy="19" rx="3" ry="2.2"/><path d="M34 7c2 1 4 2 5 4"/>') },
       { part: 'chords', name: 'Chords', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><rect class="fill" x="6" y="27" width="32" height="11" rx="1.5"/><path d="M11 27v6M16 27v6M24 27v6M29 27v6M34 27v6"/>') },
-      { part: 'bass', name: 'Bass', svg: FIGURE('<circle cx="14" cy="11" r="5"/><path d="M5 31c0-6 4-10 9-10s9 4 9 10"/><ellipse class="fill" cx="30" cy="30" rx="8" ry="10"/><path d="M30 20V5M27 8h6"/>') },
+      { part: 'bass', name: 'Bass', svg: FIGURE('<circle cx="13" cy="11" r="5"/><path d="M8.5 10c-1 5-2 9-4 12M17.5 10c1 5 2 9 4 12"/><path d="M6 31c0-5 3-9 7-9s7 4 7 9"/><path class="fill" d="M30 20c-4 0-6 3-5 6c-3 1-4 5-2 8c1 3 4 5 7 5s6-2 7-5c2-3 1-7-2-8c1-3-1-6-5-6z"/><path d="M30 20V7"/><path d="M30 7c2-1 3.5 0.5 2.5 2.5"/><path d="M27.5 29.5v3.5M32.5 29.5v3.5"/>') },
       { part: 'drums', name: 'Drums', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><circle class="fill" cx="22" cy="32" r="8"/><path d="M4 16h11M9.5 16v12M30 16h10M35 16v12"/><path d="M15 22l-4-5M29 22l4-5"/>') },
     ];
     class AbcCell {
@@ -2034,10 +2047,16 @@
             <button type="button" class="tbtn loop" title="Repeat the tune" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
           </div>
           <label class="xpose tempo" title="Playback tempo in beats per minute (Q:1/4=90 in the ABC sets the written tempo)">Tempo <input type="number" class="bpm" min="20" max="400" step="1"> BPM</label></div>
-          <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
+          <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" class="tr" min="-12" max="12" step="1" value="${this.transpose}"></label>
+          <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
+          <div class="tabs"><button type="button" class="tab" data-drawer="view" aria-pressed="false" title="The instrument under the staff, note names and harmony">Instrument</button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="What sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div>
+          <div class="warn"></div>
+          <div class="drawer" data-drawer="view" hidden>
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
-          <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
+          <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
+          </div>
+          <div class="drawer" data-drawer="band" hidden>
           <label class="xpose playpick" title="What sounds: the melody with its chord symbols, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + chords</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Chords only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
           <label class="xpose stylepick" title="The accompaniment pattern for the chord symbols: bass, chords and drums. Auto takes the waltz in triple time and boom-chick otherwise; Plain is abcjs's own.">Style <select>${Object.entries(STYLES).map(([k, v]) => `<option value="${k}"${k === this.style ? ' selected' : ''}>${v.name}</option>`).join('')}</select></label>
           <span class="bandctl" title="Energy sets how busy the band plays; Detail adds sevenths, ninths, approach notes and ghost notes; the arrow deals a new variation.">
@@ -2045,11 +2064,9 @@
             <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
             <button type="button" class="regen" title="A new variation">\u21BB</button>
             <button type="button" class="arrange" title="Write the Band's arrangement into the ABC as %%band lines, one per time round (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button></span>
-          <button type="button" class="mixbtn" title="The band: a level for the melody, the chords, the bass and the drums. Click a player to mute them." aria-expanded="false">Mixer</button>
-          <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
-          <div class="warn"></div>
-          <div class="mixer" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div></div>`;
-        const xp = body.querySelector('.xpose input');
+          </div>
+          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div></div>`;
+        const xp = body.querySelector('input.tr');
         xp.addEventListener('input', () => {
           const n = Math.max(-12, Math.min(12, parseInt(xp.value, 10) || 0));
           if (n === this.transpose) return;
@@ -2069,8 +2086,8 @@
         body.querySelector('.detail').addEventListener('input', bandChange);
         body.querySelector('.regen').addEventListener('click', () => { this.band.seed = 1 + Math.floor(Math.random() * 1e6); bandChange(); });
         // The mixer: levels and mutes live in `band.mix` and `band.mute`, applied to the Player's bus as they move.
-        const mixer = body.querySelector('.mixer'), mixbtn = body.querySelector('.mixbtn');
-        mixbtn.addEventListener('click', () => this.showMixer(mixer.hidden));
+        const mixer = body.querySelector('.mixer');
+        for (const tab of body.querySelectorAll('.tab')) tab.addEventListener('click', () => this.showDrawer(tab.getAttribute('aria-pressed') === 'true' ? null : tab.dataset.drawer));
         const mixChange = () => { if (opts.onBand) opts.onBand(this.band); if (this.player) this.player.gains(); };
         for (const mem of mixer.querySelectorAll('.member')) {
           const part = mem.dataset.part, lvl = mem.querySelector('.lvl');
@@ -2129,7 +2146,9 @@
         if (!this.player.running && !(this.player.pos > 0)) this.placeReady();   // paused mid-tune: the picture stays where it is, at the new tempo
         this.wake();
       }
-      showMixer(open) { const m = this.body.querySelector('.mixer'), b = this.body.querySelector('.mixbtn'); if (!m) return; m.hidden = !open; b.setAttribute('aria-expanded', String(!!open)); }
+      // One drawer open at a time under the controls (null: none).
+      showDrawer(name) { for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); }
+      showMixer(open) { this.showDrawer(open ? 'mix' : null); }
       transportState() { const tp = this.body.querySelector('.transport'); if (tp) tp.classList.toggle('playing', !!(this.player && this.player.running)); }
       getText() { return this.entry.value; }
       focus() { this.entry.focus(); }
@@ -2506,9 +2525,8 @@
         const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 });
         if (!lines.length) return false;
         const kept = this.entry.value.split('\n').filter(l => !CHART_LINE.test(l));
-        let at = kept.findIndex(l => /^K:/.test(l)); if (at >= 0) at++; else { at = 0; while (at < kept.length && /^[A-Za-z]:|^%/.test(kept[at])) at++; }
-        kept.splice(at, 0, ...lines);
-        this.entry.value = kept.join('\n');
+        while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
+        this.entry.value = [...kept, ...lines].join('\n');   // after the melody, so the tune stays in front
         this.render();
         return true;
       }
