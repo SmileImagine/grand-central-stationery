@@ -1,6 +1,6 @@
 # Licences of bundled libraries and samples
 
-## abcjs 6.7.0 (vendor/abcjs-basic-min.js, vendor/abcjs-audio.css)
+## abcjs 6.7.0 (vendor/abcjs-basic-min.js)
 
 https://github.com/paulrosen/abcjs
 
