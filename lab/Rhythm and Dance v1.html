@@ -85,6 +85,7 @@
   <section id="rhythm" class="tab on">
     <aside>
       <select id="rpreset"></select>
+      <select id="rcorpus" hidden><option value="">From the course's rhythm set…</option></select>
       <textarea id="rtext" spellcheck="false"></textarea>
       <div class="views" id="rviews">
         <button data-view="grid" class="on">Grid</button><button data-view="wheel">Wheel</button><button data-view="syll">Syllables</button><button data-view="body">Body</button>
@@ -97,6 +98,7 @@
   <section id="dance" class="tab">
     <aside>
       <select id="dpreset"></select>
+      <select id="dcorpus" hidden><option value="">From the course's dance set…</option></select>
       <textarea id="dtext" spellcheck="false"></textarea>
       <div class="views" id="dviews">
         <button data-view="feet" class="on">Footprints</button><button data-view="laban">Columns</button><button data-view="benesh">Stave</button><button data-view="figs">Figures</button>
@@ -146,13 +148,15 @@ const Synth = {
       case 'bell': env(.001, .45, v * .45); tone(1760, 1760); break;
       case 'clave': env(.001, .09, v); tone(2500, 2400, 'sine', .05); break;
       case 'shaker': env(.001, .06, v * .35); hiss(9000, .07); break;
+      case 'crash': env(.002, .9, v * .5); hiss(4000, 1); break;
+      case 'ride': env(.001, .35, v * .4); hiss(5000, .4, 'bandpass'); tone(3200, 3100, 'triangle', .05); break;
       case 'tick': env(.001, .04, v * .6); tone(1800, 1800, 'sine', .02); break;
       case 'tock': env(.001, .05, v * .9); tone(2600, 2600, 'sine', .02); break;
       default: env(.002, .1, v * .7); tone(600, 500, 'triangle');
     }
   }
 };
-const SOUNDS = { kick: 'kick', bd: 'kick', bass: 'kick', snare: 'snare', sd: 'snare', hat: 'hat', hh: 'hat', hihat: 'hat', open: 'open', oh: 'open', rim: 'rim', clap: 'clap', cp: 'clap', tom: 'tom', low: 'low', wood: 'wood', block: 'wood', bell: 'bell', clave: 'clave', shaker: 'shaker', sh: 'shaker', stomp: 'stomp', pat: 'pat', snap: 'snap', click: 'click', drum: 'tom' };
+const SOUNDS = { crash: 'crash', ride: 'ride', high: 'tom', kick: 'kick', bd: 'kick', bass: 'kick', snare: 'snare', sd: 'snare', hat: 'hat', hh: 'hat', hihat: 'hat', open: 'open', oh: 'open', rim: 'rim', clap: 'clap', cp: 'clap', tom: 'tom', low: 'low', wood: 'wood', block: 'wood', bell: 'bell', clave: 'clave', shaker: 'shaker', sh: 'shaker', stomp: 'stomp', pat: 'pat', snap: 'snap', click: 'click', drum: 'tom' };
 // Body percussion: what each drum becomes, with the part of the body that plays it.
 const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp'], tom: ['pat', 'thighs', 'Pat'], pat: ['pat', 'thighs', 'Pat'], stomp: ['stomp', 'feet', 'Stomp'], snare: ['clap', 'hands', 'Clap'], clap: ['clap', 'hands', 'Clap'], hat: ['snap', 'fingers', 'Snap'], snap: ['snap', 'fingers', 'Snap'], shaker: ['snap', 'fingers', 'Snap'], open: ['click', 'mouth', 'Click'], rim: ['click', 'mouth', 'Click'], click: ['click', 'mouth', 'Click'], wood: ['click', 'mouth', 'Click'], clave: ['clap', 'hands', 'Clap'], bell: ['snap', 'fingers', 'Snap'] };
 
@@ -195,6 +199,7 @@ const clock = {
 };
 
 /* ================= rhythm text ================= */
+const META = new Set(['title', 'bpm', 'tempo', 'style', 'source', 'licence', 'license', 'id', 'origin', 'difficulty', 'note']);
 function parseRhythm(text) {
   const r = { meter: [4, 4], rows: [], problems: [] };
   text.split('\n').forEach((raw, li) => {
@@ -203,6 +208,7 @@ function parseRhythm(text) {
     if (!m) { r.problems.push(`Line ${li + 1}: wants "name: steps".`); return; }
     const name = m[1].trim().toLowerCase(), body = m[2].trim();
     if (name === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) r.meter = [+mm[1], +mm[2]]; else r.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
+    if (META.has(name)) { (r.meta = r.meta || {})[name] = body; return; }
     const bars = body.split('|').map(b => b.replace(/\s+/g, '')).filter(b => b.length);
     if (!bars.length) { r.problems.push(`Line ${li + 1}: ${name} has no steps.`); return; }
     const bad = bars.join('').replace(/[xXo.\-]/g, ''); if (bad) r.problems.push(`Line ${li + 1}: ${name} has "${bad[0]}"; steps are x X o and . only.`);
@@ -357,6 +363,7 @@ function parseDance(text) {
   const d = { meter: [4, 4], feet: [], arms: [], problems: [], frames: [] };
   text.split('\n').forEach((raw, li) => {
     const line = raw.replace(/\/\/.*$/, '').trim(); if (!line) return;
+    const mm0 = line.match(/^([a-z]+)\s*:\s*(.*)$/i); if (mm0 && META.has(mm0[1].toLowerCase())) { (d.meta = d.meta || {})[mm0[1].toLowerCase()] = mm0[2].trim(); return; }
     const m = line.match(/^(meter|feet|arms)\s*:\s*(.*)$/i); if (!m) { d.problems.push(`Line ${li + 1}: wants meter:, feet: or arms:.`); return; }
     const key = m[1].toLowerCase(), body = m[2].trim();
     if (key === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) d.meter = [+mm[1], +mm[2]]; else d.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
@@ -586,12 +593,23 @@ document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { state
 $('#rviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.rview = b.dataset.view; [...$('#rviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
 $('#dviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.dview = b.dataset.view; [...$('#dviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
 
+// The course's graded sets (course/rhythm-set.json, course/dance-set.json), when the page is served with them beside it.
+const SETS = { r: [], d: [] };
+async function loadSets() {
+  const fill = (sel, items) => { if (!items.length) return; let level = 0; for (const it of items) { if (it.level !== level) { level = it.level; sel.insertAdjacentHTML('beforeend', `<optgroup label="Level ${level}"></optgroup>`); } sel.lastElementChild.insertAdjacentHTML('beforeend', `<option value="${items.indexOf(it)}">${esc(it.title)}${it.style ? ' · ' + esc(it.style) : ''}</option>`); } sel.hidden = false; };
+  try { const j = await (await fetch('../course/rhythm-set.json')).json(); SETS.r = j.patterns.slice().sort((a, b) => a.level - b.level || a.score - b.score); fill($('#rcorpus'), SETS.r); } catch (e) { }
+  try { const j = await (await fetch('../course/dance-set.json')).json(); SETS.d = j.steps.slice().sort((a, b) => a.level - b.level || a.score - b.score); fill($('#dcorpus'), SETS.d); } catch (e) { }
+}
+$('#rcorpus').onchange = e => { const it = SETS.r[+e.target.value]; if (!it) return; rtext.value = it.text; e.target.value = ''; rebuild(); };
+$('#dcorpus').onchange = e => { const it = SETS.d[+e.target.value]; if (!it) return; dtext.value = it.text; e.target.value = ''; rebuild(); };
+loadSets();
+function tempoFrom(meta) { const b = meta && parseFloat(meta.bpm || meta.tempo); if (b && !clock.running) { clock.setBpm(b); $('#bpm').value = b; } }
 function rebuild() {
   const r = parseRhythm(rtext.value); state.r = r; rwarn.textContent = r.problems.join('\n');
   clock.events = r.events; clock.bodyMode = state.tab === 'rhythm' && state.rview === 'body';
-  if (state.tab === 'rhythm') { clock.cycle = r.cycle; state.view = RV[state.rview]; state.view.build($('#rstage'), r); }
+  if (state.tab === 'rhythm') { tempoFrom(r.meta); clock.cycle = r.cycle; state.view = RV[state.rview]; state.view.build($('#rstage'), r); }
   else {
-    const d = parseDance(dtext.value); state.d = d; dwarn.textContent = d.problems.join('\n');
+    const d = parseDance(dtext.value); state.d = d; dwarn.textContent = d.problems.join('\n'); tempoFrom(d.meta);
     if (d.beats !== r.beats) dwarn.textContent += `\nThe dance is in ${d.meter.join('/')} but the rhythm in ${r.meter.join('/')}.`;
     clock.cycle = d.cycle; clock.events = r.events.filter(e => e.beat < d.cycle); state.view = DV[state.dview]; state.view.build($('#dstage'), d);
   }

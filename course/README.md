@@ -8,6 +8,10 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
 | `board.html` | **The practice board.** A student picks their name and sees their level's tunes to choose from; the teacher sees every level, who is ready to show a tune, and marks passes. Open plays any tune in the main page. |
 | `set.json` | The current tune set, written by the CLI. |
+| `rhythm-analyze.js`, `rhythm-cli.js` | The rhythm analyzer: grades drum patterns written as the lab writes them (`kick: x... x...`) on a six-level lattice (subdivision, syncopation, parts and how they interlock, metre, length, tempo), and imports two free corpora, the GrooveSteps grids (CC0) and the Groove MIDI Dataset (CC BY 4.0), quantising each performance to the grid that fits and keeping the bar the drummer played most. `rhythms/traditional.rhythms.txt` holds typed traditional patterns (CC0). |
+| `dance-analyze.js`, `dance-cli.js` | The dance analyzer: grades steps in the lab's step language (feet, pace, arms, metre, length, tempo) and dances described in prose from public-domain folk-dance books (step vocabulary, figures, formation, length, interaction, tempo), checking its grades against the book's own classified index. `dances/steps.dances.txt` holds basic social and folk steps (CC0). |
+| `rhythm-set.json`, `dance-set.json` | The graded rhythm and dance sets the CLIs write; the lab's corpus pickers read them. |
+| `sources/` | The public-domain and CC0 texts and data the analyzers read, with a README on where each came from and what was looked at and left out. |
 | `samples/` | Public domain tunes typed as test material: a dozen well-known tunes across the levels, twenty-one beginner songs (so-mi-la chants, do-re-mi songs, first classroom songs), eight original pentatonic tunes written for the course and released CC0 to fill level 2, and four famous classical openings. |
 
 ## Running
@@ -23,6 +27,18 @@ node course/analyze-cli.js path/to/tunes --ignore key --json out/report.json --c
 `--ignore key` leaves the key signature out of the level, which suits this page because Transpose moves every tune to whatever key the class reads; `--ignore key,range` also drops range for pianists. Ignored dimensions are still measured and reported. `--min N` skips fragments shorter than N notes; `--show N` lists N tunes per level.
 
 The JSON holds every tune's ABC, features, grade and the skills it introduces at its place in the sequence, which is what a course page will load. The CSV is one row per tune for a spreadsheet. The Markdown is the sequence as a table.
+
+## Rhythms and dances
+
+```bash
+node course/rhythm-cli.js course/rhythms --groovesteps course/sources/groovesteps-drum-patterns.json --groove ~/Downloads/groove --per 8 --json course/rhythm-set.json
+```
+
+```bash
+node course/dance-cli.js course/dances --book course/sources/burchenal-1922-folk-dances-from-old-homelands.txt "Folk-Dances from Old Homelands|1922|https://archive.org/details/folkdancesfromol00burc" --json course/dance-set.json
+```
+
+`--groove` wants the unzipped Groove MIDI Dataset folder (the one with `info.csv`); `--per N` keeps N patterns per style. A `.rhythms.txt` or `.dances.txt` file holds several patterns separated by blank lines, each with a `title:` line; lines before the first title (source, licence) apply to all. `--book` reads an OCR'd book from the Internet Archive, cuts it into dances by its index and, when the book classifies its dances by age, reports how the grades line up (Kendall's tau between the book's class and the level). The lab page `lab/Rhythm and Dance v1.html` plays any pattern or step sequence from the sets.
 
 ## The practice board
 
