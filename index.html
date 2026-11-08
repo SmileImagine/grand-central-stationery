@@ -247,6 +247,7 @@
     .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
     .bandctl input[type="range"] { width: 70px; accent-color: var(--accent); }
     .bandctl .regen { padding: 1px 7px; }
+    .bandctl .arrange { font: var(--ui); padding: 2px 8px; }
     /* The mixer: a drawer under the controls with the band's members; closed while the music plays. */
     .mixbtn { font: var(--ui); padding: 2px 8px; }
     .mixbtn[aria-expanded="true"] { background: var(--line-2); }
@@ -1252,6 +1253,177 @@
       }
       return out;
     }
+    /* ---- the Band chart: the accompaniment as text ----
+       Lines beginning %%band (or %band) in the ABC say how the Band plays
+       each time round, so an arrangement can be read, shared and edited
+       like the melody. abcjs sees them as comments.
+         %%band energy=40 detail=60 seed=3              defaults for every chorus
+         %%band 1: energy=30 | C | G7 | Am F | C |      the first time round
+         %%band 2: energy=70 detail=90 kick=x..x....x..x.... | C C/E | G7 Db7 | Am9 Fmaj7 | C |
+       Bars follow the first |, one per bar of the tune (a pickup bar is
+       skipped); the chords in a bar share it equally (one for the bar, two
+       for its halves, four for its beats); . carries the previous chord
+       on, - leaves the bar to the drums; bars beyond those written keep
+       the melody's own chords. Step strings (x hit, o soft, . rest; 16
+       steps to a 4/4 bar, 12 to a 3/4 bar) for kick=, snare=, hat= and
+       comp= (the chord hits) replace the patterns Energy would choose.
+       The choruses take turns: the second time round plays line 2, and
+       after the last line the first comes round again. */
+    const CHART_LINE = /^%%?band\b(.*)$/;
+    const CHART_NUM = { energy: 1, detail: 1, seed: 1 }, CHART_STEPS = { kick: 1, snare: 1, hat: 1, comp: 1 };
+    function parseChart(text) {
+      const chart = { defaults: {}, choruses: [], problems: [] };
+      text.split('\n').forEach((raw, li) => {
+        const m = raw.match(CHART_LINE); if (!m) return;
+        let body = m[1].trim(), n = null;
+        const nm = body.match(/^(\d+)\s*:\s*/); if (nm) { n = parseInt(nm[1], 10); body = body.slice(nm[0].length); }
+        const bar = body.indexOf('|');
+        const params = {};
+        for (const tok of (bar < 0 ? body : body.slice(0, bar)).split(/\s+/).filter(Boolean)) {
+          const kv = tok.match(/^([a-z]+)=(.*)$/i);
+          if (!kv) { chart.problems.push(`Line ${li + 1}: "${tok}" is not a setting (energy=50) or a bar line.`); continue; }
+          const k = kv[1].toLowerCase(), v = kv[2];
+          if (CHART_NUM[k]) { const num = parseInt(v, 10); if (isNaN(num)) chart.problems.push(`Line ${li + 1}: ${k} wants a number.`); else params[k] = num; }
+          else if (CHART_STEPS[k]) { if (/^[xo.]+$/.test(v)) params[k] = v; else chart.problems.push(`Line ${li + 1}: ${k} wants steps of x, o and . (x.x.x.x.).`); }
+          else chart.problems.push(`Line ${li + 1}: unknown setting "${k}".`);
+        }
+        let bars = null;
+        if (bar >= 0) {
+          const parts = body.slice(bar).split('|').slice(1); if (parts.length && !parts[parts.length - 1].trim()) parts.pop();
+          bars = parts.map(b => { const toks = b.trim().split(/\s+/).filter(Boolean); return toks.length ? toks : ['.']; });
+          bars.forEach((toks, bi) => toks.forEach(t => { if (t !== '.' && t !== '-' && !chordPcs(t)) chart.problems.push(`Line ${li + 1}, bar ${bi + 1}: "${t}" is not a chord.`); }));
+        }
+        if (n === null && !bars) { Object.assign(chart.defaults, params); return; }
+        chart.choruses.push({ n: n === null ? chart.choruses.length + 1 : n, params, bars });
+      });
+      chart.choruses.sort((a, b) => a.n - b.n);
+      return chart;
+    }
+    // The chart lines as comments, each the same length, so abcjs neither warns nor shifts a character.
+    const chartComment = abc => abc.replace(/^%%?band\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    // The tune's bars with each note's start within the bar, length, pitch
+    // classes and parsed element; `first` is 1 when a pickup bar leads.
+    function tuneBars(tune) {
+      const elems = collect(tune), sp = spell(tune, elems);
+      const bars = []; let cur = { notes: [], len: 0 }, mult = 1, inT = false;
+      elems.forEach((el, i) => {
+        if (el._voice !== 0) return;
+        if (el.el_type === 'bar') { if (cur.len > 1e-9) bars.push(cur); cur = { notes: [], len: 0 }; return; }
+        if (el.el_type !== 'note') return;
+        if (el.startTriplet) { inT = true; mult = el.tripletMultiplier || 1; }
+        const d = (el.duration || 0) * (inT ? mult : 1);
+        cur.notes.push({ pos: cur.len, dur: d, pcs: (sp[i] || []).map(p => p.pc), el, rest: !el.pitches, chord: el.chord && el.chord.length ? el.chord[0].name : null });
+        cur.len += d;
+        if (el.endTriplet) { inT = false; mult = 1; }
+      });
+      if (cur.len > 1e-9) bars.push(cur);
+      const first = bars.length > 1 && bars[0].len < bars[1].len - 1e-6 ? 1 : 0;
+      return { bars, first };
+    }
+    // The chord a chorus has in force at a fraction of a chart bar: its own
+    // tokens up to there (. carries), else the melody's own chord there.
+    function chorusChordAt(chorus, ci, frac, melodyAt) {
+      if (!chorus.bars || ci >= chorus.bars.length) return melodyAt(ci, frac);   // beyond the chart's bars: the melody's own chords
+      let last = null, found = false;
+      for (let b = 0; b <= ci; b++) {
+        const toks = chorus.bars && chorus.bars[b]; if (!toks) { if (b === ci) break; continue; }
+        toks.forEach((t, j) => { if (b === ci && j / toks.length > frac + 1e-6) return; if (t === '.') { if (!found) return; } else { last = t === '-' ? null : t; found = true; } });
+      }
+      return found ? last : melodyAt(ci, frac);
+    }
+    // The display ABC with a chord symbol wherever any chorus changes chord,
+    // so the symbols can be relabelled as the choruses go round. Where the
+    // melody has none, the first chorus's chord is written at the first
+    // note that starts there (none starting there: no symbol, though the
+    // Band still plays the change).
+    function withChartChords(abc, chart, tune) {
+      if (!chart.choruses.some(c => c.bars)) return abc;
+      const { bars, first } = tuneBars(tune);
+      const melodyAt = melodyChordFinder(bars, first);
+      const inserts = [];
+      bars.forEach((bar, bi) => {
+        const ci = bi - first; if (ci < 0) return;
+        const written = new Set(bar.notes.filter(n => n.chord).map(n => n.pos.toFixed(6)));
+        const fracs = new Set();
+        for (const ch of chart.choruses) { const toks = ch.bars && ch.bars[ci]; if (toks) toks.forEach((t, j) => { if (t !== '.') fracs.add(j / toks.length); }); }
+        for (const f of fracs) {
+          const pos = f * bar.len, note = bar.notes.find(n => !n.rest && n.pos >= pos - 1e-6);
+          if (!note || note.pos > pos + bar.len / 8 + 1e-6 || written.has(note.pos.toFixed(6)) || note.el.startChar === undefined) continue;
+          inserts.push({ at: note.el.startChar, name: chorusChordAt(chart.choruses[0], ci, f, melodyAt) || melodyAt(ci, f) || 'C' });
+          written.add(note.pos.toFixed(6));
+        }
+      });
+      inserts.sort((a, b) => b.at - a.at);
+      let out = abc;
+      for (const ins of inserts) { let at = ins.at; while (at < out.length && /\s/.test(out[at])) at++; out = out.slice(0, at) + '"' + ins.name + '"' + out.slice(at); }
+      return out;
+    }
+    // The melody's own chord in force at a fraction of a chart bar (the last symbol at or before it).
+    function melodyChordFinder(bars, first) {
+      return (ci, frac) => {
+        let name = null;
+        for (let b = 0; b <= ci + first && b < bars.length; b++) for (const n of bars[b].notes) { if (b === ci + first && n.pos / bars[b].len > frac + 1e-6) break; if (n.chord) name = n.chord; }
+        return name;
+      };
+    }
+    /* ---- the arranger: an arc of choruses from the melody and its chords ----
+       Five times round, written as chart lines to be kept or edited:
+       plain, with sevenths, with approach chords, at full energy, and a
+       quiet last time. Every added chord is checked against the melody
+       notes under it, so nothing is written that the tune would fight. */
+    function arrange(tune, keyInfo, base) {
+      const { bars, first } = tuneBars(tune);
+      const chartBars = bars.slice(first); if (!chartBars.length) return [];
+      const melodyAt = melodyChordFinder(bars, first);
+      const flats = keyInfo.flats, names = flats ? FLAT_NAMES : SHARP_NAMES;
+      const tonic = keyInfo.minor ? (keyInfo.doPc + 9) % 12 : keyInfo.doPc;
+      const N = chartBars.length, slots = 2;
+      // The melody's chord and on-beat pitch classes in each half bar.
+      const M = chartBars.map((bar, ci) => [0, 1].map(sl => {
+        const f0 = sl / slots, f1 = (sl + 1) / slots, pcs = [];
+        for (const n of bar.notes) { const f = n.pos / bar.len; if (f >= f0 - 1e-6 && f < f1 - 1e-6 && !n.rest) pcs.push(...n.pcs); }
+        return { chord: melodyAt(ci, f0), pcs };
+      }));
+      const fits = (name, pcs) => { const c = chordPcs(name); if (!c) return false; const ok = new Set([...c.pcs, (c.root + 2) % 12, (c.root + 9) % 12]); if (/maj7|M7/.test(name)) ok.delete(c.root); return pcs.every(pc => ok.has(pc)); };
+      const nameOf = (root, q) => names[((root % 12) + 12) % 12] + q;
+      const quality = name => { const c = chordPcs(name); if (!c) return ''; const m3 = c.pcs.includes((c.root + 3) % 12), dim = c.pcs.includes((c.root + 6) % 12) && m3; return dim ? 'dim' : m3 ? 'm' : ''; };
+      const seventh = (name, pcs) => {
+        const c = chordPcs(name); if (!c || /7|6|sus|dim|\+/.test(name)) return name;
+        const deg = ((c.root - tonic) % 12 + 12) % 12, q = quality(name);
+        let cand = null;
+        if (q === 'm') cand = nameOf(c.root, 'm7');
+        else if (deg === 7 || (keyInfo.minor && deg === 7)) cand = nameOf(c.root, '7');            // V7
+        else if (deg === 0 || deg === 5 || (keyInfo.minor && (deg === 3 || deg === 8))) cand = nameOf(c.root, 'maj7');
+        return cand && fits(cand, pcs) ? cand : name;
+      };
+      const plain = M.map(bar => bar.map(sl => sl.chord));
+      const rich = M.map((bar, ci) => ci === N - 1 ? bar.map(sl => sl.chord) : bar.map(sl => sl.chord ? seventh(sl.chord, sl.pcs) : null));   // the final bar stays plain
+      // Approach chords: where the next bar changes root, the half bar before it takes the V7 of the new chord (or ii7 then V7 when both fit).
+      const approached = rich.map(b => [...b]);
+      let subs = 0;
+      for (let ci = 0; ci + 1 < N; ci++) {
+        const target = chordPcs(plain[ci + 1][0] || ''), here = chordPcs(plain[ci][0] || ''), hold = plain[ci][0] === plain[ci][1];
+        if (!target || !here || target.root === here.root || !hold || ci === N - 2 && false) continue;
+        const v = nameOf(target.root + 7, '7'), ii = nameOf(target.root + 2, quality(plain[ci + 1][0]) === 'm' ? 'm7b5'.replace('m7b5', 'm7') : 'm7');
+        if (chordPcs(v).root === here.root) continue;                          // already the dominant
+        if (fits(v, M[ci][1].pcs)) {
+          approached[ci][1] = v;
+          if (fits(ii, M[ci][0].pcs) && ci > 0) approached[ci][0] = ii;
+          // A tritone substitute for every other dominant that resolves down a fifth, when the melody allows.
+          const tri = nameOf(target.root + 1, '7'); if (++subs % 2 === 0 && fits(tri, M[ci][1].pcs)) approached[ci][1] = tri;
+        }
+      }
+      // The quiet last time: the plain chords, with a V7 into the final bar.
+      const out = plain.map(b => [...b]);
+      if (N > 1) { const t = chordPcs(plain[N - 1][0] || ''); if (t && plain[N - 2][0] === plain[N - 2][1]) { const v = nameOf(t.root + 7, '7'); if (fits(v, M[N - 2][1].pcs) && chordPcs(plain[N - 2][1] || '').root !== chordPcs(v).root) out[N - 2][1] = v; } }
+      const clamp = v => Math.max(0, Math.min(100, Math.round(v)));
+      const e = base.energy, d = base.detail;
+      const line = (n, bars, energy, detail, seed) => {
+        const toks = bars.map(b => b[0] === b[1] || !b[1] ? [b[0] || '.'] : [b[0] || '.', b[1] || '.']);
+        return `%%band ${n}: energy=${clamp(energy)} detail=${clamp(detail)} seed=${seed} | ${toks.map(t => t.join(' ')).join(' | ')} |`;
+      };
+      return [line(1, plain, e - 15, d - 20, base.seed), line(2, rich, e, d + 15, base.seed + 1), line(3, approached, e + 15, d + 30, base.seed + 2), line(4, approached, e + 35, 100, base.seed + 3), line(5, out, e - 25, d, base.seed + 4)];
+    }
     /* ---- accompaniment styles ----
        abcjs plays chord symbols through abc2midi's pattern language: a gchord
        string spells one bar, a letter per unit (f root in the bass, c the
@@ -1340,12 +1512,14 @@
       active() { return this.cell.style === 'band' && this.cell.playMode !== 'melody' && location.protocol !== 'file:'; }
       params() { const b = this.cell.band || {}; return { energy: b.i === undefined ? 0.5 : b.i / 100, detail: b.c === undefined ? 0.5 : b.c / 100, seed: b.seed || 1 }; }
       // The parts' levels against the melody; the drums grow with Energy.
-      levels() { const { energy } = this.params(); return { chords: 0.42, bass: 0.9, drums: 0.45 + 0.4 * energy }; }
-      /* ---- writing the parts ---- */
-      prepare() {
-        this.notes = [];
-        if (!this.active()) return;
-        const cell = this.cell, tl = cell.tl; if (!tl || !tl.events.length) return;
+      levels(energy) { return { chords: 0.42, bass: 0.9, drums: 0.45 + 0.4 * energy }; }
+      /* ---- writing the parts ----
+         One chorus from a spec: energy, detail and seed (0..1, 0..1, int),
+         and from a chart line its bars of chord tokens and step strings. */
+      prepare(spec) {
+        const res = { notes: [], segs: [], levels: this.levels(spec.energy) };
+        if (!this.active()) return res;
+        const cell = this.cell, tl = cell.tl; if (!tl || !tl.events.length) return res;
         // Bars from the parsed tune, in whole notes, then in ms at the current tempo.
         const beatLen = (cell.original.getBeatLength && cell.original.getBeatLength()) || 0.25, msPerWhole = tl.beatMs / beatLen;
         const bars = []; let pos = 0, barStart = 0, mult = 1, inT = false;
@@ -1358,12 +1532,30 @@
           if (el.endTriplet) { inT = false; mult = 1; }
         }
         if (pos > barStart + 1e-9) bars.push({ s: barStart * msPerWhole, e: pos * msPerWhole, beats: Math.round((pos - barStart) / beatLen * 4) / 4 });
-        // The chord in force at any time, from the events' chord symbols.
+        // The chord in force at any time: the melody's own symbols, with
+        // the chart's bars written over them (- leaves a bar without one).
         const segs = []; let last = null;
-        for (const ev of tl.events) { const c = cell.chordAt(ev.ev); if (c && (!last || c.name !== last.name)) { segs.push({ ms: ev.ms, chord: c }); last = c; } }
-        if (!segs.length) return;
-        const chordAt = ms => { let c = segs[0].chord; for (const sg of segs) { if (sg.ms <= ms + 1) c = sg.chord; else break; } return c; };
-        const { energy, detail, seed } = this.params();
+        for (const ev of tl.events) { const c = cell.writtenChordAt(ev.ev); if (c && (!last || c.name !== last.name)) { segs.push({ ms: ev.ms, chord: c }); last = c; } }
+        const first = bars.length > 1 && bars[0].beats < bars[1].beats - 1e-6 ? 1 : 0;   // a pickup bar is not a chart bar
+        if (spec.bars) {
+          let carry = null, started = false;
+          spec.bars.forEach((toks, ci) => {
+            const bar = bars[ci + first]; if (!bar) return;
+            toks.forEach((t, j) => {
+              const ms = bar.s + (bar.e - bar.s) * j / toks.length;
+              if (t === '.') { if (!started) return; } else { carry = t === '-' ? null : (chordPcs(t) || null); started = true; }
+              const k = segs.findIndex(sg => sg.ms > ms - 1);
+              const seg = { ms, chord: carry, chart: true };
+              if (k < 0) segs.push(seg); else if (Math.abs(segs[k].ms - ms) < 1) segs[k] = seg; else segs.splice(k, 0, seg);
+            });
+            // Within a chart bar, the melody's own later symbols give way to the chart.
+            for (let k = segs.length - 1; k >= 0; k--) if (!segs[k].chart && segs[k].ms > bar.s + 1 && segs[k].ms < bar.e - 1) segs.splice(k, 1);
+          });
+        }
+        res.segs = segs;
+        if (!segs.some(sg => sg.chord)) return res;
+        const chordAt = ms => { let c = null; for (const sg of segs) { if (sg.ms <= ms + 1) c = sg.chord; else break; } return c; };
+        const { energy, detail, seed } = spec;
         const key = cell.keyInfo(), scale = key.minor ? [0, 2, 3, 5, 7, 8, 10] : [0, 2, 4, 5, 7, 9, 11];
         const beatMs = tl.beatMs, out = [];
         const seen = new Map();   // one hit per drum per moment: a fill over a backbeat keeps the louder
@@ -1379,7 +1571,7 @@
           const triple = nb % 3 === 0 && nb !== 6, steps = nb * 4, stepMs = beatMs / 4;
           const at = b => bar.s + b * beatMs;
           const chordOn = b => chordAt(at(b));
-          const nextBar = bars[bi + 1], nextChord = nextBar ? chordAt(nextBar.s) : chordOn(0);
+          const nextBar = bars[bi + 1], nextChord = (nextBar ? chordAt(nextBar.s) : null) || chordOn(0);
           const chordTones = c => { const t = [...c.pcs]; if (detail > 0.55 && t.length === 3 && c.pcs.includes((c.root + 4) % 12) && !t.includes((c.root + 10) % 12) && FUNCTION_OF[romanOf(c, key.minor ? (key.doPc + 9) % 12 : key.doPc, key.minor).n.replace(/7$/, '')] === 'D') t.push((c.root + 10) % 12); if (detail > 0.75 && t.length === 3) t.push((c.root + 2) % 12); return t; };
           // ---- chords: hits per bar, voiced by the smallest move ----
           const voice = c => {
@@ -1400,35 +1592,38 @@
           else if (triple) hits = energy < 0.35 ? pick(rng, [[[0, 3]], [[0, 2], [2, 1]]]) : energy < 0.7 ? pick(rng, [[[0, 1], [1, 1], [2, 1]], [[0, 1.5], [1.5, 1.5]], [[0, 1], [1.5, 1.5]]]) : pick(rng, [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5]], [[0, 1], [1, .5], [1.5, .5], [2, 1]]]);
           else hits = energy < 0.35 ? pick(rng, [[[0, 4]], [[0, 2], [2, 2]], [[0, 2.5], [2.5, 1.5]]]) : energy < 0.7 ? pick(rng, [[[0, 1.5], [1.5, 1.5], [3, 1]], [[0, 2.5], [2.5, 1.5]], [[0, 1.5], [1.5, .5], [2, 1.5], [3.5, .5]], [[0, 1], [1.5, 1], [2.5, 1.5]]]) : pick(rng, [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5], [3, .5], [3.5, .5]], [[0, .5], [.5, 1], [1.5, .5], [2, .5], [2.5, 1], [3.5, .5]], [[0, 1.5], [1.5, .5], [2, .5], [2.5, 1], [3.5, .5]]]);
           hits = hits.filter(h => h[0] < nb);
+          // A comp= step string from the chart replaces the pattern: a hit at each x (o softer), held to the next.
+          if (spec.comp) { const st = [...spec.comp.slice(0, steps)]; hits = []; st.forEach((ch, i) => { if (ch === 'x' || ch === 'o') hits.push([i / 4, 1, ch === 'o']); }); hits.forEach((h, i) => { h[1] = (i + 1 < hits.length ? hits[i + 1][0] : nb) - h[0]; }); }
           // A chord change inside the bar gets a hit of its own.
           for (const sg of segs) { const b = (sg.ms - bar.s) / beatMs; if (b > 0.01 && b < nb - 0.01 && !hits.some(h => Math.abs(h[0] - b) < 0.01)) { hits.push([b, 1]); hits.sort((x, y) => x[0] - y[0]); } }
           let lastChordName = null;
-          hits.forEach(([b, d], hi2) => {
-            const c = chordOn(b); if (c.name !== lastChordName) { prevVoicing = voice(c); lastChordName = c.name; }
+          hits.forEach(([b, d, soft], hi2) => {
+            const c = chordOn(b); if (!c) return;
+            if (c.name !== lastChordName) { prevVoicing = voice(c); lastChordName = c.name; }
             const next = hits[hi2 + 1], dur = Math.min(d, next ? next[0] - b : nb - b) * beatMs / 1000 * 0.92;
-            const accent = b === 0 || Math.abs(b - 2.5) < 0.01 ? 1 : (b % 1 === 0 ? 0.85 : 0.72);
+            const accent = (b === 0 || Math.abs(b - 2.5) < 0.01 ? 1 : (b % 1 === 0 ? 0.85 : 0.72)) * (soft ? 0.7 : 1);
             prevVoicing.forEach((m, vi) => add('chords', at(b) + vi * 6, dur, m, (0.45 + 0.3 * energy) * accent));
           });
           // At low energy a pad holds each chord softly for its whole stretch, under the sparse hits.
           if (energy < 0.35 && hits.length) {
             const spans = []; let b0 = 0;
-            for (let b = 0; b < nb; b += 0.5) { if (b > 0 && chordOn(b).name !== chordOn(b0).name) { spans.push([b0, b]); b0 = b; } }
+            for (let b = 0; b < nb; b += 0.5) { if (b > 0 && (chordOn(b) || {}).name !== (chordOn(b0) || {}).name) { spans.push([b0, b]); b0 = b; } }
             spans.push([b0, nb]);
-            for (const [s0, s1] of spans) { const v = voice(chordOn(s0)); v.forEach(m => add('chords', at(s0) + 15, (s1 - s0) * beatMs / 1000 * 0.98, m - 12 >= 40 ? m - 12 : m, 0.22)); }
+            for (const [s0, s1] of spans) { const c = chordOn(s0); if (!c) continue; const v = voice(c); v.forEach(m => add('chords', at(s0) + 15, (s1 - s0) * beatMs / 1000 * 0.98, m - 12 >= 40 ? m - 12 : m, 0.22)); }
           }
           // ---- bass: roots and fifths, approaching the next chord ----
-          if (full || bi > 0) {
+          if ((full || bi > 0) && chordOn(0)) {
             const bassNote = (pc, near = 43) => { let m = pc + 36; while (m < near - 6) m += 12; while (m > near + 5) m -= 12; return Math.max(28, Math.min(55, m)); };
             const c0 = chordOn(0), root0 = bassNote(c0.root), fifth0 = bassNote((c0.root + 7) % 12, root0 + 2);
             const nextRoot = bassNote(nextChord.root, root0);
             const bl = [];
             if (triple) {
               bl.push([0, 1.5, root0, 1]);
-              if (energy > 0.3) bl.push([pick(rng, [1, 2]), 1, chordOn(1).name !== c0.name ? bassNote(chordOn(1).root) : fifth0, 0.8]);
+              if (energy > 0.3) bl.push([pick(rng, [1, 2]), 1, chordOn(1) && chordOn(1).name !== c0.name ? bassNote(chordOn(1).root) : fifth0, 0.8]);
               if (detail > 0.4 && nextRoot !== root0 && rng() < 0.7) bl.push([2.5, .5, nextRoot + pick(rng, [-1, 1, -2]), 0.75]);
             } else {
               bl.push([0, 2, root0, 1]);
-              const c2 = chordOn(2), mid = c2.name !== c0.name ? bassNote(c2.root, root0) : (energy > 0.5 && rng() < 0.5 ? root0 : fifth0);
+              const c2 = chordOn(2) || c0, mid = c2.name !== c0.name ? bassNote(c2.root, root0) : (energy > 0.5 && rng() < 0.5 ? root0 : fifth0);
               bl.push([2, 1.5, mid, 0.85]);
               if (energy > 0.5) { bl.push([1.5, .5, root0, 0.65]); if (rng() < 0.6) bl.push([3, .5, mid, 0.7]); }
               if (detail > 0.4 && rng() < 0.8) {
@@ -1447,7 +1642,12 @@
             const fill = detail > 0.3 && energy > 0.25 && (bi + 1) % 4 === 0 && bi < bars.length - 1;
             if (crashNext) hit('crash', 0, 0.8);
             crashNext = fill;
-            if (triple) {
+            if (spec.kick || spec.snare || spec.hat) {   // the chart's own patterns
+              if (spec.kick) pat('kick', spec.kick, 0.95);
+              if (spec.snare) pat('snare', spec.snare, 0.8);
+              if (spec.hat) pat('hatC', spec.hat, 0.55, 0.3);
+              if (fill && !spec.snare) { hit('snare', steps - 4, 0.6); hit('snare', steps - 3, 0.7); hit('snare', steps - 2, 0.8); hit('snare', steps - 1, 0.9); }
+            } else if (triple) {
               pat('kick', pick(rng, ['x...........', 'x.....x.....', 'x........x..']), 0.95);
               if (energy > 0.3) pat('snare', pick(rng, ['........x...', '....x...x...']), 0.75);
               pat('hatC', energy < 0.35 ? 'x...x...x...' : energy < 0.7 ? 'x.x.x.x.x.x.' : 'xoxoxoxoxoxo', 0.55, 0.3);
@@ -1462,7 +1662,8 @@
           }
         });
         out.sort((a, b) => a.t - b.t);
-        this.notes = out;
+        res.notes = out;
+        return res;
       }
       folder(part) { return part === 'drums' ? 'percussion' : part === 'bass' ? 'acoustic_bass' : 'electric_piano_1'; }
     }
@@ -1484,7 +1685,7 @@
       constructor(cell) {
         this.cell = cell; this.tracks = []; this.notes = []; this.pre = []; this.live = new Set(); this.timer = null;
         this.running = false; this.pos = 0; this.abs0 = 0; this.ctx0 = 0; this.until = 0; this.end = 0; this.loop = false;
-        this.total = 0; this.msPerWhole = 3000; this.bus = null;
+        this.total = 0; this.msPerWhole = 3000; this.bus = null; this.cycles = [[]];
       }
       /* ---- the material ---- */
       // From the rendered tune: abcjs's flattened tracks, in whole notes.
@@ -1509,9 +1710,11 @@
         this.pos *= k; this.total *= k; if (isFinite(this.end)) this.end *= k;
         if (this.running) { const ctx = sampler.ctx(); const abs = this.position() * k; this.stopAll(); this.ctx0 = ctx.currentTime + 0.02; this.abs0 = abs; this.until = abs; }
       }
-      // One sorted list of notes in ms: the tracks at the current tempo, the Band's parts, the count-in clicks.
+      // The notes in ms, one sorted list per time round: the tracks at the
+      // current tempo (the same each time), the Band's chorus, and the
+      // count-in clicks before the first.
       compile() {
-        const cell = this.cell, tl = cell.tl, band = cell.bandPlayer, lv = band.levels(), file = location.protocol === 'file:';
+        const cell = this.cell, tl = cell.tl, band = cell.bandPlayer, file = location.protocol === 'file:';
         const out = [], folderOf = prog => file && prog !== 128 ? 'acoustic_grand_piano' : PROGRAM_FOLDER(prog);
         const swing = this.style.swing ? this.style.swing / 100 : 0, beatLen = (cell.original && cell.original.getBeatLength && cell.original.getBeatLength()) || 0.25;
         for (const tr of this.tracks) {
@@ -1527,20 +1730,22 @@
             out.push({ part: tr.part, folder, midi: n.pitch, ms: start * this.msPerWhole, dur: Math.max(0.03, dur * this.msPerWhole / 1000), vel: Math.max(0.05, Math.min(1, (n.volume || 90) / 127)), rel: tr.part === 'melody' ? 0.14 : 0.08 });
           }
         }
-        if (band.active()) for (const n of band.notes) out.push({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t, dur: n.dur, vel: n.vel * lv[n.part], rel: 0.08 });
-        out.sort((a, b) => a.ms - b.ms);
-        this.notes = out;
+        const specs = cell.chorusSpecs();
+        this.choruses = specs.map(spec => band.prepare(spec));
+        this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t, dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08 }))].sort((a, b) => a.ms - b.ms));
         this.total = tl ? tl.total : 0;
         if (!this.loop) this.end = this.total;
         // The count-in: a click on each beat, when the Band plays.
         this.pre = [];
-        if (band.active() && tl) for (let b = 0; b < LEAD_IN_BEATS; b++) this.pre.push({ part: 'drums', folder: 'percussion', midi: DRUM.hatC, ms: -tl.lead + b * tl.beatMs, dur: 0, vel: (b === 0 ? 0.9 : 0.6) * lv.drums, rel: 0.08 });
+        if (band.active() && tl) for (let b = 0; b < LEAD_IN_BEATS; b++) this.pre.push({ part: 'drums', folder: 'percussion', midi: DRUM.hatC, ms: -tl.lead + b * tl.beatMs, dur: 0, vel: (b === 0 ? 0.9 : 0.6) * this.choruses[0].levels.drums, rel: 0.08 });
         this.ready();                                     // start fetching now, so Play is quick
       }
-      // Every sample the list needs, decoded.
+      // The chorus playing the k-th time round (they take turns).
+      chorus(k) { return this.choruses ? this.choruses[((k % this.choruses.length) + this.choruses.length) % this.choruses.length] : null; }
+      // Every sample the lists need, decoded.
       ready() {
         const want = new Map();
-        for (const n of [...this.pre, ...this.notes]) want.set(n.folder + '/' + FLAT_NOTE(n.midi), n);
+        for (const n of [...this.pre, ...this.cycles.flat()]) want.set(n.folder + '/' + FLAT_NOTE(n.midi), n);
         return Promise.all([...want.values()].map(n => sampler.load(n.folder, n.midi)));
       }
       /* ---- the bus: a gain per part, set from the mixer ---- */
@@ -1590,20 +1795,21 @@
         const when = ms => Math.max(ctx.currentTime, this.ctx0 + (ms - this.abs0) / 1000);
         const play = (n, ms) => { const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, bus[n.part], n.rel); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
-        if (this.total > 0 && this.notes.length) {
+        if (this.total > 0) {
           let a = Math.max(0, this.until), cyc = Math.floor(a / this.total);
           while (cyc * this.total < horizon) {
+            const N = this.cycles[cyc % this.cycles.length];
             const base = cyc * this.total, lo = Math.max(a, base) - base, hi = Math.min(horizon, base + this.total) - base;
-            let i = this.first(lo);
-            while (i < this.notes.length && this.notes[i].ms < hi) { play(this.notes[i], base + this.notes[i].ms); i++; }
+            let i = this.first(N, lo);
+            while (i < N.length && N[i].ms < hi) { play(N[i], base + N[i].ms); i++; }
             if (!this.loop) break;
             cyc++;
           }
         }
         this.until = horizon;
       }
-      // The first note at or after ms, by binary search.
-      first(ms) { const N = this.notes; let lo = 0, hi = N.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (N[mid].ms < ms) lo = mid + 1; else hi = mid; } return lo; }
+      // The first note of a list at or after ms, by binary search.
+      first(N, ms) { let lo = 0, hi = N.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (N[mid].ms < ms) lo = mid + 1; else hi = mid; } return lo; }
     }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
     const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
@@ -1726,7 +1932,8 @@
           <span class="bandctl" title="Energy sets how busy the band plays; Detail adds sevenths, ninths, approach notes and ghost notes; the arrow deals a new variation.">
             <label>Energy <input type="range" class="energy" min="0" max="100" value="${this.band.i === undefined ? 50 : this.band.i}"></label>
             <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
-            <button type="button" class="regen" title="A new variation">\u21BB</button></span>
+            <button type="button" class="regen" title="A new variation">\u21BB</button>
+            <button type="button" class="arrange" title="Write the Band's arrangement into the ABC as %%band lines, one per time round (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button></span>
           <button type="button" class="mixbtn" title="The band: a level for the melody, the chords, the bass and the drums. Click a player to mute them." aria-expanded="false">Mixer</button>
           <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
           <div class="warn"></div>
@@ -1744,7 +1951,8 @@
         const sp = body.querySelector('.stylepick select');
         sp.addEventListener('change', () => { this.style = sp.value; body.querySelector('.bandctl').classList.toggle('on', this.style === 'band'); this.render(); if (opts.onStyle) opts.onStyle(this.style); });
         body.querySelector('.bandctl').classList.toggle('on', this.style === 'band');
-        const bandChange = () => { this.band.i = +body.querySelector('.energy').value; this.band.c = +body.querySelector('.detail').value; this.bandPlayer.prepare(); this.player.compile(); if (opts.onBand) opts.onBand(this.band); };
+        const bandChange = () => { this.band.i = +body.querySelector('.energy').value; this.band.c = +body.querySelector('.detail').value; this.player.compile(); if (opts.onBand) opts.onBand(this.band); };
+        body.querySelector('.arrange').addEventListener('click', () => { if (this.writeChart()) onChange(this.entry.value); });
         body.querySelector('.energy').addEventListener('input', bandChange);
         body.querySelector('.detail').addEventListener('input', bandChange);
         body.querySelector('.regen').addEventListener('click', () => { this.band.seed = 1 + Math.floor(Math.random() * 1e6); bandChange(); });
@@ -1876,8 +2084,10 @@
         if (this.busy) { this.pending = true; clearTimeout(this.busyRetry); this.busyRetry = setTimeout(() => { if (this.pending && !this.busy) this.render(); }, 400); return; }
         this.pending = false;
         this.warnEl.textContent = '';
-        let abc = withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value);
+        let abc = chartComment(withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value));
         if (this.harmony === 'detect') abc = withDetectedChords(abc);
+        this.chart = parseChart(this.entry.value);
+        if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = styleFor(this.style, abc);
         abc = withStyle(abc, style);
         this.original = this.renderAt(this.hidden, abc, 600);
@@ -1902,7 +2112,7 @@
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
         const added = abc.split('\n').length - this.entry.value.split('\n').length;   // header lines the page supplied
-        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint()];
+        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.chart.problems.map(t => ({ text: 'Band chart: ' + t }))];
         this.showNotes();
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
@@ -2132,27 +2342,74 @@
           path.style.transform = `translate(${L.dx.toFixed(2)}px, 0) scaleX(${sx.toFixed(4)})`;
         }
       }
+      // One chord symbol's dressing: the Wicki-Hayden shape, and the numeral pill with Harmony on.
+      decorateChord(t) {
+        for (const old of t.parentNode.querySelectorAll('.chordshape, .numeral')) old.remove();
+        const chord = chordPcs(t.textContent); if (!chord) return;
+        const ki = this.harmony !== 'off' ? (this.key || (this.key = this.keyInfo())) : null;
+        const bb = t.getBBox(), k = Math.max(4, bb.height * 0.3);
+        const { g, h } = chordGlyph(t.parentNode, chord, bb.x + bb.width + 3, 0, k);
+        g.setAttribute('transform', `translate(0 ${(bb.y + bb.height / 2 - h / 2).toFixed(1)})`);
+        if (ki) {
+          const rn = romanOf(chord, ki.minor ? (ki.doPc + 9) % 12 : ki.doPc, ki.minor), col = FUNCTION_COLOR[rn.f];   // numerals count from the key's own tonic
+          const fs = bb.height * 0.62, w = Math.max(fs * 0.75 * rn.n.length + 6, fs * 1.4), ph = fs * 1.25;
+          const pill = svgEl(t.parentNode, 'g', { class: 'numeral' });
+          pill.innerHTML = `<title>${FUNCTION_NAME[rn.f]}</title>`;
+          svgEl(pill, 'rect', { x: (bb.x + bb.width / 2 - w / 2).toFixed(1), y: (bb.y + bb.height + 1).toFixed(1), width: w.toFixed(1), height: ph.toFixed(1), rx: (ph / 2).toFixed(1), fill: col, 'fill-opacity': 0.18, stroke: col, 'stroke-width': 0.8 });
+          svgText(pill, 'lbl', bb.x + bb.width / 2, bb.y + bb.height + 1 + ph / 2 + 0.5, fs, col, rn.n, 'middle');
+        }
+      }
+      // The displayed chord symbols with their chart bar and position, for relabelling.
+      indexChords() {
+        this.chordTexts = [];
+        const { bars, first } = tuneBars(this.displayed);
+        bars.forEach((bar, bi) => { for (const n of bar.notes) { if (!n.chord || !n.el.abselem) continue; const t = (n.el.abselem.elemset || []).map(g => g.querySelector('text.abcjs-chord')).find(Boolean); if (t) this.chordTexts.push({ t, ci: bi - first, frac: bar.len > 0 ? n.pos / bar.len : 0, written: n.chord }); } });
+        this.melodyChordAt = melodyChordFinder(bars, first);
+      }
+      /* ---- the chart's choruses ----
+         The sliders set the base; the chart's defaults line and each
+         chorus line write over it. Without chorus lines there is one. */
+      chorusSpecs() {
+        const b = this.band || {}, ch = this.chart || { defaults: {}, choruses: [] };
+        const base = { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1, ...ch.defaults };
+        const spec = (o, k) => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: (o.seed || 1) + (o === base ? 0 : 0), bars: o.bars || null, kick: o.kick, snare: o.snare, hat: o.hat, comp: o.comp });
+        if (!ch.choruses.length) return [spec(base)];
+        return ch.choruses.map((c, k) => spec({ ...base, seed: base.seed + k, ...c.params, bars: c.bars }));
+      }
+      // The time round changed: the chord symbols show this chorus's chords, and the instrument follows them.
+      relabel(k) {
+        const chorus = this.player && this.player.chorus(k);
+        this.cycleSegs = chorus ? chorus.segs : null;
+        const ch = this.chart && this.chart.choruses.length ? this.chart.choruses[((k % this.chart.choruses.length) + this.chart.choruses.length) % this.chart.choruses.length] : null;
+        for (const c of this.chordTexts || []) {
+          const name = ch && ch.bars ? (c.ci >= 0 ? chorusChordAt(ch, c.ci, c.frac, this.melodyChordAt) : c.written) : c.written;
+          const text = name === null ? '\u2013' : (name || c.written);
+          if (c.t.textContent !== text) { c.t.textContent = text; this.decorateChord(c.t); }
+        }
+      }
+      // The arranger's chorus lines into the text, replacing any there; false if there is nothing to arrange.
+      writeChart() {
+        if (!this.original) return false;
+        const b = this.band || {};
+        const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 });
+        if (!lines.length) return false;
+        const kept = this.entry.value.split('\n').filter(l => !CHART_LINE.test(l));
+        let at = kept.findIndex(l => /^K:/.test(l)); if (at >= 0) at++; else { at = 0; while (at < kept.length && /^[A-Za-z]:|^%/.test(kept[at])) at++; }
+        kept.splice(at, 0, ...lines);
+        this.entry.value = kept.join('\n');
+        this.render();
+        return true;
+      }
       decorate(drawAccidentals) {
         const svg = this.paper.querySelector('svg');
         if (!svg) return;
         this.key = null;
         // Chord symbols get a small Wicki-Hayden shape beside the name, and,
         // with Harmony on, a numeral pill below in the colour of its function.
-        const ki = this.harmony !== 'off' ? this.keyInfo() : null;
-        for (const t of svg.querySelectorAll('text.abcjs-chord')) {
-          const chord = chordPcs(t.textContent); if (!chord) continue;
-          const bb = t.getBBox(), k = Math.max(4, bb.height * 0.3);
-          const { g, h } = chordGlyph(t.parentNode, chord, bb.x + bb.width + 3, 0, k);
-          g.setAttribute('transform', `translate(0 ${(bb.y + bb.height / 2 - h / 2).toFixed(1)})`);
-          if (ki) {
-            const rn = romanOf(chord, ki.minor ? (ki.doPc + 9) % 12 : ki.doPc, ki.minor), col = FUNCTION_COLOR[rn.f];   // numerals count from the key's own tonic
-            const fs = bb.height * 0.62, w = Math.max(fs * 0.75 * rn.n.length + 6, fs * 1.4), ph = fs * 1.25;
-            const pill = svgEl(t.parentNode, 'g', { class: 'numeral' });
-            pill.innerHTML = `<title>${FUNCTION_NAME[rn.f]}</title>`;
-            svgEl(pill, 'rect', { x: (bb.x + bb.width / 2 - w / 2).toFixed(1), y: (bb.y + bb.height + 1).toFixed(1), width: w.toFixed(1), height: ph.toFixed(1), rx: (ph / 2).toFixed(1), fill: col, 'fill-opacity': 0.18, stroke: col, 'stroke-width': 0.8 });
-            svgText(pill, 'lbl', bb.x + bb.width / 2, bb.y + bb.height + 1 + ph / 2 + 0.5, fs, col, rn.n, 'middle');
-          }
-        }
+        for (const t of svg.querySelectorAll('text.abcjs-chord')) this.decorateChord(t);
+        this.indexChords();
+        this.cyc = 0; this.cycleSegs = null;
+        if (this.chart && this.chart.choruses.some(c => c.bars)) this.relabel(0);
         const accScale = cssNum('--acc-size', 1.8);
         this.dispElems.forEach((el, i) => {
           const abs = el.abselem, pitches = this.spelled[i];
@@ -2293,7 +2550,6 @@
         this.k = null; this.beatK = null;
         this.vizSchedule();
         this.player.setTempo(beatMs / this.beatLen());
-        this.bandPlayer.prepare();
         this.player.compile();
       }
       lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
@@ -2337,6 +2593,9 @@
         if (!tl || this.idle) return;
         const t = this.now();
         if (this.leadIn && t >= 0) this.leadIn = false;
+        // The time round: its chorus's chords on the symbols and under the instrument.
+        const cyc = t >= 0 && tl.total > 0 ? Math.floor(this.player.position() / tl.total) : 0;
+        if (cyc !== this.cyc) { this.cyc = cyc; this.relabel(cyc); this.k = null; }
         const g = this.cursor();
         // The sounding event: marks change only when it changes.
         const k = t < 0 ? -1 : this.indexAt(t);
@@ -2412,8 +2671,13 @@
         const dir = /flat/.test(acc || '') ? 'down' : /sharp/.test(acc || '') ? 'up' : acc === 'natural' ? (flats ? 'up' : 'down') : null;
         return solfege(pc, doPc, dir);
       }
-      // The chord symbol in force at a timing event: the last one at or before it.
+      // The chord in force at a timing event: this time round's, else the written one.
       chordAt(ev) {
+        if (this.cycleSegs && ev) { let c = null; for (const sg of this.cycleSegs) { if (sg.ms <= ev.milliseconds + 1) c = sg.chord; else break; } return c; }
+        return this.writtenChordAt(ev);
+      }
+      // The written chord symbol in force at a timing event: the last one at or before it.
+      writtenChordAt(ev) {
         const ts = this.timings(); const i = this.vizIndex(ev); let found = null;
         for (let j = 0; j <= i && j < ts.length; j++) for (const arr of ts[j].elements || []) for (const el of (Array.isArray(arr) ? arr : [arr])) {
           const k = this.hiddenIndex.get(el); const oe = k === undefined ? null : this.origElems[k];
@@ -2449,6 +2713,7 @@
       placeReady() {
         this.idle = true; this.k = null; this.beatK = null;
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
+        if (this.cyc) { this.cyc = 0; this.relabel(0); }
         this.clearPlaying();
         if (this.viz) this.viz.clear();
         const x = this.startX(), g = this.cursor();
