@@ -5,7 +5,9 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | Path | What it is |
 |---|---|
 | `analyze.js` | The analyzer. Measures a parsed abcjs tune, tags the skills it needs, grades it against the skill lattice, and orders a set of tunes so each introduces as little as possible. Runs in Node and in a page (`GCSAnalyze`). |
-| `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV and a Markdown sequence. |
+| `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
+| `board.html` | **The route board.** The current set as a climbing wall: one column per level, several tunes in each, with an incipit, the skills each asks for, who has sent it, and Open, which plays it in the main page. |
+| `set.json` | The current tune set, written by the CLI. |
 | `samples/` | A dozen public domain tunes typed as test material. |
 
 ## Running
@@ -21,6 +23,22 @@ node course/analyze-cli.js path/to/tunes --ignore key --json out/report.json --c
 `--ignore key` leaves the key signature out of the level, which suits this page because Transpose moves every tune to whatever key the class reads; `--ignore key,range` also drops range for pianists. Ignored dimensions are still measured and reported. `--min N` skips fragments shorter than N notes; `--show N` lists N tunes per level.
 
 The JSON holds every tune's ABC, features, grade and the skills it introduces at its place in the sequence, which is what a course page will load. The CSV is one row per tune for a spreadsheet. The Markdown is the sequence as a table.
+
+## The route board
+
+`board.html` reads `set.json` and lays the set out like a gym wall. Serve the folder (`serve.command`, or GitHub Pages) and open `course/board.html`; a page opened from disk cannot read the set.
+
+- **Roster** takes one name per line. With *Everyone* selected, each card's *Who sent it* opens chips to tap for each student; with a student selected, each card has one *Mark sent* button, sent routes turn green, the header counts their sends per level, and the lowest level with a route still unsent is outlined as the one to try next.
+- **Open** builds a share link (the same format as the main page's Share link) carrying the tune as a heading and a notation cell and opens the main page with it, ready to Play or Game. If the page already holds a lesson of your own, it asks before replacing it.
+- Names and sends live in the browser's storage, under their own key, apart from lessons. **Export** writes them to a file and **Import** merges one back, so a class can move between computers. The light or dark setting is shared with the main page.
+
+A set is made from any graded folder:
+
+```bash
+node course/analyze-cli.js course/samples path/to/tunes --ignore key --set course/set.json --per-level 6 --name "Set of 8 November"
+```
+
+`--per-level N` takes the first N tunes at each level in sequence order, so the earliest ones introduce one skill each; `--skip K` passes over the first K at each level, which is how the next set rotates to new tunes a fortnight later. Tunes titled "Missing title" are left out. The first committed set is the sample tunes plus the easiest tunes from the Nottingham database (its originals, which are public domain melodies transcribed for free use): levels 1 and 2 have one tune each until a set of beginner songs is typed.
 
 ## What is measured
 

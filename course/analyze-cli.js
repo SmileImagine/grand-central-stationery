@@ -13,6 +13,10 @@
                  introduces in the suggested sequence
     --csv FILE   one row per tune, features and rungs, for a spreadsheet
     --md FILE    the suggested sequence as a Markdown table
+    --set FILE   write a tune set for the route board (course/board.html):
+                 --per-level N tunes at each level (default 6), taken in
+                 sequence order, --skip K skipping the first K at each level
+                 so a later set rotates to new tunes; --name "Set title"
     --min N      skip tunes with fewer than N notes (default 4)
     --show N     tunes to list per level on stdout (default 5)
     --ignore D   leave dimensions out of the level, comma separated
@@ -25,11 +29,13 @@ const ABCJS = require(path.join(__dirname, '..', 'vendor', 'abcjs-basic-min.js')
 const A = require(path.join(__dirname, 'analyze.js'));
 
 const args = process.argv.slice(2);
-const opt = { json: null, csv: null, md: null, min: 4, show: 5, ignore: [] };
+const opt = { json: null, csv: null, md: null, set: null, name: null, perLevel: 6, skip: 0, min: 4, show: 5, ignore: [] };
 const inputs = [];
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
-  if (a === '--json' || a === '--csv' || a === '--md') opt[a.slice(2)] = args[++i];
+  if (a === '--json' || a === '--csv' || a === '--md' || a === '--set' || a === '--name') opt[a.slice(2)] = args[++i];
+  else if (a === '--per-level') opt.perLevel = +args[++i];
+  else if (a === '--skip') opt.skip = +args[++i];
   else if (a === '--min' || a === '--show') opt[a.slice(2)] = +args[++i];
   else if (a === '--ignore') opt.ignore = args[++i].split(',').map(s => s.trim()).filter(Boolean);
   else if (a === '-h' || a === '--help') { console.log(fs.readFileSync(__filename, 'utf8').split('*/')[0].replace(/^\/\*\n?/, '')); process.exit(0); }
@@ -100,4 +106,21 @@ if (opt.md) {
   seq.forEach((r, i) => { const f = r.features; lines.push(`| ${i + 1} | ${r.grade.level} | ${f.title.replace(/\|/g, '/')} | ${f.keyName} | ${f.metreNum}/${f.metreDen} | ${f.barCount} | ${r.introduces.join(', ')} |`); });
   fs.writeFileSync(opt.md, lines.join('\n') + '\n');
   console.log(`Wrote ${opt.md}`);
+}
+if (opt.set) {
+  ensureDir(opt.set);
+  const slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const usable = seq.filter(r => r.features.title && !/^missing title/i.test(r.features.title));
+  const tunes = [];
+  for (let l = 1; l <= 6; l++) {
+    for (const r of usable.filter(r => r.grade.level === l).slice(opt.skip, opt.skip + opt.perLevel)) {
+      const f = r.features;
+      tunes.push({ id: slug(path.basename(f.file, '.abc') + '-' + (f.index + 1) + '-' + f.title), title: f.title, level: l, score: r.grade.score, key: f.keyName, metre: `${f.metreNum}/${f.metreDen}`,
+        bars: f.barCount, origin: f.origin || '', composer: f.composer || '', rhythm: f.rhythm || '', source: f.file, skills: f.skills, introduces: r.introduces, abc: r.abc.trim() + '\n' });
+    }
+  }
+  const set = { name: opt.name || `Set of ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`, generated: new Date().toISOString().slice(0, 10), perLevel: opt.perLevel, skip: opt.skip,
+    levels: Object.fromEntries([1, 2, 3, 4, 5, 6].map(l => [l, dims.filter(d => !opt.ignore.includes(d)).map(d => A.LATTICE[d].rungs[l - 1].name)])), tunes };
+  fs.writeFileSync(opt.set, JSON.stringify(set, null, 1));
+  console.log(`Wrote ${opt.set}: ${tunes.length} tunes (${[1, 2, 3, 4, 5, 6].map(l => tunes.filter(t => t.level === l).length).join('/')} per level)`);
 }
