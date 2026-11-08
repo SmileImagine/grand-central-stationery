@@ -101,7 +101,9 @@
       <div class="views" id="dviews">
         <button data-view="feet" class="on">Footprints</button><button data-view="laban">Columns</button><button data-view="benesh">Stave</button><button data-view="figs">Figures</button>
       </div>
+      <label>Seen from <select id="facing"><option value="behind">behind (left is left)</option><option value="front">in front (mirrored, as the class sees you)</option></select></label>
       <div class="warn" id="dwarn"></div>
+      <p class="help"><b>Seen from</b> turns the dancer round: from behind, left is on the left; from in front, the figure is mirrored, so a class copying the teacher can follow it. The Columns keep the dancer's own left and right, as Labanotation does.</p>
       <p class="help"><b>One token per beat.</b> <code>feet:</code> a foot and a direction: <code>L</code>/<code>R</code> step onto it, <code>l</code>/<code>r</code> touch without weight; <code>f</code> forward <code>b</code> back <code>s</code> side <code>x</code> across <code>c</code> close (<code>Ls</code> step left to the side). <code>J</code> jump, <code>H</code> hop, <code>K</code> kick, <code>.</code> hold, <code>Ls-Rc</code> two moves in one beat. <code>arms:</code> <code>u</code> up <code>o</code> out <code>d</code> down <code>c</code> clap <code>h</code> hips <code>.</code> hold. The Rhythm tab's pattern plays underneath.</p>
     </aside>
     <div class="stage" id="dstage"></div>
@@ -397,16 +399,17 @@ const frameAt = (d, p) => { let k = 0; for (let i = 0; i < d.frames.length; i++)
 
 /* ================= dance views ================= */
 const DV = {};
-const FOOT = (x, y, side, scale, fill, stroke, extra = '') => `<g transform="translate(${x} ${y}) scale(${side * scale} ${-scale})"${extra}><path d="M-9,-18 C-15,-6 -15,10 -9,22 C-4,28 6,28 10,22 C14,12 13,-2 8,-14 C12,-22 6,-30 0,-28 C-6,-26 -8,-23 -9,-18 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / scale}" stroke-linejoin="round"/></g>`;
+const FOOT = (x, y, side, scale, fill, stroke, extra = '') => `<g transform="translate(${x} ${y}) scale(${side * Math.abs(scale)} ${-scale})"${extra}><path d="M-9,-18 C-15,-6 -15,10 -9,22 C-4,28 6,28 10,22 C14,12 13,-2 8,-14 C12,-22 6,-30 0,-28 C-6,-26 -8,-23 -9,-18 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / Math.abs(scale)}" stroke-linejoin="round"/></g>`;
 // Footprints: the floor from above, every step printed with its count, the step being taken lit, the ones just taken fading.
 DV.feet = {
   build(el, d) {
     const xs = d.frames.flatMap(f => [f.L.x, f.R.x]), ys = d.frames.flatMap(f => [f.L.y, f.R.y, f.kind === 'kick' ? f.L.y + 1.2 : 0]);
     const minX = Math.min(-1.5, ...xs) - 1.2, maxX = Math.max(1.5, ...xs) + 1.2, minY = Math.min(0, ...ys) - 1, maxY = Math.max(0, ...ys) + 1;
     const U = 60, W = (maxX - minX) * U, floorH = (maxY - minY) * U, H = floorH + 56;
-    const X = x => (x - minX) * U, Y = y => (maxY - y) * U;
+    const front = state.facing === 'front';
+    const X = x => front ? (maxX - x) * U : (x - minX) * U, Y = y => front ? (y - minY) * U : (maxY - y) * U, side = F => (F === 'L' ? -1 : 1) * (front ? -1 : 1);
     let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><defs><pattern id="floor" width="${U}" height="${U}" patternUnits="userSpaceOnUse"><path d="M${U},0 L0,0 0,${U}" fill="none" stroke="#eee"/></pattern></defs><rect width="${W}" height="${floorH}" fill="url(#floor)"/>`;
-    s += `<text x="${W / 2}" y="22" text-anchor="middle" font-size="14" fill="#999">forward ↑</text>`;
+    s += `<text x="${W / 2}" y="${front ? floorH - 10 : 22}" text-anchor="middle" font-size="14" fill="#999">${front ? 'forward ↓ (seen from in front)' : 'forward ↑'}</text>`;
     // prints that land on the same spot share one footprint and list their counts
     const groups = new Map();
     d.frames.forEach((f, i) => {
@@ -420,16 +423,16 @@ DV.feet = {
     });
     for (const g of groups.values()) {
       const col = g.F === 'L' ? LEFT : RIGHT, label = g.counts.join(' ');
-      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), g.F === 'L' ? -1 : 1, 1, g.hollow ? '#fff' : col, col)}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 6}" text-anchor="middle" font-size="${label.length > 3 ? 13 : 18}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
+      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), side(g.F), front ? -1 : 1, g.hollow ? '#fff' : col, col)}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 6}" text-anchor="middle" font-size="${label.length > 3 ? 13 : 18}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
     }
     s += `<g id="standing"></g><text id="say" x="${W / 2}" y="${H - 16}" text-anchor="middle" font-size="24" font-weight="600" fill="#333"></text></svg>`;
-    el.innerHTML = s; this.d = d; this.X = X; this.Y = Y; this.prints = [...el.querySelectorAll('.print')]; this.standing = el.querySelector('#standing'); this.say = el.querySelector('#say');
+    el.innerHTML = s; this.d = d; this.X = X; this.Y = Y; this.side = side; this.flip = front ? -1 : 1; this.prints = [...el.querySelectorAll('.print')]; this.standing = el.querySelector('#standing'); this.say = el.querySelector('#say');
   },
   paint(p) {
     const d = this.d, k = frameAt(d, p), f = d.frames[k];
     for (const g of this.prints) { let age = Infinity; for (const i of g.dataset.i.split(' ').map(Number)) { let a = k - i; if (a < 0) a += d.frames.length; age = Math.min(age, a); } g.setAttribute('opacity', age === 0 ? 1 : age === 1 ? .7 : age === 2 ? .45 : .2); g.style.filter = age === 0 ? `drop-shadow(0 0 6px ${HI})` : ''; }
     // the standing feet: outlines where the weight is now
-    let s = ''; for (const F of ['L', 'R']) { if (f.moving === F || f.moving === 'B') continue; const lifted = f.lift === F; s += FOOT(this.X(f[F].x), this.Y(f[F].y), F === 'L' ? -1 : 1, lifted ? .7 : 1, f.weight === F || f.weight === 'B' ? (F === 'L' ? LEFT : RIGHT) : '#fff', F === 'L' ? LEFT : RIGHT, ` opacity=".55"`); }
+    let s = ''; for (const F of ['L', 'R']) { if (f.moving === F || f.moving === 'B') continue; const lifted = f.lift === F; s += FOOT(this.X(f[F].x), this.Y(f[F].y), this.side(F), (lifted ? .7 : 1) * this.flip, f.weight === F || f.weight === 'B' ? (F === 'L' ? LEFT : RIGHT) : '#fff', F === 'L' ? LEFT : RIGHT, ` opacity=".55"`); }
     this.standing.innerHTML = s;
     const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' };
     const dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', c: ' together', p: '' };
@@ -494,7 +497,7 @@ DV.benesh = {
     ['head', 'shoulders', 'waist', 'knees', 'floor'].forEach((nm, i) => { s += `<line x1="${left - 10}" x2="${W - 10}" y1="${LY[i]}" y2="${LY[i]}" stroke="#333" stroke-width="1.5"/><text x="${left - 16}" y="${LY[i] + 4}" text-anchor="end" font-size="12" fill="#777">${nm}</text>`; });
     this.frames = [];
     d.frames.forEach((f, i) => {
-      const x0 = left + i * frameW, cx = x0 + frameW / 2;
+      const x0 = left + i * frameW, cx = x0 + frameW / 2, m = state.facing === 'front' ? -1 : 1;
       if (f.beat === 0 && f.sub === 0) s += `<line x1="${x0}" x2="${x0}" y1="${LY[0] - 10}" y2="${LY[4] + 10}" stroke="#333" stroke-width="2"/>`;
       s += `<rect class="fr" data-i="${i}" x="${x0 + 2}" y="${LY[0] - 14}" width="${frameW - 4}" height="${LY[4] - LY[0] + 28}" fill="#fff1c7" fill-opacity="0" rx="6"/>`;
       s += `<text x="${cx}" y="${LY[4] + 40}" text-anchor="middle" font-size="16" fill="#777">${countOf(f)}</text>`;
@@ -502,12 +505,12 @@ DV.benesh = {
       s += `<g stroke="#bbb" stroke-width="2.5" fill="none"><circle cx="${cx}" cy="${LY[0] + 14}" r="13"/><line x1="${cx}" x2="${cx}" y1="${LY[0] + 27}" y2="${LY[2] + 10}"/></g>`;
       const mark = (kind, x, y, col) => kind === 'level' ? `<line x1="${x - 12}" x2="${x + 12}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>` : kind === 'front' ? `<line x1="${x}" x2="${x}" y1="${y - 12}" y2="${y + 12}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>` : `<circle cx="${x}" cy="${y}" r="6" fill="${col}"/>`;
       // feet: sideways offset from the body, kind by forward/back, raised to the knee line when lifted
-      for (const F of ['L', 'R']) { const pt = f[F], col = F === 'L' ? LEFT : RIGHT; const x = cx + pt.x * 20, lifted = f.lift === F, y = lifted ? LY[3] - 6 : LY[4]; const rel = pt.y - f[F === 'L' ? 'R' : 'L'].y; s += mark(lifted ? 'front' : rel > .3 ? 'front' : rel < -.3 ? 'behind' : 'level', x, y, col); if (f.kind === 'jump') s += `<text x="${x}" y="${LY[4] - 14}" text-anchor="middle" font-size="11" fill="${col}">↑</text>`; }
+      for (const F of ['L', 'R']) { const pt = f[F], col = F === 'L' ? LEFT : RIGHT; const x = cx + pt.x * 20 * m, lifted = f.lift === F, y = lifted ? LY[3] - 6 : LY[4]; const rel = pt.y - f[F === 'L' ? 'R' : 'L'].y; s += mark(lifted ? 'front' : rel > .3 ? 'front' : rel < -.3 ? 'behind' : 'level', x, y, col); if (f.kind === 'jump') s += `<text x="${x}" y="${LY[4] - 14}" text-anchor="middle" font-size="11" fill="${col}">↑</text>`; }
       // hands by the arm word
       const hands = { u: [[-16, LY[0] - 20, 'level'], [16, LY[0] - 20, 'level']], o: [[-38, LY[1], 'level'], [38, LY[1], 'level']], d: [[-16, LY[2] + 14, 'level'], [16, LY[2] + 14, 'level']], c: [[-5, LY[1] + 20, 'front'], [5, LY[1] + 20, 'front']], h: [[-20, LY[2] + 4, 'behind'], [20, LY[2] + 4, 'behind']] }[f.arms] || [];
-      hands.forEach((h, k) => { s += mark(h[2], cx + h[0], h[1], k === 0 ? LEFT : RIGHT); });
+      hands.forEach((h, k) => { s += mark(h[2], cx + h[0] * m, h[1], k === 0 ? LEFT : RIGHT); });
     });
-    s += `<text x="${W - 8}" y="${H - 6}" text-anchor="end" font-size="12" fill="#999">– level with the body   | in front   • behind   (seen from behind)</text></svg>`;
+    s += `<text x="${W - 8}" y="${H - 6}" text-anchor="end" font-size="12" fill="#999">– level with the body   | in front   • behind   (seen from ${state.facing === 'front' ? 'in front, mirrored' : 'behind'})</text></svg>`;
     el.innerHTML = s; this.d = d; this.cells = [...el.querySelectorAll('.fr')];
   },
   paint(p) { const k = frameAt(this.d, p); this.cells.forEach(c => c.setAttribute('fill-opacity', +c.dataset.i === k ? .9 : 0)); }
@@ -519,8 +522,11 @@ DV.figs = {
     const footX = F => cx + f[F].x * 1.1 * u, footY = F => { const rel = f[F].y - (f.L.y + f.R.y) / 2; return (f.lift === F ? floor - 1.6 * u : floor) + rel * .45 * u; };
     const hands = { u: [[-1.4, -6.2], [1.4, -6.2]], o: [[-3.6, -3.4], [3.6, -3.4]], d: [[-1.5, 0.6], [1.5, 0.6]], c: [[-.3, -2.4], [.3, -2.4]], h: [[-1.5, -0.4], [1.5, -0.4]] }[f.arms] || [[-1.5, .6], [1.5, .6]];
     const w = big ? 7 : 3.2, armW = big ? 5 : 2.4;
-    let s = `<g stroke-linecap="round" stroke-linejoin="round" fill="none">`;
-    s += `<circle cx="${cx}" cy="${headY}" r="${u * .9}" fill="#fff" stroke="#333" stroke-width="${w * .6}"/><line x1="${cx}" x2="${cx}" y1="${headY + u * .9}" y2="${hip}" stroke="#333" stroke-width="${w}"/>`;
+    const front = state.facing === 'front';
+    let s = `<g stroke-linecap="round" stroke-linejoin="round" fill="none" transform="scale(${front ? -1 : 1} 1)">`;
+    s += `<circle cx="${cx}" cy="${headY}" r="${u * .9}" fill="#fff" stroke="#333" stroke-width="${w * .6}"/>`;
+    if (front) s += `<circle cx="${cx - u * .3}" cy="${headY - u * .15}" r="${u * .09}" fill="#333"/><circle cx="${cx + u * .3}" cy="${headY - u * .15}" r="${u * .09}" fill="#333"/><path d="M${cx - u * .3},${headY + u * .35} Q${cx},${headY + u * .6} ${cx + u * .3},${headY + u * .35}" stroke="#333" stroke-width="${w * .4}"/>`;
+    s += `<line x1="${cx}" x2="${cx}" y1="${headY + u * .9}" y2="${hip}" stroke="#333" stroke-width="${w}"/>`;
     for (const [F, i] of [['L', 0], ['R', 1]]) {
       const col = F === 'L' ? LEFT : RIGHT, weight = f.weight === F || f.weight === 'B', moving = f.moving === F || f.moving === 'B';
       const hx = cx + hands[i][0] * u, hy = shoulder + hands[i][1] * u + 3.4 * u, ex = (cx + hx) / 2 + (hands[i][1] > -4 ? (i ? 1 : -1) * .8 * u : 0), ey = (shoulder + hy) / 2 + .4 * u;
@@ -534,7 +540,7 @@ DV.figs = {
   },
   build(el, d) {
     const n = d.frames.length, cellW = 110, W = Math.max(700, n * cellW + 20), H = 560;
-    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><text x="${W / 2}" y="22" text-anchor="middle" font-size="14" fill="#999">${state.facing === 'front' ? 'seen from in front: the dancer faces you, so their left is on your right' : 'seen from behind: left is left'}</text>`;
     s += `<g id="bigfig" transform="translate(${W / 2} 220)"></g><text id="bigsay" x="${W / 2}" y="372" text-anchor="middle" font-size="22" font-weight="600" fill="#333"></text>`;
     d.frames.forEach((f, i) => { const x = 10 + i * cellW + cellW / 2; s += `<rect class="fr" data-i="${i}" x="${10 + i * cellW + 2}" y="392" width="${cellW - 4}" height="160" rx="8" fill="#fff1c7" fill-opacity="0" stroke="${f.beat === 0 && f.sub === 0 ? '#999' : '#e4e4e4'}"/><g transform="translate(${x} 470)">${this.figure(f, 110, false)}</g><text x="${x}" y="545" text-anchor="middle" font-size="15" fill="#777">${countOf(f)}</text>`; });
     s += `</svg>`; el.innerHTML = s; this.d = d; this.big = el.querySelector('#bigfig'); this.say = el.querySelector('#bigsay'); this.cells = [...el.querySelectorAll('.fr')]; this.k = -1;
@@ -567,7 +573,7 @@ const DANCES = {
 };
 
 /* ================= wiring ================= */
-const state = { tab: 'rhythm', rview: 'grid', dview: 'feet', r: null, d: null, view: null };
+const state = { tab: 'rhythm', rview: 'grid', dview: 'feet', facing: 'behind', r: null, d: null, view: null };
 const rtext = $('#rtext'), dtext = $('#dtext'), rwarn = $('#rwarn'), dwarn = $('#dwarn');
 for (const k in RHYTHMS) $('#rpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
 for (const k in DANCES) $('#dpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
@@ -575,6 +581,7 @@ rtext.value = RHYTHMS['Rock beat']; dtext.value = DANCES['Step touch'].text;
 $('#rpreset').onchange = e => { rtext.value = RHYTHMS[e.target.value]; rebuild(); };
 $('#dpreset').onchange = e => { const d = DANCES[e.target.value]; dtext.value = d.text; if (d.rhythm) { rtext.value = RHYTHMS[d.rhythm]; $('#rpreset').value = d.rhythm; } rebuild(); };
 rtext.oninput = dtext.oninput = () => rebuild();
+$('#facing').onchange = e => { state.facing = e.target.value; rebuild(); };
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { state.tab = b.dataset.tab; document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('on', s.id === state.tab)); rebuild(); });
 $('#rviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.rview = b.dataset.view; [...$('#rviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
 $('#dviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.dview = b.dataset.view; [...$('#dviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
