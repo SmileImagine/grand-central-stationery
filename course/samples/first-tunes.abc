@@ -1,0 +1,103 @@
+% Public domain melodies, typed from memory as test material for the analyzer.
+% Nursery, folk and hymn tunes; composers dead for well over a century.
+
+X:1
+T:Hot Cross Buns
+O:England
+M:4/4
+L:1/4
+K:G
+B A G2 | B A G2 | G G G G | A A A A | B A G2 |]
+
+X:2
+T:Mary Had a Little Lamb
+O:USA
+M:4/4
+L:1/4
+K:G
+B A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]
+
+X:3
+T:Twinkle, Twinkle, Little Star
+O:France
+M:4/4
+L:1/4
+K:C
+C C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]
+
+X:4
+T:Ode to Joy
+C:Ludwig van Beethoven
+M:4/4
+L:1/4
+K:C
+E E F G | G F E D | C C D E | E3/2 D/2 D2 | E E F G | G F E D | C C D E | D3/2 C/2 C2 |
+D D E C | D E/2F/2 E C | D E/2F/2 E D | C D G,2 | E E F G | G F E D | C C D E | D3/2 C/2 C2 |]
+
+X:5
+T:Yankee Doodle
+O:USA
+M:2/4
+L:1/8
+K:G
+G G A B | G B A D | G G A B | G2 F2 | G G A B | c B A G | F D E F | G2 G2 |]
+
+X:6
+T:Amazing Grace
+O:USA
+M:3/4
+L:1/4
+K:G
+D | G2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | d3 | d2 B/2d/2 |
+d2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | G3 | G2 |]
+
+X:7
+T:Oh! Susanna
+C:Stephen Foster
+M:2/4
+L:1/8
+K:G
+G/2A/2 | B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |]
+
+X:8
+T:Greensleeves
+O:England
+M:6/8
+L:1/8
+K:Em
+E | G2 A B>c B | A2 F D>E F | G2 E E>^D E | F2 ^D B,2 E | G2 A B>c B | A2 F D>E F | G2 E ^D>E ^C | E3 E2 |]
+
+X:9
+T:Scarborough Fair
+O:England
+M:3/4
+L:1/4
+K:Ador
+A2 A | e2 e | B c B | A3 | A2 c | e2 ^f | g e d | c3 |
+c2 d | e2 c | B A G | A3 | A2 c | e2 ^f | g e d | c3 |]
+
+X:10
+T:The Irish Washerwoman
+R:jig
+O:Ireland
+M:6/8
+L:1/8
+K:G
+d | GDG BGB | dBd g2d | ege dBG | ABA A2d | GDG BGB | dBd g2d | ege dBG | AGF G2 |]
+
+X:11
+T:Soldier's Joy
+R:reel
+O:England
+M:4/4
+L:1/8
+K:D
+d2 ef d2 cd | B2 AB d2 fg | afef dcde | fedc d4 | d2 ef d2 cd | B2 AB d2 fg | afef dBAF | A2 G2 F2 D2 |]
+
+X:12
+T:The Entertainer (opening)
+C:Scott Joplin
+M:2/4
+L:1/16
+K:C
+d e c2 e2 c2 | e2 c6 | c d ^d e2 c d2 | e4 B2 d2 | c6 z2 |]

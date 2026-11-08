@@ -1,0 +1,35 @@
+% Famous classical openings, typed from memory. The composers died well over
+% a century ago, so the melodies are public domain; these transcriptions are
+% our own, not taken from any edition.
+
+X:1
+T:Symphony No. 5 (opening)
+C:Ludwig van Beethoven
+M:2/4
+L:1/8
+K:Cm
+z G G G | _E4 | z F F F | D4- | D4 |]
+
+X:2
+T:Eine kleine Nachtmusik (opening)
+C:Wolfgang Amadeus Mozart
+M:4/4
+L:1/8
+K:G
+G2 z D G2 z D | G D G B d2 z2 | c2 z A c2 z A | c A ^F A D2 z2 |]
+
+X:3
+T:Surprise Symphony (theme)
+C:Joseph Haydn
+M:2/4
+L:1/8
+K:C
+CC EE | GG E2 | FF DD | B,B, G,2 | CC EE | GG E2 | FF DD | G,2 z2 |]
+
+X:4
+T:In the Hall of the Mountain King
+C:Edvard Grieg
+M:4/4
+L:1/8
+K:Am
+A B c d e c e2 | ^d B ^d2 =d ^A =d2 | A B c d e c e a | g e c e g4 |]
