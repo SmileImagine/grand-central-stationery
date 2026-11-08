@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rhythm and Dance v1</title>
+<!--
+  Grand Central Stationery lab: prototypes for teaching pure rhythm (one drum or
+  several) and dance steps. No libraries; sounds are synthesised, so the page
+  works from a file:// path. One AudioContext clock plays everything, and every
+  view is painted from the playhead (the same rule as the main page).
+
+  Rhythm views:  Grid (box notation / TUBS), Wheel (rhythm necklace, one ring per
+                 drum, so polyrhythms show), Syllables (Kodály stick notation with
+                 ta / ti-ti words), Body (body percussion: the figure flashes the
+                 part that plays).
+  Dance views:   Footprints (floor chart), Columns (Labanotation-style staff: a
+                 centre line, one column per body part on each side, time flowing
+                 upward, signs whose length is their duration), Stave (Benesh-style
+                 five-line stave read like music, head / shoulder / waist / knee /
+                 floor), Figures (a strip of stick-figure poses with the current
+                 pose large).
+-->
+<style>
+  :root {
+    --ink: #222; --bg: #fff; --panel: #fafafa; --line: #ddd; --line-2: #eee; --muted: #777;
+    --hi: #ffb300; --hi-soft: #fff1c7;
+    --left: #e5533d; --right: #2b78c2;
+    --c0: #e5533d; --c1: #2b78c2; --c2: #e8b400; --c3: #3aa655; --c4: #9b59b6; --c5: #e67e22; --c6: #16a2a2; --c7: #888;
+    --font: 'Atkinson Hyperlegible', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--font); }
+  body { display: flex; flex-direction: column; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 8px 14px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  h1 { font-size: 18px; margin: 0; font-weight: 700; }
+  h1 small { color: var(--muted); font-weight: 400; margin-left: 6px; }
+  .tabs button, .views button { font: inherit; font-size: 14px; padding: 5px 12px; border: 1px solid var(--line); background: #fff; border-radius: 6px; cursor: pointer; color: var(--ink); }
+  .tabs button.on, .views button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .transport { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+  .tbtn { font-size: 18px; width: 40px; height: 34px; border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer; }
+  .tbtn.on { background: var(--hi-soft); border-color: var(--hi); }
+  label { font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; }
+  input[type=number] { width: 58px; font: inherit; font-size: 14px; padding: 3px 4px; }
+  main { flex: 1; min-height: 0; display: flex; }
+  section.tab { display: none; flex: 1; min-width: 0; }
+  section.tab.on { display: flex; }
+  aside { width: 320px; flex: 0 0 320px; padding: 10px 12px; border-right: 1px solid var(--line); overflow: auto; display: flex; flex-direction: column; gap: 8px; background: var(--panel); }
+  aside select, aside textarea { font: inherit; width: 100%; box-sizing: border-box; }
+  aside textarea { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; min-height: 130px; resize: vertical; padding: 6px; border: 1px solid var(--line); border-radius: 6px; }
+  .views { display: flex; flex-wrap: wrap; gap: 4px; }
+  .help { font-size: 12.5px; color: var(--muted); line-height: 1.4; margin: 0; }
+  .help b { color: var(--ink); font-weight: 600; }
+  .help code { font-family: ui-monospace, Menlo, monospace; background: #eee; padding: 0 3px; border-radius: 3px; color: var(--ink); }
+  .warn { font-size: 12.5px; color: #b3261e; white-space: pre-line; }
+  .stage { flex: 1; min-width: 0; min-height: 0; padding: 10px; display: flex; }
+  .stage svg { width: 100%; height: 100%; display: block; }
+  .stage .split { display: flex; width: 100%; gap: 10px; }
+  .stage .split > * { flex: 1; min-width: 0; }
+  text { font-family: var(--font); }
+  .lamp { width: 14px; height: 14px; border-radius: 50%; background: #ddd; display: inline-block; }
+  .lamp.on { background: var(--hi); box-shadow: 0 0 10px var(--hi); }
+  .legend { font-size: 12px; color: var(--muted); }
+  @media (max-width: 760px) {
+    main { flex-direction: column; } section.tab.on { flex-direction: column; }
+    aside { width: auto; flex: 0 0 auto; border-right: 0; border-bottom: 1px solid var(--line); }
+    .stage { min-height: 60vh; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Rhythm &amp; Dance <small>lab v1</small></h1>
+  <nav class="tabs"><button data-tab="rhythm" class="on">Rhythm</button><button data-tab="dance">Dance</button></nav>
+  <div class="transport">
+    <span class="lamp" id="lamp"></span>
+    <button class="tbtn" id="play" title="Play / pause (space)">▶</button>
+    <button class="tbtn" id="stop" title="Stop">■</button>
+    <label>BPM <input id="bpm" type="number" value="80" min="30" max="240"></label>
+    <label><input id="loop" type="checkbox" checked> Repeat</label>
+    <label><input id="click" type="checkbox"> Click</label>
+    <label><input id="countin" type="checkbox" checked> Count-in</label>
+  </div>
+</header>
+<main>
+  <section id="rhythm" class="tab on">
+    <aside>
+      <select id="rpreset"></select>
+      <textarea id="rtext" spellcheck="false"></textarea>
+      <div class="views" id="rviews">
+        <button data-view="grid" class="on">Grid</button><button data-view="wheel">Wheel</button><button data-view="syll">Syllables</button><button data-view="body">Body</button>
+      </div>
+      <div class="warn" id="rwarn"></div>
+      <p class="help"><b>One line per drum.</b> <code>name: steps</code>, the steps of a bar sharing it equally: <code>x</code> hit, <code>X</code> accent, <code>o</code> soft, <code>.</code> rest; spaces are ignored, <code>|</code> starts a new bar. A line with 3 steps against one with 2 is a polyrhythm. <code>meter: 3/4</code> sets the beats in a bar. Drums: kick snare hat open rim clap tom low wood bell clave shaker; body: stomp clap pat snap click. The Body view plays every line as body percussion.</p>
+    </aside>
+    <div class="stage" id="rstage"></div>
+  </section>
+  <section id="dance" class="tab">
+    <aside>
+      <select id="dpreset"></select>
+      <textarea id="dtext" spellcheck="false"></textarea>
+      <div class="views" id="dviews">
+        <button data-view="feet" class="on">Footprints</button><button data-view="laban">Columns</button><button data-view="benesh">Stave</button><button data-view="figs">Figures</button>
+      </div>
+      <div class="warn" id="dwarn"></div>
+      <p class="help"><b>One token per beat.</b> <code>feet:</code> a foot and a direction: <code>L</code>/<code>R</code> step onto it, <code>l</code>/<code>r</code> touch without weight; <code>f</code> forward <code>b</code> back <code>s</code> side <code>x</code> across <code>c</code> close (<code>Ls</code> step left to the side). <code>J</code> jump, <code>H</code> hop, <code>K</code> kick, <code>.</code> hold, <code>Ls-Rc</code> two moves in one beat. <code>arms:</code> <code>u</code> up <code>o</code> out <code>d</code> down <code>c</code> clap <code>h</code> hips <code>.</code> hold. The Rhythm tab's pattern plays underneath.</p>
+    </aside>
+    <div class="stage" id="dstage"></div>
+  </section>
+</main>
+<script>
+'use strict';
+const $ = s => document.querySelector(s);
+const COLOURS = ['#e5533d', '#2b78c2', '#e8b400', '#3aa655', '#9b59b6', '#e67e22', '#16a2a2', '#888'];
+const LEFT = '#e5533d', RIGHT = '#2b78c2', HI = '#ffb300';
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* ================= sound: a small synthesised kit ================= */
+const Synth = {
+  buf: null,
+  noise(ctx) {
+    if (!this.buf) { const n = ctx.sampleRate; const b = ctx.createBuffer(1, n, ctx.sampleRate), d = b.getChannelData(0); for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1; this.buf = b; }
+    const s = ctx.createBufferSource(); s.buffer = this.buf; return s;
+  },
+  play(ctx, out, name, t, vel = 1) {
+    const g = ctx.createGain(); g.connect(out);
+    const env = (a, d, peak) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(0.001, peak), t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+    const tone = (f0, f1, type = 'sine', glide = .12) => { const o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(f0, t); if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + glide); o.connect(g); o.start(t); o.stop(t + 1); };
+    const hiss = (hp, dur, type = 'highpass') => { const n = this.noise(ctx), f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = hp; n.connect(f); f.connect(g); n.start(t); n.stop(t + dur + .05); };
+    const v = vel;
+    switch (name) {
+      case 'kick': env(.003, .28, v); tone(160, 48); break;
+      case 'stomp': env(.003, .22, v); tone(120, 50); hiss(300, .1, 'lowpass'); break;
+      case 'snare': env(.002, .18, v * .8); tone(190, 160, 'triangle'); hiss(1800, .2); break;
+      case 'clap': env(.002, .14, v * .9); hiss(1100, .16, 'bandpass'); break;
+      case 'hat': env(.001, .05, v * .5); hiss(7000, .06); break;
+      case 'snap': env(.001, .05, v * .6); hiss(3000, .05, 'bandpass'); tone(2200, 1800, 'triangle', .03); break;
+      case 'open': env(.001, .28, v * .4); hiss(6000, .32); break;
+      case 'rim': env(.001, .04, v * .7); tone(1000, 800, 'square', .04); break;
+      case 'click': env(.001, .03, v * .8); tone(1500, 900, 'square', .03); break;
+      case 'tom': env(.003, .22, v * .8); tone(230, 120); break;
+      case 'pat': env(.003, .12, v * .8); tone(260, 150, 'triangle', .08); hiss(600, .08, 'lowpass'); break;
+      case 'low': env(.003, .32, v * .8); tone(115, 70); break;
+      case 'wood': env(.001, .08, v * .8); tone(820, 790, 'triangle', .05); break;
+      case 'bell': env(.001, .45, v * .45); tone(1760, 1760); break;
+      case 'clave': env(.001, .09, v); tone(2500, 2400, 'sine', .05); break;
+      case 'shaker': env(.001, .06, v * .35); hiss(9000, .07); break;
+      case 'tick': env(.001, .04, v * .6); tone(1800, 1800, 'sine', .02); break;
+      case 'tock': env(.001, .05, v * .9); tone(2600, 2600, 'sine', .02); break;
+      default: env(.002, .1, v * .7); tone(600, 500, 'triangle');
+    }
+  }
+};
+const SOUNDS = { kick: 'kick', bd: 'kick', bass: 'kick', snare: 'snare', sd: 'snare', hat: 'hat', hh: 'hat', hihat: 'hat', open: 'open', oh: 'open', rim: 'rim', clap: 'clap', cp: 'clap', tom: 'tom', low: 'low', wood: 'wood', block: 'wood', bell: 'bell', clave: 'clave', shaker: 'shaker', sh: 'shaker', stomp: 'stomp', pat: 'pat', snap: 'snap', click: 'click', drum: 'tom' };
+// Body percussion: what each drum becomes, with the part of the body that plays it.
+const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp'], tom: ['pat', 'thighs', 'Pat'], pat: ['pat', 'thighs', 'Pat'], stomp: ['stomp', 'feet', 'Stomp'], snare: ['clap', 'hands', 'Clap'], clap: ['clap', 'hands', 'Clap'], hat: ['snap', 'fingers', 'Snap'], snap: ['snap', 'fingers', 'Snap'], shaker: ['snap', 'fingers', 'Snap'], open: ['click', 'mouth', 'Click'], rim: ['click', 'mouth', 'Click'], click: ['click', 'mouth', 'Click'], wood: ['click', 'mouth', 'Click'], clave: ['clap', 'hands', 'Clap'], bell: ['snap', 'fingers', 'Snap'] };
+
+/* ================= the clock: one AudioContext, events in beats ================= */
+const clock = {
+  ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
+  events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
+  ensure() { if (!this.ctx) { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
+  bps() { return this.bpm / 60; },
+  pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
+  start(lead = 0) {
+    const ctx = this.ensure(); this.lead = lead;
+    const from = this.pausedAt > 0 ? this.pausedAt : -lead;
+    this.t0 = ctx.currentTime + .06 - from / this.bps(); this.schedTo = from; this.running = true;
+    clearInterval(this.timer); this.timer = setInterval(() => this.tick(), 40); this.tick();
+  },
+  pause() { if (this.running) this.pausedAt = Math.max(0, this.pos()); this.running = false; clearInterval(this.timer); },
+  stop() { this.pause(); this.pausedAt = 0; },
+  setBpm(b) { const p = this.pos(); this.bpm = b; if (this.running) this.t0 = this.ctx.currentTime - p / this.bps(); },
+  tick() {
+    const horizon = (this.ctx.currentTime + .3 - this.t0) * this.bps();
+    const end = this.loop ? Infinity : this.cycle;
+    if (this.schedTo < horizon) {
+      const to = Math.min(horizon, end);
+      // the count-in: clicks on the beats before zero
+      for (let b = Math.ceil(this.schedTo); b < Math.min(to, 0); b++) this.fire({ sound: b === -this.lead ? 'tock' : 'tick', vel: 1, meta: true }, b);
+      const c0 = Math.floor(Math.max(0, this.schedTo) / this.cycle), c1 = Math.floor(Math.max(0, to) / this.cycle);
+      for (let c = c0; c <= c1; c++) for (const e of this.events) { const b = c * this.cycle + e.beat; if (b >= this.schedTo && b < to && b >= 0) this.fire(e, b); }
+      this.schedTo = to;
+    }
+    if (!this.loop && this.pos() >= this.cycle) { this.stop(); this.onDone && this.onDone(); }
+  },
+  fire(e, beat) {
+    const when = this.t0 + beat / this.bps();
+    if (e.meta) { Synth.play(this.ctx, this.out, e.sound, when, e.vel); return; }
+    if (e.click) { if (this.click) Synth.play(this.ctx, this.out, e.sound, when, e.vel); return; }
+    const name = this.bodyMode && BODY[e.sound] ? BODY[e.sound][0] : e.sound;
+    Synth.play(this.ctx, this.out, name, when, e.vel);
+  }
+};
+
+/* ================= rhythm text ================= */
+function parseRhythm(text) {
+  const r = { meter: [4, 4], rows: [], problems: [] };
+  text.split('\n').forEach((raw, li) => {
+    const line = raw.replace(/\/\/.*$/, '').trim(); if (!line) return;
+    const m = line.match(/^([a-z][a-z0-9 ]*?)\s*:\s*(.*)$/i);
+    if (!m) { r.problems.push(`Line ${li + 1}: wants "name: steps".`); return; }
+    const name = m[1].trim().toLowerCase(), body = m[2].trim();
+    if (name === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) r.meter = [+mm[1], +mm[2]]; else r.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
+    const bars = body.split('|').map(b => b.replace(/\s+/g, '')).filter(b => b.length);
+    if (!bars.length) { r.problems.push(`Line ${li + 1}: ${name} has no steps.`); return; }
+    const bad = bars.join('').replace(/[xXo.\-]/g, ''); if (bad) r.problems.push(`Line ${li + 1}: ${name} has "${bad[0]}"; steps are x X o and . only.`);
+    const key = name.split(' ')[0]; const sound = SOUNDS[key];
+    if (!sound) r.problems.push(`Line ${li + 1}: no sound called "${name}" (a tom plays instead).`);
+    r.rows.push({ name, sound: sound || 'tom', bars: bars.map(b => [...b].map(c => c === 'x' ? 1 : c === 'X' ? 1.25 : c === 'o' ? .5 : 0)), colour: COLOURS[r.rows.length % COLOURS.length] });
+  });
+  r.beats = r.meter[0]; r.bars = Math.max(1, ...r.rows.map(x => x.bars.length)); r.cycle = r.beats * r.bars;
+  r.events = [];
+  r.rows.forEach((row, ri) => { for (let bi = 0; bi < r.bars; bi++) { const steps = row.bars[bi % row.bars.length]; steps.forEach((v, si) => { if (v) r.events.push({ beat: bi * r.beats + si / steps.length * r.beats, sound: row.sound, vel: v, row: ri, bar: bi, step: si }); }); } });
+  for (let b = 0; b < r.cycle; b++) r.events.push({ beat: b, sound: b % r.beats === 0 ? 'tock' : 'tick', vel: .8, click: true });
+  return r;
+}
+
+/* ---- syllables: Kodály words for the hits in a beat; takadimi letters for the rest ---- */
+const KODALY = { '1000': 'ta', '1010': 'ti ti', '1111': 'ti-ka ti-ka', '1011': 'ti ti-ka', '1110': 'ti-ka ti', '1001': 'tim ka', '1100': 'ti-ka ∙', '0010': '∙ ti', '0011': '∙ ti-ka', '0100': '∙ ka', '0110': '∙ ka di', '1101': 'ti-ka ∙ ka', '0000': '∙',
+  '100': 'ta', '111': 'tri-o-la', '101': 'ta ki', '110': 'ti-ki ∙', '011': '∙ ki da', '001': '∙ ∙ da', '010': '∙ ki', '000': '∙', '10': 'ta', '11': 'ti ti', '01': '∙ ti', '00': '∙', '1': 'ta', '0': '∙' };
+const SYL_NAMES = [[0, 'ta'], [.5, 'di'], [.25, 'ka'], [.75, 'mi'], [1 / 3, 'ki'], [2 / 3, 'da']];
+const sylFrac = fracs => fracs.map(f => { const k = SYL_NAMES.find(x => Math.abs(x[0] - f) < .02); return k ? k[1] : 'ka'; }).join(' ');
+function syllables(hits, n) {
+  const key = Array.from({ length: n }, (_, i) => hits.includes(i) ? '1' : '0').join('');
+  if (KODALY[key]) return KODALY[key];
+  return Array.from({ length: n }, (_, i) => hits.includes(i) ? sylFrac([i / n]) : '∙').join(' ');
+}
+
+/* ================= rhythm views ================= */
+const RV = {};
+// Grid: a box for every step, a column per bar, the playhead sweeping; the row's own step count shapes its boxes.
+RV.grid = {
+  build(el, r, opts = {}) {
+    const W = 1000, labW = opts.body ? 120 : 90, rowH = opts.rowH || 60, barW = (W - labW - 10) / r.bars, top = 30;
+    const H = top + r.rows.length * rowH + 20;
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    // beat numbers
+    for (let bi = 0; bi < r.bars; bi++) for (let b = 0; b < r.beats; b++) s += `<text x="${labW + bi * barW + (b + .5) * barW / r.beats}" y="20" text-anchor="middle" font-size="16" fill="#777">${b + 1}</text>`;
+    r.rows.forEach((row, ri) => {
+      const y = top + ri * rowH;
+      const label = opts.body && BODY[row.sound] ? BODY[row.sound][2] : row.name;
+      s += `<text x="${labW - 10}" y="${y + rowH / 2 + 6}" text-anchor="end" font-size="18" font-weight="600" fill="${row.colour}">${esc(label)}</text>`;
+      for (let bi = 0; bi < r.bars; bi++) {
+        const steps = row.bars[bi % row.bars.length], w = barW / steps.length;
+        steps.forEach((v, si) => {
+          const x = labW + bi * barW + si * w, beatStart = (si * r.beats) % steps.length === 0;
+          s += `<rect class="cell" data-r="${ri}" data-b="${bi}" data-s="${si}" x="${x + 1}" y="${y + 4}" width="${w - 2}" height="${rowH - 8}" rx="4" fill="${v ? row.colour : '#f3f3f3'}" fill-opacity="${v ? (v > 1 ? 1 : v >= 1 ? .85 : .4) : 1}" stroke="${beatStart ? '#aaa' : '#e4e4e4'}" stroke-width="${beatStart ? 1.5 : 1}"/>`;
+          if (v > 1) s += `<text x="${x + w / 2}" y="${y + rowH / 2 + 7}" text-anchor="middle" font-size="18" fill="#fff" pointer-events="none">&gt;</text>`;
+        });
+      }
+    });
+    for (let bi = 0; bi <= r.bars; bi++) s += `<line x1="${labW + bi * barW}" x2="${labW + bi * barW}" y1="${top - 4}" y2="${H - 16}" stroke="#555" stroke-width="2"/>`;
+    s += `<line id="ph" x1="${labW}" x2="${labW}" y1="${top - 8}" y2="${H - 12}" stroke="${HI}" stroke-width="4" stroke-linecap="round"/></svg>`;
+    el.innerHTML = s; this.el = el; this.r = r; this.labW = labW; this.barW = barW; this.ph = el.querySelector('#ph'); this.cells = [...el.querySelectorAll('.cell')]; this.lit = new Set();
+  },
+  paint(p) {
+    const r = this.r, x = this.labW + p / r.beats * this.barW; this.ph.setAttribute('x1', x); this.ph.setAttribute('x2', x);
+    const bi = Math.floor(p / r.beats), frac = p / r.beats - bi;
+    for (const c of this.lit) c.setAttribute('stroke', c.dataset.k || '#e4e4e4'), c.setAttribute('stroke-width', 1); this.lit.clear();
+    r.rows.forEach((row, ri) => { const n = row.bars[bi % row.bars.length].length, si = Math.floor(frac * n); const c = this.cells.find(c => +c.dataset.r === ri && +c.dataset.b === bi && +c.dataset.s === si); if (c) { if (!c.dataset.k) c.dataset.k = c.getAttribute('stroke'); c.setAttribute('stroke', HI); c.setAttribute('stroke-width', 4); this.lit.add(c); } });
+  }
+};
+// Wheel: the whole cycle around a circle, one ring per drum with its own step count, hits joined into a necklace.
+RV.wheel = {
+  build(el, r) {
+    const S = 600, cx = S / 2, cy = S / 2 + 10, R0 = 250, ringW = Math.min(40, 170 / Math.max(1, r.rows.length));
+    let s = `<svg viewBox="0 0 ${S} ${S + 20}" preserveAspectRatio="xMidYMid meet">`;
+    const total = r.cycle, ang = b => -Math.PI / 2 + 2 * Math.PI * b / total;
+    for (let b = 0; b < total; b++) { const a = ang(b), bar = b % r.beats === 0; s += `<line x1="${cx + Math.cos(a) * (R0 + 6)}" y1="${cy + Math.sin(a) * (R0 + 6)}" x2="${cx + Math.cos(a) * (R0 + (bar ? 22 : 14))}" y2="${cy + Math.sin(a) * (R0 + (bar ? 22 : 14))}" stroke="${bar ? '#333' : '#999'}" stroke-width="${bar ? 3 : 2}"/><text x="${cx + Math.cos(a) * (R0 + 36)}" y="${cy + Math.sin(a) * (R0 + 36) + 6}" text-anchor="middle" font-size="16" fill="#777">${b % r.beats + 1}</text>`; }
+    r.rows.forEach((row, ri) => {
+      const R = R0 - 10 - ri * ringW - ringW / 2; s += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#e6e6e6" stroke-width="1"/>`;
+      const pts = [];
+      for (let bi = 0; bi < r.bars; bi++) { const steps = row.bars[bi % row.bars.length]; steps.forEach((v, si) => { const a = ang(bi * r.beats + si / steps.length * r.beats), x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R; if (v) pts.push([x, y]); s += v ? `<circle class="hit" data-r="${ri}" data-beat="${bi * r.beats + si / steps.length * r.beats}" cx="${x}" cy="${y}" r="${ringW * (v > 1 ? .42 : v >= 1 ? .34 : .22)}" fill="${row.colour}"/>` : `<circle cx="${x}" cy="${y}" r="2.5" fill="#bbb"/>`; }); }
+      if (pts.length > 1) s = s.replace(`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#e6e6e6" stroke-width="1"/>`, `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#e6e6e6" stroke-width="1"/><polygon points="${pts.map(p => p.join(',')).join(' ')}" fill="${row.colour}" fill-opacity=".08" stroke="${row.colour}" stroke-opacity=".5" stroke-width="1.5"/>`);
+      s += `<text x="${cx}" y="${cy - R + ringW / 2 - 2}" text-anchor="middle" font-size="${Math.min(14, ringW * .5)}" fill="${row.colour}" font-weight="600">${esc(row.name)}</text>`;
+    });
+    s += `<line id="hand" x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - R0 - 4}" stroke="${HI}" stroke-width="5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="8" fill="#333"/></svg>`;
+    el.innerHTML = s; this.r = r; this.hand = el.querySelector('#hand'); this.cx = cx; this.cy = cy; this.hits = [...el.querySelectorAll('.hit')];
+  },
+  paint(p) {
+    this.hand.setAttribute('transform', `rotate(${360 * p / this.r.cycle} ${this.cx} ${this.cy})`);
+    for (const h of this.hits) { const d = p - +h.dataset.beat, on = d >= 0 && d < .3; h.setAttribute('stroke', on ? HI : 'none'); h.setAttribute('stroke-width', on ? 5 : 0); }
+  }
+};
+// Syllables: Kodály stick notation beat by beat with the words under it, one line per drum.
+RV.syll = {
+  build(el, r) {
+    const W = 1000, labW = 90, rowH = 110, beatW = (W - labW - 10) / r.cycle, top = 20, H = top + r.rows.length * rowH + 10;
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    this.beats = [];
+    r.rows.forEach((row, ri) => {
+      const y = top + ri * rowH;
+      s += `<text x="${labW - 10}" y="${y + 50}" text-anchor="end" font-size="18" font-weight="600" fill="${row.colour}">${esc(row.name)}</text>`;
+      for (let bi = 0; bi < r.bars; bi++) {
+        const steps = row.bars[bi % row.bars.length], n = steps.length / r.beats;
+        for (let b = 0; b < r.beats; b++) {
+          const x0 = labW + (bi * r.beats + b) * beatW, hits = [];
+          const lo = b * n, hi = (b + 1) * n; steps.forEach((v, si) => { if (v && si >= lo - 1e-9 && si < hi - 1e-9) hits.push(si - lo); });
+          const idx = hits.map(h => Number.isInteger(n) ? h : h / n), word = Number.isInteger(n) ? syllables(hits, n) : sylFrac(idx);
+          s += `<rect class="beat" data-r="${ri}" data-beat="${bi * r.beats + b}" x="${x0 + 2}" y="${y}" width="${beatW - 4}" height="${rowH - 10}" rx="6" fill="#fafafa" stroke="#e4e4e4"/>`;
+          // stick notation: a stem per hit, beams between hits inside the beat
+          const stemX = f => x0 + 14 + f * (beatW - 28), base = y + 58, topY = y + 14;
+          const fr = idx.map(h => Number.isInteger(n) ? h / n : h);
+          if (!fr.length) s += `<path d="M${x0 + beatW / 2 - 8},${topY + 6} l12,12 l-12,12 l14,12" fill="none" stroke="${row.colour}" stroke-width="3" stroke-linecap="round"/>`;
+          fr.forEach((f, k) => {
+            s += `<line x1="${stemX(f)}" x2="${stemX(f)}" y1="${topY}" y2="${base}" stroke="${row.colour}" stroke-width="4" stroke-linecap="round"/>`;
+            if (k < fr.length - 1) { const g = fr[k + 1] - f, beams = g <= .26 ? 2 : 1; for (let m = 0; m < beams; m++) s += `<line x1="${stemX(f)}" x2="${stemX(fr[k + 1])}" y1="${topY + m * 9}" y2="${topY + m * 9}" stroke="${row.colour}" stroke-width="5"/>`; }
+          });
+          if (fr.length && fr[0] > 0.01) s += `<text x="${stemX(0)}" y="${topY + 20}" font-size="20" fill="#aaa" text-anchor="middle">𝄾</text>`;
+          if (n === 3 && fr.length > 1) s += `<text x="${x0 + beatW / 2}" y="${topY - 4}" font-size="12" fill="#777" text-anchor="middle">3</text>`;
+          s += `<text x="${x0 + beatW / 2}" y="${y + 88}" text-anchor="middle" font-size="${Math.min(22, beatW / Math.max(4, word.length) * 1.9)}" fill="#333">${esc(word)}</text>`;
+          if (ri === 0) s += `<text x="${x0 + beatW / 2}" y="${y - 4}" text-anchor="middle" font-size="14" fill="#777">${b + 1}</text>`;
+        }
+      }
+    });
+    s += `</svg>`; el.innerHTML = s; this.r = r; this.cells = [...el.querySelectorAll('.beat')];
+  },
+  paint(p) { const b = Math.floor(p); for (const c of this.cells) { const on = +c.dataset.beat === b; c.setAttribute('fill', on ? '#fff1c7' : '#fafafa'); c.setAttribute('stroke', on ? HI : '#e4e4e4'); c.setAttribute('stroke-width', on ? 3 : 1); } }
+};
+// Body: the grid read as body percussion, and a figure whose playing part lights up with each hit.
+RV.body = {
+  build(el, r) {
+    el.innerHTML = `<div class="split"><div id="bodyfig" style="flex:0 0 36%"></div><div id="bodygrid"></div></div>`;
+    const fig = `<svg viewBox="0 0 300 520" preserveAspectRatio="xMidYMid meet">
+      <g stroke="#333" stroke-width="6" stroke-linecap="round" fill="none">
+        <circle cx="150" cy="70" r="36" fill="#fff"/><line x1="150" y1="106" x2="150" y2="280"/>
+        <path id="arms" d="M150,140 L95,210 L80,290 M150,140 L205,210 L220,290"/>
+        <path d="M150,280 L110,400 L105,490 M150,280 L190,400 L195,490"/>
+      </g>
+      <g id="parts" fill="${HI}" fill-opacity="0">
+        <circle data-part="mouth" cx="150" cy="86" r="14"/>
+        <circle data-part="hands" cx="80" cy="298" r="22"/><circle data-part="hands" cx="220" cy="298" r="22"/>
+        <circle data-part="fingers" cx="72" cy="318" r="12"/><circle data-part="fingers" cx="228" cy="318" r="12"/>
+        <ellipse data-part="thighs" cx="128" cy="345" rx="22" ry="40"/><ellipse data-part="thighs" cx="172" cy="345" rx="22" ry="40"/>
+        <ellipse data-part="feet" cx="100" cy="500" rx="30" ry="14"/><ellipse data-part="feet" cx="200" cy="500" rx="30" ry="14"/>
+      </g>
+      <g id="bodylabels" font-size="16" fill="#777"></g></svg>`;
+    el.querySelector('#bodyfig').innerHTML = fig;
+    RV.grid.build(el.querySelector('#bodygrid'), r, { body: true, rowH: 110 });
+    this.r = r; this.parts = [...el.querySelectorAll('#parts [data-part]')];
+    const labels = el.querySelector('#bodylabels'); const used = new Map(); r.rows.forEach(row => { const b = BODY[row.sound]; if (b) used.set(b[1], row.colour); });
+    const pos = { mouth: [185, 90], hands: [240, 265], fingers: [240, 330], thighs: [205, 350], feet: [240, 505] };
+    labels.innerHTML = [...used].map(([part, col]) => `<text x="${pos[part][0]}" y="${pos[part][1]}" fill="${col}" font-weight="600">${part}</text>`).join('');
+    this.rowParts = r.rows.map(row => BODY[row.sound] ? BODY[row.sound][1] : null);
+  },
+  paint(p) {
+    RV.grid.paint(p);
+    const lit = {}; for (const e of this.r.events) { if (e.click) continue; const part = this.rowParts[e.row]; if (!part) continue; let d = p - e.beat; if (d < 0) d += this.r.cycle; if (d < .25) lit[part] = Math.max(lit[part] || 0, 1 - d / .25); }
+    for (const el of this.parts) { const k = lit[el.dataset.part] || 0; el.setAttribute('fill-opacity', k * .9); el.setAttribute('fill', k ? this.r.rows[this.rowParts.indexOf(el.dataset.part)].colour : HI); }
+  }
+};
+
+/* ================= dance text ================= */
+function parseDance(text) {
+  const d = { meter: [4, 4], feet: [], arms: [], problems: [], frames: [] };
+  text.split('\n').forEach((raw, li) => {
+    const line = raw.replace(/\/\/.*$/, '').trim(); if (!line) return;
+    const m = line.match(/^(meter|feet|arms)\s*:\s*(.*)$/i); if (!m) { d.problems.push(`Line ${li + 1}: wants meter:, feet: or arms:.`); return; }
+    const key = m[1].toLowerCase(), body = m[2].trim();
+    if (key === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) d.meter = [+mm[1], +mm[2]]; else d.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
+    const bars = body.split('|').map(b => b.trim().split(/\s+/).filter(Boolean)).filter(b => b.length);
+    bars.forEach((toks, bi) => { if (toks.length !== d.meter[0]) d.problems.push(`Line ${li + 1}, bar ${bi + 1}: ${toks.length} beats in ${d.meter[0]}/${d.meter[1]}.`); });
+    d[key] = bars;
+  });
+  d.beats = d.meter[0]; d.bars = Math.max(1, d.feet.length, d.arms.length); d.cycle = d.bars * d.beats;
+  // the model: where each foot is (x across, y forward), which carries the weight
+  const st = { L: { x: -.5, y: 0 }, R: { x: .5, y: 0 }, weight: 'B', arms: 'd' };
+  const side = { L: -1, R: 1 }, other = { L: 'R', R: 'L' };
+  const off = (dir, sx) => dir === 'f' ? [sx * 1, 1.2] : dir === 'b' ? [sx * 1, -1.2] : dir === 's' ? [sx * 1.9, 0] : dir === 'x' ? [-sx * .7, .6] : [sx * 1, 0];
+  for (let bi = 0; bi < d.bars; bi++) for (let b = 0; b < d.beats; b++) {
+    const ft = d.feet.length ? (d.feet[bi % d.feet.length] || [])[b] || '.' : '.', at = d.arms.length ? (d.arms[bi % d.arms.length] || [])[b] || '.' : '.';
+    const subs = ft.split('-');
+    if (at !== '.') { if (/^[uodch]$/.test(at)) st.arms = at; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: arms "${at}"? (u o d c h .)`); }
+    subs.forEach((tok, k) => {
+      const t = bi * d.beats + b + k / subs.length, frame = { t, bar: bi, beat: b, sub: k, subs: subs.length, tok, arms: st.arms, kind: 'hold', moving: null, dir: 'p', lift: null };
+      let m;
+      if (tok === '.') { }
+      else if ((m = tok.match(/^([LRlr])([fbsxcp]?)$/))) {
+        const F = m[1].toUpperCase(), step = m[1] === F, dir = m[2] || 'p', O = other[F];
+        const base = st.weight === F ? st[F] : st[O]; const o = off(dir, side[F]);
+        const from = st.weight === F ? { x: base.x - side[F] * 1, y: base.y } : base;   // stepping with the standing foot: measure from where the other one would be
+        st[F] = { x: from.x + o[0], y: from.y + o[1] }; if (step) st.weight = F;
+        Object.assign(frame, { kind: step ? 'step' : 'touch', moving: F, dir });
+      } else if ((m = tok.match(/^J([fbsp]?)$/))) { const dir = m[1] || 'p', c = { x: (st.L.x + st.R.x) / 2, y: (st.L.y + st.R.y) / 2 }, o = off(dir, 1); st.L = { x: c.x - 1, y: c.y + o[1] }; st.R = { x: c.x + 1, y: c.y + o[1] }; st.weight = 'B'; Object.assign(frame, { kind: 'jump', moving: 'B', dir }); }
+      else if (tok === 'H') { const W = st.weight === 'B' ? 'R' : st.weight; st.weight = W; Object.assign(frame, { kind: 'hop', moving: W, lift: other[W] }); }
+      else if ((m = tok.match(/^K([LR]?)$/))) { const W = st.weight === 'B' ? 'L' : st.weight, F = m[1] || other[W]; Object.assign(frame, { kind: 'kick', moving: F, lift: F, dir: 'f' }); }
+      else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: "${tok}"? (L R l r with f b s x c, J H K or .)`);
+      frame.L = { ...st.L }; frame.R = { ...st.R }; frame.weight = st.weight;
+      d.frames.push(frame);
+    });
+  }
+  d.frames.forEach((f, i) => { f.dur = (i + 1 < d.frames.length ? d.frames[i + 1].t : d.cycle) - f.t; });
+  return d;
+}
+const countOf = f => f.sub === 0 ? String(f.beat + 1) : f.subs === 2 ? '&' : f.subs === 3 ? ['', '&', 'a'][f.sub] : ['', 'e', '&', 'a'][f.sub] || '&';
+const frameAt = (d, p) => { let k = 0; for (let i = 0; i < d.frames.length; i++) if (d.frames[i].t <= p + 1e-9) k = i; return k; };
+
+/* ================= dance views ================= */
+const DV = {};
+const FOOT = (x, y, side, scale, fill, stroke, extra = '') => `<g transform="translate(${x} ${y}) scale(${side * scale} ${-scale})"${extra}><path d="M-9,-18 C-15,-6 -15,10 -9,22 C-4,28 6,28 10,22 C14,12 13,-2 8,-14 C12,-22 6,-30 0,-28 C-6,-26 -8,-23 -9,-18 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / scale}" stroke-linejoin="round"/></g>`;
+// Footprints: the floor from above, every step printed with its count, the step being taken lit, the ones just taken fading.
+DV.feet = {
+  build(el, d) {
+    const xs = d.frames.flatMap(f => [f.L.x, f.R.x]), ys = d.frames.flatMap(f => [f.L.y, f.R.y, f.kind === 'kick' ? f.L.y + 1.2 : 0]);
+    const minX = Math.min(-1.5, ...xs) - 1.2, maxX = Math.max(1.5, ...xs) + 1.2, minY = Math.min(0, ...ys) - 1, maxY = Math.max(0, ...ys) + 1;
+    const U = 60, W = (maxX - minX) * U, floorH = (maxY - minY) * U, H = floorH + 56;
+    const X = x => (x - minX) * U, Y = y => (maxY - y) * U;
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><defs><pattern id="floor" width="${U}" height="${U}" patternUnits="userSpaceOnUse"><path d="M${U},0 L0,0 0,${U}" fill="none" stroke="#eee"/></pattern></defs><rect width="${W}" height="${floorH}" fill="url(#floor)"/>`;
+    s += `<text x="${W / 2}" y="22" text-anchor="middle" font-size="14" fill="#999">forward ↑</text>`;
+    // prints that land on the same spot share one footprint and list their counts
+    const groups = new Map();
+    d.frames.forEach((f, i) => {
+      if (!f.moving) return;
+      (f.moving === 'B' ? ['L', 'R'] : [f.moving]).forEach(F => {
+        const hollow = f.kind === 'touch' || f.kind === 'kick', pt = f.kind === 'kick' ? { x: f[F].x, y: f[F].y + 1.2 } : f[F];
+        const key = `${F}:${Math.round(pt.x * 2)}:${Math.round(pt.y * 2)}:${hollow}`;
+        if (!groups.has(key)) groups.set(key, { F, hollow, pt, frames: [], counts: [] });
+        const g = groups.get(key); g.frames.push(i); if (!g.counts.includes(countOf(f))) g.counts.push(countOf(f));
+      });
+    });
+    for (const g of groups.values()) {
+      const col = g.F === 'L' ? LEFT : RIGHT, label = g.counts.join(' ');
+      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), g.F === 'L' ? -1 : 1, 1, g.hollow ? '#fff' : col, col)}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 6}" text-anchor="middle" font-size="${label.length > 3 ? 13 : 18}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
+    }
+    s += `<g id="standing"></g><text id="say" x="${W / 2}" y="${H - 16}" text-anchor="middle" font-size="24" font-weight="600" fill="#333"></text></svg>`;
+    el.innerHTML = s; this.d = d; this.X = X; this.Y = Y; this.prints = [...el.querySelectorAll('.print')]; this.standing = el.querySelector('#standing'); this.say = el.querySelector('#say');
+  },
+  paint(p) {
+    const d = this.d, k = frameAt(d, p), f = d.frames[k];
+    for (const g of this.prints) { let age = Infinity; for (const i of g.dataset.i.split(' ').map(Number)) { let a = k - i; if (a < 0) a += d.frames.length; age = Math.min(age, a); } g.setAttribute('opacity', age === 0 ? 1 : age === 1 ? .7 : age === 2 ? .45 : .2); g.style.filter = age === 0 ? `drop-shadow(0 0 6px ${HI})` : ''; }
+    // the standing feet: outlines where the weight is now
+    let s = ''; for (const F of ['L', 'R']) { if (f.moving === F || f.moving === 'B') continue; const lifted = f.lift === F; s += FOOT(this.X(f[F].x), this.Y(f[F].y), F === 'L' ? -1 : 1, lifted ? .7 : 1, f.weight === F || f.weight === 'B' ? (F === 'L' ? LEFT : RIGHT) : '#fff', F === 'L' ? LEFT : RIGHT, ` opacity=".55"`); }
+    this.standing.innerHTML = s;
+    const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' };
+    const dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', c: ' together', p: '' };
+    this.say.textContent = `${countOf(f)}: ${names[f.kind]}${f.kind === 'step' || f.kind === 'touch' || f.kind === 'jump' ? dirs[f.dir] : ''}`;
+  }
+};
+// Columns, in the manner of Labanotation: a centre line, left side to the left, columns for support, leg and arm,
+// time flowing upward, each sign as long as it lasts, its shape the direction and its shading the level.
+DV.laban = {
+  sign(dir, level, sideSign, x, y, w, h, col) {
+    // shapes for the right side; the left is mirrored
+    const shapes = { p: `M0,0 H${w} V${h} H0 Z`, f: `M0,0 H${w * .45} L${w},${h * .5} V${h} H0 Z`, b: `M0,0 H${w} V${h * .5} L${w * .45},${h} H0 Z`, s: `M0,0 H${w * .55} L${w},${h / 2} L${w * .55},${h} H0 Z`, x: `M${w},0 H${w * .45} L0,${h / 2} L${w * .45},${h} H${w} Z`, c: `M0,0 H${w} V${h} H0 Z` };
+    const fill = level === 'low' ? col : level === 'high' ? 'url(#hatch)' : '#fff';
+    let g = `<g transform="translate(${x} ${y}) scale(${sideSign} 1)"><path d="${shapes[dir] || shapes.p}" fill="${fill}" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    if (level === 'mid') g += `<circle cx="${w / 2}" cy="${h / 2}" r="4" fill="${col}"/>`;
+    return g + `</g>`;
+  },
+  build(el, d) {
+    const colW = 44, gap = 6, beatH = 70, W = 2 * (3 * (colW + gap)) + 160, cx = W / 2, bottom = d.cycle * beatH + 40, H = bottom + 50;
+    const cols = { support: 1, leg: 2, arm: 3 };
+    const xOf = (name, side) => side > 0 ? cx + gap / 2 + (cols[name] - 1) * (colW + gap) : cx - gap / 2 - (cols[name] - 1) * (colW + gap);
+    const Y = t => bottom - t * beatH;
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#555" stroke-width="2"/></pattern></defs>`;
+    for (let b = 0; b <= d.cycle; b++) { const bar = b % d.beats === 0; s += `<line x1="${cx - 3 * (colW + gap)}" x2="${cx + 3 * (colW + gap)}" y1="${Y(b)}" y2="${Y(b)}" stroke="${bar ? '#333' : '#ddd'}" stroke-width="${bar ? 2 : 1}"/>`; if (b < d.cycle) s += `<text x="${cx - 3 * (colW + gap) - 10}" y="${Y(b) - beatH / 2 + 6}" text-anchor="end" font-size="16" fill="#777">${b % d.beats + 1}</text>`; }
+    s += `<line x1="${cx}" x2="${cx}" y1="${Y(d.cycle) - 10}" y2="${bottom + 10}" stroke="#333" stroke-width="3"/>`;
+    for (const side of [-1, 1]) { const x = (name) => side > 0 ? xOf(name, side) : xOf(name, side) - colW; for (const name of ['support', 'leg', 'arm']) s += `<text x="${x(name) + colW / 2}" y="${bottom + 30}" text-anchor="middle" font-size="13" fill="#777">${name}</text>`; s += `<text x="${x('leg') + colW / 2}" y="${Y(d.cycle) - 18}" text-anchor="middle" font-size="15" fill="${side < 0 ? LEFT : RIGHT}" font-weight="600">${side < 0 ? 'left' : 'right'}</text>`; }
+    // support and leg columns from the frames; a hold lengthens the sign before it
+    const place = (name, side, dir, level, t0, t1, col) => { const x = side > 0 ? xOf(name, side) : xOf(name, side) - colW; return this.sign(dir, level, side, side > 0 ? x : x + colW, Y(t1) + 3, colW, Y(t0) - Y(t1) - 6, col); };
+    const ARM = { u: ['p', 'high'], o: ['s', 'mid'], d: ['p', 'low'], c: ['x', 'mid'], h: ['s', 'low'] };
+    const feetSigns = [], support = {}; let lastArm = null;
+    const stand = (F, dir, t0, t1) => { const sg = ['support', F, dir, 'mid', t0, t1]; feetSigns.push(sg); support[F] = sg; };
+    d.frames.forEach((f, i) => {
+      const t0 = f.t, t1 = f.t + f.dur;
+      if (f.kind === 'step') { stand(f.moving, f.dir, t0, t1); const O = f.moving === 'L' ? 'R' : 'L'; support[O] = null; }
+      else if (f.kind === 'jump') { stand('L', f.dir, t0 + f.dur * .35, t1); stand('R', f.dir, t0 + f.dur * .35, t1); }
+      else if (f.kind === 'hop') { stand(f.moving, 'p', t0 + f.dur * .35, t1); support[f.lift] = null; feetSigns.push(['leg', f.lift, 'p', 'mid', t0, t1]); }
+      else {
+        if (f.kind === 'touch') feetSigns.push(['leg', f.moving, f.dir, 'low', t0, t1]);
+        else if (f.kind === 'kick') feetSigns.push(['leg', f.moving, 'f', 'mid', t0, t1]);
+        for (const F of ['L', 'R']) if (support[F] && (f.weight === F || f.weight === 'B') && f.moving !== F) support[F][5] = t1;   // the standing foot carries on
+      }
+      if (f.sub === 0) { const a = ARM[f.arms] || ARM.d; if (lastArm && lastArm.k === f.arms) lastArm.t1 = t1; else { lastArm = { k: f.arms, a, t0, t1 }; feetSigns.push(lastArm); } }
+      else if (lastArm) lastArm.t1 = t1;
+    });
+    for (const sg of feetSigns) {
+      if (Array.isArray(sg)) { const [name, F, dir, level, a, b] = sg; const side = F === 'L' ? -1 : 1; s += place(name, side, dir, level, a, b, F === 'L' ? LEFT : RIGHT); }
+      else for (const side of [-1, 1]) s += place('arm', side, sg.a[0], sg.a[1], sg.t0, sg.t1, side < 0 ? LEFT : RIGHT);
+    }
+    s += `<line id="ph" x1="${cx - 3 * (colW + gap) - 30}" x2="${cx + 3 * (colW + gap) + 30}" y1="${bottom}" y2="${bottom}" stroke="${HI}" stroke-width="4" stroke-linecap="round"/>`;
+    s += `<text x="${W - 8}" y="${H - 8}" text-anchor="end" font-size="12" fill="#999">■ low  • middle  ▨ high   time flows upward</text></svg>`;
+    el.innerHTML = s; this.ph = el.querySelector('#ph'); this.Y = Y;
+  },
+  paint(p) { const y = this.Y(p); this.ph.setAttribute('y1', y); this.ph.setAttribute('y2', y); }
+};
+// Stave, in the manner of Benesh: five lines for the top of the head, shoulders, waist, knees and the floor, read left to right,
+// one frame per movement, the dancer seen from behind; – a hand or foot level with the body, | in front, • behind.
+DV.benesh = {
+  build(el, d) {
+    const frameW = 100, left = 70, n = d.frames.length, W = left + n * frameW + 20, top = 40, lineGap = 64, H = top + 4 * lineGap + 80;
+    const LY = [0, 1, 2, 3, 4].map(i => top + i * lineGap);  // head, shoulder, waist, knee, floor
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    ['head', 'shoulders', 'waist', 'knees', 'floor'].forEach((nm, i) => { s += `<line x1="${left - 10}" x2="${W - 10}" y1="${LY[i]}" y2="${LY[i]}" stroke="#333" stroke-width="1.5"/><text x="${left - 16}" y="${LY[i] + 4}" text-anchor="end" font-size="12" fill="#777">${nm}</text>`; });
+    this.frames = [];
+    d.frames.forEach((f, i) => {
+      const x0 = left + i * frameW, cx = x0 + frameW / 2;
+      if (f.beat === 0 && f.sub === 0) s += `<line x1="${x0}" x2="${x0}" y1="${LY[0] - 10}" y2="${LY[4] + 10}" stroke="#333" stroke-width="2"/>`;
+      s += `<rect class="fr" data-i="${i}" x="${x0 + 2}" y="${LY[0] - 14}" width="${frameW - 4}" height="${LY[4] - LY[0] + 28}" fill="#fff1c7" fill-opacity="0" rx="6"/>`;
+      s += `<text x="${cx}" y="${LY[4] + 40}" text-anchor="middle" font-size="16" fill="#777">${countOf(f)}</text>`;
+      // the faint figure from behind, so left is left
+      s += `<g stroke="#bbb" stroke-width="2.5" fill="none"><circle cx="${cx}" cy="${LY[0] + 14}" r="13"/><line x1="${cx}" x2="${cx}" y1="${LY[0] + 27}" y2="${LY[2] + 10}"/></g>`;
+      const mark = (kind, x, y, col) => kind === 'level' ? `<line x1="${x - 12}" x2="${x + 12}" y1="${y}" y2="${y}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>` : kind === 'front' ? `<line x1="${x}" x2="${x}" y1="${y - 12}" y2="${y + 12}" stroke="${col}" stroke-width="5" stroke-linecap="round"/>` : `<circle cx="${x}" cy="${y}" r="6" fill="${col}"/>`;
+      // feet: sideways offset from the body, kind by forward/back, raised to the knee line when lifted
+      for (const F of ['L', 'R']) { const pt = f[F], col = F === 'L' ? LEFT : RIGHT; const x = cx + pt.x * 20, lifted = f.lift === F, y = lifted ? LY[3] - 6 : LY[4]; const rel = pt.y - f[F === 'L' ? 'R' : 'L'].y; s += mark(lifted ? 'front' : rel > .3 ? 'front' : rel < -.3 ? 'behind' : 'level', x, y, col); if (f.kind === 'jump') s += `<text x="${x}" y="${LY[4] - 14}" text-anchor="middle" font-size="11" fill="${col}">↑</text>`; }
+      // hands by the arm word
+      const hands = { u: [[-16, LY[0] - 20, 'level'], [16, LY[0] - 20, 'level']], o: [[-38, LY[1], 'level'], [38, LY[1], 'level']], d: [[-16, LY[2] + 14, 'level'], [16, LY[2] + 14, 'level']], c: [[-5, LY[1] + 20, 'front'], [5, LY[1] + 20, 'front']], h: [[-20, LY[2] + 4, 'behind'], [20, LY[2] + 4, 'behind']] }[f.arms] || [];
+      hands.forEach((h, k) => { s += mark(h[2], cx + h[0], h[1], k === 0 ? LEFT : RIGHT); });
+    });
+    s += `<text x="${W - 8}" y="${H - 6}" text-anchor="end" font-size="12" fill="#999">– level with the body   | in front   • behind   (seen from behind)</text></svg>`;
+    el.innerHTML = s; this.d = d; this.cells = [...el.querySelectorAll('.fr')];
+  },
+  paint(p) { const k = frameAt(this.d, p); this.cells.forEach(c => c.setAttribute('fill-opacity', +c.dataset.i === k ? .9 : 0)); }
+};
+// Figures: a stick figure for every movement, seen from behind, and the pose of the moment large.
+DV.figs = {
+  figure(f, size, big) {
+    const u = size / 10, cx = 0, headY = -4.6 * u, shoulder = -3.2 * u, hip = -0.2 * u, floor = 4.2 * u;
+    const footX = F => cx + f[F].x * 1.1 * u, footY = F => { const rel = f[F].y - (f.L.y + f.R.y) / 2; return (f.lift === F ? floor - 1.6 * u : floor) + rel * .45 * u; };
+    const hands = { u: [[-1.4, -6.2], [1.4, -6.2]], o: [[-3.6, -3.4], [3.6, -3.4]], d: [[-1.5, 0.6], [1.5, 0.6]], c: [[-.3, -2.4], [.3, -2.4]], h: [[-1.5, -0.4], [1.5, -0.4]] }[f.arms] || [[-1.5, .6], [1.5, .6]];
+    const w = big ? 7 : 3.2, armW = big ? 5 : 2.4;
+    let s = `<g stroke-linecap="round" stroke-linejoin="round" fill="none">`;
+    s += `<circle cx="${cx}" cy="${headY}" r="${u * .9}" fill="#fff" stroke="#333" stroke-width="${w * .6}"/><line x1="${cx}" x2="${cx}" y1="${headY + u * .9}" y2="${hip}" stroke="#333" stroke-width="${w}"/>`;
+    for (const [F, i] of [['L', 0], ['R', 1]]) {
+      const col = F === 'L' ? LEFT : RIGHT, weight = f.weight === F || f.weight === 'B', moving = f.moving === F || f.moving === 'B';
+      const hx = cx + hands[i][0] * u, hy = shoulder + hands[i][1] * u + 3.4 * u, ex = (cx + hx) / 2 + (hands[i][1] > -4 ? (i ? 1 : -1) * .8 * u : 0), ey = (shoulder + hy) / 2 + .4 * u;
+      s += `<path d="M${cx},${shoulder} L${ex},${ey} L${hx},${hy}" stroke="${col}" stroke-width="${armW}"/>`;
+      const fx = footX(F), fy = footY(F), kx = (cx + fx) / 2 + (i ? .3 : -.3) * u, ky = (hip + fy) / 2;
+      s += `<path d="M${cx},${hip} L${kx},${ky} L${fx},${fy}" stroke="${col}" stroke-width="${w}" opacity="${weight ? 1 : .55}"/>`;
+      s += `<ellipse cx="${fx + (i ? .4 : -.4) * u}" cy="${fy}" rx="${.7 * u}" ry="${.28 * u}" fill="${weight ? col : '#fff'}" stroke="${moving ? HI : col}" stroke-width="${moving ? w * .9 : w * .4}"/>`;
+    }
+    if (f.arms === 'c') s += `<circle cx="${cx}" cy="${shoulder + (-2.4 + 3.4) * u}" r="${.5 * u}" fill="${HI}" fill-opacity=".7"/>`;
+    return s + `</g>`;
+  },
+  build(el, d) {
+    const n = d.frames.length, cellW = 110, W = Math.max(700, n * cellW + 20), H = 560;
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    s += `<g id="bigfig" transform="translate(${W / 2} 220)"></g><text id="bigsay" x="${W / 2}" y="372" text-anchor="middle" font-size="22" font-weight="600" fill="#333"></text>`;
+    d.frames.forEach((f, i) => { const x = 10 + i * cellW + cellW / 2; s += `<rect class="fr" data-i="${i}" x="${10 + i * cellW + 2}" y="392" width="${cellW - 4}" height="160" rx="8" fill="#fff1c7" fill-opacity="0" stroke="${f.beat === 0 && f.sub === 0 ? '#999' : '#e4e4e4'}"/><g transform="translate(${x} 470)">${this.figure(f, 110, false)}</g><text x="${x}" y="545" text-anchor="middle" font-size="15" fill="#777">${countOf(f)}</text>`; });
+    s += `</svg>`; el.innerHTML = s; this.d = d; this.big = el.querySelector('#bigfig'); this.say = el.querySelector('#bigsay'); this.cells = [...el.querySelectorAll('.fr')]; this.k = -1;
+  },
+  paint(p) {
+    const k = frameAt(this.d, p); if (k === this.k) return; this.k = k; const f = this.d.frames[k];
+    this.big.innerHTML = this.figure(f, 300, true); this.cells.forEach(c => c.setAttribute('fill-opacity', +c.dataset.i === k ? .9 : 0));
+    const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' }, dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', c: ' together', p: '' };
+    this.say.textContent = `${countOf(f)}: ${names[f.kind]}${['step', 'touch', 'jump'].includes(f.kind) ? dirs[f.dir] : ''}`;
+  }
+};
+
+/* ================= presets ================= */
+const RHYTHMS = {
+  'Rock beat': `meter: 4/4\nkick:  x... x... x... x...\nsnare: .... x... .... x...\nhat:   x.x. x.x. x.x. x.x.`,
+  'Rhythm card (one drum)': `meter: 4/4\ndrum: x... x.x. x.x. x... | x.x. x.x. x... ....`,
+  'Son clave and shaker': `meter: 4/4\nclave:  x..x ..x. ...x .x..\nlow:    .... x... .... x...\nshaker: x.x. x.x. x.x. x.x.`,
+  'Three against two': `meter: 2/4\nlow:  x x x\nwood: x x`,
+  'Waltz': `meter: 3/4\nlow: x . .\nhat: . x x\nbell: x . . | . . .`,
+  'Body percussion': `meter: 4/4\nstomp: x... .... x... ....\npat:   .... x.x. .... x.x.\nclap:  .... x... .... x...\nsnap:  ..x. .... ..x. ....`,
+  'Triplets (6/8 feel)': `meter: 4/4\nkick: x.. ... x.. ...\ntom:  ... x.. ... x..\nhat:  xxx xxx xxx xxx`
+};
+const DANCES = {
+  'Step touch': { rhythm: 'Rock beat', text: `meter: 4/4\nfeet: Ls rc Rs lc | Ls rc Rs lc\narms: o  c  o  c  | o  c  o  c` },
+  'Grapevine': { rhythm: 'Rock beat', text: `meter: 4/4\nfeet: Ls Rx Ls rc | Rs Lx Rs lc\narms: o  o  o  c  | o  o  o  c` },
+  'Box step (waltz)': { rhythm: 'Waltz', text: `meter: 3/4\nfeet: Lf Rs Lc | Rb Ls Rc\narms: o  o  o  | o  o  o` },
+  'Cha-cha basic': { rhythm: 'Son clave and shaker', text: `meter: 4/4\nfeet: Lf Rb Ls-Rc Ls | Rb Lf Rs-Lc Rs\narms: o  o  o     o  | o  o  o     o` },
+  'Jump and clap': { rhythm: 'Rhythm card (one drum)', text: `meter: 4/4\nfeet: J . H . | J J J .\narms: d c d c | d d d c` },
+  'March and kick': { rhythm: 'Rock beat', text: `meter: 4/4\nfeet: Lp Rp Lp K | Rp Lp Rp K\narms: o  d  o  u | d  o  d  u` }
+};
+
+/* ================= wiring ================= */
+const state = { tab: 'rhythm', rview: 'grid', dview: 'feet', r: null, d: null, view: null };
+const rtext = $('#rtext'), dtext = $('#dtext'), rwarn = $('#rwarn'), dwarn = $('#dwarn');
+for (const k in RHYTHMS) $('#rpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
+for (const k in DANCES) $('#dpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
+rtext.value = RHYTHMS['Rock beat']; dtext.value = DANCES['Step touch'].text;
+$('#rpreset').onchange = e => { rtext.value = RHYTHMS[e.target.value]; rebuild(); };
+$('#dpreset').onchange = e => { const d = DANCES[e.target.value]; dtext.value = d.text; if (d.rhythm) { rtext.value = RHYTHMS[d.rhythm]; $('#rpreset').value = d.rhythm; } rebuild(); };
+rtext.oninput = dtext.oninput = () => rebuild();
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { state.tab = b.dataset.tab; document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('on', s.id === state.tab)); rebuild(); });
+$('#rviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.rview = b.dataset.view; [...$('#rviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
+$('#dviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.dview = b.dataset.view; [...$('#dviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
+
+function rebuild() {
+  const r = parseRhythm(rtext.value); state.r = r; rwarn.textContent = r.problems.join('\n');
+  clock.events = r.events; clock.bodyMode = state.tab === 'rhythm' && state.rview === 'body';
+  if (state.tab === 'rhythm') { clock.cycle = r.cycle; state.view = RV[state.rview]; state.view.build($('#rstage'), r); }
+  else {
+    const d = parseDance(dtext.value); state.d = d; dwarn.textContent = d.problems.join('\n');
+    if (d.beats !== r.beats) dwarn.textContent += `\nThe dance is in ${d.meter.join('/')} but the rhythm in ${r.meter.join('/')}.`;
+    clock.cycle = d.cycle; clock.events = r.events.filter(e => e.beat < d.cycle); state.view = DV[state.dview]; state.view.build($('#dstage'), d);
+  }
+  paint();
+}
+function paint() {
+  const p = clock.pos(), c = clock.cycle, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
+  if (state.view) state.view.paint(inCycle);
+  const beat = Math.floor(p), frac = p - beat; $('#lamp').classList.toggle('on', clock.running && frac < .18);
+  $('#play').textContent = clock.running ? '❚❚' : '▶'; $('#play').classList.toggle('on', clock.running);
+}
+(function loop() { paint(); requestAnimationFrame(loop); })();
+$('#play').onclick = () => { if (clock.running) clock.pause(); else clock.start($('#countin').checked && clock.pausedAt === 0 ? state.r.beats : 0); };
+$('#stop').onclick = () => clock.stop();
+$('#bpm').onchange = e => clock.setBpm(Math.min(240, Math.max(30, +e.target.value || 80)));
+$('#loop').onchange = e => clock.loop = e.target.checked;
+$('#click').onchange = e => clock.click = e.target.checked;
+clock.click = $('#click').checked; clock.loop = $('#loop').checked;
+document.addEventListener('keydown', e => { if (e.code === 'Space' && !/TEXTAREA|INPUT|SELECT/.test(e.target.tagName)) { e.preventDefault(); $('#play').click(); } });
+rebuild();
+</script>
+</body>
+</html>
