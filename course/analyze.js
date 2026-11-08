@@ -70,7 +70,7 @@
     interval: {
       label: 'Leaps',
       rungs: [
-        { name: 'steps and 3rds', test: f => f.maxLeap <= 4 && f.leapFraction <= 0.3 },
+        { name: 'up to a 4th (so-mi-la)', test: f => f.maxLeap <= 5 && f.leapFraction <= 0.3 },
         { name: 'up to a 5th', test: f => f.maxLeap <= 7 && f.leapFraction <= 0.4 },
         { name: 'up to a 6th', test: f => f.maxLeap <= 9 && f.leapFraction <= 0.5 },
         { name: 'up to an octave', test: f => f.maxLeap <= 12 && f.leapFraction <= 0.6 },
@@ -82,8 +82,8 @@
       label: 'Rhythm',
       // rhythmRung is computed from the durations and tags; see rhythmRung().
       rungs: [
-        { name: 'whole beats only', test: f => f.rhythmRung <= 1 },
-        { name: 'beat divided in two (or three in compound time)', test: f => f.rhythmRung <= 2 },
+        { name: 'beats and half beats', test: f => f.rhythmRung <= 1 },
+        { name: 'rests, or the compound beat in three', test: f => f.rhythmRung <= 2 },
         { name: 'dotted figures, ties, rests off the beat', test: f => f.rhythmRung <= 3 },
         { name: 'quarter-beats, triplets, some syncopation', test: f => f.rhythmRung <= 4 },
         { name: 'sustained syncopation or odd note lengths', test: f => f.rhythmRung <= 5 },
@@ -296,7 +296,7 @@
     }
     f.maxLeap = maxLeap; f.meanInterval = steps ? sumAbs / steps : 0; f.leapFraction = steps ? leaps / steps : 0;
     if (maxLeap > 12) tags.add('leap:over-octave'); else if (maxLeap > 2) tags.add('leap:' + INTERVAL_NAME[maxLeap]);
-    if (f.rangeSemitones > 12) tags.add('range:over-octave'); else if (f.rangeSemitones > 7) tags.add('range:octave'); else if (f.rangeSemitones > 4) tags.add('range:5th');
+    if (f.rangeSemitones > 12) tags.add('range:over-octave'); else if (f.rangeSemitones > 7) tags.add('range:octave'); else if (f.rangeSemitones > 5) tags.add('range:5th');
 
     // Rhythm
     const durSet = new Map();
@@ -344,16 +344,17 @@
     return f;
   }
 
-  // Rhythm rung from what the tune asks of the beat. Compound metres divide
-  // the beat in three, so a third of a beat there is the basic division.
+  // Rhythm rung from what the tune asks of the beat. Beats and half beats
+  // (ta and ti-ti) are where every method starts; compound metres divide the
+  // beat in three, which is a step of its own, as are rests.
   function rhythmRung(f, durSet, tags) {
     let rung = 1;
-    const basic = f.metreCompound ? 1 / 3 : 1 / 2;
     for (const key of durSet.keys()) {
       const d = parseFraction(key);
       const whole = Math.abs(d - Math.round(d)) < 1e-4;
       if (whole) continue;
-      if (Math.abs(d - basic) < 1e-4 || Math.abs(d - 2 * basic) < 1e-4) { rung = Math.max(rung, 2); continue; }
+      if (!f.metreCompound && Math.abs(d - 0.5) < 1e-4) continue;                                        // ti-ti
+      if (f.metreCompound && (Math.abs(d - 1 / 3) < 1e-4 || Math.abs(d - 2 / 3) < 1e-4)) { rung = Math.max(rung, 2); continue; }
       // Dotted figures that sit inside the beat pair (1.5 + 0.5, 0.75 + 0.25 in simple; 2/3 + 1/3 in compound).
       if (Math.abs(d - 1.5) < 1e-4 || Math.abs(d - 2.5) < 1e-4 || Math.abs(d - 3.5) < 1e-4) { rung = Math.max(rung, 3); continue; }
       if (Math.abs(d - 0.75) < 1e-4 || Math.abs(d - 0.25) < 1e-4) { rung = Math.max(rung, 4); continue; }
@@ -362,6 +363,7 @@
       if (d < 0.25 - 1e-4) { rung = Math.max(rung, 6); continue; }
       rung = Math.max(rung, 5);   // 1.25, 1.75, 2/3 of a beat in simple time and other odd lengths
     }
+    if (tags.has('rest')) rung = Math.max(rung, 2);
     if (f.tieCount) rung = Math.max(rung, 3);
     if (tags.has('rest-off-beat')) rung = Math.max(rung, 3);
     if (f.syncopations) rung = Math.max(rung, f.syncopationFraction > 0.1 ? 5 : 4);

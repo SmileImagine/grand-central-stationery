@@ -8,7 +8,7 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
 | `board.html` | **The route board.** The current set as a climbing wall: one column per level, several tunes in each, with an incipit, the skills each asks for, who has sent it, and Open, which plays it in the main page. |
 | `set.json` | The current tune set, written by the CLI. |
-| `samples/` | A dozen public domain tunes typed as test material. |
+| `samples/` | Public domain tunes typed as test material: a dozen well-known tunes across the levels, and twenty beginner songs (so-mi-la chants, do-re-mi songs, first classroom songs) for levels 1 and 2. |
 
 ## Running
 
@@ -38,7 +38,7 @@ A set is made from any graded folder:
 node course/analyze-cli.js course/samples path/to/tunes --ignore key --set course/set.json --per-level 6 --name "Set of 8 November"
 ```
 
-`--per-level N` takes the first N tunes at each level in sequence order, so the earliest ones introduce one skill each; `--skip K` passes over the first K at each level, which is how the next set rotates to new tunes a fortnight later. Tunes titled "Missing title" are left out. The first committed set is the sample tunes plus the easiest tunes from the Nottingham database (its originals, which are public domain melodies transcribed for free use): levels 1 and 2 have one tune each until a set of beginner songs is typed.
+`--per-level N` takes the first N tunes at each level in sequence order, so the earliest ones introduce one skill each; `--skip K` passes over the first K at each level, which is how the next set rotates to new tunes a fortnight later. Tunes titled "Missing title" are left out. The first committed set is the sample tunes plus the easiest tunes from the Nottingham database (its originals, which are public domain melodies transcribed for free use): the beginner songs fill levels 1 and 2.
 
 ## What is measured
 
@@ -52,8 +52,8 @@ Seven dimensions, six rungs each. A tune sits on the first rung whose test it pa
 
 | Rung | Pitch set | Range | Leaps | Rhythm | Metre | Length (bars once) |
 |--:|---|---|---|---|---|---|
-| 1 | three pentatonic notes | 4th | steps and 3rds | whole beats | 4/4, 2/4 | 8 |
-| 2 | pentatonic | 6th | to a 5th | beat in two (three in compound) | 3/4 | 16 |
+| 1 | three pentatonic notes | 4th | to a 4th | beats and half beats | 4/4, 2/4 | 8 |
+| 2 | pentatonic | 6th | to a 5th | rests, or the compound beat in three | 3/4 | 16 |
 | 3 | diatonic | octave | to a 6th | dotted figures, ties, off-beat rests | 6/8, cut time | 24 |
 | 4 | one chromatic note | 11th | to an octave | quarter-beats, triplets, some syncopation | 9/8, 12/8, 3/8, 3/2 | 32 |
 | 5 | a few chromatic notes | two octaves | wide or angular | sustained syncopation, odd lengths | irregular | 48 |
