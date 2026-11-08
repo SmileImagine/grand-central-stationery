@@ -217,8 +217,8 @@
    "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.\n"
   },
   {
-   "id": "original-pentatonic-6-ti-ti-train",
-   "title": "Ti-ti Train",
+   "id": "original-pentatonic-6-clickety-clack",
+   "title": "Clickety Clack",
    "level": 2,
    "score": 2.88,
    "key": "C",
@@ -245,7 +245,7 @@
    "introduces": [
     "range:6th"
    ],
-   "abc": "X:6\nT:Ti-ti Train\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\"CC DD | E2 G2 | \"G\"EE DD | \"C\"C4 | \"C\"CC EE | G2 A2 | \"G\"GG EE | \"C\"D2 C2 |]\n"
+   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\"CC DD | E2 G2 | \"G\"EE DD | \"C\"C4 | \"C\"CC EE | G2 A2 | \"G\"GG EE | \"C\"D2 C2 |]\n"
   },
   {
    "id": "beginner-songs-8-rocky-mountain",
