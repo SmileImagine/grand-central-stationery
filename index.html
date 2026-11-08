@@ -1261,6 +1261,39 @@
       }
       return out;
     }
+    /* ---- accompaniment styles ----
+       abcjs plays chord symbols through abc2midi's pattern language: a gchord
+       string spells one bar, a letter per unit (f root in the bass, c the
+       chord, b both, z a rest; G H I the chord's notes low, g h i high); a
+       drum string is hits (d) and rests per unit with the General MIDI drum
+       numbers and velocities that follow; swing delays the off-beat eighths.
+       Each style is one such bundle, in the header before K:. A tune that
+       sets its own %%MIDI gchord keeps it. Drums need the percussion samples,
+       which a page opened from disk cannot load, so there they are left out. */
+    const STYLES = {
+      auto:  { name: 'Auto' },
+      plain: { name: 'Plain' },
+      block: { name: 'Block chords', gchord: 'b', prog: 0, chordvol: 52, bassvol: 60 },
+      boom:  { name: 'Boom-chick', gchord: 'fzczfzcz', prog: 0, drum: 'dddd 35 38 35 38 85 55 85 55' },
+      waltz: { name: 'Waltz', gchord: 'fzczcz', prog: 0, drum: 'ddd 35 42 42 85 45 45' },
+      arp:   { name: 'Arpeggio', gchord: 'GHIhGHIh', prog: 0, chordvol: 58 },
+      bossa: { name: 'Bossa', gchord: 'fzzczzIczzfzczzc', prog: 24, chordvol: 56, drum: 'dddddddd 42 42 37 42 42 42 37 42 55 35 75 35 55 35 75 35' },
+      swing: { name: 'Swing', gchord: 'fzczfzcz', prog: 4, swing: 66, drum: 'dzdddzdd 51 51 51 51 51 51 75 55 70 75 55 70' },
+      march: { name: 'March', gchord: 'fzczfzcz', prog: 0, bassvol: 72, drum: 'dddddddd 35 38 38 38 35 38 38 38 100 55 45 70 100 55 45 70' },
+    };
+    // The style for a tune: Auto takes the waltz in triple time, else boom-chick.
+    function styleFor(key, abc) {
+      if (key === 'auto') { const m = abc.match(/^M:\s*(\d+)\/(\d+)/m); return m && parseInt(m[1], 10) % 3 === 0 && parseInt(m[1], 10) !== 6 ? STYLES.waltz : STYLES.boom; }
+      return STYLES[key] || STYLES.plain;
+    }
+    function withStyle(abc, st) {
+      if (!st || !st.gchord || /^%%MIDI gchord/m.test(abc) || !/^K:/m.test(abc)) return abc;
+      const lines = [`%%MIDI gchord ${st.gchord}`];
+      if (st.prog !== undefined) lines.push(`%%MIDI chordprog ${st.prog}`, `%%MIDI bassprog ${st.prog}`);
+      lines.push(`%%MIDI chordvol ${st.chordvol || 48}`, `%%MIDI bassvol ${st.bassvol || 64}`);
+      if (st.drum && location.protocol !== 'file:') lines.push(`%%MIDI drum ${st.drum}`, '%%MIDI drumon');
+      return abc.replace(/^K:/m, lines.join('\n') + '\nK:');
+    }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
     const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
     // The sound each view plays with (General MIDI programs; the sample
@@ -1356,6 +1389,7 @@
         this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
         this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
         this.harmony = ['off', 'numerals', 'detect'].includes(opts.harm) ? opts.harm : 'off';
+        this.style = STYLES[opts.style] ? opts.style : 'auto';
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="paper"></div></div><div class="inst"></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
           <div class="side"><div class="audio" id="${id}-audio"></div>
@@ -1363,6 +1397,7 @@
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
           <label class="xpose playpick" title="What sounds: the melody with its chord symbols, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + chords</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Chords only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
+          <label class="xpose stylepick" title="The accompaniment pattern for the chord symbols: bass, chords and drums. Auto takes the waltz in triple time and boom-chick otherwise; Plain is abcjs's own.">Style <select>${Object.entries(STYLES).map(([k, v]) => `<option value="${k}"${k === this.style ? ' selected' : ''}>${v.name}</option>`).join('')}</select></label>
           <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
           <div class="warn"></div></div></div>`;
         const xp = body.querySelector('.xpose input');
@@ -1375,6 +1410,8 @@
         this.viz = new InstrumentView(body.querySelector('.inst'));
         const pp = body.querySelector('.playpick select');
         pp.addEventListener('change', () => { this.playMode = pp.value; this.render(); if (opts.onPlay) opts.onPlay(this.playMode); });
+        const sp = body.querySelector('.stylepick select');
+        sp.addEventListener('change', () => { this.style = sp.value; this.render(); if (opts.onStyle) opts.onStyle(this.style); });
         const hp = body.querySelector('.harmpick select');
         hp.addEventListener('change', () => { this.harmony = hp.value; this.render(); if (opts.onHarm) opts.onHarm(this.harmony); });
         const np = body.querySelector('.namepick select');
@@ -1513,6 +1550,8 @@
         this.warnEl.textContent = '';
         let abc = withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value);
         if (this.harmony === 'detect') abc = withDetectedChords(abc);
+        const style = styleFor(this.style, abc);
+        abc = withStyle(abc, style);
         this.original = this.renderAt(this.hidden, abc, 600);
         if (!this.original) return;
         this.origElems = collect(this.original);
@@ -1559,7 +1598,7 @@
           // abcjs treats a visual transposition as a transposing instrument's
           // part and cancels it in the audio; a matching midiTranspose makes
           // the sound follow the page.
-          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst), voicesOff: this.playMode === 'backing', chordsOff: this.playMode === 'melody' }).catch(() => {});
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst), voicesOff: this.playMode === 'backing', chordsOff: this.playMode === 'melody', swing: style.swing || 0 }).catch(() => {});
           this.synth.isLoaded = false;
           // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
           const warp = this.synth.warp || 100;
@@ -2270,7 +2309,7 @@
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names, play, harm }) => ({ type, text, pos, bg, tr, inst, names, play, harm })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names, play, harm, style }) => ({ type, text, pos, bg, tr, inst, names, play, harm, style })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -2397,7 +2436,7 @@
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm, onHarm: v => { if (v && v !== 'off') cell.harm = v; else delete cell.harm; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm, onHarm: v => { if (v && v !== 'off') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
@@ -2646,7 +2685,7 @@
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ font: fontKey, proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -2657,7 +2696,7 @@
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; delete j.bg; delete j.tr; delete j.inst; delete j.names; delete j.play; delete j.harm; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; delete j.bg; delete j.tr; delete j.inst; delete j.names; delete j.play; delete j.harm; delete j.style; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
