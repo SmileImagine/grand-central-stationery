@@ -102,6 +102,7 @@
     .toast .close:hover { color: var(--ink); }
     .cell-body { position: relative; height: var(--text-cell-h); overflow: hidden; border-radius: 0 0 8px 8px; }
     .cell[data-type="abc"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
+    .cell[data-type="abc"] .cell-body.with-inst { height: var(--abc-inst-cell-h, 66vh); }   /* an instrument under the staff: the cell grows so the staff keeps its room */
     .cell[data-type="heading"] .cell-body { height: var(--heading-cell-h); }
     .cell[data-type="heading"] .layer { text-align: center; }   /* vertical centring is set by the engine */
     /* Exercise-book margin: one thin rule a little in from the left of text cells. */
@@ -202,7 +203,7 @@
     .cell-body.done .inst svg { animation: instglow 1.6s ease-out; }
     @keyframes instglow { 0% { filter: drop-shadow(0 0 0 transparent); } 30% { filter: drop-shadow(0 0 18px var(--cursor)); } 100% { filter: drop-shadow(0 0 0 transparent); } }
     /* ---------- notation engine ---------- */
-    .score { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
+    .score { flex: 1 1 auto; min-height: 30%; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
     .paper { line-height: 0; }
     .paper svg { display: block; }
     /* Our own additions hang off the SVG root, which abcjs gives stroke="currentColor";
@@ -227,7 +228,7 @@
     .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
     .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
     /* ---------- instrument view (under the staff) ---------- */
-    .inst { display: none; flex: 0 0 var(--inst-h, 32%); min-height: 84px; border-top: 1px solid var(--line); padding: 6px 1vw; box-sizing: border-box; align-items: center; justify-content: center; overflow: hidden; }
+    .inst { display: none; flex: 0 1 var(--inst-h, 32%); min-height: 84px; border-top: 1px solid var(--line); padding: 6px 1vw; box-sizing: border-box; align-items: center; justify-content: center; overflow: hidden; }
     .inst.on { display: flex; }
     .inst svg { display: block; width: 100%; height: 100%; overflow: visible; }
     .inst .lbl { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: none; }
@@ -247,7 +248,17 @@
     .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
     .bandctl input[type="range"], .feel input[type="range"] { width: 70px; accent-color: var(--accent); }
     .bandctl .regen { padding: 1px 7px; }
-    .bandctl .arrange { font: var(--ui); padding: 2px 8px; }
+    .bandctl .arrange, .bandctl .patbtn { font: var(--ui); padding: 2px 8px; }
+    .bandctl .patbtn[aria-pressed="true"] { background: var(--line-2); border-color: var(--accent); }
+    /* the drum pattern as text: read it, or edit it and the sliders let go of the drums */
+    .patpanel { flex-basis: 100%; display: flex; flex-direction: column; gap: 3px; }
+    .patpanel[hidden] { display: none; }
+    .patpanel textarea { resize: vertical; min-height: 3.6em; border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font: 13px/1.4 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
+    .patpanel textarea:focus, .patpanel.own textarea { border-color: var(--accent); }
+    .patpanel .patnote { font: var(--ui); color: var(--muted); display: flex; align-items: center; gap: 8px; min-height: 1.4em; }
+    .patpanel .patnote.err { color: #d33; }
+    .patpanel .patreset { padding: 1px 7px; display: none; }
+    .patpanel.own .patreset { display: inline-block; }
     /* The mixer: a drawer under the controls with the band's members; closed while the music plays. */
     .tabs { display: inline-flex; gap: 4px; }
     .tabs .tab { font: var(--ui); padding: 2px 9px; }
@@ -1281,6 +1292,9 @@
       text.split('\n').forEach((raw, li) => {
         const m = raw.match(CHART_LINE); if (!m) return;
         let body = m[1].trim(), n = null;
+        // "%%band drums 2: bd ~ sd ~" gives chorus 2 a line of drum pattern text (several lines stack); without a number, every chorus.
+        const dm = body.match(/^drums\s*(\d+)?\s*:\s*(.*)$/i);
+        if (dm) { const k = dm[1] ? parseInt(dm[1], 10) : null, text = dm[2].trim(); if (k === null) chart.defaults.drums = (chart.defaults.drums ? chart.defaults.drums + '\n' : '') + text; else { let ch = chart.choruses.find(c => c.n === k); if (!ch) { ch = { n: k, params: {}, bars: null }; chart.choruses.push(ch); } ch.params.drums = (ch.params.drums ? ch.params.drums + '\n' : '') + text; } return; }
         const nm = body.match(/^(\d+)\s*:\s*/); if (nm) { n = parseInt(nm[1], 10); body = body.slice(nm[0].length); }
         const bar = body.indexOf('|');
         const params = {};
@@ -1299,6 +1313,8 @@
           bars.forEach((toks, bi) => toks.forEach(t => { if (t !== '.' && t !== '-' && !chordPcs(t)) chart.problems.push(`Line ${li + 1}, bar ${bi + 1}: "${t}" is not a chord.`); }));
         }
         if (n === null && !bars) { Object.assign(chart.defaults, params); return; }
+        const existing = n !== null && chart.choruses.find(c => c.n === n);
+        if (existing) { Object.assign(existing.params, params); if (bars) existing.bars = bars; return; }
         chart.choruses.push({ n: n === null ? chart.choruses.length + 1 : n, params, bars });
       });
       chart.choruses.sort((a, b) => a.n - b.n);
@@ -1480,6 +1496,120 @@
     const DRUM = { kick: 36, snare: 38, rim: 37, clap: 39, hatC: 42, hatP: 44, hatO: 46, crash: 49, ride: 51, tamb: 54, shaker: 70 };
     const mulberry = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
     const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
+    /* ---- mini-notation: the band's parts as text ----
+       A small pattern language in the family of TidalCycles and Strudel,
+       written here so the page stays one file under one licence. One bar is
+       one cycle. Words name drum sounds (bd sd hh oh rim cp cr rd sh tb) and
+       the steps of a line share the bar equally: "bd ~ sd ~" is a kick on
+       one, a snare on three. ~ rests. [ ] subdivides a step; < > alternates
+       bar by bar; * and / speed a step up or slow it down; ! repeats it; @
+       weights it; ? drops it by chance (?0.3 for a 30% chance), (3,8)
+       spreads three hits over eight steps the Euclidean way; : sets a
+       level (sd:.2 is a ghost note); , and a new line stack parts; //
+       comments. A pattern is a function from a span of time, in cycles, to
+       the hits that start within it, which is how Tidal defines one. */
+    const Mini = (() => {
+      const EPS = 1e-9, mod = (a, n) => ((a % n) + n) % n;
+      const silence = () => [];
+      const pure = (name, vel, src) => (b, e) => { const out = []; for (let c = Math.ceil(b - EPS); c < e - EPS; c++) out.push({ begin: c, end: c + 1, name, vel, src }); return out; };
+      const fast = (n, p) => n === 1 ? p : (b, e) => p(b * n, e * n).map(ev => ({ ...ev, begin: ev.begin / n, end: ev.end / n }));
+      const shift = (t, p) => t === 0 ? p : (b, e) => p(b - t, e - t).map(ev => ({ ...ev, begin: ev.begin + t, end: ev.end + t }));
+      const stack = ps => ps.length === 1 ? ps[0] : (b, e) => ps.flatMap(p => p(b, e));
+      // The pattern squeezed into [s, s + w) of every cycle. It keeps the
+      // cycle's number, so an alternation inside a step still turns bar by bar.
+      const compress = (s, w, p) => (b, e) => {
+        const out = [];
+        for (let c = Math.floor(b + EPS); c < e - EPS; c++) {
+          const b1 = Math.max(b, c + s), e1 = Math.min(e, c + s + w); if (b1 >= e1 - EPS) continue;
+          for (const ev of p(c + (b1 - c - s) / w, c + (e1 - c - s) / w)) out.push({ ...ev, begin: c + s + (ev.begin - c) * w, end: c + s + (ev.end - c) * w });
+        }
+        return out;
+      };
+      // One child per cycle in turn; each child counts its own cycles, so nested alternations work.
+      const slowcat = ps => ps.length === 1 ? ps[0] : (b, e) => {
+        const out = [];
+        for (let c = Math.floor(b + EPS); c < e - EPS; c++) { const i = mod(c, ps.length), off = c - Math.floor(c / ps.length); for (const ev of shift(off, ps[i])(Math.max(b, c), Math.min(e, c + 1))) out.push(ev); }
+        return out;
+      };
+      // Steps in sequence, each taking its share of the cycle by weight.
+      const timecat = steps => { const W = steps.reduce((a, st) => a + st.w, 0); let at = 0; return stack(steps.map(st => { const p = compress(at / W, st.w / W, st.p); at += st.w; return p; })); };
+      // Bjorklund's algorithm: k onsets spread as evenly as they go over n steps.
+      const bjorklund = (k, n) => {
+        if (k >= n) return Array(n).fill(true); if (k <= 0) return Array(n).fill(false);
+        let a = Array.from({ length: k }, () => [true]), r = Array.from({ length: n - k }, () => [false]);
+        while (r.length > 1) { const m = Math.min(a.length, r.length), na = []; for (let i = 0; i < m; i++) na.push(a[i].concat(r[i])); r = a.length > m ? a.slice(m) : r.slice(m); a = na; }
+        return a.concat(r).flat();
+      };
+      // text -> pattern. Throws with a position on a mistake.
+      const parse = (text, seed = 1) => {
+        const src = text.replace(/\/\/[^\n]*/g, m => ' '.repeat(m.length));   // comments blanked, positions kept
+        let i = 0, nq = 0;
+        const err = m => { const e = new Error(m); e.pos = i; throw e; };
+        const ws = () => { while (i < src.length && /[ \t\r]/.test(src[i])) i++; };
+        const num = () => { const m = /^-?\d*\.?\d+/.exec(src.slice(i)); if (!m) err('a number is expected'); i += m[0].length; return parseFloat(m[0]); };
+        const degrade = (prob, p) => { const id = ++nq; return (b, e) => p(b, e).filter(ev => mulberry(Math.round(ev.begin * 9973) * 31 + id * 7 + seed * 1009)() >= prob); };
+        const sequence = stop => {   // steps until a stop character; inside brackets a line break is only a space
+          const steps = [];
+          for (;;) { ws(); if (src[i] === '\n' && !stop.includes('\n')) { i++; continue; } if (i >= src.length || stop.includes(src[i])) break; steps.push(...step()); }
+          return steps.length ? timecat(steps) : silence;
+        };
+        const stacked = stop => { const parts = [sequence(',' + stop)]; while (src[i] === ',') { i++; parts.push(sequence(',' + stop)); } return stack(parts); };
+        const step = () => {
+          const s0 = i; let p;
+          if (src[i] === '~') { i++; p = silence; }
+          else if (src[i] === '[') { i++; p = stacked(']'); if (src[i] !== ']') err('a ] is missing'); i++; }
+          else if (src[i] === '<') { i++; const alts = []; for (;;) { ws(); if (i >= src.length) err('a > is missing'); if (src[i] === '>') { i++; break; } alts.push(...step()); } p = alts.length ? slowcat(alts.map(st => st.p)) : silence; }
+          else { const m = /^[A-Za-z][A-Za-z0-9]*/.exec(src.slice(i)); if (!m) err(src[i] === ',' ? 'a comma needs steps on both sides' : `"${src[i]}" is not understood here`); i += m[0].length; let vel; if (src[i] === ':') { i++; vel = num(); } p = pure(m[0], vel, [s0, i]); }
+          let w = 1, reps = 1;
+          for (;;) {
+            if (src[i] === '*') { i++; p = fast(num(), p); }
+            else if (src[i] === '/') { i++; p = fast(1 / num(), p); }
+            else if (src[i] === '@') { i++; w = num(); }
+            else if (src[i] === '!') { i++; reps++; }
+            else if (src[i] === '?') { i++; p = degrade(/^[\d.]/.test(src[i] || '') ? num() : 0.5, p); }
+            else if (src[i] === '(') { i++; const k = num(); if (src[i] !== ',') err('a comma is expected'); i++; const n = num(); let r = 0; if (src[i] === ',') { i++; r = num(); } if (src[i] !== ')') err('a ) is missing'); i++; let bits = bjorklund(Math.round(k), Math.round(n)); r = mod(Math.round(r), bits.length || 1); bits = bits.slice(r).concat(bits.slice(0, r)); const inner = p; p = timecat(bits.map(on => ({ p: on ? inner : silence, w: 1 }))); }
+            else break;
+          }
+          return Array.from({ length: reps }, () => ({ p, w }));
+        };
+        const lines = [];
+        for (;;) { lines.push(stacked('\n')); if (i >= src.length) break; if (src[i] !== '\n') err(`"${src[i]}" is not understood here`); i++; }
+        return stack(lines);
+      };
+      return { parse };
+    })();
+    // The drum kit the words name, with a level for each when none is written.
+    const KIT = { bd: ['kick', .95], kick: ['kick', .95], sd: ['snare', .8], sn: ['snare', .8], snare: ['snare', .8], hh: ['hatC', .55], hat: ['hatC', .55], oh: ['hatO', .45], rim: ['rim', .5], cp: ['clap', .7], clap: ['clap', .7], cr: ['crash', .8], crash: ['crash', .8], rd: ['ride', .5], ride: ['ride', .5], sh: ['shaker', .3], shaker: ['shaker', .3], tb: ['tamb', .4], tamb: ['tamb', .4] };
+    // A hit string ('x' a hit, 'o' a soft one, '.' a rest, four to a beat) as
+    // mini-notation: "x.x.x.x." becomes hh*4, "x.......x......." becomes bd ~ bd ~.
+    const miniOf = (str, name, soft) => {
+      const tok = ch => ch === 'x' ? name : ch === 'o' ? `${name}:${soft}` : '~';
+      const unit = chars => chars.length === 1 || /^[xo]\.*$/.test(chars) ? tok(chars[0]) : `[${[...chars].map(tok).join(' ')}]`;   // a hit then rests is just the hit
+      for (let per = 1; per <= 4; per++) if (str.length % per === 0 && [...str].every((ch, k) => ch === str[k % per]) && str.slice(0, per) !== '.'.repeat(per)) return `${unit(str.slice(0, per))}*${str.length / per}`;
+      const beats = [];
+      for (let k = 0; k < str.length; k += 4) { const bt = str.slice(k, k + 4).padEnd(4, '.'); beats.push(bt === '....' ? '~' : bt[1] === '.' && bt[3] === '.' ? (bt[2] === '.' ? tok(bt[0]) : `[${tok(bt[0])} ${tok(bt[2])}]`) : unit(bt)); }
+      return beats.join(' ');
+    };
+    // The drum part the sliders write, as text. The same choices the band made
+    // before, with the bar-to-bar variation as alternations and chances.
+    const drumsFor = (energy, detail, triple, seed) => {
+      const rng = mulberry(seed * 7919 + 101), two = arr => { const a = pick(rng, arr); let b = pick(rng, arr); if (b === a) b = pick(rng, arr); return a === b ? a : `<[${a}] [${b}]>`; };
+      const fill = detail > 0.3 && energy > 0.25, lines = [];
+      if (triple) {
+        lines.push(two(['x...........', 'x.....x.....', 'x........x..'].map(x => miniOf(x, 'bd'))));
+        if (energy > 0.3) lines.push(two(['........x...', '....x...x...'].map(x => miniOf(x, 'sd'))));
+        lines.push(miniOf(energy < 0.35 ? 'x...x...x...' : energy < 0.7 ? 'x.x.x.x.x.x.' : 'xoxoxoxoxoxo', 'hh', .3));
+      } else {
+        lines.push(two((energy < 0.35 ? ['x...............', 'x.......x.......'] : energy < 0.7 ? ['x.......x.......', 'x..x....x.......', 'x.....x...x.....', 'x.......x..x....'] : ['x..x....x..x....', 'x..x..x...x.....', 'x.......x.x..x..', 'x..x....x.x.....']).map(x => miniOf(x, 'bd'))));
+        if (energy >= 0.2) lines.push(fill ? '~ sd ~ <sd sd sd [sd sd sd sd]>' : '~ sd ~ sd');
+        if (energy >= 0.2 && detail > 0.5 && energy > 0.45) lines.push(pick(rng, ['~ [~ ~ ~ sd:.2]?', '~ ~ [~ ~ sd:.2 ~]?', '~ [~ ~ ~ sd:.2]? [~ ~ ~ sd:.2]?']));
+        if (energy < 0.35) lines.push('hh*4');
+        else if (energy < 0.7) lines.push('[hh hh:.35]*4', '~ ~ ~ [~ oh?0.3]');
+        else { lines.push('[hh hh:.28]*8', '~ ~ ~ [~ oh?]'); if (detail > 0.6) lines.push('sh*8'); }
+        if (fill) lines.push('<cr:.6 ~ ~ ~>');
+      }
+      return lines.join('\n');
+    };
     class Sampler {
       constructor() { this.buffers = new Map(); this.loading = new Map(); this._ctx = null; }
       // One AudioContext for the page, made on first use. Browsers keep it
@@ -1533,7 +1663,7 @@
          One chorus from a spec: energy, detail and seed (0..1, 0..1, int),
          and from a chart line its bars of chord tokens and step strings. */
       prepare(spec) {
-        const res = { notes: [], segs: [], levels: this.levels(spec.energy) };
+        const res = { notes: [], segs: [], levels: this.levels(spec.energy), problems: [], drums: null };
         if (!this.active()) return res;
         const cell = this.cell, tl = cell.tl; if (!tl || !tl.events.length) return res;
         // Bars from the parsed tune, in whole notes, then in ms at the current tempo.
@@ -1580,11 +1710,17 @@
           if (part === 'drums') { const k = midi + '@' + Math.round(t / 10); const prev = seen.get(k); if (prev) { prev.vel = Math.max(prev.vel, vel); return; } const n = { part, t, dur, midi, vel }; seen.set(k, n); out.push(n); return; }
           out.push({ part, t, dur, midi, vel });
         };
-        let prevVoicing = null, crashNext = false;
+        // The drum text in force: the chart's (a drums line, or step strings), else what the sliders write; a mistake names itself and the sliders' drums play instead.
+        const nb1 = Math.max(1, Math.round(bars[first] ? bars[first].beats : bars[0].beats)), triple1 = nb1 % 3 === 0 && nb1 !== 6;
+        const drums = { text: spec.drums || drumsFor(energy, detail, triple1, seed), own: !!spec.drums, pattern: null, unknown: new Set() };
+        try { drums.pattern = Mini.parse(drums.text, seed); }
+        catch (err) { res.problems.push(`Drums: ${err.message}${err.pos !== undefined ? ` (character ${err.pos + 1})` : ''}.`); drums.pattern = Mini.parse(drumsFor(energy, detail, triple1, seed), seed); }
+        res.drums = drums;
+        let prevVoicing = null;
         bars.forEach((bar, bi) => {
           const rng = mulberry(seed * 7919 + bi * 104729 + 17);
           const nb = Math.max(1, Math.round(bar.beats)), full = Math.abs(bar.beats - nb) < 1e-6 && (bi > 0 || bars.length === 1 || nb === Math.round(bars[1].beats));
-          const triple = nb % 3 === 0 && nb !== 6, steps = nb * 4, stepMs = beatMs / 4;
+          const triple = nb % 3 === 0 && nb !== 6, steps = nb * 4;
           const at = b => bar.s + b * beatMs;
           const chordOn = b => chordAt(at(b));
           const nextBar = bars[bi + 1], nextChord = (nextBar ? chordAt(nextBar.s) : null) || chordOn(0);
@@ -1650,30 +1786,12 @@
             }
             for (const [b, d, m, v] of bl) if (b < nb) add('bass', at(b), d * beatMs / 1000 * 0.95, m, v * (0.7 + 0.3 * energy));
           }
-          // ---- drums ----
-          if (full || bi > 0) {
-            const grid = {};
-            const hit = (name, step, vel) => { if (step < steps) add('drums', bar.s + step * stepMs, 0, DRUM[name], vel * (0.55 + 0.45 * energy)); };
-            const pat = (name, str, vel, velOff = vel * 0.6) => { [...str].forEach((ch, i) => { if (ch === 'x') hit(name, i, vel); else if (ch === 'o') hit(name, i, velOff); }); };
-            const fill = detail > 0.3 && energy > 0.25 && (bi + 1) % 4 === 0 && bi < bars.length - 1;
-            if (crashNext) hit('crash', 0, 0.8);
-            crashNext = fill;
-            if (spec.kick || spec.snare || spec.hat) {   // the chart's own patterns
-              if (spec.kick) pat('kick', spec.kick, 0.95);
-              if (spec.snare) pat('snare', spec.snare, 0.8);
-              if (spec.hat) pat('hatC', spec.hat, 0.55, 0.3);
-              if (fill && !spec.snare) { hit('snare', steps - 4, 0.6); hit('snare', steps - 3, 0.7); hit('snare', steps - 2, 0.8); hit('snare', steps - 1, 0.9); }
-            } else if (triple) {
-              pat('kick', pick(rng, ['x...........', 'x.....x.....', 'x........x..']), 0.95);
-              if (energy > 0.3) pat('snare', pick(rng, ['........x...', '....x...x...']), 0.75);
-              pat('hatC', energy < 0.35 ? 'x...x...x...' : energy < 0.7 ? 'x.x.x.x.x.x.' : 'xoxoxoxoxoxo', 0.55, 0.3);
-            } else {
-              pat('kick', energy < 0.35 ? pick(rng, ['x...............', 'x.......x.......']) : energy < 0.7 ? pick(rng, ['x.......x.......', 'x..x....x.......', 'x.....x...x.....', 'x.......x..x....']) : pick(rng, ['x..x....x..x....', 'x..x..x...x.....', 'x.......x.x..x..', 'x..x....x.x.....']), 0.95);
-              if (energy >= 0.2) { pat('snare', fill ? '....x.......xxxx' : '....x.......x...', 0.8); if (detail > 0.5 && energy > 0.45) pat('snare', pick(rng, ['.......o........', '..........o.....', '.......o...o....']), 0.2, 0.2); }
-              if (energy < 0.35) pat('hatC', 'x...x...x...x...', 0.5);
-              else if (energy < 0.7) { pat('hatC', 'x.x.x.x.x.x.x.x.', 0.55, 0.35); if (bi % 2 === 1 && rng() < 0.6) hit('hatO', 14, 0.45); }
-              else { pat('hatC', 'xoxoxoxoxoxoxoxo', 0.55, 0.28); if (rng() < 0.5) hit('hatO', 14, 0.5); if (detail > 0.6) pat('shaker', 'o.o.o.o.o.o.o.o.', 0.3, 0.3); }
-              if (fill) { hit('snare', 12, 0.6); hit('snare', 13, 0.7); hit('snare', 14, 0.8); hit('snare', 15, 0.9); }
+          // ---- drums: the pattern text, this bar's cycle (counted from the first chart bar) ----
+          if ((full || bi > 0) && drums.pattern) {
+            const cyc = bi - first, barMs = bar.e - bar.s;
+            for (const ev of drums.pattern(cyc, cyc + 1)) {
+              const k = KIT[ev.name.toLowerCase()]; if (!k) { if (!drums.unknown.has(ev.name)) { drums.unknown.add(ev.name); res.problems.push(`Drums: "${ev.name}" is not a drum (bd sd hh oh rim cp cr rd sh tb).`); } continue; }
+              add('drums', bar.s + (ev.begin - cyc) * barMs, 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * energy));
             }
           }
         });
@@ -1854,6 +1972,8 @@
         }
         const specs = cell.chorusSpecs();
         this.choruses = specs.map(spec => band.prepare(spec));
+        cell.bandNotes = [...new Set(this.choruses.flatMap(c => c.problems))].map(t => ({ text: 'Band: ' + t }));
+        cell.showNotes(); if (cell.refreshPattern) cell.refreshPattern();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
         this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08 }))].sort((a, b) => a.ms - b.ms));
         this.total = tl ? tl.total : 0;
@@ -1951,6 +2071,7 @@
       }
       set(name, midis, transpose = 0, nameOf) {
         this.nameOf = nameOf || (m => NOTE_NAMES[((m % 12) + 12) % 12]);
+        const cellBody = this.host.closest('.cell-body'); if (cellBody) { cellBody.classList.toggle('with-inst', !!INSTRUMENTS[name]); cellBody.style.setProperty('--abc-inst-cell-h', name === 'recorder' ? '72vh' : '66vh'); }
         this.name = INSTRUMENTS[name] ? name : 'off';
         this.host.classList.toggle('on', this.name !== 'off');
         this.svg.innerHTML = ''; this.layout = null; this.runner = null;
@@ -2063,7 +2184,10 @@
             <label>Energy <input type="range" class="energy" min="0" max="100" value="${this.band.i === undefined ? 50 : this.band.i}"></label>
             <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
             <button type="button" class="regen" title="A new variation">\u21BB</button>
-            <button type="button" class="arrange" title="Write the Band's arrangement into the ABC as %%band lines, one per time round (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button></span>
+            <button type="button" class="arrange" title="Write the Band's arrangement into the ABC as %%band lines, one per time round (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button>
+            <button type="button" class="patbtn" title="The drum part as a pattern you can read and edit; edited, it is kept in the ABC as %%band drums lines" aria-pressed="false">Pattern</button></span>
+          <div class="patpanel" hidden><textarea class="pattext" rows="4" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Drum pattern"></textarea>
+            <div class="patnote"><span class="patmsg"></span><button type="button" class="patreset" title="Take the drums lines out of the ABC and let the sliders write the drums again">Back to the sliders</button></div></div>
           </div>
           <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div></div>`;
         const xp = body.querySelector('input.tr');
@@ -2081,6 +2205,20 @@
         body.querySelector('.bandctl').classList.toggle('on', this.style === 'band');
         const bandChange = () => { this.band.i = +body.querySelector('.energy').value; this.band.c = +body.querySelector('.detail').value; this.player.compile(); if (opts.onBand) opts.onBand(this.band); };
         body.querySelector('.arrange').addEventListener('click', () => { if (this.writeChart()) onChange(this.entry.value); });
+        // The drum pattern panel: the sliders' text while they write it; edited, the text goes into the ABC as %%band drums lines and is the teacher's.
+        const patPanel = body.querySelector('.patpanel'), patText = body.querySelector('.pattext'), patMsg = body.querySelector('.patmsg'), patBtn = body.querySelector('.patbtn');
+        this.refreshPattern = () => {
+          const ch = this.player && this.player.choruses && this.player.choruses[0], d = ch && ch.drums;
+          patPanel.classList.toggle('own', !!(d && d.own));
+          if (!d) { patMsg.textContent = ''; patMsg.parentElement.classList.remove('err'); return; }
+          if (document.activeElement !== patText && patText.value !== d.text) patText.value = d.text;   // never under the teacher's cursor
+          const err = ch.problems.find(t => /^Drums/.test(t));
+          patMsg.parentElement.classList.toggle('err', !!err);
+          patMsg.textContent = err ? err : d.own ? 'Your pattern, kept in the ABC as %%band drums lines. Energy still sets the level.' : 'Written by the sliders: move them and watch. Edit it and it is yours.';
+        };
+        patBtn.addEventListener('click', () => { const on = patPanel.hidden; patPanel.hidden = !on; patBtn.setAttribute('aria-pressed', String(on)); if (on) this.refreshPattern(); });
+        patText.addEventListener('input', () => { this.writeDrums(patText.value); onChange(this.entry.value); });
+        body.querySelector('.patreset').addEventListener('click', () => { this.writeDrums(null); onChange(this.entry.value); });
         body.querySelector('.feelv').addEventListener('input', () => { const v = +body.querySelector('.feelv').value; if (v === 50) delete this.band.feel; else this.band.feel = v; this.player.compile(); if (opts.onBand) opts.onBand(this.band); });
         body.querySelector('.energy').addEventListener('input', bandChange);
         body.querySelector('.detail').addEventListener('input', bandChange);
@@ -2503,7 +2641,8 @@
       chorusSpecs() {
         const b = this.band || {}, ch = this.chart || { defaults: {}, choruses: [] };
         const base = { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1, ...ch.defaults };
-        const spec = (o, k) => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: (o.seed || 1) + (o === base ? 0 : 0), bars: o.bars || null, kick: o.kick, snare: o.snare, hat: o.hat, comp: o.comp });
+        const steps = o => { const L = []; if (o.kick) L.push(miniOf(o.kick, 'bd', .6)); if (o.snare) L.push(miniOf(o.snare, 'sd', .5)); if (o.hat) L.push(miniOf(o.hat, 'hh', .35)); return L.length ? L.join('\n') : null; };
+        const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, comp: o.comp, drums: o.drums || steps(o) });
         if (!ch.choruses.length) return [spec(base)];
         return ch.choruses.map((c, k) => spec({ ...base, seed: base.seed + k, ...c.params, bars: c.bars }));
       }
@@ -2518,13 +2657,21 @@
           if (c.t.textContent !== text) { c.t.textContent = text; this.decorateChord(c.t); }
         }
       }
+      // The drum text into the ABC as %%band drums lines for every chorus (null: take them out), in place of any there.
+      writeDrums(text) {
+        const kept = this.entry.value.split('\n').filter(l => !/^%%?band\s+drums\s*:/i.test(l));
+        while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
+        const lines = text === null ? [] : text.split('\n').filter(l => l.trim()).map(l => '%%band drums: ' + l.trim());
+        this.entry.value = [...kept, ...lines].join('\n');
+        this.render();
+      }
       // The arranger's chorus lines into the text, replacing any there; false if there is nothing to arrange.
       writeChart() {
         if (!this.original) return false;
         const b = this.band || {};
         const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 });
         if (!lines.length) return false;
-        const kept = this.entry.value.split('\n').filter(l => !CHART_LINE.test(l));
+        const kept = this.entry.value.split('\n').filter(l => !CHART_LINE.test(l) || /^%%?band\s+drums\s*:/i.test(l));
         while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
         this.entry.value = [...kept, ...lines].join('\n');   // after the melody, so the tune stays in front
         this.render();
@@ -2820,7 +2967,7 @@
       // Warnings and tips, each with a ? that opens its explanation.
       showNotes() {
         this.warnEl.innerHTML = '';
-        for (const n of [...(this.lintNotes || []), ...(this.vizNotes || [])]) {
+        for (const n of [...(this.lintNotes || []), ...(this.vizNotes || []), ...(this.bandNotes || [])]) {
           const row = document.createElement('div'); row.className = 'w' + (n.tip ? ' tip' : '');
           const t = document.createElement('span'); t.textContent = n.text; row.appendChild(t);
           if (n.more) {
