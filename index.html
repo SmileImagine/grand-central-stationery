@@ -245,7 +245,7 @@
     .bandctl { display: none; align-items: center; gap: 10px; font: var(--ui); color: var(--muted); }
     .bandctl.on { display: inline-flex; }
     .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
-    .bandctl input[type="range"] { width: 70px; accent-color: var(--accent); }
+    .bandctl input[type="range"], .feel input[type="range"] { width: 70px; accent-color: var(--accent); }
     .bandctl .regen { padding: 1px 7px; }
     .bandctl .arrange { font: var(--ui); padding: 2px 8px; }
     /* The mixer: a drawer under the controls with the band's members; closed while the music plays. */
@@ -1496,11 +1496,22 @@
       }
       // Play a sample at AudioContext time `when`, for `dur` seconds (0: let
       // it ring out), at gain `vel`, into `out`, released over `rel` seconds.
-      play(folder, midi, when, dur, vel, out, rel = 0.08) {
+      // `fx`, optional: scoop (cents below pitch at the onset, sliding up
+      // over 70 ms) and vib (vibrato depth in cents, arriving after the
+      // first part of the note); both through the source's detune.
+      play(folder, midi, when, dur, vel, out, rel = 0.08, fx = null) {
         const buf = this.buffers.get(folder + '/' + FLAT_NOTE(midi)); if (!buf) return null;
         const ctx = this.ctx(), src = ctx.createBufferSource(), g = ctx.createGain();
         src.buffer = buf; src.connect(g); g.connect(out);
         g.gain.setValueAtTime(vel, when);
+        if (fx && src.detune) {
+          if (fx.scoop) { src.detune.setValueAtTime(-fx.scoop, when); src.detune.linearRampToValueAtTime(0, when + 0.07); }
+          if (fx.vib && dur > 0.35) {
+            const osc = ctx.createOscillator(), vg = ctx.createGain();
+            osc.frequency.value = 5.3; vg.gain.setValueAtTime(0, when); vg.gain.setValueAtTime(0, when + dur * 0.3); vg.gain.linearRampToValueAtTime(fx.vib, when + Math.min(dur, dur * 0.3 + 0.5));
+            osc.connect(vg); vg.connect(src.detune); osc.start(when); osc.stop(when + dur + rel + 0.05);
+          }
+        }
         src.start(when);
         if (dur) { g.gain.setValueAtTime(vel, when + dur); g.gain.linearRampToValueAtTime(0.0001, when + dur + rel); src.stop(when + dur + rel + 0.02); }
         return src;
@@ -1679,6 +1690,99 @@
        change rescales the list and the position; a seek is a new start.
        Positions are absolute ms from the first note (negative during the
        count-in) and are wrapped into the tune only for display. */
+    /* ---- playing the melody like a musician ----
+       What is written is not what is played: a phrase rises to its high
+       point and settles at its end, the beat has weight and the off-beat
+       less, repeated notes separate and steps join, the last note of a
+       phrase lingers and the first of the next comes after a breath. The
+       rules below read the melody by phrases (a rest, a long note at a bar
+       line, or four bars end one) and shape each note's strength, time and
+       length by them; the instrument adds what it does (a recorder breathes
+       and warms a long note with vibrato, a ukulele hammers on from below,
+       a piano pedals). Feel scales all of it, from the exact text at 0. */
+    function melodyMap(tune) {
+      const { bars } = tuneBars(tune);
+      const notes = []; let abs = 0;
+      bars.forEach((bar, bi) => {
+        for (const n of bar.notes) {
+          if (n.rest) { if (notes.length) notes[notes.length - 1].restAfter += n.dur; }
+          else if (n.el.startChar !== undefined) notes.push({ startChar: n.el.startChar, start: abs + n.pos, dur: n.dur, pos: n.pos, barLen: bar.len, bar: bi, pitch: n.pcs.length ? Math.max(...n.pcs) : 0, midi: null, restAfter: 0, el: n.el });
+        }
+        abs += bar.len;
+      });
+      // Phrases: a rest, a note of a beat and a half or more ending at a bar line, or four bars since the last one.
+      const beat = (tune.getBeatLength && tune.getBeatLength()) || 0.25;
+      let ph = { from: 0 }, phrases = [];
+      notes.forEach((n, i) => {
+        n.phrase = ph;
+        const next = notes[i + 1];
+        const barEnd = Math.abs(n.pos + n.dur - n.barLen) < 1e-6;
+        const cut = !next || n.restAfter > 1e-6 || (n.dur >= 1.5 * beat && barEnd) || (next.bar - notes[ph.from].bar >= 4 && next.pos < 1e-6);
+        if (cut) { ph.to = i; phrases.push(ph); ph = { from: i + 1 }; }
+      });
+      const map = new Map();
+      notes.forEach((n, i) => map.set(n.startChar, n));
+      return { notes, phrases, map, beat };
+    }
+    // The melody track's notes, shaped. `feel` 0..1; `inst` the view's instrument; `seed` for the sometimes.
+    function humanize(track, mm, feel, inst, seed, msPerWhole) {
+      const out = [], byChar = new Map();
+      for (const n of track.notes) { const k = n.startChar; if (!byChar.has(k)) byChar.set(k, []); byChar.get(k).push(n); }
+      // Pitches onto the map (the melody's own notes; a chord takes its top).
+      for (const [k, arr] of byChar) { const m = mm.map.get(k); if (m) m.midi = Math.max(...arr.map(x => x.pitch)); }
+      for (const ph of mm.phrases) { const ms = mm.notes.slice(ph.from, ph.to + 1).map(n => n.midi).filter(x => x !== null); ph.lo = ms.length ? Math.min(...ms) : 60; ph.hi = ms.length ? Math.max(...ms) : 60; }
+      const rng = mulberry(seed * 31 + 7);
+      const beat = mm.beat;
+      for (const n of track.notes) {
+        const m = mm.map.get(n.startChar);
+        const note = { start: n.start, dur: n.duration - (n.gap || 0), midi: n.pitch, vel: Math.max(0.05, Math.min(1, (n.volume || 90) / 127)), rel: 0.14, fx: null };
+        if (m && feel > 0) {
+          const i = mm.notes.indexOf(m), prev = mm.notes[i - 1], next = mm.notes[i + 1], ph = m.phrase;
+          const first = i === ph.from, last = i === ph.to;
+          const inBeat = m.pos / beat, onBeat = Math.abs(inBeat - Math.round(inBeat)) < 1e-6, downbeat = m.pos < 1e-6;
+          // Strength: the beat's weight, the phrase's arc by height, a soft landing.
+          let v = 0;
+          v += downbeat ? 0.07 : onBeat ? 0.02 : -0.06;
+          if (ph.hi > ph.lo) v += ((m.midi - ph.lo) / (ph.hi - ph.lo) - 0.5) * 0.18;
+          if (last) v -= 0.07;
+          if (first && !downbeat) v -= 0.03;                                   // a pickup leads in gently
+          v += (rng() - 0.5) * 0.05;
+          note.vel = Math.max(0.12, Math.min(1, note.vel * (1 + v * feel)));
+          // Time: the off-beat lies back a touch; a phrase begins after a breath.
+          let shift = 0;
+          if (!onBeat) shift += 0.012 * beat;
+          if (first && prev && prev.restAfter < 1e-6) shift += 0.05 * beat;
+          note.start += shift * feel;
+          // Length: steps join, repeats and leaps separate, the phrase's last note lingers, a breath before the next phrase.
+          let k = 0.97;
+          if (next && next.midi !== null && m.midi !== null) { const iv = Math.abs(next.midi - m.midi); k = iv === 0 ? 0.82 : iv <= 2 ? 0.99 : 0.92; }
+          if (last) k = next && next.restAfter < 1e-6 && m.restAfter < 1e-6 ? 0.9 : 1.04;      // (into a rest it can ring; into the next phrase it breathes)
+          note.dur *= 1 + (k - 1) * feel;
+          // What the instrument does.
+          if (inst === 'recorder') {
+            note.fx = { scoop: first ? 25 * feel : 0, vib: m.dur >= 2 * beat ? 14 * feel : 0 };
+            note.rel = 0.08;
+          } else if (inst === 'wh') {
+            note.fx = { vib: m.dur >= 2 * beat ? 8 * feel : 0 };
+            note.rel = 0.2;
+          } else if (inst === 'uke') {
+            note.rel = 0.3;
+            // A hammer-on from a step below into a leap upwards at a phrase start, now and then.
+            if (first && prev && m.midi !== null && prev.midi !== null && m.midi - prev.midi >= 5 && rng() < 0.6 * feel) out.push({ start: note.start - 0.11 * beat, dur: 0.1 * beat, midi: m.midi - 2, vel: note.vel * 0.45, rel: 0.1, fx: null });
+          } else {
+            note.rel = m.dur >= beat ? 0.3 : 0.18;                                             // the pedal
+            if (first && m.dur >= beat && prev && m.midi !== null && prev.midi !== null && Math.abs(m.midi - prev.midi) >= 7 && rng() < 0.35 * feel) out.push({ start: note.start - 0.09 * beat, dur: 0.08 * beat, midi: m.midi + (m.midi > prev.midi ? -1 : 1), vel: note.vel * 0.4, rel: 0.1, fx: null });
+          }
+        }
+        out.push(note);
+      }
+      // A chord strums: its notes a few ms apart, low to high.
+      const groups = new Map();
+      for (const n of out) { const k = n.start.toFixed(6); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(n); }
+      const strum = (inst === 'uke' ? 0.014 : 0.006) * feel;
+      for (const g of groups.values()) if (g.length > 1) g.sort((a, b) => a.midi - b.midi).forEach((n, j) => { n.start += j * strum * 1000 / msPerWhole; });
+      return out;
+    }
     const PROGRAM_FOLDER = p => p === 128 ? 'percussion' : p >= 32 && p <= 39 ? 'acoustic_bass' : p >= 24 && p <= 31 ? 'acoustic_guitar_nylon' : p >= 72 && p <= 79 ? 'recorder' : p >= 4 && p <= 7 ? 'electric_piano_1' : 'acoustic_grand_piano';
     const LOOKAHEAD = 320;            // ms scheduled ahead of the clock
     class Player {
@@ -1717,9 +1821,14 @@
         const cell = this.cell, tl = cell.tl, band = cell.bandPlayer, file = location.protocol === 'file:';
         const out = [], folderOf = prog => file && prog !== 128 ? 'acoustic_grand_piano' : PROGRAM_FOLDER(prog);
         const swing = this.style.swing ? this.style.swing / 100 : 0, beatLen = (cell.original && cell.original.getBeatLength && cell.original.getBeatLength()) || 0.25;
+        const feel = cell.feel(), mm = feel > 0 && cell.original ? melodyMap(cell.original) : null;
         for (const tr of this.tracks) {
           if (tr.part === 'drums' && file) continue;
           const folder = folderOf(tr.prog);
+          if (tr.part === 'melody' && mm) {
+            for (const n of humanize(tr, mm, feel, cell.inst, (cell.band && cell.band.seed) || 1, this.msPerWhole)) out.push({ part: 'melody', folder, midi: n.midi, ms: n.start * this.msPerWhole, dur: Math.max(0.03, n.dur * this.msPerWhole / 1000), vel: n.vel, rel: n.rel, fx: n.fx });
+            continue;
+          }
           for (const n of tr.notes) {
             let start = n.start, dur = n.duration - (n.gap || 0);
             if (swing && tr.part !== 'drums') {   // the off-beat eighth lands late, and the on-beat one stretches to meet it
@@ -1732,7 +1841,8 @@
         }
         const specs = cell.chorusSpecs();
         this.choruses = specs.map(spec => band.prepare(spec));
-        this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t, dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08 }))].sort((a, b) => a.ms - b.ms));
+        const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
+        this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08 }))].sort((a, b) => a.ms - b.ms));
         this.total = tl ? tl.total : 0;
         if (!this.loop) this.end = this.total;
         // The count-in: a click on each beat, when the Band plays.
@@ -1793,7 +1903,7 @@
         if (now >= this.end) { this.running = false; this.pos = this.total; this.halt(false); this.cell.onFinished(); return; }
         const horizon = Math.min(now + LOOKAHEAD, this.end);
         const when = ms => Math.max(ctx.currentTime, this.ctx0 + (ms - this.abs0) / 1000);
-        const play = (n, ms) => { const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, bus[n.part], n.rel); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
+        const play = (n, ms) => { const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, bus[n.part], n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
         if (this.total > 0) {
           let a = Math.max(0, this.until), cyc = Math.floor(a / this.total);
@@ -1927,6 +2037,7 @@
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
+          <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
           <label class="xpose playpick" title="What sounds: the melody with its chord symbols, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + chords</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Chords only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
           <label class="xpose stylepick" title="The accompaniment pattern for the chord symbols: bass, chords and drums. Auto takes the waltz in triple time and boom-chick otherwise; Plain is abcjs's own.">Style <select>${Object.entries(STYLES).map(([k, v]) => `<option value="${k}"${k === this.style ? ' selected' : ''}>${v.name}</option>`).join('')}</select></label>
           <span class="bandctl" title="Energy sets how busy the band plays; Detail adds sevenths, ninths, approach notes and ghost notes; the arrow deals a new variation.">
@@ -1953,6 +2064,7 @@
         body.querySelector('.bandctl').classList.toggle('on', this.style === 'band');
         const bandChange = () => { this.band.i = +body.querySelector('.energy').value; this.band.c = +body.querySelector('.detail').value; this.player.compile(); if (opts.onBand) opts.onBand(this.band); };
         body.querySelector('.arrange').addEventListener('click', () => { if (this.writeChart()) onChange(this.entry.value); });
+        body.querySelector('.feelv').addEventListener('input', () => { const v = +body.querySelector('.feelv').value; if (v === 50) delete this.band.feel; else this.band.feel = v; this.player.compile(); if (opts.onBand) opts.onBand(this.band); });
         body.querySelector('.energy').addEventListener('input', bandChange);
         body.querySelector('.detail').addEventListener('input', bandChange);
         body.querySelector('.regen').addEventListener('click', () => { this.band.seed = 1 + Math.floor(Math.random() * 1e6); bandChange(); });
@@ -2537,6 +2649,7 @@
       now() { const p = this.player; if (!p) return 0; return p.running ? p.at() - this.latencyMs() : p.pos; }
       latencyMs() { const c = sampler.ctx(); return c ? ((c.baseLatency || 0) + (c.outputLatency || 0)) * 1000 : 0; }
       wake() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); }); }
+      feel() { const f = this.band && this.band.feel; return (f === undefined ? 50 : Math.max(0, Math.min(100, f))) / 100; }
       // What the mixer sets: each part's gain, 0..1 (1 is the Band's own balance).
       mix() { const m = (this.band && this.band.mix) || {}, mute = (this.band && this.band.mute) || []; const g = k => mute.includes(k) ? 0 : m[k] === undefined ? 1 : Math.max(0, Math.min(1.5, m[k] / 100)); return { melody: g('melody'), chords: g('chords'), bass: g('bass'), drums: g('drums') }; }
       // The timeline: every abcjs timing event with its time, display
