@@ -13,7 +13,7 @@
                  introduces in the suggested sequence
     --csv FILE   one row per tune, features and rungs, for a spreadsheet
     --md FILE    the suggested sequence as a Markdown table
-    --set FILE   write a tune set for the route board (course/board.html):
+    --set FILE   write a tune set for the practice board (course/board.html):
                  --per-level N tunes at each level (default 6), taken in
                  sequence order, --skip K skipping the first K at each level
                  so a later set rotates to new tunes; --name "Set title"

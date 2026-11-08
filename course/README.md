@@ -1,12 +1,12 @@
 # Course: grading and sequencing tunes
 
-Tools for turning a pile of free ABC tunes into a practice sequence: short melodies a class can master one at a time, several per level, the way a climbing gym sets several routes at each grade.
+Tools for turning a pile of free ABC tunes into a practice sequence: short melodies a class can master one at a time, several per level, the way a climbing gym sets several climbs at each grade.
 
 | Path | What it is |
 |---|---|
 | `analyze.js` | The analyzer. Measures a parsed abcjs tune, tags the skills it needs, grades it against the skill lattice, and orders a set of tunes so each introduces as little as possible. Runs in Node and in a page (`GCSAnalyze`). |
 | `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
-| `board.html` | **The route board.** The current set as a climbing wall: one column per level, several tunes in each, with an incipit, the skills each asks for, who has sent it, and Open, which plays it in the main page. |
+| `board.html` | **The practice board.** A student picks their name and sees their level's tunes to choose from; the teacher sees every level, who is ready to show a tune, and marks passes. Open plays any tune in the main page. |
 | `set.json` | The current tune set, written by the CLI. |
 | `samples/` | Public domain tunes typed as test material: a dozen well-known tunes across the levels, twenty-one beginner songs (so-mi-la chants, do-re-mi songs, first classroom songs), eight original pentatonic tunes written for the course and released CC0 to fill level 2, and four famous classical openings. |
 
@@ -24,13 +24,17 @@ node course/analyze-cli.js path/to/tunes --ignore key --json out/report.json --c
 
 The JSON holds every tune's ABC, features, grade and the skills it introduces at its place in the sequence, which is what a course page will load. The CSV is one row per tune for a spreadsheet. The Markdown is the sequence as a table.
 
-## The route board
+## The practice board
 
-`board.html` reads `set.json` and lays the set out like a gym wall. Serve the folder (`serve.command`, or GitHub Pages) and open `course/board.html`; a page opened from disk cannot read the set.
+`board.html` reads `set.json`. Serve the folder (`serve.command`, or GitHub Pages) and open `course/board.html`; a page opened from disk cannot read the set.
 
-- **Roster** takes one name per line. With *Everyone* selected, each card's *Who sent it* opens chips to tap for each student; with a student selected, each card has one *Mark sent* button, sent routes turn green, the header counts their sends per level, and the lowest level with a route still unsent is outlined as the one to try next.
-- **Open** builds a share link (the same format as the main page's Share link) carrying the tune as a heading and a notation cell and opens the main page with it, ready to Play or Game. If the page already holds a lesson of your own, it asks before replacing it.
-- Names and sends live in the browser's storage, under their own key, apart from lessons. **Export** writes them to a file and **Import** merges one back, so a class can move between computers. The light or dark setting is shared with the main page.
+The lesson it is built for: a student chooses a tune at their level and practises it, performs it for the teacher or hands in a video, and the teacher marks it passed. Once half the tunes at a level are passed, the next level opens; nothing stops a student trying a harder tune early.
+
+- **The student's page.** *I am* names the student. The page then shows the level they are on, with every tune there as a card: its first bars, what it brings in that earlier tunes did not (outlined), **Open**, which plays it in the main page, and **Practise**, which puts it on their list at the top of the page. A practised tune has **Ready to show**, which tells the teacher; the levels ahead and the levels done sit below, folded. Each student's choice of name is kept for the browser tab only.
+- **The teacher's page.** With *the teacher* chosen, the page opens with the queue of students who are ready to show, each with Open, **Not yet** and **Passed**, then every level as a wall of cards. **Class** on a card lists the students with their state; tapping a name marks that tune passed (and again clears it). Each level says how many students are on it.
+- **Class list** takes one name per line. Names and progress (practising, ready, passed, with a date) live in the browser's storage, under their own key, apart from lessons. **Export** writes them to a file and **Import** merges one back, so a class can move between computers, and the teacher's computer can take in a student's progress. The light or dark setting is shared with the main page.
+
+The board is one browser's record, with no accounts: a classroom computer, or an export passed around. A shared server behind it is the step after this.
 
 A set is made from any graded folder:
 
@@ -61,7 +65,7 @@ Seven dimensions, six rungs each. A tune sits on the first rung whose test it pa
 
 Key signature is the seventh dimension (one accidental, two, three, four, five or more, key changes).
 
-The thresholds are a first calibration against the sample tunes and the Nottingham folk collection (Hot Cross Buns 1, Mary Had a Little Lamb 2, Twinkle and Amazing Grace 3, Oh! Susanna 4, Greensleeves 5; Drunken Sailor and Golden Slippers the easiest of the dance tunes at 3). They are a starting point. Once students attempt tunes, pass rates per level are the better authority, as climbers' consensus corrects a route setter's grade.
+The thresholds are a first calibration against the sample tunes and the Nottingham folk collection (Hot Cross Buns 1, Mary Had a Little Lamb 2, Twinkle and Amazing Grace 3, Oh! Susanna 4, Greensleeves 5; Drunken Sailor and Golden Slippers the easiest of the dance tunes at 3). They are a starting point. Once students attempt tunes, pass rates per level are the better authority, as climbers' consensus corrects a setter's grade.
 
 ## Sequencing
 
