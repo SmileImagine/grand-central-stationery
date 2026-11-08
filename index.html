@@ -1468,7 +1468,7 @@
           this.buildTimeline();
           // The count-in: the clock runs from minus two beats; the painter
           // draws the bar gliding in, the lamp counting, the first note on deck.
-          this.idle = false;
+          this.idle = false; this.beatK = -1;                // so the first beat of the count-in pulses and shows its digit
           const lead = this.tl.lead;
           this.setTime(-lead, true);
           await new Promise(r => setTimeout(r, lead));
@@ -1986,7 +1986,7 @@
         }
         // The lamp pulses on each beat, counting the lead-in too; the digits show in game mode.
         const beatK = Math.floor((t + tl.lead) / tl.beatMs + 1e-6);
-        if (beatK !== this.beatK) { if (this.beatK !== null && c.running) { this.pulseLamp(); if (gameMode && t < 0) this.count(beatK + 1); } this.beatK = beatK; }
+        if (beatK !== this.beatK) { if (this.beatK !== null && c.running) { this.pulseLamp(); if (gameMode && this.leadIn && t < 0) this.count(beatK + 1); } this.beatK = beatK; }   // digits only in a real count-in (a loop wrap lands a few ms before zero)
         // Cursor and paper.
         const at = this.cursorAt(t);
         if (g && at && !this.drag) {
