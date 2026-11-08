@@ -56,7 +56,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## midi-js-soundfonts (vendor/soundfont/): the FluidR3_GM acoustic_grand_piano (also embedded as base64 in piano-embedded.js), recorder, acoustic_guitar_nylon and electric_piano_1 sets (recorder and guitar notes normalised to one level), and the percussion notes the accompaniment styles use, one set so the instruments sit at the same level
+## midi-js-soundfonts (vendor/soundfont/): the FluidR3_GM acoustic_grand_piano (also embedded as base64 in piano-embedded.js), recorder, acoustic_guitar_nylon and electric_piano_1 sets (recorder and guitar notes normalised to one level), the acoustic_bass set and the percussion notes the accompaniment uses, one set so the instruments sit at the same level
 
 https://github.com/gleitz/midi-js-soundfonts
 

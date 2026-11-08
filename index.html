@@ -243,6 +243,11 @@
     .inst .key.root { stroke: var(--c); stroke-opacity: 1; stroke-width: 3.5; }
     .inst .runner text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
     .paper .chordshape rect { stroke: none; }
+    .bandctl { display: none; align-items: center; gap: 10px; font: var(--ui); color: var(--muted); }
+    .bandctl.on { display: inline-flex; }
+    .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
+    .bandctl input[type="range"] { width: 70px; accent-color: var(--accent); }
+    .bandctl .regen { padding: 1px 7px; }
     .paper .numeral text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; }
     .paper .chordshape rect.root { stroke: var(--ink); stroke-width: 1; }
     .inst .runner { opacity: 0.95; transition: opacity 0.25s; }
@@ -1271,7 +1276,8 @@
        sets its own %%MIDI gchord keeps it. Drums need the percussion samples,
        which a page opened from disk cannot load, so there they are left out. */
     const STYLES = {
-      auto:  { name: 'Auto' },
+      band:  { name: 'Band', band: true },
+      auto:  { name: 'Auto (classic)' },
       plain: { name: 'Plain' },
       block: { name: 'Block chords', gchord: 'b', prog: 0, chordvol: 52, bassvol: 60 },
       boom:  { name: 'Boom-chick', gchord: 'fzczfzcz', prog: 0, drum: 'dddd 35 38 35 38 85 55 85 55' },
@@ -1283,6 +1289,7 @@
     };
     // The style for a tune: Auto takes the waltz in triple time, else boom-chick.
     function styleFor(key, abc) {
+      if (key === 'band') return STYLES.band;
       if (key === 'auto') { const m = abc.match(/^M:\s*(\d+)\/(\d+)/m); return m && parseInt(m[1], 10) % 3 === 0 && parseInt(m[1], 10) !== 6 ? STYLES.waltz : STYLES.boom; }
       return STYLES[key] || STYLES.plain;
     }
@@ -1293,6 +1300,219 @@
       lines.push(`%%MIDI chordvol ${st.chordvol || 48}`, `%%MIDI bassvol ${st.bassvol || 64}`);
       if (st.drum && location.protocol !== 'file:') lines.push(`%%MIDI drum ${st.drum}`, '%%MIDI drumon');
       return abc.replace(/^K:/m, lines.join('\n') + '\nK:');
+    }
+    /* ---- the Band: an accompaniment of our own ----
+       abcjs's patterns are fixed per bar: root-position chords, no bass
+       line to speak of, no variation. The Band reads the chord symbols,
+       written or detected, and writes three parts for each bar: chord
+       voicings that move by the smallest step from the previous voicing
+       (with sevenths and ninths as Detail rises), a bass line of roots and
+       fifths with approach notes into the next chord, and a drum kit whose
+       patterns thicken with Energy, vary from bar to bar, and fill at the
+       end of every fourth bar. The variation is seeded, so a loop repeats
+       exactly and the regenerate button deals a new hand. It plays through
+       a sampler on the same AudioContext as abcjs, scheduled from the
+       playhead, so it keeps time with the melody under every control. */
+    const FLAT_NOTE = m => ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'][((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
+    const DRUM = { kick: 36, snare: 38, rim: 37, clap: 39, hatC: 42, hatP: 44, hatO: 46, crash: 49, ride: 51, tamb: 54, shaker: 70 };
+    const mulberry = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+    const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
+    class Sampler {
+      constructor() { this.buffers = new Map(); this.loading = new Map(); }
+      // The AudioContext abcjs plays through; made here and registered with
+      // abcjs when it does not exist yet, so samples can load before the
+      // first Play (abcjs resumes it on that first user gesture).
+      ctx() {
+        let c = ABCJS.synth.activeAudioContext && ABCJS.synth.activeAudioContext();
+        if (!c && (window.AudioContext || window.webkitAudioContext)) { try { c = new (window.AudioContext || window.webkitAudioContext)(); ABCJS.synth.registerAudioContext(c); } catch (err) { c = null; } }
+        return c;
+      }
+      load(folder, midi) {
+        const key = folder + '/' + FLAT_NOTE(midi);
+        if (this.buffers.has(key)) return Promise.resolve(this.buffers.get(key));
+        if (this.loading.has(key)) return this.loading.get(key);
+        const ctx = this.ctx(); if (!ctx) return Promise.resolve(null);
+        const p = fetch(SOUNDFONT + folder + '-mp3/' + FLAT_NOTE(midi) + '.mp3').then(r => r.ok ? r.arrayBuffer() : Promise.reject(new Error(key))).then(ab => ctx.decodeAudioData(ab)).then(buf => { this.buffers.set(key, buf); return buf; }).catch(() => null).finally(() => this.loading.delete(key));
+        this.loading.set(key, p); return p;
+      }
+      // Play a sample at AudioContext time `when`, for `dur` seconds (drums ring out), into `out`.
+      play(folder, midi, when, dur, vel, out) {
+        const buf = this.buffers.get(folder + '/' + FLAT_NOTE(midi)); if (!buf) return null;
+        const ctx = this.ctx(), src = ctx.createBufferSource(), g = ctx.createGain();
+        src.buffer = buf; src.connect(g); g.connect(out);
+        g.gain.setValueAtTime(vel, when);
+        src.start(when);
+        if (dur) { g.gain.setValueAtTime(vel, when + dur); g.gain.linearRampToValueAtTime(0.0001, when + dur + 0.08); src.stop(when + dur + 0.1); }
+        return src;
+      }
+    }
+    const sampler = new Sampler();
+    class Band {
+      constructor(cell) { this.cell = cell; this.notes = []; this.ptr = 0; this.live = new Set(); this.timer = null; this.anchorT = null; this.anchorC = 0; this.out = null; }
+      active() { return this.cell.style === 'band' && this.cell.playMode !== 'melody' && location.protocol !== 'file:'; }
+      params() { const b = this.cell.band || {}; return { energy: b.i === undefined ? 0.5 : b.i / 100, detail: b.c === undefined ? 0.5 : b.c / 100, seed: b.seed || 1 }; }
+      gains() {
+        const ctx = sampler.ctx(); if (!ctx) return null;
+        if (!this.out || this.out.context !== ctx) {
+          this.out = ctx.createGain(); this.out.connect(ctx.destination);
+          this.parts = {}; for (const p of ['chords', 'bass', 'drums']) { this.parts[p] = ctx.createGain(); this.parts[p].connect(this.out); }
+        }
+        const { energy } = this.params();
+        this.parts.chords.gain.value = 0.42; this.parts.bass.gain.value = 0.9; this.parts.drums.gain.value = 0.45 + 0.4 * energy;
+        return this.parts;
+      }
+      /* ---- writing the parts ---- */
+      prepare() {
+        this.stop(); this.notes = [];
+        if (!this.active()) return;
+        const cell = this.cell, tl = cell.tl; if (!tl || !tl.events.length) return;
+        // Bars from the parsed tune, in whole notes, then in ms at the current tempo.
+        const beatLen = (cell.original.getBeatLength && cell.original.getBeatLength()) || 0.25, msPerWhole = tl.beatMs / beatLen;
+        const bars = []; let pos = 0, barStart = 0, mult = 1, inT = false;
+        for (const el of cell.origElems) {
+          if (el._voice !== 0) continue;
+          if (el.el_type === 'bar') { if (pos > barStart + 1e-9) bars.push({ s: barStart * msPerWhole, e: pos * msPerWhole, beats: Math.round((pos - barStart) / beatLen * 4) / 4 }); barStart = pos; continue; }
+          if (el.el_type !== 'note') continue;
+          if (el.startTriplet) { inT = true; mult = el.tripletMultiplier || 1; }
+          pos += (el.duration || 0) * (inT ? mult : 1);
+          if (el.endTriplet) { inT = false; mult = 1; }
+        }
+        if (pos > barStart + 1e-9) bars.push({ s: barStart * msPerWhole, e: pos * msPerWhole, beats: Math.round((pos - barStart) / beatLen * 4) / 4 });
+        // The chord in force at any time, from the events' chord symbols.
+        const segs = []; let last = null;
+        for (const ev of tl.events) { const c = cell.chordAt(ev.ev); if (c && (!last || c.name !== last.name)) { segs.push({ ms: ev.ms, chord: c }); last = c; } }
+        if (!segs.length) return;
+        const chordAt = ms => { let c = segs[0].chord; for (const sg of segs) { if (sg.ms <= ms + 1) c = sg.chord; else break; } return c; };
+        const { energy, detail, seed } = this.params();
+        const key = cell.keyInfo(), scale = key.minor ? [0, 2, 3, 5, 7, 8, 10] : [0, 2, 4, 5, 7, 9, 11];
+        const beatMs = tl.beatMs, out = [];
+        const seen = new Map();   // one hit per drum per moment: a fill over a backbeat keeps the louder
+        const add = (part, t, dur, midi, vel) => {
+          if (!(t >= 0 && t < tl.total + 1)) return;
+          if (part === 'drums') { const k = midi + '@' + Math.round(t / 10); const prev = seen.get(k); if (prev) { prev.vel = Math.max(prev.vel, vel); return; } const n = { part, t, dur, midi, vel }; seen.set(k, n); out.push(n); return; }
+          out.push({ part, t, dur, midi, vel });
+        };
+        let prevVoicing = null, crashNext = false;
+        bars.forEach((bar, bi) => {
+          const rng = mulberry(seed * 7919 + bi * 104729 + 17);
+          const nb = Math.max(1, Math.round(bar.beats)), full = Math.abs(bar.beats - nb) < 1e-6 && (bi > 0 || bars.length === 1 || nb === Math.round(bars[1].beats));
+          const triple = nb % 3 === 0 && nb !== 6, steps = nb * 4, stepMs = beatMs / 4;
+          const at = b => bar.s + b * beatMs;
+          const chordOn = b => chordAt(at(b));
+          const nextBar = bars[bi + 1], nextChord = nextBar ? chordAt(nextBar.s) : chordOn(0);
+          const chordTones = c => { const t = [...c.pcs]; if (detail > 0.55 && t.length === 3 && c.pcs.includes((c.root + 4) % 12) && !t.includes((c.root + 10) % 12) && FUNCTION_OF[romanOf(c, key.minor ? (key.doPc + 9) % 12 : key.doPc, key.minor).n.replace(/7$/, '')] === 'D') t.push((c.root + 10) % 12); if (detail > 0.75 && t.length === 3) t.push((c.root + 2) % 12); return t; };
+          // ---- chords: hits per bar, voiced by the smallest move ----
+          const voice = c => {
+            const tones = chordTones(c), lo = 52, hi = 69, cands = [];
+            for (let b0 = lo; b0 < lo + 12; b0++) {
+              if (!tones.includes(((b0 % 12) + 12) % 12)) continue;
+              const v = [b0]; let cur = b0;
+              for (let n = 1; n < tones.length; n++) { let m = cur + 1; while (!tones.includes(((m % 12) + 12) % 12) || v.includes(m)) m++; v.push(m); cur = m; }
+              if (v[v.length - 1] <= hi + 2) cands.push(v);
+            }
+            if (!cands.length) return prevVoicing || tones.map(t => 60 + ((t - 60) % 12 + 12) % 12);
+            const cost = v => prevVoicing ? v.reduce((a, n) => a + Math.min(...prevVoicing.map(p => Math.abs(p - n))), 0) + Math.abs((v[0] + v[v.length - 1]) / 2 - 60) * 0.15 : Math.abs((v[0] + v[v.length - 1]) / 2 - 60);
+            cands.sort((a, b) => cost(a) - cost(b));
+            return cands[0];
+          };
+          let hits;
+          if (!full && bi === 0) hits = [];                    // the pickup bar: the band waits for the downbeat
+          else if (triple) hits = energy < 0.35 ? pick(rng, [[[0, 3]], [[0, 2], [2, 1]]]) : energy < 0.7 ? pick(rng, [[[0, 1], [1, 1], [2, 1]], [[0, 1.5], [1.5, 1.5]], [[0, 1], [1.5, 1.5]]]) : pick(rng, [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5]], [[0, 1], [1, .5], [1.5, .5], [2, 1]]]);
+          else hits = energy < 0.35 ? pick(rng, [[[0, 4]], [[0, 2], [2, 2]], [[0, 2.5], [2.5, 1.5]]]) : energy < 0.7 ? pick(rng, [[[0, 1.5], [1.5, 1.5], [3, 1]], [[0, 2.5], [2.5, 1.5]], [[0, 1.5], [1.5, .5], [2, 1.5], [3.5, .5]], [[0, 1], [1.5, 1], [2.5, 1.5]]]) : pick(rng, [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5], [3, .5], [3.5, .5]], [[0, .5], [.5, 1], [1.5, .5], [2, .5], [2.5, 1], [3.5, .5]], [[0, 1.5], [1.5, .5], [2, .5], [2.5, 1], [3.5, .5]]]);
+          hits = hits.filter(h => h[0] < nb);
+          // A chord change inside the bar gets a hit of its own.
+          for (const sg of segs) { const b = (sg.ms - bar.s) / beatMs; if (b > 0.01 && b < nb - 0.01 && !hits.some(h => Math.abs(h[0] - b) < 0.01)) { hits.push([b, 1]); hits.sort((x, y) => x[0] - y[0]); } }
+          let lastChordName = null;
+          hits.forEach(([b, d], hi2) => {
+            const c = chordOn(b); if (c.name !== lastChordName) { prevVoicing = voice(c); lastChordName = c.name; }
+            const next = hits[hi2 + 1], dur = Math.min(d, next ? next[0] - b : nb - b) * beatMs / 1000 * 0.92;
+            const accent = b === 0 || Math.abs(b - 2.5) < 0.01 ? 1 : (b % 1 === 0 ? 0.85 : 0.72);
+            prevVoicing.forEach((m, vi) => add('chords', at(b) + vi * 6, dur, m, (0.45 + 0.3 * energy) * accent));
+          });
+          // ---- bass: roots and fifths, approaching the next chord ----
+          if (full || bi > 0) {
+            const bassNote = (pc, near = 43) => { let m = pc + 36; while (m < near - 6) m += 12; while (m > near + 5) m -= 12; return Math.max(28, Math.min(55, m)); };
+            const c0 = chordOn(0), root0 = bassNote(c0.root), fifth0 = bassNote((c0.root + 7) % 12, root0 + 2);
+            const nextRoot = bassNote(nextChord.root, root0);
+            const bl = [];
+            if (triple) {
+              bl.push([0, 1.5, root0, 1]);
+              if (energy > 0.3) bl.push([pick(rng, [1, 2]), 1, chordOn(1).name !== c0.name ? bassNote(chordOn(1).root) : fifth0, 0.8]);
+              if (detail > 0.4 && nextRoot !== root0 && rng() < 0.7) bl.push([2.5, .5, nextRoot + pick(rng, [-1, 1, -2]), 0.75]);
+            } else {
+              bl.push([0, 2, root0, 1]);
+              const c2 = chordOn(2), mid = c2.name !== c0.name ? bassNote(c2.root, root0) : (energy > 0.5 && rng() < 0.5 ? root0 : fifth0);
+              bl.push([2, 1.5, mid, 0.85]);
+              if (energy > 0.5) { bl.push([1.5, .5, root0, 0.65]); if (rng() < 0.6) bl.push([3, .5, mid, 0.7]); }
+              if (detail > 0.4 && rng() < 0.8) {
+                const target = nextRoot, diff = target - mid;
+                const appr = Math.abs(diff) <= 2 ? mid : (rng() < 0.5 ? target - Math.sign(diff || 1) : (() => { const s = scale.map(x => (key.doPc + x) % 12); let m = target - 1; while (!s.includes(((m % 12) + 12) % 12)) m--; return m; })());
+                bl.push([3.5, .5, appr, 0.7]);
+              } else if (energy > 0.3 && rng() < 0.4) bl.push([3.5, .5, root0 + 12 <= 55 ? root0 + 12 : root0, 0.6]);
+            }
+            for (const [b, d, m, v] of bl) if (b < nb) add('bass', at(b), d * beatMs / 1000 * 0.95, m, v * (0.7 + 0.3 * energy));
+          }
+          // ---- drums ----
+          if (full || bi > 0) {
+            const grid = {};
+            const hit = (name, step, vel) => { if (step < steps) add('drums', bar.s + step * stepMs, 0, DRUM[name], vel * (0.55 + 0.45 * energy)); };
+            const pat = (name, str, vel, velOff = vel * 0.6) => { [...str].forEach((ch, i) => { if (ch === 'x') hit(name, i, vel); else if (ch === 'o') hit(name, i, velOff); }); };
+            const fill = detail > 0.3 && energy > 0.25 && (bi + 1) % 4 === 0 && bi < bars.length - 1;
+            if (crashNext) hit('crash', 0, 0.8);
+            crashNext = fill;
+            if (triple) {
+              pat('kick', pick(rng, ['x...........', 'x.....x.....', 'x........x..']), 0.95);
+              if (energy > 0.3) pat('snare', pick(rng, ['........x...', '....x...x...']), 0.75);
+              pat('hatC', energy < 0.35 ? 'x...x...x...' : energy < 0.7 ? 'x.x.x.x.x.x.' : 'xoxoxoxoxoxo', 0.55, 0.3);
+            } else {
+              pat('kick', energy < 0.35 ? pick(rng, ['x...............', 'x.......x.......']) : energy < 0.7 ? pick(rng, ['x.......x.......', 'x..x....x.......', 'x.....x...x.....', 'x.......x..x....']) : pick(rng, ['x..x....x..x....', 'x..x..x...x.....', 'x.......x.x..x..', 'x..x....x.x.....']), 0.95);
+              if (energy >= 0.2) { pat('snare', fill ? '....x.......xxxx' : '....x.......x...', 0.8); if (detail > 0.5 && energy > 0.45) pat('snare', pick(rng, ['.......o........', '..........o.....', '.......o...o....']), 0.2, 0.2); }
+              if (energy < 0.35) pat('hatC', 'x...x...x...x...', 0.5);
+              else if (energy < 0.7) { pat('hatC', 'x.x.x.x.x.x.x.x.', 0.55, 0.35); if (bi % 2 === 1 && rng() < 0.6) hit('hatO', 14, 0.45); }
+              else { pat('hatC', 'xoxoxoxoxoxoxoxo', 0.55, 0.28); if (rng() < 0.5) hit('hatO', 14, 0.5); if (detail > 0.6) pat('shaker', 'o.o.o.o.o.o.o.o.', 0.3, 0.3); }
+              if (fill) { hit('snare', 12, 0.6); hit('snare', 13, 0.7); hit('snare', 14, 0.8); hit('snare', 15, 0.9); }
+            }
+          }
+        });
+        out.sort((a, b) => a.t - b.t);
+        this.notes = out;
+        // Fetch the samples the parts need; playback skips any not yet decoded.
+        const need = new Set(out.map(n => (n.part === 'drums' ? 'percussion' : n.part === 'bass' ? 'acoustic_bass' : 'electric_piano_1') + ':' + n.midi));
+        for (const k of need) { const [f, m] = k.split(':'); sampler.load(f, +m); }
+        this.ptr = 0;
+      }
+      /* ---- playing against the clock ---- */
+      folder(part) { return part === 'drums' ? 'percussion' : part === 'bass' ? 'acoustic_bass' : 'electric_piano_1'; }
+      // abcjs reported its timer at T ms: our schedule is pinned to the AudioContext clock there.
+      anchor(T) {
+        if (!this.active() || !this.notes.length) return;
+        const ctx = sampler.ctx(); if (!ctx) return;
+        if (this.anchorT !== null && T < this.anchorT - 200) this.stopAll();   // a loop wrapping round, or a seek back
+        this.anchorT = T; this.anchorC = ctx.currentTime;
+        this.ptr = this.notes.findIndex(n => n.t >= T - 40); if (this.ptr < 0) this.ptr = this.notes.length;
+        if (!this.timer) this.timer = setInterval(() => this.tick(), 40);
+        this.tick();
+      }
+      // Each tick schedules what falls in the next quarter second.
+      tick() {
+        const ctx = sampler.ctx(), parts = this.gains(); if (!ctx || !parts || this.anchorT === null) return;
+        const now = this.anchorT + (ctx.currentTime - this.anchorC) * 1000, horizon = now + 260;
+        while (this.ptr < this.notes.length && this.notes[this.ptr].t < horizon) {
+          const n = this.notes[this.ptr++];
+          const when = Math.max(ctx.currentTime, this.anchorC + (n.t - this.anchorT) / 1000);
+          if (n.t < now - 60) continue;                        // too late to matter
+          const src = sampler.play(this.folder(n.part), n.midi, when, n.dur, n.vel, parts[n.part]);
+          if (src) { this.live.add(src); src.onended = () => this.live.delete(src); }
+        }
+      }
+      stopAll() { for (const s of this.live) { try { s.stop(); } catch (err) {} } this.live.clear(); }
+      stop() { this.stopAll(); if (this.timer) { clearInterval(this.timer); this.timer = null; } this.anchorT = null; }
+      // The cell's clock changed: running or not.
+      sync(running) {
+        if (!this.active()) { this.stop(); return; }
+        if (!running) { this.stop(); return; }
+        if (this.anchorT === null) { const t = this.cell.now(); if (t >= -1) this.anchor(t); }   // a resume without an abcjs event yet: start from the display clock; the next note corrects
+      }
     }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
     const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
@@ -1389,7 +1609,8 @@
         this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
         this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
         this.harmony = ['off', 'numerals', 'detect'].includes(opts.harm) ? opts.harm : 'off';
-        this.style = STYLES[opts.style] ? opts.style : 'auto';
+        this.style = STYLES[opts.style] ? opts.style : 'band';
+        this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="paper"></div></div><div class="inst"></div>
           <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
           <div class="side"><div class="audio" id="${id}-audio"></div>
@@ -1398,6 +1619,10 @@
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
           <label class="xpose playpick" title="What sounds: the melody with its chord symbols, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + chords</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Chords only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
           <label class="xpose stylepick" title="The accompaniment pattern for the chord symbols: bass, chords and drums. Auto takes the waltz in triple time and boom-chick otherwise; Plain is abcjs's own.">Style <select>${Object.entries(STYLES).map(([k, v]) => `<option value="${k}"${k === this.style ? ' selected' : ''}>${v.name}</option>`).join('')}</select></label>
+          <span class="bandctl" title="Energy sets how busy the band plays; Detail adds sevenths, ninths, approach notes and ghost notes; the arrow deals a new variation.">
+            <label>Energy <input type="range" class="energy" min="0" max="100" value="${this.band.i === undefined ? 50 : this.band.i}"></label>
+            <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
+            <button type="button" class="regen" title="A new variation">\u21BB</button></span>
           <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
           <div class="warn"></div></div></div>`;
         const xp = body.querySelector('.xpose input');
@@ -1411,7 +1636,12 @@
         const pp = body.querySelector('.playpick select');
         pp.addEventListener('change', () => { this.playMode = pp.value; this.render(); if (opts.onPlay) opts.onPlay(this.playMode); });
         const sp = body.querySelector('.stylepick select');
-        sp.addEventListener('change', () => { this.style = sp.value; this.render(); if (opts.onStyle) opts.onStyle(this.style); });
+        sp.addEventListener('change', () => { this.style = sp.value; body.querySelector('.bandctl').classList.toggle('on', this.style === 'band'); this.render(); if (opts.onStyle) opts.onStyle(this.style); });
+        body.querySelector('.bandctl').classList.toggle('on', this.style === 'band');
+        const bandChange = () => { this.band.i = +body.querySelector('.energy').value; this.band.c = +body.querySelector('.detail').value; this.bandPlayer.prepare(); if (opts.onBand) opts.onBand(this.band); };
+        body.querySelector('.energy').addEventListener('input', bandChange);
+        body.querySelector('.detail').addEventListener('input', bandChange);
+        body.querySelector('.regen').addEventListener('click', () => { this.band.seed = 1 + Math.floor(Math.random() * 1e6); bandChange(); });
         const hp = body.querySelector('.harmpick select');
         hp.addEventListener('change', () => { this.harmony = hp.value; this.render(); if (opts.onHarm) opts.onHarm(this.harmony); });
         const np = body.querySelector('.namepick select');
@@ -1420,6 +1650,7 @@
         ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); });   // a full render: the sound changes with the view
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
         this.clock = { t0: 0, at0: 0, running: false }; this.tl = null; this.idle = true; this.k = null; this.beatK = null; this.raf = null;
+        this.bandPlayer = new Band(this);
         this.gamebar = body.querySelector('.gamebar');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
@@ -1598,7 +1829,7 @@
           // abcjs treats a visual transposition as a transposing instrument's
           // part and cancels it in the audio; a matching midiTranspose makes
           // the sound follow the page.
-          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst), voicesOff: this.playMode === 'backing', chordsOff: this.playMode === 'melody', swing: style.swing || 0 }).catch(() => {});
+          this.synth.setTune(this.original, false, { soundFontUrl: SOUNDFONT, midiTranspose: this.transpose || 0, program: soundProgram(this.inst), voicesOff: this.playMode === 'backing', chordsOff: this.playMode === 'melody' || !!style.band, swing: style.swing || 0 }).catch(() => {});
           this.synth.isLoaded = false;
           // The tempo box is blank until abcjs loads the audio; show the tune's tempo now.
           const warp = this.synth.warp || 100;
@@ -1957,7 +2188,7 @@
          pause simply stops the clock, and a seek, a tempo change or a loop
          wrapping round simply set it. */
       now() { const c = this.clock; return c.running ? c.t0 + (performance.now() - c.at0) : c.t0; }
-      setTime(t, running) { const c = this.clock; c.t0 = t; c.at0 = performance.now(); c.running = running; this.wake(); }
+      setTime(t, running) { const c = this.clock; c.t0 = t; c.at0 = performance.now(); c.running = running; this.wake(); if (this.bandPlayer) this.bandPlayer.sync(running); }
       wake() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); }); }
       // The timeline: every abcjs timing event with its time, display
       // geometry, pitches and chord in force, plus the beat and the count-in.
@@ -1971,6 +2202,7 @@
         this.tl = { source: this.original && this.original.noteTimings, events, total, beatMs, lead: LEAD_IN_BEATS * beatMs, startX: this.startX(), ends: new Map() };
         this.k = null; this.beatK = null;
         this.vizSchedule();
+        if (this.bandPlayer) this.bandPlayer.prepare();
       }
       lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
       // The index of the event sounding at t (-1 before the first), by binary search.
@@ -2123,6 +2355,7 @@
       // After a render: park the cursor faintly at the start.
       placeReady() {
         this.idle = true; this.k = null; this.beatK = null;
+        if (this.bandPlayer) this.bandPlayer.stop();
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
         this.clock.running = false; this.clock.t0 = this.tl ? -this.tl.lead : 0;
         this.clearPlaying();
@@ -2188,6 +2421,7 @@
             const latencyMs = ctx ? ((ctx.baseLatency || 0) + (ctx.outputLatency || 0)) * 1000 : 0;
             this.idle = false;
             this.setTime(ev.milliseconds - latencyMs, true);
+            if (this.bandPlayer) this.bandPlayer.anchor(ev.milliseconds);
           },
         };
       }
@@ -2309,7 +2543,7 @@
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names, play, harm, style }) => ({ type, text, pos, bg, tr, inst, names, play, harm, style })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names, play, harm, style, band }) => ({ type, text, pos, bg, tr, inst, names, play, harm, style, band })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -2436,7 +2670,7 @@
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm, onHarm: v => { if (v && v !== 'off') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm, onHarm: v => { if (v && v !== 'off') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'band') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
@@ -2685,7 +2919,7 @@
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ font: fontKey, proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -2696,7 +2930,7 @@
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; delete j.bg; delete j.tr; delete j.inst; delete j.names; delete j.play; delete j.harm; delete j.style; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.names; delete j.play; delete j.harm; delete j.style; delete j.band; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
