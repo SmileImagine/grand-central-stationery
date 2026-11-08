@@ -1044,14 +1044,11 @@
           if (!e.pos.length) e.cols.push(svgText(this.laneG, 'lbl tab rest', e.x, this.laneTop + 1.5 * this.L + 0.5, 7, 'var(--muted)', '·', 'middle'));
         });
       }
-      laneX(i) { const e = this.events[i]; return this.left - (e ? e.x : 0); }   // lane transform that puts event i on the now-line
-      scroll(i, j, ms) {
-        const g = this.laneG; if (g._motion) g._motion.cancel();
-        const tr = x => `translateX(${x.toFixed(1)}px)`;
-        const from = i < 0 ? this.laneX(0) + (ms / this.beatMs) * this.BEAT : this.laneX(i);
-        const to = j === null ? from : (this.events[j] ? this.laneX(j) : this.laneX(i) - (ms / this.beatMs) * this.BEAT);
-        g._motion = g.animate([{ transform: tr(from) }, { transform: tr(to) }], { duration: Math.max(0, ms || 0), easing: 'linear', fill: 'forwards' });
-        for (const t of g.querySelectorAll('.tab')) { const k = +t.dataset.i; t.classList.toggle('past', k < i); t.classList.toggle('active', k === i); t.classList.toggle('ondeck', k === i + 1); }
+      // The lane at time t (ms from the first note): the column of the note
+      // sounding at t sits on the now-line; the scroll is constant speed.
+      frame(u, t) {
+        if (!this.events.length || !this.beatMs) return;
+        this.laneG.style.transform = `translateX(${(this.left - t / this.beatMs * this.BEAT).toFixed(1)}px)`;
       }
       // info: { index } of the sounding event in the schedule (-1 before the
       // first), and ms until the next; the fretboard uses the scheduled places.
@@ -1061,7 +1058,7 @@
         const i = sched ? info.index : -1;
         const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
         const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
-        if (sched) this.scroll(i, info.still ? null : i + 1, info.ms);
+        if (sched) for (const t of this.laneG.querySelectorAll('.tab')) { const k = +t.dataset.i; t.classList.toggle('past', k < i); t.classList.toggle('active', k === i); t.classList.toggle('ondeck', k === i + 1); }
         const draw = (p, cls) => {
           const q = this.pt(p);
           const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls, cx: q.x, cy: q.y, r: 8 });
@@ -1093,7 +1090,7 @@
       24: [.5, 1, 0, 1, 0, 0, 0, 0], 26: [.5, 0, 1, 1, 0, 0, 0, 0],
     };
     class RecorderLayout {
-      constructor() { this.runnerR = 0; this.panel = '44%'; }
+      constructor() { this.runnerR = 0; this.panel = '44%'; this.changes = []; }
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 86);
@@ -1125,34 +1122,34 @@
         this.nowName = svgText(g, 'lbl name', 24, 88, 16, 'var(--muted)', '', 'start');
         this.nextName = svgText(g, 'lbl name next', 300, 88, 11, 'var(--muted)', '', 'end');
         svgText(g, 'lbl cap', 300, 74, 6, 'var(--muted)', 'next', 'end');
-        this.anims = [];
       }
       fingering(midis) { const m = midis.length ? midis[0] + this.shift : null; return { m, f: m !== null ? RECORDER[m - 60] : null }; }
       // Per hole, 0 open, 1 closed, 0.5 half; a double hole is two circles, the second covered first.
       state(f, i, j, pair) { const v = f ? f[i] : 0; if (pair) return v === 1 || (v === 0.5 && j === 1) ? 1 : 0; return v; }
       mark(now, next, info) {
-        for (const a of this.anims) a.cancel(); this.anims = [];
         const cur = this.fingering(now), nxt = this.fingering(next);
-        const ms = info && info.ms > 0 ? info.ms : 600;
+        this.changes = [];
         this.g.classList.toggle('lit', !!cur.f); this.g.classList.toggle('empty', !now.length && !next.length);
         this.g.style.setProperty('--c', cur.m !== null ? midiColor(cur.m) : 'var(--muted)');
         this.g.style.setProperty('--n', nxt.m !== null ? midiColor(nxt.m) : 'var(--muted)');
         this.holes.forEach((pair, i) => pair.forEach((c, j) => {
           const a = this.state(cur.f, i, j, pair.length === 2), b = nxt.f ? this.state(nxt.f, i, j, pair.length === 2) : a;
-          c.classList.remove('closed', 'half', 'willclose', 'willopen', 'flick');
+          c.classList.remove('closed', 'half', 'willclose', 'willopen', 'flick'); c.style.fillOpacity = ''; c.style.strokeOpacity = '';
           if (a === 1) c.classList.add('closed'); else if (a === 0.5) c.classList.add('half');
-          if (nxt.f && b !== a) {
-            // A change coming: the hole takes the next note's colour, fading
-            // in over the time until it, and flickers so the finger finds it.
-            c.classList.add(b > a ? 'willclose' : 'willopen', 'flick');
-            this.anims.push(c.animate([{ fillOpacity: b > a ? 0.05 : 1, strokeOpacity: 0.2 }, { fillOpacity: b > a ? 0.95 : 0.15, strokeOpacity: 1 }], { duration: ms, easing: 'ease-in', fill: 'forwards' }));
-          }
+          // A change coming: the hole takes the next note's colour, fading
+          // in as the note approaches (drawn each frame), and flickers.
+          if (nxt.f && b !== a) { c.classList.add(b > a ? 'willclose' : 'willopen', 'flick'); this.changes.push({ c, closing: b > a }); }
         }));
         const name = x => x.m === null ? '' : x.f ? this.nameOf(x.m) : '?';
         this.nowName.textContent = name(cur); this.nowName.setAttribute('fill', cur.m !== null ? midiColor(cur.m) : 'var(--muted)');
         this.nextName.textContent = name(nxt); this.nextName.setAttribute('fill', nxt.m !== null ? midiColor(nxt.m) : 'var(--muted)');
-        if (nxt.m !== null) this.anims.push(this.nextName.animate([{ opacity: 0.15 }, { opacity: 1 }], { duration: ms, fill: 'forwards' }));
+        this.frame(0);
         return { now: null, next: null };
+      }
+      // u: how far the next note is from the sounding one, 0 to 1.
+      frame(u) {
+        for (const { c, closing } of this.changes) { c.style.fillOpacity = closing ? (0.05 + 0.9 * u).toFixed(3) : (1 - 0.85 * u).toFixed(3); c.style.strokeOpacity = (0.2 + 0.8 * u).toFixed(3); }
+        this.nextName.style.opacity = (0.15 + 0.85 * u).toFixed(3);
       }
       has(m) { return RECORDER[m + this.shift - 60] !== undefined; }
       octaves() { return this.shift / 12; }
@@ -1305,46 +1302,33 @@
         if (missing.length) out.push({ more: MORE.range, text: `${missing.join(', ')} ${missing.length > 1 ? 'are' : 'is'} not on the ${name} and will not be shown.` });
         return out;
       }
-      // The sounding note(s) and the next, with the time until the next.
-      show(now, next, dt, info) {
+      // The sounding note(s) and the next: the layout marks its keys and
+      // answers with the points the runner travels between.
+      mark(now, next, info) {
         if (!this.layout) return;
-        const pts = this.layout.mark(now, next, info && { ...info, ms: dt });
-        this.travel(pts.now, pts.next, dt, next);
-      }
-      travel(from, to, dt, next) {
+        this.pts = this.layout.mark(now, next, info);
         const r = this.runner; if (!r) return;
-        if (r._motion) r._motion.cancel();
-        if (!to) { r.classList.add('hide'); return; }
-        r.style.setProperty('--c', midiColor(next[0]));
-        this.label(next[0]);
+        if (!this.pts.next && !this.pts.now) { r.classList.add('hide'); return; }
+        const m = (next.length ? next : now)[0];
+        r.style.setProperty('--c', midiColor(m)); this.label(m);
         r.classList.remove('hide');
-        const tr = p => `translate(${p.x.toFixed(1)}px, ${p.y.toFixed(1)}px)`;
-        const cur = from || this.at || to;
-        this.at = to;
-        r._motion = r.animate([{ transform: tr(cur) }, { transform: tr(to) }], { duration: Math.max(0, dt || 0), easing: 'linear', fill: 'forwards' });
+      }
+      // Each frame: u is how far the next note is from the sounding one (0 at
+      // the onset, 1 as the next sounds), t the playhead in ms.
+      frame(u, t) {
+        const L = this.layout; if (!L) return;
+        if (L.frame) L.frame(u, t);
+        const r = this.runner, p = this.pts; if (!r || !p) return;
+        const from = p.now || p.next, to = p.next || p.now; if (!from) return;
+        const x = from.x + (to.x - from.x) * u, y = from.y + (to.y - from.y) * u;
+        r.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
       }
       label(m) { if (!this.runnerLbl) return; const nm = this.nameOf(m); this.runnerLbl.textContent = nm; this.runnerLbl.setAttribute('font-size', (this.layout.runnerR * (nm.length > 2 ? 0.7 : 0.95)).toFixed(2)); this.runnerLbl.setAttribute('fill', letterOn()); }
-      // A seek: show the state without motion.
-      seek(now, next, info) {
-        if (!this.layout) return;
-        const pts = this.layout.mark(now, next, info && { ...info, still: true, ms: 0 });
-        const r = this.runner; if (!r) return;
-        if (r._motion) r._motion.cancel();
-        if (pts.now) { this.at = pts.now; r.style.transform = `translate(${pts.now.x}px, ${pts.now.y}px)`; r.style.setProperty('--c', midiColor(now[0])); this.label(now[0]); r.classList.remove('hide'); }
-        else r.classList.add('hide');
-      }
-      // The count-in: the first note on deck with the runner waiting on it,
-      // as after a rest (a glide in from the edge read as an awkward drift).
-      leadIn(first, ms, info) {
-        if (!this.layout) return;
-        const pts = this.layout.mark([], first, info && { ...info, index: -1, ms });
-        this.travel(pts.next, pts.next, 0, first);
-      }
       clear() {
         if (!this.layout) return;
-        this.layout.mark([], [], this.layout.events ? { index: -1, still: true, reset: true, ms: 0 } : null);
-        if (this.runner) { if (this.runner._motion) this.runner._motion.cancel(); this.runner.classList.add('hide'); }
-        this.at = null;
+        this.pts = this.layout.mark([], [], this.layout.events ? { index: -1, reset: true } : null);
+        if (this.runner) this.runner.classList.add('hide');
+        if (this.layout.frame) this.layout.frame(0, 0);
       }
     }
 
@@ -1398,6 +1382,7 @@
         const ip = body.querySelector('.instpick select');
         ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); });   // a full render: the sound changes with the view
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
+        this.clock = { t0: 0, at0: 0, running: false }; this.tl = null; this.idle = true; this.k = null; this.beatK = null; this.raf = null;
         this.gamebar = body.querySelector('.gamebar');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
@@ -1406,7 +1391,7 @@
         this.shift = new Map();          // displayed element -> horizontal shift from proportional spacing
         this.pending = false;            // a render was requested during playback
         // A pause from the transport also applies a pending render (finish is handled by the cursor control).
-        body.querySelector('.audio').addEventListener('click', () => setTimeout(() => { if (!(this.synth && this.synth.isStarted)) this.pauseScroll(); if (this.pending && !this.warping && !(this.synth && this.synth.isStarted)) this.render(); }, 250));   // not during a tempo restart, when isStarted is briefly false
+        body.querySelector('.audio').addEventListener('click', () => setTimeout(() => { if (this.pending && !this.warping && !(this.synth && this.synth.isStarted)) this.render(); }, 250));   // not during a tempo restart, when isStarted is briefly false
         this.entry.addEventListener('input', () => { this.render(); onChange(this.entry.value); });
         this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
         this.ro.observe(this.scoreEl);
@@ -1450,6 +1435,7 @@
               const t = this.synth.timer;
               if (t && t.lastMoment > 0 && typeof t.currentTime === 'number') this.synth.percent = Math.max(0, Math.min(1, t.currentTime / t.lastMoment));
               this.warping = true; setTimeout(() => { this.warping = false; }, 2000);
+              if (this.clock.running) this.setTime(this.now(), false);   // the restart's first note sets the clock at the new tempo
             }, true);
           }
           // Play from the top gets a lead-in: the bar glides from its waiting
@@ -1468,46 +1454,35 @@
         const btn = e.target.closest && e.target.closest('.abcjs-midi-start');
         if (!btn || !s) return;
         if (this.leadIn || this.busy) { e.stopPropagation(); e.preventDefault(); return; }   // already counting in or loading: a second click is ignored
-        // Pause and resume are abcjs's own; the animations in flight (cursor,
-        // paper, runner, lane) freeze and thaw with them so nothing drifts.
-        if (s.isStarted) { this.freeze(true); return; }
-        if (s.percent > 0) { this.freeze(false); return; }
+        // Pause and resume are abcjs's own; the clock stops and starts with them.
+        if (s.isStarted) { this.setTime(this.now(), false); return; }
+        if (s.percent > 0) { this.setTime(this.now(), true); return; }
         e.stopPropagation(); e.preventDefault();
         this.leadIn = true; this.busy = true;
-        this.body.classList.remove('done'); if (gameMode) this.progress(0);
+        this.body.classList.remove('done');
         try {
           if (!s.visualObj) { this.busy = false; this.render(); this.busy = true; }   // the cell was laid out at no size: the tune never reached the synthesiser
           if (!s.visualObj) throw new Error('no tune to play');
           if (!s.isLoaded) await s.go();                     // samples and timer, without starting
           if (!s.visualObj) throw new Error('tune changed while loading');
-          const beats = LEAD_IN_BEATS, beatMs = 60000 / (s.currentTempo || 120);
-          const g = this.cursor(), first = this.firstNote(), x0 = this.startX();
-          if (g && first && x0 !== null) {
-            const fx = first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0) - 3;
-            const sp = this.spelled[this.dispElems.indexOf(first)];
-            g.classList.remove('done', 'ready'); this.shapeCursor(g, 0);
-            this.colourCursor(g, sp && sp[0] ? sp[0].color : 'var(--cursor)');
-            if (g._motion) g._motion.cancel();
-            g.style.transform = `translateX(${x0.toFixed(2)}px)`;
-            this.moveCursor(g, fx, beats * beatMs, 'linear');
-            this.scrollTo(x0, fx, beats * beatMs);
-            for (let b = 0; b < beats; b++) setTimeout(() => { this.pulseLamp(); if (gameMode) this.count(b + 1); }, b * beatMs);
-          }
-          const firstEv = this.firstTiming(); if (firstEv) { this.vizSchedule(); this.viz.leadIn(this.eventMidis(firstEv), beats * beatMs, { index: -1 }); }
-          await new Promise(r => setTimeout(r, beats * beatMs));
+          this.buildTimeline();
+          // The count-in: the clock runs from minus two beats; the painter
+          // draws the bar gliding in, the lamp counting, the first note on deck.
+          this.idle = false;
+          const lead = this.tl.lead;
+          this.setTime(-lead, true);
+          await new Promise(r => setTimeout(r, lead));
         } catch (err) {
           console.warn('lead-in skipped', err);
-          this.leadIn = false; this.busy = false; this.placeReady(); this.viz.clear();
+          this.leadIn = false; this.busy = false; this.placeReady();
           if (this.pending) this.render();
           return;                                          // nothing loaded: nothing to play
         }
         this.leadIn = false; this.busy = false;
-        this.leadInDone = true;
         s.play();
-        if (this.pending) { /* an edit arrived during the count-in; it is applied when playback pauses or ends */ }
       }
       pulseLamp() {
-        const g = this.cursor(); if (!g || g.classList.contains('ready')) return;
+        const g = this.cursor(); if (!g) return;
         g._lamp.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 170, easing: 'ease-out' });
       }
       renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
@@ -1573,7 +1548,9 @@
           console.warn('notation post-processing failed', err);
         }
         this.fit();
+        this.tl = null;
         this.placeReady();
+        try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
         if (this.synth) {
           // abcjs's setTune does not clear its isLoaded flag, so after one play
           // it would keep the previous tune's timer and audio buffer for every
@@ -1889,12 +1866,6 @@
         g._hit.setAttribute('y', (top - 9).toFixed(2)); g._hit.setAttribute('height', (height + 12).toFixed(2));
       }
       colourCursor(g, color) { g._bar.style.fill = color; g._lamp.style.fill = color; g.style.filter = `drop-shadow(0 0 3px ${color})`; }
-      moveCursor(g, x, ms, easing = 'linear') {
-        if (g._motion) g._motion.cancel();
-        const cur = (() => { const m = getComputedStyle(g).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : x; })();
-        g._motion = g.animate([{ transform: `translateX(${cur.toFixed(2)}px)` }, { transform: `translateX(${x.toFixed(2)}px)` }], { duration: Math.max(0, ms), easing, fill: 'forwards' });
-        return g._motion;
-      }
       // Where the bar waits: just after the clef and key signature, before the
       // first note. The lead-in glides from here into the first note.
       startX() {
@@ -1937,52 +1908,104 @@
         for (const v of verses) if (v) out.push('w: ' + music.map((_, i) => v[i] || '').join(' '));
         return out.join('\n');
       }
-      // Slide the paper so that score x `to` (after `from`, settling first) ends under the fixed cursor.
-      scrollTo(from, to, ms) {
-        if (!gameMode) return;
-        const svg = this.paper.querySelector('svg'); if (!svg) return;
-        const k = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize();
-        const at = x => W * 0.28 - x * k;
-        const cur = (() => { const m = getComputedStyle(this.paper).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : at(from); })();
-        if (this.paper._motion) this.paper._motion.cancel();
-        const tr = v => ({ transform: `translateX(${v.toFixed(1)}px)` });
-        const frames = ms > 150 && Math.abs(cur - at(from)) > 0.5 ? [tr(cur), { ...tr(at(from)), offset: Math.min(0.1, 60 / ms) }, tr(at(to))] : [tr(cur), tr(at(to))];
-        this.paper._motion = this.paper.animate(frames, { duration: Math.max(0, ms), easing: 'linear', fill: 'forwards' });
+      /* ---- the clock and the paint loop ----
+         Everything that moves in playback is a function of one time: the
+         playhead, in ms from the first note (negative during the count-in).
+         abcjs's timer sets it at every note it reports, less the audio output
+         latency; between notes it runs on performance.now(). Each animation
+         frame derives and draws the cursor, the paper, the lamp, the
+         instrument, the lane and the progress bar from that one number, so a
+         pause simply stops the clock, and a seek, a tempo change or a loop
+         wrapping round simply set it. */
+      now() { const c = this.clock; return c.running ? c.t0 + (performance.now() - c.at0) : c.t0; }
+      setTime(t, running) { const c = this.clock; c.t0 = t; c.at0 = performance.now(); c.running = running; this.wake(); }
+      wake() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); }); }
+      // The timeline: every abcjs timing event with its time, display
+      // geometry, pitches and chord in force, plus the beat and the count-in.
+      buildTimeline() {
+        const s = this.synth;
+        const ts = this.timings();
+        const bpm = (s && s.currentTempo) || (this.original && this.original.getBpm && this.original.getBpm()) || 120;
+        const beatMs = 60000 / bpm;
+        const events = ts.map((ev, i) => { const geo = this.eventGeometry(ev); return { i, ms: ev.milliseconds, line: ev.line || 0, x: geo.x === null ? null : geo.x - 3, color: geo.color, groups: geo.groups, midis: this.eventMidis(ev), ev }; });
+        const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : (events.length ? events[events.length - 1].ms : 0);
+        this.tl = { source: this.original && this.original.noteTimings, events, total, beatMs, lead: LEAD_IN_BEATS * beatMs, startX: this.startX(), ends: new Map() };
+        this.k = null; this.beatK = null;
+        this.vizSchedule();
       }
-      // During playback the paper glides in one continuous motion to the end
-      // of the line (position is linear in time), so nothing restarts at
-      // each note. Each event only checks the glide is on track and restarts
-      // it when it has drifted: after a tempo change, a seek, or a pause.
-      scrollSync(x, ms) {
-        if (!gameMode) return;
-        const svg = this.paper.querySelector('svg'); if (!svg) return;
-        const k = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize();
-        const at = v => W * 0.28 - v * k;
-        const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : 0;
-        const xe = this.endX(0);
-        const target = at(x);
-        const m = getComputedStyle(this.paper).transform, cur = m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : target;
-        const motion = this.paper._motion;
-        const dur = Math.max(0, total - ms), end = at(xe !== null ? xe : x);
-        const speed = dur > 0 ? (end - target) / dur : 0;                    // px per ms, negative (leftward)
-        // The synthesiser's timer jitters by some milliseconds; a glide
-        // within 40 ms of where it should be is left alone, and a larger
-        // drift is absorbed over a third of a second rather than a jump.
-        if (motion && motion.playState === 'running' && motion._glide && Math.abs(cur - target) < Math.abs(speed) * 40 + 1) return;
-        if (motion) motion.cancel();
-        const tr = v => ({ transform: `translateX(${v.toFixed(1)}px)` });
-        const blend = 350;
-        const far = Math.abs(cur - target) > W * 0.5;   // a loop wrapping round, or a long seek: jump, do not slide back
-        const frames = !far && Math.abs(cur - target) > 0.5 && dur > blend * 2 ? [tr(cur), { ...tr(target + speed * blend), offset: blend / dur }, tr(end)] : [tr(target), tr(end)];
-        this.paper._motion = this.paper.animate(frames, { duration: dur, easing: 'linear', fill: 'forwards' });
-        this.paper._motion._glide = true;
+      lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
+      // The index of the event sounding at t (-1 before the first), by binary search.
+      indexAt(t) {
+        const E = this.tl.events; let lo = 0, hi = E.length - 1, k = -1;
+        while (lo <= hi) { const mid = (lo + hi) >> 1; if (E[mid].ms <= t + 1e-6) { k = mid; lo = mid + 1; } else hi = mid - 1; }
+        return k;
       }
-      pauseScroll() { const m = this.paper && this.paper._motion; if (m && m.playState === 'running') m.pause(); }
-      freeze(on) {
-        const f = m => { if (!m) return; try { if (on && m.playState === 'running') m.pause(); else if (!on && m.playState === 'paused') m.play(); } catch (err) {} };
-        const g = this.paper.querySelector('.cursorg'); if (g) f(g._motion);
-        f(this.paper._motion);
-        if (this.viz) { if (this.viz.runner) f(this.viz.runner._motion); const L = this.viz.layout; if (L) { if (L.laneG) f(L.laneG._motion); if (L.anims) L.anims.forEach(f); } }
+      // The cursor's x and line at time t. Position is linear in time between
+      // notes under proportional spacing; otherwise the bar creeps across the
+      // notehead and hops to the next note as it comes. The count-in glides
+      // from the waiting place into the first note; the last note runs to the
+      // end of its line; a line change runs to the line's end, then jumps.
+      cursorAt(t) {
+        const tl = this.tl; if (!tl) return null;
+        const E = tl.events.filter(e => e.x !== null); if (!E.length) return null;
+        if (t < E[0].ms) {
+          const u = tl.lead > 0 ? Math.max(0, Math.min(1, (t - E[0].ms + tl.lead) / tl.lead)) : 1;
+          const x0 = tl.startX !== null ? tl.startX : E[0].x;
+          return { x: x0 + (E[0].x - x0) * u, line: E[0].line, color: E[0].color };
+        }
+        let lo = 0, hi = E.length - 1, k = 0;
+        while (lo <= hi) { const mid = (lo + hi) >> 1; if (E[mid].ms <= t + 1e-6) { k = mid; lo = mid + 1; } else hi = mid - 1; }
+        const a = E[k], b = E[k + 1];
+        const toEnd = (untilMs) => { const xe = this.lineEnd(a.line); const dur = untilMs - a.ms; const u = dur > 0 ? Math.max(0, Math.min(1, (t - a.ms) / dur)) : 1; return { x: xe !== null && xe > a.x ? a.x + (xe - a.x) * u : a.x, line: a.line, color: a.color }; };
+        if (!b) return toEnd(tl.total);
+        if (b.line !== a.line) return toEnd(b.ms);
+        const dt = b.ms - a.ms, u = dt > 0 ? Math.max(0, Math.min(1, (t - a.ms) / dt)) : 1;
+        let f = u;
+        if (!(proportional || gameMode) && dt > 120) {
+          const hop = Math.min(0.35, Math.max(0.2, 240 / dt)), head = Math.min(12, (b.x - a.x) * 0.3) / Math.max(1, b.x - a.x);
+          if (u < 1 - hop) f = head * (u / (1 - hop));
+          else { const v = (u - (1 - hop)) / hop; f = head + (1 - head) * (v < 0.5 ? 2 * v * v : 1 - 2 * (1 - v) * (1 - v)); }
+        }
+        return { x: a.x + (b.x - a.x) * f, line: a.line, color: a.color };
+      }
+      // One frame: derive everything from the playhead and draw it.
+      paint() {
+        const tl = this.tl, c = this.clock;
+        if (!tl || this.idle) return;
+        const t = this.now();
+        const g = this.cursor();
+        // The sounding event: marks change only when it changes.
+        const k = t < 0 ? -1 : this.indexAt(t);
+        if (k !== this.k) {
+          this.k = k;
+          this.clearPlaying();
+          const cur = tl.events[k], nxt = tl.events[k + 1];
+          if (cur) for (const grp of cur.groups) { grp.classList.add('playing'); grp.style.filter = `drop-shadow(0 0 5px ${cur.color})`; }
+          if (g) { g.classList.remove('done', 'ready'); this.shapeCursor(g, (cur || tl.events[0] || { line: 0 }).line); this.colourCursor(g, (cur || tl.events[0] || { color: 'var(--cursor)' }).color); }
+          if (this.viz && this.viz.layout) this.viz.mark(cur ? cur.midis : [], nxt ? nxt.midis : (k < 0 && tl.events[0] ? tl.events[0].midis : []), { index: k, chord: cur ? this.chordAt(cur.ev) : (tl.events[0] ? this.chordAt(tl.events[0].ev) : null) });
+        }
+        // The lamp pulses on each beat, counting the lead-in too; the digits show in game mode.
+        const beatK = Math.floor((t + tl.lead) / tl.beatMs + 1e-6);
+        if (beatK !== this.beatK) { if (this.beatK !== null && c.running) { this.pulseLamp(); if (gameMode && t < 0) this.count(beatK + 1); } this.beatK = beatK; }
+        // Cursor and paper.
+        const at = this.cursorAt(t);
+        if (g && at && !this.drag) {
+          g.style.transform = `translateX(${at.x.toFixed(2)}px)`;
+          if (gameMode) {
+            const svg = this.paper.querySelector('svg');
+            if (svg) { const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize(); this.paper.style.transform = `translateX(${(W * 0.28 - at.x * ks).toFixed(1)}px)`; }
+          }
+        }
+        // The instrument: how far along the way to the next note.
+        if (this.viz && this.viz.layout) {
+          const cur = tl.events[k], nxt = tl.events[k + 1];
+          let u = 0;
+          if (cur && nxt) { const dt = nxt.ms - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
+          else if (cur) { const dt = tl.total - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
+          this.viz.frame(u, Math.max(0, t));
+        }
+        if (gameMode && tl.total > 0) this.progress(Math.max(0, t) / tl.total);
+        if (c.running) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); });
       }
       progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }
       count(n) { const c = this.gamebar.querySelector('.count'); c.textContent = n; c.classList.remove('on'); void c.offsetWidth; c.classList.add('on'); }
@@ -2058,25 +2081,24 @@
         this.viz.schedule(this.timings().map(t => ({ ms: t.milliseconds, midis: this.eventMidis(t) })), 60000 / bpm);
       }
       vizIndex(ev) { const ts = this.timings(); let i = ts.indexOf(ev); if (i < 0) i = ts.findIndex(t => t.milliseconds > ev.milliseconds) - 1; return i; }
-      vizEvent(ev) {
-        if (!this.viz || !this.viz.layout) return;
-        this.vizSchedule();
-        const next = this.nextTiming(ev);
-        const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
-        this.viz.show(this.eventMidis(ev), this.eventMidis(next), next ? next.milliseconds - ev.milliseconds : totalMs - ev.milliseconds, { index: this.vizIndex(ev), chord: this.chordAt(ev) });
-      }
       // After a render: park the cursor faintly at the start.
       placeReady() {
-        const x = this.startX();
-        const g = this.cursor();
+        this.idle = true; this.k = null; this.beatK = null;
+        if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
+        this.clock.running = false; this.clock.t0 = this.tl ? -this.tl.lead : 0;
+        this.clearPlaying();
+        if (this.viz) this.viz.clear();
+        const x = this.startX(), g = this.cursor();
         if (!g || x === null) return;
         this.shapeCursor(g, 0);
         g.style.filter = ''; g._bar.style.fill = ''; g._lamp.style.fill = '';
-        if (g._motion) g._motion.cancel();
         g.style.transform = `translateX(${x.toFixed(2)}px)`;
         g.classList.remove('done'); g.classList.add('ready');
-        this.scrollTo(x, x, 0);
-        if (gameMode && !this.body.classList.contains('done')) this.progress(0);   // back at the start (the finish flourish keeps its full bar)
+        if (gameMode) {
+          const svg = this.paper.querySelector('svg');
+          if (svg) { const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize(); this.paper.style.transform = `translateX(${(W * 0.28 - x * ks).toFixed(1)}px)`; }
+          if (!this.body.classList.contains('done')) this.progress(0);   // back at the start (the finish flourish keeps its full bar)
+        }
       }
       // Displayed x (left edge) and colour of the notes in a timing event.
       eventGeometry(ev) {
@@ -2096,22 +2118,14 @@
         return {
           beatSubdivisions: 1,
           onStart: () => {
-            this.clearPlaying();
-            this.body.classList.remove('done'); if (gameMode) this.progress(0);
-            const g = this.cursor(); if (!g) return;
-            if (!this.leadInDone && !(this.synth && this.synth.percent > 0)) {
-              // Starting from the top without a lead-in: appear at the start
-              // instantly, no travel back from the end. A resume from a pause
-              // leaves the bar where it stopped.
-              const x = this.startX(); if (x !== null) { if (g._motion) g._motion.cancel(); g.style.transform = `translateX(${x.toFixed(2)}px)`; }
-            }
-            this.leadInDone = false;
-            this.shapeCursor(g, 0);
-            g.classList.remove('done', 'ready');
+            this.idle = false;
+            this.body.classList.remove('done');
+            if (!this.clock.running) this.setTime(this.now(), true);   // a resume, or a start without a count-in: the clock runs; the first note sets it exactly
           },
-          onBeat: () => { if (this.timerRunning()) this.pulseLamp(); },
+          onBeat: () => {},                          // beats are derived from the clock
           onFinished: () => {                       // abcjs's name for the end-of-tune callback
-            this.clearPlaying(); this.viz.clear();
+            this.setTime(this.tl ? this.tl.total : 0, false);
+            this.clearPlaying(); if (this.viz) this.viz.clear();
             if (gameMode) { this.progress(1); this.body.classList.remove('done'); void this.body.offsetWidth; this.body.classList.add('done'); }
             const g = this.cursor();
             if (g) {
@@ -2123,19 +2137,18 @@
             if (this.pending) { let tries = 0; const t = setInterval(() => { if (!(this.synth && this.synth.isStarted) || ++tries > 30) { clearInterval(t); if (this.pending) this.render(); } }, 100); }
           },
           onEvent: ev => {
-            // abcjs reports the event under a seek (the restart button, or the
-            // progress bar) even while the timer is stopped. Nothing is
-            // sounding, so nothing should look as though it is: a seek to the
-            // top parks the bar at its waiting place; any other seek sets it
-            // on the note it will resume from, without motion.
+            if (!ev) return;
+            if (!this.tl || (this.original && this.original.noteTimings !== this.tl.source)) this.buildTimeline();   // a tempo change regenerates the timings
+            // Under a seek (the restart button, a drag) abcjs reports the
+            // event with its timer stopped: the clock is set, not run.
             if (!this.timerRunning()) { this.seekTo(ev); return; }
-            // The synthesiser's timer runs ahead of what the speakers emit by
-            // the audio output latency (tens of ms on built-in speakers, far
-            // more over Bluetooth); delay the picture by the same amount.
+            // The timer runs ahead of what the speakers emit by the audio
+            // output latency (tens of ms on built-in speakers, far more over
+            // Bluetooth): the clock is set that much behind it.
             const ctx = ABCJS.synth.activeAudioContext && ABCJS.synth.activeAudioContext();
             const latencyMs = ctx ? ((ctx.baseLatency || 0) + (ctx.outputLatency || 0)) * 1000 : 0;
-            if (latencyMs > 4) { setTimeout(() => this.showEvent(ev), latencyMs); return; }
-            this.showEvent(ev);
+            this.idle = false;
+            this.setTime(ev.milliseconds - latencyMs, true);
           },
         };
       }
@@ -2188,8 +2201,8 @@
         e.preventDefault(); e.stopPropagation();
         const tl = this.timeline(); if (!tl.lines || !tl.lines.length) return;
         const d = this.drag = { id: e.pointerId, tl, wasPlaying: !!s.isStarted, at: null };
-        if (d.wasPlaying) { s.play(); this.freeze(true); }   // toggles: pause
-        if (g._motion) g._motion.cancel();
+        if (d.wasPlaying) { s.play(); this.setTime(this.now(), false); }   // toggles: pause
+        this.idle = false;
         g.classList.remove('done', 'ready');
         this.clearPlaying();
         const hit = g._hit;
@@ -2228,90 +2241,11 @@
         if (this.pending && !(s.isStarted)) this.render();
       }
       seekTo(ev) {
-        this.clearPlaying();
-        if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) this.viz.clear();
-        else { this.vizSchedule(); this.viz.seek(this.eventMidis(ev), this.eventMidis(this.nextTiming(ev)), { index: this.vizIndex(ev), chord: this.chordAt(ev) }); }
-        const g = this.cursor(); if (!g) return;
-        if (g._motion) g._motion.cancel();
-        if (!ev || !ev.elements || (!ev.milliseconds && this.dragX == null)) { this.placeReady(); return; }
-        const here = this.eventGeometry(ev);
-        if (here.x === null) { this.placeReady(); return; }
-        this.shapeCursor(g, ev.line || 0);
-        this.colourCursor(g, here.color);
-        this.scrollTo(here.x - 3, here.x - 3, 0);
-        g.style.transform = `translateX(${(this.dragX !== null && this.dragX !== undefined ? this.dragX : here.x - 3).toFixed(2)}px)`;
-        g.classList.remove('done', 'ready');
-      }
-      showEvent(ev) {
-        {
-          {
-            this.clearPlaying();
-            if (!ev || !ev.elements) return;
-            this.vizEvent(ev);
-            const here = this.eventGeometry(ev);
-            if (here.x === null) return;
-            for (const g of here.groups) { g.classList.add('playing'); g.style.filter = `drop-shadow(0 0 5px ${here.color})`; }
-            const r = this.cursor(); if (!r) return;
-            r.classList.remove('done', 'ready');
-            this.shapeCursor(r, ev.line || 0);          // vertical extent from the displayed staff of this line
-            this.colourCursor(r, here.color);           // the bar wears the sounding note's colour
-            // One continuous motion per note, as a keyframe animation:
-            //   settle: from wherever the bar is onto this note (a few frames);
-            //   drift:  creep across the notehead while the note sounds;
-            //   hop:    accelerate to the next note, arriving as it sounds.
-            // A bar that glides for the whole duration reads as running ahead
-            // (it hovers in the space after a long note); one that stops dead
-            // and then jumps reads as a jerk. Each event from the synthesiser's
-            // clock starts a fresh motion from the bar's current position.
-            const x0 = here.x - 3;
-            const cur = (() => { const m = getComputedStyle(r).transform; return m.startsWith('matrix') ? parseFloat(m.split(',')[4]) : x0; })();
-            if (r._motion) r._motion.cancel();
-            const timings = (this.original && this.original.noteTimings) || [];
-            let idx = timings.indexOf(ev);
-            if (idx < 0) idx = timings.findIndex(t => t.milliseconds > ev.milliseconds) - 1;
-            const next = timings.slice(idx + 1).find(t => t.type === 'event' && t.elements && t.elements.length);
-            const tx = x => `translateX(${x.toFixed(2)}px)`;
-            const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : 0;
-            if (gameMode && total > 0) this.progress(ev.milliseconds / total);
-            if (!next) {
-              // Last note: keep going to the end of the line for its duration.
-              const totalMs = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : ev.milliseconds;
-              const xe = this.endX(ev.line || 0);
-              const dtEnd = Math.max(0, totalMs - ev.milliseconds);
-              this.scrollSync(x0, ev.milliseconds);
-              if (xe !== null && xe > x0 && dtEnd > 0) {
-                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0), offset: Math.min(0.1, 60 / dtEnd) }, { transform: tx(xe) }], { duration: dtEnd, easing: 'linear', fill: 'forwards' });
-              } else {
-                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x0) }], { duration: 90, easing: 'ease-out', fill: 'forwards' });
-              }
-              return;
-            }
-            const there = next.top === ev.top ? this.eventGeometry(next) : { x: null };
-            const dt = next.milliseconds - ev.milliseconds;
-            if (there.x !== null && there.x > here.x && dt > 120) {
-              const x1 = there.x - 3;
-              const settle = Math.min(0.12, 70 / dt);                  // fraction of dt spent arriving
-              this.scrollSync(x0, ev.milliseconds);
-              if (proportional || gameMode) {
-                // Position is linear in time, so a constant-speed sweep is exact;
-                // start from wherever the bar is (normally already on the note).
-                r._motion = r.animate([{ transform: tx(cur) }, { transform: tx(x1) }], { duration: dt, easing: 'linear', fill: 'forwards' });
-              } else {
-                const hop = Math.min(0.35, Math.max(0.2, 240 / dt));    // fraction of dt spent hopping
-                const headW = Math.min(12, (x1 - x0) * 0.3);            // drift distance: about a notehead
-                r._motion = r.animate([
-                  { transform: tx(cur), easing: 'ease-out' },
-                  { transform: tx(x0), offset: settle, easing: 'linear' },
-                  { transform: tx(x0 + headW), offset: 1 - hop, easing: 'cubic-bezier(.5,0,.3,1)' },
-                  { transform: tx(x1) },
-                ], { duration: dt, fill: 'forwards' });
-              }
-            } else {
-              this.scrollSync(x0, ev.milliseconds);
-              r._motion = r.animate([{ transform: tx(cur), easing: 'ease-out' }, { transform: tx(x0) }], { duration: 90, fill: 'forwards' });
-            }
-          }
-        }
+        const g = this.cursor();
+        if (g && g.classList.contains('done')) return;   // finishing: abcjs rewinds its timer; the bar fades first, then placeReady
+        if (!ev || !ev.elements || !this.tl || ev.milliseconds <= 0) { this.placeReady(); return; }   // the top: nothing sounds, the bar waits
+        this.idle = false;
+        this.setTime(ev.milliseconds, false);
       }
     }
 
