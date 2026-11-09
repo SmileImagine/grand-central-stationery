@@ -86,8 +86,7 @@
 <main>
   <section id="rhythm" class="tab on">
     <aside>
-      <select id="rpreset"></select>
-      <select id="rcorpus" hidden><option value="">From the course's rhythm set…</option></select>
+      <select id="rpreset"><optgroup label="Examples" id="rexamples"></optgroup></select>
       <textarea id="rtext" spellcheck="false"></textarea>
       <div class="views" id="rviews">
         <button data-view="grid" class="on">Grid</button><button data-view="wheel">Wheel</button><button data-view="syll">Syllables</button><button data-view="body">Body</button>
@@ -99,8 +98,7 @@
   </section>
   <section id="dance" class="tab">
     <aside>
-      <select id="dpreset"></select>
-      <select id="dcorpus" hidden><option value="">From the course's dance set…</option></select>
+      <select id="dpreset"><optgroup label="Examples" id="dexamples"></optgroup></select>
       <textarea id="dtext" spellcheck="false"></textarea>
       <div class="views" id="dviews">
         <button data-view="dancer" class="on">Dancer</button><button data-view="feet">Footprints</button><button data-view="figs">Figures</button><button data-view="laban">Columns</button><button data-view="benesh">Stave</button>
@@ -717,26 +715,24 @@ const DANCES = {
 /* ================= wiring ================= */
 const state = { tab: 'rhythm', rview: 'grid', dview: 'dancer', sylsys: 'kodaly', facing: 'behind', r: null, d: null, view: null };
 const rtext = $('#rtext'), dtext = $('#dtext'), rwarn = $('#rwarn'), dwarn = $('#dwarn');
-for (const k in RHYTHMS) $('#rpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
-for (const k in DANCES) $('#dpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
+for (const k in RHYTHMS) $('#rexamples').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
+for (const k in DANCES) $('#dexamples').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
 rtext.value = RHYTHMS['Rock beat']; dtext.value = DANCES['Step touch'].text;
-$('#rpreset').onchange = e => { rtext.value = RHYTHMS[e.target.value]; rebuild(); };
-$('#dpreset').onchange = e => { const d = DANCES[e.target.value]; dtext.value = d.text; if (d.rhythm) { rtext.value = RHYTHMS[d.rhythm]; $('#rpreset').value = d.rhythm; } rebuild(); };
+$('#rpreset').onchange = e => { const v = e.target.value; if (v.startsWith('set:')) { const it = SETS.r[+v.slice(4)]; if (it) rtext.value = it.text; } else rtext.value = RHYTHMS[v]; rebuild(); };
+$('#dpreset').onchange = e => { const v = e.target.value; if (v.startsWith('set:')) { const it = SETS.d[+v.slice(4)]; if (it) dtext.value = it.text; } else { const d = DANCES[v]; dtext.value = d.text; if (d.rhythm) { rtext.value = RHYTHMS[d.rhythm]; $('#rpreset').value = d.rhythm; } } rebuild(); };
 rtext.oninput = dtext.oninput = () => rebuild();
 $('#facing').onchange = e => { state.facing = e.target.value; rebuild(); };
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => { state.tab = b.dataset.tab; document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('on', s.id === state.tab)); rebuild(); });
 $('#rviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.rview = b.dataset.view; [...$('#rviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
 $('#dviews').onclick = e => { const b = e.target.closest('button'); if (!b) return; state.dview = b.dataset.view; [...$('#dviews').children].forEach(x => x.classList.toggle('on', x === b)); rebuild(); };
 
-// The course's graded sets (course/rhythm-set.json, course/dance-set.json), when the page is served with them beside it.
+// The course's graded sets (course/rhythm-set.json, course/dance-set.json) join the picker, grouped by level, when the page is served with them beside it.
 const SETS = { r: [], d: [] };
 async function loadSets() {
-  const fill = (sel, items) => { if (!items.length) return; let level = 0; for (const it of items) { if (it.level !== level) { level = it.level; sel.insertAdjacentHTML('beforeend', `<optgroup label="Level ${level}"></optgroup>`); } sel.lastElementChild.insertAdjacentHTML('beforeend', `<option value="${items.indexOf(it)}">${esc(it.title)}${it.style ? ' · ' + esc(it.style) : ''}</option>`); } sel.hidden = false; };
-  try { const j = await (await fetch('../course/rhythm-set.json')).json(); SETS.r = j.patterns.slice().sort((a, b) => a.level - b.level || a.score - b.score); fill($('#rcorpus'), SETS.r); } catch (e) { }
-  try { const j = await (await fetch('../course/dance-set.json')).json(); SETS.d = j.steps.slice().sort((a, b) => a.level - b.level || a.score - b.score); fill($('#dcorpus'), SETS.d); } catch (e) { }
+  const fill = (sel, items, what) => { if (!items.length) return; let level = 0; for (const it of items) { if (it.level !== level) { level = it.level; sel.insertAdjacentHTML('beforeend', `<optgroup label="Course ${what}, level ${level}"></optgroup>`); } sel.lastElementChild.insertAdjacentHTML('beforeend', `<option value="set:${items.indexOf(it)}">${esc(it.title)}${it.style ? ' · ' + esc(it.style) : ''}</option>`); } };
+  try { const j = await (await fetch('../course/rhythm-set.json')).json(); SETS.r = j.patterns.slice().sort((a, b) => a.level - b.level || a.score - b.score); fill($('#rpreset'), SETS.r, 'rhythms'); } catch (e) { }
+  try { const j = await (await fetch('../course/dance-set.json')).json(); SETS.d = j.steps.slice().sort((a, b) => a.level - b.level || a.score - b.score); fill($('#dpreset'), SETS.d, 'steps'); } catch (e) { }
 }
-$('#rcorpus').onchange = e => { const it = SETS.r[+e.target.value]; if (!it) return; rtext.value = it.text; e.target.value = ''; rebuild(); };
-$('#dcorpus').onchange = e => { const it = SETS.d[+e.target.value]; if (!it) return; dtext.value = it.text; e.target.value = ''; rebuild(); };
 loadSets();
 function tempoFrom(meta) { const b = meta && parseFloat(meta.bpm || meta.tempo); if (b && !clock.running) { clock.setBpm(b); $('#bpm').value = b; } }
 function rebuild() {
