@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!-- Grand Central Stationery: a classroom music display.
+     Copyright 2024-2026 SmileImagine. Licensed under the GNU Affero General
+     Public License, version 3 or later: you may run, study, share and change
+     this page, and a changed copy you share or serve to others must be offered
+     to them with its source under the same licence. This file and the files
+     beside it are the source; the LICENSE file and the repository are at
+     https://github.com/SmileImagine/grand-central-stationery -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -278,10 +285,24 @@
     .patpanel[hidden] { display: none; }
     .patpanel textarea { resize: vertical; min-height: 3.6em; border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font: 13px/1.4 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
     .patpanel textarea:focus, .patpanel.own textarea { border-color: var(--accent); }
-    .patpanel .patnote { font: var(--ui); color: var(--muted); display: flex; align-items: center; gap: 8px; min-height: 1.4em; }
+    /* A mirror of the text sits behind it and lights the word that is sounding. */
+    .patpanel .patbox { position: relative; display: flex; flex-direction: column; }
+    .patpanel .patbox textarea { position: relative; background: transparent; }
+    .patpanel .patmirror { position: absolute; inset: 0; margin: 0; border: 1px solid transparent; border-radius: 6px; padding: 3px 6px; font: 13px/1.4 var(--mono); color: transparent; background: var(--panel-2); white-space: pre; overflow: hidden; pointer-events: none; }
+    .patpanel .patmirror mark { color: transparent; border-radius: 3px; background: color-mix(in srgb, var(--accent) 35%, transparent); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 60%, transparent); }
+    .patpanel .patmirror mark.drums { background: color-mix(in srgb, #e0a030 40%, transparent); box-shadow: 0 0 0 1px #e0a030; }
+    .patpanel .patmirror mark.bass { background: color-mix(in srgb, #4a8fd8 40%, transparent); box-shadow: 0 0 0 1px #4a8fd8; }
+    .patpanel .patmirror mark.chords { background: color-mix(in srgb, #5cb85c 40%, transparent); box-shadow: 0 0 0 1px #5cb85c; }
+    .patpanel .patlive { font: 13px/1.4 var(--mono); color: var(--ink); min-height: 1.4em; display: flex; flex-wrap: wrap; gap: 2px 14px; }
+    .patpanel .patlive:empty { display: none; }
+    .patpanel .patlive b { font-weight: 600; }
+    .patpanel .patlive .drums b { color: #b07a10; } .patpanel .patlive .bass b { color: #2f6fb5; } .patpanel .patlive .chords b { color: #3a8a3a; }
+    .patpanel .patnote { font: var(--ui); color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-height: 1.4em; }
     .patpanel .patnote.err { color: #d33; }
     .patpanel .patreset { padding: 1px 7px; display: none; }
     .patpanel.own .patreset { display: inline-block; }
+    .patpanel .shareuse, .patpanel .sharecopy { padding: 1px 7px; margin-left: auto; }
+    .patpanel .sharecopy { margin-left: 0; }
     /* The mixer: a drawer under the controls with the band's members; closed while the music plays. */
     .tabs { display: inline-flex; gap: 4px; }
     .tabs .tab { font: var(--ui); padding: 2px 9px; }
@@ -1754,7 +1775,7 @@
     const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
     /* ---- mini-notation: the band's parts as text ----
        A small pattern language in the family of TidalCycles and Strudel,
-       written here so the page stays one file under one licence. One bar is
+       written here so the page stays one file with no build. One bar is
        one cycle. The steps of a line share the bar equally: "bd ~ sd ~" is
        a kick on one, a snare on three. ~ rests; _ holds the step before it
        on. [ ] subdivides a step; < > alternates bar by bar; * and / speed a
@@ -1881,12 +1902,146 @@
         return { parts, controls };
       };
       return { parse, splitScore, valueAt, PARTS };
-      return { parse, parseScore, valueAt, PARTS };
     })();
     // The words of each part, with a level for each when none is written.
     const KIT = { bd: ['kick', .95], kick: ['kick', .95], sd: ['snare', .8], sn: ['snare', .8], snare: ['snare', .8], hh: ['hatC', .55], hat: ['hatC', .55], oh: ['hatO', .45], rim: ['rim', .5], cp: ['clap', .7], clap: ['clap', .7], cr: ['crash', .8], crash: ['crash', .8], rd: ['ride', .5], ride: ['ride', .5], sh: ['shaker', .3], shaker: ['shaker', .3], tb: ['tamb', .4], tamb: ['tamb', .4] };
     const BASS = { r: ['root', 1], root: ['root', 1], 3: ['third', .85], third: ['third', .85], 5: ['fifth', .85], fifth: ['fifth', .85], 7: ['seventh', .8], seventh: ['seventh', .8], 8: ['oct', .6], oct: ['oct', .6], a: ['appr', .7], appr: ['appr', .7], approach: ['appr', .7], n: ['next', .85], next: ['next', .85] };
     const CHORD = { ch: ['ch', .85], chord: ['ch', .85], pad: ['pad', .22], c1: [0, .8], c2: [1, .8], c3: [2, .8], c4: [3, .8] };
+    /* ---- Strudel-like code in and out ----
+       A band shared as text: the page's score lines go out as Strudel-like
+       statements ($: s("bd ~ sd ~, hh*8"), $: note("r _ 5 _").s("bass")) after
+       the ABC of the tune, and a paste comes back the same way. Strudel code
+       is read down to its pattern strings and a few methods (.fast .slow
+       .gain .degradeBy .euclid .struct, stack()); effects are left out, what
+       is not understood is named. The %%band prefix is the page's business. */
+    const Strudel = (() => {
+      const QUOTE = '"\'`';
+      // Comments out, strings left alone.
+      const uncomment = src => { let out = '', q = null; for (let i = 0; i < src.length; i++) { const ch = src[i]; if (q) { out += ch; if (ch === q) q = null; continue; } if (QUOTE.includes(ch)) { q = ch; out += ch; continue; } if (ch === '/' && src[i + 1] === '/') { while (i < src.length && src[i] !== '\n') i++; out += '\n'; continue; } if (ch === '/' && src[i + 1] === '*') { const j = src.indexOf('*/', i + 2); i = j < 0 ? src.length : j + 1; out += ' '; continue; } out += ch; } return out; };
+      // Bracket depth at the end of a piece of code, strings skipped.
+      const depth = src => { let d = 0, q = null; for (const ch of src) { if (q) { if (ch === q) q = null; continue; } if (QUOTE.includes(ch)) q = ch; else if ('([{'.includes(ch)) d++; else if (')]}'.includes(ch)) d--; } return d; };
+      // Split at a separator outside strings and brackets.
+      const splitTop = (src, sep) => { const out = []; let d = 0, q = null, cur = ''; for (const ch of src) { if (q) { cur += ch; if (ch === q) q = null; continue; } if (QUOTE.includes(ch)) q = ch; else if ('([{'.includes(ch)) d++; else if (')]}'.includes(ch)) d--; if (ch === sep && d === 0) { out.push(cur); cur = ''; } else cur += ch; } out.push(cur); return out.map(x => x.trim()).filter(Boolean); };
+      const unquote = a => { const m = /^(["'`])([\s\S]*)\1$/.exec((a || '').trim()); return m ? m[2] : null; };
+      // "head(args).name(args)..." as a list of calls; a bare string is a call named str.
+      const chain = src => {
+        const calls = []; let i = 0;
+        const ws = () => { while (i < src.length && /\s/.test(src[i])) i++; };
+        ws();
+        if (QUOTE.includes(src[i] || '')) { const j = src.indexOf(src[i], i + 1); if (j < 0) throw new Error('a closing quote is missing'); calls.push({ name: 'str', args: [src.slice(i, j + 1)] }); i = j + 1; }
+        for (;;) {
+          ws(); if (i >= src.length || src[i] === ';') break;
+          if (src[i] === '.') { i++; ws(); } else if (calls.length) throw new Error(`"${src[i]}" is not understood here`);
+          const m = /^[A-Za-z_$][\w$]*/.exec(src.slice(i)); if (!m) throw new Error(`"${src[i]}" is not understood here`);
+          i += m[0].length; ws(); let args = [];
+          if (src[i] === '(') { const s0 = i; let d = 0, q = null; for (; i < src.length; i++) { const ch = src[i]; if (q) { if (ch === q) q = null; continue; } if (QUOTE.includes(ch)) q = ch; else if ('([{'.includes(ch)) d++; else if (')]}'.includes(ch)) { d--; if (d === 0) break; } } if (i >= src.length) throw new Error('a ) is missing'); args = splitTop(src.slice(s0 + 1, i), ','); i++; }
+          calls.push({ name: m[0], args });
+        }
+        return calls;
+      };
+      const num = c => { const v = parseFloat(c.args[0]); if (isNaN(v)) throw new Error(`.${c.name}() needs a number`); return v; };
+      // Brackets round a pattern unless it is already one step (a word or a
+      // bracketed group, with its modifiers), so .fast(2).gain(.7) chains on.
+      const oneStep = m => { let i = 0; if (m[0] === '[') { let d = 0; for (; i < m.length; i++) { if (m[i] === '[') d++; else if (m[i] === ']' && --d === 0) { i++; break; } } if (d) return false; } else { const w = /^[\w.~]+/.exec(m); if (!w) return false; i = w[0].length; } return /^(?:[*\/:@?!]\s*-?[\d.]+|\([\d.,\s]*\)|!)*$/.test(m.slice(i)); };
+      const wrap = m => oneStep(m) ? m : `[${m}]`;
+      // A Strudel pattern string as the page's: "bd . sd sd" groups become
+      // bracketed steps, bd:3 (a sample's number) is just bd, { } and % are not ours.
+      const pattern = (str, sound) => {
+        let m = str.replace(/\s+/g, ' ').trim();
+        if (/[{}%^]/.test(m)) throw new Error(`"${/[{}%^]/.exec(m)[0]}" is not understood here`);
+        if (/\s\.\s/.test(m)) m = m.split(/\s\.\s/).map(g => `[${g.trim()}]`).join(' ');
+        if (sound) m = m.replace(/([A-Za-z]\w*):(\d+)(?![\d.])/g, '$1');
+        return m;
+      };
+      // The words of a pattern, to guess its part.
+      const words = m => m.replace(/[*\/:@?!]\s*-?[\d.]+/g, ' ').replace(/\(\s*[\d.,\s]*\)/g, ' ').match(/[A-Za-z]\w*|\b\d+\b/g) || [];
+      const SILENT = /^(bank|room|roomsize|size|lpf|hpf|bpf|cutoff|hcutoff|resonance|delay|delaytime|delayfeedback|pan|speed|crush|coarse|attack|decay|sustain|release|vowel|shape|distort|orbit|color|punchcard|pianoroll|scope|_scope|spectrum|log|cpm|legato|clip|chop|begin|end|vib|vibmod|phaser|tremolo|velocity|postgain|compressor|hush|play|_pianoroll|_punchcard)$/;
+      const PARTNAME = /^(drums|bass|chords)$/;
+      // One statement as lines of the score: [{ part, mini }].
+      const statement = (src, notes) => {
+        const calls = chain(src.replace(/^\s*\$\s*:/, ''));
+        if (!calls.length) return [];
+        if (calls[0].name === 'stack' || calls[0].name === 'cat' || calls[0].name === 'seq') { if (calls[0].name !== 'stack') notes.push(`${calls[0].name}() played as a stack.`); return calls[0].args.flatMap(a => statement(a, notes)); }
+        if (/^(setcpm|setcps|samples|await)$/.test(calls[0].name)) { notes.push(`${calls[0].name}() is left out: the tune sets the tempo and the sounds.`); return []; }
+        let head = calls.findIndex(c => /^(note|n|str)$/.test(c.name) || PARTNAME.test(c.name));
+        if (head < 0) head = calls.findIndex(c => /^(s|sound)$/.test(c.name));
+        if (head < 0) throw new Error(`no pattern string in ${calls[0].name}(): s("bd sd") or note("r 5") is expected`);
+        const h = calls[head], isSound = /^(s|sound|str)$/.test(h.name);
+        const q = unquote(h.args[0]); if (q === null) throw new Error(`${h.name}() needs a quoted pattern`);
+        let mini = pattern(q, isSound), part = PARTNAME.test(h.name) ? h.name : null, sound = '';
+        calls.forEach((c, k) => {
+          if (k === head) return;
+          if (/^(s|sound)$/.test(c.name)) { sound += ' ' + (unquote(c.args[0]) || ''); return; }
+          if (PARTNAME.test(c.name)) { part = c.name; return; }
+          switch (c.name) {
+            case 'fast': { const n = num(c); if (n !== 1) mini = `${wrap(mini)}*${n}`; break; }
+            case 'slow': { const n = num(c); if (n !== 1) mini = `${wrap(mini)}/${n}`; break; }
+            case 'gain': { const v = unquote(c.args[0]); mini = v !== null && isNaN(parseFloat(v)) ? mini : `${wrap(mini)}:${v !== null ? parseFloat(v) : num(c)}`; break; }
+            case 'degradeBy': mini = `${wrap(mini)}?${num(c)}`; break;
+            case 'degrade': mini = `${wrap(mini)}?`; break;
+            case 'euclid': case 'euclidRot': case 'euclidLegato': mini = `${wrap(mini)}(${c.args.map(a => parseFloat(a)).join(',')})`; break;
+            case 'struct': { const st = unquote(c.args[0]); if (st === null) throw new Error('.struct() needs a quoted pattern'); mini = pattern(st, false).replace(/\b(x|t|1)\b/g, wrap(mini)); break; }
+            case 'ply': mini = `${wrap(mini)}*${num(c)}`; notes.push('.ply() is played as *.'); break;
+            default: if (!SILENT.test(c.name)) notes.push(`.${c.name}() is not known here and is left out.`);
+          }
+        });
+        if (!part) {
+          const w = words(mini), all = t => w.length && w.every(x => x in t);
+          part = /bass/i.test(sound) ? 'bass' : /piano|pad|chord|organ|guitar|rhodes|key|epiano|string/i.test(sound) ? 'chords' : all(KIT) ? 'drums' : all(BASS) ? 'bass' : all(CHORD) ? 'chords' : isSound ? 'drums' : 'chords';
+        }
+        Mini.parse(mini);   // a mistake is named now, with the statement
+        const table = part === 'drums' ? KIT : part === 'bass' ? BASS : CHORD, bad = words(mini).filter(w => !(w in table));
+        if (bad.length) throw new Error(`${bad.join(', ')} ${bad.length > 1 ? 'are not' : 'is not a'} ${part} word${bad.length > 1 ? 's' : ''} here (${Object.keys(table).slice(0, 8).join(' ')} ...)`);
+        return [{ part, mini }];
+      };
+      const DIALECT = /^(?:(drums|bass|chords)\s*:|(energy|detail|drums|bass|chords)\s*=)/;
+      const START = /^\s*(?:\$\s*:|(?:s|sound|note|n|stack|cat|seq|setcpm|setcps|samples|drums|bass|chords)\s*\(|["'`][^"'`]*["'`]\s*(?:\.|;?\s*$))/;
+      // A paste: an ABC tune, Strudel-like or score lines, or both. The
+      // band lines become %%band lines after the tune (the current one when
+      // the paste has none). Returns { abc, errors, notes }; abc is null when
+      // nothing was read.
+      const read = (text, current) => {
+        const tune = [], stmts = [], score = [], errors = [], notes = []; let acc = null;
+        for (const raw of text.split('\n')) {
+          const line = raw.replace(/\s+$/, '');
+          if (acc !== null && (depth(acc) > 0 || /^\s*\./.test(line))) { acc += '\n' + line; continue; }
+          if (acc !== null) { stmts.push(acc); acc = null; }
+          const t = line.trim(), sl = /^%%?band\s+(.*)$/.exec(t);
+          if (sl && SCORE_LINE.test(t) && !/^(drums|bass|chords)\s*\d+\s*:/i.test(sl[1])) score.push(sl[1]);
+          else if (DIALECT.test(t)) score.push(t);
+          else if (START.test(t)) acc = uncomment(line);
+          else if (/^\s*\/\//.test(line) && !tune.some(l => /^[XK]:/.test(l))) continue;
+          else tune.push(line);
+        }
+        if (acc !== null) stmts.push(acc);
+        const lines = [];
+        for (const st of stmts) { try { lines.push(...statement(st, notes)); } catch (e) { errors.push(`${st.replace(/\s+/g, ' ').trim().slice(0, 40)}: ${e.message}`); } }
+        const hasTune = tune.some(l => /^K:/.test(l)) || tune.some(l => /^X:/.test(l));
+        if (!hasTune && !lines.length && !score.length) { if (!errors.length) errors.push('Nothing read: a tune in ABC, or lines such as $: s("bd ~ sd ~"), are expected.'); return { abc: null, errors, notes }; }
+        const base = hasTune ? tune : current.split('\n').filter(l => !SCORE_LINE.test(l));
+        while (base.length && !base[base.length - 1].trim()) base.pop();
+        const sc = Mini.splitScore(score.join('\n'));
+        for (const { part, mini } of lines) sc.parts[part].push(mini);
+        const band = [...Mini.PARTS.flatMap(part => sc.parts[part].map(l => `%%band ${part}: ${l}`)), ...Object.entries(sc.controls).map(([k, v]) => `%%band ${k} = ${v}`)];
+        return { abc: [...base, ...band].join('\n'), errors, notes };
+      };
+      // The ABC with its plain score lines taken out and written after it as
+      // Strudel-like statements; a chorus's own lines (%%band drums 2:) stay.
+      const write = abc => {
+        const tune = [], out = [];
+        for (const l of abc.split('\n')) {
+          const sl = SCORE_LINE.test(l) && /^%%?band\s+(.*)$/.exec(l.trim());
+          if (!sl) { tune.push(l); continue; }
+          const dm = /^(drums|bass|chords)\s*(\d+)?\s*:\s*(.*)$/i.exec(sl[1]);
+          if (dm && dm[2]) tune.push(l);
+          else if (dm) out.push(dm[1].toLowerCase() === 'drums' ? `$: s("${dm[3].trim()}")` : `$: note("${dm[3].trim()}").s("${dm[1].toLowerCase() === 'bass' ? 'bass' : 'piano'}")`);
+          else out.push(sl[1].replace(/\s*=\s*/, ' = '));
+        }
+        while (tune.length && !tune[tune.length - 1].trim()) tune.pop();
+        return out.length ? tune.join('\n') + '\n\n' + out.join('\n') + '\n' : tune.join('\n') + '\n';
+      };
+      return { read, write, statement };
+    })();
     // A hit string ('x' a hit, 'o' a soft one, '-' holding on, '.' a rest,
     // four to a beat) as mini-notation: "x.x.x.x." becomes hh*4,
     // "x.......x......." becomes bd ~ bd ~, "x---x---x-------" becomes ch ch ch _.
@@ -2091,11 +2246,14 @@
         const key = cell.keyInfo();
         const out = [];
         const seen = new Map();   // one hit per drum per moment: a fill over a backbeat keeps the louder
-        const add = (part, t, dur, midi, vel) => {
+        // `from` says which word made the hit (its span in the part's text) and what it became, for the score box to show.
+        const add = (part, t, dur, midi, vel, from) => {
           if (!(t >= 0 && t < tl.total + 1) || !(vel > 0.001)) return;
-          if (part === 'drums') { const k = midi + '@' + Math.round(t / 10); const prev = seen.get(k); if (prev) { prev.vel = Math.max(prev.vel, vel); return; } const n = { part, t, dur, midi, vel }; seen.set(k, n); out.push(n); return; }
-          out.push({ part, t, dur, midi, vel });
+          if (part === 'drums') { const k = midi + '@' + Math.round(t / 10); const prev = seen.get(k); if (prev) { prev.vel = Math.max(prev.vel, vel); return; } const n = { part, t, dur, midi, vel, from }; seen.set(k, n); out.push(n); return; }
+          out.push({ part, t, dur, midi, vel, from });
         };
+        const NAMES = key.flats ? FLAT_NAMES : SHARP_NAMES, noteName = m => NAMES[((m % 12) + 12) % 12].replace('#', '\u266F').replace('b', '\u266D');
+        const became = (ev, text) => ({ src: ev.src, tip: `${ev.name} \u2192 ${text}` });
         // The score in force: the chart's parts (pattern lines, or step
         // strings) and controls, else what the sliders write. A part with a
         // mistake names itself and plays the sliders' version.
@@ -2111,6 +2269,7 @@
         }
         for (const [name, text] of Object.entries(ctl)) { try { score.controls[name] = Mini.parse(text, seed); } catch (err) { res.problems.push(`${name} =: ${err.message}${err.pos !== undefined ? ` (character ${err.pos + 1})` : ''}.`); } }
         score.text = [...Mini.PARTS.flatMap(part => [part + ':', own[part] || written[part].join('\n')]), ...Object.entries(ctl).map(([k, v]) => `${k} = ${v}`)].join('\n');
+        score.offsets = {}; { let at = 0; for (const part of Mini.PARTS) { at += part.length + 2; score.offsets[part] = at; at += (own[part] || written[part].join('\n')).length + 1; } }
         res.score = score;
         const unknown = (part, name, words) => { if (score.unknown.has(part + name)) return; score.unknown.add(part + name); res.problems.push(`${LABEL[part]}: "${name}" is not a ${part === 'drums' ? 'drum' : part + ' word'} (${words}).`); };
         // The controls at a time in cycles: the setting unless a control line says otherwise.
@@ -2157,13 +2316,13 @@
             const t = tAt(ev.begin - cyc), cy = ev.begin, dur = (ev.end - ev.begin) * barMs / 1000;
             if (k[0] === 'pad') {   // the voicing an octave down, held softly, re-struck at a chord change
               const cuts = [t, ...segs.map(sg => sg.ms).filter(ms => ms > t + 1 && ms < tAt(ev.end - cyc) - 1), tAt(ev.end - cyc)];
-              for (let q = 0; q + 1 < cuts.length; q++) { const c = chordAt(cuts[q]); if (!c) continue; const v = voice(c, D(cyAt(cuts[q]))); v.forEach(m => add('chords', cuts[q] + 15, (cuts[q + 1] - cuts[q]) / 1000 * 0.98, m - 12 >= 40 ? m - 12 : m, (ev.vel === undefined ? k[1] : ev.vel) * L('chords', cy))); }
+              for (let q = 0; q + 1 < cuts.length; q++) { const c = chordAt(cuts[q]); if (!c) continue; const v = voice(c, D(cyAt(cuts[q]))); const f = became(ev, `${c.name} held: ${v.map(noteName).join(' ')}`); v.forEach(m => add('chords', cuts[q] + 15, (cuts[q + 1] - cuts[q]) / 1000 * 0.98, m - 12 >= 40 ? m - 12 : m, (ev.vel === undefined ? k[1] : ev.vel) * L('chords', cy), f)); }
               continue;
             }
             const c = chordAt(t); if (!c) continue;
             const v = voice(c, D(cy)), vel = (ev.vel === undefined ? k[1] : ev.vel) * (0.53 + 0.35 * E(cy)) * L('chords', cy);
-            if (k[0] === 'ch') v.forEach((m, vi) => add('chords', t + vi * 6, dur * 0.92, m, vel));
-            else add('chords', t, dur * 0.92, v[k[0] % v.length], vel);
+            if (k[0] === 'ch') { const f = became(ev, `${c.name}: ${v.map(noteName).join(' ')}`); v.forEach((m, vi) => add('chords', t + vi * 6, dur * 0.92, m, vel, f)); }
+            else { const m = v[k[0] % v.length]; add('chords', t, dur * 0.92, m, vel, became(ev, `${noteName(m)} of ${c.name}`)); }
           }
           // ---- bass: words relative to the chord in force ----
           for (const ev of events('bass')) {
@@ -2182,13 +2341,14 @@
               else { const from = prevBass === null ? root : prevBass, diff = target - from; m = nc.name === c.name ? (root + 12 <= 55 ? root + 12 : root) : Math.abs(diff) <= 2 && diff !== 0 ? from : target - Math.sign(diff || 1); }
             }
             prevBass = m;
-            add('bass', t, dur * 0.95, m, (ev.vel === undefined ? k[1] : ev.vel) * (0.7 + 0.3 * E(cy)) * L('bass', cy));
+            const nc = /^(appr|next)$/.test(k[0]) ? chordAfter(tAt(ev.end - cyc) + 1) : null;
+            add('bass', t, dur * 0.95, m, (ev.vel === undefined ? k[1] : ev.vel) * (0.7 + 0.3 * E(cy)) * L('bass', cy), became(ev, `${noteName(m)} (${c.name}${nc && nc.name !== c.name ? ` \u2192 ${nc.name}` : ''})`));
           }
           // ---- drums ----
           for (const ev of events('drums')) {
             const k = KIT[ev.name.toLowerCase()]; if (!k) { unknown('drums', ev.name, 'bd sd hh oh rim cp cr rd sh tb'); continue; }
             const cy = ev.begin, en = E(cy);
-            add('drums', tAt(ev.begin - cyc), 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * en) * (0.53 + 0.47 * en) * L('drums', cy));
+            add('drums', tAt(ev.begin - cyc), 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * en) * (0.53 + 0.47 * en) * L('drums', cy), became(ev, { kick: 'kick', snare: 'snare', hatC: 'closed hat', hatO: 'open hat', rim: 'rim', clap: 'clap', crash: 'crash', ride: 'ride', shaker: 'shaker', tamb: 'tambourine' }[k[0]] || k[0]));
           }
         });
         out.sort((a, b) => a.t - b.t);
@@ -2369,9 +2529,9 @@
         const specs = cell.chorusSpecs();
         this.choruses = specs.map(spec => band.prepare(spec));
         cell.bandNotes = [...new Set(this.choruses.flatMap(c => c.problems))].map(t => ({ text: 'Band: ' + t }));
-        cell.showNotes(); if (cell.refreshPattern) cell.refreshPattern();
+        cell.showNotes(); if (cell.refreshPattern) cell.refreshPattern(); if (cell.refreshShare) cell.refreshShare();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
-        this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08 }))].sort((a, b) => a.ms - b.ms));
+        this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
         if (cell.tuning && !cell.tuning.problems.length) {   // the tuning: every pitched note, the melody's and the band's, detuned to its degree
           const off = tuningOffsets(cell.tuning, cell.keyInfo());
           for (const cyc of this.cycles) for (const n of cyc) if (n.part !== 'drums') { const c = off(n.midi); if (c) n.fx = { ...(n.fx || {}), cents: c }; }
@@ -2590,11 +2750,15 @@
             <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
             <button type="button" class="regen" title="A new variation">\u21BB</button>
             <button type="button" class="arrange" title="Write a five-chorus arrangement from the melody and its chords into the box (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button>
-            <button type="button" class="patbtn" title="The band's parts as patterns you can read and edit, with controls that move over bars; edited, the score is kept with the arrangement" aria-pressed="false">Pattern</button></span>
+            <button type="button" class="patbtn" title="The band's parts as patterns you can read and edit, with controls that move over bars; edited, the score is kept with the arrangement" aria-pressed="false">Pattern</button>
+            <button type="button" class="sharebtn" title="The tune and its band as text to copy and send: the ABC, then the band as Strudel-like lines. Paste a tune, Strudel code or both here and Use it; the band lines go into the arrangement box" aria-pressed="false">Share</button></span>
           <div class="bandnote"></div>
           </div>
-          <div class="patpanel" hidden><textarea class="pattext" rows="9" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Band score"></textarea>
+          <div class="patpanel" hidden><div class="patbox"><pre class="patmirror" aria-hidden="true"></pre><textarea class="pattext" rows="9" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Band score"></textarea></div>
+            <div class="patlive" aria-live="off"></div>
             <div class="patnote"><span class="patmsg"></span><button type="button" class="patreset" title="Take the score lines out of the arrangement and let the sliders write the score again">Back to the sliders</button></div></div>
+          <div class="patpanel sharepanel" hidden><textarea class="sharetext" rows="10" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Tune and band as text to share"></textarea>
+            <div class="patnote"><span class="sharemsg"></span><button type="button" class="shareuse" title="Read the text above into the page: the tune into the Melody tab, the band lines into the arrangement box">Use</button><button type="button" class="sharecopy" title="Copy the text above">Copy</button></div></div>
           </div>
           <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div>
           <div class="warn"></div></div>`;
@@ -2623,9 +2787,43 @@
           if (document.activeElement !== patText && patText.value !== d.text) patText.value = d.text;   // never under the teacher's cursor
           const errs = ch.problems.filter(t => /^(Drums|Bass|Chords|[a-z]+ =):/.test(t));
           patMsg.parentElement.classList.toggle('err', !!errs.length);
-          patMsg.textContent = errs.length ? errs.join(' ') : d.own ? 'Your score, kept in the ABC as %%band lines. A part you leave out is the sliders\'.' : 'Written by the sliders: move them and watch. Edit it and it is yours.';
+          patMsg.textContent = errs.length ? errs.join(' ') : d.own ? 'Your score, kept with the arrangement; a part you leave out is the sliders\'. Play: each word lights as it sounds, with the note it became on the chord in force.' : 'Written by the sliders: move them and watch. Play: each word lights as it sounds, with the note it became on the chord in force. Edit it and it is yours.';
         };
-        patBtn.addEventListener('click', () => { const on = patPanel.hidden; patPanel.hidden = !on; patBtn.setAttribute('aria-pressed', String(on)); if (on) this.refreshPattern(); });
+        // The share box: the tune and its band as text (ABC, then Strudel-like lines) to copy; a paste of either or both is read back in.
+        const sharePanel = body.querySelector('.sharepanel'), shareText = body.querySelector('.sharetext'), shareMsg = body.querySelector('.sharemsg'), shareBtn = body.querySelector('.sharebtn');
+        const SHARE_HINT = 'The tune and its band as text to copy and send. Paste a tune, Strudel-like lines such as $: s("bd ~ sd ~, hh*8"), or both, then Use.';
+        this.refreshShare = () => { if (sharePanel.hidden || document.activeElement === shareText) return; shareText.value = Strudel.write(this.getText()); shareMsg.textContent = SHARE_HINT; shareMsg.parentElement.classList.remove('err'); };
+        const useShare = () => {
+          const r = Strudel.read(shareText.value, this.getText());
+          shareMsg.parentElement.classList.toggle('err', !!r.errors.length);
+          shareMsg.textContent = [...r.errors, ...r.notes].join(' ') || 'Read in: the tune in the Melody tab, the band lines in the arrangement box.';
+          if (r.abc !== null) { const parts = splitBand(r.abc); this.entry.value = parts.melody; this.bandEntry.value = parts.band; this.render(); onChange(this.getText()); }
+        };
+        // While the band plays, the word that is sounding lights in the box and a line says what it became on the chord in force: the pattern is the text, the accompaniment is the chords, the notes are the two together.
+        const patMirror = body.querySelector('.patmirror'), patLive = body.querySelector('.patlive');
+        const esc = x => x.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        let liveKey = '';
+        patText.addEventListener('scroll', () => { patMirror.scrollTop = patText.scrollTop; patMirror.scrollLeft = patText.scrollLeft; });
+        this.livePattern = t => {
+          if (patPanel.hidden) return;
+          const p = this.player, k = p && p.running && t >= 0 ? ((this.cyc || 0) % Math.max(1, p.cycles ? p.cycles.length : 1)) : -1, ch = k >= 0 && p.chorus(k), d = ch && ch.score;
+          if (!d || !d.offsets || patText.value !== d.text) { if (liveKey) { liveKey = ''; patMirror.textContent = ''; patLive.textContent = ''; } return; }
+          const hits = {};
+          for (const n of p.cycles[k]) { if (!n.from || n.ms > t) continue; if (n.ms < t - Math.max(320, n.dur * 1000)) continue; hits[n.part] = n; }
+          const key = Mini.PARTS.map(part => hits[part] ? (hits[part].from.src || []).join('-') + hits[part].from.tip : '').join('|');
+          if (key === liveKey) return; liveKey = key;
+          const marks = Mini.PARTS.filter(part => hits[part] && hits[part].from.src).map(part => ({ part, a: d.offsets[part] + hits[part].from.src[0], b: d.offsets[part] + hits[part].from.src[1] })).sort((x, y) => x.a - y.a);
+          let html = '', at = 0;
+          for (const m of marks) { if (m.a < at || m.b > d.text.length) continue; html += esc(d.text.slice(at, m.a)) + `<mark class="${m.part}">${esc(d.text.slice(m.a, m.b))}</mark>`; at = m.b; }
+          patMirror.innerHTML = html + esc(d.text.slice(at));
+          patMirror.scrollTop = patText.scrollTop; patMirror.scrollLeft = patText.scrollLeft;
+          patLive.innerHTML = Mini.PARTS.filter(part => hits[part]).map(part => `<span class="${part}"><b>${part}</b> ${esc(hits[part].from.tip)}</span>`).join('');
+        };
+        patBtn.addEventListener('click', () => { const on = patPanel.hidden; patPanel.hidden = !on; patBtn.setAttribute('aria-pressed', String(on)); if (on) { sharePanel.hidden = true; shareBtn.setAttribute('aria-pressed', 'false'); this.refreshPattern(); this.livePattern(-1); } });
+        shareBtn.addEventListener('click', () => { const on = sharePanel.hidden; sharePanel.hidden = !on; shareBtn.setAttribute('aria-pressed', String(on)); if (on) { patPanel.hidden = true; patBtn.setAttribute('aria-pressed', 'false'); this.refreshShare(); } });
+        body.querySelector('.shareuse').addEventListener('click', useShare);
+        shareText.addEventListener('paste', () => setTimeout(useShare, 0));
+        body.querySelector('.sharecopy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(shareText.value); shareMsg.textContent = 'Copied.'; } catch (e) { shareText.focus(); shareText.select(); shareMsg.textContent = 'Selected: copy it.'; } });
         patText.addEventListener('input', () => { this.writeScore(patText.value); onChange(this.getText()); });
         body.querySelector('.patreset').addEventListener('click', () => { this.writeScore(null); onChange(this.getText()); });
         body.querySelector('.feelv').addEventListener('input', () => { const v = +body.querySelector('.feelv').value; if (v === 50) delete this.band.feel; else this.band.feel = v; this.player.compile(); if (opts.onBand) opts.onBand(this.band); });
@@ -2699,8 +2897,8 @@
       // One drawer open at a time under the bar (null: none).
       showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); }
       showMixer(open) { this.showDrawer(open ? 'mix' : null); }
-      // The music starts: presenting, every drawer closes so the staff and the instrument have the screen; editing, only the mixer does.
-      drawersForPlay() { if (document.body.classList.contains('present')) this.showDrawer(null); else if (this.drawer === 'mix') this.showDrawer(null); }
+      // The music starts: presenting, every drawer closes so the staff and the instrument have the screen, unless the score is open to be watched; editing, only the mixer closes.
+      drawersForPlay() { const watching = this.drawer === 'band' && this.body.querySelector('.patpanel:not([hidden])'); if (document.body.classList.contains('present')) { if (!watching) this.showDrawer(null); } else if (this.drawer === 'mix') this.showDrawer(null); }
       // The tuning under the text: what it is, or what is wrong with it.
       tuningNotes() {
         const t = this.tuning; if (!t) return [];
@@ -3373,6 +3571,7 @@
           this.viz.frame(u, Math.max(0, t));
         }
         if (gameMode && tl.total > 0) this.progress(Math.max(0, t) / tl.total);
+        if (this.livePattern) this.livePattern(running ? t : -1);
         if (running) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); });
       }
       progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }
@@ -3460,6 +3659,7 @@
       // After a render: park the cursor faintly at the start.
       placeReady() {
         this.idle = true; this.k = null; this.beatK = null;
+        if (this.livePattern) this.livePattern(-1);
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
         if (this.cyc) { this.cyc = 0; this.relabel(0); }
         this.clearPlaying();
