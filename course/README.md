@@ -63,7 +63,7 @@ The lesson it is built for: a student chooses a tune at their level and practise
 
 The board is one browser's record, with no accounts: a classroom computer, or an export passed around. A shared server behind it is the step after this.
 
-A set is made from any graded folder; `--append course/set.json` adds a file's tunes to an existing set at their levels (how `samples/hindostan.abc`, four raga melodies read from Fox Strangways's *The Music of Hindostan* of 1914, each with a `%%tuning` line of the raga's own srutis, joined the first set), and `--annotate course/set.json` refreshes the Ontario grades of an existing set from the ABC it carries, when its source tunes are not all to hand:
+A set is made from any graded folder; `--append course/set.json` adds a file's tunes to an existing set at their levels (how `samples/hindostan.abc`, four raga melodies read from Fox Strangways's *The Music of Hindostan* of 1914, each with a `%%tuning` line of the raga's own srutis, and `samples/hindostan-folk.abc`, three Garhwali songs and a Maratha lullaby from the same book's Musical Diary chapters with his singing translations, joined the first set), and `--annotate course/set.json` refreshes the Ontario grades of an existing set from the ABC it carries, when its source tunes are not all to hand:
 
 ```bash
 node course/analyze-cli.js course/samples path/to/tunes --ignore key --set course/set.json --per-level 6 --name "Set of 8 November"

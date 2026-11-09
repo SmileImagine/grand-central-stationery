@@ -1,0 +1,86 @@
+% Folk songs from A. H. Fox Strangways, The Music of Hindostan (Oxford:
+% Clarendon Press, 1914), chapters I and II, "A Musical Diary": songs he
+% took down from singers on his journey of 1910-11, with his English
+% singing translations. Public domain everywhere (the author died in 1948;
+% US publication 1914). Scan: https://archive.org/details/musicofhindostan00foxs
+% (scan page = printed page + 48).
+%
+% A first reading from the scan, 2026-11-09, to be checked against the plates
+% at the pages given: the words are certain, the rhythms nearly so, and the
+% pitches were read from the engraving at high magnification, so a note may
+% be a step out where the N: line says check. These tunes are diatonic and
+% carry no %%tuning line; Fox Strangways's "Tonic" note is given in N:.
+% The Garhwali songs (pp. 50-1) are in 5/8, which he barred as written here.
+
+X:1
+T:O give me those pretty eyes
+T:Garhwali song, a dialogue
+C:traditional (Garhwal)
+O:India, Garhwal (Himalaya)
+R:song
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 97, p. 51
+N:Tonic G (G Dorian with the one-flat signature). He and she sing alternate verses. The metre changes from 3/4 to 2/4 at "make". Check: bars 3 and 4.
+M:3/4
+L:1/8
+Q:1/4=100
+K:F
+G2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]
+w: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.
+N:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.
+N:3 (He): Then O let me borrow them, And keep them safe till you need them again, dear.
+N:4 (She): For six months you shall borrow them; Promise truly you'll give me them back then again, dear.
+N:5 (He): What word is this of a bargaining! I will keep your eyes and your heart and your soul, dear.
+
+X:2
+T:Mother, send to the dhobi
+T:Garhwali song
+C:traditional (Garhwal)
+O:India, Garhwal (Himalaya)
+R:song
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 98, p. 51
+N:Tonic B, no signature. Three verses; the dhobi is the washerman. The first three semiquavers are a pickup and the last bar is short by the same amount. Check: the pitches of bar 2.
+M:5/8
+L:1/16
+Q:1/8=180
+K:C
+B d2 | c2 B c A2 A B c2 | c2 B c A2 A |]
+w: Mo-ther, send to the dho-bi to bring back my li-nen.
+N:2: Never mind where I'm going if you'll send to the dhobi.
+N:3: Oh I'm going to get me a new wife, pretty Hira.
+
+X:3
+T:O where will you go
+T:Garhwali song, the answer
+C:traditional (Garhwal)
+O:India, Garhwal (Himalaya)
+R:song
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 99, p. 51
+N:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers are a pickup. Check: the last bar.
+M:5/8
+L:1/16
+Q:1/8=180
+K:F
+A c | B2 A B G2 A B c2 | B2 A c B2 A B |]
+w: O where will you go if I get back your li-nen?
+N:2: You must say where you go before I send to the dhobi.
+N:3: Little Chhaila is yours, and will you marry another?
+
+X:4
+T:Rama's lullaby
+T:Maratha lullaby
+C:traditional (Maharashtra)
+O:India, Maharashtra
+R:lullaby
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66
+N:Adagio, crotchet 80; sung to him by a Hindu lady in Calcutta. No signature; the tune lies between middle C and A. Four verses, each ending in the refrain Little babe, sleep upon my knee. Check: bars 4 to 6 and the refrain's second bar.
+M:3/4
+L:1/16
+Q:1/4=80
+K:C
+C C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G | A4 F2 G3 F | G3 F D3 C C4 z2 |
+w: In A-yo-dhya, the land of kings, It was Vish-nu's self That was born on the lap of Kau-shal-ya.
+C C | D4 G3 F D2 C2 | D3 C C8 z2 |]
+w: Lit-tle babe sleep up-on my knee!_
+N:2: For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.
+N:3: In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).
+N:4: And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.
