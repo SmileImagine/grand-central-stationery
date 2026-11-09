@@ -647,7 +647,7 @@ DV.dancer = {
   foot(F, p) {   // where a foot is at time p, and how far through a flight it is
     const { ev, total } = this.m, E = ev[F]; let k = E.length - 1; for (let i = 0; i < E.length; i++) if (E[i].t <= p + 1e-9) k = i; else break;
     if (E[0].t > p + 1e-9) k = E.length - 1;
-    const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t + (nx.t <= e.t || (k === E.length - 1) ? total : 0), te = e.t > p ? e.t - total : e.t;
+    const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
     const still = Math.hypot(nx.x - e.x, nx.y - e.y) < 1e-6 && !nx.hop && !nx.jump && nx.kind !== 'up' && e.kind !== 'up';
     const eff = nx.eff || {}, span = tn - te;
     const flight = still ? 0 : eff.time === 'sudden' ? Math.min(.3, .3 * span) : eff.time === 'sustained' ? Math.min(1.6, .95 * span) : Math.min(.6, .55 * span);
