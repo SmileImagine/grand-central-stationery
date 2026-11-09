@@ -26,6 +26,9 @@
                  texture, form) can be named here too: --ignore key,texture
                  leaves key signatures and the chord symbols out of the grade
                  for a class that plays the melody over the page's Band
+    --append SET  add the graded tunes to an existing set (course/set.json)
+                 at their levels, skipping ids already there; --ignore as
+                 the set was made; the Ontario grade comes along
     --annotate FILE  re-read an existing set's tunes from the ABC they carry
                  and refresh each one's ontario grade in place (with --ignore
                  key, the key-signature rows are left out, as in the level),
@@ -41,7 +44,7 @@ const opt = { json: null, csv: null, md: null, set: null, name: null, perLevel: 
 const inputs = [];
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
-  if (a === '--json' || a === '--csv' || a === '--md' || a === '--set' || a === '--name' || a === '--annotate') opt[a.slice(2)] = args[++i];
+  if (a === '--json' || a === '--csv' || a === '--md' || a === '--set' || a === '--name' || a === '--annotate' || a === '--append') opt[a.slice(2)] = args[++i];
   else if (a === '--per-level') opt.perLevel = +args[++i];
   else if (a === '--skip') opt.skip = +args[++i];
   else if (a === '--min' || a === '--show') opt[a.slice(2)] = +args[++i];
@@ -124,6 +127,21 @@ if (opt.md) {
   seq.forEach((r, i) => { const f = r.features; lines.push(`| ${i + 1} | ${r.grade.level} | ${f.title.replace(/\|/g, '/')} | ${f.keyName} | ${f.metreNum}/${f.metreDen} | ${f.barCount} | ${r.introduces.join(', ')} |`); });
   fs.writeFileSync(opt.md, lines.join('\n') + '\n');
   console.log(`Wrote ${opt.md}`);
+}
+if (opt.append) {
+  const set = JSON.parse(fs.readFileSync(opt.append, 'utf8')), slug = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const have = new Set(set.tunes.map(t => t.id)), known = new Set(set.tunes.flatMap(t => t.skills || []));
+  let added = 0;
+  for (const r of seq) {
+    const f = r.features, id = slug(path.basename(f.file, '.abc') + '-' + (f.index + 1) + '-' + f.title);
+    if (have.has(id)) continue;
+    set.tunes.push({ id, title: f.title, level: r.grade.level, score: r.grade.score, key: f.keyName, metre: `${f.metreNum}/${f.metreDen}`, bars: f.barCount, origin: f.origin || '', composer: f.composer || '', rhythm: f.rhythm || '', source: f.file,
+      skills: f.skills, introduces: f.skills.filter(s => !known.has(s) && !s.startsWith('key:')), ontario: r.ontario, abc: r.abc.trim() + '\n' });
+    for (const s of f.skills) known.add(s); added++;
+  }
+  set.tunes.sort((a, b) => a.level - b.level || a.score - b.score);
+  fs.writeFileSync(opt.append, JSON.stringify(set, null, 1));
+  console.log(`\nAdded ${added} tune${added === 1 ? '' : 's'} to ${opt.append}: now ${set.tunes.length} (${[1, 2, 3, 4, 5, 6].map(l => set.tunes.filter(t => t.level === l).length).join('/')} per level)`);
 }
 if (opt.set) {
   ensureDir(opt.set);

@@ -1031,9 +1031,19 @@
       { keys: '\\ZXCVBNM,./',  x0: 0.25, base: -2, y: 3 },
     ];
     const WH_J = 60;   // the J key: middle C (the sixth key of the A row, 5 + 2 * 6 above Z)
+    // The lattice in a tuning of N degrees, as the joyboard lays it out: one key to the right is the
+    // degree nearest 2/12 of the octave, up and to the right the degree nearest 7/12, nudged until the
+    // two axes reach every degree (gcd with N of 1). The J key is the tuning's 1/1 at the root.
+    function latticeFor(N) {
+      const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+      let right = Math.max(1, Math.round(N * 2 / 12)), up = Math.max(right + 1, Math.round(N * 7 / 12));
+      for (let tries = 0; tries < N && gcd(gcd(right, up), N) !== 1; tries++) up += 1;
+      return { right, up };
+    }
     class WickiHaydenLayout extends KeyedLayout {
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
         this.panel = '44%';
+        if (tuned) return this.buildTuned(svg, midis, tuned);
         // Transpose moves the pitches on the keys, so J stays the root and
         // the fingering of a tune does not change when it is transposed.
         const origin = WH_J - 17 + transpose;   // pitch of Z
@@ -1059,8 +1069,50 @@
         this.shift = -octaveFit(midis, lo, hi);   // a tune beyond the keys is shifted by octaves into them
       }
       // The keyboard shows this.shift octaves away from written pitch.
-      key(m) { return this.keys.get(m - this.shift) || this.keys.get(m - this.shift + 12) || this.keys.get(m - this.shift - 12) || null; }
-      octaves() { return -this.shift / 12; }
+      key(m) {
+        if (this.tunedKeys) {   // a key is the one nearest the note's tuned pitch, within a third of a tone
+          const target = m * 100 + this.off(m) + this.shiftCents; let best = null, bd = 60;
+          for (const k of this.tunedKeys) { const d = Math.abs(k.cents - target); if (d < bd) { bd = d; best = k; } }
+          return best;
+        }
+        return this.keys.get(m - this.shift) || this.keys.get(m - this.shift + 12) || this.keys.get(m - this.shift - 12) || null;
+      }
+      octaves() { return this.tunedKeys ? -this.shiftCents / 1200 : -this.shift / 12; }
+      // The keys as the joyboard lays a Scala tuning on them: the J key sounds the root (1/1), each key to the
+      // right is `right` degrees up, each row up is `up - right` degrees up (the stagger makes up-right `up`).
+      // Keys are labelled by degree (1 is the root) unless the scale has twelve, when they keep note names.
+      buildTuned(svg, midis, { tuning, key }) {
+        const deg = tuning.degrees, N = deg.length, period = tuning.period || 1200, { right, up } = latticeFor(N);
+        this.off = tuningOffsets(tuning, key);
+        const rootPc = this.off.root, rootMidi = [rootPc + 48, rootPc + 60].reduce((a, b) => Math.abs(b - 60) < Math.abs(a - 60) ? b : a);
+        const bases = { 3: -right, 2: -right + up, 1: -right + 2 * up - right, 0: -right + 3 * up - 2 * right };   // Z, A, Q, number rows
+        const jDeg = bases[2] + right * 6;
+        const U = 40, K = 36, g = svgEl(svg, 'g'); let maxX = 0;
+        this.tunedKeys = [];
+        for (const row of WH_ROWS) {
+          [...row.keys].forEach((ch, i) => {
+            const rel = bases[row.y] + right * i - jDeg, oct = Math.floor(rel / N), d = ((rel % N) + N) % N;
+            const cents = rootMidi * 100 + oct * period + deg[d], near = Math.round(cents / 100);
+            const x = (row.x0 + i) * U + (U - K) / 2, y = row.y * U + (U - K) / 2;
+            maxX = Math.max(maxX, x + K);
+            const el = svgEl(g, 'rect', { class: 'key cap' + (d === 0 ? ' root' : ''), x, y, width: K, height: K, rx: 6 });
+            el.style.setProperty('--c', midiColor(near));
+            svgText(g, 'lbl qw', x + 4, y + 8, 7, 'var(--muted)', ch, 'start');
+            if (ch === 'F' || ch === 'J') svgEl(g, 'rect', { class: 'bump', x: x + K / 2 - 5, y: y + K - 6, width: 10, height: 2, rx: 1 });
+            const nm = N === 12 ? NOTE_NAMES[((near % 12) + 12) % 12] : String(d + 1);
+            const lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, nm.length > 2 ? 11 : 13, midiColor(near), nm, 'middle');
+            const k = { el, lbl, idleFill: midiColor(near), x: x + K / 2, y: y + K / 2, cents };
+            this.tunedKeys.push(k); this.keys.set(cents, k);
+          });
+        }
+        svg.setAttribute('viewBox', `-2 -2 ${maxX + 4} ${4 * U + 4}`);
+        this.startPt = { x: -2, y: 3.5 * U };
+        // The tune beyond the keys is shifted by octaves into them.
+        const lo = Math.min(...this.tunedKeys.map(k => k.cents)), hi = Math.max(...this.tunedKeys.map(k => k.cents));
+        let best = 0, bestN = -1;
+        for (const sh of [0, -1200, 1200, -2400, 2400]) { const n = midis.filter(m => { const c = m * 100 + this.off(m) + sh; return c >= lo - 50 && c <= hi + 50; }).length; if (n > bestN) { best = sh; bestN = n; } }
+        this.shiftCents = best;
+      }
     }
 
     // Ukulele, re-entrant GCEA, twelve frets. A pitch has several places; the
@@ -1464,7 +1516,7 @@
     function parseTuning(text) {
       const lines = text.split('\n').map(l => TUNING_LINE.exec(l)).filter(Boolean); if (!lines.length) return null;
       let body = lines.map(m => m[1].trim()).join(' '), name = '';
-      const colon = body.indexOf(':'); if (colon >= 0 && !/^\d/.test(body)) { name = body.slice(0, colon).trim(); body = body.slice(colon + 1); }
+      const colon = body.indexOf(':'); if (colon >= 0 && /[A-Za-z]/.test(body.slice(0, colon))) { name = body.slice(0, colon).trim(); body = body.slice(colon + 1); }   // a name may start with a number (22 sruti)
       const t = { name, degrees: [0], period: 1200, root: null, map: null, problems: [], raw: [] };
       for (const tok of body.split(/\s+/).filter(Boolean)) {
         const opt = /^(root|map)=(.+)$/i.exec(tok);
@@ -2409,15 +2461,15 @@
         this.host = host; this.name = 'off'; this.layout = null;
         this.svg = svgEl(host, 'svg', { preserveAspectRatio: 'xMidYMid meet' });
       }
-      set(name, midis, transpose = 0, nameOf) {
-        this.nameOf = nameOf || (m => NOTE_NAMES[((m % 12) + 12) % 12]);
+      set(name, midis, transpose = 0, nameOf, tuned = null) {
+        this.nameOf = nameOf || (m => NOTE_NAMES[((m % 12) + 12) % 12]); this.tuned = tuned;
         const cellBody = this.host.closest('.cell-body'); if (cellBody) { cellBody.classList.toggle('with-inst', !!INSTRUMENTS[name]); cellBody.style.setProperty('--abc-inst-cell-h', name === 'recorder' ? '72vh' : '66vh'); }
         this.name = INSTRUMENTS[name] ? name : 'off';
         this.host.classList.toggle('on', this.name !== 'off');
         this.svg.innerHTML = ''; this.layout = null; this.runner = null;
         if (this.name === 'off') return;
         this.layout = new INSTRUMENTS[this.name]();
-        this.layout.build(this.svg, midis, transpose, this.nameOf);
+        this.layout.build(this.svg, midis, transpose, this.nameOf, tuned);
         this.host.style.setProperty('--inst-h', this.layout.panel || '32%');
         if (this.layout.runnerR) {
           this.runner = svgEl(this.svg, 'g', { class: 'runner hide' });
@@ -3370,7 +3422,7 @@
         }
         return found;
       }
-      vizPrepare() { if (!this.viz) return; this.key = null; const midis = this.allMidis(); this.viz.set(this.inst, midis, this.transpose || 0, m => this.nameOf(m)); this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule(); }
+      vizPrepare() { if (!this.viz) return; this.key = null; const midis = this.allMidis(); this.viz.set(this.inst, midis, this.transpose || 0, m => this.nameOf(m), this.tuning && !this.tuning.problems.length ? { tuning: this.tuning, key: this.keyInfo() } : null); this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule(); }
       // Warnings and tips, each with a ? that opens its explanation.
       showNotes() {
         this.warnEl.innerHTML = '';

@@ -102,37 +102,41 @@
    }
   },
   {
-   "id": "beginner-songs-2-engine-engine-number-nine",
-   "title": "Engine, Engine, Number Nine",
+   "id": "beginner-songs-6-ring-around-the-rosie",
+   "title": "Ring Around the Rosie",
    "level": 1,
-   "score": 0.95,
+   "score": 0.69,
    "key": "C",
    "metre": "2/4",
    "bars": 8,
-   "origin": "USA",
+   "origin": "England",
    "composer": "",
    "rhythm": "",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
+    "degree:la",
     "degree:mi",
     "degree:so",
     "dur:1",
     "dur:1/2",
+    "dur:2",
     "key:0",
-    "leap:3rd",
+    "leap:4th",
     "metre:2/4"
    ],
-   "introduces": [],
-   "abc": "X:2\nT:Engine, Engine, Number Nine\nO:USA\nM:2/4\nL:1/8\nK:C\nGG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 |]\nw: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?\n",
+   "introduces": [
+    "dur:2"
+   ],
+   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
    "ontario": {
-    "grade": 1,
-    "band": "Grade 1",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "melodic patterns on mi, so and la"
+     "half and whole notes"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
@@ -228,6 +232,46 @@
    }
   },
   {
+   "id": "beginner-songs-2-engine-engine-number-nine",
+   "title": "Engine, Engine, Number Nine",
+   "level": 1,
+   "score": 0.95,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "USA",
+   "composer": "",
+   "rhythm": "",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:3rd",
+    "metre:2/4"
+   ],
+   "introduces": [],
+   "abc": "X:2\nT:Engine, Engine, Number Nine\nO:USA\nM:2/4\nL:1/8\nK:C\nGG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 |]\nw: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?\n",
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   }
+  },
+  {
    "id": "beginner-songs-5-lucy-locket",
    "title": "Lucy Locket",
    "level": 1,
@@ -261,140 +305,6 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "1: melodic patterns on mi, so and la"
-    ],
-    "ignored": [
-     "key",
-     "texture"
-    ]
-   }
-  },
-  {
-   "id": "beginner-songs-6-ring-around-the-rosie",
-   "title": "Ring Around the Rosie",
-   "level": 1,
-   "score": 0.69,
-   "key": "C",
-   "metre": "2/4",
-   "bars": 8,
-   "origin": "England",
-   "composer": "",
-   "rhythm": "",
-   "source": "course/samples/beginner-songs.abc",
-   "skills": [
-    "degree:la",
-    "degree:mi",
-    "degree:so",
-    "dur:1",
-    "dur:1/2",
-    "dur:2",
-    "key:0",
-    "leap:4th",
-    "metre:2/4"
-   ],
-   "introduces": [
-    "dur:2"
-   ],
-   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
-   "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
-    "concepts": [
-     "half and whole notes"
-    ],
-    "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes",
-     "1: melodic patterns on mi, so and la"
-    ],
-    "ignored": [
-     "key",
-     "texture"
-    ]
-   }
-  },
-  {
-   "id": "original-pentatonic-6-clickety-clack",
-   "title": "Clickety Clack",
-   "level": 2,
-   "score": 2.88,
-   "key": "C",
-   "metre": "2/4",
-   "bars": 8,
-   "origin": "",
-   "composer": "Grand Central Stationery (original, CC0)",
-   "rhythm": "",
-   "source": "course/samples/original-pentatonic.abc",
-   "skills": [
-    "degree:do",
-    "degree:la",
-    "degree:mi",
-    "degree:re",
-    "degree:so",
-    "dur:1",
-    "dur:1/2",
-    "dur:2",
-    "key:0",
-    "leap:3rd",
-    "metre:2/4",
-    "range:6th"
-   ],
-   "introduces": [
-    "range:6th"
-   ],
-   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\"CC DD | E2 G2 | \"G\"EE DD | \"C\"C4 | \"C\"CC EE | G2 A2 | \"G\"GG EE | \"C\"D2 C2 |]\n",
-   "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
-    "concepts": [
-     "half and whole notes",
-     "pentatonic patterns (do re mi so la), high do"
-    ],
-    "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes",
-     "2: pentatonic patterns (do re mi so la), high do"
-    ],
-    "ignored": [
-     "key",
-     "texture"
-    ]
-   }
-  },
-  {
-   "id": "beginner-songs-8-rocky-mountain",
-   "title": "Rocky Mountain",
-   "level": 2,
-   "score": 2.98,
-   "key": "C",
-   "metre": "2/4",
-   "bars": 8,
-   "origin": "USA",
-   "composer": "",
-   "rhythm": "",
-   "source": "course/samples/beginner-songs.abc",
-   "skills": [
-    "degree:do",
-    "degree:mi",
-    "degree:re",
-    "degree:so",
-    "dur:1",
-    "dur:1/2",
-    "key:0",
-    "leap:3rd",
-    "metre:2/4",
-    "range:6th"
-   ],
-   "introduces": [],
-   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n",
-   "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
-    "concepts": [
-     "pentatonic patterns (do re mi so la), high do"
-    ],
-    "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
      "key",
@@ -587,46 +497,88 @@
    }
   },
   {
-   "id": "beginner-songs-7-au-clair-de-la-lune",
-   "title": "Au Clair de la Lune",
-   "level": 3,
-   "score": 4.64,
+   "id": "original-pentatonic-6-clickety-clack",
+   "title": "Clickety Clack",
+   "level": 2,
+   "score": 2.88,
    "key": "C",
-   "metre": "4/4",
-   "bars": 16,
-   "origin": "France",
-   "composer": "",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "",
+   "composer": "Grand Central Stationery (original, CC0)",
    "rhythm": "",
-   "source": "course/samples/beginner-songs.abc",
+   "source": "course/samples/original-pentatonic.abc",
    "skills": [
     "degree:do",
     "degree:la",
     "degree:mi",
     "degree:re",
     "degree:so",
-    "degree:ti",
     "dur:1",
+    "dur:1/2",
     "dur:2",
-    "dur:4",
     "key:0",
-    "leap:4th",
-    "metre:4/4",
+    "leap:3rd",
+    "metre:2/4",
     "range:6th"
    ],
    "introduces": [
-    "degree:ti"
+    "range:6th"
    ],
-   "abc": "X:7\nT:Au Clair de la Lune\nO:France\nM:4/4\nL:1/4\nK:C\nC C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |\nD D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]\n",
+   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\"CC DD | E2 G2 | \"G\"EE DD | \"C\"C4 | \"C\"CC EE | G2 A2 | \"G\"GG EE | \"C\"D2 C2 |]\n",
    "ontario": {
-    "grade": 4,
-    "band": "Grade 4",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "the major scale (fa and ti), intervals, accidentals"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "4: the major scale (fa and ti), intervals, accidentals"
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   }
+  },
+  {
+   "id": "beginner-songs-8-rocky-mountain",
+   "title": "Rocky Mountain",
+   "level": 2,
+   "score": 2.98,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "USA",
+   "composer": "",
+   "rhythm": "",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:3rd",
+    "metre:2/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n",
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
      "key",
@@ -672,6 +624,54 @@
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   }
+  },
+  {
+   "id": "beginner-songs-7-au-clair-de-la-lune",
+   "title": "Au Clair de la Lune",
+   "level": 3,
+   "score": 4.64,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "France",
+   "composer": "",
+   "rhythm": "",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:2",
+    "dur:4",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [
+    "degree:ti"
+   ],
+   "abc": "X:7\nT:Au Clair de la Lune\nO:France\nM:4/4\nL:1/4\nK:C\nC C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |\nD D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]\n",
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -854,63 +854,6 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "4: the major scale (fa and ti), intervals, accidentals"
-    ],
-    "ignored": [
-     "key",
-     "texture"
-    ]
-   }
-  },
-  {
-   "id": "waltzes-11-daisy-daisy",
-   "title": "Daisy Daisy",
-   "level": 4,
-   "score": 11.91,
-   "key": "D",
-   "metre": "3/4",
-   "bars": 33,
-   "origin": "",
-   "composer": "",
-   "rhythm": "",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/waltzes.abc",
-   "skills": [
-    "degree:do",
-    "degree:fa",
-    "degree:la",
-    "degree:mi",
-    "degree:re",
-    "degree:so",
-    "degree:ti",
-    "dur:1",
-    "dur:1/2",
-    "dur:2",
-    "dur:3",
-    "dur:4",
-    "dur:5",
-    "key:2",
-    "leap:5th",
-    "metre:3/4",
-    "pickup",
-    "range:octave",
-    "repeat",
-    "tie-over-bar"
-   ],
-   "introduces": [],
-   "abc": "X: 11\nT:Daisy Daisy\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"Ad|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"Ac|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
-   "ontario": {
-    "grade": 6,
-    "band": "Grade 6",
-    "concepts": [
-     "pick-up notes (anacrusis)"
-    ],
-    "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes",
-     "3: 3/4 metre",
-     "3: dotted half note",
-     "6: pick-up notes (anacrusis)",
-     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -1155,6 +1098,63 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   }
+  },
+  {
+   "id": "waltzes-11-daisy-daisy",
+   "title": "Daisy Daisy",
+   "level": 4,
+   "score": 11.91,
+   "key": "D",
+   "metre": "3/4",
+   "bars": 33,
+   "origin": "",
+   "composer": "",
+   "rhythm": "",
+   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/waltzes.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "dur:4",
+    "dur:5",
+    "key:2",
+    "leap:5th",
+    "metre:3/4",
+    "pickup",
+    "range:octave",
+    "repeat",
+    "tie-over-bar"
+   ],
+   "introduces": [],
+   "abc": "X: 11\nT:Daisy Daisy\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"Ad|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"Ac|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "6: pick-up notes (anacrusis)",
      "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
@@ -1452,6 +1452,229 @@
    }
   },
   {
+   "id": "hindostan-1-bhup",
+   "title": "Bhup",
+   "level": 5,
+   "score": 13.06,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 17,
+   "origin": "India, Hindustani",
+   "composer": "traditional (Poona Gayan Samaj)",
+   "rhythm": "Rupak",
+   "source": "course/samples/hindostan.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:3/2",
+    "key:0",
+    "leap:6th",
+    "metre:3/4",
+    "pickup",
+    "range:over-octave",
+    "rest",
+    "syncopation"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Bhup\nT:Bhupali, Rupak\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Rupak\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 383, p. 301\nN:Pentatonic (Sa Re Ga Pa Dha). Check: the last bar has four quavers in the plate.\nM:3/4\nL:1/8\nK:C\nE | GE D3 E | C2 C2 E2 | A,A, C3 E | D2 E D2 E | GE D3 E |\nC2 C2 E2 | A,A, C3 E | GE DE z E || ED E3 E | cG c2 cc |\ncG c3 c | d2 c2 GA | E2 D2 C2 | E2 D2 A,G, | A,2 C3 E | EG DE |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+  },
+  {
+   "id": "hindostan-4-desh",
+   "title": "Desh",
+   "level": 5,
+   "score": 13.29,
+   "key": "CMix",
+   "metre": "3/4",
+   "bars": 12,
+   "origin": "India, Hindustani",
+   "composer": "traditional (Poona Gayan Samaj)",
+   "rhythm": "Eka Trisra",
+   "source": "course/samples/hindostan.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:3/2",
+    "key:1",
+    "leap:4th",
+    "metre:3/4",
+    "range:octave",
+    "repeat",
+    "rest",
+    "rest-off-beat",
+    "syncopation:sustained"
+   ],
+   "introduces": [
+    "accidentals",
+    "degree:fi"
+   ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:4\nT:Desh\nT:Desh, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 395, p. 305\nN:Both nishads: shuddha Ni (B natural) rising, komal ni (B flat) falling. The asthayi repeats. Check: bars 6 and 7.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cmix\nD2 D F2 A | =Bc c c2 _B | AG A FG A | G2 D ED z :|\nD2 D F2 A | =Bc c c2 c | c2 c2 c =B | cd c d3 |\nc =B2 c2 d | dc c2 A F | AG A FG A | G2 D ED D |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+  },
+  {
+   "id": "hindostan-3-bhairavi",
+   "title": "Bhairavi",
+   "level": 5,
+   "score": 13.8,
+   "key": "CPhr",
+   "metre": "3/4",
+   "bars": 18,
+   "origin": "India, Hindustani",
+   "composer": "traditional (Poona Gayan Samaj)",
+   "rhythm": "Eka Trisra",
+   "source": "course/samples/hindostan.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:3/2",
+    "key:4",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:over-octave",
+    "rest",
+    "rest-off-beat",
+    "syncopation:sustained"
+   ],
+   "introduces": [
+    "rest-off-beat",
+    "syncopation:sustained"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:3\nT:Bhairavi\nT:Bhairavi, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 419, p. 311\nN:All four komal notes (re ga dha ni); Fox Strangways heads it Phrygian-Doric. Check: bars 4, 7 and 9 are short in this reading.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cphr\nC | F3 F2 F | E3 E2 E | D3 D2 D | C2 D | D2 D z z C | D3 D2 E |\nED DC C | C3 E2 F | ED CC F || F3 A2 c | c2 c c2 c | c2 c c2 d |\ncB A F2 F | F3 F2 A | AF F D2 D | C3 D2 E | EDC C2 |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+  },
+  {
+   "id": "hindostan-2-malkos",
+   "title": "Malkos",
+   "level": 5,
+   "score": 13.83,
+   "key": "Cm",
+   "metre": "3/4",
+   "bars": 17,
+   "origin": "India, Hindustani",
+   "composer": "traditional (Poona Gayan Samaj)",
+   "rhythm": "Eka Trisra",
+   "source": "course/samples/hindostan.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:3/2",
+    "key:3",
+    "leap:5th",
+    "metre:3/4",
+    "pickup",
+    "range:over-octave",
+    "syncopation:sustained"
+   ],
+   "introduces": [
+    "dur:1/4"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "3: sixteenth-note patterns",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Malkos\nT:Malkauns, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 407, p. 308\nN:Pentatonic with komal Ga, Dha and Ni (Sa ga ma dha ni). Check: bar 5 and bar 9.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cm\nC | E2 C C2 C | C3 CA,C | C3 E2 E | E2 E C2 C | E2 A, A,2 A, |\nC3 CA,C | C3 E2 E | E2 E C2 C | E3 E2 F || B2 c c2 c | c2 c c2 c |\nc/c/B/c/ AF F2 | FE C C2 C | C3 CA,C | C3 E2 E | E2 E C2 |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+  },
+  {
    "id": "reelsd-g-12-the-donegall",
    "title": "The Donegall",
    "level": 6,
@@ -1506,17 +1729,17 @@
    }
   },
   {
-   "id": "reelsd-g-1-dance-all-night",
-   "title": "Dance All Night",
+   "id": "reelsu-z-3-walking-in-my-sleep",
+   "title": "Walking In My Sleep",
    "level": 6,
-   "score": 16.72,
+   "score": 15.49,
    "key": "G",
    "metre": "4/4",
-   "bars": 27,
+   "bars": 16,
    "origin": "",
    "composer": "",
    "rhythm": "",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsu-z.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1525,30 +1748,37 @@
     "degree:re",
     "degree:so",
     "degree:ti",
+    "double-stops",
     "dur:1",
     "dur:1/2",
+    "dur:2",
+    "dur:3",
     "dur:3/2",
+    "dur:4",
+    "dur:5/2",
     "key:1",
     "leap:octave",
     "metre:4/4",
-    "pickup",
     "range:over-octave",
     "repeat",
-    "syncopation"
+    "rest",
+    "syncopation",
+    "tie"
    ],
    "introduces": [],
-   "abc": "X: 1\nT:Dance All Night\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\n",
+   "abc": "X: 3\nT:Walking In My Sleep\n% Nottingham Music Database\nS:Old Time, via PR\nM:4/4\nL:1/4\nK:G\n\"G\"G,/2A,/2B,/2C/2 D/2G/2B/2d/2|\"G\"B2 -B/2d/2B/2A/2|\"G\"G2 [e2g2]|\\\n\"D7\"[d3f3]d/2B/2|\n\"D7\"A/2G/2F/2A/2 D/2E/2D/2E/2|\"C\"c3/2d/2 cA|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"G3z::\n\"G\"g/2b/2g/2e/2 d/2g/2e/2f/2|g/2f/2g/2b/2 g/2e/2g/2b/2|\\\n\"G\"g/2e/2d/2c/2 B/2A/2G/2D/2|\"D7\"FA3|\nf/2ab/2 a3/2e/2|\"D7\"f/2e/2d/2f/2 e/2f/2e/2f/2|g/2e/2d/2c/2 B/2d/2A/2F/2|\\\n\"G\"[G4B4]:|\n",
    "ontario": {
-    "grade": 6,
-    "band": "Grade 6",
+    "grade": 5,
+    "band": "Grade 5",
     "concepts": [
-     "pick-up notes (anacrusis)"
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
-     "6: pick-up notes (anacrusis)",
      "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
@@ -1719,17 +1949,17 @@
    }
   },
   {
-   "id": "reelsu-z-3-walking-in-my-sleep",
-   "title": "Walking In My Sleep",
+   "id": "reelsd-g-1-dance-all-night",
+   "title": "Dance All Night",
    "level": 6,
-   "score": 15.49,
+   "score": 16.72,
    "key": "G",
    "metre": "4/4",
-   "bars": 16,
+   "bars": 27,
    "origin": "",
    "composer": "",
    "rhythm": "",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsu-z.abc",
+   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1738,37 +1968,30 @@
     "degree:re",
     "degree:so",
     "degree:ti",
-    "double-stops",
     "dur:1",
     "dur:1/2",
-    "dur:2",
-    "dur:3",
     "dur:3/2",
-    "dur:4",
-    "dur:5/2",
     "key:1",
     "leap:octave",
     "metre:4/4",
+    "pickup",
     "range:over-octave",
     "repeat",
-    "rest",
-    "syncopation",
-    "tie"
+    "syncopation"
    ],
    "introduces": [],
-   "abc": "X: 3\nT:Walking In My Sleep\n% Nottingham Music Database\nS:Old Time, via PR\nM:4/4\nL:1/4\nK:G\n\"G\"G,/2A,/2B,/2C/2 D/2G/2B/2d/2|\"G\"B2 -B/2d/2B/2A/2|\"G\"G2 [e2g2]|\\\n\"D7\"[d3f3]d/2B/2|\n\"D7\"A/2G/2F/2A/2 D/2E/2D/2E/2|\"C\"c3/2d/2 cA|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"G3z::\n\"G\"g/2b/2g/2e/2 d/2g/2e/2f/2|g/2f/2g/2b/2 g/2e/2g/2b/2|\\\n\"G\"g/2e/2d/2c/2 B/2A/2G/2D/2|\"D7\"FA3|\nf/2ab/2 a3/2e/2|\"D7\"f/2e/2d/2f/2 e/2f/2e/2f/2|g/2e/2d/2c/2 B/2d/2A/2F/2|\\\n\"G\"[G4B4]:|\n",
+   "abc": "X: 1\nT:Dance All Night\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\n",
    "ontario": {
-    "grade": 5,
-    "band": "Grade 5",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes",
-     "3: dotted half note",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
      "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
