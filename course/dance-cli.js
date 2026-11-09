@@ -34,7 +34,7 @@ for (const p of opts.paths) {
     for (const chunk of fs.readFileSync(file, 'utf8').split(/\n\s*\n/)) {
       if (!chunk.trim()) continue;
       if (!/^\s*title\s*:/im.test(chunk)) { shared += chunk + '\n'; continue; }
-      const r = D.analyzeSteps(shared + chunk, { ignore: opts.ignore }); r.source = path.relative(process.cwd(), file); r.text = (shared + chunk).split('\n').filter(l => l.trim() && !/^\s*\/\//.test(l) && !/^\s*(source|licence|license|note)\s*:/i.test(l)).join('\n'); steps.push(r);
+      const r = D.analyzeSteps(shared + chunk, { ignore: opts.ignore }); r.source = path.relative(process.cwd(), file); r.text = (shared + chunk).split('\n').filter(l => l.trim() && !/^\s*\/\//.test(l) && !/^\s*(source|licence|license)\s*:/i.test(l)).join('\n'); steps.push(r);
     }
   }
 }

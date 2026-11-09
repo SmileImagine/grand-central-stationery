@@ -1,0 +1,210 @@
+// Basic steps of social and folk dances from beyond the ballroom, typed in the
+// lab's step language as they are taught in schools and community classes.
+// They are traditional steps, nobody's choreography, and several are simplified
+// (said so in the note). z is a step across behind. Where hips, shoulders or
+// hands carry the dance, the note says so; the language only has feet and arms.
+// Ceremonial and sacred dances are left out on purpose. This file is CC0.
+source: traditional steps, typed for Grand Central Stationery
+licence: CC0
+
+// ---- Latin America and the Caribbean ----
+
+title: Salsa basic (on 1)
+origin: Cuba, Puerto Rico, New York
+meter: 4/4
+bpm: 95
+note: break forward on 1, back on 5; the fourth and eighth counts are held.
+feet: Lf Rp Lp . | Rb Lp Rp .
+arms: o  o  o  . | o  o  o  .
+
+title: Merengue basic
+origin: Dominican Republic
+meter: 4/4
+bpm: 130
+note: a march with the hips: the weight-free hip lifts on every step.
+feet: Ls Rc Ls Rc
+arms: h  h  h  h
+
+title: Bachata basic
+origin: Dominican Republic
+meter: 4/4
+bpm: 120
+note: three steps to the side and a tap with a hip lift on four, then back.
+feet: Ls Rc Ls rc | Rs Lc Rs lc
+arms: h  h  h  h  | h  h  h  h
+
+title: Samba basic (no bounce)
+origin: Brazil
+meter: 2/4
+bpm: 100
+note: step, close, step forward then back; the knees give the bounce that the language cannot write.
+feet: Lf-Rc Lp | Rb-Lc Rp
+arms: o     o  | o     o
+
+title: Cumbia basic
+origin: Colombia
+meter: 4/4
+bpm: 95
+note: the back step and replace, then forward with a tap.
+feet: Lb Rp Lf rc | Rb Lp Rf lc
+arms: o  o  o  o  | o  o  o  o
+
+title: Zapateado threes
+origin: Mexico (jarabe, son jarocho)
+meter: 6/8
+bpm: 110
+note: three stamps and a rest, alternating feet; the stamps are the rhythm.
+feet: Lp Rp Lp . . . | Rp Lp Rp . . .
+arms: d  d  d  . . . | d  d  d  . . .
+
+// ---- Africa and the diaspora ----
+
+title: Kpanlogo basic
+origin: Ga (Ghana)
+meter: 4/4
+bpm: 110
+note: simplified: step side and touch, with the arms pushing out and in at the chest.
+feet: Ls rc Rs lc
+arms: o  c  o  c
+
+title: Hambone step
+origin: African-American
+meter: 4/4
+bpm: 100
+note: the feet walk while the hands pat the thighs and slap the chest: see the Hambone rhythm.
+feet: Lp Rp Lp Rp
+arms: h  c  h  c
+
+title: East Coast swing basic
+origin: African-American (Lindy hop, jitterbug)
+meter: 2/4
+bpm: 90
+note: triple step, triple step, rock step: six counts.
+feet: Ls-Rc Ls | Rs-Lc Rs | Lb Rp
+arms: o     o  | o     o  | o  o
+
+title: Hip-hop two-step
+origin: African-American
+meter: 4/4
+bpm: 95
+note: step side and together to each side, with a bounce in the knees.
+feet: Ls Rc Rs Lc
+arms: d  d  d  d
+
+title: Gumboot stamp and slap
+origin: South Africa (isicathulo)
+meter: 4/4
+bpm: 100
+note: stamp, then slap the boot: the arms line's claps stand for the slaps.
+feet: Lp . Rp . | Lp Rp Lp .
+arms: d  c d  c | d  d  d  c
+
+// ---- the Middle East, the Balkans and Greece ----
+
+title: Dabke basic
+origin: the Levant
+meter: 4/4
+bpm: 115
+note: simplified: step, cross, step, stamp with the heel; the line holds hands.
+feet: Ls Rx Ls rp
+arms: d  d  d  d
+
+title: Hora (Hava Nagila)
+origin: Israel, Romania
+meter: 2/4
+bpm: 130
+note: six counts: side, behind, side, hop with a kick, side, hop with a kick; the circle moves to the left.
+feet: Ls Rz | Ls H | Rs H
+arms: o  o  | o  o | o  o
+
+title: Mayim step
+origin: Israel
+meter: 4/4
+bpm: 120
+note: the grapevine the dance is built on: across, side, behind, side.
+feet: Rx Ls Rz Ls
+arms: o  o  o  o
+
+title: Pravo horo
+origin: Bulgaria
+meter: 2/4
+bpm: 110
+note: simplified: two steps forward, step and lift, step back and lift; the line moves right.
+feet: Rf Lf | Rs lc | Lb rc
+arms: d  d  | d  d  | d  d
+
+title: Hasapiko basic
+origin: Greece
+meter: 4/4
+bpm: 90
+note: simplified: step side, cross behind, step side, kick across; then the other way.
+feet: Rs Lz Rs K | Ls Rz Ls K
+arms: o  o  o  o | o  o  o  o
+
+title: Kalamatianos step
+origin: Greece
+meter: 7/8
+bpm: 150
+note: the twelve-step dance reduced to one bar of long, short, short: step right, step left, step right, lift.
+feet: Rs Lx Rs
+arms: o  o  o
+
+// ---- South and East Asia, the Pacific ----
+
+title: Bhangra bounce
+origin: Punjab
+meter: 4/4
+bpm: 110
+note: a bounce on each foot with the arms up and the shoulders lifting; simplified.
+feet: Lp-H Rp-H Lp-H Rp-H
+arms: u    u    u    u
+
+title: Garba three-step
+origin: Gujarat
+meter: 6/8
+bpm: 120
+note: simplified: three steps and a clap, moving round the circle.
+feet: Rf Lf Rf . . . | Lf Rf Lf . . .
+arms: o  o  o  c . . | o  o  o  c . .
+
+title: Hula kaholo
+origin: Hawai'i
+meter: 4/4
+bpm: 100
+note: four steps to the right and four to the left, the hips following; the arms extend to the side you travel.
+feet: Rs Lc Rs lc | Ls Rc Ls rc
+arms: o  o  o  o  | o  o  o  o
+
+title: Hula hela
+origin: Hawai'i
+meter: 4/4
+bpm: 100
+note: point the foot forward and bring it back, each side; the weight stays over the standing foot.
+feet: rf Rc lf Lc
+arms: o  o  o  o
+
+title: Tinikling basic
+origin: Philippines
+meter: 3/4
+bpm: 110
+note: the step between the bamboo poles: out on one, in, in; then out the other side. Simplified to steps on the floor.
+feet: Ls Rs Ls | Rs Ls Rs
+arms: o  o  o  | o  o  o
+
+// ---- Ireland and Scotland ----
+
+title: Sevens and threes
+origin: Ireland (céilí)
+meter: 4/4
+bpm: 110
+note: seven side steps to the right over four beats, then two threes in place.
+feet: Rs-Lc Rs-Lc Rs-Lc Rs | Lp Rp Lp . | Rp Lp Rp .
+arms: d     d     d     d  | d  d  d  . | d  d  d  .
+
+title: Pas de basque
+origin: Scotland (country dance)
+meter: 2/4
+bpm: 110
+note: spring onto one foot, step the other across in front on the ball, step in place; then the other side.
+feet: Ls Rx-Lp | Rs Lx-Rp
+arms: o  o     | o  o

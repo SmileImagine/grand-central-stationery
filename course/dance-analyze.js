@@ -83,7 +83,7 @@
       for (const tok of subs) {
         if (tok === '.') { f.holds++; continue; }
         f.moves++; footMoved = true; let m;
-        if ((m = tok.match(/^([LRlr])([fbsxcp]?)$/))) { const F = m[1].toUpperCase(), dir = m[2] || 'p'; f.dirs.add(dir); if (m[1] !== F) f.touches++; if (dir === 'x') f.across++; if (m[1] === F) { if (lastFoot === F) f.sameFootTwice++; lastFoot = F; } }
+        if ((m = tok.match(/^([LRlr])([fbsxzcp]?)$/))) { const F = m[1].toUpperCase(), dir = m[2] || 'p'; f.dirs.add(dir); if (m[1] !== F) f.touches++; if (dir === 'x' || dir === 'z') f.across++; if (m[1] === F) { if (lastFoot === F) f.sameFootTwice++; lastFoot = F; } }
         else if (/^J/.test(tok)) { f.jumps++; lastFoot = null; }
         else if (tok === 'H') f.hops++;
         else if (/^K/.test(tok)) f.kicks++;
@@ -151,7 +151,7 @@
   };
   function stepSkills(f) {
     const s = new Set();
-    f.dirs.forEach(dir => s.add(`dir:${{ p: 'place', s: 'side', c: 'close', f: 'forward', b: 'back', x: 'across' }[dir]}`));
+    f.dirs.forEach(dir => s.add(`dir:${{ p: 'place', s: 'side', c: 'close', f: 'forward', b: 'back', x: 'across', z: 'across behind' }[dir]}`));
     if (f.touches) s.add('touch'); if (f.hops) s.add('hop'); if (f.jumps) s.add('jump'); if (f.kicks) s.add('kick');
     if (f.subBeats) s.add('two-in-a-beat'); if (f.triple) s.add('three-in-a-beat'); if (f.holds) s.add('hold');
     f.armKinds.forEach(a => s.add(`arms:${{ u: 'up', o: 'out', d: 'down', c: 'clap', h: 'hips' }[a] || a}`));

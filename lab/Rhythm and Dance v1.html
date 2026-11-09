@@ -12,7 +12,7 @@
 
   Rhythm views:  Grid (box notation / TUBS), Wheel (rhythm necklace, one ring per
                  drum, so polyrhythms show), Syllables (Kodály stick notation with
-                 ta / ti-ti words), Body (body percussion: the figure flashes the
+                 ta / ti-ti words, or takadimi, or Carnatic konnakol), Body (body percussion: the figure flashes the
                  part that plays).
   Dance views:   Footprints (floor chart), Columns (Labanotation-style staff: a
                  centre line, one column per body part on each side, time flowing
@@ -91,7 +91,7 @@
         <button data-view="grid" class="on">Grid</button><button data-view="wheel">Wheel</button><button data-view="syll">Syllables</button><button data-view="body">Body</button>
       </div>
       <div class="warn" id="rwarn"></div>
-      <p class="help"><b>One line per drum.</b> <code>name: steps</code>, the steps of a bar sharing it equally: <code>x</code> hit, <code>X</code> accent, <code>o</code> soft, <code>.</code> rest; spaces are ignored, <code>|</code> starts a new bar. A line with 3 steps against one with 2 is a polyrhythm. <code>meter: 3/4</code> sets the beats in a bar. Drums: kick snare hat open rim clap tom low wood bell clave shaker; body: stomp clap pat snap click. The Body view plays every line as body percussion.</p>
+      <p class="help"><b>One line per drum.</b> <code>name: steps</code>, the steps of a bar sharing it equally: <code>x</code> hit, <code>X</code> accent, <code>o</code> soft, <code>.</code> rest; spaces are ignored, <code>|</code> starts a new bar. A line with 3 steps against one with 2 is a polyrhythm. <code>meter: 3/4</code> sets the beats in a bar. Drums: kick snare hat open rim clap tom low wood bell clave shaker; body: stomp clap pat snap click. The Body view plays every line as body percussion. The Syllables view speaks each beat in Kodály words, takadimi, or Carnatic konnakol (ta ka di mi for four, ta ki ta for three, ta di gi na tom for five).</p>
     </aside>
     <div class="stage" id="rstage"></div>
   </section>
@@ -106,7 +106,7 @@
       <label>Seen from <select id="facing"><option value="behind">behind (left is left)</option><option value="front">in front (mirrored, as the class sees you)</option></select></label>
       <div class="warn" id="dwarn"></div>
       <p class="help"><b>Seen from</b> turns the dancer round: from behind, left is on the left; from in front, the figure is mirrored, so a class copying the teacher can follow it. The Columns keep the dancer's own left and right, as Labanotation does.</p>
-      <p class="help"><b>One token per beat.</b> <code>feet:</code> a foot and a direction: <code>L</code>/<code>R</code> step onto it, <code>l</code>/<code>r</code> touch without weight; <code>f</code> forward <code>b</code> back <code>s</code> side <code>x</code> across <code>c</code> close (<code>Ls</code> step left to the side). <code>J</code> jump, <code>H</code> hop, <code>K</code> kick, <code>.</code> hold, <code>Ls-Rc</code> two moves in one beat. <code>arms:</code> <code>u</code> up <code>o</code> out <code>d</code> down <code>c</code> clap <code>h</code> hips <code>.</code> hold. The Rhythm tab's pattern plays underneath.</p>
+      <p class="help"><b>One token per beat.</b> <code>feet:</code> a foot and a direction: <code>L</code>/<code>R</code> step onto it, <code>l</code>/<code>r</code> touch without weight; <code>f</code> forward <code>b</code> back <code>s</code> side <code>x</code> across <code>z</code> across behind <code>c</code> close (<code>Ls</code> step left to the side). <code>J</code> jump, <code>H</code> hop, <code>K</code> kick, <code>.</code> hold, <code>Ls-Rc</code> two moves in one beat. <code>arms:</code> <code>u</code> up <code>o</code> out <code>d</code> down <code>c</code> clap <code>h</code> hips <code>.</code> hold. The Rhythm tab's pattern plays underneath.</p>
     </aside>
     <div class="stage" id="dstage"></div>
   </section>
@@ -227,8 +227,20 @@ function parseRhythm(text) {
 const KODALY = { '1000': 'ta', '1010': 'ti ti', '1111': 'ti-ka ti-ka', '1011': 'ti ti-ka', '1110': 'ti-ka ti', '1001': 'tim ka', '1100': 'ti-ka ∙', '0010': '∙ ti', '0011': '∙ ti-ka', '0100': '∙ ka', '0110': '∙ ka di', '1101': 'ti-ka ∙ ka', '0000': '∙',
   '100': 'ta', '111': 'tri-o-la', '101': 'ta ki', '110': 'ti-ki ∙', '011': '∙ ki da', '001': '∙ ∙ da', '010': '∙ ki', '000': '∙', '10': 'ta', '11': 'ti ti', '01': '∙ ti', '00': '∙', '1': 'ta', '0': '∙' };
 const SYL_NAMES = [[0, 'ta'], [.5, 'di'], [.25, 'ka'], [.75, 'mi'], [1 / 3, 'ki'], [2 / 3, 'da']];
+// Carnatic konnakol: a beat split into n speaks the n-syllable group; a rest keeps its place in the group but is silent.
+const KONNAKOL = { 1: ['ta'], 2: ['ta', 'ka'], 3: ['ta', 'ki', 'ta'], 4: ['ta', 'ka', 'di', 'mi'], 5: ['ta', 'di', 'gi', 'na', 'tom'], 6: ['ta', 'ki', 'ta', 'ta', 'ki', 'ta'], 7: ['ta', 'ka', 'di', 'mi', 'ta', 'ki', 'ta'], 8: ['ta', 'ka', 'di', 'mi', 'ta', 'ka', 'ju', 'nu'], 9: ['ta', 'ka', 'di', 'mi', 'ta', 'di', 'gi', 'na', 'tom'] };
+// takadimi: the syllable names the position in the beat, whatever sounds around it
+const TAKADIMI = { 1: ['ta'], 2: ['ta', 'di'], 3: ['ta', 'ki', 'da'], 4: ['ta', 'ka', 'di', 'mi'], 6: ['ta', 'va', 'ki', 'di', 'da', 'ma'], 8: ['ta', 'ka', 'di', 'mi', 'ta', 'ka', 'di', 'mi'] };
+const SYSTEMS = { kodaly: 'Kodály', takadimi: 'Takadimi', konnakol: 'Konnakol' };
+function konnakolRow(steps) {   // one syllable per pulse of the bar: each run of hits is a group, runs past nine are said in fours
+  const out = new Array(steps.length).fill('∙'); let i = 0;
+  while (i < steps.length) { if (!steps[i]) { i++; continue; } let j = i; while (j < steps.length && steps[j]) j++; let n = j - i, k = i; while (n > 0) { const g = n <= 9 ? n : (n % 4 === 0 || n > 12 ? 4 : n - 4 <= 9 ? n - 4 : 4); KONNAKOL[g].forEach(sy => out[k++] = sy); n -= g; } i = j; }
+  return out;
+}
 const sylFrac = fracs => fracs.map(f => { const k = SYL_NAMES.find(x => Math.abs(x[0] - f) < .02); return k ? k[1] : 'ka'; }).join(' ');
 function syllables(hits, n) {
+  const sys = state.sylsys === 'konnakol' ? KONNAKOL[n] : state.sylsys === 'takadimi' ? TAKADIMI[n] : null;
+  if (sys) return Array.from({ length: n }, (_, i) => hits.includes(i) ? sys[i] : '∙').join(' ');
   const key = Array.from({ length: n }, (_, i) => hits.includes(i) ? '1' : '0').join('');
   if (KODALY[key]) return KODALY[key];
   return Array.from({ length: n }, (_, i) => hits.includes(i) ? sylFrac([i / n]) : '∙').join(' ');
@@ -294,7 +306,7 @@ RV.wheel = {
 RV.syll = {
   build(el, r) {
     const W = 1000, labW = 90, rowH = 110, beatW = (W - labW - 10) / r.cycle, top = 20, H = top + r.rows.length * rowH + 10;
-    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
+    let s = `<svg viewBox="0 0 ${W} ${H + 30}" preserveAspectRatio="xMidYMid meet">`;
     this.beats = [];
     r.rows.forEach((row, ri) => {
       const y = top + ri * rowH;
@@ -304,7 +316,8 @@ RV.syll = {
         for (let b = 0; b < r.beats; b++) {
           const x0 = labW + (bi * r.beats + b) * beatW, hits = [];
           const lo = b * n, hi = (b + 1) * n; steps.forEach((v, si) => { if (v && si >= lo - 1e-9 && si < hi - 1e-9) hits.push(si - lo); });
-          const idx = hits.map(h => Number.isInteger(n) ? h : h / n), word = Number.isInteger(n) ? syllables(hits, n) : sylFrac(idx);
+          const idx = hits.map(h => Number.isInteger(n) ? h : h / n);
+          const word = state.sylsys === 'konnakol' && Number.isInteger(n) ? konnakolRow(steps).slice(lo, hi).join(' ') : Number.isInteger(n) ? syllables(hits, n) : sylFrac(idx);
           s += `<rect class="beat" data-r="${ri}" data-beat="${bi * r.beats + b}" x="${x0 + 2}" y="${y}" width="${beatW - 4}" height="${rowH - 10}" rx="6" fill="#fafafa" stroke="#e4e4e4"/>`;
           // stick notation: a stem per hit, beams between hits inside the beat
           const stemX = f => x0 + 14 + f * (beatW - 28), base = y + 58, topY = y + 14;
@@ -321,7 +334,11 @@ RV.syll = {
         }
       }
     });
-    s += `</svg>`; el.innerHTML = s; this.r = r; this.cells = [...el.querySelectorAll('.beat')];
+    Object.entries(SYSTEMS).forEach(([k, v], i) => { const on = state.sylsys === k, x = W - 10 - (2 - i) * 92; s += `<g class="sylsys" data-sys="${k}" style="cursor:pointer"><rect x="${x - 86}" y="${H - 6}" width="84" height="24" rx="12" fill="${on ? '#222' : '#fff'}" stroke="${on ? '#222' : '#bbb'}"/><text x="${x - 44}" y="${H + 11}" text-anchor="middle" font-size="12.5" fill="${on ? '#fff' : '#333'}">${v}</text></g>`; });
+    s += `</svg>`;
+    el.innerHTML = s;
+    el.querySelectorAll('.sylsys').forEach(g => g.onclick = () => { state.sylsys = g.dataset.sys; rebuild(); });
+    this.r = r; this.cells = [...el.querySelectorAll('.beat')];
   },
   paint(p) { const b = Math.floor(p); for (const c of this.cells) { const on = +c.dataset.beat === b; c.setAttribute('fill', on ? '#fff1c7' : '#fafafa'); c.setAttribute('stroke', on ? HI : '#e4e4e4'); c.setAttribute('stroke-width', on ? 3 : 1); } }
 };
@@ -375,7 +392,7 @@ function parseDance(text) {
   // the model: where each foot is (x across, y forward), which carries the weight
   const st = { L: { x: -.5, y: 0 }, R: { x: .5, y: 0 }, weight: 'B', arms: 'd' };
   const side = { L: -1, R: 1 }, other = { L: 'R', R: 'L' };
-  const off = (dir, sx) => dir === 'f' ? [sx * 1, 1.2] : dir === 'b' ? [sx * 1, -1.2] : dir === 's' ? [sx * 1.9, 0] : dir === 'x' ? [-sx * .7, .6] : [sx * 1, 0];
+  const off = (dir, sx) => dir === 'f' ? [sx * 1, 1.2] : dir === 'b' ? [sx * 1, -1.2] : dir === 's' ? [sx * 1.9, 0] : dir === 'x' ? [-sx * .7, .6] : dir === 'z' ? [-sx * .7, -.6] : [sx * 1, 0];
   for (let bi = 0; bi < d.bars; bi++) for (let b = 0; b < d.beats; b++) {
     const ft = d.feet.length ? (d.feet[bi % d.feet.length] || [])[b] || '.' : '.', at = d.arms.length ? (d.arms[bi % d.arms.length] || [])[b] || '.' : '.';
     const subs = ft.split('-');
@@ -384,7 +401,7 @@ function parseDance(text) {
       const t = bi * d.beats + b + k / subs.length, frame = { t, bar: bi, beat: b, sub: k, subs: subs.length, tok, arms: st.arms, kind: 'hold', moving: null, dir: 'p', lift: null };
       let m;
       if (tok === '.') { }
-      else if ((m = tok.match(/^([LRlr])([fbsxcp]?)$/))) {
+      else if ((m = tok.match(/^([LRlr])([fbsxzcp]?)$/))) {
         const F = m[1].toUpperCase(), step = m[1] === F, dir = m[2] || 'p', O = other[F];
         const base = st.weight === F ? st[F] : st[O]; const o = off(dir, side[F]);
         const from = st.weight === F ? { x: base.x - side[F] * 1, y: base.y } : base;   // stepping with the standing foot: measure from where the other one would be
@@ -442,7 +459,7 @@ DV.feet = {
     let s = ''; for (const F of ['L', 'R']) { if (f.moving === F || f.moving === 'B') continue; const lifted = f.lift === F; s += FOOT(this.X(f[F].x), this.Y(f[F].y), this.side(F), (lifted ? .7 : 1) * this.flip, f.weight === F || f.weight === 'B' ? (F === 'L' ? LEFT : RIGHT) : '#fff', F === 'L' ? LEFT : RIGHT, ` opacity=".55"`); }
     this.standing.innerHTML = s;
     const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' };
-    const dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', c: ' together', p: '' };
+    const dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', z: ' across behind', c: ' together', p: '' };
     this.say.textContent = `${countOf(f)}: ${names[f.kind]}${f.kind === 'step' || f.kind === 'touch' || f.kind === 'jump' ? dirs[f.dir] : ''}`;
   }
 };
@@ -451,7 +468,7 @@ DV.feet = {
 DV.laban = {
   sign(dir, level, sideSign, x, y, w, h, col) {
     // shapes for the right side; the left is mirrored
-    const shapes = { p: `M0,0 H${w} V${h} H0 Z`, f: `M0,0 H${w * .45} L${w},${h * .5} V${h} H0 Z`, b: `M0,0 H${w} V${h * .5} L${w * .45},${h} H0 Z`, s: `M0,0 H${w * .55} L${w},${h / 2} L${w * .55},${h} H0 Z`, x: `M${w},0 H${w * .45} L0,${h / 2} L${w * .45},${h} H${w} Z`, c: `M0,0 H${w} V${h} H0 Z` };
+    const shapes = { p: `M0,0 H${w} V${h} H0 Z`, f: `M0,0 H${w * .45} L${w},${h * .5} V${h} H0 Z`, b: `M0,0 H${w} V${h * .5} L${w * .45},${h} H0 Z`, s: `M0,0 H${w * .55} L${w},${h / 2} L${w * .55},${h} H0 Z`, x: `M${w},0 H${w * .45} L0,${h / 2} L${w * .45},${h} H${w} Z`, z: `M${w},0 H${w * .45} L0,${h * .5} L${w * .45},${h} H${w} L${w * .7},${h * .5} Z`, c: `M0,0 H${w} V${h} H0 Z` };
     const fill = level === 'low' ? col : level === 'high' ? 'url(#hatch)' : '#fff';
     let g = `<g transform="translate(${x} ${y}) scale(${sideSign} 1)"><path d="${shapes[dir] || shapes.p}" fill="${fill}" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/>`;
     if (level === 'mid') g += `<circle cx="${w / 2}" cy="${h / 2}" r="4" fill="${col}"/>`;
@@ -555,7 +572,7 @@ DV.figs = {
   paint(p) {
     const k = frameAt(this.d, p); if (k === this.k) return; this.k = k; const f = this.d.frames[k];
     this.big.innerHTML = this.figure(f, 300, true); this.cells.forEach(c => c.setAttribute('fill-opacity', +c.dataset.i === k ? .9 : 0));
-    const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' }, dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', c: ' together', p: '' };
+    const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' }, dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', z: ' across behind', c: ' together', p: '' };
     this.say.textContent = `${countOf(f)}: ${names[f.kind]}${['step', 'touch', 'jump'].includes(f.kind) ? dirs[f.dir] : ''}`;
   }
 };
@@ -580,7 +597,7 @@ const DANCES = {
 };
 
 /* ================= wiring ================= */
-const state = { tab: 'rhythm', rview: 'grid', dview: 'feet', facing: 'behind', r: null, d: null, view: null };
+const state = { tab: 'rhythm', rview: 'grid', dview: 'feet', sylsys: 'kodaly', facing: 'behind', r: null, d: null, view: null };
 const rtext = $('#rtext'), dtext = $('#dtext'), rwarn = $('#rwarn'), dwarn = $('#dwarn');
 for (const k in RHYTHMS) $('#rpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
 for (const k in DANCES) $('#dpreset').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);

@@ -28,7 +28,7 @@ for (let i = 0; i < args.length; i++) {
   else opts.paths.push(a);
 }
 const items = [];
-const tidy = t => t.split('\n').filter(l => l.trim() && !/^\s*\/\//.test(l) && !/^\s*(source|licence|license|note)\s*:/i.test(l)).join('\n');
+const tidy = t => t.split('\n').filter(l => l.trim() && !/^\s*\/\//.test(l) && !/^\s*(source|licence|license)\s*:/i.test(l)).join('\n');
 function add(p, where) { const r = R.analyze(p, { ignore: opts.ignore }); r.source = where; if (typeof p === 'string') r.text = tidy(p); items.push(r); }
 
 // text corpora
