@@ -1278,7 +1278,7 @@
    "id": "hindostan-folk-7-lalishrita",
    "title": "Lalishrita",
    "level": 4,
-   "score": 12.91,
+   "score": 12.97,
    "key": "C",
    "metre": "6/8",
    "bars": 6,
@@ -1304,6 +1304,7 @@
     "range:over-octave",
     "rest",
     "rest-off-beat",
+    "syncopation",
     "triplet-in-compound"
    ],
    "introduces": [
@@ -1321,6 +1322,8 @@
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: syncopation (syn-co-pa)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
      "5: 6/8 metre (one-and-a two-and-a)",
      "6: pick-up notes (anacrusis)",
      "4: the major scale (fa and ti), intervals, accidentals"
@@ -1330,7 +1333,7 @@
      "texture"
     ]
    },
-   "abc": "X:7\nT:Lalishrita\nT:Tamil lullaby, from a phonogram (sketch)\nC:traditional (Tamil Nadu)\nO:India, Tamil Nadu (Srirangam)\nR:lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64\nN:A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet.\nM:6/8\nL:1/8\nQ:1/4=70\nK:C\n%%style drone\nC | C G G G2 G/A/ | G/E/G/E/ (3G/E/G/ G E z G | G c c B3/2 A/2 B | d3/2 c/2 B A G (3G/E/G/ | G2 z E G |]\nw: Ba__ by mine, light_ of____ my eyes, Here in thy cra__-dle bright__ with flowers Through\nN:2: Srirangam island rises fair Where Kaveris meet; I lay thee there at Sriranga raja's feet, Full sure of His tender care.\nN:3: The golden nails no longer move On the divided cradle swung; The song is sung; my ship is borne Safe home, my babe, on the ocean of love.\n"
+   "abc": "X:7\nT:Lalishrita\nT:Tamil lullaby, from a phonogram (sketch)\nC:traditional (Tamil Nadu)\nO:India, Tamil Nadu (Srirangam)\nR:lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64\nN:A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet.\nM:6/8\nL:1/8\nQ:1/4=70\nK:C\n%%style drone\nC | C G G G2 G/A/ | G/E/G/E/ (3G/E/G/ G E G | G c c B3/2 A/2 B | d3/2 c/2 B A G (3G/E/G/ | G2 z E G |]\nw: Ba__ by mine, light_ of_____ my eyes, Here in thy cra__-dle bright____ with flow-ers_ Through__\nN:2: Srirangam island rises fair Where Kaveris meet; I lay thee there at Sriranga raja's feet, Full sure of His tender care.\nN:3: The golden nails no longer move On the divided cradle swung; The song is sung; my ship is borne Safe home, my babe, on the ocean of love.\n"
   },
   {
    "id": "hindostan-folk-3-o-where-will-you-go",
