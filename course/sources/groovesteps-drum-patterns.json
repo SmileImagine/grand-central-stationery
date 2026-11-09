@@ -1,0 +1,16 @@
+{
+  "name": "GrooveSteps Drum Patterns",
+  "description": "Standard drum grooves used by the free GrooveSteps interactive drum trainer. 16-step grids (1 bar of sixteenth notes). Each voice array is 16 booleans; true = hit.",
+  "homepage": "https://groovesteps.com/drums/",
+  "license": "CC0-1.0",
+  "voices": ["kick", "snare", "hihat", "openhat", "crash", "ride"],
+  "patterns": [
+    {"id": "quarter-note-pulse", "name": "Quarter-Note Pulse", "bpm": 80, "difficulty": "beginner", "lesson": "https://groovesteps.com/drums/lesson/quarter-note-pulse/", "kick": [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0]},
+    {"id": "four-on-the-floor", "name": "Four on the Floor", "bpm": 120, "difficulty": "beginner", "lesson": "https://groovesteps.com/drums/lesson/four-on-the-floor/", "kick": [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0], "hihat": [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]},
+    {"id": "the-backbeat", "name": "The Backbeat", "bpm": 90, "difficulty": "beginner", "lesson": "https://groovesteps.com/drums/lesson/the-backbeat/", "kick": [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0], "snare": [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0]},
+    {"id": "the-money-beat", "name": "The Money Beat", "bpm": 100, "difficulty": "beginner", "lesson": "https://groovesteps.com/drums/lesson/the-money-beat/", "kick": [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0], "snare": [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], "hihat": [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]},
+    {"id": "disco-beat", "name": "Disco Beat", "bpm": 120, "difficulty": "intermediate", "lesson": "https://groovesteps.com/drums/lesson/disco-beat/", "kick": [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0], "snare": [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0], "openhat": [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0], "hihat": [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0]},
+    {"id": "half-time-groove", "name": "Half-Time Groove", "bpm": 85, "difficulty": "intermediate", "lesson": "https://groovesteps.com/drums/lesson/half-time-groove/", "kick": [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], "snare": [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0], "hihat": [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]},
+    {"id": "train-beat", "name": "Train Beat", "bpm": 110, "difficulty": "intermediate", "lesson": "https://groovesteps.com/drums/lesson/train-beat/", "kick": [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0], "snare": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}
+  ]
+}

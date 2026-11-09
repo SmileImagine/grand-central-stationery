@@ -1,0 +1,1119 @@
+{
+ "source": "The Ontario Curriculum, Grades 1-8: The Arts (2009), glossary pp. 159-177, graded against the Dance and Music strands",
+ "method": "For each glossary term, the first grade whose strand text (Fundamental Concepts box, then the expectations) uses the term; \"where\" says which. Terms the strand text never uses are unplaced. Definitions stay in the document.",
+ "generated": "2026-11-09",
+ "music": [
+  {
+   "term": "absolute music",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "accent",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "accidental",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "accompaniment",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "active listening",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "anacrusis",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "arrange",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "articulation",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "aural/oral",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "bar",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "bar lines",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "bass clef",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "beat",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "blues scale",
+   "grade": 7,
+   "where": "concepts"
+  },
+  {
+   "term": "body percussion",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "bordun",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "brass instrument",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "call and response",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "canon",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "chant",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "chord",
+   "grade": 5,
+   "where": "concepts"
+  },
+  {
+   "term": "chromatic scale",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "coda",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "compose",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "compound metre",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "conducting patterns",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "crescendo",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "da capo al coda",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "da capo al fine",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "dal segno al coda",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "dal segno al fine",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "decrescendo",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "devised notation",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "dotted note or rest",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "dotted rhythm",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "duple metre",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "duration",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "dynamics",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "echo singing",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "elements of music",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "ensemble",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "expressive controls",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "family of instruments",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "fermata",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "first and second endings",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "folk song",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "found sounds",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "fusion form",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "gamelan",
+   "grade": 7,
+   "where": "concepts"
+  },
+  {
+   "term": "half step",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "harmony",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "head tone",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "historical periods",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "homophony (homophonic music)",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "improvise",
+   "grade": 6,
+   "where": "expectations"
+  },
+  {
+   "term": "interpretation",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "interval",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "invented notation",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "key signature",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "leap",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "ledger lines",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "legato",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "major and minor keys",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "major interval",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "major scale",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "manipulatives",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "measure",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "melody",
+   "grade": 2,
+   "where": "expectations"
+  },
+  {
+   "term": "melody map/melodic contour",
+   "grade": 2,
+   "where": "expectations"
+  },
+  {
+   "term": "metre",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "minor interval",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "minor scales",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "minuet",
+   "grade": 8,
+   "where": "concepts"
+  },
+  {
+   "term": "monophony (monophonic music)",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "movement",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "musical literacy",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "musicianship",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "non-pitched percussion instruments",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "non-traditional notation",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "notation",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "notation",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "notation software",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "note",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "notes and rests",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "numbers for notation (scales)",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "one-line staff",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "oral count",
+   "grade": 5,
+   "where": "concepts"
+  },
+  {
+   "term": "oral prompts",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "ostinato",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "partner song",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "pentatonic scale",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "percussion instrument",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "perfect intervals",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "perform",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "phrase",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "pick-up note(s)",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "pitch",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "pitched percussion instruments",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "polyphony (polyphonic music)",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "program music",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "question and answer",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "recorder",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "rest",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "rhythm",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "rhythmic (or stick) notation",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "rhythmic pattern",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "roman numerals",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "rondo",
+   "grade": 5,
+   "where": "concepts"
+  },
+  {
+   "term": "round",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "scale",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "section",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "sforzando (sfz)",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "sight reading",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "skip",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "slur",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "soundscape",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "staff",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "standard notation",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "step",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "stick (or rhythmic) notation",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "stringed instrument",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "style",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "syllables",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "symbols",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "syncopation",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "tablature",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "technology",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "tempo",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "ternary form (ABA form)",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "texture",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "theme and variations",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "timbre",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "time signature",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "triad",
+   "grade": 7,
+   "where": "concepts"
+  },
+  {
+   "term": "triple metre",
+   "grade": 6,
+   "where": "expectations"
+  },
+  {
+   "term": "triplet",
+   "grade": 6,
+   "where": "concepts"
+  },
+  {
+   "term": "two-line staff",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "unison",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "verse and chorus",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "visual prompts",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "visual representation",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "whole step",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "wind instrument",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "woodwind instrument",
+   "grade": null,
+   "where": null
+  }
+ ],
+ "dance": [
+  {
+   "term": "AB",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "ABA",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "accent",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "asymmetry",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "audience etiquette",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "balance",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "body",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "body base",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "body storming",
+   "grade": 6,
+   "where": "expectations"
+  },
+  {
+   "term": "body zones",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "bound movement",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "call and response",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "canon",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "choreographer",
+   "grade": 6,
+   "where": "expectations"
+  },
+  {
+   "term": "choreographic form",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "choreography",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "collage",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "compositional form",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "contact improvisation",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "contrast",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "dance form",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "dance piece",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "dance sequence",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "dance style",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "direct action",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "duration",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "elements of dance",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "energy",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "ensemble",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "entrance and exit",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "flocking",
+   "grade": 6,
+   "where": "expectations"
+  },
+  {
+   "term": "fluid movement",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "force",
+   "grade": 2,
+   "where": "concepts"
+  },
+  {
+   "term": "free-flow movement",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "freeze",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "general space",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "genre",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "geometric",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "locomotor movement",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "mirroring",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "motif",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "movement vocabulary",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "narrative form",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "negative space",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "non-locomotor movement",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "notation (invented dance notation)",
+   "grade": 8,
+   "where": "expectations"
+  },
+  {
+   "term": "organic movement",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "pathway",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "pattern",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "pattern form",
+   "grade": 3,
+   "where": "concepts"
+  },
+  {
+   "term": "pedestrian movement",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "percussive movement",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "personal space",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "phrase",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "positive space",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "posture",
+   "grade": 5,
+   "where": "expectations"
+  },
+  {
+   "term": "prop",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "quality",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "relationship",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "repetition",
+   "grade": 3,
+   "where": "expectations"
+  },
+  {
+   "term": "retrograde",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "rhythmic movement",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "rondo",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "shape",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "site specific",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "space",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "static",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "stimulus",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "style",
+   "grade": 1,
+   "where": "expectations"
+  },
+  {
+   "term": "sustained movement",
+   "grade": 4,
+   "where": "expectations"
+  },
+  {
+   "term": "symmetry",
+   "grade": 4,
+   "where": "concepts"
+  },
+  {
+   "term": "technique",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "tempo",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "theatre in the round",
+   "grade": 7,
+   "where": "expectations"
+  },
+  {
+   "term": "theme and variation",
+   "grade": 7,
+   "where": "expectations"
+  },
+  {
+   "term": "time",
+   "grade": 1,
+   "where": "concepts"
+  },
+  {
+   "term": "transitions",
+   "grade": null,
+   "where": null
+  },
+  {
+   "term": "unison movement",
+   "grade": null,
+   "where": null
+  }
+ ]
+}

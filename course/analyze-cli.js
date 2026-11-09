@@ -13,7 +13,7 @@
                  introduces in the suggested sequence
     --csv FILE   one row per tune, features and rungs, for a spreadsheet
     --md FILE    the suggested sequence as a Markdown table
-    --set FILE   write a tune set for the route board (course/board.html):
+    --set FILE   write a tune set for the practice board (course/board.html):
                  --per-level N tunes at each level (default 6), taken in
                  sequence order, --skip K skipping the first K at each level
                  so a later set rotates to new tunes; --name "Set title"
@@ -21,7 +21,15 @@
     --show N     tunes to list per level on stdout (default 5)
     --ignore D   leave dimensions out of the level, comma separated
                  (e.g. --ignore key,range for a class that transposes
-                 and plays piano); they are still measured and reported
+                 and plays piano); they are still measured and reported.
+                 The Ontario grade's elements (rhythm, pitch, key, dynamics,
+                 texture, form) can be named here too: --ignore key,texture
+                 leaves key signatures and the chord symbols out of the grade
+                 for a class that plays the melody over the page's Band
+    --annotate FILE  re-read an existing set's tunes from the ABC they carry
+                 and refresh each one's ontario grade in place (with --ignore
+                 key, the key-signature rows are left out, as in the level),
+                 for a set whose source tunes are not all to hand
 */
 const fs = require('fs');
 const path = require('path');
@@ -33,13 +41,20 @@ const opt = { json: null, csv: null, md: null, set: null, name: null, perLevel: 
 const inputs = [];
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
-  if (a === '--json' || a === '--csv' || a === '--md' || a === '--set' || a === '--name') opt[a.slice(2)] = args[++i];
+  if (a === '--json' || a === '--csv' || a === '--md' || a === '--set' || a === '--name' || a === '--annotate') opt[a.slice(2)] = args[++i];
   else if (a === '--per-level') opt.perLevel = +args[++i];
   else if (a === '--skip') opt.skip = +args[++i];
   else if (a === '--min' || a === '--show') opt[a.slice(2)] = +args[++i];
   else if (a === '--ignore') opt.ignore = args[++i].split(',').map(s => s.trim()).filter(Boolean);
   else if (a === '-h' || a === '--help') { console.log(fs.readFileSync(__filename, 'utf8').split('*/')[0].replace(/^\/\*\n?/, '')); process.exit(0); }
   else inputs.push(a);
+}
+if (opt.annotate) {
+  const set = JSON.parse(fs.readFileSync(opt.annotate, 'utf8')), counts = {};
+  for (const t of set.tunes) { const r = A.analyzeAbc(t.abc, ABCJS, null, { ignore: opt.ignore })[0]; if (!r || !r.ontario) { console.error(`could not read ${t.title}`); continue; } t.ontario = r.ontario; counts[r.ontario.grade] = (counts[r.ontario.grade] || 0) + 1; }
+  fs.writeFileSync(opt.annotate, JSON.stringify(set, null, 1));
+  console.log(`${opt.annotate}: ${set.tunes.length} tunes; Ontario grade ${Object.keys(counts).sort().map(g => `${g}: ${counts[g]}`).join(', ')}`);
+  process.exit(0);
 }
 if (!inputs.length) inputs.push(path.join(__dirname, 'samples'));
 
@@ -66,10 +81,13 @@ const seq = A.sequence(reports);
 // ---- stdout summary ----
 const byLevel = new Map();
 for (const r of reports) byLevel.set(r.grade.level, (byLevel.get(r.grade.level) || 0) + 1);
-for (const d of opt.ignore) if (!A.LATTICE[d]) { console.error(`Unknown dimension "${d}". Dimensions: ${Object.keys(A.LATTICE).join(', ')}`); process.exit(1); }
+for (const d of opt.ignore) if (!A.LATTICE[d] && !A.ONTARIO.some(r => r[0] === d)) { console.error(`Unknown dimension "${d}". Dimensions: ${Object.keys(A.LATTICE).join(', ')}; Ontario elements: ${[...new Set(A.ONTARIO.map(r => r[0]))].join(', ')}`); process.exit(1); }
 console.log(`${reports.length} tunes graded${opt.ignore.length ? ` (level ignores ${opt.ignore.join(', ')})` : ''}${skipped ? `, ${skipped} skipped (too short or no key)` : ''}${failed ? `, ${failed} failed to parse` : ''}.\n`);
 console.log('Level  Tunes');
 for (let l = 1; l <= 6; l++) console.log(`  ${l}    ${String(byLevel.get(l) || 0).padStart(5)}`);
+const byGrade = new Map();
+for (const r of reports) if (r.ontario) byGrade.set(r.ontario.grade, (byGrade.get(r.ontario.grade) || 0) + 1);
+console.log(`\nOntario grade (duration concepts): ${[...byGrade.keys()].sort().map(g => `${g}: ${byGrade.get(g)}`).join(', ')}`);
 const dims = Object.keys(A.LATTICE);
 for (let l = 1; l <= 6; l++) {
   const list = reports.filter(r => r.grade.level === l).sort((a, b) => a.grade.score - b.grade.score).slice(0, opt.show);
@@ -95,8 +113,8 @@ if (opt.csv) {
     'degreeCount', 'pitchClasses', 'chromaticClasses', 'chromaticFraction', 'maxLeap', 'meanInterval', 'leapFraction', 'smallestBeatFraction', 'syncopations', 'syncopationFraction',
     'tieCount', 'tieOverBar', 'tripletCount', 'restCount', 'restFraction', 'notesPerBeat', 'pickup', 'repeats', 'chordSymbols', 'keyAccidentals', 'keyChanges', 'metreChanges', 'rhythmRung'];
   const q = v => { const s = v === null || v === undefined ? '' : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
-  const rows = [[...cols, 'level', 'score', ...dims.map(d => 'rung_' + d), 'skills', 'introduces'].join(',')];
-  for (const r of seq) rows.push([...cols.map(c => q(typeof r.features[c] === 'number' ? Math.round(r.features[c] * 1000) / 1000 : r.features[c])), r.grade.level, r.grade.score, ...dims.map(d => r.grade.rungs[d]), q(r.features.skills.join(' ')), q(r.introduces.join(' '))].join(','));
+  const rows = [[...cols, 'level', 'score', ...dims.map(d => 'rung_' + d), 'ontario', 'skills', 'introduces'].join(',')];
+  for (const r of seq) rows.push([...cols.map(c => q(typeof r.features[c] === 'number' ? Math.round(r.features[c] * 1000) / 1000 : r.features[c])), r.grade.level, r.grade.score, ...dims.map(d => r.grade.rungs[d]), r.ontario ? r.ontario.grade : '', q(r.features.skills.join(' ')), q(r.introduces.join(' '))].join(','));
   fs.writeFileSync(opt.csv, rows.join('\n') + '\n');
   console.log(`Wrote ${opt.csv}`);
 }
@@ -116,7 +134,7 @@ if (opt.set) {
     for (const r of usable.filter(r => r.grade.level === l).slice(opt.skip, opt.skip + opt.perLevel)) {
       const f = r.features;
       tunes.push({ id: slug(path.basename(f.file, '.abc') + '-' + (f.index + 1) + '-' + f.title), title: f.title, level: l, score: r.grade.score, key: f.keyName, metre: `${f.metreNum}/${f.metreDen}`,
-        bars: f.barCount, origin: f.origin || '', composer: f.composer || '', rhythm: f.rhythm || '', source: f.file, skills: f.skills, introduces: r.introduces, abc: r.abc.trim() + '\n' });
+        bars: f.barCount, origin: f.origin || '', composer: f.composer || '', rhythm: f.rhythm || '', source: f.file, skills: f.skills, introduces: r.introduces, ontario: r.ontario, abc: r.abc.trim() + '\n' });
     }
   }
   const set = { name: opt.name || `Set of ${new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`, generated: new Date().toISOString().slice(0, 10), perLevel: opt.perLevel, skip: opt.skip,

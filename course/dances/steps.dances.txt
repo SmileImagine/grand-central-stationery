@@ -1,0 +1,130 @@
+// Basic steps written in the lab's step language. These are traditional social
+// and folk steps, nobody's choreography; this file is CC0.
+source: traditional steps, typed for Grand Central Stationery
+licence: CC0
+
+title: March in place
+meter: 4/4
+bpm: 100
+feet: Lp Rp Lp Rp
+arms: d  d  d  d
+
+title: March with swinging arms
+meter: 4/4
+bpm: 100
+feet: Lp Rp Lp Rp
+arms: o  d  o  d
+
+title: Step and clap
+meter: 4/4
+bpm: 90
+feet: Lp . Rp .
+arms: d  c d  c
+
+title: Step touch
+meter: 4/4
+bpm: 100
+feet: Ls rc Rs lc
+arms: o  c  o  c
+
+title: Step touch forward and back
+meter: 4/4
+bpm: 100
+feet: Lf rc Rb lc
+arms: u  d  u  d
+
+title: Side close
+meter: 4/4
+bpm: 100
+feet: Ls Rc Ls Rc | Rs Lc Rs Lc
+arms: o  o  o  o  | o  o  o  o
+
+title: Grapevine
+meter: 4/4
+bpm: 110
+feet: Ls Rx Ls rc | Rs Lx Rs lc
+arms: o  o  o  c  | o  o  o  c
+
+title: Jump and clap
+meter: 4/4
+bpm: 100
+feet: J . J . | J J J .
+arms: d c d c | d d d c
+
+title: Hop step
+meter: 2/4
+bpm: 110
+feet: Lf H | Rf H
+arms: o  o | o  o
+
+title: Skip
+meter: 2/4
+bpm: 110
+feet: Lf-H Rf-H
+arms: o    o
+
+title: Slide (gallop) to the left
+meter: 2/4
+bpm: 120
+feet: Ls-Rc Ls-Rc
+arms: o     o
+
+title: Heel and toe
+meter: 2/4
+bpm: 110
+feet: lf lb | Ls-Rc Ls
+arms: h  h  | h     h
+
+title: Two-step
+meter: 2/4
+bpm: 110
+feet: Lf-Rc Lf | Rf-Lc Rf
+arms: o     o  | o     o
+
+title: Polka
+meter: 2/4
+bpm: 120
+feet: Lf-Rc Lf-H | Rf-Lc Rf-H
+arms: o     o    | o     o
+
+title: Schottische
+meter: 4/4
+bpm: 110
+feet: Lf Rf Lf H | Rf Lf Rf H | Lf H Rf H | Lf H Rf H
+arms: o  o  o  o | o  o  o  o | o  o o  o | o  o o  o
+
+title: Box step (waltz)
+meter: 3/4
+bpm: 100
+feet: Lf Rs Lc | Rb Ls Rc
+arms: o  o  o  | o  o  o
+
+title: Waltz balance
+meter: 3/4
+bpm: 100
+feet: Lf rc . | Rb lc .
+arms: o  o  o | o  o  o
+
+title: Mazurka
+meter: 3/4
+bpm: 110
+feet: Ls Rc H | Ls Rc H
+arms: o  o  o | o  o  o
+
+title: Cha-cha basic
+meter: 4/4
+bpm: 115
+feet: Lf Rb Ls-Rc Ls | Rb Lf Rs-Lc Rs
+arms: o  o  o     o  | o  o  o     o
+
+title: Kick ball change
+meter: 4/4
+bpm: 110
+feet: K Lb-Rp K Lb-Rp
+arms: d d     d d
+
+title: Charleston
+meter: 4/4
+bpm: 110
+feet: Lf K Lb rb
+arms: o  u o  d

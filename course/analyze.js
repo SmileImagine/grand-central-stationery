@@ -144,6 +144,20 @@
     const shift = MODE_TO_MAJOR[mode] !== undefined ? MODE_TO_MAJOR[mode] : (MODE_TO_MAJOR[key.mode] || 0);
     return ((LETTER_PC[key.root] + (ACC_SEMI[key.acc === '#' ? 'sharp' : key.acc === 'b' ? 'flat' : 'natural'] || 0) + shift) % 12 + 12) % 12;
   }
+  // Chord symbols as degrees of the key: I, IV, V, or other. Minor keys read la-based, so the chords on la, re and mi
+  // (Am, Dm, E in A minor) count as I, IV and V.
+  function chordDegreesOf(names, tonic, key) {
+    const out = new Set();
+    if (tonic === null) return [...names].length ? ['other'] : [];
+    const minor = /^(m|min|minor|aeo|aeolian)$/.test((key && key.mode || '').toLowerCase());
+    const home = minor ? { 9: 'I', 2: 'IV', 4: 'V' } : { 0: 'I', 5: 'IV', 7: 'V' };
+    for (const name of names) {
+      const m = /^([A-G])([#b]?)/.exec(name.trim()); if (!m) continue;
+      const pc = ((LETTER_PC[m[1]] + (m[2] === '#' ? 1 : m[2] === 'b' ? -1 : 0) - tonic) % 12 + 12) % 12;
+      out.add(home[pc] || 'other');
+    }
+    return [...out];
+  }
   function keyAccidentalMap(key) {
     const m = {};
     for (const a of (key && key.accidentals) || []) m[a.note.toUpperCase()] = a.acc;
@@ -179,7 +193,8 @@
     let barAcc = {}, pos = 0;          // pos: whole notes since the start of the current bar
     let barIndex = 0, barHasNotes = false, barHash = [];
     const bars = [], notes = [], tags = new Set(), warnings = [];
-    let keyChanges = 0, metreChanges = 0, repeats = 0, endings = 0, chordSymbols = 0, graceNotes = 0, multiStops = 0;
+    let keyChanges = 0, metreChanges = 0, repeats = 0, endings = 0, chordSymbols = 0, graceNotes = 0, multiStops = 0, slurs = 0;
+    const decorations = new Set(), chordNames = new Set();
     let restCount = 0, restBeats = 0, tieCount = 0, tieOverBar = 0, tripletCount = 0, otherTuplets = 0;
     let pending = null;               // a note waiting for its tied continuation
 
@@ -209,7 +224,9 @@
       const dur = el.duration || 0;
       if (el.startTriplet) { if (el.startTriplet === 3) tripletCount++; else otherTuplets++; }
       if (el.gracenotes) graceNotes += el.gracenotes.length;
-      if (el.chord) chordSymbols += el.chord.length;
+      if (el.chord) { chordSymbols += el.chord.length; for (const c of el.chord) if (c.name) chordNames.add(c.name); }
+      for (const d of el.decoration || []) decorations.add(d);
+      for (const p of el.pitches || []) if (p.startSlur) slurs += p.startSlur.length;
       const onsetBeats = pos / beat, durBeats = dur / beat;
 
       if (el.rest || !el.pitches || !el.pitches.length) {
@@ -261,15 +278,16 @@
       tempo: tune.getBpm ? tune.getBpm() : null, pickup: !!(tune.getPickupLength && tune.getPickupLength() > EPS),
       noteCount: n, barCount: bars.length, voices: countVoices(tune),
       keyAccidentals: ((key0 && key0.accidentals) || []).filter(a => a.acc !== 'natural').length, keyChanges, metreChanges,
-      repeats, endings, chordSymbols, graceNotes, multiStops, restCount, tieCount, tieOverBar, tripletCount, otherTuplets,
+      repeats, endings, chordSymbols, graceNotes, multiStops, restCount, tieCount, tieOverBar, tripletCount, otherTuplets, slurs,
+      decorations: [...decorations].sort(), chordDegrees: chordDegreesOf(chordNames, tonic, key0),
       warnings: (tune.warnings || []).length,
     };
     if (extra) Object.assign(f, extra);
 
     if (n === 0) {
       Object.assign(f, { rangeSemitones: 0, lowMidi: null, highMidi: null, degreeCount: 0, pitchClasses: 0, chromaticClasses: 0, chromaticFraction: 0, pentatonicOnly: true,
-        maxLeap: 0, meanInterval: 0, leapFraction: 0, distinctBars: 0, repetition: 0, effectiveBars: 0, totalBeats: 0, notesPerBeat: 0, restFraction: 0,
-        syncopations: 0, syncopationFraction: 0, smallestBeatFraction: 1, durations: [], rhythmRung: 1, skills: [], degrees: [] });
+        maxLeap: 0, meanInterval: 0, leapFraction: 0, distinctBars: 0, repetition: 0, effectiveBars: 0, totalBeats: 0, notesPerBeat: 0, restFraction: 0, belowDo: 0, keyMode: '',
+        syncopations: 0, syncopationFraction: 0, smallestBeatFraction: 1, durations: [], rhythmRung: 1, skills: [], degrees: [], slurs: 0, decorations: [], chordDegrees: [] });
       return f;
     }
 
@@ -286,6 +304,9 @@
     f.pentatonicOnly = tonic !== null && [...relSet].every(r => PENTATONIC.has(r));
     f.degrees = [...relSet].sort((a, b) => a - b).map(r => SOLFA[r]);
     for (const d of f.degrees) tags.add('degree:' + d);
+    const dos = notes.filter(x => x.rel === 0).map(x => x.midi), lowDo = dos.length ? Math.min(...dos) : null;
+    f.belowDo = lowDo === null ? 0 : notes.filter(x => x.midi < lowDo).length;   // notes under the lowest do: low so and low la
+    f.keyMode = (key0 && key0.mode || '').toLowerCase();
 
     // Intervals
     let maxLeap = 0, sumAbs = 0, leaps = 0, steps = 0;
@@ -390,6 +411,60 @@
     return { level, rungs, reasons, score: Math.round(score * 100) / 100, ignored: [...ignore] };
   }
 
+  /* ---------- Ontario alignment ----------
+     The grade in which The Ontario Curriculum, Grades 1-8: The Arts (2009) first names a duration or pitch concept
+     the tune uses (course/ontario.md). The grade is a floor: a concept named in grade 3 is taught from then on.
+     Each row carries the element it reads, so a dimension ignored in the level (key, when the page transposes)
+     can be left out of the grade too. */
+  const ONTARIO = [
+    ['rhythm', 1, 'quarter and eighth notes, quarter rests, 2/4 and 4/4', () => true],
+    ['rhythm', 2, 'half and whole notes', f => !f.metreCompound && f.durations.some(d => [2, 4].includes(parseFraction(d)))],
+    ['rhythm', 3, '3/4 metre', f => f.metreNum === 3 && f.metreDen === 4],
+    ['rhythm', 3, 'dotted half note', f => !f.metreCompound && f.durations.some(d => parseFraction(d) === 3)],
+    ['rhythm', 3, 'sixteenth-note patterns', f => !f.metreCompound && f.smallestBeatFraction <= 0.25 + 1e-4 && f.smallestBeatFraction > 0.2],
+    ['rhythm', 4, 'syncopation (syn-co-pa)', f => f.syncopations > 0],
+    ['rhythm', 5, 'dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)', f => !f.metreCompound && f.durations.some(d => [1.5, 0.75, 2.5, 3.5].includes(parseFraction(d)))],
+    ['rhythm', 5, 'syncopated sixteenths (tika-ti, ti-tika)', f => f.syncopations > 0 && f.smallestBeatFraction <= 0.25 + 1e-4],
+    ['rhythm', 5, '6/8 metre (one-and-a two-and-a)', f => f.metreCompound && [6, 12].includes(f.metreNum)],
+    ['rhythm', 6, '9/8, 6/4, 5/4 and other compound or irregular metres', f => (f.metreCompound && ![6, 12].includes(f.metreNum)) || (!f.metreCompound && ![2, 3, 4].includes(f.metreNum))],
+    ['rhythm', 6, 'triplets', f => (f.tripletCount > 0 && !f.metreCompound) || f.otherTuplets > 0],
+    ['rhythm', 6, 'pick-up notes (anacrusis)', f => f.pickup],
+    ['rhythm', 7, 'rhythms as met in repertoire: notes shorter than a sixteenth', f => f.smallestBeatFraction < (f.metreCompound ? 1 / 6 : 1 / 4) - 1e-4],
+    ['rhythm', 4, 'the fermata', f => f.decorations.includes('fermata')],
+    // dynamics and other expressive controls, from the marks in the ABC
+    ['dynamics', 1, 'accent; smooth and detached articulation', f => f.decorations.some(d => ['accent', 'staccato', 'tenuto', 'emphasis'].includes(d))],
+    ['dynamics', 2, 'crescendo and decrescendo', f => f.decorations.some(d => /^(crescendo|diminuendo)\(/.test(d))],
+    ['dynamics', 3, 'the signs for soft and loud (p, f)', f => f.decorations.some(d => ['p', 'f', 'mp', 'mf'].includes(d))],
+    ['dynamics', 4, 'sforzando; phrase markings', f => f.decorations.some(d => /^s(f|fz|ffz)$/.test(d))],
+    ['dynamics', 6, 'very soft and very loud (pp, ff); slurs', f => f.slurs > 0 || f.decorations.some(d => /^(pp+|ff+)$/.test(d))],
+    ['dynamics', 7, 'marcato', f => f.decorations.includes('marcato')],
+    // texture and harmony: parts and the chord symbols over the tune
+    ['texture', 3, 'two parts (rounds, partner songs, canons)', f => f.voices >= 2],
+    ['texture', 5, 'chord progressions using I and V', f => f.chordDegrees.length > 0 && f.chordDegrees.every(d => d === 'I' || d === 'V')],
+    ['texture', 6, 'chord progressions using I, IV and V', f => f.chordDegrees.includes('IV') && f.chordDegrees.every(d => d !== 'other')],
+    ['texture', 7, 'major and minor triads beyond I, IV and V', f => f.chordDegrees.includes('other')],
+    // form, from the repeat signs
+    ['form', 4, 'simple repeats', f => f.repeats > 0 && !f.endings],
+    ['form', 6, 'first and second endings', f => f.endings > 0],
+    // pitch: degrees are read la-based in minor, so a minor tune's low la is the curriculum's low "la"
+    ['pitch', 1, 'melodic patterns on mi, so and la', f => f.degrees.length > 0 && f.degrees.every(d => ['mi', 'so', 'la'].includes(d))],
+    ['pitch', 2, 'pentatonic patterns (do re mi so la), high do', f => f.pentatonicOnly && !f.degrees.every(d => ['mi', 'so', 'la'].includes(d))],
+    ['pitch', 3, 'low so and low la (notes under do)', f => f.pentatonicOnly && f.belowDo > 0],
+    ['pitch', 4, 'the major scale (fa and ti), intervals, accidentals', f => f.degrees.length > 0 && !f.pentatonicOnly],
+    ['pitch', 4, 'minor tonality', f => /^(m|min|minor|aeo|aeolian)$/.test(f.keyMode)],
+    // ledger lines (grade 6) are not read: they depend on the octave the tune was typed in, not on the tune
+    ['pitch', 7, 'the blues scale (flat three and flat five in a major key)', f => !f.keyMode && f.degrees.includes('ri') && f.degrees.includes('fi')],
+    // key signatures, the dimension the page's Transpose makes moot
+    ['key', 4, 'key signatures of up to one sharp or flat', f => f.keyAccidentals === 1],
+    ['key', 5, 'key signatures such as D major and G minor (two sharps or flats)', f => f.keyAccidentals === 2],
+    ['key', 7, 'keys encountered in the repertoire (three or more sharps or flats)', f => f.keyAccidentals >= 3],
+  ];
+  function ontario(f, options) {
+    const ignore = new Set((options && options.ignore) || []);
+    const hit = ONTARIO.filter(([dim, , , test]) => !ignore.has(dim) && test(f)), grade = Math.max(...hit.map(h => h[1]));
+    return { grade, band: `Grade ${grade}`, concepts: hit.filter(h => h[1] === grade).map(h => h[2]), all: hit.map(h => `${h[1]}: ${h[2]}`), ignored: [...ignore].filter(d => ONTARIO.some(r => r[0] === d)) };
+  }
+
   /* ---------- sequencing ----------
      Greedy: start from the lowest-scoring tune, then always take the tune
      that brings the fewest skills not yet seen (ties broken by level, then
@@ -431,10 +506,10 @@
       try { tune = ABCJS.parseOnly(abc)[0]; } catch (err) { out.push({ abc, error: String(err && err.message || err), features: null, grade: null }); continue; }
       if (!tune || !tune.lines) { out.push({ abc, error: 'no tune', features: null, grade: null }); continue; }
       const features = analyzeTune(tune, Object.assign({ index: i }, extra || {}));
-      out.push({ abc, features, grade: features.noteCount ? grade(features, gradeOptions) : null });
+      out.push({ abc, features, grade: features.noteCount ? grade(features, gradeOptions) : null, ontario: features.noteCount ? ontario(features, gradeOptions) : null });
     }
     return out;
   }
 
-  return { LATTICE, WEIGHTS, SOLFA, analyzeTune, analyzeAbc, grade, sequence, splitTunes, fraction };
+  return { LATTICE, WEIGHTS, SOLFA, analyzeTune, analyzeAbc, grade, ontario, ONTARIO, sequence, splitTunes, fraction };
 });
