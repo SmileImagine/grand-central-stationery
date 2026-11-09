@@ -96,7 +96,8 @@
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -135,7 +136,8 @@
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -177,7 +179,8 @@
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -219,7 +222,8 @@
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -259,7 +263,8 @@
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -302,7 +307,8 @@
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -349,7 +355,8 @@
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -390,7 +397,8 @@
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -437,7 +445,8 @@
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -482,7 +491,8 @@
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -526,7 +536,8 @@
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -570,7 +581,8 @@
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -617,7 +629,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -662,7 +675,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -706,7 +720,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -751,7 +766,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -796,7 +812,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -840,7 +857,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -892,10 +910,12 @@
      "3: 3/4 metre",
      "3: dotted half note",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -943,7 +963,8 @@
      "4: minor tonality"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -988,7 +1009,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1036,7 +1058,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1082,10 +1105,12 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "3: dotted half note",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1124,15 +1149,18 @@
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "simple repeats",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1178,7 +1206,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1216,15 +1245,18 @@
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "simple repeats",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1270,7 +1302,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1314,10 +1347,12 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1360,10 +1395,12 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1409,7 +1446,8 @@
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1450,16 +1488,20 @@
     "band": "Grade 6",
     "concepts": [
      "triplets",
-     "pick-up notes (anacrusis)"
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: triplets",
      "6: pick-up notes (anacrusis)",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1507,10 +1549,12 @@
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1560,10 +1604,12 @@
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: triplets",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1613,10 +1659,12 @@
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1661,10 +1709,12 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "4: syncopation (syn-co-pa)",
      "6: triplets",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   },
@@ -1719,10 +1769,12 @@
      "3: dotted half note",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
-     "key"
+     "key",
+     "texture"
     ]
    }
   }

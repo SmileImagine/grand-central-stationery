@@ -62,9 +62,27 @@ Tunes get the duration reading from their ABC, and a pitch reading beside it. Du
 | two sharps or flats | "key signatures … (e.g., D major, G minor)", grade 5 |
 | three or more | "keys encountered in the repertoire", grade 7 |
 
-The key-signature rows are left out when the set is graded with `--ignore key`, as the first set is, because the page's Transpose moves every tune to the key the class reads; the lattice level leaves key out for the same reason. Two named concepts are not read at all: ledger lines (grade 6), because they depend on the octave the tune happens to be typed in rather than on the tune, and the interval names of grade 6, which are a way of talking about a tune rather than a feature of one. Texture (rounds, I and V chords) is not read either: a round is one melody in the ABC.
+The other elements are read from the marks in the ABC:
 
-Two placements to know about. The curriculum names the full major scale, with fa and ti, in grade 4, after the pentatonic patterns of grade 2, so Twinkle, Twinkle and Baa, Baa, Black Sheep, which use fa, sit at grade 4 though their rhythm is grade 2. And the pick-up note (anacrusis) is first named in grade 6, so every tune with a pick-up sits at grade 6 whatever else it does: ten of the first set's thirty-six tunes, among them Daisy Daisy and Highland Mary. Those are where the Ministry put the concepts, not judgements about the tunes; a class that has met them earlier chooses a higher grade on the board. With both readings the first set spreads 5, 7, 0, 13, 1, 10 over grades 1 to 6.
+| Tune | Element, concept and grade |
+|---|---|
+| accent, staccato or tenuto marks | dynamics: "a strong sound for a note or beat (accent); smooth and detached articulation", grade 1 |
+| crescendo or diminuendo hairpins | dynamics: "getting louder [crescendo], getting softer [decrescendo/diminuendo]", grade 2 |
+| p, f, mp, mf | dynamics: "standard symbols for soft … and loud", grade 3 |
+| sfz | dynamics: "sforzando [sfz]", grade 4 |
+| fermata | duration: "sustaining a note or rest for longer than its value (pause or fermata)", grade 4 |
+| pp, ff, or slurs | dynamics: "very soft [pianissimo – pp], very loud [fortissimo – ff], slurs", grade 6 |
+| marcato | dynamics: "marcato, maestoso", grade 7 |
+| two voices | texture: "simple two-part rounds, partner songs, canons", grade 3 |
+| chord symbols on I and V only | texture: "chord progressions using I and V", grade 5 |
+| chord symbols with IV | texture: "chord progressions using I, IV, and V", grade 6 |
+| any other chord | texture: "major and minor triads", grade 7 |
+| repeat signs | form: "simple repeats", grade 4 |
+| first and second endings | form: "repeats (e.g., first and second endings)", grade 6 |
+
+Chord symbols are read as degrees of the key, la-based in minor, so Am, Dm and E in A minor are I, IV and V. Each row names its element, and the grade can leave elements out the way the level leaves dimensions out. The first set is graded with `--ignore key,texture`: key, because the page's Transpose moves every tune to the key the class reads, and texture, because the chord symbols in these tunes are played by the page's Band while the student plays the melody (with texture counted, the fiddle tunes' Bm and Em chords put fifteen tunes at grade 7). Two named concepts are not read at all: ledger lines (grade 6), because they depend on the octave the tune happens to be typed in rather than on the tune, and the interval names of grade 6, which are a way of talking about a tune rather than a feature of one. Timbre cannot be read from a melody, and AB and ABA form are not read: the analyzer measures bars repeated, not sections.
+
+Two placements to know about. The curriculum names the full major scale, with fa and ti, in grade 4, after the pentatonic patterns of grade 2, so Twinkle, Twinkle and Baa, Baa, Black Sheep, which use fa, sit at grade 4 though their rhythm is grade 2. And the pick-up note (anacrusis) is first named in grade 6, so every tune with a pick-up sits at grade 6 whatever else it does: ten of the first set's thirty-six tunes, among them Daisy Daisy and Highland Mary. Those are where the Ministry put the concepts, not judgements about the tunes; a class that has met them earlier chooses a higher grade on the board. With all the elements read (key and texture left out) the first set spreads 5, 7, 0, 13, 1, 10 over grades 1 to 6; the new rows change no tune's grade in this set, since its ABC carries few marks beyond repeat signs and a pair of slurs.
 
 ## How the dance analyzer connects
 
@@ -88,6 +106,10 @@ The dance curriculum's progression is in the elements of dance (body, space, tim
 So the step lattice (feet, pace, arms, metre, length, tempo) and the Ontario grade are nearly independent: a grapevine is lattice level 6 (steps across) and grade 4 (cross-lateral); a merengue is level 3 and grade 7 (hip isolation); the march is level 1 and grade 1. Both are true. The lattice says how hard the feet are; the curriculum says which element the sequence teaches.
 
 For the book dances the prose grader reads formation, interaction and figures, which are the curriculum's grade 4 and 5 relationship concepts (meet and part, follow and lead, group formations, changing partners), so almost every Burchenal dance lands at grade 5, and the three solo or ring dances at grade 2 (folk dances as a form). That matches how the curriculum would place them: longways and set dances are grade 5 relationship work regardless of their steps.
+
+## The glossary by grade
+
+`ontario-glossary.md` places every Music and Dance term of the document's glossary at the first grade whose strand text uses it, with the data in `ontario-terms.json`. The Music terms climb the same ladder as the analyzers' tables; the Dance terms sit mostly in grade 1, with the vocabulary of form arriving from grade 3.
 
 ## What to do with it
 

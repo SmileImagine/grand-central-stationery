@@ -21,7 +21,11 @@
     --show N     tunes to list per level on stdout (default 5)
     --ignore D   leave dimensions out of the level, comma separated
                  (e.g. --ignore key,range for a class that transposes
-                 and plays piano); they are still measured and reported
+                 and plays piano); they are still measured and reported.
+                 The Ontario grade's elements (rhythm, pitch, key, dynamics,
+                 texture, form) can be named here too: --ignore key,texture
+                 leaves key signatures and the chord symbols out of the grade
+                 for a class that plays the melody over the page's Band
     --annotate FILE  re-read an existing set's tunes from the ABC they carry
                  and refresh each one's ontario grade in place (with --ignore
                  key, the key-signature rows are left out, as in the level),
@@ -77,7 +81,7 @@ const seq = A.sequence(reports);
 // ---- stdout summary ----
 const byLevel = new Map();
 for (const r of reports) byLevel.set(r.grade.level, (byLevel.get(r.grade.level) || 0) + 1);
-for (const d of opt.ignore) if (!A.LATTICE[d]) { console.error(`Unknown dimension "${d}". Dimensions: ${Object.keys(A.LATTICE).join(', ')}`); process.exit(1); }
+for (const d of opt.ignore) if (!A.LATTICE[d] && !A.ONTARIO.some(r => r[0] === d)) { console.error(`Unknown dimension "${d}". Dimensions: ${Object.keys(A.LATTICE).join(', ')}; Ontario elements: ${[...new Set(A.ONTARIO.map(r => r[0]))].join(', ')}`); process.exit(1); }
 console.log(`${reports.length} tunes graded${opt.ignore.length ? ` (level ignores ${opt.ignore.join(', ')})` : ''}${skipped ? `, ${skipped} skipped (too short or no key)` : ''}${failed ? `, ${failed} failed to parse` : ''}.\n`);
 console.log('Level  Tunes');
 for (let l = 1; l <= 6; l++) console.log(`  ${l}    ${String(byLevel.get(l) || 0).padStart(5)}`);
