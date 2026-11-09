@@ -2682,9 +2682,12 @@
         for (const row of rows.values()) { row.sort((a, b) => a.cx - b.cx); for (let i = 1; i < row.length; i++) f = Math.min(f, (row[i].cx - row[i - 1].cx) / ((row[i].w + row[i - 1].w) / 2 + 3)); }
         if (f < 1) for (const y of syls) { const size = parseFloat(y.t.getAttribute('font-size')) || 12; y.t.setAttribute('font-size', Math.max(4, size * f).toFixed(2)); }
         // Spanning shapes: stretch each between the nearest note at each end.
-        const anchors = this.dispElems.filter(e => e.el_type === 'note' && this.shift.has(e)).map(e => { const b = groupBox(e); return { cx: b.x + b.width / 2, cy: b.y + b.height / 2, dx: this.shift.get(e) }; });
+        // The anchor for a shape's end is the note nearest to it across, among the notes of its staff (a beam's end sits
+        // at a stem, whose x is close to its head's); measuring straight-line distance picked a higher note whose
+        // centre happened to be nearer the beam than the low note whose stem carried it.
+        const anchors = this.dispElems.filter(e => e.el_type === 'note' && this.shift.has(e)).map(e => { const b = groupBox(e); return { cx: b.x + b.width / 2, top: b.y, bottom: b.y + b.height, dx: this.shift.get(e) }; });
         if (!anchors.length) return;
-        const nearest = (x, y) => anchors.reduce((a, b) => Math.hypot(b.cx - x, b.cy - y) < Math.hypot(a.cx - x, a.cy - y) ? b : a);
+        const nearest = (x, y) => { const near = anchors.filter(a => y > a.top - 40 && y < a.bottom + 40), pool = near.length ? near : anchors; return pool.reduce((a, b) => Math.abs(b.cx - x) < Math.abs(a.cx - x) ? b : a); };
         for (const path of svg.querySelectorAll('path.abcjs-beam-elem, path.abcjs-slur, path.abcjs-tie, path.abcjs-legato')) {
           const b = path.getBBox();
           if (b.width < 1) continue;

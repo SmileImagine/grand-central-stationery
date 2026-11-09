@@ -666,8 +666,9 @@ DV.dancer = {
     const { fr, n, total, target } = this.m, k = frameAt({ frames: fr }, p), f = fr[k], dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, u = (p - f.t) / dt;
     const T0 = target(k - 1), T1 = target(k), T2 = target(k + 1), mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
     const e1 = f.effort || {}, e2 = fr[(k + 1) % n].effort || {};
-    const lead = e2.flow === 'bound' ? 0 : e2.time === 'sudden' ? .2 : .35, settle = e1.time === 'sudden' ? .12 : .25;   // anticipation of the next move; time to finish this weight shift
-    const start = mid(T0, T1), ahead = lerp(T1, T2, lead), prevLead = e1.flow === 'bound' ? 0 : e1.time === 'sudden' ? .2 : .35, from = lerp(T0, T1, prevLead);
+    const lead = e2.flow === 'bound' ? 0 : e2.time === 'sudden' ? .2 : .35;   // anticipation of the next move
+    const settle = Math.min(.6, (e1.time === 'sudden' ? .12 : .25) / dt);     // time to finish this weight shift, in beats, so a half-beat chassé is not twice as fast
+    const ahead = lerp(T1, T2, lead), prevLead = e1.flow === 'bound' ? 0 : e1.time === 'sudden' ? .2 : .35, from = lerp(T0, T1, prevLead);
     return u < settle ? lerp(from, T1, this.ease(u / settle)) : u < .6 ? T1 : lerp(T1, ahead, this.ease((u - .6) / .4));
   },
   state(p) {
