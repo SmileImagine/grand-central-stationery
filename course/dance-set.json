@@ -1513,17 +1513,17 @@
     "dir:place",
     "hop",
     "metre:4/4",
-    "shape",
+    "shoulders",
     "two-in-a-beat"
    ],
    "introduces": [
-    "shape"
+    "shoulders"
    ],
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
    "licence": "CC0",
-   "text": "title: Bhangra bounce\norigin: Punjab\nmeter: 4/4\nbpm: 110\nnote: a bounce on each foot with the arms up and the shoulders lifting; simplified.\nfeet: Lp-H Rp-H Lp-H Rp-H\nlean: l    r    l    r\narms: u    u    u    u"
+   "text": "title: Bhangra bounce\norigin: Punjab\nmeter: 4/4\nbpm: 110\nnote: a bounce on each foot with the arms up and the shoulders lifting; simplified.\nfeet: Lp-H Rp-H Lp-H Rp-H\nshoulders: l r l r\narms: u    u    u    u"
   },
   {
    "id": "dabke-basic",

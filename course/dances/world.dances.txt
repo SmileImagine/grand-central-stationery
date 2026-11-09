@@ -159,7 +159,7 @@ meter: 4/4
 bpm: 110
 note: a bounce on each foot with the arms up and the shoulders lifting; simplified.
 feet: Lp-H Rp-H Lp-H Rp-H
-lean: l    r    l    r
+shoulders: l r l r
 arms: u    u    u    u
 
 title: Garba three-step
