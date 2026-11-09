@@ -1218,6 +1218,69 @@
    "abc": "X:4\nT:Rama's lullaby\nT:Maratha lullaby\nC:traditional (Maharashtra)\nO:India, Maharashtra\nR:lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66\nN:Adagio, crotchet 80; sung to him by a Hindu lady in Calcutta. No signature; the tune lies between middle C and A. Four verses, each ending in the refrain Little babe, sleep upon my knee. Check: bars 4 to 6 and the refrain's second bar.\nM:3/4\nL:1/16\nQ:1/4=80\nK:C\n%%style drone\nC C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G | A4 F2 G3 F | G3 F D3 C C4 z2 |\nw: In A-yo-dhya, the land of kings, It was Vish-nu's self That was born on the lap of Kau-shal-ya.\nC C | D4 G3 F D2 C2 | D3 C C8 z2 |]\nw: Lit-tle babe sleep up-on my knee!_\nN:2: For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.\nN:3: In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).\nN:4: And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.\n"
   },
   {
+   "id": "hindostan-folk-8-the-ayah-s-song",
+   "title": "The ayah's song",
+   "level": 4,
+   "score": 10.37,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 9,
+   "origin": "India",
+   "composer": "traditional (North India)",
+   "rhythm": "air",
+   "source": "course/samples/hindostan-folk.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3",
+    "dur:3/4",
+    "endings",
+    "grace-notes",
+    "key:0",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:octave",
+    "repeat",
+    "rest"
+   ],
+   "introduces": [
+    "endings"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)",
+     "first and second endings"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
+     "6: first and second endings",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:8\nT:The ayah's song\nT:Hindostani song from the steamer (sketch)\nC:traditional (North India)\nO:India\nR:air\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66\nN:A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate.\nM:3/4\nL:1/16\nQ:1/4=80\nK:C\n%%style drone\nC |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 C | C3 D D2 C2 {B,CB,C}B,2 A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]\n"
+  },
+  {
    "id": "waltzes-11-daisy-daisy",
    "title": "Daisy Daisy",
    "level": 4,
