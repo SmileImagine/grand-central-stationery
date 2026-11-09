@@ -256,6 +256,16 @@
     .inst .key.root { stroke: var(--c); stroke-opacity: 1; stroke-width: 3.5; }
     .inst .runner text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
     .paper .chordshape rect { stroke: none; }
+    #tuningDlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 520px; width: calc(100vw - 32px); font: var(--ui); }
+    #tuningDlg::backdrop { background: rgba(0,0,0,0.35); }
+    #tuningDlg h2 { margin: 0 0 6px; font-size: 18px; }
+    #tuningDlg p { color: var(--muted); margin: 0 0 10px; line-height: 1.4; }
+    #tuningDlg .preview { color: var(--ink); font-family: ui-monospace, Menlo, monospace; font-size: 12px; min-height: 1.4em; }
+    #tuningDlg textarea { width: 100%; min-height: 170px; box-sizing: border-box; font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px; resize: vertical; }
+    #tuningDlg .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+    #tuningDlg .row .left { margin-right: auto; }
+    #tuningDlg button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    #tuningDlg button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
     .bandctl { display: none; align-items: center; gap: 10px; font: var(--ui); color: var(--muted); }
     .bandctl.on { display: inline-flex; }
     .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
@@ -1435,7 +1445,71 @@
       return chart;
     }
     // The chart lines as comments, each the same length, so abcjs neither warns nor shifts a character.
-    const chartComment = abc => abc.replace(/^%%?band\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    const chartComment = abc => abc.replace(/^%%?(band|tuning)\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    /* ---- tuning: a Scala scale for the tune ----
+       A line in the ABC, "%%tuning slendro: 231. 474. 717. 955. 2/1 root=C",
+       gives the scale the tune is played in: its degrees above 1/1 in cents
+       (a number with a point) or as ratios, as a Scala .scl file lists them,
+       the last one the octave. Every pitched note is played at the degree it
+       maps to, by a detune of the sample; the staff still shows the written
+       note. The root is the key's tonic unless root= names one. map= says
+       which written notes take which degrees: semitones (one degree per
+       semitone from the root; the default for a twelve-note scale), degrees
+       (the scale's steps in order on the key's own steps: the pentatonic
+       do re mi so la for five, the diatonic scale for seven; the default for
+       those), or nearest (each written note takes the degree nearest it in
+       cents; the default otherwise, as for a 22-shruti scale). */
+    const TUNING_LINE = /^%%?tuning\b(.*)$/;
+    const centsOf = tok => { if (/^\d+(\.\d*)?$/.test(tok) && tok.includes('.')) return parseFloat(tok); const m = /^(\d+)(?:\/(\d+))?$/.exec(tok); if (!m) return null; const r = parseInt(m[1], 10) / (m[2] ? parseInt(m[2], 10) : 1); return r > 0 ? 1200 * Math.log2(r) : null; };
+    function parseTuning(text) {
+      const lines = text.split('\n').map(l => TUNING_LINE.exec(l)).filter(Boolean); if (!lines.length) return null;
+      let body = lines.map(m => m[1].trim()).join(' '), name = '';
+      const colon = body.indexOf(':'); if (colon >= 0 && !/^\d/.test(body)) { name = body.slice(0, colon).trim(); body = body.slice(colon + 1); }
+      const t = { name, degrees: [0], period: 1200, root: null, map: null, problems: [], raw: [] };
+      for (const tok of body.split(/\s+/).filter(Boolean)) {
+        const opt = /^(root|map)=(.+)$/i.exec(tok);
+        if (opt) {
+          if (opt[1].toLowerCase() === 'root') { const m = /^([A-Ga-g])([#b]?)$/.exec(opt[2]); if (m) t.root = ((LETTER_PC[m[1].toUpperCase()] + (m[2] === '#' ? 1 : m[2] === 'b' ? -1 : 0)) % 12 + 12) % 12; else t.problems.push(`root=${opt[2]} is not a note name.`); }
+          else if (['semitones', 'degrees', 'nearest'].includes(opt[2].toLowerCase())) t.map = opt[2].toLowerCase(); else t.problems.push(`map=${opt[2]}: semitones, degrees or nearest.`);
+          continue;
+        }
+        const c = centsOf(tok); if (c === null) { t.problems.push(`"${tok}" is not a cents value (with a point) or a ratio.`); continue; }
+        t.raw.push(tok); t.degrees.push(c);
+      }
+      if (t.degrees.length > 1 && t.degrees[t.degrees.length - 1] > 1150) t.period = t.degrees.pop();   // the last value is the octave
+      t.degrees = [...new Set(t.degrees.map(c => Math.round(c * 1000) / 1000))].sort((a, b) => a - b);
+      if (t.degrees.length < 2) t.problems.push('A tuning wants at least two degrees.');
+      return t;
+    }
+    // A Scala .scl file as a tuning line: comments start with !, then the description, the count, then one pitch per line.
+    function sclToLine(scl) {
+      const lines = scl.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('!'));
+      if (lines.length < 2) return null;
+      const name = lines[0].replace(/[:\n]/g, ' ').trim(), count = parseInt(lines[1], 10);
+      const pitches = lines.slice(2).map(l => l.split(/\s+/)[0]).filter(tok => centsOf(tok) !== null);
+      if (!pitches.length) return null;
+      return `%%tuning ${name || 'scale'}: ${(count ? pitches.slice(0, count) : pitches).join(' ')}`;
+    }
+    // From a tuning and the key: the detune in cents for a midi note.
+    function tuningOffsets(t, key) {
+      const deg = t.degrees, N = deg.length, minor = key.minor, root = t.root !== null ? t.root : (minor ? (key.doPc + 9) % 12 : key.doPc);
+      let mode = t.map || (N === 12 ? 'semitones' : N === 5 || N === 7 ? 'degrees' : 'nearest');
+      const byPc = new Array(12).fill(null);
+      if (mode === 'semitones') for (let k = 0; k < Math.min(12, N); k++) byPc[k] = deg[k] - 100 * k;
+      else if (mode === 'degrees') {
+        const set = N === 5 ? (minor ? [0, 3, 5, 7, 10] : [0, 2, 4, 7, 9]) : N === 7 ? (minor ? [0, 2, 3, 5, 7, 8, 10] : [0, 2, 4, 5, 7, 9, 11]) : null;
+        if (set) set.forEach((pc, k) => { byPc[pc] = deg[k] - 100 * pc; }); else mode = 'nearest';
+      }
+      for (let pc = 0; pc < 12; pc++) {   // the rest (and every note in nearest mode) take the degree nearest them, an octave either way
+        if (byPc[pc] !== null) continue;
+        let best = 0, bd = Infinity;
+        for (const d of deg) for (const o of [-1200, 0, 1200]) { const c = d + o, dist = Math.abs(c - 100 * pc); if (dist < bd) { bd = dist; best = c; } }
+        byPc[pc] = best - 100 * pc;
+      }
+      const off = midi => byPc[((midi - root) % 12 + 12) % 12] || 0;
+      off.mode = mode; off.root = root;
+      return off;
+    }
     // The tune's bars with each note's start within the bar, length, pitch
     // classes and parsed element; `first` is 1 when a pickup bar leads.
     function tuneBars(tune) {
@@ -1890,7 +1964,9 @@
         src.buffer = buf; src.connect(g); g.connect(out);
         g.gain.setValueAtTime(vel, when);
         if (fx && src.detune) {
-          if (fx.scoop) { src.detune.setValueAtTime(-fx.scoop, when); src.detune.linearRampToValueAtTime(0, when + 0.07); }
+          const base = fx.cents || 0;
+          if (base) src.detune.setValueAtTime(base, when);
+          if (fx.scoop) { src.detune.setValueAtTime(base - fx.scoop, when); src.detune.linearRampToValueAtTime(base, when + 0.07); }
           if (fx.vib && dur > 0.35) {
             const osc = ctx.createOscillator(), vg = ctx.createGain();
             osc.frequency.value = 5.3; vg.gain.setValueAtTime(0, when); vg.gain.setValueAtTime(0, when + dur * 0.3); vg.gain.linearRampToValueAtTime(fx.vib, when + Math.min(dur, dur * 0.3 + 0.5));
@@ -2236,6 +2312,10 @@
         cell.showNotes(); if (cell.refreshPattern) cell.refreshPattern();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
         this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08 }))].sort((a, b) => a.ms - b.ms));
+        if (cell.tuning && !cell.tuning.problems.length) {   // the tuning: every pitched note, the melody's and the band's, detuned to its degree
+          const off = tuningOffsets(cell.tuning, cell.keyInfo());
+          for (const cyc of this.cycles) for (const n of cyc) if (n.part !== 'drums') { const c = off(n.midi); if (c) n.fx = { ...(n.fx || {}), cents: c }; }
+        }
         this.total = tl ? tl.total : 0;
         if (!this.loop) this.end = this.total;
         // The count-in: a click on each beat, when the Band plays.
@@ -2438,6 +2518,7 @@
           <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key when none are written; Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" class="tr" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
+          <button type="button" class="tunebtn" title="Play the tune in a scale of its own: paste a Scala .scl file (slendro, pelog, a raga's shrutis) and every note is detuned to its degree; the staff still shows the written notes">Tuning</button>
           </div></div>
           <div class="drawer bandd" data-drawer="band" hidden>
           <textarea class="bandentry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Band arrangement" placeholder="The arrangement, one line per time round (kept in the ABC as %%band lines):&#10;1: energy=30 | G | D7 | Em | C |&#10;drums: bd ~ sd ~"></textarea>
@@ -2504,6 +2585,7 @@
         }
         const hp = body.querySelector('.harmpick select');
         hp.addEventListener('change', () => { this.harmony = hp.value; this.render(); if (opts.onHarm) opts.onHarm(this.harmony); });
+        body.querySelector('.tunebtn').addEventListener('click', () => this.tuningDialog(onChange));
         const np = body.querySelector('.namepick select');
         np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
         const ip = body.querySelector('.instpick select');
@@ -2559,6 +2641,41 @@
       showMixer(open) { this.showDrawer(open ? 'mix' : null); }
       // The music starts: presenting, every drawer closes so the staff and the instrument have the screen; editing, only the mixer does.
       drawersForPlay() { if (document.body.classList.contains('present')) this.showDrawer(null); else if (this.drawer === 'mix') this.showDrawer(null); }
+      // The tuning under the text: what it is, or what is wrong with it.
+      tuningNotes() {
+        const t = this.tuning; if (!t) return [];
+        if (t.problems.length) return t.problems.map(p => ({ text: 'Tuning: ' + p }));
+        const off = tuningOffsets(t, this.keyInfo());
+        return [{ tip: true, text: `Tuning${t.name ? ': ' + t.name : ''}: ${t.degrees.length} degrees to the octave on ${NOTE_NAMES[off.root]}, written notes mapped by ${off.mode}. The staff shows the written notes; the sound is detuned to the scale.`, more: 'A %%tuning line lists a scale as a Scala .scl file does: degrees above 1/1 in cents (with a point) or as ratios, the last the octave. root= sets the note the scale starts on (the key\'s tonic otherwise); map=semitones puts one degree on each semitone, map=degrees puts the scale\'s steps on the key\'s own steps (do re mi so la for five, the diatonic scale for seven), map=nearest gives each written note the degree nearest it in cents.' }];
+      }
+      // The tuning dialog: paste a .scl file, or edit the line; Apply writes it after the melody, Remove takes it out.
+      tuningDialog(onChange) {
+        let dlg = document.getElementById('tuningDlg');
+        if (!dlg) {
+          dlg = document.createElement('dialog'); dlg.id = 'tuningDlg';
+          dlg.innerHTML = `<h2>Tuning</h2><p>Paste a Scala <b>.scl</b> file (the joyboard exports one), or type a tuning line: a name, a colon, then the degrees above 1/1 in cents or as ratios, the last one the octave. <code>root=</code> names the note the scale starts on (the key's tonic otherwise); <code>map=</code> is semitones, degrees or nearest.</p>
+            <textarea class="scl" spellcheck="false" placeholder="! slendro.scl&#10;Slendro, Java&#10; 5&#10;!&#10; 231.0&#10; 474.0&#10; 717.0&#10; 955.0&#10; 2/1"></textarea>
+            <p class="preview"></p>
+            <div class="row"><div class="left"><button type="button" class="remove">Remove</button></div><button type="button" class="cancel">Cancel</button><button type="button" class="apply primary">Apply</button></div>`;
+          document.body.appendChild(dlg);
+        }
+        const ta = dlg.querySelector('.scl'), prev = dlg.querySelector('.preview');
+        const current = this.entry.value.split('\n').filter(l => TUNING_LINE.test(l)).join('\n');
+        ta.value = current;
+        const lineOf = text => /^%%?tuning\b/m.test(text) ? text.split('\n').filter(l => TUNING_LINE.test(l)).join(' ').replace(/\s*%%?tuning\b\s*/g, (m, i) => i ? ' ' : '%%tuning ') : (sclToLine(text) || (text.trim() ? '%%tuning ' + text.trim() : ''));
+        const show = () => { const line = lineOf(ta.value); if (!line) { prev.textContent = ''; return; } const t = parseTuning(line); prev.textContent = t.problems.length ? t.problems.join(' ') : `${line}  (${t.degrees.length} degrees)`; };
+        ta.oninput = show; show();
+        const write = line => {
+          const kept = this.entry.value.split('\n').filter(l => !TUNING_LINE.test(l));
+          while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
+          this.entry.value = line ? [...kept, line].join('\n') : kept.join('\n');
+          onChange(this.entry.value); this.render(); dlg.close();
+        };
+        dlg.querySelector('.apply').onclick = () => { const line = lineOf(ta.value); if (!line) { dlg.close(); return; } const t = parseTuning(line); if (t.problems.length) { show(); return; } write(line); };
+        dlg.querySelector('.remove').onclick = () => write('');
+        dlg.querySelector('.cancel').onclick = () => dlg.close();
+        dlg.showModal();
+      }
       // What the band will play, under its controls.
       refreshBandNote() {
         const el = this.body.querySelector('.bandnote'); if (!el) return;
@@ -2638,6 +2755,7 @@
         const text = this.getText();
         let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
         this.chart = parseChart(text);
+        this.tuning = parseTuning(text);
         // No chord symbols written and no arrangement: Chords on Auto finds them from the melody, so the band has something to play.
         if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc);
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
@@ -2666,7 +2784,7 @@
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
         const added = abc.split('\n').length - text.split('\n').length;   // header lines the page supplied (the arrangement's lines follow the melody, so its line numbers hold)
-        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.chart.problems.map(t => ({ text: 'Band chart: ' + t }))];
+        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.tuningNotes(), ...this.chart.problems.map(t => ({ text: 'Band chart: ' + t }))];
         this.showNotes();
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
