@@ -1441,7 +1441,8 @@
         pos += el.duration || 0;
       });
       if (bar.some(sg => sg.notes.length)) segs.push(...bar);
-      const chords = tonicOnly ? segs.map(() => ({ n: minor ? 'i' : 'I', r: 0, q: minor ? 'm' : '' })) : detectChords(segs.map(sg => sg.notes), minor);
+      const tonicChord = { n: minor ? 'i' : 'I', r: 0, q: minor ? 'm' : '' };
+      const chords = tonicOnly ? segs.map(() => tonicChord) : detectChords(segs.map(sg => sg.notes), minor);   // one object, so the symbol is written once
       const names = flats ? FLAT_NAMES : SHARP_NAMES;
       let out = abc;
       for (let b = segs.length - 1; b >= 0; b--) {
@@ -2069,9 +2070,9 @@
       const fill = detail > 0.3 && energy > 0.25, drums = [], bass = [], chords = [];
       const nb = metre.nb, triple = nb % 3 === 0 && !metre.compound && nb !== 6, compound = metre.compound;
       let style = styleKey || 'pop';
-      if (triple && !['waltz', 'ballad'].includes(style)) style = 'waltz';
+      if (triple && !['waltz', 'ballad', 'drone'].includes(style)) style = 'waltz';
       if (!triple && style === 'waltz') style = compound ? 'jig' : 'folk';
-      if (compound && !['jig', 'ballad'].includes(style)) style = 'jig';
+      if (compound && !['jig', 'ballad', 'drone'].includes(style)) style = 'jig';
       if (style === 'jig' && !compound && !triple) style = 'folk';
       const lo = energy < 0.35, hi = energy >= 0.7;
       if (style === 'waltz' || (style === 'ballad' && triple)) {
@@ -3015,7 +3016,7 @@
         this.chart = parseChart(text);
         this.tuning = parseTuning(text);
         // No chord symbols written and no arrangement: Chords on Auto finds them from the melody, so the band has something to play.
-        this.styleKey = styleFor(this.style, abc);
+        this.styleKey = styleFor(this.style, text);   // the text, not abc: chartComment has hidden the %%style line by now
         if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
