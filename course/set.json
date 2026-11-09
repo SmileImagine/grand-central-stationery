@@ -88,10 +88,15 @@
     "grade": 1,
     "band": "Grade 1",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -122,10 +127,15 @@
     "grade": 1,
     "band": "Grade 1",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -159,10 +169,15 @@
     "grade": 1,
     "band": "Grade 1",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -196,10 +211,15 @@
     "grade": 1,
     "band": "Grade 1",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -231,10 +251,15 @@
     "grade": 1,
     "band": "Grade 1",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -273,7 +298,11 @@
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -311,11 +340,16 @@
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
-     "half and whole notes"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -346,13 +380,17 @@
    "introduces": [],
    "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n",
    "ontario": {
-    "grade": 1,
-    "band": "Grade 1",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -390,11 +428,16 @@
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
-     "half and whole notes"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -430,11 +473,16 @@
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
-     "half and whole notes"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -469,11 +517,16 @@
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
-     "half and whole notes"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -508,11 +561,16 @@
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
-     "half and whole notes"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -548,14 +606,18 @@
    ],
    "abc": "X:7\nT:Au Clair de la Lune\nO:France\nM:4/4\nL:1/4\nK:C\nC C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |\nD D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -590,13 +652,17 @@
    ],
    "abc": "X:11\nT:Skip to My Lou\nO:USA\nM:2/4\nL:1/8\nK:C\nEE CC | EE G2 | DD B,B, | DD F2 | EE CC | EE G2 | DD FF | ED C2 |]\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
    "ontario": {
-    "grade": 1,
-    "band": "Grade 1",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -629,14 +695,18 @@
    "introduces": [],
    "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -670,14 +740,18 @@
    "introduces": [],
    "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\nC C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -711,14 +785,18 @@
    "introduces": [],
    "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\nG2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4 | E F G2 C C C C | C D E F G4 | G2 D2 D D E F | G2 C2 C4 |]\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -751,14 +829,18 @@
    "introduces": [],
    "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\nG E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |\nD D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -809,7 +891,11 @@
      "2: half and whole notes",
      "3: 3/4 metre",
      "3: dotted half note",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -845,13 +931,19 @@
    ],
    "abc": "X: 11\nT:Cuckoo's Nest\n% Nottingham Music Database\nS:Song\nM:4/4\nL:1/8\nR:Hornpipe\nK:Dm\n\"Dm\"D2DE DCA,C|\"Dm\"DCDE F2\"C7\"FA|\"F\"c2cd A2GF|\"C\"ECCC C2\"A7\"FE|\n\"Dm\"D2DE DCA,C|\"Dm\"DCDE F2\"C7\"FG|\"F\"ABcA \"A7\"GFEF|\"Dm\"E2\"Gm\"D2 \"Dm\"D2||\n",
    "ontario": {
-    "grade": 1,
-    "band": "Grade 1",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "the major scale (fa and ti), intervals, accidentals",
+     "minor tonality"
     ],
     "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4"
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -885,14 +977,18 @@
    "introduces": [],
    "abc": "X:13\nT:Frère Jacques\nO:France\nM:4/4\nL:1/4\nK:C\nC D E C | C D E C | E F G2 | E F G2 | G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C | C G, C2 | C G, C2 |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -936,7 +1032,11 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -981,7 +1081,11 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "3: dotted half note",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1017,14 +1121,18 @@
    "introduces": [],
    "abc": "X: 44\nT:The First Frost - Second part\n% Nottingham Music Database\nS:John Goodacre 1984, via PR\nM:4/4\nL:1/4\nK:D\n\"D\"D2 F2|\"A7\"E2 C2|\"D\"DG/2B/2 A2|\"A7\"G/2A/2B/2c/2 \"D\"dA/2F/2|\"Bm\"D2 F2|\\\n\"Em\"E2 \"A7\"C2|\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2::\n\"D\"D2 F2|\"A7\"G2 CE|\"D\"D2 F2|\"A\"A2 \"G\"GF/2E/2|\"D\"D2 F2|\"Em\"E2 \"A7\"C2|\\\n\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2:|\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1059,14 +1167,18 @@
    "introduces": [],
    "abc": "X:11\nT:Soldier's Joy\nR:reel\nO:England\nM:4/4\nL:1/8\nK:D\nd2 ef d2 cd | B2 AB d2 fg | afef dcde | fedc d4 | d2 ef d2 cd | B2 AB d2 fg | afef dBAF | A2 G2 F2 D2 |]\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1101,14 +1213,18 @@
    "introduces": [],
    "abc": "X: 59\nT:Sugar in the Gourd\n% Nottingham Music Database\nS:Lynn Rohrbough, via EF\nM:4/4\nL:1/4\nK:A\nP:A\n\"A\"c/2B/2A/2G/2 EC|\"A\"E/2F/2A \"E7\"B2|\"A\"c/2B/2A/2G/2 EC|\"D\"E/2F/2A \"A\"A2:|\nP:B\n\"A\"ce/2f/2 ec|\"A\"B/2c/2e \"A7\"e2|\"D\"ff/2g/2 fe|\"E7\"B/2c/2e e2|\n\"D\"ab/2a/2 \"A\"f/2e/2c|\"A\"e/2f/2e \"E7\"c2|\"F#m\"AB/2c/2 \"Bm\"B/2A/2F|\\\n\"E7\"E/2F/2A \"A\"A2:|\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1143,14 +1259,18 @@
    "introduces": [],
    "abc": "X: 7\nT:Jubilate Deo (round)\n% Nottingham Music Database\nP:AAB\nS:Taize?\nM:4/4\nL:1/4\nK:C\n\"C\"c2 \"G7\"d2|ec cB|cA GF|EF D2|C2 G,G,|C2 z2||\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1193,7 +1313,11 @@
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1235,7 +1359,11 @@
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1270,14 +1398,18 @@
    "introduces": [],
    "abc": "X: 10\nT:B. Variation\n% Nottingham Music Database\nS:\nM:4/4\nL:1/4\nK:G\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\\\n\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"d2|\"G\"GG/2G/2 BB/2B/2|\"G\"d/2d/2d \"D7\"gd|\\\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\n\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\\\n\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"dd/2c/2|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"GG/2G/2 G||\n",
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "half and whole notes"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1323,7 +1455,11 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: triplets",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1370,7 +1506,11 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1419,7 +1559,11 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: triplets",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1468,7 +1612,11 @@
      "2: half and whole notes",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
-     "6: pick-up notes (anacrusis)"
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1512,7 +1660,11 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "4: syncopation (syn-co-pa)",
-     "6: triplets"
+     "6: triplets",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   },
@@ -1566,7 +1718,11 @@
      "2: half and whole notes",
      "3: dotted half note",
      "4: syncopation (syn-co-pa)",
-     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
     ]
    }
   }

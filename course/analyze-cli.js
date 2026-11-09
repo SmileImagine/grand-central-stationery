@@ -23,8 +23,9 @@
                  (e.g. --ignore key,range for a class that transposes
                  and plays piano); they are still measured and reported
     --annotate FILE  re-read an existing set's tunes from the ABC they carry
-                 and refresh each one's ontario grade in place, for a set
-                 whose source tunes are not all to hand; nothing else runs
+                 and refresh each one's ontario grade in place (with --ignore
+                 key, the key-signature rows are left out, as in the level),
+                 for a set whose source tunes are not all to hand
 */
 const fs = require('fs');
 const path = require('path');
@@ -46,7 +47,7 @@ for (let i = 0; i < args.length; i++) {
 }
 if (opt.annotate) {
   const set = JSON.parse(fs.readFileSync(opt.annotate, 'utf8')), counts = {};
-  for (const t of set.tunes) { const r = A.analyzeAbc(t.abc, ABCJS)[0]; if (!r || !r.ontario) { console.error(`could not read ${t.title}`); continue; } t.ontario = r.ontario; counts[r.ontario.grade] = (counts[r.ontario.grade] || 0) + 1; }
+  for (const t of set.tunes) { const r = A.analyzeAbc(t.abc, ABCJS, null, { ignore: opt.ignore })[0]; if (!r || !r.ontario) { console.error(`could not read ${t.title}`); continue; } t.ontario = r.ontario; counts[r.ontario.grade] = (counts[r.ontario.grade] || 0) + 1; }
   fs.writeFileSync(opt.annotate, JSON.stringify(set, null, 1));
   console.log(`${opt.annotate}: ${set.tunes.length} tunes; Ontario grade ${Object.keys(counts).sort().map(g => `${g}: ${counts[g]}`).join(', ')}`);
   process.exit(0);
