@@ -1,6 +1,6 @@
 {
  "name": "Dance set",
- "generated": "2026-11-08",
+ "generated": "2026-11-09",
  "levels": {
   "1": [
    "steps in place",
@@ -948,7 +948,7 @@
   {
    "id": "mie-katoen",
    "title": "Mie Katoen",
-   "level": 3,
+   "level": 2,
    "score": 1.67,
    "rungs": {
     "steps": 3,
@@ -990,52 +990,9 @@
    "text": "Allegro J. = 116\nFine\n(From Belgiixm)\nMie Katoen (pronounced \"Mee Katoon'\") is a\nvery widely known and extremely popular Belgian\n\"Chanson de marche dansante,\" or dancing march-\nsong. It has a verse and a chorus of eight measures\neach, which are very jolly and brisk. The words\nare as follows:\nMie Katoen, kom morgen noen.\nEn wy zullen een pintje drinken,\nMie Katoen, kom morgen noen,\nEn wy zullen een pintje doen.\nChorus: Tra la-la-la la-la,\nLa-la la-la La— HEY! (shouted)\nMie Katoen, etc.\nAny number of dancers, old and young, join\nhands in a string with a leader at the head.\nThe procession dances along in a string wherever\nthe leader takes them, exactly as described in the\nFrench Farandole (see page 22), of which this\nis a Belgian counterpart, called the \"Cramlgnon.\"\nThe step used is sometimes merely a march, and\nsometimes, when the dancers are enthusiastic, a\nstep and hop (two to a measure).\nSometimes also the string join hands in a circle\nand dance with hop steps around the circle to the\nleft for 16 measures; then, as they shout \"HEY!\"\nat the end of the chorus, they change the direction\nand start dancing around the other way.\nThis is kept up as long as desired."
   },
   {
-   "id": "roman-soldiers",
-   "title": "Roman Soldiers",
-   "level": 4,
-   "score": 2,
-   "rungs": {
-    "steps": 1,
-    "figures": 3,
-    "formation": 4,
-    "length": 1,
-    "interaction": 2,
-    "tempo": 1
-   },
-   "reasons": {
-    "steps": "walking, skipping, clapping",
-    "figures": "up to six",
-    "formation": "longways, in lines",
-    "length": "up to 8 measures",
-    "interaction": "hands in a ring",
-    "tempo": "up to 104"
-   },
-   "skills": [
-    "formation:longways",
-    "step:march",
-    "step:sing",
-    "step:step",
-    "sung"
-   ],
-   "introduces": [
-    "formation:longways",
-    "step:sing"
-   ],
-   "country": "England",
-   "book": "Folk-Dances from Old Homelands",
-   "year": "1922",
-   "bookClass": 1,
-   "tempo": null,
-   "measures": 8,
-   "figures": 6,
-   "source": "https://archive.org/details/folkdancesfromol00burc",
-   "licence": "public domain",
-   "text": "A Play for first fourteen verses (see foot-note*)\nBriskly J = los\nRomans l.Have you an - y\nEnglish 2. Yes! we have some\nbread and wine? For\nbread and wine, For\nare the\nare the\nRo - mans,\nEng- lish.\nB Play for last three verses\nSlower\nH J|tlt» ^\nhave\nhave\nhave\none leg,\none arm,\none eye,\nmans.\nlish.\nmans.\nlish.\nmans.\nlish.\nare\nare\nare\nthe\nthe\nthe\nhave one leg, For\nhave one arm, For\nhave one eye, For\nB are the / Ro ' \"^an\nlEng-lish\nB are the/ Ro-man\n(Eng-hsh\n5 are the i Ro-man\nlEng-lish\nsol\nsol\nsol -\n- diers.\n- diers.\ndiers.\n•Ab^f - Play the right hand of part A in octaves for \"The Romans\" when they sing \"Are you ready for a fight,\" etc.\nand for \"The English\" when they answer \"Yes! we're r«ady for a fight,\" etc.\nCopyright. 1919, by The Botton Musie Company\n(From England)\nThe music as arranged here consists of two parts,\nA and B. A is played briskly and as written, for\nthe 1st to 1 2th verses inclusive. For the 13th\nverse, \"Are you ready for a fight,\" etc., and the\n14th verse, \"Yes, we are ready for a fight!\" etc., A\n\\% played with the right hand in octaves. At the\nend of the 14th verse the pianist stops, and waits\nwhile the players shout \"Aim — Fire— Bang!\" and\nfall on the floor.\nAfter the players have fallen on the floor, the\npianist begins playing B, at which the players rise\nand continue the game. B is played for the 15th,\ni6th and 17th verses, more slowly than A and in\nkeeping with the accompanying action.\nHave you any bread and wine.^\nFor we are the Romans;\nHave you any bread and wine.^\nFor we are the Roman Soldiers.\nYes! we have some bread and wine,\nFor we are the English;\nYes! we have some bread and wine,\nFor we are the English Soldiers.\nThen we will have one cupful,\nFor we are the Romans;\nThen we will have one cupful,\nFor we are the Roman Soldiers.\nNo! you won't have one cupful,\nFor we are the English;\nNo/ you won't have one cupful,\nFor we are the English Soldiers.\nYes! we will have two cupfuls.\nFor we are the Romans;\nYes! we will have two cupfuls.\nFor we are the Roman Soldiers.\nNo! you won't have two cupfuls.\nFor we are the English;\nNo! you won't have two cupfuls.\nFor we are the English Soldiers.\nWe will tell the King of you,\nFor we are the Romans;\nWe will tell the King of you,\nFor we are the Roman Soldiers.\nWe don't care for the King or you,\nFor we are the English;\nWe don't care for the King or you.\nFor we are the English Soldiers.\nWe will tell the Pope of you.\nFor we are the Romans;\nWe will tell the Pope of you,\nFor we are the Roman Soldiers.\nWe don't care for the Pope or you,\nFor we are the English;\nWe don't care for the Pope or you.\nFor we are the English Soldiers.\nWe will send our dogs to bite.\nFor we are the Romans;\nWe will send our dogs to bite.\nFor we are the Roman Soldiers.\nWe don't care for your dogs or you.\nFor we are the English;\nWe don't care for your dogs or you,\nFor we are the English Soldiers.\nAre you ready for a fight. ^\nFor we are the Romans;\nAre you ready for a fight.'*\nFor we are the Roman Soldiers.\nYes! we're ready for a fight,\nFor we are the English;\nYes! we're ready for a fight,\nFor we are the English Soldiers.\n(Romans and English shouting together) \"Aim!\nFire! Bang!\"\nNow we only have one leg,\n{Romans;\nEnglish;\nNow we only have one leg,\nFor we are the\nFor we are the\nRoman \\\nEnglish/\nSoldiers.\nNow we only have one arm,\n„ , [Romans;\nForwearethe|j.^g,.^j^.\nNow we only have one arm,\nFor we are the\n\\Engli\nshj\nSoldiers.\nNow we only have one eye,\n„ , [Romans;\nForwearethejg^gj.^j^.\nNow we only have one eye,\nI Engl\nFor we are the <J ^\"\"i'- , f Soldiers.\nThe players form in two parallel lines facing\neach other, about ten feet apart. Those on one\nside are \" The Romans'\" and those on the opposite\nside are \" The English.\" On each side the players\njoin hands in a line.\n1st verse A (Meas. 1-2). \"The Romans\" sing\n\"Have you any bread and wine,\" and at the same\ntime, with hands joined in a line, step out briskly,\nadvancing four steps toward the English. (Meas.\n3-4.) Singing \"for we are the Romans,\" they go\nbackward four steps to place.\n(Meas. S-8.) \"The Romans\" go forward and\nback again, singing as before. (While the Romans\nare doing the above, the English stand still in their\nline and do not sing.)\n2nd verse A (Meas. 1-8). \"The English\" now\nsing the second verse — \"Yes! we have some bread\nand wine,\" etc. — and at the same time forward and\nback twice in the same manner as described above\nfor \"The Romans.\" (While \"The English\" are\ndoing this, \"The Romans\" stand still in their line\nand do not sing.)\n^d-iph verses. The game is continued in the\nabove manner, the \"Romans\" and \"English\" sing-\ning alternate verses as indicated, each advancing\nand retiring twice as they sing a verse.\n\"Aim — Fire — Bang! \"\nAfter the \"English\" have sung the 14th verse\n{\"Yes! we're ready for a fight,\" etc.), both lines\nstand still and shout, with a slight pause between\nthe words, \"AIM!— FIRE !— BANG !\" On the\nword \"Aim\" all take the attitude of aiming a gun\nat the opposite line; on the word \"Fire,\" all hold\nthis position and \"pull the trigger\"; on the word\n\"Bang\" which is shouted vociferously, all im-\nmediately fall flat on the floor, as if shot, and re-\nmain lifeless for a second or two, until the music\nfor the 15th verse is begun.\n15th verse B (Meas. 1-8). On the first note of\nthe music all quickly rise from the floor, and face\nto the right so that the two lines may follow each\nother in single file around in a circle. The \"Ro-\nmans\" and \"English\" all sing the 15th verse,\n\"Now we only have one leg, for we are the Romans\"\n(or \"English,\" as the case may be). At the same\ntime the players all march in single file around the\nci-rcle (in the opposite direction to the hands of\nthe clock), limping slowly to indicate that they\n\"only have one leg\" and taking two steps to a\nmeasure.\ni6th verse B (Meas. 1-8). All continue limping\naround the circle and sing the i6th verse, at the\nsame time bending one arm up close to the body\nin any way to indicate that they \"only have one\narm.\"\nijth verse B (Meas. 1-8). All continue limping\naround the circle, with one arm bent up, and sing\nthe 17th verse, at the same time covering one eye\nwith a hand.\nDuring the last three verses there should be no\nattempt at uniformity in the action. Each player\nshould carry out the idea in his own way, this\nadding to the fun and variety."
-  },
-  {
    "id": "bonjour-belle-rosine",
    "title": "BoNjouR, BELLE RosiNE",
-   "level": 5,
+   "level": 2,
    "score": 1.83,
    "rungs": {
     "steps": 1,
@@ -1078,7 +1035,7 @@
   {
    "id": "noriu-miego",
    "title": "NoRiu MiEGO",
-   "level": 5,
+   "level": 3,
    "score": 2.33,
    "rungs": {
     "steps": 1,
@@ -1119,7 +1076,7 @@
   {
    "id": "siege-of-ennis",
    "title": "Siege of Ennis",
-   "level": 6,
+   "level": 5,
    "score": 3.33,
    "rungs": {
     "steps": 3,
@@ -1159,9 +1116,52 @@
    "text": "(The Boyne Water)\nA Allegro moderato J r 112\n(From Ulster, Ireland)\nThis dance is in reel time and can be done to\nany good Irish reel (or series of reels, for variety).\nThe selection given here is \"The Boyne Water,\"\nwhich is in two parts, A and B, of eight measures\neach, each of which is repeated.\n1. Promenade Step\n(Meas. I.) Step forward on the right foot (one),\nbring the left toe to the right heel (and), step\nforward again on the right foot, at the same\ntime lifting the left foot from the ground\n(two), make a slight rise and fall on the right\nfoot (and).\n(Meas. 2.) Repeat the same with the left foot,\nand continue in this manner.\n2. \"Side Step\"\nThis step consists of two parts, \"The Seven\" and\n\"Threes,\" as follows:\n(a) \"The Seven\"\n(Meas. 1.) With a little spring, land on the toes\nof both feet with the left heel over the right toe\n(one), take a short step to the right on the right\nfoot (two), bring the left toe close to and behind\nthe right heel (three), step again to the right with\nthe right foot {{pur).\n(Meas. 2.) Continuing the step, bring the left toe\nclose behind the right heel (five), step again to the\nright with the foot (six), bring the left foot again\nbehind the right and at the same time lift the\nright foot from the ground (seven), make a slight\npause in this position. During this step the\ndancer moves directly to the right side without\nturning the head or body.\n(b) \"Threes\"\n(Meas. 3.) Put down the right toe directly behind\nthe left heel and lift the left foot slightly (one).\nReplace the left foot, lifting the right foot slightly\n(two), replace the right foot (three), and pause.\n(Meas. 4.) Make another \"Three\" in the same\nmanner, but this time putting down the left toe\nbehind the right heel. (The \"Threes\" are done\nin place.)\n(When the \"Side Step\" is danced to the left it is\ndone as described above, except that in \"The\nSeven\" the dancer moves to the left, stepping\nsideward with the left foot and bringing the right\nfoot behind; while the \"Threes\" are begun by\nputting down the left toe behind the right heel.)\nFour couples form two lines as follows: Two\ncouples stand side by side with hands joined in a\nline; the other two couples form a similar line facing\nthem. (See Diagram i, in which O = a woman,\nn = a man.)\nDiagram i\nIf a large number of dancers are taking part they\nform similar sets of four couples and arrange them-\nselves in a column of sets extending down the\nlength of the room (Diagram 2).\nDiagram 2\n'Lead Up\" and \"Retire\"\nA. (Meas. i.) The four dancers in each line\njoin hands and, beginning with the right foot,\nadvance toward the opposite line with two\nwalking steps (one, and), (two, and).\n(Meas. 2.) All make one \"Three\" in place,\nbeginning with the right foot {one, and, two),\npause {and).\n(Meas. 3-4.) The lines retire to places with\nthe same steps, but beginning with the left\nfoot.\n(Meas. 5-8.) \"Lead Up\" and \"Retire\" again.\n•Side Step\"\n(Meas. 1-4.) With \"Side Step\" (\"seven\" and\n\"threes\") the two couples in each line exchange\nplaces. In doing this couple number one pass\nbehind couple number three, while couple four\npass behind couple two. (See Diagram 3.)\nDiagram J\n(Meas. 5-8.) With \"Side Step\" in the opposite\ndirection all return to original places. (This\ntime couple three pass behind couple one,\nand couple two behind couple four.)\n'The Star\"\nB. (Meas. 9-12.) In each set the four dancers\nnearest the centre form a right-hand star,\nwhile the two dancers at either end of the set\njoin right hands. All dance around to the\nleft with four promenade steps (Diagram 4).\nDiagram 4\n(Meas. 13-16.) All release hands, face the other\nway, join left hands and dance around in\nthe opposite direction, finishing in original\npositions.\n\"Lead Up\" and\n(Meas. 9-12.)\nas before.\n'Retire\"\nAll \"Lead\n\"Pass Through\"\n(Meas. 13-16.) With \"promenade\" steps the\nlines advance toward each other and \"pass\nthrough\"; that is, the two lines exchange\nplaces. In doing this couples one and three\neach make an arch by lifting their joined\nhands. Couple two pass through couple one's\narch, and couple four pass through couple\nthree's arch.\nIf there is but one set dancing, each couple,\nafter passing through, turn around so as to face\nthe other line again. The dance is then repeated,\nwith couples two and four dancing as described\nfor one and three, and one and three as described\nfor two and four.\nIf there is a column of sets dancing, each line,\nafter passing through, remain back to back with\nthe line they have just danced with, and find them-\nselves facing a new line, with whom they now\nrepeat the dance (Diagram 5).\nUp\" and \"Retire\"\nDiagram 5\nAt each repetition of the dance each line travels\none place farther down (or up) the room. When\na line reaches the top or bottom of the column, the\ntwo couples turn around (each woman keeping on\nthe right of her partner) and thereafter travel in\nthe other direction. After reaching the end and\nfacing about in this way, the odd couples now\nbecome even, and vice versa, and dance as described\nfor the odd and even numbers.\nThroughout the dance the arms, when not in use,\nare allowed to hang naturally at the sides. The\nhands are never placed on the hips or held in any\nother way than to join hands with another dancer."
   },
   {
+   "id": "roman-soldiers",
+   "title": "Roman Soldiers",
+   "level": 3,
+   "score": 2,
+   "rungs": {
+    "steps": 1,
+    "figures": 3,
+    "formation": 4,
+    "length": 1,
+    "interaction": 2,
+    "tempo": 1
+   },
+   "reasons": {
+    "steps": "walking, skipping, clapping",
+    "figures": "up to six",
+    "formation": "longways, in lines",
+    "length": "up to 8 measures",
+    "interaction": "hands in a ring",
+    "tempo": "up to 104"
+   },
+   "skills": [
+    "formation:longways",
+    "step:march",
+    "step:sing",
+    "step:step",
+    "sung"
+   ],
+   "introduces": [
+    "formation:longways",
+    "step:sing"
+   ],
+   "country": "England",
+   "book": "Folk-Dances from Old Homelands",
+   "year": "1922",
+   "bookClass": 1,
+   "tempo": null,
+   "measures": 8,
+   "figures": 6,
+   "source": "https://archive.org/details/folkdancesfromol00burc",
+   "licence": "public domain",
+   "text": "A Play for first fourteen verses (see foot-note*)\nBriskly J = los\nRomans l.Have you an - y\nEnglish 2. Yes! we have some\nbread and wine? For\nbread and wine, For\nare the\nare the\nRo - mans,\nEng- lish.\nB Play for last three verses\nSlower\nH J|tlt» ^\nhave\nhave\nhave\none leg,\none arm,\none eye,\nmans.\nlish.\nmans.\nlish.\nmans.\nlish.\nare\nare\nare\nthe\nthe\nthe\nhave one leg, For\nhave one arm, For\nhave one eye, For\nB are the / Ro ' \"^an\nlEng-lish\nB are the/ Ro-man\n(Eng-hsh\n5 are the i Ro-man\nlEng-lish\nsol\nsol\nsol -\n- diers.\n- diers.\ndiers.\n•Ab^f - Play the right hand of part A in octaves for \"The Romans\" when they sing \"Are you ready for a fight,\" etc.\nand for \"The English\" when they answer \"Yes! we're r«ady for a fight,\" etc.\nCopyright. 1919, by The Botton Musie Company\n(From England)\nThe music as arranged here consists of two parts,\nA and B. A is played briskly and as written, for\nthe 1st to 1 2th verses inclusive. For the 13th\nverse, \"Are you ready for a fight,\" etc., and the\n14th verse, \"Yes, we are ready for a fight!\" etc., A\n\\% played with the right hand in octaves. At the\nend of the 14th verse the pianist stops, and waits\nwhile the players shout \"Aim — Fire— Bang!\" and\nfall on the floor.\nAfter the players have fallen on the floor, the\npianist begins playing B, at which the players rise\nand continue the game. B is played for the 15th,\ni6th and 17th verses, more slowly than A and in\nkeeping with the accompanying action.\nHave you any bread and wine.^\nFor we are the Romans;\nHave you any bread and wine.^\nFor we are the Roman Soldiers.\nYes! we have some bread and wine,\nFor we are the English;\nYes! we have some bread and wine,\nFor we are the English Soldiers.\nThen we will have one cupful,\nFor we are the Romans;\nThen we will have one cupful,\nFor we are the Roman Soldiers.\nNo! you won't have one cupful,\nFor we are the English;\nNo/ you won't have one cupful,\nFor we are the English Soldiers.\nYes! we will have two cupfuls.\nFor we are the Romans;\nYes! we will have two cupfuls.\nFor we are the Roman Soldiers.\nNo! you won't have two cupfuls.\nFor we are the English;\nNo! you won't have two cupfuls.\nFor we are the English Soldiers.\nWe will tell the King of you,\nFor we are the Romans;\nWe will tell the King of you,\nFor we are the Roman Soldiers.\nWe don't care for the King or you,\nFor we are the English;\nWe don't care for the King or you.\nFor we are the English Soldiers.\nWe will tell the Pope of you.\nFor we are the Romans;\nWe will tell the Pope of you,\nFor we are the Roman Soldiers.\nWe don't care for the Pope or you,\nFor we are the English;\nWe don't care for the Pope or you.\nFor we are the English Soldiers.\nWe will send our dogs to bite.\nFor we are the Romans;\nWe will send our dogs to bite.\nFor we are the Roman Soldiers.\nWe don't care for your dogs or you.\nFor we are the English;\nWe don't care for your dogs or you,\nFor we are the English Soldiers.\nAre you ready for a fight. ^\nFor we are the Romans;\nAre you ready for a fight.'*\nFor we are the Roman Soldiers.\nYes! we're ready for a fight,\nFor we are the English;\nYes! we're ready for a fight,\nFor we are the English Soldiers.\n(Romans and English shouting together) \"Aim!\nFire! Bang!\"\nNow we only have one leg,\n{Romans;\nEnglish;\nNow we only have one leg,\nFor we are the\nFor we are the\nRoman \\\nEnglish/\nSoldiers.\nNow we only have one arm,\n„ , [Romans;\nForwearethe|j.^g,.^j^.\nNow we only have one arm,\nFor we are the\n\\Engli\nshj\nSoldiers.\nNow we only have one eye,\n„ , [Romans;\nForwearethejg^gj.^j^.\nNow we only have one eye,\nI Engl\nFor we are the <J ^\"\"i'- , f Soldiers.\nThe players form in two parallel lines facing\neach other, about ten feet apart. Those on one\nside are \" The Romans'\" and those on the opposite\nside are \" The English.\" On each side the players\njoin hands in a line.\n1st verse A (Meas. 1-2). \"The Romans\" sing\n\"Have you any bread and wine,\" and at the same\ntime, with hands joined in a line, step out briskly,\nadvancing four steps toward the English. (Meas.\n3-4.) Singing \"for we are the Romans,\" they go\nbackward four steps to place.\n(Meas. S-8.) \"The Romans\" go forward and\nback again, singing as before. (While the Romans\nare doing the above, the English stand still in their\nline and do not sing.)\n2nd verse A (Meas. 1-8). \"The English\" now\nsing the second verse — \"Yes! we have some bread\nand wine,\" etc. — and at the same time forward and\nback twice in the same manner as described above\nfor \"The Romans.\" (While \"The English\" are\ndoing this, \"The Romans\" stand still in their line\nand do not sing.)\n^d-iph verses. The game is continued in the\nabove manner, the \"Romans\" and \"English\" sing-\ning alternate verses as indicated, each advancing\nand retiring twice as they sing a verse.\n\"Aim — Fire — Bang! \"\nAfter the \"English\" have sung the 14th verse\n{\"Yes! we're ready for a fight,\" etc.), both lines\nstand still and shout, with a slight pause between\nthe words, \"AIM!— FIRE !— BANG !\" On the\nword \"Aim\" all take the attitude of aiming a gun\nat the opposite line; on the word \"Fire,\" all hold\nthis position and \"pull the trigger\"; on the word\n\"Bang\" which is shouted vociferously, all im-\nmediately fall flat on the floor, as if shot, and re-\nmain lifeless for a second or two, until the music\nfor the 15th verse is begun.\n15th verse B (Meas. 1-8). On the first note of\nthe music all quickly rise from the floor, and face\nto the right so that the two lines may follow each\nother in single file around in a circle. The \"Ro-\nmans\" and \"English\" all sing the 15th verse,\n\"Now we only have one leg, for we are the Romans\"\n(or \"English,\" as the case may be). At the same\ntime the players all march in single file around the\nci-rcle (in the opposite direction to the hands of\nthe clock), limping slowly to indicate that they\n\"only have one leg\" and taking two steps to a\nmeasure.\ni6th verse B (Meas. 1-8). All continue limping\naround the circle and sing the i6th verse, at the\nsame time bending one arm up close to the body\nin any way to indicate that they \"only have one\narm.\"\nijth verse B (Meas. 1-8). All continue limping\naround the circle, with one arm bent up, and sing\nthe 17th verse, at the same time covering one eye\nwith a hand.\nDuring the last three verses there should be no\nattempt at uniformity in the action. Each player\nshould carry out the idea in his own way, this\nadding to the fun and variety."
+  },
+  {
    "id": "poppy",
    "title": "Poppy",
-   "level": 6,
+   "level": 4,
    "score": 2.67,
    "rungs": {
     "steps": 2,
@@ -1204,6 +1204,92 @@
    "text": "(Augoneli)\nAllegro moderato J:io4\nLPlant-ingnowthe\npop-py.\nIn the Spring-time\nuij^f\\(f\\j^.f±iljl\\;i\nhap-py,\nSowthe seed.scwtheseed\n'-^^f r^flr cl^\n(Each verse is sung twice)\nSprouting now the poppy\nIn the Springtime happy,\nSprout the seed, sprout the seed,\nIn the Springtime happy.\nGrowing now the poppy\nIn the Summer happy,\nGrow the plants.grow the plants.\nIn the Summer happy.\nGather now the poppy\nIn the Autumn happy,\nGather pods,gather pods,\nIn the Autumn happy.\nShake we now the poppy\nIn the Autumn happy.\nShake the pods, shake the pods,\nIn the Autumn happy.\nWithers now the poppy\nIn the Autumn happy,\nFalling leaves, falling leaves.\nIn the Autumn happy.\nNow we eat the poppy\nIn the Autumn happy.\nOn our bread, on our bread,\nIn the Autumn happy.\n(From Lithuania)\nThis is the most widely known and popular of\nLithuanian singing games. The music is a little\nrefrain of twelve measures to which a song is sung,\ntelling the story of the planting, growing, ripening,\ngathering and eating of the poppy. The action\nof the game corresponds to the words of the song.\nAny number of couples join hands in a circle.\nI. \"Planting\"\n1st Verse (Meas. 1-12). The dancers move\naround the circle to the left with twenty-\nfour ordinary walking steps (two steps to a\nmeasure).\n1st Verse repeated (Meas. 1-4). Beginning with\na stamp on the right foot they move around\neight steps in the opposite direction.\n(Meas. 5-6.) All release hands and facing the\ncentre of the circle make the motion of sowing\ntwice (as they sing \"Sow the seed, sow the\nseed\").\n(Meas. 7-8.) All clap hands three times and at\nthe same time turn once around to the right\nin place with four walking steps.\n(Meas. 9-12,) Repeat the same as in Measures\nn. \"Sprouting\"\n2nd Verse (Meas. 1-12). With hands joined,\nall move around the circle as before with\ntwenty- four walking steps.\n2nd Verse repeated (Meas. 1-4). All move around\nto the right with eight walking steps.\n(Meas. 5-12.) The same as in the first verse,\nexcept that as they sing \"Sprout the seed,\nsprout the seed,\" all stoop down and first with\nthe right forefinger turned up, then with the\nleft, imitate a sprout coming up out of the\nground.\nm. \"Growing Taller\"\n3rd Verse (Meas. 1-12). Big circle as before.\n3rd Verse repeated (Meas. I-12). The same as\nbefore, except that as they sing \"Grow the\nplants, grow the plants,\" they lift first the\nright hand, then the left, indicating the growing\nup of the plant.\nIV. \"Falling Leaves\"\n4.th Verse (Meas. I-12). Big circle as before.\n4th Verse repeated (iMeas. 1-12). The same as\nbefore, except that as they sing \"Falling\nleaves, falling leaves,\" they imitate falling\nleaves by raising the hand as high as the\nhead (first the right, then the left) and lower-\ning it, at the same time \"twittering\" the\nfingers.\nV. \"Gathering\"\nSth Verse (Meas. I -12). Big circle as before.\n^th Verse repeated (Meas. 1-12). The same as\nbefore, but making motions as of gathering\npods, first with the right hand, then with the\nleft.\nVI. \"Shaking\"\n6th Verse (Meas. 1-12). Big circle as before.\n6th Verse repeated (Meas. 1-12). The same as\nbefore, except that as they sing \"Shake the\npods, shake the pods,\" partners face each\nother, grasp each other's shoulders with both\nhands, and shake each other twice.\nVn. \"Eating\"\n•jth Verse (Meas. 1-12). Big circle as before.\nyth Verse repeated (Meas. 1-12). The same as\nbefore, except as they sing \"Eat the seed, eat\nthe seed,\" they lean their heads back and\n(first with the right hand, then with the left)\nmake motions as if putting something to eat\ninto the mouth.\nThere is usually one man who leads in the game,\n^hose movements are imitated by the others."
   },
   {
+   "id": "turning-dance",
+   "title": "Turning Dance",
+   "level": 3,
+   "score": 2.33,
+   "rungs": {
+    "steps": 5,
+    "figures": 1,
+    "formation": 2,
+    "length": 2,
+    "interaction": 3,
+    "tempo": 1
+   },
+   "reasons": {
+    "steps": "polka, schottische, waltz or country-dance figures",
+    "figures": "one or two",
+    "formation": "couples",
+    "length": "up to 16",
+    "interaction": "with a partner",
+    "tempo": "up to 104"
+   },
+   "skills": [
+    "formation:couples",
+    "step:hop",
+    "step:polka",
+    "step:step",
+    "step:swing"
+   ],
+   "introduces": [
+    "step:polka",
+    "step:swing"
+   ],
+   "country": "Lithuania",
+   "book": "Folk-Dances from Old Homelands",
+   "year": "1922",
+   "bookClass": 2,
+   "tempo": null,
+   "measures": 16,
+   "figures": 2,
+   "source": "https://archive.org/details/folkdancesfromol00burc",
+   "licence": "public domain",
+   "text": "(Suktinus)\nA Allegro J=ua\nlit-'' -T] n^\n;Frlr\n(From Lithuania)\nThe music consists of two parts, A and B, of\neight measures each, without repeats. These two\nparts correspond to the two parts of the dance.\nThis is a couple dance. Any number of couples\nform, one behind the other in a large circle, facing\nto as to dance forward around the room in the\nopposite direction to the hands of the clock.\nPartners stand side by side, the woman on the\nright of the man. The man puts his right arm\naround the woman's waist and grasps her right\nhand. The woman extends her left arm across\nin front of her partner, who takes her left hand in\nhis left.\nA. (Meas. l-8.) In the above position partners\ndance briskly forward around the room (in\nthe opposite direction to the hands of the\nclock), with eight polka steps, beginning with\nthe left iodtr.\n[Polka Step: (Meas. i). Step forward on the left\nfoot (one), bring the right toe to the left heel\n(and), step forward on the left again (two),\npause (and).\n(Meas. 2.) The same is repeated with the other\nfoot, and so on. The step is done on the toes\nwith a good deal of hop or spring in it.]\nB. (Meas. 9-16.) Without changing the dan-\ncing position, each couple swing twice around\nin place to the left with the same Polka Steps.\nIn doing this the man dances on one spot, at\nthe same time revolving to the left, while the\nwoman dances forward around him with longer\nsteps. (See Diagram, in which Q = the\nwoman n = the man.)\nDiagram\nThe dance is then repeated, couples moving for-\nward around the room again, and so on, as long as\ndesired."
+  },
+  {
+   "id": "bummel-schottische",
+   "title": "Bummel Schottische",
+   "level": 4,
+   "score": 2.67,
+   "rungs": {
+    "steps": 5,
+    "figures": 3,
+    "formation": 2,
+    "length": 2,
+    "interaction": 3,
+    "tempo": 1
+   },
+   "reasons": {
+    "steps": "polka, schottische, waltz or country-dance figures",
+    "figures": "up to six",
+    "formation": "couples",
+    "length": "up to 16",
+    "interaction": "with a partner",
+    "tempo": "up to 104"
+   },
+   "skills": [
+    "formation:couples",
+    "step:heel and toe",
+    "step:hop",
+    "step:polka",
+    "step:step",
+    "sung"
+   ],
+   "introduces": [
+    "step:heel and toe"
+   ],
+   "country": "Mecklenburg, Germany",
+   "book": "Folk-Dances from Old Homelands",
+   "year": "1922",
+   "bookClass": 0,
+   "tempo": null,
+   "measures": 16,
+   "figures": 5,
+   "source": "https://archive.org/details/folkdancesfromol00burc",
+   "licence": "public domain",
+   "text": "A Tempo di Polka J = loo\nMoth- er Wittsch,Moth- er Wittsch.jusl\nthen on the toes:\nOh, Moth - er Wittsch, how\nwell that goes!\nB Faster J =\n(From Mecklenburg, Germany)\nThe music consists of two strains of eight meas-\nures each, to which the following verse and chorus\nare sung. The two strains correspond to the two\nmovements of the dance, which is repeated as\nmany times as desired.\nThe Words\nMother Wittsch, Mother Wittsch,\njust look at me!\nHow well I dance, just look and see!\nFirst on the heels, then on the toes,\nO Mother Wittsch, how well that goes!\nChorus:\n(and repeat)\nIn couples.\nPartners take the following dancing position:\nThe woman stands in front of the man with her\nhands raised to her shoulders. The man (standing\nbehind her) grasps both her hands, her right with\nhis right, her left with his left.\n'Heel and Toe\"\nA. (Meas. i.) The man and woman both\ntouch the left heel sideward to the left, and\nat the same time look around at each other,\nshe looking back over her left shoulder and he\nleaning to the left (one, and); still looking at\neach other, they point the left toe to the left,\nbending the left knee slightly (two, and).\n(Meas. 2.) Make one polka step to the left\n(one, and, two).\n[Polka step: With a little preliminary hop (and),\nstep to the left with the left foot (one), bring\nthe right foot to the left foot (and) step again\nonto the left foot (two).]\n(Meas. 3-4.) Repeat the same to the right side.\n(Meas. 5-8.) Repeat the same as in Meas. 1-4,\nbut at the end the man should quickly turn\nhis partner about so that she faces him.\n'Polka\"\nB. (Meas. 9-16.) The man grasps his partner's\nwaist with both hands, and she puts her hands\non his shoulders. In this position they dance\nthe polka around the room."
+  },
+  {
    "id": "turn-around-me",
    "title": "Turn Around Me",
    "level": 4,
@@ -1232,8 +1318,7 @@
     "step:swing"
    ],
    "introduces": [
-    "step:run",
-    "step:swing"
+    "step:run"
    ],
    "country": "Czechoslovakia",
    "book": "Folk-Dances from Old Homelands",
@@ -1249,7 +1334,7 @@
   {
    "id": "sweet-kate",
    "title": "Sweet Kate",
-   "level": 6,
+   "level": 5,
    "score": 3.17,
    "rungs": {
     "steps": 3,
@@ -1291,7 +1376,7 @@
   {
    "id": "all-black-brothers",
    "title": "All Black Brothers",
-   "level": 6,
+   "level": 5,
    "score": 3.33,
    "rungs": {
     "steps": 3,
@@ -1330,94 +1415,9 @@
    "text": "(Alle schwarzen Briider)\nA Presto J:\n' Fine\nB Allegretto Ans\n(From Mecklenburg, Germany)\nThe music is in two parts; the first, A, consists\nof 8 measures in | time; the second, B, consists of\n8 measures in f time. These two parts correspond\nto the two movements (A and B) of the dance.\nThe following words are sometimes sung to part A:\nAnd all black brothers\nThey dance just like me and you,\nAnd all black brothers\nThey dance just like you.\nFour couples form a square set, numbered as\nindicated in Diagram i. Each woman stands on\nthe right of her partner (O = woman, n = man).\nand, with running steps (3 running steps to\neach me-asure), swing once around in place.\n(Meas. I1-12.) The first man runs on to the\nnext (second) woman; they link left arms and\nswing once around in place.\n(Meas. 13-14.) The first man runs on and\nswings the third woman with right arms linked.\n(Meas. 15-16.) He returns to his own partner\nand they swing with left arms linked, and\nfinish in original positions.\n'Big Circle\"\nA. (Meas. 1-8, and Meas. 1-8 repeated.) The\nsame as A of Figure i.\n'Fourth Man Swings\"\nB. (Meas. 9-16.) The fourth man now goes\naround the set as the first man did in B of\nFigure I, swinging the second, third, first and\nfourth women in turn.\nDiagram i\n\"Big Circle\"\nA. (Meas. 1-8.) The dancers all join hands in\na circle and dance briskly around to the left\nwith eight hop steps.\n[Hop Step: Step forward on one foot {one) and\nhop on it {two). Repeat the same on the other\nfoot, and so on.]\n(Meas. 1-8 repeated.) Repeat the same, dan-\ncing around in the opposite direction.\n\"First Man Swings\"\nB. (Meas. 9-10.) The first man and the woman\non his left (the fourth woman) link right arms\n'Big Circle\"\nA. (Meas. 1-8, and Meas. i\ncircle as before.\n-8 repeated.\n\"Second Man Swings\"\nB. (Meas. 9-16.) The second man swings the\nthird, first, fourth and second women in turn.\n\"Big Circle\"\nA, (Meas. 1-8, and Meas. 1-8 repeated.) Big\ncircle as before.\n\"Third Man Swings\"\nB. (Meas. 9-16.) The third man swings the\nfirst, fourth, second and third women in turn.\n\"Big Circle\"\nA, (Meas. 1-8, and Meas. 1-8 repeated.) The\ndance is finished with a vigorous \"Big Circle\"\nto the left and right as before."
   },
   {
-   "id": "turning-dance",
-   "title": "Turning Dance",
-   "level": 5,
-   "score": 2.33,
-   "rungs": {
-    "steps": 5,
-    "figures": 1,
-    "formation": 2,
-    "length": 2,
-    "interaction": 3,
-    "tempo": 1
-   },
-   "reasons": {
-    "steps": "polka, schottische, waltz or country-dance figures",
-    "figures": "one or two",
-    "formation": "couples",
-    "length": "up to 16",
-    "interaction": "with a partner",
-    "tempo": "up to 104"
-   },
-   "skills": [
-    "formation:couples",
-    "step:hop",
-    "step:polka",
-    "step:step",
-    "step:swing"
-   ],
-   "introduces": [
-    "step:polka"
-   ],
-   "country": "Lithuania",
-   "book": "Folk-Dances from Old Homelands",
-   "year": "1922",
-   "bookClass": 2,
-   "tempo": null,
-   "measures": 16,
-   "figures": 2,
-   "source": "https://archive.org/details/folkdancesfromol00burc",
-   "licence": "public domain",
-   "text": "(Suktinus)\nA Allegro J=ua\nlit-'' -T] n^\n;Frlr\n(From Lithuania)\nThe music consists of two parts, A and B, of\neight measures each, without repeats. These two\nparts correspond to the two parts of the dance.\nThis is a couple dance. Any number of couples\nform, one behind the other in a large circle, facing\nto as to dance forward around the room in the\nopposite direction to the hands of the clock.\nPartners stand side by side, the woman on the\nright of the man. The man puts his right arm\naround the woman's waist and grasps her right\nhand. The woman extends her left arm across\nin front of her partner, who takes her left hand in\nhis left.\nA. (Meas. l-8.) In the above position partners\ndance briskly forward around the room (in\nthe opposite direction to the hands of the\nclock), with eight polka steps, beginning with\nthe left iodtr.\n[Polka Step: (Meas. i). Step forward on the left\nfoot (one), bring the right toe to the left heel\n(and), step forward on the left again (two),\npause (and).\n(Meas. 2.) The same is repeated with the other\nfoot, and so on. The step is done on the toes\nwith a good deal of hop or spring in it.]\nB. (Meas. 9-16.) Without changing the dan-\ncing position, each couple swing twice around\nin place to the left with the same Polka Steps.\nIn doing this the man dances on one spot, at\nthe same time revolving to the left, while the\nwoman dances forward around him with longer\nsteps. (See Diagram, in which Q = the\nwoman n = the man.)\nDiagram\nThe dance is then repeated, couples moving for-\nward around the room again, and so on, as long as\ndesired."
-  },
-  {
-   "id": "bummel-schottische",
-   "title": "Bummel Schottische",
-   "level": 5,
-   "score": 2.67,
-   "rungs": {
-    "steps": 5,
-    "figures": 3,
-    "formation": 2,
-    "length": 2,
-    "interaction": 3,
-    "tempo": 1
-   },
-   "reasons": {
-    "steps": "polka, schottische, waltz or country-dance figures",
-    "figures": "up to six",
-    "formation": "couples",
-    "length": "up to 16",
-    "interaction": "with a partner",
-    "tempo": "up to 104"
-   },
-   "skills": [
-    "formation:couples",
-    "step:heel and toe",
-    "step:hop",
-    "step:polka",
-    "step:step",
-    "sung"
-   ],
-   "introduces": [
-    "step:heel and toe"
-   ],
-   "country": "Mecklenburg, Germany",
-   "book": "Folk-Dances from Old Homelands",
-   "year": "1922",
-   "bookClass": 0,
-   "tempo": null,
-   "measures": 16,
-   "figures": 5,
-   "source": "https://archive.org/details/folkdancesfromol00burc",
-   "licence": "public domain",
-   "text": "A Tempo di Polka J = loo\nMoth- er Wittsch,Moth- er Wittsch.jusl\nthen on the toes:\nOh, Moth - er Wittsch, how\nwell that goes!\nB Faster J =\n(From Mecklenburg, Germany)\nThe music consists of two strains of eight meas-\nures each, to which the following verse and chorus\nare sung. The two strains correspond to the two\nmovements of the dance, which is repeated as\nmany times as desired.\nThe Words\nMother Wittsch, Mother Wittsch,\njust look at me!\nHow well I dance, just look and see!\nFirst on the heels, then on the toes,\nO Mother Wittsch, how well that goes!\nChorus:\n(and repeat)\nIn couples.\nPartners take the following dancing position:\nThe woman stands in front of the man with her\nhands raised to her shoulders. The man (standing\nbehind her) grasps both her hands, her right with\nhis right, her left with his left.\n'Heel and Toe\"\nA. (Meas. i.) The man and woman both\ntouch the left heel sideward to the left, and\nat the same time look around at each other,\nshe looking back over her left shoulder and he\nleaning to the left (one, and); still looking at\neach other, they point the left toe to the left,\nbending the left knee slightly (two, and).\n(Meas. 2.) Make one polka step to the left\n(one, and, two).\n[Polka step: With a little preliminary hop (and),\nstep to the left with the left foot (one), bring\nthe right foot to the left foot (and) step again\nonto the left foot (two).]\n(Meas. 3-4.) Repeat the same to the right side.\n(Meas. 5-8.) Repeat the same as in Meas. 1-4,\nbut at the end the man should quickly turn\nhis partner about so that she faces him.\n'Polka\"\nB. (Meas. 9-16.) The man grasps his partner's\nwaist with both hands, and she puts her hands\non his shoulders. In this position they dance\nthe polka around the room."
-  },
-  {
    "id": "jibi-di-jibi-da",
    "title": "Jibi-di, Jibi-da",
-   "level": 4,
+   "level": 3,
    "score": 2.33,
    "rungs": {
     "steps": 3,
@@ -1462,7 +1462,7 @@
   {
    "id": "kanafaska",
    "title": "Kanafaska",
-   "level": 6,
+   "level": 5,
    "score": 3.67,
    "rungs": {
     "steps": 5,
@@ -1510,7 +1510,7 @@
   {
    "id": "bridge-of-avignon",
    "title": "Bridge of Avignon",
-   "level": 5,
+   "level": 4,
    "score": 2.5,
    "rungs": {
     "steps": 2,
@@ -1554,7 +1554,7 @@
   {
    "id": "vira",
    "title": "Vira",
-   "level": 5,
+   "level": 4,
    "score": 2.83,
    "rungs": {
     "steps": 5,
@@ -1600,7 +1600,7 @@
   {
    "id": "little-man-in-a-fix",
    "title": "Little Man in a Fix",
-   "level": 5,
+   "level": 4,
    "score": 2.83,
    "rungs": {
     "steps": 5,
@@ -1686,7 +1686,7 @@
   {
    "id": "handkerchief-dance",
    "title": "Handkerchief Dance",
-   "level": 5,
+   "level": 4,
    "score": 3,
    "rungs": {
     "steps": 5,
@@ -1730,7 +1730,7 @@
   {
    "id": "gardener",
    "title": "Gardener",
-   "level": 5,
+   "level": 4,
    "score": 3,
    "rungs": {
     "steps": 5,
@@ -1861,7 +1861,7 @@
   {
    "id": "waves-of-tory",
    "title": "Waves of Tory",
-   "level": 6,
+   "level": 5,
    "score": 3.67,
    "rungs": {
     "steps": 5,
@@ -1940,7 +1940,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 8,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderalo ( ^ = 112)\nFormation: Longways for six or more couples,\nmen in one line, and women in the other.\nSteps: I lie usual country-dance step.\nThe Dance.\n\"Down the Outside and Back\"\n(Meas. 1-4.) The first woman and first man\nturn outward, and go eight steps down the\noutside of iheir respective lines toward the\nfoot of the set.\neturn up the outside o\n(Meas. 5-8.) They return u;\ntlieir lines to the head of tlie set\n\"Down the Centre and Back\"\n(Meas. 9-12.) The first couple join inside hinds\nand go eight steps down the centre toward\nthe foot of the set.\n(Mcas. 13-16.) Releasing hands, ihcy face about,\njoin hands again, and return up the centre\ntoward the head.\n\"Three Hands Around with Lady\"\n(Meas. 1-6. J Tiic first couple join hands in a\nring with the second women, and swing once\nand a half around to the left, so that at the\nend of the sixth measure the circle arrives at\na point at which the second woman is facing\nher original position. (Diagram i.)\nDiaeram 1\n\"Three Hands Around with Gentleman\"\n(Meas. 9-14. j 'i'he first couple now join hands\nin a ring with the second man, and dance once\nand a half around to the left.\n(Meas. 15-16.) On the first note oi the fifteenth\nmeasure, the second man \"pops\" through the\narch formed by the first couple, to his original\nposition in line, and immediately moves up one\nplace to the head of the set.\nme first couple now repeat the whole dance,\nbut this time swinging the woman and man ne.xt\nlower itn J me.\n(Meas. 7-8.) On the first note of the seventh\nmeasure (\"Pop\"), the first couple raise their\njoined hands and release the hands of the\nsecond woman, who at the same time passes\nunder the arch to her original position in the\nwomen's line, and immediately moves up one\nplace to the head of the set.\nAll tihe other odd couples (third, fifth, etc.), are\n\"active!\" also, and begin dancing with the next\ncouple below at the same time and in the same\nmanner as described for the first couple.\nThey continue progressing down the set, one\nplace lower each time. When a \"neutral\" couple\nreach the head, they stand idle during one repe-\ntition of the dance, and then become \"active,\"\nand dance as described for the first couple. When\nan \"active\" couple reach the foot, they become\nneutral.\nWhen the dance has been continued as long as\ndesired, it is finished with \"Forward and Swing\nPartners,\" and \"Promenade around the Hall.\""
   },
@@ -1986,7 +1986,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 6,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "(\"Miss Mountan's Hornpipe\")\nFormation: Longways for six couples, women in\none line, and men in the other.\nSteps: The usual country-dance step.\nThe Dance.\n\"Down the Outside and up the Centre\"\n(Meas. 1-4.) The iirst woman turns outward\nand goes down the outside of the women's line\nto the foot of the set, and at the same time\nthe first man crosses over and \"chases\" her\ndown the outside.\n(Meas. 5-8.) The first woman (still followed by\nher partner) comes up the centre to the head\nof her line.\n(Meas. 9-16.) The first man turns out and goes\ndown the outside of the men's line to the foot,\nand up the centre to the head, followed by his\npartner, and finishing with both in original\npositions.\n\"Down the Centre and Back\"\n(Meas. 1-4.) First couple join crossed hands\nand go down the centre 8 steps.\n(Meas. 5-8.) ^^'ith()Ut releasing hands, face\nabout, return up the centre, release hands,\nseparate, and \"cast oflF,\" falling into the place\nnext below the second couple.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish with first couple next\nbelow the second couple.\nThe first couple now repeat the whole dance with\nthe new couple below them, and continue in the\nsame manner, progressing down the set one place\nlower each time.\nThe two other odd couples (third and fifth), are\nalso \"active,\" and dance \"Down the centre and\nback\" and \"Right and Left,\" at the same time and\nin the same manner as described for the first couple,\nbut stand idle during the chasing figure.\nThe even couples (second, fourth and sixth), are\n\"neutral,\" and move up one place higher in the\nset each time. When a \"neutral\" couple reach\nthe head, they stand idle during one repetition of\nthe dance; then they become \"active,\" and dance\nas described for the first couple.\nWhen an \"active\" couple reach the foot of the\nset, they become \"neutral.\"\nNote : In the chasing fi-gure it is possible for\nall the \"active\" couples to take part as follows:\nWhen the first woman goes down the outside with\nher partner following her, the third woman waits\nuntil the first man has passed behind her, when\nshe falls in behind him with her partner following\nher; while the fifth woman waits and falls in behind\nthe third man when he has passed her. In this\nway the \"active\" couples follow each other in nu-\nmerical order down the outside (see Diagram i)\nand up the centre to their own places (see Dia-\ngram 2 ).\nagrani\nWhen the dance has been repeated until all\nhave reached their original positions, finish with\n'Forward and Swing Partners\" and \"Promenade\naround the Hall.\"\nAllegro moderato ( 0= 112)"
   },
@@ -2032,7 +2032,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 6,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato (#=112)\n(Or, \"Morning Star\")\nFormation: Longways for six or more couples, time and in the same manner as described for the\nmen in one line, and women in the other. first couple. (Diagram I.)\nSteps: l\"he usual country-dance step, and buzz ;''~\\ C^\\ 5 I ^•'\"^'\nstep.\n\"First, third, and every other couple step forward\"\nBefore beginning the dance, every other couple\n(first, third, fifth, etc.), step forward and take\nordinary dancing position. These couples are the\n\"active\" ones, and all begin dancing at the same\nDiagram 1\nThe Dance.\n\"Balance and Swing Partner\"\n(Mcas. 1-8.) First couple swing with sixteen\nbuzz steps.\n(Mcas. 5-8.) They swing half around and return\nup the centre to the head, where they \"cast\noff,\" and fall into their respective lines in the\nplace next below the second couple.\n(Meas. 9.) Still keeping his right arm around her\nwaist, the man releases his partner's right\nhand (which he has been holding with his\nleft), and they open out, so as to be side by\nside, both facing in the same direction. In\nthis position they \"balance\" away from each\nother (that is, the woman steps sideward to\nthe right, with the right foot, and then closes\nher left foot to the right foot. The man at\nthe same time balances to the left in the same\nmanner).\n(Meas. 10-16.) Resuming ordinary position they\ncontinue swinging as before.\n\"Down the Centre and Back\"\n(Meas. 1-4.) Still in ordinary position, the man\nleads his partner eight steps down the centre\ntowarci the foot of the set.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, finishing in their new positions\n(the first couple next below the second couple).\nThe dance is continued in this manner, with\nthe \"active\" couple progressing down the set, one\nplace lower each time, and danchig with each\n\"neutral\" couple in turn. When a \"neutral\"\ncouple reach the head of the set, they stand idle\nduring one repetition of the dance, then become\n\"active\" and dance as described for the first couple.\nWhen an \"active\" couple reach the foot they\nbecome \"neutral.\"\nFinish with \"Forward and Swing Partners,\" and\n\"Promenade around the Hall.\""
   },
@@ -2077,7 +2077,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 4,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( J = 112)\nlllf\nPfce=E\nitzt\n:*zzt\nFormation: Longways for six or more couples,\nmen In one line, and women in the other.\nThe Dance.\n\"First Lady Balance and Swing\"\nSteps: The usual country-dance step and the buzz Qleas. 1-4.) The first woman and the third\nstep. man forward and back.\n(Meas. 5-8.) The first woman swings with the\nsecond man, in ordinary dance position, with\nbuzz steps.\n\"First Man Balance and Swing\"\n(Meas. 9-16.) The first man does the same with\nthe third and second women.\nsecond men, finishing with the first couple\nnext below the second couple.\nThe first couple now repeat the whole dance,\nthis time dancing with the third couple and the\ncouple next below the third couple. They continue\nin this manner, progressing down the set, one place\nlower each time.\n\"Down the Centre and Back\"\n(Meas. 1-4.) The first couple join crossed hands\nand go eight steps down the centre, toward\nthe foot of the set.\n(Aleas. 5-8.) Without releasing hands, they face\nup the set, and return to the head, where\nthey separate, \"cast ofi\",\" and fall into the\nplace next below the second couple.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nThe fourth couple (and seventh, tenth, etc.) are\nalso \"active,\" and dance at the same time and in\nthe same manner as described for the first couple.\nWhen a \"neutral\" couple reach the head, they\nstand idle during two repetitions of the dance (until\nthere are two free \"neutral\" couples below them).\nThen they become \"active,\" and dance as described\nfor the first couple.\nWhen an \"active\" couple reach the foot of the\nset they become \"neutral.\"\nFinish the dance with \"Forward and Swing\nPartners,\" and \"Promenade around the Hall.\""
   },
@@ -2121,7 +2121,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 6,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato { J= 112)\nJtiztt\nFormation: Longways for six or more couples.\nSteps: The usual country-dance step.\nThe Dance.\n\"First Lady down the Centre. First Man down\nthe Outside\"\n(Meas. 1-4.) The first woman goes eight steps\ndown the centre toward the foot of the set, and\nat the same time the first man goes eight steps\ndown the outside of the men's line, toward\nthe foot.\n'TBack to Places\"\n(Meas. 5-8.) The first woman returns up the\ncentre to the head of the set, and the first\nman at the same time returns up the outside\nof his line to the head.\n\"First Lady down the Outside, First Man down\nthe Centre\"\n(Meas. 9-12.) The first woman goes down the\noutside of the women's line toward the foot of\nthe set, and the first man at the same lime\ngoes down the centre.\n\"Back to Places\"\n(Meas. 13-16.) The first woman and first man\nretrace their steps, returning to the head of\nthe set.\n\"Down the Centre and Back\"\n(iVIeas. 1-4. j The first couple join crossed hands\n(or right hands only), and go eight steps down\nthe centre toward the foot of the set.\n(Meas. 5-8.) Without releasing hands, they face\nabout and return up the centre to the head of\nthe set, where they separate, \"cast oflF,\" and\nfall into places next below the second man\nand woman in their respective lines.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish with the first couple\none place below the second couple.\nThe first couple repeat the whole dance now with\nthe new couple next below them. They continue\nin this manner, progressing down the set one place\nlower at each repetition.\nAll the other odd couples (third, fifth, etc.) are\nalso \"active\" and dance at the same time and in\nthe same manner as described for the first couple.\nThe even couples (second, fourth, etc.), are \"neu-\ntral.\" When a \"neutral\" couple reach the head of\nthe set, they stand idle during one repetition of\nthe dance, then become \"active,\" and dance as\ndescribed for the first couple. When an \"active\"\ncouple reach the foot of the set they become\n\"neutral.\"\nThe dance is finished in the usual way, with\n\"Forward and Swing Partners,\" and \"Promenade\naround the Hall.\"\nAllegro moderato { J^ i 12 )"
   },
@@ -2166,7 +2166,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 7,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "licit\nFormation: Longways for six or more couples.\nSteps: The usual country-dance step.\nThe Dance.\n\"Four Hands Around and Back\"\n(Meas. 1-4.) The first and second couples join\nhands in a ring and with eight steps swing\nhalf around, in the direction of the hands of\nthe clock. (Diagram I.)\n(Meas. 5-8.) The same, in the opposite direction.\n\"Right-Hand Mill\"\n(Meas. 9-12.) The first and second couples form\na \"right-hand mill\" (Diagram 2), and go eight\nsteps around, in the direction of the hands of\nthe clock.\nDiagram 1\nDiagram 2\n\"Left-Hand Mill\"\n(Meas. 13-16.) They form a \"left-hand mill\"\nand go around in the opposite direction.\n\"Down the Centre and Back\"\n(Meas. 1-4.) The first couple join crossed hands\nand go eight steps down the centre toward\nthe foot of the set.\n(Meas. 5-8. j Without releasing hands, they\nface about and return up the centre to the\nhead, where they separate, \"cast off,\" and\nfall into the place next below the second couple\nin their respective lines.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish with the first couple\nnext below the second couple.\nThe first couple now repeat the whole figure,\nthis time dancing with the next couple below them.\nThey continue in this manner, progressing down\nthe set, one place lower each time.\nAll the other odd couples (third, fifth, etc.) are\nalso \"active,\" and dance at the same time and in\nthe same manner as described for the first couple.\nThe even couples (second, fourth, etc.) are \"neu-\ntral.\"\nWhen a \"neutral\" couple reach the head they\nstand idle once, and then become \"active.\" When\nan \"active\" couple reach the foot they become\n\"neutral.\"\nFinish the dance with \"Forward and Swing\nPartners,\" and \"Promenade around the Hall.\""
   },
@@ -2210,14 +2210,14 @@
    "tempo": 112,
    "measures": 16,
    "figures": 7,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato { 0^ 112)\niirt::\nAllegro moderato ( J = 112)\n(\"Joice's Hornpipe\")\nFormation: Longways for six or more couples,\nmen in one line, and women in tlie other.\nSteps: The usual country-dance step.\nThe Dance.\n\"Swing Once and a Half Around\"\n(Meas. 1-6.) The first couple join right hands\nand swing once and a half around, so as to\nfinish in opposite lines.\n'Forward and Back Six\"\n(Meas. 7-8.) The first woman, passing behind\nthe second man, falls into the men's line be-\ntween the second and third men. At the same\ntime the first man passes behind the second\nwoman and falls intcj the women's line between\nthe second and third women. (Diagram i.)\n(Meas. 9-12.) The first woman and second and\nthird men join hands in a line (while the first\nman and second and third women do the\nsame), and the two threes forward and back\nwith each other.\n\"Swing Three- Quarters Around\"\n(Mcas. 13-16.) The first man and woman join\nright hands and swing three-quarters around,\nso that they finish between the lines, the man\nat the head, facing down the set, and the\nwoman opposite him, facing up the set.\nfinish in tlicir own lines, but one place lower\nthan at the beginning. (Diagram 3.)\nDiagram 1\n\"Forward and Back Six\"\n(Meas. 1-4.) The first woman joins hands with\nthe third man and third woman, forming a line\nat right angles to the set and facing up, while\nthe first man does the same with the second\ncouple, except that they face down. (Dia-\ngram 2.)\nDiagram 2\nIn this new formation the two threes forward and\nback with each other.\n\"Swing Three- Quarters Around ;o Place\"\n(Meas. 5-8.) The first man and woman join\nright hands, swing three-quarters around, and\nDiagram 3\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish in the same new\npositions. (Diagram 3.)\nThe whole dance is now repeated, the first couple\ndancing this time with the third couple, and the\ncouple next below the third couple. The dance\ncontinues in this way, with the first or \"active\"\ncouple progressing down the set, one place lower\neach time. The fourth couple are also \"active\" and\ndance (at the same time and in the same manner\nas described for the first couple) with the fifth and\nsixth couples.\nIf more than six couples are dancing, the seventh\ntenth, etc., couples may also be \"active\" and dance\nas described for the first couple, progressing down\nthe set and dancing with the \"neutral\" couples\n(second, third, fifth, sixth, etc.), in order.\nWhen a \"neutral\" couple reach the head they\nstand idle during two repetitions of the dance (until\nthere are two \"neutral\" couples below them), then\nbecome \"active\" and dance as described for the\nfirst couple.\nWhen an \"active\" couple reach the foot they\nbecome \"neutral.\" The dance is continued as long\nas desired, and is brought to a close with the usual\n\"Forward and Swing Partners,\" and \"Promenade\naround the Hall.\""
   },
   {
    "id": "durang-s-hornpipe",
    "title": "Durang's Hornpipe",
-   "level": 5,
+   "level": 6,
    "score": 3.83,
    "rungs": {
     "steps": 5,
@@ -2257,7 +2257,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 12,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( J = 112)\nFormation: Longways for six or more couples,\nwomen in one line, men in the other.\nSteps: The usual country-dance step.\nThe Dance.\n\"Down the Outside and Back\"\n(Meas. 1-4.) The first woman and first man\nturn outward and go eight steps down the\noutside of their respective lines, toward the\nfoot of the set.\n(Meas. 5-8.) They return up the outside of their\nlines to the head of the set.\n'Down the Centre and Back\"\n(Meas. 9-12.) The first couple join crossed\nhands and go eight steps down the centre\ntoward the foot, with the woman on the left\nof her partner.\n(Meas. 13-16.) Without releasing hands, they\nface up the set, so that the woman is now\non the right of her partner, and return eight\nsteps to the head, where they separate and\n\"cast off,\" falling into the place next below\nthe second couple in their respective lines.\n\"Six Hands Around\"\n(Meas. 1-8.) The first, second and third couples\njoin hands in a circle of six, and dance around\nin the direction of the hands of the clock\n(Diagram i), finishing in their respective lines\nwith the first couple still below the second\ncouple (Diagram 2).\nThe first couple now repeat the whole dance, but\nthis time doing \"six hands around\" with the third\ncouple and the couple next below the third couple,\nwhile the second couple stand idle at the head of\nthe set.\nThey continue in this manner, progressing down\nthe set one place lower each time. The fourth\ncouple are also \"active,\" and dance at the same\ntime and in the same manner as described for the\nfirst couple.\nIf more than six couples are dancing, the\nseventh, tenth, etc., couples are also \"active.\"\nDiagram 1\nDiagram 2\nWhen a \"neutral\" couple reach the head they\nstand idle during two repetitions of the dance\n(until there are two free \"neutral\" couples below\nthem), then become \"active.\"\nWhen an \"acti\\'e\" couple reach the foot of the\nset, they become \"neutral.\"\nWhen the first couple reach the head of the set\nagain, the dance is finished with \"Forward and\n\"Right and Left\"\n■ (Meas. 9-16.) The first and second women\nexecute right and left with the first and second Swing Partners,\" and \"Promenade around the\nmen, and finish as before. (Diagram 2.) Hall.\"\nAllegro moderato ( J ^ i 1 2 )\n.-t=fct\niiiz^\n.PTttfe\n(\"Handorgan Hornpipe\")\nl-^jsaJ ^ — ?-\nFormation: Longways for six or more couples,\nmen in one line, and women in the other.\nSteps: The usual country-dance step.\nThe Dance.\n\"Cross over the Set and Balance Three\"\n(Mcas. 1-4.) The first woman crosses over to\nthe opposite line, and, with her back turned\ntoward her own line, falls into line between\nthe second and third men, with whom she\njoins hands in a row. At the same time the\nfirst man crosses over and docs the same with\nthe second and third women. (Diagram i.)\nDiagram 1\nIn this position, the two threes \"balance,\" moving\nfirst outward, farther away from each other (with\ntwo \"balance\" steps or four walking steps), and\nthen back to line.\n\"Swmg Right Hands\"\n(Meas. 5-8.) The first woman and the man on\nher right (the second man), with right hands\nstill joined, turn each other, eight steps,\nfinishing in line of tlucc, as before. At the\nsame time the first man and the woman on\nhis right (the tliird woman) turn in the same\nmanner.\n\"Balance Three\"\n(Meas. 9-12.) The two threes \"balance\" again, as\nbefore.\n'♦Swing Left Hands\"\n(Aleas. 13-16.) The first woman and the man\non her left (the third man) turn each other\nwith left hands. At the same time the first\nman does the same with the woman on his\nleft (the second woman).\nAt the end of this turn, the first woman and man\nadvance toward each other in the centre.\n\"Down the Centre and Back\"\n(Meas. 1-4.) The first couple in ordinary dance\nposition go eight steps down the centre toward\nthe foot of the set, with the woman on the\nright of her partner.\n(Meas. 5-8.) The first couple swing half around\n(so as to face up the set, with the woman still\non the right of her partner), return to the\nhead, separate, and \"cast off^,\" falling into\nplaces next below the second couple in their\nrespective lines.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish in their new positions\nbelow the second couple.\nThe whole dance is now repeated, the first couple\ndancing this time with the third couple and the\ncouple ne.xt below the third couple. The dance\nis continued in this way, with the first or \"active\"\ncouple progressing down the set.\nThe fourth couple are also \"active,\" and dance\n(at the same time and in the same manner as\ndescribed for the first couple) with the fifth and\nsi.xth couples.\nIf more than six couples are dancing in the set,\nthe seventh, tenth, etc., couples may also be\n\"active\" and dance at the same time and in the\nsame manner as described for the first couple,\nprogressing down the set and dancing with the\n\"neutral\" couples in order. When a \"neutral\"\ncouple reaches the head of the set, they stand\nidle during two repetitions of the dance (until there\nare two \"neutral\" couples below them), then be-\ncome \"active\" and dance as described for the\nfirst couple.\n\\\\'hen an \"active\" couple reach the foot of the\nset they become \"neutral.\"\nWhen the dance has been continued as long as\ndesired, it is brought to a finish with the usual\n\"Forward and Swing Partners,\" and \"Promenade\naround the Hall.\"\nAllegro moderato ( J = 112)"
   },
@@ -2304,7 +2304,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 5,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "(\"The White Cockade\")\n•iit^\nFormation: Longways for six or more couples,\nmen in one line, and women in the other.\nSteps: The usual country-dance step.\nThe Dance.\n\"Down the Outside and Back\"\n(Meas. 1-4.) The first woman and first man\nturn outward and go eight steps down the\noutside of their respective lines, toward the\nfoot of the set.\n(Meas. 5-8.) They return eight steps up the\noutside of their respective lines, to tlie head.\n\"Down the Centre and Back\"\n(Meas. 9-12.) The first couple join crossed\nhands and go eight steps down the centre\ntoward the fool, with the woman on the left\nof her partner.\n(Meas. 13-16.) Without releasing hands they\nface up the set, with the woman now on the\nright of licr partner, and returning up the\ncentre of the set, approach the second woman.\n\"Ladies' Chain\"\n(Meas. 1-8.) I'iie first and second couples exe-\ncute ladies' chain as described in \"The Lady\nof the Lake\" (page 34).\n(Diagram i.)\n\"Balance and Swing\"\n(Aleas. 9-16.) The first couple meet in the\ncentre, swing each other with eight buzz steps\nin ordinary position, and fall back to their\nrespectiv'e lines, below the second couple.\n(Diagram i.)\nThe first couple now go down the outside from\nthis new position, and repeat the whole dance,\nexecuting the \"Ladies' Chain\" this time with the\ncouple which is now next below them. They con-\ntinue in this manner, progressing down the set one\nplace lower each time.\nThe other odd couples (third and fifth) are also\n\"active,\" and dance at the same time and in the\nsame manner as described for the first couple.\nWhen a \"neutral\" couple reach the head of the\nset, they stand idle during one repetition of the\ndance, then become \"active\" and dance as described\nfor the first couple.\nDiagram 1\nWhen an \"active\" couple reach the foot of the\nset, they become \"neutral.\"\nThe dance is continued until the first couple\nreach the head of the set again (or as long as desired),\nwhen it is finished with \"Forward and Swing\nPartners,\" and \"Promenade around the Hall.\""
   },
@@ -2348,7 +2348,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 6,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato (^^ 112\nFormation: Longways lor six couples, men in one \"First Couple Cross Over\"\nline, and women\nin the o\nther.\nSteps: Tlie usual\ncountry\n-dance step\nDiagram 1\nBefore beginning the dance the man and woman\nof the head couple only exchange places as\nindicated in Diagram i.\nThe Dance.\n\"Head Couple down the Outside,\nFoot Couple up the Centre\"\n(Meas. 1-4.) The first woman and first man turn\noutward and go eight steps down the outside\nof the lines toward the foot of the set; at the\nsame time the foot (sixth) couple join crossed\nhands and come eight steps up the centre\ntoward the head.\n(Meas. 5-8.) The first woman and first man\nreturn up the outside of the lines to places;\nand at the same time the foot couple face\nabout without releasing hands, and return\ndown the centre to their places at the foot.\n\"Head Couple down the Centre,\nFoot Couple up the Outside\"\n(Meas. 9-12.) The first couple join crossed hands\nand go eight steps down the centre toward\nthe foot; at the same time the foot woman and\nman each turn outward and go eight steps\nup the outside of the lines toward the head. .\n(Meas. 13-16.) The first couple face about,\nwithout releasing hands, and return up the\ncentre to the head, where they separate, \"cast\nofT\" and fall into places below the second\ncouple (Diagram 2). At the same time the\nfoot woman and foot man return down the\noutside of their lines to their places at the\nfoot of the set.\n\"Ladies' Chain\"\n(Meas. 1-8.) The first woman and second man\nexecute \"Ladies' Chain\" with the second\nwomen and first man.\n\"Right and Left\"\n(Meas. 9-16.) The first woman and second man\nexecute \"Right and Left\" with the first man\nand second woman, and finish with the first\ncouple below the second couple (Diagram 2.)\nThe first couple now repeat the dance, this\ntime with the ihird couple (while the second\ncouple exchange places and stand idle at the\nhead of the set), and continue in this manner,\nprogressing down the set one place lower each\ntime.\nAll couples except the first couple are \"neutral\"\nat the beginning of the dance.\nWhen a \"neutral\" couple reach the head the set,\nthe man and woman exchange places, stand idle\nduring one repetition of the dance, then become\n\"active,\" and dance as described for the first\ncouple.\nWhen an \"active\" couple reach the foot of the\nset, they become the Foot Couple, dance as de-\nscribed for the Foot (sixth) Couple, then exchange\nplaces and become \"neutral.\"\nDiagram 2\nWhen all six couples get back to their original\npositions, the dance is finished with \"Forward and\nSwing Partners,\" and \"Promenade around the\nHall.\"\nAllegro r.wderato ( J = 112)"
   },
@@ -2396,7 +2396,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 8,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Formation: Longways for six or more couples,\nwomen in one line, men in the other.\nSteps: The usual country-dance step, and buzz\nstep.\nThe Dance.\n\"Down the Outside and Back\"\n(Meas. 1-4.) The first woman and first man\nturn outward and go eight steps down the out-\nside of their respective lines, toward the foot\nof the set.\n(Meas. 5-8.) They return eight steps up the\noutside of their lines, to the head.\n\"Down the Centre and Back\"\n(Meas. 9-12.) The first couple join crossed hands\nand go eight steps down the centre toward\nthe foot of the set, with the woman on the\nleft of her partner.\n(Meas. 13-16.) Without releasing hands, they\nface up the set, so that the woman is now on\nthe right of her partner, and return eight\nsteps up the centre to the head, where they\nseparate and \"cast off,\" falling into the place\nbetween the second and third couples, in\ntheir respective lines.\npassing around each other, right shoulder to\nright shoulder, they return to the lines they\nhave just left, and this time the first woman\nswings the third man, while the first man\nswings the second woman. They finish three\nin a line on either side, the first woman between\nthe second and third men, and the first man\nbetween the second and third women.\n\"Balance Six\"\n(Meas. 9-12.) With hands joined three abreast\non either side the first six forward and back.\n\"Balance and Swing Partner\"\n(Meas. 13-16.) The first woman and man adv'ance\nto each other, take ordinary position, and swing\nin the centre with eight buzz steps, finishing\nin their respective lines, in the place next\nbelow the second couple.\nThe first couple now repeat the whole dance,\nand continue in this manner, progressing down the\nset one place lower each time.\nAll the other odd couples (third, fifth, etc.),\nare also \"active,\" and dance at the same time and\nin the same manner as described for the first couple.\nWhen a \"neutral\" couple reach the head of the set,\nthey stand idle during one repetition of the dance,\nthen become \"active\" and dance as described for\nthe first couple.\n\"Swing Contra Corners\"\n(Meas. 1-4.) The first man and woman cross\nover, passing each other right shoulder to\nright shoulder, and the first woman swings\nthe second man (with right hands joined) once set, they become \"neutral,\naround. At the same time the first man\nswings the third woman in the same manner.\nWhen an \"active\" couple reach the foot of the\n\"^I'he dance is continued until the first couple\nreach the head of the set again (or as long as desired),\n(Meas. 5-8.) The first man and woman ad- when it is finished with \"Forward and Swing\nvancc toward each other in the centre, and Partners,\" and \"Promenade around the Hall.\""
   },
@@ -2442,7 +2442,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 7,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "(\"Dominion Reel\")\niiz=tr±=t=\nAllegro moderato ( J = 1 12 )\n(\"Limber up Reel\")\nitiit\nFormation: Longways for six or more couples, \"Swing Half Around\"\nmen in one line, and women in the other.\nSteps: The usual country-dance step and the\nbuzz step.\nThe Dance.\n\"Forward and Back Six\"\n(Meas. 1-4.) The first, second and third women\njoin hands in a row, and the first, second and\nthird men do the same. The two threes for-\nward and back with each other. (Diagram i.)\nDiagram 1\n(Meas. 5-8.) These three couples give right\nhands to partners and swing half around,\nfinishing in exchanged places.\n\"Forward and Back Six\"\n(Meas. 9-12.) The first six, in their new positions\n(Diagram 2), forward and back again\nDiagram 2\n\"Swing Partners to Places\"\n(Meas. 13-16.) The same six give right hands\nto partners, and swing to places with eight\nsteps.\n\"Down the Centre and Back\"\n(Meas. 1-4.) With both hands crossed and\njoined, the first two couples go eight steps\ndown the centre toward the foot of tlie set,\nthe second couple leading and the first couple\nfollowing. (Diagram 3.)\nDiagram 3\n(Meas. 5-8.) The first and second couples, with-\nout releasing hands, face about, and return up\nthe centre, the first couple leading and the\nsecond couple following. The second couple\nfall into place at the head of their respective\nlines, while the first couple separate, \"cast off,\"\nand fall into their respective lines, in the place\nnext below the second couple. (Diagram 4.)\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish with the first couple\nnext below the second couple.\nDiagram 4\nThe first couple now repeat the whole dance, but\nthis time with the third couple, and the couple\nnext below the third couple, and continue in the\nsame manner, progressing down the set one place\nlower each time.\nThe fourth couple (and seventh, tenth, etc.) are\nalso \"active\" and begin dancing at the same time\nand in the same manner as described for the first\ncouple.\nThe other couples are \"neutral.\" When a \"neu-\ntral\" couple reach the head of the set, they stand\nidle during two repetitions of the dance (until there\nare two free \"neutral\" couples below them); then\nthey become \"active,\" and dance as described for\nthe first couple.\nWhen an \"active\" couple reach the foot they\nbecome \"neutral.\"\nThe dance is brought to a close in the usual\nmanner with \"Forward and Swing Partners,\" and\n\"Promenade around the Hall.\""
   },
@@ -2489,7 +2489,7 @@
    "tempo": null,
    "measures": 16,
    "figures": 11,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( ^= 112)\nipz^fi\nFormation: Longways for six or more couples,\nmen in one line and women in the other.\nSteps: The usual country-dance step and the\nbuzz step.\nThe Dance.\n\"Right Hand to Partner — four abreast\"\nBefore beginning the dance, the first woman and\nfirst man join right hands, swing half around, and\nwithout releasing right hands, the first woman\ntakes the second man's left hand with her left\nhand, while the first man does the same with the\nsecond woman. This brings them, with hands\njoined four abreast, at right angles to the lines,\nwith two women facing up, and the two men facing\ndown the set. (Diagram I.)\nDiagram J\nAll the odd couples (first, third, fifth, etc.) begin\ndancing at the same time with the couples below,\nand in the same manner as described for the first\ncouple.\n\"Balance, four in line\"\n(]\\Ieas. 1-2.) The four dancers \"balance,\" in a\nline.\nNote: The \"Balance\" is done in either of\nthe two following ways:\n(i) Take two short steps forward and two\nback (or back and forward, as the case may\n(2) Step forward (or back, as the case may\nbe) with one foot, and raise the other foot\nforward, then step back and do the same\nwith the other foot.\nfirst man and second woman do the same.\nThen the first couple join right hands, swing\nonce around, and form four abreast as at the\nbeginning.\n\"Balance, four in line\"\n(Meas. 9-10.) The first and second balance again\nin the same manner as before.\n\"Swing Partner\"\n(Aleas. 11-16.) The first couple, in ordinary\nposition, swing each other with twelve buzz\nsteps.\n\"Down the Centre and Back\"\n(Meas. 1-4.) The first couple, still in ordinary\nposition, go eight steps down the centre toward\nthe foot of the set.\n(Meas. 5-8.) They swing half around, so as to\nface up the set (with the woman still on the\nright of her partner), and return up the centre\nto the head, where they separate and \"cast\noff,\" falling into the place below the second\ncouple.\n\"Right and Left\"\n(Meas. 9-16.) In their new position the first\nand second women execute \"Right and Left\"\nwith the first and second men, and finish with\nthe first couple in second place and the second\ncouple at the head.\nThe odd or \"active\" couples (first, third, fifth,\netc.) repeat the whole dance as before, but dancing\nthis time with the next couple below.\nThe dance is continued in this manner, with the\n\"active\" couples progressing down the set one\nplace lower each time, and dancing with each even\nor \"neutral\" couple in turn.\nWhen a \"neutral\" couple reach the head of the\nset, they stand idle during one repetition of the\ndance; then become \"active,\" and dance as de-\nscribed for the first couple.\nWhen an \"active\" couple reach the foot of the\nset thev become \"neutral.\"\n'Turn\" When the dance has been continued as long as\n(Meas. 5-8.) The first woman and second man desired, finish with \"Forward and Swing Partners,\"\nturn each other with left hands, while the and \"Promenade around the Hall.\"\nAllegro moderato ( ^ = 112)\n(\"Spitfire\")\nFormation: Longways for six or more couples,\nwomen in one line, men in the other.\nSteps: The usual country-dance step and the buzz\nstep.\nThe Dance\n\"First and Second Couples Balance and Swing\nPartners\"\n(Meas. 1-8.) The first and second couples, in\nordinary position, swing partners with sixteen\nbuzz steps.\n\"Down the Centre and Back\"\n(Meas. 9-12.) Slill in ordinary position, the\nfirst and second couples go eight steps down\nthe centre (with the second couple leading\nand first couple followingj toward the foot of\nthe set.\n(Meas. 13-16.) They swing half around so as\nto face up the set (witli each woman still on\ntlic right of her partner), and return up the\ncentre (the first couple leading, and second\ncouple following) to the head of the set, where\nthe second couple separate and fall back into\ntheir respective lines, while the first couple\nseparate, \"cast off,\" and fall into place next\nbelow the second couple.\n\"Right-Hand Mill\"\n(Meas. 1-4.) The first and second cDiiplcs form\na \"right-hand mill,\" and go eight steps around\nin the direction of the liands of the clock.\n\"Left-Hand MiU\"\n(Meas. 5-8.) They form a \"left-hand mill\"\nand return eight steps in the opposite direc-\ntion, finishing in their respecti\\'e lines.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women ex-\necute \"Right and Left\" witli the first and\nsecond men, and finish with the first couple\nin their new position below the second couple.\nThe whole dance is now repeated, the first couple\ndancing this time with the new couple next below\nthem (while the second couple stand idle at the\nhead f)f the set) and continue in this manner, pro-\ngressing down the set, one place lower each time.\nAll the dancers in the set begin dancing at the\nsame time and in the same manner, the odd couples\ndancing as described for the first couple, and the\neven couples as described for the second couple.\nWhen an even couple reach the head they stand\nidle during one repetition of the dance, then be-\ncome \"active\" and dance as described for the first\ncouple.\nWhen an odd couple reach the foot they become\n\"neutral\" and dance as described for couple two.\nWhen the first couple reach the head of the set\nagain, the dance is finished with \"Forward and\nSwing Partners,\" and \"Promenade around the\nHall.\""
   },
@@ -2538,7 +2538,7 @@
    "tempo": null,
    "measures": 24,
    "figures": 5,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( J ^ 1 1 2 )\n(\"The Merry Dance\")\nird:\n:ibtt=SJt\n(Or \"The Merry Dance\")\nFormation: Longways for six or more couples,\nmen in one line, and women in the other.\nSteps: The usual country-dance step, and the\nchasse step.\nThe Dance.\nAll the odd couples (first, third, fifth, etc.),\ndance at the same time and in the same manner\nas described for the first couple in the following\ndirections:\n\"Cross Over and Back\"\n(Meas. 1-4.) The first and second women join\ncrossed hands, and cross over to the men's\nline with four chasse steps, passing between\nthe first and second men, who at the same\ntime cross over to the women's line with\nfour chasse steps, passing outside the two\nwomen as they go.\n(Aleas. 5-8.) In the same manner they return\nto their own places.\n(Meas. 9-16.) The first and second men now\njoin hands and chasse across and back\nagain, passing between the first and second\nwomen, who cross over and back at the same\ntime, passing outside the two men as they go.\nthe centre toward the foot, with the woman\nat the left of her partner.\n(Meas. 21-24.) Without releasing hands they\nface about, so that the woman is on the right\nof her partner, and return up the centre to\nthe head, where they release hands and \"cast\noff,\" falling into places below the second man\nand woman.\n\"Right and Left\"\n(Meas. 1-8.) The first and second women exe-\ncute \"Right and Left\" with the first and second\nmen, and finish with the first couple in second\nplace and the second couple at the head.\nThe dance is continued with the odd or \"active\"\ncouples progressing down the set one place lower\neach time, and dancing with each even, or \"neu-\ntral,\" couple in turn.\nWhen a \"neutral\" couple reach the head of the\nset, they stand idle during one repetition of the\ndance and then become \"active.\"\nWhen an \"active\" couple reach the foot of\nthe set they become \"neutral.\"\n'Down the Centre and Back\" Continue the dance as long as desired, and\n(Meas. 17-20.) The first man and first woman finish with \"Forward and Swing Partners,\" and\njoin crossed hands, and go eight steps down \"Promenade around the Ilall.\"\nAllegro tnoderato ( J ^ = 112)"
   },
@@ -2588,14 +2588,14 @@
    "tempo": 112,
    "measures": 16,
    "figures": 9,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( ^ = 112)\n(\"Spitfire\")\nFine.\nffl/\n:tzt\nD. C. al Fine.\n( \" Durang's Hornpipe\")\nAllegro moderato ( J = 112)\nLADY OF THE LAKE fill)\n(\" Cincinnati Hornpipe \" j\nitiiV^^^j^^\nFormation: Longways for six or more couples,\nmen in one line, and women in the other.\nThe Dance.\n\"First, third and every other couple cross over\"\nBefore beginning the dance, the man and woman\nSteps: The usual country-dance step and the of each odd couple (first, third, fifth, etc.), exchange\nbuzz step. places, so as to stand as indicated in Diagram i.\nDiagram 1\nThese odd couples begin dancing at the same\ntime and in the same manner as described for the\nFirst Couple in the following directions:\n\"Balance and Swing the Next Below\"\n(Meas. 1-8 ) The first woman and second man,\nin ordinary position, swing each other with\nsixteen buzz (or walking) steps, and at the\nsame time the first man and second woman\nswing in the same manner.\n\"Balance and Swing Partners\"\n(Meas. 9-16.) The first man and woman meet\nin centre, and, in ordinary position, swing each\nother with sixteen buzz steps.\n\"Down the Centre and Back\"\n(^Aleas. 1-4.) Still in ordinary position, the\nfirst couple go eight steps down the centre\ntoward the foot of the set.\n(Meas. 5-8.) They swing halfway around, so as\nto face up the set (with the woman still on\nthe right of the man), and returning eight\nsteps up the centre, approach the second woman.\n\"Ladies' Chain\"\n(Meas. 9-16.) First and second couples execute\n\"Ladies' Chain\" as follows:\n(i) First and second women give right hands\nto each other and turn; while the first man\nfalls into line next below the second woman's\nplace.\n(2) The first woman and first man give left\nhands to each other and turn; at the same\ntime the second woman crosses over to the\nopposite line, gives left hand to the second\nman, and turns with hinr.\n(3) Then the first and second women, giving\nright hands to each other, cross over again;\nand\n(4) The first woman and second man give\nleft hands to each other and turn, finishing\nwith the first woman in the next place in\nline below the second man; at the same time\nthe first man and second woman turn with\nleft hands, and finish with the first man in\nthe next place in line below the second\nwoman. (See Diagram 2.)\nThe odd or \"active\" couples (first, third, fifth,\netc.) now repeat the whole dance as before, but\ndancing this time with the next couple below.\nDiagram 2\nThe dance is continued in this manner with the\n\"active\" couples progressing down the set one\nplace lower each time, and dancing with each even,\nor \"neutral\" couple in turn.\nWhen a \"neutral\" couple reach the head of\nthe set, the man and woman exchange places,\n(Diagram 2), stand idle during one repetition of\nthe dance, and then become \"active,\" swinging\nthe next below and dancing as described for the\nfirst couple.\nWhen an \"active\" couple reach the foot of the\nset, they exchange places and become \"neutral\"\n(Diagram 2).\nWhen the dance has been continued as long as\ndesired (or until all couples have reached their\noriginal positions again), it is brought to a close\nwith \"Forward and Swing Partners,\" and \"Prome-\nnade around the Hall.\"\nAllegro moderato ( J = 112)\nnon legato ,\nnif ♦\ng=sig=g:\nilE^Efes:\nThe order of \"Speed the Plough\" is exactly the Steps: The usual country-dance step and chasse\nsame as that of the \"Boston Fancy,\" except that step.\n\"Down the Centre and Back\" and \"Ladies' Chain\"\nare executed in a slightly different way; this is The Dance.\nprobably the original form, of which the other is\na variation. \"First, third and every other couple cross over\"\nBefore beginning the dance, the man and woman\nFormation: Longways for six or more couples, of each odd couple (first, third, fifth, etc.), exchange\nwomen in one line, men in the other. places, and stand as indicated in Diagram i.\nDiagram 1\nThese odd couples all begin dancing at the same\ntime and in the same manner as described below\nfor the first couple.\n\"Balance and Swing the Next Below\"\n(Meas. 1-8.) The first woman and second man\n(in ordinary position) swing each other with\ni6 buzz steps, and at the same time the first\nman and second woman do the same.\n\"Down the Centre and Back\"\n(Meas. 9-12.) The first couple join crossed\nhands and go eight steps down the centre, the\nwoman on the right of her partner.\n(Meas. 13-16.) Without releasing hands, they\nface up the set (the woman is now on the left\nof her partner), return to the head, \"cast\noff\" and fall into place next below the second\ncouple. (Diagram 2.)\nDiagram 2\n'Ladies' Chain\"\n(Meas. 1-8.) The first woman and second man\nexecute \"Ladies' Chain\" with first man and\nsecond woman.\n•'Half Promenade\"\n(Aleas. 9-12.) The first woman and second man\n(and first man and second woman) join\ncrossed hands and \"promenade\" across to the\nopposite side with four chasse steps, couples\nkeeping to the right as they pass each other,\nand finishing on the opposite side, with the\nwoman still on the right of the man.\n•'Half Right and Left\"\n(Meas. 13-16.) The same couples execute a\n\"Half Right and Left\" back to their own sides,\nfinishing in their new positions as at the end\nof the \"Ladies' Chain.\" (See Diagram 2.)\nThe odd, or \"active\" couples (first, third, etc.)\nnow repeat the whole dance as before, but each\ndancing, this time, with the next couple below, and\ncontinue in the same manner, progressing down the\nset one place lower each time, and dancing with\nthe even, or \"neutral\" couples (second, fourth, etc.),\nin turn.\nAs each \"neutral\" couple reach the top of the\nset, the man and woman exchange places (Diagram\n3), and stand idle during one repetition of the figure;\nthen become \"active,\" and swing the next below,\ndancing as described for the first couple.\nAs each \"active\" couple reach the foot of the\nset, they exchange places and become \"neutral.\"\n(Diagram 3.)\nWhen the dance has been continued until all\ncouples have reached their original positions, it is\nbrought to a finish with \"Forward and Swing\nPartners,\" and \"Promenade around the Hall.\"\nDiagram 3"
   },
   {
    "id": "arkansas-traveler",
    "title": "Arkansas Traveler",
-   "level": 5,
+   "level": 6,
    "score": 3.83,
    "rungs": {
     "steps": 5,
@@ -2636,7 +2636,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 10,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( J = 112)\nFormation: Longways for six or more couples,\nmen in one line and women in the other.\nSteps: The usual country-dance step, and buzz\nstep.\nThe Dance.\n\"Balance Six\"\n(Meas. 1-4.) The first, second and third women\njoin hands in a row and the first, second and\nthird men do the same. (Diagram I.) The\ntwo threes \"balance\" to each other. — The\nbalance is done here in either of two ways, as\nfollows: (i) Move forward with two \"bal-\nance\" steps, then back with two \"balance\"\nsteps; or (2) the ordinary \"forward and\nback.\"\nDiagram J\n'Six Hands Half Around\"\n(Meas. 5-8.) The same six join hands in a circle\nand swing half around in the direction of the\nhands of the clock, so that the women finish\non the men's side of the set, and the men on\nthe women's side (Diagram 2). The step used\nin swinging around may be either the usual\ncountry-dance step, or the buzz step, or chasse.\nDiagram 2\n\"Balance Six\"\n(Meas. 9-12.) The first six, in their new positions,\nbalance as before.\n\"Six Hands Half Around\"\n(Meas. 13-16.) They join hands in a circle and\nswing half around as before, finishing in their\noriginal positions.\n\"Right-Hand Mill\"\n(Meas I. -4.) The first and second couples form\na \"right-hand mill\" (Diagram 3), and swing\nhalf around with the usual country-dance step,\nfinishing on opposite sides.\n\"Swing Partners\"\n(Meas. 5-8.) The first and second men take their\npartners in ordinary dancing position and\nswing with eight buzz steps.\n\"Left-Hand Mill\"\n(Meas. 9-12.} The first and second couples form\na left-hand mill and swing half around to\noriginal positions.\n\"First Couple Swing\"\n(Meas. 13-16.) The first couple, in ordinary\ndance position, swing in the centre with eight\nbuzz steps.\n\"Down the Centre and Back\"\n(Meas. 1-4.) Still in ordinary dancing position,\nthe first couple go eight steps down the centre\ntoward the foot of the set, with the woman on\nthe right of her partner.\n(Meas. 5-8.) They swing half around so as to\nface up the set (with the woman still on the\nright of the man), and return up the centre\nto the head, where they separate, \"cast off,\"\nand fall into place next below the second\ncouple in their respective lines.\n\"Right and Left\"\n(Meas. 9-16.) The first and second women\nexecute \"Right and Left\" with the first and\nsecond men, and finish with the first couple\nin their new position below the second couple.\nThe first couple now repeat the whole dance, but\ndancing this time with the third couple and the\ncouple next below the third couple, and continue\nin the same manner, progressing down the set one\nplace lower each time. The fourth couple (and\nseventh, tenth, etc.) are also \"active,\" and dance\nat the same time and in the same manner as de-\nscribed for the first couple.\nWhen a \"neutral\" couple reach the head of the\nset, they stand idle during two repetitions of the\ndance (until there are two free \"neutral\" couples\nbelow them); then they become \"active\" and\ndance as described for the first couple. When an\n\"active\" couple reach the foot of the set, they\nbecome \"neutral.\"\nThe dance is brought to a close in the usual\nmanner with \"Forward and Swing Partners\" and\n\"Promenade around the Hall.\""
   },
@@ -2685,7 +2685,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 14,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( *' = 112)\n(\"Lamplighter's Hornpipe\")\n^ pilfer\nAllegro moderato ( J = 112)\n( \" Quinardo Hornpipe \" )\niti^ztizi\n§ifc=\n(Or \"Lady Washington's Reel\")\nThe order of this dance is exactly the same as of each odd couple (first, third, fifth, etc.) exchange\nthat of \"Speed the Plough,\" except in the manner places, and stand as indicated in Diagram i.\nof executing \"Down the Centre and Back\" and\n\"Ladies' Chain.\"\nFormation: Longways for six or more couples,\nwomen in one line, and men in the other.\nSteps: The usual country-dance step and chasse\nstep.\n'the Dance.\n\"First, third and every other couple cross over\"\nBefore beginning the dance, the man and woman\nDiagram 1\nThese odd couples all begin dancing at the same\ntime and in the same manner as described below\nfor the first couple.\n\"Balance and Swing the Next Below\"\n(Meas. 1-8.) The first woman and second man\n(in ordinary position) swing each other with\nsixteen buzz steps, and at the same time the\nfirst man and second woman do the same.\n\"Down the Centre and Back\"\n(Meas. 9-12.) The first couple take ordinary\nposition and go eight steps down the centre\ntoward the foot.\n(Meas. 13-16.) Still in ordinary position, they\nswing halfway around, so as to face up the\nset (with the woman still on the right of her\npartner), and returning eight steps up the\ncentre, approach the second woman.\n\"Ladies' Chain\"\n(\\Ieas. 1-8.) First and second couples execute\n\"Ladies' Chain\" as follows:\n(i) First and second women give right hands\nto each other, while the first man falls into\nthe line next below the second woman's\nplace.\n(2) The first man and woman give left hands\nto each other, and turn. At the same time\nthe second woman crosses over to the op-\nposite line, gives left hand to the second\nman and turns with him.\n(3) Then the women, giving right hands to\neach other, cross over to the opposite sides\nagain.\n(4) The first woman and second man give\nleft hands to each other and turn, finishing\nwith the first woman in the next place in\nline below the second man. At the same\ntime the second woman and first man give\nleft hands to each other and turn, finishing\nwith the first man in the next place in line,\nbelow the second woman.\nopposite side with fcnir chasse steps, couples\nkeeping to the right as they pass each other,\nand finishing on the opposite side, with the\nwoman still on the right of the man.\n'Half Right and Left\"\n(Meas. 13-16.) The same couples execute a\n\"Half Right and Left\" back to their own sides,\nfinishing with the first couple in their new\nposition below the second couple, as at the end\nof the \"Ladies' Chain.\" (See Diagram 2.)\nDiagram 2\nThe odd, or \"active\" couples (first, third, etc.)\nnow repeat the whole dance as before, but each\ndancing, this time, with the next couple below.\nThey continue in the same manner, progressing\ndown the set one place lower each time, and dancing\nwith the even, or \"neutral\" couples (second, fourth,\netc.), in turn.\nAs each \"neutral\" couple reach the top of the\nset, the man and woman exchange places (Dia-\ngram 2), stand idle during one repetition of the\ndance, and then become \"active,\" swinging the\nnext below, and dancing as described for the first\ncouple.\nAs each \"active\" couple reach the foot of the\nset, they exchange places and become \"neutral.\"\n\"Half Promenade\" When the dance has been continued until all\n(Meas. 9-12.) The first woman and second man couples have reached their original positions, it is\n(and first man and second woman) join brought to a finish with \"Forward and Swing\ncrossed hands and \"promenade\" across to the Partners,\" and \"Promenade around the Hall.\"\n(\"Haste to the Wedding\")\nFormation: Loilgways for six or more couples,\nwomen in one line, men in the other.\nSteps: The usual country-dance step, buzz step,\nand sometimes chasse step.\nThe Dance.\n\"First, third, and every other couple cross over\"\nBefore beginning the dance, the odd couples\n\"cross over,\" as for \"Lady of the Lake.\" All these\nodd couples are \"active,\" and begin dancing at the\nsame time and in the same manner as described for\nthe first couple in the following directions:\n\"Right Line Chasse, Left Line Balance and Swing\"\n(Meas. 1-4.) The first woman joins crossed\nhands with the second man and facing toward\nthe foot of the set, with the woman on the\nleft of the man, they go eight ordinary steps\n(or four chasse steps) down the set. (As each\nwoman in the line does the same with the\nman below her, this brings all the dancers of\nthe right line into a column of twos, facing\ntoward the foot of the set and moving in that\ndirection. See Diagram 1.)\nDiagram 1\n(Meas. 5-8.) Without releasing hands, they\nface about toward the head (the woman now\non the right of the man) and return up the\nset to places in the same manner.\nAt the same time (Meas. 1-8.) the Left Line\ndances as follows:\nThe first man swings the second woman, with\nsixteen buzz steps, in ordinary dance position.\n(As each man in the line does the same with the\nwoman below him, all the dancers of the left line\nare now swinging at the same time. See Diagram i.)\n\"Left Line Chasse, Right Line Balance and Swing\"\n(Meas. 9-12.) The first man and second woman,\nstill in ordinary dance position, face toward\nthe foot of the set (with the woman on the\nright of the man) and go eight ordinary steps\n(or four chasse steps) down the set. (See\nDiagram 2.)\nDiagram 2\n(Meas. 13-16.) Without swinging around, they\njoin crossed hands, face toward the head of\nthe set (the woman now on the left of the man)\nand return in the same manner to original\nplaces in line.\nAt the same time (Meas. 9-16) the dancers of the\nRight Line swing as described for the Left Line\nduring measures 1-8. (See Diagram 2.)\n\"Down the Centre and Back\"\n(Meas. 1-4.) The first man and first woman\nmeet in the centre, join crossed hands and go\neight steps down the centre toward the foot\nof the set (with the woman on the right of\nher partner). Sec Diagram 3.)\nDiagram 3\n(Meas. 5-8.) Without releasing hands, they\nface about (the woman is now on the left\nof her partner) and returning up the centre,\nrelease hands, \"cast off,\" and fall into place\nnext below the second couple in thier respec-\ntive lines. (See Diagram 4.)\nDiagram 4\n\"Right and Left\"\n(Meas. 9-16.) The first man and second woman\nexecute right and left with the first woman\nand second man, and finish with the first\ncouple in their new position below the second\ncouple.\nThe whole dance Is now repeated as before, but\nwith the odd (or \"active\") couples dancing with\nthe next couple below (first with fourth, third with\nsixth, etc.)- (See Diagram 4.) They continue in\nthis manner, progressing down the set one place\nlower each time, and dancing with the even or\n\"neutral\" couples in turn.\nWhen a \"neutral\" couple reach the head of the\nset, the man and woman exchange places, stand idle\nduring one repetition of the dance, then become\n\"active\" and dance as described for the first couple.\nWhen an \"active\" couple reach the foot of the\nset, they exchange places and become \"neutral.\"\nWhen the dance has been continued as long as\ndesired (or until all couples have reached their\noriginal positions), it is brought to a finish with\n\"Forward and Swing Partners,\" and \"Promenade\naround the Hall.\""
   },
@@ -2738,9 +2738,54 @@
    "tempo": 112,
    "measures": 16,
    "figures": 32,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "( \"Magnolia Reel\" )\ntl \"r-^S-^^jcr^\nip^zzn\n12 cresc.\nAlleg;ro moderato ( J = 112)\n( \"Staten Island\" )\n(Or \" The Merry Haymakers\"\nFormation: Around the room in sets of two couples,\nas in \" the Circle.\"\nSteps: The usual country-dance step, also chasse\nand buzz steps.\nThe Dance.\n\"All Balance and Swing Partners\"\n(Meas. 1-4.) Partners, in ordinary position,\nswing with 16 walking (or buzz) steps.\n•'Four Hands Around\"\n(Meas. 5-8.) Join hands in a circle, with the\nopposite couple, and dance around to the\nleft, with 16 walking steps, and finish in\noriginal position.\n\"Half Promenade\"\n(Meas. 9-12.) With hands crossed and joined\nin front, each couple cross over to opposite\ncouple's place, with four chasse steps, keeping\nto the right as they pass each other.\n\"Half Right and Left\"\n(Meas. 13-16.) Each couple execute \"Half\nRight and Left\" with the opposite couple,\nfinishing in original position.\n\"Ladies' Chain \"\n(Meas. 1-8.) Each couple execute \"Ladies'\nChain\" with the opposite couple.\n\"Forward and Back\"\n(Meas. 9-12.) Each couple forward and back\nwith opposite couple, with inside hands joined.\n\"Forward and Pass Through\"\n(Meas. 13-16.) Each couple advance and \"pass\nthrough\" (the odd couple raising their joined\nhands to make an arch, the even couple\nlowering their heads, and passing through the\narch).\nIn this way each couple progresses to a new\ncouple, with whom the dance is repeated, as in the\nCircle. When all have made the round of the circle,\nthey finish with \"Swing Partners\" and \"Promenade\naround the Hall.\"\nAllegro moderato ( ^ =^ 112)\nFormation: Around the room, in sets of two\ncouples, as in \"The Circle.\"\nSteps: l\"he usual country-dance step, and buzz\nstep.\nThe Dance.\n\"Forward and Back\"\n(\\leas. 1-4.) Each couple (with inside hands\njoined) forward and back with opposite couple.\n\"Swing the Opposite\"\n(Mcas. 5-8. J Each man takes the opposite\nwoman in ordinary position and swings her\nwith ci).'ht walking (or buzz) steps.\n\"Swing Partner\"\n(Mcas. 9-16.) Each man takes his own partner\nin ordinary position, and swings her with 16\nwalking (or buzz) steps.'\n\"Ladies' Chain\"\n(Meas. 1-8.) Each couple execute \"Ladies'\nChain\" with opposite couple.\n\"Forward and Back\"\n(Meas. 9-12.) Each couple \"forward and back\"\nwith opposite couple.\n\"Forward and Pass Through\"\n(Meas. 13-16.) Each couple advance and \"pass\nthrough\" the opposite couple, in tliis way pro-\ngressing to a new couple, with whom the dance\nis repeated.\nWlien all have made the round of the circle, they\nfinish with \"Swing Partners\" and \"Promenade\naround the Hall.\"\nAllegro moderato { 0^= 112)\n( \"Texarkana\" )\n'iti=B:\nfzz?=t=r='=«=^\nAllegro moderato {^' = 112)\n( \"Young America Hornpipe\" )\nFormation: Set of four couples in two lines, facing\neach other, ivvo couples on either side. (Diagram\nThe Dance.\nDiagram J\nA large circle of these sets is formed around the\nroom.\nSteps: \"file usual country-dance step, and some-\ntimes chasse step in \"Eight hands around.\"\n\"Eight Hands Around\"\n(Meas. 1-8.) All four couples join hands in a\ncircle and dance around to the left, finishing\nin original positions.\n\"Down the Centre and Back\"\n(Meas. 9-12.) The first couple join crossed\nhands and go eight steps down between the\nlines. (At the same time the fourth man and\nwoman come eight steps up the set ou*:side\ntheir respective lines.)\n(Meas. 13-16.) The first couple, without re-\nleasing hands, face up the set and return\neight steps to their original places. (At the\nsame time the fourth man and woman return\neight steps down the outside of their lines to\ntheir original places.)\n(Meas. 1-8.) Repeat the same figure, but this\ntime with the fourth couple coming up the\ncentre and back witli hands joined, while\nthe first man and woman at the same time\ngo down the outside of their respective lines\nand back.\n\"Right and Left\"\n(Meas. 9-16.) Each couple execute \"Right and\nLeft\" with opposite couple.\n\"Ladies' Chain\"\n(Meas. 1-8.) Each couple execute \"Ladies'\nChain\" with opposite couple.\n\"Forward and Back\"\n(Meas. 9-12.) All \"forward and back\" with\nopposites.\n\"Pass On\"\n(Meas. 13-16.) With hands still joined, part-\nners forward and go past the opposite couple,\nkeeping to the left as they pass.\nThis brings every line facing a new line of two\ncouples, with whom they repeat the whole dance.\nThe dance is continued as long as desired, usually\nuntil all have made the round of the room, when\nthey finish with \"Swing Partners,\" and \"Prome-\nnade around the Hall.\"\nAllegro moderato {4= 112)\n(\"Old Dan Tucker \"\\\npji3^\nAllegro moderato ( ^ = 112)\n(\"Miss McCloud's Reel\")\nitit\n:^-vgzpi=:P=r-gq\npis^\nAllegro 7noderato ( ^ = 112)\n(\"Sir Roger de Coverly\";\ngii^i^ii\niqn^:\nigij^ ' *^^\n:til:\nP=P=p=^pzjE:\n(Or, \"Sir Roger de Coverly\")\nFormation: Longways for six couples on/y*, .women\nin one line, and men in the other.\nSteps: The usual country-dance step, marching\nand galop steps.\nThe Dance.\n\"Forward and Back\"\n(Meas. 1-4.) The head (first) woman and foot\n(sixth) man advance four steps toward each\nother, honor each other (courtesy and bow)\non the fourth count, and retire four steps back-\nward to their places. (Diagram 1.)\nDiagram 1\n(Meas. 5-8.) The head man and foot woman do\nthe same.\n\"Swing with Right Hand\"\n(Meas. 9-12.) The head woman and foot man\nadvance, join right hands, swing once around\nand return to places.\n(Meas. 13-16.) The head man and foot woman\ndo the same.\n\"Swing with Left Hand\"\n(Meas. 1-4.) The head woman and foot man\nswing once around with left hands joined, and\nreturn to places.\n(Meas. 5-8.) The head man and foot woman do\nthe same.\n\"Swing with Both Hands\"\n(Meas. 9-12.) Ihc head woman and foot man\nswing once around with both hands joined, and\nreturn to places.\n(Meas. 13-16.) The head man and foot woman\ndo the same.\n* It has become a common practice to form in one long set for\nthe Virginia Reel, and when there arc many dancers, this causes a\nlarge proportion of them to stand idle much of the time. It is doubt-\nless on this account that the dance has lost a great deal of its former\npopularity. When danced in the original formation of six couples,\nfor which it was intended, it will be found much more lively and\nenjoyable. — Editor.\n\"Dos a dos\" (or \"AUemande\"). This figure is\noften omitted.\n(Meas. 1-4.) The head woman and foot man\nadvance, pass each other right shoulder to\nright shoulder, go around each other back to\nback, and retire backward to their places.\n(Meas. 5-8.) The head man and foot woman do\nthe same.\n\"Right Hand to Partner and Reel\"\n(Aleas. 1-16, repeated as necessary.)\n(i) The first couple (head woman and head\nman) join right hands and swing once and a\nhalf around.\n(2) The head woman swings the second man\nonce around, with the left hand (while the\nhead man does the same with the second\nwoman).\n(3) The head woman and head man swing\neach other once around with right hands.\n(4) The head woman now swings the third\nman once around with the left hand (while\nthe head man does the same with the third\nwoman).\n(5) The head woman and man swing each\nother once around with right hands, as\nbefore.\nThe head couple continue the \"Reel\" in this\nmanner, swinging each couple in turn, until they\nreach the foot of the set, where they swing each\nother half around with right hands, so that the\nwoman finishes on the women's side and the man\non the men's side.\n\"Up the Centre\"\nThe head couple face each other, j(Mn both hands,\nand with 8 galop steps dance up to the head of\nthe set, where they release hands.\n\"March\"\n(Meas. 1-16, repeated as necessary.) The head\ncouple separate and \"cast off,\" the woman\nmarching down the outside of the women's\nline, followed by all the other women in single\nfile, and the head man, at the same time,\nmarching down the outside of the men's line,\nfollowed by all the other men. (Diagram 2.)\neram Z\nWhen the head woman and man meet at the\nfoot, they join hands and march up to the head\nof the set, followed by all the other couples.\n\"Down the Centre\"\nWhen all reach their original places, partners\n(with the exception of the head couple) join both\nhands and raise them high, forming a column of\narches, under which the head couple (with both\nhands joined) dance down to the foot of the set\nwith 8 galop steps.\nThe \"Head Couple\" remain at the foot of the\nset, and ncjw become the \"Foot Couple,\" while\nthe original second couple now become the \"Head\nCouple.\" (Diagram 3.)\nram 3\nThe whole dance is repeated as described, until\nall reach their original positions in the set, when\nthey finish with \"Forward and Swing Partners,\"\nand \"Promenade around the Hall.\""
+  },
+  {
+   "id": "mallebrok",
+   "title": "Mallebrok",
+   "level": 4,
+   "score": 2.83,
+   "rungs": {
+    "steps": 6,
+    "figures": 3,
+    "formation": 2,
+    "length": 2,
+    "interaction": 3,
+    "tempo": 1
+   },
+   "reasons": {
+    "steps": "mazurka, pas de basque, leaps",
+    "figures": "up to six",
+    "formation": "couples",
+    "length": "up to 16",
+    "interaction": "with a partner",
+    "tempo": "up to 104"
+   },
+   "skills": [
+    "formation:couples",
+    "step:chasse",
+    "step:clap",
+    "step:hop",
+    "step:jig step",
+    "step:polka",
+    "step:slide",
+    "step:step"
+   ],
+   "introduces": [
+    "step:jig step"
+   ],
+   "country": "Jutland, Denmark",
+   "book": "Folk-Dances from Old Homelands",
+   "year": "1922",
+   "bookClass": 3,
+   "tempo": null,
+   "measures": 16,
+   "figures": 6,
+   "source": "https://archive.org/details/folkdancesfromol00burc",
+   "licence": "public domain",
+   "text": "(Marlborough)\nA Moderat\nely fast J z m\n. . hir^i\nf mtt*\n(From Jutland, Denmark)\nMallebrok means \"Marlborough.\" The music\nis the old tune known as \"The Duke of Marl-\nborough,\" which is claimed by several nationalities\nas originating with them. It consists of two parts\nof eight measures each, A and B, each of which is\nrepeated.\nThe dancers form in couples, and partners take\nordinary dancing position.\n\"Polka\"\nA. (Meas. i-8, and Meas. i-8 repeated.)\nCouples polka around the room as in ordinary\nsocial dancing.\n[Polka Step: (Meas. 1.) The woman makes three\nspringy little steps (beginning with the right\nfoot) {one, and, two), then hops on the right foot\n{and).\n(Meas. 2.) She repeats the same beginning with\nthe left foot and continues in this manner.\nThe man does the same step, but begins with the\nleft foot.]\n\"Chasse and Clap\"\nB. (Meas. 9.) Partners release hands and,\nfacing each other with hands on hips, each\nmakes one chasse step to the right.\n[Chasse Step: Slide to the right with the right foot\n{one), draw the left foot to the right foot {and),\nslide again to the right with the right foot {two),\npause {and).]\n(Meas. 10.) On the first note of the measure,\nextend the left foot forward, touching it to\nthe floor, and at the same time clap the hands\n{one), pause in this position {and, tzvo, and).\n(Meas. I1-12.) Repeat the same, but making\nthe chasse to the left and extending the right\nfoot forward.\nJig. (Meas. 13-16.) Still facing each other, with\nhands on hips, partners dance eight jig steps\nin place.\n[Jig Step: Put down the right foot close behind\nthe left heel {one), hop on the right foot and at\nthe same time bring the left foot around close\nbehind the right foot {and), put the left foot\ndown close behind (or rather, under) the right\nheel {tzi'o) hop on the left foot {and); continue\nin this manner.]\nB. (Meas. 9-16 repeated.) Repeat the chasse\nand clap as before.\nThe whole dance is repeated as many times as\ndesired."
   },
   {
    "id": "circle",
@@ -2788,7 +2833,7 @@
    "tempo": 112,
    "measures": 16,
    "figures": 11,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "Allegro moderato ( J = 112^\nAllegro moderato { ^. = 112)\n( Mrs. Monroe's Jig )\n:t=iit:\n-tzt:\nAllegro mod era to ( ^'. = 112 )\nfcf^\nThis dance is in some localities known as \"Cir-\ncassian Circle,\" and in others as \"Sicilian Circle.\"\nThere are also slight variations in the order of the\nfigures. The Circle is usually danced immediately\nafter the \"Grand March,\" or \"March,\" with which\nit is customary to open a dance.\nFormation: At the close of the grand march, the\ndancers are in a column of couples all around the\nroom. At the call \"Form for Circle\" the odd\ncouples (first, third, fifth, etc.) turn around so\nas to face the couple behind, with whom they\nbegin the dance. (Diagram i.)\nSteps: The usual country-dance step and buzz\nstep.\nDiagram 1\nThe Dance.\n\"Forward and Pass On\"\n\"Four Hands Around\"\n(Meas. 1-4.) Each couple join hands ui a circle\nwith the opposite couple, and dance around\nto the left with 16 walking steps, finishing\nin original places.\n\"Swing Partner\"\n(Meas. 5-8.) Partners take ordinary dancing\nposition, and swing with 8 walking or buzz\nsteps.\n\"Right and Left\"\n(Meas. 9-16.) Each couple execute \"right and\nleft\" with opposite couple.\n\"Ladies' Chain\"\n(Meas. 1-8.) Each couple execute \"ladies' chain\"\nwith opposite couple.\n\"Forward and Back\"\n(Meas. 9-12.) Each couple join crossed hands\nand \"forward and back\" with opposite couple.\n(Meas. 13-16.) Each couple advance and, with-\nout releasing hands, go past the opposite\ncouple (keeping to the left) and \"pass on\" so\nas to meet the next couple.\nThe dance is repeated in the same manner each\ntime, with the odd couples progressing around the\nroom in the direction of the hands of the clock, and\nthe even couples progressing in the opposite\ndirection. When the dance has been continued as\nlong as desired — usually until all have made the\nround of the circle — they finish with \"Swing\nPartners,\" and \"Promenade around the Hall.\"\nAnother common version of the dance is as\nfollows:\n(Meas. 1-8.) Right and Left.\n(Meas. 9-16.) Swing Partner.\n(Meas. 1-8.) Ladies' Chain.\n(Meas. 9-12.) Forward and Back.\n(Meas. 13-16.) Forward and Pass Through.\nAlkgro moderato ( ^ = 112 )"
   },
@@ -2848,7 +2893,7 @@
   {
    "id": "sa-pater",
    "title": "Sa Pater",
-   "level": 5,
+   "level": 4,
    "score": 2.83,
    "rungs": {
     "steps": 4,
@@ -2894,9 +2939,59 @@
    "text": "Allegro moderato J = 112\nSaPa-ter Kiest daareennon-neken\nuit, Sa Pa-ter Kiest daareennon-neken\n^ ^ J. = J preceding\nuit, Die\nguf gul ne -\nmen\nwar\nu bruw,\nKiest\nba-zin-ne-ken,\nhitz\nba-zin-neken,\nba-zin- neken,\nThis is an old and universally popular singing\ngame (or \"Ronde a baiser\") of the Belgians. It\nis danced by young and old with grandparents,\nyoung people and children in the ring.\nThe music is a very jolly little song, the words of\nwhich are so impossible to translate without de-\ntracting from the spirit of the game, that no trans-\nlation has been given. 'It is suggested that it be\nsung in the original language, and for that purpose\nthe verse is given here with phonetic spelling:\n\"Sa Pater keest daar een nonneken oit,\nSa Pater keest daar een nonneken oit,\nDie guf gule namen var oo brew,\nKeest baziniken, ah sa-sa!\nAh bazinneken, ah!\nAh bazinneken, ah!\"\nAny number of dancers join hands in\nan extra man in the centre.\n(From Belgium)\n(Meas. 1-13.) All move around the circle to the\nleft with walking steps and swing the joined\nhands in time to the music, while the man in\nthe centre looks around to decide whom he is\ngoing to choose.\n(Meas. 1-13, repeated.) The man in the centre\nchooses a partner from the ring and leads her\nby both hands into the centre, where they\nkneel down on both knees, still holding both\nhands, and kiss each other first on the right\ncheek, then on the left. Then they jump\nup quickly and swing each other around in\nplace with brisk skipping step^\nIn the meantime, the other dancers who form\nthe ring continue to move around to the left,\nswinging their hands.\nAt the end of the verse, the man joins the others\nin the ring, leaving the extra girl in the centre.\nThe dance is now repeated as before, with the\ngirl this time choosing a new partner from the ring.\nIt is continued in this manner for as long as desired,\nand many amusing and incongruous selections of\npartners are made, causing cheers and laughter.\nring, with"
   },
   {
+   "id": "cracoviac",
+   "title": "Cracoviac",
+   "level": 5,
+   "score": 3.5,
+   "rungs": {
+    "steps": 6,
+    "figures": 4,
+    "formation": 3,
+    "length": 2,
+    "interaction": 5,
+    "tempo": 1
+   },
+   "reasons": {
+    "steps": "mazurka, pas de basque, leaps",
+    "figures": "up to nine",
+    "formation": "couples changing partners",
+    "length": "up to 16",
+    "interaction": "changing partners",
+    "tempo": "up to 104"
+   },
+   "skills": [
+    "formation:changing",
+    "other-couple",
+    "progression",
+    "step:balance",
+    "step:hop",
+    "step:leap",
+    "step:polka",
+    "step:stamp",
+    "step:step",
+    "step:swing",
+    "step:walk",
+    "step:waltz",
+    "sung"
+   ],
+   "introduces": [
+    "step:leap"
+   ],
+   "country": "Poland",
+   "book": "Folk-Dances from Old Homelands",
+   "year": "1922",
+   "bookClass": 2,
+   "tempo": null,
+   "measures": 16,
+   "figures": 9,
+   "source": "https://archive.org/details/folkdancesfromol00burc",
+   "licence": "public domain",
+   "text": "AAllegi\nigrr ^ p 1\n(From Poland)\nThe Cracoviac takes its name from Cracow, a\ncity in Poland, and means, literally, the \"Cracow\nDance.\"\nThe music is one of the most popular and widely\nknown of the Polish folk-melodies which are closely\nassociated with this dance. In fitting the steps to\nit each measure should be counted thus, one and,\ntwo and.\nThis is a dance for two. Couples form a large\ncircle around the room facing in the direction op-\nposite to the hands of the clock, with inside hands\njoined.\nPartners face each other, the man holding the\nwoman's left hand in his right. He places his left\nhand on his hip, while she lets her right arm hang\nor lifts her skirt slightly with her right hand.\nA. (Meas. i.) Partners facing each other and\nmoving in the same direction make one waltz\nbalance step to the side, the woman to her\nright and the man to his left, and at the same\ntime they swing their joined hands in the\ndirection of the step. The waltz balance\nstep is as follows:\n(Meas. I.) Make a little leap to the right onto\nthe right foot {one), touch the left toe slightly\nforward and rise on both toes (and), let the\nright heel sink with the weight on the right\nfoot (two), pause (and).\n(Meas. 2.) Repeat the same to the left and\ncontinue in this manner.\n(The man's step is the same except that he starts\nto the left, with a leap onto the left foot. In\nthis way they remain face to face and move in\nthe same direction.)\n(Meas. 2.) Partners make one waltz balance\nstep in the same manner to the other side —\nthe woman's left and the man's right — and\nswing their joined hands in that direction.\n(Meas. 3-4.) Repeat the same as in Meas. 1-2.\n(Meas. 5.) With hands still joined, partners\nturn outward so as to be side by side as in the\noriginal formation and take two walking steps\nforward, the woman beginning with the right\nfoot and the man with the left foot. As they\ndo this they swing their joined hands forward\nbut keep their faces and shoulders turned\ntoward each other.\n(Meas. 6.) Both make one waltz balance step\nin place; or both make three stamps in place,\nthe woman stamping the right, left, right;\nand the man stamping the left, right, left.\n(Meas. 7.) Without releasing hands, both face\nabout and beginning with the outside feet\nretrace their walk two steps forward in the\nother direction. As they do this they swing\ntheir joined hands forward, but keep their\nfaces and shoulders turned toward each other\nas before.\n(Meas. 8.) Both make one waltz balance step,\nor three little stamps, in place as before, except\nthat each begins with the other foot.\nB. (Meas. 9-16.) Partners take ordinary dan-\ncing position and dance either an ordinary\npolka or the waltz galop. As they do this\nthey revolve to the right and at the same time\nmove around the room in the direction op-\nposite to the hands of the clock.\n(The waltz galop is exactly the same as the waltz\nbalance, except that the couples dance in\nordinary dance position and revolve as they\ndance, as in the ordinary social waltz, at the\nsame time progressing around the room.)\nThe whole dance is now repeated and continued\nas long as desired.\nIt is quite customary for the man, and sometimes\neven for the woman, to put more vigor into the\ndance: —\na. This is done in the waltz balance by leaping\nwell off of the ground on the first count, at\nthe same time raising the knee of the free leg\nhigh in front and then making a very pro-\nnounced rise and fall on the last two counts.\nb. The second movement may be made more\nvigorous as follows: Partners remain facing\neach other. The man hops twice on his right\nfoot, moving toward the left as he does so, and\nat each hop he strikes the heel of his free foot\n(the left) sharply against the heel of his right\nfoot so as to make a decided crack of the heels.\nAs he does this he then, during the next\nmeasure, instead of a waltz balance step, makes\nthree vigorous stamps.\n(This is sometimes also done by the woman.)\nc. The waltz galop is made more spirited by\ndancing it high on the toes with a great\ndeal of spring, at the same time swinging\naround vigorously."
+  },
+  {
    "id": "john-brown",
    "title": "John Brown",
-   "level": 5,
+   "level": 6,
    "score": 4,
    "rungs": {
     "steps": 5,
@@ -2939,7 +3034,7 @@
    "tempo": 112,
    "measures": 24,
    "figures": 8,
-   "source": "https://archive.org/details/americancountry01burc",
+   "source": "https://archive.org/details/americancountryd00burc",
    "licence": "public domain",
    "text": "\\\\ Allegro moderato ( J= 112)\n:^.iit=p\nJ^^^mfi\npis=f=?^\nit^zizt: ^\nFormation: Four couples, as for quadrille, with\none odd man (John Brown) in the centre. (Dia-\ngram I.)\nDiagram J\nSteps: The usual country-dance step, and galop\nsteps.\nThe Dance.\n\"Ladies forward and Salute John Brown\"\n(Meas. 1-4.) The four women advance four\nsteps, make a slight courtesy to \"John Brown,\"\nand retire to places.\n\"Right hand to partner, and Grand Right and Left\"\n(Mcas. g-i6.j All give right hands to partners\nand dance \"Grand Right and Left,\" (or \"Grand\nChain,\") in whicli \"John Brown\" joins. They\ncontinue the chain until the leader calls'\n\"Promenade All.\"\n\"Promenade All\"\n(Meas. 17-24.) Each man quickly secures the\nwoman nearest him as a partner, if he can,\nand taking ordinary dance position, the four\ncouples slide around the circle with galop\nsteps (in the direction indicated in Diagram 2),\nand finish in quadrille formation, with the four\nwomen (with their new partners) in their\noriginal positions, and with the new \"John\nBrown\" in the centre.\n'Gentlemen forward and Salute John Brown\"\n(Meas. 5-8.) The four men advance, \"salute\"\nJohn Brown (this is usually done by slapping\nhim on the back or rumpling his hair), and\nretire to places.\nDiagram 2\nThe dance is repeated in this manner as often as\ndesired, and brought to a finis) \"with \"Swing\nPartners\" and \"Promenade around the Hall.\"\nAllegro mcderato (^' = 112)\nFormation: Any number of couples join hands\nin a circle, with one odd man (Dan Tucker) in\nthe centre. (Diagram i.)\nDiagram 1\nSteps: The usual country-dance step, and galop\nsteps.\nThe Dance.\n\"Balance AH\"\n(Meas. 1-2.) The dancers constituting the\ncircle all \"balance\" to Dan Tucker.\nNote: The \"balance\" is done in either of the\ntwo following ways:\n(i) Take a step forward with the right\nfoot, and swing the left foot slightly for-\nward; then step backward \\\\ilh the left\nfoot, and swing the right foot slightly\nforward;\n(2) Beginning witli tlic right foot, take two\nwalking steps forward and two back.\n\"Turn Left and Right\" (or \"Allemandc Left\")\n(Aleas. 3^8.) Eacli man with his right hand\ntakes the right hand of the woman on his left\nand turns her once around; then with left\nhand turns his partner once around.\n\"Right Hand to Partner, and Grand Right and\nLeft\"\n(Meas. 9-16.) All give right hands to partners\nand dance \"Grand Right and Left,\" or \"Grand\nChain,\" in which \"Dan Tucker\" joins. They\ncontinue the chain until the leader calls \"Prom-\nenade alll\"\n\"Promenade All\"\n(Meas. 1-8.) Each man secures the woman\nnearest him as a partner (as the man who is\nleft without a partner will be the next \"Dan\nTucker\"), and joining crossed hands, all\ncouples \"promenade\" with the usual country-\ndance step (or as described in \"John Brown\")\naround the circle in the direction opposite to\nthe hands of the clock, while the new Dan\nTucker takes his place in the centre.\n\"Forward and Back\"\n(Meas. 9-12.) All couples join hands in a circle,\nand \"forward and back\" (four steps toward\nthe centre and four back).\n\"All Hands Around\"\n(Meas. 13-16.) With hands still joined, they\ngo around the circle in the direction of the\nhands on the clock, with the usual country-\ndance step (or galop step).\nSometimes, when a large number are dancing, or\nwhen there are more men than women present, the\ndance may be done with several Dan Tuckers in the\ncentre.\nWhen the dance has been continued as long as\ndesired, it is brought to a finish with \"Balance and\nSwing Partners,\" and \"Promenade around the\nHall.\""
   },
@@ -2992,101 +3087,6 @@
    "source": "https://archive.org/details/folkdancesfromol00burc",
    "licence": "public domain",
    "text": "Allegro moderato J:u«\nlia \\\\\n(From the Middle Western States)\nThe usual country-dance step, and galop steps.\nAny number of couples join hands in a circle,\nwith one odd man (Dan Tucker) in the centre,\nas indicated in Diagram i.\n(O = woman, D = man.)\nDiagram i\n••Balance AU\"\nA. (Meas. 1-2.) The dancers constituting the\ncircle all \"balance\" to Dan Tucker.\nNote: The \"balance\" is done in either of the\ntwo following ways:\n(1) Take a step forward with the right\nfoot, and swing the left foot slightly for-\nward; then step backward with the left\nfoot, and swing the right foot slightly\nforward;\n(2) Beginning with the right foot, take two\nwalking steps forward and two back.\n\"Allemande Left\"\n(Meas. 3-8.) Each man with his left hand\ntakes the left hand of the woman on his left\nand turns her once around.\n'Right Hand to Partner, and Grand Right and\nLeft\"\nB. (Meas. 9-16.) All give right hands to partners\nand dance \"Grand Right and Left,\" or \"Grand\nChain,\" in which \"Dan Tucker\" joins. They\ncontinue the chain until the leader calls \"Prom-\nenade all!\" (See description of \"Grand Right\naT\\d Left\" in LIncle Steve's Quadrille.)\n•Promenade All\"\nA. (Meas. 1-8.) Each man quickly secures the\nwoman nearest him as a partner (as the man\nwho is left without a partner will be the next\n\"Dan Tucker\"), and joining crossed hands, all\ncouples \"promenade\" with the usual country-\ndance step (or as described in Uncle Steve's\nQuadrille) around the circle in the direction\nopposite to the hands of the clock, while the\nnew Dan Tucker takes his place in the centre.\n\"Forward and Back\"\nB. (Meas. 9-12.) All couples join hands in a\ncircle, and \"forward and back\" (four steps\ntoward the centre and four back).\n\"AU Hands Around\"\n(Meas 13-16.) With hands still joined, they\ngo around the circle in the direction of the\nhands of the clock, with the usual country-\ndance step (or galop step).\nSometimes, when a large number are dancing, or\nwhen there are more men than women present, the\ndance may be done with several Dan Tuckers in the\ncentre.\nWhen the dance has been continued as long as\ndesired, it is brought to a finish with \"Balance and\nSwing Partners,\" and \"Promenade around the\nHall.\"\nIn the old days, it was customary to sing during\nthe dance. The words given here, which are\nassociated with the tUne, undoubtedly originated\nin this way.\n\"Old Dan Tucker he got drunk,\nHe fell in the fire and kicked out a chunk,\nA red hot coal got in his shoe,\nAnd oh! dear Massey, how the ashes flew!\"\n\"Old Dan Tucker was a fine old man.\nHe stuck his foot in the frying-pan.\nHe combed his hair with a wagon wheel.\nAnd died of the toothache in his heel!\"\nChorus:\n\"Then clear the way for old Dan Tucker,\nOut of the way for old Dan Tucker,\nClear the way for old Dan Tucker,\nCame too late for to get your supper.\""
-  },
-  {
-   "id": "mallebrok",
-   "title": "Mallebrok",
-   "level": 6,
-   "score": 2.83,
-   "rungs": {
-    "steps": 6,
-    "figures": 3,
-    "formation": 2,
-    "length": 2,
-    "interaction": 3,
-    "tempo": 1
-   },
-   "reasons": {
-    "steps": "mazurka, pas de basque, leaps",
-    "figures": "up to six",
-    "formation": "couples",
-    "length": "up to 16",
-    "interaction": "with a partner",
-    "tempo": "up to 104"
-   },
-   "skills": [
-    "formation:couples",
-    "step:chasse",
-    "step:clap",
-    "step:hop",
-    "step:jig step",
-    "step:polka",
-    "step:slide",
-    "step:step"
-   ],
-   "introduces": [
-    "step:jig step"
-   ],
-   "country": "Jutland, Denmark",
-   "book": "Folk-Dances from Old Homelands",
-   "year": "1922",
-   "bookClass": 3,
-   "tempo": null,
-   "measures": 16,
-   "figures": 6,
-   "source": "https://archive.org/details/folkdancesfromol00burc",
-   "licence": "public domain",
-   "text": "(Marlborough)\nA Moderat\nely fast J z m\n. . hir^i\nf mtt*\n(From Jutland, Denmark)\nMallebrok means \"Marlborough.\" The music\nis the old tune known as \"The Duke of Marl-\nborough,\" which is claimed by several nationalities\nas originating with them. It consists of two parts\nof eight measures each, A and B, each of which is\nrepeated.\nThe dancers form in couples, and partners take\nordinary dancing position.\n\"Polka\"\nA. (Meas. i-8, and Meas. i-8 repeated.)\nCouples polka around the room as in ordinary\nsocial dancing.\n[Polka Step: (Meas. 1.) The woman makes three\nspringy little steps (beginning with the right\nfoot) {one, and, two), then hops on the right foot\n{and).\n(Meas. 2.) She repeats the same beginning with\nthe left foot and continues in this manner.\nThe man does the same step, but begins with the\nleft foot.]\n\"Chasse and Clap\"\nB. (Meas. 9.) Partners release hands and,\nfacing each other with hands on hips, each\nmakes one chasse step to the right.\n[Chasse Step: Slide to the right with the right foot\n{one), draw the left foot to the right foot {and),\nslide again to the right with the right foot {two),\npause {and).]\n(Meas. 10.) On the first note of the measure,\nextend the left foot forward, touching it to\nthe floor, and at the same time clap the hands\n{one), pause in this position {and, tzvo, and).\n(Meas. I1-12.) Repeat the same, but making\nthe chasse to the left and extending the right\nfoot forward.\nJig. (Meas. 13-16.) Still facing each other, with\nhands on hips, partners dance eight jig steps\nin place.\n[Jig Step: Put down the right foot close behind\nthe left heel {one), hop on the right foot and at\nthe same time bring the left foot around close\nbehind the right foot {and), put the left foot\ndown close behind (or rather, under) the right\nheel {tzi'o) hop on the left foot {and); continue\nin this manner.]\nB. (Meas. 9-16 repeated.) Repeat the chasse\nand clap as before.\nThe whole dance is repeated as many times as\ndesired."
-  },
-  {
-   "id": "cracoviac",
-   "title": "Cracoviac",
-   "level": 6,
-   "score": 3.5,
-   "rungs": {
-    "steps": 6,
-    "figures": 4,
-    "formation": 3,
-    "length": 2,
-    "interaction": 5,
-    "tempo": 1
-   },
-   "reasons": {
-    "steps": "mazurka, pas de basque, leaps",
-    "figures": "up to nine",
-    "formation": "couples changing partners",
-    "length": "up to 16",
-    "interaction": "changing partners",
-    "tempo": "up to 104"
-   },
-   "skills": [
-    "formation:changing",
-    "other-couple",
-    "progression",
-    "step:balance",
-    "step:hop",
-    "step:leap",
-    "step:polka",
-    "step:stamp",
-    "step:step",
-    "step:swing",
-    "step:walk",
-    "step:waltz",
-    "sung"
-   ],
-   "introduces": [
-    "step:leap"
-   ],
-   "country": "Poland",
-   "book": "Folk-Dances from Old Homelands",
-   "year": "1922",
-   "bookClass": 2,
-   "tempo": null,
-   "measures": 16,
-   "figures": 9,
-   "source": "https://archive.org/details/folkdancesfromol00burc",
-   "licence": "public domain",
-   "text": "AAllegi\nigrr ^ p 1\n(From Poland)\nThe Cracoviac takes its name from Cracow, a\ncity in Poland, and means, literally, the \"Cracow\nDance.\"\nThe music is one of the most popular and widely\nknown of the Polish folk-melodies which are closely\nassociated with this dance. In fitting the steps to\nit each measure should be counted thus, one and,\ntwo and.\nThis is a dance for two. Couples form a large\ncircle around the room facing in the direction op-\nposite to the hands of the clock, with inside hands\njoined.\nPartners face each other, the man holding the\nwoman's left hand in his right. He places his left\nhand on his hip, while she lets her right arm hang\nor lifts her skirt slightly with her right hand.\nA. (Meas. i.) Partners facing each other and\nmoving in the same direction make one waltz\nbalance step to the side, the woman to her\nright and the man to his left, and at the same\ntime they swing their joined hands in the\ndirection of the step. The waltz balance\nstep is as follows:\n(Meas. I.) Make a little leap to the right onto\nthe right foot {one), touch the left toe slightly\nforward and rise on both toes (and), let the\nright heel sink with the weight on the right\nfoot (two), pause (and).\n(Meas. 2.) Repeat the same to the left and\ncontinue in this manner.\n(The man's step is the same except that he starts\nto the left, with a leap onto the left foot. In\nthis way they remain face to face and move in\nthe same direction.)\n(Meas. 2.) Partners make one waltz balance\nstep in the same manner to the other side —\nthe woman's left and the man's right — and\nswing their joined hands in that direction.\n(Meas. 3-4.) Repeat the same as in Meas. 1-2.\n(Meas. 5.) With hands still joined, partners\nturn outward so as to be side by side as in the\noriginal formation and take two walking steps\nforward, the woman beginning with the right\nfoot and the man with the left foot. As they\ndo this they swing their joined hands forward\nbut keep their faces and shoulders turned\ntoward each other.\n(Meas. 6.) Both make one waltz balance step\nin place; or both make three stamps in place,\nthe woman stamping the right, left, right;\nand the man stamping the left, right, left.\n(Meas. 7.) Without releasing hands, both face\nabout and beginning with the outside feet\nretrace their walk two steps forward in the\nother direction. As they do this they swing\ntheir joined hands forward, but keep their\nfaces and shoulders turned toward each other\nas before.\n(Meas. 8.) Both make one waltz balance step,\nor three little stamps, in place as before, except\nthat each begins with the other foot.\nB. (Meas. 9-16.) Partners take ordinary dan-\ncing position and dance either an ordinary\npolka or the waltz galop. As they do this\nthey revolve to the right and at the same time\nmove around the room in the direction op-\nposite to the hands of the clock.\n(The waltz galop is exactly the same as the waltz\nbalance, except that the couples dance in\nordinary dance position and revolve as they\ndance, as in the ordinary social waltz, at the\nsame time progressing around the room.)\nThe whole dance is now repeated and continued\nas long as desired.\nIt is quite customary for the man, and sometimes\neven for the woman, to put more vigor into the\ndance: —\na. This is done in the waltz balance by leaping\nwell off of the ground on the first count, at\nthe same time raising the knee of the free leg\nhigh in front and then making a very pro-\nnounced rise and fall on the last two counts.\nb. The second movement may be made more\nvigorous as follows: Partners remain facing\neach other. The man hops twice on his right\nfoot, moving toward the left as he does so, and\nat each hop he strikes the heel of his free foot\n(the left) sharply against the heel of his right\nfoot so as to make a decided crack of the heels.\nAs he does this he then, during the next\nmeasure, instead of a waltz balance step, makes\nthree vigorous stamps.\n(This is sometimes also done by the woman.)\nc. The waltz galop is made more spirited by\ndancing it high on the toes with a great\ndeal of spring, at the same time swinging\naround vigorously."
   },
   {
    "id": "hatter",

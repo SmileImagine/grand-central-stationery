@@ -36,10 +36,13 @@
 
   function gradeWith(lattice, f, options = {}) {
     const ignore = new Set(options.ignore || []), rungs = {}, reasons = {};
-    for (const d in lattice) { const i = lattice[d].rungs.findIndex(r => r.test(f)); rungs[d] = i + 1; reasons[d] = lattice[d].rungs[i].name; }
-    const counted = Object.keys(lattice).filter(d => !ignore.has(d));
-    const level = Math.max(1, ...counted.map(d => rungs[d]));
+    for (const d in lattice) { if (!lattice[d].rungs) continue; const i = lattice[d].rungs.findIndex(r => r.test(f)); rungs[d] = i + 1; reasons[d] = lattice[d].rungs[i].name; }
+    const counted = Object.keys(rungs).filter(d => !ignore.has(d));
     const score = counted.reduce((s, d) => s + rungs[d], 0) / counted.length;
+    // The level is the highest rung, unless the lattice grades by the mean: a
+    // dance never sits at the top of every dimension at once, so the mean of six
+    // dimensions seldom passes 4, and it is stretched so that a mean of 4 is level 6.
+    const level = lattice.levelBy === 'mean' ? Math.max(1, Math.min(6, Math.round(1 + (score - 1) * 5 / 3))) : Math.max(1, ...counted.map(d => rungs[d]));
     return { level, rungs, reasons, score: Math.round(score * 100) / 100, ignored: [...ignore] };
   }
   function sequence(items) {
@@ -232,6 +235,7 @@
     return f;
   }
   const PROSE_LATTICE = {
+    levelBy: 'mean',   // see gradeWith: the highest rung bunched the book dances at levels 5 and 6
     steps: { label: 'Steps', rungs: [
       { name: 'walking, skipping, clapping', test: f => f.stepWeight <= 1 && f.vocabulary.length <= 3 },
       { name: 'walking steps with several actions', test: f => f.stepWeight <= 1 },

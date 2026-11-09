@@ -49,7 +49,7 @@ function report(name, items, lattice) {
   const seq = D.sequence(items), byLevel = {}; seq.forEach(it => (byLevel[it.grade.level] = byLevel[it.grade.level] || []).push(it));
   console.log(`\n== ${name}: ${items.length}`);
   for (const L of Object.keys(byLevel).sort()) { console.log(`Level ${L}: ${byLevel[L].length}`); byLevel[L].slice(0, opts.show).forEach(it => console.log(`  ${it.title.padEnd(34)} ${it.meta.bookClass ? 'class ' + it.meta.bookClass : ''} ${Object.values(it.grade.reasons).join(' · ')}`)); }
-  console.log('Rungs by dimension:'); for (const d in lattice) { const n = new Array(6).fill(0); items.forEach(it => n[it.grade.rungs[d] - 1]++); console.log(`  ${lattice[d].label.padEnd(12)} ${n.join(' ')}`); }
+  console.log('Rungs by dimension:'); for (const d in lattice) { if (!lattice[d].rungs) continue; const n = new Array(6).fill(0); items.forEach(it => n[it.grade.rungs[d] - 1]++); console.log(`  ${lattice[d].label.padEnd(12)} ${n.join(' ')}`); }
   return seq;
 }
 const stepSeq = report('Steps', steps, D.STEP_LATTICE) || [];
@@ -60,8 +60,8 @@ if (prose.some(p => p.meta.bookClass)) {
   for (const k of [1, 2, 3]) console.log(`  class ${k}: levels ${c.table[k].sort().join(' ')}`);
 }
 if (opts.json) {
-  const levels = {}; for (const d in D.STEP_LATTICE) D.STEP_LATTICE[d].rungs.forEach((r, i) => (levels[i + 1] = levels[i + 1] || []).push(r.name));
-  const proseLevels = {}; for (const d in D.PROSE_LATTICE) D.PROSE_LATTICE[d].rungs.forEach((r, i) => (proseLevels[i + 1] = proseLevels[i + 1] || []).push(r.name));
+  const levels = {}; for (const d in D.STEP_LATTICE) D.STEP_LATTICE[d].rungs && D.STEP_LATTICE[d].rungs.forEach((r, i) => (levels[i + 1] = levels[i + 1] || []).push(r.name));
+  const proseLevels = {}; for (const d in D.PROSE_LATTICE) D.PROSE_LATTICE[d].rungs && D.PROSE_LATTICE[d].rungs.forEach((r, i) => (proseLevels[i + 1] = proseLevels[i + 1] || []).push(r.name));
   const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const out = { name: 'Dance set', generated: new Date().toISOString().slice(0, 10), levels, proseLevels,
     steps: stepSeq.map(it => ({ id: slug(it.title), title: it.title, level: it.grade.level, score: it.grade.score, rungs: it.grade.rungs, reasons: it.grade.reasons, skills: it.skills, introduces: it.introduces, metre: it.features.metre, bpm: it.features.bpm, source: it.meta.source || it.source, licence: it.meta.licence || '', text: it.text })),
