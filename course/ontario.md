@@ -46,6 +46,12 @@ Two things the curriculum has that an onset grid cannot show: half and whole not
 
 Across the 197 patterns the two gradings agree in direction but not in detail: the lattice level and the Ontario grade move together (level 5 patterns are mostly grades 4 and 5, level 6 patterns grades 5 and 6), but the lattice also weighs tempo, length and how many parts a class must hold at once, which the curriculum does not. The practical reading: use the Ontario grade to say *which class may meet this*, and the lattice level to order the patterns *within* a class.
 
+## How the tune analyzer connects
+
+Tunes get the same duration reading from their ABC: half and whole notes put a tune at grade 2, a dotted half, sixteenths or 3/4 at grade 3, syncopation at 4, dotted pairs (tam-ti, tim-ka) and 6/8 at 5, triplets, 9/8 and 5/4 at 6, and notes shorter than a sixteenth at 7 (named only as "rhythms encountered in the repertoire"). Pitch, interval and key are not graded: the curriculum's pitch progression (high and low, contour, so-mi-la, pitch names, key signatures) is a separate reading that the tune lattice's pitch dimension does not map onto rung for rung, so the tune's grade says what its rhythm asks for and the lattice level the rest.
+
+One placement to know about: the curriculum first names the pick-up note (anacrusis) in grade 6, so every tune with a pick-up sits at grade 6 whatever else it does. In the first set that is ten of the thirty-six tunes, among them Daisy Daisy and Highland Mary. That is where the Ministry put the concept, not a judgement about the tune; a class that has met pick-ups earlier can choose a higher grade on the board.
+
 ## How the dance analyzer connects
 
 The dance curriculum's progression is in the elements of dance (body, space, time, energy, relationship) and in choreographic form, not in footwork. Nearly every step the language can write, including hops, jumps, kicks, skipping's uneven rhythm, and directions forward, back and sideways, is a grade 1 exploration. What raises the grade is the element a sequence brings in:
@@ -71,7 +77,7 @@ For the book dances the prose grader reads formation, interaction and figures, w
 
 ## What to do with it
 
-- The sets carry both gradings. A board or picker can filter by Ontario grade and sort by lattice level within it.
+- The sets carry both gradings, and the board and the pickers filter by the Ontario grade: **For** on the practice board, and the grade select beside the lab's and the main page's Example pickers, keep the items at or under a grade, grouped by lattice level within it. The choice is one setting shared by all three (the browser's `gcs-course-grade`).
 - The Ontario grade is a floor, not a ceiling: a concept first named in grade 3 is taught from grade 3 on.
 - CODE (the Council of Ontario Drama and Dance Educators, code.on.ca) publishes an elementary dance scope and sequence and grade units; its terms allow personal, non-commercial use only and forbid reproduction, so its material is a teacher's reference here, not a source for the project. The same goes for OMEA's members-only resources. The Ministry's curriculum text is what the tables quote.
 - Named dance forms give a second, informal alignment for the typed world steps: swing and salsa to grade 5, jigs to grade 7, the waltz and Celtic steps to grade 8, folk dances generally to grade 2 and 3. These are examples in the curriculum, not requirements, and are left as notes rather than coded.

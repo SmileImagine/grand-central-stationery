@@ -390,6 +390,30 @@
     return { level, rungs, reasons, score: Math.round(score * 100) / 100, ignored: [...ignore] };
   }
 
+  /* ---------- Ontario alignment ----------
+     The grade in which The Ontario Curriculum, Grades 1-8: The Arts (2009) first names a duration concept the
+     tune uses (course/ontario.md). The grade is a floor: a concept named in grade 3 is taught from then on.
+     Pitch, interval and key are not graded here; the curriculum's pitch progression is a separate reading. */
+  const ONTARIO = [
+    [1, 'quarter and eighth notes, quarter rests, 2/4 and 4/4', () => true],
+    [2, 'half and whole notes', f => !f.metreCompound && f.durations.some(d => [2, 4].includes(parseFraction(d)))],
+    [3, '3/4 metre', f => f.metreNum === 3 && f.metreDen === 4],
+    [3, 'dotted half note', f => !f.metreCompound && f.durations.some(d => parseFraction(d) === 3)],
+    [3, 'sixteenth-note patterns', f => !f.metreCompound && f.smallestBeatFraction <= 0.25 + 1e-4 && f.smallestBeatFraction > 0.2],
+    [4, 'syncopation (syn-co-pa)', f => f.syncopations > 0],
+    [5, 'dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)', f => !f.metreCompound && f.durations.some(d => [1.5, 0.75, 2.5, 3.5].includes(parseFraction(d)))],
+    [5, 'syncopated sixteenths (tika-ti, ti-tika)', f => f.syncopations > 0 && f.smallestBeatFraction <= 0.25 + 1e-4],
+    [5, '6/8 metre (one-and-a two-and-a)', f => f.metreCompound && [6, 12].includes(f.metreNum)],
+    [6, '9/8, 6/4, 5/4 and other compound or irregular metres', f => (f.metreCompound && ![6, 12].includes(f.metreNum)) || (!f.metreCompound && ![2, 3, 4].includes(f.metreNum))],
+    [6, 'triplets', f => (f.tripletCount > 0 && !f.metreCompound) || f.otherTuplets > 0],
+    [6, 'pick-up notes (anacrusis)', f => f.pickup],
+    [7, 'rhythms as met in repertoire: notes shorter than a sixteenth', f => f.smallestBeatFraction < (f.metreCompound ? 1 / 6 : 1 / 4) - 1e-4],
+  ];
+  function ontario(f) {
+    const hit = ONTARIO.filter(([, , test]) => test(f)), grade = Math.max(...hit.map(h => h[0]));
+    return { grade, band: `Grade ${grade}`, concepts: hit.filter(h => h[0] === grade).map(h => h[1]), all: hit.map(h => `${h[0]}: ${h[1]}`) };
+  }
+
   /* ---------- sequencing ----------
      Greedy: start from the lowest-scoring tune, then always take the tune
      that brings the fewest skills not yet seen (ties broken by level, then
@@ -431,10 +455,10 @@
       try { tune = ABCJS.parseOnly(abc)[0]; } catch (err) { out.push({ abc, error: String(err && err.message || err), features: null, grade: null }); continue; }
       if (!tune || !tune.lines) { out.push({ abc, error: 'no tune', features: null, grade: null }); continue; }
       const features = analyzeTune(tune, Object.assign({ index: i }, extra || {}));
-      out.push({ abc, features, grade: features.noteCount ? grade(features, gradeOptions) : null });
+      out.push({ abc, features, grade: features.noteCount ? grade(features, gradeOptions) : null, ontario: features.noteCount ? ontario(features) : null });
     }
     return out;
   }
 
-  return { LATTICE, WEIGHTS, SOLFA, analyzeTune, analyzeAbc, grade, sequence, splitTunes, fraction };
+  return { LATTICE, WEIGHTS, SOLFA, analyzeTune, analyzeAbc, grade, ontario, ONTARIO, sequence, splitTunes, fraction };
 });

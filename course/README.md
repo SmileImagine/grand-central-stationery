@@ -48,7 +48,7 @@ node course/figure-cli.js path/to/taminations-flutter/assets --json course/figur
 
 `figure-cli.js` reads Taminations' call animations (GPL-3.0; a sparse clone of `assets/` is enough) and grades each call from each starting formation on programme, beats, moves per dancer, roles, formation and the author's difficulty; by default it reads Mainstream and Plus (1,442 figures), `--programmes all` goes through Challenge 3. Figures are formation-level, not footwork, so `figure-set.json` is a corpus for a figure course rather than for the step views.
 
-Every entry in the rhythm and dance sets also carries `ontario`, the grade in which *The Ontario Curriculum, Grades 1–8: The Arts* first names a concept the pattern or step uses, with the concepts that put it there. `ontario.md` sets out the alignment: the music strand's duration progression matches the rhythm lattice nearly rung for rung; the dance strand progresses by elements and form rather than footwork, so its grade and the step lattice answer different questions.
+Every entry in the tune, rhythm and dance sets also carries `ontario`, the grade in which *The Ontario Curriculum, Grades 1–8: The Arts* first names a concept the tune, pattern or step uses, with the concepts that put it there (for tunes, duration concepts only: pitch and key are not graded). `ontario.md` sets out the alignment: the music strand's duration progression matches the rhythm lattice nearly rung for rung; the dance strand progresses by elements and form rather than footwork, so its grade and the step lattice answer different questions. The board and the pickers filter by it: **For** on the board, and the grade select beside the lab's and the main page's Example pickers, keep the items at or under a grade (a grade is a floor, so grade 3 shows grades 1 to 3); the choice is one setting shared by all three through the browser's storage.
 
 ## The practice board
 
@@ -57,12 +57,13 @@ Every entry in the rhythm and dance sets also carries `ontario`, the grade in wh
 The lesson it is built for: a student chooses a tune at their level and practises it, performs it for the teacher or hands in a video, and the teacher marks it passed. Once half the tunes at a level are passed, the next level opens; nothing stops a student trying a harder tune early.
 
 - **The student's page.** *I am* names the student. The page then shows the level they are on, with every tune there as a card: its first bars, what it brings in that earlier tunes did not (outlined), **Open**, which plays it in the main page, and **Practise**, which puts it on their list at the top of the page. A practised tune has **Ready to show**, which tells the teacher; the levels ahead and the levels done sit below, folded. Each student's choice of name is kept for the browser tab only.
+- **For** keeps the tunes whose rhythm concepts the Ontario curriculum has named by a grade; each card's last tag gives the tune's grade, and hovering it names the concepts. Levels, passes and the ready queue count only the tunes shown.
 - **The teacher's page.** With *the teacher* chosen, the page opens with the queue of students who are ready to show, each with Open, **Not yet** and **Passed**, then every level as a wall of cards. **Class** on a card lists the students with their state; tapping a name marks that tune passed (and again clears it). Each level says how many students are on it.
 - **Class list** takes one name per line. Names and progress (practising, ready, passed, with a date) live in the browser's storage, under their own key, apart from lessons. **Export** writes them to a file and **Import** merges one back, so a class can move between computers, and the teacher's computer can take in a student's progress. The light or dark setting is shared with the main page.
 
 The board is one browser's record, with no accounts: a classroom computer, or an export passed around. A shared server behind it is the step after this.
 
-A set is made from any graded folder:
+A set is made from any graded folder (and `--annotate course/set.json` refreshes the Ontario grades of an existing set from the ABC it carries, when its source tunes are not all to hand):
 
 ```bash
 node course/analyze-cli.js course/samples path/to/tunes --ignore key --set course/set.json --per-level 6 --name "Set of 8 November"

@@ -357,6 +357,7 @@
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     .xpose { white-space: nowrap; }
+    .xpose select.examples { max-width: 11em; }   /* the course set's titles would otherwise widen it past the strip */
     /* Draggable cursor: a wide invisible handle around the bar. */
     .paper .cursorg { cursor: ew-resize; }
     .paper .cursorhit { fill: transparent; pointer-events: all; }
@@ -3917,7 +3918,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
           <label class="xpose" title="A bar of clicks before the start"><input type="checkbox" class="countin" checked> Count-in</label>
           <div class="views">${views.map(([k, v]) => `<button type="button" data-view="${k}" class="${st[key] === k ? 'on' : ''}">${v}</button>`).join('')}</div>
           ${this.mode === 'dance' ? `<label class="xpose" title="From behind, left is on the left; from in front, the figure is mirrored, so a class copying the teacher can follow">Seen from <select class="facing"><option value="behind"${st.facing === 'behind' ? ' selected' : ''}>behind</option><option value="front"${st.facing === 'front' ? ' selected' : ''}>in front</option><option value="quarter"${st.facing === 'quarter' ? ' selected' : ''}>three-quarters</option></select></label>` : ''}
-          <label class="xpose" title="Replace the text with an example">Example <select class="examples"><option value="">…</option>${Object.keys(examples).map(k => `<option>${k.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))}</option>`).join('')}</select></label>
+          <label class="xpose" title="Replace the text with an example, or with a pattern from the course's graded set">Example <select class="examples"><optgroup label="Examples"><option value="">…</option>${Object.keys(examples).map(k => `<option>${k.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))}</option>`).join('')}</optgroup></select><select class="grade" hidden title="Show the course items whose concepts the Ontario curriculum has named by this grade"></select></label>
           <div class="warn"></div></div></div>`;
         this.stage = body.querySelector('.mstage'); this.entry = body.querySelector('.entry'); this.warn = body.querySelector('.warn'); this.transport = body.querySelector('.transport'); this.bpmBox = body.querySelector('.bpm');
         this.entry.value = text || '';
@@ -3930,11 +3931,41 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
         body.querySelector('.click').addEventListener('change', e => { this.lab.clock.click = e.target.checked; });
         body.querySelector('.views').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; st[key] = b.dataset.view; for (const x of b.parentNode.children) x.classList.toggle('on', x === b); if (opts.onView) opts.onView(st[key]); this.render(); });
         const fc = body.querySelector('.facing'); if (fc) fc.addEventListener('change', () => { st.facing = fc.value; if (opts.onFacing) opts.onFacing(st.facing); this.render(); });
-        const ex = body.querySelector('.examples'); ex.addEventListener('change', () => { const k = ex.value; if (!k) return; const it = examples[k]; let t = typeof it === 'string' ? it : it.text; if (typeof it !== 'string' && it.rhythm && this.lab.RHYTHMS[it.rhythm]) t += '\n' + this.lab.RHYTHMS[it.rhythm].split('\n').filter(l => !/^\s*meter\s*:/.test(l)).join('\n'); this.entry.value = t; ex.value = ''; onChange(t); this.render(); });
+        const ex = body.querySelector('.examples'), gr = body.querySelector('.grade');
+        ex.addEventListener('change', () => {
+          const k = ex.value; if (!k) return; let t;
+          if (k.startsWith('set:')) { const it = this.setItems[+k.slice(4)]; if (!it) return; t = it.text; }
+          else { const it = examples[k]; t = typeof it === 'string' ? it : it.text; if (typeof it !== 'string' && it.rhythm && this.lab.RHYTHMS[it.rhythm]) t += '\n' + this.lab.RHYTHMS[it.rhythm].split('\n').filter(l => !/^\s*meter\s*:/.test(l)).join('\n'); }
+          this.entry.value = t; ex.value = ''; onChange(t); this.render();
+        });
+        // The course's graded set joins the picker when the page is served with course/ beside it, grouped by level and kept
+        // at or under the Ontario grade chosen (shared with the board and the lab through localStorage).
+        this.setItems = [];
+        MoveCell.sets(this.mode).then(items => {
+          if (!items.length || !body.isConnected) return; this.setItems = items; gr.hidden = false;
+          const fill = () => {
+            const cap = MoveCell.gradeCap(); gr.innerHTML = `<option value="0">any grade</option>${[1, 2, 3, 4, 5, 6, 7, 8].map(g => `<option value="${g}"${g === cap ? ' selected' : ''}>grade ${g}</option>`).join('')}`;
+            for (const g of ex.querySelectorAll('optgroup[data-set]')) g.remove();
+            let level = 0;
+            for (const it of items) {
+              if (cap && it.ontario && it.ontario.grade > cap) continue;
+              if (it.level !== level) { level = it.level; ex.insertAdjacentHTML('beforeend', `<optgroup data-set label="Course, level ${level}"></optgroup>`); }
+              ex.lastElementChild.insertAdjacentHTML('beforeend', `<option value="set:${items.indexOf(it)}">${this.lab.esc(it.title)}${it.style ? ' · ' + this.lab.esc(it.style) : ''}${it.ontario ? ' · grade ' + it.ontario.grade : ''}</option>`);
+            }
+          };
+          fill();
+          gr.addEventListener('change', () => { try { localStorage.setItem('gcs-course-grade', gr.value); } catch (e) {} fill(); });
+        });
         this.lab.clock.onDone = () => this.paint();
         const loop = () => { this.paint(); this.raf = requestAnimationFrame(loop); }; this.raf = requestAnimationFrame(loop);
         this.render();
       }
+      static _sets = {};
+      static sets(mode) {   // the course set for a mode, fetched once and sorted by level then score; [] when the page is opened from disk or the set is missing
+        return MoveCell._sets[mode] || (MoveCell._sets[mode] = fetch(mode === 'dance' ? 'course/dance-set.json' : 'course/rhythm-set.json').then(r => r.ok ? r.json() : null)
+          .then(j => j ? (mode === 'dance' ? j.steps : j.patterns).slice().sort((a, b) => a.level - b.level || a.score - b.score) : []).catch(() => []));
+      }
+      static gradeCap() { try { return Math.min(8, Math.max(0, parseInt(localStorage.getItem('gcs-course-grade'), 10) || 0)); } catch (e) { return 0; } }
       getText() { return this.entry.value; }
       focus() { this.entry.focus(); }
       stop() { this.lab.clock.stop(); this.paint(); }

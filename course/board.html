@@ -104,6 +104,7 @@
     .tune .tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
     .tune .tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px; }
     .tune .tag.new { color: var(--ink); border-color: var(--lvl); }
+    .tune .tag.grade { color: var(--ink); background: var(--panel); }
     .tune .actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
     .tune .actions .state { margin-left: auto; font-size: 13px; color: var(--muted); }
     .tune .actions .state b { color: var(--ink); }
@@ -132,6 +133,7 @@
     <h1><a href="../index.html" title="Back to the main page" style="color:inherit;text-decoration:none">&larr;</a> Practice Board<small id="setname"></small></h1>
     <span class="spacer"></span>
     <label>I am <select id="student"><option value="">the teacher</option></select></label>
+    <label title="Show the tunes whose rhythm concepts the Ontario curriculum has named by this grade">For <select id="grade"><option value="0">any grade</option></select></label>
     <button id="roster">Class list</button>
     <button id="theme" title="Light or dark">☾</button>
     <div class="summary" id="summary"></div>
@@ -170,6 +172,17 @@
     let student = '';
     try { student = sessionStorage.getItem('gcs-course-student') || ''; } catch (e) {}
 
+    /* ---- the Ontario grade filter, shared with the lab's and the main page's pickers ----
+       Each tune carries ontario.grade: the grade in which The Ontario Curriculum, Grades 1-8: The Arts first names
+       a duration concept it uses (course/ontario.md). The filter keeps the tunes at or under a grade. */
+    const GRADE_STORE = 'gcs-course-grade';
+    let gradeCap = 0;
+    try { gradeCap = Math.min(8, Math.max(0, parseInt(localStorage.getItem(GRADE_STORE), 10) || 0)); } catch (e) {}
+    const gradeOf = t => (t.ontario && t.ontario.grade) || 1;
+    const tunes = () => gradeCap ? set.tunes.filter(t => gradeOf(t) <= gradeCap) : set.tunes;
+    { const g = $('#grade'); for (let i = 1; i <= 8; i++) g.add(new Option(`grade ${i}`, i)); g.value = String(gradeCap);
+      g.addEventListener('change', () => { gradeCap = +g.value; try { localStorage.setItem(GRADE_STORE, String(gradeCap)); } catch (e) {} render(); }); }
+
     /* ---- theme, shared with the main page ---- */
     const isDark = () => document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
     try { const t = localStorage.getItem('gcs-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
@@ -186,7 +199,7 @@
       if (!Object.keys(m).length) delete state.progress[id];
       persist();
     }
-    const tunesAt = l => set.tunes.filter(t => t.level === l);
+    const tunesAt = l => tunes().filter(t => t.level === l);
     const needed = l => Math.ceil(tunesAt(l).length * PASS_SHARE);
     const passedAt = (l, name) => tunesAt(l).filter(t => stateOf(t.id, name) === 'passed').length;
     const levelDone = (l, name) => tunesAt(l).length > 0 && passedAt(l, name) >= needed(l);
@@ -259,7 +272,7 @@
       lead.textContent = cur ? `${student}, you are on level ${cur}` : `${student}, you have passed every level in this set`;
       sum.appendChild(lead); levelPills(sum, student);
 
-      const mine = set.tunes.filter(t => ['practising', 'ready'].includes(stateOf(t.id, student)));
+      const mine = tunes().filter(t => ['practising', 'ready'].includes(stateOf(t.id, student)));
       if (mine.length) {
         const s = document.createElement('section');
         s.innerHTML = `<h2>Practising now<small>${mine.length} tune${mine.length === 1 ? '' : 's'}</small></h2>
@@ -303,11 +316,13 @@
       const sum = $('#summary'); sum.innerHTML = '';
       const names = state.roster;
       const ready = [];
-      for (const t of set.tunes) for (const n of names) if (stateOf(t.id, n) === 'ready') ready.push([n, t]);
-      const passes = set.tunes.reduce((s, t) => s + names.filter(n => stateOf(t.id, n) === 'passed').length, 0);
+      const shown = tunes();
+      for (const t of shown) for (const n of names) if (stateOf(t.id, n) === 'ready') ready.push([n, t]);
+      const passes = shown.reduce((s, t) => s + names.filter(n => stateOf(t.id, n) === 'passed').length, 0);
+      const scope = gradeCap ? ` (the ${shown.length} of ${set.tunes.length} tunes for grade ${gradeCap} and under)` : '';
       sum.textContent = names.length
-        ? `${names.length} students, ${passes} passes across ${set.tunes.length} tunes${ready.length ? `, ${ready.length} ready to show` : ''}. Choose a name to see that student's page.`
-        : `${set.tunes.length} tunes in six levels. Add names with Class list; each student then picks their name to see their level.`;
+        ? `${names.length} students, ${passes} passes across ${shown.length} tunes${ready.length ? `, ${ready.length} ready to show` : ''}${scope}. Choose a name to see that student's page.`
+        : `${shown.length} tunes in six levels${scope}. Add names with Class list; each student then picks their name to see their level.`;
 
       if (ready.length) {
         const q = document.createElement('section'); q.className = 'queue';
@@ -365,7 +380,7 @@
       el.innerHTML = `
         <div class="top"><h3>${esc(t.title)}</h3><span class="meta">${esc(t.key)} · ${esc(t.metre)} · ${t.bars} bars</span></div>
         <div class="incipit"></div>
-        <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${esc(who)}</span>` : ''}</div>
+        <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${esc(who)}</span>` : ''}${t.ontario ? `<span class="tag grade" title="Ontario curriculum: ${esc(t.ontario.concepts.join('; '))}">grade ${t.ontario.grade}</span>` : ''}</div>
         <div class="actions"><button class="open" title="Open this tune in the main page, ready to play">Open</button>${actions}</div>
         <div class="who"></div>`;
       el.querySelector('.open').addEventListener('click', () => openTune(t));
