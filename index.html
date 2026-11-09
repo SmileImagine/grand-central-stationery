@@ -76,6 +76,9 @@
     .menu .panel label { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
     .menu .panel label select { flex: 1; }
     .menu .panel button { text-align: left; }
+    .menu .panel a.page { display: block; padding: 4px 2px; color: var(--ink); text-decoration: none; }
+    .menu .panel a.page small { color: var(--muted, #777); margin-left: 6px; }
+    .menu .panel a.page:hover { text-decoration: underline; }
     button, select { font: var(--ui); padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); cursor: pointer; }
     button:hover { border-color: var(--accent); }
     .cells { flex: 1; overflow: auto; padding: 12px; }
@@ -417,7 +420,7 @@
     <span class="spacer"></span>
     <button id="theme" title="Light / dark">☾</button>
     <details class="menu" id="menu">
-      <summary title="Font, spacing, sharing and files">⋯</summary>
+      <summary title="Font, spacing, sharing, files, and the other pages">⋯</summary>
       <div class="panel">
         <label>Text font <select id="fontpick"></select></label>
         <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional spacing</label>
@@ -426,6 +429,9 @@
         <button id="export">Export file</button>
         <button id="import">Import file</button>
         <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
+        <hr>
+        <a class="page" href="course/board.html">Practice board <small>graded tunes, who is ready</small></a>
+        <a class="page" href="lab/Rhythm%20and%20Dance%20v1.html">Rhythm &amp; Dance <small>drum patterns and steps</small></a>
         <hr>
         <button id="clear">Clear all cells</button>
       </div>

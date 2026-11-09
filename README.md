@@ -2,7 +2,7 @@
 
 A classroom display page for music lessons: typed text and typed music shown at the largest size that fits the screen, with note names colour-coded (ChromaNotes). One HTML file, no build step, and everything needed to run offline is in this folder.
 
-**Live:** https://smileimagine.github.io/grand-central-stationery/
+**Live:** https://smileimagine.github.io/grand-central-stationery/ (the ⋯ menu links to the practice board and the Rhythm & Dance lab)
 
 Nothing is uploaded: lessons are saved in the browser you use, and a Share link carries a lesson inside the address itself.
 
