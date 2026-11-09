@@ -114,6 +114,12 @@
 <script>
 'use strict';
 const $ = s => document.querySelector(s);
+/* ================= the rhythm and dance kit =================
+   Everything a page needs to read, play and draw rhythm and dance text: the synthesised kit, a clock on one
+   AudioContext, the two parsers, the views, and the examples. `state` carries the view choices (rview, dview,
+   sylsys, facing) and a rebuild() the views call when a switch inside them is used; audioContextProvider, when
+   given, lends the page's AudioContext instead of making one. The main page carries the same function. */
+function RhythmDance(state, audioContextProvider) {
 const COLOURS = ['#e5533d', '#2b78c2', '#e8b400', '#3aa655', '#9b59b6', '#e67e22', '#16a2a2', '#888'];
 const LEFT = '#e5533d', RIGHT = '#2b78c2', HI = '#ffb300';
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -164,7 +170,7 @@ const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp']
 const clock = {
   ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
   events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
-  ensure() { if (!this.ctx) { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
+  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
   start(lead = 0) {
@@ -199,6 +205,7 @@ const clock = {
 };
 
 /* ================= rhythm text ================= */
+const DANCE_KEYS = new Set(['feet', 'arms', 'level', 'lean', 'turn', 'hips']);
 const META = new Set(['title', 'bpm', 'tempo', 'style', 'source', 'licence', 'license', 'id', 'origin', 'difficulty', 'note']);
 function parseRhythm(text) {
   const r = { meter: [4, 4], rows: [], problems: [] };
@@ -209,6 +216,7 @@ function parseRhythm(text) {
     const name = m[1].trim().toLowerCase(), body = m[2].trim();
     if (name === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) r.meter = [+mm[1], +mm[2]]; else r.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
     if (META.has(name)) { (r.meta = r.meta || {})[name] = body; return; }
+    if (DANCE_KEYS.has(name)) return;   // a dance's own lines, when both live in one text
     const bars = body.split('|').map(b => b.replace(/\s+/g, '')).filter(b => b.length);
     if (!bars.length) { r.problems.push(`Line ${li + 1}: ${name} has no steps.`); return; }
     const bad = bars.join('').replace(/[xXo.\-]/g, ''); if (bad) r.problems.push(`Line ${li + 1}: ${name} has "${bad[0]}"; steps are x X o and . only.`);
@@ -362,7 +370,7 @@ RV.syll = {
     Object.entries(SYSTEMS).forEach(([k, v], i) => { const on = state.sylsys === k, x = W - 10 - (Object.keys(SYSTEMS).length - 1 - i) * 92; s += `<g class="sylsys" data-sys="${k}" style="cursor:pointer"><rect x="${x - 86}" y="${H - 6}" width="84" height="24" rx="12" fill="${on ? '#222' : '#fff'}" stroke="${on ? '#222' : '#bbb'}"/><text x="${x - 44}" y="${H + 11}" text-anchor="middle" font-size="12.5" fill="${on ? '#fff' : '#333'}">${v}</text></g>`; });
     s += `</svg>`;
     el.innerHTML = s;
-    el.querySelectorAll('.sylsys').forEach(g => g.onclick = () => { state.sylsys = g.dataset.sys; rebuild(); });
+    el.querySelectorAll('.sylsys').forEach(g => g.onclick = () => { state.sylsys = g.dataset.sys; state.rebuild(); });
     this.r = r; this.cells = [...el.querySelectorAll('.beat')];
   },
   paint(p) { const b = Math.floor(p); for (const c of this.cells) { const on = +c.dataset.beat === b; c.setAttribute('fill', on ? '#fff1c7' : '#fafafa'); c.setAttribute('stroke', on ? HI : '#e4e4e4'); c.setAttribute('stroke-width', on ? 3 : 1); } }
@@ -402,11 +410,12 @@ RV.body = {
 
 /* ================= dance text ================= */
 function parseDance(text) {
-  const d = { meter: [4, 4], feet: [], arms: [], level: [], lean: [], turn: [], hips: [], problems: [], frames: [] };
+  const d = { meter: [4, 4], feet: [], arms: [], level: [], lean: [], turn: [], hips: [], problems: [], frames: [], drumLines: [] };
   text.split('\n').forEach((raw, li) => {
     const line = raw.replace(/\/\/.*$/, '').trim(); if (!line) return;
     const mm0 = line.match(/^([a-z]+)\s*:\s*(.*)$/i); if (mm0 && META.has(mm0[1].toLowerCase())) { (d.meta = d.meta || {})[mm0[1].toLowerCase()] = mm0[2].trim(); return; }
-    const m = line.match(/^(meter|feet|arms|level|lean|turn|hips)\s*:\s*(.*)$/i); if (!m) { d.problems.push(`Line ${li + 1}: wants meter:, feet:, arms:, level:, lean:, turn: or hips:.`); return; }
+    const m = line.match(/^(meter|feet|arms|level|lean|turn|hips)\s*:\s*(.*)$/i);
+    if (!m) { if (/^[a-z][a-z0-9 ]*\s*:\s*[xXo.\-\s|]+$/i.test(line)) d.drumLines.push(line); else d.problems.push(`Line ${li + 1}: wants meter:, feet:, arms:, level:, lean:, turn: or hips:, or a drum line (name: x.x.).`); return; }
     const key = m[1].toLowerCase(), body = m[2].trim();
     if (key === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) d.meter = [+mm[1], +mm[2]]; else d.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
     const bars = body.split('|').map(b => b.trim().split(/\s+/).filter(Boolean)).filter(b => b.length);
@@ -414,6 +423,7 @@ function parseDance(text) {
     d[key] = bars;
   });
   d.beats = d.meter[0]; d.bars = Math.max(1, d.feet.length, d.arms.length, d.level.length, d.lean.length, d.turn.length, d.hips.length); d.cycle = d.bars * d.beats;
+  d.drums = d.drumLines.length ? ['meter: ' + d.meter.join('/'), ...d.drumLines].join('\n') : '';   // the rhythm written in with the dance
   // the model: where each foot is (x across, y forward), which carries the weight
   const st = { L: { x: -.5, y: 0 }, R: { x: .5, y: 0 }, weight: 'B', arms: 'd', level: 'm', lean: 'c', facing: 0, hips: 'c' };
   const rot = (x, y, deg) => { const a = deg * Math.PI / 180, c = Math.cos(a), sn = Math.sin(a); return [x * c + y * sn, -x * sn + y * c]; };   // the dancer's frame into the floor's: facing is degrees turned to the right
@@ -751,7 +761,7 @@ DV.dancer = {
   }
 };
 
-/* ================= presets ================= */
+/* ================= examples ================= */
 const RHYTHMS = {
   'Rock beat': `meter: 4/4\nkick:  x... x... x... x...\nsnare: .... x... .... x...\nhat:   x.x. x.x. x.x. x.x.`,
   'Rhythm card (one drum)': `meter: 4/4\ndrum: x... x.x. x.x. x... | x.x. x.x. x... ....`,
@@ -772,8 +782,12 @@ const DANCES = {
   'March and kick': { rhythm: 'Rock beat', text: `meter: 4/4\nfeet: Lp Rp Lp K | Rp Lp Rp K\narms: o  d  o  u | d  o  d  u` }
 };
 
+return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf, frameAt, FOOT, DV, SYSTEMS, RHYTHMS, DANCES };
+}
+
 /* ================= wiring ================= */
 const state = { tab: 'rhythm', rview: 'grid', dview: 'dancer', sylsys: 'kodaly', facing: 'behind', r: null, d: null, view: null };
+const lab = RhythmDance(state); const { clock, parseRhythm, parseDance, RV, DV, RHYTHMS, DANCES } = lab; state.rebuild = rebuild;
 const rtext = $('#rtext'), dtext = $('#dtext'), rwarn = $('#rwarn'), dwarn = $('#dwarn');
 for (const k in RHYTHMS) $('#rexamples').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
 for (const k in DANCES) $('#dexamples').insertAdjacentHTML('beforeend', `<option>${esc(k)}</option>`);
@@ -801,8 +815,11 @@ function rebuild() {
   if (state.tab === 'rhythm') { tempoFrom(r.meta); clock.cycle = r.cycle; state.view = RV[state.rview]; state.view.build($('#rstage'), r); }
   else {
     const d = parseDance(dtext.value); state.d = d; dwarn.textContent = d.problems.join('\n'); tempoFrom(d.meta);
-    if (d.beats !== r.beats) dwarn.textContent += `\nThe dance is in ${d.meter.join('/')} but the rhythm in ${r.meter.join('/')}.`;
-    clock.cycle = d.cycle; clock.events = []; for (let c = 0; c * r.cycle < d.cycle; c++) for (const e of r.events) { const beat = c * r.cycle + e.beat; if (beat < d.cycle) clock.events.push({ ...e, beat }); } /* the rhythm repeats under the whole dance cycle */ state.view = DV[state.dview]; state.view.build($('#dstage'), d);
+    const rr = d.drums ? parseRhythm(d.drums) : r;   // drum lines written in with the dance play instead of the Rhythm tab's pattern
+    if (d.beats !== rr.beats) dwarn.textContent += `\nThe dance is in ${d.meter.join('/')} but the rhythm in ${rr.meter.join('/')}.`;
+    clock.cycle = d.cycle; clock.events = [];
+    for (let c = 0; c * rr.cycle < d.cycle; c++) for (const e of rr.events) { const beat = c * rr.cycle + e.beat; if (beat < d.cycle) clock.events.push({ ...e, beat }); }   // the rhythm repeats under the whole dance cycle
+    state.view = DV[state.dview]; state.view.build($('#dstage'), d);
   }
   paint();
 }
