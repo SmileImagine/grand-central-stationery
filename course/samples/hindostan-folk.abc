@@ -24,6 +24,7 @@ M:3/4
 L:1/8
 Q:1/4=100
 K:F
+%%style drone
 G2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]
 w: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.
 N:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.
@@ -43,6 +44,7 @@ M:5/8
 L:1/16
 Q:1/8=180
 K:C
+%%style drone
 B d2 | c2 B c A2 A B c2 | c2 B c A2 A |]
 w: Mo-ther, send to the dho-bi to bring back my li-nen.
 N:2: Never mind where I'm going if you'll send to the dhobi.
@@ -60,6 +62,7 @@ M:5/8
 L:1/16
 Q:1/8=180
 K:F
+%%style drone
 A c | B2 A B G2 A B c2 | B2 A c B2 A B |]
 w: O where will you go if I get back your li-nen?
 N:2: You must say where you go before I send to the dhobi.
@@ -77,6 +80,7 @@ M:3/4
 L:1/16
 Q:1/4=80
 K:C
+%%style drone
 C C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G | A4 F2 G3 F | G3 F D3 C C4 z2 |
 w: In A-yo-dhya, the land of kings, It was Vish-nu's self That was born on the lap of Kau-shal-ya.
 C C | D4 G3 F D2 C2 | D3 C C8 z2 |]
@@ -84,3 +88,53 @@ w: Lit-tle babe sleep up-on my knee!_
 N:2: For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.
 N:3: In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).
 N:4: And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.
+
+X:5
+T:Chhaila
+T:Garhwali farewell song
+C:traditional (Garhwal)
+O:India, Garhwal (Himalaya)
+R:song
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 111, p. 54
+N:Written in the bass clef in the book; two bars make the unit and the rhythm is 2+3+3+2, which Fox Strangways says no barring reproduces. Sung a man's voice down; sing it an octave up for children. Check: bar 2's "now" (a minim in the plate, read here as a crotchet) and the last bar's rest.
+M:5/8
+L:1/8
+Q:1/8=160
+K:Bb clef=bass
+%%style drone
+F, F, F,2 F, | F, G, A, G,2 | D,2 E, D, C, | D,3 E, D, | B,, G,, G,,3 | C, C, (3D,E,D, C, | C,2 B,, G,, C, | C,2 C, {E,}D,3/2 C,/2 | C,3 z2 |]
+w: Must you go, my Chhai_-la, now, Leav-ing me a-lone, my_ dar_-ling! Tell me, Chhai-la_ how I shall_ live when you are_ gone?
+N:2: Shall I live, my Chhaila, say, Like a water-mill, my darling! Standing all the day desolate upon a hill?
+
+X:6
+T:Nirguna's lullaby
+T:Maratha lullaby (sketch)
+C:traditional (Maharashtra)
+O:India, Maharashtra
+R:lullaby
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 162, p. 66
+N:A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught.
+M:2/4
+L:1/8
+Q:1/4=76
+K:F
+%%style drone
+B, |: C3/2 B,/2 C D | D/E/D/D/ D3/2 D/2 | D B, C D | (3DED C/B,/ B, C :|
+
+X:7
+T:Lalishrita
+T:Tamil lullaby, from a phonogram (sketch)
+C:traditional (Tamil Nadu)
+O:India, Tamil Nadu (Srirangam)
+R:lullaby
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64
+N:A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet.
+M:6/8
+L:1/8
+Q:1/4=70
+K:C
+%%style drone
+C | C G G G2 G/A/ | G/E/G/E/ (3G/E/G/ G E z G | G c c B3/2 A/2 B | d3/2 c/2 B A G (3G/E/G/ | G2 z E G |]
+w: Ba__ by mine, light_ of____ my eyes, Here in thy cra__-dle bright__ with flowers Through
+N:2: Srirangam island rises fair Where Kaveris meet; I lay thee there at Sriranga raja's feet, Full sure of His tender care.
+N:3: The golden nails no longer move On the divided cradle swung; The song is sung; my ship is borne Safe home, my babe, on the ocean of love.

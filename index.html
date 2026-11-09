@@ -1390,7 +1390,7 @@
     const SHARP_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'], FLAT_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
     // The ABC with a chord symbol before the first note of each bar, from the
     // melody and the key. Written symbols, if any, are left alone.
-    function withDetectedChords(abc) {
+    function withDetectedChords(abc, tonicOnly = false) {
       if (/"[A-G][#b\u266F\u266D]?[^"]*"/.test(abc) || !window.ABCJS) return abc;
       let tune; try { tune = ABCJS.parseOnly(abc)[0]; } catch (err) { return abc; }
       if (!tune || !tune.lines) return abc;
@@ -1420,7 +1420,7 @@
         pos += el.duration || 0;
       });
       if (bar.some(sg => sg.notes.length)) segs.push(...bar);
-      const chords = detectChords(segs.map(sg => sg.notes), minor);
+      const chords = tonicOnly ? segs.map(() => ({ n: minor ? 'i' : 'I', r: 0, q: minor ? 'm' : '' })) : detectChords(segs.map(sg => sg.notes), minor);
       const names = flats ? FLAT_NAMES : SHARP_NAMES;
       let out = abc;
       for (let b = segs.length - 1; b >= 0; b--) {
@@ -1497,7 +1497,7 @@
       return chart;
     }
     // The chart lines as comments, each the same length, so abcjs neither warns nor shifts a character.
-    const chartComment = abc => abc.replace(/^%%?(band|tuning)\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    const chartComment = abc => abc.replace(/^%%?(band|tuning|style)\b/mg, m => '%' + ' '.repeat(m.length - 1));
     /* ---- tuning: a Scala scale for the tune ----
        A line in the ABC, "%%tuning slendro: 231. 474. 717. 955. 2/1 root=C",
        gives the scale the tune is played in: its degrees above 1/1 in cents
@@ -1703,12 +1703,15 @@
       swing:  { name: 'Swing', swing: 66 },
       bossa:  { name: 'Bossa' },
       ballad: { name: 'Ballad' },
+      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true },
     };
     const LEGACY_STYLE = { band: 'auto', plain: 'auto', block: 'ballad', arp: 'ballad', boom: 'folk' };   // what earlier pages saved
     // The style a tune plays in: the one chosen, or for Auto the one its metre and R: line suggest.
+    // A tune can name its own default accompaniment with a %%style line (drone, jig, swing...): Auto takes it before the metre and R: line.
     function styleFor(key, abc) {
       key = LEGACY_STYLE[key] || key;
       if (STYLES[key] && key !== 'auto') return key;
+      const own = abc.match(/^%%?style\s+([a-z]+)/mi); if (own && STYLES[own[1].toLowerCase()]) return own[1].toLowerCase();
       const m = abc.match(/^M:\s*(\d+)\/(\d+)/m), num = m ? +m[1] : 4, den = m ? +m[2] : 4;
       const r = (abc.match(/^R:\s*(.+)$/m) || [, ''])[1].toLowerCase();
       if (/jig|slide|slip/.test(r) || (den === 8 && num % 3 === 0 && num !== 3)) return 'jig';
@@ -1963,6 +1966,11 @@
         bass.push(lo ? 'r _ _ _ 5 _ _ _' : detail > 0.5 ? 'r _ _ 5 5 _ _ [~ n?0.5]' : 'r _ _ 5 5 _ _ r:.6');
         chords.push(lo ? 'ch:.6 _ _ _ ~ ~ ch:.5 ~' : two(['<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ch ~ ~ ~]>', '<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ~ ch ~ ~]>']));
         if (lo) chords.push('pad');
+      } else if (style === 'drone') {   // a tanpura's held root and fifth, a tabla-like pattern on the low drum and the rim
+        if (!lo) drums.push(nb === 3 ? 'bd rim:.5 rim:.4' : nb === 2 ? 'bd rim:.5' : compound ? 'bd ~ ~ rim:.5 ~ rim:.4' : (hi ? 'bd [~ rim:.35] rim:.5 [bd:.6 rim:.35]' : 'bd ~ rim:.5 ~'));
+        if (hi && detail > 0.5) drums.push(nb === 3 ? '~ [~ rim:.25] [~ rim:.25]' : '[~ rim:.25]*' + nb);
+        bass.push('r _ _ _'.split(' ').slice(0, Math.max(2, nb)).join(' '));
+        chords.push('pad');
       } else if (style === 'ballad') {
         if (!lo) drums.push(hi ? 'bd ~ ~ ~' : 'hh:.3*4');
         if (energy > 0.4) drums.push(hi ? '~ sd:.5 ~ sd:.5' : '~ rim:.5 ~ rim:.5');
@@ -2809,9 +2817,9 @@
         this.chart = parseChart(text);
         this.tuning = parseTuning(text);
         // No chord symbols written and no arrangement: Chords on Auto finds them from the melody, so the band has something to play.
-        if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc);
-        if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         this.styleKey = styleFor(this.style, abc);
+        if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
+        if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
         if (location.protocol === 'file:') abc = withStyle(abc, classicFor(abc));
         this.original = this.renderAt(this.hidden, abc, 600);

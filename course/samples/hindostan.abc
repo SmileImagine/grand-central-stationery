@@ -28,6 +28,7 @@ N:Pentatonic (Sa Re Ga Pa Dha). Check: the last bar has four quavers in the plat
 M:3/4
 L:1/8
 K:C
+%%style drone
 E | GE D3 E | C2 C2 E2 | A,A, C3 E | D2 E D2 E | GE D3 E |
 C2 C2 E2 | A,A, C3 E | GE DE z E || ED E3 E | cG c2 cc |
 cG c3 c | d2 c2 GA | E2 D2 C2 | E2 D2 A,G, | A,2 C3 E | EG DE |]
@@ -45,6 +46,7 @@ M:3/4
 L:1/8
 Q:1/4=66
 K:Cm
+%%style drone
 C | E2 C C2 C | C3 CA,C | C3 E2 E | E2 E C2 C | E2 A, A,2 A, |
 C3 CA,C | C3 E2 E | E2 E C2 C | E3 E2 F || B2 c c2 c | c2 c c2 c |
 c/c/B/c/ AF F2 | FE C C2 C | C3 CA,C | C3 E2 E | E2 E C2 |]
@@ -62,6 +64,7 @@ M:3/4
 L:1/8
 Q:1/4=66
 K:Cphr
+%%style drone
 C | F3 F2 F | E3 E2 E | D3 D2 D | C2 D | D2 D z z C | D3 D2 E |
 ED DC C | C3 E2 F | ED CC F || F3 A2 c | c2 c c2 c | c2 c c2 d |
 cB A F2 F | F3 F2 A | AF F D2 D | C3 D2 E | EDC C2 |]
@@ -79,6 +82,7 @@ M:3/4
 L:1/8
 Q:1/4=66
 K:Cmix
+%%style drone
 D2 D F2 A | =Bc c c2 _B | AG A FG A | G2 D ED z :|
 D2 D F2 A | =Bc c c2 c | c2 c2 c =B | cd c d3 |
 c =B2 c2 d | dc c2 A F | AG A FG A | G2 D ED D |]
