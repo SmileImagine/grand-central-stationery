@@ -457,11 +457,12 @@ const frameAt = (d, p) => { let k = 0; for (let i = 0; i < d.frames.length; i++)
 
 /* ================= dance views ================= */
 const DV = {};
-const FOOT = (x, y, side, scale, fill, stroke, extra = '') => `<g transform="translate(${x} ${y}) scale(${side * Math.abs(scale)} ${-scale})"${extra}><path d="M-9,-18 C-15,-6 -15,10 -9,22 C-4,28 6,28 10,22 C14,12 13,-2 8,-14 C12,-22 6,-30 0,-28 C-6,-26 -8,-23 -9,-18 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / Math.abs(scale)}" stroke-linejoin="round"/></g>`;
+const FOOT = (x, y, side, scale, fill, stroke, extra = '', rot = 0) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${side * Math.abs(scale)} ${-scale})"${extra}><path d="M-9,-18 C-15,-6 -15,10 -9,22 C-4,28 6,28 10,22 C14,12 13,-2 8,-14 C12,-22 6,-30 0,-28 C-6,-26 -8,-23 -9,-18 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / Math.abs(scale)}" stroke-linejoin="round"/></g>`;
 // Footprints: the floor from above, every step printed with its count, the step being taken lit, the ones just taken fading.
 DV.feet = {
   build(el, d) {
-    const xs = d.frames.flatMap(f => [f.L.x, f.R.x]), ys = d.frames.flatMap(f => [f.L.y, f.R.y, f.kind === 'kick' ? f.L.y + 1.2 : 0]);
+    const kickPt = (f, F) => { const a = f.facing * Math.PI / 180; return { x: f[F].x + Math.sin(a) * 1.2, y: f[F].y + Math.cos(a) * 1.2 }; };   // a kick reaches forward in the dancer's frame
+    const xs = d.frames.flatMap(f => [f.L.x, f.R.x, f.kind === 'kick' ? kickPt(f, f.moving).x : 0]), ys = d.frames.flatMap(f => [f.L.y, f.R.y, f.kind === 'kick' ? kickPt(f, f.moving).y : 0]);
     const minX = Math.min(-1.5, ...xs) - 1.2, maxX = Math.max(1.5, ...xs) + 1.2, minY = Math.min(0, ...ys) - 1, maxY = Math.max(0, ...ys) + 1;
     const U = 60, W = (maxX - minX) * U, floorH = (maxY - minY) * U, H = floorH + 56;
     const front = state.facing === 'front';
@@ -473,15 +474,15 @@ DV.feet = {
     d.frames.forEach((f, i) => {
       if (!f.moving) return;
       (f.moving === 'B' ? ['L', 'R'] : [f.moving]).forEach(F => {
-        const hollow = f.kind === 'touch' || f.kind === 'kick', pt = f.kind === 'kick' ? { x: f[F].x, y: f[F].y + 1.2 } : f[F];
-        const key = `${F}:${Math.round(pt.x * 2)}:${Math.round(pt.y * 2)}:${hollow}`;
-        if (!groups.has(key)) groups.set(key, { F, hollow, pt, frames: [], counts: [] });
+        const hollow = f.kind === 'touch' || f.kind === 'kick', pt = f.kind === 'kick' ? kickPt(f, F) : f[F];
+        const key = `${F}:${Math.round(pt.x * 2)}:${Math.round(pt.y * 2)}:${hollow}:${Math.round(f.facing) % 360}`;
+        if (!groups.has(key)) groups.set(key, { F, hollow, pt, facing: f.facing, frames: [], counts: [] });
         const g = groups.get(key); g.frames.push(i); if (!g.counts.includes(countOf(f))) g.counts.push(countOf(f));
       });
     });
     for (const g of groups.values()) {
       const col = g.F === 'L' ? LEFT : RIGHT, label = g.counts.join(' ');
-      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), side(g.F), front ? -1 : 1, g.hollow ? '#fff' : col, col)}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 6}" text-anchor="middle" font-size="${label.length > 3 ? 13 : 18}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
+      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), side(g.F), front ? -1 : 1, g.hollow ? '#fff' : col, col, '', g.facing * (front ? -1 : 1))}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 6}" text-anchor="middle" font-size="${label.length > 3 ? 13 : 18}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
     }
     s += `<g id="standing"></g><text id="say" x="${W / 2}" y="${H - 16}" text-anchor="middle" font-size="24" font-weight="600" fill="#333"></text></svg>`;
     el.innerHTML = s; this.d = d; this.X = X; this.Y = Y; this.side = side; this.flip = front ? -1 : 1; this.prints = [...el.querySelectorAll('.print')]; this.standing = el.querySelector('#standing'); this.say = el.querySelector('#say');
@@ -490,7 +491,7 @@ DV.feet = {
     const d = this.d, k = frameAt(d, p), f = d.frames[k];
     for (const g of this.prints) { let age = Infinity; for (const i of g.dataset.i.split(' ').map(Number)) { let a = k - i; if (a < 0) a += d.frames.length; age = Math.min(age, a); } g.setAttribute('opacity', age === 0 ? 1 : age === 1 ? .7 : age === 2 ? .45 : .2); g.style.filter = age === 0 ? `drop-shadow(0 0 6px ${HI})` : ''; }
     // the standing feet: outlines where the weight is now
-    let s = ''; for (const F of ['L', 'R']) { if (f.moving === F || f.moving === 'B') continue; const lifted = f.lift === F; s += FOOT(this.X(f[F].x), this.Y(f[F].y), this.side(F), (lifted ? .7 : 1) * this.flip, f.weight === F || f.weight === 'B' ? (F === 'L' ? LEFT : RIGHT) : '#fff', F === 'L' ? LEFT : RIGHT, ` opacity=".55"`); }
+    let s = ''; for (const F of ['L', 'R']) { if (f.moving === F || f.moving === 'B') continue; const lifted = f.lift === F; s += FOOT(this.X(f[F].x), this.Y(f[F].y), this.side(F), (lifted ? .7 : 1) * this.flip, f.weight === F || f.weight === 'B' ? (F === 'L' ? LEFT : RIGHT) : '#fff', F === 'L' ? LEFT : RIGHT, ` opacity=".55"`, f.facing * this.flip); }
     this.standing.innerHTML = s;
     const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' };
     const dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', z: ' across behind', c: ' together', p: '' };
@@ -798,7 +799,7 @@ function rebuild() {
   else {
     const d = parseDance(dtext.value); state.d = d; dwarn.textContent = d.problems.join('\n'); tempoFrom(d.meta);
     if (d.beats !== r.beats) dwarn.textContent += `\nThe dance is in ${d.meter.join('/')} but the rhythm in ${r.meter.join('/')}.`;
-    clock.cycle = d.cycle; clock.events = []; for (let c = 0; c * r.cycle < d.cycle; c++) for (const e of r.events) { const beat = c * r.cycle + e.beat; if (beat < d.cycle) clock.events.push({ ...e, beat }); }   // the rhythm repeats under the whole dance cycle state.view = DV[state.dview]; state.view.build($('#dstage'), d);
+    clock.cycle = d.cycle; clock.events = []; for (let c = 0; c * r.cycle < d.cycle; c++) for (const e of r.events) { const beat = c * r.cycle + e.beat; if (beat < d.cycle) clock.events.push({ ...e, beat }); } /* the rhythm repeats under the whole dance cycle */ state.view = DV[state.dview]; state.view.build($('#dstage'), d);
   }
   paint();
 }
