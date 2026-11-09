@@ -14,8 +14,9 @@
                  drum, so polyrhythms show), Syllables (Kodály stick notation with
                  ta / ti-ti words, fruit words, 1 e & a counting, takadimi or konnakol), Body (body percussion: the figure flashes the
                  part that plays).
-  Dance views:   Dancer (an animated figure: the stepping foot travels in an arc,
-                 hops and jumps lift the body, knees bend), Footprints (floor chart), Columns (Labanotation-style staff: a
+  Dance views:   Dancer (a rigged figure with fixed bone lengths: the feet: line is a
+                 contact timeline, the pelvis is derived from the supporting
+                 feet, knees and elbows are solved by inverse kinematics), Footprints (floor chart), Columns (Labanotation-style staff: a
                  centre line, one column per body part on each side, time flowing
                  upward, signs whose length is their duration), Stave (Benesh-style
                  five-line stave read like music, head / shoulder / waist / knee /
@@ -585,62 +586,112 @@ DV.figs = {
   }
 };
 
-// Dancer: the same model played as a moving figure. Between two frames the stepping foot travels in an arc,
-// a hop or jump lifts the body, a kick swings the foot, and the knees bend to reach the feet.
+// Dancer: a rigged figure driven by the step model, the way an animator would block it.
+// The feet: line is a contact timeline. Each foot is planted until its next event, then flies in an arc to land
+// on the beat. The pelvis is derived from the contacts: it travels over the supporting foot (a little after the
+// landing, with some anticipation before), and its height comes from leg reach, so a wide stance dips and a hop
+// or jump lifts it. Bone lengths are fixed; knees and elbows are solved by two-bone inverse kinematics, so the
+// proportions cannot drift. Coordinates: x across (the dancer's right positive), y forward, z up, in units where
+// the figure stands about 7.2 tall.
 DV.dancer = {
-  pose(f, g, u) {   // g: the next frame, u: 0..1 through the move from f to g
-    const ease = t => t < .5 ? 2 * t * t : 1 - (2 - 2 * t) ** 2 / 2, e = ease(Math.min(1, Math.max(0, u)));
-    const P = { arms: u < .5 ? f.arms : g.arms, weight: f.weight, body: 0, L: { ...f.L, lift: 0 }, R: { ...f.R, lift: 0 }, moving: g.moving, kind: g.kind, dir: g.dir };
-    const arc = Math.sin(Math.PI * Math.min(1, u));
-    for (const F of ['L', 'R']) {
-      const movesNext = g.moving === F || g.moving === 'B';
-      if (movesNext && (g.kind === 'step' || g.kind === 'touch' || g.kind === 'jump')) { P[F].x = f[F].x + (g[F].x - f[F].x) * e; P[F].y = f[F].y + (g[F].y - f[F].y) * e; P[F].lift = arc * .9; }
-      if (f.lift === F && u < .5) P[F].lift = Math.max(P[F].lift, 1.2 * (1 - 2 * u));                       // a kicked foot comes down
-      if (g.kind === 'kick' && movesNext) { P[F].lift = e * 1.4; P[F].y = f[F].y + e * 1.6; P[F].x = f[F].x + (g[F].x - f[F].x) * e; }
-      if (g.kind === 'hop' && f.weight === F) { P[F].lift = arc * .6; }
-    }
-    if (g.kind === 'hop' || g.kind === 'jump') P.body = arc * 1.1; if (g.kind === 'jump') { P.L.lift = Math.max(P.L.lift, arc * .6); P.R.lift = Math.max(P.R.lift, arc * .6); }
-    if (u >= .5) P.weight = g.weight;
-    return P;
+  RIG: { thigh: 2.0, shin: 1.9, torso: 2.5, neck: .35, head: .55, upper: 1.25, fore: 1.15, hipHalf: .5, shoulderHalf: 1.25 },
+  ease: t => { t = Math.min(1, Math.max(0, t)); return t < .5 ? 2 * t * t : 1 - (2 - 2 * t) ** 2 / 2; },
+  prep(d) {
+    const fr = d.frames, n = fr.length, total = d.bars * d.beats, ev = { L: [], R: [] };
+    fr.forEach((f, i) => {
+      for (const F of ['L', 'R']) {
+        const mv = f.moving === F || f.moving === 'B';
+        if (mv && (f.kind === 'step' || f.kind === 'touch' || f.kind === 'jump')) ev[F].push({ t: f.t, x: f[F].x, y: f[F].y, z: 0, kind: f.kind === 'touch' ? 'touch' : 'plant', jump: f.kind === 'jump', i });
+        else if (mv && f.kind === 'kick') ev[F].push({ t: f.t, x: f[F].x, y: f[F].y + 1.7, z: 1.0, kind: 'up', i });
+        else if (f.kind === 'hop' && f.weight === F) ev[F].push({ t: f.t, x: f[F].x, y: f[F].y, z: 0, kind: 'plant', hop: true, i });
+      }
+    });
+    for (const F of ['L', 'R']) if (!ev[F].length) ev[F].push({ t: 0, x: fr[0][F].x, y: fr[0][F].y, z: 0, kind: 'plant', i: 0 });
+    const target = i => { const f = fr[(i + n) % n], w = f.weight; return w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; };
+    this.m = { fr, n, total, ev, target };
   },
-  figure(P, size) {
-    const u = size / 10, front = state.facing === 'front', body = -P.body * u;
-    const headY = -4.6 * u + body, shoulder = -3.2 * u + body, hip = -0.2 * u + body, floor = 4.2 * u, legLen = (floor - hip + .2 * u) * 1.02;
-    const midY = (P.L.y + P.R.y) / 2, footX = F => P[F].x * 1.1 * u, footY = F => floor + (P[F].y - midY) * .45 * u - P[F].lift * 1.3 * u;
-    const hands = { u: [[-1.4, -6.2], [1.4, -6.2]], o: [[-3.6, -3.4], [3.6, -3.4]], d: [[-1.5, 0.6], [1.5, 0.6]], c: [[-.3, -2.4], [.3, -2.4]], h: [[-1.5, -0.4], [1.5, -0.4]] }[P.arms] || [[-1.5, .6], [1.5, .6]];
-    const w = 7, armW = 5;
-    let s = `<g stroke-linecap="round" stroke-linejoin="round" fill="none" transform="scale(${front ? -1 : 1} 1)">`;
-    s += `<ellipse cx="0" cy="${floor + .3 * u}" rx="${3.2 * u}" ry="${.5 * u}" fill="#eee"/>`;
-    s += `<circle cx="0" cy="${headY}" r="${u * .9}" fill="#fff" stroke="#333" stroke-width="${w * .6}"/>`;
-    if (front) s += `<circle cx="${-u * .3}" cy="${headY - u * .15}" r="${u * .09}" fill="#333"/><circle cx="${u * .3}" cy="${headY - u * .15}" r="${u * .09}" fill="#333"/><path d="M${-u * .3},${headY + u * .35} Q0,${headY + u * .6} ${u * .3},${headY + u * .35}" stroke="#333" stroke-width="${w * .4}"/>`;
-    s += `<line x1="0" x2="0" y1="${headY + u * .9}" y2="${hip}" stroke="#333" stroke-width="${w}"/>`;
-    for (const [F, i] of [['L', 0], ['R', 1]]) {
-      const col = F === 'L' ? LEFT : RIGHT, weight = P.weight === F || P.weight === 'B', side = i ? 1 : -1;
-      const hx = hands[i][0] * u, hy = shoulder + hands[i][1] * u + 3.4 * u, ex = hx / 2 + (hands[i][1] > -4 ? side * .8 * u : 0), ey = (shoulder + hy) / 2 + .4 * u;
-      s += `<path d="M0,${shoulder} L${ex},${ey} L${hx},${hy}" stroke="${col}" stroke-width="${armW}"/>`;
-      const hx0 = side * .35 * u, fx = footX(F) + hx0, fy = footY(F), dx = fx - hx0, dy = fy - hip, dist = Math.hypot(dx, dy), half = legLen / 2;
-      const bend = dist < legLen ? Math.sqrt(Math.max(0, half * half - (dist / 2) ** 2)) : 0;   // two-bone knee: bends to the side and forward
-      const mx = hx0 + dx / 2, my = hip + dy / 2, nx = -dy / (dist || 1), ny = dx / (dist || 1), kx = mx + nx * bend * side * -1, ky = my + ny * bend * side * -1;
-      s += `<path d="M${hx0},${hip} L${kx},${ky} L${fx},${fy}" stroke="${col}" stroke-width="${w}" opacity="${weight ? 1 : .6}"/>`;
-      s += `<ellipse cx="${fx + side * .4 * u}" cy="${fy}" rx="${.7 * u}" ry="${.28 * u}" fill="${weight ? col : '#fff'}" stroke="${col}" stroke-width="${w * .4}"/>`;
+  foot(F, p) {   // where a foot is at time p, and how far through a flight it is
+    const { ev, total } = this.m, E = ev[F]; let k = E.length - 1; for (let i = 0; i < E.length; i++) if (E[i].t <= p + 1e-9) k = i; else break;
+    if (E[0].t > p + 1e-9) k = E.length - 1;
+    const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t + (nx.t <= e.t || (k === E.length - 1) ? total : 0), te = e.t > p ? e.t - total : e.t;
+    const still = Math.hypot(nx.x - e.x, nx.y - e.y) < 1e-6 && !nx.hop && !nx.jump && nx.kind !== 'up' && e.kind !== 'up';
+    const flight = still ? 0 : Math.min(.6, .55 * (tn - te));
+    if (flight && p >= tn - flight) {
+      const u = (p - (tn - flight)) / flight, s = this.ease(u), arc = Math.sin(Math.PI * u);
+      const h = nx.kind === 'up' ? 0 : nx.hop ? .45 : nx.jump ? .55 : .22 + .12 * Math.hypot(nx.x - e.x, nx.y - e.y);
+      return { x: e.x + (nx.x - e.x) * s, y: e.y + (nx.y - e.y) * s, z: e.z + (nx.z - e.z) * s + arc * h, air: 1, u, planted: false, kind: nx.kind };
     }
-    if (P.arms === 'c') s += `<circle cx="0" cy="${shoulder + u}" r="${.5 * u}" fill="${HI}" fill-opacity=".7"/>`;
-    return s + `</g>`;
+    return { x: e.x, y: e.y, z: e.z, air: e.kind === 'up' ? 1 : 0, u: 0, planted: e.kind !== 'up', kind: e.kind };
+  },
+  pelvis(p) {
+    const { fr, n, total, target } = this.m, k = frameAt({ frames: fr }, p), f = fr[k], dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, u = (p - f.t) / dt;
+    const T0 = target(k - 1), T1 = target(k), T2 = target(k + 1), mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
+    const start = mid(T0, T1), ahead = lerp(T1, T2, .35);
+    return u < .25 ? lerp(start, T1, this.ease(u / .25)) : u < .6 ? T1 : lerp(T1, ahead, this.ease((u - .6) / .4));
+  },
+  state(p) {
+    const R = this.RIG, { fr, n, total } = this.m, k = frameAt({ frames: fr }, p), f = fr[k];
+    const L = this.foot('L', p), Rt = this.foot('R', p), P = this.pelvis(p), legLen = R.thigh + R.shin - .08, nominal = legLen - .22;
+    // height from leg reach, each foot's limit relaxing as it leaves the floor; nobody on the floor means a jump
+    let h = nominal, airborne = !L.planted && !Rt.planted;
+    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y), hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
+    if (airborne) h = nominal + Math.max(L.z, Rt.z) * .9; else { const fly = L.air ? L : Rt.air ? Rt : null; if (fly && fly.kind !== 'up') h += .1 * Math.sin(Math.PI * fly.u); }
+    const v = { x: (this.pelvis(p + .06).x - this.pelvis(p - .06).x) / .12, y: (this.pelvis(p + .06).y - this.pelvis(p - .06).y) / .12 };
+    const lean = { x: Math.max(-.35, Math.min(.35, v.x * .08)), y: Math.max(-.35, Math.min(.35, v.y * .08)) };
+    const S = { x: P.x + lean.x, y: P.y + lean.y, z: h + R.torso };
+    // hands: the arms token sets a target; the hands take a third of a beat to get there
+    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-2.3, .1, .3], [2.3, .1, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.12, .9, -.4], [.12, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
+    const prevTok = fr[(k - 1 + n) % n].arms, dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, ua = this.ease((p - f.t) / dt / .35), A = hand(f.arms), A0 = hand(prevTok);
+    const hands = [0, 1].map(i => { const a = A0[i].map((c, j) => c + (A[i][j] - c) * ua); return { x: S.x + a[0], y: S.y + a[1], z: S.z + a[2] }; });
+    return { P: { ...P, z: h }, S, L, R: Rt, hands, weight: f.weight, arms: f.arms, airborne };
+  },
+  ik(A, B, l1, l2, bendDir) {   // two-bone: joint between A and B bending toward bendDir
+    const v = { x: B.x - A.x, y: B.y - A.y, z: B.z - A.z }; let d = Math.hypot(v.x, v.y, v.z); const reach = l1 + l2 - .01;
+    if (d > reach) { const s = reach / d; B = { x: A.x + v.x * s, y: A.y + v.y * s, z: A.z + v.z * s }; v.x *= s; v.y *= s; v.z *= s; d = reach; }
+    const a = (l1 * l1 - l2 * l2 + d * d) / (2 * d), bend = Math.sqrt(Math.max(0, l1 * l1 - a * a));
+    const dot = (bendDir.x * v.x + bendDir.y * v.y + bendDir.z * v.z) / (d * d || 1), perp = { x: bendDir.x - v.x * dot, y: bendDir.y - v.y * dot, z: bendDir.z - v.z * dot }, pl = Math.hypot(perp.x, perp.y, perp.z) || 1;
+    const J = { x: A.x + v.x * a / d + perp.x / pl * bend, y: A.y + v.y * a / d + perp.y / pl * bend, z: A.z + v.z * a / d + perp.z / pl * bend };
+    return { J, B };
+  },
+  figure(st, size) {
+    const R = this.RIG, U = size / 10, front = state.facing === 'front', sgn = front ? -1 : 1;
+    const pr = q => { const X = q.x * sgn, Y = q.y * sgn; return [X * U, -q.z * U - Y * .3 * U]; };   // forward is up the screen (away) seen from behind
+    const line = (pts, col, w, op = 1) => `<path d="M${pts.map(q => pr(q).join(',')).join(' L')}" stroke="${col}" stroke-width="${w}" fill="none" opacity="${op}"/>`;
+    const parts = [];
+    const hipL = { x: st.P.x - R.hipHalf, y: st.P.y, z: st.P.z }, hipR = { x: st.P.x + R.hipHalf, y: st.P.y, z: st.P.z };
+    for (const [F, hip, ft, col, side] of [['L', hipL, st.L, LEFT, -1], ['R', hipR, st.R, RIGHT, 1]]) {
+      const { J, B } = this.ik(hip, ft, R.thigh, R.shin, { x: side * .25, y: 1, z: .15 });
+      const weight = ft.planted && (st.weight === F || st.weight === 'B');
+      const depth = (J.y + B.y) / 2 * sgn;
+      parts.push({ depth, svg: line([hip, J, B], col, .3 * U, weight ? 1 : .7) + `<ellipse cx="${pr(B)[0] + side * .2 * U}" cy="${pr(B)[1] + .05 * U}" rx="${.42 * U}" ry="${.16 * U}" fill="${weight ? col : '#fff'}" stroke="${col}" stroke-width="${.1 * U}"/>` });
+    }
+    const shL = { x: st.S.x - R.shoulderHalf, y: st.S.y, z: st.S.z }, shR = { x: st.S.x + R.shoulderHalf, y: st.S.y, z: st.S.z };
+    parts.push({ depth: st.P.y * sgn, svg: line([hipL, hipR], '#333', .3 * U) + line([{ x: st.P.x, y: st.P.y, z: st.P.z }, { x: st.S.x, y: st.S.y, z: st.S.z }], '#333', .34 * U) + line([shL, shR], '#333', .3 * U) });
+    const headC = { x: st.S.x, y: st.S.y, z: st.S.z + R.neck + R.head }, hp = pr(headC);
+    parts.push({ depth: st.S.y * sgn - .01, svg: line([{ x: st.S.x, y: st.S.y, z: st.S.z }, { x: st.S.x, y: st.S.y, z: st.S.z + R.neck }], '#333', .25 * U) + `<circle cx="${hp[0]}" cy="${hp[1]}" r="${R.head * U}" fill="#fff" stroke="#333" stroke-width="${.14 * U}"/>` + (front ? `<circle cx="${hp[0] - .2 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><circle cx="${hp[0] + .2 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><path d="M${hp[0] - .2 * U},${hp[1] + .2 * U} Q${hp[0]},${hp[1] + .36 * U} ${hp[0] + .2 * U},${hp[1] + .2 * U}" stroke="#333" stroke-width="${.07 * U}" fill="none"/>` : '') });
+    for (const [i, sh, col, side] of [[0, shL, LEFT, -1], [1, shR, RIGHT, 1]]) {
+      const { J, B } = this.ik(sh, st.hands[i], R.upper, R.fore, { x: side * 1, y: -.5, z: -.6 });
+      parts.push({ depth: (J.y + B.y) / 2 * sgn, svg: line([sh, J, B], col, .24 * U) + `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.14 * U}" fill="${col}"/>` });
+    }
+    const sh = pr({ x: st.P.x, y: st.P.y, z: 0 });
+    let s = `<ellipse cx="${sh[0]}" cy="${sh[1] + .1 * U}" rx="${(1.6 - Math.min(.6, st.P.z - 3.4) * .5) * U}" ry="${.3 * U}" fill="#000" opacity="${st.airborne ? .06 : .1}"/>`;
+    parts.sort((a, b) => b.depth - a.depth).forEach(q => s += q.svg);
+    if (st.arms === 'c') { const c = pr(st.hands[0]); s += `<circle cx="${c[0]}" cy="${c[1]}" r="${.35 * U}" fill="${HI}" fill-opacity=".6"/>`; }
+    return `<g stroke-linecap="round" stroke-linejoin="round">${s}</g>`;
   },
   build(el, d) {
-    const W = 700, H = 560;
+    const W = 700, H = 560; this.prep(d);
     let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><text x="${W / 2}" y="22" text-anchor="middle" font-size="14" fill="#999">${state.facing === 'front' ? 'seen from in front: the dancer faces you, so their left is on your right' : 'seen from behind: left is left'}</text>`;
-    s += `<g id="dancer" transform="translate(${W / 2} 270)"></g><text id="dsay" x="${W / 2}" y="520" text-anchor="middle" font-size="26" font-weight="600" fill="#333"></text>`;
-    s += `<g id="dcounts">${d.frames.filter(f => f.sub === 0).map(f => `<text class="dc" data-t="${f.t}" x="${W / 2 + (f.t - (d.bars * d.beats - 1) / 2) * Math.min(44, 600 / (d.bars * d.beats))}" y="548" text-anchor="middle" font-size="15" fill="#777">${f.beat + 1}</text>`).join('')}</g></svg>`;
-    el.innerHTML = s; this.d = d; this.fig = el.querySelector('#dancer'); this.say = el.querySelector('#dsay'); this.counts = [...el.querySelectorAll('.dc')]; this.total = d.bars * d.beats;
+    s += `<line x1="60" x2="${W - 60}" y1="430" y2="430" stroke="#ddd"/><g id="dancer" transform="translate(${W / 2} 430)"></g><text id="dsay" x="${W / 2}" y="500" text-anchor="middle" font-size="26" font-weight="600" fill="#333"></text>`;
+    s += `<g id="dcounts">${d.frames.filter(f => f.sub === 0).map(f => `<text class="dc" data-t="${f.t}" x="${W / 2 + (f.t - (d.bars * d.beats - 1) / 2) * Math.min(44, 600 / (d.bars * d.beats))}" y="536" text-anchor="middle" font-size="15" fill="#777">${f.beat + 1}</text>`).join('')}</g></svg>`;
+    el.innerHTML = s; this.d = d; this.fig = el.querySelector('#dancer'); this.say = el.querySelector('#dsay'); this.counts = [...el.querySelectorAll('.dc')];
   },
   paint(p) {
-    const d = this.d, n = d.frames.length, k = frameAt(d, p), f = d.frames[k], g = d.frames[(k + 1) % n];
-    const dt = ((k + 1 < n ? g.t : this.total) - f.t) || 1, u = Math.max(0, (p - f.t) / dt);
-    this.fig.innerHTML = this.figure(this.pose(f, g, u), 340);
+    const d = this.d, total = d.bars * d.beats, q = ((p % total) + total) % total, k = frameAt(d, q), f = d.frames[k];
+    this.fig.innerHTML = this.figure(this.state(q), 420);
     const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' }, dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', z: ' across behind', c: ' together', p: '' };
     this.say.textContent = `${countOf(f)}: ${names[f.kind]}${['step', 'touch', 'jump'].includes(f.kind) ? dirs[f.dir] : ''}`;
-    const beat = Math.floor(p); this.counts.forEach(c => { const on = Math.floor(+c.dataset.t) === beat; c.setAttribute('fill', on ? HI : '#777'); c.setAttribute('font-weight', on ? 700 : 400); });
+    const beat = Math.floor(q); this.counts.forEach(c => { const on = Math.floor(+c.dataset.t) === beat; c.setAttribute('fill', on ? HI : '#777'); c.setAttribute('font-weight', on ? 700 : 400); });
   }
 };
 
