@@ -74,14 +74,14 @@
     return d;
   }
   function stepFeatures(d) {
-    const f = { metre: `${d.meter[0]}/${d.meter[1]}`, beats: d.beats, bars: d.bars, bpm: d.bpm, moves: 0, holds: 0, touches: 0, across: 0, hops: 0, jumps: 0, kicks: 0, dirs: new Set(), subBeats: 0, triple: 0, sameFootTwice: 0, armChanges: 0, armsApart: 0, armKinds: new Set(), problems: d.problems.length };
+    const f = { metre: `${d.meter[0]}/${d.meter[1]}`, beats: d.beats, bars: d.bars, bpm: d.bpm, effortMarks: new Set(), levelLine: d.level.length > 0, leanLine: d.lean.length > 0, moves: 0, holds: 0, touches: 0, across: 0, hops: 0, jumps: 0, kicks: 0, dirs: new Set(), subBeats: 0, triple: 0, sameFootTwice: 0, armChanges: 0, armsApart: 0, armKinds: new Set(), problems: d.problems.length };
     let lastFoot = null, lastArm = null;
     for (let bi = 0; bi < d.bars; bi++) for (let b = 0; b < d.beats; b++) {
       const ft = d.feet.length ? (d.feet[bi % d.feet.length] || [])[b] || '.' : '.', at = d.arms.length ? (d.arms[bi % d.arms.length] || [])[b] || '.' : '.';
       const subs = ft.split('-'); if (subs.length === 2) f.subBeats++; if (subs.length >= 3) f.triple++;
       let footMoved = false;
       for (const raw of subs) {
-        const tok = raw.replace(/[!~_^@=]+$/, ''); if (raw !== tok) f.efforts = (f.efforts || 0) + 1;   // effort marks shape the movement, not the step
+        const tok = raw.replace(/[!~_^@=]+$/, ''); if (raw !== tok) { f.efforts = (f.efforts || 0) + 1; for (const c of raw.slice(tok.length)) f.effortMarks.add(c); }   // effort marks shape the movement, not the step
         if (tok === '.') { f.holds++; continue; }
         f.moves++; footMoved = true; let m;
         if ((m = tok.match(/^([LRlr])([fbsxzcp]?)$/))) { const F = m[1].toUpperCase(), dir = m[2] || 'p'; f.dirs.add(dir); if (m[1] !== F) f.touches++; if (dir === 'x' || dir === 'z') f.across++; if (m[1] === F) { if (lastFoot === F) f.sameFootTwice++; lastFoot = F; } }
@@ -98,7 +98,7 @@
     const mirror = t => t.replace(/[LRlr]/g, c => ({ L: 'R', R: 'L', l: 'r', r: 'l' }[c]));
     f.mirrored = d.feet.length >= 2 && d.feet.length % 2 === 0 && d.feet.slice(0, d.feet.length / 2).every((bar, i) => mirror(bar.join(' ')) === d.feet[i + d.feet.length / 2].join(' '));
     f.distinctBars = new Set(d.feet.map(b => b.join(' '))).size;
-    f.shape = d.level.length > 0 || d.lean.length > 0; f.efforts = f.efforts || 0;
+    f.shape = d.level.length > 0 || d.lean.length > 0; f.efforts = f.efforts || 0; f.effortMarks = [...f.effortMarks];
     f.turns = d.turn.flat().filter(t => /^[lr]+$/.test(t)).reduce((n, t) => n + t.length, 0); f.hips = d.hips.flat().some(t => /^[lrfb]$/.test(t)); f.shoulders = d.shoulders.flat().some(t => /^[lru]$/.test(t));
     return f;
   }
@@ -163,9 +163,39 @@
     if (f.efforts) s.add('effort'); if (f.shape) s.add('shape'); if (f.turns) s.add(f.turns >= 2 ? 'turn:half' : 'turn:quarter'); if (f.hips) s.add('hips'); if (f.shoulders) s.add('shoulders');
     return [...s].sort();
   }
+  /* Ontario alignment: the grade in which The Ontario Curriculum, Grades 1-8: The Arts (2009) first names the element
+     of dance a step sequence or a dance uses. The curriculum progresses by elements of dance and choreographic form,
+     not by step difficulty, so most footwork sits in grades 1 and 2; what raises a grade is the element it brings in. */
+  const ONTARIO_STEPS = [
+    [1, 'locomotor and non-locomotor movements; directions forwards, backwards, sideways', () => true],
+    [1, 'levels (low, middle, high)', f => f.levelLine],
+    [1, 'even and uneven rhythm (skipping, galloping)', f => f.subBeats > 0],
+    [1, 'hopping on one foot, jumping on two, kicking', f => f.hops + f.jumps + f.kicks > 0],
+    [2, 'pathways and turning', f => f.turns > 0 || f.effortMarks.includes('@')],
+    [2, 'sudden and sustained tempo', f => f.effortMarks.includes('!') || f.effortMarks.includes('~')],
+    [2, 'the right side of the body against the left', f => f.mirrored],
+    [3, 'force: lightness and strength', f => f.effortMarks.includes('_') || f.effortMarks.includes('^')],
+    [3, 'pattern forms (AB, ABA)', f => f.distinctBars >= 2 && f.bars > f.distinctBars],
+    [3, '3/4 metre', f => /^3\/4$/.test(f.metre)],
+    [4, 'cross-lateral movement (steps across the body)', f => f.across > 0],
+    [4, 'pause and stillness', f => f.holds > 0],
+    [4, 'effort qualities; bound flow', f => f.effortMarks.includes('=')],
+    [5, '6/8 metre', f => /^(6|12)\/8$/.test(f.metre)],
+    [6, 'irregular metres (5/4, 7/8, 9/8)', f => /^(5|7|9|11)\//.test(f.metre)],
+    [7, 'isolation of body parts (hips, shoulders)', f => f.hips || f.shoulders],
+  ];
+  const ONTARIO_PROSE = [
+    [2, 'folk dances (named as a form in grade 2)', () => true],
+    [1, 'with a partner', f => f.interaction === 2],
+    [1, 'hands in a ring', f => f.interaction === 1],
+    [4, 'meet and part, follow and lead (figures with another couple)', f => f.interaction === 3],
+    [5, 'group formations, changing partners (relationship)', f => f.formation >= 4 || f.interaction >= 4],
+    [5, 'four or more figures (a longer form)', f => f.figures > 4],
+  ];
+  const ontarioOf = (table, f) => { const hit = table.filter(([, , test]) => test(f)), grade = Math.max(...hit.map(h => h[0])); return { grade, band: `Grade ${grade}`, concepts: hit.filter(h => h[0] === grade).map(h => h[1]), all: hit.map(h => `${h[0]}: ${h[1]}`) }; };
   function analyzeSteps(text, options) {
     const d = typeof text === 'string' ? parseSteps(text) : text, f = stepFeatures(d);
-    return { kind: 'steps', title: d.title, meta: d.meta, text: typeof text === 'string' ? text : '', features: f, skills: stepSkills(f), grade: gradeWith(STEP_LATTICE, f, options), problems: d.problems };
+    return { kind: 'steps', title: d.title, meta: d.meta, text: typeof text === 'string' ? text : '', features: f, skills: stepSkills(f), grade: gradeWith(STEP_LATTICE, f, options), ontario: ontarioOf(ONTARIO_STEPS, f), problems: d.problems };
   }
 
   /* ================= 2. dances described in prose ================= */
@@ -298,7 +328,7 @@
   }
   function analyzeProse(d, options) {
     const f = proseFeatures(d);
-    return { kind: 'prose', title: d.title, meta: { country: d.country, book: d.book, year: d.year, source: d.source, licence: d.licence, bookClass: d.bookClass }, text: d.text, features: f, skills: proseSkills(f), grade: gradeWith(PROSE_LATTICE, f, options), problems: [] };
+    return { kind: 'prose', title: d.title, meta: { country: d.country, book: d.book, year: d.year, source: d.source, licence: d.licence, bookClass: d.bookClass }, text: d.text, features: f, skills: proseSkills(f), grade: gradeWith(PROSE_LATTICE, f, options), ontario: ontarioOf(ONTARIO_PROSE, f), problems: [] };
   }
   // How the grades line up with the book's own classes (1 small children, 2 larger boys and girls, 3 adults).
   function calibrate(items) {
@@ -311,5 +341,5 @@
     return { counts: { 1: table[1].length, 2: table[2].length, 3: table[3].length }, meanLevel: { 1: mean(table[1]), 2: mean(table[2]), 3: mean(table[3]) }, kendall: concord + discord ? (concord - discord) / (concord + discord) : null, table };
   }
 
-  return { parseSteps, stepFeatures, STEP_LATTICE, analyzeSteps, readBook, proseFeatures, PROSE_LATTICE, analyzeProse, calibrate, sequence, gradeWith };
+  return { parseSteps, stepFeatures, STEP_LATTICE, analyzeSteps, readBook, proseFeatures, PROSE_LATTICE, analyzeProse, calibrate, sequence, gradeWith, ontarioOf, ONTARIO_STEPS, ONTARIO_PROSE };
 });

@@ -213,10 +213,32 @@
     if (f.dynamics) s.add('dynamics');
     return [...s].sort();
   }
+  /* Ontario alignment: the grade in which The Ontario Curriculum, Grades 1-8: The Arts (2009) first names each
+     concept under the element of duration (and under texture, for layered parts). A pattern's grade is the highest
+     of the concepts it uses; grades 7 and 8 name no new values ("rhythms encountered in the repertoire"). */
+  const ONTARIO = [
+    [1, 'quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato', () => true],
+    [2, 'two parts, a line over a steady part (bordun, homophony)', f => f.parts === 2],
+    [3, '3/4 metre', f => /^3\/4$/.test(f.metre)],
+    [3, 'sixteenth-note patterns', f => f.finest >= 4 && !f.compound],
+    [3, 'three parts (rounds, partner songs, canons)', f => f.parts === 3],
+    [4, 'syncopation (syn-co-pa)', f => f.syncopation > 0 && f.finest <= 2],
+    [4, 'four or more parts (simple polyphony)', f => f.parts >= 4],
+    [5, 'dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths', f => f.syncopation > 0 && f.finest >= 4 && !f.compound],
+    [5, '6/8 metre (one-and-a two-and-a)', f => f.compound && /^(6|12)\//.test(f.metre)],
+    [6, 'triplets', f => f.tripletFraction > 0 && !f.compound],
+    [6, '9/8, 5/4 and other compound or irregular metres', f => /^(9\/8|5\/|7\/|11\/|6\/4)/.test(f.metre) || f.oddFraction > 0],
+    [6, 'two metres at once (polyrhythm)', f => f.polyrhythm],
+    [7, 'rhythms as met in repertoire: sixteenths at speed', f => f.bpm > 150 && f.finest >= 4],
+  ];
+  function ontario(f) {
+    const hit = ONTARIO.filter(([, , test]) => test(f)), grade = Math.max(...hit.map(h => h[0]));
+    return { grade, band: `Grade ${grade}`, concepts: hit.filter(h => h[0] === grade).map(h => h[1]), all: hit.map(h => `${h[0]}: ${h[1]}`) };
+  }
   function analyze(text, options) {
     const p = typeof text === 'string' ? parse(text) : text;
     const f = features(p);
-    return { title: p.title, meta: p.meta, text: typeof text === 'string' ? text : toText(p), features: f, skills: skills(f), grade: grade(f, options), problems: p.problems };
+    return { title: p.title, meta: p.meta, text: typeof text === 'string' ? text : toText(p), features: f, skills: skills(f), grade: grade(f, options), ontario: ontario(f), problems: p.problems };
   }
   // sequence(): order so each pattern brings in as few new skills as possible (the method-book order).
   function sequence(items) {
@@ -286,5 +308,5 @@
     return { title: meta.title || '', meter, beats, compound, bars: 1, bpm: meta.bpm || null, rows, problems: [], meta: { bpm: meta.bpm, style: meta.style, source: meta.source || 'Groove MIDI Dataset', licence: meta.licence || 'CC BY 4.0', id: meta.id || '' }, played: n, of: nbars };
   }
 
-  return { parse, toText, features, LATTICE, grade, skills, analyze, sequence, fromGrooveSteps, fromMidi, readMidi, PARTS };
+  return { parse, toText, features, LATTICE, grade, skills, analyze, sequence, fromGrooveSteps, fromMidi, readMidi, PARTS, ontario, ONTARIO };
 });

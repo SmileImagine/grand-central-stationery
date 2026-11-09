@@ -133,6 +133,16 @@
     "dir:place",
     "metre:4/4"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -169,6 +179,16 @@
    "introduces": [
     "arms:out"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -206,6 +226,16 @@
     "dir:close",
     "dir:side"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -243,6 +273,17 @@
    "introduces": [
     "bars:2"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "the right side of the body against the left"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -279,6 +320,18 @@
    "introduces": [
     "metre:3/4"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left",
+     "3: 3/4 metre"
+    ]
+   },
    "metre": "3/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -317,6 +370,18 @@
    "introduces": [
     "hop"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking",
+     "3: 3/4 metre"
+    ]
+   },
    "metre": "3/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -355,6 +420,17 @@
     "arms:hips",
     "hips"
    ],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "isolation of body parts (hips, shoulders)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "7: isolation of body parts (hips, shoulders)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 130,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -391,6 +467,16 @@
    "introduces": [
     "arms:clap"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -430,6 +516,18 @@
    "introduces": [
     "touch"
    ],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "isolation of body parts (hips, shoulders)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left",
+     "7: isolation of body parts (hips, shoulders)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -467,6 +565,18 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "isolation of body parts (hips, shoulders)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left",
+     "7: isolation of body parts (hips, shoulders)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -503,6 +613,16 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -539,6 +659,16 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -576,6 +706,16 @@
    "introduces": [
     "dir:forward"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -615,6 +755,17 @@
    "introduces": [
     "dir:back"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "3: 3/4 metre"
+    ]
+   },
    "metre": "3/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -653,6 +804,17 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "the right side of the body against the left"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -692,6 +854,17 @@
    "introduces": [
     "hold"
    ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "pause and stillness"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "4: pause and stillness"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -730,6 +903,18 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "pause and stillness"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "3: 3/4 metre",
+     "4: pause and stillness"
+    ]
+   },
    "metre": "3/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -767,6 +952,19 @@
    "introduces": [
     "metre:6/8"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left",
+     "4: pause and stillness",
+     "5: 6/8 metre"
+    ]
+   },
    "metre": "6/8",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -807,6 +1005,18 @@
    "introduces": [
     "two-in-a-beat"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 115,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -845,6 +1055,18 @@
    "introduces": [
     "metre:2/4"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "the right side of the body against the left"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "2: the right side of the body against the left"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -883,6 +1105,18 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -918,6 +1152,18 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 120,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -957,6 +1203,18 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -992,6 +1250,18 @@
     "metre:2/4"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "the right side of the body against the left"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking",
+     "2: the right side of the body against the left"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1027,6 +1297,20 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)",
+     "hopping on one foot, jumping on two, kicking"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "1: hopping on one foot, jumping on two, kicking"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1064,6 +1348,19 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "the right side of the body against the left"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "1: hopping on one foot, jumping on two, kicking",
+     "2: the right side of the body against the left"
+    ]
+   },
    "metre": "2/4",
    "bpm": 120,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1103,6 +1400,19 @@
    "introduces": [
     "arms-apart"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left",
+     "4: pause and stillness",
+     "5: 6/8 metre"
+    ]
+   },
    "metre": "6/8",
    "bpm": 120,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1139,6 +1449,17 @@
     "metre:4/4"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "pause and stillness"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "4: pause and stillness"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1176,6 +1497,17 @@
     "metre:4/4"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "pause and stillness"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "4: pause and stillness"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1215,6 +1547,16 @@
    "introduces": [
     "arms:up"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1255,6 +1597,16 @@
    "introduces": [
     "bars:4"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1293,6 +1645,18 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "pause and stillness"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "4: pause and stillness"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1331,6 +1695,18 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 90,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1366,6 +1742,18 @@
     "metre:4/4"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "pattern forms (AB, ABA)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking",
+     "3: pattern forms (AB, ABA)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1405,6 +1793,18 @@
    "introduces": [
     "jump"
    ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "pause and stillness"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking",
+     "4: pause and stillness"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1443,6 +1843,20 @@
    "introduces": [
     "kick"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "even and uneven rhythm (skipping, galloping)",
+     "hopping on one foot, jumping on two, kicking"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "1: hopping on one foot, jumping on two, kicking"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1481,6 +1895,18 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "hopping on one foot, jumping on two, kicking"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1519,6 +1945,19 @@
    "introduces": [
     "shoulders"
    ],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "isolation of body parts (hips, shoulders)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "1: hopping on one foot, jumping on two, kicking",
+     "7: isolation of body parts (hips, shoulders)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1557,6 +1996,17 @@
    "introduces": [
     "dir:across"
    ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "cross-lateral movement (steps across the body)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "4: cross-lateral movement (steps across the body)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 115,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1595,6 +2045,18 @@
     "touch"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "cross-lateral movement (steps across the body)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "2: the right side of the body against the left",
+     "4: cross-lateral movement (steps across the body)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1632,6 +2094,19 @@
     "two-in-a-beat"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "cross-lateral movement (steps across the body)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: even and uneven rhythm (skipping, galloping)",
+     "2: the right side of the body against the left",
+     "4: cross-lateral movement (steps across the body)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1669,6 +2144,17 @@
    "introduces": [
     "dir:across behind"
    ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "cross-lateral movement (steps across the body)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "4: cross-lateral movement (steps across the body)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1705,6 +2191,19 @@
     "metre:4/4"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "cross-lateral movement (steps across the body)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking",
+     "2: the right side of the body against the left",
+     "4: cross-lateral movement (steps across the body)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1741,6 +2240,18 @@
     "metre:2/4"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "cross-lateral movement (steps across the body)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "1: hopping on one foot, jumping on two, kicking",
+     "4: cross-lateral movement (steps across the body)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 130,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1778,6 +2289,19 @@
    "introduces": [
     "metre:7/8"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "irregular metres (5/4, 7/8, 9/8)"
+    ],
+    "all": [
+     "1: locomotor and non-locomotor movements; directions forwards, backwards, sideways",
+     "4: cross-lateral movement (steps across the body)",
+     "4: pause and stillness",
+     "6: irregular metres (5/4, 7/8, 9/8)"
+    ]
+   },
    "metre": "7/8",
    "bpm": 150,
    "source": "traditional steps, typed for Grand Central Stationery",
@@ -1815,6 +2339,16 @@
     "formation:ring",
     "sung"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "folk dances (named as a form in grade 2)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)"
+    ]
+   },
    "country": "Provence, France",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -1859,6 +2393,17 @@
     "step:march",
     "step:step"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "folk dances (named as a form in grade 2)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: hands in a ring"
+    ]
+   },
    "country": "Belgiixm",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -1902,6 +2447,18 @@
     "formation:sets",
     "step:walk"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: hands in a ring",
+     "5: group formations, changing partners (relationship)"
+    ]
+   },
    "country": "",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -1943,6 +2500,20 @@
    "introduces": [
     "step:clap"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: hands in a ring",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Lithuania",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -1985,6 +2556,20 @@
    "introduces": [
     "step:promenade"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Ulster, Ireland",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2028,6 +2613,20 @@
     "formation:longways",
     "step:sing"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: hands in a ring",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "England",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2073,6 +2672,18 @@
     "formation:couples",
     "step:stamp"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Lithuania",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2116,6 +2727,17 @@
     "step:polka",
     "step:swing"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "folk dances (named as a form in grade 2)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner"
+    ]
+   },
    "country": "Lithuania",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2159,6 +2781,18 @@
    "introduces": [
     "step:heel and toe"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Mecklenburg, Germany",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2201,6 +2835,18 @@
    "introduces": [
     "step:run"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Czechoslovakia",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2243,6 +2889,20 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "England",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2284,6 +2944,20 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Mecklenburg, Germany",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2329,6 +3003,18 @@
     "step:courtesy",
     "step:slide"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: hands in a ring",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Bretagne, France",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2377,6 +3063,20 @@
    "introduces": [
     "step:jump"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Czechoslovakia",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2421,6 +3121,18 @@
     "step:bow",
     "step:skip"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "France",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2467,6 +3179,18 @@
     "long",
     "step:waltz"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: hands in a ring",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "the North of Portugal",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2510,6 +3234,18 @@
    "introduces": [
     "other-couple"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Jutland, Denmark",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2553,6 +3289,20 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Nordheide, Germany",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2597,6 +3347,18 @@
    "introduces": [
     "step:balance"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Czechoslovakia",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2640,6 +3402,18 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Czechoslovakia",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2684,6 +3458,19 @@
    "introduces": [
     "progression"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Limerick, Ireland",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2728,6 +3515,20 @@
    "introduces": [
     "step:cast of"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "the Midlands, Connaught, Ireland",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2769,6 +3570,20 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Donegal, Ireland",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -2814,6 +3629,19 @@
    "introduces": [
     "step:country-dance step"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -2860,6 +3688,19 @@
    "introduces": [
     "step:right and left"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -2906,6 +3747,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -2951,6 +3805,17 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -2995,6 +3860,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3040,6 +3918,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3084,6 +3975,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3131,6 +4035,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3178,6 +4095,19 @@
    "introduces": [
     "step:ladies' chain"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3222,6 +4152,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3270,6 +4213,19 @@
    "introduces": [
     "step:buzz step"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3316,6 +4272,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3363,6 +4332,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3412,6 +4394,19 @@
    "introduces": [
     "step:chasse"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3462,6 +4457,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3510,6 +4518,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3559,6 +4580,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3612,6 +4646,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3657,6 +4704,18 @@
    "introduces": [
     "step:jig step"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Jutland, Denmark",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -3707,6 +4766,19 @@
    "introduces": [
     "formation:changing"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3760,6 +4832,19 @@
     "sung"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Mecklenburg, Germany",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -3808,6 +4893,17 @@
    "introduces": [
     "step:kneel"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)"
+    ]
+   },
    "country": "Belgium",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -3858,6 +4954,19 @@
    "introduces": [
     "step:leap"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Poland",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -3908,6 +5017,19 @@
    "introduces": [
     "step:grand right and left"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "",
    "book": "American Country-Dances",
    "year": "1918",
@@ -3958,6 +5080,19 @@
    "introduces": [
     "step:allemande"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "the Middle Western States",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -4009,6 +5144,19 @@
    "introduces": [
     "step:stamp and clap"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "North Seeland, Denmark",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -4062,6 +5210,19 @@
    "introduces": [
     "step:pas de basque"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "the Carpathian Mountains and Vicinity",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -4111,6 +5272,18 @@
     "step:pirouette",
     "step:pivot"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "1: with a partner",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "the mountains in the north of Spain",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -4163,6 +5336,18 @@
     "step:kick",
     "step:mazurka"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Sweden",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -4212,6 +5397,20 @@
     "step:nod",
     "step:springing step"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "4: meet and part, follow and lead (figures with another couple)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Finland",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",
@@ -4272,6 +5471,19 @@
     "step:sashay",
     "step:two-step"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "group formations, changing partners (relationship)",
+     "four or more figures (a longer form)"
+    ],
+    "all": [
+     "2: folk dances (named as a form in grade 2)",
+     "5: group formations, changing partners (relationship)",
+     "5: four or more figures (a longer form)"
+    ]
+   },
    "country": "Oxford County, Maine",
    "book": "Folk-Dances from Old Homelands",
    "year": "1922",

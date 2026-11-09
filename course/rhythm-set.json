@@ -83,6 +83,16 @@
     "metre:4/4",
     "parts:1"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 1,
@@ -118,6 +128,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 1,
@@ -153,6 +173,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 1,
@@ -190,6 +220,16 @@
    "introduces": [
     "div:1/2"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 1,
@@ -225,6 +265,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 1,
@@ -263,6 +313,16 @@
    "introduces": [
     "dynamics"
    ],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 1,
@@ -299,6 +359,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 1,
@@ -335,6 +405,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 1,
@@ -371,6 +451,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 215,
    "parts": 1,
@@ -409,6 +499,17 @@
    "introduces": [
     "parts:2"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 2,
@@ -445,6 +546,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 2,
@@ -480,6 +592,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 2,
@@ -516,6 +639,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 114,
    "parts": 2,
@@ -552,6 +686,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 88,
    "parts": 2,
@@ -588,6 +733,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 180,
    "parts": 2,
@@ -624,6 +780,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 176,
    "parts": 2,
@@ -660,6 +827,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 215,
    "parts": 2,
@@ -698,6 +876,17 @@
    "introduces": [
     "independence"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 2,
@@ -734,6 +923,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 2,
@@ -771,6 +971,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 2,
@@ -807,6 +1018,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 2,
@@ -843,6 +1065,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 2,
@@ -880,6 +1113,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 140,
    "parts": 2,
@@ -917,6 +1161,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 184,
    "parts": 2,
@@ -954,6 +1209,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 215,
    "parts": 2,
@@ -992,6 +1258,18 @@
    "introduces": [
     "metre:3/4"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: 3/4 metre"
+    ]
+   },
    "metre": "3/4",
    "bpm": 100,
    "parts": 2,
@@ -1032,6 +1310,17 @@
    "introduces": [
     "bars:2"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 2,
@@ -1068,6 +1357,16 @@
     "parts:1"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 1,
@@ -1105,6 +1404,18 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: 3/4 metre"
+    ]
+   },
    "metre": "3/4",
    "bpm": 120,
    "parts": 2,
@@ -1143,6 +1454,17 @@
    "introduces": [
     "parts:3"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 85,
    "parts": 3,
@@ -1179,6 +1501,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 3,
@@ -1214,6 +1547,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -1249,6 +1593,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -1285,6 +1640,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -1321,6 +1687,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 138,
    "parts": 3,
@@ -1357,6 +1734,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 185,
    "parts": 3,
@@ -1393,6 +1781,17 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 200,
    "parts": 3,
@@ -1430,6 +1829,17 @@
    "introduces": [
     "metre:2/4"
    ],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "parts": 2,
@@ -1468,6 +1878,18 @@
    "introduces": [
     "sync"
    ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 2,
@@ -1505,6 +1927,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 3,
@@ -1542,6 +1976,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 3,
@@ -1578,6 +2024,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -1615,6 +2073,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 3,
@@ -1652,6 +2122,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 3,
@@ -1689,6 +2171,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 133,
    "parts": 3,
@@ -1726,6 +2220,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 2,
@@ -1764,6 +2270,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 86,
    "parts": 2,
@@ -1802,6 +2320,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 102,
    "parts": 3,
@@ -1838,6 +2368,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 110,
    "parts": 3,
@@ -1875,6 +2417,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 102,
    "parts": 3,
@@ -1912,6 +2466,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 92,
    "parts": 3,
@@ -1949,6 +2515,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 158,
    "parts": 3,
@@ -1986,6 +2564,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 138,
    "parts": 3,
@@ -2023,6 +2613,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 215,
    "parts": 3,
@@ -2062,6 +2664,17 @@
    "introduces": [
     "bars:4"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: 3/4 metre"
+    ]
+   },
    "metre": "3/4",
    "bpm": 100,
    "parts": 1,
@@ -2099,6 +2712,17 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "two parts, a line over a steady part (bordun, homophony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 2,
@@ -2136,6 +2760,18 @@
    "introduces": [
     "div:triplet"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 102,
    "parts": 2,
@@ -2173,6 +2809,18 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 115,
    "parts": 2,
@@ -2208,6 +2856,18 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -2245,6 +2905,18 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 125,
    "parts": 2,
@@ -2280,6 +2952,18 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 140,
    "parts": 2,
@@ -2317,6 +3001,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 112,
    "parts": 3,
@@ -2356,6 +3052,17 @@
    "introduces": [
     "downbeat-rest"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 75,
    "parts": 3,
@@ -2394,6 +3101,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 92,
    "parts": 3,
@@ -2432,6 +3151,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: 3/4 metre",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "3/4",
    "bpm": 157,
    "parts": 3,
@@ -2470,6 +3202,19 @@
    "introduces": [
     "div:1/4"
    ],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "sixteenth-note patterns",
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 65,
    "parts": 3,
@@ -2506,6 +3251,19 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "sixteenth-note patterns",
+     "three parts (rounds, partner songs, canons)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -2543,6 +3301,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 117,
    "parts": 1,
@@ -2580,6 +3350,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 2,
@@ -2616,6 +3399,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "2/4",
    "bpm": 80,
    "parts": 2,
@@ -2654,6 +3450,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 3,
@@ -2691,6 +3500,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 2,
@@ -2728,6 +3550,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 3,
@@ -2766,6 +3601,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "2/4",
    "bpm": 100,
    "parts": 3,
@@ -2803,6 +3651,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "parts": 3,
@@ -2840,6 +3701,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 2,
@@ -2876,6 +3750,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 3,
@@ -2912,6 +3799,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 3,
@@ -2950,6 +3850,18 @@
    "introduces": [
     "sync:strong"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 1,
@@ -2987,6 +3899,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 1,
@@ -3023,6 +3947,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 1,
@@ -3060,6 +3996,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 2,
@@ -3097,6 +4045,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 2,
@@ -3133,6 +4093,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 1,
@@ -3171,6 +4143,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 94,
    "parts": 2,
@@ -3209,6 +4193,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 3,
@@ -3247,6 +4243,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 115,
    "parts": 3,
@@ -3283,6 +4291,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 1,
@@ -3320,6 +4340,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 3,
@@ -3358,6 +4390,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 128,
    "parts": 2,
@@ -3395,6 +4439,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 126,
    "parts": 3,
@@ -3433,6 +4489,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 87,
    "parts": 3,
@@ -3471,6 +4540,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 112,
    "parts": 3,
@@ -3509,6 +4591,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 3,
@@ -3547,6 +4642,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 2,
@@ -3583,6 +4691,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -3620,6 +4741,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "parts": 3,
@@ -3657,6 +4791,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 104,
    "parts": 3,
@@ -3695,6 +4842,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 118,
    "parts": 3,
@@ -3733,6 +4892,17 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 1,
@@ -3771,6 +4941,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 70,
    "parts": 3,
@@ -3808,6 +4990,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 2,
@@ -3844,6 +5038,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "2/4",
    "bpm": 90,
    "parts": 1,
@@ -3881,6 +5087,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 2,
@@ -3918,6 +5136,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 2,
@@ -3956,6 +5187,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 94,
    "parts": 2,
@@ -3993,6 +5237,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "parts": 2,
@@ -4031,6 +5288,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 140,
    "parts": 3,
@@ -4069,6 +5338,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 94,
    "parts": 3,
@@ -4107,6 +5389,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 78,
    "parts": 2,
@@ -4145,6 +5440,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 137,
    "parts": 2,
@@ -4182,6 +5490,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 3,
@@ -4219,6 +5540,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 128,
    "parts": 3,
@@ -4257,6 +5591,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 84,
    "parts": 3,
@@ -4296,6 +5643,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -4334,6 +5694,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 117,
    "parts": 2,
@@ -4371,6 +5744,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 132,
    "parts": 3,
@@ -4410,6 +5795,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 142,
    "parts": 3,
@@ -4447,6 +5844,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 2,
@@ -4484,6 +5893,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "2/4",
    "bpm": 120,
    "parts": 2,
@@ -4522,6 +5944,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "4: syncopation (syn-co-pa)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 190,
    "parts": 3,
@@ -4560,6 +5994,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 3,
@@ -4597,6 +6043,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "2/4",
    "bpm": 120,
    "parts": 2,
@@ -4636,6 +6095,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -4675,6 +6147,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "3: three parts (rounds, partner songs, canons)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 3,
@@ -4712,6 +6197,17 @@
    "introduces": [
     "metre:12/8"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "12/8",
    "bpm": 110,
    "parts": 1,
@@ -4749,6 +6245,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "12/8",
    "bpm": 110,
    "parts": 2,
@@ -4785,6 +6293,17 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "12/8",
    "bpm": 110,
    "parts": 1,
@@ -4822,6 +6341,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "12/8",
    "bpm": 110,
    "parts": 2,
@@ -4861,6 +6392,18 @@
    "introduces": [
     "metre:9/8"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "9/8",
    "bpm": 100,
    "parts": 2,
@@ -4897,6 +6440,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "9/8",
    "bpm": 160,
    "parts": 2,
@@ -4936,6 +6491,18 @@
    "introduces": [
     "metre:6/8"
    ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "6/8",
    "bpm": 100,
    "parts": 2,
@@ -4972,6 +6539,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "6/8",
    "bpm": 100,
    "parts": 2,
@@ -5008,6 +6587,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "5: 6/8 metre (one-and-a two-and-a)"
+    ]
+   },
    "metre": "6/8",
    "bpm": 120,
    "parts": 2,
@@ -5045,6 +6636,18 @@
    "introduces": [
     "metre:5/4"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "5/4",
    "bpm": 110,
    "parts": 2,
@@ -5083,6 +6686,17 @@
    "introduces": [
     "parts:4"
    ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 124,
    "parts": 4,
@@ -5121,6 +6735,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 96,
    "parts": 4,
@@ -5158,6 +6785,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 115,
    "parts": 4,
@@ -5195,6 +6835,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 96,
    "parts": 5,
@@ -5232,6 +6885,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 112,
    "parts": 4,
@@ -5268,6 +6934,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 4,
@@ -5305,6 +6984,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 4,
@@ -5342,6 +7034,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 4,
@@ -5379,6 +7084,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 102,
    "parts": 6,
@@ -5416,6 +7134,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 144,
    "parts": 4,
@@ -5453,6 +7184,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 124,
    "parts": 4,
@@ -5490,6 +7234,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 4,
@@ -5528,6 +7285,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "parts": 4,
@@ -5565,6 +7335,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 127,
    "parts": 5,
@@ -5602,6 +7385,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 89,
    "parts": 4,
@@ -5640,6 +7436,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 110,
    "parts": 4,
@@ -5677,6 +7486,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 127,
    "parts": 4,
@@ -5714,6 +7536,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 4,
@@ -5751,6 +7586,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 4,
@@ -5789,6 +7637,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 105,
    "parts": 5,
@@ -5826,6 +7687,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 96,
    "parts": 4,
@@ -5863,6 +7737,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 96,
    "parts": 5,
@@ -5900,6 +7787,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 96,
    "parts": 5,
@@ -5936,6 +7836,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 4,
@@ -5973,6 +7886,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: four or more parts (simple polyphony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 93,
    "parts": 4,
@@ -6010,6 +7935,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 116,
    "parts": 4,
@@ -6047,6 +7985,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 116,
    "parts": 4,
@@ -6084,6 +8035,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 106,
    "parts": 4,
@@ -6121,6 +8085,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 124,
    "parts": 5,
@@ -6158,6 +8135,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 120,
    "parts": 6,
@@ -6195,6 +8185,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 130,
    "parts": 4,
@@ -6232,6 +8235,18 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: four or more parts (simple polyphony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 125,
    "parts": 4,
@@ -6270,6 +8285,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 103,
    "parts": 4,
@@ -6307,6 +8335,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: 3/4 metre",
+     "4: four or more parts (simple polyphony)",
+     "6: triplets"
+    ]
+   },
    "metre": "3/4",
    "bpm": 120,
    "parts": 4,
@@ -6344,6 +8385,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 103,
    "parts": 4,
@@ -6382,6 +8436,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 95,
    "parts": 4,
@@ -6420,6 +8487,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 4,
@@ -6457,6 +8537,19 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "4/4",
    "bpm": 215,
    "parts": 5,
@@ -6494,6 +8587,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 4,
@@ -6532,6 +8638,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 4,
@@ -6569,6 +8688,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 90,
    "parts": 4,
@@ -6606,6 +8738,20 @@
     "sync"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "four or more parts (simple polyphony)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: 3/4 metre",
+     "4: syncopation (syn-co-pa)",
+     "4: four or more parts (simple polyphony)"
+    ]
+   },
    "metre": "3/4",
    "bpm": 200,
    "parts": 4,
@@ -6643,6 +8789,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 96,
    "parts": 4,
@@ -6680,6 +8839,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: four or more parts (simple polyphony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 118,
    "parts": 6,
@@ -6717,6 +8888,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 4,
@@ -6754,6 +8938,18 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "4: four or more parts (simple polyphony)",
+     "6: triplets"
+    ]
+   },
    "metre": "4/4",
    "bpm": 122,
    "parts": 6,
@@ -6791,6 +8987,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 122,
    "parts": 5,
@@ -6829,6 +9038,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 85,
    "parts": 4,
@@ -6866,6 +9088,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 84,
    "parts": 4,
@@ -6904,6 +9139,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 85,
    "parts": 4,
@@ -6943,6 +9191,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 112,
    "parts": 5,
@@ -6980,6 +9241,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 4,
@@ -7017,6 +9291,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 80,
    "parts": 4,
@@ -7054,6 +9341,19 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: sixteenth-note patterns",
+     "4: four or more parts (simple polyphony)",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths"
+    ]
+   },
    "metre": "4/4",
    "bpm": 100,
    "parts": 4,
@@ -7091,6 +9391,18 @@
    "introduces": [
     "metre:7/8"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "7/8",
    "bpm": 120,
    "parts": 2,
@@ -7128,6 +9440,18 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "7/8",
    "bpm": 110,
    "parts": 2,
@@ -7163,6 +9487,18 @@
     "parts:2"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "7/8",
    "bpm": 150,
    "parts": 2,
@@ -7200,6 +9536,18 @@
    "introduces": [
     "metre:5/8"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "5/8",
    "bpm": 160,
    "parts": 2,
@@ -7237,6 +9585,18 @@
     "parts:3"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "3: three parts (rounds, partner songs, canons)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "5/8",
    "bpm": 162,
    "parts": 3,
@@ -7274,6 +9634,18 @@
    "introduces": [
     "metre:11/8"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: 9/8, 5/4 and other compound or irregular metres"
+    ]
+   },
    "metre": "11/8",
    "bpm": 170,
    "parts": 2,
@@ -7314,6 +9686,20 @@
    "introduces": [
     "poly"
    ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets",
+     "two metres at once (polyrhythm)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "6: triplets",
+     "6: two metres at once (polyrhythm)"
+    ]
+   },
    "metre": "2/4",
    "bpm": 80,
    "parts": 2,
@@ -7352,6 +9738,21 @@
     "sync:strong"
    ],
    "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "two metres at once (polyrhythm)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, 2/4 and 4/4, a rhythmic ostinato",
+     "2: two parts, a line over a steady part (bordun, homophony)",
+     "3: 3/4 metre",
+     "3: sixteenth-note patterns",
+     "5: dotted and mixed sixteenth cells (tim-ka, tika-ti), syncopated sixteenths",
+     "6: two metres at once (polyrhythm)"
+    ]
+   },
    "metre": "3/4",
    "bpm": 80,
    "parts": 2,

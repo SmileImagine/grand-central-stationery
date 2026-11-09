@@ -76,7 +76,7 @@ for (const d of dims) { const n = new Array(6).fill(0); items.forEach(it => n[it
 
 if (opts.json) {
   const levels = {}; for (const d of dims) R.LATTICE[d].rungs.forEach((r, i) => (levels[i + 1] = levels[i + 1] || []).push(r.name));
-  const out = { name: 'Rhythm set', generated: new Date().toISOString().slice(0, 10), levels, patterns: seq.map(it => ({ id: (it.meta.id || it.title || '').toString().replace(/[^a-z0-9]+/gi, '-').toLowerCase() || 'p' + Math.random().toString(36).slice(2, 8), title: it.title, level: it.grade.level, score: it.grade.score, rungs: it.grade.rungs, reasons: it.grade.reasons, skills: it.skills, introduces: it.introduces, metre: it.features.metre, bpm: it.features.bpm, parts: it.features.parts, style: it.meta.style || '', source: it.meta.source || it.source, licence: it.meta.licence || '', text: it.text })) };
+  const out = { name: 'Rhythm set', generated: new Date().toISOString().slice(0, 10), levels, patterns: seq.map(it => ({ id: (it.meta.id || it.title || '').toString().replace(/[^a-z0-9]+/gi, '-').toLowerCase() || 'p' + Math.random().toString(36).slice(2, 8), title: it.title, level: it.grade.level, score: it.grade.score, rungs: it.grade.rungs, reasons: it.grade.reasons, skills: it.skills, introduces: it.introduces, ontario: it.ontario, metre: it.features.metre, bpm: it.features.bpm, parts: it.features.parts, style: it.meta.style || '', source: it.meta.source || it.source, licence: it.meta.licence || '', text: it.text })) };
   fs.writeFileSync(opts.json, JSON.stringify(out, null, 1)); console.log(`\nwrote ${opts.json}`);
 }
 if (opts.md) {
