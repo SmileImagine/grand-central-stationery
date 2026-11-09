@@ -58,19 +58,19 @@
 
   /* ================= 1. the step language ================= */
   function parseSteps(text) {
-    const d = { meter: [4, 4], feet: [], arms: [], problems: [], title: '', meta: {} };
+    const d = { meter: [4, 4], feet: [], arms: [], level: [], lean: [], problems: [], title: '', meta: {} };
     text.split('\n').forEach((raw, li) => {
       const line = raw.replace(/\/\/.*$/, '').trim(); if (!line) return;
       const m = line.match(/^([a-z]+)\s*:\s*(.*)$/i); if (!m) { d.problems.push(`Line ${li + 1}: wants meter:, feet: or arms:.`); return; }
       const key = m[1].toLowerCase(), body = m[2].trim();
       if (key === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) d.meter = [+mm[1], +mm[2]]; else d.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
       if (key === 'title') { d.title = body; return; }
-      if (key !== 'feet' && key !== 'arms') { d.meta[key === 'tempo' ? 'bpm' : key] = body; return; }
+      if (!['feet', 'arms', 'level', 'lean'].includes(key)) { d.meta[key === 'tempo' ? 'bpm' : key] = body; return; }
       const bars = body.split('|').map(b => b.trim().split(/\s+/).filter(Boolean)).filter(b => b.length);
       bars.forEach((toks, bi) => { if (toks.length !== d.meter[0]) d.problems.push(`Line ${li + 1}, bar ${bi + 1}: ${toks.length} beats in ${d.meter[0]}/${d.meter[1]}.`); });
       d[key] = bars;
     });
-    d.beats = d.meter[0]; d.bars = Math.max(1, d.feet.length, d.arms.length); d.bpm = d.meta.bpm ? parseFloat(d.meta.bpm) : null;
+    d.beats = d.meter[0]; d.bars = Math.max(1, d.feet.length, d.arms.length, d.level.length, d.lean.length); d.bpm = d.meta.bpm ? parseFloat(d.meta.bpm) : null;
     return d;
   }
   function stepFeatures(d) {
@@ -80,7 +80,8 @@
       const ft = d.feet.length ? (d.feet[bi % d.feet.length] || [])[b] || '.' : '.', at = d.arms.length ? (d.arms[bi % d.arms.length] || [])[b] || '.' : '.';
       const subs = ft.split('-'); if (subs.length === 2) f.subBeats++; if (subs.length >= 3) f.triple++;
       let footMoved = false;
-      for (const tok of subs) {
+      for (const raw of subs) {
+        const tok = raw.replace(/[!~_^@=]+$/, ''); if (raw !== tok) f.efforts = (f.efforts || 0) + 1;   // effort marks shape the movement, not the step
         if (tok === '.') { f.holds++; continue; }
         f.moves++; footMoved = true; let m;
         if ((m = tok.match(/^([LRlr])([fbsxzcp]?)$/))) { const F = m[1].toUpperCase(), dir = m[2] || 'p'; f.dirs.add(dir); if (m[1] !== F) f.touches++; if (dir === 'x' || dir === 'z') f.across++; if (m[1] === F) { if (lastFoot === F) f.sameFootTwice++; lastFoot = F; } }
@@ -97,6 +98,7 @@
     const mirror = t => t.replace(/[LRlr]/g, c => ({ L: 'R', R: 'L', l: 'r', r: 'l' }[c]));
     f.mirrored = d.feet.length >= 2 && d.feet.length % 2 === 0 && d.feet.slice(0, d.feet.length / 2).every((bar, i) => mirror(bar.join(' ')) === d.feet[i + d.feet.length / 2].join(' '));
     f.distinctBars = new Set(d.feet.map(b => b.join(' '))).size;
+    f.shape = d.level.length > 0 || d.lean.length > 0; f.efforts = f.efforts || 0;
     return f;
   }
   const STEP_LATTICE = {
@@ -157,6 +159,7 @@
     f.armKinds.forEach(a => s.add(`arms:${{ u: 'up', o: 'out', d: 'down', c: 'clap', h: 'hips' }[a] || a}`));
     if (f.armsApart) s.add('arms-apart');
     s.add(`metre:${f.metre}`); if (f.bars > 1) s.add(`bars:${f.bars <= 2 ? 2 : f.bars <= 4 ? 4 : 8}`);
+    if (f.efforts) s.add('effort'); if (f.shape) s.add('shape');
     return [...s].sort();
   }
   function analyzeSteps(text, options) {
