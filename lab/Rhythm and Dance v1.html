@@ -241,8 +241,8 @@ function fruitLong(words, beatsPerBar) {
   for (let i = 0; i < words.length; i++) {
     if (words[i] !== 'beat') continue;
     let n = 0; while (i + n + 1 < words.length && (i + n + 1) % beatsPerBar !== 0 && words[i + n + 1] === '∙') n++;
-    if (n >= 3) { ['wa-', 'ter-', 'mel-', 'on'].forEach((w, k) => words[i + k] = w); i += 3; }
-    else if (n >= 1) { words[i] = 'mel-'; words[i + 1] = 'on'; i += n; }
+    if (n >= 3) { ['wa', 'ter', 'mel', 'on'].forEach((w, k) => words[i + k] = w); i += 3; }
+    else if (n >= 1) { words[i] = 'mel'; words[i + 1] = 'on'; i += n; }
   }
   return words;
 }
@@ -351,7 +351,10 @@ RV.syll = {
           });
           if (fr.length && fr[0] > 0.01) s += `<text x="${stemX(0)}" y="${topY + 20}" font-size="20" fill="#aaa" text-anchor="middle">𝄾</text>`;
           if (n === 3 && fr.length > 1) s += `<text x="${x0 + beatW / 2}" y="${topY - 4}" font-size="12" fill="#777" text-anchor="middle">3</text>`;
-          s += `<text x="${x0 + beatW / 2}" y="${y + 88}" text-anchor="middle" font-size="${Math.min(22, beatW / Math.max(4, word.length) * 1.9)}" fill="#333">${esc(word)}</text>`;
+          // each syllable sits under its onset: a word splits at spaces and hyphens, rests (∙) take no syllable
+          const syls = word.split(/[\s-]+/).filter(t => t && t !== '∙');
+          if (syls.length && syls.length === fr.length) { const fs = Math.min(20, (beatW - 20) / Math.max(1, fr.length) / Math.max(2.2, Math.max(...syls.map(t => t.length)) * .62)); syls.forEach((t, k) => s += `<text x="${stemX(fr[k])}" y="${y + 86}" text-anchor="middle" font-size="${fs}" fill="#333">${esc(t)}</text>`); }
+          else s += `<text x="${x0 + beatW / 2}" y="${y + 88}" text-anchor="middle" font-size="${Math.min(22, beatW / Math.max(4, word.length) * 1.9)}" fill="${word === '∙' ? '#bbb' : '#333'}">${esc(word)}</text>`;
           if (ri === 0) s += `<text x="${x0 + beatW / 2}" y="${y - 4}" text-anchor="middle" font-size="14" fill="#777">${b + 1}</text>`;
         }
       }
@@ -795,7 +798,7 @@ function rebuild() {
   else {
     const d = parseDance(dtext.value); state.d = d; dwarn.textContent = d.problems.join('\n'); tempoFrom(d.meta);
     if (d.beats !== r.beats) dwarn.textContent += `\nThe dance is in ${d.meter.join('/')} but the rhythm in ${r.meter.join('/')}.`;
-    clock.cycle = d.cycle; clock.events = r.events.filter(e => e.beat < d.cycle); state.view = DV[state.dview]; state.view.build($('#dstage'), d);
+    clock.cycle = d.cycle; clock.events = []; for (let c = 0; c * r.cycle < d.cycle; c++) for (const e of r.events) { const beat = c * r.cycle + e.beat; if (beat < d.cycle) clock.events.push({ ...e, beat }); }   // the rhythm repeats under the whole dance cycle state.view = DV[state.dview]; state.view.build($('#dstage'), d);
   }
   paint();
 }
