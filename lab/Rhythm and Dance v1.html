@@ -92,7 +92,7 @@
         <button data-view="grid" class="on">Grid</button><button data-view="wheel">Wheel</button><button data-view="syll">Syllables</button><button data-view="body">Body</button>
       </div>
       <div class="warn" id="rwarn"></div>
-      <p class="help"><b>One line per drum.</b> <code>name: steps</code>, the steps of a bar sharing it equally: <code>x</code> hit, <code>X</code> accent, <code>o</code> soft, <code>.</code> rest; spaces are ignored, <code>|</code> starts a new bar. A line with 3 steps against one with 2 is a polyrhythm. <code>meter: 3/4</code> sets the beats in a bar. Drums: kick snare hat open rim clap tom low wood bell clave shaker; body: stomp clap pat snap click. The Body view plays every line as body percussion. The Syllables view speaks each beat in Kodály words, fruit words (pear, ap-ple, wa-ter-mel-on), counting (1 e &amp; a, onsets only), takadimi, or Carnatic konnakol (ta ka di mi for four, ta ki ta for three, ta di gi na tom for five). The stick notation above the words shows onsets, not durations.</p>
+      <p class="help"><b>One line per drum.</b> <code>name: steps</code>, the steps of a bar sharing it equally: <code>x</code> hit, <code>X</code> accent, <code>o</code> soft, <code>.</code> rest; spaces are ignored, <code>|</code> starts a new bar. A line with 3 steps against one with 2 is a polyrhythm. <code>meter: 3/4</code> sets the beats in a bar. Drums: kick snare hat open rim clap tom low wood bell clave shaker; body: stomp clap pat snap click. The Body view plays every line as body percussion. The Syllables view speaks each beat in Kodály words, fruit words (beat, cher-ry, pine-ap-ple, av-o-ca-do, blue-ber-ry, mel-on and wa-ter-mel-on for notes held over beats), counting (1 e &amp; a, onsets only), takadimi, or Carnatic konnakol (ta ka di mi for four, ta ki ta for three, ta di gi na tom for five). The stick notation above the words shows onsets, not durations.</p>
     </aside>
     <div class="stage" id="rstage"></div>
   </section>
@@ -231,9 +231,21 @@ const SYL_NAMES = [[0, 'ta'], [.5, 'di'], [.25, 'ka'], [.75, 'mi'], [1 / 3, 'ki'
 const KONNAKOL = { 1: ['ta'], 2: ['ta', 'ka'], 3: ['ta', 'ki', 'ta'], 4: ['ta', 'ka', 'di', 'mi'], 5: ['ta', 'di', 'gi', 'na', 'tom'], 6: ['ta', 'ki', 'ta', 'ta', 'ki', 'ta'], 7: ['ta', 'ka', 'di', 'mi', 'ta', 'ki', 'ta'], 8: ['ta', 'ka', 'di', 'mi', 'ta', 'ka', 'ju', 'nu'], 9: ['ta', 'ka', 'di', 'mi', 'ta', 'di', 'gi', 'na', 'tom'] };
 // takadimi: the syllable names the position in the beat, whatever sounds around it
 const TAKADIMI = { 1: ['ta'], 2: ['ta', 'di'], 3: ['ta', 'ki', 'da'], 4: ['ta', 'ka', 'di', 'mi'], 6: ['ta', 'va', 'ki', 'di', 'da', 'ma'], 8: ['ta', 'ka', 'di', 'mi', 'ta', 'ka', 'di', 'mi'] };
-// fruit words (Prodigies-style) for the hits in a beat, keyed like KODALY; edit to taste
-const FRUIT = { '1000': 'pear', '1010': 'ap-ple', '1111': 'wa-ter-mel-on', '1011': 'pine-ap-ple', '1110': 'straw-ber-ry', '1001': 'ki-wi', '1101': 'can-ta-loupe', '0101': '∙ ki-wi', '0010': '∙ plum', '0100': '∙ fig', '0011': '∙ ap-ple', '0000': '∙',
-  '100': 'pear', '111': 'blue-ber-ry', '101': 'man-go', '110': 'ap-ple ∙', '011': '∙ ap-ple', '000': '∙', '10': 'pear', '11': 'ap-ple', '01': '∙ fig', '00': '∙', '1': 'pear', '0': '∙' };
+// fruit words for the hits in a beat, keyed like KODALY. The Prodigies words: beat (quarter), cher-ry (two eighths),
+// pine-ap-ple (triplet), av-o-ca-do (four sixteenths), blue-ber-ry (eighth and two sixteenths); a hit held over two
+// beats is mel-on and over four wa-ter-mel-on (see fruitLong). The rest are stand-ins, to be edited to the words you use.
+const FRUIT = { '1000': 'beat', '1010': 'cher-ry', '1111': 'av-o-ca-do', '1011': 'blue-ber-ry', '1110': 'straw-ber-ry', '1001': 'ki-wi', '1101': 'can-ta-loupe', '0101': '∙ ki-wi', '0010': '∙ plum', '0100': '∙ fig', '0011': '∙ cher-ry', '0000': '∙',
+  '100': 'beat', '111': 'pine-ap-ple', '101': 'man-go', '110': 'cher-ry ∙', '011': '∙ cher-ry', '000': '∙', '10': 'beat', '11': 'cher-ry', '01': '∙ fig', '00': '∙', '1': 'beat', '0': '∙' };
+// a beat followed by silent beats in the same bar is one long note: two beats mel-on, four wa-ter-mel-on
+function fruitLong(words, beatsPerBar) {
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] !== 'beat') continue;
+    let n = 0; while (i + n + 1 < words.length && (i + n + 1) % beatsPerBar !== 0 && words[i + n + 1] === '∙') n++;
+    if (n >= 3) { ['wa-', 'ter-', 'mel-', 'on'].forEach((w, k) => words[i + k] = w); i += 3; }
+    else if (n >= 1) { words[i] = 'mel-'; words[i + 1] = 'on'; i += n; }
+  }
+  return words;
+}
 // counting: the syllable names the position in the beat, and only onsets are spoken
 const COUNTS = { 1: [''], 2: ['', '&'], 3: ['', 'la', 'li'], 4: ['', 'e', '&', 'a'], 6: ['', 'ta', 'la', 'ta', 'li', 'ta'], 8: ['', 'ta', 'e', 'ta', '&', 'ta', 'a', 'ta'] };
 const SYSTEMS = { kodaly: 'Kodály', fruit: 'Fruit', counts: '1 e & a', takadimi: 'Takadimi', konnakol: 'Konnakol' };
@@ -320,11 +332,14 @@ RV.syll = {
       s += `<text x="${labW - 10}" y="${y + 50}" text-anchor="end" font-size="18" font-weight="600" fill="${row.colour}">${esc(row.name)}</text>`;
       for (let bi = 0; bi < r.bars; bi++) {
         const steps = row.bars[bi % row.bars.length], n = steps.length / r.beats;
+        const beatWords = [];
+        for (let b = 0; b < r.beats; b++) { const hits = [], lo = b * n, hi = (b + 1) * n; steps.forEach((v, si) => { if (v && si >= lo - 1e-9 && si < hi - 1e-9) hits.push(si - lo); }); const idx = hits.map(h => Number.isInteger(n) ? h : h / n); beatWords.push(state.sylsys === 'konnakol' && Number.isInteger(n) ? konnakolRow(steps).slice(lo, hi).join(' ') : Number.isInteger(n) ? syllables(hits, n, b) : sylFrac(idx)); }
+        if (state.sylsys === 'fruit') fruitLong(beatWords, r.beats);
         for (let b = 0; b < r.beats; b++) {
           const x0 = labW + (bi * r.beats + b) * beatW, hits = [];
           const lo = b * n, hi = (b + 1) * n; steps.forEach((v, si) => { if (v && si >= lo - 1e-9 && si < hi - 1e-9) hits.push(si - lo); });
           const idx = hits.map(h => Number.isInteger(n) ? h : h / n);
-          const word = state.sylsys === 'konnakol' && Number.isInteger(n) ? konnakolRow(steps).slice(lo, hi).join(' ') : Number.isInteger(n) ? syllables(hits, n, b) : sylFrac(idx);
+          const word = beatWords[b];
           s += `<rect class="beat" data-r="${ri}" data-beat="${bi * r.beats + b}" x="${x0 + 2}" y="${y}" width="${beatW - 4}" height="${rowH - 10}" rx="6" fill="#fafafa" stroke="#e4e4e4"/>`;
           // stick notation: a stem per hit, beams between hits inside the beat
           const stemX = f => x0 + 14 + f * (beatW - 28), base = y + 58, topY = y + 14;
