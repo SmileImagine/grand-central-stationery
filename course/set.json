@@ -1501,7 +1501,7 @@
      "texture"
     ]
    },
-   "abc": "X:1\nT:Bhup\nT:Bhupali, Rupak\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Rupak\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 383, p. 301\nN:Pentatonic (Sa Re Ga Pa Dha). Check: the last bar has four quavers in the plate.\nM:3/4\nL:1/8\nK:C\nE | GE D3 E | C2 C2 E2 | A,A, C3 E | D2 E D2 E | GE D3 E |\nC2 C2 E2 | A,A, C3 E | GE DE z E || ED E3 E | cG c2 cc |\ncG c3 c | d2 c2 GA | E2 D2 C2 | E2 D2 A,G, | A,2 C3 E | EG DE |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+   "abc": "X:1\nT:Bhup\nT:Bhupali, Rupak\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Rupak\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 383, p. 301\nN:Pentatonic (Sa Re Ga Pa Dha). Check: the last bar has four quavers in the plate.\nM:3/4\nL:1/8\nK:C\nE | GE D3 E | C2 C2 E2 | A,A, C3 E | D2 E D2 E | GE D3 E |\nC2 C2 E2 | A,A, C3 E | GE DE z E || ED E3 E | cG c2 cc |\ncG c3 c | d2 c2 GA | E2 D2 C2 | E2 D2 A,G, | A,2 C3 E | EG DE |]\n%%tuning Bhup (Sa Re Ga Pa Dha): 203.9 386.3 702.0 884.4 2/1 map=nearest\n"
   },
   {
    "id": "hindostan-4-desh",
@@ -1560,7 +1560,7 @@
      "texture"
     ]
    },
-   "abc": "X:4\nT:Desh\nT:Desh, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 395, p. 305\nN:Both nishads: shuddha Ni (B natural) rising, komal ni (B flat) falling. The asthayi repeats. Check: bars 6 and 7.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cmix\nD2 D F2 A | =Bc c c2 _B | AG A FG A | G2 D ED z :|\nD2 D F2 A | =Bc c c2 c | c2 c2 c =B | cd c d3 |\nc =B2 c2 d | dc c2 A F | AG A FG A | G2 D ED D |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+   "abc": "X:4\nT:Desh\nT:Desh, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 395, p. 305\nN:Both nishads: shuddha Ni (B natural) rising, komal ni (B flat) falling. The asthayi repeats. Check: bars 6 and 7.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cmix\nD2 D F2 A | =Bc c c2 _B | AG A FG A | G2 D ED z :|\nD2 D F2 A | =Bc c c2 c | c2 c2 c =B | cd c d3 |\nc =B2 c2 d | dc c2 A F | AG A FG A | G2 D ED D |]\n%%tuning Desh (Sa Re Ga ma Pa Dha ni Ni): 203.9 386.3 498.0 702.0 884.4 996.1 1088.3 2/1 map=nearest\n"
   },
   {
    "id": "hindostan-3-bhairavi",
@@ -1616,7 +1616,7 @@
      "texture"
     ]
    },
-   "abc": "X:3\nT:Bhairavi\nT:Bhairavi, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 419, p. 311\nN:All four komal notes (re ga dha ni); Fox Strangways heads it Phrygian-Doric. Check: bars 4, 7 and 9 are short in this reading.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cphr\nC | F3 F2 F | E3 E2 E | D3 D2 D | C2 D | D2 D z z C | D3 D2 E |\nED DC C | C3 E2 F | ED CC F || F3 A2 c | c2 c c2 c | c2 c c2 d |\ncB A F2 F | F3 F2 A | AF F D2 D | C3 D2 E | EDC C2 |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+   "abc": "X:3\nT:Bhairavi\nT:Bhairavi, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 419, p. 311\nN:All four komal notes (re ga dha ni); Fox Strangways heads it Phrygian-Doric. Check: bars 4, 7 and 9 are short in this reading.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cphr\nC | F3 F2 F | E3 E2 E | D3 D2 D | C2 D | D2 D z z C | D3 D2 E |\nED DC C | C3 E2 F | ED CC F || F3 A2 c | c2 c c2 c | c2 c c2 d |\ncB A F2 F | F3 F2 A | AF F D2 D | C3 D2 E | EDC C2 |]\n%%tuning Bhairavi (Sa re ga ma Pa dha ni): 111.7 315.6 498.0 702.0 813.7 996.1 2/1 map=nearest\n"
   },
   {
    "id": "hindostan-2-malkos",
@@ -1672,7 +1672,7 @@
      "texture"
     ]
    },
-   "abc": "X:2\nT:Malkos\nT:Malkauns, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 407, p. 308\nN:Pentatonic with komal Ga, Dha and Ni (Sa ga ma dha ni). Check: bar 5 and bar 9.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cm\nC | E2 C C2 C | C3 CA,C | C3 E2 E | E2 E C2 C | E2 A, A,2 A, |\nC3 CA,C | C3 E2 E | E2 E C2 C | E3 E2 F || B2 c c2 c | c2 c c2 c |\nc/c/B/c/ AF F2 | FE C C2 C | C3 CA,C | C3 E2 E | E2 E C2 |]\n%%tuning 22 sruti: 90.2 111.7 182.4 203.9 294.1 315.6 386.3 407.8 498.0 519.6 590.2 609.8 702.0 792.2 813.7 884.4 905.9 996.1 1017.6 1088.3 1109.8 2/1 map=nearest\n"
+   "abc": "X:2\nT:Malkos\nT:Malkauns, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 407, p. 308\nN:Pentatonic with komal Ga, Dha and Ni (Sa ga ma dha ni). Check: bar 5 and bar 9.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cm\nC | E2 C C2 C | C3 CA,C | C3 E2 E | E2 E C2 C | E2 A, A,2 A, |\nC3 CA,C | C3 E2 E | E2 E C2 C | E3 E2 F || B2 c c2 c | c2 c c2 c |\nc/c/B/c/ AF F2 | FE C C2 C | C3 CA,C | C3 E2 E | E2 E C2 |]\n%%tuning Malkos (Sa ga ma dha ni): 315.6 498.0 813.7 996.1 2/1 map=nearest\n"
   },
   {
    "id": "reelsd-g-12-the-donegall",
