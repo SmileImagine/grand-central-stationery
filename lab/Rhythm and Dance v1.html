@@ -457,7 +457,9 @@ const frameAt = (d, p) => { let k = 0; for (let i = 0; i < d.frames.length; i++)
 
 /* ================= dance views ================= */
 const DV = {};
-const FOOT = (x, y, side, scale, fill, stroke, extra = '', rot = 0) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${side * Math.abs(scale)} ${-scale})"${extra}><path d="M-9,-18 C-15,-6 -15,10 -9,22 C-4,28 6,28 10,22 C14,12 13,-2 8,-14 C12,-22 6,-30 0,-28 C-6,-26 -8,-23 -9,-18 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / Math.abs(scale)}" stroke-linejoin="round"/></g>`;
+// A footprint: sole and five toes, toes forward (up the page), the big toe on the inner side. Drawn as a right foot;
+// the left is its mirror. scale < 0 turns it round for the view from in front.
+const FOOT = (x, y, side, scale, fill, stroke, extra = '', rot = 0) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${side * Math.abs(scale)} ${scale})"${extra}><path d="M-11,-9 C-14,0 -10,9 -7,17 C-5,23 5,23 7,17 C10,9 13,0 10,-9 C8,-15 -9,-15 -11,-9 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / Math.abs(scale)}" stroke-linejoin="round"/><circle cx="-7" cy="-20" r="4.4" fill="${fill}" stroke="${stroke}" stroke-width="${1.6 / Math.abs(scale)}"/><circle cx="-0.5" cy="-22.5" r="2.9" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/><circle cx="4.5" cy="-22" r="2.5" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/><circle cx="8.5" cy="-20" r="2.2" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/><circle cx="11.5" cy="-17" r="2" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/></g>`;
 // Footprints: the floor from above, every step printed with its count, the step being taken lit, the ones just taken fading.
 DV.feet = {
   build(el, d) {
@@ -482,7 +484,7 @@ DV.feet = {
     });
     for (const g of groups.values()) {
       const col = g.F === 'L' ? LEFT : RIGHT, label = g.counts.join(' ');
-      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), side(g.F), front ? -1 : 1, g.hollow ? '#fff' : col, col, '', g.facing * (front ? -1 : 1))}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 6}" text-anchor="middle" font-size="${label.length > 3 ? 13 : 18}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
+      s += `<g class="print" data-i="${g.frames.join(' ')}">${FOOT(X(g.pt.x), Y(g.pt.y), side(g.F), front ? -1 : 1, g.hollow ? '#fff' : col, col, '', g.facing * (front ? -1 : 1))}<text x="${X(g.pt.x)}" y="${Y(g.pt.y) + 10}" text-anchor="middle" font-size="${label.length > 3 ? 12 : 17}" font-weight="700" fill="${g.hollow ? col : '#fff'}">${label}</text></g>`;
     }
     s += `<g id="standing"></g><text id="say" x="${W / 2}" y="${H - 16}" text-anchor="middle" font-size="24" font-weight="600" fill="#333"></text></svg>`;
     el.innerHTML = s; this.d = d; this.X = X; this.Y = Y; this.side = side; this.flip = front ? -1 : 1; this.prints = [...el.querySelectorAll('.print')]; this.standing = el.querySelector('#standing'); this.say = el.querySelector('#say');
