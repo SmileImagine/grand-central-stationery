@@ -23,6 +23,7 @@ meter: 4/4
 bpm: 130
 note: a march with the hips: the weight-free hip lifts on every step.
 feet: Ls Rc Ls Rc
+hips: l  r  l  r
 arms: h  h  h  h
 
 title: Bachata basic
@@ -31,6 +32,7 @@ meter: 4/4
 bpm: 120
 note: three steps to the side and a tap with a hip lift on four, then back.
 feet: Ls Rc Ls rc | Rs Lc Rs lc
+hips: .  .  .  r  | .  .  .  l
 arms: h  h  h  h  | h  h  h  h
 
 title: Samba basic (no bounce)
@@ -157,6 +159,7 @@ meter: 4/4
 bpm: 110
 note: a bounce on each foot with the arms up and the shoulders lifting; simplified.
 feet: Lp-H Rp-H Lp-H Rp-H
+lean: l    r    l    r
 arms: u    u    u    u
 
 title: Garba three-step
@@ -173,6 +176,7 @@ meter: 4/4
 bpm: 100
 note: four steps to the right and four to the left, the hips following; the arms extend to the side you travel.
 feet: Rs Lc Rs lc | Ls Rc Ls rc
+hips: r  l  r  l  | l  r  l  r
 arms: o  o  o  o  | o  o  o  o
 
 title: Hula hela

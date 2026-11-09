@@ -286,6 +286,44 @@
    "text": "title: Tinikling basic\norigin: Philippines\nmeter: 3/4\nbpm: 110\nnote: the step between the bamboo poles: out on one, in, in; then out the other side. Simplified to steps on the floor.\nfeet: Ls Rs Ls | Rs Ls Rs\narms: o  o  o  | o  o  o"
   },
   {
+   "id": "mazurka",
+   "title": "Mazurka",
+   "level": 5,
+   "score": 1.83,
+   "rungs": {
+    "feet": 5,
+    "pace": 1,
+    "arms": 1,
+    "metre": 2,
+    "length": 1,
+    "tempo": 1
+   },
+   "reasons": {
+    "feet": "hops and kicks (on one foot)",
+    "pace": "a move every beat or slower",
+    "arms": "arms still",
+    "metre": "3/4",
+    "length": "one bar",
+    "tempo": "80 to 115"
+   },
+   "skills": [
+    "arms:out",
+    "bars:2",
+    "dir:close",
+    "dir:side",
+    "hop",
+    "metre:3/4"
+   ],
+   "introduces": [
+    "hop"
+   ],
+   "metre": "3/4",
+   "bpm": 110,
+   "source": "traditional steps, typed for Grand Central Stationery",
+   "licence": "CC0",
+   "text": "title: Mazurka\nmeter: 3/4\nbpm: 110\nfeet: Ls Rc H | Ls Rc H\narms: o  o  o | o  o  o"
+  },
+  {
    "id": "merengue-basic",
    "title": "Merengue basic",
    "level": 3,
@@ -310,16 +348,18 @@
     "arms:hips",
     "dir:close",
     "dir:side",
+    "hips",
     "metre:4/4"
    ],
    "introduces": [
-    "arms:hips"
+    "arms:hips",
+    "hips"
    ],
    "metre": "4/4",
    "bpm": 130,
    "source": "traditional steps, typed for Grand Central Stationery",
    "licence": "CC0",
-   "text": "title: Merengue basic\norigin: Dominican Republic\nmeter: 4/4\nbpm: 130\nnote: a march with the hips: the weight-free hip lifts on every step.\nfeet: Ls Rc Ls Rc\narms: h  h  h  h"
+   "text": "title: Merengue basic\norigin: Dominican Republic\nmeter: 4/4\nbpm: 130\nnote: a march with the hips: the weight-free hip lifts on every step.\nfeet: Ls Rc Ls Rc\nhips: l  r  l  r\narms: h  h  h  h"
   },
   {
    "id": "hambone-step",
@@ -383,6 +423,7 @@
     "bars:2",
     "dir:close",
     "dir:side",
+    "hips",
     "metre:4/4",
     "touch"
    ],
@@ -393,7 +434,7 @@
    "bpm": 100,
    "source": "traditional steps, typed for Grand Central Stationery",
    "licence": "CC0",
-   "text": "title: Hula kaholo\norigin: Hawai'i\nmeter: 4/4\nbpm: 100\nnote: four steps to the right and four to the left, the hips following; the arms extend to the side you travel.\nfeet: Rs Lc Rs lc | Ls Rc Ls rc\narms: o  o  o  o  | o  o  o  o"
+   "text": "title: Hula kaholo\norigin: Hawai'i\nmeter: 4/4\nbpm: 100\nnote: four steps to the right and four to the left, the hips following; the arms extend to the side you travel.\nfeet: Rs Lc Rs lc | Ls Rc Ls rc\nhips: r  l  r  l  | l  r  l  r\narms: o  o  o  o  | o  o  o  o"
   },
   {
    "id": "bachata-basic",
@@ -421,6 +462,7 @@
     "bars:2",
     "dir:close",
     "dir:side",
+    "hips",
     "metre:4/4",
     "touch"
    ],
@@ -429,7 +471,7 @@
    "bpm": 120,
    "source": "traditional steps, typed for Grand Central Stationery",
    "licence": "CC0",
-   "text": "title: Bachata basic\norigin: Dominican Republic\nmeter: 4/4\nbpm: 120\nnote: three steps to the side and a tap with a hip lift on four, then back.\nfeet: Ls Rc Ls rc | Rs Lc Rs lc\narms: h  h  h  h  | h  h  h  h"
+   "text": "title: Bachata basic\norigin: Dominican Republic\nmeter: 4/4\nbpm: 120\nnote: three steps to the side and a tap with a hip lift on four, then back.\nfeet: Ls Rc Ls rc | Rs Lc Rs lc\nhips: .  .  .  r  | .  .  .  l\narms: h  h  h  h  | h  h  h  h"
   },
   {
    "id": "step-touch",
@@ -922,6 +964,113 @@
    "text": "title: Heel and toe\nmeter: 2/4\nbpm: 110\nfeet: lf lb | Ls-Rc Ls\narms: h  h  | h     h"
   },
   {
+   "id": "hop-step",
+   "title": "Hop step",
+   "level": 5,
+   "score": 1.83,
+   "rungs": {
+    "feet": 5,
+    "pace": 1,
+    "arms": 1,
+    "metre": 1,
+    "length": 2,
+    "tempo": 1
+   },
+   "reasons": {
+    "feet": "hops and kicks (on one foot)",
+    "pace": "a move every beat or slower",
+    "arms": "arms still",
+    "metre": "4/4 or 2/4",
+    "length": "two bars, the second mirroring the first",
+    "tempo": "80 to 115"
+   },
+   "skills": [
+    "arms:out",
+    "bars:2",
+    "dir:forward",
+    "hop",
+    "metre:2/4"
+   ],
+   "introduces": [],
+   "metre": "2/4",
+   "bpm": 110,
+   "source": "traditional steps, typed for Grand Central Stationery",
+   "licence": "CC0",
+   "text": "title: Hop step\nmeter: 2/4\nbpm: 110\nfeet: Lf H | Rf H\narms: o  o | o  o"
+  },
+  {
+   "id": "skip",
+   "title": "Skip",
+   "level": 5,
+   "score": 2.17,
+   "rungs": {
+    "feet": 5,
+    "pace": 4,
+    "arms": 1,
+    "metre": 1,
+    "length": 1,
+    "tempo": 1
+   },
+   "reasons": {
+    "feet": "hops and kicks (on one foot)",
+    "pace": "two moves in a beat, often",
+    "arms": "arms still",
+    "metre": "4/4 or 2/4",
+    "length": "one bar",
+    "tempo": "80 to 115"
+   },
+   "skills": [
+    "arms:out",
+    "dir:forward",
+    "hop",
+    "metre:2/4",
+    "two-in-a-beat"
+   ],
+   "introduces": [],
+   "metre": "2/4",
+   "bpm": 110,
+   "source": "traditional steps, typed for Grand Central Stationery",
+   "licence": "CC0",
+   "text": "title: Skip\nmeter: 2/4\nbpm: 110\nfeet: Lf-H Rf-H\narms: o    o"
+  },
+  {
+   "id": "polka",
+   "title": "Polka",
+   "level": 5,
+   "score": 2.5,
+   "rungs": {
+    "feet": 5,
+    "pace": 4,
+    "arms": 1,
+    "metre": 1,
+    "length": 2,
+    "tempo": 2
+   },
+   "reasons": {
+    "feet": "hops and kicks (on one foot)",
+    "pace": "two moves in a beat, often",
+    "arms": "arms still",
+    "metre": "4/4 or 2/4",
+    "length": "two bars, the second mirroring the first",
+    "tempo": "70 to 125"
+   },
+   "skills": [
+    "arms:out",
+    "bars:2",
+    "dir:close",
+    "dir:forward",
+    "hop",
+    "metre:2/4",
+    "two-in-a-beat"
+   ],
+   "introduces": [],
+   "metre": "2/4",
+   "bpm": 120,
+   "source": "traditional steps, typed for Grand Central Stationery",
+   "licence": "CC0",
+   "text": "title: Polka\nmeter: 2/4\nbpm: 120\nfeet: Lf-Rc Lf-H | Rf-Lc Rf-H\narms: o     o    | o     o"
+  },
+  {
    "id": "garba-three-step",
    "title": "Garba three-step",
    "level": 3,
@@ -1189,6 +1338,41 @@
    "text": "title: East Coast swing basic\norigin: African-American (Lindy hop, jitterbug)\nmeter: 2/4\nbpm: 90\nnote: triple step, triple step, rock step: six counts.\nfeet: Ls-Rc Ls | Rs-Lc Rs | Lb Rp\narms: o     o  | o     o  | o  o"
   },
   {
+   "id": "schottische",
+   "title": "Schottische",
+   "level": 5,
+   "score": 2.17,
+   "rungs": {
+    "feet": 5,
+    "pace": 1,
+    "arms": 1,
+    "metre": 1,
+    "length": 4,
+    "tempo": 1
+   },
+   "reasons": {
+    "feet": "hops and kicks (on one foot)",
+    "pace": "a move every beat or slower",
+    "arms": "arms still",
+    "metre": "4/4 or 2/4",
+    "length": "four bars",
+    "tempo": "80 to 115"
+   },
+   "skills": [
+    "arms:out",
+    "bars:4",
+    "dir:forward",
+    "hop",
+    "metre:4/4"
+   ],
+   "introduces": [],
+   "metre": "4/4",
+   "bpm": 110,
+   "source": "traditional steps, typed for Grand Central Stationery",
+   "licence": "CC0",
+   "text": "title: Schottische\nmeter: 4/4\nbpm: 110\nfeet: Lf Rf Lf H | Rf Lf Rf H | Lf H Rf H | Lf H Rf H\narms: o  o  o  o | o  o  o  o | o  o o  o | o  o o  o"
+  },
+  {
    "id": "jump-and-clap",
    "title": "Jump and clap",
    "level": 4,
@@ -1226,221 +1410,6 @@
    "source": "traditional steps, typed for Grand Central Stationery",
    "licence": "CC0",
    "text": "title: Jump and clap\nmeter: 4/4\nbpm: 100\nfeet: J . J . | J J J .\narms: d c d c | d d d c"
-  },
-  {
-   "id": "hop-step",
-   "title": "Hop step",
-   "level": 5,
-   "score": 1.83,
-   "rungs": {
-    "feet": 5,
-    "pace": 1,
-    "arms": 1,
-    "metre": 1,
-    "length": 2,
-    "tempo": 1
-   },
-   "reasons": {
-    "feet": "hops and kicks (on one foot)",
-    "pace": "a move every beat or slower",
-    "arms": "arms still",
-    "metre": "4/4 or 2/4",
-    "length": "two bars, the second mirroring the first",
-    "tempo": "80 to 115"
-   },
-   "skills": [
-    "arms:out",
-    "bars:2",
-    "dir:forward",
-    "hop",
-    "metre:2/4"
-   ],
-   "introduces": [
-    "hop"
-   ],
-   "metre": "2/4",
-   "bpm": 110,
-   "source": "traditional steps, typed for Grand Central Stationery",
-   "licence": "CC0",
-   "text": "title: Hop step\nmeter: 2/4\nbpm: 110\nfeet: Lf H | Rf H\narms: o  o | o  o"
-  },
-  {
-   "id": "mazurka",
-   "title": "Mazurka",
-   "level": 5,
-   "score": 1.83,
-   "rungs": {
-    "feet": 5,
-    "pace": 1,
-    "arms": 1,
-    "metre": 2,
-    "length": 1,
-    "tempo": 1
-   },
-   "reasons": {
-    "feet": "hops and kicks (on one foot)",
-    "pace": "a move every beat or slower",
-    "arms": "arms still",
-    "metre": "3/4",
-    "length": "one bar",
-    "tempo": "80 to 115"
-   },
-   "skills": [
-    "arms:out",
-    "bars:2",
-    "dir:close",
-    "dir:side",
-    "hop",
-    "metre:3/4"
-   ],
-   "introduces": [],
-   "metre": "3/4",
-   "bpm": 110,
-   "source": "traditional steps, typed for Grand Central Stationery",
-   "licence": "CC0",
-   "text": "title: Mazurka\nmeter: 3/4\nbpm: 110\nfeet: Ls Rc H | Ls Rc H\narms: o  o  o | o  o  o"
-  },
-  {
-   "id": "skip",
-   "title": "Skip",
-   "level": 5,
-   "score": 2.17,
-   "rungs": {
-    "feet": 5,
-    "pace": 4,
-    "arms": 1,
-    "metre": 1,
-    "length": 1,
-    "tempo": 1
-   },
-   "reasons": {
-    "feet": "hops and kicks (on one foot)",
-    "pace": "two moves in a beat, often",
-    "arms": "arms still",
-    "metre": "4/4 or 2/4",
-    "length": "one bar",
-    "tempo": "80 to 115"
-   },
-   "skills": [
-    "arms:out",
-    "dir:forward",
-    "hop",
-    "metre:2/4",
-    "two-in-a-beat"
-   ],
-   "introduces": [],
-   "metre": "2/4",
-   "bpm": 110,
-   "source": "traditional steps, typed for Grand Central Stationery",
-   "licence": "CC0",
-   "text": "title: Skip\nmeter: 2/4\nbpm: 110\nfeet: Lf-H Rf-H\narms: o    o"
-  },
-  {
-   "id": "schottische",
-   "title": "Schottische",
-   "level": 5,
-   "score": 2.17,
-   "rungs": {
-    "feet": 5,
-    "pace": 1,
-    "arms": 1,
-    "metre": 1,
-    "length": 4,
-    "tempo": 1
-   },
-   "reasons": {
-    "feet": "hops and kicks (on one foot)",
-    "pace": "a move every beat or slower",
-    "arms": "arms still",
-    "metre": "4/4 or 2/4",
-    "length": "four bars",
-    "tempo": "80 to 115"
-   },
-   "skills": [
-    "arms:out",
-    "bars:4",
-    "dir:forward",
-    "hop",
-    "metre:4/4"
-   ],
-   "introduces": [],
-   "metre": "4/4",
-   "bpm": 110,
-   "source": "traditional steps, typed for Grand Central Stationery",
-   "licence": "CC0",
-   "text": "title: Schottische\nmeter: 4/4\nbpm: 110\nfeet: Lf Rf Lf H | Rf Lf Rf H | Lf H Rf H | Lf H Rf H\narms: o  o  o  o | o  o  o  o | o  o o  o | o  o o  o"
-  },
-  {
-   "id": "bhangra-bounce",
-   "title": "Bhangra bounce",
-   "level": 5,
-   "score": 2.17,
-   "rungs": {
-    "feet": 5,
-    "pace": 4,
-    "arms": 1,
-    "metre": 1,
-    "length": 1,
-    "tempo": 1
-   },
-   "reasons": {
-    "feet": "hops and kicks (on one foot)",
-    "pace": "two moves in a beat, often",
-    "arms": "arms still",
-    "metre": "4/4 or 2/4",
-    "length": "one bar",
-    "tempo": "80 to 115"
-   },
-   "skills": [
-    "arms:up",
-    "dir:place",
-    "hop",
-    "metre:4/4",
-    "two-in-a-beat"
-   ],
-   "introduces": [],
-   "metre": "4/4",
-   "bpm": 110,
-   "source": "traditional steps, typed for Grand Central Stationery",
-   "licence": "CC0",
-   "text": "title: Bhangra bounce\norigin: Punjab\nmeter: 4/4\nbpm: 110\nnote: a bounce on each foot with the arms up and the shoulders lifting; simplified.\nfeet: Lp-H Rp-H Lp-H Rp-H\narms: u    u    u    u"
-  },
-  {
-   "id": "polka",
-   "title": "Polka",
-   "level": 5,
-   "score": 2.5,
-   "rungs": {
-    "feet": 5,
-    "pace": 4,
-    "arms": 1,
-    "metre": 1,
-    "length": 2,
-    "tempo": 2
-   },
-   "reasons": {
-    "feet": "hops and kicks (on one foot)",
-    "pace": "two moves in a beat, often",
-    "arms": "arms still",
-    "metre": "4/4 or 2/4",
-    "length": "two bars, the second mirroring the first",
-    "tempo": "70 to 125"
-   },
-   "skills": [
-    "arms:out",
-    "bars:2",
-    "dir:close",
-    "dir:forward",
-    "hop",
-    "metre:2/4",
-    "two-in-a-beat"
-   ],
-   "introduces": [],
-   "metre": "2/4",
-   "bpm": 120,
-   "source": "traditional steps, typed for Grand Central Stationery",
-   "licence": "CC0",
-   "text": "title: Polka\nmeter: 2/4\nbpm: 120\nfeet: Lf-Rc Lf-H | Rf-Lc Rf-H\narms: o     o    | o     o"
   },
   {
    "id": "kick-ball-change",
@@ -1517,6 +1486,44 @@
    "source": "traditional steps, typed for Grand Central Stationery",
    "licence": "CC0",
    "text": "title: Charleston\nmeter: 4/4\nbpm: 110\nfeet: Lf K Lb rb\narms: o  u o  d"
+  },
+  {
+   "id": "bhangra-bounce",
+   "title": "Bhangra bounce",
+   "level": 5,
+   "score": 2.17,
+   "rungs": {
+    "feet": 5,
+    "pace": 4,
+    "arms": 1,
+    "metre": 1,
+    "length": 1,
+    "tempo": 1
+   },
+   "reasons": {
+    "feet": "hops and kicks (on one foot)",
+    "pace": "two moves in a beat, often",
+    "arms": "arms still",
+    "metre": "4/4 or 2/4",
+    "length": "one bar",
+    "tempo": "80 to 115"
+   },
+   "skills": [
+    "arms:up",
+    "dir:place",
+    "hop",
+    "metre:4/4",
+    "shape",
+    "two-in-a-beat"
+   ],
+   "introduces": [
+    "shape"
+   ],
+   "metre": "4/4",
+   "bpm": 110,
+   "source": "traditional steps, typed for Grand Central Stationery",
+   "licence": "CC0",
+   "text": "title: Bhangra bounce\norigin: Punjab\nmeter: 4/4\nbpm: 110\nnote: a bounce on each foot with the arms up and the shoulders lifting; simplified.\nfeet: Lp-H Rp-H Lp-H Rp-H\nlean: l    r    l    r\narms: u    u    u    u"
   },
   {
    "id": "dabke-basic",
