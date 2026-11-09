@@ -193,12 +193,13 @@
     body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #fff4e0, #e3f2fd 55%, #f3e5f5); }
     :root[data-theme="dark"] body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #1d1238, #0b2740 55%, #0f2e1e); }
     @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #1d1238, #0b2740 55%, #0f2e1e); } }
-    body.game .score { flex: 0 0 36vh; padding: 0; overflow: hidden; justify-content: flex-start; align-items: center; position: relative;
+    body.game .score { flex: 0 0 32vh; padding: 0; overflow: hidden; justify-content: flex-start; align-items: center; position: relative;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
     body.game .paper { will-change: transform; }
     body.game .paper svg { color: var(--ink); }
     body.game .paper .cursorbar { width: 4px; }
-    body.game .inst { flex: 1 1 0 !important; min-height: 0; border-top: 0; padding: 1vh 2vw; }
+    /* The instrument keeps at least a quarter of the screen whatever the dock opens: it is the point of the mode. */
+    body.game .inst { flex: 1 1 0 !important; min-height: 24vh; border-top: 0; padding: 1vh 2vw; }
     body.game .strip { height: auto; flex: 0 0 auto; min-height: 0; padding: 6px 8px; background: transparent; border-top: 0; }
     body.game .strip::before, body.game .entry, body.game .warn { display: none; }
     body.game .side { max-width: none; width: 100%; justify-content: center; }
@@ -277,8 +278,6 @@
     .tabs .tab[aria-pressed="true"] { background: var(--line-2); border-color: var(--accent); }
     .drawer { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; padding-top: 5px; border-top: 1px dashed var(--line); }
     .drawer[hidden] { display: none; }
-    .cell-body.drawer-open .strip { height: 40%; }   /* room for the open drawer; the score gives a little */
-    body.game .cell-body.drawer-open .strip { height: auto; }
     .mixer { gap: 16px; justify-content: center; align-items: flex-end; padding: 6px 0 2px; }
     body.present .cell[data-type="abc"] .strip { padding-right: 150px; }   /* clear of the slide selector in the corner */
     .member { display: flex; flex-direction: column; align-items: center; gap: 2px; font: var(--ui); color: var(--muted); }
@@ -299,6 +298,12 @@
     .inst .board { fill: color-mix(in srgb, var(--ink) 12%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; }
     .inst .fret { stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 2; }
     .inst .nut { fill: var(--ink); }
+    .inst .uke .top { fill: color-mix(in srgb, var(--ink) 7%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1.2; }
+    .inst .uke .head { fill: color-mix(in srgb, var(--ink) 14%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1.2; }
+    .inst .uke .peg { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.4; }
+    .inst .uke .rosette { fill: none; stroke: var(--ink); stroke-opacity: 0.3; stroke-width: 3; stroke-dasharray: 2 3; }
+    .inst .uke .sound { fill: color-mix(in srgb, var(--ink) 60%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.5; }
+    .inst .uke .bridge { fill: var(--ink); opacity: 0.7; }
     .inst .inlay { fill: var(--ink); opacity: 0.25; }
     .inst .string { stroke: var(--ink); stroke-opacity: 0.8; }
     .inst .dot { fill: var(--c); stroke: var(--c); }
@@ -358,6 +363,58 @@
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     .xpose { white-space: nowrap; }
     .xpose select.examples { max-width: 11em; }   /* the course set's titles would otherwise widen it past the strip */
+    /* ---------- the notation dock ----------
+       Under the staff and the instrument sits one bar: the transport, the
+       tempo, and three tabs (Melody, Band, Mixer). The open tab's drawer
+       hangs under the bar. The melody's ABC is typed in the Melody drawer
+       beside the instrument's controls; the %%band lines in the Band drawer
+       beside the band's; the mixer is the third. In edit mode the Melody
+       drawer is open; presenting and in the game the bar stands alone until
+       a tab is tapped, and the drawers close when the music starts. */
+    .cell[data-type="abc"] .strip.dock { flex-direction: column; height: auto; min-height: 0; max-height: 58%; padding: 0; gap: 0; font: 14px system-ui, sans-serif; }
+    .dock .dockbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; padding: 6px 10px; }
+    .dock .dockbar .tabs { margin-left: auto; }
+    .dock .transport { gap: 4px; }
+    .dock .tbtn { width: 38px; height: 38px; padding: 5px; border-radius: 8px; }
+    .dock .xpose { font: inherit; gap: 6px; }
+    .dock .xpose input, .dock .xpose select { font: inherit; padding: 4px 6px; border-radius: 6px; }
+    .dock .xpose select { border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); }
+    .dock .xpose input[type="number"] { width: 3.6em; }
+    .dock .tabs { gap: 6px; }
+    .dock .tabs .tab { font: inherit; padding: 5px 14px; border-radius: 999px; position: relative; }
+    .dock .tabs .tab .badge { position: absolute; top: -7px; right: -7px; min-width: 1.2em; padding: 0 4px; border-radius: 999px; background: #d33; color: #fff; font: 700 11px/1.5 system-ui, sans-serif; text-align: center; }
+    .dock .tabs .tab .badge:empty { display: none; }
+    .dock .drawer { flex: 1 1 auto; flex-basis: auto; min-height: 0; display: flex; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 0 10px 8px; border-top: 0; overflow: hidden; }
+    .dock .drawer[hidden] { display: none; }
+    .dock .drawer .entry, .dock .bandentry { flex: 1 1 auto; min-width: 0; min-height: 4.6em; }
+    .dock .bandentry { resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 600 clamp(12px, 2.2vh, 18px)/1.35 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
+    .dock .bandentry:focus { border-color: var(--accent); }
+    .dock .bandentry::placeholder, .dock .entry::placeholder { color: var(--muted); opacity: 0.8; font-weight: 400; }
+    .dock .ctl { flex: 0 1 auto; display: flex; flex-wrap: wrap; align-content: flex-start; align-items: center; gap: 6px 14px; max-width: 48%; overflow-y: auto; overscroll-behavior: contain; }
+    .dock .ctl .xpose { white-space: nowrap; }
+    .dock .bandctl { display: none; flex-wrap: wrap; align-items: center; gap: 6px 14px; font: inherit; }
+    .dock .bandctl.on { display: flex; }
+    .dock .bandctl input[type="range"], .dock .feel input[type="range"] { width: 90px; }
+    .dock .bandctl .arrange, .dock .bandctl .patbtn, .dock .bandctl .regen { font: inherit; padding: 4px 12px; border-radius: 6px; }
+    .dock .bandnote { flex-basis: 100%; font: 13px/1.35 system-ui, sans-serif; color: var(--muted); }
+    .dock .bandnote:empty { display: none; }
+    .dock .drawer.bandd { flex-wrap: wrap; align-content: flex-start; }
+    .dock .drawer.bandd .bandentry, .dock .drawer.bandd .ctl { flex: 1 1 0; max-width: none; }
+    .dock .drawer.bandd .ctl { align-self: flex-start; }
+    .dock .drawer.bandd .patpanel { flex-basis: 100%; }
+    .dock .mixer { justify-content: center; align-items: flex-end; gap: 22px; padding: 8px 10px 10px; }
+    .dock .warn { flex: 0 0 auto; order: 9; margin: 0 10px 6px; font: 13px var(--mono); }
+    .dock .warn:empty { display: none; }
+    .cell[data-type="abc"] .strip.dock:not(.open) .warn { display: none; }   /* closed: the Melody tab's badge counts them */
+    .cell[data-type="abc"] .cell-body { --abc-cell-h: 50vh; }
+    /* Presenting: the bar alone, larger, clear of the slide selector in the corner; a drawer that opens is capped so the staff keeps its room. */
+    body.present .cell[data-type="abc"] .strip.dock { height: auto; max-height: 46vh; padding-right: 0; }
+    body.present .dock .dockbar { padding: 8px 160px 8px 14px; font-size: 15px; }
+    body.present .dock .tbtn { width: 46px; height: 46px; }
+    body.game .cell[data-type="abc"] .strip.dock { max-height: 40vh; background: transparent; }
+    body.game .dock .dockbar { background: color-mix(in srgb, var(--bg) 55%, transparent); border-radius: 12px; margin: 2px 10px 6px; }
+    body.game .dock .drawer { background: color-mix(in srgb, var(--bg) 70%, transparent); border-radius: 12px; margin: 0 10px 8px; padding-top: 8px; }
+    body.game .dock .drawer .entry { display: none; }   /* the game is for playing; the text waits for the editor */
     /* Draggable cursor: a wide invisible handle around the bar. */
     .paper .cursorg { cursor: ew-resize; }
     .paper .cursorhit { fill: transparent; pointer-events: all; }
@@ -388,6 +445,13 @@
       .side { min-width: 0; max-width: none; gap: 4px 10px; }
       .side .audio { gap: 4px 10px; }
       .cell[data-type="abc"] .cell-body { height: 56vh; }
+      /* The dock on a phone: the controls wrap under the text instead of beside it. */
+      .cell[data-type="abc"] .strip.dock { max-height: 60%; }
+      .dock .drawer { flex-wrap: wrap; overflow-y: auto; }
+      .dock .ctl, .dock .drawer.bandd .ctl { flex: 1 1 100%; max-width: none; overflow: visible; }
+      .dock .drawer .entry, .dock .bandentry { flex: 1 1 100%; min-height: 3.6em; }
+      .dock .dockbar { gap: 4px 10px; padding: 6px 8px; }
+      .dock .dockbar .tabs { margin-left: 0; }
       .pos { padding: 2px 6px 6px; }
       .pos input[type="number"] { width: 4em; }
       .present-nav { right: 6px; bottom: 6px; }
@@ -999,32 +1063,48 @@
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
-        const F = 44, S = 22, left = 30, top = 12;
-        this.F = F; this.S = S; this.left = left; this.top = top;
-        const W = left + F * this.frets + 20, laneTop = top + S * 3 + 28, L = 12;
+        // The uke as it lies on the player's lap, face up, neck to the left:
+        // a headstock with its pegs past the nut, the frets closing up
+        // toward the body as a real fretboard's do, and the body's upper
+        // bouts with the soundhole and bridge at the right, cut off by the
+        // edge. Each says which end is which, so the picture reads as an
+        // instrument rather than a grid. A caption says whose view it is.
+        const S = 22, left = 70, top = 20, boardLen = 44 * this.frets, cy = top + S * 1.5;
+        this.S = S; this.left = left; this.top = top; this.boardLen = boardLen;
+        const W = left + boardLen + 150, laneTop = top + S * 3 + 40, L = 12, bE = left + boardLen;
         this.laneTop = laneTop; this.L = L;
         const H = laneTop + L * 3 + 10;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
-        const g = svgEl(svg, 'g');
-        svgEl(g, 'rect', { class: 'board', x: left, y: top - 6, width: F * this.frets, height: S * 3 + 12, rx: 3 });
-        for (let i = 1; i <= this.frets; i++) svgEl(g, 'line', { class: 'fret', x1: left + i * F, y1: top - 6, x2: left + i * F, y2: top + S * 3 + 6 });
+        const g = svgEl(svg, 'g', { class: 'uke' });
+        // The body first, under the neck: the upper bout curving out from the fretboard's end to the edge.
+        svgEl(g, 'path', { class: 'top', d: `M ${bE - 6} ${cy - 30} C ${bE + 30} ${cy - 58} ${bE + 100} ${cy - 56} ${W + 4} ${cy - 44} L ${W + 4} ${cy + 44} C ${bE + 100} ${cy + 56} ${bE + 30} ${cy + 58} ${bE - 6} ${cy + 30} Z` });
+        svgEl(g, 'circle', { class: 'rosette', cx: bE + 58, cy, r: 27 });
+        svgEl(g, 'circle', { class: 'sound', cx: bE + 58, cy, r: 22 });
+        svgEl(g, 'rect', { class: 'bridge', x: bE + 124, y: cy - 34, width: 9, height: 68, rx: 2 });
+        // The headstock past the nut, with two pegs a side and the strings fanning onto it.
+        svgEl(g, 'path', { class: 'head', d: `M ${left - 4} ${top - 10} L ${left - 50} ${top - 16} Q ${left - 64} ${top - 16} ${left - 64} ${top - 2} L ${left - 64} ${top + S * 3 + 2} Q ${left - 64} ${top + S * 3 + 16} ${left - 50} ${top + S * 3 + 16} L ${left - 4} ${top + S * 3 + 10} Z` });
+        for (const [px, py] of [[left - 50, top - 18], [left - 26, top - 20], [left - 50, top + S * 3 + 18], [left - 26, top + S * 3 + 20]]) svgEl(g, 'circle', { class: 'peg', cx: px, cy: py, r: 4.5 });
+        svgEl(g, 'rect', { class: 'board', x: left, y: top - 6, width: boardLen, height: S * 3 + 12, rx: 3 });
+        for (let i = 1; i <= this.frets; i++) svgEl(g, 'line', { class: 'fret', x1: this.fretX(i), y1: top - 6, x2: this.fretX(i), y2: top + S * 3 + 6 });
         svgEl(g, 'rect', { class: 'nut', x: left - 3, y: top - 7, width: 5, height: S * 3 + 14, rx: 1 });
-        for (const i of [5, 7, 10]) svgEl(g, 'circle', { class: 'inlay', cx: left + (i - 0.5) * F, cy: top + S * 1.5, r: 4 });
-        for (const dy of [0.5, 2.5]) svgEl(g, 'circle', { class: 'inlay', cx: left + 11.5 * F, cy: top + S * dy, r: 4 });
+        for (const i of [5, 7, 10]) svgEl(g, 'circle', { class: 'inlay', cx: this.fretMid(i), cy, r: 4 });
+        for (const dy of [0.5, 2.5]) svgEl(g, 'circle', { class: 'inlay', cx: this.fretMid(12), cy: top + S * dy, r: 4 });
         const names = ['A', 'E', 'C', 'G'];
         this.strings.forEach((open, s) => {
-          const y = top + s * S;
-          svgEl(g, 'line', { class: 'string', x1: left - 3, y1: y, x2: left + F * this.frets + 10, y2: y, 'stroke-width': (1 + s * 0.4).toFixed(1) });
+          const y = top + s * S, fan = (s - 1.5) * 4;   // the strings spread a little onto the headstock
+          svgEl(g, 'line', { class: 'string', x1: left - 3, y1: y, x2: bE + 126, y2: y, 'stroke-width': (1 + s * 0.4).toFixed(1) });
+          svgEl(g, 'line', { class: 'string', x1: left - 3, y1: y, x2: left - 40, y2: y + fan, 'stroke-width': (1 + s * 0.4).toFixed(1) });
           svgText(g, 'lbl str', left - 14, y + 0.5, 9, midiColor(open), names[s], 'middle');
           svgText(g, 'lbl str', left - 14, laneTop + s * L + 0.5, 8, midiColor(open), names[s], 'middle');
         });
+        svgText(g, 'lbl cap', left + 2, top - 11, 6.5, 'var(--muted)', 'your uke on your lap, face up, neck to the left', 'start');
         // The tab lane: four lines, a clip so columns appear at the right
         // edge and vanish past the now-line, and the scrolling group.
         const clipId = 'tabclip' + (++UkuleleLayout.seq);
         const clip = svgEl(svgEl(svg, 'defs'), 'clipPath', { id: clipId });
-        svgEl(clip, 'rect', { x: left - 12, y: laneTop - 8, width: F * this.frets + 24, height: L * 3 + 16 });
+        svgEl(clip, 'rect', { x: left - 12, y: laneTop - 8, width: W - left + 12, height: L * 3 + 16 });
         const lane = svgEl(svg, 'g', { 'clip-path': `url(#${clipId})` });
-        for (let s = 0; s < 4; s++) svgEl(lane, 'line', { class: 'tabline', x1: left - 12, y1: laneTop + s * L, x2: left + F * this.frets + 12, y2: laneTop + s * L });
+        for (let s = 0; s < 4; s++) svgEl(lane, 'line', { class: 'tabline', x1: left - 12, y1: laneTop + s * L, x2: W, y2: laneTop + s * L });
         this.laneG = svgEl(lane, 'g', { class: 'lane' });
         svgEl(svg, 'line', { class: 'nowline', x1: left, y1: laneTop - 7, x2: left, y2: laneTop + L * 3 + 7 });
         this.marksG = svgEl(svg, 'g');
@@ -1052,7 +1132,10 @@
       }
       has(m) { return this.strings.some(o => m + this.shift - o >= 0 && m + this.shift - o <= this.frets); }
       octaves() { return this.shift / 12; }
-      pt(p) { return { x: p.fret === 0 ? this.left - 14 : this.left + (p.fret - 0.5) * this.F, y: this.top + p.s * this.S }; }
+      // Fret i's wire: a real fretboard's spacing (each fret 2^(1/12) of the string's remaining length), scaled so the twelfth fret ends the board.
+      fretX(i) { return this.left + 2 * this.boardLen * (1 - Math.pow(2, -i / 12)); }
+      fretMid(i) { return (this.fretX(i - 1) + this.fretX(i)) / 2; }
+      pt(p) { return { x: p.fret === 0 ? this.left - 14 : this.fretMid(p.fret), y: this.top + p.s * this.S }; }
       // The tune's events in order ({ ms, midis }), with the beat length at
       // the current tempo: places every note once, from the top with the hand
       // at the nut, and lays the lane out. Cheap, so it may be called on each
@@ -1305,6 +1388,12 @@
        The choruses take turns: the second time round plays line 2, and
        after the last line the first comes round again. */
     const CHART_LINE = /^%%?band\b(.*)$/;
+    // The cell's text is one string, the document's: the melody's ABC with its %%band lines. The two
+    // boxes show its halves, the arrangement without the %%band prefix, and the text is joined again
+    // with the arrangement after the melody (abcjs reads the lines as comments wherever they stand).
+    const splitBand = text => { const melody = [], band = []; for (const l of (text || '').split('\n')) { const m = l.match(CHART_LINE); if (m) band.push(m[1].trim()); else melody.push(l); } return { melody: melody.join('\n'), band: band.join('\n') }; };
+    const bandLine = l => { const t = l.trim(); return !t ? '' : CHART_LINE.test(t) ? t.replace(/^%%?band\s*/, '%%band ') : '%%band ' + t; };
+    const joinBand = (melody, band) => { const lines = band.split('\n').map(bandLine).filter(Boolean); if (!lines.length) return melody; const m = melody.replace(/\s+$/, ''); return (m ? m + '\n' : '') + lines.join('\n'); };
     // The score lines the Pattern panel writes: a part's lines and control patterns for every chorus (numbered ones are a chorus's own and stay).
     const SCORE_LINE = /^%%?band\s+(?:(?:drums|bass|chords)\s*:|(?:energy|detail|drums|bass|chords)\s*=(?!\s*\d+(?:\s+[a-z]+=|\s*$)))/i;
     const CHART_NUM = { energy: 1, detail: 1, seed: 1 }, CHART_STEPS = { kick: 1, snare: 1, hat: 1, comp: 1 };
@@ -2258,39 +2347,47 @@
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
         this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
         this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
-        this.harmony = ['off', 'numerals', 'detect'].includes(opts.harm) ? opts.harm : 'off';
+        // Chords: auto (the written chords; found from the melody when none are written), numerals (the same, with Roman numerals), off (written chords only). 'detect' is the old name of auto.
+        this.harmony = ['off', 'numerals', 'auto'].includes(opts.harm) ? opts.harm : 'auto';
         this.style = STYLES[opts.style] ? opts.style : 'band';
         this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
+        const parts = splitBand(text);
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="paper"></div></div><div class="inst"></div>
-          <div class="strip"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation"></textarea>
-          <div class="side"><div class="audio"><div class="transport">
-            <button type="button" class="tbtn play" title="Play and pause (from the top, two beats count in)"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M7 4.5v15l12-7.5z"/><path class="i-pause" d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg></button>
+          <div class="strip dock"><div class="dockbar"><div class="transport">
+            <button type="button" class="tbtn play" title="Play and pause (from the top, two beats count in). Space, when presenting."><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M7 4.5v15l12-7.5z"/><path class="i-pause" d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg></button>
             <button type="button" class="tbtn restart" title="Back to the start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h2.5v15H5zM19 4.5v15L8.5 12z"/></svg></button>
             <button type="button" class="tbtn loop" title="Repeat the tune" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
           </div>
-          <label class="xpose tempo" title="Playback tempo in beats per minute (Q:1/4=90 in the ABC sets the written tempo)">Tempo <input type="number" class="bpm" min="20" max="400" step="1"> BPM</label></div>
+          <label class="xpose tempo" title="Playback tempo in beats per minute (Q:1/4=90 in the ABC sets the written tempo)">Tempo <input type="number" class="bpm" min="20" max="400" step="1"> BPM</label>
+          <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel">Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div></div>
+          <div class="drawer melody" data-drawer="melody" hidden>
+          <textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
+          <div class="ctl">
+          <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+          <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
+          <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key when none are written; Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" class="tr" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
-          <div class="tabs"><button type="button" class="tab" data-drawer="view" aria-pressed="false" title="The instrument under the staff, note names and harmony">Instrument</button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="What sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div>
-          <div class="warn"></div>
-          <div class="drawer" data-drawer="view" hidden>
-          <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
-          <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
-          <label class="xpose harmpick" title="Roman numerals under the chord symbols, coloured by function (tonic, subdominant, dominant); Detect writes a chord for each bar from the melody and the key when none are written, and plays it.">Harmony <select><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Off</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="detect"${this.harmony === 'detect' ? ' selected' : ''}>Detect chords</option></select></label>
-          </div>
-          <div class="drawer" data-drawer="band" hidden>
-          <label class="xpose playpick" title="What sounds: the melody with its chord symbols, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + chords</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Chords only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
-          <label class="xpose stylepick" title="The accompaniment pattern for the chord symbols: bass, chords and drums. Auto takes the waltz in triple time and boom-chick otherwise; Plain is abcjs's own.">Style <select>${Object.entries(STYLES).map(([k, v]) => `<option value="${k}"${k === this.style ? ' selected' : ''}>${v.name}</option>`).join('')}</select></label>
+          </div></div>
+          <div class="drawer bandd" data-drawer="band" hidden>
+          <textarea class="bandentry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Band arrangement" placeholder="The arrangement, one line per time round (kept in the ABC as %%band lines):&#10;1: energy=30 | G | D7 | Em | C |&#10;drums: bd ~ sd ~"></textarea>
+          <div class="ctl">
+          <label class="xpose playpick" title="What sounds: the melody with its chords, the chords alone as a backing track (the picture still follows the melody), or the melody alone.">Play <select><option value="all"${this.playMode === 'all' ? ' selected' : ''}>Melody + band</option><option value="backing"${this.playMode === 'backing' ? ' selected' : ''}>Band only (backing)</option><option value="melody"${this.playMode === 'melody' ? ' selected' : ''}>Melody only</option></select></label>
+          <label class="xpose stylepick" title="The accompaniment pattern for the chords: bass, chords and drums. Auto takes the waltz in triple time and boom-chick otherwise; Plain is abcjs's own.">Style <select>${Object.entries(STYLES).map(([k, v]) => `<option value="${k}"${k === this.style ? ' selected' : ''}>${v.name}</option>`).join('')}</select></label>
           <span class="bandctl" title="Energy sets how busy the band plays; Detail adds sevenths, ninths, approach notes and ghost notes; the arrow deals a new variation.">
             <label>Energy <input type="range" class="energy" min="0" max="100" value="${this.band.i === undefined ? 50 : this.band.i}"></label>
             <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
             <button type="button" class="regen" title="A new variation">\u21BB</button>
-            <button type="button" class="arrange" title="Write the Band's arrangement into the ABC as %%band lines, one per time round (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button>
-            <button type="button" class="patbtn" title="The band's parts as patterns you can read and edit, with controls that move over bars; edited, the score is kept in the ABC as %%band lines" aria-pressed="false">Pattern</button></span>
-          <div class="patpanel" hidden><textarea class="pattext" rows="9" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Band score"></textarea>
-            <div class="patnote"><span class="patmsg"></span><button type="button" class="patreset" title="Take the score lines out of the ABC and let the sliders write the score again">Back to the sliders</button></div></div>
+            <button type="button" class="arrange" title="Write a five-chorus arrangement from the melody and its chords into the box (plain, sevenths, approach chords, full energy, a quiet last time), to keep or edit as text">Arrange</button>
+            <button type="button" class="patbtn" title="The band's parts as patterns you can read and edit, with controls that move over bars; edited, the score is kept with the arrangement" aria-pressed="false">Pattern</button></span>
+          <div class="bandnote"></div>
           </div>
-          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div></div>`;
+          <div class="patpanel" hidden><textarea class="pattext" rows="9" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Band score"></textarea>
+            <div class="patnote"><span class="patmsg"></span><button type="button" class="patreset" title="Take the score lines out of the arrangement and let the sliders write the score again">Back to the sliders</button></div></div>
+          </div>
+          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div>
+          <div class="warn"></div></div>`;
+        this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band;
         const xp = body.querySelector('input.tr');
         xp.addEventListener('input', () => {
           const n = Math.max(-12, Math.min(12, parseInt(xp.value, 10) || 0));
@@ -2305,7 +2402,7 @@
         sp.addEventListener('change', () => { this.style = sp.value; body.querySelector('.bandctl').classList.toggle('on', this.style === 'band'); this.render(); if (opts.onStyle) opts.onStyle(this.style); });
         body.querySelector('.bandctl').classList.toggle('on', this.style === 'band');
         const bandChange = () => { this.band.i = +body.querySelector('.energy').value; this.band.c = +body.querySelector('.detail').value; this.player.compile(); if (opts.onBand) opts.onBand(this.band); };
-        body.querySelector('.arrange').addEventListener('click', () => { if (this.writeChart()) onChange(this.entry.value); });
+        body.querySelector('.arrange').addEventListener('click', () => { if (this.writeChart()) onChange(this.getText()); });
         // The score panel: the sliders' text while they write it; edited, the score goes into the ABC as %%band lines and is the teacher's.
         const patPanel = body.querySelector('.patpanel'), patText = body.querySelector('.pattext'), patMsg = body.querySelector('.patmsg'), patBtn = body.querySelector('.patbtn');
         this.refreshPattern = () => {
@@ -2318,8 +2415,8 @@
           patMsg.textContent = errs.length ? errs.join(' ') : d.own ? 'Your score, kept in the ABC as %%band lines. A part you leave out is the sliders\'.' : 'Written by the sliders: move them and watch. Edit it and it is yours.';
         };
         patBtn.addEventListener('click', () => { const on = patPanel.hidden; patPanel.hidden = !on; patBtn.setAttribute('aria-pressed', String(on)); if (on) this.refreshPattern(); });
-        patText.addEventListener('input', () => { this.writeScore(patText.value); onChange(this.entry.value); });
-        body.querySelector('.patreset').addEventListener('click', () => { this.writeScore(null); onChange(this.entry.value); });
+        patText.addEventListener('input', () => { this.writeScore(patText.value); onChange(this.getText()); });
+        body.querySelector('.patreset').addEventListener('click', () => { this.writeScore(null); onChange(this.getText()); });
         body.querySelector('.feelv').addEventListener('input', () => { const v = +body.querySelector('.feelv').value; if (v === 50) delete this.band.feel; else this.band.feel = v; this.player.compile(); if (opts.onBand) opts.onBand(this.band); });
         body.querySelector('.energy').addEventListener('input', bandChange);
         body.querySelector('.detail').addEventListener('input', bandChange);
@@ -2340,18 +2437,20 @@
         const np = body.querySelector('.namepick select');
         np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
         const ip = body.querySelector('.instpick select');
-        ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); });   // a full render: the sound changes with the view
+        ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
         this.tl = null; this.idle = true; this.k = null; this.beatK = null; this.raf = null;
         this.bandPlayer = new Band(this); this.player = new Player(this); this.warp = 1;
         this.gamebar = body.querySelector('.gamebar');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
-        this.entry.value = text;
+        this.entry.value = parts.melody;
         this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
         this.shift = new Map();          // displayed element -> horizontal shift from proportional spacing
         this.pending = false;            // a render was requested during playback
-        this.entry.addEventListener('input', () => { this.render(); onChange(this.entry.value); });
+        this.entry.addEventListener('input', () => { this.render(); onChange(this.getText()); });
+        this.bandEntry.addEventListener('input', () => { this.render(); onChange(this.getText()); });
+        if (!document.body.classList.contains('present')) this.showDrawer('melody');   // editing: the text is in view; presenting: the bar alone
         this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
         this.ro.observe(this.scoreEl);
         // abcjs is deferred: on a cold load it may arrive after the cells are built.
@@ -2385,11 +2484,24 @@
         if (!this.player.running && !(this.player.pos > 0)) this.placeReady();   // paused mid-tune: the picture stays where it is, at the new tempo
         this.wake();
       }
-      // One drawer open at a time under the controls (null: none).
-      showDrawer(name) { for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); }
+      // One drawer open at a time under the bar (null: none).
+      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); }
       showMixer(open) { this.showDrawer(open ? 'mix' : null); }
+      // The music starts: presenting, every drawer closes so the staff and the instrument have the screen; editing, only the mixer does.
+      drawersForPlay() { if (document.body.classList.contains('present')) this.showDrawer(null); else if (this.drawer === 'mix') this.showDrawer(null); }
+      // What the band will play, under its controls.
+      refreshBandNote() {
+        const el = this.body.querySelector('.bandnote'); if (!el) return;
+        const chart = this.chart || parseChart(this.getText()), charted = chart.choruses.filter(c => c.bars).length;
+        const written = /"[A-G][#b♯♭]?[^"]*"/.test(this.entry.value);
+        el.textContent = this.style !== 'band' ? '' :
+          charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` :
+          written ? 'The band plays the melody’s chord symbols. Arrange writes a five-chorus arrangement here to keep or edit.' :
+          this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab). Arrange writes them here to edit.' :
+          'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.';
+      }
       transportState() { const tp = this.body.querySelector('.transport'); if (tp) tp.classList.toggle('playing', !!(this.player && this.player.running)); }
-      getText() { return this.entry.value; }
+      getText() { return joinBand(this.entry.value, this.bandEntry.value); }
       focus() { this.entry.focus(); }
       destroy() { this.ro.disconnect(); this.hidden.remove(); if (this.player) this.player.stop(); }
       // Play, pause, resume. From the top, the clock runs from minus two
@@ -2404,7 +2516,7 @@
         this.busy = true;
         try { await p.ready(); } catch (err) { console.warn('samples', err); } finally { this.busy = false; }
         if (p.running || !this.tl) return;
-        this.idle = false; this.showMixer(false);
+        this.idle = false; this.drawersForPlay();
         if (p.pos > 0 && p.pos < this.tl.total) p.start(p.pos);               // resume where it paused
         else { this.beatK = -1; this.leadIn = true; p.start(-this.tl.lead); }  // from the top, with the count-in
         this.transportState(); this.wake();
@@ -2454,9 +2566,11 @@
         if (this.busy) { this.pending = true; clearTimeout(this.busyRetry); this.busyRetry = setTimeout(() => { if (this.pending && !this.busy) this.render(); }, 400); return; }
         this.pending = false;
         this.warnEl.textContent = '';
-        let abc = chartComment(withHeader(gameMode ? this.oneLine(this.entry.value) : this.entry.value));
-        if (this.harmony === 'detect') abc = withDetectedChords(abc);
-        this.chart = parseChart(this.entry.value);
+        const text = this.getText();
+        let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
+        this.chart = parseChart(text);
+        // No chord symbols written and no arrangement: Chords on Auto finds them from the melody, so the band has something to play.
+        if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc);
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = styleFor(this.style, abc);
         abc = withStyle(abc, style);
@@ -2481,7 +2595,7 @@
         this.hiddenIndex.clear();
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
-        const added = abc.split('\n').length - this.entry.value.split('\n').length;   // header lines the page supplied
+        const added = abc.split('\n').length - text.split('\n').length;   // header lines the page supplied (the arrangement's lines follow the melody, so its line numbers hold)
         this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.chart.problems.map(t => ({ text: 'Band chart: ' + t }))];
         this.showNotes();
         // Post-processing must never keep the tune from reaching the
@@ -2505,6 +2619,7 @@
         this.player.load(this.original, { midiTranspose: this.transpose || 0, program: soundProgram(this.inst), chordsOff: this.playMode === 'melody' || !!style.band }, style);
         if (this.bpmBox) this.bpmBox.value = Math.round(this.bpm());
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
+        this.refreshBandNote();
       }
 
       /* ---- warnings ----
@@ -2538,7 +2653,7 @@
         // first bar may be a pickup and the last may complete it, so a
         // short first or last bar passes; an unfinished final bar is not
         // counted at all, so nothing nags while a bar is being typed.
-        const text = this.entry.value;
+        const text = this.entry.value;   // the melody's lines: the arrangement has no M: or L:
         const hasMeter = /^M:/m.test(text) || /\[M:/.test(text);
         let unit = (this.original.getBeatLength && this.original.getBeatLength()) || 0.25;
         const meterLen = f => f && f.num ? parseInt(f.num, 10) / parseInt(f.den, 10) : null;
@@ -2719,7 +2834,7 @@
       decorateChord(t) {
         for (const old of t.parentNode.querySelectorAll('.chordshape, .numeral')) old.remove();
         const chord = chordPcs(t.textContent); if (!chord) return;
-        const ki = this.harmony !== 'off' ? (this.key || (this.key = this.keyInfo())) : null;
+        const ki = this.harmony === 'numerals' ? (this.key || (this.key = this.keyInfo())) : null;
         const bb = t.getBBox(), k = Math.max(4, bb.height * 0.3);
         const { g, h } = chordGlyph(t.parentNode, chord, bb.x + bb.width + 3, 0, k);
         g.setAttribute('transform', `translate(0 ${(bb.y + bb.height / 2 - h / 2).toFixed(1)})`);
@@ -2762,23 +2877,22 @@
         }
       }
       // The score text into the ABC as %%band lines for every chorus (a part's lines, "energy = ..." controls; null: take them out), in place of any there.
+      // Both write the arrangement box; its lines are %%band lines without the prefix.
       writeScore(text) {
-        const kept = this.entry.value.split('\n').filter(l => !SCORE_LINE.test(l));
-        while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
+        const kept = this.bandEntry.value.split('\n').filter(l => l.trim() && !SCORE_LINE.test(bandLine(l)));
         const sc = text === null ? null : Mini.splitScore(text);
-        const lines = sc === null ? [] : [...Mini.PARTS.flatMap(part => sc.parts[part].map(l => `%%band ${part}: ${l}`)), ...Object.entries(sc.controls).map(([k, v]) => `%%band ${k} = ${v}`)];
-        this.entry.value = [...kept, ...lines].join('\n');
+        const lines = sc === null ? [] : [...Mini.PARTS.flatMap(part => sc.parts[part].map(l => `${part}: ${l}`)), ...Object.entries(sc.controls).map(([k, v]) => `${k} = ${v}`)];
+        this.bandEntry.value = [...kept, ...lines].join('\n');
         this.render();
       }
-      // The arranger's chorus lines into the text, replacing any there; false if there is nothing to arrange.
+      // The arranger's chorus lines into the box, replacing any there; false if there is nothing to arrange.
       writeChart() {
         if (!this.original) return false;
         const b = this.band || {};
         const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 });
         if (!lines.length) return false;
-        const kept = this.entry.value.split('\n').filter(l => !CHART_LINE.test(l) || SCORE_LINE.test(l));   // the score lines stay
-        while (kept.length && !kept[kept.length - 1].trim()) kept.pop();
-        this.entry.value = [...kept, ...lines].join('\n');   // after the melody, so the tune stays in front
+        const kept = this.bandEntry.value.split('\n').filter(l => l.trim() && SCORE_LINE.test(bandLine(l)));   // the score lines stay
+        this.bandEntry.value = [...kept, ...lines.map(l => l.replace(/^%%band\s*/, ''))].join('\n');
         this.render();
         return true;
       }
@@ -3072,7 +3186,10 @@
       // Warnings and tips, each with a ? that opens its explanation.
       showNotes() {
         this.warnEl.innerHTML = '';
-        for (const n of [...(this.lintNotes || []), ...(this.vizNotes || []), ...(this.bandNotes || [])]) {
+        const notes = [...(this.lintNotes || []), ...(this.vizNotes || []), ...(this.bandNotes || [])];
+        const badge = this.body.querySelector('.tab[data-drawer="melody"] .badge'), warnings = notes.filter(n => !n.tip).length;
+        if (badge) { badge.textContent = warnings ? String(warnings) : ''; badge.title = warnings ? `${warnings} warning${warnings > 1 ? 's' : ''} under the text` : ''; }
+        for (const n of notes) {
           const row = document.createElement('div'); row.className = 'w' + (n.tip ? ' tip' : '');
           const t = document.createElement('span'); t.textContent = n.text; row.appendChild(t);
           if (n.more) {
@@ -4146,7 +4263,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm, onHarm: v => { if (v && v !== 'off') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'band') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'band') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
@@ -4214,6 +4331,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     }
     function addCell(type, at = cells.length) {
       const cell = { id: ++seq, type, text: type === 'rhythm' ? MoveCell.START.rhythm : type === 'dance' ? MoveCell.START.dance : '' };
+      if (type === 'abc') { try { const last = localStorage.getItem('gcs-last-inst'); if (last && last !== 'off' && INSTRUMENTS[last]) cell.inst = last; } catch (e) {} }   // the instrument chosen last time, so a new tune starts with it
       cells.splice(at, 0, cell);
       const el = buildCell(cell);
       cellsEl.insertBefore(el, cellsEl.children[at] || null);
@@ -4227,6 +4345,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     function present(i) {
       current = Math.max(0, Math.min(cells.length - 1, i));
       document.body.classList.add('present');
+      for (const en of engines.values()) if (en.showDrawer) en.showDrawer(null);   // the bar alone; a tab opens a drawer
       showCurrent();
     }
     const navPos = document.getElementById('navPos'), navCount = document.getElementById('navCount');
@@ -4247,6 +4366,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     function exitPresent() {
       document.body.classList.remove('present');
       if (gameMode) { gameMode = false; document.body.classList.remove('game'); for (const en of engines.values()) if (en.oneLine) en.render(); }
+      for (const en of engines.values()) if (en.showDrawer) en.showDrawer('melody');   // back to editing: the text in view
       cellsEl.querySelectorAll('.cell.current').forEach(el => el.classList.remove('current'));
       current = -1;
     }
@@ -4344,6 +4464,8 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       if (e.target.matches('textarea, input, select')) return;     // handled at the field
       if (e.key === 'Escape' && menu.open) { menu.open = false; return; }
       if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && (e.key === 'z' || e.key === 'Z') && trash.length) { e.preventDefault(); undoDelete(); return; }
+      // Presenting, the space bar plays and pauses the cell on screen.
+      if (e.key === ' ' && document.body.classList.contains('present') && current >= 0 && !e.metaKey && !e.ctrlKey && !e.altKey) { const en = engines.get(cells[current].id); if (en && en.togglePlay) { e.preventDefault(); en.togglePlay(); return; } }
       navKey(e);
     });
     // impress.js's help (H, ?) and speaker-console (P) plugins keep permanent
