@@ -1524,20 +1524,29 @@
       const base = isMinor ? NUM[deg].toLowerCase() : NUM[deg];
       return { n: base + (seventh ? '7' : ''), f: deg === 7 || deg === 11 ? 'D' : deg === 5 || deg === 2 ? 'S' : 'T' };
     }
-    // One chord per bar from the melody, by dynamic programming over the
-    // diatonic triads. A bar's score for a chord is the share of its notes'
-    // time spent on chord tones (notes on the beat weigh more, the root a
-    // little more), with a small bias to I, IV and V, a push to I at the
-    // start and the end, V before the final I, and a cost for every change,
-    // so the harmony moves no more than the tune makes it.
+    // One chord per segment (half bar or bar) from the melody, by dynamic
+    // programming over the diatonic triads. A segment's score for a chord is
+    // the share of its notes' time spent on chord tones, weighted by where
+    // they fall (the note on the segment's downbeat most, other beats more
+    // than offbeats, the root a little more), with a small bias to I, IV
+    // and V, a push to I at the start and the end, V before the final I,
+    // and a cost for every change, so the harmony moves no more than the
+    // tune makes it.
     function detectChords(bars, minor) {
       const set = TRIADS[minor ? 'minor' : 'major'], n = bars.length, prim = minor ? ['i', 'iv', 'V'] : ['I', 'IV', 'V'];
       if (!n) return [];
-      // Chord tones count in full (the root a little more); a non-chord tone
-      // costs more on the beat than off it, where it is probably passing.
+      // Chord tones count in full (the root a little more). A non-chord tone
+      // on the downbeat costs most: that note is what the ear hears the
+      // chord against (This Old Man's A G F E is F, not C, though G and E
+      // are in C). Off the downbeat, a passing or neighbour note (in and
+      // out by step) costs almost nothing, and any other costs more on the
+      // beat than off it.
       const score = (seg, t) => {
         const pcs = triadPcs(t.r, t.q); let sc = 0, tot = 0;
-        for (const x of seg) { const w = x.dur * (x.onBeat ? 1.6 : 1); tot += w; sc += pcs.includes(x.pc) ? w * (x.pc === pcs[0] ? 1.05 : 1) : -(x.onBeat ? 0.5 : 0.2) * w; }
+        for (const x of seg) {
+          const w = x.dur * (x.down ? 2.2 : x.onBeat ? 1.4 : 1); tot += w;
+          sc += pcs.includes(x.pc) ? w * (x.pc === pcs[0] ? 1.05 : 1) : -(x.down ? 0.6 : x.step ? 0.05 : x.onBeat ? 0.4 : 0.2) * w;
+        }
         return (tot ? sc / tot : 0) + (t.n === prim[0] ? 0.35 : prim.includes(t.n) ? 0.3 : 0);
       };
       const best = [], from = [];
@@ -1588,6 +1597,7 @@
       const segLen = Math.round(barLen / beat) % 2 === 0 ? barLen / 2 : barLen;
       const segs = []; let bar = null, pos = 0, barNo = 0;
       const newBar = () => { bar = [{ notes: [], first: null, bar: barNo, chord: null }, { notes: [], first: null, bar: barNo, chord: null }].slice(0, segLen < barLen ? 2 : 1); pos = 0; };
+      const line = [];   // the melody's single notes in order (null at a rest), to find the ones moving by step
       newBar();
       elems.forEach((el, i) => {
         if (el._voice !== 0) return;
@@ -1596,10 +1606,19 @@
         const sg = bar[Math.min(bar.length - 1, Math.floor(pos / segLen + 1e-6))];
         const sym = (el.chord || []).filter(isChordSymbol).pop(); if (sym) sg.chord = sym.name;
         if (sg.first === null && el.pitches) sg.first = el;
-        for (const p of sp[i] || []) sg.notes.push({ pc: ((p.pc - tonic) % 12 + 12) % 12, dur: el.duration || 0, onBeat: Math.abs(pos / beat - Math.round(pos / beat)) < 1e-6 });
+        const at = pos / segLen, down = Math.abs(at - Math.round(at)) < 1e-6, ps = sp[i] || [];
+        for (const p of ps) sg.notes.push({ pc: ((p.pc - tonic) % 12 + 12) % 12, dur: el.duration || 0, down, onBeat: Math.abs(pos / beat - Math.round(pos / beat)) < 1e-6, midi: p.midi });
+        if (ps.length === 1) line.push(sg.notes[sg.notes.length - 1]); else if (!ps.length) line.push(null);
         pos += el.duration || 0;
       });
       if (bar.some(sg => sg.notes.length || sg.chord)) segs.push(...bar);
+      // Passing notes (a step on in the same direction) and neighbour notes (a step away and back).
+      const isStep = d => d !== 0 && Math.abs(d) <= 2;
+      line.forEach((x, k) => {
+        const a = line[k - 1], b = line[k + 1]; if (!x || !a || !b) return;
+        const din = x.midi - a.midi, dout = b.midi - x.midi;
+        x.step = isStep(din) && isStep(dout) && (Math.sign(din) === Math.sign(dout) || a.midi === b.midi);
+      });
       // With chords written, only the bars they leave out are found: those before the first symbol, and
       // those after the last when it would otherwise hold for two bars or more.
       let fill = segs.map(() => true);
