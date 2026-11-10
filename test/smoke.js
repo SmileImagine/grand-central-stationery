@@ -49,6 +49,8 @@ const classroomFit = spawnSync(process.execPath, ['test/classroom-fit.test.js'],
 assert(classroomFit.status === 0, classroomFit.stderr || classroomFit.stdout || 'classroom range checks failed');
 const classParts = spawnSync(process.execPath, ['test/class-parts.test.js'], { cwd: root, encoding: 'utf8' });
 assert(classParts.status === 0, classParts.stderr || classParts.stdout || 'class-part checks failed');
+const dossierGaps = spawnSync(process.execPath, ['test/dossier-gaps.test.js'], { cwd: root, encoding: 'utf8' });
+assert(dossierGaps.status === 0, dossierGaps.stderr || dossierGaps.stdout || 'dossier gap checks failed');
 const accompanimentAudit = spawnSync(process.execPath, ['test/accompaniment-audit.test.js'], { cwd: root, encoding: 'utf8' });
 assert(accompanimentAudit.status === 0, accompanimentAudit.stderr || accompanimentAudit.stdout || 'accompaniment audit checks failed');
 const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], { cwd: root, encoding: 'utf8' });
