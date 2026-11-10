@@ -35,7 +35,6 @@
       --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #777;
       --caret: #aaa; --accent: #087fca; --cursor: #f39322;
       --text-cell-h: 34vh;      /* edit-mode heights */
-      --heading-cell-h: 18vh;
       --abc-cell-h: 46vh;
       --acc-size: 1.8;          /* notation: accidental height in noteheads */
       --lyric-min: 9;           /* notation: lyric layout size; abcjs widens only where a syllable exceeds it */
@@ -94,9 +93,14 @@
     .cell-head { display: flex; gap: 6px; align-items: center; padding: 4px 8px 6px; color: var(--muted); position: relative; }
     .cell-head button { padding: 2px 7px; }
     .cell-head .tools { display: inline-flex; gap: 6px; }
-    .cell-head .hint, .cell-head .tools { opacity: 0; transition: opacity 0.15s; }
+    .cell-head .hint, .cell-head .tools, .cell-head .textopts { opacity: 0; transition: opacity 0.15s; }
     .cell:hover .cell-head .hint, .cell:hover .cell-head .tools, .cell.focused .cell-head .hint, .cell.focused .cell-head .tools,
-    .cell-head .tools:focus-within, .cell-head:focus-within .hint { opacity: 1; }
+    .cell:hover .cell-head .textopts, .cell.focused .cell-head .textopts,
+    .cell-head .tools:focus-within, .cell-head .textopts:focus-within, .cell-head:focus-within .hint { opacity: 1; }
+    /* A text cell's own options: its font, and centring. */
+    .cell-head .textopts { display: inline-flex; gap: 6px; align-items: center; }
+    .cell-head .textopts select { font: var(--ui); max-width: 13em; }
+    .cell-head .textopts label { display: inline-flex; gap: 3px; align-items: center; }
     .cell-head .grip { cursor: grab; user-select: none; font-size: 15px; line-height: 1; padding: 0 2px; }
     .cell-head .grip:active { cursor: grabbing; }
     .cell-head .order { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
@@ -113,7 +117,6 @@
     .cell-body { position: relative; height: var(--text-cell-h); overflow: hidden; border-radius: 0 0 8px 8px; }
     .cell[data-type="abc"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
     .cell[data-type="abc"] .cell-body.with-inst { height: var(--abc-inst-cell-h, 66vh); }   /* an instrument under the staff: the cell grows so the staff keeps its room */
-    .cell[data-type="heading"] .cell-body { height: var(--heading-cell-h); }
     /* Rhythm and dance cells: the drawing on top, the text and transport in the strip, as in a notation cell. */
     .cell[data-type="rhythm"] .cell-body, .cell[data-type="dance"] .cell-body { height: var(--abc-cell-h); display: flex; flex-direction: column; }
     .mstage { flex: 1 1 auto; min-height: 30%; display: flex; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; background: #fff; }
@@ -123,9 +126,9 @@
     .views { display: inline-flex; flex-wrap: wrap; gap: 4px; }
     .views button { font: var(--ui); padding: 3px 9px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); cursor: pointer; }
     .views button.on { background: var(--ink); color: var(--panel); border-color: var(--ink); }
-    .cell[data-type="heading"] .layer { text-align: center; }   /* vertical centring is set by the engine */
+    .cell[data-align="center"] .layer { text-align: center; }   /* vertical centring is set by the engine */
     /* Exercise-book margin: one thin rule a little in from the left of text cells. */
-    .cell[data-type="text"] .cell-body::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0.9vw; width: 0; border-left: 1px solid var(--ink); opacity: 0.18; pointer-events: none; z-index: 3; }
+    .cell[data-type="text"]:not([data-align="center"]) .cell-body::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0.9vw; width: 0; border-left: 1px solid var(--ink); opacity: 0.18; pointer-events: none; z-index: 3; }
     .hint { color: var(--muted); }
 
     /* ---------- present mode ---------- */
@@ -175,10 +178,23 @@
     #nav3dReset { display: none; }
     body.present3d.impress-on-overview #nav3dReset { display: inline-block; }
     body.impress-enabled .impress-help { display: none; }   /* no help overlay */
-    .pos { display: none; gap: 4px; align-items: center; padding: 2px 8px 6px; color: var(--muted); border-bottom: 1px solid var(--line-2); }
-    .pos.open { display: flex; flex-wrap: wrap; }
-    .pos input[type="number"] { width: 5em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); }
-    .pos input[type="color"] { width: 2.2em; height: 1.8em; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: none; }
+    /* 3D setup: sliders for one cell at a time, over the scene. */
+    #nav3dSetup { display: none; }
+    body.present3d #nav3dSetup { display: inline-block; }
+    .setup3d { position: fixed; left: 10px; bottom: 8px; z-index: 10; display: none; width: 330px; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); font: var(--ui); box-shadow: 0 6px 20px rgba(0,0,0,0.18); }
+    body.present3d.setup3d-open .setup3d { display: block; }
+    .setup3d .shead { display: flex; gap: 6px; align-items: center; }
+    .setup3d .shead button { padding: 2px 7px; white-space: nowrap; }
+    .setup3d .shead .spacer { flex: 1; }
+    .setup3d .scell { font-weight: 600; min-width: 6.5em; text-align: center; }
+    .setup3d .snote { margin: 4px 0 6px; color: var(--muted); }
+    .setup3d .srow { display: grid; grid-template-columns: 3.6em 1fr 4.4em; gap: 6px; align-items: center; margin: 2px 0; }
+    .setup3d input[type="range"] { width: 100%; margin: 0; accent-color: var(--accent); }
+    .setup3d input[type="range"].auto { opacity: 0.5; }
+    .setup3d .sval { width: 100%; box-sizing: border-box; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); }
+    .setup3d .sval::placeholder { color: var(--muted); }
+    .setup3d input[type="color"] { width: 2.4em; height: 1.6em; padding: 0; border: 1px solid var(--line); border-radius: 4px; background: none; }
+    body.setup3d-open.impress-on-overview #impress .cell.setup-sel { outline: 1.5vw solid var(--accent); }
 
     /* ---------- text engine (three stacked layers) ---------- */
     .layer {
@@ -534,7 +550,7 @@
     /* ---------- small screens and touch ---------- */
     @media (pointer: coarse) {
       /* No hover on touch: a cell's tools are always there. */
-      .cell-head .hint, .cell-head .tools { opacity: 1; }
+      .cell-head .hint, .cell-head .tools, .cell-head .textopts { opacity: 1; }
       .cell-head button, .toolbar button, .menu summary { padding: 6px 10px; }
       .paper .cursorhit { width: 28px; x: -13px; }
     }
@@ -562,8 +578,7 @@
       .dock .melodytext, .dock .bandwrap { flex: 1 1 100%; }
       .dock .dockbar { gap: 4px 10px; padding: 6px 8px; }
       .dock .dockbar .tabs { margin-left: 0; }
-      .pos { padding: 2px 6px 6px; }
-      .pos input[type="number"] { width: 4em; }
+      .setup3d { left: 6px; right: 6px; width: auto; bottom: 6px; max-height: 52vh; overflow-y: auto; }
       .present-nav { right: 6px; bottom: 6px; }
       .present-nav input { width: 2.6em; }
       .toast { left: 8px; right: 8px; transform: none; justify-content: space-between; }
@@ -573,7 +588,6 @@
     }
     @media (max-width: 700px) and (orientation: landscape) {
       .cell-body { height: 60vh; }
-      .cell[data-type="heading"] .cell-body { height: 40vh; }
     }
   </style>
 </head>
@@ -594,7 +608,6 @@
     </a>
     <span class="group">
       <button id="addText" title="Add a text cell (Cmd+Enter in a cell adds one below it)">+ Text</button>
-      <button id="addHeading" title="Add a heading cell">+ Heading</button>
       <button id="addAbc" title="Add a notation cell (Cmd+Shift+Enter in a cell adds one below it)">+ Notation</button>
       <button id="addRhythm" title="Add a rhythm cell: drum patterns as text, shown as a grid, a wheel, syllables or body percussion">+ Rhythm</button>
       <button id="addDance" title="Add a dance cell: steps as text, shown as a dancer, footprints, figures or a score">+ Dance</button>
@@ -606,9 +619,8 @@
     <span class="spacer"></span>
     <button id="theme" title="Light / dark">☾</button>
     <details class="menu" id="menu">
-      <summary title="Font, spacing, sharing, files, and the other pages">⋯</summary>
+      <summary title="Spacing, sharing, files, and the other pages">⋯</summary>
       <div class="panel">
-        <label>Text font <select id="fontpick"></select></label>
         <label title="Space notes by their duration, so the playback bar sweeps at a constant speed"><input type="checkbox" id="proportional"> Proportional spacing</label>
         <hr>
         <button id="share" title="Copy a link that carries every cell (compressed into the address)">Share link</button>
@@ -661,8 +673,21 @@
   </div>
   <div id="impress" data-transition-duration="900" data-perspective="1200"></div>
   <div class="present-nav">
+    <button id="nav3dSetup" title="Lay out the cells: sliders for each cell's place, turn, size and background">Set up</button>
     <button id="nav3dReset" title="Forget every cell's 3D position, rotation, scale and background (Undo in the toast)">Reset 3D layout</button>
     <button id="navPrev">◀</button><input id="navPos" type="number" min="1" title="Go to cell"><span id="navCount"></span><button id="navNext">▶</button><button id="navExit">Esc</button>
+  </div>
+  <div class="setup3d" id="setup3d" role="dialog" aria-label="3D setup">
+    <div class="shead">
+      <button class="sprev" title="The cell before">◀</button><span class="scell"></span><button class="snext" title="The cell after">▶</button>
+      <span class="spacer"></span>
+      <button class="sfly" title="Fly from the cell before to this one">Fly in</button>
+      <button class="sauto" title="Put this cell back on the automatic layout">Auto</button>
+      <button class="sclose" title="Close (Esc)" aria-label="Close">×</button>
+    </div>
+    <p class="snote">Place is measured from the cell before, in screens, so later cells move along with it. A blank box is automatic.</p>
+    <div class="srows"></div>
+    <label class="srow"><span>colour</span><span><input type="color" class="sbg" title="The background behind this cell while it is shown"></span><button class="sbgauto" title="The page's own background">auto</button></label>
   </div>
   <div class="toast" id="toast" role="status"><span></span><button class="act"></button><button class="close" title="Dismiss" aria-label="Dismiss">×</button></div>
   <script>
@@ -723,28 +748,35 @@
     const ACC_FONT = 'Noto Music', ACC_GLYPH_FONT = 'GCS Accidentals';
     const MIN_PX = 8, WHOLE_WORDS = true, WHOLE_WORD_MAX = 15, REF_PX = 100;
     const EASE = 'cubic-bezier(.2,.7,.3,1)';
-    let fontKey = localStorage.getItem('gcs-font') in FONTS ? localStorage.getItem('gcs-font') : 'hyperlegible';
-    const fontSpec = () => `700 ${REF_PX}px '${ACC_GLYPH_FONT}', '${FONTS[fontKey].family}', '${ACC_FONT}'`;
+    // Each text cell chooses its own font (cell.font; absent = the default).
+    const DEFAULT_FONT = 'hyperlegible';
+    const fontOf = key => key in FONTS ? key : DEFAULT_FONT;
+    const fontSpec = key => `700 ${REF_PX}px '${ACC_GLYPH_FONT}', '${FONTS[key].family}', '${ACC_FONT}'`;
+    const fontStack = key => `'${ACC_GLYPH_FONT}', '${FONTS[key].family}', '${ACC_FONT}', system-ui, sans-serif`;
     const ctx = document.createElement('canvas').getContext('2d');
-    const widthCache = new Map();
-    const shared = { spaceW: 30 };
-    function primeCanvas() {
-      ctx.font = fontSpec(); ctx.fontKerning = 'none';
-      widthCache.clear();
-      shared.spaceW = ctx.measureText(' ').width;
+    ctx.fontKerning = 'none';
+    // One width cache per face; `face` is the one the measuring functions use,
+    // chosen by useFace() before a fit.
+    const faces = new Map();
+    let face = null, ctxFace = null;
+    function useFace(key) {
+      if (ctxFace !== key) { ctx.font = fontSpec(key); ctx.fontKerning = 'none'; ctxFace = key; }
+      face = faces.get(key);
+      if (!face) { face = { cache: new Map(), spaceW: ctx.measureText(' ').width }; faces.set(key, face); }
     }
+    function primeCanvas() { faces.clear(); ctxFace = null; }     // after a font loads: measure again
     function widthOf(token) {
-      let w = widthCache.get(token);
-      if (w === undefined) { w = ctx.measureText(token).width; widthCache.set(token, w); }
+      let w = face.cache.get(token);
+      if (w === undefined) { w = ctx.measureText(token).width; face.cache.set(token, w); }
       return w;
     }
     const TOKEN_RE = /[ \t]+|[^ \t\-\u2013\u2014]*[-\u2013\u2014]|[^ \t\-\u2013\u2014]+/g;
     function rowsForParagraph(para, px, W) {
-      const k = px / REF_PX, tabW = 8 * shared.spaceW * k;
+      const k = px / REF_PX, tabW = 8 * face.spaceW * k;
       let rows = 1, x = 0;
       for (const tok of para.match(TOKEN_RE) || []) {
         if (tok[0] === ' ' || tok[0] === '\t') {
-          for (const ch of tok) x = ch === '\t' ? (Math.floor(x / tabW) + 1) * tabW : x + shared.spaceW * k;
+          for (const ch of tok) x = ch === '\t' ? (Math.floor(x / tabW) + 1) * tabW : x + face.spaceW * k;
           continue;
         }
         const w = widthOf(tok) * k;
@@ -788,6 +820,8 @@
     class TextCell {
       constructor(body, text, onChange, opts = {}) {
         this.centered = !!opts.centered;
+        this.body = body;
+        this.setFont(opts.font, true);
         body.innerHTML = `<div class="layer measure" aria-hidden="true"></div><div class="layer shadow" aria-hidden="true"></div>
           <textarea class="layer inputbox" aria-label="Text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off"></textarea>`;
         this.measure = body.querySelector('.measure');
@@ -806,6 +840,17 @@
       getText() { return this.input.value; }
       focus() { this.input.focus(); }
       destroy() { this.ro.disconnect(); textCells.delete(this); }
+      setFont(key, first) {
+        this.font = fontOf(key);
+        this.body.style.setProperty('--font', fontStack(this.font));
+        loadFace(this.font);
+        if (!first) { this.measureMetrics(); this.update(); }
+      }
+      setCentered(on) {
+        this.centered = !!on;
+        if (!this.centered) this.shadow.style.paddingTop = this.input.style.paddingTop = '';
+        this.update();
+      }
       syncAccidentals() {
         const want = normalizeAccidentals(this.input.value);
         if (want === this.input.value) return;
@@ -843,6 +888,7 @@
         if (!(this.metrics.innerW > 0 && this.metrics.lhPerPx > 0)) return;
         const text = this.input.value;
         this.shadow.innerHTML = renderColouredText(text);
+        useFace(this.font);
         const px = this.verify(fitFontPx(text, this.metrics), text);
         const layers = [this.shadow, this.input];
         if (this.appliedPx && Math.abs(px - this.appliedPx) > 0.01) {
@@ -851,7 +897,7 @@
         }
         this.shadow.style.fontSize = this.input.style.fontSize = px + 'px';
         if (this.centered) {
-          // Headings sit in the vertical middle: pad the visible layers (not the
+          // Centred text sits in the vertical middle too: pad the visible layers (not the
           // measuring one) by half the unused height. Both layers get the same
           // padding, so the caret stays aligned.
           let rows = 0;
@@ -866,15 +912,14 @@
         this.shadow.style.overflow = this.input.style.overflow = px <= MIN_PX ? 'auto' : 'hidden';
       }
     }
-    function applyFont(key) {
-      fontKey = key; localStorage.setItem('gcs-font', key);
-      document.documentElement.style.setProperty('--font', `'${ACC_GLYPH_FONT}', '${FONTS[key].family}', '${ACC_FONT}', system-ui, sans-serif`);
-      primeCanvas();
-      for (const c of textCells) c.remeasure();
-      if (document.fonts) {
-        Promise.all([document.fonts.load(fontSpec()), document.fonts.load(`400 ${REF_PX}px '${ACC_FONT}'`), document.fonts.load(`400 ${REF_PX}px '${ACC_GLYPH_FONT}'`)])
-          .then(() => { primeCanvas(); for (const c of textCells) c.remeasure(); }).catch(() => {});
-      }
+    // Load a face once; when it arrives, the cells using it measure again
+    // (until then the canvas measures the fallback, as the browser draws it).
+    const loadedFaces = new Set();
+    function loadFace(key) {
+      if (loadedFaces.has(key) || !document.fonts) return;
+      loadedFaces.add(key);
+      Promise.all([document.fonts.load(fontSpec(key)), document.fonts.load(`400 ${REF_PX}px '${ACC_FONT}'`), document.fonts.load(`400 ${REF_PX}px '${ACC_GLYPH_FONT}'`)])
+        .then(() => { faces.delete(key); ctxFace = null; for (const c of textCells) if (c.font === key) c.remeasure(); }).catch(() => {});
     }
 
     /* ======================================================================
@@ -1094,22 +1139,70 @@
     }
     const centroid = pts => pts.length ? { x: pts.reduce((a, p) => a + p.x, 0) / pts.length, y: pts.reduce((a, p) => a + p.y, 0) / pts.length } : null;
 
-    // Keyed layouts (piano, Wicki-Hayden): one element per pitch; marking is
-    // a matter of classes. this.keys: midi -> { el, lbl, x, y }.
+    // Keyed layouts (piano, Wicki-Hayden): one or more elements per pitch.
+    // A Wicki-Hayden pitch occurs in several places, so the whole phrase is
+    // scheduled onto the path with the least hand travel instead of letting
+    // the last duplicate inserted into a Map win.
     class KeyedLayout {
-      constructor() { this.keys = new Map(); this.shift = 0; this.runnerR = 7; this.panel = '30%'; }
-      key(m) { return this.keys.get(m + this.shift) || null; }
+      constructor() { this.keys = new Map(); this.keysByPitch = new Map(); this.allKeys = []; this.events = []; this.shift = 0; this.runnerR = 7; this.panel = '30%'; }
+      addKey(pitch, key) {
+        if (!this.keys.has(pitch)) this.keys.set(pitch, key);
+        if (!this.keysByPitch.has(pitch)) this.keysByPitch.set(pitch, []);
+        this.keysByPitch.get(pitch).push(key); this.allKeys.push(key);
+      }
+      keyCandidates(m) { return this.keysByPitch.get(m + this.shift) || []; }
+      key(m) { return this.keyCandidates(m)[0] || null; }
       has(m) { return !!this.key(m); }
       octaves() { return 0; }
+      // All distinct placements for one event (normally a single note, but
+      // chords use distinct physical keys). The small cap keeps a dense
+      // chord on a redundant lattice from making a combinatorial thicket.
+      options(midis) {
+        let out = [{ keys: [], used: new Set() }];
+        for (const m of midis) {
+          const cand = this.keyCandidates(m); if (!cand.length) continue;
+          const next = [];
+          for (const o of out) for (const k of cand) if (!o.used.has(k)) {
+            const used = new Set(o.used); used.add(k); next.push({ keys: [...o.keys, k], used });
+          }
+          if (next.length) out = next.slice(0, 96);
+        }
+        return out.map(o => ({ keys: o.keys, centre: centroid(o.keys) })).filter(o => o.keys.length);
+      }
+      // Dynamic programming makes each duplicate-key choice in the context
+      // of both its previous and next events. Squared distance favours a
+      // compact, steady hand path over occasional large jumps.
+      schedule(events, beatMs) {
+        const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
+        if (sig === this.sig) return; this.sig = sig;
+        this.events = events.map(e => ({ ...e, keys: [] }));
+        const layers = events.map((e, index) => ({ index, opts: this.options(e.midis) })).filter(x => x.opts.length);
+        if (!layers.length) return;
+        layers[0].opts.forEach(o => { o.cost = 0; o.prev = -1; });
+        const d2 = (a, b) => a && b ? Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) : 0;
+        for (let i = 1; i < layers.length; i++) {
+          const prev = layers[i - 1].opts;
+          layers[i].opts.forEach(o => {
+            let best = Infinity, at = 0;
+            prev.forEach((p, j) => { const cost = p.cost + d2(p.centre, o.centre); if (cost < best) { best = cost; at = j; } });
+            o.cost = best; o.prev = at;
+          });
+        }
+        let at = layers[layers.length - 1].opts.reduce((best, o, i, a) => o.cost < a[best].cost ? i : best, 0);
+        for (let i = layers.length - 1; i >= 0; i--) { const o = layers[i].opts[at]; this.events[layers[i].index].keys = o.keys; at = o.prev; }
+      }
       mark(now, next, info) {
         const chord = info && info.chord;
-        for (const k of this.keys.values()) {
+        for (const k of this.allKeys) {
           k.el.classList.remove('active', 'ondeck', 'chord', 'root'); if (k.lbl) k.lbl.setAttribute('fill', k.idleFill);
           if (chord && k.pc !== undefined && chord.pcs.includes(k.pc)) k.el.classList.add(k.pc === chord.root ? 'root' : 'chord');
         }
+        const scheduled = info && this.events.length, i = scheduled ? info.index : -1;
+        const nextKeys = scheduled ? (info.reset ? [] : (this.events[i + 1] || {}).keys || []) : next.map(m => this.key(m)).filter(Boolean);
+        const nowKeys = scheduled ? ((this.events[i] || {}).keys || []) : now.map(m => this.key(m)).filter(Boolean);
         const pts = { now: [], next: [] };
-        for (const m of next) { const k = this.key(m); if (!k) continue; k.el.classList.add('ondeck'); pts.next.push(k); }
-        for (const m of now) { const k = this.key(m); if (!k) continue; k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) k.lbl.setAttribute('fill', letterOn()); pts.now.push(k); }
+        for (const k of nextKeys) { k.el.classList.add('ondeck'); pts.next.push(k); }
+        for (const k of nowKeys) { k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) k.lbl.setAttribute('fill', letterOn()); pts.now.push(k); }
         return { now: centroid(pts.now), next: centroid(pts.next) };
       }
       start() { return this.startPt || null; }
@@ -1130,7 +1223,7 @@
           el.style.setProperty('--c', midiColor(w.m));
           const nm = nameOf(w.m), lbl = svgText(g, 'lbl', w.x + W / 2, H - 13, nm.length > 2 ? 9 : 11, midiColor(w.m), nm, 'middle');
           if (w.m % 12 === 0) svgText(g, 'lbl oct', w.x + W / 2, H - 26, 7, 'var(--muted)', 'C' + (Math.floor(w.m / 12) - 1), 'middle');   // octave numbers on the Cs
-          this.keys.set(w.m, { el, lbl, idleFill: midiColor(w.m), x: w.x + W / 2, y: H - 36, pc: w.m % 12 });
+          this.addKey(w.m, { el, lbl, idleFill: midiColor(w.m), x: w.x + W / 2, y: H - 36, pc: w.m % 12 });
         }
         for (let m = lo; m <= hi; m++) {
           if (!isBlackKey(m)) continue;
@@ -1138,7 +1231,7 @@
           const bx = left.x + W - BW / 2;
           const el = svgEl(g, 'rect', { class: 'key black', x: bx, y: 0, width: BW, height: BH, rx: 2 });
           el.style.setProperty('--c', midiColor(m));
-          this.keys.set(m, { el, lbl: null, idleFill: null, x: bx + BW / 2, y: BH - 14, pc: m % 12 });
+          this.addKey(m, { el, lbl: null, idleFill: null, x: bx + BW / 2, y: BH - 14, pc: m % 12 });
         }
         this.startPt = { x: -2, y: H - 36 };
       }
@@ -1191,7 +1284,7 @@
             svgText(g, 'lbl qw', x + 4, y + 8, 7, 'var(--muted)', ch, 'start');
             if (ch === 'F' || ch === 'J') svgEl(g, 'rect', { class: 'bump', x: x + K / 2 - 5, y: y + K - 6, width: 10, height: 2, rx: 1 });   // the home-row bumps
             const nm = nameOf(m), lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, nm.length > 2 ? 11 : 13, midiColor(m), nm, 'middle');
-            this.keys.set(m, { el, lbl, idleFill: midiColor(m), x: x + K / 2, y: y + K / 2, pc: ((m % 12) + 12) % 12 });
+            this.addKey(m, { el, lbl, idleFill: midiColor(m), x: x + K / 2, y: y + K / 2, pc: ((m % 12) + 12) % 12 });
           });
         }
         svg.setAttribute('viewBox', `-2 -2 ${maxX + 4} ${4 * U + 4}`);
@@ -1199,14 +1292,16 @@
         this.shift = -octaveFit(midis, lo, hi);   // a tune beyond the keys is shifted by octaves into them
       }
       // The keyboard shows this.shift octaves away from written pitch.
-      key(m) {
+      keyCandidates(m) {
         if (this.tunedKeys) {   // a key is the one nearest the note's tuned pitch, within a third of a tone
-          const target = m * 100 + this.off(m) + this.shiftCents; let best = null, bd = 60;
-          for (const k of this.tunedKeys) { const d = Math.abs(k.cents - target); if (d < bd) { bd = d; best = k; } }
-          return best;
+          const target = m * 100 + this.off(m) + this.shiftCents;
+          const ranked = this.tunedKeys.map(k => ({ k, d: Math.abs(k.cents - target) })).filter(x => x.d < 60).sort((a, b) => a.d - b.d);
+          return ranked.length ? ranked.filter(x => x.d <= ranked[0].d + 0.5).map(x => x.k) : [];
         }
-        return this.keys.get(m - this.shift) || this.keys.get(m - this.shift + 12) || this.keys.get(m - this.shift - 12) || null;
+        for (const p of [m - this.shift, m - this.shift + 12, m - this.shift - 12]) { const found = this.keysByPitch.get(p); if (found && found.length) return found; }
+        return [];
       }
+      key(m) { return this.keyCandidates(m)[0] || null; }
       octaves() { return this.tunedKeys ? -this.shiftCents / 1200 : -this.shift / 12; }
       // The keys as the joyboard lays a Scala tuning on them: the J key sounds the root (1/1), each key to the
       // right is `right` degrees up, each row up is `up - right` degrees up (the stagger makes up-right `up`).
@@ -1232,7 +1327,7 @@
             const nm = N === 12 ? NOTE_NAMES[((near % 12) + 12) % 12] : String(d + 1);
             const lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, nm.length > 2 ? 11 : 13, midiColor(near), nm, 'middle');
             const k = { el, lbl, idleFill: midiColor(near), x: x + K / 2, y: y + K / 2, cents };
-            this.tunedKeys.push(k); this.keys.set(cents, k);
+            this.tunedKeys.push(k); this.addKey(cents, k);
           });
         }
         svg.setAttribute('viewBox', `-2 -2 ${maxX + 4} ${4 * U + 4}`);
@@ -1414,7 +1509,13 @@
         if (nowC) this.lastHand = nowC;
         // The runner (the left hand) travels only between fretted places; over open strings it rests where it was.
         const rest = this.lastHand || this.startPt;
-        return { now: nowC || (nextC ? rest : null), next: nextC || (nowC ? nowC : null), hand: true };
+        return {
+          now: nowC || (nextC ? rest : null), next: nextC || (nowC ? nowC : null), hand: true,
+          // An open string has no left-hand destination. If the runner stays
+          // at the last fret, keep that fret's note on it; showing the open
+          // note's name there falsely turns the resting place into a cue.
+          labelMidi: nextC && nextP.length ? nextP[0].m : nowC && nowP.length ? nowP[0].m : null,
+        };
       }
     }
     UkuleleLayout.seq = 0;
@@ -1437,14 +1538,15 @@
     };
     class RecorderLayout {
       constructor() { this.runnerR = 0; this.panel = '44%'; this.changes = []; }
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 86);
+        this.tuningOff = tuned ? tuningOffsets(tuned.tuning, tuned.key) : null;
         // One large recorder, drawn sideways so it fills a wide panel: beak
         // at the left, foot at the right, the thumb hole below the body
         // (the back of the instrument). The sounding fingering is solid;
         // the next note's changes fade in, in its colour, and flicker.
-        svg.setAttribute('viewBox', '0 0 320 96');
+        svg.setAttribute('viewBox', '0 0 320 108');
         const defs = svgEl(svg, 'defs'), grad = svgEl(defs, 'linearGradient', { id: 'halfhole', x1: 0, y1: 0, x2: 0, y2: 1 });
         svgEl(grad, 'stop', { offset: '50%', 'stop-color': 'var(--ink)' }); svgEl(grad, 'stop', { offset: '50%', 'stop-color': 'var(--panel-2)' });
         const g = svgEl(svg, 'g', { class: 'rec' });
@@ -1468,6 +1570,8 @@
         this.nowName = svgText(g, 'lbl name', 24, 88, 16, 'var(--muted)', '', 'start');
         this.nextName = svgText(g, 'lbl name next', 300, 88, 11, 'var(--muted)', '', 'end');
         svgText(g, 'lbl cap', 300, 74, 6, 'var(--muted)', 'next', 'end');
+        this.nowTune = svgText(g, 'lbl cap tune', 24, 103, 7, 'var(--muted)', '', 'start');
+        this.nextTune = svgText(g, 'lbl cap tune next', 300, 103, 7, 'var(--muted)', '', 'end');
       }
       fingering(midis) { const m = midis.length ? midis[0] + this.shift : null; return { m, f: m !== null ? RECORDER[m - 60] : null }; }
       // Per hole, 0 open, 1 closed, 0.5 half; a double hole is two circles, the second covered first.
@@ -1489,6 +1593,12 @@
         const name = x => x.m === null ? '' : x.f ? this.nameOf(x.m) : '?';
         this.nowName.textContent = name(cur); this.nowName.setAttribute('fill', cur.m !== null ? midiColor(cur.m) : 'var(--muted)');
         this.nextName.textContent = name(nxt); this.nextName.setAttribute('fill', nxt.m !== null ? midiColor(nxt.m) : 'var(--muted)');
+        const cue = x => {
+          if (!this.tuningOff || x.m === null || !x.f) return '';
+          const c = this.tuningOff(x.m); if (Math.abs(c) < 1) return '12-TET';
+          return `${c > 0 ? '\u2191 +' : '\u2193 \u2212'}${Math.round(Math.abs(c))}\u00a2  ${c > 0 ? 'firmer air / leak' : 'gentler air / shade'}`;
+        };
+        this.nowTune.textContent = cue(cur); this.nextTune.textContent = cue(nxt);
         this.frame(0);
         return { now: null, next: null };
       }
@@ -1496,6 +1606,7 @@
       frame(u) {
         for (const { c, closing } of this.changes) { c.style.fillOpacity = closing ? (0.05 + 0.9 * u).toFixed(3) : (1 - 0.85 * u).toFixed(3); c.style.strokeOpacity = (0.2 + 0.8 * u).toFixed(3); }
         this.nextName.style.opacity = (0.15 + 0.85 * u).toFixed(3);
+        if (this.nextTune) this.nextTune.style.opacity = (0.15 + 0.85 * u).toFixed(3);
       }
       has(m) { return RECORDER[m + this.shift - 60] !== undefined; }
       octaves() { return this.shift / 12; }
@@ -1524,20 +1635,29 @@
       const base = isMinor ? NUM[deg].toLowerCase() : NUM[deg];
       return { n: base + (seventh ? '7' : ''), f: deg === 7 || deg === 11 ? 'D' : deg === 5 || deg === 2 ? 'S' : 'T' };
     }
-    // One chord per bar from the melody, by dynamic programming over the
-    // diatonic triads. A bar's score for a chord is the share of its notes'
-    // time spent on chord tones (notes on the beat weigh more, the root a
-    // little more), with a small bias to I, IV and V, a push to I at the
-    // start and the end, V before the final I, and a cost for every change,
-    // so the harmony moves no more than the tune makes it.
+    // One chord per segment (half bar or bar) from the melody, by dynamic
+    // programming over the diatonic triads. A segment's score for a chord is
+    // the share of its notes' time spent on chord tones, weighted by where
+    // they fall (the note on the segment's downbeat most, other beats more
+    // than offbeats, the root a little more), with a small bias to I, IV
+    // and V, a push to I at the start and the end, V before the final I,
+    // and a cost for every change, so the harmony moves no more than the
+    // tune makes it.
     function detectChords(bars, minor) {
       const set = TRIADS[minor ? 'minor' : 'major'], n = bars.length, prim = minor ? ['i', 'iv', 'V'] : ['I', 'IV', 'V'];
       if (!n) return [];
-      // Chord tones count in full (the root a little more); a non-chord tone
-      // costs more on the beat than off it, where it is probably passing.
+      // Chord tones count in full (the root a little more). A non-chord tone
+      // on the downbeat costs most: that note is what the ear hears the
+      // chord against (This Old Man's A G F E is F, not C, though G and E
+      // are in C). Off the downbeat, a passing or neighbour note (in and
+      // out by step) costs almost nothing, and any other costs more on the
+      // beat than off it.
       const score = (seg, t) => {
         const pcs = triadPcs(t.r, t.q); let sc = 0, tot = 0;
-        for (const x of seg) { const w = x.dur * (x.onBeat ? 1.6 : 1); tot += w; sc += pcs.includes(x.pc) ? w * (x.pc === pcs[0] ? 1.05 : 1) : -(x.onBeat ? 0.5 : 0.2) * w; }
+        for (const x of seg) {
+          const w = x.dur * (x.down ? 2.2 : x.onBeat ? 1.4 : 1); tot += w;
+          sc += pcs.includes(x.pc) ? w * (x.pc === pcs[0] ? 1.05 : 1) : -(x.down ? 0.6 : x.step ? 0.05 : x.onBeat ? 0.4 : 0.2) * w;
+        }
         return (tot ? sc / tot : 0) + (t.n === prim[0] ? 0.35 : prim.includes(t.n) ? 0.3 : 0);
       };
       const best = [], from = [];
@@ -1588,6 +1708,7 @@
       const segLen = Math.round(barLen / beat) % 2 === 0 ? barLen / 2 : barLen;
       const segs = []; let bar = null, pos = 0, barNo = 0;
       const newBar = () => { bar = [{ notes: [], first: null, bar: barNo, chord: null }, { notes: [], first: null, bar: barNo, chord: null }].slice(0, segLen < barLen ? 2 : 1); pos = 0; };
+      const line = [];   // the melody's single notes in order (null at a rest), to find the ones moving by step
       newBar();
       elems.forEach((el, i) => {
         if (el._voice !== 0) return;
@@ -1596,10 +1717,19 @@
         const sg = bar[Math.min(bar.length - 1, Math.floor(pos / segLen + 1e-6))];
         const sym = (el.chord || []).filter(isChordSymbol).pop(); if (sym) sg.chord = sym.name;
         if (sg.first === null && el.pitches) sg.first = el;
-        for (const p of sp[i] || []) sg.notes.push({ pc: ((p.pc - tonic) % 12 + 12) % 12, dur: el.duration || 0, onBeat: Math.abs(pos / beat - Math.round(pos / beat)) < 1e-6 });
+        const at = pos / segLen, down = Math.abs(at - Math.round(at)) < 1e-6, ps = sp[i] || [];
+        for (const p of ps) sg.notes.push({ pc: ((p.pc - tonic) % 12 + 12) % 12, dur: el.duration || 0, down, onBeat: Math.abs(pos / beat - Math.round(pos / beat)) < 1e-6, midi: p.midi });
+        if (ps.length === 1) line.push(sg.notes[sg.notes.length - 1]); else if (!ps.length) line.push(null);
         pos += el.duration || 0;
       });
       if (bar.some(sg => sg.notes.length || sg.chord)) segs.push(...bar);
+      // Passing notes (a step on in the same direction) and neighbour notes (a step away and back).
+      const isStep = d => d !== 0 && Math.abs(d) <= 2;
+      line.forEach((x, k) => {
+        const a = line[k - 1], b = line[k + 1]; if (!x || !a || !b) return;
+        const din = x.midi - a.midi, dout = b.midi - x.midi;
+        x.step = isStep(din) && isStep(dout) && (Math.sign(din) === Math.sign(dout) || a.midi === b.midi);
+      });
       // With chords written, only the bars they leave out are found: those before the first symbol, and
       // those after the last when it would otherwise hold for two bars or more.
       let fill = segs.map(() => true);
@@ -2839,6 +2969,16 @@
       notes(midis) {
         const L = this.layout; if (!L) return [];
         const out = [], name = INSTRUMENT_NAMES[this.name].toLowerCase();
+        if (this.tuned && (this.name === 'piano' || this.name === 'uke')) out.push({
+          text: `Tuning: the ${name} diagram is a 12-tone approximation; playback uses the scale's tuned pitches.`,
+          more: this.name === 'piano'
+            ? 'A standard piano has one fixed key for each 12-tone equal-tempered pitch, so it cannot show the small pitch displacement inside a key. Use the key as the nearest pitch landmark and listen to the detuned playback.'
+            : 'A standard ukulele has fixed 12-tone frets. The diagram therefore chooses the nearest ordinary fret or open string; it cannot put a finger between frets to show the tuned displacement. Listen to the detuned playback.',
+        });
+        if (this.tuned && this.name === 'recorder') out.push({ tip: true,
+          text: 'Recorder tuning cues show the target displacement in cents and an intonation direction.',
+          more: 'A higher target (↑) suggests firmer air or a slight leak of a closed lower hole; a lower target (↓) suggests gentler air or shading an open hole. The exact response and alternate fingering depend on the recorder and the note, so use the cue with your ear or a tuner.',
+        });
         const oct = L.octaves ? L.octaves() : 0;
         if (oct) out.push({ tip: true, more: MORE.range, text: `The ${name} shows the tune ${Math.abs(oct)} octave${Math.abs(oct) > 1 ? 's' : ''} ${oct > 0 ? 'up' : 'down'}, where it can reach the notes.` });
         const missing = [...new Set(midis.filter(m => L.has && !L.has(m)))].sort((a, b) => a - b).map(m => NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1));
@@ -2852,7 +2992,8 @@
         this.pts = this.layout.mark(now, next, info);
         const r = this.runner; if (!r) return;
         if (!this.pts.next && !this.pts.now) { r.classList.add('hide'); return; }
-        const m = (next.length ? next : now)[0];
+        const m = this.pts.labelMidi !== undefined ? this.pts.labelMidi : (next.length ? next : now)[0];
+        if (m === null || m === undefined) { r.classList.add('hide'); return; }
         r.style.setProperty('--c', midiColor(m)); this.label(m);
         r.style.setProperty('--runner-alpha', '0.95');
         r.classList.remove('hide');
@@ -5153,10 +5294,19 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     }
 
     const STORE = 'gcs-cells-v1';
+    // Older pages and files: a heading cell is a centred text cell, and a
+    // page-wide font (when given) belongs to the text cells that have none.
+    function upgradeCell(c, pageFont) {
+      if (c.type === 'heading') { c.type = 'text'; c.align = 'center'; }
+      if (c.type === 'text' && !c.font && pageFont in FONTS && pageFont !== DEFAULT_FONT) c.font = pageFont;
+      return c;
+    }
+    // A new text cell starts in the font chosen last.
+    const lastFont = () => { try { return fontOf(localStorage.getItem('gcs-last-font')); } catch (e) { return DEFAULT_FONT; } };
     let proportional = localStorage.getItem('gcs-proportional') !== 'off';
     let gameMode = false;   // Game: one cell full screen, two score systems (or the one-line fallback), the instrument large
     const SAMPLE = [
-      { type: 'heading', text: 'Grand Central Stationery' },
+      { type: 'text', align: 'center', text: 'Grand Central Stationery' },
       { type: 'text', text: 'EYES, EARS, and MINDS open;\nHANDS, FEET, and VOICES quiet and ready.' },
       { type: 'abc',  text: 'C D E F | G A B c |\nw: Do re mi fa sol la ti do' },
       { type: 'text', text: 'C D E F G A B\nC# D# F# G# A#\nDb Eb Gb Ab Bb' },
@@ -5164,13 +5314,19 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     let cells = [];
     try { const saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved && Array.isArray(saved.cells) && saved.cells.length) cells = saved.cells; } catch (e) {}
     if (!cells.length) cells = SAMPLE.map(c => ({ ...c }));
+    // The text font used to be one page-wide setting: hand it, once, to the
+    // text cells saved under it, then forget it.
+    const legacyFont = localStorage.getItem('gcs-font');
+    for (const c of cells) upgradeCell(c, legacyFont);
+    localStorage.removeItem('gcs-font');
+    upgradeLayout(cells);
     let seq = 0; for (const c of cells) c.id = ++seq;
 
     const cellsEl = document.getElementById('cells');
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac }) => ({ type, text, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, font, align, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac }) => ({ type, text, font, align, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -5268,30 +5424,22 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     function buildCell(cell) {
       const el = document.createElement('div');
       el.className = 'cell'; el.dataset.type = cell.type; el.dataset.id = cell.id;
+      if (cell.type === 'text' && cell.align === 'center') el.dataset.align = 'center';
       el.innerHTML = `<div class="cell-head">
           <span class="grip" draggable="true" title="Drag to reorder">⠿</span>
           <input class="order" type="number" min="1" title="Position: type a number to move this cell">
-          <select class="type"><option value="heading">Heading</option><option value="text">Text</option><option value="abc">Notation</option><option value="rhythm">Rhythm</option><option value="dance">Dance</option></select>
-          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 and 80 BPM defaults, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'rhythm' ? 'One line per drum: name: x.x. (x hit, X accent, o soft, . rest, | bar); meter: 3/4; bpm: 100' : cell.type === 'dance' ? 'feet: L R step, l r touch, f b s x z c directions, J H K, . hold; arms: u o d c h; drum lines play underneath' : cell.type === 'heading' ? 'Centred title' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
+          <select class="type"><option value="text">Text</option><option value="abc">Notation</option><option value="rhythm">Rhythm</option><option value="dance">Dance</option></select>
+          ${cell.type === 'text' ? `<span class="textopts"><select class="font" title="This cell's font">${Object.entries(FONTS).map(([k, f]) => `<option value="${k}">${f.label}</option>`).join('')}</select><label title="Centre the text across and down the cell, as for a title"><input type="checkbox" class="center"> Centred</label></span>` : ''}
+          <span class="hint">${cell.type === 'abc' ? 'ABC: L:1/4 and 80 BPM defaults, | bars, z rest, [CEG] chord, w: lyrics, Q:1/4=90 tempo' : cell.type === 'rhythm' ? 'One line per drum: name: x.x. (x hit, X accent, o soft, . rest, | bar); meter: 3/4; bpm: 100' : cell.type === 'dance' ? 'feet: L R step, l r touch, f b s x z c directions, J H K, . hold; arms: u o d c h; drum lines play underneath' : 'Note names colour themselves; # and b become ♯ ♭'}</span>
           <span class="spacer"></span>
           <span class="tools">
             <button class="show" title="Present from this cell">Present</button>
             <button class="game" title="Game: this tune two score systems at a time (or the one-line fallback), with the instrument large, full screen (Esc returns)">Game</button>
-            <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
+            <button class="xyz" title="Lay out this cell in Present 3D: its place, turn, size and background">3D</button>
             <button class="del" title="Delete cell (Undo in the toast, or Cmd+Z)">✕</button>
           </span>
         </div>
-        <div class="pos">
-          <label>x <input type="number" step="100" data-k="x"></label>
-          <label>y <input type="number" step="100" data-k="y"></label>
-          <label>z <input type="number" step="100" data-k="z"></label>
-          <label>roll <input type="number" step="5" data-k="r" title="rotate about the screen's normal (z)"></label>
-          <label>pitch <input type="number" step="5" data-k="rx" title="rotate about x"></label>
-          <label>yaw <input type="number" step="5" data-k="ry" title="rotate about y"></label>
-          <label>scale <input type="number" step="0.1" min="0.1" data-k="s"></label>
-          <label>background <input type="color" data-k="bg"></label>
-          <button class="posclear">auto</button>
-        </div><div class="cell-body"></div>`;
+        <div class="cell-body"></div>`;
       el.querySelector('.type').value = cell.type;
       el.querySelector('.order').value = cells.indexOf(cell) + 1;
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
@@ -5299,8 +5447,21 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       const onChange = text => { cell.text = text; save(); };
       const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
-                   : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
+                   : new TextCell(body, cell.text, onChange, { centered: cell.align === 'center', font: cell.font });
       engines.set(cell.id, engine);
+      if (cell.type === 'text') {
+        const fontSel = el.querySelector('.textopts .font'), centre = el.querySelector('.textopts .center');
+        fontSel.value = engine.font; centre.checked = cell.align === 'center';
+        fontSel.addEventListener('change', () => {
+          if (fontSel.value === DEFAULT_FONT) delete cell.font; else cell.font = fontSel.value;
+          try { localStorage.setItem('gcs-last-font', fontSel.value); } catch (e) {}
+          engine.setFont(fontSel.value); save();
+        });
+        centre.addEventListener('change', () => {
+          if (centre.checked) { cell.align = 'center'; el.dataset.align = 'center'; } else { delete cell.align; delete el.dataset.align; }
+          engine.setCentered(centre.checked); save();
+        });
+      }
       el.querySelector('.type').addEventListener('change', e => { cell.type = e.target.value; rebuild(); save(); });
       const order = el.querySelector('.order');
       const goOrder = () => { const n = parseInt(order.value, 10); if (n >= 1) reorder(cell, n - 1); renumber(); };
@@ -5323,22 +5484,10 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
         trash.push({ cell, index });
         if (!cells.length) { cells.push({ id: ++seq, type: 'text', text: '' }); cellsEl.appendChild(buildCell(cells[0])); }
         renumber(); save();
-        toast(`${cell.type === 'abc' ? 'Notation' : cell.type === 'rhythm' ? 'Rhythm' : cell.type === 'dance' ? 'Dance' : cell.type === 'heading' ? 'Heading' : 'Text'} cell deleted`, 'Undo', undoDelete);
+        toast(`${cell.type === 'abc' ? 'Notation' : cell.type === 'rhythm' ? 'Rhythm' : cell.type === 'dance' ? 'Dance' : 'Text'} cell deleted`, 'Undo', undoDelete);
       });
       el.querySelector('.show').addEventListener('click', () => present(cells.indexOf(cell)));
-      const posEl = el.querySelector('.pos');
-      el.querySelector('.xyz').addEventListener('click', () => posEl.classList.toggle('open'));
-      for (const inp of posEl.querySelectorAll('input')) {
-        const k = inp.dataset.k;
-        if (k === 'bg') { if (cell.bg) inp.value = cell.bg; }
-        else if (cell.pos && cell.pos[k] !== undefined) inp.value = cell.pos[k];
-        inp.addEventListener('input', () => {
-          if (k === 'bg') cell.bg = inp.value;
-          else { cell.pos = cell.pos || {}; if (inp.value === '') delete cell.pos[k]; else cell.pos[k] = parseFloat(inp.value); }
-          save();
-        });
-      }
-      el.querySelector('.posclear').addEventListener('click', () => { delete cell.pos; delete cell.bg; for (const inp of posEl.querySelectorAll('input')) inp.value = inp.type === 'color' ? '#ffffff' : ''; save(); });
+      el.querySelector('.xyz').addEventListener('click', () => { present3d(); openSetup(cell); });
       body.addEventListener('focusin', () => { for (const c of cellsEl.querySelectorAll('.cell.focused')) c.classList.remove('focused'); el.classList.add('focused'); });
       // Keys typed in a cell never leave the field: impress.js plugins listen on
       // the document and window (navigation, help on H, speaker console on P),
@@ -5365,6 +5514,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     }
     function addCell(type, at = cells.length) {
       const cell = { id: ++seq, type, text: type === 'rhythm' ? MoveCell.START.rhythm : type === 'dance' ? MoveCell.START.dance : '' };
+      if (type === 'text' && lastFont() !== DEFAULT_FONT) cell.font = lastFont();
       if (type === 'abc') { try { const last = localStorage.getItem('gcs-last-inst'); if (last && last !== 'off' && INSTRUMENTS[last]) cell.inst = last; if (localStorage.getItem('gcs-last-nota') === 'tab') cell.nota = 'tab'; } catch (e) {} }   // the instrument chosen last time, so a new tune starts with it
       cells.splice(at, 0, cell);
       const el = buildCell(cell);
@@ -5408,34 +5558,71 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     /* ---------- 3D present mode ---------- */
     const impressRoot = document.getElementById('impress');
     let in3d = false;
-    // Automatic layout: a gentle zigzag row, four cells per row, slightly rotated.
+    /* The layout. A cell's place is given from the cell before it, in screens:
+       dx in screen widths (right), dy in screen heights (down), dz in screen
+       widths (towards the viewer). So moving one cell carries the later ones
+       with it, like a path. Its roll r, pitch rx and yaw ry (degrees) and its
+       scale s are its own. Anything not given is automatic: a gentle zigzag
+       row, four cells to a row, slightly rotated. */
+    function autoAt(i) { return { x: (i % 4) * 1.35, y: Math.floor(i / 4) * 1.45 + (i % 2 ? 0.12 : 0) }; }
     function autoPos(i) {
-      const W = innerWidth, H = innerHeight;
-      return { x: (i % 4) * W * 1.35, y: Math.floor(i / 4) * H * 1.45 + (i % 2 ? H * 0.12 : 0), z: 0, r: ((i % 3) - 1) * 4, rx: 0, ry: 0, s: 1 };
+      const a = autoAt(i), b = i ? autoAt(i - 1) : { x: 0, y: 0 };
+      return { dx: +(a.x - b.x).toFixed(3), dy: +(a.y - b.y).toFixed(3), dz: 0, r: ((i % 3) - 1) * 4, rx: 0, ry: 0, s: 1 };
     }
     function cellPos(cell, i) { return { ...autoPos(i), ...(cell.pos || {}) }; }
+    function screenSize() { return { W: innerWidth || 1280, H: innerHeight || 800 }; }
+    // Where each cell sits, in pixels, for impress.js.
+    function placements() {
+      const { W, H } = screenSize(); let x = 0, y = 0, z = 0;
+      return cells.map((cell, i) => { const p = cellPos(cell, i); x += p.dx * W; y += p.dy * H; z += p.dz * W; return { x, y, z, r: p.r, rx: p.rx, ry: p.ry, s: p.s }; });
+    }
+    // Older layouts gave x y z as absolute pixels: rewrite them as steps from
+    // the cell before, keeping every cell where it was.
+    function upgradeLayout(list) {
+      if (!list.some(c => c.pos && ['x', 'y', 'z'].some(k => k in c.pos))) return list;
+      const { W, H } = screenSize();
+      const abs = list.map((c, i) => { const a = autoAt(i), p = c.pos || {}; return { x: p.x ?? a.x * W, y: p.y ?? a.y * H, z: p.z ?? 0 }; });
+      list.forEach((c, i) => {
+        const prev = i ? abs[i - 1] : { x: 0, y: 0, z: 0 }, auto = autoPos(i), p = c.pos || {};
+        const d = { dx: (abs[i].x - prev.x) / W, dy: (abs[i].y - prev.y) / H, dz: (abs[i].z - prev.z) / W };
+        delete p.x; delete p.y; delete p.z;
+        for (const k in d) if (Math.abs(d[k] - auto[k]) > 1e-3) p[k] = +d[k].toFixed(3);
+        if (Object.keys(p).length) c.pos = p; else delete c.pos;
+      });
+      return list;
+    }
+    // Write the placements onto the steps, and (fit) frame the overview round
+    // them. impress.js reads the data attributes again on every goto; the
+    // transform is the one it would give, so a slider shows at once.
+    function placeSteps(fit = true) {
+      const { W, H } = screenSize(), ps = placements();
+      cells.forEach((cell, i) => {
+        const el = document.getElementById('cell-' + cell.id); if (!el) return;
+        const p = ps[i];
+        Object.assign(el.dataset, { x: p.x, y: p.y, z: p.z, scale: p.s, rotateZ: p.r, rotateX: p.rx, rotateY: p.ry });   // roll, pitch, yaw
+        el.style.transform = `translate(-50%,-50%) translate3d(${p.x}px,${p.y}px,${p.z}px) rotateX(${p.rx}deg) rotateY(${p.ry}deg) rotateZ(${p.r}deg) scale(${p.s})`;
+        el.style.setProperty('--cell-bg', cell.bg || 'var(--bg)');
+      });
+      const ov = document.getElementById('overview');
+      if (!fit || !ov) return;
+      const minX = Math.min(...ps.map(p => p.x - W / 2 * p.s)), maxX = Math.max(...ps.map(p => p.x + W / 2 * p.s));
+      const minY = Math.min(...ps.map(p => p.y - H / 2 * p.s)), maxY = Math.max(...ps.map(p => p.y + H / 2 * p.s));
+      Object.assign(ov.dataset, { x: (minX + maxX) / 2, y: (minY + maxY) / 2, z: 0, scale: Math.max((maxX - minX) / W, (maxY - minY) / H) * 1.08 });
+    }
     function present3d() {
       if (in3d) return;
-      const W = innerWidth, H = innerHeight;
+      const { W, H } = screenSize();
       impressRoot.setAttribute('data-width', W); impressRoot.setAttribute('data-height', H);
       impressRoot.innerHTML = '';
       // Overview first: the camera starts pulled back to show every cell.
       const ov = document.createElement('div'); ov.className = 'step overview'; ov.id = 'overview';
-      const ps = cells.map(cellPos);
-      const minX = Math.min(...ps.map(p => p.x)) - W / 2, maxX = Math.max(...ps.map(p => p.x)) + W / 2;
-      const minY = Math.min(...ps.map(p => p.y)) - H / 2, maxY = Math.max(...ps.map(p => p.y)) + H / 2;
-      ov.dataset.x = (minX + maxX) / 2; ov.dataset.y = (minY + maxY) / 2; ov.dataset.z = 0;
-      ov.dataset.scale = Math.max((maxX - minX) / W, (maxY - minY) / H) * 1.08;
       impressRoot.appendChild(ov);
-      cells.forEach((cell, i) => {
+      for (const cell of cells) {
         const el = cellsEl.querySelector(`.cell[data-id="${cell.id}"]`);
-        const p = ps[i];
         el.classList.add('step'); el.id = 'cell-' + cell.id;
-        el.dataset.x = p.x; el.dataset.y = p.y; el.dataset.z = p.z; el.dataset.scale = p.s;
-        el.dataset.rotateZ = p.r; el.dataset.rotateX = p.rx; el.dataset.rotateY = p.ry;   // roll, pitch, yaw
-        el.style.setProperty('--cell-bg', cell.bg || 'var(--bg)');
         impressRoot.appendChild(el);
-      });
+      }
+      placeSteps();
       in3d = true;
       document.body.classList.add('present3d');
       impressRoot.addEventListener('impress:stepenter', onStepEnter);
@@ -5450,6 +5637,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       document.body.style.setProperty('--stage-bg', cell && cell.bg ? cell.bg : 'var(--bg)');
       const i = cell ? cells.indexOf(cell) : -1;
       setNav(i);
+      if (cell && setupOpen()) { setupCell = cell; syncSetup(); }
       if (cell) { const en = engines.get(cell.id); if (en) setTimeout(() => en.focus(), 50); }
     }
     function exit3d() {
@@ -5460,10 +5648,11 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       // So: make the overview the active step, move the original cells out
       // first, and let impress tear down a root that holds only the overview.
       impress().goto('overview', 0);
+      document.body.classList.remove('setup3d-open');
       for (const cell of cells) {
         const el = document.getElementById('cell-' + cell.id);
         if (!el) continue;
-        el.classList.remove('step', 'active', 'past', 'future', 'present');
+        el.classList.remove('step', 'active', 'past', 'future', 'present', 'setup-sel');
         el.removeAttribute('id'); el.removeAttribute('style');
         for (const k of ['x', 'y', 'z', 'rotateZ', 'rotateX', 'rotateY', 'scale']) delete el.dataset[k];
         cellsEl.appendChild(el);
@@ -5478,11 +5667,121 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     document.getElementById('nav3dReset').addEventListener('click', () => {
       const kept = cells.map(c => ({ c, pos: c.pos, bg: c.bg }));
       if (!kept.some(k => k.pos || k.bg)) { toast('Every cell already uses the automatic layout', null, null, 3000); return; }
-      const relayout = () => { exit3d(); rebuild(); present3d(); };
+      const relayout = () => { save(); placeSteps(); impress().goto('overview', 500); syncSetup(); };
       for (const c of cells) { delete c.pos; delete c.bg; }
-      save(); relayout();
-      toast('3D layout reset', 'Undo', () => { for (const k of kept) { if (k.pos) k.c.pos = k.pos; if (k.bg) k.c.bg = k.bg; } save(); relayout(); }, 4000);
+      relayout();
+      toast('3D layout reset', 'Undo', () => { for (const k of kept) { if (k.pos) k.c.pos = k.pos; if (k.bg) k.c.bg = k.bg; } relayout(); }, 4000);
     });
+    /* ---------- 3D setup: sliders over the scene ----------
+       One cell at a time. Moving a slider shows the whole layout (the
+       overview) with the cell outlined, moving as the slider moves; letting
+       go reframes the overview round the new layout. Fly in plays the flight
+       from the cell before. */
+    const setupEl = document.getElementById('setup3d');
+    const SETUP = [
+      { k: 'dx', label: 'right', min: -4, max: 4, step: 0.05, title: 'Across from the cell before, in screen widths (negative: to the left)' },
+      { k: 'dy', label: 'down', min: -4, max: 4, step: 0.05, title: 'Down from the cell before, in screen heights (negative: up)' },
+      { k: 'dz', label: 'nearer', min: -6, max: 6, step: 0.05, title: 'Towards you from the cell before, in screen widths (negative: further away)' },
+      { k: 'r', label: 'roll', min: -180, max: 180, step: 1, title: 'Turn in the plane of the screen, in degrees' },
+      { k: 'rx', label: 'pitch', min: -180, max: 180, step: 1, title: 'Tip forward or back, about the horizontal axis, in degrees' },
+      { k: 'ry', label: 'yaw', min: -180, max: 180, step: 1, title: 'Turn left or right, about the vertical axis, in degrees' },
+      { k: 's', label: 'size', min: -3, max: 3, step: 0.05, log: true, title: 'Size, as a multiple of the screen (the slider doubles and halves)' },
+    ];
+    let setupCell = null;
+    const setupOpen = () => document.body.classList.contains('setup3d-open');
+    const toOverview = (ms = 500) => { if (!document.body.classList.contains('impress-on-overview')) impress().goto('overview', ms); };
+    const refit = () => { placeSteps(true); impress().goto('overview', 400); };
+    function setPos(k, v) {          // v undefined: automatic
+      const p = setupCell.pos || {};
+      if (v === undefined || !isFinite(v)) delete p[k]; else p[k] = v;
+      if (Object.keys(p).length) setupCell.pos = p; else delete setupCell.pos;
+      save();
+    }
+    const setupRows = SETUP.map(spec => {
+      const row = document.createElement('label'); row.className = 'srow'; row.title = spec.title;
+      row.innerHTML = `<span>${spec.label}</span><input type="range" min="${spec.min}" max="${spec.max}" step="${spec.step}"><input type="number" class="sval" step="${spec.log ? 0.05 : spec.step}"${spec.log ? ' min="0.05"' : ''}>`;
+      const [range, num] = row.querySelectorAll('input');
+      range.addEventListener('input', () => {
+        const v = spec.log ? +(2 ** +range.value).toFixed(3) : +range.value;
+        setPos(spec.k, v); num.value = v; range.classList.remove('auto');
+        placeSteps(false); toOverview();
+      });
+      range.addEventListener('change', refit);
+      range.addEventListener('dblclick', () => { setPos(spec.k); syncSetup(); refit(); });   // double-click: automatic again
+      num.addEventListener('input', () => {
+        const v = num.value === '' ? undefined : parseFloat(num.value);
+        if (v !== undefined && (!isFinite(v) || (spec.log && v <= 0))) return;
+        setPos(spec.k, v); syncSetup(true); placeSteps(false); toOverview();
+      });
+      num.addEventListener('change', refit);
+      setupEl.querySelector('.srows').appendChild(row);
+      return { spec, range, num };
+    });
+    const bgIn = setupEl.querySelector('.sbg');
+    function hex6(c) { c = c.trim(); return /^#[0-9a-f]{3}$/i.test(c) ? '#' + [...c.slice(1)].map(h => h + h).join('') : /^#[0-9a-f]{6}$/i.test(c) ? c : '#ffffff'; }
+    function syncSetup(keepNumbers) {
+      if (!setupCell || !cells.includes(setupCell)) setupCell = cells[0];
+      const i = cells.indexOf(setupCell), auto = autoPos(i), own = setupCell.pos || {};
+      setupEl.querySelector('.scell').textContent = `Cell ${i + 1} of ${cells.length}`;
+      setupEl.querySelector('.sprev').disabled = i === 0;
+      setupEl.querySelector('.snext').disabled = i === cells.length - 1;
+      for (const { spec, range, num } of setupRows) {
+        const v = own[spec.k] ?? auto[spec.k];
+        range.value = spec.log ? Math.log2(v) : v;
+        range.classList.toggle('auto', !(spec.k in own));
+        if (!keepNumbers) num.value = spec.k in own ? own[spec.k] : '';
+        num.placeholder = auto[spec.k];
+      }
+      bgIn.value = hex6(setupCell.bg || getComputedStyle(document.documentElement).getPropertyValue('--bg'));
+      for (const el of impressRoot.querySelectorAll('.setup-sel')) el.classList.remove('setup-sel');
+      const el = document.getElementById('cell-' + setupCell.id); if (el) el.classList.add('setup-sel');
+    }
+    function openSetup(cell) {
+      if (!in3d) return;
+      const active = impressRoot.querySelector('.step.active');
+      setupCell = cell || cells.find(c => active && active.id === 'cell-' + c.id) || setupCell || cells[0];
+      document.body.classList.add('setup3d-open');
+      syncSetup();
+    }
+    const closeSetup = () => { document.body.classList.remove('setup3d-open'); for (const el of impressRoot.querySelectorAll('.setup-sel')) el.classList.remove('setup-sel'); };
+    document.getElementById('nav3dSetup').addEventListener('click', () => setupOpen() ? closeSetup() : openSetup());
+    setupEl.querySelector('.sclose').addEventListener('click', closeSetup);
+    const pickSetup = d => {
+      const c = cells[cells.indexOf(setupCell) + d]; if (!c) return;
+      if (document.body.classList.contains('impress-on-overview')) { setupCell = c; syncSetup(); }
+      else impress().goto('cell-' + c.id);           // the stepenter that follows selects it
+    };
+    setupEl.querySelector('.sprev').addEventListener('click', () => pickSetup(-1));
+    setupEl.querySelector('.snext').addEventListener('click', () => pickSetup(1));
+    setupEl.querySelector('.sauto').addEventListener('click', () => { delete setupCell.pos; delete setupCell.bg; save(); syncSetup(); refit(); });
+    setupEl.querySelector('.sfly').addEventListener('click', () => {
+      const target = setupCell, i = cells.indexOf(target);     // the jump to the cell before selects that one for a moment
+      impress().goto(i ? 'cell-' + cells[i - 1].id : 'overview', 0);
+      void impressRoot.offsetWidth;                              // settle the jump, so the flight animates from there
+      setTimeout(() => impress().goto('cell-' + target.id), 30);
+    });
+    bgIn.addEventListener('input', () => {
+      setupCell.bg = bgIn.value; save(); placeSteps(false);
+      const active = impressRoot.querySelector('.step.active');
+      if (active && active.id === 'cell-' + setupCell.id) document.body.style.setProperty('--stage-bg', setupCell.bg);
+    });
+    setupEl.querySelector('.sbgauto').addEventListener('click', e => {
+      e.preventDefault(); delete setupCell.bg; save(); placeSteps(false); syncSetup();
+      const active = impressRoot.querySelector('.step.active');
+      if (active && active.id === 'cell-' + setupCell.id) document.body.style.setProperty('--stage-bg', 'var(--bg)');
+    });
+    // Keys and touches in the panel stay there: impress.js reads arrows, space
+    // and swipes from the whole document as navigation.
+    setupEl.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') { e.preventDefault(); closeSetup(); } });
+    for (const t of ['keyup', 'keypress', 'touchstart', 'touchmove', 'touchend', 'click', 'wheel']) setupEl.addEventListener(t, e => e.stopPropagation());
+    // On the overview, a click on a cell chooses it for the panel instead of flying there.
+    impressRoot.addEventListener('click', e => {
+      if (!setupOpen() || !document.body.classList.contains('impress-on-overview')) return;
+      const step = e.target.closest('.step'); const cell = step && cells.find(c => 'cell-' + c.id === step.id);
+      if (!cell) return;
+      e.stopPropagation(); e.preventDefault();
+      setupCell = cell; syncSetup();
+    }, true);
     function navKey(e) {
       const classic = document.body.classList.contains('present');
       if (!classic && !in3d) return;
@@ -5515,7 +5814,6 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     document.addEventListener('click', e => { if (menu.open && !menu.contains(e.target)) menu.open = false; });
     for (const id of ['share', 'export', 'import', 'clear']) document.getElementById(id).addEventListener('click', () => { menu.open = false; });
     document.getElementById('addText').addEventListener('click', () => addCell('text'));
-    document.getElementById('addHeading').addEventListener('click', () => addCell('heading'));
     const propBox = document.getElementById('proportional');
     propBox.checked = proportional;
     propBox.addEventListener('change', () => {
@@ -5540,22 +5838,21 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     document.getElementById('addAbc').addEventListener('click', () => addCell('abc'));
     document.getElementById('addRhythm').addEventListener('click', () => addCell('rhythm'));
     document.getElementById('addDance').addEventListener('click', () => addCell('dance'));
-    const picker = document.getElementById('fontpick');
-    for (const [key, f] of Object.entries(FONTS)) picker.add(new Option(f.label, key));
-    picker.value = fontKey;
-    picker.addEventListener('change', () => applyFont(picker.value));
     /* ---------- the document format ----------
        Plain text. An optional first line `=== page {json}` carries the page
-       settings (text font, proportional spacing); then one block per cell:
-       `=== type {json}` (type: heading, text or abc; the json, when present,
-       holds 3D position x y z r rx ry s, background bg, transposition tr and
-       the instrument view inst)
+       settings (proportional spacing; older files also a text font, which
+       goes to their text cells); then one block per cell: `=== type {json}`
+       (type: text, abc, rhythm or dance; an older `heading` reads as a centred
+       text cell; the json, when present, holds the 3D layout dx dy dz r rx ry s
+       (older files: x y z in pixels, rewritten on reading),
+       background bg, a text cell's font and align, transposition tr and the
+       instrument view inst)
        followed by the cell's text, verbatim, until the next separator. A file
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading|rhythm|dance)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
-      const page = JSON.stringify({ font: fontKey, proportional });
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.font) m.font = c.font; if (c.align) m.align = c.align; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const page = JSON.stringify({ proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
     function parse(text) {
@@ -5565,18 +5862,18 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.play; delete j.harm; delete j.style; delete j.band; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.font in FONTS) cur.font = j.font; if (j.align === 'center') cur.align = j.align; delete j.font; delete j.align; if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.play; delete j.harm; delete j.style; delete j.band; delete j.mv; delete j.fac; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
       }
       if (!out.length) out.push({ id: ++seq, type: 'text', text: lines.join('\n') });
-      for (const c of out) c.text = c.text.replace(/\n$/, '');
+      for (const c of out) { c.text = c.text.replace(/\n$/, ''); upgradeCell(c, page && page.font); }
+      upgradeLayout(out);
       return { cells: out, page };
     }
     function loadDocument(doc) {
       if (doc.page) {
-        if (doc.page.font in FONTS && doc.page.font !== fontKey) { applyFont(doc.page.font); picker.value = doc.page.font; }
         if (typeof doc.page.proportional === 'boolean' && doc.page.proportional !== proportional) { proportional = doc.page.proportional; propBox.checked = proportional; localStorage.setItem('gcs-proportional', proportional ? 'on' : 'off'); }
       }
       cells = doc.cells; trash.length = 0; rebuild(); save();
@@ -5630,7 +5927,6 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     document.getElementById('clear').addEventListener('click', () => { if (confirm('Remove all cells?')) { cells = [{ id: ++seq, type: 'text', text: '' }]; rebuild(); save(); } });
 
     /* ---------- go ---------- */
-    applyFont(fontKey);
     rebuild();
     // Google Fonts splits Noto Music into unicode-range subsets; name the
     // accidentals so the music subset loads, then re-render everything.
@@ -5639,7 +5935,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       document.fonts.ready.then(rerenderAll).catch(() => {});
       document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
     }
-    window.GCS = { cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, applyFont, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
+    window.GCS = { cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
   })();
   </script>
 </body>

@@ -23,7 +23,7 @@ N:Tonic G (G Dorian with the one-flat signature). He and she sing alternate vers
 M:3/4
 L:1/8
 Q:1/4=100
-K:F
+K:Gdor
 %%style drone
 G2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]
 w: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.
@@ -43,7 +43,7 @@ N:Tonic B, no signature. Three verses; the dhobi is the washerman. The first thr
 M:5/8
 L:1/16
 Q:1/8=180
-K:C
+K:Bphr
 %%style drone
 B d2 | c2 B c A2 A B c2 | c2 B c A2 A |]
 w: Mo-ther, send to the dho-bi to bring back my li-nen.
@@ -61,7 +61,7 @@ N:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers
 M:5/8
 L:1/16
 Q:1/8=180
-K:F
+K:Gdor
 %%style drone
 A c | B2 A B G2 A B c2 | B2 A c B2 A B |]
 w: O where will you go if I get back your li-nen?
