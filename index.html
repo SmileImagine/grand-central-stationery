@@ -257,7 +257,8 @@
     .inst { display: none; flex: 0 1 var(--inst-h, 32%); min-height: 84px; border-top: 1px solid var(--line); padding: 6px 1vw; box-sizing: border-box; align-items: center; justify-content: center; overflow: hidden; }
     .inst.on { display: flex; }
     .inst svg { display: block; width: 100%; height: 100%; overflow: visible; }
-    .inst .lbl { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: none; }
+    .inst .lbl { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: var(--panel-2); stroke-width: 2.4px; stroke-linejoin: round; paint-order: stroke fill; }
+    .inst .lbl.qw, .inst .lbl.cap, .inst .lbl.oct { stroke: none; }
     .inst .key { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 1; transition: fill 0.12s, stroke 0.12s; }
     .inst .key.black { fill: var(--ink); }
     .inst .key.ondeck { stroke: var(--c); stroke-opacity: 1; stroke-width: 2.5; stroke-dasharray: 5 3; fill: color-mix(in srgb, var(--c) 35%, var(--panel-2)); }
@@ -332,8 +333,7 @@
     .inst .runner circle { fill: var(--c); stroke: var(--panel-2); stroke-width: 2; filter: drop-shadow(0 0 4px var(--c)); }
     .inst .runner.hide { opacity: 0; }
     /* ukulele */
-    .inst .board { fill: color-mix(in srgb, var(--ink) 12%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; }
-    .inst .boardedge { stroke: color-mix(in srgb, var(--concourse-brass, #9c7a45) 70%, var(--ink)); stroke-width: 2.2; opacity: 0.7; }
+    .inst .board { fill: color-mix(in srgb, var(--ink) 12%, var(--panel-2)); stroke: none; }
     .inst .fret { stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 2; }
     .inst .nut { stroke: color-mix(in srgb, var(--ink) 85%, white); stroke-width: 5; stroke-linecap: round; }
     .inst .inlay { fill: var(--ink); opacity: 0.25; }
@@ -1232,7 +1232,7 @@
         // where strumming happens, past the soundhole toward the bridge.
         const S = 23, left = 92, top = 14, boardLen = 470;
         this.S = S; this.left = left; this.top = top; this.boardLen = boardLen;
-        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70, H = top + S * 3.85 + 22;
+        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70, H = top + S * 4.0 + 22;
         this.bE = bE; this.bridgeX = bridgeX;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
         const defs = svgEl(svg, 'defs');
@@ -1272,11 +1272,10 @@
           svgEl(g, 'ellipse', { class: 'peg', cx: p.x, cy: p.y, rx: 5.5 * k, ry: 3.6 * k });
         }
         // The fretboard: a trapezoid in perspective, frets leaning toward the vanishing point, the nut heavy.
-        const bf0 = this.project(left, -0.45), bf1 = this.project(bE, -0.45), bn1 = this.project(bE, 3.85), bn0 = this.project(left, 3.85);
+        const bf0 = this.project(left, -0.55), bf1 = this.project(bE, -0.55), bn1 = this.project(bE, 4.0), bn0 = this.project(left, 4.0);
         svgEl(g, 'path', { class: 'board', d: `M ${bf0.x} ${bf0.y} L ${bf1.x} ${bf1.y} L ${bn1.x} ${bn1.y} L ${bn0.x} ${bn0.y} Z` });
-        svgEl(g, 'line', { class: 'boardedge', x1: bn0.x, y1: bn0.y, x2: bn1.x, y2: bn1.y });
-        for (let i = 1; i <= this.frets; i++) { const a = this.project(this.fretX(i), -0.45), b = this.project(this.fretX(i), 3.85); svgEl(g, 'line', { class: 'fret', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (1.4 + 0.9 * (1 - i / this.frets)).toFixed(2) }); }
-        const n0 = this.project(left, -0.5), n1 = this.project(left, 3.9); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
+        for (let i = 1; i <= this.frets; i++) { const a = this.project(this.fretX(i), -0.5), b = this.project(this.fretX(i), 3.95); svgEl(g, 'line', { class: 'fret', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (1.4 + 0.9 * (1 - i / this.frets)).toFixed(2) }); }
+        const n0 = this.project(left, -0.55), n1 = this.project(left, 4.0); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
         for (const i of [5, 7, 10]) { const p = this.project(this.fretMid(i), 1.5), k = this.depth(1.5); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
         for (const sIdx of [0.6, 2.4]) { const p = this.project(this.fretMid(12), sIdx), k = this.depth(sIdx); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
         // The strings, nut to bridge, nearest thickest; each has a glow twin that lights in the note's colour when it is plucked.
