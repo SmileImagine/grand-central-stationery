@@ -9,6 +9,7 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 - Harmony source: detected chords: 14; tonic drone: 8; written chords: 15.
 - 9 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
 - 29 tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.
+- 12 Nottingham imports link to their canonical repository files; 0 published source paths point into temporary or private directories.
 
 ## Idiom decisions still needed
 
@@ -45,13 +46,13 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 | This Old Man | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
 | Lightly Row | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
 | Frère Jacques | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Highland Mary | folk | explicit style | written chords | no origin in ABC; temporary import path |
-| Astley's Ride | folk | R field | written chords | no origin in ABC; temporary import path |
-| The First Frost - Second part | folk | R field | written chords | no origin in ABC; temporary import path |
-| Daisy Daisy | waltz | R field | written chords | no origin in ABC; temporary import path |
+| Highland Mary | folk | explicit style | written chords | no origin in ABC |
+| Astley's Ride | folk | R field | written chords | no origin in ABC |
+| The First Frost - Second part | folk | R field | written chords | no origin in ABC |
+| Daisy Daisy | waltz | R field | written chords | no origin in ABC |
 | O where will you go | drone | explicit style | tonic drone | — |
-| Tom And Jerry | folk | R field | written chords | no origin in ABC; temporary import path |
-| B. Variation | folk | R field | written chords | no origin in ABC; temporary import path |
+| Tom And Jerry | folk | R field | written chords | no origin in ABC |
+| B. Variation | folk | R field | written chords | no origin in ABC |
 | Mother, send to the dhobi | drone | explicit style | tonic drone | — |
 | Chhaila | drone | explicit style | tonic drone | — |
 | Bhup | drone | explicit style | tonic drone | — |
@@ -59,12 +60,12 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 | Bhairavi | drone | explicit style | tonic drone | — |
 | Malkos | drone | explicit style | tonic drone | — |
 | O give me those pretty eyes | drone | explicit style | tonic drone | — |
-| The Donegall | folk | R field | written chords | no origin in ABC; temporary import path |
-| Walking In My Sleep | folk | R field | written chords | no origin in ABC; temporary import path |
-| Fred Roden's Reel | folk | R field | written chords | no origin in ABC; temporary import path |
-| Sweet Ellen | folk | R field | written chords | no origin in ABC; temporary import path |
-| Billy In The Lowground | folk | R field | written chords | no origin in ABC; temporary import path |
-| Dance All Night | folk | R field | written chords | no origin in ABC; temporary import path |
+| The Donegall | folk | R field | written chords | no origin in ABC |
+| Walking In My Sleep | folk | R field | written chords | no origin in ABC |
+| Fred Roden's Reel | folk | R field | written chords | no origin in ABC |
+| Sweet Ellen | folk | R field | written chords | no origin in ABC |
+| Billy In The Lowground | folk | R field | written chords | no origin in ABC |
+| Dance All Night | folk | R field | written chords | no origin in ABC |
 
 ## Provenance repair queue
 
@@ -85,15 +86,15 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 - **This Old Man:** idiom not stated; no source or composer in ABC.
 - **Lightly Row:** idiom not stated; no source or composer in ABC.
 - **Frère Jacques:** idiom not stated; no source or composer in ABC.
-- **Highland Mary:** no origin in ABC; temporary import path.
-- **Astley's Ride:** no origin in ABC; temporary import path.
-- **The First Frost - Second part:** no origin in ABC; temporary import path.
-- **Daisy Daisy:** no origin in ABC; temporary import path.
-- **Tom And Jerry:** no origin in ABC; temporary import path.
-- **B. Variation:** no origin in ABC; temporary import path.
-- **The Donegall:** no origin in ABC; temporary import path.
-- **Walking In My Sleep:** no origin in ABC; temporary import path.
-- **Fred Roden's Reel:** no origin in ABC; temporary import path.
-- **Sweet Ellen:** no origin in ABC; temporary import path.
-- **Billy In The Lowground:** no origin in ABC; temporary import path.
-- **Dance All Night:** no origin in ABC; temporary import path.
+- **Highland Mary:** no origin in ABC.
+- **Astley's Ride:** no origin in ABC.
+- **The First Frost - Second part:** no origin in ABC.
+- **Daisy Daisy:** no origin in ABC.
+- **Tom And Jerry:** no origin in ABC.
+- **B. Variation:** no origin in ABC.
+- **The Donegall:** no origin in ABC.
+- **Walking In My Sleep:** no origin in ABC.
+- **Fred Roden's Reel:** no origin in ABC.
+- **Sweet Ellen:** no origin in ABC.
+- **Billy In The Lowground:** no origin in ABC.
+- **Dance All Night:** no origin in ABC.

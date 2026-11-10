@@ -44,11 +44,11 @@ node course/classroom-fit.js --check course/classroom-fit.md
 
 Suggestions stay within the page's ±12-semitone Transpose control. A written key that fits stays put; otherwise the report prefers an easier key signature, then the smaller shift. A tune marked **too wide** needs adaptation, a smaller excerpt or divided parts; changing key alone cannot make it fit.
 
-The accompaniment audit makes Auto's hidden fallback visible. Its annotation mode is intentionally narrow: it restores a source file's own reel, waltz or Morris identity, but leaves a nursery song marked for review instead of pretending that metre alone establishes an idiom.
+The accompaniment audit makes Auto's hidden fallback visible. Its annotation mode is intentionally narrow: it restores a source file's own reel, waltz or Morris identity, but leaves a nursery song marked for review instead of pretending that metre alone establishes an idiom. Source repair replaces private import scratch paths only when the ABC identifies itself as Nottingham and its filename is one of that repository's fourteen untouched originals; the resulting library card links to the exact file and carries the repository's GPL-3.0 licence. `--repair-review` mends the same fields in the stored set entries of published tunes waiting in the review queue, so restoring one brings back the repaired source and rhythm rather than the scratch path.
 
 ```bash
 node course/accompaniment-audit.js
-node course/accompaniment-audit.js --annotate --md course/accompaniment-audit.md
+node course/accompaniment-audit.js --annotate --repair-sources --repair-review --md course/accompaniment-audit.md
 node course/accompaniment-audit.js --check course/accompaniment-audit.md
 ```
 

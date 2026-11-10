@@ -830,7 +830,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "Morris dance",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/morris.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/morris.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -866,7 +866,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsa-c-15-astley-s-ride",
@@ -879,7 +880,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsa-c.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsa-c.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -917,7 +918,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsd-g-44-the-first-frost-second-part",
@@ -930,7 +932,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -967,7 +969,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "waltzes-11-daisy-daisy",
@@ -980,7 +983,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "waltz",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/waltzes.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/waltzes.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1024,7 +1027,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "hindostan-folk-3-o-where-will-you-go",
@@ -1084,7 +1088,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsr-t.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsr-t.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1119,7 +1123,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsd-g-10-b-variation",
@@ -1132,7 +1137,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1166,7 +1171,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "hindostan-folk-2-mother-send-to-the-dhobi",
@@ -1555,7 +1561,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1596,7 +1602,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsu-z-3-walking-in-my-sleep",
@@ -1609,7 +1616,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsu-z.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsu-z.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1656,7 +1663,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsd-g-54-fred-roden-s-reel",
@@ -1669,7 +1677,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1711,7 +1719,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsd-g-32-sweet-ellen",
@@ -1724,7 +1733,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1766,7 +1775,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsa-c-28-billy-in-the-lowground",
@@ -1779,7 +1789,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsa-c.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsa-c.abc",
    "skills": [
     "degree:do",
     "degree:la",
@@ -1816,7 +1826,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsd-g-1-dance-all-night",
@@ -1829,7 +1840,7 @@
    "origin": "",
    "composer": "",
    "rhythm": "reel",
-   "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
     "degree:fa",
@@ -1869,7 +1880,8 @@
      "key",
      "texture"
     ]
-   }
+   },
+   "licence": "GPL-3.0"
   }
  ]
 }

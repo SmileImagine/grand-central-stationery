@@ -37,6 +37,16 @@ for (const tune of set.tunes.filter(t => /(?:^|\/)reels[^/]*\.abc$/i.test(t.sour
 const morris = set.tunes.find(t => /(?:^|\/)morris\.abc$/i.test(t.source || ''));
 assert(morris && Audit.styleDecision(morris.abc).style === 'folk', 'the Morris tune must use the folk accompaniment');
 
+const nottingham = set.tunes.filter(t => /%\s*Nottingham Music Database/i.test(t.abc));
+assert(nottingham.length > 0, 'expected imported Nottingham tunes');
+for (const tune of nottingham) {
+  assert(tune.source.startsWith(Audit.NOTTINGHAM_ROOT), `${tune.title}: source is not the canonical Nottingham repository file`);
+  assert(Audit.NOTTINGHAM_FILES.has(path.basename(tune.source)), `${tune.title}: source names an unknown Nottingham file`);
+  assert(tune.licence === 'GPL-3.0', `${tune.title}: repository licence is not explicit`);
+}
+assert(!set.tunes.some(t => /private\/tmp|scratchpad/i.test(t.source || '')), 'published set contains a private scratch source path');
+assert(report.summary.temporaryPaths === 0 && report.summary.canonicalNottinghamSources === nottingham.length, 'source repair summary is wrong');
+
 const markdown = Audit.renderMarkdown(report);
 assert(markdown === fs.readFileSync(path.join(root, 'course', 'accompaniment-audit.md'), 'utf8'), 'course/accompaniment-audit.md is stale');
 assert(report.summary.harmony['written chords'] > 0 && report.summary.harmony['detected chords'] > 0 && report.summary.harmony['tonic drone'] > 0, 'audit must distinguish written, detected and drone harmony');

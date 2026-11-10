@@ -8,7 +8,7 @@
     node course/accompaniment-audit.js --json
     node course/accompaniment-audit.js --md course/accompaniment-audit.md
     node course/accompaniment-audit.js --check course/accompaniment-audit.md
-    node course/accompaniment-audit.js --annotate
+    node course/accompaniment-audit.js --annotate --repair-sources --repair-review
 
   --annotate adds only source-family facts that are already unambiguous in the
   imported Nottingham path: reel, waltz and Morris dance. It does not guess an
@@ -26,6 +26,8 @@ const STYLES = new Set([
   'mento', 'minyo', 'persian', 'korean', 'drone',
 ]);
 const CHORD = /"[A-G][#b♯♭]?[^\"]*"/g;
+const NOTTINGHAM_ROOT = 'https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/';
+const NOTTINGHAM_FILES = new Set(['ashover.abc', 'hpps.abc', 'jigs.abc', 'morris.abc', 'playford.abc', 'reelsa-c.abc', 'reelsd-g.abc', 'reelsh-l.abc', 'reelsm-q.abc', 'reelsr-t.abc', 'reelsu-z.abc', 'slip.abc', 'waltzes.abc', 'xmas.abc']);
 
 const field = (abc, name) => ((abc.match(new RegExp(`^${name}:\\s*(.+)$`, 'mi')) || [])[1] || '').trim();
 const explicitStyle = abc => ((abc.match(/^%%?style\s+([a-z]+)/mi) || [])[1] || '').toLowerCase();
@@ -84,6 +86,61 @@ function annotateSourceRhythms(set) {
   return changes;
 }
 
+function canonicalNottinghamSource(tune) {
+  const source = tune.source || '', file = path.basename(source).toLowerCase();
+  if (!/private\/tmp|scratchpad/i.test(source) || !/%\s*Nottingham Music Database/i.test(tune.abc) || !NOTTINGHAM_FILES.has(file)) return null;
+  return NOTTINGHAM_ROOT + file;
+}
+
+function repairSourcePaths(set) {
+  const changes = [];
+  for (const tune of set.tunes) {
+    const source = canonicalNottinghamSource(tune);
+    if (!source) continue;
+    tune.source = source;
+    if (!tune.licence) tune.licence = 'GPL-3.0';
+    changes.push({ id: tune.id, title: tune.title, source });
+  }
+  return changes;
+}
+
+// Published tunes in the review queue keep their original set entry in a
+// metadata line so --restore can put it back byte-for-byte. Repair that stored
+// entry and its ABC body too, or restoring a reviewed tune would resurrect the
+// private import path and lose the source-family rhythm.
+function repairReviewQueue(itemsDir) {
+  const changes = [];
+  if (!fs.existsSync(itemsDir)) return changes;
+  for (const file of fs.readdirSync(itemsDir).filter(name => name.endsWith('.abc')).sort()) {
+    const full = path.join(itemsDir, file);
+    let text = fs.readFileSync(full, 'utf8');
+    if (!/^%\s*review-from:\s*published\s*$/mi.test(text)) continue;
+    const meta = text.match(/^%\s*review-set-entry:\s*(\{.*\})\s*$/mi);
+    if (!meta) continue;
+    let entry;
+    try { entry = JSON.parse(meta[1]); } catch (err) { throw new Error(`${file}: invalid review-set-entry JSON`); }
+    const before = text;
+    const annotation = sourceAnnotation({ abc: text, source: entry.source || '' });
+    if (annotation) {
+      const lines = [`R:${annotation.rhythm}`];
+      if (annotation.style) lines.push(`%%style ${annotation.style}`);
+      text = text.replace(/^(T:.*)$/m, `$1\n${lines.join('\n')}`);
+      if (!entry.rhythm) entry.rhythm = annotation.rhythm;
+    }
+    const source = canonicalNottinghamSource({ abc: text, source: entry.source || '' });
+    if (source) {
+      entry.source = source;
+      if (!entry.licence) entry.licence = 'GPL-3.0';
+    }
+    text = text.replace(/^%\s*review-set-entry:\s*\{.*\}\s*$/mi, `% review-set-entry: ${JSON.stringify(entry)}`);
+    if (text !== before) {
+      fs.writeFileSync(full, text);
+      changes.push({ file, id: entry.id, source: entry.source, rhythm: entry.rhythm || '' });
+    }
+  }
+  return changes;
+}
+
 function harmonySource(abc, decision) {
   const bandLines = [...abc.matchAll(/^%%?band\s+(.+)$/gmi)].map(m => m[1]);
   if (bandLines.some(line => /(?:^|\s)(?:chords|bass)\s*:|\|/.test(line))) return 'written chart';
@@ -125,6 +182,8 @@ function buildReport(set, source = 'course/set.json') {
       harmony: countBy('harmony'),
       needingIdiomDecision: tunes.filter(t => t.issues.includes('idiom not stated')).length,
       provenanceFlags: tunes.filter(t => t.issues.some(i => i !== 'idiom not stated')).length,
+      temporaryPaths: set.tunes.filter(t => /private\/tmp|scratchpad/i.test(t.source || '')).length,
+      canonicalNottinghamSources: set.tunes.filter(t => (t.source || '').startsWith(NOTTINGHAM_ROOT)).length,
     },
   };
 }
@@ -145,6 +204,7 @@ function renderMarkdown(report) {
     `- Harmony source: ${cells(report.summary.harmony)}.`,
     `- ${report.summary.needingIdiomDecision} tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.`,
     `- ${report.summary.provenanceFlags} tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.`,
+    `- ${report.summary.canonicalNottinghamSources} Nottingham imports link to their canonical repository files; ${report.summary.temporaryPaths} published source paths point into temporary or private directories.`,
     '',
     '## Idiom decisions still needed',
     '',
@@ -166,12 +226,14 @@ function renderMarkdown(report) {
 }
 
 function parseArgs(argv) {
-  const opt = { set: path.join(__dirname, 'set.json'), md: null, check: null, json: false, annotate: false };
+  const opt = { set: path.join(__dirname, 'set.json'), md: null, check: null, json: false, annotate: false, repairSources: false, repairReview: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--set' || a === '--md' || a === '--check') opt[a.slice(2)] = argv[++i];
     else if (a === '--json') opt.json = true;
     else if (a === '--annotate') opt.annotate = true;
+    else if (a === '--repair-sources') opt.repairSources = true;
+    else if (a === '--repair-review') opt.repairReview = true;
     else if (a === '-h' || a === '--help') opt.help = true;
     else throw new Error(`Unknown option ${a}`);
   }
@@ -181,14 +243,22 @@ function parseArgs(argv) {
 function run(argv) {
   const opt = parseArgs(argv);
   if (opt.help) {
-    console.log('Usage: node course/accompaniment-audit.js [--set FILE] [--annotate] [--json] [--md FILE] [--check FILE]');
+    console.log('Usage: node course/accompaniment-audit.js [--set FILE] [--annotate] [--repair-sources] [--repair-review] [--json] [--md FILE] [--check FILE]');
     return;
   }
   const set = JSON.parse(fs.readFileSync(opt.set, 'utf8'));
   if (opt.annotate) {
     const changes = annotateSourceRhythms(set);
-    fs.writeFileSync(opt.set, JSON.stringify(set, null, 1) + '\n');
     console.log(`${changes.length} source-family rhythm annotations written to ${opt.set}`);
+  }
+  if (opt.repairSources) {
+    const changes = repairSourcePaths(set);
+    console.log(`${changes.length} canonical Nottingham sources written to ${opt.set}`);
+  }
+  if (opt.annotate || opt.repairSources) fs.writeFileSync(opt.set, JSON.stringify(set, null, 1) + '\n');
+  if (opt.repairReview) {
+    const changes = repairReviewQueue(path.join(__dirname, 'review', 'items'));
+    console.log(`${changes.length} reviewed Nottingham entries repaired`);
   }
   const source = path.relative(process.cwd(), path.resolve(opt.set)) || path.basename(opt.set);
   const report = buildReport(set, source), markdown = renderMarkdown(report);
@@ -199,7 +269,7 @@ function run(argv) {
     console.log(`${report.tunes.length} tunes have current accompaniment guidance`);
   }
   if (opt.json) console.log(JSON.stringify(report, null, 2));
-  else if (!opt.md && !opt.check && !opt.annotate) process.stdout.write(markdown);
+  else if (!opt.md && !opt.check && !opt.annotate && !opt.repairSources && !opt.repairReview) process.stdout.write(markdown);
 }
 
 if (require.main === module) {
@@ -207,4 +277,4 @@ if (require.main === module) {
   catch (err) { console.error(err.message || err); process.exit(1); }
 }
 
-module.exports = { STYLES, styleDecision, sourceAnnotation, annotateSourceRhythms, harmonySource, buildReport, renderMarkdown };
+module.exports = { STYLES, NOTTINGHAM_ROOT, NOTTINGHAM_FILES, styleDecision, sourceAnnotation, annotateSourceRhythms, canonicalNottinghamSource, repairSourcePaths, repairReviewQueue, harmonySource, buildReport, renderMarkdown };
