@@ -48,6 +48,8 @@ assert(sets.status === 0, sets.stderr || sets.stdout || 'course/sets.js is stale
 
 const arranger = spawnSync(process.execPath, ['test/arrange.test.js'], { cwd: root, encoding: 'utf8' });
 assert(arranger.status === 0, arranger.stderr || arranger.stdout || 'arranger checks failed');
+const bandMetrics = spawnSync(process.execPath, ['test/band-metrics.test.js'], { cwd: root, encoding: 'utf8' });
+assert(bandMetrics.status === 0, bandMetrics.stderr || bandMetrics.stdout || 'band metrics checks failed');
 if (workshopHere) {
   const review = spawnSync(process.execPath, ['course/review/build.js', '--check'], { cwd: root, encoding: 'utf8' });
   assert(review.status === 0, review.stderr || review.stdout || 'review queue is stale');

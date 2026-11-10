@@ -411,6 +411,98 @@ whatever the emphasis:
   branch with the teacher's review notes, off main and so off the public
   site, until a teacher decides; the set builder never grades them into a
   set.
+- Removed later (10 November 2026): the two-bar intro. It was too long and
+  its chords were wrong, so playing from the top now has a bar of clicks in
+  the metre's beats (four in 4/4, three in 3/4, two in 6/8) and the melody
+  comes in with the band. `intro=` is no longer a setting.
+- Phase 5 (C2, the band plays like musicians), started: each style comps on
+  its own instrument (`STYLES[k].comp`: nylon guitar for folk, jig, waltz,
+  bossa, samba, mento and Afrobeats; piano for pop, march, swing and ballad;
+  electric piano for funk and lo-fi), and on another when the melody plays
+  that same instrument. A guitar strums: down from the root on the beat, up
+  across the top strings between beats. Voicings keep two semitones under
+  the melody (a guitar only leans that way) and leave out a chord tone a
+  semitone under the melody note struck with them. With Feel above 0
+  (`bandFeel`) the bass and chords lean on the beat, a chord's top note
+  sings, the band steps back under a busy melody and speaks up where it
+  holds or rests, swells with the melody's phrases, and wanders a few ms
+  either side of the grid; where the melody holds two beats or more and the
+  chord changes, the bass walks up into it by the key's steps
+  (`STYLES[k].walk`).
+- Phase 5, continued: the band answers the melody where it breathes (a note
+  held or a rest of two beats or more before a bar line). The comping
+  instrument plays two to four chord tones under the held note, most times;
+  at a four-bar phrase the drums fill the last beat on the style's fill drum
+  (`STYLES[k].fill`: snare, or rim in the soft and Latin styles) and crash
+  into the new phrase (not in a soft style). Walks and answers come once in
+  two bars at most; the pad and synth styles leave them out. All 20 styles
+  were compiled on Daisy Daisy without errors. Not yet heard by a person:
+  all of this needs listening.
+- Phase 0, done (10 November 2026): the Band is measured, not only
+  reasoned about. `node test/band-report.js` (`make band-metrics`) has the
+  page itself, in headless Chrome, play every published tune in its Auto
+  style and five tunes through all 20 styles (137 plays, about 7 minutes;
+  `--quick --no-audio` in seconds), scores each with `test/band-metrics.js`
+  and writes `docs/BAND-METRICS.md`, compared with
+  `test/band-metrics.baseline.json`. Note metrics: flat ninths against the
+  tune, chords above it, chord fit, mud (low interval limits), voice
+  leading, bass roots, timing looseness per part, accents, playing into the
+  melody's holes, bar-to-bar repetition, the arc. Audio metrics, from
+  offline renders through the page's own bus: loudness (BS.1770), the
+  melody's prominence over the band, masking, spectral tilt, low mids,
+  centroid, width, render cost. Each guardrail carries its reason and is a
+  first guess; four metrics that measured the wrong thing were fixed on the
+  first day. A voice bench sets samples against synthesis.
+- Measured and fixed the same day, against the baseline (137 plays): a held
+  pad an octave down muddied the bass in 64 plays, now 6 (voicings are
+  spaced over the bass by the low interval limits, `clearOf`, and never
+  pushed over the tune); the band's timing was sequencer-tight (drums 1.3
+  ms, out of bounds in 132 plays), now a few ms (drums 3.6, bass 3.9,
+  chords 5.9; 12 plays out); the melody stands further over the band (+0.4
+  LU; the dance styles from about 0.8 LU to about 3.5); the mix is brighter
+  (centroid 369 to 409 Hz) and no longer mono (width 0.02 to 0.10), from a
+  place and a few filters for each part (`TONE`: the comping left, the
+  cymbals and shakers right, the tune with presence), a little room always
+  open and a light exciter (`SOUND`). Guardrails broken: 475 to 234. This state is now the saved baseline for the next change.
+  Still out: width under 0.15 in most plays (the tune and bass stay in the
+  middle; possibly the bound is wrong for a classroom backing), chords
+  touching the tune in about 40.
+- Samples against synthesis, measured: the processor is not the limit (a
+  sampled voice renders at 0.005 of real time, the costliest synthesised
+  one at 0.023); the sample sets are. The FluidR3 sets stop near 8 kHz (piano,
+  guitar), 5 to 6 kHz (electric piano, recorder) and 1.3 kHz (bass), every
+  note is cut at 3.1 s, the bitrates run from 35 to 128 kbps, and all 88
+  notes are kept in stereo: about 15 MB. The sampler can now keep only every
+  few notes and retune the nearest (`SAMPLE_STEP`, off): retuning by a
+  semitone moves the spectrum by about 1 dB for piano, guitar, recorder and
+  bass (7.6 dB for the electric piano), so sets of every third note (a third
+  of the download) are viable. The next step for timbre is better samples,
+  mono, longer, every third note, which would weigh less than today's.
+  Waiting for a decision on sources, licences and download weight.
+- Better samples, done the same day (the user agreed the download): CC0
+  sets from Versilian Studios, converted by `vendor/soundfont/build-cc0.js`
+  (mono, from the onset, levelled to the set each replaces, 96 kbps MP3):
+  the Kawai grand from VCSL (37 notes, 2.0 MB, for 2.1 MB before), the
+  Baroque soprano recorder from VCSL (13 notes, 0.7 MB, for 4.5 MB), the
+  solo double bass played pizzicato from VSCO 2 (14 notes, 0.4 MB, for 1.6
+  MB) and a hi-hat, open hat, pedal hat, snare and cross-stick from VCSL
+  (0.1 MB; the other drums stay). The sampler plays each note from the
+  nearest one a set keeps (`SAMPLE_NOTES`), and `SAMPLE_SETS.use` switches
+  between the old and new sets (`--samples old` in the report). The
+  recorder is filed at its written pitch and so sounds an octave above it,
+  as a soprano recorder does: a class hears the register it plays in.
+  Measured against the baseline (137 plays, exciter off): the mix's
+  centroid 409 to 682 Hz, its tilt -3.4 to -2.4 dB an octave, the melody 1.5 LU further over the
+  band, the cymbals reaching 20 kHz (7 kHz before), notes sustaining 4.5 to
+  6 s (3.1 before); a play loads about a quarter more (943 KB for 759:
+  longer notes), the sets weigh less than half. This is the saved baseline. With real top end the exciter moved the centroid 2
+  Hz, so it is off (`SOUND.air` 0). Still FluidR3: the nylon guitar (the
+  only CC0 one found, FreePats', was recorded in poor conditions and comes
+  as .7z) and the electric piano (none found; to be synthesised). Next from
+  the same libraries, all CC0: a fiddle (VSCO 2 solo violin), brass for the
+  marches, harp, glockenspiel, marimba and xylophone for the Orff class,
+  and balafon, kalimba, mbira, conga, darbuka, frame drum and agogo for the
+  world styles.
 - Still open: synth leads; West African tunes; more from Andrade, Jekyll,
   Fairchild and the Japanese books; original bangers (phase 4); the live
   energy fader (phase 5).
