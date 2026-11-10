@@ -7,6 +7,7 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | `analyze.js` | The analyzer. Measures a parsed abcjs tune, tags the skills it needs, grades it against the skill lattice, and orders a set of tunes so each introduces as little as possible. Runs in Node and in a page (`GCSAnalyze`). |
 | `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
 | `classroom-fit.js`, `classroom-fit.md` | A deterministic range check for every published tune: whether it fits young unison voices, soprano recorder, soprano ukulele and a one-octave classroom set as written or within the page's one-octave Transpose control, with a rehearsal key to try. |
+| `accompaniment-audit.js`, `accompaniment-audit.md` | What Auto actually gives every published tune: the selected style and why, written or detected harmony (or an intentional drone), and a queue of missing idiom and provenance decisions. It can restore high-confidence `R:` fields lost from imported reel, waltz and Morris source families without guessing at ambiguous songs. |
 | `board.html` | **The practice board.** A student picks their name and sees their level's tunes to choose from; the teacher sees every level, who is ready to show a tune, and marks passes. Open plays any tune in the main page. |
 | `library.html` | **The library.** Everything the course holds in one searchable page: the graded tunes, the drum patterns, the steps and folk dances, the square-dance figures and the workshop's sketches. A search box finds words anywhere (titles, lyrics, origins, sources, curriculum concepts), facets narrow by kind, level, Ontario grade, metre, key, origin, type or style, skill, source and licence, each choice showing how many items it would leave, and the address carries the search so it can be shared. Open puts a tune, pattern or step in the main page; a title opens the full card with the notation or text, the grading's reasons and the source. |
 | `holding/` | **The tune workshop.** A shared five-column holding board for sketches and transcriptions awaiting source and classroom checks. Each tune has its own ABC file so several processes can contribute without sharing a worktree or usually touching the same file. |
@@ -42,6 +43,14 @@ node course/classroom-fit.js --check course/classroom-fit.md
 ```
 
 Suggestions stay within the page's ±12-semitone Transpose control. A written key that fits stays put; otherwise the report prefers an easier key signature, then the smaller shift. A tune marked **too wide** needs adaptation, a smaller excerpt or divided parts; changing key alone cannot make it fit.
+
+The accompaniment audit makes Auto's hidden fallback visible. Its annotation mode is intentionally narrow: it restores a source file's own reel, waltz or Morris identity, but leaves a nursery song marked for review instead of pretending that metre alone establishes an idiom.
+
+```bash
+node course/accompaniment-audit.js
+node course/accompaniment-audit.js --annotate --md course/accompaniment-audit.md
+node course/accompaniment-audit.js --check course/accompaniment-audit.md
+```
 
 ## Rhythms and dances
 

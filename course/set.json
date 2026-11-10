@@ -829,7 +829,7 @@
    "bars": 18,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "Morris dance",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/morris.abc",
    "skills": [
     "degree:do",
@@ -849,7 +849,7 @@
     "range:over-octave"
    ],
    "introduces": [],
-   "abc": "X: 7\nT:Highland Mary\n% Nottingham Music Database\nP:A(AB)4\nS:Ascot via Coventry MM\nM:4/4\nL:1/4\nK:G\nP:A\nD|\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"C\"A/2c/2B/2A/2|\\\n\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\nP:B\nB/2c/2|\"G\"dd dc/2B/2|\"C\"cc cB/2c/2|\"G\"de d/2c/2B/2A/2|\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\n",
+   "abc": "X: 7\nT:Highland Mary\nR:Morris dance\n%%style folk\n% Nottingham Music Database\nP:A(AB)4\nS:Ascot via Coventry MM\nM:4/4\nL:1/4\nK:G\nP:A\nD|\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"C\"A/2c/2B/2A/2|\\\n\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\nP:B\nB/2c/2|\"G\"dd dc/2B/2|\"C\"cc cB/2c/2|\"G\"de d/2c/2B/2A/2|\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -878,7 +878,7 @@
    "bars": 18,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsa-c.abc",
    "skills": [
     "degree:do",
@@ -899,7 +899,7 @@
     "repeat"
    ],
    "introduces": [],
-   "abc": "X: 15\nT:Astley's Ride\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nM:4/4\nL:1/4\nK:D\na/2f/2|\"D\"dd dc/2d/2|\"Em\"ee \"A7\"ef/2e/2|\"D\"d/2c/2B/2A/2 \"A/c+\"Bc|\\\n\"Bm\"d/2e/2f/2g/2 \"A7\"a/2g/2f/2e/2|\n\"D\"dd \"Bm\"dc/2d/2|\"Em\"ee \"A\"ef/2e/2|\"G\"d/2c/2B/2A/2 \"A7\"Bc|\"D\"d3:|\nd/2e/2|\"D\"ff \"D/f+\"fe/2f/2|\"G\"gg gb/2g/2|\"A7\"ee \"b\"e\"c#\"d/2e/2|\\\n\"D\"ff \"c#\"f/2g/2a/2f/2|\n\"Bm\"dd \"Bm/a\"\"A\"dc/2d/2|\"Em/g\"\"G\"ee \"Em\"\"E7/g+\"ef/2e/2|\"A7\"d/2c/2B/2A/2 Bc|\\\n\"D\"d3:|\n",
+   "abc": "X: 15\nT:Astley's Ride\nR:reel\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nM:4/4\nL:1/4\nK:D\na/2f/2|\"D\"dd dc/2d/2|\"Em\"ee \"A7\"ef/2e/2|\"D\"d/2c/2B/2A/2 \"A/c+\"Bc|\\\n\"Bm\"d/2e/2f/2g/2 \"A7\"a/2g/2f/2e/2|\n\"D\"dd \"Bm\"dc/2d/2|\"Em\"ee \"A\"ef/2e/2|\"G\"d/2c/2B/2A/2 \"A7\"Bc|\"D\"d3:|\nd/2e/2|\"D\"ff \"D/f+\"fe/2f/2|\"G\"gg gb/2g/2|\"A7\"ee \"b\"e\"c#\"d/2e/2|\\\n\"D\"ff \"c#\"f/2g/2a/2f/2|\n\"Bm\"dd \"Bm/a\"\"A\"dc/2d/2|\"Em/g\"\"G\"ee \"Em\"\"E7/g+\"ef/2e/2|\"A7\"d/2c/2B/2A/2 Bc|\\\n\"D\"d3:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -929,7 +929,7 @@
    "bars": 16,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
@@ -949,7 +949,7 @@
     "repeat"
    ],
    "introduces": [],
-   "abc": "X: 44\nT:The First Frost - Second part\n% Nottingham Music Database\nS:John Goodacre 1984, via PR\nM:4/4\nL:1/4\nK:D\n\"D\"D2 F2|\"A7\"E2 C2|\"D\"DG/2B/2 A2|\"A7\"G/2A/2B/2c/2 \"D\"dA/2F/2|\"Bm\"D2 F2|\\\n\"Em\"E2 \"A7\"C2|\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2::\n\"D\"D2 F2|\"A7\"G2 CE|\"D\"D2 F2|\"A\"A2 \"G\"GF/2E/2|\"D\"D2 F2|\"Em\"E2 \"A7\"C2|\\\n\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2:|\n",
+   "abc": "X: 44\nT:The First Frost - Second part\nR:reel\n% Nottingham Music Database\nS:John Goodacre 1984, via PR\nM:4/4\nL:1/4\nK:D\n\"D\"D2 F2|\"A7\"E2 C2|\"D\"DG/2B/2 A2|\"A7\"G/2A/2B/2c/2 \"D\"dA/2F/2|\"Bm\"D2 F2|\\\n\"Em\"E2 \"A7\"C2|\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2::\n\"D\"D2 F2|\"A7\"G2 CE|\"D\"D2 F2|\"A\"A2 \"G\"GF/2E/2|\"D\"D2 F2|\"Em\"E2 \"A7\"C2|\\\n\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2:|\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -979,7 +979,7 @@
    "bars": 33,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "waltz",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/waltzes.abc",
    "skills": [
     "degree:do",
@@ -1004,7 +1004,7 @@
     "tie-over-bar"
    ],
    "introduces": [],
-   "abc": "X: 11\nT:Daisy Daisy\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"Ad|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"Ac|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
+   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"Ad|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"Ac|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1083,7 +1083,7 @@
    "bars": 18,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsr-t.abc",
    "skills": [
     "degree:do",
@@ -1102,7 +1102,7 @@
     "repeat"
    ],
    "introduces": [],
-   "abc": "X: 84\nT:Tom And Jerry\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:A\nc|\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2d/2e/2f/2 e/2d/2c/2B/2|\n\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2A/2B \"A\"A::\nE/2D/2|\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"Bm\"c/2A/2B/2c/2 \"E7\"B/2A/2F/2E/2|\n\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"E7\"c/2A/2B \"A\"A:|\n",
+   "abc": "X: 84\nT:Tom And Jerry\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:A\nc|\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2d/2e/2f/2 e/2d/2c/2B/2|\n\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2A/2B \"A\"A::\nE/2D/2|\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"Bm\"c/2A/2B/2c/2 \"E7\"B/2A/2F/2E/2|\n\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"E7\"c/2A/2B \"A\"A:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1131,7 +1131,7 @@
    "bars": 16,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
@@ -1150,7 +1150,7 @@
     "range:over-octave"
    ],
    "introduces": [],
-   "abc": "X: 10\nT:B. Variation\n% Nottingham Music Database\nS:\nM:4/4\nL:1/4\nK:G\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\\\n\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"d2|\"G\"GG/2G/2 BB/2B/2|\"G\"d/2d/2d \"D7\"gd|\\\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\n\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\\\n\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"dd/2c/2|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"GG/2G/2 G||\n",
+   "abc": "X: 10\nT:B. Variation\nR:reel\n% Nottingham Music Database\nS:\nM:4/4\nL:1/4\nK:G\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\\\n\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"d2|\"G\"GG/2G/2 BB/2B/2|\"G\"d/2d/2d \"D7\"gd|\\\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\n\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\\\n\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"dd/2c/2|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"GG/2G/2 G||\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -1554,7 +1554,7 @@
    "bars": 18,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
@@ -1575,7 +1575,7 @@
     "triplet"
    ],
    "introduces": [],
-   "abc": "X: 12\nT:The Donegall\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:D\n(3A,/2B,/2C/2|\"D\"D(D/2E/2) F/2D/2F/2A/2|d/2F/2A/2F/2 B/2F/2A/2F/2|\\\n\"Em\"E(E/2F/2) G/2F/2G/2A/2|\"D\"B/2d/2A/2F/2 \"A7\"E/2G/2F/2E/2|\n\"D\"D(D/2E/2) F/2D/2F/2A/2|\"D\"d/2F/2B/2F/2 \"A7\"A/2B/2d/2e/2|\\\n(3\"D\"f/2g/2f/2(3e/2f/2e/2 \"G\"d/2B/2A/2G/2|(3\"A7\"F/2G/2F/2(3E/2F/2E/2 \"D\"D::\nA|\"D\"d/2e/2f/2g/2 a/2f/2d/2f/2|a/2f/2d/2f/2 a(g/2f/2)|\\\n\"Em\"e/2d/2e/2f/2 g/2f/2e/2d/2|\"Em\"e/2d/2e/2f/2 \"A7\"g(f/2e/2)|\n\"D\"d/2e/2f/2g/2 a/2f/2d/2f/2|a/2f/2d/2f/2 a/2b/2a/2g/2|\\\n(3\"D\"f/2g/2f/2(3e/2f/2e/2 \"G\"d/2B/2A/2G/2|(3\"A7\"F/2G/2F/2(3E/2F/2E/2 \"D\"D:|\n",
+   "abc": "X: 12\nT:The Donegall\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:D\n(3A,/2B,/2C/2|\"D\"D(D/2E/2) F/2D/2F/2A/2|d/2F/2A/2F/2 B/2F/2A/2F/2|\\\n\"Em\"E(E/2F/2) G/2F/2G/2A/2|\"D\"B/2d/2A/2F/2 \"A7\"E/2G/2F/2E/2|\n\"D\"D(D/2E/2) F/2D/2F/2A/2|\"D\"d/2F/2B/2F/2 \"A7\"A/2B/2d/2e/2|\\\n(3\"D\"f/2g/2f/2(3e/2f/2e/2 \"G\"d/2B/2A/2G/2|(3\"A7\"F/2G/2F/2(3E/2F/2E/2 \"D\"D::\nA|\"D\"d/2e/2f/2g/2 a/2f/2d/2f/2|a/2f/2d/2f/2 a(g/2f/2)|\\\n\"Em\"e/2d/2e/2f/2 g/2f/2e/2d/2|\"Em\"e/2d/2e/2f/2 \"A7\"g(f/2e/2)|\n\"D\"d/2e/2f/2g/2 a/2f/2d/2f/2|a/2f/2d/2f/2 a/2b/2a/2g/2|\\\n(3\"D\"f/2g/2f/2(3e/2f/2e/2 \"G\"d/2B/2A/2G/2|(3\"A7\"F/2G/2F/2(3E/2F/2E/2 \"D\"D:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1608,7 +1608,7 @@
    "bars": 16,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsu-z.abc",
    "skills": [
     "degree:do",
@@ -1636,7 +1636,7 @@
     "tie"
    ],
    "introduces": [],
-   "abc": "X: 3\nT:Walking In My Sleep\n% Nottingham Music Database\nS:Old Time, via PR\nM:4/4\nL:1/4\nK:G\n\"G\"G,/2A,/2B,/2C/2 D/2G/2B/2d/2|\"G\"B2 -B/2d/2B/2A/2|\"G\"G2 [e2g2]|\\\n\"D7\"[d3f3]d/2B/2|\n\"D7\"A/2G/2F/2A/2 D/2E/2D/2E/2|\"C\"c3/2d/2 cA|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"G3z::\n\"G\"g/2b/2g/2e/2 d/2g/2e/2f/2|g/2f/2g/2b/2 g/2e/2g/2b/2|\\\n\"G\"g/2e/2d/2c/2 B/2A/2G/2D/2|\"D7\"FA3|\nf/2ab/2 a3/2e/2|\"D7\"f/2e/2d/2f/2 e/2f/2e/2f/2|g/2e/2d/2c/2 B/2d/2A/2F/2|\\\n\"G\"[G4B4]:|\n",
+   "abc": "X: 3\nT:Walking In My Sleep\nR:reel\n% Nottingham Music Database\nS:Old Time, via PR\nM:4/4\nL:1/4\nK:G\n\"G\"G,/2A,/2B,/2C/2 D/2G/2B/2d/2|\"G\"B2 -B/2d/2B/2A/2|\"G\"G2 [e2g2]|\\\n\"D7\"[d3f3]d/2B/2|\n\"D7\"A/2G/2F/2A/2 D/2E/2D/2E/2|\"C\"c3/2d/2 cA|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"G3z::\n\"G\"g/2b/2g/2e/2 d/2g/2e/2f/2|g/2f/2g/2b/2 g/2e/2g/2b/2|\\\n\"G\"g/2e/2d/2c/2 B/2A/2G/2D/2|\"D7\"FA3|\nf/2ab/2 a3/2e/2|\"D7\"f/2e/2d/2f/2 e/2f/2e/2f/2|g/2e/2d/2c/2 B/2d/2A/2F/2|\\\n\"G\"[G4B4]:|\n",
    "ontario": {
     "grade": 5,
     "band": "Grade 5",
@@ -1668,7 +1668,7 @@
    "bars": 18,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
@@ -1691,7 +1691,7 @@
     "triplet"
    ],
    "introduces": [],
-   "abc": "X: 54\nT:Fred Roden's Reel\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nM:4/4\nL:1/4\nK:D\nP:A\nA|\"D\"dd/2c/2 d/2A/2F/2A/2|\"D\"df/2g/2 af|\"G\"g/2f/2e/2g/2 \"D\"f/2e/2d/2f/2|\\\n\"E7\"e/2d/2c/2B/2 \"A7\"A(3A/2B/2c/2|\n\"D\"dd/2c/2 d/2A/2F/2A/2|\"D\"df/2g/2 af|\"G\"b/2g/2e/2c/2 \"A7\"A/2c/2e/2g/2|\"D\"fd d\\\n:|\nP:B\nA,-|\"D\"A,/2D/2F/2A/2 dd|\"D\"D/2F/2A/2d/2 \"A7\"fA,-|\"D\"A,/2D/2F/2A/2 dd|\\\n\"D\"a/2f/2d/2f/2 \"A7\"eA,-|\n\"D\"A,/2D/2F/2A/2 dd|\"D\"D/2F/2A/2d/2 ff|\"G\"b/2g/2e/2c/2 \"A7\"A/2c/2e/2g/2|\\\n\"D\"fd d:|\n",
+   "abc": "X: 54\nT:Fred Roden's Reel\nR:reel\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nM:4/4\nL:1/4\nK:D\nP:A\nA|\"D\"dd/2c/2 d/2A/2F/2A/2|\"D\"df/2g/2 af|\"G\"g/2f/2e/2g/2 \"D\"f/2e/2d/2f/2|\\\n\"E7\"e/2d/2c/2B/2 \"A7\"A(3A/2B/2c/2|\n\"D\"dd/2c/2 d/2A/2F/2A/2|\"D\"df/2g/2 af|\"G\"b/2g/2e/2c/2 \"A7\"A/2c/2e/2g/2|\"D\"fd d\\\n:|\nP:B\nA,-|\"D\"A,/2D/2F/2A/2 dd|\"D\"D/2F/2A/2d/2 \"A7\"fA,-|\"D\"A,/2D/2F/2A/2 dd|\\\n\"D\"a/2f/2d/2f/2 \"A7\"eA,-|\n\"D\"A,/2D/2F/2A/2 dd|\"D\"D/2F/2A/2d/2 ff|\"G\"b/2g/2e/2c/2 \"A7\"A/2c/2e/2g/2|\\\n\"D\"fd d:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1723,7 +1723,7 @@
    "bars": 17,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
@@ -1746,7 +1746,7 @@
     "syncopation"
    ],
    "introduces": [],
-   "abc": "X: 32\nT:Sweet Ellen\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:D\nF/2E/2|\"D\"DD/2E/2 FE/2D/2|F/2AF/2 A3/2A/2|\"G\"B/2A/2B/2c/2 \"D\"d/2B/2A/2G/2|\\\n\"E7\"FE/2D/2 \"A7\"EF/2E/2|\n\"D\"A,/2D/2D/2D/2 FE/2D/2|\"D\"F/2AF/2 A3/2A/2|\"G\"B/2A/2B/2c/2 \"A7\"d/2B/2A/2G/2|\\\n\"D\"FD D2::\n\"D\"f/2ab/2 a/2f/2d/2e/2|f/2e/2d/2e/2 f/2e/2d/2e/2|\"D\"f/2ab/2 a/2f/2d/2e/2|\\\n\"E7\"f/2e/2d \"A7\"e3/2e/2|\n\"D\"f/2ab/2 a/2f/2d/2e/2|\"E7\"f/2e/2d \"Bm\"BA|\"G\"B/2c/2d/2B/2 \"A7\"A/2G/2F/2E/2|\\\n\"D\"FD D2:|\n",
+   "abc": "X: 32\nT:Sweet Ellen\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:D\nF/2E/2|\"D\"DD/2E/2 FE/2D/2|F/2AF/2 A3/2A/2|\"G\"B/2A/2B/2c/2 \"D\"d/2B/2A/2G/2|\\\n\"E7\"FE/2D/2 \"A7\"EF/2E/2|\n\"D\"A,/2D/2D/2D/2 FE/2D/2|\"D\"F/2AF/2 A3/2A/2|\"G\"B/2A/2B/2c/2 \"A7\"d/2B/2A/2G/2|\\\n\"D\"FD D2::\n\"D\"f/2ab/2 a/2f/2d/2e/2|f/2e/2d/2e/2 f/2e/2d/2e/2|\"D\"f/2ab/2 a/2f/2d/2e/2|\\\n\"E7\"f/2e/2d \"A7\"e3/2e/2|\n\"D\"f/2ab/2 a/2f/2d/2e/2|\"E7\"f/2e/2d \"Bm\"BA|\"G\"B/2c/2d/2B/2 \"A7\"A/2G/2F/2E/2|\\\n\"D\"FD D2:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1778,7 +1778,7 @@
    "bars": 16,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsa-c.abc",
    "skills": [
     "degree:do",
@@ -1798,7 +1798,7 @@
     "triplet"
    ],
    "introduces": [],
-   "abc": "X: 28\nT:Billy In The Lowground\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:C\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 D/2C/2C/2A,/2|\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|\"C\"c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C::\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"e/2ag/2 aa|\\\na/2b/2a/2g/2 e/2d/2c/2d/2|\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|\\\n(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C:|\n",
+   "abc": "X: 28\nT:Billy In The Lowground\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:C\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 D/2C/2C/2A,/2|\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|\"C\"c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C::\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"e/2ag/2 aa|\\\na/2b/2a/2g/2 e/2d/2c/2d/2|\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|\\\n(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1828,7 +1828,7 @@
    "bars": 27,
    "origin": "",
    "composer": "",
-   "rhythm": "",
+   "rhythm": "reel",
    "source": "../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsd-g.abc",
    "skills": [
     "degree:do",
@@ -1850,7 +1850,7 @@
     "syncopation"
    ],
    "introduces": [],
-   "abc": "X: 1\nT:Dance All Night\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\n",
+   "abc": "X: 1\nT:Dance All Night\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
