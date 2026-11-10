@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09",
+ "generated": "2026-11-10",
  "stages": [
   "inbox",
   "transcription",
@@ -9,53 +9,95 @@
  ],
  "counts": {
   "inbox": 0,
-  "transcription": 1,
-  "source-check": 2,
+  "transcription": 3,
+  "source-check": 3,
   "classroom-check": 0,
   "ready": 0
  },
  "items": [
   {
-   "id": "lalishrita",
-   "file": "items/lalishrita.abc",
-   "title": "Lalishrita",
-   "subtitle": "Tamil lullaby, from a phonogram (sketch)",
-   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64",
+   "id": "gurkha-dance-tune",
+   "file": "items/gurkha-dance-tune.abc",
+   "title": "Gurkha dance tune",
+   "subtitle": "Gurkha dance, four men clapping (one bar, repeated)",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 127, p. 57",
    "status": "transcription",
    "owner": "",
    "sourceCheck": "pending",
    "classroomCheck": "pending",
    "updated": "2026-11-09",
-   "blocked": "Transcribe lines three and four, then check every bar against Ex. 155's plate.",
-   "notes": "A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet."
+   "blocked": "Read the one bar again at 2400 dpi (p. 57, scan p. 79, first staff): the grouping of beats 1 and 3 (eighth plus two sixteenths, or a triplet) and the end of beat 0 (G c and a rest); then source-check.",
+   "notes": "\"To such tunes as\" this, four men A, B, C, D danced, lifting the foot to the level of the knee, their movements on the four beats of the bar, which the plate numbers 1 2 3 0 (0 is the silent beat): (1) all clap hands; (2) B and D touch right palm to A and C's left palm, fingers pointing upwards; (3) clap hands; (0) D and B touch left palm to A and C's right palm, and all step backwards instead of forwards on this beat. No words, no tempo and no tonic are printed; no signature, and the notes are d, c and G, so the drone is on G and the band's clap line marks the three hand-beats and leaves beat 0 silent."
   },
   {
-   "id": "nirgunas-lullaby",
-   "file": "items/nirgunas-lullaby.abc",
-   "title": "Nirguna's lullaby",
-   "subtitle": "Maratha lullaby (sketch)",
-   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, p. 66",
+   "id": "gurkha-sing-song",
+   "file": "items/gurkha-sing-song.abc",
+   "title": "Gurkha sing-song",
+   "subtitle": "Gurkha song, danced, with drum",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 129, p. 57",
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Read the Solo and Chorus staves (p. 57, scan p. 79, staves 4-5) and the drum line under the first staff; check the three dotted figures of bar 1 and the half note of bar 2 against the plate.",
+   "notes": "From a sing-song of the men of the 2nd Goorkhas after a hockey match: the songs followed so fast that no words could be taken down; one or two men whirled in the middle of the crowd with bent knees and elbows and upturned palms, a couple of bars at a time danced crouching, and at the end of a chorus there was sometimes a grunted \"Ha! Ha!\". No tonic is marked and there is no signature; the scale is G A c d with the fourth G-c as backbone (Fox Strangways's typical Gurkha form, p. 70), so the drone is on G. The plate prints a drum line under the first staff marked \"Right.\" (the hands), then a second staff headed \"Solo.\" (with \"Drum as before.\") and \"Chorus.\"; only the first two-bar phrase is transcribed here, the solo and chorus wait."
+  },
+  {
+   "id": "gurkha-song-first-version",
+   "file": "items/gurkha-song-first-version.abc",
+   "title": "Gurkha song, first version",
+   "subtitle": "Gurkha song, four versions sung in turn",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 130, pp. 57-58",
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Check both bars against the plate (p. 57, scan p. 79, last staff): the lengths in bar 1 (read one eighth short) and bar 2 (read two eighths short); then read the 2nd, 3rd and 4th versions on p. 58 (scan p. 80) as variants.",
+   "notes": "From the same sing-song as Ex. 129; the plate gives four versions of the one tune, the 1st here, the 2nd to 4th on p. 58, which shows how the men varied it. No tonic is marked and there is no signature; the notes are E d e c B, a Gurkha pentatonic shape on the fourth G-c or d-G (Fox Strangways groups Exs. 129, 130 and 137 as the plagal form, p. 70); the drone is on G. No words."
+  },
+  {
+   "id": "lalishrita",
+   "file": "items/lalishrita.abc",
+   "title": "Lalishrita",
+   "subtitle": "Tamil lullaby, from a phonogram",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64",
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
    "classroomCheck": "pending",
    "updated": "2026-11-09",
-   "blocked": "Check every bar against Ex. 162's plate; the book prints no words.",
-   "notes": "A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught."
+   "blocked": "Teacher to check against the plate (p. 64, scan p. 88): bars 3-4 and 7-8 (rhythm), the F fermata notes, the five-note run in bar 2, and the lyric placing; decide whether the irregular bars 3-4 should be re-barred or sung freely as a phonogram transcription.",
+   "notes": "Adagio, crotchet 70, taken from a phonogram, so the book writes triplets, grace-like runs, fermatas and two \"rall.\" marks, and the bars are not all of a length. No tonic is marked; the tune circles G with E below and c above and ends on C, and there is no signature, so it is given in C with a drone on C (G would also serve: try both). The words are Fox Strangways's singing translation; stanzas 2 and 3 are below as N: lines because their syllables do not fall under the same notes."
+  },
+  {
+   "id": "nirgunas-lullaby",
+   "file": "items/nirgunas-lullaby.abc",
+   "title": "Nirguna's lullaby",
+   "subtitle": "Maratha lullaby",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Teacher to check against the plate (pp. 66-67, scan pp. 90-91): the 3/4 metre and the tempo (none found printed), the second note of each line (B, or C), the middle note of the triplet in line 4, and the short last bars of lines 1 and 2.",
+   "notes": "Sung to Fox Strangways by a Hindu lady in Calcutta; Nirguna is the supreme being without attributes, the footnote says. The book prints no words under the notes, but the prose after the music is its translation: \"Celestial carpenters have fashioned thy cradle. My hand is tired of pulling the string. My throat is dry with singing. I cannot go about my work because my baby is not yet asleep. The cradle is covered with flowers, &c.\"; the Tamil Lali Gopala (Ex. 157) borrows these words. One flat and a tune that lives on C, D, E with B, and A, below: the tonic is C (not F), so the drone is on C and the B flat of the signature never sounds. Four lines: the first is repeated, then the other three run on and are repeated together (the plate ends with repeat dots). The wavy mark over the E in lines 2 and 3 is Fox Strangways's sign for the Gurkha and Maratha \"squeeze\" on an emphatic note. No tempo was found on the plate; crotchet 80 is a guess for a lullaby."
   },
   {
    "id": "the-ayahs-song",
    "file": "items/the-ayahs-song.abc",
    "title": "The ayah's song",
-   "subtitle": "Hindostani song from the steamer (sketch)",
+   "subtitle": "Hindostani song from the steamer",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66",
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
    "classroomCheck": "pending",
    "updated": "2026-11-09",
-   "blocked": "Check every bar and both cadence slides against Ex. 160's plate.",
-   "notes": "A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate."
+   "blocked": "Teacher to check against the plate (p. 66, scan p. 90): the second note of bar 4 (D or C), the last bar's rest, and the four small notes of the slide before the half-close.",
+   "notes": "Adagio, crotchet 80. One of the songs an unmusical ayah sang on board the steamer; Fox Strangways says she lost her key a good deal and the songs were difficult to piece together, and that the slide gave a wonderful value to the close and the half-close. The slide to the half-close is printed as four small notes (B, C B, C) before the B,; it is kept here as grace notes. No tonic is marked and there is no signature; the tune lies on C with its fifth below and ends on C, so the drone is on C. No words are printed. The tune reaches A below middle C: sing it a fourth or fifth higher."
   }
  ]
 }

@@ -1,24 +1,32 @@
 % holding-id: lalishrita
-% holding-status: transcription
+% holding-status: source-check
 % holding-owner:
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-09
-% holding-blocked: Transcribe lines three and four, then check every bar against Ex. 155's plate.
+% holding-blocked: Teacher to check against the plate (p. 64, scan p. 88): bars 3-4 and 7-8 (rhythm), the F fermata notes, the five-note run in bar 2, and the lyric placing; decide whether the irregular bars 3-4 should be re-barred or sung freely as a phonogram transcription.
 X:1
 T:Lalishrita
-T:Tamil lullaby, from a phonogram (sketch)
+T:Tamil lullaby, from a phonogram
 C:traditional (Tamil Nadu)
 O:India, Tamil Nadu (Srirangam)
 R:lullaby
 S:Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64
-N:A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet.
+N:Adagio, crotchet 70, taken from a phonogram, so the book writes triplets, grace-like runs, fermatas and two "rall." marks, and the bars are not all of a length. No tonic is marked; the tune circles G with E below and c above and ends on C, and there is no signature, so it is given in C with a drone on C (G would also serve: try both). The words are Fox Strangways's singing translation; stanzas 2 and 3 are below as N: lines because their syllables do not fall under the same notes.
+N:HOW READ (2026-11-09): the four staves were cropped at 600, 1200, 1600 and 2400 dpi (scratch crops m155-*, p155-*, q155-*, f155-*, g155-*), every head measured against the staff lines by a detector and then eyed in the 2400-dpi crops; two passes over every bar. Fermata notes in bars 4, 6 and 7 measured between the 4th and 5th lines (F), not G as the first sketch had; "eyes" and "Here" (bar 2) measured G, not A.
+N:UNCERTAIN: bar 2, the five-note run under "my" is beamed with a 3 under it (written here as five notes in the time of an eighth); bar 3 is half an eighth over and bar 4 is short (the dotted c may be a dotted quarter); in bar 5 the middle note of the second triplet (B) was read by eye only; bar 7 the quarter on "my" and the pairing of the 16ths; the final two notes are dotted quarters joined by a slur, written here as a tie.
 M:6/8
 L:1/8
 Q:1/4=70
 K:C
 %%style drone
-C | C G G G2 G/A/ | G/E/G/E/ (3G/E/G/ G E G | G c c B3/2 A/2 B | d3/2 c/2 B A G (3G/E/G/ | G2 z E G |]
-w: Ba__ by mine, light_ of_____ my eyes, Here in thy cra__-dle bright____ with flow-ers_ Through__
+C | C G G G2 G/A/ | G/E/ G/E/ (5:2:5E/G/E/G/E/ G z G |
+w: Ba_ _ by mine, light_ _ _ of_ my_ _ _ _ eyes, Here
+G c2 c2 B/4A/4 c3/4B/4 | c3/4B/4A/4 (3G/E/G/ !fermata!F2 E/F/ |
+w: in thy cra_ _ dle_ bright_ _ with_ _ flowers Through_
+G G G (3G/E/G/ (3G/B/G/ (3G/E/G/ | !fermata!F2 E G G E |
+w: sun- ny hours_ _ _ I_ bring thee_ _ sleep, I rock thee and
+E D G !fermata!F2 E/D/ | E/F/ G/F/ E2 D/E/ D/E/ | C3- C3 |]
+w: sing thee to sleep On the wings_ of_ my me_ lo_ dies_
 N:2: Srirangam island rises fair Where Kaveris meet; I lay thee there at Sriranga raja's feet, Full sure of His tender care.
 N:3: The golden nails no longer move On the divided cradle swung; The song is sung; my ship is borne Safe home, my babe, on the ocean of love.

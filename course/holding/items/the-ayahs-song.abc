@@ -4,18 +4,20 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-09
-% holding-blocked: Check every bar and both cadence slides against Ex. 160's plate.
+% holding-blocked: Teacher to check against the plate (p. 66, scan p. 90): the second note of bar 4 (D or C), the last bar's rest, and the four small notes of the slide before the half-close.
 X:1
 T:The ayah's song
-T:Hindostani song from the steamer (sketch)
+T:Hindostani song from the steamer
 C:traditional (North India)
 O:India
 R:air
 S:Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66
-N:A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate.
+N:Adagio, crotchet 80. One of the songs an unmusical ayah sang on board the steamer; Fox Strangways says she lost her key a good deal and the songs were difficult to piece together, and that the slide gave a wonderful value to the close and the half-close. The slide to the half-close is printed as four small notes (B, C B, C) before the B,; it is kept here as grace notes. No tonic is marked and there is no signature; the tune lies on C with its fifth below and ends on C, so the drone is on C. No words are printed. The tune reaches A below middle C: sing it a fourth or fifth higher.
+N:HOW READ (2026-11-09): both staves cropped at 800, 1600 and 2400 dpi (scratch crops a/b-ex160-*, q160-*, f160-*), heads measured against the staff lines and the ledger lines by a detector, then eyed; two passes. Against the first sketch: bar 3 ends E3 D (not E3 C); the first-time bar is B,12 then A,8 z3 C, as the sketch had; the hollow half notes were measured by eye since the detector finds only filled heads.
+N:UNCERTAIN: bar 4, second note read D (a 16th beamed after the dotted C; the first sketch had D D2); the rests in bars 2 and the first ending are dotted eighth rests; in the last bar the C may be a dotted half followed by a rest, which would make the bar long, so it is written C8 z4.
 M:3/4
 L:1/16
 Q:1/4=80
 K:C
 %%style drone
-C |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 C | C3 D D2 C2 {B,CB,C}B,2 A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]
+C |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 D | C3 D C2 C2 {B,CB,C}B,2 A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]
