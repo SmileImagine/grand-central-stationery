@@ -1227,7 +1227,7 @@
    "title": "O where will you go",
    "level": 5,
    "score": 5.61,
-   "key": "F",
+   "key": "GDor",
    "metre": "5/8",
    "bars": 3,
    "origin": "India, Garhwal (Himalaya)",
@@ -1267,7 +1267,7 @@
      "texture"
     ]
    },
-   "abc": "X:3\nT:O where will you go\nT:Garhwali song, the answer\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 99, p. 51\nN:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers are a pickup. Check: the last bar.\nM:5/8\nL:1/16\nQ:1/8=180\nK:F\n%%style drone\nA c | B2 A B G2 A B c2 | B2 A c B2 A B |]\nw: O where will you go if I get back your li-nen?\nN:2: You must say where you go before I send to the dhobi.\nN:3: Little Chhaila is yours, and will you marry another?\n"
+   "abc": "X:3\nT:O where will you go\nT:Garhwali song, the answer\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 99, p. 51\nN:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers are a pickup. Check: the last bar.\nM:5/8\nL:1/16\nQ:1/8=180\nK:Gdor\n%%style drone\nA c | B2 A B G2 A B c2 | B2 A c B2 A B |]\nw: O where will you go if I get back your li-nen?\nN:2: You must say where you go before I send to the dhobi.\nN:3: Little Chhaila is yours, and will you marry another?\n"
   },
   {
    "id": "first-tunes-11-soldier-s-joy",

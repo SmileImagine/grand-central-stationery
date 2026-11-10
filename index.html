@@ -1094,22 +1094,70 @@
     }
     const centroid = pts => pts.length ? { x: pts.reduce((a, p) => a + p.x, 0) / pts.length, y: pts.reduce((a, p) => a + p.y, 0) / pts.length } : null;
 
-    // Keyed layouts (piano, Wicki-Hayden): one element per pitch; marking is
-    // a matter of classes. this.keys: midi -> { el, lbl, x, y }.
+    // Keyed layouts (piano, Wicki-Hayden): one or more elements per pitch.
+    // A Wicki-Hayden pitch occurs in several places, so the whole phrase is
+    // scheduled onto the path with the least hand travel instead of letting
+    // the last duplicate inserted into a Map win.
     class KeyedLayout {
-      constructor() { this.keys = new Map(); this.shift = 0; this.runnerR = 7; this.panel = '30%'; }
-      key(m) { return this.keys.get(m + this.shift) || null; }
+      constructor() { this.keys = new Map(); this.keysByPitch = new Map(); this.allKeys = []; this.events = []; this.shift = 0; this.runnerR = 7; this.panel = '30%'; }
+      addKey(pitch, key) {
+        if (!this.keys.has(pitch)) this.keys.set(pitch, key);
+        if (!this.keysByPitch.has(pitch)) this.keysByPitch.set(pitch, []);
+        this.keysByPitch.get(pitch).push(key); this.allKeys.push(key);
+      }
+      keyCandidates(m) { return this.keysByPitch.get(m + this.shift) || []; }
+      key(m) { return this.keyCandidates(m)[0] || null; }
       has(m) { return !!this.key(m); }
       octaves() { return 0; }
+      // All distinct placements for one event (normally a single note, but
+      // chords use distinct physical keys). The small cap keeps a dense
+      // chord on a redundant lattice from making a combinatorial thicket.
+      options(midis) {
+        let out = [{ keys: [], used: new Set() }];
+        for (const m of midis) {
+          const cand = this.keyCandidates(m); if (!cand.length) continue;
+          const next = [];
+          for (const o of out) for (const k of cand) if (!o.used.has(k)) {
+            const used = new Set(o.used); used.add(k); next.push({ keys: [...o.keys, k], used });
+          }
+          if (next.length) out = next.slice(0, 96);
+        }
+        return out.map(o => ({ keys: o.keys, centre: centroid(o.keys) })).filter(o => o.keys.length);
+      }
+      // Dynamic programming makes each duplicate-key choice in the context
+      // of both its previous and next events. Squared distance favours a
+      // compact, steady hand path over occasional large jumps.
+      schedule(events, beatMs) {
+        const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
+        if (sig === this.sig) return; this.sig = sig;
+        this.events = events.map(e => ({ ...e, keys: [] }));
+        const layers = events.map((e, index) => ({ index, opts: this.options(e.midis) })).filter(x => x.opts.length);
+        if (!layers.length) return;
+        layers[0].opts.forEach(o => { o.cost = 0; o.prev = -1; });
+        const d2 = (a, b) => a && b ? Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) : 0;
+        for (let i = 1; i < layers.length; i++) {
+          const prev = layers[i - 1].opts;
+          layers[i].opts.forEach(o => {
+            let best = Infinity, at = 0;
+            prev.forEach((p, j) => { const cost = p.cost + d2(p.centre, o.centre); if (cost < best) { best = cost; at = j; } });
+            o.cost = best; o.prev = at;
+          });
+        }
+        let at = layers[layers.length - 1].opts.reduce((best, o, i, a) => o.cost < a[best].cost ? i : best, 0);
+        for (let i = layers.length - 1; i >= 0; i--) { const o = layers[i].opts[at]; this.events[layers[i].index].keys = o.keys; at = o.prev; }
+      }
       mark(now, next, info) {
         const chord = info && info.chord;
-        for (const k of this.keys.values()) {
+        for (const k of this.allKeys) {
           k.el.classList.remove('active', 'ondeck', 'chord', 'root'); if (k.lbl) k.lbl.setAttribute('fill', k.idleFill);
           if (chord && k.pc !== undefined && chord.pcs.includes(k.pc)) k.el.classList.add(k.pc === chord.root ? 'root' : 'chord');
         }
+        const scheduled = info && this.events.length, i = scheduled ? info.index : -1;
+        const nextKeys = scheduled ? (info.reset ? [] : (this.events[i + 1] || {}).keys || []) : next.map(m => this.key(m)).filter(Boolean);
+        const nowKeys = scheduled ? ((this.events[i] || {}).keys || []) : now.map(m => this.key(m)).filter(Boolean);
         const pts = { now: [], next: [] };
-        for (const m of next) { const k = this.key(m); if (!k) continue; k.el.classList.add('ondeck'); pts.next.push(k); }
-        for (const m of now) { const k = this.key(m); if (!k) continue; k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) k.lbl.setAttribute('fill', letterOn()); pts.now.push(k); }
+        for (const k of nextKeys) { k.el.classList.add('ondeck'); pts.next.push(k); }
+        for (const k of nowKeys) { k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) k.lbl.setAttribute('fill', letterOn()); pts.now.push(k); }
         return { now: centroid(pts.now), next: centroid(pts.next) };
       }
       start() { return this.startPt || null; }
@@ -1130,7 +1178,7 @@
           el.style.setProperty('--c', midiColor(w.m));
           const nm = nameOf(w.m), lbl = svgText(g, 'lbl', w.x + W / 2, H - 13, nm.length > 2 ? 9 : 11, midiColor(w.m), nm, 'middle');
           if (w.m % 12 === 0) svgText(g, 'lbl oct', w.x + W / 2, H - 26, 7, 'var(--muted)', 'C' + (Math.floor(w.m / 12) - 1), 'middle');   // octave numbers on the Cs
-          this.keys.set(w.m, { el, lbl, idleFill: midiColor(w.m), x: w.x + W / 2, y: H - 36, pc: w.m % 12 });
+          this.addKey(w.m, { el, lbl, idleFill: midiColor(w.m), x: w.x + W / 2, y: H - 36, pc: w.m % 12 });
         }
         for (let m = lo; m <= hi; m++) {
           if (!isBlackKey(m)) continue;
@@ -1138,7 +1186,7 @@
           const bx = left.x + W - BW / 2;
           const el = svgEl(g, 'rect', { class: 'key black', x: bx, y: 0, width: BW, height: BH, rx: 2 });
           el.style.setProperty('--c', midiColor(m));
-          this.keys.set(m, { el, lbl: null, idleFill: null, x: bx + BW / 2, y: BH - 14, pc: m % 12 });
+          this.addKey(m, { el, lbl: null, idleFill: null, x: bx + BW / 2, y: BH - 14, pc: m % 12 });
         }
         this.startPt = { x: -2, y: H - 36 };
       }
@@ -1191,7 +1239,7 @@
             svgText(g, 'lbl qw', x + 4, y + 8, 7, 'var(--muted)', ch, 'start');
             if (ch === 'F' || ch === 'J') svgEl(g, 'rect', { class: 'bump', x: x + K / 2 - 5, y: y + K - 6, width: 10, height: 2, rx: 1 });   // the home-row bumps
             const nm = nameOf(m), lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, nm.length > 2 ? 11 : 13, midiColor(m), nm, 'middle');
-            this.keys.set(m, { el, lbl, idleFill: midiColor(m), x: x + K / 2, y: y + K / 2, pc: ((m % 12) + 12) % 12 });
+            this.addKey(m, { el, lbl, idleFill: midiColor(m), x: x + K / 2, y: y + K / 2, pc: ((m % 12) + 12) % 12 });
           });
         }
         svg.setAttribute('viewBox', `-2 -2 ${maxX + 4} ${4 * U + 4}`);
@@ -1199,14 +1247,16 @@
         this.shift = -octaveFit(midis, lo, hi);   // a tune beyond the keys is shifted by octaves into them
       }
       // The keyboard shows this.shift octaves away from written pitch.
-      key(m) {
+      keyCandidates(m) {
         if (this.tunedKeys) {   // a key is the one nearest the note's tuned pitch, within a third of a tone
-          const target = m * 100 + this.off(m) + this.shiftCents; let best = null, bd = 60;
-          for (const k of this.tunedKeys) { const d = Math.abs(k.cents - target); if (d < bd) { bd = d; best = k; } }
-          return best;
+          const target = m * 100 + this.off(m) + this.shiftCents;
+          const ranked = this.tunedKeys.map(k => ({ k, d: Math.abs(k.cents - target) })).filter(x => x.d < 60).sort((a, b) => a.d - b.d);
+          return ranked.length ? ranked.filter(x => x.d <= ranked[0].d + 0.5).map(x => x.k) : [];
         }
-        return this.keys.get(m - this.shift) || this.keys.get(m - this.shift + 12) || this.keys.get(m - this.shift - 12) || null;
+        for (const p of [m - this.shift, m - this.shift + 12, m - this.shift - 12]) { const found = this.keysByPitch.get(p); if (found && found.length) return found; }
+        return [];
       }
+      key(m) { return this.keyCandidates(m)[0] || null; }
       octaves() { return this.tunedKeys ? -this.shiftCents / 1200 : -this.shift / 12; }
       // The keys as the joyboard lays a Scala tuning on them: the J key sounds the root (1/1), each key to the
       // right is `right` degrees up, each row up is `up - right` degrees up (the stagger makes up-right `up`).
@@ -1232,7 +1282,7 @@
             const nm = N === 12 ? NOTE_NAMES[((near % 12) + 12) % 12] : String(d + 1);
             const lbl = svgText(g, 'lbl', x + K / 2, y + K / 2 + 3, nm.length > 2 ? 11 : 13, midiColor(near), nm, 'middle');
             const k = { el, lbl, idleFill: midiColor(near), x: x + K / 2, y: y + K / 2, cents };
-            this.tunedKeys.push(k); this.keys.set(cents, k);
+            this.tunedKeys.push(k); this.addKey(cents, k);
           });
         }
         svg.setAttribute('viewBox', `-2 -2 ${maxX + 4} ${4 * U + 4}`);
@@ -1414,7 +1464,13 @@
         if (nowC) this.lastHand = nowC;
         // The runner (the left hand) travels only between fretted places; over open strings it rests where it was.
         const rest = this.lastHand || this.startPt;
-        return { now: nowC || (nextC ? rest : null), next: nextC || (nowC ? nowC : null), hand: true };
+        return {
+          now: nowC || (nextC ? rest : null), next: nextC || (nowC ? nowC : null), hand: true,
+          // An open string has no left-hand destination. If the runner stays
+          // at the last fret, keep that fret's note on it; showing the open
+          // note's name there falsely turns the resting place into a cue.
+          labelMidi: nextC && nextP.length ? nextP[0].m : nowC && nowP.length ? nowP[0].m : null,
+        };
       }
     }
     UkuleleLayout.seq = 0;
@@ -1437,14 +1493,15 @@
     };
     class RecorderLayout {
       constructor() { this.runnerR = 0; this.panel = '44%'; this.changes = []; }
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 86);
+        this.tuningOff = tuned ? tuningOffsets(tuned.tuning, tuned.key) : null;
         // One large recorder, drawn sideways so it fills a wide panel: beak
         // at the left, foot at the right, the thumb hole below the body
         // (the back of the instrument). The sounding fingering is solid;
         // the next note's changes fade in, in its colour, and flicker.
-        svg.setAttribute('viewBox', '0 0 320 96');
+        svg.setAttribute('viewBox', '0 0 320 108');
         const defs = svgEl(svg, 'defs'), grad = svgEl(defs, 'linearGradient', { id: 'halfhole', x1: 0, y1: 0, x2: 0, y2: 1 });
         svgEl(grad, 'stop', { offset: '50%', 'stop-color': 'var(--ink)' }); svgEl(grad, 'stop', { offset: '50%', 'stop-color': 'var(--panel-2)' });
         const g = svgEl(svg, 'g', { class: 'rec' });
@@ -1468,6 +1525,8 @@
         this.nowName = svgText(g, 'lbl name', 24, 88, 16, 'var(--muted)', '', 'start');
         this.nextName = svgText(g, 'lbl name next', 300, 88, 11, 'var(--muted)', '', 'end');
         svgText(g, 'lbl cap', 300, 74, 6, 'var(--muted)', 'next', 'end');
+        this.nowTune = svgText(g, 'lbl cap tune', 24, 103, 7, 'var(--muted)', '', 'start');
+        this.nextTune = svgText(g, 'lbl cap tune next', 300, 103, 7, 'var(--muted)', '', 'end');
       }
       fingering(midis) { const m = midis.length ? midis[0] + this.shift : null; return { m, f: m !== null ? RECORDER[m - 60] : null }; }
       // Per hole, 0 open, 1 closed, 0.5 half; a double hole is two circles, the second covered first.
@@ -1489,6 +1548,12 @@
         const name = x => x.m === null ? '' : x.f ? this.nameOf(x.m) : '?';
         this.nowName.textContent = name(cur); this.nowName.setAttribute('fill', cur.m !== null ? midiColor(cur.m) : 'var(--muted)');
         this.nextName.textContent = name(nxt); this.nextName.setAttribute('fill', nxt.m !== null ? midiColor(nxt.m) : 'var(--muted)');
+        const cue = x => {
+          if (!this.tuningOff || x.m === null || !x.f) return '';
+          const c = this.tuningOff(x.m); if (Math.abs(c) < 1) return '12-TET';
+          return `${c > 0 ? '\u2191 +' : '\u2193 \u2212'}${Math.round(Math.abs(c))}\u00a2  ${c > 0 ? 'firmer air / leak' : 'gentler air / shade'}`;
+        };
+        this.nowTune.textContent = cue(cur); this.nextTune.textContent = cue(nxt);
         this.frame(0);
         return { now: null, next: null };
       }
@@ -1496,6 +1561,7 @@
       frame(u) {
         for (const { c, closing } of this.changes) { c.style.fillOpacity = closing ? (0.05 + 0.9 * u).toFixed(3) : (1 - 0.85 * u).toFixed(3); c.style.strokeOpacity = (0.2 + 0.8 * u).toFixed(3); }
         this.nextName.style.opacity = (0.15 + 0.85 * u).toFixed(3);
+        if (this.nextTune) this.nextTune.style.opacity = (0.15 + 0.85 * u).toFixed(3);
       }
       has(m) { return RECORDER[m + this.shift - 60] !== undefined; }
       octaves() { return this.shift / 12; }
@@ -2839,6 +2905,16 @@
       notes(midis) {
         const L = this.layout; if (!L) return [];
         const out = [], name = INSTRUMENT_NAMES[this.name].toLowerCase();
+        if (this.tuned && (this.name === 'piano' || this.name === 'uke')) out.push({
+          text: `Tuning: the ${name} diagram is a 12-tone approximation; playback uses the scale's tuned pitches.`,
+          more: this.name === 'piano'
+            ? 'A standard piano has one fixed key for each 12-tone equal-tempered pitch, so it cannot show the small pitch displacement inside a key. Use the key as the nearest pitch landmark and listen to the detuned playback.'
+            : 'A standard ukulele has fixed 12-tone frets. The diagram therefore chooses the nearest ordinary fret or open string; it cannot put a finger between frets to show the tuned displacement. Listen to the detuned playback.',
+        });
+        if (this.tuned && this.name === 'recorder') out.push({ tip: true,
+          text: 'Recorder tuning cues show the target displacement in cents and an intonation direction.',
+          more: 'A higher target (↑) suggests firmer air or a slight leak of a closed lower hole; a lower target (↓) suggests gentler air or shading an open hole. The exact response and alternate fingering depend on the recorder and the note, so use the cue with your ear or a tuner.',
+        });
         const oct = L.octaves ? L.octaves() : 0;
         if (oct) out.push({ tip: true, more: MORE.range, text: `The ${name} shows the tune ${Math.abs(oct)} octave${Math.abs(oct) > 1 ? 's' : ''} ${oct > 0 ? 'up' : 'down'}, where it can reach the notes.` });
         const missing = [...new Set(midis.filter(m => L.has && !L.has(m)))].sort((a, b) => a - b).map(m => NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1));
@@ -2852,7 +2928,8 @@
         this.pts = this.layout.mark(now, next, info);
         const r = this.runner; if (!r) return;
         if (!this.pts.next && !this.pts.now) { r.classList.add('hide'); return; }
-        const m = (next.length ? next : now)[0];
+        const m = this.pts.labelMidi !== undefined ? this.pts.labelMidi : (next.length ? next : now)[0];
+        if (m === null || m === undefined) { r.classList.add('hide'); return; }
         r.style.setProperty('--c', midiColor(m)); this.label(m);
         r.style.setProperty('--runner-alpha', '0.95');
         r.classList.remove('hide');
