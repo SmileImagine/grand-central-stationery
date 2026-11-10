@@ -28,3 +28,8 @@ Looked at and left out, with the reason:
 - Library of Congress, *An American Ballroom Companion* (dance manuals 1490 to 1920): public domain scans and a natural next source for historical social dance; not yet read.
 
 Curriculum references (quoted, not copied): The Ontario Curriculum, Grades 1–8: The Arts (2009) and The Kindergarten Program (2016), Queen's Printer for Ontario; see `../ontario.md`. CODE (code.on.ca) and OMEA (omea.on.ca) materials are members' or personal-use resources under their own terms and are not used.
+
+
+## World traditions survey
+
+`world-traditions.md` (2026-11-09) is a short list of well-preserved world musical traditions suitable for an elementary classroom, ten regional groups and thirty-two traditions, each with a read-aloud cultural context paragraph, sources with the licence quoted as the source states it and a verdict (use freely, with attribution, ask permission, or reference only), and protocol cautions for ceremonial and family-owned material. Licences that could not be read on the page are marked unverified rather than guessed. The five richest open finds: Mário de Andrade's *Ensaio sobre a música brasileira* (1928, Public Domain Mark), the Persian Radif Corpus (Zenodo, CC BY 4.0), the Javanese Gamelan Notation dataset (Mendeley, CC BY 4.0), the Daisyfield transcriptions of Nagai and Kobatake's Japanese songs of 1892 (donated to the public domain), and the Sadhukarn dataset of the shared Thai, Khmer and Lao opening piece (Zenodo, CC0).
