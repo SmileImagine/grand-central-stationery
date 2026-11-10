@@ -336,16 +336,18 @@
     .inst .boardedge { stroke: color-mix(in srgb, var(--concourse-brass, #9c7a45) 70%, var(--ink)); stroke-width: 2.2; opacity: 0.7; }
     .inst .fret { stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 2; }
     .inst .nut { stroke: color-mix(in srgb, var(--ink) 85%, white); stroke-width: 5; stroke-linecap: round; }
-    .inst .uke .top { fill: color-mix(in srgb, var(--ink) 7%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1.2; }
-    .inst .uke .head { fill: color-mix(in srgb, var(--ink) 14%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1.2; }
-    .inst .uke .headmark { fill: none; stroke: var(--concourse-brass, #9c7a45); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; }
-    .inst .uke .pegstem { stroke: var(--ink); stroke-opacity: 0.55; stroke-width: 1.3; }
-    .inst .uke .peg { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.4; }
-    .inst .uke .rosette { fill: none; stroke: var(--ink); stroke-opacity: 0.3; stroke-width: 3; stroke-dasharray: 2 3; }
-    .inst .uke .sound { fill: color-mix(in srgb, var(--ink) 60%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.5; }
-    .inst .uke .bridge { stroke: var(--ink); stroke-width: 8; stroke-linecap: round; opacity: 0.72; }
     .inst .inlay { fill: var(--ink); opacity: 0.25; }
+    .inst .uke .grain path { fill: none; stroke-linecap: round; }
+    .inst .uke .sound { fill: none; stroke: var(--ink); stroke-opacity: 0.55; stroke-width: 2.2; }
+    .inst .uke .bridge { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 6; stroke-linecap: round; }
+    .inst .uke .peg { fill: none; stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 1.3; }
     .inst .string { stroke: var(--ink); stroke-opacity: 0.8; stroke-linecap: round; }
+    .inst .stringglow { stroke: var(--c, var(--ink)); stroke-linecap: round; opacity: 0; transition: opacity 0.25s ease-out; filter: drop-shadow(0 0 5px var(--c, var(--ink))); }
+    .inst .stringglow.ondeck { opacity: 0.22; stroke-dasharray: 6 8; }
+    .inst .stringglow.on { opacity: 0.85; stroke-dasharray: none; animation: strumglow 0.6s ease-out; }
+    @keyframes strumglow { 0% { opacity: 1; } 100% { opacity: 0.85; } }
+    .inst .uke .strum { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1.2; transition: fill 0.2s, filter 0.2s; }
+    .inst .uke .strum.on { fill: var(--c); stroke: var(--c); stroke-opacity: 1; filter: drop-shadow(0 0 6px var(--c)); animation: instpop 0.3s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
     .inst .dot { fill: var(--c); stroke: var(--c); }
     .inst .dot.ondeck { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke-width: 2.5; stroke-dasharray: 5 3; }
     .inst .dot.active { filter: drop-shadow(0 0 6px var(--c)); animation: instpop 0.3s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
@@ -502,7 +504,6 @@
     .cell[data-type="abc"] .score .nextup { position: absolute; z-index: 3; left: 50%; top: 5px; transform: translateX(-50%); max-width: 65%; color: color-mix(in srgb, var(--concourse-ink) 62%, transparent); font: 600 12px/1.2 Cinzel, Georgia, serif; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .cell[data-type="abc"] .score .nextup:empty { display: none; }
     .cell[data-type="abc"] .score .nextup.flip { animation: flap 0.18s ease-out; }
-    .cell[data-type="abc"] .inst .uke .top { fill: color-mix(in srgb, #a86b3c 60%, var(--concourse-floor)); filter: drop-shadow(0 4px 5px #0003); }
     .cell[data-type="abc"] .inst .board { fill: color-mix(in srgb, #57351f 62%, var(--concourse-floor)); }
     .cell[data-type="abc"] .inst .key, .cell[data-type="abc"] .inst .bell { filter: drop-shadow(0 3px 3px #0002); }
     .cell[data-type="abc"] .cell-body.is-playing .drawer { opacity: 0.25; }
@@ -1207,60 +1208,87 @@
     // one nearest the hand's last fret is chosen, lowest fret on a tie. The
     // same places number the tablature when the score shows Tab.
     class UkuleleLayout {
-      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; }
+      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; }
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
-        // The player's view: the re-entrant G string is the near edge and A
-        // the far edge. The strings spread slightly toward the body, frets
-        // lean across that depth, and the whole instrument rises gently to
-        // the right. All marks use the same projection as the woodwork.
-        const S = 20, left = 84, top = 19, boardLen = 500;
+        // The player's view of their own ukulele, looking down the neck from
+        // above the near edge: the re-entrant G string is nearest, A farthest.
+        // A one-point perspective does the foreshortening: everything at
+        // depth d (0 near, 1 far) shrinks toward a vanishing point by k(d),
+        // so the far strings crowd together, the frets lean, and a mark on
+        // a far string is smaller than one on a near string. The body and
+        // headstock are not drawn as objects but suggested by wood grain
+        // that fades into the page: they are there so a child can see which
+        // way round the diagram sits on the instrument in their hands, and
+        // where strumming happens, past the soundhole toward the bridge.
+        const S = 24, left = 92, top = 16, boardLen = 470;
         this.S = S; this.left = left; this.top = top; this.boardLen = boardLen;
-        const W = left + boardLen + 164, bE = left + boardLen, H = 116;
+        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70, H = top + S * 3 + 26;
+        this.bE = bE; this.bridgeX = bridgeX;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
+        const defs = svgEl(svg, 'defs');
+        const grad = (id, x1, x2) => { const g = svgEl(defs, 'linearGradient', { id, x1, y1: 0, x2, y2: 0 }); svgEl(g, 'stop', { offset: 0, 'stop-color': 'var(--ink)', 'stop-opacity': 0.8 }); svgEl(g, 'stop', { offset: 1, 'stop-color': 'var(--ink)', 'stop-opacity': 0 }); return g; };
+        const uid = 'uke' + (++UkuleleLayout.seq);
+        grad(uid + 'body', 0, 1); grad(uid + 'head', 1, 0);
         const g = svgEl(svg, 'g', { class: 'uke' });
-        const far = this.project(bE - 7, -0.42), near = this.project(bE - 7, 3.42);
-        const farR = this.project(W + 5, -0.12), nearR = this.project(W + 5, 3.22);
-        svgEl(g, 'path', { class: 'top', d: `M ${far.x} ${far.y} C ${bE + 24} ${far.y - 24} ${bE + 96} ${farR.y - 12} ${farR.x} ${farR.y} L ${nearR.x} ${nearR.y} C ${bE + 96} ${nearR.y + 22} ${bE + 25} ${near.y + 27} ${near.x} ${near.y} Z` });
-        const hole = this.project(bE + 64, 1.5);
-        svgEl(g, 'ellipse', { class: 'rosette', cx: hole.x, cy: hole.y, rx: 27, ry: 21, transform: `rotate(-1.2 ${hole.x} ${hole.y})` });
-        svgEl(g, 'ellipse', { class: 'sound', cx: hole.x, cy: hole.y, rx: 21.5, ry: 16.5, transform: `rotate(-1.2 ${hole.x} ${hole.y})` });
-        const br0 = this.project(bE + 128, -0.05), br1 = this.project(bE + 128, 3.1);
-        svgEl(g, 'line', { class: 'bridge', x1: br0.x, y1: br0.y, x2: br1.x, y2: br1.y });
-        // A tapered headstock with an arched brass mark echoes the terminal
-        // window, and every machine head shares the same near/far projection.
-        const h0 = this.project(left - 5, -0.38), h1 = this.project(left - 54, -0.18), h2 = this.project(left - 75, 0.35), h3 = this.project(left - 75, 2.65), h4 = this.project(left - 54, 3.18), h5 = this.project(left - 5, 3.38);
-        svgEl(g, 'path', { class: 'head', d: `M ${h0.x} ${h0.y} L ${h1.x} ${h1.y} Q ${h2.x} ${h2.y} ${h2.x} ${h2.y + 8} L ${h3.x} ${h3.y - 8} Q ${h3.x} ${h3.y} ${h4.x} ${h4.y} L ${h5.x} ${h5.y} Z` });
-        const hm = this.project(left - 48, 1.5);
-        svgEl(g, 'path', { class: 'headmark', d: `M ${hm.x - 8} ${hm.y + 10} V ${hm.y - 2} Q ${hm.x} ${hm.y - 13} ${hm.x + 8} ${hm.y - 2} V ${hm.y + 10} M ${hm.x - 8} ${hm.y + 2} H ${hm.x + 8}` });
-        for (const [x, s] of [[left - 51, -0.44], [left - 27, -0.44], [left - 51, 3.44], [left - 27, 3.44]]) {
-          const p = this.project(x, s), stem = this.project(x, s < 0 ? 0.04 : 2.96), nearPeg = s > 3;
-          svgEl(g, 'line', { class: 'pegstem', x1: stem.x, y1: stem.y, x2: p.x, y2: p.y });
-          svgEl(g, 'ellipse', { class: 'peg', cx: p.x, cy: p.y, rx: nearPeg ? 5.2 : 4.4, ry: nearPeg ? 3.8 : 3.1, transform: `rotate(-8 ${p.x} ${p.y})` });
+        // Wood grain for the body: long swirled lines that flow from the fretboard's end past the bridge and fade out.
+        const grain = svgEl(g, 'g', { class: 'grain', stroke: `url(#${uid}body)` });
+        for (let i = 0; i < 11; i++) {
+          const s0 = -1.1 + i * 0.56, sw = (i % 2 ? 1 : -1) * (0.45 + 0.25 * (i % 3));
+          const a = this.project(bE - 10, s0), b = this.project(bE + 60, s0 + sw), c = this.project(bridgeX - 10, s0 - sw * 0.8), d = this.project(W + 6, s0 + sw * 0.3);
+          svgEl(grain, 'path', { d: `M ${a.x} ${a.y} C ${b.x} ${b.y} ${c.x} ${c.y} ${d.x} ${d.y}`, 'stroke-width': (1.2 + (i % 3) * 0.7).toFixed(1) });
         }
-        const bf0 = this.project(left, -0.34), bf1 = this.project(bE, -0.34), bn1 = this.project(bE, 3.34), bn0 = this.project(left, 3.34);
+        // The soundhole as one iconic ring and the bridge as a bar the strings end on.
+        const hole = this.project(bE + 72, 1.5), hk = this.depth(1.5);
+        svgEl(g, 'ellipse', { class: 'sound', cx: hole.x, cy: hole.y, rx: 24 * hk, ry: 19 * hk });
+        const br0 = this.project(bridgeX, -0.45), br1 = this.project(bridgeX, 3.45);
+        svgEl(g, 'line', { class: 'bridge', x1: br0.x, y1: br0.y, x2: br1.x, y2: br1.y });
+        // The headstock: grain flowing off the nut and fading, with the pegs as four quiet ellipses.
+        const hgrain = svgEl(g, 'g', { class: 'grain', stroke: `url(#${uid}head)` });
+        for (let i = 0; i < 7; i++) {
+          const s0 = -0.7 + i * 0.75, sw = (i % 2 ? 1 : -1) * 0.45, a = this.project(left - 4, s0), b = this.project(left - 44, s0 + sw), c = this.project(left - 90, s0 - sw * 0.5);
+          svgEl(hgrain, 'path', { d: `M ${a.x} ${a.y} Q ${b.x} ${b.y} ${c.x} ${c.y}`, 'stroke-width': (1.2 + (i % 2) * 0.8).toFixed(1) });
+        }
+        for (const [x, sIdx] of [[left - 34, -0.75], [left - 62, -0.75], [left - 34, 3.75], [left - 62, 3.75]]) {
+          const p = this.project(x, sIdx), k = this.depth(sIdx);
+          svgEl(g, 'ellipse', { class: 'peg', cx: p.x, cy: p.y, rx: 5.5 * k, ry: 3.6 * k });
+        }
+        // The fretboard: a trapezoid in perspective, frets leaning toward the vanishing point, the nut heavy.
+        const bf0 = this.project(left, -0.4), bf1 = this.project(bE, -0.4), bn1 = this.project(bE, 3.4), bn0 = this.project(left, 3.4);
         svgEl(g, 'path', { class: 'board', d: `M ${bf0.x} ${bf0.y} L ${bf1.x} ${bf1.y} L ${bn1.x} ${bn1.y} L ${bn0.x} ${bn0.y} Z` });
         svgEl(g, 'line', { class: 'boardedge', x1: bn0.x, y1: bn0.y, x2: bn1.x, y2: bn1.y });
-        for (let i = 1; i <= this.frets; i++) { const a = this.project(this.fretX(i), -0.34), b = this.project(this.fretX(i), 3.34); svgEl(g, 'line', { class: 'fret', x1: a.x, y1: a.y, x2: b.x, y2: b.y }); }
-        const n0 = this.project(left, -0.38), n1 = this.project(left, 3.38); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
-        for (const i of [5, 7, 10]) { const p = this.project(this.fretMid(i), 1.5); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.2, ry: 3.4 }); }
-        for (const s of [0.65, 2.35]) { const p = this.project(this.fretMid(12), s); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.2, ry: 3.4 }); }
+        for (let i = 1; i <= this.frets; i++) { const a = this.project(this.fretX(i), -0.4), b = this.project(this.fretX(i), 3.4); svgEl(g, 'line', { class: 'fret', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (1.4 + 0.9 * (1 - i / this.frets)).toFixed(2) }); }
+        const n0 = this.project(left, -0.45), n1 = this.project(left, 3.45); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
+        for (const i of [5, 7, 10]) { const p = this.project(this.fretMid(i), 1.5), k = this.depth(1.5); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
+        for (const sIdx of [0.6, 2.4]) { const p = this.project(this.fretMid(12), sIdx), k = this.depth(sIdx); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
+        // The strings, nut to bridge, nearest thickest; each has a glow twin that lights in the note's colour when it is plucked.
         const names = ['A', 'E', 'C', 'G'];
-        this.strings.forEach((open, s) => {
-          const a = this.project(left - 42, s), b = this.project(bE + 130, s), label = this.project(left - 11, s);
-          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.75 + s * 0.42).toFixed(2) });
-          svgText(g, 'lbl str', label.x, label.y + 0.4, 7.5 + s * 0.7, midiColor(open), names[s], 'middle');
+        this.stringEls = [];
+        this.strings.forEach((open, sIdx) => {
+          const a = this.project(left - 2, sIdx), b = this.project(bridgeX, sIdx), label = this.project(left - 12, sIdx), k = this.depth(sIdx);
+          const glow = svgEl(g, 'line', { class: 'stringglow', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (4.5 * k + 1.5).toFixed(2) });
+          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.7 + sIdx * 0.4).toFixed(2) });
+          svgText(g, 'lbl str', label.x, label.y + 0.4, (7 + sIdx * 0.8) * k + 1, midiColor(open), names[sIdx], 'middle');
+          this.stringEls.push({ glow, open });
         });
-        svgText(g, 'lbl cap', left + 5, 5.5, 6.5, 'var(--muted)', "player's view · G string closest", 'start');
+        // The strum mark: a small plectrum between the soundhole and the bridge that lights with each pluck.
+        const sp = this.project(bE + 118, 1.5), sk = this.depth(1.5);
+        this.strum = svgEl(g, 'path', { class: 'strum', d: `M ${sp.x} ${sp.y - 9 * sk} q ${7 * sk} 0 ${7 * sk} ${7 * sk} q 0 ${8 * sk} ${-7 * sk} ${12 * sk} q ${-7 * sk} ${-4 * sk} ${-7 * sk} ${-12 * sk} q 0 ${-7 * sk} ${7 * sk} ${-7 * sk} z` });
+        svgText(g, 'lbl cap', left + 4, H - 1, 6.5, 'var(--muted)', "your view · G string nearest · strum between the soundhole and the bridge", 'start');
         this.marksG = svgEl(svg, 'g');
         this.startPt = { ...this.project(left - 2, 3), r: 8.4, open: true };
+        this.lastHand = null;
         this.sig = null; this.events = [];
       }
+      // Depth 0 at the near (G) edge, 1 at the far (A) edge; the shrink factor toward the vanishing point.
+      depth(string) { return 1 - 0.3 * Math.max(0, Math.min(1.25, (3 - string) / 3)); }
       project(x, string) {
-        const t = Math.max(-0.15, Math.min(1.35, (x - this.left) / (this.boardLen + 135)));
-        const gap = this.S * (0.88 + 0.18 * t), axis = this.top + this.S * 1.5 - 0.018 * (x - this.left);
-        return { x: x + (1.5 - string) * 1.55, y: axis + (string - 1.5) * gap };
+        const k = this.depth(string), vx = this.left + this.boardLen * 0.78;   // the vanishing point sits beyond the neck's end, far side
+        const yNear = this.top + this.S * 3;
+        // rows: the near string's row at the bottom; each farther row a foreshortened step up
+        const d = (3 - string) / 3, y = yNear - d * this.S * 3 * (1 - 0.18 * d);
+        return { x: vx + (x - vx) * k, y };
       }
       start() { return this.startPt; }
       // Where to play a set of pitches: one place per pitch, on distinct strings.
@@ -1269,11 +1297,11 @@
         for (const m0 of midis) {
           const m = m0 + this.shift;
           let best = null;
-          this.strings.forEach((open, s) => {
+          this.strings.forEach((open, sIdx) => {
             const fret = m - open;
-            if (fret < 0 || fret > this.frets || used.has(s)) return;
+            if (fret < 0 || fret > this.frets || used.has(sIdx)) return;
             const cost = (fret === 0 ? 0 : Math.abs(fret - this.hand)) + fret * 0.01;
-            if (!best || cost < best.cost) best = { s, fret, cost, m };
+            if (!best || cost < best.cost) best = { s: sIdx, fret, cost, m };
           });
           if (best) { used.add(best.s); out.push(best); }
         }
@@ -1286,37 +1314,46 @@
       // Fret i's wire: a real fretboard's spacing (each fret 2^(1/12) of the string's remaining length), scaled so the twelfth fret ends the board.
       fretX(i) { return this.left + 2 * this.boardLen * (1 - Math.pow(2, -i / 12)); }
       fretMid(i) { return (this.fretX(i - 1) + this.fretX(i)) / 2; }
-      pt(p) { const q = this.project(p.fret === 0 ? this.left - 1 : this.fretMid(p.fret), p.s); return { ...q, r: 6.3 + p.s * 0.72, open: p.fret === 0 }; }
-      // The tune's events in order ({ ms, midis }), with the beat length at
-      // the current tempo: places every note once, from the top with the hand
-      // at the nut. The places serve the fretboard's marks and the tablature
-      // on the staff. Cheap, so it may be called on each event; it only
-      // rebuilds when the timings change (a tempo change).
+      // A fretted place as a point and a radius in perspective (the radius shrinks with the string's depth).
+      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: 7.2 * this.depth(p.s), open: false }; }
       schedule(events, beatMs) {
         const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
         if (sig === this.sig) return;
         this.sig = sig; this.hand = 1;
         this.events = events.map(e => ({ ms: e.ms, midis: e.midis, pos: this.place(e.midis) }));
       }
-      // info: { index } of the sounding event in the schedule (-1 before the
-      // first), and ms until the next; the fretboard uses the scheduled places.
+      // The two hands are shown apart. The right hand: every sounding string
+      // glows in its note's colour from nut to bridge and the strum mark
+      // lights, open or fretted alike. The left hand: a circle on the fret
+      // for fretted notes only, with the next fretted note on deck; an open
+      // string asks nothing of the left hand, so the runner stays where the
+      // hand last was instead of travelling to the nut.
       mark(now, next, info) {
         for (const m of this.marks) m.remove(); this.marks = [];
         const sched = info && this.events.length;
         const i = sched ? info.index : -1;
         const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
         const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
+        for (const st of this.stringEls) { st.glow.classList.remove('on', 'ondeck'); }
+        if (this.strum) this.strum.classList.remove('on');
+        for (const p of nextP) { const st = this.stringEls[p.s]; if (st) { st.glow.style.setProperty('--c', midiColor(p.m)); st.glow.classList.add('ondeck'); } }
+        for (const p of nowP) { const st = this.stringEls[p.s]; if (st) { st.glow.style.setProperty('--c', midiColor(p.m)); st.glow.classList.remove('ondeck'); st.glow.classList.add('on'); } }
+        if (nowP.length && this.strum) { this.strum.style.setProperty('--c', midiColor(nowP[0].m)); this.strum.classList.add('on'); }
         const draw = (p, cls) => {
           const q = this.pt(p);
-          const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls + (q.open ? ' open' : ''), cx: q.x, cy: q.y, r: q.r });
+          const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls, cx: q.x, cy: q.y, r: q.r });
           c.style.setProperty('--c', midiColor(p.m));
           this.marks.push(c);
           if (cls === 'active') this.marks.push(svgText(this.marksG, 'lbl', q.x, q.y + 0.5, q.r * 1.05, letterOn(), String(p.fret), 'middle'));
           return q;
         };
-        const nPts = nextP.map(p => draw(p, 'ondeck')), aPts = nowP.map(p => draw(p, 'active'));
-        const centre = pts => { const c = centroid(pts); return c && { ...c, r: pts.reduce((a, p) => a + p.r, 0) / pts.length, open: pts.some(p => p.open) }; };
-        return { now: centre(aPts), next: centre(nPts) };
+        const nPts = nextP.filter(p => p.fret > 0).map(p => draw(p, 'ondeck')), aPts = nowP.filter(p => p.fret > 0).map(p => draw(p, 'active'));
+        const centre = pts => { const c = centroid(pts); return c && { ...c, r: pts.reduce((a, p) => a + p.r, 0) / pts.length, open: false }; };
+        const nowC = centre(aPts), nextC = centre(nPts);
+        if (nowC) this.lastHand = nowC;
+        // The runner (the left hand) travels only between fretted places; over open strings it rests where it was.
+        const rest = this.lastHand || this.startPt;
+        return { now: nowC || (nextC ? rest : null), next: nextC || (nowC ? nowC : null), hand: true };
       }
     }
     UkuleleLayout.seq = 0;
@@ -2721,9 +2758,9 @@
         const L = this.layout; if (!L) return [];
         const out = [], name = INSTRUMENT_NAMES[this.name].toLowerCase();
         const oct = L.octaves ? L.octaves() : 0;
-        if (oct) out.push({ tip: true, more: MORE.range, text: `Shown ${Math.abs(oct)} octave${Math.abs(oct) > 1 ? 's' : ''} ${oct > 0 ? 'up' : 'down'}: the ${name} does not reach the written notes.` });
+        if (oct) out.push({ tip: true, more: MORE.range, text: `The ${name} shows the tune ${Math.abs(oct)} octave${Math.abs(oct) > 1 ? 's' : ''} ${oct > 0 ? 'up' : 'down'}, where it can reach the notes.` });
         const missing = [...new Set(midis.filter(m => L.has && !L.has(m)))].sort((a, b) => a - b).map(m => NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1));
-        if (missing.length) out.push({ more: MORE.range, text: `${missing.join(', ')} ${missing.length > 1 ? 'are' : 'is'} not on the ${name} and will not be shown.` });
+        if (missing.length) out.push({ more: MORE.range, text: `The ${name} has no ${missing.join(', ')}, so ${missing.length > 1 ? 'those notes are' : 'that note is'} left off it.` });
         return out;
       }
       // The sounding note(s) and the next: the layout marks its keys and
@@ -2745,12 +2782,9 @@
         if (L.frame) L.frame(u, t);
         const r = this.runner, p = this.pts; if (!r || !p) return;
         const from = p.now || p.next, to = p.next || p.now; if (!from) return;
-        const openChange = p.now && p.next && (p.now.open || p.next.open);
-        const at = openChange ? (u < 0.5 ? from : to) : null;
-        const x = at ? at.x : from.x + (to.x - from.x) * u, y = at ? at.y : from.y + (to.y - from.y) * u;
-        const rr = at ? at.r : (from.r || L.runnerR) + ((to.r || L.runnerR) - (from.r || L.runnerR)) * u;
-        const alpha = openChange ? (u < 0.5 ? 0.95 * (1 - u * 2) : 0.95 * (u * 2 - 1)) : 0.95;
-        r.style.setProperty('--runner-alpha', alpha.toFixed(3));
+        const x = from.x + (to.x - from.x) * u, y = from.y + (to.y - from.y) * u;
+        const rr = (from.r || L.runnerR) + ((to.r || L.runnerR) - (from.r || L.runnerR)) * u;
+        r.style.setProperty('--runner-alpha', '0.95');
         r.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${(rr / L.runnerR).toFixed(3)})`;
       }
       label(m) { if (!this.runnerLbl) return; const nm = this.nameOf(m); this.runnerLbl.textContent = nm; this.runnerLbl.setAttribute('font-size', (this.layout.runnerR * (nm.length > 2 ? 0.7 : 0.95)).toFixed(2)); this.runnerLbl.setAttribute('fill', letterOn()); }
@@ -3193,8 +3227,8 @@
         if (!m) return w.replace(/<[^>]+>/g, '');
         const line = parseInt(m[1], 10) - added, col = m[2];
         const at = (w.match(/<span[^>]*>([^<]*)<\/span>/) || [])[1];
-        const what = { 'Unknown character ignored': `${at ? '‹' + at + '› is not valid here and was skipped' : 'A character was not valid here and was skipped'}`,
-                       "Expected ']' to end the chords": 'This chord starts with [ but has no closing ]' }[m[3]] || m[3];
+        const what = { 'Unknown character ignored': `${at ? '‹' + at + '› means nothing here and was skipped' : 'a character means nothing here and was skipped'}`,
+                       "Expected ']' to end the chords": 'a chord opens with [ and wants a closing ]' }[m[3]] || m[3];
         return `Line ${line}, character ${col}: ${what}.`;
       }
       lint() {
@@ -3206,7 +3240,7 @@
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = notes[i], b = notes[i + 1];
           const p = a.pitches.find(p => p.startTie && !b.pitches.some(q => q.pitch === p.pitch));
-          if (p) { out.push({ more: MORE.tie, text: `A tie (-) can only join the same pitch. Here it runs from ${p.name} to ${b.pitches[0].name}, so later playback may be missing a note. Use parentheses for a slur.` }); break; }
+          if (p) { out.push({ more: MORE.tie, text: `The tie (-) from ${p.name} to ${b.pitches[0].name} joins different notes, so one may go silent. For a slur, write (${p.name} ${b.pitches[0].name}) instead.` }); break; }
         }
         // Bar lengths. With M: the metre is known; without it (abcjs then
         // assumes 4/4) the most common complete bar sets the length. The
@@ -3246,15 +3280,15 @@
             // length mean a missing M: or wrong note lengths.
             if (Math.abs(common - 1) > 1e-6) {
               const beats = common / unit, whole = Math.abs(beats - Math.round(beats)) < 1e-6;
-              out.push({ more: MORE.bars, text: `These bars add up to ${fmt(beats)} beats, but ABC assumes 4/4 when M: is missing. ` + (whole ? `Add M:${Math.round(beats)}/4 if that is the intended metre.` : 'Check the note lengths or add the intended M: line.') + dottedTip(bars.flatMap(b => b.items)) });
+              out.push({ more: MORE.bars, text: `The bars hold ${fmt(beats)} beats each, and with no M: line the score assumes 4/4. ` + (whole ? `If ${Math.round(beats)}/4 is meant, add M:${Math.round(beats)}/4.` : 'Add the M: line you mean, or check the note lengths.') + dottedTip(bars.flatMap(b => b.items)) });
             }
           }
         }
         bars.forEach((b, i) => {
           if (b.expected === null || Math.abs(b.len - b.expected) < 1e-6) return;
           if (b.len < b.expected && (i === 0 || i === bars.length - 1)) return;   // a pickup, or the bar that completes it
-          const against = hasMeter ? `the metre has ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'without an M: line the metre is 4/4';
-          out.push({ more: MORE.bars, text: `Bar ${i + 1} adds up to ${fmt(b.len / unit)} beats, while ${against}.` + dottedTip(b.items) });
+          const against = hasMeter ? `the metre gives ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'with no M: line the score assumes 4';
+          out.push({ more: MORE.bars, text: `Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items) });
         });
         // Lyrics: one syllable per note (rests are skipped). A hyphen splits
         // a word across notes, _ holds a syllable, * skips a note.
@@ -3276,7 +3310,7 @@
             texts.forEach((t, v) => {
               const toks = t.replace(/\\-/g, '\u0000').replace(/\|/g, ' ').trim().split(/[\s-]+/).filter(Boolean);
               const slots = toks.reduce((a, tok) => { const holds = (tok.match(/_+$/) || [''])[0].length; return a + (tok.length > holds ? 1 : 0) + holds; }, 0);
-              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, text: `Lyrics on music line ${li + 1}${texts.length > 1 ? ', verse ' + (v + 1) : ''} have ${slots} syllable slot${slots === 1 ? '' : 's'} for ${n} note${n === 1 ? '' : 's'}. Use - to split a word, _ to hold a syllable, or * to leave a note without text.` });
+              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, text: `Line ${li + 1} has ${n} note${n === 1 ? '' : 's'} but its lyric${texts.length > 1 ? ' (verse ' + (v + 1) + ')' : ''} has ${slots} syllable${slots === 1 ? '' : 's'}. Use - to split a word, _ to hold a syllable, or * to leave a note without text.` });
             });
           }
         }
@@ -3295,7 +3329,7 @@
           for (const el of voice) {
             if (el.el_type === 'bar') { seen.clear(); continue; }
             if (el.el_type !== 'note' || !el.pitches || said) continue;
-            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, text: `${p.name} repeats an accidental that is already in force until the bar line.` }); said = true; break; } seen.add(k); }
+            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, text: `${p.name} is written with an accidental that is already in force; one lasts to the bar line.` }); said = true; break; } seen.add(k); }
           } }
         // Transposition: the key it lands in, and a friendlier neighbour when it is heavy with accidentals.
         if (this.transpose && this.displayed && this.displayed.getKeySignature) {
