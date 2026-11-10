@@ -38,6 +38,14 @@ Each `.abc` file begins with these comment fields:
 % holding-blocked: what must happen next
 ```
 
+Where to read the original goes in one or more lines of its own, a web address
+then what it is; the editor and the boards show them as links beside the `S:`
+citation (records in the review queue take the same line):
+
+```text
+% source-url: https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up archive.org scan, at p. 57
+```
+
 A tune can also carry a dossier, what its tradition says it needs, in the same
 comment form (all optional; the board shows them under the card):
 

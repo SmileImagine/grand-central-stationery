@@ -27,6 +27,7 @@
    "suggestion": "Keep; give the teacher a short note on the disputed history.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -44,6 +45,7 @@
    "suggestion": "Keep; label it a spiritual, as above.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -61,6 +63,7 @@
    "suggestion": "Keep as written; no change needed. A note for the teacher at most.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -79,6 +82,7 @@
    "suggestion": "Keep; if words are added, use the first verse only.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -97,6 +101,12 @@
    "suggestion": "Teach verse 1, which is plain, once the plate reading is checked; leave verses 2 and 3 for a Brazilian educator, with a note on sinhá's history. Do not invent replacement words here.",
    "decision": "",
    "source": "Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 36 (scan p. 46)",
+   "sourceUrls": [
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf#page=46",
+     "label": "Wikimedia Commons scan of the Ensaio, at scan page 46"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -114,6 +124,12 @@
    "suggestion": "Sing \"China banana\", Jekyll's own word for it in his note, and record the change in the N: line and in review-decision.",
    "decision": "",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIII, p. 196",
+   "sourceUrls": [
+    {
+     "url": "https://www.gutenberg.org/ebooks/35410",
+     "label": "Project Gutenberg #35410: Jamaican Song and Story, with page images and the music"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -132,6 +148,7 @@
    "suggestion": "Keep as an instrumental with the note. It is the shorter of the two Soldier's Joy entries; keep both, or keep this one for the first tunes and the full Nottingham reel for later.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -150,6 +167,7 @@
    "suggestion": "Keep; label it a hymn, like Jubilate Deo, so teachers can follow their school's guidance on religious songs.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -169,6 +187,7 @@
    "suggestion": "Keep it out of the course. If a teacher wants the tune, play the melody only and teach the minstrel history with it; never the original words.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -186,6 +205,7 @@
    "suggestion": "Keep; no change needed.",
    "decision": "",
    "source": "",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -203,6 +223,12 @@
    "suggestion": "Keep; label it a devotional lullaby, as above.",
    "decision": "",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/66/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 66"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -221,6 +247,7 @@
    "suggestion": "Keep the hornpipe as an instrumental; add a note \"play the tune; the sung words are not for class\", and leave the title.",
    "decision": "",
    "source": "Song",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -239,6 +266,12 @@
    "suggestion": "Keep the tune and the hand game; reword the dossier from \"party game\" to \"a party hand game from Kotohira\" and teach the touching game only.",
    "decision": "",
    "source": "Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)",
+   "sourceUrls": [
+    {
+     "url": "https://daisyfield.com/music/jpm/pdf/K95002-Konpira-Fune.pdf",
+     "label": "Daisyfield transcription (PDF)"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -256,6 +289,12 @@
    "suggestion": "Keep; label it a devotional lullaby so teachers can follow their school's guidance on religious songs.",
    "decision": "",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/64/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 64"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -273,6 +312,12 @@
    "suggestion": "Keep the full text in the file as the source, and end the class version before \"Now you married\" (the ring game works without it).",
    "decision": "",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. LXXXIX, p. 191",
+   "sourceUrls": [
+    {
+     "url": "https://www.gutenberg.org/ebooks/35410",
+     "label": "Project Gutenberg #35410: Jamaican Song and Story, with page images and the music"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -291,6 +336,12 @@
    "suggestion": "Keep it out of the published set until a Brazilian educator (and the coco reviewer the dossier names) says how classes sing it today; the tune itself is a good tonic-arpeggio study. Do not invent replacement words here.",
    "decision": "",
    "source": "Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 75 (scan p. 85)",
+   "sourceUrls": [
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf#page=85",
+     "label": "Wikimedia Commons scan of the Ensaio, at scan page 85"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -310,6 +361,12 @@
    "suggestion": "Correct the dossier first. For class, sing only the first line (\"mikhahi labu biaram?\", shall I bring you hot beetroot?) with the refrain, or choose another of Fairchild's twelve songs after reading its words.",
    "decision": "",
    "source": "Blair Fairchild (coll. and arr.), Twelve Persian Folk-Songs (London: Novello, 1904), no. 4, pp. 15-17; English words by Alma Strettell; University of Rochester scan",
+   "sourceUrls": [
+    {
+     "url": "https://imslp.org/wiki/12_Persian_Folk-Songs_(Fairchild,_Blair)",
+     "label": "IMSLP: Twelve Persian Folk-Songs (Novello, 1904), Sibley Library (Rochester) scan"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -327,6 +384,12 @@
    "suggestion": "Keep; label it a devotional lullaby. Nothing in the words to change.",
    "decision": "",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/66/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 66"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -345,6 +408,7 @@
    "suggestion": "Keep as an instrumental with the note. The arranger test uses this tune; it reads it from here while it is in review.",
    "decision": "",
    "source": "Kevin Briggs, via EF",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -363,6 +427,7 @@
    "suggestion": "Keep as an instrumental with the same note: play the tune, not the words.",
    "decision": "",
    "source": "Lynn Rohrbough, via EF",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   },
@@ -382,6 +447,12 @@
    "suggestion": "Keep it out of the published set until a Brazilian educator gives the words classes sing today. Choosing other verses is not enough, because \"mulata\" is in the chorus; do not invent replacement words here.",
    "decision": "",
    "source": "Mário de Andrade, Ensaio sobre a música brasileira (São Paulo: I. Chiarato, 1928), p. 38 (pdf p. 48), Wikimedia Commons scan",
+   "sourceUrls": [
+    {
+     "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf#page=48",
+     "label": "Wikimedia Commons scan of the Ensaio, at scan page 48"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -399,6 +470,12 @@
    "suggestion": "Keep the melody; rephrase that note in our own words (one of the songs an ayah, a children's nurse, sang on board a steamer; the book says she lost her key and the songs were hard to piece together) and restore.",
    "decision": "",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/66/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 66"
+    }
+   ],
    "response": "",
    "responseUpdated": ""
   },
@@ -416,6 +493,7 @@
    "suggestion": "Keep; label it a sacred round so teachers can follow their school's guidance on religious songs.",
    "decision": "",
    "source": "Taize?",
+   "sourceUrls": [],
    "response": "",
    "responseUpdated": ""
   }

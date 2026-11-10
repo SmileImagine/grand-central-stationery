@@ -24,6 +24,8 @@ const dossierOf = text => {
   for (const line of text.split('\n')) { const m = line.match(/^%\s*dossier-([a-z]+):\s*(.*)$/i); if (m && DOSSIER.includes(m[1].toLowerCase())) d[m[1].toLowerCase()] = m[2].trim(); }
   return Object.keys(d).length ? d : null;
 };
+// "% source-url: <url> <what it is>" lines: where to read the original (a scan, a book page, a transcription).
+const sourceUrlsOf = text => [...text.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
 const field = (text, name) => {
   const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi'));
   return m ? m[1].trim() : '';
@@ -35,6 +37,7 @@ const seen = new Set(), errors = [], items = files.map(file => {
   if (seen.has(id)) errors.push(`${file}: duplicate holding-id ${id}`); else seen.add(id);
   if (!stages.includes(meta.status)) errors.push(`${file}: holding-status wants ${stages.join(', ')}`);
   if (!field(text, 'T')) errors.push(`${file}: wants a T: title`);
+  for (const s of sourceUrlsOf(text)) if (!/^https?:\/\//.test(s.url)) errors.push(`${file}: source-url wants a web address, not ${s.url}`);
   if (!field(text, 'S')) errors.push(`${file}: wants an S: source`);
   if (meta.status === 'ready' && (meta['source-check'] !== 'verified' || meta['classroom-check'] !== 'passed'))
     errors.push(`${file}: ready requires source-check: verified and classroom-check: passed`);
@@ -43,7 +46,7 @@ const seen = new Set(), errors = [], items = files.map(file => {
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id,
     subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),
-    source: field(text, 'S'), status: meta.status || 'inbox', owner: meta.owner || '',
+    source: field(text, 'S'), sourceUrls: sourceUrlsOf(text), status: meta.status || 'inbox', owner: meta.owner || '',
     sourceCheck: meta['source-check'] || 'pending', classroomCheck: meta['classroom-check'] || 'pending',
     updated: meta.updated || '', blocked: meta.blocked || '', notes: field(text, 'N'),
     decision: meta.decision || 'considering', decisionNote: meta['decision-note'] || '',

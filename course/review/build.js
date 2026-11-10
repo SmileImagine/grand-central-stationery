@@ -21,6 +21,8 @@ const metaOf = text => {
   return m;
 };
 const body = text => text.split('\n').filter(l => !/^%\s*review-/.test(l)).join('\n');
+// "% source-url: <url> <what it is>" lines: where to read the original (a scan, a book page, a transcription).
+const sourceUrlsOf = text => [...text.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
 const field = (text, name) => { const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi')); return m ? m[1].trim() : ''; };
 
 if (process.argv[2] === '--restore') {
@@ -62,10 +64,11 @@ const items = files.map(file => {
   if (meta.from === 'published') { try { JSON.parse(meta['set-entry']); } catch (err) { errors.push(`${file}: review-set-entry is not JSON`); } }
   if (meta.from === 'samples' && !fs.existsSync(path.join(course, 'samples', meta['samples-file'] || '-'))) errors.push(`${file}: review-samples-file names no file in course/samples`);
   if (!field(text, 'T')) errors.push(`${file}: wants a T: title`);
+  for (const s of sourceUrlsOf(text)) if (!/^https?:\/\//.test(s.url)) errors.push(`${file}: source-url wants a web address, not ${s.url}`);
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id, subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),
     from: meta.from, status: meta.status, categories: (meta.categories || '').split(/,\s*/).filter(Boolean),
-    findings: meta.findings || '', suggestion: meta.suggestion || '', decision: meta.decision || '', source: field(text, 'S'),
+    findings: meta.findings || '', suggestion: meta.suggestion || '', decision: meta.decision || '', source: field(text, 'S'), sourceUrls: sourceUrlsOf(text),
     response: meta.response || '', responseUpdated: meta['response-updated'] || ''
   };
 });

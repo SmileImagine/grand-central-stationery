@@ -21,6 +21,12 @@
    "title": "Arirang",
    "subtitle": "Korean folk song, as Hulbert wrote it down in 1896",
    "source": "Homer B. Hulbert, \"Korean Vocal Music\", The Korean Repository 3 (Seoul: Trilingual Press, February 1896), p. 51; archive.org, University of Illinois copy",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/thetrilingualpress_thekoreanrepository_v3_1896",
+     "label": "archive.org scan of The Korean Repository vol. 3 (1896); the article is pp. 45-53 (may not be the Illinois copy the notes name)"
+    }
+   ],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -48,6 +54,12 @@
    "title": "Galloway road",
    "subtitle": "Jamaican ring game",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCVIII, p. 199",
+   "sourceUrls": [
+    {
+     "url": "https://www.gutenberg.org/ebooks/35410",
+     "label": "Project Gutenberg #35410: Jamaican Song and Story, with page images and the music"
+    }
+   ],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -75,6 +87,12 @@
    "title": "Gurkha dance tune",
    "subtitle": "Gurkha dance, four men clapping (one bar, repeated)",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 127, p. 57",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 57"
+    }
+   ],
    "status": "transcription",
    "owner": "",
    "sourceCheck": "pending",
@@ -94,6 +112,12 @@
    "title": "Gurkha sing-song",
    "subtitle": "Gurkha song, danced, with drum",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 129, p. 57",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 57"
+    }
+   ],
    "status": "transcription",
    "owner": "",
    "sourceCheck": "pending",
@@ -113,6 +137,12 @@
    "title": "Gurkha song, first version",
    "subtitle": "Gurkha song, four versions sung in turn",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 130, pp. 57-58",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up",
+     "label": "archive.org scan of The Music of Hindostan, at p. 57"
+    }
+   ],
    "status": "transcription",
    "owner": "",
    "sourceCheck": "pending",
@@ -132,6 +162,12 @@
    "title": "Kazoe-uta",
    "subtitle": "Japanese counting song",
    "source": "Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)",
+   "sourceUrls": [
+    {
+     "url": "https://daisyfield.com/music/jpm/pdf/K95004-Kazoe-Uta.pdf",
+     "label": "Daisyfield transcription (PDF)"
+    }
+   ],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -159,6 +195,12 @@
    "title": "Pass the ball",
    "subtitle": "Jamaican ring game",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIV, p. 197",
+   "sourceUrls": [
+    {
+     "url": "https://www.gutenberg.org/ebooks/35410",
+     "label": "Project Gutenberg #35410: Jamaican Song and Story, with page images and the music"
+    }
+   ],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -186,6 +228,12 @@
    "title": "Sakura",
    "subtitle": "Japanese koto song",
    "source": "Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain) (koto version; the source book is not named on the page)",
+   "sourceUrls": [
+    {
+     "url": "https://daisyfield.com/music/jpm/pdf/NGS04-Sakura-Koto.pdf",
+     "label": "Daisyfield transcription (PDF)"
+    }
+   ],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",

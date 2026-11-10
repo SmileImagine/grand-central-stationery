@@ -31,6 +31,8 @@ main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,1fr);gap:2
 .panel h2 small{text-transform:none;letter-spacing:0;font-weight:400}
 .titles h2{font-family:Georgia,serif;font-size:22px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink);margin:0}
 .titles .sub{color:var(--muted)}
+.titles .src{font-size:14px;margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+.titles .src ul{margin:4px 0 0;padding-left:18px}.titles .src a{color:var(--accent)}
 .titles .where{font-size:12px;color:var(--muted);margin-top:4px;font-family:ui-monospace,Menlo,monospace}
 #file{width:100%;min-height:52vh;resize:vertical;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;tab-size:2;white-space:pre;overflow:auto}
 .score{overflow-x:auto;background:#fffdf8;color:#24211d;border-radius:6px;padding:4px}
@@ -75,7 +77,7 @@ details.dossier p{margin:4px 0}
 <div id="banner" class="banner" hidden></div>
 <main id="main" hidden>
   <section>
-    <div class="panel titles"><h2 id="title"></h2><div class="sub" id="subtitle"></div><div class="where" id="where"></div></div>
+    <div class="panel titles"><h2 id="title"></h2><div class="sub" id="subtitle"></div><div class="src" id="source"></div><div class="where" id="where"></div></div>
     <div class="panel">
       <h2>The file <small>everything below is saved as typed; the controls on the right write their lines here too</small></h2>
       <textarea id="file" spellcheck="false" aria-label="The record's ABC file"></textarea>
@@ -251,6 +253,7 @@ details.dossier p{margin:4px 0}
     const ru = getMeta(t, p, 'response-updated');
     $('respdate').textContent = ru ? `(last saved ${ru})` : '';
     $('title').textContent = abcField(t, 'T') || cur.id;
+    showSource(t);
     $('subtitle').textContent = [...t.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · ');
     checkNote();
   }
@@ -268,6 +271,17 @@ details.dossier p{margin:4px 0}
     }
     if (t !== ta.value) { ta.value = t; ta.setSelectionRange(Math.min(s, t.length), Math.min(e, t.length)); ta.scrollTop = scrollTop; }
     fromText(); updateState();
+  }
+  // The source: the S: citation, then every web address the file holds, the "% source-url:" lines first
+  // (a set entry's source, an N: line or a comment may carry one too).
+  function showSource(t) {
+    const cite = [...t.matchAll(/^S:\s*(.+)$/gmi)].map(m => m[1].trim()), seen = new Set(), links = [];
+    for (const m of t.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$/gmi)) if (!seen.has(m[1])) { seen.add(m[1]); links.push([m[1], m[2].trim()]); }
+    for (const m of t.matchAll(/https?:\/\/[^\s"'<>)\]]+/g)) { const u = m[0].replace(/[.,;]$/, ''); if (!seen.has(u)) { seen.add(u); links.push([u, '']); } }
+    const safe = links.filter(([u]) => /^https?:\/\//.test(u));
+    $('source').innerHTML = `<b>Source:</b> ${cite.length ? cite.map(esc).join('; ') : '<span class="hint">none recorded in this file</span>'}`
+      + (safe.length ? `<ul>${safe.map(([u, l]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(l || u.replace(/^https?:\/\//, ''))}</a> ↗</li>`).join('')}</ul>`
+        : '<p class="hint">No link to the original. Add one as a line <code>% source-url: https://… what it is</code>.</p>');
   }
   function checkNote() {
     const need = val() === cur.K.rejectWith, missing = need && !$('note').value.trim();
