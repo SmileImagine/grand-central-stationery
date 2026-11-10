@@ -466,15 +466,35 @@
     .dock .drawer:hover, .dock .drawer:focus-within { opacity: 1; }
     .dock .drawer[hidden] { display: none; }
     .dock .melodytext { flex: 1 1 auto; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+    /* The hints live in the text box like a linter's: a mirror of the text behind the box carries wavy underlines
+       (red to check, grey tips), the line under the box reads the hint at the caret, ? unfolds its explanation
+       in a scrolling strip, and the count on the right opens the full list. Nothing here changes the cell's size. */
+    .dock .editwrap { position: relative; flex: 1 1 auto; min-height: 3.4em; display: flex; }
+    .dock .editwrap .entry { position: relative; flex: 1 1 auto; background: transparent; }
+    .dock .lintmirror { position: absolute; inset: 0; margin: 0; border: 1px solid transparent; border-radius: 6px; padding: 4px 8px; font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); color: transparent; background: var(--panel-2); white-space: pre; overflow: hidden; pointer-events: none; }
+    .dock .lintmirror mark { color: transparent; background: transparent; text-decoration: underline wavy #d33 1.5px; text-underline-offset: 3px; }
+    .dock .lintmirror mark.tip { text-decoration-color: color-mix(in srgb, var(--muted) 70%, transparent); }
+    .dock .lintmirror mark.at { background: color-mix(in srgb, #d33 14%, transparent); }
+    .dock .lintmirror mark.tip.at { background: color-mix(in srgb, var(--muted) 18%, transparent); }
+    .dock .lintbar { display: flex; align-items: baseline; gap: 8px; margin-top: 3px; min-height: 1.4em; font: 12px/1.35 var(--ui); color: var(--muted); }
+    .dock .lintbar[hidden] { display: none; }
+    .dock .lintbar .lintmsg { order: 1; flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dock .lintbar .why { order: 2; } .dock .lintbar .lintall { order: 3; }
+    .dock .lintbar .lintmsg.warn { color: var(--concourse-warn, #d33); }
+    .dock .lintbar .why { font: 11px var(--ui); padding: 0 5px; border-radius: 8px; line-height: 1.3; border: 1px solid currentColor; background: transparent; color: inherit; opacity: 0.8; }
+    .dock .lintbar .lintall { font: 12px var(--ui); padding: 0 2px; border: 0; background: transparent; color: var(--muted); white-space: nowrap; }
+    .dock .lintbar .lintall:hover { color: var(--ink); }
+    .dock .lintmore { max-height: 6em; overflow: auto; margin-top: 2px; padding: 3px 7px; font: 12px/1.4 var(--mono); color: var(--muted); white-space: pre-wrap; border-left: 1px solid color-mix(in srgb, var(--concourse-brass) 55%, transparent); }
+    .dock .lintmore[hidden] { display: none; }
+    .dock .abc-help summary { display: none; }
+    .dock .abc-help .lintundo { margin: 4px 0 2px; font: 12px var(--ui); padding: 2px 8px; }
     .dock .drawer .entry, .dock .bandentry { flex: 1 1 auto; min-width: 0; min-height: 3.4em; }
     /* A score or share panel opens on its own full-width row under the controls, and the dock may take more of the cell for it;
        on a short display the drawer scrolls rather than clipping the hints or the panel. */
     .dock .drawer:has(.patpanel:not([hidden])) { flex-wrap: wrap; }
     .dock .drawer .patpanel { flex: 1 1 100%; }
-    .cell[data-type="abc"] .strip.dock:has(.patpanel:not([hidden])), .cell[data-type="abc"] .strip.dock:has(.abc-help[open]) { max-height: none; }
+    .cell[data-type="abc"] .strip.dock:has(.patpanel:not([hidden])) { max-height: none; }
     /* Opening the hints or a panel extends the cell downward by the room they need, so the staff keeps its size and nothing is clipped. */
-    .cell[data-type="abc"] .cell-body:has(.abc-help[open]) { height: calc(var(--abc-cell-h) + 14em); }
-    .cell[data-type="abc"] .cell-body.with-inst:has(.abc-help[open]) { height: calc(var(--abc-inst-cell-h, 66vh) + 14em); }
     .cell[data-type="abc"] .cell-body:has(.patpanel:not([hidden])) { height: calc(var(--abc-cell-h) + 34em); }
     .cell[data-type="abc"] .cell-body.with-inst:has(.patpanel:not([hidden])) { height: calc(var(--abc-inst-cell-h, 66vh) + 34em); }
     .dock .abc-help { flex: 0 0 auto; margin-top: 3px; color: var(--muted); }
@@ -508,7 +528,7 @@
     body.game .cell[data-type="abc"] .strip.dock { max-height: 40vh; background: transparent; }
     body.game .dock .dockbar { background: color-mix(in srgb, var(--bg) 55%, transparent); border-radius: 12px; margin: 2px 10px 6px; }
     body.game .dock .drawer { background: color-mix(in srgb, var(--bg) 70%, transparent); border-radius: 12px; margin: 0 10px 8px; padding-top: 8px; }
-    body.game .dock .drawer .entry { display: none; }   /* the game is for playing; the text waits for the editor */
+    body.game .dock .drawer .editwrap, body.game .dock .lintbar, body.game .dock .lintmore { display: none; }   /* the game is for playing; the text waits for the editor */
     .cell[data-type="abc"] .score .nextup { position: absolute; z-index: 3; left: 50%; top: 5px; transform: translateX(-50%); max-width: 65%; color: color-mix(in srgb, var(--concourse-ink) 62%, transparent); font: 600 12px/1.2 Cinzel, Georgia, serif; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .cell[data-type="abc"] .score .nextup:empty { display: none; }
     .cell[data-type="abc"] .score .nextup.flip { animation: flap 0.18s ease-out; }
@@ -915,6 +935,33 @@
       if (!hasQ) out = out.replace(/^K:/m, `Q:1/4=${DEFAULT_BPM}\nK:`);
       return hasX ? out : 'X:1\n' + out;
     };
+    // Where each character of the rendered ABC sits in the text the user typed: the page adds whole header lines,
+    // comments out its own directive lines in place, and inserts quoted chord symbols before notes; everything
+    // else is the user's. Lines are matched in order; within a line, an inserted "..." is skipped whole.
+    function charMap(abc, text) {
+      const al = abc.split('\n'), tl = text.split('\n'), map = new Array(abc.length + 1).fill(null);
+      const tStarts = lineStarts(text);
+      let ai = 0, j = 0;
+      for (const line of al) {
+        const t = tl[j];
+        const same = t !== undefined && (line === t || line.replace(/"[^"]*"/g, '') === t.replace(/"[^"]*"/g, '') || (/^%%?(band|tuning|style)\b/.test(t) && line.length === t.length));
+        if (same) {
+          let i = 0, k = 0;
+          while (i < line.length) {
+            if (k < t.length && line[i] === t[k]) { map[ai + i] = tStarts[j] + k; i++; k++; }
+            else if (line[i] === '"' && t[k] !== '"') { const close = line.indexOf('"', i + 1); i = close < 0 ? line.length : close + 1; }
+            else if (line[i] === ' ' && t[k] !== ' ') i++;
+            else { map[ai + i] = tStarts[j] + k; i++; k++; }
+          }
+          map[ai + line.length] = tStarts[j] + t.length;
+          j++;
+        }
+        ai += line.length + 1;
+      }
+      map[abc.length] = text.length;
+      return { to: i => { for (let x = i; x <= abc.length && x < i + 4; x++) if (map[x] !== null && map[x] !== undefined) return map[x]; return null; } };
+    }
+    function lineStarts(text) { const out = [0]; for (let i = 0; i < text.length; i++) if (text[i] === '\n') out.push(i + 1); return out; }
     function stripAccidentals(abc) {
       return abc.split('\n').map(line => {
         if (/^[A-Za-z]:/.test(line) || /^%/.test(line)) return line;
@@ -1300,13 +1347,13 @@
         this.sig = null; this.events = [];
       }
       // Depth 0 at the near (G) edge, 1 at the far (A) edge; the shrink factor toward the vanishing point.
-      depth(string) { return 1 - 0.035 * Math.max(0, Math.min(1.25, (3 - string) / 3)); }
+      depth(string) { return 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
       project(x, string) {
         // The eye is above the near edge, a little toward the headstock: the far edge is a touch shorter
         // than the near one (so the two converge toward the bridge), the frets lean about six degrees,
         // the far rows crowd a little, and the whole instrument rises gently to the right. At the nut the
         // board's end leans about 12 degrees from the vertical, at the bridge end about 5 the other way.
-        const d = Math.max(0, Math.min(1.25, (3 - string) / 3)), k = this.depth(string), cx = this.left + this.boardLen * 0.5;
+        const d = Math.max(-0.4, Math.min(1.25, (3 - string) / 3)), k = this.depth(string), cx = this.left + this.boardLen * 0.5;
         const yNear = this.top + this.S * 3 - 0.028 * (x - this.left);
         const y = yNear - d * this.S * 3 * (1 - 0.08 * d);
         return { x: cx + (x - cx) * k + 0.1 * d * this.S * 3, y };
@@ -2873,7 +2920,10 @@
           <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span><label class="dep-tempo" title="Playback tempo; the ABC's Q: line sets the written tempo"><input type="number" class="bpm dep-bpm" min="20" max="400" step="1" aria-label="Tempo"><span>BPM</span></label></div>
           <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel">Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div></div>
           <div class="drawer melody" data-drawer="melody" hidden>
-          <div class="melodytext"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea><details class="abc-help" hidden><summary><span class="abc-help-title">ABC hints</span><span class="abc-help-count"></span></summary><div class="warn"></div></details></div>
+          <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea></div>
+          <div class="lintbar" hidden><span class="lintmsg"></span><button type="button" class="why" hidden title="Explain">?</button><button type="button" class="lintall" title="Every hint for this tune"></button></div>
+          <div class="lintmore" hidden></div>
+          <details class="abc-help" hidden><summary><span class="abc-help-title">ABC hints</span><span class="abc-help-count"></span></summary><div class="warn"></div><button type="button" class="lintundo" hidden>Show the dismissed hints again</button></details></div>
           <div class="ctl">
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
@@ -2999,6 +3049,12 @@
         this.bandPlayer = new Band(this); this.player = new Player(this); this.warp = 1;
         this.gamebar = body.querySelector('.gamebar');
         this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn'); this.helpEl = body.querySelector('.abc-help');
+        this.mirror = body.querySelector('.lintmirror'); this.lintBar = body.querySelector('.lintbar'); this.lintMsg = body.querySelector('.lintmsg'); this.lintWhy = body.querySelector('.lintbar .why'); this.lintAll = body.querySelector('.lintall'); this.lintMore = body.querySelector('.lintmore');
+        this.entry.addEventListener('scroll', () => { this.mirror.scrollTop = this.entry.scrollTop; this.mirror.scrollLeft = this.entry.scrollLeft; });
+        for (const ev of ['keyup', 'click', 'select', 'focus']) this.entry.addEventListener(ev, () => this.lintCaret());
+        this.lintWhy.addEventListener('click', () => { this.lintMore.hidden = !this.lintMore.hidden; });
+        this.lintAll.addEventListener('click', () => { this.helpEl.open = !this.helpEl.open; this.helpEl.hidden = !this.helpEl.open; });
+        body.querySelector('.lintundo').addEventListener('click', () => { this.dismissedNotes.clear(); this.showNotes(); });
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
         this.entry.value = parts.melody;
         this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
@@ -3218,7 +3274,8 @@
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
         const added = abc.split('\n').length - text.split('\n').length;   // header lines the page supplied (the arrangement's lines follow the melody, so its line numbers hold)
-        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.tuningNotes()];
+        this.abcToText = charMap(abc, text); this.lintText = text;
+        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => this.friendly(w, added)), ...this.lint(), ...this.tuningNotes()];
         this.showNotes();
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
@@ -3254,12 +3311,19 @@
       friendly(w, added) {
         // "Music Line:4:3: Unknown character ignored:  C <span ...>^</span>^^D |"
         const m = w.match(/^Music Line:(\d+):(\d+):\s*([^:]*):\s*(.*)$/);
-        if (!m) return w.replace(/<[^>]+>/g, '');
+        if (!m) return { text: w.replace(/<[^>]+>/g, '') };
         const line = parseInt(m[1], 10) - added, col = m[2];
         const at = (w.match(/<span[^>]*>([^<]*)<\/span>/) || [])[1];
         const what = { 'Unknown character ignored': `${at ? '‹' + at + '› means nothing here and was skipped' : 'a character means nothing here and was skipped'}`,
                        "Expected ']' to end the chords": 'a chord opens with [ and wants a closing ]' }[m[3]] || m[3];
-        return `Line ${line}, character ${col}: ${what}.`;
+        const starts = lineStarts(this.lintText || ''), ls = starts[line - 1];
+        return { text: `Line ${line}, character ${col}: ${what}.`, at: ls === undefined ? null : [ls + (+col) - 1, ls + (+col)] };
+      }
+      // The text-box span of one or two parsed elements, through the character map.
+      rangeOf(a, b) {
+        const map = this.abcToText; if (!map || !a || a.startChar === undefined) return null;
+        const s = map.to(a.startChar), e = map.to((b || a).endChar !== undefined ? (b || a).endChar : a.startChar + 1);
+        return s === null || e === null || e <= s ? null : [s, e];
       }
       lint() {
         const out = [];
@@ -3270,7 +3334,7 @@
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = notes[i], b = notes[i + 1];
           const p = a.pitches.find(p => p.startTie && !b.pitches.some(q => q.pitch === p.pitch));
-          if (p) { out.push({ more: MORE.tie, text: `The tie (-) from ${p.name} to ${b.pitches[0].name} joins different notes, so one may go silent. For a slur, write (${p.name} ${b.pitches[0].name}) instead.` }); break; }
+          if (p) { out.push({ more: MORE.tie, at: this.rangeOf(a, b), text: `The tie (-) from ${p.name} to ${b.pitches[0].name} joins different notes, so one may go silent. For a slur, write (${p.name} ${b.pitches[0].name}) instead.` }); break; }
         }
         // Bar lengths. With M: the metre is known; without it (abcjs then
         // assumes 4/4) the most common complete bar sets the length. The
@@ -3310,7 +3374,7 @@
             // length mean a missing M: or wrong note lengths.
             if (Math.abs(common - 1) > 1e-6) {
               const beats = common / unit, whole = Math.abs(beats - Math.round(beats)) < 1e-6;
-              out.push({ more: MORE.bars, text: `The bars hold ${fmt(beats)} beats each, and with no M: line the score assumes 4/4. ` + (whole ? `If ${Math.round(beats)}/4 is meant, add M:${Math.round(beats)}/4.` : 'Add the M: line you mean, or check the note lengths.') + dottedTip(bars.flatMap(b => b.items)) });
+              out.push({ more: MORE.bars, at: this.rangeOf(bars[0].items[0], bars[0].items[bars[0].items.length - 1]), text: `The bars hold ${fmt(beats)} beats each, and with no M: line the score assumes 4/4. ` + (whole ? `If ${Math.round(beats)}/4 is meant, add M:${Math.round(beats)}/4.` : 'Add the M: line you mean, or check the note lengths.') + dottedTip(bars.flatMap(b => b.items)) });
             }
           }
         }
@@ -3318,18 +3382,18 @@
           if (b.expected === null || Math.abs(b.len - b.expected) < 1e-6) return;
           if (b.len < b.expected && (i === 0 || i === bars.length - 1)) return;   // a pickup, or the bar that completes it
           const against = hasMeter ? `the metre gives ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'with no M: line the score assumes 4';
-          out.push({ more: MORE.bars, text: `Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items) });
+          out.push({ more: MORE.bars, at: this.rangeOf(b.items[0], b.items[b.items.length - 1]), text: `Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items) });
         });
         // Lyrics: one syllable per note (rests are skipped). A hyphen splits
         // a word across notes, _ holds a syllable, * skips a note.
         const musicLines = text.split('\n').filter(l => !/^[A-Za-z]:/.test(l) && !/^%/.test(l) && l.trim() !== '');
-        const lyricFor = new Map();   // music line index -> array of w: texts
+        const lyricFor = new Map(), lyricAt = new Map();   // music line index -> array of w: texts, and their spans in the text
         {
-          let li = -1;
+          let li = -1, pos = 0;
           for (const raw of text.split('\n')) {
-            if (/^w:/i.test(raw)) { if (li >= 0) { if (!lyricFor.has(li)) lyricFor.set(li, []); lyricFor.get(li).push(raw.slice(2)); } }
-            else if (/^[A-Za-z]:/.test(raw) || /^%/.test(raw) || raw.trim() === '') continue;
-            else li++;
+            if (/^w:/i.test(raw)) { if (li >= 0) { if (!lyricFor.has(li)) { lyricFor.set(li, []); lyricAt.set(li, []); } lyricFor.get(li).push(raw.slice(2)); lyricAt.get(li).push([pos, pos + raw.length]); } }
+            else if (!(/^[A-Za-z]:/.test(raw) || /^%/.test(raw) || raw.trim() === '')) li++;
+            pos += raw.length + 1;
           }
         }
         if (lyricFor.size && this.original.lines) {
@@ -3340,26 +3404,26 @@
             texts.forEach((t, v) => {
               const toks = t.replace(/\\-/g, '\u0000').replace(/\|/g, ' ').trim().split(/[\s-]+/).filter(Boolean);
               const slots = toks.reduce((a, tok) => { const holds = (tok.match(/_+$/) || [''])[0].length; return a + (tok.length > holds ? 1 : 0) + holds; }, 0);
-              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, text: `Line ${li + 1} has ${n} note${n === 1 ? '' : 's'} but its lyric${texts.length > 1 ? ' (verse ' + (v + 1) + ')' : ''} has ${slots} syllable${slots === 1 ? '' : 's'}. Use - to split a word, _ to hold a syllable, or * to leave a note without text.` });
+              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, at: (lyricAt.get(li) || [])[v] || null, text: `Line ${li + 1} has ${n} note${n === 1 ? '' : 's'} but its lyric${texts.length > 1 ? ' (verse ' + (v + 1) + ')' : ''} has ${slots} syllable${slots === 1 ? '' : 's'}. Use - to split a word, _ to hold a syllable, or * to leave a note without text.` });
             });
           }
         }
         /* ---- tips: not wrong, but worth knowing ---- */
-        if (!/^K:/m.test(text)) out.push({ tip: true, more: MORE.key, text: 'No key is written, so the score uses C major. Add K:G for one sharp or K:F for one flat.' });
-        if (/[A-Ga-gz][,']*[\d\/]*\s*[<>]+\s*[\^_=]*[A-Ga-gz]/.test(text.split('\n').filter(l => !/^[A-Za-z]:/.test(l)).join('\n')))
-          out.push({ tip: true, more: MORE.broken, text: `The > mark makes a long-short pair: with L:${Lstr}, C>D plays as C3/2 D/2.` });
-        if (lyricFor.size && voice.some(e => e.el_type === 'note' && e.rest)) out.push({ tip: true, more: MORE.rests, text: 'Lyrics skip rests, so the next syllable moves to the next sounded note.' });
+        if (!/^K:/m.test(text)) out.push({ tip: true, more: MORE.key, at: [0, Math.max(1, text.indexOf('\n') < 0 ? text.length : text.indexOf('\n'))], text: 'No key is written, so the score uses C major. Add K:G for one sharp or K:F for one flat.' });
+        { const brokenAt = (() => { let pos = 0; for (const l of text.split('\n')) { if (!/^[A-Za-z]:/.test(l)) { const m = /[A-Ga-gz][,']*[\d\/]*\s*[<>]+\s*[\^_=]*[A-Ga-gz]/.exec(l); if (m) return [pos + m.index, pos + m.index + m[0].length]; } pos += l.length + 1; } return null; })();
+          if (brokenAt) out.push({ tip: true, more: MORE.broken, at: brokenAt, text: `The > mark makes a long-short pair: with L:${Lstr}, C>D plays as C3/2 D/2.` }); }
+        if (lyricFor.size && voice.some(e => e.el_type === 'note' && e.rest)) out.push({ tip: true, more: MORE.rests, at: ([...lyricAt.values()][0] || [])[0] || null, text: 'Lyrics skip rests, so the next syllable moves to the next sounded note.' });
         // A leap of more than an octave between neighbours is usually a missed octave mark.
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = this.spelled[this.origElems.indexOf(notes[i])], b = this.spelled[this.origElems.indexOf(notes[i + 1])];
-          if (a && b && a[0] && b[0] && Math.abs(b[0].midi - a[0].midi) > 12) { out.push({ tip: true, more: MORE.octave, text: `${a[0].letter} to ${b[0].letter} is a leap larger than an octave. If that was not intended, check the letter case, commas and apostrophes.` }); break; }
+          if (a && b && a[0] && b[0] && Math.abs(b[0].midi - a[0].midi) > 12) { out.push({ tip: true, more: MORE.octave, at: this.rangeOf(notes[i], notes[i + 1]), text: `${a[0].letter} to ${b[0].letter} is a leap larger than an octave. If that was not intended, check the letter case, commas and apostrophes.` }); break; }
         }
         // The same accidental written again inside one bar.
         { const seen = new Set(); let said = false;
           for (const el of voice) {
             if (el.el_type === 'bar') { seen.clear(); continue; }
             if (el.el_type !== 'note' || !el.pitches || said) continue;
-            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, text: `${p.name} is written with an accidental that is already in force; one lasts to the bar line.` }); said = true; break; } seen.add(k); }
+            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, at: this.rangeOf(el), text: `${p.name} is written with an accidental that is already in force; one lasts to the bar line.` }); said = true; break; } seen.add(k); }
           } }
         // Transposition: the key it lands in, and a friendlier neighbour when it is heavy with accidentals.
         if (this.transpose && this.displayed && this.displayed.getKeySignature) {
@@ -3932,14 +3996,28 @@
         this.warnEl.innerHTML = '';
         const all = [...(this.lintNotes || []), ...(this.vizNotes || [])];
         const notes = all.filter(n => !this.dismissedNotes.has((n.tip ? 'tip:' : 'warn:') + n.text));
+        this.notesShown = notes;
         const badge = this.body.querySelector('.tab[data-drawer="melody"] .badge'), warnings = notes.filter(n => !n.tip).length;
         if (badge) { badge.textContent = warnings ? String(warnings) : ''; badge.title = warnings ? `${warnings} ABC item${warnings > 1 ? 's' : ''} to check in Melody` : ''; }
-        if (this.helpEl) {
-          this.helpEl.hidden = !notes.length;
-          const count = this.helpEl.querySelector('.abc-help-count');
-          const tips = notes.length - warnings;
-          if (count) count.textContent = notes.length ? warnings ? ` · ${warnings} to check${tips ? `, ${tips} tip${tips === 1 ? '' : 's'}` : ''}` : ` · ${tips} tip${tips === 1 ? '' : 's'}` : '';
+        // The mirror: the text with each placed hint underlined.
+        if (this.mirror) {
+          const text = this.entry.value, esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+          const spans = notes.map((n, i) => n.at && n.at[0] >= 0 && n.at[1] <= text.length && n.at[1] > n.at[0] ? { s: n.at[0], e: n.at[1], i, tip: !!n.tip } : null).filter(Boolean).sort((a, b) => a.s - b.s || b.e - a.e);
+          let html = '', pos = 0;
+          for (const sp of spans) { if (sp.s < pos) continue; html += esc(text.slice(pos, sp.s)) + `<mark class="lint${sp.tip ? ' tip' : ''}" data-i="${sp.i}">` + esc(text.slice(sp.s, sp.e)) + '</mark>'; pos = sp.e; }
+          this.mirror.innerHTML = html + esc(text.slice(pos)) + '\n ';
+          this.mirror.scrollTop = this.entry.scrollTop; this.mirror.scrollLeft = this.entry.scrollLeft;
         }
+        if (this.helpEl) {
+          const count = this.helpEl.querySelector('.abc-help-count');
+          const tips = notes.length - warnings, dismissed = this.dismissedNotes.size;
+          const summary = notes.length ? (warnings ? `${warnings} to check` : '') + (warnings && tips ? ', ' : '') + (tips ? `${tips} tip${tips === 1 ? '' : 's'}` : '') : dismissed ? `${dismissed} dismissed` : '';
+          if (count) count.textContent = summary ? ' · ' + summary : '';
+          if (this.lintBar) { this.lintBar.hidden = !notes.length && !dismissed; this.lintAll.textContent = summary; }
+          if (!notes.length) { this.helpEl.open = false; this.helpEl.hidden = true; }
+          const undo = this.helpEl.querySelector('.lintundo'); if (undo) undo.hidden = !dismissed;
+        }
+        this.lintCaret();
         for (const n of notes) {
           const row = document.createElement('div'); row.className = 'w' + (n.tip ? ' tip' : '');
           const t = document.createElement('span'); t.textContent = n.text; row.appendChild(t);
@@ -3954,6 +4032,21 @@
           row.appendChild(dismiss);
           this.warnEl.appendChild(row);
         }
+      }
+      // The status line reads the hint under the caret (or the first unplaced one when the caret is on none),
+      // and the ? unfolds its explanation; the underline at the caret is tinted.
+      lintCaret() {
+        if (!this.lintBar || !this.notesShown) return;
+        const pos = this.entry.selectionStart, notes = this.notesShown;
+        let hit = notes.find(n => n.at && pos >= n.at[0] && pos <= n.at[1]);
+        if (!hit) hit = notes.find(n => !n.at) || null;
+        for (const m of this.mirror.querySelectorAll('mark.at')) m.classList.remove('at');
+        if (hit && hit.at) { const m = this.mirror.querySelector(`mark[data-i="${notes.indexOf(hit)}"]`); if (m) m.classList.add('at'); }
+        if (hit !== this.lintHit) { this.lintMore.hidden = true; this.lintHit = hit; }
+        this.lintMsg.textContent = hit ? hit.text : '';
+        this.lintMsg.className = 'lintmsg' + (hit && !hit.tip ? ' warn' : '');
+        this.lintWhy.hidden = !(hit && hit.more);
+        this.lintMore.textContent = hit && hit.more ? hit.more : '';
       }
       // The tune's events at the current tempo, for layouts that lay the
       // whole tune out (the ukulele's tab lane).
