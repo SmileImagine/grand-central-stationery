@@ -423,8 +423,8 @@ whatever the emphasis:
   (`course/analyze-cli.js`) now leaves every queued tune out of any set it
   builds, and the smoke test checks it.
 - Still open: synth leads; West African tunes; more from Andrade, Jekyll,
-  Fairchild and the Japanese books; original bangers (phase 4); class parts
-  and the live energy fader (phase 5).
+  Fairchild and the Japanese books; original bangers (phase 4); the live
+  energy fader (phase 5).
 
 ## Decisions for the user
 
@@ -439,35 +439,47 @@ whatever the emphasis:
 
 ## Parallel progress
 
-- **Classroom range and singability (Phase 5):** implemented in the separate
-  worktree `.claude/worktrees/codex-tune-quality-range-guide`, branch
-  `codex/tune-quality-range-guide`, commit `1a546dd`. `course/classroom-fit.js`
-  analyzes all 45 published tunes for young voices, recorder, ukulele and a
-  one-octave classroom set, recommends a readable rehearsal key within the
-  page's transpose limit, and generates `course/classroom-fit.md`. The report
-  has a stale-file check and `test/classroom-fit.test.js`; `make smoke` passes
-  there (44 checks).
-- **Accompaniment identity and quality audit (Phases 0 and 3):** implemented
-  in the same separate worktree and branch, commit `6ca47b2`.
-  `course/accompaniment-audit.js` records the style Auto actually selects,
-  why it selects it, and whether harmony is written, detected or an intentional
-  drone; it generates `course/accompaniment-audit.md` and a provenance/idiom
-  repair queue. Fourteen high-confidence source-family annotations restore
-  reel, waltz and Morris identities in `course/set.json`, so twelve imported
-  reels no longer fall through to the pop band. Ambiguous songs remain queued
-  rather than guessed. `make smoke` passes there (45 checks).
-- **Published provenance repair:** implemented in the same worktree and
-  branch, commit `73b9dab`. All 16 Nottingham imports now point to their exact
-  canonical `ABC_original` file in `jukedeck/nottingham-dataset` and carry the
-  repository's `GPL-3.0` licence, replacing private scratch-directory paths.
-  The audit and tests require zero temporary/private published source paths;
-  the library can now show a working Source link. `make smoke` still passes
-  there (45 checks).
-- **Coverage map and Phase 6 gap queue:** implemented in the same worktree and
-  branch, commit `268347f`. `course/coverage-map.js` and the generated
-  `course/coverage-map.md` cross-tab all published tunes by explicit region,
-  level, classroom function and Auto style. The current set has eight empty
-  target regions, 19 tunes without an explicit origin and 20 without a stated
-  function/type. The classifier never infers Indigenous identity from a
-  country, while an explicitly named Indigenous community takes precedence.
-  `make smoke` passes there (46 checks).
+Codex worked on these in a separate branch (`codex/tune-quality-range-guide`)
+while the review queue was being built on main. On 10 November they were
+ported onto main one commit at a time and every generated report was rebuilt
+against the current set: 37 published tunes, since eight published tunes are
+now in the review queue. Each report has a `--check` mode, a focused test and
+a `make` target, and the smoke test runs all five.
+
+- **Classroom range and singability (Phase 5):** `course/classroom-fit.js`
+  and `course/classroom-fit.md` read every published tune for young voices,
+  recorder, ukulele and a one-octave classroom set, and suggest a readable
+  rehearsal key within the page's ±12-semitone Transpose.
+- **Accompaniment identity audit (Phases 0 and 3):**
+  `course/accompaniment-audit.js` and its report record the style Auto
+  actually picks, why, and whether the harmony is written, detected or a
+  drone. High-confidence source-family annotations restore reel, waltz and
+  Morris identities in `course/set.json`; ambiguous songs stay queued rather
+  than guessed. Its style list now includes the newer idioms (funk to drone).
+- **Published provenance repair:** all 16 Nottingham imports point at their
+  exact `ABC_original` file in `jukedeck/nottingham-dataset` with its GPL-3.0
+  licence, in place of private scratch paths: the 12 still published, and
+  (`--repair-review`) the stored set entries of the 4 in the review queue, so
+  a restore brings back the repaired source.
+- **Coverage map and Phase 6 gap queue:** `course/coverage-map.js` cross-tabs
+  the published tunes by region, level, function and Auto style. Eight target
+  regions are empty, 15 tunes state no origin and 17 no function or type. The
+  classifier never infers Indigenous identity from a country. The South Asian
+  lullabies are queued for review, so the map currently shows none.
+- **Latin American holding tunes (Phase 3):** *Canoinha nova* and the Paraíba
+  version of *Meu barco é veleiro*, from Mário de Andrade's 1928
+  public-domain *Ensaio*, are provisional plate readings with the
+  plate-reading and culture-bearer checks named. Read for the classroom like
+  the rest, both wait in the review queue (a slavery-era form of address and
+  courting verses in the first; a courting line about complexion in the
+  second).
+- **Class parts (Phase 5):** `course/class-parts.js` gives each published tune
+  conservative one-bar body-percussion and tonic/fifth rehearsal recipes,
+  reports existing harmony, ukulele readiness, round and descant candidates
+  and matching music-minus-one mutes, without inventing chord changes.
+- **Dossier gap report (Phase 3):** `course/dossier-gaps.js` counts only
+  explicit `% dossier-*:` fields as complete (0 of 37 so far); ordinary ABC
+  metadata is kept as an editorial seed, not promoted to a cultural claim.
+- **Original-tune decision (Phase 4):** originals should be agent-written and
+  enter `course/holding` for musical, classroom and editorial review before
+  publication. None has been drafted yet.

@@ -18,7 +18,9 @@ assert(report.tunes.find(t => t.id === 'beginner-songs-4-bounce-high-bounce-low'
 assert(Coverage.regionOf('Canada') !== 'North American Indigenous', 'a country alone must not imply Indigenous identity');
 assert(Coverage.regionOf('Ojibwe, Canada') === 'North American Indigenous', 'an explicitly named Indigenous identity must win over country');
 assert(report.matrix['North American Indigenous'].total === 0, 'the current set must expose its Indigenous coverage gap');
-assert(report.matrix['South Asia'].functions.lullaby > 0, 'the South Asia lullaby must be represented');
+// The South Asian lullabies (Rama's, Nirguna's) are in the review queue, so the map counts none; it must still read the type.
+assert(Coverage.functionOf('lullaby') === 'lullaby', 'a lullaby rhythm must map to the lullaby function');
+assert(report.matrix['South Asia'].functions.lullaby === report.tunes.filter(t => t.region === 'South Asia' && t.function === 'lullaby').length, 'South Asia lullabies must match the published set');
 assert(report.summary.missingOrigin > 0 && report.summary.missingFunction > 0, 'missing metadata must remain visible');
 
 for (const region of report.regions) {
