@@ -266,6 +266,11 @@
     .paper .cursorg.ready { opacity: 0.3; }
     .paper .cursorg.done { opacity: 0; }
     .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
+    /* A round: each group's number on its cursor, over the lamp, and the entry numbers over the staff where each group comes in. */
+    .paper .cursorbadge circle, .paper .roundmark circle { fill: var(--bg); stroke: var(--ink); stroke-width: 1.3; }
+    .paper .cursorbadge text, .paper .roundmark text { fill: var(--ink); font: 700 9px 'Atkinson Hyperlegible', sans-serif; }
+    .paper .cursorg.follower { opacity: 0.75; pointer-events: none; }
+    .paper .roundmark { pointer-events: none; }
     .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
     .paper .barbeam { fill: var(--concourse-light, #f39322); opacity: 0.08; filter: blur(4px); pointer-events: none; transition: opacity 0.3s ease; }
     .paper .cursorg.ready .barbeam { opacity: 0; }
@@ -311,6 +316,7 @@
     .drawer[hidden] { display: none; }
     .mixer { gap: 16px; justify-content: center; align-items: flex-end; padding: 6px 0 2px; }
     body.present .cell[data-type="abc"] .strip { padding-right: 150px; }   /* clear of the slide selector in the corner */
+    .member[hidden] { display: none; }
     .member { display: flex; flex-direction: column; align-items: center; gap: 2px; font: var(--ui); color: var(--muted); }
     .member .lvl { writing-mode: vertical-lr; direction: rtl; -webkit-appearance: slider-vertical; appearance: auto; width: 20px; height: 62px; margin: 0; accent-color: var(--accent); }
     .member .figure { width: 46px; height: 46px; padding: 2px; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 8px; }
@@ -1836,7 +1842,53 @@
       return chart;
     }
     // The chart lines as comments, each the same length, so abcjs neither warns nor shifts a character.
-    const chartComment = abc => abc.replace(/^%%?(band|tuning|style)\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    const chartComment = abc => abc.replace(/^%%?(band|tuning|style|round)\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    /* ---- rounds: one melody, sung by groups that come in one after another ----
+       A line in the ABC, "%%round 4 every=2", makes the tune a round: four
+       groups, each coming in two bars after the one before. The page plays
+       every group from the one melody on the one clock, draws a cursor for
+       each with its number, and prints the entry numbers on the staff where
+       each group comes in, as a round book does. end=turns (the default)
+       lets each group finish its last time round, so they stop one by one;
+       end=together stops them all when the first group finishes. Without
+       every=, the groups come in at the distance that fits best (planRound). */
+    const ROUND_LINE = /^%%?round\b(.*)$/;
+    function parseRound(text) {
+      const lines = text.split('\n').map(l => ROUND_LINE.exec(l.trim())).filter(Boolean); if (!lines.length) return null;
+      const r = { parts: 2, every: null, end: 'turns', problems: [] };
+      for (const tok of lines[lines.length - 1][1].trim().split(/\s+/).filter(Boolean)) {
+        const kv = /^(parts|every|end)=(.*)$/i.exec(tok), k = kv ? kv[1].toLowerCase() : /^\d+$/.test(tok) ? 'parts' : null, v = kv ? kv[2] : tok;
+        if (k === 'parts') { const n = parseInt(v, 10); if (n >= 2 && n <= 4) r.parts = n; else r.problems.push(`${tok}: a round has 2, 3 or 4 groups.`); }
+        else if (k === 'every') { const n = parseInt(v, 10); if (n >= 1 && String(n) === v) r.every = n; else r.problems.push(`every=${v}: the bars between entries, a whole number (every=2).`); }
+        else if (k === 'end') { const w = v.toLowerCase(); if (w === 'turns' || w === 'together') r.end = w; else r.problems.push(`end=${v}: turns (one by one) or together.`); }
+        else r.problems.push(`"${tok}" is not a round setting (4, every=2, end=turns).`);
+      }
+      return r;
+    }
+    // How well a round's groups fit: on every beat, each pair of the groups' top notes (the tune
+    // going round, so every group is in), scored by its interval. Unisons, thirds, fifths, sixths
+    // and octaves fit; fourths count half; seconds, sevenths and the tritone clash. `events` are the
+    // timeline's ({ ms, midis }), `off` the ms between entries; returns the share that fits, the share in
+    // unison or octaves (groups singing the same notes, which fits but is hardly a round), and the bars
+    // with a clash on the downbeat (a passing clash between beats or on a weak beat is normal in a round).
+    const ROUND_COST = [0, 1, 1, 0, 0, 0.5, 1, 0, 0, 0, 1, 1];
+    function roundFit(events, total, off, parts, step, bars, first = 0) {
+      const top = x => {
+        x = ((x % total) + total) % total;
+        let lo = 0, hi = events.length - 1, k = -1;
+        while (lo <= hi) { const mid = (lo + hi) >> 1; if (events[mid].ms <= x + 1e-6) { k = mid; lo = mid + 1; } else hi = mid - 1; }
+        const ms = k >= 0 ? events[k].midis : []; return ms && ms.length ? Math.max(...ms) : null;
+      };
+      let cost = 0, n = 0, same = 0; const clash = new Set();
+      for (let x = 0; x < total - 1; x += step) {
+        const ps = []; for (let g = 0; g < parts; g++) { const p = top(x - g * off); if (p !== null) ps.push(p); }
+        for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) {
+          const ic = Math.abs(ps[i] - ps[j]) % 12, c = ROUND_COST[ic]; cost += c; n++; if (!ic) same++;
+          if (c === 1) { const b = bars.findIndex(b => x >= b.start - 1e-6 && x < b.end - 1e-6); if (b >= 0 && Math.abs(x - bars[b].start) < 1) clash.add(Math.max(1, b + 1 - first)); }
+        }
+      }
+      return { fit: n ? 1 - cost / n : 1, same: n ? same / n : 0, clash: [...clash].sort((a, b) => a - b) };
+    }
     /* ---- tuning: a Scala scale for the tune ----
        A line in the ABC, "%%tuning slendro: 231. 474. 717. 955. 2/1 root=C",
        gives the scale the tune is played in: its degrees above 1/1 in cents
@@ -3400,18 +3452,22 @@
         this.cell = cell; this.tracks = []; this.notes = []; this.pre = []; this.live = new Set(); this.timer = null;
         this.running = false; this.pos = 0; this.abs0 = 0; this.ctx0 = 0; this.until = 0; this.end = 0; this.loop = false;
         this.total = 0; this.msPerWhole = 3000; this.bus = null; this.cycles = [[]];
+        // A round: the melody's notes for the other groups, the plan, where the first group stops (end is
+        // where the last one does), which groups have come in, and where a pause left the clock.
+        this.lead = []; this.leadTrack = null; this.round = null; this.leadEnd = Infinity; this.entered = []; this.pausedAt = null;
       }
       /* ---- the material ---- */
       // From the rendered tune: abcjs's flattened tracks, in whole notes.
       load(tune, opts, style) {
         this.stop();
-        this.tracks = []; this.style = style || {};
+        this.tracks = []; this.leadTrack = null; this.style = style || {};
         let f = null; try { f = tune.setUpAudio(opts); } catch (err) { console.warn('setUpAudio', err); }
         if (!f) return;
         for (const tr of f.tracks) {
           const notes = tr.filter(e => e.cmd === 'note' && e.duration > 0);
           if (!notes.length) continue;
           const melody = notes.some(n => n.startChar !== undefined), prog = notes[0].instrument || 0;
+          if (melody && !this.leadTrack) this.leadTrack = { part: 'melody', prog, notes };   // a round's other groups sing it, even when the class plays the melody
           if (melody && this.cell.playMode === 'backing') continue;
           this.tracks.push({ part: melody ? 'melody' : prog === 128 ? 'drums' : 'chords', prog, notes });
         }
@@ -3421,7 +3477,7 @@
       setTempo(msPerWhole) {
         if (!(msPerWhole > 0) || Math.abs(msPerWhole - this.msPerWhole) < 1e-9) return;
         const k = msPerWhole / this.msPerWhole; this.msPerWhole = msPerWhole;
-        this.pos *= k; this.total *= k; if (isFinite(this.end)) this.end *= k;
+        this.pos *= k; this.total *= k; if (isFinite(this.end)) this.end *= k; if (isFinite(this.leadEnd)) this.leadEnd *= k; if (this.pausedAt !== null) this.pausedAt *= k;
         if (this.running) { const ctx = sampler.ctx(); const abs = this.position() * k; this.stopAll(); this.ctx0 = ctx.currentTime + 0.02; this.abs0 = abs; this.until = abs; }
       }
       // The notes in ms, one sorted list per time round: the tracks at the
@@ -3432,13 +3488,11 @@
         const out = [], folderOf = prog => file && prog !== 128 ? 'acoustic_grand_piano' : PROGRAM_FOLDER(prog);
         const swing = this.style.swing ? this.style.swing / 100 : 0, beatLen = (cell.original && cell.original.getBeatLength && cell.original.getBeatLength()) || 0.25;
         const feel = cell.feel(), mm = feel > 0 && cell.original ? melodyMap(cell.original) : null;
+        const shaped = tr => humanize(tr, mm, feel, cell.inst, (cell.band && cell.band.seed) || 1, this.msPerWhole).map(n => ({ part: 'melody', folder: folderOf(tr.prog), midi: n.midi, ms: n.start * this.msPerWhole, dur: Math.max(0.03, n.dur * this.msPerWhole / 1000), vel: n.vel, rel: n.rel, fx: n.fx }));
         for (const tr of this.tracks) {
           if (tr.part === 'drums' && file) continue;
           const folder = folderOf(tr.prog);
-          if (tr.part === 'melody' && mm) {
-            for (const n of humanize(tr, mm, feel, cell.inst, (cell.band && cell.band.seed) || 1, this.msPerWhole)) out.push({ part: 'melody', folder, midi: n.midi, ms: n.start * this.msPerWhole, dur: Math.max(0.03, n.dur * this.msPerWhole / 1000), vel: n.vel, rel: n.rel, fx: n.fx });
-            continue;
-          }
+          if (tr.part === 'melody' && mm) { out.push(...shaped(tr)); continue; }
           for (const n of tr.notes) {
             let start = n.start, dur = n.duration - (n.gap || 0);
             if (swing && tr.part !== 'drums') {   // the off-beat eighth lands late, and the on-beat one stretches to meet it
@@ -3455,12 +3509,15 @@
         cell.showNotes(); if (cell.refreshBandNote) cell.refreshBandNote(); if (cell.refreshPattern) cell.refreshPattern();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
         this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: n.rel || 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
+        // A round: the other groups sing the melody as the first group does (with its feel), from the same list, later.
+        this.round = tl && tl.round && this.leadTrack ? tl.round : null;
+        this.lead = !this.round ? [] : mm ? shaped(this.leadTrack) : this.leadTrack.notes.map(n => ({ part: 'melody', folder: folderOf(this.leadTrack.prog), midi: n.pitch, ms: n.start * this.msPerWhole, dur: Math.max(0.03, (n.duration - (n.gap || 0)) * this.msPerWhole / 1000), vel: Math.max(0.05, Math.min(1, (n.volume || 90) / 127)), rel: 0.14 }));
         if (cell.tuning && !cell.tuning.problems.length) {   // the tuning: every pitched note, the melody's and the band's, detuned to its degree
           const off = tuningOffsets(cell.tuning, cell.keyInfo());
-          for (const cyc of this.cycles) for (const n of cyc) if (n.part !== 'drums') { const c = off(n.midi); if (c) n.fx = { ...(n.fx || {}), cents: c }; }
+          for (const cyc of [...this.cycles, this.lead]) for (const n of cyc) if (n.part !== 'drums') { const c = off(n.midi); if (c) n.fx = { ...(n.fx || {}), cents: c }; }
         }
         this.total = tl ? tl.total : 0;
-        if (!this.loop) this.end = this.total;
+        if (!this.loop) { this.leadEnd = this.total; this.end = this.total + this.tail(); }
         // The way out, when the Band plays (the chart's ending=).
         this.pre = []; this.endings = null;
         // The bars are counted back from the end of the tune as played (the written bars' lengths): a tune with repeats ends with its last written bar.
@@ -3526,15 +3583,19 @@
           // and bass reach the master through a duck, which a pumping style dips at each kick.
           this.bus.duck = {};
           for (const p of Object.keys(TONE)) {
-            const g = ctx.createGain(); let node = g;
+            const g = ctx.createGain(), head = ctx.createGain(); g.connect(head); g.__next = head; let node = head;   // head: where a round's groups join the part's sound
             for (const [type, hz, q, db] of TONE[p].eq) { const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = hz; f.Q.value = q; if (db !== undefined) f.gain.value = db; node.connect(f); node = f; }
             const pan = ctx.createStereoPanner(); pan.pan.value = TONE[p].pan; node.connect(pan); pan.connect(convolver);
             if (p === 'chords' || p === 'bass') { const d = ctx.createGain(); pan.connect(d); d.connect(master); this.bus.duck[p] = d; } else pan.connect(master);
             this.bus[p] = g;
+            // A round's other groups: each its own level (the mixer's Group 2, 3, 4) and a place left or right of the
+            // first group, into the melody's sound after the melody's own level, so muting one group leaves the others.
+            if (p === 'melody') this.bus.groups = [null, -0.45, 0.45, -0.2].map(x => { if (x === null) return null; const gg = ctx.createGain(), gp = ctx.createStereoPanner(); gp.pan.value = x; gg.connect(gp); gp.connect(g.__next); return gg; });
           }
         }
         const mix = this.cell.mix();
         for (const p of Object.keys(TONE)) this.bus[p].gain.value = mix[p === 'drumsHi' ? 'drums' : p];
+        this.bus.groups.forEach((gg, i) => { if (gg) gg.gain.value = mix['group' + (i + 1)]; });
         const cycle = this.chorus(this.total > 0 ? Math.floor(Math.max(0, this.position()) / this.total) : 0);
         this.bus.wet.gain.value = SOUND.room + (cycle ? (cycle.room || 0) * 0.7 : 0);
         return this.bus;
@@ -3544,27 +3605,39 @@
       /* ---- the clock ---- */
       // Absolute ms from the first note: the context's time since the start.
       position() { const ctx = sampler.ctx(); return this.running && ctx ? this.abs0 + (ctx.currentTime - this.ctx0) * 1000 : this.pos; }
-      // The position in the tune: wrapped into it when looping.
-      at() { const a = this.position(); if (!(this.total > 0) || a < this.total || !(this.end > this.total)) return a; return a - Math.floor(a / this.total) * this.total; }
+      // The position in the tune: wrapped into it when looping; at the end once the first group has finished (a round's other groups may sing on).
+      at() { const a = this.position(); if (!(this.total > 0) || a < this.total) return a; if (a >= this.leadEnd) return this.total; return a - Math.floor(a / this.total) * this.total; }
+      // A round: how long the other groups sing on after the first stops (end=turns), and whether group g (1 up) sounds at ms.
+      tail() { const r = this.round; return r && r.end !== 'together' ? (r.parts - 1) * r.off : 0; }
+      groupEnd(g) { return this.round.end === 'together' ? this.leadEnd : this.leadEnd + g * this.round.off; }
+      groupOn(g, ms) { const sh = g * this.round.off; return (this.entered[g] || ms >= sh) && ms < this.groupEnd(g); }
       start(fromMs) {
         const ctx = sampler.ctx(); if (!ctx) return;
         if (ctx.state === 'suspended') ctx.resume();
         this.stopAll();
         if (this.bus && this.bus.duck) for (const d of Object.values(this.bus.duck)) { d.gain.cancelScheduledValues(0); d.gain.value = 1; }   // no dip left over from before
-        this.ctx0 = ctx.currentTime + 0.05; this.abs0 = fromMs; this.until = fromMs; this.running = true;
-        this.end = this.loop ? Infinity : this.total;
+        this.ctx0 = ctx.currentTime + 0.05; this.abs0 = fromMs; this.until = fromMs; this.running = true; this.pausedAt = null;
+        this.leadEnd = this.loop ? Infinity : this.total; this.end = this.leadEnd + this.tail();
+        // A round: from the top, the groups come in one by one; from a later place, the groups that came in before it are in.
+        if (this.round) { const was = this.entered; this.entered = []; for (let g = 1; g < this.round.parts; g++) this.entered[g] = fromMs > 0 && (!!was[g] || fromMs > g * this.round.off); }
         if (!this.timer) this.timer = setInterval(() => this.tick(), 50);
         this.tick();
       }
-      pause() { if (!this.running) return; this.pos = this.at(); this.running = false; this.halt(true); }
-      stop() { this.pos = 0; this.running = false; this.halt(true); }
+      pause() {
+        if (!this.running) return;
+        const a = this.position();
+        if (this.round) { this.pausedAt = a; for (let g = 1; g < this.round.parts; g++) this.entered[g] = this.entered[g] || a >= g * this.round.off; }
+        this.pos = this.at(); this.running = false; this.halt(true);
+      }
+      stop() { this.pos = 0; this.running = false; this.pausedAt = null; this.entered = []; this.halt(true); }
       halt(cut) { if (cut) this.stopAll(); if (this.timer) { clearInterval(this.timer); this.timer = null; } }
       stopAll() { for (const s of this.live) { try { s.stop(); } catch (err) {} } this.live.clear(); }
       // Repeat on or off. Turned off mid-tune, the tune finishes its current time round.
       setLoop(on) {
         this.loop = !!on;
-        if (!this.running) { this.end = this.loop ? Infinity : this.total; return; }
-        this.end = this.loop || !(this.total > 0) ? Infinity : (Math.floor(Math.max(0, this.position()) / this.total) + 1) * this.total;
+        if (!this.running) { this.leadEnd = this.loop ? Infinity : this.total; this.end = this.leadEnd + this.tail(); return; }
+        this.leadEnd = this.loop || !(this.total > 0) ? Infinity : (Math.floor(Math.max(0, this.position()) / this.total) + 1) * this.total;
+        this.end = this.leadEnd + this.tail();
         if (!this.loop && this.until > this.end) this.until = this.end;   // (what was scheduled past it has been scheduled; the next tick stops there)
       }
       // Each tick schedules what falls between what has been scheduled and the lookahead horizon.
@@ -3576,20 +3649,34 @@
         const horizon = Math.min(now + LOOKAHEAD, this.end);
         const when = ms => Math.max(ctx.currentTime, this.ctx0 + (ms - this.abs0) / 1000);
         const pump = this.style.pump || 0;
-        const play = (n, ms) => {
+        const play = (n, ms, to = null) => {
           if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setValueAtTime(1 - pump * k, t); g.setTargetAtTime(1, t + 0.03, 0.07); }
-          const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, this.route(n, bus), n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
+          const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, to || this.route(n, bus), n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
         if (this.total > 0) {
           let a = Math.max(0, this.until), cyc = Math.floor(a / this.total);
-          while (cyc * this.total < horizon) {
-            const base = cyc * this.total, last = this.endings && !this.loop && base + this.total >= this.end - 1;   // the last time round ends on the hit
+          while (cyc * this.total < horizon && cyc * this.total < this.leadEnd) {
+            const base = cyc * this.total, last = this.endings && !this.loop && base + this.total >= this.leadEnd - 1;   // the last time round ends on the hit
             const N = (last ? this.endings : this.cycles)[cyc % this.cycles.length];
             const lo = Math.max(a, base) - base, hi = Math.min(horizon, base + this.total) - base;
             let i = this.first(N, lo);
             while (i < N.length && N[i].ms < hi) { play(N[i], base + N[i].ms); i++; }
             if (!this.loop) break;
             cyc++;
+          }
+        }
+        // A round's other groups: the melody again, each group later by its entry, from its own time round,
+        // to its own bus; a group not yet in starts at the top of the tune when its entry comes.
+        if (this.round && this.total > 0 && this.lead.length) {
+          const T = this.total, N = this.lead;
+          for (let g = 1; g < this.round.parts; g++) {
+            const sh = g * this.round.off, lo = Math.max(this.until, this.entered[g] ? -Infinity : sh) - sh, hi = Math.min(horizon, this.groupEnd(g)) - sh;
+            if (!(hi > lo)) continue;
+            for (let c = Math.floor(lo / T); c * T < hi; c++) {
+              const base = c * T;
+              let i = this.first(N, lo - base);
+              while (i < N.length && N[i].ms < hi - base) { play(N[i], sh + base + N[i].ms, bus.groups[g]); i++; }
+            }
           }
         }
         this.until = horizon;
@@ -3705,6 +3792,8 @@
     const FIGURE = inner => `<svg viewBox="0 0 44 44" aria-hidden="true">${inner}<path class="slash" d="M7 37L37 7"/></svg>`;
     const MIXER_MEMBERS = [
       { part: 'melody', name: 'Melody', svg: FIGURE('<circle cx="19" cy="11" r="5"/><path d="M14.5 10c-1 5-2 9-4 12M23.5 10c1 5 2 9 4 12"/><path d="M12 31c0-5 3-9 7-9s7 4 7 9"/><path d="M34 7v11"/><ellipse class="fill" cx="31.5" cy="19" rx="3" ry="2.2"/><path d="M34 7c2 1 4 2 5 4"/>') },
+      // A round's other groups (shown only for a round; the Melody figure is group 1 then): a singer with the group's number.
+      ...[2, 3, 4].map(n => ({ part: 'group' + n, name: 'Group ' + n, round: true, svg: FIGURE(`<circle cx="15" cy="11" r="5"/><path d="M8 31c0-5 3-9 7-9s7 4 7 9"/><path d="M21 14c2 0 3 1 3 3"/><text x="33" y="34" text-anchor="middle" style="fill: currentColor; stroke: none; font: 700 15px 'Atkinson Hyperlegible', sans-serif">${n}</text>`) })),
       { part: 'chords', name: 'Chords', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><rect class="fill" x="6" y="27" width="32" height="11" rx="1.5"/><path d="M11 27v6M16 27v6M24 27v6M29 27v6M34 27v6"/>') },
       { part: 'bass', name: 'Bass', svg: FIGURE('<circle cx="13" cy="11" r="5"/><path d="M8.5 10c-1 5-2 9-4 12M17.5 10c1 5 2 9 4 12"/><path d="M6 31c0-5 3-9 7-9s7 4 7 9"/><path class="fill" d="M30 20c-4 0-6 3-5 6c-3 1-4 5-2 8c1 3 4 5 7 5s6-2 7-5c2-3 1-7-2-8c1-3-1-6-5-6z"/><path d="M30 20V7"/><path d="M30 7c2-1 3.5 0.5 2.5 2.5"/><path d="M27.5 29.5v3.5M32.5 29.5v3.5"/>') },
       { part: 'drums', name: 'Drums', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><circle class="fill" cx="22" cy="32" r="8"/><path d="M4 16h11M9.5 16v12M30 16h10M35 16v12"/><path d="M15 22l-4-5M29 22l4-5"/>') },
@@ -3762,7 +3851,7 @@
           <div class="bandnote"></div>
           </div>
           </div>
-          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
+          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"${m.round ? ' hidden' : ''}><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
         this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band; this.bandGhost = '';
         const xp = body.querySelector('input.tr');
         xp.addEventListener('input', () => {
@@ -4113,6 +4202,7 @@
         let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
         this.chart = parseChart(text);
         this.tuning = parseTuning(text);
+        this.round = parseRound(text);
         // No arrangement: Chords on Auto finds chords from the melody wherever none are written (all of a tune without symbols, or the bars its symbols leave out), so the band has something to play.
         this.styleKey = styleFor(this.style, text);   // the text, not abc: chartComment has hidden the %%style line by now
         if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
@@ -4540,20 +4630,26 @@
       clearPlaying() {
         for (const g of this.paper.querySelectorAll('.playing')) { g.classList.remove('playing'); g.style.filter = ''; }
       }
-      // The cursor: a group (moved as one) holding the bar and the lamp.
-      cursor() {
+      // The cursor: a group (moved as one) holding the bar and the lamp. In a
+      // round each group has one, numbered (`group` 0 is the first group's, the
+      // one that leads, drags and pulses; the others follow it).
+      cursor(group = 0) {
         const svg = this.paper.querySelector('svg');
         if (!svg) return null;
-        let g = svg.querySelector('g.cursorg');
+        let g = svg.querySelector(group ? `g.cursorg.group${group}` : 'g.cursorg:not(.follower)');
         if (!g) {
-          g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'cursorg ready');
+          g = document.createElementNS(NS, 'g'); g.setAttribute('class', group ? `cursorg follower group${group}` : 'cursorg ready');
           const beam = document.createElementNS(NS, 'rect'); beam.setAttribute('class', 'barbeam'); beam.setAttribute('rx', 6);
           const bar = document.createElementNS(NS, 'rect'); bar.setAttribute('class', 'cursorbar'); bar.setAttribute('x', 0); bar.setAttribute('width', 2.4); bar.setAttribute('rx', 1.2);
           const lamp = document.createElementNS(NS, 'circle'); lamp.setAttribute('class', 'cursorlamp'); lamp.setAttribute('cx', 1.2); lamp.setAttribute('r', 2.6);
           const hit = document.createElementNS(NS, 'rect'); hit.setAttribute('class', 'cursorhit'); hit.setAttribute('x', -7); hit.setAttribute('width', 16.4);
-          g.appendChild(beam); g.appendChild(hit); g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
-          g._beam = beam; g._bar = bar; g._lamp = lamp; g._hit = hit;
-          g.addEventListener('pointerdown', e => this.dragStart(e));
+          const badge = document.createElementNS(NS, 'g'); badge.setAttribute('class', 'cursorbadge'); badge.innerHTML = `<circle r="6.5"/><text y="0.5" text-anchor="middle" dominant-baseline="middle">${group + 1}</text>`;
+          if (!group) g.appendChild(beam);
+          if (!group) g.appendChild(hit);
+          g.appendChild(bar); g.appendChild(lamp); g.appendChild(badge); svg.appendChild(g);
+          g._beam = beam; g._bar = bar; g._lamp = lamp; g._hit = hit; g._badge = badge;
+          badge.style.display = this.tl && this.tl.round ? '' : 'none';
+          if (!group) g.addEventListener('pointerdown', e => this.dragStart(e));
         }
         return g;
       }
@@ -4629,6 +4725,7 @@
         g._bar.setAttribute('y', top.toFixed(2)); g._bar.setAttribute('height', height.toFixed(2));
         g._lamp.setAttribute('cy', (top - 4).toFixed(2));
         g._hit.setAttribute('y', (top - 9).toFixed(2)); g._hit.setAttribute('height', (height + 12).toFixed(2));
+        if (g._badge) g._badge.setAttribute('transform', `translate(1.2 ${(top - 4).toFixed(2)})`);   // over the lamp, where the eye follows the cursor
       }
       // A warm wash over the measure in which the playhead is travelling.
       // It shares the cursor group's translation, so its x is relative to
@@ -4702,7 +4799,7 @@
       wake() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); }); }
       feel() { const f = this.band && this.band.feel; return (f === undefined ? 50 : Math.max(0, Math.min(100, f))) / 100; }
       // What the mixer sets: each part's gain, 0..1 (1 is the Band's own balance).
-      mix() { const m = (this.band && this.band.mix) || {}, mute = (this.band && this.band.mute) || []; const g = k => mute.includes(k) ? 0 : m[k] === undefined ? 1 : Math.max(0, Math.min(1.5, m[k] / 100)); return { melody: g('melody'), chords: g('chords'), bass: g('bass'), drums: g('drums') }; }
+      mix() { const m = (this.band && this.band.mix) || {}, mute = (this.band && this.band.mute) || []; const g = k => mute.includes(k) ? 0 : m[k] === undefined ? 1 : Math.max(0, Math.min(1.5, m[k] / 100)); return { melody: g('melody'), chords: g('chords'), bass: g('bass'), drums: g('drums'), group2: g('group2'), group3: g('group3'), group4: g('group4') }; }
       // The timeline: every abcjs timing event with its time, display
       // geometry, pitches and chord in force, plus the beat and the count-in.
       buildTimeline() {
@@ -4711,16 +4808,99 @@
         const events = ts.map((ev, i) => { const geo = this.eventGeometry(ev); return { i, ms: ev.milliseconds, line: ev.line || 0, x: geo.x === null ? null : geo.x - 3, color: geo.color, groups: geo.groups, midis: this.eventMidis(ev), ev }; });
         const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : (events.length ? events[events.length - 1].ms : 0);
         let elapsed = 0;
-        const bars = tuneBars(this.original).bars.map((bar, index) => { const start = elapsed, len = bar.len / this.beatLen() * beatMs; elapsed += len; return { index, start, end: elapsed, len }; });
+        const tb = tuneBars(this.original), bars = tb.bars.map((bar, index) => { const start = elapsed, len = bar.len / this.beatLen() * beatMs; elapsed += len; return { index, start, end: elapsed, len }; });
         if (bars.length && total > 0) bars[bars.length - 1].end = total;
         // The count-in is a bar of the metre's beats (four in 4/4, three in 3/4, two in 6/8), at least two.
         const mf = this.original && this.original.getMeterFraction && this.original.getMeterFraction();
         const countBeats = Math.max(2, Math.round((mf && mf.num ? parseInt(mf.num, 10) / parseInt(mf.den, 10) : 1) / this.beatLen()) || 4);
-        this.tl = { source: this.original && this.original.noteTimings, events, bars, total, beatMs, countBeats, lead: countBeats * beatMs, startX: this.startX(), ends: new Map() };
+        this.tl = { source: this.original && this.original.noteTimings, events, bars, firstBar: tb.first || 0, total, beatMs, countBeats, lead: countBeats * beatMs, startX: this.startX(), ends: new Map() };
+        const barMs = mf && mf.num ? parseInt(mf.num, 10) / parseInt(mf.den, 10) * beatMs / this.beatLen() : countBeats * beatMs;
+        this.tl.round = this.planRound(barMs);
+        this.placeRound();
         this.k = null; this.beatK = null;
         this.vizSchedule();
         this.player.setTempo(beatMs / this.beatLen());
         this.player.compile();
+      }
+      /* ---- a round ----
+         The plan at this tempo: how many groups, how far apart in bars and
+         in ms, and how they stop. Its hint says how well the groups fit on
+         the beats, and names a distance that fits better when there is one. */
+      planRound(barMs) {
+        const r = this.round, tl = this.tl; this.roundNotes = [];
+        if (!r || !(tl.total > 0) || !(barMs > 0)) return null;
+        let at = null, pos = 0;
+        for (const line of this.getText().split('\n')) { if (ROUND_LINE.test(line.trim())) at = [pos, pos + line.length]; pos += line.length + 1; }
+        for (const p of r.problems) this.roundNotes.push({ text: 'Round: ' + p, at });
+        const bars = Math.max(1, Math.round(tl.total / barMs));
+        const fit = (e, n) => roundFit(tl.events, tl.total, e * barMs, n, tl.beatMs, tl.bars, tl.firstBar);
+        // Without every=, the distance that fits best, up to even distances through the tune (a later entry is an
+        // earlier one the other way round): the fewest clashes on a downbeat, then the best fit, less for the groups
+        // singing the same notes (a round wants parts); between equals, the longer distance.
+        const even = Math.max(1, Math.floor(bars / r.parts));
+        let every = r.every, chosen = false;
+        if (!every) {
+          let top = null;
+          for (let e = 1; e <= even; e++) {
+            const f = fit(e, r.parts), score = f.fit - 0.05 * f.clash.length - 0.25 * f.same - (f.same > 0.5 ? 1 : 0) - 0.001 * (even - e);
+            if (!top || score > top.score) top = { e, score };
+          }
+          every = top ? top.e : even; chosen = !!top && top.e !== even;
+        }
+        const room = Math.ceil(bars / every);
+        let parts = r.parts;
+        if (parts > room) { this.roundNotes.push({ text: `Round: the tune has ${bars} bar${bars > 1 ? 's' : ''}, so with a group coming in every ${every} there is room for ${room} group${room > 1 ? 's' : ''}${room < 2 ? ' and no round' : ''}.`, at }); parts = room; }
+        if (parts < 2) return null;
+        const mine = fit(every, parts); let best = null;
+        if (r.every) for (let e = 1; e <= Math.max(1, Math.floor(bars / parts)); e++) if (e !== every) { const f = fit(e, parts); if (f.same <= Math.max(0.5, mine.same) && (!best || f.fit > best.fit)) best = { ...f, every: e }; }
+        const pct = f => Math.round(f.fit * 100) + '%', clash = mine.clash.slice(0, 6);
+        let msg = `Round: ${parts} groups, each coming in ${every} bar${every > 1 ? 's' : ''} after the one before${chosen ? ' (the distance that fits best; every= sets another)' : ''}, stopping ${r.end === 'together' ? 'together' : 'one by one'}. On the beats, ${pct(mine)} of the notes sounding together make unisons, thirds, fifths, sixths or octaves`;
+        msg += clash.length ? `; seconds or sevenths on the downbeat of bar${clash.length > 1 ? 's' : ''} ${clash.join(', ')}${mine.clash.length > clash.length ? ' and more' : ''}.` : '.';
+        if (mine.same > 0.5) msg += ` The groups sing the same notes ${Math.round(mine.same * 100)}% of the time, so it sounds more like one group than a round.`;
+        if (best && best.fit > mine.fit + (mine.clash.length ? 0.03 : 0.08) && best.clash.length <= mine.clash.length) msg += ` every=${best.every} fits better (${pct(best)}${best.clash.length ? '' : ', no clash on a downbeat'}).`;
+        this.roundNotes.push({ tip: true, at, text: msg, more: 'A %%round line makes the tune a round. The number (2, 3 or 4) is how many groups sing or play it; every=2 is the bars between one group coming in and the next (without it, the page picks the distance that fits best, and the hint says which); end=turns (the default) lets each group finish its last time round, so they stop one by one, and end=together stops them all when group 1 finishes. With Repeat on the groups go round until Repeat is turned off. The Mixer has a figure for each group, to mute the group the class is taking.\n\nThe fit counts, on every beat, each pair of notes the groups sound together: unisons, thirds, fifths, sixths and octaves fit, fourths count half, seconds, sevenths and the tritone clash. Only clashes on a downbeat are named: a passing clash between beats is normal in a good round. Another distance is suggested only when it fits clearly better, with no more downbeat clashes, and without the groups mostly singing the same notes. Listen before choosing.' });
+        return { parts, every, off: every * barMs, end: r.end, bars };
+      }
+      // The entry numbers on the staff: each group's number over the note the
+      // first group is singing when that group comes in, as a round book prints them.
+      placeRound() {
+        const svg = this.paper.querySelector('svg'), tl = this.tl; if (!svg) return;
+        for (const m of svg.querySelectorAll('.roundmark')) m.remove();
+        for (const c of svg.querySelectorAll('.cursorg')) { if (c._badge) c._badge.style.display = tl && tl.round ? '' : 'none'; if (c.classList.contains('follower')) c.style.display = 'none'; }
+        // The mixer: the Melody figure is group 1 in a round, and each other group has its own.
+        const parts = tl && tl.round ? tl.round.parts : 0;
+        for (const mem of this.body.querySelectorAll('.mixer .member')) {
+          const n = /^group(\d)$/.exec(mem.dataset.part);
+          if (n) mem.hidden = +n[1] > parts;
+          else if (mem.dataset.part === 'melody') mem.querySelector('span').textContent = parts ? 'Group 1' : 'Melody';
+        }
+        if (!tl || !tl.round) return;
+        const E = tl.events.filter(e => e.x !== null);
+        for (let g = 0; g < tl.round.parts; g++) {
+          const ms = g * tl.round.off, ev = E.find(e => e.ms >= ms - 1); if (!ev) continue;
+          const { top } = this.cursorSpan(ev.line), m = document.createElementNS(NS, 'g');
+          m.setAttribute('class', 'roundmark'); m.setAttribute('transform', `translate(${(ev.x + 1.2).toFixed(2)} ${(top - 19).toFixed(2)})`);   // above the cursors' numbers as they pass
+          m.innerHTML = `<circle r="7"/><text y="0.5" text-anchor="middle" dominant-baseline="middle">${g + 1}</text>`;
+          svg.appendChild(m);
+        }
+      }
+      // The other groups' cursors, one each, numbered, at the group's own place in the tune;
+      // hidden before the group comes in and after it stops. Returns the events they are on, to light.
+      paintRound() {
+        const tl = this.tl, r = tl.round, p = this.player, T = tl.total, lit = [];
+        const abs = p.running ? p.position() - this.latencyMs() : p.pausedAt;
+        for (let g = 1; g < r.parts; g++) {
+          const c = this.cursor(g); if (!c) continue;
+          if (abs === null || !p.groupOn(g, abs)) { c.style.display = 'none'; continue; }
+          const ft = (((abs - g * r.off) % T) + T) % T, at = this.cursorAt(ft), k = this.indexAt(ft), ev = tl.events[Math.max(0, k)];
+          if (!at) continue;
+          c.style.display = '';
+          if (c._line !== at.line) { c._line = at.line; this.shapeCursor(c, at.line); }
+          if (ev && c._color !== ev.color) { c._color = ev.color; this.colourCursor(c, ev.color); }
+          c.style.transform = `translateX(${at.x.toFixed(2)}px)`;
+          if (k >= 0) lit.push(k);
+        }
+        return lit;
       }
       lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
       updateClock(t) {
@@ -4793,11 +4973,16 @@
         // The sounding event: marks change only when it changes.
         const k = t < 0 ? -1 : this.indexAt(t);
         this.updateNextUp(t, k, cyc);
+        // In a round, the other groups' cursors, and the notes each group is on light up with the first group's.
+        const lit = tl.round ? this.paintRound() : [], litKey = lit.join(',');
+        if (k !== this.k || litKey !== this.litKey) {
+          this.litKey = litKey;
+          this.clearPlaying();
+          for (const i of [k, ...lit]) { const e = tl.events[i]; if (e) for (const grp of e.groups) { grp.classList.add('playing'); grp.style.filter = `drop-shadow(0 0 5px ${e.color})`; } }
+        }
         if (k !== this.k) {
           this.k = k;
-          this.clearPlaying();
           const cur = tl.events[k], nxt = tl.events[k + 1];
-          if (cur) for (const grp of cur.groups) { grp.classList.add('playing'); grp.style.filter = `drop-shadow(0 0 5px ${cur.color})`; }
           if (g) { g.classList.remove('done', 'ready'); this.shapeCursor(g, (cur || tl.events[0] || { line: 0 }).line); this.colourCursor(g, (cur || tl.events[0] || { color: 'var(--cursor)' }).color); }
           if (this.viz && this.viz.layout) this.viz.mark(cur ? cur.midis : [], nxt ? nxt.midis : (k < 0 && tl.events[0] ? tl.events[0].midis : []), { index: k, chord: cur ? this.chordAt(cur.ev) : (tl.events[0] ? this.chordAt(tl.events[0].ev) : null) });
         }
@@ -4892,7 +5077,7 @@
       // count in the box's corner opening every hint, where a hint can be explained, dismissed or jumped to.
       showNotes() {
         this.warnEl.innerHTML = '';
-        const all = [...(this.lintNotes || []), ...(this.vizNotes || [])], seen = new Set();
+        const all = [...(this.lintNotes || []), ...(gameMode ? [] : this.roundNotes || []), ...(this.vizNotes || [])], seen = new Set();
         const notes = all.filter(n => { const k = (n.tip ? 'tip:' : 'warn:') + n.text; if (seen.has(k) || this.dismissedNotes.has(k)) return false; seen.add(k); return true; });
         this.notesShown = notes;
         const badge = this.body.querySelector('.tab[data-drawer="melody"] .badge'), warnings = notes.filter(n => !n.tip).length;
@@ -5025,7 +5210,8 @@
         if (this.livePattern) this.livePattern(-1);
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
         if (this.cyc) { this.cyc = 0; this.relabel(0); }
-        this.clearPlaying();
+        this.clearPlaying(); this.litKey = '';
+        for (const c of this.paper.querySelectorAll('.cursorg.follower')) c.style.display = 'none';
         if (this.viz) this.viz.clear();
         const x = this.startX(), g = this.cursor();
         if (!g || x === null) return;
@@ -5161,6 +5347,7 @@
         const d = this.drag, p = this.player; this.drag = null;
         if (!d || !d.at || !p) return;
         p.pos = Math.max(0, Math.min(d.tl.total || d.at.ms, d.at.ms));
+        p.pausedAt = null; for (const c of this.paper.querySelectorAll('.cursorg.follower')) c.style.display = 'none';   // a round's groups take their places from the new one when it plays
         this.idle = false; this.k = null;
         if (d.wasPlaying) {
           this.busy = true;

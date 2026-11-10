@@ -503,11 +503,14 @@
     for (let i = 0; i < chunks.length; i++) {
       const abc = chunks[i];
       let tune;
-      // The page's own directive lines (%%band, %%tuning, %%style) are not abcjs's: hide them before parsing, as the page does.
-      const plain = abc.replace(/^%%?(band|tuning|style)\b/mg, m => '%' + ' '.repeat(m.length - 1));
+      // The page's own directive lines (%%band, %%tuning, %%style, %%round) are not abcjs's: hide them before parsing, as the page does.
+      const plain = abc.replace(/^%%?(band|tuning|style|round)\b/mg, m => '%' + ' '.repeat(m.length - 1));
       try { tune = ABCJS.parseOnly(plain)[0]; } catch (err) { out.push({ abc, error: String(err && err.message || err), features: null, grade: null }); continue; }
       if (!tune || !tune.lines) { out.push({ abc, error: 'no tune', features: null, grade: null }); continue; }
       const features = analyzeTune(tune, Object.assign({ index: i }, extra || {}));
+      // A %%round line: the one melody sung by 2 to 4 groups, so the class holds that many parts (rounds are grade 3 texture).
+      const round = /^%%?round\b(.*)$/m.exec(abc);
+      if (round) { const n = parseInt((/(?:^|\s)(?:parts=)?(\d)\b/.exec(round[1]) || [])[1], 10); features.voices = Math.max(features.voices, n >= 2 && n <= 4 ? n : 2); features.round = true; }
       out.push({ abc, features, grade: features.noteCount ? grade(features, gradeOptions) : null, ontario: features.noteCount ? ontario(features, gradeOptions) : null });
     }
     return out;
