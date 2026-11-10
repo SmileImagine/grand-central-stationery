@@ -34,12 +34,13 @@
     await e.player.ready();
   }
 
+  // The melody at the pitch it sounds (the soprano recorder an octave above written), so clashes are counted as heard.
   function capture(e) {
     const p = e.player, bl = e.beatLen(), ch = p.choruses[0] || {};
     const { setOf, sampleOf } = GCS.lab, used = new Set();   // the files actually loaded: the set in use, the note it plays from
     for (const c of p.cycles) for (const n of c) { const f = setOf ? setOf(n.folder, n.midi) : n.folder; used.add(f + '|' + NOTE(sampleOf ? sampleOf(f, n.midi) : n.midi)); }
     return {
-      notes: p.cycles[0].map(n => ({ part: n.part, ms: n.ms, midi: n.midi, vel: n.vel, dur: n.dur, pad: !!(n.from && n.from.tip && / held: /.test(n.from.tip)) })),
+      notes: p.cycles[0].map(n => ({ part: n.part, ms: n.ms, midi: n.midi + (n.part === 'melody' && GCS.lab.melodyOctave ? GCS.lab.melodyOctave(e.inst) : 0), vel: n.vel, dur: n.dur, pad: !!(n.from && n.from.tip && / held: /.test(n.from.tip)), answer: !!(n.from && n.from.tip && /^answering/.test(n.from.tip)) })),
       rounds: p.cycles.map(c => c.map(n => ({ part: n.part, vel: n.vel }))),
       bars: (ch.bars || []).map(b => ({ s: b.s, e: b.e, beats: b.beats, pickup: !!b.pickup })),
       segs: (ch.segs || []).filter(s => s.chord).map(s => ({ ms: s.ms, pcs: s.chord.pcs, root: s.chord.root })),
@@ -59,7 +60,7 @@
       for (const n of p.cycles[0]) {
         if (!parts.includes(n.part) || n.ms >= span || n.ms < 0) continue;
         const when = 0.05 + n.ms / 1000;
-        if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [q, k] of [['bass', 1], ['chords', 0.8]]) { const g = bus.duck[q].gain; g.setValueAtTime(1 - pump * k, when); g.setTargetAtTime(1, when + 0.03, 0.07); }
+        if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [q, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { if (!bus.duck[q]) continue; const g = bus.duck[q].gain; g.setValueAtTime(1 - pump * k, when); g.setTargetAtTime(1, when + 0.03, 0.07); }
         sampler.play(n.folder, n.midi, when, n.dur, n.vel, p.route ? p.route(n, bus) : bus[n.part], n.rel, n.fx);
       }
       const t0 = performance.now(), buf = await off.startRendering(), wall = performance.now() - t0;
