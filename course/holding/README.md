@@ -1,9 +1,25 @@
 # Tune workshop
 
 This directory is the shared holding area for tunes that are not ready for the
-published practice set. It is deliberately part of the main repository rather
-than a separate worktree: each process adds or edits one file under `items/`, so
+published practice set. Each process adds or edits one file under `items/`, so
 parallel work usually touches different files.
+
+## Where it lives
+
+The workshop, the review queue (`course/review/`) and the tune editor live only
+in the workshop branch, `claude/tune-workshop-editing-7e81a1`, checked out at
+`.claude/worktrees/tune-workshop-editing-7e81a1`. Main is the public site that
+students use (GitHub Pages serves it), so none of this is on main, and on main
+the queued sample tunes in `course/samples/` are placeholders titled *Withheld*.
+
+- Add, edit and review tunes here, not on main. Do not push this branch to the
+  public GitHub repository.
+- Bring main's work in with `git merge main`. Main's removal of the workshop
+  (944fe71) is recorded here as merged without its changes, so merges keep the
+  workshop whole; do not rebase or squash that commit on main.
+- To publish a tune, take only that tune to main: its ABC into the set (and,
+  for a withheld sample, back into its placeholder's place in
+  `course/samples/`), never the workshop files.
 
 ## Workflow
 
