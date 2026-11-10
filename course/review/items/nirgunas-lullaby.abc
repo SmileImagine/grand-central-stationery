@@ -2,8 +2,8 @@
 % review-from: holding
 % review-status: pending
 % review-categories: religious
-% review-findings: No words printed; the title names Nirguna, the supreme being in Hindu thought.
-% review-suggestion: Keep; label it devotional. Nothing in it to change.
+% review-findings: No words under the notes; the title names Nirguna, the supreme being in Hindu thought, and the book's prose translation is a tired mother's lullaby (celestial carpenters made the cradle; my baby is not yet asleep).
+% review-suggestion: Keep; label it a devotional lullaby. Nothing in the words to change.
 % review-decision:
 % holding-id: nirgunas-lullaby
 % holding-status: source-check
@@ -11,18 +11,23 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-09
-% holding-blocked: Check every bar against Ex. 162's plate; the book prints no words.
+% holding-blocked: Teacher to check against the plate (pp. 66-67, scan pp. 90-91): the 3/4 metre and the tempo (none found printed), the second note of each line (B, or C), the middle note of the triplet in line 4, and the short last bars of lines 1 and 2.
 X:1
 T:Nirguna's lullaby
-T:Maratha lullaby (sketch)
+T:Maratha lullaby
 C:traditional (Maharashtra)
 O:India, Maharashtra
 R:lullaby
-S:Fox Strangways, The Music of Hindostan (1914), Ex. 162, p. 66
-N:A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught.
-M:2/4
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67
+N:Sung to Fox Strangways by a Hindu lady in Calcutta; Nirguna is the supreme being without attributes, the footnote says. The book prints no words under the notes, but the prose after the music is its translation: "Celestial carpenters have fashioned thy cradle. My hand is tired of pulling the string. My throat is dry with singing. I cannot go about my work because my baby is not yet asleep. The cradle is covered with flowers, &c."; the Tamil Lali Gopala (Ex. 157) borrows these words. One flat and a tune that lives on C, D, E with B, and A, below: the tonic is C (not F), so the drone is on C and the B flat of the signature never sounds. Four lines: the first is repeated, then the other three run on and are repeated together (the plate ends with repeat dots). The wavy mark over the E in lines 2 and 3 is Fox Strangways's sign for the Gurkha and Maratha "squeeze" on an emphatic note. No tempo was found on the plate; crotchet 80 is a guess for a lullaby.
+N:HOW READ (2026-11-09): the four staves cropped at 1200, 1600, 2000 and 2400 dpi (scratch crops z162-*, y162-*, e162-*, h162-*, k162-*), every head measured against the staff lines by a detector and the rhythm read by eye from the 2000-dpi crops; two passes over every bar. The first sketch had 2/4 and one line only; the plate has 3/4 and four lines.
+N:UNCERTAIN: line 1 bar 2, second note F (measured between the lines, not confirmed by the detector); the second note of lines 2 and 3 (B, in line 2, C in line 3, from the detector); line 4 bar 2, the triplet's middle note read E by eye but D by the detector; the last bar of lines 1 and 2 has five eighths (the repeat supplies the sixth); line 2 bar 2 and line 3 bar 2 give the C a dotted quarter.
+M:3/4
 L:1/8
-Q:1/4=76
+Q:1/4=80
 K:F
 %%style drone
-B, |: C3/2 B,/2 C D | D/E/D/D/ D3/2 D/2 | D B, C D | (3DED C/B,/ B, C :|
+B, |: C3/2 B,/2 C2 C D | E/F/E/D/ E3 D/E/ | D B, C2 D E | (3D/E/D/ C B, A, B, :|
+|: C3/2 B,/2 C C C E | (3D/E/D/ C3 C B, | C2 E D !tenuto!E2 | D B, C C D E | (3D/E/D/ C B, A, B, |
+C3/2 C/2 B, C D E | (3D/E/D/ C3 B, C | C2 B, C D !tenuto!E | D B, C C D E | C D C B, A, B, |
+C3/2 B,/2 C C D E | (3D/E/D/ C3 D E | D E C2 B, C | D B, C C D E | C D C B, A, B, :|

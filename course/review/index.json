@@ -7,7 +7,7 @@
   "remove"
  ],
  "counts": {
-  "pending": 15,
+  "pending": 16,
   "keep": 0,
   "change": 0,
   "remove": 0
@@ -126,14 +126,14 @@
    "id": "lalishrita",
    "file": "items/lalishrita.abc",
    "title": "Lalishrita",
-   "subtitle": "Tamil lullaby, from a phonogram (sketch)",
+   "subtitle": "Tamil lullaby, from a phonogram",
    "from": "holding",
    "status": "pending",
    "categories": [
     "religious"
    ],
-   "findings": "A Tamil lullaby that lays the baby at the feet of Sriranga (Vishnu at Srirangam): Hindu devotional words (Fox Strangways's singing version).",
-   "suggestion": "Keep; label it a devotional lullaby so teachers can follow their school's guidance on religious songs. (It is also still a sketch.)",
+   "findings": "A Tamil lullaby that lays the baby at the feet of Sriranga (Vishnu at Srirangam): Hindu devotional words (Fox Strangways's singing translation; stanza 2: \"I lay thee there at Sriranga raja's feet, full sure of His tender care\").",
+   "suggestion": "Keep; label it a devotional lullaby so teachers can follow their school's guidance on religious songs.",
    "decision": "",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64"
   },
@@ -173,16 +173,16 @@
    "id": "nirgunas-lullaby",
    "file": "items/nirgunas-lullaby.abc",
    "title": "Nirguna's lullaby",
-   "subtitle": "Maratha lullaby (sketch)",
+   "subtitle": "Maratha lullaby",
    "from": "holding",
    "status": "pending",
    "categories": [
     "religious"
    ],
-   "findings": "No words printed; the title names Nirguna, the supreme being in Hindu thought.",
-   "suggestion": "Keep; label it devotional. Nothing in it to change.",
+   "findings": "No words under the notes; the title names Nirguna, the supreme being in Hindu thought, and the book's prose translation is a tired mother's lullaby (celestial carpenters made the cradle; my baby is not yet asleep).",
+   "suggestion": "Keep; label it a devotional lullaby. Nothing in the words to change.",
    "decision": "",
-   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, p. 66"
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67"
   },
   {
    "id": "reelsr-t-49-soldiers-joy",
@@ -232,6 +232,21 @@
    "suggestion": "Keep it out of the published set until a Brazilian educator gives the words classes sing today. Choosing other verses is not enough, because \"mulata\" is in the chorus; do not invent replacement words here.",
    "decision": "",
    "source": "Mário de Andrade, Ensaio sobre a música brasileira (São Paulo: I. Chiarato, 1928), p. 38 (pdf p. 48), Wikimedia Commons scan"
+  },
+  {
+   "id": "the-ayahs-song",
+   "file": "items/the-ayahs-song.abc",
+   "title": "The ayah's song",
+   "subtitle": "Hindostani song from the steamer",
+   "from": "holding",
+   "status": "pending",
+   "categories": [
+    "context"
+   ],
+   "findings": "No words. Our N: line quotes Fox Strangways calling the singer, a domestic servant on a colonial steamer, \"an unmusical ayah\": colonial condescension, in our notes rather than in the song.",
+   "suggestion": "Keep the melody; rephrase that note in our own words (one of the songs an ayah, a children's nurse, sang on board a steamer; the book says she lost her key and the songs were hard to piece together) and restore.",
+   "decision": "",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66"
   },
   {
    "id": "xmas-7-jubilate-deo-round",

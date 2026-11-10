@@ -71,5 +71,5 @@ for (const token of ['course/holding/board.html', 'lab/Play%20Along%20v1.html', 
 assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab is missing');
 
 const workshop = JSON.parse(fs.readFileSync(path.join(root, 'course/holding/index.json'), 'utf8')).items.length;
-assert(workshop + inReview('holding') === 13, `expected 13 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
+assert(workshop + inReview('holding') === 16, `expected 16 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
 console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshop} workshop items; ${queue.length} in review).`);

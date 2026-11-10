@@ -1,0 +1,23 @@
+% holding-id: gurkha-song-first-version
+% holding-status: transcription
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-09
+% holding-blocked: Check both bars against the plate (p. 57, scan p. 79, last staff): the lengths in bar 1 (read one eighth short) and bar 2 (read two eighths short); then read the 2nd, 3rd and 4th versions on p. 58 (scan p. 80) as variants.
+X:1
+T:Gurkha song, first version
+T:Gurkha song, four versions sung in turn
+C:traditional (Gurkha, Nepal)
+O:India, Dharmsala (2nd Goorkhas)
+R:song
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 130, pp. 57-58
+N:From the same sing-song as Ex. 129; the plate gives four versions of the one tune, the 1st here, the 2nd to 4th on p. 58, which shows how the men varied it. No tonic is marked and there is no signature; the notes are E d e c B, a Gurkha pentatonic shape on the fourth G-c or d-G (Fox Strangways groups Exs. 129, 130 and 137 as the plagal form, p. 70); the drone is on G. No words.
+N:HOW READ (2026-11-09): one staff cropped at 1200, 1600 and 2400 dpi (scratch crops w-ex130-*, n-ex130-*, d-ex130-*); pitches from the detector (E, d, e, d, d; d, B, c, c) with the first d and the first c read by eye; rhythm by eye from the 1600-dpi crop, one pass, and the bars do not add up to 4/4 as read, so the lengths here are a best fit, not a reading.
+N:UNCERTAIN: every note length; the slur in bar 2 over c and d; the first d.
+M:4/4
+L:1/8
+Q:1/4=108
+K:C
+%%style drone
+E/d3/2 e3/2d/ e2 d2 | c2 d3/2B/ c2 c3/2c/ |]

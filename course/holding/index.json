@@ -9,8 +9,8 @@
  ],
  "counts": {
   "inbox": 0,
-  "transcription": 0,
-  "source-check": 6,
+  "transcription": 3,
+  "source-check": 5,
   "classroom-check": 0,
   "ready": 0
  },
@@ -60,6 +60,51 @@
     "respect": "a work and play song; the words describe convict and labourer stone-breaking, worth a sentence of history in class",
     "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
    }
+  },
+  {
+   "id": "gurkha-dance-tune",
+   "file": "items/gurkha-dance-tune.abc",
+   "title": "Gurkha dance tune",
+   "subtitle": "Gurkha dance, four men clapping (one bar, repeated)",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 127, p. 57",
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Read the one bar again at 2400 dpi (p. 57, scan p. 79, first staff): the grouping of beats 1 and 3 (eighth plus two sixteenths, or a triplet) and the end of beat 0 (G c and a rest); then source-check.",
+   "notes": "\"To such tunes as\" this, four men A, B, C, D danced, lifting the foot to the level of the knee, their movements on the four beats of the bar, which the plate numbers 1 2 3 0 (0 is the silent beat): (1) all clap hands; (2) B and D touch right palm to A and C's left palm, fingers pointing upwards; (3) clap hands; (0) D and B touch left palm to A and C's right palm, and all step backwards instead of forwards on this beat. No words, no tempo and no tonic are printed; no signature, and the notes are d, c and G, so the drone is on G and the band's clap line marks the three hand-beats and leaves beat 0 silent.",
+   "dossier": null
+  },
+  {
+   "id": "gurkha-sing-song",
+   "file": "items/gurkha-sing-song.abc",
+   "title": "Gurkha sing-song",
+   "subtitle": "Gurkha song, danced, with drum",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 129, p. 57",
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Read the Solo and Chorus staves (p. 57, scan p. 79, staves 4-5) and the drum line under the first staff; check the three dotted figures of bar 1 and the half note of bar 2 against the plate.",
+   "notes": "From a sing-song of the men of the 2nd Goorkhas after a hockey match: the songs followed so fast that no words could be taken down; one or two men whirled in the middle of the crowd with bent knees and elbows and upturned palms, a couple of bars at a time danced crouching, and at the end of a chorus there was sometimes a grunted \"Ha! Ha!\". No tonic is marked and there is no signature; the scale is G A c d with the fourth G-c as backbone (Fox Strangways's typical Gurkha form, p. 70), so the drone is on G. The plate prints a drum line under the first staff marked \"Right.\" (the hands), then a second staff headed \"Solo.\" (with \"Drum as before.\") and \"Chorus.\"; only the first two-bar phrase is transcribed here, the solo and chorus wait.",
+   "dossier": null
+  },
+  {
+   "id": "gurkha-song-first-version",
+   "file": "items/gurkha-song-first-version.abc",
+   "title": "Gurkha song, first version",
+   "subtitle": "Gurkha song, four versions sung in turn",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 130, pp. 57-58",
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Check both bars against the plate (p. 57, scan p. 79, last staff): the lengths in bar 1 (read one eighth short) and bar 2 (read two eighths short); then read the 2nd, 3rd and 4th versions on p. 58 (scan p. 80) as variants.",
+   "notes": "From the same sing-song as Ex. 129; the plate gives four versions of the one tune, the 1st here, the 2nd to 4th on p. 58, which shows how the men varied it. No tonic is marked and there is no signature; the notes are E d e c B, a Gurkha pentatonic shape on the fourth G-c or d-G (Fox Strangways groups Exs. 129, 130 and 137 as the plagal form, p. 70); the drone is on G. No words.",
+   "dossier": null
   },
   {
    "id": "kazoe-uta",
@@ -129,21 +174,6 @@
     "respect": "for everyone",
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
    }
-  },
-  {
-   "id": "the-ayahs-song",
-   "file": "items/the-ayahs-song.abc",
-   "title": "The ayah's song",
-   "subtitle": "Hindostani song from the steamer (sketch)",
-   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66",
-   "status": "source-check",
-   "owner": "",
-   "sourceCheck": "pending",
-   "classroomCheck": "pending",
-   "updated": "2026-11-09",
-   "blocked": "Check every bar and both cadence slides against Ex. 160's plate.",
-   "notes": "A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate.",
-   "dossier": null
   }
  ]
 }
