@@ -458,8 +458,13 @@
       if (holding) for (const s of holding.items) addSketch(s);
       const missing = [['the tunes', tunes], ['the drum patterns', rhythms], ['the dances', dances], ['the figures', figures], ['the workshop', holding]].filter(([, v]) => !v).map(([n]) => n);
       $('#total').textContent = `${items.length} items`;
-      if (!items.length) $('#note').textContent = location.protocol === 'file:' ? 'The library needs to be served (double-click serve.command, then open course/library.html from there): a page opened from disk cannot read the sets.' : 'Could not load any set.';
-      else if (missing.length) $('#note').textContent = `Not found: ${missing.join(', ')}.`;
+      if (!items.length) {
+        $('#cards').innerHTML = `<div class="empty" style="grid-column:1/-1;font-style:normal;max-width:36em;line-height:1.5">${location.protocol === 'file:'
+          ? '<b>The library needs to be served.</b> A page opened from disk cannot read the sets beside it (the browser blocks it). Double-click <code>serve.command</code> in the project folder, or run <code>python3 -m http.server 8765</code> there, then open <a href="http://localhost:8765/course/library.html">localhost:8765/course/library.html</a>.'
+          : '<b>Could not load any set.</b> The library reads set.json, rhythm-set.json, dance-set.json, figure-set.json and holding/index.json from the course folder; none answered.'}</div>`;
+        return;
+      }
+      if (missing.length) $('#note').textContent = `Not found: ${missing.join(', ')}.`;
       readHash(); renderFacets(); renderCards();
     });
   </script>
