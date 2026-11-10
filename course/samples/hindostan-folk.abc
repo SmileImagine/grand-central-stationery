@@ -69,25 +69,9 @@ N:2: You must say where you go before I send to the dhobi.
 N:3: Little Chhaila is yours, and will you marry another?
 
 X:4
-T:Rama's lullaby
-T:Maratha lullaby
-C:traditional (Maharashtra)
-O:India, Maharashtra
-R:lullaby
-S:Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66
-N:Adagio, crotchet 80; sung to him by a Hindu lady in Calcutta. No signature; the tune lies between middle C and A. Four verses, each ending in the refrain Little babe, sleep upon my knee. Check: bars 4 to 6 and the refrain's second bar.
-M:3/4
-L:1/16
-Q:1/4=80
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
 K:C
-%%style drone
-C C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G | A4 F2 G3 F | G3 F D3 C C4 z2 |
-w: In A-yo-dhya, the land of kings, It was Vish-nu's self That was born on the lap of Kau-shal-ya.
-C C | D4 G3 F D2 C2 | D3 C C8 z2 |]
-w: Lit-tle babe sleep up-on my knee!_
-N:2: For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.
-N:3: In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).
-N:4: And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.
 
 X:5
 T:Chhaila

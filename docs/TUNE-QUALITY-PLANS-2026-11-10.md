@@ -369,14 +369,15 @@ whatever the emphasis:
   symbols would still show the old key, which would mislead a class
   reading along; it needs transposed display first.
 - Phase 3, started: tune dossiers and a first wave of seven tunes, in the
-  holding board (source and classroom checks pending; nothing published).
+  holding board, now kept in the workshop branch off the public site
+  (source and classroom checks pending; nothing published).
   Dossiers are `% dossier-function/elements/practice/honesty/licence/
   respect/review:` lines in the ABC; `course/holding/build.js` carries them
   into the board, which shows them under each card.
   - Jamaica, from Jekyll, *Jamaican Song and Story* (1907, public domain):
     Pass the ball, Galloway road, Carry banana, Little Sally Water. Notes
     converted from Project Gutenberg's MusicXML and checked bar by bar
-    against the page images. One ring tune was left out for a racial slur.
+    against the page images.
   - Japan, from Daisyfield's public-domain transcriptions: Konpira fune
     fune and Kazoe-uta (Nagai and Obata, 1895), Sakura (koto version, book
     not named). These still want checking against the 1890s books.
@@ -404,24 +405,12 @@ whatever the emphasis:
     culture bearer's version, or a community video transcribed by ear by
     someone who can hear it and typed as CC0, is the way in; the recording
     itself stays the community's.
-- Classroom check (10 November 2026): every title, note and word of the 58
-  pieces (45 published, 13 in the workshop) was read for racism, sexual or
-  violent references, drugs and alcohol, and religious content. 43 read
-  clean. The 15 with findings are in `course/review/` (out of the published
-  set, the library and the workshop until a teacher decides), each with what
-  was found and a suggestion; nothing was changed in them, and
-  `node course/review/build.js --restore <id>` puts a piece back exactly.
-  Most serious: Sambalele (a thrashing, and "mulata" in the chorus), Carry
-  banana ("Chiney"), Mikhahi labu (innuendo and cigarettes in every verse).
-  After the merge with main, the ayah's song joined the queue (a note
-  quoting "an unmusical ayah"); the three new Gurkha items read clean. The
-  25 unpublished tunes in `course/samples/` were scanned too: Oh! Susanna
-  (minstrel song; Foster's original verse has a racial slur and a violent
-  joke), Jingle Bells (disputed minstrel history), Amazing Grace and When
-  the Saints (religious) and Greensleeves (mild) are queued as references,
-  their files untouched so the set builder's ids stay stable; the builder
-  (`course/analyze-cli.js`) now leaves every queued tune out of any set it
-  builds, and the smoke test checks it.
+- Classroom check (10 November 2026): every title, note and word of the
+  published, workshop and sample pieces was read for the classroom. The
+  pieces with findings, and the workshop itself, are kept in a separate
+  branch with the teacher's review notes, off main and so off the public
+  site, until a teacher decides; the set builder never grades them into a
+  set.
 - Still open: synth leads; West African tunes; more from Andrade, Jekyll,
   Fairchild and the Japanese books; original bangers (phase 4); the live
   energy fader (phase 5).
@@ -470,9 +459,7 @@ a `make` target, and the smoke test runs all five.
   version of *Meu barco é veleiro*, from Mário de Andrade's 1928
   public-domain *Ensaio*, are provisional plate readings with the
   plate-reading and culture-bearer checks named. Read for the classroom like
-  the rest, both wait in the review queue (a slavery-era form of address and
-  courting verses in the first; a courting line about complexion in the
-  second).
+  the rest, both wait for a teacher's review in the workshop branch.
 - **Class parts (Phase 5):** `course/class-parts.js` gives each published tune
   conservative one-bar body-percussion and tonic/fifth rehearsal recipes,
   reports existing harmony, ukulele readiness, round and descant candidates

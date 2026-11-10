@@ -11,9 +11,8 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | `coverage-map.js`, `coverage-map.md` | The Phase 0/6 tune map: explicit regions by level, classroom function and Auto style, plus empty target regions and missing `O:`/`R:` metadata. It never infers Indigenous identity from a country or a classroom function from a familiar title. |
 | `board.html` | **The practice board.** A student picks their name and sees their level's tunes to choose from; the teacher sees every level, who is ready to show a tune, and marks passes. Open plays any tune in the main page. |
 | `library.html` | **The library.** Everything the course holds in one searchable page: the graded tunes, the drum patterns, the steps and folk dances, the square-dance figures and the workshop's sketches. A search box finds words anywhere (titles, lyrics, origins, sources, curriculum concepts), facets narrow by kind, level, Ontario grade, metre, key, origin, type or style, skill, source and licence, each choice showing how many items it would leave, and the address carries the search so it can be shared. Open puts a tune, pattern or step in the main page; a title opens the full card with the notation or text, the grading's reasons and the source. |
-| `holding/` | **The tune workshop.** A shared five-column holding board for sketches and transcriptions awaiting source and classroom checks. Each tune has its own ABC file so several processes can contribute without sharing a worktree or usually touching the same file. |
 | `set.json` | The current tune set, written by the CLI. |
-| `build-sets.js`, `sets.js` | `sets.js` is every set and the workshop's items as one script, written by `node course/build-sets.js` (or `make sets`), so the board and the library work when opened from disk, where a page may not fetch the JSON beside it. Served pages fetch the JSON first and use this copy only as a fallback; the smoke test fails when it is stale. |
+| `build-sets.js`, `sets.js` | `sets.js` is every set as one script, written by `node course/build-sets.js` (or `make sets`), so the board and the library work when opened from disk, where a page may not fetch the JSON beside it. Served pages fetch the JSON first and use this copy only as a fallback; the smoke test fails when it is stale. |
 | `rhythm-analyze.js`, `rhythm-cli.js` | The rhythm analyzer: grades drum patterns written as the lab writes them (`kick: x... x...`) on a six-level lattice (subdivision, syncopation, parts and how they interlock, metre, length, tempo), and imports two free corpora, the GrooveSteps grids (CC0) and the Groove MIDI Dataset (CC BY 4.0), quantising each performance to the grid that fits and keeping the bar the drummer played most. `rhythms/traditional.rhythms.txt` holds typed traditional patterns (CC0). |
 | `dance-analyze.js`, `dance-cli.js` | The dance analyzer: grades steps in the lab's step language (feet, pace, arms, metre, length, tempo) and dances described in prose from public-domain folk-dance books (step vocabulary, figures, formation, length, interaction, tempo), checking its grades against the book's own classified index. `dances/steps.dances.txt` holds basic social and folk steps (CC0). |
 | `rhythm-set.json`, `dance-set.json` | The graded rhythm and dance sets the CLIs write; the lab's corpus pickers read them. |
@@ -88,10 +87,13 @@ Every entry in the tune, rhythm and dance sets also carries `ontario`, the grade
 
 `board.html` reads `set.json`. Serve the folder (`serve.command`, or GitHub Pages) and open `course/board.html`; a page opened from disk cannot read the set.
 
-Sketches do not enter this set. Put each one in `holding/items/`, update its
-metadata as it moves through the workshop, and run
-`node course/holding/build.js`. See `holding/README.md`; the generated board is
-`holding/board.html`.
+Sketches do not enter this set. The tune workshop (sketches and transcriptions
+awaiting source and classroom checks, with its editor) and the review queue
+(pieces held back until a teacher has checked their words and context) are kept
+in their own branch, never on main, because main is the public site students
+use. A few tunes in `samples/` are placeholders titled *Withheld* for the same
+reason: each keeps its place so the ids of the tunes after it do not change, and
+the builder skips it. A tune comes to main only when the workshop publishes it.
 
 The lesson it is built for: a student chooses a tune at their level and practises it, performs it for the teacher or hands in a video, and the teacher marks it passed. Once half the tunes at a level are passed, the next level opens; nothing stops a student trying a harder tune early.
 

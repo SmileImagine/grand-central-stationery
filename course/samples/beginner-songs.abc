@@ -39,13 +39,9 @@ G2 E2 | G2 E2 | GG EE | G2 E2 |]
 w: Bounce high, bounce low, bounce the ball to Shi-loh.
 
 X:5
-T:Lucy Locket
-O:England
-M:2/4
-L:1/8
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
 K:C
-GG EE | AA GE | GG EE | A2 G2 | GG EE | AA GE | GG EE | A2 G2 |]
-w: Lu-cy Lock-et lost her pock-et, Kit-ty Fish-er found it; not a pen-ny was there in it, on-ly rib-bon round it.
 
 X:6
 T:Ring Around the Rosie
@@ -57,13 +53,9 @@ GG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]
 w: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.
 
 X:7
-T:Au Clair de la Lune
-O:France
-M:4/4
-L:1/4
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
 K:C
-C C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |
-D D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]
 
 X:8
 T:Rocky Mountain
@@ -128,13 +120,9 @@ G>A GF | EF G2 | DE F2 | EF G2 | G>A GF | EF G2 | D2 G2 | E2 C2 |]
 w: Lon-don Bridge is fall-ing down, fall-ing down, fall-ing down, Lon-don Bridge is fall-ing down, my fair la-dy.
 
 X:15
-T:Jingle Bells (chorus)
-C:James Lord Pierpont
-M:4/4
-L:1/4
-K:G
-B B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | B A A B | A2 d2 |
-B B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | d d c A | G4 |]
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:16
 T:This Old Man
@@ -145,12 +133,9 @@ K:C
 G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4 | E F G2 C C C C | C D E F G4 | G2 D2 D D E F | G2 C2 C4 |]
 
 X:17
-T:When the Saints Go Marching In
-O:USA
-M:4/4
-L:1/4
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
 K:C
-C E F | G4 | z C E F | G4 | z C E F | G2 E2 | C2 E2 | D4 | z E E D | C2 C E | G3 G | F4 | z E F G | E C D2 | C4 |]
 
 X:18
 T:Row, Row, Row Your Boat

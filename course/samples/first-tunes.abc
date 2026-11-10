@@ -43,29 +43,19 @@ K:G
 G G A B | G B A D | G G A B | G2 F2 | G G A B | c B A G | F D E F | G2 G2 |]
 
 X:6
-T:Amazing Grace
-O:USA
-M:3/4
-L:1/4
-K:G
-D | G2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | d3 | d2 B/2d/2 |
-d2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | G3 | G2 |]
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:7
-T:Oh! Susanna
-C:Stephen Foster
-M:2/4
-L:1/8
-K:G
-G/2A/2 | B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |]
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:8
-T:Greensleeves
-O:England
-M:6/8
-L:1/8
-K:Em
-E | G2 A B>c B | A2 F D>E F | G2 E E>^D E | F2 ^D B,2 E | G2 A B>c B | A2 F D>E F | G2 E ^D>E ^C | E3 E2 |]
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:9
 T:Scarborough Fair
@@ -86,13 +76,9 @@ K:G
 d | GDG BGB | dBd g2d | ege dBG | ABA A2d | GDG BGB | dBd g2d | ege dBG | AGF G2 |]
 
 X:11
-T:Soldier's Joy
-R:reel
-O:England
-M:4/4
-L:1/8
-K:D
-d2 ef d2 cd | B2 AB d2 fg | afef dcde | fedc d4 | d2 ef d2 cd | B2 AB d2 fg | afef dBAF | A2 G2 F2 D2 |]
+T:Withheld
+% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:12
 T:The Entertainer (opening)
