@@ -1037,12 +1037,13 @@
     const SOL_DOWN = ['do', 'ra', 're', 'me', 'mi', 'fa', 'se', 'sol', 'le', 'la', 'te', 'ti'];
     const SOL_MIX  = ['do', 'di', 're', 'me', 'mi', 'fa', 'fi', 'sol', 'le', 'la', 'te', 'ti'];   // the usual names when the spelling is unknown
     const solfege = (pc, doPc, dir) => (dir === 'down' ? SOL_DOWN : dir === 'up' ? SOL_UP : SOL_MIX)[((pc - doPc) % 12 + 12) % 12];
-    // A chord symbol's root and pitch classes: C, Am, G7, F#m7, Bb, Dsus4, Cdim, C+, Cmaj7, C6 (a bass note after / is ignored).
+    // A chord symbol's root and pitch classes: C, Am, G7, F#m7, Bb, Dsus4, Cdim, C+, Cmaj7, C6, Cadd9, C9, C5 (a bass note after / is ignored).
     function chordPcs(name) {
       const m = (name || '').trim().match(/^([A-G])([#b\u266F\u266D]?)([^/]*)/);
       if (!m) return null;
       const root = ((LETTER_PC[m[1]] + (/[#\u266F]/.test(m[2]) ? 1 : m[2] ? -1 : 0)) % 12 + 12) % 12, q = m[3];
       let iv;
+      if (/^5$/.test(q)) return { root, pcs: [root, (root + 7) % 12], name: name.trim() };   // a power chord: root and fifth
       if (/^(dim|\u00B0|o)/.test(q)) iv = [0, 3, 6];
       else if (/^(aug|\+)/.test(q)) iv = [0, 4, 8];
       else if (/^sus2/.test(q)) iv = [0, 2, 7];
@@ -1051,6 +1052,8 @@
       else iv = [0, 4, 7];
       if (/maj7|M7|\u0394/.test(q)) iv.push(11); else if (/7/.test(q)) iv.push(/^(dim|\u00B0|o)7/.test(q) ? 9 : 10);
       if (/(^|[^1])6/.test(q)) iv.push(9);
+      if (/add[29]/.test(q)) iv.push(2);                                                       // add9: the ninth without a seventh
+      else if (/9/.test(q)) { if (!iv.includes(10) && !iv.includes(11)) iv.push(/maj9|M9/.test(q) ? 11 : 10); iv.push(/[b♭]9/.test(q) ? 1 : /[#♯]9/.test(q) ? 3 : 2); }   // C9: a seventh under the ninth
       return { root, pcs: iv.map(i => (root + i) % 12), name: name.trim() };
     }
     // Where each chord tone sits on the Wicki-Hayden lattice relative to the
@@ -1898,6 +1901,17 @@
       for (const ins of inserts) { let at = ins.at; while (at < out.length && /\s/.test(out[at])) at++; out = out.slice(0, at) + '"' + ins.name + '"' + out.slice(at); }
       return out;
     }
+    // A key signature (abcjs's getKeySignature) as the arranger and the Band read it: do's pitch class (the
+    // relative major's tonic for a minor key), whether it is minor, the mode's own final, the signature's seven
+    // notes (a Dorian tune on A has G major's notes) and whether it is spelled with flats.
+    function keyInfoOf(k) {
+      if (!k || !k.root) return { doPc: 0, minor: false, flats: false };
+      const minor = /^m(in)?/i.test(k.mode || '') && !/^maj/i.test(k.mode || '');
+      const tonic = ((LETTER_PC[k.root.toUpperCase()] + (k.acc === '#' ? 1 : k.acc === 'b' ? -1 : 0)) % 12 + 12) % 12, pc = (tonic + (minor ? 3 : 0)) % 12;
+      const alter = {}; for (const a of k.accidentals || []) if (a && a.note) alter[a.note.toUpperCase()] = a.acc === 'sharp' ? 1 : a.acc === 'flat' ? -1 : 0;
+      const scale = 'CDEFGAB'.split('').map(l => ((LETTER_PC[l] + (alter[l] || 0)) % 12 + 12) % 12);
+      return { doPc: pc, minor, tonic, scale, flats: !!(k.accidentals && k.accidentals.length && k.accidentals[0].acc === 'flat') };
+    }
     // The melody's own chord in force at a fraction of a chart bar (the last symbol at or before it).
     function melodyChordFinder(bars, first) {
       return (ci, frac) => {
@@ -1907,16 +1921,36 @@
       };
     }
     /* ---- the arranger: an arc of choruses from the melody and its chords ----
-       Five times round, written as chart lines to be kept or edited:
-       plain, with sevenths, with approach chords, at full energy, and a
-       quiet last time. Every added chord is checked against the melody
-       notes under it, so nothing is written that the tune would fight. */
-    function arrange(tune, keyInfo, base) {
+       Five times round, written as chart lines to be kept or edited: the
+       tune's own chords, then richer chords, then approach chords, then the
+       same at full energy, and a quiet last time with a cadence into the
+       final bar. What "richer" and "approach" mean is the style's harmony
+       (see STYLES): a jig gets the relative-minor moves of Irish backing, a
+       folk tune its secondary dominants, swing its sixths, ii-V and tritone
+       substitutes, a drone no chord changes at all. Every added chord is
+       checked against the melody notes under it, so nothing is written that
+       the tune would fight. */
+    function arrange(tune, keyInfo, base, harmony = harmonyOf('pop')) {
       const { bars, first } = tuneBars(tune);
       const chartBars = bars.slice(first); if (!chartBars.length) return [];
-      const melodyAt = melodyChordFinder(bars, first);
+      const H = { rich: 'none', approach: 'none', cadence: 'none', ...harmony };
+      const clamp = v => Math.max(0, Math.min(100, Math.round(v)));
+      const e = base.energy, d = base.detail;
+      const line = (n, bars, energy, detail, seed) => {
+        const head = `%%band ${n}: energy=${clamp(energy)} detail=${clamp(detail)} seed=${seed}`;
+        if (!bars) return head;
+        const toks = bars.map(b => b[0] === b[1] || !b[1] ? [b[0] || '.'] : [b[0] || '.', b[1] || '.']);
+        return `${head} | ${toks.map(t => t.join(' ')).join(' | ')} |`;
+      };
+      const arc = (plain, rich, approached, out) => [line(1, plain, e - 15, d - 20, base.seed), line(2, rich, e, d + 15, base.seed + 1), line(3, approached, e + 15, d + 30, base.seed + 2), line(4, approached, e + 35, 100, base.seed + 3), line(5, out, e - 25, d, base.seed + 4)];
+      // A style whose chords never move (a drone): the energy arc alone, over the tune's own chords.
+      if (H.moves === false) return arc(null, null, null, null);
+      // The tune's own symbols, cleaned for a chart line: the first word of a symbol, and none for a word that is not a chord (a bass note "b", a fingering).
+      const found = melodyChordFinder(bars, first), melodyAt = (ci, f) => { const w = (found(ci, f) || '').trim().split(/\s+/)[0]; return w && chordPcs(w) ? w : null; };
       const flats = keyInfo.flats, names = flats ? FLAT_NAMES : SHARP_NAMES;
-      const tonic = keyInfo.minor ? (keyInfo.doPc + 9) % 12 : keyInfo.doPc;
+      const pc = x => ((x % 12) + 12) % 12;
+      const tonic = keyInfo.tonic !== undefined ? keyInfo.tonic : keyInfo.minor ? pc(keyInfo.doPc + 9) : keyInfo.doPc;
+      const scale = keyInfo.scale || [0, 2, 4, 5, 7, 9, 11].map(i => pc(keyInfo.doPc + i));   // the key signature's own notes (G A B C D E F# for a Dorian tune on A)
       const N = chartBars.length, slots = 2;
       // The melody's chord and on-beat pitch classes in each half bar.
       const M = chartBars.map((bar, ci) => [0, 1].map(sl => {
@@ -1925,44 +1959,70 @@
         return { chord: melodyAt(ci, f0), pcs };
       }));
       const fits = (name, pcs) => { const c = chordPcs(name); if (!c) return false; const ok = new Set([...c.pcs, (c.root + 2) % 12, (c.root + 9) % 12]); if (/maj7|M7/.test(name)) ok.delete(c.root); return pcs.every(pc => ok.has(pc)); };
-      const nameOf = (root, q) => names[((root % 12) + 12) % 12] + q;
+      const nameOf = (root, q) => names[pc(root)] + q;
       const quality = name => { const c = chordPcs(name); if (!c) return ''; const m3 = c.pcs.includes((c.root + 3) % 12), dim = c.pcs.includes((c.root + 6) % 12) && m3; return dim ? 'dim' : m3 ? 'm' : ''; };
-      const seventh = (name, pcs) => {
-        const c = chordPcs(name); if (!c || /7|6|sus|dim|\+/.test(name)) return name;
-        const deg = ((c.root - tonic) % 12 + 12) % 12, q = quality(name);
+      // The triad the key signature builds on a root: a mode's own chords (E minor as the v of A Dorian, not E major).
+      const inScale = x => scale.includes(pc(x));
+      const diatonic = root => nameOf(root, inScale(root + 3) && !inScale(root + 4) ? (inScale(root + 6) && !inScale(root + 7) ? 'dim' : 'm') : '');
+      const home = deg => deg === 0 || deg === 5 || (keyInfo.minor && (deg === 3 || deg === 8));   // I and IV (and III and VI in minor): the chords that take maj7, 6 or add9
+      // The second time round: the style's richer chord for a plain one.
+      const enrich = (name, pcs) => {
+        const c = chordPcs(name); if (!c || /[5679/]|sus|dim|add|\+/.test(name)) return name;   // a written colour or bass note stays as written
+        const deg = pc(c.root - tonic), q = quality(name);
         let cand = null;
-        if (q === 'm') cand = nameOf(c.root, 'm7');
-        else if (deg === 7 || (keyInfo.minor && deg === 7)) cand = nameOf(c.root, '7');            // V7
-        else if (deg === 0 || deg === 5 || (keyInfo.minor && (deg === 3 || deg === 8))) cand = nameOf(c.root, 'maj7');
+        if (H.rich === 'dom7') { if (deg === 7 && q === '') cand = nameOf(c.root, '7'); }
+        else if (H.rich === 'add9') { if (q === '' && home(deg)) cand = nameOf(c.root, 'add9'); }
+        else if (H.rich === 'sevenths' || H.rich === 'sixths') {
+          if (q === 'm') cand = nameOf(c.root, 'm7');
+          else if (deg === 7) cand = nameOf(c.root, '7');
+          else if (home(deg)) cand = nameOf(c.root, H.rich === 'sixths' ? '6' : 'maj7');
+        }
         return cand && fits(cand, pcs) ? cand : name;
       };
       const plain = M.map(bar => bar.map(sl => sl.chord));
-      const rich = M.map((bar, ci) => ci === N - 1 ? bar.map(sl => sl.chord) : bar.map(sl => sl.chord ? seventh(sl.chord, sl.pcs) : null));   // the final bar stays plain
-      // Approach chords: where the next bar changes root, the half bar before it takes the V7 of the new chord (or ii7 then V7 when both fit).
+      const rich = M.map((bar, ci) => ci === N - 1 ? bar.map(sl => sl.chord) : bar.map(sl => sl.chord ? enrich(sl.chord, sl.pcs) : null));   // the final bar stays plain
+      // Approach chords, in the second half of a bar that holds one chord.
       const approached = rich.map(b => [...b]);
-      let subs = 0;
+      let subs = 0, rel = 0;
       for (let ci = 0; ci + 1 < N; ci++) {
-        const target = chordPcs(plain[ci + 1][0] || ''), here = chordPcs(plain[ci][0] || ''), hold = plain[ci][0] === plain[ci][1];
-        if (!target || !here || target.root === here.root || !hold || ci === N - 2 && false) continue;
-        const v = nameOf(target.root + 7, '7'), ii = nameOf(target.root + 2, quality(plain[ci + 1][0]) === 'm' ? 'm7b5'.replace('m7b5', 'm7') : 'm7');
-        if (chordPcs(v).root === here.root) continue;                          // already the dominant
-        if (fits(v, M[ci][1].pcs)) {
-          approached[ci][1] = v;
-          if (fits(ii, M[ci][0].pcs) && ci > 0) approached[ci][0] = ii;
-          // A tritone substitute for every other dominant that resolves down a fifth, when the melody allows.
-          const tri = nameOf(target.root + 1, '7'); if (++subs % 2 === 0 && fits(tri, M[ci][1].pcs)) approached[ci][1] = tri;
+        const target = chordPcs(plain[ci + 1][0] || ''), here = chordPcs(plain[ci][0] || ''), hold = plain[ci][0] === plain[ci][1], half = M[ci][1].pcs;
+        if (!here || !hold) continue;
+        if (H.approach === 'relative') {
+          // Irish and pop backing: a held chord moves to its relative minor (or a minor one to its relative major) halfway, every other time.
+          // Not the dominant (it stays strong), not the bar before the last (the cadence), not where the next bar goes there anyway.
+          const q = quality(plain[ci][0]), deg = pc(here.root - tonic);
+          if (q === 'dim' || (deg === 7 && q === '') || ci === N - 2) continue;
+          const to = q === 'm' ? here.root + 3 : here.root + 9, cand = diatonic(to);
+          if (quality(cand) === (q === 'm' ? '' : 'm') && (!target || target.root !== pc(to)) && fits(cand, half) && rel++ % 2 === 0) approached[ci][1] = cand;
+          continue;
+        }
+        if (!target || target.root === here.root) continue;
+        if (H.approach === 'rock') {
+          // Into the tonic by the flat seventh (the rock "backdoor"), else by IV.
+          if (pc(target.root - tonic) !== 0) continue;
+          for (const cand of [nameOf(tonic + 10, ''), nameOf(tonic + 5, keyInfo.minor ? 'm' : '')]) if (chordPcs(cand).root !== here.root && fits(cand, half)) { approached[ci][1] = cand; break; }
+          continue;
+        }
+        if (!['dominant', 'ii-V', 'ii-V-sub'].includes(H.approach)) continue;
+        // The next chord's own V7 (a secondary dominant), with its ii7 first in the jazz styles, and a tritone substitute for every other one in swing and bossa.
+        const v = nameOf(target.root + 7, '7');
+        if (chordPcs(v).root === here.root || !fits(v, half)) continue;   // already the dominant, or the tune would fight it
+        approached[ci][1] = v;
+        if (H.approach === 'dominant') continue;
+        const ii = nameOf(target.root + 2, 'm7');
+        if (fits(ii, M[ci][0].pcs) && ci > 0) approached[ci][0] = ii;
+        if (H.approach === 'ii-V-sub') { const tri = nameOf(target.root + 1, '7'); if (++subs % 2 === 0 && fits(tri, half)) approached[ci][1] = tri; }
+      }
+      // The quiet last time: the plain chords, with the style's cadence into the final bar.
+      const out = plain.map(b => [...b]);
+      if (N > 1 && H.cadence !== 'none') {
+        const t = chordPcs(plain[N - 1][0] || '');
+        if (t && plain[N - 2][0] === plain[N - 2][1]) {
+          const v = H.cadence === 'V7' ? nameOf(t.root + 7, '7') : diatonic(t.root + 7);
+          if (quality(v) !== 'dim' && fits(v, M[N - 2][1].pcs) && chordPcs(plain[N - 2][1] || '').root !== chordPcs(v).root) out[N - 2][1] = v;
         }
       }
-      // The quiet last time: the plain chords, with a V7 into the final bar.
-      const out = plain.map(b => [...b]);
-      if (N > 1) { const t = chordPcs(plain[N - 1][0] || ''); if (t && plain[N - 2][0] === plain[N - 2][1]) { const v = nameOf(t.root + 7, '7'); if (fits(v, M[N - 2][1].pcs) && chordPcs(plain[N - 2][1] || '').root !== chordPcs(v).root) out[N - 2][1] = v; } }
-      const clamp = v => Math.max(0, Math.min(100, Math.round(v)));
-      const e = base.energy, d = base.detail;
-      const line = (n, bars, energy, detail, seed) => {
-        const toks = bars.map(b => b[0] === b[1] || !b[1] ? [b[0] || '.'] : [b[0] || '.', b[1] || '.']);
-        return `%%band ${n}: energy=${clamp(energy)} detail=${clamp(detail)} seed=${seed} | ${toks.map(t => t.join(' ')).join(' | ')} |`;
-      };
-      return [line(1, plain, e - 15, d - 20, base.seed), line(2, rich, e, d + 15, base.seed + 1), line(3, approached, e + 15, d + 30, base.seed + 2), line(4, approached, e + 35, 100, base.seed + 3), line(5, out, e - 25, d, base.seed + 4)];
+      return arc(plain, rich, approached, out);
     }
     /* ---- styles: grooves for the Band ----
        Every style is played by the Band (chords voiced by the smallest
@@ -1972,18 +2032,43 @@
        it and a teacher can edit it. Auto reads the tune's metre and its R:
        line (reel, jig, waltz, march, swing...). A page opened from disk has
        no samples for the Band, so there abcjs's own gchord patterns play. */
+    /* Each style also has a harmony: what the arranger may add to the tune's
+       own chords on the way round, and what the band may colour them with.
+       A fiddler does not play tritone substitutes and a bossa player does
+       not leave a tonic without its major seventh.
+         rich      the second time round: 'none' (the tune's chords),
+                   'dom7' (a seventh on the dominant only), 'sevenths'
+                   (m7, maj7, V7), 'sixths' (I6 and IV6, m7, V7: swing),
+                   'add9' (a ninth on I and IV, no sevenths: pop)
+         approach  the third and fourth times, in the half bar before a
+                   change of chord: 'none', 'dominant' (the next chord's
+                   V7), 'ii-V' (its ii7 then V7), 'ii-V-sub' (and every
+                   other V7 a tritone substitute), 'rock' (bVII into the
+                   tonic), 'relative' (the relative minor or major in the
+                   second half of a held bar: I-vi, IV-ii, as a bouzouki
+                   or a pop band would)
+         cadence   into the final bar the last time: 'V7', 'V' (a triad
+                   in the key signature's own scale, so a Dorian tune
+                   gets its minor v), 'none'
+         colour    the band's own additions as Detail rises: 0 (triads as
+                   written), 7 (a seventh on a dominant), 9 (sevenths and
+                   ninths), 'add9' (a ninth, no seventh)
+         moves     false: every time round keeps the tune's chords, and
+                   only the energy changes (a drone). */
     const STYLES = {
       auto:   { name: 'Auto' },
-      pop:    { name: 'Pop and rock' },
-      folk:   { name: 'Folk (boom-chick)' },
-      march:  { name: 'March and polka' },
-      waltz:  { name: 'Waltz' },
-      jig:    { name: 'Jig (6/8)' },
-      swing:  { name: 'Swing', swing: 66 },
-      bossa:  { name: 'Bossa' },
-      ballad: { name: 'Ballad' },
-      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true },
+      pop:    { name: 'Pop and rock', harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
+      folk:   { name: 'Folk (boom-chick)', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      march:  { name: 'March and polka', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      waltz:  { name: 'Waltz', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      jig:    { name: 'Jig (6/8)', harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0 } },
+      swing:  { name: 'Swing', swing: 66, harmony: { rich: 'sixths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
+      bossa:  { name: 'Bossa', harmony: { rich: 'sevenths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
+      ballad: { name: 'Ballad', harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9 } },
+      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false } },
     };
+    // The harmony a style key plays with (the pop band's for a key it does not know).
+    const harmonyOf = key => (STYLES[key] && STYLES[key].harmony) || STYLES.pop.harmony;
     // What earlier pages saved. The old Band style played the pop groove in every duple metre (waltz and jig in triple and compound ones, as pop still does), so a page saved with it keeps that sound rather than Auto's choice from the R: line.
     const LEGACY_STYLE = { band: 'pop', plain: 'auto', block: 'ballad', arp: 'ballad', boom: 'folk' };
     // The style a tune plays in: the one chosen, or for Auto the one its metre and R: line suggest.
@@ -2540,8 +2625,14 @@
         const control = (name, cy, base, top) => { const pat = score.controls[name]; if (!pat) return base; const v = Mini.valueAt(pat, cy); return v === undefined ? base : Math.max(0, Math.min(top, v)); };
         const E = cy => control('energy', cy, energy, 1), D = cy => control('detail', cy, detail, 1), L = (part, cy) => control(part, cy, 1, 4);
         res.room = control('room', 0, 0, 1);
-        // Chord tones (sevenths and ninths as Detail rises) and voicings that move by the smallest step.
-        const chordTones = (c, det) => { const t = [...c.pcs]; if (det > 0.55 && t.length === 3 && c.pcs.includes((c.root + 4) % 12) && !t.includes((c.root + 10) % 12) && FUNCTION_OF[romanOf(c, key.minor ? (key.doPc + 9) % 12 : key.doPc, key.minor).n.replace(/7$/, '')] === 'D') t.push((c.root + 10) % 12); if (det > 0.75 && t.length === 3) t.push((c.root + 2) % 12); return t; };
+        // Chord tones (a seventh on a dominant and ninths as Detail rises, as far as the style colours its chords) and voicings that move by the smallest step.
+        const colour = harmonyOf(cell.styleKey).colour;
+        const chordTones = (c, det) => {
+          const t = [...c.pcs];
+          if (colour >= 7 && det > 0.55 && t.length === 3 && c.pcs.includes((c.root + 4) % 12) && FUNCTION_OF[romanOf(c, key.minor ? (key.doPc + 9) % 12 : key.doPc, key.minor).n.replace(/7$/, '')] === 'D') t.push((c.root + 10) % 12);
+          if (t.length === 3 && ((colour === 9 && det > 0.75) || (colour === 'add9' && det > 0.6))) t.push((c.root + 2) % 12);
+          return t;
+        };
         let prevVoicing = null, lastChordName = null;
         const voice = (c, det) => {
           if (c.name === lastChordName && prevVoicing && prevVoicing.length === chordTones(c, det).length) return prevVoicing;
@@ -3045,7 +3136,7 @@
             <label>Energy <input type="range" class="energy" min="0" max="100" value="${this.band.i === undefined ? 50 : this.band.i}"></label>
             <label>Detail <input type="range" class="detail" min="0" max="100" value="${this.band.c === undefined ? 50 : this.band.c}"></label>
             <button type="button" class="regen" title="A new variation">\u21BB</button>
-            <button type="button" class="arrange" title="With Repeat on, the band already plays a five-time-round arrangement (as written, sevenths, approach chords, full energy, a quiet last time); Arrange writes it into the box, to keep or edit as text">Arrange</button>
+            <button type="button" class="arrange" title="With Repeat on, the band already plays a five-time-round arrangement (as written, richer chords, approach chords, full energy, a quiet last time, each in the style&rsquo;s own harmony); Arrange writes it into the box, to keep or edit as text">Arrange</button>
             <button type="button" class="sharecopy" title="Copy the tune and its band as text to send: the ABC, then the band as Strudel lines ($: s(&quot;bd ~ sd ~&quot;) for the drums, note(...) for the bass and the chords)">Copy as Strudel</button>
             <button type="button" class="sharepaste" title="Paste a tune, Strudel code or both: the tune goes into the Melody tab and the band lines into this box">Paste…</button></span>
           <div class="bandnote"></div>
@@ -3277,7 +3368,7 @@
         const written = /"[A-G][#b♯♭]?[^"]*"/.test(this.entry.value);
         if (location.protocol === 'file:') { el.textContent = 'Opened from disk, so the band cannot load its sounds: the chords play on a basic pattern and Style has no effect. Serve the folder (serve.command, or python3 -m http.server) or open the published page to hear the band.'; el.classList.add('err'); return; }
         el.classList.remove('err');
-        const arc = !chart.choruses.length && this.autoArcVal ? ' With Repeat on, each time round builds on the last: sevenths, then approach chords, then full energy, then a quiet last time. Arrange writes that arrangement here to keep or edit.' : ' Arrange writes a five-chorus arrangement here to keep or edit.';
+        const arc = !chart.choruses.length && this.autoArcVal && harmonyOf(this.styleKey).moves === false ? ' With Repeat on, the drone holds its tonic while the band builds and settles from one time round to the next. Arrange writes that arrangement here to keep or edit.' : !chart.choruses.length && this.autoArcVal ? ' With Repeat on, each time round builds on the last: richer chords, then approach chords, then full energy, then a quiet last time, each in the style\u2019s own harmony. Arrange writes that arrangement here to keep or edit.' : ' Arrange writes a five-chorus arrangement here to keep or edit.';
         el.textContent = charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` :
           written ? 'The band plays the melody’s chord symbols.' + arc :
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc :
@@ -3720,18 +3811,19 @@
       }
       // With nothing written in the arrangement box, the band still varies from one time round to the next when
       // the tune repeats: the arrangement Arrange would write, played without being written. The first time is the
-      // tune as it stands (its own chords, the sliders' energy and detail); then sevenths and a little more energy,
-      // then approach chords, then the fullest, then a quieter last time with a dominant into the final bar.
-      // Arrange writes the same arc into the box to keep or edit. A tonic-only style (a drone) does not vary.
+      // tune as it stands (its own chords, the sliders' energy and detail); then richer chords and a little more energy,
+      // then approach chords, then the fullest, then a quieter last time with a cadence into the final bar.
+      // Arrange writes the same arc into the box to keep or edit. Which richer and approach chords each time round
+      // brings is the style's harmony (STYLES); a drone keeps its tonic and only the energy moves.
       autoArc() {
-        if (!this.original || (STYLES[this.styleKey] || {}).tonicOnly) { this.autoArcFor = null; this.autoArcVal = null; return null; }
-        if (this.autoArcFor === this.original) return this.autoArcVal;
+        if (!this.original) { this.autoArcFor = null; this.autoArcVal = null; return null; }
+        if (this.autoArcFor === this.original && this.autoArcStyle === this.styleKey) return this.autoArcVal;
         let val = null;
         try {
-          const ch = parseChart(arrange(this.original, this.keyInfo(), { energy: 50, detail: 50, seed: 1 }).join('\n')).choruses;
+          const ch = parseChart(arrange(this.original, this.keyInfo(), { energy: 50, detail: 50, seed: 1 }, harmonyOf(this.styleKey)).join('\n')).choruses;
           if (ch.length === 5) val = [{ de: 0, dd: 0, bars: null }, { de: 5, dd: 15, bars: ch[1].bars }, { de: 15, dd: 30, bars: ch[2].bars }, { de: 30, dd: 45, bars: ch[3].bars }, { de: -20, dd: 0, bars: ch[4].bars }];
         } catch (err) { console.warn('arc', err); }
-        this.autoArcFor = this.original; this.autoArcVal = val;
+        this.autoArcFor = this.original; this.autoArcStyle = this.styleKey; this.autoArcVal = val;
         return val;
       }
       // The choruses in play: the arrangement box's, else the arc above.
@@ -3761,7 +3853,7 @@
       writeChart() {
         if (!this.original) return false;
         const b = this.band || {};
-        const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 });
+        const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 }, harmonyOf(this.styleKey));
         if (!lines.length) return false;
         const kept = this.bandReal().split('\n').filter(l => l.trim() && SCORE_LINE.test(bandLine(l)));   // the score lines stay
         this.setBand([...kept, ...lines.map(l => l.replace(/^%%band\s*/, ''))].join('\n'));
@@ -4134,13 +4226,7 @@
         return ts[i + 1] || null;
       }
       // The tonic (do) and whether the key leans to flats, from the displayed key signature; minor keys are la-based.
-      keyInfo() {
-        const k = this.displayed && this.displayed.getKeySignature ? this.displayed.getKeySignature() : null;
-        if (!k || !k.root) return { doPc: 0, minor: false, flats: false };
-        const minor = /^m(in)?/i.test(k.mode || '') && !/^maj/i.test(k.mode || '');
-        const pc = ((LETTER_PC[k.root.toUpperCase()] + (k.acc === '#' ? 1 : k.acc === 'b' ? -1 : 0) + (minor ? 3 : 0)) % 12 + 12) % 12;
-        return { doPc: pc, minor, flats: !!(k.accidentals && k.accidentals.length && k.accidentals[0].acc === 'flat') };
-      }
+      keyInfo() { return keyInfoOf(this.displayed && this.displayed.getKeySignature ? this.displayed.getKeySignature() : null); }
       // The name of a pitch (or a spelled note) in the chosen naming.
       nameOf(m, acc) {
         const pc = ((m % 12) + 12) % 12;

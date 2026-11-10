@@ -41,6 +41,8 @@ assert(holding.status === 0, holding.stderr || holding.stdout || 'holding board 
 const sets = spawnSync(process.execPath, ['course/build-sets.js', '--check'], { cwd: root, encoding: 'utf8' });
 assert(sets.status === 0, sets.stderr || sets.stdout || 'course/sets.js is stale');
 
+const arranger = spawnSync(process.execPath, ['test/arrange.test.js'], { cwd: root, encoding: 'utf8' });
+assert(arranger.status === 0, arranger.stderr || arranger.stdout || 'arranger checks failed');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 assert(set.tunes.length === 45, `expected 45 published tunes, found ${set.tunes.length}`);
 assert(new Set(set.tunes.map(t => t.id)).size === set.tunes.length, 'published tune IDs are not unique');
