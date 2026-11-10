@@ -256,7 +256,7 @@
     /* ---- the share link the main page reads: "=== type" blocks, deflated, base64url ---- */
     const b64u = bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
     async function openLink(tune) {
-      const doc = `=== heading\n${tune.title}\n=== abc\n${tune.abc}`;
+      const doc = `=== text {"align":"center"}\n${tune.title}\n=== abc\n${tune.abc}`;
       const bytes = new TextEncoder().encode(doc);
       let tag = 't', payload = bytes;
       if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
