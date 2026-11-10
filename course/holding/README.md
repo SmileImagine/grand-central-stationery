@@ -12,8 +12,11 @@ in the workshop branch, `claude/tune-workshop-editing-7e81a1`, checked out at
 students use (GitHub Pages serves it), so none of this is on main, and on main
 the queued sample tunes in `course/samples/` are placeholders titled *Withheld*.
 
-- Add, edit and review tunes here, not on main. Do not push this branch to the
-  public GitHub repository.
+- Add, edit and review tunes here, not on main. The tunes may sit in the
+  repository (this branch can be pushed to GitHub, and older commits of main
+  still hold them); what matters is that they are never published on the site,
+  which GitHub Pages builds from main alone. So never merge this branch into
+  main.
 - Bring main's work in with `git merge main`. Main's removal of the workshop
   (944fe71) is recorded here as merged without its changes, so merges keep the
   workshop whole; do not rebase or squash that commit on main.
