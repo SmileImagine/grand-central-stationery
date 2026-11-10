@@ -3106,6 +3106,8 @@
         el.classList.toggle('err', !!problems.length);
         if (problems.length) { el.textContent = `Check the Band text: ${[...new Set(problems)].join(' ')}`; return; }
         const written = /"[A-G][#b♯♭]?[^"]*"/.test(this.entry.value);
+        if (location.protocol === 'file:') { el.textContent = 'Opened from disk, so the band cannot load its sounds: the chords play on a basic pattern and Style has no effect. Serve the folder (serve.command, or python3 -m http.server) or open the published page to hear the band.'; el.classList.add('err'); return; }
+        el.classList.remove('err');
         el.textContent = charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` :
           written ? 'The band plays the melody’s chord symbols. Arrange writes a five-chorus arrangement here to keep or edit.' :
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab). Arrange writes them here to edit.' :
