@@ -45,8 +45,14 @@ const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8
 assert(set.tunes.length === 45, `expected 45 published tunes, found ${set.tunes.length}`);
 assert(new Set(set.tunes.map(t => t.id)).size === set.tunes.length, 'published tune IDs are not unique');
 assert(!set.tunes.some(t => /\bsketch\b/i.test(`${t.title}\n${t.abc}`)), 'a sketch remains in the published set');
-const garhwaliAnswer = set.tunes.find(t => t.id === 'hindostan-folk-3-o-where-will-you-go');
-assert(garhwaliAnswer && garhwaliAnswer.key === 'GDor' && /\nK:Gdor\n/.test(garhwaliAnswer.abc), 'the Garhwali answer must keep G as tonic with the one-flat Dorian signature');
+for (const [id, key, abcKey] of [
+  ['hindostan-folk-1-o-give-me-those-pretty-eyes', 'GDor', 'Gdor'],
+  ['hindostan-folk-2-mother-send-to-the-dhobi', 'BPhr', 'Bphr'],
+  ['hindostan-folk-3-o-where-will-you-go', 'GDor', 'Gdor'],
+]) {
+  const tune = set.tunes.find(t => t.id === id);
+  assert(tune && tune.key === key && tune.abc.includes(`\nK:${abcKey}\n`), `${id} must encode its declared tonic and modal signature`);
+}
 
 const sampleText = files.filter(f => f.includes(`${path.sep}course${path.sep}samples${path.sep}`) && f.endsWith('.abc')).map(f => fs.readFileSync(f, 'utf8')).join('\n');
 assert(!/\bA SKETCH\b|\(sketch\)/i.test(sampleText), 'a marked sketch remains in course/samples');
