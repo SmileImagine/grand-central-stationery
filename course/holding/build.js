@@ -10,6 +10,13 @@ const metaOf = text => {
   }
   return meta;
 };
+// A tune's dossier (docs/TUNE-QUALITY-PLANS-2026-11-10.md, A1): "% dossier-function: ..." lines, in a fixed order.
+const DOSSIER = ['function', 'elements', 'practice', 'honesty', 'licence', 'respect', 'review'];
+const dossierOf = text => {
+  const d = {};
+  for (const line of text.split('\n')) { const m = line.match(/^%\s*dossier-([a-z]+):\s*(.*)$/i); if (m && DOSSIER.includes(m[1].toLowerCase())) d[m[1].toLowerCase()] = m[2].trim(); }
+  return Object.keys(d).length ? d : null;
+};
 const field = (text, name) => {
   const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi'));
   return m ? m[1].trim() : '';
@@ -29,7 +36,8 @@ const seen = new Set(), errors = [], items = files.map(file => {
     subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),
     source: field(text, 'S'), status: meta.status || 'inbox', owner: meta.owner || '',
     sourceCheck: meta['source-check'] || 'pending', classroomCheck: meta['classroom-check'] || 'pending',
-    updated: meta.updated || '', blocked: meta.blocked || '', notes: field(text, 'N')
+    updated: meta.updated || '', blocked: meta.blocked || '', notes: field(text, 'N'),
+    dossier: dossierOf(text)
   };
 });
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

@@ -327,6 +327,73 @@ whatever the emphasis:
 | 5 | Class parts, range check, music minus one, live energy fader, rehearsal loops | band leader |
 | 6 | Second wave of tunes to fill the coverage map; culture-bearer reviews | musicologist |
 
+### Progress
+
+- Phase 1, done on 10 November 2026: `arrange()` reads each style's
+  harmony (`STYLES[k].harmony`: rich, approach, cadence, colour, moves,
+  hit), so a reel gets no tritone substitutes; the Band plays a two-bar
+  intro from the tune's last bars (`%%band intro=N`, 0 for none) and ends
+  on a ringing final chord the last time round (`ending=hit|none`; soft
+  styles leave out the crash). The Band also now follows repeats: it used
+  to stop after the written length, leaving the second half of every
+  repeated fiddle tune to the melody alone.
+- Phase 1, done later the same day: the idiom registry. Each style's
+  groove is an entry in `GROOVES`, and `STYLES` holds the rest of its idiom
+  (name, harmony, swing, and `fit`: the metres it plays in and the style it
+  gives way to elsewhere). Every one of 52,800 scores (style, metre,
+  energy, detail, seed) came out the same as the old `if` chain. A time
+  round can change its texture: `%%band 3: texture=stop` (stop time), `drums`
+  (a break), `unplugged`, `claps` (backbeat claps only), `full`.
+- Phase 2, started: the master bus has a gentle compressor, a +2 dB trim
+  and a limiter (`MASTER`). Measured in the browser: the page used to play
+  at about -34 dB RMS with peaks at -18 dBFS; now about -22 dB RMS, peaks
+  -7, and the fullest chorus -19, peaks -4, with no clipping. The styles
+  land within about 2 dB of one another. Five modern styles use the samples
+  already shipped: funk, reggaeton (dembow), Afrobeats (with the 12/8 bell in
+  compound time), lo-fi hip-hop and house; Auto picks them from an `R:`
+  line. New kit words: `cb` cowbell, `cl` claves, `wb`/`lwb` wood blocks,
+  `ca` cabasa.
+- Phase 2, continued: synthesised voices, made in Web Audio with no
+  download: an 808 kick (a long falling boom) and a 909 kick (a short
+  punch), a sub bass, a saw bass, a pluck and a pad. A style names them in
+  `STYLES[k].sound`; house, reggaeton, Afrobeats and the new trap style use
+  them. Their levels (`SYNTH_LEVEL`) were set from solo measurements so the
+  dance styles play within about 2 dB of pop. `pump` ducks the chords and
+  bass under each kick (house deepest). A `build` texture drops the kick and
+  bass for the last two bars under a snare roll; the dance styles (pop,
+  funk, reggaeton, Afrobeats, trap, house) build their third time round
+  into the fullest fourth by default, and Arrange writes it as
+  `texture=build`.
+- Left out on purpose: a key change for the last time round. Sound alone
+  could go up a step, but the staff, the instrument view and the chord
+  symbols would still show the old key, which would mislead a class
+  reading along; it needs transposed display first.
+- Phase 3, started: tune dossiers and a first wave of seven tunes, in the
+  holding board (source and classroom checks pending; nothing published).
+  Dossiers are `% dossier-function/elements/practice/honesty/licence/
+  respect/review:` lines in the ABC; `course/holding/build.js` carries them
+  into the board, which shows them under each card.
+  - Jamaica, from Jekyll, *Jamaican Song and Story* (1907, public domain):
+    Pass the ball, Galloway road, Carry banana, Little Sally Water. Notes
+    converted from Project Gutenberg's MusicXML and checked bar by bar
+    against the page images. One ring tune was left out for a racial slur.
+  - Japan, from Daisyfield's public-domain transcriptions: Konpira fune
+    fune and Kazoe-uta (Nagai and Obata, 1895), Sakura (koto version, book
+    not named). These still want checking against the 1890s books.
+  - Two new idioms for them: mento (Jamaican country band: off-beat strum,
+    rumba-box bass in 3+3+2, shaker, hand drum, rim on the last beat) and
+    min'yo (taiko, hyoshigi, chanchiki bell, an open-fifth drone on the
+    song's final, no chord changes). A drone style now keeps a chord the
+    tune writes (the open fifth) instead of filling with the key's triad.
+  - Not yet: West Africa and the Middle East. No machine-readable public
+    domain source was found this round, and typing songs from memory would
+    not be accurate enough; they want a culture bearer's version (typed as
+    CC0 from teaching practice, as the course rules allow) or a scan read
+    bar by bar.
+- Still open: synth leads; West African, Middle Eastern, Latin American
+  (Andrade 1928) and Korean tunes; original bangers (phase 4); class parts
+  and the live energy fader (phase 5).
+
 ## Decisions for the user
 
 - **Which chair leads** the first two phases: the order above starts with the
@@ -337,3 +404,38 @@ whatever the emphasis:
   `course/holding` until they do.
 - **Who writes the originals**: Claude-drafted, teacher-drafted, or
   co-written with students (the course rules allow locally written work).
+
+## Parallel progress
+
+- **Classroom range and singability (Phase 5):** implemented in the separate
+  worktree `.claude/worktrees/codex-tune-quality-range-guide`, branch
+  `codex/tune-quality-range-guide`, commit `1a546dd`. `course/classroom-fit.js`
+  analyzes all 45 published tunes for young voices, recorder, ukulele and a
+  one-octave classroom set, recommends a readable rehearsal key within the
+  page's transpose limit, and generates `course/classroom-fit.md`. The report
+  has a stale-file check and `test/classroom-fit.test.js`; `make smoke` passes
+  there (44 checks).
+- **Accompaniment identity and quality audit (Phases 0 and 3):** implemented
+  in the same separate worktree and branch, commit `6ca47b2`.
+  `course/accompaniment-audit.js` records the style Auto actually selects,
+  why it selects it, and whether harmony is written, detected or an intentional
+  drone; it generates `course/accompaniment-audit.md` and a provenance/idiom
+  repair queue. Fourteen high-confidence source-family annotations restore
+  reel, waltz and Morris identities in `course/set.json`, so twelve imported
+  reels no longer fall through to the pop band. Ambiguous songs remain queued
+  rather than guessed. `make smoke` passes there (45 checks).
+- **Published provenance repair:** implemented in the same worktree and
+  branch, commit `73b9dab`. All 16 Nottingham imports now point to their exact
+  canonical `ABC_original` file in `jukedeck/nottingham-dataset` and carry the
+  repository's `GPL-3.0` licence, replacing private scratch-directory paths.
+  The audit and tests require zero temporary/private published source paths;
+  the library can now show a working Source link. `make smoke` still passes
+  there (45 checks).
+- **Coverage map and Phase 6 gap queue:** implemented in the same worktree and
+  branch, commit `268347f`. `course/coverage-map.js` and the generated
+  `course/coverage-map.md` cross-tab all published tunes by explicit region,
+  level, classroom function and Auto style. The current set has eight empty
+  target regions, 19 tunes without an explicit origin and 20 without a stated
+  function/type. The classifier never infers Indigenous identity from a
+  country, while an explicitly named Indigenous community takes precedence.
+  `make smoke` passes there (46 checks).

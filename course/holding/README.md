@@ -19,6 +19,19 @@ Each `.abc` file begins with these comment fields:
 % holding-blocked: what must happen next
 ```
 
+A tune can also carry a dossier, what its tradition says it needs, in the same
+comment form (all optional; the board shows them under the card):
+
+```text
+% dossier-function: game, dance, lullaby, work song, story...
+% dossier-elements: rhythm cell, accompaniment idiom, scale or mode, form
+% dossier-practice: tempo, who sings or plays what, where the accents fall
+% dossier-honesty: traditional | arranged | fusion, and what is ours
+% dossier-licence: the source's status and how the notes were taken
+% dossier-respect: anything sacred or sensitive, and how to present it
+% dossier-review: who should hear it before it is published
+```
+
 The status is a kanban column, not a claim that the earlier checks passed.
 `ready` is valid only when both checks are complete. Keep provenance and the
 uncertainties in the ABC itself; do not put a sketch in `course/samples/` or

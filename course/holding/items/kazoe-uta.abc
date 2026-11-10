@@ -1,0 +1,31 @@
+% holding-id: kazoe-uta
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Check the notes against Nagai and Obata (1895), find the counting words, and confirm the drone (E and B) with a culture bearer.
+% dossier-function: counting song (kazoe-uta): each verse counts on, one, two, three; sung for ball bouncing (temari) and other children's games
+% dossier-elements: miyako-bushi (in) scale on E (E F A B C), cadences on B and E; 4/4; the band holds an open fifth E and B
+% dossier-practice: moderate, steady, the beat kept by the ball or the hands
+% dossier-honesty: arranged: the melody as Nagai and Obata printed it (via Daisyfield); the drone and light percussion are ours
+% dossier-licence: public domain (Nagai and Obata, 1895; transcription donated to the public domain by Tom Potter, 2008)
+% dossier-respect: a children's song, for everyone
+% dossier-review: a Japanese culture bearer or a teacher of min'yo or koto before publishing
+X:1
+T:Kazoe-uta
+T:Japanese counting song
+C:traditional (Japan)
+O:Japan
+R:warabe-uta
+S:Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)
+N:The scale is the in (miyako-bushi) scale on E, E F A B C; the phrases close on B and on E, so the band holds E and B (E5). No words in the source file.
+M:4/4
+L:1/8
+Q:1/4=100
+K:C
+%%style minyo
+|: "E5"C2 C2 E2 C2 | E4 F2 E2 | A4 F2 F2 | E2 E2 C2 E2 |
+F2 F2 E2 C2 | B,4 z4 | F2 F2 E2 C2 | B,4 C2 B,2 |
+A2 B2 c2 c2 | B2 A2 F2 E2 | A2 A2 B2 A2 | B4 c2 B2 |
+A2 A2 B2 A2 | B4 z4 :|

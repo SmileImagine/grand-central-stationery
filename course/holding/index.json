@@ -10,11 +10,103 @@
  "counts": {
   "inbox": 0,
   "transcription": 1,
-  "source-check": 2,
+  "source-check": 9,
   "classroom-check": 0,
   "ready": 0
  },
  "items": [
+  {
+   "id": "carry-banana",
+   "file": "items/carry-banana.abc",
+   "title": "Carry banana",
+   "subtitle": "Jamaican ring tune",
+   "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIII, p. 196",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Have a Jamaican culture bearer hear it in the waltz the band plays (Jekyll marks it Tempo di Valse).",
+   "notes": "Words and tune as Jekyll printed them (Tempo di Valse). The girl is supposed to be carrying a bunch of bananas on her head, and the singers comment and ask her questions: \"Look! It is a nine-hand banana. No, a China banana. Did you find it? Did you steal it?\"",
+   "dossier": {
+    "function": "game: a chorus ring tune; the singers tease a girl carrying a bunch of bananas on her head, and \"You find the banana?\" is the signal to take a partner",
+    "elements": "3/4 waltz (Jekyll: Tempo di Valse); call \"the gal over yonder\" and the chorus \"carry banana\" answering; a raised A sharp leading to the B",
+    "practice": "one in a bar; leaders sing the questions, the ring answers \"carry banana\"; a nine-hand bunch is market size, the China banana a stout low kind",
+    "honesty": "arranged: melody and words as Jekyll printed them; the band plays a waltz under it",
+    "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
+    "respect": "for everyone; \"tief\" is Patois for steal",
+    "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
+  },
+  {
+   "id": "galloway-road",
+   "file": "items/galloway-road.abc",
+   "title": "Galloway road",
+   "subtitle": "Jamaican ring game",
+   "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCVIII, p. 199",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Have a Jamaican culture bearer hear it; check whether the class version should pass stones (as in Manuel Road) or choose partners, as Jekyll describes.",
+   "notes": "Words and tune as Jekyll printed them (Allegretto). \"I go to Galloway road (where there is a quarry). Girls and boys are breaking stones. They break them one by one, two by two... Choosing stones suggests choosing partners.\"",
+   "dossier": {
+    "function": "game: a ring game about breaking stones on the Galloway road quarry; choosing stones stands for choosing partners. A relative of the stone-passing song \"Go Dung a Manuel Road\"",
+    "elements": "2/4 with triplets on \"Galloway\" and \"Take up the one that you\"; the refrain \"gal an' boy\" on a falling F D D D; the raised G sharp leading to A in bar 3",
+    "practice": "Allegretto; leader and ring sing together; in class it works as a stone or bean-bag passing game on the beat (a later practice, not Jekyll's description)",
+    "honesty": "arranged: melody and words as Jekyll printed them; mento backing ours",
+    "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
+    "respect": "a work and play song; the words describe convict and labourer stone-breaking, worth a sentence of history in class",
+    "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
+  },
+  {
+   "id": "kazoe-uta",
+   "file": "items/kazoe-uta.abc",
+   "title": "Kazoe-uta",
+   "subtitle": "Japanese counting song",
+   "source": "Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Check the notes against Nagai and Obata (1895), find the counting words, and confirm the drone (E and B) with a culture bearer.",
+   "notes": "The scale is the in (miyako-bushi) scale on E, E F A B C; the phrases close on B and on E, so the band holds E and B (E5). No words in the source file.",
+   "dossier": {
+    "function": "counting song (kazoe-uta): each verse counts on, one, two, three; sung for ball bouncing (temari) and other children's games",
+    "elements": "miyako-bushi (in) scale on E (E F A B C), cadences on B and E; 4/4; the band holds an open fifth E and B",
+    "practice": "moderate, steady, the beat kept by the ball or the hands",
+    "honesty": "arranged: the melody as Nagai and Obata printed it (via Daisyfield); the drone and light percussion are ours",
+    "licence": "public domain (Nagai and Obata, 1895; transcription donated to the public domain by Tom Potter, 2008)",
+    "respect": "a children's song, for everyone",
+    "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
+   }
+  },
+  {
+   "id": "konpira-fune-fune",
+   "file": "items/konpira-fune-fune.abc",
+   "title": "Konpira fune fune",
+   "subtitle": "Japanese game song",
+   "source": "Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Check the notes against Nagai and Obata (1895) and add the words (not in the MusicXML).",
+   "notes": "The game: two players face each other across a small stand and touch it in turn, in time to the song, which goes faster each time round. The ending is on G with the yo scale's G A C D E, so the band holds G and D (an open fifth, written G5) rather than changing chords. No words in the source file.",
+   "dossier": {
+    "function": "game: a zashiki-asobi (party game) song from Kotohira, Kagawa; two players take turns touching a small stand in time, and a player who hesitates loses",
+    "elements": "yo scale on G (G A C D E) ending on G; 2/4; the band holds an open fifth on G and plays taiko, hyoshigi and the chanchiki bell; no Western chord changes",
+    "practice": "speeds up each time round in the game; the shamisen is the traditional accompaniment",
+    "honesty": "arranged: the melody as Nagai and Obata printed it (via Daisyfield); the taiko-and-bell backing is ours, after festival min'yo",
+    "licence": "public domain (Nagai and Obata, 1895; transcription donated to the public domain by Tom Potter, 2008)",
+    "respect": "a party game song, for everyone",
+    "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
+   }
+  },
   {
    "id": "lalishrita",
    "file": "items/lalishrita.abc",
@@ -27,7 +119,31 @@
    "classroomCheck": "pending",
    "updated": "2026-11-09",
    "blocked": "Transcribe lines three and four, then check every bar against Ex. 155's plate.",
-   "notes": "A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet."
+   "notes": "A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet.",
+   "dossier": null
+  },
+  {
+   "id": "little-sally-water",
+   "file": "items/little-sally-water.abc",
+   "title": "Little Sally Water",
+   "subtitle": "Jamaican ring game",
+   "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. LXXXIX, p. 191",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Decide with a culture bearer whether the class sings the last verse (\"Now you married... give her a kiss\"); it is Jekyll's text and traditional.",
+   "notes": "Words and tune as Jekyll printed them: Andante, then Allegro where the pair wheel. The boys and girls join hands and form a ring; one crouches in the middle as Sally Water, rises slowly at \"Rise, Sally, rise\", brushing away imaginary tears, turns one way and another, and chooses a partner from the ring.",
+   "dossier": {
+    "function": "game and dance: the ring game that gave its name to all \"playing in the ring\"; Sally crouches in the middle, rises, chooses a partner, and the two wheel",
+    "elements": "two sections: an Andante call (rise, turn to the East and West) and an Allegro for the wheeling dance; English singing-game roots (Jekyll) sung in Jamaican style",
+    "practice": "the tempo changes where the wheeling starts; the partner chosen becomes the next Sally Water",
+    "honesty": "arranged: melody and words as Jekyll printed them; mento backing ours",
+    "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
+    "respect": "for everyone; the last verse is a mock wedding, which some classes will skip",
+    "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
   },
   {
    "id": "nirgunas-lullaby",
@@ -41,7 +157,54 @@
    "classroomCheck": "pending",
    "updated": "2026-11-09",
    "blocked": "Check every bar against Ex. 162's plate; the book prints no words.",
-   "notes": "A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught."
+   "notes": "A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught.",
+   "dossier": null
+  },
+  {
+   "id": "pass-the-ball",
+   "file": "items/pass-the-ball.abc",
+   "title": "Pass the ball",
+   "subtitle": "Jamaican ring game",
+   "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIV, p. 197",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Have a Jamaican culture bearer hear it with the mento band; the notes already match the 1907 plate.",
+   "notes": "Words and tune as Jekyll printed them (Allegro). The ring closes up tight, shoulder to shoulder; hands behind the back pass the ball round and round, and the girl inside the ring tries to find it. The person with whom it is found goes into the ring and becomes the seeker.",
+   "dossier": {
+    "function": "game: a passing game in a closed ring (no dancing); hands behind backs pass a ball while the seeker in the middle tries to find it",
+    "elements": "call and response by section; quavers on the words, a dotted crotchet on \"round\"; the melody falls by step to the tonic at each cadence",
+    "practice": "Allegro, sung by everyone in the ring; the person found holding the ball becomes the seeker. \"Goin'\" is one short syllable, as Jekyll notes",
+    "honesty": "arranged: the melody and words as Jekyll printed them; the mento backing (band, strum, rumba-box bass) is ours, in the idiom of Jamaican country bands",
+    "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
+    "respect": "a children's game, for everyone; say it is Jamaican and that the words are Jamaican Patois",
+    "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
+  },
+  {
+   "id": "sakura-koto",
+   "file": "items/sakura-koto.abc",
+   "title": "Sakura",
+   "subtitle": "Japanese koto song",
+   "source": "Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain) (koto version; the source book is not named on the page)",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Name the book Daisyfield took this koto version from (its page gives none), and check the ending (G A B flat | e d B flat A), which differs from the school version.",
+   "notes": "Words in romaji (old text: yayoi no sora wa, miwatasu kagiri...). The scale is the in scale on A, A B flat D E F; the band holds A and E (A5) and plays no drums.",
+   "dossier": {
+    "function": "song for the koto: cherry blossom in spring; taught in Japanese schools since the Meiji era",
+    "elements": "in (miyako-bushi) scale on A (A B flat D E F), here a fifth below the usual school key; 4/4; the band holds an open fifth A and E, quietly, as a koto's open strings might",
+    "practice": "slow and even; a koto plays the melody with plucked ornaments; no percussion (the band is kept at low energy)",
+    "honesty": "arranged: the koto melody as Daisyfield transcribed it, words in romaji; the drone is ours",
+    "licence": "public domain (traditional, Edo period; transcription donated to the public domain by Daisyfield.com)",
+    "respect": "for everyone",
+    "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
+   }
   },
   {
    "id": "the-ayahs-song",
@@ -55,7 +218,8 @@
    "classroomCheck": "pending",
    "updated": "2026-11-09",
    "blocked": "Check every bar and both cadence slides against Ex. 160's plate.",
-   "notes": "A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate."
+   "notes": "A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate.",
+   "dossier": null
   }
  ]
 }

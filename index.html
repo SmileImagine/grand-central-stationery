@@ -1649,6 +1649,7 @@
     function withDetectedChords(abc, tonicOnly = false) {
       if (!window.ABCJS) return abc;
       const written = /"[A-G][#b\u266F\u266D]?[^"]*"/.test(abc);
+      if (tonicOnly && written) return abc;   // a drone holds the chord the tune writes (an open fifth on its final), not the key's triad
       let tune; try { tune = ABCJS.parseOnly(abc)[0]; } catch (err) { return abc; }
       if (!tune || !tune.lines) return abc;
       const elems = collect(tune), sp = spell(tune, elems);
@@ -1730,7 +1731,20 @@
        steps to a 4/4 bar, 12 to a 3/4 bar) for kick=, snare=, hat= and
        comp= (the chord hits) replace the patterns Energy would choose.
        The choruses take turns: the second time round plays line 2, and
-       after the last line the first comes round again. */
+       after the last line the first comes round again.
+         %%band 3: texture=stop                         stop time the third time round
+       texture= changes who plays one time round: full (the default),
+       drums (a break: the melody over the drums), unplugged (no drums),
+       claps (claps on the backbeat only, for the class to join), stop
+       (one hit on each downbeat, then silence for the melody), or build
+       (the last two bars drop the kick and bass under a growing snare roll,
+       into the next time round).
+         %%band intro=4 ending=none                     the band's way in and out
+       From the top, the band plays the tune's last bars as an intro before
+       the melody comes in (intro=2 bars unless set; intro=0 for none), and
+       the last time round (Repeat off) it ends on a hit: the final bar's
+       chord, the bass note, a kick and a crash, left to ring (ending=hit,
+       the default; ending=none plays the groove to the end). */
     const CHART_LINE = /^%%?band\b(.*)$/;
     // The cell's text is one string, the document's: the melody's ABC with its %%band lines. The two
     // boxes show its halves, the arrangement without the %%band prefix, and the text is joined again
@@ -1740,7 +1754,7 @@
     const joinBand = (melody, band) => { const lines = band.split('\n').map(bandLine).filter(Boolean); if (!lines.length) return melody; const m = melody.replace(/\s+$/, ''); return (m ? m + '\n' : '') + lines.join('\n'); };
     // The score lines the Band box holds once the pattern is edited: a part's lines and control patterns for every chorus (numbered ones are a chorus's own and stay).
     const SCORE_LINE = /^%%?band\s+(?:(?:drums|bass|chords)\s*:|room\s*=|(?:energy|detail|drums|bass|chords)\s*=(?!\s*\d+(?:\s+[a-z]+=|\s*$)))/i;
-    const CHART_NUM = { energy: 1, detail: 1, seed: 1 }, CHART_STEPS = { kick: 1, snare: 1, hat: 1, comp: 1 };
+    const CHART_NUM = { energy: 1, detail: 1, seed: 1, intro: 1 }, CHART_STEPS = { kick: 1, snare: 1, hat: 1, comp: 1 }, CHART_WORDS = { ending: ['hit', 'none'], texture: ['full', 'drums', 'unplugged', 'claps', 'stop', 'build'] };
     function parseChart(text) {
       const chart = { defaults: {}, choruses: [], problems: [] };
       text.split('\n').forEach((raw, li) => {
@@ -1762,6 +1776,7 @@
           const k = kv[1].toLowerCase(), v = kv[2];
           if (CHART_NUM[k]) { const num = parseInt(v, 10); if (isNaN(num)) chart.problems.push(`Line ${li + 1}: ${k} wants a number.`); else params[k] = num; }
           else if (CHART_STEPS[k]) { if (/^[xo.]+$/.test(v)) params[k] = v; else chart.problems.push(`Line ${li + 1}: ${k} wants steps of x, o and . (x.x.x.x.).`); }
+          else if (CHART_WORDS[k]) { if (CHART_WORDS[k].includes(v.toLowerCase())) params[k] = v.toLowerCase(); else chart.problems.push(`Line ${li + 1}: ${k} wants ${CHART_WORDS[k].join(' or ')}.`); }
           else chart.problems.push(`Line ${li + 1}: unknown setting "${k}".`);
         }
         let bars = null;
@@ -1930,7 +1945,7 @@
        substitutes, a drone no chord changes at all. Every added chord is
        checked against the melody notes under it, so nothing is written that
        the tune would fight. */
-    function arrange(tune, keyInfo, base, harmony = harmonyOf('pop')) {
+    function arrange(tune, keyInfo, base, harmony = harmonyOf('pop'), form = {}) {
       const { bars, first } = tuneBars(tune);
       const chartBars = bars.slice(first); if (!chartBars.length) return [];
       const H = { rich: 'none', approach: 'none', cadence: 'none', ...harmony };
@@ -1942,7 +1957,8 @@
         const toks = bars.map(b => b[0] === b[1] || !b[1] ? [b[0] || '.'] : [b[0] || '.', b[1] || '.']);
         return `${head} | ${toks.map(t => t.join(' ')).join(' | ')} |`;
       };
-      const arc = (plain, rich, approached, out) => [line(1, plain, e - 15, d - 20, base.seed), line(2, rich, e, d + 15, base.seed + 1), line(3, approached, e + 15, d + 30, base.seed + 2), line(4, approached, e + 35, 100, base.seed + 3), line(5, out, e - 25, d, base.seed + 4)];
+      // A style that builds (form.build) builds the third time round into the fullest fourth.
+      const arc = (plain, rich, approached, out) => [line(1, plain, e - 15, d - 20, base.seed), line(2, rich, e, d + 15, base.seed + 1), line(3, approached, e + 15, d + 30, base.seed + 2).replace(/(seed=\d+)/, form.build ? '$1 texture=build' : '$1'), line(4, approached, e + 35, 100, base.seed + 3), line(5, out, e - 25, d, base.seed + 4)];
       // A style whose chords never move (a drone): the energy arc alone, over the tune's own chords.
       if (H.moves === false) return arc(null, null, null, null);
       // The tune's own symbols, cleaned for a chart line: the first word of a symbol, and none for a word that is not a chord (a bass note "b", a fingering).
@@ -2054,21 +2070,42 @@
                    written), 7 (a seventh on a dominant), 9 (sevenths and
                    ninths), 'add9' (a ninth, no seventh)
          moves     false: every time round keeps the tune's chords, and
-                   only the energy changes (a drone). */
+                   only the energy changes (a drone)
+         hit       how the band ends: 'crash' (the final chord with a kick
+                   and a crash; the default) or 'soft' (the chord rings
+                   with the drums' own downbeat, no crash).
+       Beside the harmony: sound, the kit and voices a style plays with
+       instead of the samples (drums: 'kit808' or 'kit909', a synthesised
+       kick with the sampled kit; bass: 'synth-sub' or 'synth-bass'; chords:
+       'synth-pluck' or 'synth-pad'), pump, how far the chords and bass
+       duck under each kick (0..1), the breathing of dance music, and build:
+       the arrangement's third time round ends in a snare-roll build into
+       the fullest fourth. */
     const STYLES = {
       auto:   { name: 'Auto' },
-      pop:    { name: 'Pop and rock', harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
+      pop:    { name: 'Pop and rock', build: true, harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
       folk:   { name: 'Folk (boom-chick)', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       march:  { name: 'March and polka', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
-      waltz:  { name: 'Waltz', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
-      jig:    { name: 'Jig (6/8)', harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0 } },
+      waltz:  { name: 'Waltz', fit: { duple: 'folk', compound: 'jig' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      jig:    { name: 'Jig (6/8)', fit: { duple: 'folk', triple: 'waltz' }, harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0 } },
       swing:  { name: 'Swing', swing: 66, harmony: { rich: 'sixths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
-      bossa:  { name: 'Bossa', harmony: { rich: 'sevenths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
-      ballad: { name: 'Ballad', harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9 } },
-      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false } },
+      bossa:  { name: 'Bossa', harmony: { rich: 'sevenths', approach: 'ii-V-sub', cadence: 'V7', colour: 9, hit: 'soft' } },
+      ballad: { name: 'Ballad', fit: {}, harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9, hit: 'soft' } },
+      funk:      { name: 'Funk', build: true, harmony: { rich: 'dom7', approach: 'none', cadence: 'V7', colour: 9 } },
+      reggaeton: { name: 'Reggaeton (dembow)', build: true, sound: { drums: 'kit909', bass: 'synth-sub', chords: 'synth-pluck' }, pump: 0.3, harmony: { rich: 'none', approach: 'none', cadence: 'V', colour: 'add9' } },
+      afrobeats: { name: 'Afrobeats', build: true, sound: { drums: 'kit909', bass: 'synth-sub' }, fit: { triple: 'waltz' }, harmony: { rich: 'sevenths', approach: 'none', cadence: 'V', colour: 9 } },
+      lofi:      { name: 'Lo-fi hip-hop', swing: 58, harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9, hit: 'soft' } },
+      trap:      { name: 'Trap (808)', build: true, sound: { drums: 'kit808', bass: 'synth-sub', chords: 'synth-pad' }, pump: 0.35, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0 } },
+      house:     { name: 'House (four on the floor)', build: true, sound: { drums: 'kit909', bass: 'synth-bass', chords: 'synth-pluck' }, pump: 0.5, harmony: { rich: 'add9', approach: 'none', cadence: 'V', colour: 'add9' } },
+      samba:     { name: 'Samba de roda (Brazil)', build: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      mento:     { name: 'Mento (Jamaica)', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'soft' } },
+      minyo:     { name: 'Min\u2019y\u014D (Japanese folk)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
     };
     // The harmony a style key plays with (the pop band's for a key it does not know).
     const harmonyOf = key => (STYLES[key] && STYLES[key].harmony) || STYLES.pop.harmony;
+    // The arranger's form for a style: whether it builds into its fullest time round.
+    const formOf = key => ({ build: !!(STYLES[key] || STYLES.pop).build });
     // What earlier pages saved. The old Band style played the pop groove in every duple metre (waltz and jig in triple and compound ones, as pop still does), so a page saved with it keeps that sound rather than Auto's choice from the R: line.
     const LEGACY_STYLE = { band: 'pop', plain: 'auto', block: 'ballad', arp: 'ballad', boom: 'folk' };
     // The style a tune plays in: the one chosen, or for Auto the one its metre and R: line suggest.
@@ -2085,6 +2122,15 @@
       if (/bossa|samba|latin|rumba|tango|beguine/.test(r)) return 'bossa';
       if (/march|polka|schottische|two-?step|quickstep/.test(r)) return 'march';
       if (/ballad|\bair\b|lullaby|hymn|carol|slow|lament|song/.test(r)) return 'ballad';
+      if (/funk/.test(r)) return 'funk';
+      if (/reggaeton|dembow/.test(r)) return 'reggaeton';
+      if (/afrobeats?|afro-?pop/.test(r)) return 'afrobeats';
+      if (/lo-?fi|hip-?hop|boom-?bap/.test(r)) return 'lofi';
+      if (/house|edm|techno|disco/.test(r)) return 'house';
+      if (/trap|drill/.test(r)) return 'trap';
+      if (/mento|ring (game|tune)/.test(r)) return 'mento';
+      if (/samba|roda|ciranda|coco|batucada|partido/.test(r)) return 'samba';
+      if (/min.?y[oō]|warabe|zashiki|koto/.test(r)) return 'minyo';
       if (/reel|hornpipe|strathspey|country|bluegrass|old-?time|breakdown|fiddle|folk|barn/.test(r) || (num === 2 && den === 4)) return 'folk';
       return 'pop';
     }
@@ -2114,7 +2160,7 @@
        a sampler on the same AudioContext as abcjs, scheduled from the
        playhead, so it keeps time with the melody under every control. */
     const FLAT_NOTE = m => ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'][((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
-    const DRUM = { kick: 36, snare: 38, rim: 37, clap: 39, hatC: 42, hatP: 44, hatO: 46, crash: 49, ride: 51, tamb: 54, shaker: 70 };
+    const DRUM = { kick: 36, snare: 38, rim: 37, clap: 39, hatC: 42, hatP: 44, hatO: 46, crash: 49, ride: 51, tamb: 54, cowbell: 56, cabasa: 69, shaker: 70, clave: 75, block: 76, blockLo: 77 };
     const mulberry = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
     const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
     /* ---- mini-notation: the band's parts as text ----
@@ -2130,7 +2176,7 @@
        A score has sections. "drums:", "bass:" and "chords:" open a part
        (lines before any label are drums); in the ABC each line is a
        "%%band drums:" line, and "%%band drums 2:" is the second chorus's. Drum words are bd sd hh oh rim cp
-       cr rd sh tb. Bass words are relative to the chord in force: r root,
+       cr rd sh tb, and cb (cowbell) cl (claves) wb lwb (wood blocks) ca (cabasa). Bass words are relative to the chord in force: r root,
        3 5 7 its third, fifth and seventh, 8 the root an octave up, a an
        approach note into the next chord, n the next chord's root. Chord
        words: ch the voicing, pad the voicing held softly, c1..c4 its notes
@@ -2248,7 +2294,7 @@
       return { parse, splitScore, valueAt, PARTS };
     })();
     // The words of each part, with a level for each when none is written.
-    const KIT = { bd: ['kick', .95], kick: ['kick', .95], sd: ['snare', .8], sn: ['snare', .8], snare: ['snare', .8], hh: ['hatC', .55], hat: ['hatC', .55], oh: ['hatO', .45], rim: ['rim', .5], cp: ['clap', .7], clap: ['clap', .7], cr: ['crash', .8], crash: ['crash', .8], rd: ['ride', .5], ride: ['ride', .5], sh: ['shaker', .3], shaker: ['shaker', .3], tb: ['tamb', .4], tamb: ['tamb', .4] };
+    const KIT = { bd: ['kick', .95], kick: ['kick', .95], sd: ['snare', .8], sn: ['snare', .8], snare: ['snare', .8], hh: ['hatC', .55], hat: ['hatC', .55], oh: ['hatO', .45], rim: ['rim', .5], cp: ['clap', .7], clap: ['clap', .7], cr: ['crash', .8], crash: ['crash', .8], rd: ['ride', .5], ride: ['ride', .5], sh: ['shaker', .3], shaker: ['shaker', .3], tb: ['tamb', .4], tamb: ['tamb', .4], cb: ['cowbell', .45], cowbell: ['cowbell', .45], cl: ['clave', .5], clave: ['clave', .5], wb: ['block', .5], block: ['block', .5], lwb: ['blockLo', .5], ca: ['cabasa', .35], cabasa: ['cabasa', .35] };
     const BASS = { r: ['root', 1], root: ['root', 1], 3: ['third', .85], third: ['third', .85], 5: ['fifth', .85], fifth: ['fifth', .85], 7: ['seventh', .8], seventh: ['seventh', .8], 8: ['oct', .6], oct: ['oct', .6], a: ['appr', .7], appr: ['appr', .7], approach: ['appr', .7], n: ['next', .85], next: ['next', .85] };
     const CHORD = { ch: ['ch', .85], chord: ['ch', .85], pad: ['pad', .22], c1: [0, .8], c2: [1, .8], c3: [2, .8], c4: [3, .8] };
     /* ---- Strudel-like code in and out ----
@@ -2408,21 +2454,22 @@
     const compHold = str => { let on = false; return [...str].map(ch => ch === 'x' || ch === 'o' ? (on = true, ch) : on ? '-' : '.').join(''); };
     // Hits as [beat, length in beats] pairs, as a hit string with holds.
     const hitString = (hits, nb) => { const a = Array(nb * 4).fill('.'); hits.forEach(([b, d]) => { const s0 = Math.round(b * 4); if (s0 >= a.length) return; a[s0] = 'x'; for (let k = s0 + 1; k < Math.min(a.length, s0 + Math.round(d * 4)) && a[k] === '.'; k++) a[k] = '-'; }); return a.join(''); };
-    // The score the sliders write: a groove in the chosen style, with the
-    // bar-to-bar variation as alternations and chances. `metre` is the beats
-    // in a bar (quarters, or dotted quarters in compound time) and whether
-    // the time is compound; a style that does not fit the metre gives way.
-    const scoreFor = (energy, detail, metre, seed, styleKey) => {
-      const rng = mulberry(seed * 7919 + 101), two = arr => { const a = pick(rng, arr); let b = pick(rng, arr); if (b === a) b = pick(rng, arr); return a === b ? a : `<[${a}] [${b}]>`; };
-      const fill = detail > 0.3 && energy > 0.25, drums = [], bass = [], chords = [];
-      const nb = metre.nb, triple = nb % 3 === 0 && !metre.compound && nb !== 6, compound = metre.compound;
-      let style = styleKey || 'pop';
-      if (triple && !['waltz', 'ballad', 'drone'].includes(style)) style = 'waltz';
-      if (!triple && style === 'waltz') style = compound ? 'jig' : 'folk';
-      if (compound && !['jig', 'ballad', 'drone'].includes(style)) style = 'jig';
-      if (style === 'jig' && !compound && !triple) style = 'folk';
-      const lo = energy < 0.35, hi = energy >= 0.7;
-      if (style === 'waltz' || (style === 'ballad' && triple)) {
+    /* ---- the idiom registry: each style's groove ----
+       GROOVES[k] writes style k's parts in the band's mini-notation: it pushes
+       lines onto g.drums, g.bass and g.chords from g.energy and g.detail
+       (0..1), g.lo and g.hi (energy below .35, from .7), g.fill (enough
+       detail and energy for fills), the metre (g.nb beats in a bar, quarters
+       or dotted quarters; g.triple, g.compound), g.rng and g.two (one of
+       these patterns, or two of them alternating bar by bar). STYLES says
+       the rest of a style's idiom: its harmony for the arranger and the
+       band's colour, its swing, and its fit: the metres it plays in, and the
+       style it gives way to in the others (a reel's groove has no 3/4). */
+    // Most styles play their own groove in 2 and 4, and give way to the waltz in 3 and the jig in compound time.
+    const FIT_DUPLE = { triple: 'waltz', compound: 'jig' };
+    const fitOf = key => (STYLES[key] && STYLES[key].fit) || FIT_DUPLE;
+    const GROOVES = {
+      waltz: (g, style = 'waltz') => {
+        const { energy, detail, rng, two, drums, bass, chords, lo, hi } = g;
         drums.push(two(['x...........', 'x.....x.....', 'x........x..'].map(x => miniOf(x, 'bd'))));
         if (energy > 0.3) drums.push(two(['........x...', '....x...x...'].map(x => miniOf(x, 'sd'))));
         drums.push(miniOf(lo ? 'x...x...x...' : !hi ? 'x.x.x.x.x.x.' : 'xoxoxoxoxoxo', 'hh', .3));
@@ -2431,7 +2478,9 @@
         const hits = lo ? [[[0, 3]], [[0, 2], [2, 1]]] : !hi ? [[[0, 1], [1, 1], [2, 1]], [[0, 1.5], [1.5, 1.5]], [[0, 1], [1.5, 1.5]]] : [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5]], [[0, 1], [1, .5], [1.5, .5], [2, 1]]];
         chords.push(style === 'ballad' ? (lo ? 'c1 c2 c3' : '[c1 c3] [c2 c4] [c3 c1]') : two(hits.map(h => miniOf(hitString(h, 3), 'ch'))));
         if (lo || style === 'ballad') chords.push('pad');
-      } else if (style === 'jig') {
+      },
+      jig: g => {
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
         drums.push(lo ? 'bd ~ ~ ~ ~ ~' : 'bd ~ ~ bd:.6 ~ ~');
         if (energy > 0.3) drums.push(two(['~ ~ ~ sd ~ ~', '~ ~ sd:.4 sd ~ ~', '~ ~ ~ sd ~ sd:.3']));
         drums.push(lo ? 'hh:.3 ~ ~ hh:.3 ~ ~' : !hi ? 'hh:.35 ~ hh:.25 hh:.35 ~ hh:.25' : '[hh:.35 hh:.2]*6');
@@ -2440,7 +2489,9 @@
         bass.push(lo ? 'r _ _ _ _ _' : !hi ? (detail > 0.4 ? 'r _ _ 5 _ [_ a?0.7]' : 'r _ _ 5 _ _') : (detail > 0.4 ? 'r _ 8:.6 5 _ a' : 'r _ 8:.6 5 _ r:.6'));
         chords.push(lo ? 'ch ~ ~ ch:.6 ~ ~' : !hi ? two(['ch ~ ch:.6 ch ~ ch:.6', 'ch ~ ~ ch ~ ch:.6', 'ch ch:.4 ch:.6 ch ~ ch:.6']) : two(['ch ch:.4 ch:.6 ch ch:.4 ch:.6', 'ch ~ ch:.7 ch ch:.4 ch:.7']));
         if (lo) chords.push('pad');
-      } else if (style === 'folk' || style === 'march') {
+      },
+      folk: (g, style = 'folk') => {
+        const { energy, detail, rng, two, drums, bass, chords, lo, hi, fill, nb } = g;
         const march = style === 'march', half = nb === 2;
         drums.push(half ? 'bd ~' : (lo ? 'bd ~ ~ ~' : 'bd ~ bd ~'));
         if (energy > 0.2) drums.push(half ? (fill && march ? '~ <sd sd [sd sd sd sd]>' : '~ sd') : (fill ? (march ? '~ sd ~ <sd sd [sd sd sd sd] [sd sd]>' : '~ sd ~ <sd sd sd [sd sd]>') : '~ sd ~ sd'));
@@ -2452,7 +2503,10 @@
         bass.push(half ? (lo ? 'r _' : `r ${tail}`) : march ? (lo ? 'r _ 5 _' : `r 5 r ${tail}`) : (lo ? 'r _ 5 _' : hi ? `r [~ r:.4] 5 [~ ${tail}]` : `r ~ 5 [~ ${tail}]`));
         chords.push(half ? (lo ? '~ ch:.6' : hi ? '[~ ch:.4] ch' : '~ ch') : lo ? '~ ch:.6 ~ ch:.6' : hi ? (march ? 'ch:.5 ch ch:.5 ch' : two(['~ ch ~ [ch ch:.5]', '~ [ch ch:.5] ~ ch', '[~ ch:.4] ch ~ ch'])) : '~ ch ~ ch');
         if (lo) chords.push('pad');
-      } else if (style === 'swing') {
+      },
+      march: g => GROOVES.folk(g, 'march'),
+      swing: g => {
+        const { energy, detail, rng, two, drums, bass, chords, lo, fill } = g;
         drums.push(lo ? 'rd:.6 rd:.6 rd:.6 rd:.6' : 'rd [rd:.5 rd:.7] rd [rd:.5 rd:.7]');
         if (energy > 0.3) drums.push('~ hh ~ hh');
         if (energy > 0.4) drums.push('bd:.3*4');
@@ -2461,7 +2515,9 @@
         bass.push(lo ? 'r _ 5 _' : detail > 0.4 ? two(['r 3 5 a', 'r 5 3 a', 'r 3 5 n']) : 'r 3 5 5');
         chords.push(lo ? 'ch:.6 _ _ ~' : two(['ch ~ [~ ch] ~', '~ [~ ch] ~ ch', '[~ ch] ~ ch ~', 'ch _ [~ ch] _', '~ [~ ch] ~ [~ ch]']));
         if (lo) chords.push('pad');
-      } else if (style === 'bossa') {
+      },
+      bossa: g => {
+        const { energy, detail, two, drums, bass, chords, lo } = g;
         drums.push(two(['<[rim ~ ~ rim ~ ~ rim ~] [~ ~ rim ~ rim ~ ~ ~]>', '<[rim ~ ~ rim ~ ~ rim ~] [~ ~ rim ~ ~ rim ~ ~]>']));
         drums.push(lo ? 'hh:.3*4' : 'hh:.3*8');
         if (energy > 0.3) drums.push('bd:.6 ~ ~ bd:.6 bd:.6 ~ ~ bd:.6');
@@ -2469,19 +2525,143 @@
         bass.push(lo ? 'r _ _ _ 5 _ _ _' : detail > 0.5 ? 'r _ _ 5 5 _ _ [~ n?0.5]' : 'r _ _ 5 5 _ _ r:.6');
         chords.push(lo ? 'ch:.6 _ _ _ ~ ~ ch:.5 ~' : two(['<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ch ~ ~ ~]>', '<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ~ ch ~ ~]>']));
         if (lo) chords.push('pad');
-      } else if (style === 'drone') {   // a tanpura's held root and fifth, a tabla-like pattern on the low drum and the rim
+      },
+      drone: g => {   // a tanpura's held root and fifth, a tabla-like pattern on the low drum and the rim
+        const { detail, drums, bass, chords, lo, hi, nb, compound } = g;
         if (!lo) drums.push(nb === 3 ? 'bd rim:.5 rim:.4' : nb === 2 ? 'bd rim:.5' : compound ? 'bd ~ ~ rim:.5 ~ rim:.4' : (hi ? 'bd [~ rim:.35] rim:.5 [bd:.6 rim:.35]' : 'bd ~ rim:.5 ~'));
         if (hi && detail > 0.5) drums.push(nb === 3 ? '~ [~ rim:.25] [~ rim:.25]' : '[~ rim:.25]*' + nb);
         bass.push('r _ _ _'.split(' ').slice(0, Math.max(2, nb)).join(' '));
         chords.push('pad');
-      } else if (style === 'ballad') {
+      },
+      ballad: g => {
+        if (g.triple) return GROOVES.waltz(g, 'ballad');
+        const { detail, drums, bass, chords, lo, hi, energy } = g;
         if (!lo) drums.push(hi ? 'bd ~ ~ ~' : 'hh:.3*4');
         if (energy > 0.4) drums.push(hi ? '~ sd:.5 ~ sd:.5' : '~ rim:.5 ~ rim:.5');
         if (hi) drums.push('[hh:.3 hh:.2]*4');
         bass.push(lo ? 'r _ _ _' : !hi ? 'r _ 5 _' : (detail > 0.4 ? 'r _ 5 [~ a?0.7]' : 'r _ 5 ~'));
         chords.push(lo ? 'c1 c2 c3 c4' : '[c1 c3] [c2 c4] [c3 c1] [c4 c2]');
         chords.push('pad');
-      } else {   // pop and rock
+      },
+      funk: g => {   // sixteenths: a syncopated kick, the backbeat with ghost notes around it, octave bass, offbeat stabs
+        const { energy, detail, rng, two, drums, bass, chords, lo, hi, fill } = g;
+        drums.push(two((lo ? ['x.........x.....', 'x.....x.........'] : ['x.....x...x.....', 'x..x......x..x..', 'x.....x.x.....x.', 'x.x.......x..x..']).map(x => miniOf(x, 'bd'))));
+        drums.push('~ sd ~ sd');
+        if (detail > 0.4 && energy > 0.3) drums.push(miniOf(pick(rng, ['.......o.o....o.', '...o...o......o.', '.o.....o.o...o..']), 'sd', .15));   // ghost notes
+        drums.push(lo ? '[hh hh:.35]*4' : miniOf('xoxoxoxoxoxoxoxo', 'hh', .3));
+        if (!lo) drums.push(hi ? '~ [~ oh?0.5] ~ [~ oh?0.6]' : '~ ~ ~ [~ oh?0.4]');
+        if (fill) drums.push('<~ ~ ~ [~ ~ [sd:.5 sd:.6] [sd:.7 sd]]>');
+        bass.push(lo ? 'r _ ~ ~ [~ r:.6] ~ 5 ~' : !hi ? two(['[r ~ ~ 8:.6] [~ ~ r ~] [~ r:.7 ~ 5] [~ ~ a?0.6 ~]', '[r ~ ~ r:.6] [~ 8:.7 ~ ~] [r ~ ~ 5] [~ 7 ~ a?0.6]']) : two(['[r ~ 8:.6 r:.6] [~ r ~ 8:.7] [~ r:.7 5 ~] [7 ~ 8:.6 a]', '[r ~ ~ 8:.7] [~ r ~ 5] [r ~ 8:.6 ~] [5 ~ 7 a]']));
+        chords.push(lo ? '~ ch:.6 ~ ~' : two(['..x...x...x.x...', '..x..x....x...x.', '.x..x...x...x...', '..x.x.....x..x..'].map(x => miniOf(x, 'ch'))));
+        if (lo) chords.push('pad');
+      },
+      reggaeton: g => {   // the dembow: four on the floor, the snare's 3+3+2 against it, a tresillo bass
+        const { energy, drums, bass, chords, lo, hi, fill } = g;
+        drums.push(lo ? 'bd ~ bd ~' : 'bd*4');
+        drums.push(miniOf('...x..x....x..x.', lo ? 'rim' : 'sd', .5));
+        if (hi) drums.push(miniOf('...x..x....x..x.', 'cp', .5));
+        if (energy > 0.3) drums.push(hi ? miniOf('xoxoxoxoxoxoxoxo', 'hh', .3) : 'hh:.35*8');
+        if (fill) drums.push('<~ ~ ~ [~ ~ ~ [sd:.5 sd:.7]]>');
+        bass.push(lo ? 'r _ _ _ 5 _ _ _' : miniOf('x..x..x.x..x..x.', 'r', .6));
+        chords.push(lo ? 'pad' : hi ? miniOf('x..x..x.x..x..x.', 'ch', .6) : miniOf('...x..x....x..x.', 'ch', .6));
+        if (!lo) chords.push('pad');
+      },
+      afrobeats: g => {   // a kick that skips, the rim's 3+3+2, a shaker in sixteenths and a bell; in 12/8 the standard bell
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill, compound, nb } = g;
+        if (compound) {
+          if (nb !== 4) return GROOVES.jig(g);
+          drums.push(miniOf('x.x.xx.x.x.x', 'cb', .4).replace(/cb(?!:)/g, 'cb:.5'));
+          drums.push(lo ? 'bd ~ ~ ~' : 'bd ~ [~ ~ bd:.6] ~');
+          if (energy > 0.3) drums.push('~ rim:.6 ~ rim:.6');
+          if (!lo) drums.push('sh:.35*12');
+          bass.push(lo ? 'r _ 5 _' : 'r [~ ~ r:.6] 5 [~ ~ a?0.6]');
+          chords.push(lo ? 'pad' : 'ch:.6 [~ ch:.5 ~] ch:.6 [~ ch:.5 ~]');
+          if (!lo) chords.push('pad');
+          return;
+        }
+        drums.push(two((lo ? ['x.......x.......'] : ['x......x..x.....', 'x.....x...x.....', 'x......x..x...x.']).map(x => miniOf(x, 'bd'))));
+        drums.push(miniOf('...x..x....x..x.', 'rim', .5));
+        if (energy > 0.3) drums.push('~ cp:.7 ~ cp:.7');
+        drums.push(lo ? 'sh:.3*8' : miniOf('xooxxooxxooxxoox', 'sh', .2));
+        if (!lo && detail > 0.4) drums.push(miniOf('x..x..x...x.x...', 'cb', .4).replace(/cb(?!:)/g, 'cb:.45'));
+        if (hi) drums.push('hh:.25*8');
+        if (fill) drums.push('<~ ~ ~ [~ ~ ~ [rim:.6 rim:.7]]>');
+        bass.push(lo ? 'r _ ~ ~ 5 _ ~ ~' : two(['[r ~ ~ r:.6] [~ ~ 5 ~] [r ~ ~ r:.6] [~ 8:.6 ~ 5]', '[r ~ ~ ~] [~ r:.6 ~ 5] [~ ~ r ~] [5 ~ a?0.6 ~]']));
+        chords.push(lo ? 'pad' : two(['..x..x....x..x..', '..x...x...x..x..', '...x..x...x...x.'].map(x => miniOf(x, 'ch', .6))));
+        if (!lo) chords.push('pad');
+      },
+      lofi: g => {   // a lazy boom-bap: the kick on one and late in three, a soft snare, swung hats, held seventh chords
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
+        drums.push(two(['x.......x.x.....', 'x......x..x.....', 'x.........x.....'].map(x => miniOf(x, 'bd:.8'))));
+        drums.push(lo ? '~ rim:.5 ~ rim:.5' : '~ sd:.65 ~ sd:.65');
+        drums.push(lo ? '[hh:.3 hh:.18]*4' : '[hh:.38 hh:.22]*4');
+        if (!lo && detail > 0.5) drums.push('~ ~ ~ [~ ~ ~ sd:.15]?0.5');
+        if (hi) drums.push('sh:.2*8');
+        if (fill) drums.push('<~ ~ ~ [~ ~ ~ oh:.3]>');
+        bass.push(lo ? 'r _ _ _ ~ ~ ~ ~' : two(['r _ _ 5 ~ r _ [~ a?0.6]', 'r _ ~ ~ ~ 5 _ [~ a?0.6]']));
+        chords.push(lo ? 'ch:.6 _ _ _ _ _ _ _' : two(['ch:.7 _ _ ~ ~ [~ ch:.5] _ ~', 'ch:.7 _ _ _ ~ ~ [~ ch:.5] ~', '~ ch:.6 _ _ ~ ~ ch:.5 _']));
+        chords.push('pad');
+      },
+      trap: g => {   // half time: the clap on three, an 808 that booms under the kick, hi-hats in eighths that roll
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
+        drums.push(two((lo ? ['x...............', 'x.........x.....'] : ['x.........x.....', 'x......x..x.....', 'x.........x..x..', 'x.x.......x.....']).map(x => miniOf(x, 'bd'))));
+        if (energy > 0.2) drums.push(hi ? '~ ~ [cp sd:.5] ~' : '~ ~ cp ~');
+        drums.push(lo ? 'hh:.35*8' : hi && detail > 0.4 ? two(['[hh hh:.3] [hh hh:.3] [hh hh:.3] [hh:.5*3 hh:.4*2]', '[hh hh:.3] [hh:.4*4] [hh hh:.3] [hh:.45*3]', '[hh hh:.3] [hh hh:.3] [hh:.4*6] [hh hh:.3]']) : two(['[hh hh:.3]*4', '[hh hh:.3] [hh hh:.3] [hh hh:.3] [hh:.4*3]']));
+        if (hi) drums.push('~ ~ ~ [~ oh?0.4]');
+        if (fill) drums.push('<~ ~ ~ [~ ~ ~ [sd:.5 sd:.6 sd:.7]]>');
+        bass.push(lo ? 'r _ _ _ _ _ _ _' : two(['r _ _ _ _ r _ _', 'r _ _ r:.8 _ r _ _', 'r _ _ _ _ r _ 5:.8']));
+        chords.push(lo ? 'pad' : 'ch:.55 _ _ _ ch:.45 _ _ _');
+      },
+      samba: g => {   // samba de roda: the surdo answering on two, the ganza in sixteenths, tamborim, agogo and palmas, the cavaquinho strumming off the beat
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill, nb } = g;
+        const halves = Math.max(1, Math.round(nb / 2)), each = str => Array(halves).fill(str).join(' ');
+        drums.push(each('bd:.45 bd'));
+        drums.push(lo ? `sh:.3*${4 * nb}` : `[sh:.4 sh:.2 sh:.25 sh:.35]*${nb}`);
+        if (!lo) drums.push(each('[cp:.35 ~ ~ cp:.3] [~ ~ cp:.4 ~]'));
+        if (energy > 0.45) drums.push(each(miniOf('x.xx.x.x', 'rim', .5)));
+        if (hi || (detail > 0.6 && energy > 0.4)) drums.push(each(miniOf('x.x.xx.x', 'cb', .4).replace(/cb(?!:)/g, 'cb:.4')));
+        if (fill) drums.push(`<~ ~ ~ [${[...Array(Math.max(1, nb - 1)).fill('~'), '[rim:.5 rim:.6 rim:.7 rim:.8]'].join(' ')}]>`);
+        bass.push(lo ? each('r 5') : each(detail > 0.5 ? '[r ~ ~ 5:.7] [r ~ a?0.5 ~]' : '[r ~ ~ 5:.7] r'));
+        chords.push(lo ? each('[~ ch:.5] [~ ch:.5]') : each(two([miniOf('x.xx.x.x', 'ch', .5), miniOf('.x.x.xx.', 'ch', .5), miniOf('x..x.x.x', 'ch', .5)])));
+        if (lo) chords.push('pad');
+      },
+      mento: g => {   // Jamaican country band: the banjo and guitar strum off the beat, the rumba box's bass in 3+3+2, a shaker, the hand drum
+        const { energy, detail, drums, bass, chords, lo, hi, fill, nb } = g;
+        const halves = Math.max(1, Math.round(nb / 2)), tres = (word, soft) => Array(halves).fill(miniOf('x..x..x.', word, soft)).join(' ');
+        drums.push(lo ? `sh:.25*${2 * nb}` : `[sh:.35 sh:.2]*${2 * nb}`);
+        if (energy > 0.3) drums.push(tres('bd:.5'));
+        if (energy > 0.3) drums.push([...Array(nb - 1).fill('~'), 'rim:.5'].join(' '));
+        if (hi) drums.push(`[~ tb:.35]*${nb}`);
+        if (fill) drums.push(`<~ ~ ~ [${[...Array(nb - 1).fill('~'), '[rim:.4 rim:.5]'].join(' ')}]>`);
+        bass.push(lo ? ['r', ...Array(nb - 1).fill('_')].join(' ') : detail > 0.5 ? tres('r').replace(/r(?=[^r]*$)/, '5') : tres('r'));
+        chords.push(lo ? `[~ ch:.5]*${nb}` : [...Array(nb - 1).fill('[~ ch:.55]'), hi ? '[ch:.5 ch]' : '[~ ch]'].join(' '));
+        if (lo) chords.push('pad');
+      },
+      minyo: g => {   // Japanese folk song: the taiko, the hyoshigi's wooden clap, the chanchiki bell; the drone holds the song's final and its fifth
+        const { energy, drums, bass, chords, lo, hi, nb } = g;
+        if (!lo) {
+          drums.push(nb === 2 ? 'bd [~ bd:.5]' : nb === 3 ? 'bd ~ bd:.5' : 'bd ~ [bd:.5 bd:.6] ~');
+          drums.push(`wb:.45*${nb}`);
+          if (energy > 0.5) drums.push(`[cb:.3 ~ cb:.18 cb:.18]*${nb}`);
+        }
+        if (hi) drums.push('<~ ~ ~ [bd:.5 bd:.6 bd:.7 bd:.8]>');
+        bass.push(lo ? ['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' ') : ['r', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
+        chords.push('pad');
+      },
+      house: g => {   // four on the floor, claps on two and four, the open hat between the kicks, an offbeat bass
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
+        drums.push('bd*4');
+        if (energy > 0.25) drums.push('~ cp ~ cp');
+        drums.push(lo ? '[~ hh:.35]*4' : '[~ oh:.45]*4');
+        if (hi) drums.push(miniOf('xoxoxoxoxoxoxoxo', 'hh', .25));
+        if (detail > 0.5 && !lo) drums.push('sh:.25*16');
+        if (fill) drums.push('<~ ~ ~ [sd:.4 sd:.5 sd:.6 sd:.7]*2>');
+        bass.push(lo ? 'r _ _ _' : hi ? '[~ r] [~ 8:.7] [~ r] [~ 8:.7]' : '[~ r]*4');
+        chords.push(lo ? 'pad' : hi ? two(['x..x..x...x..x..', 'x..x..x.x..x..x.'].map(x => miniOf(x, 'ch', .6))) : '[~ ch:.7]*4');
+        if (!hi) chords.push('pad');
+      },
+      pop: g => {   // pop and rock
+        const { energy, detail, rng, two, drums, bass, chords, lo, hi, fill } = g;
         drums.push(two((lo ? ['x...............', 'x.......x.......'] : !hi ? ['x.......x.......', 'x..x....x.......', 'x.....x...x.....', 'x.......x..x....'] : ['x..x....x..x....', 'x..x..x...x.....', 'x.......x.x..x..', 'x..x....x.x.....']).map(x => miniOf(x, 'bd'))));
         if (energy >= 0.2) drums.push(fill ? '~ sd ~ <sd sd sd [sd sd sd sd]>' : '~ sd ~ sd');
         if (energy >= 0.2 && detail > 0.5 && energy > 0.45) drums.push(pick(rng, ['~ [~ ~ ~ sd:.2]?', '~ ~ [~ ~ sd:.2 ~]?', '~ [~ ~ ~ sd:.2]? [~ ~ ~ sd:.2]?']));
@@ -2494,8 +2674,21 @@
         const hits = lo ? [[[0, 4]], [[0, 2], [2, 2]], [[0, 2.5], [2.5, 1.5]]] : !hi ? [[[0, 1.5], [1.5, 1.5], [3, 1]], [[0, 2.5], [2.5, 1.5]], [[0, 1.5], [1.5, .5], [2, 1.5], [3.5, .5]], [[0, 1], [1.5, 1], [2.5, 1.5]]] : [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5], [3, .5], [3.5, .5]], [[0, .5], [.5, 1], [1.5, .5], [2, .5], [2.5, 1], [3.5, .5]], [[0, 1.5], [1.5, .5], [2, .5], [2.5, 1], [3.5, .5]]];
         chords.push(two(hits.map(h => miniOf(hitString(h, 4), 'ch'))));
         if (lo) chords.push('pad');
-      }
-      return ['drums:', ...drums, 'bass:', ...bass, 'chords:', ...chords].join('\n');
+      },
+    };
+    // The score the sliders write: a groove in the chosen style, with the
+    // bar-to-bar variation as alternations and chances. `metre` is the beats
+    // in a bar (quarters, or dotted quarters in compound time) and whether
+    // the time is compound; a style that does not fit the metre gives way
+    // (its fit in STYLES).
+    const scoreFor = (energy, detail, metre, seed, styleKey) => {
+      const rng = mulberry(seed * 7919 + 101), two = arr => { const a = pick(rng, arr); let b = pick(rng, arr); if (b === a) b = pick(rng, arr); return a === b ? a : `<[${a}] [${b}]>`; };
+      const nb = metre.nb, triple = nb % 3 === 0 && !metre.compound && nb !== 6, compound = metre.compound;
+      let style = GROOVES[styleKey] ? styleKey : 'pop';
+      style = fitOf(style)[triple ? 'triple' : compound ? 'compound' : 'duple'] || style;
+      const g = { energy, detail, nb, triple, compound, rng, two, lo: energy < 0.35, hi: energy >= 0.7, fill: detail > 0.3 && energy > 0.25, drums: [], bass: [], chords: [] };
+      GROOVES[style](g);
+      return ['drums:', ...g.drums, 'bass:', ...g.bass, 'chords:', ...g.chords].join('\n');
     };
     class Sampler {
       constructor() { this.buffers = new Map(); this.loading = new Map(); this._ctx = null; }
@@ -2506,6 +2699,8 @@
         return this._ctx;
       }
       load(folder, midi) {
+        if (SYNTH_VOICES[folder]) return Promise.resolve(true);                       // made on the spot
+        if (SYNTH_KITS[folder]) return midi === DRUM.kick ? Promise.resolve(true) : this.load('percussion', midi);
         const key = folder + '/' + FLAT_NOTE(midi);
         if (this.buffers.has(key)) return Promise.resolve(this.buffers.get(key));
         if (this.loading.has(key)) return this.loading.get(key);
@@ -2522,6 +2717,8 @@
       // over 70 ms) and vib (vibrato depth in cents, arriving after the
       // first part of the note); both through the source's detune.
       play(folder, midi, when, dur, vel, out, rel = 0.08, fx = null) {
+        if (SYNTH_VOICES[folder]) return this.synth(SYNTH_VOICES[folder], midi, when, dur, vel, out, rel, fx);
+        if (SYNTH_KITS[folder]) return midi === DRUM.kick ? this.synth(SYNTH_KITS[folder], midi, when, dur, vel, out, rel, fx) : this.play('percussion', midi, when, dur, vel, out, rel, fx);
         const buf = this.buffers.get(folder + '/' + FLAT_NOTE(midi)); if (!buf) return null;
         const ctx = this.ctx(), src = ctx.createBufferSource(), g = ctx.createGain();
         src.buffer = buf; src.connect(g); g.connect(out);
@@ -2541,7 +2738,116 @@
         return src;
       }
     }
+    // Voices made here rather than sampled, by name (a Band part's folder): no download, and the sounds modern styles
+    // are built on. A kit plays its kick here and the rest of the drums from the percussion samples.
+    const SYNTH_VOICES = { 'synth-sub': 'sub', 'synth-bass': 'bass', 'synth-pluck': 'pluck', 'synth-pad': 'pad' };
+    const SYNTH_KITS = { kit808: 'kick808', kit909: 'kick909' };
+    // One synthesised note, with play()'s arguments: an 808's long falling boom or a 909's short punch (each with a
+    // click), a sub bass (a sine with a touch of its octave), a saw bass and a pluck (saws through a filter that
+    // closes), and a pad (detuned saws through a soft filter, slow to rise). It returns what the Player can stop.
+    Sampler.prototype.synth = function (kind, midi, when, dur, vel, out, rel, fx) {
+      const ctx = this.ctx(), f = 440 * Math.pow(2, (midi - 69) / 12), cents = (fx && fx.cents) || 0, L = SYNTH_LEVEL[kind] || 1;
+      const amp = ctx.createGain(), oscs = [];
+      amp.gain.setValueAtTime(0, when); amp.connect(out);
+      const osc = (type, freq, detune = 0, to = amp) => { const o = ctx.createOscillator(); o.type = type; o.frequency.value = freq; o.detune.value = detune + cents; o.connect(to); oscs.push(o); return o; };
+      const filter = (type, freq, q) => { const b = ctx.createBiquadFilter(); b.type = type; b.frequency.value = freq; b.Q.value = q; b.connect(amp); return b; };
+      const v = vel * L, hold = Math.max(0.05, dur || 0.6);
+      let end;
+      if (kind === 'kick808' || kind === 'kick909') {
+        const long = kind === 'kick808', o = osc('sine', long ? 140 : 165), decay = long ? 0.85 : 0.3;
+        o.frequency.setValueAtTime(long ? 140 : 165, when); o.frequency.exponentialRampToValueAtTime(long ? 43 : 50, when + (long ? 0.11 : 0.06));
+        amp.gain.linearRampToValueAtTime(v, when + 0.002); amp.gain.exponentialRampToValueAtTime(0.0005, when + decay);
+        const cg = ctx.createGain(); cg.connect(out); cg.gain.setValueAtTime(v * 0.3, when); cg.gain.exponentialRampToValueAtTime(0.0005, when + 0.015);
+        osc('triangle', 1600, 0, cg);
+        end = when + decay + 0.02;
+      } else if (kind === 'sub') {
+        osc('sine', f); const hg = ctx.createGain(); hg.gain.value = 0.15; hg.connect(amp); osc('triangle', f * 2, 0, hg);
+        amp.gain.linearRampToValueAtTime(v, when + 0.006); amp.gain.setTargetAtTime(v * 0.75, when + 0.04, 0.25);
+        amp.gain.setTargetAtTime(0, when + hold, Math.max(0.03, rel / 3)); end = when + hold + rel + 0.1;
+      } else if (kind === 'bass' || kind === 'pluck') {
+        const bass = kind === 'bass', lp = filter('lowpass', bass ? 2200 : 4200, bass ? 5 : 2);
+        lp.frequency.setValueAtTime(bass ? 2200 : 4200, when); lp.frequency.exponentialRampToValueAtTime(bass ? 420 : 900, when + (bass ? 0.14 : 0.3));
+        osc('sawtooth', f, bass ? 0 : -8, lp); osc(bass ? 'square' : 'sawtooth', bass ? f / 2 : f, bass ? 0 : 8, lp);
+        amp.gain.linearRampToValueAtTime(v, when + 0.004); amp.gain.setTargetAtTime(v * (bass ? 0.6 : 0.3), when + 0.02, bass ? 0.12 : 0.2);
+        amp.gain.setTargetAtTime(0, when + hold, Math.max(0.03, rel / 3)); end = when + hold + rel + 0.1;
+      } else {   // pad
+        const lp = filter('lowpass', 1500, 0.7), r = Math.max(rel, 0.5);
+        osc('sawtooth', f, -10, lp); osc('sawtooth', f, 10, lp); osc('triangle', f / 2, 0, lp);
+        amp.gain.linearRampToValueAtTime(v, when + Math.min(0.25, hold * 0.5)); amp.gain.setTargetAtTime(0, when + hold, r / 3); end = when + hold + r + 0.1;
+      }
+      for (const o of oscs) { o.start(when); o.stop(end); }
+      const main = oscs[0];
+      return { stop: () => { for (const o of oscs) { try { o.stop(); } catch (err) {} } }, set onended(fn) { main.onended = fn; } };
+    };
+    // Each voice's level beside the samples, from solo measurements before the master on 10 November 2026: the sampled
+    // parts of pop played at about -46 dB (drums), -34 (bass) and -37 (chords); the voices at these levels land near
+    // them, the kick and bass of a dance style a little forward.
+    const SYNTH_LEVEL = { kick808: 0.1, kick909: 0.1, sub: 0.055, bass: 0.055, pluck: 0.12, pad: 0.055 };
     const sampler = new Sampler();
+    // The bars as played, from the bars as written ({ s, e, beats } in ms, in the order of the text): a repeat plays its
+    // bars again, so the band follows abcjs's timings, where each bar's first event says which written bar it is. A bar
+    // no event starts (a note tied into it) follows the one before it. The opening pickup is marked for the band to wait
+    // through; a pickup played again (after a repeat) joins the short bar before it, the two making one whole bar
+    // (after a whole bar it stays a pickup, and the band waits through that one too).
+    function playedBars(written, first, events, total) {
+      const len = w => written[w].e - written[w].s;
+      const marks = (events || []).filter(e => e.ev && e.ev.measureStart && written[e.ev.measureNumber]).map(e => ({ w: e.ev.measureNumber, s: e.ms }));
+      if (!marks.length || marks[0].s > 1) return written.map((b, w) => ({ ...b, w, len: len(w), pickup: w < first }));
+      const out = [];
+      marks.forEach((m, i) => {
+        if (out.length && Math.abs(out[out.length - 1].s - m.s) < 1) return;
+        const next = i + 1 < marks.length ? marks[i + 1].s : total;
+        let w = m.w, s = m.s;
+        out.push({ w, s, len: len(w), beats: written[w].beats });
+        while (s + len(w) < next - 1 && written[w + 1]) { s += len(w); w++; out.push({ w, s, len: len(w), beats: written[w].beats }); }
+      });
+      out.forEach((b, i) => { b.e = i + 1 < out.length ? out[i + 1].s : total; });
+      const bars = [];
+      out.forEach((b, i) => {
+        const prev = bars[bars.length - 1], whole = written[first] ? written[first].beats : b.beats;
+        if (b.w < first && i > 0 && prev && prev.beats + b.beats <= whole + 1e-6) { prev.e = b.e; prev.beats += b.beats; return; }
+        bars.push({ ...b, pickup: b.w < first });   // (after a whole bar, the pickup is a bar of its own, and the band waits through it)
+      });
+      return bars;
+    }
+    // A time round's texture (texture= in the chart): the whole band (full), the drums alone (drums: a break for the
+    // melody), the band without drums (unplugged), claps on the backbeat and nothing else (claps: the class joins in),
+    // stop time (stop: each bar one hit on its downbeat, the chord and bass as they first sound in the bar, and a
+    // kick, then silence for the melody), or a build into the next time round (build: its last two bars a snare roll). `notes` are the Band's ({ part, t, dur, midi, vel }), `bars` the bars as played.
+    function textured(notes, texture, bars) {
+      if (!texture || texture === 'full') return notes;
+      if (texture === 'drums') return notes.filter(n => n.part === 'drums');
+      if (texture === 'build') {
+        // The last two bars: the kick, snare and bass drop out under a snare roll, eighths then sixteenths, growing.
+        const real = bars.filter(b => !b.pickup), last = real.slice(-2); if (!last.length) return notes;
+        const from = last[0].s, out = notes.filter(n => n.t < from - 10 || n.part === 'chords' || (n.part === 'drums' && ![DRUM.kick, DRUM.snare, DRUM.crash].includes(n.midi)));
+        last.forEach((bar, j) => {
+          const steps = Math.max(1, Math.round(bar.beats)) * (j === last.length - 1 ? 4 : 2);
+          for (let k = 0; k < steps; k++) out.push({ part: 'drums', t: bar.s + k * (bar.e - bar.s) / steps, dur: 0, midi: DRUM.snare, vel: 0.3 + 0.65 * (j + k / steps) / last.length });
+        });
+        return out.sort((a, b) => a.t - b.t);
+      }
+      if (texture === 'unplugged') return notes.filter(n => n.part !== 'drums');
+      const out = [];
+      for (const bar of bars) {
+        if (bar.pickup) continue;
+        const nb = Math.max(1, Math.round(bar.beats)), beat = (bar.e - bar.s) / nb;
+        if (texture === 'claps') {
+          for (let k = 1; k < nb; k++) if (nb === 3 || k % 2 === 1) out.push({ part: 'drums', t: bar.s + k * beat, dur: 0, midi: DRUM.clap, vel: 0.8 });
+          continue;
+        }
+        const inBar = notes.filter(n => n.t >= bar.s - 10 && n.t < bar.e - 10);
+        for (const part of ['chords', 'bass']) {
+          const ns = inBar.filter(n => n.part === part); if (!ns.length) continue;
+          const t0 = Math.min(...ns.map(n => n.t));
+          for (const n of ns) if (n.t - t0 < 60) out.push({ ...n, t: bar.s + n.t - t0, dur: Math.min(n.dur || 1, 0.9 * beat / 1000) });
+        }
+        const downbeat = inBar.filter(n => n.part === 'drums' && Math.abs(n.t - bar.s) < 15);
+        out.push(...downbeat);
+        if (!downbeat.some(n => n.midi === DRUM.kick)) out.push({ part: 'drums', t: bar.s, dur: 0, midi: DRUM.kick, vel: 0.8 });
+      }
+      return out.sort((a, b) => a.t - b.t);
+    }
     class Band {
       constructor(cell) { this.cell = cell; this.notes = []; }
       active() { return this.cell.playMode !== 'melody' && location.protocol !== 'file:'; }
@@ -2567,17 +2873,19 @@
           if (el.endTriplet) { inT = false; mult = 1; }
         }
         if (pos > barStart + 1e-9) bars.push({ s: barStart * msPerWhole, e: pos * msPerWhole, beats: Math.round((pos - barStart) / beatLen * 4) / 4 });
+        const first = bars.length > 1 && bars[0].beats < bars[1].beats - 1e-6 ? 1 : 0;   // a pickup bar is not a chart bar
+        const played = playedBars(bars, first, tl.events, tl.total);
         // The chord in force at any time: the melody's own symbols, with
         // the chart's bars written over them (- leaves a bar without one).
         const segs = []; let last = null;
         for (const ev of tl.events) { const c = cell.writtenChordAt(ev.ev); if (c && (!last || c.name !== last.name)) { segs.push({ ms: ev.ms, chord: c }); last = c; } }
-        const first = bars.length > 1 && bars[0].beats < bars[1].beats - 1e-6 ? 1 : 0;   // a pickup bar is not a chart bar
         if (spec.bars) {
           let carry = null, started = false;
-          spec.bars.forEach((toks, ci) => {
-            const bar = bars[ci + first]; if (!bar) return;
+          // Each time a written bar is played (a repeat plays it again), its chart chords.
+          for (const bar of played) {
+            const ci = bar.w - first, toks = ci >= 0 && spec.bars[ci]; if (!toks) continue;
             toks.forEach((t, j) => {
-              const ms = bar.s + (bar.e - bar.s) * j / toks.length;
+              const ms = bar.s + bar.len * j / toks.length;
               if (t === '.') { if (!started) return; } else { carry = t === '-' ? null : (chordPcs(t) || null); started = true; }
               const k = segs.findIndex(sg => sg.ms > ms - 1);
               const seg = { ms, chord: carry, chart: true };
@@ -2585,7 +2893,7 @@
             });
             // Within a chart bar, the melody's own later symbols give way to the chart.
             for (let k = segs.length - 1; k >= 0; k--) if (!segs[k].chart && segs[k].ms > bar.s + 1 && segs[k].ms < bar.e - 1) segs.splice(k, 1);
-          });
+          }
         }
         res.segs = segs;
         if (!segs.some(sg => sg.chord)) return res;
@@ -2651,10 +2959,10 @@
         const bassNote = (pc, near = 43) => { let m = pc + 36; while (m < near - 6) m += 12; while (m > near + 5) m -= 12; return Math.max(28, Math.min(55, m)); };
         const pcOf = (c, steps) => c.pcs.find(pc => steps.includes((pc - c.root + 12) % 12));
         const chordAfter = ms => chordAt(ms >= tl.total - 1 ? ms - tl.total : ms);   // past the end, the loop's first chord
-        let prevBass = null;
-        bars.forEach((bar, bi) => {
-          if (bi < first) return;                             // the pickup bar: the band waits for the downbeat
-          const cyc = bi - first, barMs = bar.e - bar.s;
+        let prevBass = null, nBar = 0;
+        played.forEach(bar => {
+          if (bar.pickup) return;                             // the pickup bar: the band waits for the downbeat
+          const cyc = nBar++, barMs = bar.e - bar.s;
           // In a swing style the off-beat eighth of every beat lands late, as the melody's does in the Player.
           const tAt = frac => { let t = bar.s + frac * barMs; if (swing) { const beatMs = barMs / Math.max(1, bar.beats), q = (t - bar.s) / beatMs, f = q - Math.floor(q); if (Math.abs(f - 0.5) < 0.02) t += (swing - 0.5) * beatMs; } return t; }, cyAt = t => cyc + (t - bar.s) / barMs;
           const events = part => score.parts[part](cyc, cyc + 1).filter(ev => ev.begin >= cyc - 1e-9 && ev.begin < cyc + 1 - 1e-9).sort((a, b) => a.begin - b.begin);
@@ -2702,16 +3010,20 @@
           }
           // ---- drums ----
           for (const ev of events('drums')) {
-            const k = KIT[ev.name.toLowerCase()]; if (!k) { unknown('drums', ev.name, 'bd sd hh oh rim cp cr rd sh tb'); continue; }
+            const k = KIT[ev.name.toLowerCase()]; if (!k) { unknown('drums', ev.name, 'bd sd hh oh rim cp cr rd sh tb cb cl wb lwb ca'); continue; }
             const cy = ev.begin, en = E(cy);
-            add('drums', tAt(ev.begin - cyc), 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * en) * (0.53 + 0.47 * en) * L('drums', cy), became(ev, { kick: 'kick', snare: 'snare', hatC: 'closed hat', hatO: 'open hat', rim: 'rim', clap: 'clap', crash: 'crash', ride: 'ride', shaker: 'shaker', tamb: 'tambourine' }[k[0]] || k[0]));
+            add('drums', tAt(ev.begin - cyc), 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * en) * (0.53 + 0.47 * en) * L('drums', cy), became(ev, { kick: 'kick', snare: 'snare', hatC: 'closed hat', hatO: 'open hat', rim: 'rim', clap: 'clap', crash: 'crash', ride: 'ride', shaker: 'shaker', tamb: 'tambourine', cowbell: 'cowbell', clave: 'claves', block: 'wood block', blockLo: 'low wood block', cabasa: 'cabasa' }[k[0]] || k[0]));
           }
         });
         out.sort((a, b) => a.t - b.t);
-        res.notes = out;
+        res.notes = textured(out, spec.texture, played);
         return res;
       }
-      folder(part) { return part === 'drums' ? 'percussion' : part === 'bass' ? 'acoustic_bass' : 'electric_piano_1'; }
+      // The sound each part plays with: the samples, unless the style names its own (STYLES[k].sound: a kit and synthesised voices).
+      folder(part) {
+        const snd = (STYLES[this.cell.styleKey] || {}).sound || {};
+        return part === 'drums' ? (snd.drums || 'percussion') : part === 'bass' ? (snd.bass || 'acoustic_bass') : (snd.chords || 'electric_piano_1');
+      }
     }
     /* ---- the Player: every sound on one clock ----
        abcjs parses and engraves the tune and works out when each note
@@ -2828,6 +3140,9 @@
     }
     const PROGRAM_FOLDER = p => p === 128 ? 'percussion' : p >= 32 && p <= 39 ? 'acoustic_bass' : p >= 24 && p <= 31 ? 'acoustic_guitar_nylon' : p >= 72 && p <= 79 ? 'recorder' : p >= 4 && p <= 7 ? 'electric_piano_1' : 'acoustic_grand_piano';
     const LOOKAHEAD = 320;            // ms scheduled ahead of the clock
+    // The master's compressor, trim (dB) and limiter (see the Player's bus). Measured on 10 November 2026: before them the
+    // page played at about -34 dB RMS (peaks -18 dBFS); with them about -22 dB RMS, peaks -7, and the fullest chorus -19, peaks -4.
+    const MASTER = { glue: { threshold: -26, knee: 10, ratio: 3, attack: 0.01, release: 0.25 }, trimDb: 2, limit: { threshold: -3, knee: 0, ratio: 20, attack: 0.002, release: 0.1 } };
     class Player {
       constructor(cell) {
         this.cell = cell; this.tracks = []; this.notes = []; this.pre = []; this.live = new Set(); this.timer = null;
@@ -2894,9 +3209,38 @@
         }
         this.total = tl ? tl.total : 0;
         if (!this.loop) this.end = this.total;
-        // The count-in: a click on each beat, when the Band plays.
-        this.pre = [];
-        if (band.active() && tl) for (let b = 0; b < LEAD_IN_BEATS; b++) this.pre.push({ part: 'drums', folder: 'percussion', midi: DRUM.hatC, ms: -tl.lead + b * tl.beatMs, dur: 0, vel: (b === 0 ? 0.9 : 0.6) * this.choruses[0].levels.drums, rel: 0.08 });
+        // The way in and out, when the Band plays (the chart's intro= and ending=). The intro is the band's
+        // own last bars of the first time round, played before the first note; the melody comes in after it.
+        this.pre = []; this.introMs = 0; this.endings = null;
+        // The bars are counted back from the end of the tune as played (the written bars' lengths): a tune with repeats ends with its last written bar.
+        const sect = cell.sections(), bandOn = !!(band.active() && tl && this.total > 0 && tl.bars.length && this.choruses.length);
+        const backFrom = n => this.total - tl.bars.slice(-n).reduce((sum, b) => sum + b.len, 0);
+        if (bandOn && sect.intro > 0) {
+          const from = Math.max(0, backFrom(Math.min(sect.intro, tl.bars.length)));
+          this.introMs = this.total - from;
+          for (const n of this.cycles[0]) if (n.part !== 'melody' && n.ms >= from - 10 && n.ms < this.total) this.pre.push({ ...n, ms: n.ms - this.total });
+        }
+        // The ending, the last time round: the final bar is one hit that rings, the chord and the bass as they
+        // first sound in it, moved onto its downbeat, with the drums' downbeat and a crash (a soft style leaves the crash out).
+        if (bandOn && sect.ending === 'hit') {
+          const B = backFrom(1), ring = Math.max(1.2, (this.total - B) / 1000), folder = band.folder('drums');
+          this.endings = this.cycles.map((N, c) => {
+            const out = N.filter(n => n.part === 'melody' || n.ms < B - 10 || (n.part === 'drums' && n.ms < B + 15));
+            for (const part of ['chords', 'bass']) {
+              const ns = N.filter(n => n.part === part && n.ms >= B - 10); if (!ns.length) continue;
+              const t0 = Math.min(...ns.map(n => n.ms));
+              for (const n of ns) if (n.ms - t0 < 60) out.push({ ...n, ms: B + n.ms - t0, dur: ring, rel: 1.0, vel: Math.min(1, n.vel * 1.1) });
+            }
+            const lv = this.choruses[c].levels.drums, has = m => out.some(n => n.part === 'drums' && n.midi === m && n.ms >= B - 10);
+            if (sect.hit === 'crash' && lv > 0) {
+              if (!has(DRUM.kick)) out.push({ part: 'drums', folder, midi: DRUM.kick, ms: B, dur: 0, vel: 0.85 * lv, rel: 0.08 });
+              if (!has(DRUM.crash)) out.push({ part: 'drums', folder, midi: DRUM.crash, ms: B, dur: 0, vel: 0.75 * lv, rel: 0.08 });
+            }
+            return out.sort((a, b) => a.ms - b.ms);
+          });
+        }
+        // The count-in: a click on each beat before the intro (or the first note), when the Band plays.
+        if (band.active() && tl) for (let b = 0; b < LEAD_IN_BEATS; b++) this.pre.push({ part: 'drums', folder: 'percussion', midi: DRUM.hatC, ms: -tl.lead - this.introMs + b * tl.beatMs, dur: 0, vel: (b === 0 ? 0.9 : 0.6) * this.choruses[0].levels.drums, rel: 0.08 });
         this.ready();                                     // start fetching now, so Play is quick
       }
       // The chorus playing the k-th time round (they take turns).
@@ -2904,21 +3248,34 @@
       // Every sample the lists need, decoded.
       ready() {
         const want = new Map();
-        for (const n of [...this.pre, ...this.cycles.flat()]) want.set(n.folder + '/' + FLAT_NOTE(n.midi), n);
+        for (const n of [...this.pre, ...this.cycles.flat(), ...(this.endings || []).flat()]) want.set(n.folder + '/' + FLAT_NOTE(n.midi), n);
         return Promise.all([...want.values()].map(n => sampler.load(n.folder, n.midi)));
       }
-      /* ---- the bus: a gain per part, set from the mixer ---- */
+      /* ---- the bus: a gain per part, set from the mixer ----
+         The parts and the room meet on the master, which goes out through a
+         gentle compressor (it holds the band together and lifts it to a
+         level a classroom speaker can carry; the Web Audio compressor adds
+         its own make-up gain), a trim to the page's level, and a limiter, so
+         the fullest chorus never clips. MASTER has the settings. */
       gains() {
         const ctx = sampler.ctx(); if (!ctx) return null;
         if (!this.bus || this.bus.ctx !== ctx) {
-          const master = ctx.createGain(); master.connect(ctx.destination);
+          const master = ctx.createGain(), glue = ctx.createDynamicsCompressor(), trim = ctx.createGain(), limit = ctx.createDynamicsCompressor();
+          const set = (node, o) => { for (const k of Object.keys(o)) node[k].value = o[k]; };
+          set(glue, MASTER.glue); trim.gain.value = Math.pow(10, MASTER.trimDb / 20); set(limit, MASTER.limit);
+          master.connect(glue); glue.connect(trim); trim.connect(limit); limit.connect(ctx.destination);
           const convolver = ctx.createConvolver(), wet = ctx.createGain();
           const seconds = 2.2, impulse = ctx.createBuffer(2, Math.floor(ctx.sampleRate * seconds), ctx.sampleRate);
           let seed = 1977;
           for (let ch = 0; ch < impulse.numberOfChannels; ch++) { const data = impulse.getChannelData(ch); for (let i = 0; i < data.length; i++) { seed = (seed * 16807) % 2147483647; data[i] = ((seed / 2147483647) * 2 - 1) * Math.pow(1 - i / data.length, 2.7); } }
           convolver.buffer = impulse; convolver.connect(wet); wet.connect(master);
-          this.bus = { ctx, master, convolver, wet };
-          for (const p of ['melody', 'chords', 'bass', 'drums']) { this.bus[p] = ctx.createGain(); this.bus[p].connect(master); this.bus[p].connect(convolver); }
+          this.bus = { ctx, master, convolver, wet, glue, trim, limit, out: limit };
+          // The chords and bass reach the master through a duck, which a pumping style dips at each kick.
+          this.bus.duck = {};
+          for (const p of ['melody', 'chords', 'bass', 'drums']) {
+            this.bus[p] = ctx.createGain(); this.bus[p].connect(convolver);
+            if (p === 'chords' || p === 'bass') { const d = ctx.createGain(); this.bus[p].connect(d); d.connect(master); this.bus.duck[p] = d; } else this.bus[p].connect(master);
+          }
         }
         const mix = this.cell.mix();
         for (const p of ['melody', 'chords', 'bass', 'drums']) this.bus[p].gain.value = mix[p];
@@ -2935,6 +3292,7 @@
         const ctx = sampler.ctx(); if (!ctx) return;
         if (ctx.state === 'suspended') ctx.resume();
         this.stopAll();
+        if (this.bus && this.bus.duck) for (const d of Object.values(this.bus.duck)) { d.gain.cancelScheduledValues(0); d.gain.value = 1; }   // no dip left over from before
         this.ctx0 = ctx.currentTime + 0.05; this.abs0 = fromMs; this.until = fromMs; this.running = true;
         this.end = this.loop ? Infinity : this.total;
         if (!this.timer) this.timer = setInterval(() => this.tick(), 50);
@@ -2959,13 +3317,17 @@
         if (now >= this.end) { this.running = false; this.pos = this.total; this.halt(false); this.cell.onFinished(); return; }
         const horizon = Math.min(now + LOOKAHEAD, this.end);
         const when = ms => Math.max(ctx.currentTime, this.ctx0 + (ms - this.abs0) / 1000);
-        const play = (n, ms) => { const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, bus[n.part], n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
+        const pump = this.style.pump || 0;
+        const play = (n, ms) => {
+          if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setValueAtTime(1 - pump * k, t); g.setTargetAtTime(1, t + 0.03, 0.07); }
+          const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, bus[n.part], n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
         if (this.total > 0) {
           let a = Math.max(0, this.until), cyc = Math.floor(a / this.total);
           while (cyc * this.total < horizon) {
-            const N = this.cycles[cyc % this.cycles.length];
-            const base = cyc * this.total, lo = Math.max(a, base) - base, hi = Math.min(horizon, base + this.total) - base;
+            const base = cyc * this.total, last = this.endings && !this.loop && base + this.total >= this.end - 1;   // the last time round ends on the hit
+            const N = (last ? this.endings : this.cycles)[cyc % this.cycles.length];
+            const lo = Math.max(a, base) - base, hi = Math.min(horizon, base + this.total) - base;
             let i = this.first(N, lo);
             while (i < N.length && N[i].ms < hi) { play(N[i], base + N[i].ms); i++; }
             if (!this.loop) break;
@@ -3369,9 +3731,11 @@
         if (location.protocol === 'file:') { el.textContent = 'Opened from disk, so the band cannot load its sounds: the chords play on a basic pattern and Style has no effect. Serve the folder (serve.command, or python3 -m http.server) or open the published page to hear the band.'; el.classList.add('err'); return; }
         el.classList.remove('err');
         const arc = !chart.choruses.length && this.autoArcVal && harmonyOf(this.styleKey).moves === false ? ' With Repeat on, the drone holds its tonic while the band builds and settles from one time round to the next. Arrange writes that arrangement here to keep or edit.' : !chart.choruses.length && this.autoArcVal ? ' With Repeat on, each time round builds on the last: richer chords, then approach chords, then full energy, then a quiet last time, each in the style\u2019s own harmony. Arrange writes that arrangement here to keep or edit.' : ' Arrange writes a five-chorus arrangement here to keep or edit.';
-        el.textContent = charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` :
-          written ? 'The band plays the melody’s chord symbols.' + arc :
-          this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc :
+        const sect = this.sections();
+        const ends = (sect.intro ? ` From the top the band plays the last ${sect.intro === 1 ? 'bar' : sect.intro + ' bars'} as an intro (intro=0 here for none)` : ' No intro (intro=0)') + (sect.ending === 'hit' ? ', and ends on a final chord (ending=none to play on to the end).' : '; ending=none plays the groove to the end.');
+        el.textContent = charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` + ends :
+          written ? 'The band plays the melody’s chord symbols.' + arc + ends :
+          this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc + ends :
           'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.';
       }
       transportState() { const tp = this.body.querySelector('.transport'); if (tp) { const playing = !!(this.player && this.player.running); tp.classList.toggle('playing', playing); const play = tp.querySelector('.play'); if (play) play.setAttribute('aria-label', playing ? 'Pause' : 'Play'); } }
@@ -3438,7 +3802,7 @@
         if (p.running || !this.tl) return;
         this.idle = false; this.drawersForPlay();
         if (p.pos > 0 && p.pos < this.tl.total) p.start(p.pos);               // resume where it paused
-        else { this.beatK = -1; this.leadIn = true; p.start(-this.tl.lead); }  // from the top, with the count-in
+        else { this.beatK = -Infinity; this.leadIn = true; p.start(-this.tl.lead - (p.introMs || 0)); }  // from the top, with the count-in and the band's intro
         this.transportState(); this.wake();
       }
       toTop() {
@@ -3801,11 +4165,11 @@
         const b = this.band || {}, ch = this.chart || { defaults: {}, choruses: [] };
         const base = { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1, ...ch.defaults };
         const steps = o => { const L = []; if (o.kick) L.push(miniOf(o.kick, 'bd', .6)); if (o.snare) L.push(miniOf(o.snare, 'sd', .5)); if (o.hat) L.push(miniOf(o.hat, 'hh', .35)); return L.length ? L.join('\n') : null; };
-        const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, drums: o.drums || steps(o), bass: o.bass || null, chords: o.chords || (o.comp ? miniOf(compHold(o.comp), 'ch', .6) : null), ctl: o.ctl || {} });
+        const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, drums: o.drums || steps(o), bass: o.bass || null, chords: o.chords || (o.comp ? miniOf(compHold(o.comp), 'ch', .6) : null), ctl: o.ctl || {}, texture: o.texture || 'full' });
         if (!ch.choruses.length) {
           const arc = this.autoArc();
           if (!arc) return [spec(base)];
-          return arc.map((a, k) => spec({ ...base, seed: base.seed + k, energy: base.energy + a.de, detail: base.detail + a.dd, bars: a.bars }));
+          return arc.map((a, k) => spec({ ...base, seed: base.seed + k, energy: base.energy + a.de, detail: base.detail + a.dd, bars: a.bars, texture: a.texture }));
         }
         return ch.choruses.map((c, k) => spec({ ...base, seed: base.seed + k, ...c.params, ctl: { ...(base.ctl || {}), ...(c.params.ctl || {}) }, bars: c.bars }));
       }
@@ -3820,12 +4184,14 @@
         if (this.autoArcFor === this.original && this.autoArcStyle === this.styleKey) return this.autoArcVal;
         let val = null;
         try {
-          const ch = parseChart(arrange(this.original, this.keyInfo(), { energy: 50, detail: 50, seed: 1 }, harmonyOf(this.styleKey)).join('\n')).choruses;
-          if (ch.length === 5) val = [{ de: 0, dd: 0, bars: null }, { de: 5, dd: 15, bars: ch[1].bars }, { de: 15, dd: 30, bars: ch[2].bars }, { de: 30, dd: 45, bars: ch[3].bars }, { de: -20, dd: 0, bars: ch[4].bars }];
+          const ch = parseChart(arrange(this.original, this.keyInfo(), { energy: 50, detail: 50, seed: 1 }, harmonyOf(this.styleKey), formOf(this.styleKey)).join('\n')).choruses;
+          if (ch.length === 5) val = [{ de: 0, dd: 0, bars: null }, { de: 5, dd: 15, bars: ch[1].bars }, { de: 15, dd: 30, bars: ch[2].bars, texture: ch[2].params.texture }, { de: 30, dd: 45, bars: ch[3].bars }, { de: -20, dd: 0, bars: ch[4].bars }];
         } catch (err) { console.warn('arc', err); }
         this.autoArcFor = this.original; this.autoArcStyle = this.styleKey; this.autoArcVal = val;
         return val;
       }
+      // The band's way in and out: the chart's intro= (bars, 2 unless set) and ending= (hit unless none), and how the style hits the end.
+      sections() { const d = (this.chart && this.chart.defaults) || {}; return { intro: d.intro === undefined ? 2 : Math.max(0, Math.min(8, d.intro)), ending: d.ending || 'hit', hit: harmonyOf(this.styleKey).hit || 'crash' }; }
       // The choruses in play: the arrangement box's, else the arc above.
       playedChoruses() { const c = this.chart && this.chart.choruses.length ? this.chart.choruses : (this.chart && this.autoArcVal) || []; return c; }
       // The time round changed: the chord symbols show this chorus's chords, and the instrument follows them.
@@ -3853,9 +4219,9 @@
       writeChart() {
         if (!this.original) return false;
         const b = this.band || {};
-        const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 }, harmonyOf(this.styleKey));
+        const lines = arrange(this.original, this.keyInfo(), { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1 }, harmonyOf(this.styleKey), formOf(this.styleKey));
         if (!lines.length) return false;
-        const kept = this.bandReal().split('\n').filter(l => l.trim() && SCORE_LINE.test(bandLine(l)));   // the score lines stay
+        const kept = this.bandReal().split('\n').filter(l => l.trim() && (SCORE_LINE.test(bandLine(l)) || /^%%band\s+[a-z]+=[^|]*$/i.test(bandLine(l))));   // the score lines and the settings line (intro=, ending=) stay
         this.setBand([...kept, ...lines.map(l => l.replace(/^%%band\s*/, ''))].join('\n'));
         this.render();
         return true;
@@ -4087,7 +4453,7 @@
         const events = ts.map((ev, i) => { const geo = this.eventGeometry(ev); return { i, ms: ev.milliseconds, line: ev.line || 0, x: geo.x === null ? null : geo.x - 3, color: geo.color, groups: geo.groups, midis: this.eventMidis(ev), ev }; });
         const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : (events.length ? events[events.length - 1].ms : 0);
         let elapsed = 0;
-        const bars = tuneBars(this.original).bars.map((bar, index) => { const start = elapsed; elapsed += bar.len / this.beatLen() * beatMs; return { index, start, end: elapsed }; });
+        const bars = tuneBars(this.original).bars.map((bar, index) => { const start = elapsed, len = bar.len / this.beatLen() * beatMs; elapsed += len; return { index, start, end: elapsed, len }; });
         if (bars.length && total > 0) bars[bars.length - 1].end = total;
         this.tl = { source: this.original && this.original.noteTimings, events, bars, total, beatMs, lead: LEAD_IN_BEATS * beatMs, startX: this.startX(), ends: new Map() };
         this.k = null; this.beatK = null;
@@ -4176,7 +4542,7 @@
         }
         // The lamp pulses on each beat, counting the lead-in too; the digits show in game mode.
         const beatK = Math.floor((t + tl.lead) / tl.beatMs + 1e-6);
-        if (beatK !== this.beatK) { if (this.beatK !== null && running) { this.pulseLamp(); if (gameMode && this.leadIn && t < 0) this.count(beatK + 1); } this.beatK = beatK; }   // digits only in a real count-in (a loop wrap lands a few ms before zero)
+        if (beatK !== this.beatK) { if (this.beatK !== null && running) { this.pulseLamp(); if (gameMode && this.leadIn && t < 0 && beatK >= 0) this.count(beatK + 1); } this.beatK = beatK; }   // digits only in a real count-in (a loop wrap lands a few ms before zero)
         // Cursor and paper.
         const at = this.cursorAt(t);
         if (g && at && !this.drag) {

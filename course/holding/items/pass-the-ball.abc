@@ -1,0 +1,33 @@
+% holding-id: pass-the-ball
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Have a Jamaican culture bearer hear it with the mento band; the notes already match the 1907 plate.
+% dossier-function: game: a passing game in a closed ring (no dancing); hands behind backs pass a ball while the seeker in the middle tries to find it
+% dossier-elements: call and response by section; quavers on the words, a dotted crotchet on "round"; the melody falls by step to the tonic at each cadence
+% dossier-practice: Allegro, sung by everyone in the ring; the person found holding the ball becomes the seeker. "Goin'" is one short syllable, as Jekyll notes
+% dossier-honesty: arranged: the melody and words as Jekyll printed them; the mento backing (band, strum, rumba-box bass) is ours, in the idiom of Jamaican country bands
+% dossier-licence: public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10
+% dossier-respect: a children's game, for everyone; say it is Jamaican and that the words are Jamaican Patois
+% dossier-review: a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing
+X:1
+T:Pass the ball
+T:Jamaican ring game
+C:traditional (Jamaica)
+O:Jamaica
+R:ring game
+S:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIV, p. 197
+N:Words and tune as Jekyll printed them (Allegro). The ring closes up tight, shoulder to shoulder; hands behind the back pass the ball round and round, and the girl inside the ring tries to find it. The person with whom it is found goes into the ring and becomes the seeker.
+M:4/4
+L:1/8
+Q:1/4=116
+K:C
+%%style mento
+c3 B A2 G G | A2 B2 c2 z C | C2 E2 G2 G G | A2 G2 E2 z2 |
+w: Pass the ball an' the ball goin' round, the ball goin' round an' the key can't find,
+G G G A G3 F | E2 D2 C2 z2 | C C D2 E E F2 | G G A2 G G z2 |
+w: Mo-ther, ho-ney, oh! the ball goin' round. Jour-ney, ball, jour-ney, ball, jour-ney, ball, jour-ney,
+G G G A G3 F | E2 D2 C2 z2 |]
+w: Mo-ther, ho-ney, oh! the ball can't find.
