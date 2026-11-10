@@ -6,7 +6,20 @@
 const fs = require('fs'), path = require('path');
 const root = __dirname, course = path.join(root, '..'), itemsDir = path.join(root, 'items'), outFile = path.join(root, 'index.json');
 const STATUSES = ['pending', 'keep', 'change', 'remove'], FROM = ['published', 'holding', 'samples'];
-const metaOf = text => { const m = {}; for (const line of text.split('\n')) { const x = line.match(/^%\s*review-([a-z-]+):\s*(.*)$/i); if (x) m[x[1].toLowerCase()] = x[2].trim(); } return m; };
+// review-status is the teacher's verdict (keep = include, change = include after a change, pending = still considering,
+// remove = reject); review-decision is the note on it and review-response the teacher's answer to the suggestion.
+// Those two may run over several lines, one "% review-response: ..." line each, joined with newlines.
+const MULTI = ['response', 'decision'];
+const metaOf = text => {
+  const m = {};
+  for (const line of text.split('\n')) {
+    const x = line.match(/^%\s*review-([a-z-]+):\s*(.*)$/i); if (!x) continue;
+    const k = x[1].toLowerCase(), v = x[2].trim();
+    m[k] = MULTI.includes(k) && k in m ? m[k] + '\n' + v : v;
+  }
+  for (const k of MULTI) if (k in m) m[k] = m[k].trim();
+  return m;
+};
 const body = text => text.split('\n').filter(l => !/^%\s*review-/.test(l)).join('\n');
 const field = (text, name) => { const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi')); return m ? m[1].trim() : ''; };
 
@@ -45,13 +58,15 @@ const items = files.map(file => {
   if (!FROM.includes(meta.from)) errors.push(`${file}: review-from wants ${FROM.join(' or ')}`);
   if (!STATUSES.includes(meta.status)) errors.push(`${file}: review-status wants ${STATUSES.join(', ')}`);
   if (!meta.suggestion) errors.push(`${file}: wants a review-suggestion`);
+  if (meta.status === 'remove' && !meta.decision) errors.push(`${file}: a removed piece wants a review-decision saying why`);
   if (meta.from === 'published') { try { JSON.parse(meta['set-entry']); } catch (err) { errors.push(`${file}: review-set-entry is not JSON`); } }
   if (meta.from === 'samples' && !fs.existsSync(path.join(course, 'samples', meta['samples-file'] || '-'))) errors.push(`${file}: review-samples-file names no file in course/samples`);
   if (!field(text, 'T')) errors.push(`${file}: wants a T: title`);
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id, subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),
     from: meta.from, status: meta.status, categories: (meta.categories || '').split(/,\s*/).filter(Boolean),
-    findings: meta.findings || '', suggestion: meta.suggestion || '', decision: meta.decision || '', source: field(text, 'S')
+    findings: meta.findings || '', suggestion: meta.suggestion || '', decision: meta.decision || '', source: field(text, 'S'),
+    response: meta.response || '', responseUpdated: meta['response-updated'] || ''
   };
 });
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

@@ -16,7 +16,9 @@ Each `items/<id>.abc` begins with:
 % review-categories: racism, violence, sexual, substances, religious, context
 % review-findings: what is there, quoted where it is in the words
 % review-suggestion: Claude's suggestion (2026-11-10); the decision is the teacher's
-% review-decision: the teacher's decision and any change made
+% review-decision: the teacher's decision and any change made (a remove needs one)
+% review-response: the teacher's answer to the suggestion; one line each, as many as it takes
+% review-response-updated: YYYY-MM-DD
 % review-set-entry: the published entry's catalogue fields as one line of JSON (published pieces only)
 % review-samples-file: the file in course/samples that holds it (sample tunes only)
 ```
@@ -24,7 +26,12 @@ Each `items/<id>.abc` begins with:
 The rest of the file is the piece's ABC; a piece from the tune workshop keeps
 its `holding-` and `dossier-` lines.
 
-After changing an item, run `node course/review/build.js`, then
+In `course/editor.html` the status is the decision: keep is Include, change is
+Include after a change, pending is Under consideration and remove is Reject.
+The editor saves through `serve.js` (see `course/holding/README.md`). Marking
+a piece Include does not restore it; that stays the deliberate step below.
+
+After changing an item by hand, run `node course/review/build.js`, then
 `node course/build-sets.js` (or `make sets`, which runs both). Open
 `course/review/board.html` from a served copy of the repository to read the
 queue.

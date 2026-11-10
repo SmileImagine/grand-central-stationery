@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tune editor · Grand Central Stationery</title>
+<link rel="icon" href="../favicon.svg">
+<style>
+:root{color-scheme:light dark;--bg:#f4f1e9;--card:#fffdf8;--ink:#24211d;--muted:#70695f;--line:#c9bfae;--accent:#77541f;--good:#2f6b3a;--bad:#9b2f22;--wait:#77541f;--field:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#171613;--card:#24211d;--ink:#f4efe5;--muted:#b4aa9b;--line:#51493d;--accent:#e2ba72;--good:#86c48f;--bad:#f08c7d;--wait:#e2ba72;--field:#1c1a17}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,sans-serif}
+header{padding:16px 24px 10px;display:flex;gap:10px 16px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+h1{margin:0;font-family:Georgia,serif;font-weight:500;font-size:24px}
+header a{color:var(--accent)}
+.pick{display:flex;gap:6px;align-items:center;flex:1 1 360px;min-width:0}
+.pick select{flex:1;min-width:0}
+select,input,textarea,button{font:inherit;color:inherit}
+select,input[type=text],textarea{background:var(--field);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+button{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
+button:disabled{opacity:.5;cursor:default}
+.state{font-size:13px;color:var(--muted);min-width:9em;text-align:right}
+.state.dirty{color:var(--wait)}.state.bad{color:var(--bad)}.state.good{color:var(--good)}
+.banner{margin:12px 24px 0;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);font-size:14px}
+.banner.bad{border-color:var(--bad)}
+.banner pre{white-space:pre-wrap;margin:6px 0 0;font-size:13px}
+main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,1fr);gap:20px;padding:16px 24px 32px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+.panel h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 10px;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.panel h2 small{text-transform:none;letter-spacing:0;font-weight:400}
+.titles h2{font-family:Georgia,serif;font-size:22px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink);margin:0}
+.titles .sub{color:var(--muted)}
+.titles .where{font-size:12px;color:var(--muted);margin-top:4px;font-family:ui-monospace,Menlo,monospace}
+#file{width:100%;min-height:52vh;resize:vertical;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;tab-size:2;white-space:pre;overflow:auto}
+.score{overflow-x:auto;background:#fffdf8;color:#24211d;border-radius:6px;padding:4px}
+.score svg{max-width:100%}
+.warnings{font-size:13px;color:var(--muted);margin-top:6px}
+.warnings summary{cursor:pointer;color:var(--wait)}
+.warnings li{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.choices{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.choices label{flex:1 1 auto;text-align:center;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;user-select:none;white-space:nowrap}
+.choices input{position:absolute;opacity:0;pointer-events:none}
+.choices label:has(input:checked){border-color:currentColor;font-weight:600}
+.choices label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.choices .include,.choices .change{color:var(--good)}.choices .reject{color:var(--bad)}.choices .considering{color:var(--wait)}
+.panel textarea{width:100%;resize:vertical;min-height:4.5em;display:block}
+.hint{font-size:12px;color:var(--muted);margin:4px 0 0}
+.hint.bad{color:var(--bad)}
+.ai{font-size:14px;border-left:3px solid var(--accent);padding:2px 0 2px 10px;margin:0 0 10px}
+.ai p{margin:0 0 6px}
+.ai .who{font-size:12px;color:var(--muted)}
+details.dossier{font-size:13px;margin:0 0 10px}
+details.dossier summary{cursor:pointer;color:var(--accent)}
+details.dossier p{margin:4px 0}
+.grid{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media(max-width:900px){main{grid-template-columns:1fr;padding-inline:16px}header{padding-inline:16px}.banner{margin-inline:16px}#file{min-height:40vh}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Tune editor</h1>
+  <a href="holding/board.html">Tune workshop</a><a href="review/board.html">Review queue</a><a href="../index.html">Main page</a>
+  <div class="pick">
+    <button id="prev" title="Previous record (Alt+↑)" aria-label="Previous record">‹</button>
+    <select id="records" aria-label="Tune record"></select>
+    <button id="next" title="Next record (Alt+↓)" aria-label="Next record">›</button>
+  </div>
+  <span id="state" class="state" role="status"></span>
+  <button id="save" class="primary" title="Save to the file (⌘S)">Save</button>
+</header>
+<div id="banner" class="banner" hidden></div>
+<main id="main" hidden>
+  <section>
+    <div class="panel titles"><h2 id="title"></h2><div class="sub" id="subtitle"></div><div class="where" id="where"></div></div>
+    <div class="panel">
+      <h2>The file <small>everything below is saved as typed; the controls on the right write their lines here too</small></h2>
+      <textarea id="file" spellcheck="false" aria-label="The record's ABC file"></textarea>
+    </div>
+    <div class="panel">
+      <h2>Notation <small id="warncount"></small></h2>
+      <div class="score" id="score"></div>
+      <div class="warnings" id="warnings"></div>
+    </div>
+  </section>
+  <aside>
+    <div class="panel">
+      <h2>Decision</h2>
+      <div class="choices" id="decision" role="radiogroup" aria-label="Decision"></div>
+      <label for="note" class="hint" style="display:block;margin:0 0 4px">Note on the decision <span id="noteneed"></span></label>
+      <textarea id="note" rows="2" placeholder="Why, and any change made"></textarea>
+      <p class="hint bad" id="noteerr" hidden>A rejected tune needs a note saying why.</p>
+    </div>
+    <div class="panel">
+      <h2>Suggestions <small id="aiwho"></small></h2>
+      <div id="ai"></div>
+      <label for="response" class="hint" style="display:block;margin:0 0 4px">Your response <span id="respdate"></span></label>
+      <textarea id="response" rows="5" placeholder="Answer the suggestion: agree, disagree, ask for a change, add what you know. Saved in the file for the next session to read."></textarea>
+    </div>
+    <div class="panel" id="stagepanel" hidden>
+      <h2>Workshop stage</h2>
+      <div class="grid">
+        <label for="stage">Stage</label><select id="stage"></select>
+        <label for="srccheck">Source check</label><select id="srccheck"><option>pending</option><option>verified</option></select>
+        <label for="clscheck">Classroom check</label><select id="clscheck"><option>pending</option><option>passed</option></select>
+      </div>
+      <p class="hint" id="stagehint"></p>
+    </div>
+    <div class="row">
+      <button id="play">Play in the main page</button>
+      <button id="revert">Revert to saved</button>
+      <button id="download">Download .abc</button>
+    </div>
+  </aside>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script src="../vendor/abcjs-basic-min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const today = () => { const d = new Date(); return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-'); };
+  let toastTimer;
+  const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2600); };
+
+  /* ---- the two kinds of record, and the lines each one's controls own ---- */
+  // A workshop record keeps its stage apart from the verdict; a review record's status is the verdict.
+  const KINDS = {
+    holding: {
+      prefix: 'holding', folder: 'holding', label: 'Tune workshop', decisionKey: 'decision', noteKey: 'decision-note',
+      choices: [['include', 'Include'], ['considering', 'Under consideration'], ['reject', 'Reject']], fallback: 'considering', rejectWith: 'reject'
+    },
+    review: {
+      prefix: 'review', folder: 'review', label: 'Review queue', decisionKey: 'status', noteKey: 'decision',
+      choices: [['keep', 'Include', 'include'], ['change', 'Include after a change', 'change'], ['pending', 'Under consideration', 'considering'], ['remove', 'Reject', 'reject']], fallback: 'pending', rejectWith: 'remove'
+    }
+  };
+  const STAGES = { inbox: 'Inbox', transcription: 'Transcribing', 'source-check': 'Source check', 'classroom-check': 'Classroom check', ready: 'Ready to publish' };
+  const VERDICT = { include: '✓', considering: '…', reject: '✗', keep: '✓', change: '✎', pending: '…', remove: '✗' };
+
+  /* ---- reading and writing "% prefix-key: value" lines; a value over several lines is one line each ---- */
+  const keyRe = (p, k) => new RegExp(`^%\\s*${p}-${k.replace(/[-]/g, '\\-')}:\\s?(.*)$`, 'i');
+  function getMeta(text, p, k, multi) {
+    const re = keyRe(p, k), vals = [];
+    for (const line of text.split('\n')) { const m = line.match(re); if (m) vals.push(m[1].replace(/\s+$/, '')); }
+    if (!vals.length) return '';
+    return multi ? vals.join('\n').trim() : vals[vals.length - 1].trim();
+  }
+  function setMeta(text, p, k, value) {
+    const re = keyRe(p, k), lines = text.split('\n'), kept = []; let at = -1;
+    for (const line of lines) { if (re.test(line)) { if (at < 0) at = kept.length; } else kept.push(line); }
+    const v = String(value == null ? '' : value).replace(/\r/g, '').replace(/\s+$/, '');
+    const add = v ? v.split('\n').map(x => `% ${p}-${k}: ${x}`.replace(/\s+$/, '')) : [];
+    if (at < 0) {   // a new field goes after the last of this record's own lines, else at the top
+      const own = new RegExp(`^%\\s*${p}-`, 'i');
+      at = 0; kept.forEach((l, i) => { if (own.test(l)) at = i + 1; });
+    }
+    kept.splice(at, 0, ...add);
+    return kept.join('\n');
+  }
+  const abcField = (text, f) => { const m = text.match(new RegExp(`^${f}:\\s*(.+)$`, 'mi')); return m ? m[1].trim() : ''; };
+
+  /* ---- the records: both folders' index.json (or the copy in sets.js when served without them) ---- */
+  let records = [], cur = null, saved = '', etag = null, canSave = false, savedResponse = '';
+  const getJSON = url => fetch(url, { cache: 'no-store' }).then(r => { if (!r.ok) throw Error(`${r.status} ${r.statusText}`); return r.json(); });
+  async function loadIndex() {
+    const sets = () => window.GCS_SETS || {};   // read late: sets.js loads after this script
+    const [h, r] = await Promise.all([getJSON('holding/index.json').catch(() => sets().holding), getJSON('review/index.json').catch(() => sets().review)]);
+    const order = { holding: h ? h.stages : [], review: r ? r.statuses : [] };
+    records = [];
+    for (const [kind, data] of [['holding', h], ['review', r]]) if (data) for (const it of data.items) records.push({ kind, id: it.id, title: it.title, item: it, verdict: kind === 'holding' ? it.decision || 'considering' : it.status, group: kind === 'holding' ? it.status : '' });
+    records.sort((a, b) => a.kind.localeCompare(b.kind) || order[a.kind].indexOf(a.group) - order[b.kind].indexOf(b.group) || a.title.localeCompare(b.title));
+    const sel = $('records'); sel.innerHTML = '';
+    for (const kind of ['holding', 'review']) {
+      const og = document.createElement('optgroup'); og.label = KINDS[kind].label;
+      for (const rec of records.filter(x => x.kind === kind)) {
+        const o = document.createElement('option'); o.value = `${kind}/${rec.id}`;
+        o.textContent = `${VERDICT[rec.verdict] || ''} ${rec.title}${rec.group ? ` · ${STAGES[rec.group] || rec.group}` : ''}${rec.item.response ? ' · answered' : ''}`;
+        og.appendChild(o);
+      }
+      if (og.children.length) sel.appendChild(og);
+    }
+    if (cur) sel.value = `${cur.kind}/${cur.id}`;
+  }
+
+  /* ---- opening a record ---- */
+  async function open(key, { force } = {}) {
+    if (!force && dirty() && !confirm('Leave this record? Your unsaved changes will be lost.')) { $('records').value = `${cur.kind}/${cur.id}`; return; }
+    const [kind, id] = key.split('/'), rec = records.find(r => r.kind === kind && r.id === id);
+    if (!rec) { showBanner(`No record ${esc(key)}.`, true); return; }
+    let text = '', tag = null;
+    try { const j = await getJSON(`../api/tune/${kind}/${encodeURIComponent(id)}`); text = j.text; tag = j.etag; canSave = true; }
+    catch (e) {
+      canSave = false;
+      try { const r = await fetch(`${KINDS[kind].folder}/${rec.item.file}`, { cache: 'no-store' }); if (!r.ok) throw Error(r.status); text = await r.text(); }
+      catch (e2) { text = kind === 'holding' && window.GCS_SETS && GCS_SETS.sketches ? GCS_SETS.sketches[id] || '' : ''; }
+    }
+    cur = { kind, id, rec, K: KINDS[kind] };
+    saved = text; etag = tag; savedResponse = getMeta(text, cur.K.prefix, 'response', true);
+    $('records').value = key;
+    history.replaceState(null, '', `?r=${encodeURIComponent(key)}`);
+    if (!canSave) showBanner('Read-only: this copy of the page is served without the save server. To save, double-click <b>serve.command</b> in the repository (or run <code>node serve.js</code>) and open the editor from there; meanwhile <b>Download .abc</b> keeps your edits.');
+    else hideBanner();
+    buildControls();
+    $('file').value = text; $('file').scrollTop = 0;
+    $('main').hidden = false;
+    fromText(); render(true); updateState();
+  }
+
+  function buildControls() {
+    const K = cur.K, it = cur.rec.item;
+    $('decision').innerHTML = K.choices.map(([v, label, cls]) => `<label class="${cls || v}"><input type="radio" name="decision" value="${v}">${esc(label)}</label>`).join('');
+    for (const r of $('decision').querySelectorAll('input')) r.addEventListener('change', () => toText());
+    $('where').textContent = `course/${K.folder}/${it.file}`;
+    $('stagepanel').hidden = cur.kind !== 'holding';
+    $('stage').innerHTML = Object.entries(STAGES).map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join('');
+    // The suggestions: the review's finding and suggestion, or the workshop's next step and dossier.
+    const ai = [];
+    if (cur.kind === 'review') {
+      $('aiwho').textContent = 'from the review read';
+      if (it.categories && it.categories.length) ai.push(`<p class="who">${it.categories.map(esc).join(' · ')}</p>`);
+      ai.push(`<div class="ai"><p><b>Found:</b> ${esc(it.findings)}</p><p><b>Suggestion:</b> ${esc(it.suggestion)}</p></div>`);
+    } else {
+      $('aiwho').textContent = 'from the workshop notes';
+      if (it.blocked) ai.push(`<div class="ai"><p><b>Next step:</b> ${esc(it.blocked)}</p></div>`);
+      if (it.notes) ai.push(`<div class="ai"><p><b>Notes:</b> ${esc(it.notes)}</p></div>`);
+      if (it.dossier) ai.push(`<details class="dossier"><summary>Dossier</summary>${Object.entries(it.dossier).map(([k, v]) => `<p><b>${esc(k)}</b> ${esc(v)}</p>`).join('')}</details>`);
+    }
+    $('ai').innerHTML = ai.join('') || '<p class="hint">No suggestion recorded for this tune.</p>';
+  }
+
+  /* ---- the file and the controls stay in step both ways ---- */
+  const val = sel => { const r = $('decision').querySelector('input:checked'); return r ? r.value : ''; };
+  function fromText() {
+    const t = $('file').value, K = cur.K, p = K.prefix, active = document.activeElement;
+    const v = getMeta(t, p, K.decisionKey) || K.fallback;
+    for (const r of $('decision').querySelectorAll('input')) r.checked = r.value === v;
+    if (active !== $('note')) $('note').value = getMeta(t, p, K.noteKey, true);
+    if (active !== $('response')) $('response').value = getMeta(t, p, 'response', true);
+    if (cur.kind === 'holding') {
+      $('stage').value = getMeta(t, p, 'status') || 'inbox';
+      $('srccheck').value = getMeta(t, p, 'source-check') || 'pending';
+      $('clscheck').value = getMeta(t, p, 'classroom-check') || 'pending';
+      const ready = $('stage').value === 'ready' && ($('srccheck').value !== 'verified' || $('clscheck').value !== 'passed');
+      $('stagehint').textContent = ready ? 'Ready to publish needs the source verified and the classroom check passed.' : '';
+      $('stagehint').className = ready ? 'hint bad' : 'hint';
+    }
+    const ru = getMeta(t, p, 'response-updated');
+    $('respdate').textContent = ru ? `(last saved ${ru})` : '';
+    $('title').textContent = abcField(t, 'T') || cur.id;
+    $('subtitle').textContent = [...t.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · ');
+    checkNote();
+  }
+  function toText() {
+    const ta = $('file'), K = cur.K, p = K.prefix, { selectionStart: s, selectionEnd: e, scrollTop } = ta;
+    let t = ta.value;
+    const choice = val();
+    t = setMeta(t, p, K.decisionKey, cur.kind === 'holding' && choice === K.fallback && !getMeta(t, p, K.decisionKey) ? '' : choice);
+    t = setMeta(t, p, K.noteKey, $('note').value);
+    t = setMeta(t, p, 'response', $('response').value);
+    if (cur.kind === 'holding') {
+      t = setMeta(t, p, 'status', $('stage').value);
+      t = setMeta(t, p, 'source-check', $('srccheck').value);
+      t = setMeta(t, p, 'classroom-check', $('clscheck').value);
+    }
+    if (t !== ta.value) { ta.value = t; ta.setSelectionRange(Math.min(s, t.length), Math.min(e, t.length)); ta.scrollTop = scrollTop; }
+    fromText(); updateState();
+  }
+  function checkNote() {
+    const need = val() === cur.K.rejectWith, missing = need && !$('note').value.trim();
+    $('noteneed').textContent = need ? '(needed to reject)' : '(optional)';
+    $('noteerr').hidden = !missing;
+    return !missing;
+  }
+
+  /* ---- notation ---- */
+  let renderTimer;
+  function render(now) {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(() => {
+      const box = $('score'), w = $('warnings');
+      if (!window.ABCJS) { box.textContent = 'The notation library did not load.'; return; }
+      let tunes = [];
+      try { tunes = ABCJS.renderAbc(box, $('file').value, { responsive: 'resize', add_classes: true, paddingtop: 4, paddingbottom: 4, paddingleft: 4, paddingright: 4 }); } catch (e) { box.textContent = `Could not draw it: ${e.message}`; }
+      const warns = (tunes[0] && tunes[0].warnings) || [];
+      const plain = h => new DOMParser().parseFromString(h, 'text/html').body.textContent;
+      $('warncount').textContent = warns.length ? `${warns.length} warning${warns.length > 1 ? 's' : ''}` : '';
+      w.innerHTML = warns.length ? `<details><summary>What the notation reader did not understand</summary><ul>${warns.slice(0, 20).map(x => `<li>${esc(plain(x))}</li>`).join('')}</ul></details>` : '';
+    }, now ? 0 : 250);
+  }
+
+  /* ---- saving ---- */
+  const dirty = () => cur && $('file').value !== saved;
+  function updateState(msg, cls) {
+    const s = $('state');
+    if (msg) { s.textContent = msg; s.className = `state ${cls || ''}`; }
+    else if (!cur) { s.textContent = ''; s.className = 'state'; }
+    else if (dirty()) { s.textContent = canSave ? 'Unsaved changes' : 'Edited (read-only copy)'; s.className = 'state dirty'; }
+    else { s.textContent = canSave ? 'Saved' : 'Read-only'; s.className = 'state'; }
+    $('save').disabled = !cur || !canSave || !dirty();
+    $('revert').disabled = !dirty();
+  }
+  async function save(overwrite) {
+    if (!cur || !canSave) return;
+    if (!checkNote()) { $('note').focus(); updateState('Add a note to reject', 'bad'); return; }
+    const p = cur.K.prefix;
+    let t = $('file').value;
+    if (cur.kind === 'holding') t = setMeta(t, p, 'updated', today());
+    const resp = getMeta(t, p, 'response', true);
+    if (resp !== savedResponse) t = setMeta(t, p, 'response-updated', resp ? today() : '');
+    if (!t.endsWith('\n')) t += '\n';
+    updateState('Saving…');
+    let res, j;
+    try {
+      res = await fetch(`../api/tune/${cur.kind}/${encodeURIComponent(cur.id)}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: t, etag: overwrite || etag }) });
+      j = await res.json();
+    } catch (e) { updateState('Not saved', 'bad'); showBanner(`Could not reach the save server: ${esc(e.message)}. Is <code>serve.js</code> still running?`, true); return; }
+    if (res.status === 409) {
+      updateState('Changed on disk', 'bad');
+      if (confirm('This file changed on disk since you opened it (another session or a git pull may have edited it).\n\nOK: overwrite it with your version.\nCancel: keep your version here, unsaved, so you can compare.')) return save(j.etag);
+      showBanner(`The file on disk changed since you opened it. Your version is still here, unsaved. <button id="theirs">Load the version on disk</button>`, true);
+      $('theirs').addEventListener('click', () => open(`${cur.kind}/${cur.id}`, { force: true }));
+      return;
+    }
+    if (!res.ok) { updateState('Not saved', 'bad'); showBanner(`Not saved; the file is as it was.<pre>${esc(j.error)}</pre>`, true); return; }
+    const scroll = $('file').scrollTop, sel = [$('file').selectionStart, $('file').selectionEnd];
+    $('file').value = t; $('file').scrollTop = scroll; $('file').setSelectionRange(...sel);
+    saved = t; etag = j.etag; savedResponse = resp;
+    hideBanner(); fromText();
+    await loadIndex();
+    const rec = records.find(r => r.kind === cur.kind && r.id === cur.id); if (rec) { cur.rec = rec; buildControls(); fromText(); }
+    updateState('Saved', 'good'); setTimeout(() => updateState(), 2000);
+    toast(`Saved ${cur.K.folder}/items/${cur.id}.abc`);
+  }
+
+  const showBanner = (html, bad) => { const b = $('banner'); b.innerHTML = html; b.className = `banner${bad ? ' bad' : ''}`; b.hidden = false; };
+  const hideBanner = () => { $('banner').hidden = true; };
+
+  /* ---- wiring ---- */
+  $('file').addEventListener('input', () => { fromText(); render(); updateState(); });
+  for (const id of ['note', 'response']) $(id).addEventListener('input', () => toText());
+  for (const id of ['stage', 'srccheck', 'clscheck']) $(id).addEventListener('change', () => { toText(); render(); });
+  $('save').addEventListener('click', () => save());
+  $('revert').addEventListener('click', () => { if (confirm('Throw away your unsaved changes?')) { $('file').value = saved; fromText(); render(true); updateState(); } });
+  $('records').addEventListener('change', e => open(e.target.value));
+  const step = d => { const opts = [...$('records').options], i = opts.findIndex(o => o.value === $('records').value), o = opts[i + d]; if (o) open(o.value); };
+  $('prev').addEventListener('click', () => step(-1)); $('next').addEventListener('click', () => step(1));
+  $('download').addEventListener('click', () => {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([$('file').value], { type: 'text/plain' })); a.download = `${cur.id}.abc`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+  // Play: the tune without its record lines, as a title and an ABC cell in the main page (as the library opens one).
+  const b64u = bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+  $('play').addEventListener('click', async () => {
+    const abc = $('file').value.split('\n').filter(l => !/^%\s*(holding|review|dossier)-/i.test(l)).join('\n').replace(/^\n+/, '');
+    const bytes = new TextEncoder().encode(`=== text {"align":"center"}\n${abcField(abc, 'T') || cur.id}\n=== abc\n${abc}`);
+    let tag = 't', payload = bytes;
+    if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
+    window.open(new URL('../index.html', location.href).href + '#gcs=' + tag + b64u(payload), 'gcs-page');
+  });
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); }
+    if (e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) { e.preventDefault(); step(e.key === 'ArrowUp' ? -1 : 1); }
+  });
+  window.addEventListener('beforeunload', e => { if (dirty()) { e.preventDefault(); e.returnValue = ''; } });
+
+  (async () => {
+    try { await loadIndex(); } catch (e) { showBanner(`Could not load the records: ${esc(e.message)}`, true); return; }
+    if (!records.length) { showBanner('No tune records found.', true); return; }
+    const want = new URLSearchParams(location.search).get('r');
+    open(want && records.some(r => `${r.kind}/${r.id}` === want) ? want : `${records[0].kind}/${records[0].id}`);
+  })();
+  window.GCS_EDITOR = { getMeta, setMeta };
+})();
+</script>
+<script src="sets.js"></script>
+</body>
+</html>

@@ -12,18 +12,19 @@ Nothing is uploaded: lessons are saved in the browser you use, and a Share link 
 |---|---|
 | `index.html` | **The page.** Text, notation, rhythm and dance cells; edit, present and 3D present modes; dark mode; undo; share link; export and import. |
 | `serve.command` | macOS launcher: serves this folder locally and opens the page. Optional (see Running). |
+| `serve.js` | The local server `serve.command` starts when Node is installed: it serves the folder and lets the tune editor (`course/editor.html`) save workshop and review records. |
 | `docs/ANALYSIS-2026-09-20.md` | Design notes: findings, verified behaviour, and the reasons behind each choice. |
 | `docs/NOTATION-DOCK-2026-11-09.md` | Design notes for the notation cell's dock: the bar, the Melody, Band and Mixer drawers, the two text boxes and the defaults. |
 | `docs/CONCOURSE-BRIEF-2026-11-09.md` | The implemented visual and interaction direction for notation: stone and brass surfaces, the clock, beam, lighting states, staff/tab score, and two-line game. |
 | `docs/STRUDEL-SCOPE-2026-11-09.md` | The boundary between Band patterns and the ABC melody, plus the implemented shared `room` reverb effect. |
-| `course/` | Tune grading and sequencing for a practice course: `board.html` is the published practice board; `library.html` is the whole repertoire (tunes, drum patterns, steps, dances, figures, sketches) with a search and facets; `holding/board.html` is the shared kanban-style workshop for incomplete tunes; the analyzers grade ABC, rhythm and dance material. See `course/README.md`. |
+| `course/` | Tune grading and sequencing for a practice course: `board.html` is the published practice board; `library.html` is the whole repertoire (tunes, drum patterns, steps, dances, figures, sketches) with a search and facets; `holding/board.html` is the shared kanban-style workshop for incomplete tunes; `editor.html` edits a workshop or review record and records the decision and your response; the analyzers grade ABC, rhythm and dance material. See `course/README.md`. |
 | `lab/` | Single-cell test pages the main page grew out of: notation and text-fitting prototypes; `Rhythm and Dance v1.html`, the dependency-free rhythm and movement workbench; and `Play Along v1.html`, where bells or a piano follow the microphone, a shared tab's sound or colour cue, or an analysed media file with look-ahead and ABC export. Each lab documents its browser and signal-processing limits in the page. |
 | `old/` | Earlier versions and experiments, kept for reference. |
 | `fonts/`, `vendor/`, `gcs-accidentals.woff2` | Offline assets (below). |
 
 ## Running
 
-The page opens directly from Finder, playback included. `serve.command` starts a local server and opens the page; it loads slightly faster because the served page fetches the 88 piano samples individually, while a page opened from disk loads them all from one embedded file.
+The page opens directly from Finder, playback included. `serve.command` starts a local server (`serve.js` with Node, else Python) and opens the page; the tune editor can save only through `serve.js`; it loads slightly faster because the served page fetches the 88 piano samples individually, while a page opened from disk loads them all from one embedded file.
 
 ## Using it
 

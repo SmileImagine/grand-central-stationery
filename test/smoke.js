@@ -55,6 +55,8 @@ const accompanimentAudit = spawnSync(process.execPath, ['test/accompaniment-audi
 assert(accompanimentAudit.status === 0, accompanimentAudit.stderr || accompanimentAudit.stdout || 'accompaniment audit checks failed');
 const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], { cwd: root, encoding: 'utf8' });
 assert(coverageMap.status === 0, coverageMap.stderr || coverageMap.stdout || 'coverage map checks failed');
+const saveServer = spawnSync(process.execPath, ['test/serve.test.js'], { cwd: root, encoding: 'utf8' });
+assert(saveServer.status === 0, saveServer.stderr || saveServer.stdout || 'tune editor save server checks failed');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
 // still make the 45 tunes, and the workshop and the queue's workshop pieces the 18 items.

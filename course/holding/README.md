@@ -32,12 +32,37 @@ comment form (all optional; the board shows them under the card):
 % dossier-review: who should hear it before it is published
 ```
 
+The teacher's verdict, apart from the stage, and the teacher's answer to the
+suggestions (the `holding-blocked` next step, the notes and the dossier):
+
+```text
+% holding-decision: include | considering | reject   (absent means considering)
+% holding-decision-note: why; a reject needs one
+% holding-response: the teacher's answer; one line each, as many as it takes
+% holding-response-updated: YYYY-MM-DD
+```
+
+A session picking up a tune reads `holding-response` first: it is the teacher
+answering what the last session suggested.
+
 The status is a kanban column, not a claim that the earlier checks passed.
 `ready` is valid only when both checks are complete. Keep provenance and the
 uncertainties in the ABC itself; do not put a sketch in `course/samples/` or
 `course/set.json`.
 
-After changing an item, run:
+## Editing in the browser
+
+`course/editor.html` opens any record here or in the review queue: the whole
+file in a text box with its notation drawn beside it, Include / Under
+consideration / Reject with a note, the suggestions with a box for your
+response, and the stage and checks. Its controls write their lines into the
+file text, so what you see is what is saved. Saving needs the local server:
+double-click `serve.command` (or run `node serve.js`), which writes the file,
+runs `build.js` and `build-sets.js`, and undoes the save if validation fails.
+If another session changed the file since you opened it, the editor asks
+before overwriting. The boards' **Edit** links open it on that tune.
+
+After changing an item by hand, run:
 
 ```bash
 node course/holding/build.js
