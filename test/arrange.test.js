@@ -57,8 +57,7 @@ const dor = keyInfoOf(ABCJS.parseOnly('X:1\nK:Ador\nA|]\n')[0].getKeySignature()
 assert(dor.tonic === 9 && dor.scale.slice().sort((a, b) => a - b).join(' ') === '0 2 4 6 7 9 11', 'A Dorian: tonic A, the notes of G major');
 
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8')).tunes;
-// A tune in the review queue (out of circulation for a classroom check) is read from there.
-const tuneAbc = id => { const t = set.find(x => x.id === id); if (t) return t.abc; const f = path.join(root, 'course/review/items', `${id}.abc`); return fs.readFileSync(f, 'utf8').split('\n').filter(l => !/^%\s*review-/.test(l)).join('\n'); };
+const tuneAbc = id => { const t = set.find(x => x.id === id); if (!t) throw new Error(`${id} is not in the published set`); return t.abc; };
 const chorded = set.filter(t => /"[A-G]/.test(t.abc));
 
 for (const t of chorded) for (const style of Object.keys(page.STYLES).filter(k => k !== 'auto')) {
@@ -75,15 +74,15 @@ for (const t of chorded) for (const style of Object.keys(page.STYLES).filter(k =
   if (!['swing', 'bossa'].includes(style)) assert(!/6/.test([...added].join(' ')) || style === 'swing', `${where}: sixths are swing's`);
 }
 
-// The styles sound different from one another on the same tune: Soldier's Joy, already full of secondary dominants.
-const joy = tuneAbc('reelsr-t-49-soldiers-joy');
+// The styles sound different from one another on the same tune: Astley's Ride, already full of secondary dominants.
+const joy = tuneAbc('reelsa-c-15-astley-s-ride');
 const by = Object.fromEntries(['pop', 'folk', 'jig', 'swing', 'bossa', 'ballad'].map(s => [s, arrangeIn(joy, s)]));
 const list = r => [...r.added].join(' ');
 assert([...by.swing.added].some(c => /6$/.test(c)), `swing gives the tonic a sixth: ${list(by.swing)}`);
 assert([...by.bossa.added].some(c => /maj7$/.test(c)), `bossa gives a major seventh: ${list(by.bossa)}`);
 assert(![...by.jig.added].some(c => /7/.test(c)), `a jig has no sevenths: ${list(by.jig)}`);
 assert([...by.pop.added].some(c => /add9$/.test(c)), `pop gives an add9: ${list(by.pop)}`);
-assert(new Set(['pop', 'folk', 'jig', 'swing', 'bossa'].map(k => by[k].lines.slice(1, 4).join('\n'))).size === 5, 'pop, folk, jig, swing and bossa arrange Soldier\'s Joy five ways');
+assert(new Set(['pop', 'folk', 'jig', 'swing', 'bossa'].map(k => by[k].lines.slice(1, 4).join('\n'))).size === 5, 'pop, folk, jig, swing and bossa arrange Astley\'s Ride five ways');
 
 // A plain tune of triads (written for this test): where each style puts its approach chords.
 const plainTune = 'X:1\nT:Plain test\nM:4/4\nL:1/8\nK:G\n"G"G2B2 d2B2|"G"G2B2 A2G2|"D"F2A2 d4|"G"B2d2 "C"e2c2|"G"d2B2 "D"A2F2|"G"G2B2 A2B2|"Em"E2G2 B4|"C"c2e2 "D"d2c2|"G"B6 z2|]\n';

@@ -36,15 +36,22 @@ for (const file of files.filter(f => f.endsWith('.html'))) {
   checks++;
 }
 
-const holding = spawnSync(process.execPath, ['course/holding/build.js', '--check'], { cwd: root, encoding: 'utf8' });
-assert(holding.status === 0, holding.stderr || holding.stdout || 'holding board is stale');
+// The tune workshop and the review queue live only in the workshop branch, never on main (which the public site
+// serves): there the checks below cover them; on main the smoke test checks that nothing of them is left.
+const workshopHere = fs.existsSync(path.join(root, 'course/holding/build.js'));
+if (workshopHere) {
+  const holding = spawnSync(process.execPath, ['course/holding/build.js', '--check'], { cwd: root, encoding: 'utf8' });
+  assert(holding.status === 0, holding.stderr || holding.stdout || 'holding board is stale');
+}
 const sets = spawnSync(process.execPath, ['course/build-sets.js', '--check'], { cwd: root, encoding: 'utf8' });
 assert(sets.status === 0, sets.stderr || sets.stdout || 'course/sets.js is stale');
 
 const arranger = spawnSync(process.execPath, ['test/arrange.test.js'], { cwd: root, encoding: 'utf8' });
 assert(arranger.status === 0, arranger.stderr || arranger.stdout || 'arranger checks failed');
-const review = spawnSync(process.execPath, ['course/review/build.js', '--check'], { cwd: root, encoding: 'utf8' });
-assert(review.status === 0, review.stderr || review.stdout || 'review queue is stale');
+if (workshopHere) {
+  const review = spawnSync(process.execPath, ['course/review/build.js', '--check'], { cwd: root, encoding: 'utf8' });
+  assert(review.status === 0, review.stderr || review.stdout || 'review queue is stale');
+}
 const classroomFit = spawnSync(process.execPath, ['test/classroom-fit.test.js'], { cwd: root, encoding: 'utf8' });
 assert(classroomFit.status === 0, classroomFit.stderr || classroomFit.stdout || 'classroom range checks failed');
 const classParts = spawnSync(process.execPath, ['test/class-parts.test.js'], { cwd: root, encoding: 'utf8' });
@@ -60,9 +67,14 @@ assert(saveServer.status === 0, saveServer.stderr || saveServer.stdout || 'tune 
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
 // still make the 45 tunes, and the workshop and the queue's workshop pieces the 18 items.
-const queue = JSON.parse(fs.readFileSync(path.join(root, 'course/review/index.json'), 'utf8')).items;
+const queue = workshopHere ? JSON.parse(fs.readFileSync(path.join(root, 'course/review/index.json'), 'utf8')).items : [];
 const inReview = from => queue.filter(it => it.from === from).length;
-assert(set.tunes.length + inReview('published') === 45, `expected 45 tunes published or in review, found ${set.tunes.length} + ${inReview('published')}`);
+if (workshopHere) assert(set.tunes.length + inReview('published') === 45, `expected 45 tunes published or in review, found ${set.tunes.length} + ${inReview('published')}`);
+else {
+  assert(!fs.existsSync(path.join(root, 'course/review')) && !fs.existsSync(path.join(root, 'course/holding')), 'main must not carry the workshop or the review queue');
+  const embedded = fs.readFileSync(path.join(root, 'course/sets.js'), 'utf8');
+  assert(/"holding":null,"review":null,"sketches":\{\}/.test(embedded), 'course/sets.js on main must carry no workshop or review items');
+}
 assert(!set.tunes.some(t => queue.some(it => it.id === t.id)), 'a piece is both published and in the review queue');
 // The set builder leaves every queued tune out, so a regenerated set cannot bring one back from course/samples.
 const os = require('os'), trial = path.join(os.tmpdir(), `gcs-set-trial-${process.pid}.json`);
@@ -71,6 +83,7 @@ assert(built.status === 0, built.stderr || 'the set builder failed');
 const trialIds = JSON.parse(fs.readFileSync(trial, 'utf8')).tunes.map(t => t.id); fs.unlinkSync(trial);
 const leaked = trialIds.filter(id => queue.some(it => it.id === id));
 assert(!leaked.length, `the set builder would publish queued tunes: ${leaked.join(', ')}`);
+assert(!trialIds.some(id => /-withheld$/.test(id)), 'a withheld placeholder in course/samples was graded into a set');
 assert(new Set(set.tunes.map(t => t.id)).size === set.tunes.length, 'published tune IDs are not unique');
 assert(!set.tunes.some(t => /\bsketch\b/i.test(`${t.title}\n${t.abc}`)), 'a sketch remains in the published set');
 for (const [id, key, abcKey] of [
@@ -86,9 +99,10 @@ const sampleText = files.filter(f => f.includes(`${path.sep}course${path.sep}sam
 assert(!/\bA SKETCH\b|\(sketch\)/i.test(sampleText), 'a marked sketch remains in course/samples');
 
 const main = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const token of ['course/holding/board.html', 'lab/Play%20Along%20v1.html', 'class="tbtn play clock"', 'class="playmark"', 'class="dep-tempo"', 'class="lintmirror"', 'class="linttip warn" popover="manual"', 'class="nextup"', 'data-nota="staff"', 'stringglow', 'this.lastHand = ', 'keysByPitch', '12-tone approximation', 'firmer air / leak', 'course/library.html', 'case \'room\'']) assert(main.includes(token), `main page is missing ${token}`);
+for (const token of [...(workshopHere ? ['course/holding/board.html'] : []), 'lab/Play%20Along%20v1.html', 'class="tbtn play clock"', 'class="playmark"', 'class="dep-tempo"', 'class="lintmirror"', 'class="linttip warn" popover="manual"', 'class="nextup"', 'data-nota="staff"', 'stringglow', 'this.lastHand = ', 'keysByPitch', '12-tone approximation', 'firmer air / leak', 'course/library.html', 'case \'room\'']) assert(main.includes(token), `main page is missing ${token}`);
 assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab is missing');
 
-const workshop = JSON.parse(fs.readFileSync(path.join(root, 'course/holding/index.json'), 'utf8')).items.length;
-assert(workshop + inReview('holding') === 18, `expected 18 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
-console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshop} workshop items; ${queue.length} in review).`);
+if (!workshopHere) assert(!main.includes('course/holding/'), 'the main page must not link to the workshop on main');
+const workshop = workshopHere ? JSON.parse(fs.readFileSync(path.join(root, 'course/holding/index.json'), 'utf8')).items.length : 0;
+if (workshopHere) assert(workshop + inReview('holding') === 18, `expected 18 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
+console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshopHere ? `${workshop} workshop items; ${queue.length} in review` : 'no workshop here (main)'}).`);
