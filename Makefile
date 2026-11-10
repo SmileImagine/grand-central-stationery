@@ -1,4 +1,4 @@
-.PHONY: smoke sets classroom-fit accompaniment-audit
+.PHONY: smoke sets classroom-fit accompaniment-audit coverage-map
 
 sets:
 	node course/holding/build.js
@@ -10,6 +10,9 @@ classroom-fit:
 
 accompaniment-audit:
 	node course/accompaniment-audit.js --md course/accompaniment-audit.md
+
+coverage-map:
+	node course/coverage-map.js --md course/coverage-map.md
 
 smoke:
 	node test/smoke.js

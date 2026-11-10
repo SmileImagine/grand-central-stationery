@@ -49,6 +49,8 @@ const classroomFit = spawnSync(process.execPath, ['test/classroom-fit.test.js'],
 assert(classroomFit.status === 0, classroomFit.stderr || classroomFit.stdout || 'classroom range checks failed');
 const accompanimentAudit = spawnSync(process.execPath, ['test/accompaniment-audit.test.js'], { cwd: root, encoding: 'utf8' });
 assert(accompanimentAudit.status === 0, accompanimentAudit.stderr || accompanimentAudit.stdout || 'accompaniment audit checks failed');
+const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], { cwd: root, encoding: 'utf8' });
+assert(coverageMap.status === 0, coverageMap.stderr || coverageMap.stdout || 'coverage map checks failed');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
 // still make the 45 tunes, and the workshop and the queue's workshop pieces the 13 items.
