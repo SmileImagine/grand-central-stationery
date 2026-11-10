@@ -45,6 +45,8 @@ const arranger = spawnSync(process.execPath, ['test/arrange.test.js'], { cwd: ro
 assert(arranger.status === 0, arranger.stderr || arranger.stdout || 'arranger checks failed');
 const review = spawnSync(process.execPath, ['course/review/build.js', '--check'], { cwd: root, encoding: 'utf8' });
 assert(review.status === 0, review.stderr || review.stdout || 'review queue is stale');
+const classroomFit = spawnSync(process.execPath, ['test/classroom-fit.test.js'], { cwd: root, encoding: 'utf8' });
+assert(classroomFit.status === 0, classroomFit.stderr || classroomFit.stdout || 'classroom range checks failed');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
 // still make the 45 tunes, and the workshop and the queue's workshop pieces the 13 items.
