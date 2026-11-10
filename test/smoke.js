@@ -38,6 +38,8 @@ for (const file of files.filter(f => f.endsWith('.html'))) {
 
 const holding = spawnSync(process.execPath, ['course/holding/build.js', '--check'], { cwd: root, encoding: 'utf8' });
 assert(holding.status === 0, holding.stderr || holding.stdout || 'holding board is stale');
+const sets = spawnSync(process.execPath, ['course/build-sets.js', '--check'], { cwd: root, encoding: 'utf8' });
+assert(sets.status === 0, sets.stderr || sets.stdout || 'course/sets.js is stale');
 
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 assert(set.tunes.length === 45, `expected 45 published tunes, found ${set.tunes.length}`);

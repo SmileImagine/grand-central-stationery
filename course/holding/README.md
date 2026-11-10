@@ -31,7 +31,9 @@ node course/holding/build.js
 ```
 
 This validates every item and regenerates `index.json`, which powers
-`board.html`. CI can use `node course/holding/build.js --check` to detect a
+`board.html`. Then run `node course/build-sets.js` (or `make sets`, which
+runs both) so the library's from-disk copy, `course/sets.js`, carries the
+change. CI can use `node course/holding/build.js --check` to detect a
 stale board. Serve the repository and open `course/holding/board.html`.
 
 To publish a ready tune, move its ABC into an appropriate sample/source file,

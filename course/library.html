@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
   <link href="../fonts/fonts.css" rel="stylesheet">
   <script src="../vendor/abcjs-basic-min.js" defer></script>
+  <script src="sets.js" defer></script>
   <style>
     /*
       The library: everything the course holds, in one searchable place.
@@ -407,7 +408,7 @@
     async function open(it) { if (it.kind === 'sketch' && !it.abc) await fetchSketch(it); if (!(it.abc || it.body)) return toast('Nothing to open'); window.open(await openLink(it), 'gcs-page'); }
     async function fetchSketch(it) {
       if (it.abc || it._fetching) return it._fetching;
-      return it._fetching = fetch('holding/' + it.file).then(r => r.ok ? r.text() : '').then(t => {
+      return it._fetching = fetch('holding/' + it.file).then(r => r.ok ? r.text() : '').catch(() => '').then(t => t || (embedded().sketches || {})[it.id] || '').then(t => {
         it.abc = t.split('\n').filter(l => !/^%\s*holding-/.test(l)).join('\n');
         it.key = fieldOf(it.abc, 'K'); it.metre = fieldOf(it.abc, 'M'); it.origin = fieldOf(it.abc, 'O'); it.type = fieldOf(it.abc, 'R');
         it.text += ' ' + lyricsOf(it.abc) + ' ' + it.origin + ' ' + it.type; it._norm = null;
@@ -449,8 +450,12 @@
     window.addEventListener('hashchange', () => { readHash(); renderFacets(); renderCards(); });
 
     /* ---- go: every set that is beside the page; a missing one is skipped ---- */
-    const get = f => fetch(f).then(r => r.ok ? r.json() : null).catch(() => null);
-    Promise.all([get('set.json'), get('rhythm-set.json'), get('dance-set.json'), get('figure-set.json'), get('holding/index.json')]).then(([tunes, rhythms, dances, figures, holding]) => {
+    // Served, the page fetches the JSON sets (always current); opened from disk, where a page may not fetch, it falls back to
+    // sets.js, the copy course/build-sets.js writes, which also carries the sketches' ABC.
+    const embedded = () => window.GCS_SETS || {};
+    const get = (f, key) => fetch(f).then(r => r.ok ? r.json() : null).catch(() => null).then(j => j || embedded()[key] || null);
+    const ready = document.readyState === 'complete' ? Promise.resolve() : new Promise(r => window.addEventListener('load', r));
+    ready.then(() => Promise.all([get('set.json', 'tunes'), get('rhythm-set.json', 'rhythms'), get('dance-set.json', 'dances'), get('figure-set.json', 'figures'), get('holding/index.json', 'holding')])).then(([tunes, rhythms, dances, figures, holding]) => {
       if (tunes) for (const t of tunes.tunes) addTune(t, 'tune');
       if (rhythms) for (const p of rhythms.patterns) addPattern(p, 'rhythm');
       if (dances) { for (const s of dances.steps) addPattern(s, 'step'); for (const d of dances.dances) addPattern(d, 'dance'); }
@@ -460,7 +465,7 @@
       $('#total').textContent = `${items.length} items`;
       if (!items.length) {
         $('#cards').innerHTML = `<div class="empty" style="grid-column:1/-1;font-style:normal;max-width:36em;line-height:1.5">${location.protocol === 'file:'
-          ? '<b>The library needs to be served.</b> A page opened from disk cannot read the sets beside it (the browser blocks it). Double-click <code>serve.command</code> in the project folder, or run <code>python3 -m http.server 8765</code> there, then open <a href="http://localhost:8765/course/library.html">localhost:8765/course/library.html</a>.'
+          ? '<b>No sets found.</b> Opened from disk, the library reads <code>course/sets.js</code>, which <code>node course/build-sets.js</code> writes from the JSON sets; it is missing or empty. Or serve the folder (double-click <code>serve.command</code>) and open <a href="http://localhost:8765/course/library.html">localhost:8765/course/library.html</a>.'
           : '<b>Could not load any set.</b> The library reads set.json, rhythm-set.json, dance-set.json, figure-set.json and holding/index.json from the course folder; none answered.'}</div>`;
         return;
       }
