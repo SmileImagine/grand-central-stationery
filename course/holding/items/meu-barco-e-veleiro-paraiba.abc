@@ -1,0 +1,31 @@
+% holding-id: meu-barco-e-veleiro-paraiba
+% holding-status: transcription
+% holding-owner: Codex
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Re-read the rhythm and barlines against p. 75 (scan p. 85); compare Andrade's Paraíba and Pernambuco versions; then have a coco practitioner review function, pulse and classroom use.
+% dossier-function: coco; Andrade gives a short Paraíba verse and contrasts it with a longer Pernambuco call-and-response version
+% dossier-elements: 2/4; the Paraíba melody is restricted to the tonic-triad arpeggio, as Andrade explicitly notes; one short strophe
+% dossier-practice: learn the four Portuguese lines unaccompanied first; do not add a generic samba or bossa groove while the coco practice has not been reviewed
+% dossier-honesty: provisional transcription of Andrade's Paraíba plate only; the Pernambuco chorus and solo that follow on the page are not silently combined with it
+% dossier-licence: public domain source, first published 1928; Andrade died in 1945; the BBM/USP scan is marked public domain by Wikimedia Commons and IMSLP
+% dossier-respect: label the collected place and variant; do not present this four-line Paraíba version as the only form of the song or of coco
+% dossier-review: a Brazilian Portuguese speaker and a musician or culture bearer familiar with coco from Paraíba before promotion
+X:1
+T:Meu barco é veleiro
+T:Paraíba coco — provisional plate reading
+C:traditional (Brazil)
+O:Brazil, Paraíba
+R:coco
+S:Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 75 (scan p. 85)
+N:SOURCE: https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf
+N:HOW READ (2026-11-10): read from the BBM/USP plate at 220 dpi and enlarged crops. The source marks 2/4, one flat and "Coco", and says this Paraíba version uses only the tonic-chord arpeggio. That pitch constraint was used as a cross-check, not as permission to regularise the rhythm.
+N:UNCERTAIN: exact beaming and barlines throughout, the duration of "veleiro", and the two final bars. The source prints no tempo for this short version. Keep at transcription status until a second reader checks the plate.
+M:2/4
+L:1/8
+K:F
+F F A c | c2 c2 | A A F F | F F A2 |
+w: Meu bar-co é ve-lei-ro Lá fo-ra tem la-ma
+A A c c | c2 A A | c c A A | F3 z |]
+w: Eu a-mo a cor mo-re-na A cor mo-re-na é que me a-ma.
