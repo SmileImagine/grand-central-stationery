@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
+  <link href="../fonts/fonts.css" rel="stylesheet">
+  <script src="../vendor/abcjs-basic-min.js" defer></script>
+  <script src="sets.js" defer></script>
+  <style>
+    /*
+      The library: everything the course holds, in one searchable place.
+
+      The practice board shows a student a few tunes at their level; this page
+      shows the whole repertoire: the graded tunes, the drum patterns, the steps
+      and the folk dances, the square-dance figures, and the sketches waiting in
+      the workshop. A search box finds words anywhere (title, origin, lyrics,
+      source, concepts), and the facets down the side narrow by kind, level,
+      Ontario grade, key, metre, origin, type, skill, source and licence; every
+      facet shows how many items each choice would leave. The address carries
+      the search, so a search can be shared or bookmarked.
+
+      Open puts an item in the main page; the title opens its full card.
+      Nothing is stored; the page only reads the sets beside it.
+    */
+    :root {
+      --font: 'Atkinson Hyperlegible', system-ui, sans-serif;
+      --mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+      --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #777;
+      --accent: #087fca;
+      --l1: #69b944; --l2: #e0b800; --l3: #f39322; --l4: #e72829; --l5: #087fca; --l6: #79569f;
+    }
+    :root[data-theme="dark"] { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #9a9a9a; --accent: #4fa8e8; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #9a9a9a; --accent: #4fa8e8; } }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); }
+    body { padding: 0 16px 40px; }
+    button, select, input, textarea { font: inherit; color: inherit; }
+    button { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+    button:hover { border-color: var(--accent); }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    button.quiet { border-color: transparent; background: transparent; color: var(--muted); }
+    select, input[type=search] { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+    input[type=search] { min-width: 220px; flex: 1; }
+    a { color: var(--accent); }
+
+    header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 0 10px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 3; }
+    header h1 { font-size: 20px; margin: 0; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap; }
+    header h1 small { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+    header label { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+    #theme { width: 36px; padding: 6px 0; }
+    .count { color: var(--muted); font-size: 14px; }
+
+    .wrap { display: grid; grid-template-columns: 240px 1fr; gap: 18px; padding-top: 14px; align-items: start; }
+    aside { position: sticky; top: 64px; max-height: calc(100vh - 80px); overflow: auto; padding-right: 4px; }
+    aside details { border-top: 1px solid var(--line-2); padding: 6px 0; }
+    aside details:first-child { border-top: 0; }
+    aside summary { cursor: pointer; font-weight: 700; font-size: 14px; padding: 4px 0; display: flex; align-items: center; }
+    aside summary .on { margin-left: auto; font-weight: 400; color: var(--accent); font-size: 12px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 0 6px; }
+    .chip { font-size: 12.5px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; background: var(--panel-2); cursor: pointer; display: inline-flex; gap: 5px; align-items: center; line-height: 1.4; }
+    .chip:hover { border-color: var(--accent); }
+    .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .chip.zero { opacity: 0.45; }
+    .chip small { color: inherit; opacity: 0.7; font-size: 11px; }
+    .chip i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .more { font-size: 12px; color: var(--muted); background: none; border: 0; padding: 2px 4px; }
+    .clear { margin: 10px 0 0; width: 100%; }
+
+    .lead { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--muted); font-size: 14px; margin-bottom: 10px; }
+    .lead .spacer { flex: 1; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; align-items: start; }
+    .empty { color: var(--muted); font-style: italic; padding: 20px 4px; }
+
+    .item { background: var(--panel-2); border: 1px solid var(--line); border-left: 6px solid var(--lvl, var(--line)); border-radius: 10px; padding: 8px 10px; }
+    .item .top { display: flex; align-items: baseline; gap: 8px; }
+    .item h3 { font-size: 15px; margin: 0; flex: 1; line-height: 1.25; }
+    .item h3 button { all: unset; cursor: pointer; }
+    .item h3 button:hover { text-decoration: underline; }
+    .item .meta { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    .item .kind { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 2px; }
+    .item .incipit { margin: 4px -4px 0; min-height: 40px; overflow: hidden; }
+    .item .incipit svg { color: var(--ink); max-width: 100%; height: auto; }
+    .item pre { font-family: var(--mono); font-size: 12px; margin: 6px 0 2px; white-space: pre; overflow: auto; color: var(--ink); line-height: 1.35; }
+    .item .prose { font-size: 13px; color: var(--muted); margin: 6px 0 2px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .item .tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
+    .item .tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px; }
+    .item .tag.new { color: var(--ink); border-color: var(--lvl); }
+    .item .tag.grade { color: var(--ink); background: var(--panel); }
+    .item .tag.status { color: var(--ink); border-color: var(--l3); }
+    .item .actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .item .actions .src { margin-left: auto; font-size: 12px; color: var(--muted); max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    mark { background: color-mix(in srgb, var(--l2) 45%, transparent); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+    dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 760px; width: calc(100vw - 32px); max-height: calc(100vh - 40px); }
+    dialog::backdrop { background: rgba(0,0,0,0.35); }
+    dialog h2 { margin: 0 0 2px; font-size: 20px; }
+    dialog .sub { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+    dialog .score { margin: 8px -4px; }
+    dialog .score svg { color: var(--ink); max-width: 100%; height: auto; }
+    dialog pre { font-family: var(--mono); font-size: 13px; white-space: pre-wrap; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; max-height: 40vh; overflow: auto; }
+    dialog dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; font-size: 14px; margin: 10px 0; }
+    dialog dt { color: var(--muted); }
+    dialog dd { margin: 0; }
+    dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; flex-wrap: wrap; }
+    dialog .row .left { margin-right: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+    #toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    #toast.on { opacity: 1; }
+    @media (max-width: 760px) {
+      header { position: static; }
+      .wrap { grid-template-columns: 1fr; }
+      aside { position: static; max-height: none; }
+      aside.folded details { display: none; }
+      aside .fold { display: block; width: 100%; }
+      .cards { grid-template-columns: 1fr; }
+      .item .meta { white-space: normal; }
+    }
+    @media (min-width: 761px) { aside .fold { display: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="../index.html" title="Back to the main page" style="color:inherit;text-decoration:none">&larr;</a> Library<small id="total"></small></h1>
+    <input type="search" id="q" placeholder="Search titles, words, origins, sources…" aria-label="Search">
+    <label>Sort <select id="sort">
+      <option value="level">by level</option>
+      <option value="title">by title</option>
+      <option value="grade">by grade</option>
+      <option value="length">by length</option>
+    </select></label>
+    <button id="theme" title="Light or dark">☾</button>
+  </header>
+  <div class="wrap">
+    <aside id="facets" class="folded"><button class="fold" id="fold">Filters</button></aside>
+    <main>
+      <div class="lead"><span id="shown"></span><span class="spacer"></span><span id="note"></span></div>
+      <div class="cards" id="cards"></div>
+    </main>
+  </div>
+
+  <dialog id="dlg"></dialog>
+  <div id="toast"></div>
+
+  <script>
+    'use strict';
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+    const LEVEL_COLOR = { 1: 'var(--l1)', 2: 'var(--l2)', 3: 'var(--l3)', 4: 'var(--l4)', 5: 'var(--l5)', 6: 'var(--l6)' };
+    const KINDS = { tune: 'Tunes', rhythm: 'Drum patterns', step: 'Steps', dance: 'Folk dances', figure: 'Square-dance figures', sketch: 'Workshop sketches' };
+
+    /* ---- theme, shared with the main page ---- */
+    const isDark = () => document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    try { const t = localStorage.getItem('gcs-theme'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}
+    const paintTheme = () => { $('#theme').textContent = isDark() ? '☀' : '☾'; };
+    $('#theme').addEventListener('click', () => { const next = isDark() ? 'light' : 'dark'; document.documentElement.dataset.theme = next; try { localStorage.setItem('gcs-theme', next); } catch (e) {} paintTheme(); });
+    paintTheme();
+
+    /* ---- the skill tags in words (the board's table, widened for rhythms and steps) ---- */
+    const DEGREE = { do: 'do', di: 'di', re: 're', ri: 'ri', mi: 'mi', fa: 'fa', fi: 'fi', so: 'so', si: 'si', la: 'la', te: 'te', ti: 'ti' };
+    function wordsFor(tag) {
+      const [k, v] = tag.split(':');
+      if (k === 'degree') return DEGREE[v] || v;
+      if (k === 'dur') return ({ '1': 'one-beat notes', '2': 'two-beat notes', '3': 'three-beat notes', '4': 'four-beat notes', '1/2': 'half beats', '1/4': 'quarter beats', '3/2': 'dotted beats', '3/4': 'dotted half beats', '1/3': 'thirds of a beat', '2/3': 'two-thirds of a beat', '1/6': 'sixths of a beat' })[v] || `${v}-beat notes`;
+      if (k === 'div') return ({ '1': 'beats only', '1/2': 'half beats', '1/3': 'thirds of a beat', '1/4': 'quarter beats', '1/6': 'sixths of a beat', '1/8': 'eighths of a beat' })[v] || `divisions of ${v}`;
+      if (k === 'leap') return v === 'over-octave' ? 'leaps over an octave' : `leaps of a ${v}`;
+      if (k === 'range') return ({ '6th': 'range of a 6th', octave: 'range of an octave', 'over-octave': 'range over an octave' })[v] || tag;
+      if (k === 'metre') return v;
+      if (k === 'parts') return v === '1' ? 'one drum' : `${v} drums`;
+      if (k === 'arms') return ({ down: 'arms still', up: 'arms up', out: 'arms out', clap: 'clapping', snap: 'snapping' })[v] || `arms ${v}`;
+      if (k === 'dir') return ({ place: 'in place', fwd: 'travelling forward', back: 'travelling back', side: 'sideways', turn: 'turning' })[v] || `${v}`;
+      if (k === 'formation') return `in a ${v}`;
+      if (k === 'syncopation') return v ? 'much syncopation' : 'syncopation';
+      if (k === 'key') return null;
+      return ({ tie: 'ties', 'tie-over-bar': 'ties over the bar', pickup: 'a pickup', rest: 'rests', 'rest-off-beat': 'rests off the beat', repeat: 'repeats', endings: 'first and second endings', triplet: 'triplets', 'triplet-in-compound': 'triplets', tuplet: 'tuplets', accidentals: 'accidentals', 'grace-notes': 'grace notes', 'double-stops': 'two notes at once', 'metre-change': 'a change of metre', 'key-change': 'a change of key', dynamics: 'dynamics', sung: 'sung', hop: 'hops', jump: 'jumps', partner: 'with a partner', fermata: 'a fermata', slur: 'slurs', swing: 'swing' })[k] || tag.replace(/[:_-]/g, ' ');
+    }
+
+    /* ---- one shape for everything: the fields the facets and the search read ---- */
+    const items = [];
+    const fieldOf = (abc, name) => { const m = (abc || '').match(new RegExp('^' + name + ':\\s*(.+)$', 'm')); return m ? m[1].trim() : ''; };
+    const lyricsOf = abc => (abc || '').split('\n').filter(l => /^w:/.test(l)).map(l => l.slice(2).replace(/[-_*|~]/g, ' ')).join(' ');
+    const sourceName = s => {
+      if (!s) return '';
+      if (/nottingham/i.test(s)) return 'Nottingham Music Database';
+      if (/fox strangways|hindostan/i.test(s)) return 'Fox Strangways, The Music of Hindostan';
+      if (/typed for grand central/i.test(s)) return 'typed for this page';
+      if (/groove midi/i.test(s)) return 'Groove MIDI Dataset';
+      if (/\.abc$/.test(s)) return s.replace(/^.*\//, '').replace(/\.abc$/, '').replace(/-/g, ' ');
+      return s.replace(/\s*\(.*\)\s*$/, '').replace(/ https?:\S+/, '');
+    };
+    const grades = it => it.ontario ? [String(it.ontario.grade)] : [];
+    function addTune(t, kind, extra) {
+      const abc = t.abc || '';
+      const rhythm = t.rhythm || fieldOf(abc, 'R');
+      items.push(Object.assign({
+        kind, id: t.id, title: t.title, level: t.level || 0, score: t.score || 0, grade: t.ontario ? t.ontario.grade : 0,
+        key: t.key || fieldOf(abc, 'K'), metre: t.metre || fieldOf(abc, 'M'), length: t.bars || 0, lengthWord: t.bars ? `${t.bars} bars` : '',
+        origin: t.origin || fieldOf(abc, 'O'), type: rhythm, composer: t.composer || fieldOf(abc, 'C'),
+        source: sourceName(t.source || fieldOf(abc, 'S')), sourceFull: t.source || fieldOf(abc, 'S'), licence: t.licence || 'public domain',
+        skills: t.skills || [], introduces: t.introduces || [], ontario: t.ontario || null, abc,
+        text: [t.title, t.origin, t.composer, rhythm, lyricsOf(abc), fieldOf(abc, 'N'), t.source, (t.ontario && t.ontario.concepts || []).join(' '), (t.skills || []).map(wordsFor).join(' ')].join(' ')
+      }, extra || {}));
+    }
+    function addPattern(p, kind) {
+      items.push({
+        kind, id: p.id, title: p.title, level: p.level, score: p.score, grade: p.ontario ? p.ontario.grade : 0,
+        key: '', metre: p.metre || '', length: 0, lengthWord: p.reasons && p.reasons.length || '', bpm: p.bpm,
+        origin: p.country || '', type: p.style || '', composer: '',
+        source: sourceName(p.book || p.source), sourceFull: p.source || '', licence: p.licence || '',
+        skills: p.skills || [], introduces: p.introduces || [], ontario: p.ontario || null, reasons: p.reasons || null, body: p.text || '',
+        text: [p.title, p.style, p.country, p.book, p.source, (p.ontario && p.ontario.concepts || []).join(' '), (p.skills || []).map(wordsFor).join(' '), kind === 'dance' ? p.text : ''].join(' ')
+      });
+    }
+    function addFigure(f) {
+      items.push({
+        kind: 'figure', id: f.id, title: f.title, level: f.level, score: f.score, grade: 0,
+        key: '', metre: '', length: f.beats || 0, lengthWord: f.beats ? `${f.beats} beats` : '', origin: '', type: f.programme || '', composer: '',
+        source: 'Taminations', sourceFull: f.source || '', licence: f.licence || '', family: f.family, from: f.from, moves: f.moveNames, difficulty: f.difficulty,
+        skills: [], introduces: [], ontario: null, reasons: f.reasons || null,
+        text: [f.title, f.family, f.programme, f.from, f.moveNames].join(' ')
+      });
+    }
+    function addSketch(s) {
+      items.push({
+        kind: 'sketch', id: s.id, title: s.title, level: 0, score: 0, grade: 0, key: '', metre: '', length: 0, lengthWord: '',
+        origin: '', type: '', composer: '', source: sourceName(s.source), sourceFull: s.source, licence: 'public domain',
+        skills: [], introduces: [], ontario: null, status: s.status, subtitle: s.subtitle, blocked: s.blocked, notes: s.notes, file: s.file,
+        text: [s.title, s.subtitle, s.source, s.notes, s.blocked, s.status].join(' ')
+      });
+    }
+
+    /* ---- facets: a key, a label, how to read an item's values, how to show one value ---- */
+    const FACETS = [
+      { key: 'kind', label: 'Kind', of: it => [it.kind], show: v => KINDS[v] || v, order: Object.keys(KINDS) },
+      { key: 'level', label: 'Level', of: it => it.level ? [String(it.level)] : [], show: v => `level ${v}`, dot: v => LEVEL_COLOR[v], order: ['1', '2', '3', '4', '5', '6'] },
+      { key: 'grade', label: 'Ontario grade', of: grades, show: v => `grade ${v}`, order: ['1', '2', '3', '4', '5', '6', '7', '8'], upto: true },
+      { key: 'metre', label: 'Metre', of: it => it.metre ? [it.metre] : [], show: v => v },
+      { key: 'key', label: 'Key', of: it => it.key ? [it.key] : [], show: v => v },
+      { key: 'origin', label: 'Origin', of: it => it.origin ? [it.origin] : [], show: v => v },
+      { key: 'type', label: 'Type or style', of: it => it.type ? [it.type] : [], show: v => v },
+      { key: 'skill', label: 'Skills', of: it => (it.skills || []).map(wordsFor).filter(Boolean), show: v => v },
+      { key: 'new', label: 'Introduces', of: it => (it.introduces || []).map(wordsFor).filter(Boolean), show: v => v },
+      { key: 'status', label: 'Workshop stage', of: it => it.status ? [it.status] : [], show: v => v.replace(/-/g, ' ') },
+      { key: 'source', label: 'Source', of: it => it.source ? [it.source] : [], show: v => v },
+      { key: 'licence', label: 'Licence', of: it => it.licence ? [it.licence] : [], show: v => v },
+    ];
+    const chosen = {};                      // facet key -> Set of values
+    let gradeUpTo = false, query = '', sort = 'level';
+    const expanded = {};                    // facet key -> show every value
+
+    /* ---- the address carries the search ---- */
+    function readHash() {
+      const p = new URLSearchParams(location.hash.slice(1));
+      query = p.get('q') || ''; sort = p.get('sort') || 'level'; gradeUpTo = p.get('upto') === '1';
+      for (const f of FACETS) { const v = p.get(f.key); chosen[f.key] = new Set(v ? v.split(',') : []); }
+      $('#q').value = query; $('#sort').value = sort;
+    }
+    function writeHash() {
+      const p = new URLSearchParams();
+      if (query) p.set('q', query); if (sort !== 'level') p.set('sort', sort); if (gradeUpTo) p.set('upto', '1');
+      for (const f of FACETS) if (chosen[f.key].size) p.set(f.key, [...chosen[f.key]].join(','));
+      const h = p.toString() ? '#' + p.toString() : '';
+      if (h !== location.hash) history.replaceState(null, '', location.pathname + location.search + h);
+    }
+
+    /* ---- matching ---- */
+    const norm = s => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const words = () => norm(query).split(/\s+/).filter(Boolean);
+    const matchesQuery = it => { const t = it._norm || (it._norm = norm(it.text)); return words().every(w => t.includes(w)); };
+    function matchesFacet(it, f) {
+      const want = chosen[f.key]; if (!want.size) return true;
+      const have = f.of(it);
+      if (f.upto && gradeUpTo) { const cap = Math.max(...[...want].map(Number)); return have.some(v => Number(v) <= cap); }
+      return have.some(v => want.has(v));
+    }
+    const matchesAllBut = (it, skip) => matchesQuery(it) && FACETS.every(f => f === skip || matchesFacet(it, f));
+
+    /* ---- the facet column: counts are what each choice would leave, given everything else chosen ---- */
+    function renderFacets() {
+      const aside = $('#facets');
+      for (const el of aside.querySelectorAll('details')) el.remove();
+      for (const f of FACETS) {
+        const pool = items.filter(it => matchesAllBut(it, f));
+        const counts = new Map();
+        for (const it of pool) for (const v of new Set(f.of(it))) counts.set(v, (counts.get(v) || 0) + 1);
+        for (const v of chosen[f.key]) if (!counts.has(v)) counts.set(v, 0);
+        if (!counts.size) continue;
+        let values = [...counts.keys()];
+        values.sort(f.order ? (a, b) => f.order.indexOf(a) - f.order.indexOf(b) : (a, b) => counts.get(b) - counts.get(a) || a.localeCompare(b));
+        const d = document.createElement('details'); d.open = chosen[f.key].size > 0 || ['kind', 'level', 'grade'].includes(f.key);
+        d.innerHTML = `<summary>${esc(f.label)}${chosen[f.key].size ? `<span class="on">${chosen[f.key].size} chosen</span>` : ''}</summary><div class="chips"></div>`;
+        const chips = d.querySelector('.chips');
+        const limit = expanded[f.key] || f.order ? values.length : 12;
+        for (const v of values.slice(0, limit)) {
+          const b = document.createElement('button'); const on = chosen[f.key].has(v); const n = counts.get(v);
+          b.className = 'chip' + (on ? ' on' : '') + (!n ? ' zero' : ''); b.type = 'button';
+          b.innerHTML = `${f.dot ? `<i style="background:${f.dot(v)}"></i>` : ''}${esc(f.show(v))}<small>${n}</small>`;
+          b.addEventListener('click', () => { if (on) chosen[f.key].delete(v); else chosen[f.key].add(v); update(); });
+          chips.appendChild(b);
+        }
+        if (values.length > limit) { const m = document.createElement('button'); m.className = 'more'; m.type = 'button'; m.textContent = `${values.length - limit} more…`; m.addEventListener('click', () => { expanded[f.key] = true; renderFacets(); }); chips.appendChild(m); }
+        if (f.upto) {
+          const l = document.createElement('label'); l.style.cssText = 'font-size:12.5px;color:var(--muted);display:flex;gap:6px;align-items:center;padding:2px 0 4px';
+          l.innerHTML = `<input type="checkbox"${gradeUpTo ? ' checked' : ''}> and the grades under it`; l.title = 'Keep everything the curriculum has named by the chosen grade, as the practice board does';
+          l.querySelector('input').addEventListener('change', e => { gradeUpTo = e.target.checked; update(); });
+          chips.appendChild(l);
+        }
+        aside.appendChild(d);
+      }
+      const any = query || gradeUpTo || FACETS.some(f => chosen[f.key].size);
+      let c = aside.querySelector('.clear');
+      if (any && !c) { c = document.createElement('button'); c.className = 'clear'; c.textContent = 'Clear the search'; c.addEventListener('click', () => { query = ''; $('#q').value = ''; gradeUpTo = false; for (const f of FACETS) chosen[f.key].clear(); update(); }); aside.appendChild(c); }
+      else if (!any && c) c.remove();
+      else if (c) aside.appendChild(c);
+    }
+
+    /* ---- the results ---- */
+    const sorters = {
+      level: (a, b) => (a.level || 9) - (b.level || 9) || a.score - b.score || a.title.localeCompare(b.title),
+      title: (a, b) => a.title.localeCompare(b.title),
+      grade: (a, b) => (a.grade || 9) - (b.grade || 9) || (a.level || 9) - (b.level || 9) || a.title.localeCompare(b.title),
+      length: (a, b) => a.length - b.length || a.title.localeCompare(b.title),
+    };
+    const PAGE = 60; let shownCount = PAGE;
+    function renderCards() {
+      const hits = items.filter(it => matchesAllBut(it, null)).sort(sorters[sort] || sorters.level);
+      const wrap = $('#cards'); wrap.innerHTML = '';
+      $('#shown').textContent = hits.length === items.length ? `${items.length} items` : `${hits.length} of ${items.length} items`;
+      if (!hits.length) { wrap.innerHTML = '<div class="empty">Nothing matches. Clear a facet or shorten the search.</div>'; return; }
+      for (const it of hits.slice(0, shownCount)) wrap.appendChild(card(it));
+      if (hits.length > shownCount) { const b = document.createElement('button'); b.textContent = `Show ${Math.min(PAGE, hits.length - shownCount)} more of ${hits.length}`; b.style.gridColumn = '1 / -1'; b.addEventListener('click', () => { shownCount += PAGE; renderCards(); }); wrap.appendChild(b); }
+    }
+    const hl = s => { const ws = words(); if (!ws.length) return esc(s); const re = new RegExp('(' + ws.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'ig'); return esc(s).replace(re, '<mark>$1</mark>'); };
+    const metaOf = it => [it.key, it.metre, it.lengthWord, it.bpm && `${it.bpm} bpm`, it.from, it.kind === 'sketch' && it.status.replace(/-/g, ' ')].filter(Boolean).join(' · ');
+    function card(it) {
+      const el = document.createElement('article'); el.className = 'item';
+      if (it.level) el.style.setProperty('--lvl', LEVEL_COLOR[it.level]);
+      const intro = new Set(it.introduces || []);
+      const tags = (it.skills || []).map(s => [s, wordsFor(s)]).filter(([, w]) => w);
+      const shown = tags.filter(([s]) => intro.has(s)).concat(tags.filter(([s]) => !intro.has(s) && !/^(degree|dur|metre|range|div|parts):/.test(s))).slice(0, 6);
+      const who = it.origin || it.composer || it.family || '';
+      const body = it.kind === 'tune' || it.kind === 'sketch' ? '<div class="incipit"></div>'
+        : it.kind === 'rhythm' || it.kind === 'step' ? `<pre>${hl(it.body.split('\n').filter(l => !/^(title|meter|bpm|licen[cs]e|id|source|style):/.test(l)).join('\n'))}</pre>`
+        : it.kind === 'figure' ? `<div class="prose">${hl(it.moves || '')}</div>`
+        : `<div class="prose">${hl(blurb(it.body))}</div>`;
+      el.innerHTML = `
+        <div class="kind">${esc(KINDS[it.kind])}${it.type ? ` · ${hl(it.type)}` : ''}</div>
+        <div class="top"><h3><button type="button" class="title">${hl(it.title)}</button></h3><span class="meta">${esc(metaOf(it))}</span></div>
+        ${body}
+        <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${hl(who)}</span>` : ''}${it.ontario ? `<span class="tag grade" title="Ontario curriculum: ${esc(it.ontario.concepts.join('; '))}">grade ${it.ontario.grade}</span>` : ''}${it.kind === 'sketch' ? `<span class="tag status">${esc(it.subtitle || '')}</span>` : ''}</div>
+        <div class="actions">${canOpen(it) ? '<button class="open" title="Open this in the main page, ready to play">Open</button>' : ''}<span class="src" title="${esc(it.sourceFull || it.source)}">${hl(it.source)}</span></div>`;
+      el.querySelector('.title').addEventListener('click', () => detail(it));
+      const o = el.querySelector('.open'); if (o) o.addEventListener('click', () => open(it));
+      const inc = el.querySelector('.incipit');
+      if (inc) { if (it.abc) queueRender(inc, incipit(it.abc, 2)); else fetchSketch(it).then(() => queueRender(inc, incipit(it.abc, 2))); }
+      return el;
+    }
+    // The first readable sentence of an OCR'd dance description: the music line with its garbled tempo marks, and the "(From ...)" tag, are skipped.
+    function blurb(t) {
+      let s = (t || '').replace(/-\n/g, '');
+      const from = s.indexOf('(From'); if (from >= 0) { const end = s.indexOf(')', from); if (end > from) s = s.slice(end + 1); }
+      else { const lines = s.split('\n'); while (lines.length > 1 && (lines[0].match(/\b[a-z]{2,}\b/g) || []).length < 3) lines.shift(); s = lines.join(' '); }
+      return s.replace(/\s+/g, ' ').trim().slice(0, 220);
+    }
+    const canOpen = it => ['tune', 'rhythm', 'step', 'sketch'].includes(it.kind);
+
+    /* ---- the full card ---- */
+    async function detail(it) {
+      const d = $('#dlg');
+      if (it.kind === 'sketch' && !it.abc) await fetchSketch(it);
+      const rows = [];
+      const add = (k, v) => { if (v) rows.push(`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`); };
+      add('Level', it.level ? `${it.level}${it.score ? ` (score ${it.score})` : ''}` : '');
+      if (it.ontario) add('Ontario', `grade ${it.ontario.grade}: ${it.ontario.concepts.join('; ')}`);
+      add('Key', it.key); add('Metre', it.metre); add('Length', it.lengthWord); add('Tempo', it.bpm && `${it.bpm} bpm`);
+      add('Origin', it.origin); add('Composer', it.composer); add('Type', it.type);
+      add('Family', it.family); add('From', it.from); add('Moves', it.moves);
+      if (it.reasons) add('Rungs', Object.entries(it.reasons).map(([k, v]) => `${k}: ${v}`).join('; '));
+      if (it.skills && it.skills.length) add('Skills', it.skills.map(wordsFor).filter(Boolean).join(', '));
+      if (it.introduces && it.introduces.length) add('Introduces', it.introduces.map(wordsFor).filter(Boolean).join(', '));
+      add('Stage', it.status && it.status.replace(/-/g, ' ')); add('Next', it.blocked); add('Notes', it.notes);
+      add('Source', it.sourceFull || it.source); add('Licence', it.licence);
+      const text = it.abc || it.body || '';
+      d.innerHTML = `<h2>${esc(it.title)}</h2><p class="sub">${esc(KINDS[it.kind])}${it.subtitle ? ` · ${esc(it.subtitle)}` : ''}</p>
+        ${it.abc ? '<div class="score"></div>' : ''}
+        <dl>${rows.join('')}</dl>
+        ${text ? `<pre>${esc(text)}</pre>` : ''}
+        <div class="row"><div class="left">${canOpen(it) ? '<button class="open primary">Open in the main page</button>' : ''}${text ? '<button class="copy">Copy the text</button>' : ''}${/^https?:/.test(it.sourceFull || '') ? `<a href="${esc(it.sourceFull)}" target="_blank" rel="noopener"><button>Source</button></a>` : ''}</div><button class="close">Close</button></div>`;
+      d.querySelector('.close').addEventListener('click', () => d.close());
+      const o = d.querySelector('.open'); if (o) o.addEventListener('click', () => open(it));
+      const c = d.querySelector('.copy'); if (c) c.addEventListener('click', async () => { try { await navigator.clipboard.writeText(text); toast('Copied'); } catch (e) { toast('Could not copy'); } });
+      d.showModal();
+      if (it.abc && window.ABCJS) { try { ABCJS.renderAbc(d.querySelector('.score'), it.abc, { scale: 0.8, staffwidth: Math.max(300, d.clientWidth - 48), responsive: 'resize', paddingtop: 0, paddingbottom: 0 }); } catch (e) {} }
+    }
+
+    /* ---- opening in the main page: a "=== type" document, deflated into the address ---- */
+    const b64u = bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+    async function openLink(it) {
+      const type = it.kind === 'rhythm' ? 'rhythm' : it.kind === 'step' ? 'dance' : 'abc';
+      const doc = `=== heading\n${it.title}\n=== ${type}\n${it.abc || it.body}`;
+      const bytes = new TextEncoder().encode(doc);
+      let tag = 't', payload = bytes;
+      if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
+      return new URL('../index.html', location.href).href + '#gcs=' + tag + b64u(payload);
+    }
+    async function open(it) { if (it.kind === 'sketch' && !it.abc) await fetchSketch(it); if (!(it.abc || it.body)) return toast('Nothing to open'); window.open(await openLink(it), 'gcs-page'); }
+    async function fetchSketch(it) {
+      if (it.abc || it._fetching) return it._fetching;
+      return it._fetching = fetch('holding/' + it.file).then(r => r.ok ? r.text() : '').catch(() => '').then(t => t || (embedded().sketches || {})[it.id] || '').then(t => {
+        it.abc = t.split('\n').filter(l => !/^%\s*holding-/.test(l)).join('\n');
+        it.key = fieldOf(it.abc, 'K'); it.metre = fieldOf(it.abc, 'M'); it.origin = fieldOf(it.abc, 'O'); it.type = fieldOf(it.abc, 'R');
+        it.text += ' ' + lyricsOf(it.abc) + ' ' + it.origin + ' ' + it.type; it._norm = null;
+      }).catch(() => {});
+    }
+
+    /* ---- incipit: the header fields and the first bars ---- */
+    function incipit(abc, n = 2) {
+      const lines = abc.split('\n');
+      const head = lines.filter(l => /^[KLMQ]:/.test(l));
+      const body = lines.find(l => l.trim() && !/^[A-Za-z]:/.test(l) && !/^%/.test(l) && !/^w:/.test(l)) || '';
+      const bars = body.replace(/^\s*\|?:?/, '').split('|').filter(s => s.trim());
+      return `X:1\n${head.join('\n')}\n${bars.slice(0, n).join('|')}|`;
+    }
+    const queue = []; let draining = false;
+    function queueRender(el, abc) { queue.push([el, abc]); drain(); }
+    function drain() {
+      if (draining || !window.ABCJS) return; draining = true;
+      const step = () => {
+        for (let i = 0; i < 4 && queue.length; i++) {
+          const [el, abc] = queue.shift();
+          if (!el.isConnected) continue;
+          try { ABCJS.renderAbc(el, abc, { scale: 0.62, staffwidth: Math.max(180, el.clientWidth - 8), paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, responsive: 'resize' }); } catch (e) { el.textContent = ''; }
+        }
+        if (queue.length) requestAnimationFrame(step); else draining = false;
+      };
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('load', drain);
+
+    let toastTimer;
+    function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2200); }
+
+    function update() { shownCount = PAGE; writeHash(); renderFacets(); renderCards(); }
+    let typing;
+    $('#q').addEventListener('input', () => { clearTimeout(typing); typing = setTimeout(() => { query = $('#q').value.trim(); update(); }, 150); });
+    $('#sort').addEventListener('change', () => { sort = $('#sort').value; update(); });
+    $('#fold').addEventListener('click', () => $('#facets').classList.toggle('folded'));
+    window.addEventListener('hashchange', () => { readHash(); renderFacets(); renderCards(); });
+
+    /* ---- go: every set that is beside the page; a missing one is skipped ---- */
+    // Served, the page fetches the JSON sets (always current); opened from disk, where a page may not fetch, it falls back to
+    // sets.js, the copy course/build-sets.js writes, which also carries the sketches' ABC.
+    const embedded = () => window.GCS_SETS || {};
+    const get = (f, key) => fetch(f).then(r => r.ok ? r.json() : null).catch(() => null).then(j => j || embedded()[key] || null);
+    const ready = document.readyState === 'complete' ? Promise.resolve() : new Promise(r => window.addEventListener('load', r));
+    ready.then(() => Promise.all([get('set.json', 'tunes'), get('rhythm-set.json', 'rhythms'), get('dance-set.json', 'dances'), get('figure-set.json', 'figures'), get('holding/index.json', 'holding')])).then(([tunes, rhythms, dances, figures, holding]) => {
+      if (tunes) for (const t of tunes.tunes) addTune(t, 'tune');
+      if (rhythms) for (const p of rhythms.patterns) addPattern(p, 'rhythm');
+      if (dances) { for (const s of dances.steps) addPattern(s, 'step'); for (const d of dances.dances) addPattern(d, 'dance'); }
+      if (figures) for (const f of figures.figures) addFigure(f);
+      if (holding) for (const s of holding.items) addSketch(s);
+      const missing = [['the tunes', tunes], ['the drum patterns', rhythms], ['the dances', dances], ['the figures', figures], ['the workshop', holding]].filter(([, v]) => !v).map(([n]) => n);
+      $('#total').textContent = `${items.length} items`;
+      if (!items.length) {
+        $('#cards').innerHTML = `<div class="empty" style="grid-column:1/-1;font-style:normal;max-width:36em;line-height:1.5">${location.protocol === 'file:'
+          ? '<b>No sets found.</b> Opened from disk, the library reads <code>course/sets.js</code>, which <code>node course/build-sets.js</code> writes from the JSON sets; it is missing or empty. Or serve the folder (double-click <code>serve.command</code>) and open <a href="http://localhost:8765/course/library.html">localhost:8765/course/library.html</a>.'
+          : '<b>Could not load any set.</b> The library reads set.json, rhythm-set.json, dance-set.json, figure-set.json and holding/index.json from the course folder; none answered.'}</div>`;
+        return;
+      }
+      if (missing.length) $('#note').textContent = `Not found: ${missing.join(', ')}.`;
+      readHash(); renderFacets(); renderCards();
+    });
+  </script>
+</body>
+</html>

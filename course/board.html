@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
   <link href="../fonts/fonts.css" rel="stylesheet">
   <script src="../vendor/abcjs-basic-min.js" defer></script>
+  <script src="sets.js" defer></script>
   <style>
     /*
       The practice board: the current set of tunes, graded into levels.
@@ -148,6 +149,7 @@
     <span class="spacer"></span>
     <label>I am <select id="student"><option value="">the teacher</option></select></label>
     <label title="Show the tunes whose rhythm and pitch concepts the Ontario curriculum has named by this grade">For <select id="grade"><option value="0">any grade</option></select></label>
+    <a href="library.html" title="Every tune, pattern, step and dance the course holds, searchable">Library</a>
     <button id="roster">Class list</button>
     <button id="theme" title="Light or dark">☾</button>
     <div class="summary" id="summary"></div>
@@ -561,8 +563,12 @@
     function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2200); }
 
     /* ---- go ---- */
-    fetch('set.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(s => { set = s; render(); })
-      .catch(err => { $('#summary').textContent = location.protocol === 'file:' ? 'The board needs to be served (double-click serve.command, then open course/board.html from there): a page opened from disk cannot read set.json.' : `Could not load set.json (${err.message}).`; });
+    // Served, the board fetches set.json; opened from disk, where a page may not fetch, it uses the copy in sets.js (node course/build-sets.js).
+    const ready = document.readyState === 'complete' ? Promise.resolve() : new Promise(r => window.addEventListener('load', r));
+    fetch('set.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .catch(err => ready.then(() => { if (window.GCS_SETS && window.GCS_SETS.tunes) return window.GCS_SETS.tunes; throw err; }))
+      .then(s => { set = s; render(); })
+      .catch(err => { $('#summary').textContent = location.protocol === 'file:' ? 'The board found no tunes: opened from disk it reads course/sets.js, which node course/build-sets.js writes; or serve the folder (double-click serve.command) and open course/board.html from there.' : `Could not load set.json (${err.message}).`; });
   </script>
 </body>
 </html>

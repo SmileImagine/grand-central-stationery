@@ -1227,7 +1227,7 @@
    "title": "O where will you go",
    "level": 5,
    "score": 5.61,
-   "key": "F",
+   "key": "GDor",
    "metre": "5/8",
    "bars": 3,
    "origin": "India, Garhwal (Himalaya)",
@@ -1267,7 +1267,7 @@
      "texture"
     ]
    },
-   "abc": "X:3\nT:O where will you go\nT:Garhwali song, the answer\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 99, p. 51\nN:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers are a pickup. Check: the last bar.\nM:5/8\nL:1/16\nQ:1/8=180\nK:F\n%%style drone\nA c | B2 A B G2 A B c2 | B2 A c B2 A B |]\nw: O where will you go if I get back your li-nen?\nN:2: You must say where you go before I send to the dhobi.\nN:3: Little Chhaila is yours, and will you marry another?\n"
+   "abc": "X:3\nT:O where will you go\nT:Garhwali song, the answer\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 99, p. 51\nN:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers are a pickup. Check: the last bar.\nM:5/8\nL:1/16\nQ:1/8=180\nK:Gdor\n%%style drone\nA c | B2 A B G2 A B c2 | B2 A c B2 A B |]\nw: O where will you go if I get back your li-nen?\nN:2: You must say where you go before I send to the dhobi.\nN:3: Little Chhaila is yours, and will you marry another?\n"
   },
   {
    "id": "first-tunes-11-soldier-s-joy",
@@ -1561,7 +1561,7 @@
    "title": "Mother, send to the dhobi",
    "level": 5,
    "score": 9.76,
-   "key": "C",
+   "key": "BPhr",
    "metre": "5/8",
    "bars": 3,
    "origin": "India, Garhwal (Himalaya)",
@@ -1569,13 +1569,13 @@
    "rhythm": "song",
    "source": "course/samples/hindostan-folk.abc",
    "skills": [
-    "degree:do",
-    "degree:la",
+    "degree:fa",
+    "degree:mi",
     "degree:re",
-    "degree:ti",
+    "degree:so",
     "dur:1",
     "dur:1/2",
-    "key:0",
+    "key:1",
     "leap:3rd",
     "metre:5/8",
     "pickup",
@@ -1601,7 +1601,7 @@
      "texture"
     ]
    },
-   "abc": "X:2\nT:Mother, send to the dhobi\nT:Garhwali song\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 98, p. 51\nN:Tonic B, no signature. Three verses; the dhobi is the washerman. The first three semiquavers are a pickup and the last bar is short by the same amount. Check: the pitches of bar 2.\nM:5/8\nL:1/16\nQ:1/8=180\nK:C\n%%style drone\nB d2 | c2 B c A2 A B c2 | c2 B c A2 A |]\nw: Mo-ther, send to the dho-bi to bring back my li-nen.\nN:2: Never mind where I'm going if you'll send to the dhobi.\nN:3: Oh I'm going to get me a new wife, pretty Hira.\n"
+   "abc": "X:2\nT:Mother, send to the dhobi\nT:Garhwali song\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 98, p. 51\nN:Tonic B, no signature. Three verses; the dhobi is the washerman. The first three semiquavers are a pickup and the last bar is short by the same amount. Check: the pitches of bar 2.\nM:5/8\nL:1/16\nQ:1/8=180\nK:Bphr\n%%style drone\nB d2 | c2 B c A2 A B c2 | c2 B c A2 A |]\nw: Mo-ther, send to the dho-bi to bring back my li-nen.\nN:2: Never mind where I'm going if you'll send to the dhobi.\nN:3: Oh I'm going to get me a new wife, pretty Hira.\n"
   },
   {
    "id": "hindostan-folk-5-chhaila",
@@ -1889,7 +1889,7 @@
    "title": "O give me those pretty eyes",
    "level": 6,
    "score": 9.07,
-   "key": "F",
+   "key": "GDor",
    "metre": "3/4",
    "bars": 6,
    "origin": "India, Garhwal (Himalaya)",
@@ -1930,7 +1930,7 @@
      "texture"
     ]
    },
-   "abc": "X:1\nT:O give me those pretty eyes\nT:Garhwali song, a dialogue\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 97, p. 51\nN:Tonic G (G Dorian with the one-flat signature). He and she sing alternate verses. The metre changes from 3/4 to 2/4 at \"make\". Check: bars 3 and 4.\nM:3/4\nL:1/8\nQ:1/4=100\nK:F\n%%style drone\nG2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]\nw: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.\nN:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.\nN:3 (He): Then O let me borrow them, And keep them safe till you need them again, dear.\nN:4 (She): For six months you shall borrow them; Promise truly you'll give me them back then again, dear.\nN:5 (He): What word is this of a bargaining! I will keep your eyes and your heart and your soul, dear.\n"
+   "abc": "X:1\nT:O give me those pretty eyes\nT:Garhwali song, a dialogue\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 97, p. 51\nN:Tonic G (G Dorian with the one-flat signature). He and she sing alternate verses. The metre changes from 3/4 to 2/4 at \"make\". Check: bars 3 and 4.\nM:3/4\nL:1/8\nQ:1/4=100\nK:Gdor\n%%style drone\nG2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]\nw: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.\nN:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.\nN:3 (He): Then O let me borrow them, And keep them safe till you need them again, dear.\nN:4 (She): For six months you shall borrow them; Promise truly you'll give me them back then again, dear.\nN:5 (He): What word is this of a bargaining! I will keep your eyes and your heart and your soul, dear.\n"
   },
   {
    "id": "reelsd-g-12-the-donegall",
