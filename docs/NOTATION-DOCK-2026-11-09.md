@@ -29,7 +29,7 @@ Design notes for the notation cell's lower half: what was wrong, what the new la
 
 **One bar, three tabs.** The transport (38 px buttons, 46 px when presenting), the tempo and the tabs sit on one line at 14 px. Everything else is in the drawer the tab opens, one at a time; tapping the open tab closes it.
 
-- **Melody**: the tune's ABC on the left, the instrument's controls on the right (Instrument, Names, Chords, Transpose, Feel). The warnings and tips sit under the text; when the drawer is closed, a red count on the tab says how many there are.
+- **Melody**: the tune's ABC on the left, the instrument's controls on the right (Instrument, Names, Chords, Transpose, Feel). ABC feedback is a folded **ABC hints** disclosure directly under the text, not a console-like strip across every drawer. Items can be explained or dismissed for the editing session; a red tab count shows only undismissed items that need attention.
 - **Band**: the arrangement on the left, the band's controls on the right (Play, Style, Energy, Detail, variation, Arrange, Pattern), with a line under them saying what the band will play: the arrangement and how many times round, the melody's chord symbols, chords found from the melody, or nothing and why. The Pattern panel opens under both.
 - **Mixer**: unchanged.
 
@@ -43,10 +43,14 @@ Design notes for the notation cell's lower half: what was wrong, what the new la
 
 **Also.** Space plays and pauses the cell on screen while presenting (outside a text field). Below 700 px the drawer's controls wrap under the text rather than beside it, and the tabs sit on their own line.
 
-## Not done
+## Superseded decisions
 
-- The drawers do not animate; they appear. A slide would be pleasant but the staff re-renders on every size change, so an animated height would cost several renders.
-- The rhythm and dance cells keep their old strip; the dock is the notation cell's. Their strip is simpler (text and one row of controls) and did not have the clutter problem, but the larger transport would suit them too.
+- **Sliding drawers are not needed.** The Concourse brief made them passages:
+  they fade at a lower light level without changing height during the
+  transition, so the staff is not repeatedly re-engraved.
+- **A shared rhythm/dance dock is not part of this design.** Those cells keep
+  their simpler strip. Their transport may be enlarged independently, but it
+  is no longer deferred notation-dock work.
 
 ## Addendum: the ukulele's orientation
 
@@ -55,3 +59,18 @@ The fretboard was a plain grid, nut on the left, strings in tab order (A at the 
 Three cues, chosen as the cheapest that make the picture read as an instrument rather than a grid: a headstock with two pegs a side past the nut, the strings fanning onto it; real fret spacing, each fret a twelfth root of two of the string's remaining length, scaled so the twelfth fret still ends the board (fret 1 is about twice as wide as fret 12), which tells the eye which end is the nut without any drawing; and the body's upper bouts curving out from the fretboard's end to the right edge, with the soundhole, its rosette and the bridge, cut off by the edge so the board keeps its size. A caption under the headstock reads "your uke on your lap, face up, neck to the left".
 
 Weighed and left out for now: perspective on the board (it fights the rectangular tab lane and bends the runner's straight travel), a figure's shoes or body in the background (scenery behind a diagram that already carries lit dots, a runner, chord outlines and a scrolling lane), and a Seen from control for a mirror view (worth adding if a teacher facing the class asks for it; the default view had to be settled first).
+
+## Addendum: score notation and the game window
+
+The later Concourse brief supersedes the old scrolling ukulele lane and the
+one-line-only game. A small **Staff · Tab** sign now chooses which notation
+occupies the score. Tab is drawn on four strings from the instrument's actual
+fingering schedule, so its fret numbers, the highlighted instrument and the
+playback cursor cannot disagree; the choice is saved with the cell and as the
+last-used default.
+
+Game mode now wraps the tune and shows the current system with the next system
+below it. The window advances one system when playback crosses the line. A
+**Lines: Two · One** control keeps the former continuous one-line view for
+tunes whose pickups or long measures wrap poorly. These items are implemented,
+not deferred dock work.

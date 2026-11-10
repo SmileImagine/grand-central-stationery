@@ -1,0 +1,61 @@
+{
+ "generated": "2026-11-09",
+ "stages": [
+  "inbox",
+  "transcription",
+  "source-check",
+  "classroom-check",
+  "ready"
+ ],
+ "counts": {
+  "inbox": 0,
+  "transcription": 1,
+  "source-check": 2,
+  "classroom-check": 0,
+  "ready": 0
+ },
+ "items": [
+  {
+   "id": "lalishrita",
+   "file": "items/lalishrita.abc",
+   "title": "Lalishrita",
+   "subtitle": "Tamil lullaby, from a phonogram (sketch)",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64",
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Transcribe lines three and four, then check every bar against Ex. 155's plate.",
+   "notes": "A SKETCH of the first two lines: Adagio, crotchet 70, taken from a phonogram, so the book's notation has triplets and grace notes; the words are Fox Strangways's singing version. The melody circles G with E below and C above. Every bar wants checking against the plate; the third and fourth lines (I bring thee sleep; On the wings of my melodies) are not read yet."
+  },
+  {
+   "id": "nirgunas-lullaby",
+   "file": "items/nirgunas-lullaby.abc",
+   "title": "Nirguna's lullaby",
+   "subtitle": "Maratha lullaby (sketch)",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, p. 66",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Check every bar against Ex. 162's plate; the book prints no words.",
+   "notes": "A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught."
+  },
+  {
+   "id": "the-ayahs-song",
+   "file": "items/the-ayahs-song.abc",
+   "title": "The ayah's song",
+   "subtitle": "Hindostani song from the steamer (sketch)",
+   "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66",
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-09",
+   "blocked": "Check every bar and both cadence slides against Ex. 160's plate.",
+   "notes": "A SKETCH. Adagio, crotchet 80. One of three songs an ayah sang on board the steamer; Fox Strangways says she lost her key and the songs were hard to piece together, and that the slide to the close and the half-close gave them their value. The slide is written here as grace notes before the two cadence notes. The tune falls below the stave to A; sing it a fourth up. No words are printed. Every bar wants checking against the plate."
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+% holding-id: nirgunas-lullaby
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-09
+% holding-blocked: Check every bar against Ex. 162's plate; the book prints no words.
+X:1
+T:Nirguna's lullaby
+T:Maratha lullaby (sketch)
+C:traditional (Maharashtra)
+O:India, Maharashtra
+R:lullaby
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 162, p. 66
+N:A SKETCH: the outline of the tune as read from the scan, with the repeat, the triplet and the run of three notes under the stave; the book prints no words (Nirguna is the supreme being, without qualification). Every bar wants checking against the plate before it is taught.
+M:2/4
+L:1/8
+Q:1/4=76
+K:F
+%%style drone
+B, |: C3/2 B,/2 C D | D/E/D/D/ D3/2 D/2 | D B, C D | (3DED C/B,/ B, C :|

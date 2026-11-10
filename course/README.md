@@ -7,6 +7,7 @@ Tools for turning a pile of free ABC tunes into a practice sequence: short melod
 | `analyze.js` | The analyzer. Measures a parsed abcjs tune, tags the skills it needs, grades it against the skill lattice, and orders a set of tunes so each introduces as little as possible. Runs in Node and in a page (`GCSAnalyze`). |
 | `analyze-cli.js` | Command line: grade every `.abc` file under the paths given, print a summary, write JSON, CSV, a Markdown sequence and a tune set for the board. |
 | `board.html` | **The practice board.** A student picks their name and sees their level's tunes to choose from; the teacher sees every level, who is ready to show a tune, and marks passes. Open plays any tune in the main page. |
+| `holding/` | **The tune workshop.** A shared five-column holding board for sketches and transcriptions awaiting source and classroom checks. Each tune has its own ABC file so several processes can contribute without sharing a worktree or usually touching the same file. |
 | `set.json` | The current tune set, written by the CLI. |
 | `rhythm-analyze.js`, `rhythm-cli.js` | The rhythm analyzer: grades drum patterns written as the lab writes them (`kick: x... x...`) on a six-level lattice (subdivision, syncopation, parts and how they interlock, metre, length, tempo), and imports two free corpora, the GrooveSteps grids (CC0) and the Groove MIDI Dataset (CC BY 4.0), quantising each performance to the grid that fits and keeping the bar the drummer played most. `rhythms/traditional.rhythms.txt` holds typed traditional patterns (CC0). |
 | `dance-analyze.js`, `dance-cli.js` | The dance analyzer: grades steps in the lab's step language (feet, pace, arms, metre, length, tempo) and dances described in prose from public-domain folk-dance books (step vocabulary, figures, formation, length, interaction, tempo), checking its grades against the book's own classified index. `dances/steps.dances.txt` holds basic social and folk steps (CC0). |
@@ -53,6 +54,11 @@ Every entry in the tune, rhythm and dance sets also carries `ontario`, the grade
 ## The practice board
 
 `board.html` reads `set.json`. Serve the folder (`serve.command`, or GitHub Pages) and open `course/board.html`; a page opened from disk cannot read the set.
+
+Sketches do not enter this set. Put each one in `holding/items/`, update its
+metadata as it moves through the workshop, and run
+`node course/holding/build.js`. See `holding/README.md`; the generated board is
+`holding/board.html`.
 
 The lesson it is built for: a student chooses a tune at their level and practises it, performs it for the teacher or hands in a video, and the teacher marks it passed. Once half the tunes at a level are passed, the next level opens; nothing stops a student trying a harder tune early.
 

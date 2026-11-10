@@ -200,15 +200,19 @@
     body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #fff4e0, #e3f2fd 55%, #f3e5f5); }
     :root[data-theme="dark"] body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #1d1238, #0b2740 55%, #0f2e1e); }
     @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body.game .cell[data-type="abc"] .cell-body { background: linear-gradient(160deg, #1d1238, #0b2740 55%, #0f2e1e); } }
-    body.game .score { flex: 0 0 32vh; padding: 0; overflow: hidden; justify-content: flex-start; align-items: center; position: relative;
+    /* The score takes what the instrument leaves: the instrument's height follows its drawing's shape (a ukulele is low and wide, a recorder tall), between a quarter and 44 % of the screen. */
+    body.game .score { flex: 1 1 auto; min-height: 20vh; padding: 0; overflow: hidden; justify-content: flex-start; align-items: center; position: relative;
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+    /* Two lines: the paper is the tune wrapped to the width; it slides up a system at a time, the line being played on top and the next below. */
+    body.game .score.twoline { align-items: flex-start; -webkit-mask-image: linear-gradient(180deg, transparent, #000 3%, #000 80%, transparent 92%); mask-image: linear-gradient(180deg, transparent, #000 3%, #000 80%, transparent 92%); }
+    body.game .score.twoline .paper { transition: transform 0.25s ease; }
     body.game .paper { will-change: transform; }
     body.game .paper svg { color: var(--ink); }
     body.game .paper .cursorbar { width: 4px; }
     /* The instrument keeps at least a quarter of the screen whatever the dock opens: it is the point of the mode. */
-    body.game .inst { flex: 1 1 0 !important; min-height: 24vh; border-top: 0; padding: 1vh 2vw; }
+    body.game .inst { flex: 0 0 auto !important; height: min(44vh, calc(96vw * var(--inst-ratio, 0.3) + 2vh)); min-height: 24vh; border-top: 0; padding: 1vh 2vw; }
     body.game .strip { height: auto; flex: 0 0 auto; min-height: 0; padding: 6px 8px; background: transparent; border-top: 0; }
-    body.game .strip::before, body.game .entry, body.game .warn { display: none; }
+    body.game .strip::before, body.game .entry, body.game .abc-help { display: none; }
     body.game .side { max-width: none; width: 100%; justify-content: center; }
     .gamebar { display: none; position: relative; height: 6px; background: var(--line); flex: 0 0 auto; }
     body.game .gamebar { display: block; }
@@ -247,6 +251,8 @@
     .paper .cursorg.done { opacity: 0; }
     .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
     .paper .cursorlamp { fill: var(--cursor); transition: fill 0.3s ease; transform-box: fill-box; transform-origin: center; }
+    .paper .barbeam { fill: var(--concourse-light, #f39322); opacity: 0.08; filter: blur(4px); pointer-events: none; transition: opacity 0.3s ease; }
+    .paper .cursorg.ready .barbeam { opacity: 0; }
     /* ---------- instrument view (under the staff) ---------- */
     .inst { display: none; flex: 0 1 var(--inst-h, 32%); min-height: 84px; border-top: 1px solid var(--line); padding: 6px 1vw; box-sizing: border-box; align-items: center; justify-content: center; overflow: hidden; }
     .inst.on { display: flex; }
@@ -322,29 +328,39 @@
     .member.muted .figure .slash { display: block; }
     .paper .numeral text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; }
     .paper .chordshape rect.root { stroke: var(--ink); stroke-width: 1; }
-    .inst .runner { opacity: 0.95; transition: opacity 0.25s; }
+    .inst .runner { opacity: var(--runner-alpha, 0.95); transition: opacity 0.12s linear; }
     .inst .runner circle { fill: var(--c); stroke: var(--panel-2); stroke-width: 2; filter: drop-shadow(0 0 4px var(--c)); }
     .inst .runner.hide { opacity: 0; }
     /* ukulele */
     .inst .board { fill: color-mix(in srgb, var(--ink) 12%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; }
+    .inst .boardedge { stroke: color-mix(in srgb, var(--concourse-brass, #9c7a45) 70%, var(--ink)); stroke-width: 2.2; opacity: 0.7; }
     .inst .fret { stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 2; }
-    .inst .nut { fill: var(--ink); }
+    .inst .nut { stroke: color-mix(in srgb, var(--ink) 85%, white); stroke-width: 5; stroke-linecap: round; }
     .inst .uke .top { fill: color-mix(in srgb, var(--ink) 7%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1.2; }
     .inst .uke .head { fill: color-mix(in srgb, var(--ink) 14%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1.2; }
+    .inst .uke .headmark { fill: none; stroke: var(--concourse-brass, #9c7a45); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; }
+    .inst .uke .pegstem { stroke: var(--ink); stroke-opacity: 0.55; stroke-width: 1.3; }
     .inst .uke .peg { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.6; stroke-width: 1.4; }
     .inst .uke .rosette { fill: none; stroke: var(--ink); stroke-opacity: 0.3; stroke-width: 3; stroke-dasharray: 2 3; }
     .inst .uke .sound { fill: color-mix(in srgb, var(--ink) 60%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.5; }
-    .inst .uke .bridge { fill: var(--ink); opacity: 0.7; }
+    .inst .uke .bridge { stroke: var(--ink); stroke-width: 8; stroke-linecap: round; opacity: 0.72; }
     .inst .inlay { fill: var(--ink); opacity: 0.25; }
-    .inst .string { stroke: var(--ink); stroke-opacity: 0.8; }
+    .inst .string { stroke: var(--ink); stroke-opacity: 0.8; stroke-linecap: round; }
     .inst .dot { fill: var(--c); stroke: var(--c); }
     .inst .dot.ondeck { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke-width: 2.5; stroke-dasharray: 5 3; }
     .inst .dot.active { filter: drop-shadow(0 0 6px var(--c)); animation: instpop 0.3s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
-    .inst .tabline { stroke: var(--ink); stroke-opacity: 0.35; }
-    .inst .nowline { stroke: var(--cursor); stroke-width: 2; opacity: 0.8; }
-    .inst .tab.past { opacity: 0.3; }
-    .inst .tab.active { font-size: 13px; filter: drop-shadow(0 0 3px currentColor); }
-    .inst .tab.rest { font-size: 10px; }
+    /* tablature in the staff's place */
+    .paper .tabstr { stroke: currentColor; stroke-opacity: 0.55; stroke-width: 0.9; }
+    .paper .fretno { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
+    .paper .tabclef { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; opacity: 0.7; letter-spacing: 0.05em; }
+    /* The sign at the score's top left: Staff or Tab, for a fretted instrument. */
+    .score { position: relative; }
+    .score .sign { position: absolute; left: 8px; top: 4px; z-index: 4; display: flex; gap: 2px; font: 700 11px/1 'Atkinson Hyperlegible', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+    .score .sign[hidden] { display: none; }
+    .score .sign button { font: inherit; letter-spacing: inherit; padding: 5px 7px 4px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: var(--muted); }
+    .score .sign button:hover { color: var(--ink); }
+    .score .sign button[aria-pressed="true"] { color: var(--ink); border-bottom-color: #9c7a45; }
+    body.present .score .sign { font-size: 13px; left: 14px; top: 8px; }
     /* recorder: --c is the sounding note's colour, --n the next note's */
     .inst .rec .body { fill: color-mix(in srgb, var(--ink) 10%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1.2; transition: filter 0.2s; }
     .inst .rec.lit .body { stroke: var(--c); stroke-width: 2; filter: drop-shadow(0 0 6px var(--c)); }
@@ -383,11 +399,13 @@
     .transport .i-pause { display: none; }
     .transport.playing .i-pause { display: block; }
     .transport.playing .i-play { display: none; }
-    /* Warnings (red) and tips (muted) under the transport; ? opens an explanation with a corrected example. */
+    /* ABC feedback is contextual help inside the Melody text editor. */
     .warn { font: 12px var(--mono); color: #d33; overflow: auto; flex-basis: 100%; max-height: 7.5em; order: 9; }
-    .warn .w { white-space: pre-wrap; }
+    .warn .w { position: relative; padding: 4px 24px 4px 0; white-space: pre-wrap; }
     .warn .tip { color: var(--muted); }
     .warn .why { font: 11px var(--ui); padding: 0 5px; margin-left: 6px; border-radius: 8px; line-height: 1.3; color: inherit; border-color: currentColor; background: transparent; opacity: 0.8; }
+    .warn .dismiss { position: absolute; right: 0; top: 1px; width: 20px; height: 20px; padding: 0; border: 0; background: transparent; color: currentColor; opacity: 0.5; font: 16px/1 var(--ui); }
+    .warn .dismiss:hover { opacity: 1; }
     .warn .more { color: var(--muted); white-space: pre-wrap; margin: 2px 0 6px 1em; }
     .warn:empty { display: none; }
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
@@ -403,21 +421,58 @@
        drawer is open; presenting and in the game the bar stands alone until
        a tab is tapped, and the drawers close when the music starts. */
     .cell[data-type="abc"] .strip.dock { flex-direction: column; height: auto; min-height: 0; max-height: 58%; padding: 0; gap: 0; font: 14px system-ui, sans-serif; }
+    /* The Concourse: warm stone, brass rules, one hierarchy of signs, and
+       passages that fade in rather than move the score. */
+    .cell[data-type="abc"] .cell-body { --concourse-floor: #f6f0e6; --concourse-ink: #2a2622; --concourse-brass: #9c7a45; --concourse-light: #f39322; --concourse-celestial: #2f6f7e; --concourse-warn: #b8603d; background: var(--concourse-floor); color: var(--concourse-ink); }
+    :root[data-theme="dark"] .cell[data-type="abc"] .cell-body { --concourse-floor: #0f1d2b; --concourse-ink: #efe7d8; --concourse-brass: #c9a35f; --concourse-light: #f6c36a; --concourse-celestial: #5aa3b4; --concourse-warn: #d98a66; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cell[data-type="abc"] .cell-body { --concourse-floor: #0f1d2b; --concourse-ink: #efe7d8; --concourse-brass: #c9a35f; --concourse-light: #f6c36a; --concourse-celestial: #5aa3b4; --concourse-warn: #d98a66; } }
+    .cell[data-type="abc"] .score, .cell[data-type="abc"] .inst, .cell[data-type="abc"] .dock, .cell[data-type="abc"] .drawer { transition: opacity 0.3s ease, background-color 0.3s ease; }
+    .cell[data-type="abc"] .dock { border-top: 1px solid var(--concourse-brass); background: color-mix(in srgb, var(--concourse-floor) 88%, var(--concourse-ink)); }
     .dock .dockbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; padding: 6px 10px; }
     .dock .dockbar .tabs { margin-left: auto; }
     .dock .transport { gap: 4px; }
-    .dock .tbtn { width: 38px; height: 38px; padding: 5px; border-radius: 8px; }
+    .dock .tbtn { width: 34px; height: 34px; padding: 5px; border: 0; border-radius: 0; background: transparent; }
+    .dock .tbtn.clock { position: relative; width: 44px; height: 44px; padding: 0; color: var(--concourse-ink); }
+    .dock .clockface { width: 100%; height: 100%; overflow: visible; }
+    .dock .clockface .rim { fill: color-mix(in srgb, var(--concourse-floor) 88%, white); stroke: var(--concourse-brass); stroke-width: 2.2; }
+    .dock .clockface .tick { stroke: currentColor; stroke-width: 1; opacity: 0.5; }
+    .dock .clockface .clockhand { stroke: var(--concourse-brass); stroke-width: 2; stroke-linecap: round; transform-origin: 24px 24px; transform: rotate(calc(var(--turn, 0) * 1turn)); }
+    .dock .clockface .hub { fill: var(--concourse-brass); }
+    .dock .clockface .playmark, .dock .clockface .pausemark { fill: var(--concourse-brass); stroke: var(--concourse-floor); stroke-width: 1.8; paint-order: stroke; opacity: 1; }
+    .dock .clockface .pausemark { display: none; }
+    .dock .transport.playing .clockface .playmark { display: none; }
+    .dock .transport.playing .clockface .pausemark { display: block; }
+    .dock .clocktempo { position: absolute; inset: auto 0 7px; text-align: center; font: 700 7px/1 'Atkinson Hyperlegible Mono', monospace; color: var(--concourse-ink); pointer-events: none; }
+    .dock .loop[aria-pressed="true"] { box-shadow: inset 0 -2px var(--concourse-brass); color: var(--concourse-brass); }
+    .dock .departure { min-width: 12em; display: flex; flex: 0 1 28em; flex-wrap: wrap; gap: 2px 9px; align-items: baseline; color: color-mix(in srgb, var(--concourse-ink) 65%, transparent); font: 12px/1.2 Cinzel, Georgia, serif; letter-spacing: 0.12em; text-transform: uppercase; }
+    .dock .departure strong { flex-basis: 100%; color: var(--concourse-ink); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 28em; }
+    .dock .departure .flap { animation: flap 0.18s ease-out; }
+    .dock .dep-tempo { display: inline-flex; align-items: baseline; gap: 3px; }
+    .dock .dep-tempo input { width: 3.4em; padding: 0 2px 1px; border: 0; border-bottom: 1px solid var(--concourse-brass); border-radius: 0; color: var(--concourse-ink); background: transparent; text-align: right; font: 700 12px/1 'Atkinson Hyperlegible Mono', monospace; }
+    .dock .dep-tempo input:focus { outline: 1px solid color-mix(in srgb, var(--concourse-brass) 55%, transparent); outline-offset: 2px; }
+    @keyframes flap { 0% { transform: rotateX(70deg); opacity: 0.25; } 100% { transform: rotateX(0); opacity: 1; } }
     .dock .xpose { font: inherit; gap: 6px; }
     .dock .xpose input, .dock .xpose select { font: inherit; padding: 4px 6px; border-radius: 6px; }
     .dock .xpose select { border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); }
+    .dock .xpose input, .dock .xpose select, .dock button:not(.clock) { border-width: 0 0 1px; border-radius: 0; border-color: var(--concourse-brass); background: transparent; }
     .dock .xpose input[type="number"] { width: 3.6em; }
     .dock .tabs { gap: 6px; }
-    .dock .tabs .tab { font: inherit; padding: 5px 14px; border-radius: 999px; position: relative; }
+    .dock .tabs .tab { font: 600 13px/1 Cinzel, Georgia, serif; letter-spacing: 0.12em; text-transform: uppercase; padding: 7px 4px 5px; margin: 0 6px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; position: relative; }
+    .dock .tabs .tab[aria-pressed="true"] { border-bottom-color: var(--concourse-brass); color: var(--concourse-ink); }
     .dock .tabs .tab .badge { position: absolute; top: -7px; right: -7px; min-width: 1.2em; padding: 0 4px; border-radius: 999px; background: #d33; color: #fff; font: 700 11px/1.5 system-ui, sans-serif; text-align: center; }
     .dock .tabs .tab .badge:empty { display: none; }
-    .dock .drawer { flex: 1 1 auto; flex-basis: auto; min-height: 0; display: flex; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 0 10px 8px; border-top: 0; overflow: hidden; }
+    .dock .drawer { flex: 1 1 auto; flex-basis: auto; min-height: 0; display: flex; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 8px 10px; border-top: 0; overflow: hidden; background: color-mix(in srgb, var(--concourse-floor) 82%, var(--concourse-ink)); animation: passagefade 0.15s ease-out; }
+    @keyframes passagefade { from { opacity: 0; } to { opacity: 0.6; } }
+    .dock .drawer:hover, .dock .drawer:focus-within { opacity: 1; }
     .dock .drawer[hidden] { display: none; }
+    .dock .melodytext { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
     .dock .drawer .entry, .dock .bandentry { flex: 1 1 auto; min-width: 0; min-height: 4.6em; }
+    .dock .abc-help { flex: 0 0 auto; margin-top: 3px; color: var(--muted); }
+    .dock .abc-help[hidden] { display: none; }
+    .dock .abc-help summary { width: max-content; max-width: 100%; padding: 2px 2px; cursor: pointer; color: var(--muted); font: 12px/1.3 var(--ui); letter-spacing: 0.02em; }
+    .dock .abc-help summary::marker { color: var(--concourse-brass); }
+    .dock .abc-help-count { color: var(--concourse-warn); }
+    .dock .abc-help .warn { margin: 3px 0 0; padding: 4px 7px; max-height: 8em; border-left: 1px solid color-mix(in srgb, var(--concourse-brass) 55%, transparent); background: color-mix(in srgb, var(--concourse-floor) 92%, var(--concourse-ink)); font: 12px/1.35 var(--ui); }
     .dock .bandentry { resize: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: 600 clamp(12px, 2.2vh, 18px)/1.35 var(--mono); color: var(--ink); background: var(--panel-2); outline: none; white-space: pre; overflow: auto; }
     .dock .bandentry:focus { border-color: var(--accent); }
     .dock .bandentry::placeholder, .dock .entry::placeholder { color: var(--muted); opacity: 0.8; font-weight: 400; }
@@ -428,15 +483,13 @@
     .dock .bandctl input[type="range"], .dock .feel input[type="range"] { width: 90px; }
     .dock .bandctl .arrange, .dock .bandctl .patbtn, .dock .bandctl .regen { font: inherit; padding: 4px 12px; border-radius: 6px; }
     .dock .bandnote { flex-basis: 100%; font: 13px/1.35 system-ui, sans-serif; color: var(--muted); }
+    .dock .bandnote.err { color: var(--concourse-warn); }
     .dock .bandnote:empty { display: none; }
     .dock .drawer.bandd { flex-wrap: wrap; align-content: flex-start; }
     .dock .drawer.bandd .bandentry, .dock .drawer.bandd .ctl { flex: 1 1 0; max-width: none; }
     .dock .drawer.bandd .ctl { align-self: flex-start; }
     .dock .drawer.bandd .patpanel { flex-basis: 100%; }
     .dock .mixer { justify-content: center; align-items: flex-end; gap: 22px; padding: 8px 10px 10px; }
-    .dock .warn { flex: 0 0 auto; order: 9; margin: 0 10px 6px; font: 13px var(--mono); }
-    .dock .warn:empty { display: none; }
-    .cell[data-type="abc"] .strip.dock:not(.open) .warn { display: none; }   /* closed: the Melody tab's badge counts them */
     .cell[data-type="abc"] .cell-body { --abc-cell-h: 50vh; }
     /* Presenting: the bar alone, larger, clear of the slide selector in the corner; a drawer that opens is capped so the staff keeps its room. */
     body.present .cell[data-type="abc"] .strip.dock { height: auto; max-height: 46vh; padding-right: 0; }
@@ -446,6 +499,18 @@
     body.game .dock .dockbar { background: color-mix(in srgb, var(--bg) 55%, transparent); border-radius: 12px; margin: 2px 10px 6px; }
     body.game .dock .drawer { background: color-mix(in srgb, var(--bg) 70%, transparent); border-radius: 12px; margin: 0 10px 8px; padding-top: 8px; }
     body.game .dock .drawer .entry { display: none; }   /* the game is for playing; the text waits for the editor */
+    .cell[data-type="abc"] .score .nextup { position: absolute; z-index: 3; left: 50%; top: 5px; transform: translateX(-50%); max-width: 65%; color: color-mix(in srgb, var(--concourse-ink) 62%, transparent); font: 600 12px/1.2 Cinzel, Georgia, serif; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cell[data-type="abc"] .score .nextup:empty { display: none; }
+    .cell[data-type="abc"] .score .nextup.flip { animation: flap 0.18s ease-out; }
+    .cell[data-type="abc"] .inst .uke .top { fill: color-mix(in srgb, #a86b3c 60%, var(--concourse-floor)); filter: drop-shadow(0 4px 5px #0003); }
+    .cell[data-type="abc"] .inst .board { fill: color-mix(in srgb, #57351f 62%, var(--concourse-floor)); }
+    .cell[data-type="abc"] .inst .key, .cell[data-type="abc"] .inst .bell { filter: drop-shadow(0 3px 3px #0002); }
+    .cell[data-type="abc"] .cell-body.is-playing .drawer { opacity: 0.25; }
+    .cell[data-type="abc"] .cell-body.is-playing .drawer:hover, .cell[data-type="abc"] .cell-body.is-playing .drawer:focus-within { opacity: 1; }
+    body.present .cell[data-type="abc"] .dock { opacity: 0.6; }
+    body.present .cell[data-type="abc"] .cell-body.is-playing .dock { opacity: 0.25; transition-delay: 3s; }
+    body.present .cell[data-type="abc"] .cell-body.is-playing .dock:hover, body.present .cell[data-type="abc"] .cell-body.is-playing .dock:focus-within { opacity: 0.6; transition-delay: 0s; }
+    body.game .cell[data-type="abc"] .score, body.game .cell[data-type="abc"] .inst { opacity: 1; }
     /* Draggable cursor: a wide invisible handle around the bar. */
     .paper .cursorg { cursor: ew-resize; }
     .paper .cursorhit { fill: transparent; pointer-events: all; }
@@ -480,7 +545,7 @@
       .cell[data-type="abc"] .strip.dock { max-height: 60%; }
       .dock .drawer { flex-wrap: wrap; overflow-y: auto; }
       .dock .ctl, .dock .drawer.bandd .ctl { flex: 1 1 100%; max-width: none; overflow: visible; }
-      .dock .drawer .entry, .dock .bandentry { flex: 1 1 100%; min-height: 3.6em; }
+      .dock .melodytext, .dock .drawer .entry, .dock .bandentry { flex: 1 1 100%; min-height: 3.6em; }
       .dock .dockbar { gap: 4px 10px; padding: 6px 8px; }
       .dock .dockbar .tabs { margin-left: 0; }
       .pos { padding: 2px 6px 6px; }
@@ -538,7 +603,9 @@
         <input type="file" id="file" accept=".txt,.md,.gcs" hidden>
         <hr>
         <a class="page" href="course/board.html">Practice board <small>graded tunes, who is ready</small></a>
+        <a class="page" href="course/holding/board.html">Tune workshop <small>sketches waiting for checks</small></a>
         <a class="page" href="lab/Rhythm%20and%20Dance%20v1.html">Rhythm &amp; Dance <small>drum patterns and steps</small></a>
+        <a class="page" href="lab/Play%20Along%20v1.html">Play along <small>the instrument follows a video or the room</small></a>
         <hr>
         <button id="clear">Clear all cells</button>
       </div>
@@ -1137,62 +1204,63 @@
     }
 
     // Ukulele, re-entrant GCEA, twelve frets. A pitch has several places; the
-    // one nearest the hand's last fret is chosen, lowest fret on a tie. Under
-    // the fretboard, a tab lane scrolls past a now-line at the nut: one
-    // column per note, spaced by musical time, so the distance between
-    // columns is the time between notes and the lane's speed is the tempo.
+    // one nearest the hand's last fret is chosen, lowest fret on a tie. The
+    // same places number the tablature when the score shows Tab.
     class UkuleleLayout {
-      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '40%'; this.BEAT = 36; }
+      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; }
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
-        // The uke as it lies on the player's lap, face up, neck to the left:
-        // a headstock with its pegs past the nut, the frets closing up
-        // toward the body as a real fretboard's do, and the body's upper
-        // bouts with the soundhole and bridge at the right, cut off by the
-        // edge. Each says which end is which, so the picture reads as an
-        // instrument rather than a grid. A caption says whose view it is.
-        const S = 22, left = 70, top = 20, boardLen = 44 * this.frets, cy = top + S * 1.5;
+        // The player's view: the re-entrant G string is the near edge and A
+        // the far edge. The strings spread slightly toward the body, frets
+        // lean across that depth, and the whole instrument rises gently to
+        // the right. All marks use the same projection as the woodwork.
+        const S = 20, left = 84, top = 19, boardLen = 500;
         this.S = S; this.left = left; this.top = top; this.boardLen = boardLen;
-        const W = left + boardLen + 150, laneTop = top + S * 3 + 40, L = 12, bE = left + boardLen;
-        this.laneTop = laneTop; this.L = L;
-        const H = laneTop + L * 3 + 10;
+        const W = left + boardLen + 164, bE = left + boardLen, H = 116;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
         const g = svgEl(svg, 'g', { class: 'uke' });
-        // The body first, under the neck: the upper bout curving out from the fretboard's end to the edge.
-        svgEl(g, 'path', { class: 'top', d: `M ${bE - 6} ${cy - 30} C ${bE + 30} ${cy - 58} ${bE + 100} ${cy - 56} ${W + 4} ${cy - 44} L ${W + 4} ${cy + 44} C ${bE + 100} ${cy + 56} ${bE + 30} ${cy + 58} ${bE - 6} ${cy + 30} Z` });
-        svgEl(g, 'circle', { class: 'rosette', cx: bE + 58, cy, r: 27 });
-        svgEl(g, 'circle', { class: 'sound', cx: bE + 58, cy, r: 22 });
-        svgEl(g, 'rect', { class: 'bridge', x: bE + 124, y: cy - 34, width: 9, height: 68, rx: 2 });
-        // The headstock past the nut, with two pegs a side and the strings fanning onto it.
-        svgEl(g, 'path', { class: 'head', d: `M ${left - 4} ${top - 10} L ${left - 50} ${top - 16} Q ${left - 64} ${top - 16} ${left - 64} ${top - 2} L ${left - 64} ${top + S * 3 + 2} Q ${left - 64} ${top + S * 3 + 16} ${left - 50} ${top + S * 3 + 16} L ${left - 4} ${top + S * 3 + 10} Z` });
-        for (const [px, py] of [[left - 50, top - 18], [left - 26, top - 20], [left - 50, top + S * 3 + 18], [left - 26, top + S * 3 + 20]]) svgEl(g, 'circle', { class: 'peg', cx: px, cy: py, r: 4.5 });
-        svgEl(g, 'rect', { class: 'board', x: left, y: top - 6, width: boardLen, height: S * 3 + 12, rx: 3 });
-        for (let i = 1; i <= this.frets; i++) svgEl(g, 'line', { class: 'fret', x1: this.fretX(i), y1: top - 6, x2: this.fretX(i), y2: top + S * 3 + 6 });
-        svgEl(g, 'rect', { class: 'nut', x: left - 3, y: top - 7, width: 5, height: S * 3 + 14, rx: 1 });
-        for (const i of [5, 7, 10]) svgEl(g, 'circle', { class: 'inlay', cx: this.fretMid(i), cy, r: 4 });
-        for (const dy of [0.5, 2.5]) svgEl(g, 'circle', { class: 'inlay', cx: this.fretMid(12), cy: top + S * dy, r: 4 });
+        const far = this.project(bE - 7, -0.42), near = this.project(bE - 7, 3.42);
+        const farR = this.project(W + 5, -0.12), nearR = this.project(W + 5, 3.22);
+        svgEl(g, 'path', { class: 'top', d: `M ${far.x} ${far.y} C ${bE + 24} ${far.y - 24} ${bE + 96} ${farR.y - 12} ${farR.x} ${farR.y} L ${nearR.x} ${nearR.y} C ${bE + 96} ${nearR.y + 22} ${bE + 25} ${near.y + 27} ${near.x} ${near.y} Z` });
+        const hole = this.project(bE + 64, 1.5);
+        svgEl(g, 'ellipse', { class: 'rosette', cx: hole.x, cy: hole.y, rx: 27, ry: 21, transform: `rotate(-1.2 ${hole.x} ${hole.y})` });
+        svgEl(g, 'ellipse', { class: 'sound', cx: hole.x, cy: hole.y, rx: 21.5, ry: 16.5, transform: `rotate(-1.2 ${hole.x} ${hole.y})` });
+        const br0 = this.project(bE + 128, -0.05), br1 = this.project(bE + 128, 3.1);
+        svgEl(g, 'line', { class: 'bridge', x1: br0.x, y1: br0.y, x2: br1.x, y2: br1.y });
+        // A tapered headstock with an arched brass mark echoes the terminal
+        // window, and every machine head shares the same near/far projection.
+        const h0 = this.project(left - 5, -0.38), h1 = this.project(left - 54, -0.18), h2 = this.project(left - 75, 0.35), h3 = this.project(left - 75, 2.65), h4 = this.project(left - 54, 3.18), h5 = this.project(left - 5, 3.38);
+        svgEl(g, 'path', { class: 'head', d: `M ${h0.x} ${h0.y} L ${h1.x} ${h1.y} Q ${h2.x} ${h2.y} ${h2.x} ${h2.y + 8} L ${h3.x} ${h3.y - 8} Q ${h3.x} ${h3.y} ${h4.x} ${h4.y} L ${h5.x} ${h5.y} Z` });
+        const hm = this.project(left - 48, 1.5);
+        svgEl(g, 'path', { class: 'headmark', d: `M ${hm.x - 8} ${hm.y + 10} V ${hm.y - 2} Q ${hm.x} ${hm.y - 13} ${hm.x + 8} ${hm.y - 2} V ${hm.y + 10} M ${hm.x - 8} ${hm.y + 2} H ${hm.x + 8}` });
+        for (const [x, s] of [[left - 51, -0.44], [left - 27, -0.44], [left - 51, 3.44], [left - 27, 3.44]]) {
+          const p = this.project(x, s), stem = this.project(x, s < 0 ? 0.04 : 2.96), nearPeg = s > 3;
+          svgEl(g, 'line', { class: 'pegstem', x1: stem.x, y1: stem.y, x2: p.x, y2: p.y });
+          svgEl(g, 'ellipse', { class: 'peg', cx: p.x, cy: p.y, rx: nearPeg ? 5.2 : 4.4, ry: nearPeg ? 3.8 : 3.1, transform: `rotate(-8 ${p.x} ${p.y})` });
+        }
+        const bf0 = this.project(left, -0.34), bf1 = this.project(bE, -0.34), bn1 = this.project(bE, 3.34), bn0 = this.project(left, 3.34);
+        svgEl(g, 'path', { class: 'board', d: `M ${bf0.x} ${bf0.y} L ${bf1.x} ${bf1.y} L ${bn1.x} ${bn1.y} L ${bn0.x} ${bn0.y} Z` });
+        svgEl(g, 'line', { class: 'boardedge', x1: bn0.x, y1: bn0.y, x2: bn1.x, y2: bn1.y });
+        for (let i = 1; i <= this.frets; i++) { const a = this.project(this.fretX(i), -0.34), b = this.project(this.fretX(i), 3.34); svgEl(g, 'line', { class: 'fret', x1: a.x, y1: a.y, x2: b.x, y2: b.y }); }
+        const n0 = this.project(left, -0.38), n1 = this.project(left, 3.38); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
+        for (const i of [5, 7, 10]) { const p = this.project(this.fretMid(i), 1.5); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.2, ry: 3.4 }); }
+        for (const s of [0.65, 2.35]) { const p = this.project(this.fretMid(12), s); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.2, ry: 3.4 }); }
         const names = ['A', 'E', 'C', 'G'];
         this.strings.forEach((open, s) => {
-          const y = top + s * S, fan = (s - 1.5) * 4;   // the strings spread a little onto the headstock
-          svgEl(g, 'line', { class: 'string', x1: left - 3, y1: y, x2: bE + 126, y2: y, 'stroke-width': (1 + s * 0.4).toFixed(1) });
-          svgEl(g, 'line', { class: 'string', x1: left - 3, y1: y, x2: left - 40, y2: y + fan, 'stroke-width': (1 + s * 0.4).toFixed(1) });
-          svgText(g, 'lbl str', left - 14, y + 0.5, 9, midiColor(open), names[s], 'middle');
-          svgText(g, 'lbl str', left - 14, laneTop + s * L + 0.5, 8, midiColor(open), names[s], 'middle');
+          const a = this.project(left - 42, s), b = this.project(bE + 130, s), label = this.project(left - 11, s);
+          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.75 + s * 0.42).toFixed(2) });
+          svgText(g, 'lbl str', label.x, label.y + 0.4, 7.5 + s * 0.7, midiColor(open), names[s], 'middle');
         });
-        svgText(g, 'lbl cap', left + 2, top - 11, 6.5, 'var(--muted)', 'your uke on your lap, face up, neck to the left', 'start');
-        // The tab lane: four lines, a clip so columns appear at the right
-        // edge and vanish past the now-line, and the scrolling group.
-        const clipId = 'tabclip' + (++UkuleleLayout.seq);
-        const clip = svgEl(svgEl(svg, 'defs'), 'clipPath', { id: clipId });
-        svgEl(clip, 'rect', { x: left - 12, y: laneTop - 8, width: W - left + 12, height: L * 3 + 16 });
-        const lane = svgEl(svg, 'g', { 'clip-path': `url(#${clipId})` });
-        for (let s = 0; s < 4; s++) svgEl(lane, 'line', { class: 'tabline', x1: left - 12, y1: laneTop + s * L, x2: W, y2: laneTop + s * L });
-        this.laneG = svgEl(lane, 'g', { class: 'lane' });
-        svgEl(svg, 'line', { class: 'nowline', x1: left, y1: laneTop - 7, x2: left, y2: laneTop + L * 3 + 7 });
+        svgText(g, 'lbl cap', left + 5, 5.5, 6.5, 'var(--muted)', "player's view · G string closest", 'start');
         this.marksG = svgEl(svg, 'g');
-        this.startPt = { x: left - 14, y: top + S * 3 + 10 };
+        this.startPt = { ...this.project(left - 2, 3), r: 8.4, open: true };
         this.sig = null; this.events = [];
+      }
+      project(x, string) {
+        const t = Math.max(-0.15, Math.min(1.35, (x - this.left) / (this.boardLen + 135)));
+        const gap = this.S * (0.88 + 0.18 * t), axis = this.top + this.S * 1.5 - 0.018 * (x - this.left);
+        return { x: x + (1.5 - string) * 1.55, y: axis + (string - 1.5) * gap };
       }
       start() { return this.startPt; }
       // Where to play a set of pitches: one place per pitch, on distinct strings.
@@ -1218,30 +1286,17 @@
       // Fret i's wire: a real fretboard's spacing (each fret 2^(1/12) of the string's remaining length), scaled so the twelfth fret ends the board.
       fretX(i) { return this.left + 2 * this.boardLen * (1 - Math.pow(2, -i / 12)); }
       fretMid(i) { return (this.fretX(i - 1) + this.fretX(i)) / 2; }
-      pt(p) { return { x: p.fret === 0 ? this.left - 14 : this.fretMid(p.fret), y: this.top + p.s * this.S }; }
+      pt(p) { const q = this.project(p.fret === 0 ? this.left - 1 : this.fretMid(p.fret), p.s); return { ...q, r: 6.3 + p.s * 0.72, open: p.fret === 0 }; }
       // The tune's events in order ({ ms, midis }), with the beat length at
       // the current tempo: places every note once, from the top with the hand
-      // at the nut, and lays the lane out. Cheap, so it may be called on each
-      // event; it only rebuilds when the timings change (a tempo change).
+      // at the nut. The places serve the fretboard's marks and the tablature
+      // on the staff. Cheap, so it may be called on each event; it only
+      // rebuilds when the timings change (a tempo change).
       schedule(events, beatMs) {
         const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
         if (sig === this.sig) return;
-        this.sig = sig; this.beatMs = beatMs; this.hand = 1;
-        this.events = events.map(e => ({ ms: e.ms, midis: e.midis, pos: this.place(e.midis), x: e.ms / beatMs * this.BEAT }));
-        this.laneG.innerHTML = '';
-        this.events.forEach((e, i) => {
-          e.cols = e.pos.map(p => {
-            const t = svgText(this.laneG, 'lbl tab', e.x, this.laneTop + p.s * this.L + 0.5, 10, midiColor(p.m), String(p.fret), 'middle');
-            t.dataset.i = i; return t;
-          });
-          if (!e.pos.length) e.cols.push(svgText(this.laneG, 'lbl tab rest', e.x, this.laneTop + 1.5 * this.L + 0.5, 7, 'var(--muted)', '·', 'middle'));
-        });
-      }
-      // The lane at time t (ms from the first note): the column of the note
-      // sounding at t sits on the now-line; the scroll is constant speed.
-      frame(u, t) {
-        if (!this.events.length || !this.beatMs) return;
-        this.laneG.style.transform = `translateX(${(this.left - t / this.beatMs * this.BEAT).toFixed(1)}px)`;
+        this.sig = sig; this.hand = 1;
+        this.events = events.map(e => ({ ms: e.ms, midis: e.midis, pos: this.place(e.midis) }));
       }
       // info: { index } of the sounding event in the schedule (-1 before the
       // first), and ms until the next; the fretboard uses the scheduled places.
@@ -1251,17 +1306,17 @@
         const i = sched ? info.index : -1;
         const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
         const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
-        if (sched) for (const t of this.laneG.querySelectorAll('.tab')) { const k = +t.dataset.i; t.classList.toggle('past', k < i); t.classList.toggle('active', k === i); t.classList.toggle('ondeck', k === i + 1); }
         const draw = (p, cls) => {
           const q = this.pt(p);
-          const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls, cx: q.x, cy: q.y, r: 8 });
+          const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls + (q.open ? ' open' : ''), cx: q.x, cy: q.y, r: q.r });
           c.style.setProperty('--c', midiColor(p.m));
           this.marks.push(c);
-          if (cls === 'active') this.marks.push(svgText(this.marksG, 'lbl', q.x, q.y + 0.5, 9, letterOn(), String(p.fret), 'middle'));
+          if (cls === 'active') this.marks.push(svgText(this.marksG, 'lbl', q.x, q.y + 0.5, q.r * 1.05, letterOn(), String(p.fret), 'middle'));
           return q;
         };
         const nPts = nextP.map(p => draw(p, 'ondeck')), aPts = nowP.map(p => draw(p, 'active'));
-        return { now: centroid(aPts), next: centroid(nPts) };
+        const centre = pts => { const c = centroid(pts); return c && { ...c, r: pts.reduce((a, p) => a + p.r, 0) / pts.length, open: pts.some(p => p.open) }; };
+        return { now: centre(aPts), next: centre(nPts) };
       }
     }
     UkuleleLayout.seq = 0;
@@ -1479,7 +1534,7 @@
     const bandLine = l => { const t = l.trim(); return !t ? '' : CHART_LINE.test(t) ? t.replace(/^%%?band\s*/, '%%band ') : '%%band ' + t; };
     const joinBand = (melody, band) => { const lines = band.split('\n').map(bandLine).filter(Boolean); if (!lines.length) return melody; const m = melody.replace(/\s+$/, ''); return (m ? m + '\n' : '') + lines.join('\n'); };
     // The score lines the Pattern panel writes: a part's lines and control patterns for every chorus (numbered ones are a chorus's own and stay).
-    const SCORE_LINE = /^%%?band\s+(?:(?:drums|bass|chords)\s*:|(?:energy|detail|drums|bass|chords)\s*=(?!\s*\d+(?:\s+[a-z]+=|\s*$)))/i;
+    const SCORE_LINE = /^%%?band\s+(?:(?:drums|bass|chords)\s*:|room\s*=|(?:energy|detail|drums|bass|chords)\s*=(?!\s*\d+(?:\s+[a-z]+=|\s*$)))/i;
     const CHART_NUM = { energy: 1, detail: 1, seed: 1 }, CHART_STEPS = { kick: 1, snare: 1, hat: 1, comp: 1 };
     function parseChart(text) {
       const chart = { defaults: {}, choruses: [], problems: [] };
@@ -1491,8 +1546,8 @@
         const dm = body.match(/^(drums|bass|chords)\s*(\d+)?\s*:\s*(.*)$/i);
         if (dm) { const part = dm[1].toLowerCase(), o = settingsOf(dm[2] ? parseInt(dm[2], 10) : null), text = dm[3].trim(); o[part] = (o[part] ? o[part] + '\n' : '') + text; return; }
         // "%%band energy = sine/8:.3:.9" gives a control a pattern (energy, detail, or a part's level); "energy=40" with a plain number is the setting below.
-        const cm = body.match(/^(energy|detail|drums|bass|chords)\s*(\d+)?\s*=\s*(.*)$/i);
-        if (cm && !/^\d+(\s+[a-z]+=|\s*$)/i.test(cm[3])) { const o = settingsOf(cm[2] ? parseInt(cm[2], 10) : null); (o.ctl = o.ctl || {})[cm[1].toLowerCase()] = cm[3].trim(); return; }
+        const cm = body.match(/^(energy|detail|drums|bass|chords|room)\s*(\d+)?\s*=\s*(.*)$/i);
+        if (cm && (cm[1].toLowerCase() === 'room' || !/^\d+(\s+[a-z]+=|\s*$)/i.test(cm[3]))) { const o = settingsOf(cm[2] ? parseInt(cm[2], 10) : null); (o.ctl = o.ctl || {})[cm[1].toLowerCase()] = cm[3].trim(); return; }
         const nm = body.match(/^(\d+)\s*:\s*/); if (nm) { n = parseInt(nm[1], 10); body = body.slice(nm[0].length); }
         const bar = body.indexOf('|');
         const params = {};
@@ -1888,7 +1943,7 @@
       };
       // The value of a control pattern at time t, in cycles: the event under t, a number or a signal.
       const valueAt = (p, t) => { let v; const c = Math.floor(t + EPS); for (const ev of p(c, c + 1)) if (ev.begin <= t + EPS && t < ev.end - EPS) { const x = ev.fn ? ev.fn(t) : parseFloat(ev.name); if (!isNaN(x)) v = x; } return v; };
-      const PARTS = ['drums', 'bass', 'chords'], CONTROLS = ['energy', 'detail', 'drums', 'bass', 'chords'];
+      const PARTS = ['drums', 'bass', 'chords'], CONTROLS = ['energy', 'detail', 'drums', 'bass', 'chords', 'room'];
       // A score's text split into its sections: the lines of each part and
       // the text of each control. Lines before any label are drums.
       const splitScore = text => {
@@ -1913,8 +1968,9 @@
        statements ($: s("bd ~ sd ~, hh*8"), $: note("r _ 5 _").s("bass")) after
        the ABC of the tune, and a paste comes back the same way. Strudel code
        is read down to its pattern strings and a few methods (.fast .slow
-       .gain .degradeBy .euclid .struct, stack()); effects are left out, what
-       is not understood is named. The %%band prefix is the page's business. */
+       .gain .degradeBy .euclid .struct, stack()); .room() becomes the
+       cell's shared reverb send, other effects are left out, and what is not
+       understood is named. The %%band prefix is the page's business. */
     const Strudel = (() => {
       const QUOTE = '"\'`';
       // Comments out, strings left alone.
@@ -1956,7 +2012,7 @@
       };
       // The words of a pattern, to guess its part.
       const words = m => m.replace(/[*\/:@?!]\s*-?[\d.]+/g, ' ').replace(/\(\s*[\d.,\s]*\)/g, ' ').match(/[A-Za-z]\w*|\b\d+\b/g) || [];
-      const SILENT = /^(bank|room|roomsize|size|lpf|hpf|bpf|cutoff|hcutoff|resonance|delay|delaytime|delayfeedback|pan|speed|crush|coarse|attack|decay|sustain|release|vowel|shape|distort|orbit|color|punchcard|pianoroll|scope|_scope|spectrum|log|cpm|legato|clip|chop|begin|end|vib|vibmod|phaser|tremolo|velocity|postgain|compressor|hush|play|_pianoroll|_punchcard)$/;
+      const SILENT = /^(bank|roomsize|size|lpf|hpf|bpf|cutoff|hcutoff|resonance|delay|delaytime|delayfeedback|pan|speed|crush|coarse|attack|decay|sustain|release|vowel|shape|distort|orbit|color|punchcard|pianoroll|scope|_scope|spectrum|log|cpm|legato|clip|chop|begin|end|vib|vibmod|phaser|tremolo|velocity|postgain|compressor|hush|play|_pianoroll|_punchcard)$/;
       const PARTNAME = /^(drums|bass|chords)$/;
       // One statement as lines of the score: [{ part, mini }].
       const statement = (src, notes) => {
@@ -1969,7 +2025,7 @@
         if (head < 0) throw new Error(`no pattern string in ${calls[0].name}(): s("bd sd") or note("r 5") is expected`);
         const h = calls[head], isSound = /^(s|sound|str)$/.test(h.name);
         const q = unquote(h.args[0]); if (q === null) throw new Error(`${h.name}() needs a quoted pattern`);
-        let mini = pattern(q, isSound), part = PARTNAME.test(h.name) ? h.name : null, sound = '';
+        let mini = pattern(q, isSound), part = PARTNAME.test(h.name) ? h.name : null, sound = '', room = null;
         calls.forEach((c, k) => {
           if (k === head) return;
           if (/^(s|sound)$/.test(c.name)) { sound += ' ' + (unquote(c.args[0]) || ''); return; }
@@ -1983,6 +2039,7 @@
             case 'euclid': case 'euclidRot': case 'euclidLegato': mini = `${wrap(mini)}(${c.args.map(a => parseFloat(a)).join(',')})`; break;
             case 'struct': { const st = unquote(c.args[0]); if (st === null) throw new Error('.struct() needs a quoted pattern'); mini = pattern(st, false).replace(/\b(x|t|1)\b/g, wrap(mini)); break; }
             case 'ply': mini = `${wrap(mini)}*${num(c)}`; notes.push('.ply() is played as *.'); break;
+            case 'room': room = Math.max(0, Math.min(1, num(c))); break;
             default: if (!SILENT.test(c.name)) notes.push(`.${c.name}() is not known here and is left out.`);
           }
         });
@@ -1993,9 +2050,9 @@
         Mini.parse(mini);   // a mistake is named now, with the statement
         const table = part === 'drums' ? KIT : part === 'bass' ? BASS : CHORD, bad = words(mini).filter(w => !(w in table));
         if (bad.length) throw new Error(`${bad.join(', ')} ${bad.length > 1 ? 'are not' : 'is not a'} ${part} word${bad.length > 1 ? 's' : ''} here (${Object.keys(table).slice(0, 8).join(' ')} ...)`);
-        return [{ part, mini }];
+        return [{ part, mini, room }];
       };
-      const DIALECT = /^(?:(drums|bass|chords)\s*:|(energy|detail|drums|bass|chords)\s*=)/;
+      const DIALECT = /^(?:(drums|bass|chords)\s*:|(energy|detail|drums|bass|chords|room)\s*=)/;
       const START = /^\s*(?:\$\s*:|(?:s|sound|note|n|stack|cat|seq|setcpm|setcps|samples|drums|bass|chords)\s*\(|["'`][^"'`]*["'`]\s*(?:\.|;?\s*$))/;
       // A paste: an ABC tune, Strudel-like or score lines, or both. The
       // band lines become %%band lines after the tune (the current one when
@@ -2022,7 +2079,9 @@
         const base = hasTune ? tune : current.split('\n').filter(l => !SCORE_LINE.test(l));
         while (base.length && !base[base.length - 1].trim()) base.pop();
         const sc = Mini.splitScore(score.join('\n'));
-        for (const { part, mini } of lines) sc.parts[part].push(mini);
+        let room = null;
+        for (const { part, mini, room: wet } of lines) { sc.parts[part].push(mini); if (wet !== null) room = Math.max(room === null ? 0 : room, wet); }
+        if (room !== null) sc.controls.room = String(room);
         const band = [...Mini.PARTS.flatMap(part => sc.parts[part].map(l => `%%band ${part}: ${l}`)), ...Object.entries(sc.controls).map(([k, v]) => `%%band ${k} = ${v}`)];
         return { abc: [...base, ...band].join('\n'), errors, notes };
       };
@@ -2276,6 +2335,7 @@
         // The controls at a time in cycles: the setting unless a control line says otherwise.
         const control = (name, cy, base, top) => { const pat = score.controls[name]; if (!pat) return base; const v = Mini.valueAt(pat, cy); return v === undefined ? base : Math.max(0, Math.min(top, v)); };
         const E = cy => control('energy', cy, energy, 1), D = cy => control('detail', cy, detail, 1), L = (part, cy) => control(part, cy, 1, 4);
+        res.room = control('room', 0, 0, 1);
         // Chord tones (sevenths and ninths as Detail rises) and voicings that move by the smallest step.
         const chordTones = (c, det) => { const t = [...c.pcs]; if (det > 0.55 && t.length === 3 && c.pcs.includes((c.root + 4) % 12) && !t.includes((c.root + 10) % 12) && FUNCTION_OF[romanOf(c, key.minor ? (key.doPc + 9) % 12 : key.doPc, key.minor).n.replace(/7$/, '')] === 'D') t.push((c.root + 10) % 12); if (det > 0.75 && t.length === 3) t.push((c.root + 2) % 12); return t; };
         let prevVoicing = null, lastChordName = null;
@@ -2530,7 +2590,7 @@
         const specs = cell.chorusSpecs();
         this.choruses = specs.map(spec => band.prepare(spec));
         cell.bandNotes = [...new Set(this.choruses.flatMap(c => c.problems))].map(t => ({ text: 'Band: ' + t }));
-        cell.showNotes(); if (cell.refreshPattern) cell.refreshPattern(); if (cell.refreshShare) cell.refreshShare();
+        cell.showNotes(); if (cell.refreshBandNote) cell.refreshBandNote(); if (cell.refreshPattern) cell.refreshPattern(); if (cell.refreshShare) cell.refreshShare();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
         this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
         if (cell.tuning && !cell.tuning.problems.length) {   // the tuning: every pitched note, the melody's and the band's, detuned to its degree
@@ -2557,11 +2617,18 @@
         const ctx = sampler.ctx(); if (!ctx) return null;
         if (!this.bus || this.bus.ctx !== ctx) {
           const master = ctx.createGain(); master.connect(ctx.destination);
-          this.bus = { ctx, master };
-          for (const p of ['melody', 'chords', 'bass', 'drums']) { this.bus[p] = ctx.createGain(); this.bus[p].connect(master); }
+          const convolver = ctx.createConvolver(), wet = ctx.createGain();
+          const seconds = 2.2, impulse = ctx.createBuffer(2, Math.floor(ctx.sampleRate * seconds), ctx.sampleRate);
+          let seed = 1977;
+          for (let ch = 0; ch < impulse.numberOfChannels; ch++) { const data = impulse.getChannelData(ch); for (let i = 0; i < data.length; i++) { seed = (seed * 16807) % 2147483647; data[i] = ((seed / 2147483647) * 2 - 1) * Math.pow(1 - i / data.length, 2.7); } }
+          convolver.buffer = impulse; convolver.connect(wet); wet.connect(master);
+          this.bus = { ctx, master, convolver, wet };
+          for (const p of ['melody', 'chords', 'bass', 'drums']) { this.bus[p] = ctx.createGain(); this.bus[p].connect(master); this.bus[p].connect(convolver); }
         }
         const mix = this.cell.mix();
         for (const p of ['melody', 'chords', 'bass', 'drums']) this.bus[p].gain.value = mix[p];
+        const cycle = this.chorus(this.total > 0 ? Math.floor(Math.max(0, this.position()) / this.total) : 0);
+        this.bus.wet.gain.value = cycle ? (cycle.room || 0) * 0.7 : 0;
         return this.bus;
       }
       /* ---- the clock ---- */
@@ -2640,6 +2707,8 @@
         this.layout = new INSTRUMENTS[this.name]();
         this.layout.build(this.svg, midis, transpose, this.nameOf, tuned);
         this.host.style.setProperty('--inst-h', this.layout.panel || '32%');
+        const vb = this.svg.viewBox.baseVal;
+        if (vb && vb.width) this.host.style.setProperty('--inst-ratio', (vb.height / vb.width).toFixed(3));
         if (this.layout.runnerR) {
           this.runner = svgEl(this.svg, 'g', { class: 'runner hide' });
           svgEl(this.runner, 'circle', { r: this.layout.runnerR });
@@ -2666,6 +2735,7 @@
         if (!this.pts.next && !this.pts.now) { r.classList.add('hide'); return; }
         const m = (next.length ? next : now)[0];
         r.style.setProperty('--c', midiColor(m)); this.label(m);
+        r.style.setProperty('--runner-alpha', '0.95');
         r.classList.remove('hide');
       }
       // Each frame: u is how far the next note is from the sounding one (0 at
@@ -2675,14 +2745,19 @@
         if (L.frame) L.frame(u, t);
         const r = this.runner, p = this.pts; if (!r || !p) return;
         const from = p.now || p.next, to = p.next || p.now; if (!from) return;
-        const x = from.x + (to.x - from.x) * u, y = from.y + (to.y - from.y) * u;
-        r.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+        const openChange = p.now && p.next && (p.now.open || p.next.open);
+        const at = openChange ? (u < 0.5 ? from : to) : null;
+        const x = at ? at.x : from.x + (to.x - from.x) * u, y = at ? at.y : from.y + (to.y - from.y) * u;
+        const rr = at ? at.r : (from.r || L.runnerR) + ((to.r || L.runnerR) - (from.r || L.runnerR)) * u;
+        const alpha = openChange ? (u < 0.5 ? 0.95 * (1 - u * 2) : 0.95 * (u * 2 - 1)) : 0.95;
+        r.style.setProperty('--runner-alpha', alpha.toFixed(3));
+        r.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${(rr / L.runnerR).toFixed(3)})`;
       }
       label(m) { if (!this.runnerLbl) return; const nm = this.nameOf(m); this.runnerLbl.textContent = nm; this.runnerLbl.setAttribute('font-size', (this.layout.runnerR * (nm.length > 2 ? 0.7 : 0.95)).toFixed(2)); this.runnerLbl.setAttribute('fill', letterOn()); }
       clear() {
         if (!this.layout) return;
         this.pts = this.layout.mark([], [], this.layout.events ? { index: -1, reset: true } : null);
-        if (this.runner) this.runner.classList.add('hide');
+        if (this.runner) { this.runner.classList.add('hide'); this.runner.style.removeProperty('--runner-alpha'); }
         if (this.layout.frame) this.layout.frame(0, 0);
       }
     }
@@ -2717,25 +2792,30 @@
         this.transpose = opts.transpose || 0;
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
         this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
+        this.notation = opts.nota === 'tab' ? 'tab' : 'staff';
+        this.lines = 'two';
+        try { if (localStorage.getItem('gcs-game-lines') === 'one') this.lines = 'one'; } catch (e) {}
         this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
         // Chords: auto (the written chords; found from the melody when none are written), numerals (the same, with Roman numerals), off (written chords only). 'detect' is the old name of auto.
         this.harmony = ['off', 'numerals', 'auto'].includes(opts.harm) ? opts.harm : 'auto';
         this.style = STYLES[LEGACY_STYLE[opts.style] || opts.style] ? (LEGACY_STYLE[opts.style] || opts.style) : 'auto';
         this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
+        this.dismissedNotes = new Set();
         const parts = splitBand(text);
-        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="paper"></div></div><div class="inst"></div>
+        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
           <div class="strip dock"><div class="dockbar"><div class="transport">
-            <button type="button" class="tbtn play" title="Play and pause (from the top, two beats count in). Space, when presenting."><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M7 4.5v15l12-7.5z"/><path class="i-pause" d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg></button>
-            <button type="button" class="tbtn restart" title="Back to the start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h2.5v15H5zM19 4.5v15L8.5 12z"/></svg></button>
+            <button type="button" class="tbtn play clock" title="Play or pause; the hand sweeps once per bar" aria-label="Play"><svg class="clockface" viewBox="0 0 48 48" aria-hidden="true"><circle class="rim" cx="24" cy="24" r="21"/><path class="tick" d="M24 5v4M43 24h-4M24 43v-4M5 24h4"/><path class="clockhand" d="M24 24V9"/><circle class="hub" cx="24" cy="24" r="2.2"/><path class="playmark" d="M20 18l10 6-10 6z"/><path class="pausemark" d="M19.5 18h3.5v12h-3.5zM25 18h3.5v12H25z"/></svg><span class="clocktempo"></span></button>
+            <button type="button" class="tbtn restart" title="Back to the start" aria-label="Restart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h2.5v15H5zM19 4.5v15L8.5 12z"/></svg></button>
             <button type="button" class="tbtn loop" title="Repeat the tune" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
           </div>
-          <label class="xpose tempo" title="Playback tempo in beats per minute (Q:1/4=90 in the ABC sets the written tempo)">Tempo <input type="number" class="bpm" min="20" max="400" step="1"> BPM</label>
+          <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span><label class="dep-tempo" title="Playback tempo; the ABC's Q: line sets the written tempo"><input type="number" class="bpm dep-bpm" min="20" max="400" step="1" aria-label="Tempo"><span>BPM</span></label></div>
           <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel">Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div></div>
           <div class="drawer melody" data-drawer="melody" hidden>
-          <textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
+          <div class="melodytext"><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea><details class="abc-help" hidden><summary><span class="abc-help-title">ABC hints</span><span class="abc-help-count"></span></summary><div class="warn"></div></details></div>
           <div class="ctl">
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
+          <label class="xpose linespick" title="The game's score: the tune wrapped to the width, two lines at a time with the next line in view, or one long line that scrolls.">Game <select><option value="two"${this.lines === 'two' ? ' selected' : ''}>Two lines</option><option value="one"${this.lines === 'one' ? ' selected' : ''}>One line</option></select></label>
           <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key when none are written; Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" class="tr" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
@@ -2761,8 +2841,7 @@
           <div class="patpanel sharepanel" hidden><textarea class="sharetext" rows="10" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="Tune and band as text to share"></textarea>
             <div class="patnote"><span class="sharemsg"></span><button type="button" class="shareuse" title="Read the text above into the page: the tune into the Melody tab, the band lines into the arrangement box">Use</button><button type="button" class="sharecopy" title="Copy the text above">Copy</button></div></div>
           </div>
-          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div>
-          <div class="warn"></div></div>`;
+          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
         this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band;
         const xp = body.querySelector('input.tr');
         xp.addEventListener('input', () => {
@@ -2850,10 +2929,14 @@
         const ip = body.querySelector('.instpick select');
         ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
+        for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
+        const lp = body.querySelector('.linespick select');
+        lp.addEventListener('change', () => { this.lines = lp.value; try { localStorage.setItem('gcs-game-lines', this.lines); } catch (e) {} for (const en of engines.values()) if (en.oneLine) { en.lines = this.lines; if (en.linesBox) en.linesBox.value = this.lines; } if (gameMode) this.render(); });
+        this.linesBox = lp;
         this.tl = null; this.idle = true; this.k = null; this.beatK = null; this.raf = null;
         this.bandPlayer = new Band(this); this.player = new Player(this); this.warp = 1;
         this.gamebar = body.querySelector('.gamebar');
-        this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn');
+        this.entry = body.querySelector('.entry'); this.warnEl = body.querySelector('.warn'); this.helpEl = body.querySelector('.abc-help');
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
         this.entry.value = parts.melody;
         this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
@@ -2877,21 +2960,38 @@
         // Musicians think in beats per minute: the box shows the playing
         // tempo, and keeps its ratio to the written one across edits.
         this.bpmBox = body.querySelector('.bpm');
-        this.bpmBox.addEventListener('change', () => {
+        const setTempo = () => {
           const written = this.writtenBpm(), v = Math.max(20, Math.min(400, parseInt(this.bpmBox.value, 10) || written));
           this.bpmBox.value = v; this.warp = v / written; this.retime();
-        });
+        };
+        this.bpmBox.addEventListener('change', setTempo);
+        this.bpmBox.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); setTempo(); this.bpmBox.blur(); } });
         this.render();
       }
       writtenBpm() { return (this.original && this.original.getBpm && this.original.getBpm()) || DEFAULT_BPM; }
       bpm() { return this.writtenBpm() * (this.warp || 1); }
       beatLen() { return (this.original && this.original.getBeatLength && this.original.getBeatLength()) || 0.25; }
+      flipText(el, text) {
+        if (!el || el.textContent === text) return;
+        el.textContent = text; el.classList.remove('flap', 'flip'); void el.offsetWidth;
+        el.classList.add(el.classList.contains('nextup') ? 'flip' : 'flap');
+      }
+      updateSignage(text = this.getText()) {
+        const title = ((text.match(/^T:\s*(.+)$/m) || [])[1] || 'Untitled').trim();
+        const key = ((text.match(/^K:\s*([^\s]+)/m) || [])[1] || 'C').trim();
+        const bpm = Math.round(this.bpm());
+        this.flipText(this.body.querySelector('.dep-title'), title);
+        this.flipText(this.body.querySelector('.dep-key'), key);
+        if (this.bpmBox && document.activeElement !== this.bpmBox) this.bpmBox.value = String(bpm);
+        const ct = this.body.querySelector('.clocktempo'); if (ct) ct.textContent = String(bpm);
+      }
       // A new tempo: abcjs retimes its events, the timeline and the parts are rebuilt, the Player keeps its place.
       retime() {
         if (!this.original) return;
         try { this.original.setTiming(this.bpm(), 0); } catch (err) {}
         this.tl = null;
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
+        this.updateSignage();
         if (!this.player.running && !(this.player.pos > 0)) this.placeReady();   // paused mid-tune: the picture stays where it is, at the new tempo
         this.wake();
       }
@@ -2939,13 +3039,16 @@
       refreshBandNote() {
         const el = this.body.querySelector('.bandnote'); if (!el) return;
         const chart = this.chart || parseChart(this.getText()), charted = chart.choruses.filter(c => c.bars).length;
+        const problems = [...chart.problems, ...(this.bandNotes || []).map(n => n.text.replace(/^Band:\s*/, ''))];
+        el.classList.toggle('err', !!problems.length);
+        if (problems.length) { el.textContent = `Check the Band text: ${[...new Set(problems)].join(' ')}`; return; }
         const written = /"[A-G][#b♯♭]?[^"]*"/.test(this.entry.value);
         el.textContent = charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` :
           written ? 'The band plays the melody’s chord symbols. Arrange writes a five-chorus arrangement here to keep or edit.' :
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab). Arrange writes them here to edit.' :
           'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.';
       }
-      transportState() { const tp = this.body.querySelector('.transport'); if (tp) tp.classList.toggle('playing', !!(this.player && this.player.running)); }
+      transportState() { const tp = this.body.querySelector('.transport'); if (tp) { const playing = !!(this.player && this.player.running); tp.classList.toggle('playing', playing); const play = tp.querySelector('.play'); if (play) play.setAttribute('aria-label', playing ? 'Pause' : 'Play'); } }
       getText() { return joinBand(this.entry.value, this.bandEntry.value); }
       focus() { this.entry.focus(); }
       destroy() { this.ro.disconnect(); this.hidden.remove(); if (this.player) this.player.stop(); }
@@ -2988,11 +3091,12 @@
         const g = this.cursor(); if (!g) return;
         g._lamp.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.45)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 170, easing: 'ease-out' });
       }
-      renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9)) {
+      renderAt(target, abc, staffwidth, vocal = cssNum('--lyric-min', 9), extra = {}) {
         const tunes = ABCJS.renderAbc(target, abc, {
           add_classes: true, staffwidth, visualTranspose: this.transpose || 0,
           paddingtop: PAD, paddingbottom: PAD, paddingleft: PAD, paddingright: PAD,
           format: { vocalfont: `Atkinson Hyperlegible ${vocal}`, stretchlast: proportional ? true : 0.6 },   // the last line is justified like the others (in plain spacing, only when it is mostly full)
+          ...extra,
         });
         const svg = target.querySelector('svg');
         if (svg && !svg.getAttribute('viewBox')) svg.setAttribute('viewBox', `0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
@@ -3021,29 +3125,36 @@
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
         if (location.protocol === 'file:') abc = withStyle(abc, classicFor(abc));
-        this.original = this.renderAt(this.hidden, abc, 600);
+        const two = gameMode && this.lines !== 'one';
+        const extra = two ? { wrap: { minSpacing: 1.6, maxSpacing: 2.8 } } : {};
+        const base = two ? this.twoLineWidth(abc, extra) : 600;
+        this.original = this.renderAt(this.hidden, abc, base, undefined, extra);
         if (!this.original) return;
         this.origElems = collect(this.original);
         this.spelled = spell(this.original, this.origElems);
-        let abcForDisplay = stripAccidentals(abc);
-        let tune = this.renderAt(this.paper, abcForDisplay, 600);
+        let abcForDisplay = two ? abc : stripAccidentals(abc);
+        let tune = this.renderAt(this.paper, abcForDisplay, base, undefined, extra);
         if (!tune) return;
-        if (collect(tune).length !== this.origElems.length) { abcForDisplay = abc; tune = this.renderAt(this.paper, abcForDisplay, 600); }
+        if (collect(tune).length !== this.origElems.length) { abcForDisplay = abc; tune = this.renderAt(this.paper, abcForDisplay, base, undefined, extra); }
         const { W, H } = this.boxSize();
         if (!(W > 0 && H > 0)) return;            // hidden cell: paddings read as NaN
         const vb = this.paper.querySelector('svg').viewBox.baseVal;
-        const ideal = gameMode ? Math.max(1200, 90 * this.origElems.filter(e => e.el_type === 'note').length)   // one long line; it scrolls
+        const ideal = two ? base
+                    : gameMode ? Math.max(1200, 90 * this.origElems.filter(e => e.el_type === 'note').length)   // one long line; it scrolls
                                : Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
-        if (Math.abs(ideal - 600) > 2) tune = this.renderAt(this.paper, abcForDisplay, ideal);
+        if (Math.abs(ideal - base) > 2) tune = this.renderAt(this.paper, abcForDisplay, ideal, undefined, extra);
         const lyricMin = cssNum('--lyric-min', 9);
         const vocal = fitLyricSize(this.paper.querySelector('svg'), lyricMin);
-        if (vocal !== null && Math.abs(vocal - lyricMin) > 0.25) tune = this.renderAt(this.paper, abcForDisplay, ideal, vocal);
+        if (vocal !== null && Math.abs(vocal - lyricMin) > 0.25) {
+          tune = this.renderAt(this.paper, abcForDisplay, ideal, vocal, extra);
+          if (two) { this.original = this.renderAt(this.hidden, abc, ideal, vocal, extra); this.origElems = collect(this.original); this.spelled = spell(this.original, this.origElems); }
+        }
         this.displayed = tune; this.dispElems = collect(tune);
         this.hiddenIndex.clear();
         this.origElems.forEach((el, i) => { for (const g of (el.abselem && el.abselem.elemset) || []) this.hiddenIndex.set(g, i); });
         this.vizPrepare();
         const added = abc.split('\n').length - text.split('\n').length;   // header lines the page supplied (the arrangement's lines follow the melody, so its line numbers hold)
-        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.tuningNotes(), ...this.chart.problems.map(t => ({ text: 'Band chart: ' + t }))];
+        this.lintNotes = gameMode ? [] : [...(this.original.warnings || []).map(w => ({ text: this.friendly(w, added) })), ...this.lint(), ...this.tuningNotes()];
         this.showNotes();
         // Post-processing must never keep the tune from reaching the
         // synthesiser: with a stale tune the transport plays the old music
@@ -3052,11 +3163,12 @@
           this.decorate(abcForDisplay !== abc);
           this.shift.clear();
           if (proportional || gameMode) this.proportionalize();
+          if (this.tabOn()) this.tabulate();
         } catch (err) {
           console.warn('notation post-processing failed', err);
         }
         this.fit();
-        this.tl = null;
+        this.tl = null; this.winLine = null;
         this.placeReady();
         // The tune to the Player: abcjs's audio tracks at the page's
         // transposition and the view's sound, without the chord tracks when
@@ -3066,6 +3178,7 @@
         this.player.load(this.original, { midiTranspose: this.transpose || 0, program: soundProgram(this.inst), chordsOff: this.playMode === 'melody' || location.protocol !== 'file:' }, style);
         if (this.bpmBox) this.bpmBox.value = Math.round(this.bpm());
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
+        this.updateSignage(text);
         this.refreshBandNote();
       }
 
@@ -3080,8 +3193,8 @@
         if (!m) return w.replace(/<[^>]+>/g, '');
         const line = parseInt(m[1], 10) - added, col = m[2];
         const at = (w.match(/<span[^>]*>([^<]*)<\/span>/) || [])[1];
-        const what = { 'Unknown character ignored': `Unknown character ${at ? '‹' + at + '› ' : ''}skipped`,
-                       "Expected ']' to end the chords": 'A chord opened with [ was never closed' }[m[3]] || m[3];
+        const what = { 'Unknown character ignored': `${at ? '‹' + at + '› is not valid here and was skipped' : 'A character was not valid here and was skipped'}`,
+                       "Expected ']' to end the chords": 'This chord starts with [ but has no closing ]' }[m[3]] || m[3];
         return `Line ${line}, character ${col}: ${what}.`;
       }
       lint() {
@@ -3093,7 +3206,7 @@
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = notes[i], b = notes[i + 1];
           const p = a.pitches.find(p => p.startTie && !b.pitches.some(q => q.pitch === p.pitch));
-          if (p) { out.push({ more: MORE.tie, text: `A tie (-) joins different notes (${p.name}-${b.pitches[0].name}); the next ${p.name} will not sound. For a slur, use ( ) instead.` }); break; }
+          if (p) { out.push({ more: MORE.tie, text: `A tie (-) can only join the same pitch. Here it runs from ${p.name} to ${b.pitches[0].name}, so later playback may be missing a note. Use parentheses for a slur.` }); break; }
         }
         // Bar lengths. With M: the metre is known; without it (abcjs then
         // assumes 4/4) the most common complete bar sets the length. The
@@ -3133,7 +3246,7 @@
             // length mean a missing M: or wrong note lengths.
             if (Math.abs(common - 1) > 1e-6) {
               const beats = common / unit, whole = Math.abs(beats - Math.round(beats)) < 1e-6;
-              out.push({ more: MORE.bars, text: `Bars hold ${fmt(beats)} beats; without an M: line the metre is 4/4. ` + (whole ? `Add M:${Math.round(beats)}/4 if that is intended.` : 'Check the note lengths.') + dottedTip(bars.flatMap(b => b.items)) });
+              out.push({ more: MORE.bars, text: `These bars add up to ${fmt(beats)} beats, but ABC assumes 4/4 when M: is missing. ` + (whole ? `Add M:${Math.round(beats)}/4 if that is the intended metre.` : 'Check the note lengths or add the intended M: line.') + dottedTip(bars.flatMap(b => b.items)) });
             }
           }
         }
@@ -3141,7 +3254,7 @@
           if (b.expected === null || Math.abs(b.len - b.expected) < 1e-6) return;
           if (b.len < b.expected && (i === 0 || i === bars.length - 1)) return;   // a pickup, or the bar that completes it
           const against = hasMeter ? `the metre has ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'without an M: line the metre is 4/4';
-          out.push({ more: MORE.bars, text: `Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items) });
+          out.push({ more: MORE.bars, text: `Bar ${i + 1} adds up to ${fmt(b.len / unit)} beats, while ${against}.` + dottedTip(b.items) });
         });
         // Lyrics: one syllable per note (rests are skipped). A hyphen splits
         // a word across notes, _ holds a syllable, * skips a note.
@@ -3163,26 +3276,26 @@
             texts.forEach((t, v) => {
               const toks = t.replace(/\\-/g, '\u0000').replace(/\|/g, ' ').trim().split(/[\s-]+/).filter(Boolean);
               const slots = toks.reduce((a, tok) => { const holds = (tok.match(/_+$/) || [''])[0].length; return a + (tok.length > holds ? 1 : 0) + holds; }, 0);
-              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, text: `Line ${li + 1}${texts.length > 1 ? ', verse ' + (v + 1) : ''}: ${n} note${n === 1 ? '' : 's'}, ${slots} syllable${slots === 1 ? '' : 's'}. A hyphen splits a word across notes, _ holds a syllable for another note, * skips a note.` });
+              if (slots !== n && n > 0) out.push({ more: MORE.lyrics, text: `Lyrics on music line ${li + 1}${texts.length > 1 ? ', verse ' + (v + 1) : ''} have ${slots} syllable slot${slots === 1 ? '' : 's'} for ${n} note${n === 1 ? '' : 's'}. Use - to split a word, _ to hold a syllable, or * to leave a note without text.` });
             });
           }
         }
         /* ---- tips: not wrong, but worth knowing ---- */
-        if (!/^K:/m.test(text)) out.push({ tip: true, more: MORE.key, text: 'No K: line, so the key is C major. K:G for one sharp, K:F for one flat.' });
+        if (!/^K:/m.test(text)) out.push({ tip: true, more: MORE.key, text: 'No key is written, so the score uses C major. Add K:G for one sharp or K:F for one flat.' });
         if (/[A-Ga-gz][,']*[\d\/]*\s*[<>]+\s*[\^_=]*[A-Ga-gz]/.test(text.split('\n').filter(l => !/^[A-Za-z]:/.test(l)).join('\n')))
-          out.push({ tip: true, more: MORE.broken, text: `C>D is a dotted pair: in L:${Lstr} it plays as C3/2 D/2.` });
-        if (lyricFor.size && voice.some(e => e.el_type === 'note' && e.rest)) out.push({ tip: true, more: MORE.rests, text: 'Syllables skip rests; the next word goes under the next note.' });
+          out.push({ tip: true, more: MORE.broken, text: `The > mark makes a long-short pair: with L:${Lstr}, C>D plays as C3/2 D/2.` });
+        if (lyricFor.size && voice.some(e => e.el_type === 'note' && e.rest)) out.push({ tip: true, more: MORE.rests, text: 'Lyrics skip rests, so the next syllable moves to the next sounded note.' });
         // A leap of more than an octave between neighbours is usually a missed octave mark.
         for (let i = 0; i + 1 < notes.length; i++) {
           const a = this.spelled[this.origElems.indexOf(notes[i])], b = this.spelled[this.origElems.indexOf(notes[i + 1])];
-          if (a && b && a[0] && b[0] && Math.abs(b[0].midi - a[0].midi) > 12) { out.push({ tip: true, more: MORE.octave, text: `${a[0].letter} to ${b[0].letter} leaps more than an octave. c is the octave above C; a comma lowers an octave, an apostrophe raises one.` }); break; }
+          if (a && b && a[0] && b[0] && Math.abs(b[0].midi - a[0].midi) > 12) { out.push({ tip: true, more: MORE.octave, text: `${a[0].letter} to ${b[0].letter} is a leap larger than an octave. If that was not intended, check the letter case, commas and apostrophes.` }); break; }
         }
         // The same accidental written again inside one bar.
         { const seen = new Set(); let said = false;
           for (const el of voice) {
             if (el.el_type === 'bar') { seen.clear(); continue; }
             if (el.el_type !== 'note' || !el.pitches || said) continue;
-            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, text: `${p.name} repeats its accidental in one bar; a sharp or flat lasts until the bar line.` }); said = true; break; } seen.add(k); }
+            for (const p of el.pitches) { if (!p.accidental) continue; const k = p.accidental + ':' + p.pitch; if (seen.has(k)) { out.push({ tip: true, more: MORE.accidental, text: `${p.name} repeats an accidental that is already in force until the bar line.` }); said = true; break; } seen.add(k); }
           } }
         // Transposition: the key it lands in, and a friendlier neighbour when it is heavy with accidentals.
         if (this.transpose && this.displayed && this.displayed.getKeySignature) {
@@ -3353,7 +3466,7 @@
         this.indexChords();
         this.cyc = 0; this.cycleSegs = null;
         if (this.chart && this.chart.choruses.some(c => c.bars)) this.relabel(0);
-        const accScale = cssNum('--acc-size', 1.8);
+        const accScale = cssNum('--acc-size', 1.8), tab = this.tabOn();
         this.dispElems.forEach((el, i) => {
           const abs = el.abselem, pitches = this.spelled[i];
           if (!abs || !pitches || !pitches.length) return;
@@ -3364,6 +3477,7 @@
             node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
             const bb = node.getBBox(), hollow = el.duration >= 0.5;
             const group = abs.elemset[0] || svg;      // inside the group: moves and pops with the note
+            if (tab) return;                              // tablature: the fret number says the pitch
             const nm = this.names === 'solfege' ? this.nameOf(p.midi, p.acc) : p.letter;
             svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * (nm.length > 2 ? 0.6 : nm.length > 1 ? 0.72 : 1.05), hollow ? p.color : letterOn(), nm, 'middle');
             if (drawAccidentals && p.explicit) {
@@ -3387,9 +3501,13 @@
         if (!svg) return;
         const vb = svg.viewBox.baseVal, { W, H } = this.boxSize();
         if (!(W > 0 && H > 0)) return;
-        const k = gameMode ? H / vb.height : Math.min(W / vb.width, H / vb.height);   // game: fill the height, the width scrolls
+        const two = gameMode && this.lines !== 'one';
+        const k = two ? W / vb.width                                                 // two lines: fill the width, the paper slides up a system at a time
+                : gameMode ? H / vb.height : Math.min(W / vb.width, H / vb.height);   // one line: fill the height, the width scrolls
+        this.scoreEl.classList.toggle('twoline', two);
         svg.setAttribute('width', (vb.width * k).toFixed(2)); svg.setAttribute('height', (vb.height * k).toFixed(2));
         this.paper.style.height = ''; this.paper.style.overflow = '';
+        if (!gameMode) this.paper.style.transform = '';
       }
       clearPlaying() {
         for (const g of this.paper.querySelectorAll('.playing')) { g.classList.remove('playing'); g.style.filter = ''; }
@@ -3401,16 +3519,75 @@
         let g = svg.querySelector('g.cursorg');
         if (!g) {
           g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'cursorg ready');
+          const beam = document.createElementNS(NS, 'rect'); beam.setAttribute('class', 'barbeam'); beam.setAttribute('rx', 6);
           const bar = document.createElementNS(NS, 'rect'); bar.setAttribute('class', 'cursorbar'); bar.setAttribute('x', 0); bar.setAttribute('width', 2.4); bar.setAttribute('rx', 1.2);
           const lamp = document.createElementNS(NS, 'circle'); lamp.setAttribute('class', 'cursorlamp'); lamp.setAttribute('cx', 1.2); lamp.setAttribute('r', 2.6);
           const hit = document.createElementNS(NS, 'rect'); hit.setAttribute('class', 'cursorhit'); hit.setAttribute('x', -7); hit.setAttribute('width', 16.4);
-          g.appendChild(hit); g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
-          g._bar = bar; g._lamp = lamp; g._hit = hit;
+          g.appendChild(beam); g.appendChild(hit); g.appendChild(bar); g.appendChild(lamp); svg.appendChild(g);
+          g._beam = beam; g._bar = bar; g._lamp = lamp; g._hit = hit;
           g.addEventListener('pointerdown', e => this.dragStart(e));
         }
         return g;
       }
       // Vertical extent for a staff line, from the displayed staff.
+      tabOn() { return this.notation === 'tab' && !!(this.viz && this.viz.layout && this.viz.layout.strings); }
+      /* ---- tablature in the staff's place ----
+         The staff lines, clef, key signature, ledger lines and the notes'
+         heads, stems, beams and marks are hidden, not removed: the cursor,
+         the timeline and the drag measure them. String lines are drawn
+         across the staff's height with a gap at each number, T A B stands
+         where the clef was, and each note's fret number sits on its string
+         inside the note's own group, so it moves, lights and pops as the
+         notehead did. The places are the fretboard's own, from the schedule
+         (the hand's choices in order), so the staff and the instrument agree. */
+      tabulate() {
+        const svg = this.paper.querySelector('svg'), L = this.viz.layout;
+        if (!svg || !L.events || !L.events.length) return;
+        const n = L.strings.length, hide = el => { if (el) el.style.visibility = 'hidden'; };
+        for (const el of svg.querySelectorAll('.abcjs-clef, .abcjs-key-signature, .abcjs-ledger, .abcjs-beam-elem')) hide(el);
+        for (const el of svg.querySelectorAll('.letter, .accg')) el.remove();
+        const staffOf = new Map();
+        const staff = line => {
+          if (!staffOf.has(line)) {
+            const el = svg.querySelector(`.abcjs-staff.abcjs-l${line}`);
+            if (!el) staffOf.set(line, null);
+            else { const bb = el.getBBox(); hide(el); staffOf.set(line, { x: bb.x, w: bb.width, y: bb.y, gap: bb.height / (n - 1), cuts: Array.from({ length: n }, () => []) }); }
+          }
+          return staffOf.get(line);
+        };
+        for (const d of this.dispElems) if (d.el_type === 'note' && d.abselem) for (const g of d.abselem.elemset || []) for (const path of g.querySelectorAll('path')) hide(path);
+        this.timings().forEach((ev, i) => {
+          const E = L.events[i]; if (!E) return;
+          const used = new Set();
+          for (const arr of ev.elements || []) for (const el of (Array.isArray(arr) ? arr : [arr])) {
+            const k = this.hiddenIndex.get(el), d = k === undefined ? null : this.dispElems[k], sp = k === undefined ? null : this.spelled[k];
+            if (!d || !d.abselem || !sp || d.el_type !== 'note') continue;
+            const group = d.abselem.elemset[0], st = staff(d._line || 0); if (!group || !st) continue;
+            const dx = this.shift.get(d) || 0;
+            (d.abselem.heads || []).forEach((head, j) => {
+              const p = sp[j] || sp[0], node = head.graphelem; if (!node) return;
+              const m = p.midi + this.transpose + L.shift;
+              const pi = E.pos.findIndex((q, idx) => !used.has(idx) && q.m === m); if (pi < 0) return;
+              used.add(pi);
+              const q = E.pos[pi], bb = node.getBBox(), cx = bb.x + bb.width / 2, y = st.y + q.s * st.gap, size = st.gap * 0.95, txt = String(q.fret);
+              svgText(group, 'fretno', cx, y, size, midiColor(q.m), txt, 'middle');
+              st.cuts[q.s].push({ x: cx + dx, w: size * 0.6 * txt.length + 2 });
+            });
+          }
+        });
+        const G = svgEl(svg, 'g', { class: 'tabstrings' }); svg.insertBefore(G, svg.firstChild);
+        for (const [line, st] of staffOf) {
+          if (!st) continue;
+          st.cuts.forEach((cuts, s) => {
+            const y = st.y + s * st.gap, seg = (a, b) => { if (b - a > 0.5) svgEl(G, 'line', { class: 'tabstr', x1: a.toFixed(1), y1: y.toFixed(1), x2: b.toFixed(1), y2: y.toFixed(1) }); };
+            let x = st.x;
+            for (const c of cuts.sort((a, b) => a.x - b.x)) { seg(x, c.x - c.w / 2); x = Math.max(x, c.x + c.w / 2); }
+            seg(x, st.x + st.w);
+          });
+          const clef = svg.querySelector(`.abcjs-clef.abcjs-l${line}`);
+          if (clef) { const cb = clef.getBBox(), cx = cb.x + cb.width / 2, h = st.gap * (n - 1), size = h / 3 * 0.95; ['T', 'A', 'B'].forEach((ch, r) => svgText(G, 'tabclef', cx, st.y + h / 6 + r * h / 3, size, 'currentColor', ch, 'middle')); }
+        }
+      }
       cursorSpan(line) {
         const svg = this.paper.querySelector('svg');
         const staff = svg && (svg.querySelector(`.abcjs-staff.abcjs-l${line}`) || svg.querySelectorAll('.abcjs-staff')[line || 0]);
@@ -3420,9 +3597,24 @@
       }
       shapeCursor(g, line) {
         const { top, height } = this.cursorSpan(line);
+        g._beam.setAttribute('y', top.toFixed(2)); g._beam.setAttribute('height', height.toFixed(2));
         g._bar.setAttribute('y', top.toFixed(2)); g._bar.setAttribute('height', height.toFixed(2));
         g._lamp.setAttribute('cy', (top - 4).toFixed(2));
         g._hit.setAttribute('y', (top - 9).toFixed(2)); g._hit.setAttribute('height', (height + 12).toFixed(2));
+      }
+      // A warm wash over the measure in which the playhead is travelling.
+      // It shares the cursor group's translation, so its x is relative to
+      // the moving bar while its edges stay at the surrounding bar lines.
+      beamAt(g, at) {
+        const bars = this.dispElems.filter(e => e.el_type === 'bar' && e._line === at.line && e.abselem && e.abselem.elemset && e.abselem.elemset.length)
+          .map(e => e.abselem.elemset[0].getBBox().x + (this.shift.get(e) || 0)).sort((a, b) => a - b);
+        const first = this.dispElems.find(e => e.el_type === 'note' && e._line === at.line && e.abselem && e.abselem.elemset && e.abselem.elemset.length);
+        const firstX = first ? first.abselem.elemset[0].getBBox().x + (this.shift.get(first) || 0) - 8 : at.x - 8;
+        let left = firstX, right = this.endX(at.line);
+        for (const x of bars) { if (x <= at.x + 1) left = x; else { right = x; break; } }
+        if (!(right > left)) right = left + 24;
+        g._beam.setAttribute('x', (left - at.x).toFixed(2));
+        g._beam.setAttribute('width', Math.max(18, right - left).toFixed(2));
       }
       colourCursor(g, color) { g._bar.style.fill = color; g._lamp.style.fill = color; g.style.filter = `drop-shadow(0 0 3px ${color})`; }
       // Where the bar waits: just after the clef and key signature, before the
@@ -3460,7 +3652,7 @@
         for (const raw of text.split('\n')) {
           if (/^%/.test(raw) || raw.trim() === '') continue;
           if (/^w:/i.test(raw)) { if (li < 0) continue; const k = (verses._n = verses._n || new Map()).get(li) || 0; verses._n.set(li, k + 1); (verses[k] = verses[k] || [])[li] = raw.slice(2).trim(); }
-          else if (/^[A-Za-z]:/.test(raw)) head.push(raw);
+          else if (/^[A-Za-z]:/.test(raw)) { if (/^[KMLQPVXUIm]:/.test(raw)) head.push(raw); }   // the fields that shape the music; the title and the rest would take the room the lines need
           else { music.push(raw.replace(/\\\s*$/, '').trim()); li++; }
         }
         const out = [...head, music.join(' ')];
@@ -3490,13 +3682,37 @@
         const bpm = this.bpm(), beatMs = 60000 / bpm;
         const events = ts.map((ev, i) => { const geo = this.eventGeometry(ev); return { i, ms: ev.milliseconds, line: ev.line || 0, x: geo.x === null ? null : geo.x - 3, color: geo.color, groups: geo.groups, midis: this.eventMidis(ev), ev }; });
         const total = this.original && this.original.getTotalTime ? this.original.getTotalTime() * 1000 : (events.length ? events[events.length - 1].ms : 0);
-        this.tl = { source: this.original && this.original.noteTimings, events, total, beatMs, lead: LEAD_IN_BEATS * beatMs, startX: this.startX(), ends: new Map() };
+        let elapsed = 0;
+        const bars = tuneBars(this.original).bars.map((bar, index) => { const start = elapsed; elapsed += bar.len / this.beatLen() * beatMs; return { index, start, end: elapsed }; });
+        if (bars.length && total > 0) bars[bars.length - 1].end = total;
+        this.tl = { source: this.original && this.original.noteTimings, events, bars, total, beatMs, lead: LEAD_IN_BEATS * beatMs, startX: this.startX(), ends: new Map() };
         this.k = null; this.beatK = null;
         this.vizSchedule();
         this.player.setTempo(beatMs / this.beatLen());
         this.player.compile();
       }
       lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
+      updateClock(t) {
+        const clock = this.body.querySelector('.clock'), bars = this.tl && this.tl.bars;
+        if (!clock || !bars || !bars.length) return;
+        const bar = bars.find(b => t >= b.start && t < b.end) || (t >= bars[bars.length - 1].end ? bars[bars.length - 1] : bars[0]);
+        const turn = t < 0 ? 0 : Math.max(0, Math.min(1, (t - bar.start) / Math.max(1, bar.end - bar.start)));
+        clock.style.setProperty('--turn', turn.toFixed(4));
+      }
+      updateNextUp(t, k, cycle) {
+        const sign = this.body.querySelector('.nextup'); if (!sign) return;
+        if (!(gameMode || document.body.classList.contains('present')) || t < 0) { this.flipText(sign, ''); return; }
+        const bars = this.tl.bars || [], bi = Math.max(0, bars.findIndex(b => t >= b.start && t < b.end));
+        const left = Math.max(0, bars.length - bi - 1);
+        const here = this.tl.events[k], current = here && this.chordAt(here.ev);
+        let next = null;
+        for (let i = k + 1; i < this.tl.events.length; i++) { const c = this.chordAt(this.tl.events[i].ev); if (c && (!current || c.name !== current.name)) { next = c; break; } }
+        const part = (((this.getText().match(/^P:\s*(.+)$/m) || [])[1] || '').trim());
+        const bits = [part || `Pass ${cycle + 1}`];
+        if (next && next.name) bits.push(`Next ${next.name}`);
+        bits.push(`${left} bar${left === 1 ? '' : 's'} left`);
+        this.flipText(sign, bits.join(' · '));
+      }
       // The index of the event sounding at t (-1 before the first), by binary search.
       indexAt(t) {
         const E = this.tl.events; let lo = 0, hi = E.length - 1, k = -1;
@@ -3535,7 +3751,9 @@
       paint() {
         const tl = this.tl, running = !!(this.player && this.player.running);
         if (!tl || this.idle) return;
+        this.body.classList.toggle('is-playing', running);
         const t = this.now();
+        this.updateClock(t);
         if (this.leadIn && t >= 0) this.leadIn = false;
         // The time round: its chorus's chords on the symbols and under the instrument.
         const cyc = t >= 0 && tl.total > 0 ? Math.floor(this.player.position() / tl.total) : 0;
@@ -3543,6 +3761,7 @@
         const g = this.cursor();
         // The sounding event: marks change only when it changes.
         const k = t < 0 ? -1 : this.indexAt(t);
+        this.updateNextUp(t, k, cyc);
         if (k !== this.k) {
           this.k = k;
           this.clearPlaying();
@@ -3558,7 +3777,9 @@
         const at = this.cursorAt(t);
         if (g && at && !this.drag) {
           g.style.transform = `translateX(${at.x.toFixed(2)}px)`;
-          if (gameMode) {
+          this.beamAt(g, at);
+          if (gameMode && this.lines !== 'one') this.window(at.line);
+          else if (gameMode) {
             const svg = this.paper.querySelector('svg');
             if (svg) { const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize(); this.paper.style.transform = `translateX(${(W * 0.28 - at.x * ks).toFixed(1)}px)`; }
           }
@@ -3630,13 +3851,31 @@
         }
         return found;
       }
-      vizPrepare() { if (!this.viz) return; this.key = null; const midis = this.allMidis(); this.viz.set(this.inst, midis, this.transpose || 0, m => this.nameOf(m), this.tuning && !this.tuning.problems.length ? { tuning: this.tuning, key: this.keyInfo() } : null); this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule(); }
-      // Warnings and tips, each with a ? that opens its explanation.
+      vizPrepare() {
+        if (!this.viz) return;
+        this.key = null;
+        const midis = this.allMidis();
+        const tuned = this.tuning && !this.tuning.problems.length ? { tuning: this.tuning, key: this.keyInfo() } : null;
+        this.viz.set(this.inst, midis, this.transpose || 0, m => this.nameOf(m), tuned);
+        this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule();
+        const sign = this.body.querySelector('.sign'), fretted = !!(this.viz.layout && this.viz.layout.strings);
+        sign.hidden = !fretted;
+        for (const b of sign.querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.nota === (fretted ? this.notation : 'staff')));
+      }
+      // Contextual ABC help lives with the Melody text box. It stays folded
+      // until asked for, and an item can be dismissed for this editing session.
       showNotes() {
         this.warnEl.innerHTML = '';
-        const notes = [...(this.lintNotes || []), ...(this.vizNotes || []), ...(this.bandNotes || [])];
+        const all = [...(this.lintNotes || []), ...(this.vizNotes || [])];
+        const notes = all.filter(n => !this.dismissedNotes.has((n.tip ? 'tip:' : 'warn:') + n.text));
         const badge = this.body.querySelector('.tab[data-drawer="melody"] .badge'), warnings = notes.filter(n => !n.tip).length;
-        if (badge) { badge.textContent = warnings ? String(warnings) : ''; badge.title = warnings ? `${warnings} warning${warnings > 1 ? 's' : ''} under the text` : ''; }
+        if (badge) { badge.textContent = warnings ? String(warnings) : ''; badge.title = warnings ? `${warnings} ABC item${warnings > 1 ? 's' : ''} to check in Melody` : ''; }
+        if (this.helpEl) {
+          this.helpEl.hidden = !notes.length;
+          const count = this.helpEl.querySelector('.abc-help-count');
+          const tips = notes.length - warnings;
+          if (count) count.textContent = notes.length ? warnings ? ` · ${warnings} to check${tips ? `, ${tips} tip${tips === 1 ? '' : 's'}` : ''}` : ` · ${tips} tip${tips === 1 ? '' : 's'}` : '';
+        }
         for (const n of notes) {
           const row = document.createElement('div'); row.className = 'w' + (n.tip ? ' tip' : '');
           const t = document.createElement('span'); t.textContent = n.text; row.appendChild(t);
@@ -3646,6 +3885,9 @@
             b.addEventListener('click', () => { m.hidden = !m.hidden; });
             row.appendChild(b); row.appendChild(m);
           }
+          const dismiss = document.createElement('button'); dismiss.type = 'button'; dismiss.className = 'dismiss'; dismiss.textContent = '×'; dismiss.title = 'Dismiss this hint'; dismiss.setAttribute('aria-label', 'Dismiss this hint');
+          dismiss.addEventListener('click', () => { this.dismissedNotes.add((n.tip ? 'tip:' : 'warn:') + n.text); this.showNotes(); });
+          row.appendChild(dismiss);
           this.warnEl.appendChild(row);
         }
       }
@@ -3660,6 +3902,8 @@
       // After a render: park the cursor faintly at the start.
       placeReady() {
         this.idle = true; this.k = null; this.beatK = null;
+        this.body.classList.remove('is-playing');
+        this.updateClock(0); this.flipText(this.body.querySelector('.nextup'), '');
         if (this.livePattern) this.livePattern(-1);
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
         if (this.cyc) { this.cyc = 0; this.relabel(0); }
@@ -3673,9 +3917,41 @@
         g.classList.remove('done'); g.classList.add('ready');
         if (gameMode) {
           const svg = this.paper.querySelector('svg');
-          if (svg) { const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize(); this.paper.style.transform = `translateX(${(W * 0.28 - x * ks).toFixed(1)}px)`; }
+          if (this.lines !== 'one') this.window(0);
+          else if (svg) { const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize(); this.paper.style.transform = `translateX(${(W * 0.28 - x * ks).toFixed(1)}px)`; }
           if (!this.body.classList.contains('done')) this.progress(0);   // back at the start (the finish flourish keeps its full bar)
         }
+      }
+      // The game's window: the paper slides so the line being played is the
+      // first in view, everything of the line before it just above the top,
+      // and the next line below it.
+      window(line) {
+        if (this.winLine === line) return;
+        this.winLine = line;
+        const svg = this.paper.querySelector('svg'); if (!svg) return;
+        const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width;
+        let bottom = 0;   // of the line before, in SVG units: the lowest edge of its notes, bars and lyrics
+        if (line > 0) for (const d of this.dispElems) if (d._line === line - 1 && d.abselem) for (const g of d.abselem.elemset || []) { const bb = g.getBBox(); bottom = Math.max(bottom, bb.y + bb.height); }
+        this.paper.style.transform = `translateY(${(-(bottom > 0 ? bottom + 2 : 0) * ks).toFixed(1)}px)`;
+      }
+      // The game's two lines: the width to engrave at so that two systems
+      // fill the score's height, between a smallest and a largest staff. A
+      // measuring render finds the system's pitch (lyrics and chords make it
+      // taller) and the staff's height; the scale that puts two systems in
+      // the box is clamped so a staff space is 1.6 to 3.6 % of the screen's
+      // height, and the width in abcjs units follows from the box's width:
+      // fewer bars to a line on a short or narrow screen, more on a wide one.
+      twoLineWidth(abc, extra) {
+        const { W, H } = this.boxSize(); if (!(W > 0 && H > 0)) return 600;
+        this.renderAt(this.hidden, abc, 600, undefined, extra);
+        const svg = this.hidden.querySelector('svg'), staffs = svg ? svg.querySelectorAll('.abcjs-staff') : [];
+        if (!staffs.length) return 600;
+        const sb = staffs[0].getBBox(), vb = svg.viewBox.baseVal;
+        const pitch = staffs[1] ? staffs[1].getBBox().y - sb.y : vb.height - 2 * PAD;
+        const vh = window.innerHeight / 100, space = sb.height / 4;
+        const kMin = 1.6 * vh / space, kMax = 3.6 * vh / space;
+        const k = Math.max(kMin, Math.min(kMax, H / (sb.y + 2 * pitch)));   // sb.y: what stands above the first staff (the tempo mark, the chords)
+        return Math.max(220, Math.round(W / k - 2 * PAD));
       }
       // Displayed x (left edge) and colour of the notes in a timing event.
       eventGeometry(ev) {
@@ -4569,7 +4845,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
 
     const STORE = 'gcs-cells-v1';
     let proportional = localStorage.getItem('gcs-proportional') !== 'off';
-    let gameMode = false;   // Game: one cell full screen, the tune on one scrolling line under a fixed cursor, the instrument large
+    let gameMode = false;   // Game: one cell full screen, two score systems (or the one-line fallback), the instrument large
     const SAMPLE = [
       { type: 'heading', text: 'Grand Central Stationery' },
       { type: 'text', text: 'EYES, EARS, and MINDS open;\nHANDS, FEET, and VOICES quiet and ready.' },
@@ -4585,7 +4861,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, names, play, harm, style, band, mv, fac }) => ({ type, text, pos, bg, tr, inst, names, play, harm, style, band, mv, fac })) })), 300); }
+    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac }) => ({ type, text, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -4691,7 +4967,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
           <span class="spacer"></span>
           <span class="tools">
             <button class="show" title="Present from this cell">Present</button>
-            <button class="game" title="Game: this tune on one scrolling line with the instrument large, full screen (Esc returns)">Game</button>
+            <button class="game" title="Game: this tune two score systems at a time (or the one-line fallback), with the instrument large, full screen (Esc returns)">Game</button>
             <button class="xyz" title="3D layout for this cell (blank = automatic)">3D</button>
             <button class="del" title="Delete cell (Undo in the toast, or Cmd+Z)">✕</button>
           </span>
@@ -4712,7 +4988,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.type === 'heading' });
       engines.set(cell.id, engine);
@@ -4780,7 +5056,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
     }
     function addCell(type, at = cells.length) {
       const cell = { id: ++seq, type, text: type === 'rhythm' ? MoveCell.START.rhythm : type === 'dance' ? MoveCell.START.dance : '' };
-      if (type === 'abc') { try { const last = localStorage.getItem('gcs-last-inst'); if (last && last !== 'off' && INSTRUMENTS[last]) cell.inst = last; } catch (e) {} }   // the instrument chosen last time, so a new tune starts with it
+      if (type === 'abc') { try { const last = localStorage.getItem('gcs-last-inst'); if (last && last !== 'off' && INSTRUMENTS[last]) cell.inst = last; if (localStorage.getItem('gcs-last-nota') === 'tab') cell.nota = 'tab'; } catch (e) {} }   // the instrument chosen last time, so a new tune starts with it
       cells.splice(at, 0, cell);
       const el = buildCell(cell);
       cellsEl.insertBefore(el, cellsEl.children[at] || null);
@@ -4969,7 +5245,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading|rhythm|dance)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ font: fontKey, proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -4980,7 +5256,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.names; delete j.play; delete j.harm; delete j.style; delete j.band; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.play; delete j.harm; delete j.style; delete j.band; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
