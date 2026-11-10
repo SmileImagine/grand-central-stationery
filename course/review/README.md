@@ -11,13 +11,14 @@ Each `items/<id>.abc` begins with:
 
 ```text
 % review-id: the piece's id
-% review-from: published | holding     where it came from, and where a restore puts it back
+% review-from: published | holding | samples   where it came from, and where a restore puts it back
 % review-status: pending | keep | change | remove
 % review-categories: racism, violence, sexual, substances, religious, context
 % review-findings: what is there, quoted where it is in the words
 % review-suggestion: Claude's suggestion (2026-11-10); the decision is the teacher's
 % review-decision: the teacher's decision and any change made
 % review-set-entry: the published entry's catalogue fields as one line of JSON (published pieces only)
+% review-samples-file: the file in course/samples that holds it (sample tunes only)
 ```
 
 The rest of the file is the piece's ABC; a piece from the tune workshop keeps
@@ -35,5 +36,9 @@ node course/review/build.js --restore <id>
 ```
 
 A published piece goes back into `course/set.json` at its old place with its
-catalogue fields; a workshop piece goes back to `course/holding/items/`. Make
+catalogue fields; a workshop piece goes back to `course/holding/items/`. A
+sample tune never left its file in `course/samples/` (moving it would renumber
+the ids of the tunes after it); while it is in the queue, `course/analyze-cli.js`
+leaves it out of any set it builds, and so it does for any queued piece whose
+source is in `course/samples/`, and restoring it lets the builder grade it again. Make
 any change to the words first (and say so in `review-decision`), then restore.

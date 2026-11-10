@@ -67,12 +67,18 @@ function abcFiles(p) {
   return /\.abc$/i.test(p) ? [p] : [];
 }
 
+// A tune in the review queue (course/review: out of circulation until a teacher has checked it for the classroom)
+// is never graded into a set, so a regenerated set cannot bring it back. Its id is the one --set would give it.
+const tuneId = (file, f) => String(path.basename(file, '.abc') + '-' + (f.index + 1) + '-' + f.title).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const reviewFile = path.join(__dirname, 'review', 'index.json');
+const inReview = new Set(fs.existsSync(reviewFile) ? JSON.parse(fs.readFileSync(reviewFile, 'utf8')).items.map(it => it.id) : []);
 const reports = [];
-let skipped = 0, failed = 0;
+let skipped = 0, failed = 0, held = 0;
 for (const file of inputs.flatMap(abcFiles)) {
   const text = fs.readFileSync(file, 'utf8');
   for (const r of A.analyzeAbc(text, ABCJS, { file: path.relative(process.cwd(), file) }, { ignore: opt.ignore })) {
     if (r.error) { failed++; continue; }
+    if (r.features && inReview.has(tuneId(file, r.features))) { held++; continue; }
     if (!r.grade || r.features.noteCount < opt.min) { skipped++; continue; }
     reports.push(r);
   }
@@ -85,6 +91,7 @@ const seq = A.sequence(reports);
 const byLevel = new Map();
 for (const r of reports) byLevel.set(r.grade.level, (byLevel.get(r.grade.level) || 0) + 1);
 for (const d of opt.ignore) if (!A.LATTICE[d] && !A.ONTARIO.some(r => r[0] === d)) { console.error(`Unknown dimension "${d}". Dimensions: ${Object.keys(A.LATTICE).join(', ')}; Ontario elements: ${[...new Set(A.ONTARIO.map(r => r[0]))].join(', ')}`); process.exit(1); }
+if (held) console.log(`${held} tune${held === 1 ? '' : 's'} in the review queue left out (course/review)`);
 console.log(`${reports.length} tunes graded${opt.ignore.length ? ` (level ignores ${opt.ignore.join(', ')})` : ''}${skipped ? `, ${skipped} skipped (too short or no key)` : ''}${failed ? `, ${failed} failed to parse` : ''}.\n`);
 console.log('Level  Tunes');
 for (let l = 1; l <= 6; l++) console.log(`  ${l}    ${String(byLevel.get(l) || 0).padStart(5)}`);

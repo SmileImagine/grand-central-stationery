@@ -7,12 +7,42 @@
   "remove"
  ],
  "counts": {
-  "pending": 16,
+  "pending": 21,
   "keep": 0,
   "change": 0,
   "remove": 0
  },
  "items": [
+  {
+   "id": "beginner-songs-15-jingle-bells-chorus",
+   "file": "items/beginner-songs-15-jingle-bells-chorus.abc",
+   "title": "Jingle Bells (chorus)",
+   "subtitle": "",
+   "from": "samples",
+   "status": "pending",
+   "categories": [
+    "context"
+   ],
+   "findings": "No words in the file (the chorus is innocent). Research published in 2017 traced its first known performance to a blackface minstrel show in Boston in 1857; others dispute the reading.",
+   "suggestion": "Keep; give the teacher a short note on the disputed history.",
+   "decision": "",
+   "source": ""
+  },
+  {
+   "id": "beginner-songs-17-when-the-saints-go-marching-in",
+   "file": "items/beginner-songs-17-when-the-saints-go-marching-in.abc",
+   "title": "When the Saints Go Marching In",
+   "subtitle": "",
+   "from": "samples",
+   "status": "pending",
+   "categories": [
+    "religious"
+   ],
+   "findings": "No words in the file. A Christian spiritual about the day of judgement.",
+   "suggestion": "Keep; label it a spiritual, as above.",
+   "decision": "",
+   "source": ""
+  },
   {
    "id": "beginner-songs-5-lucy-locket",
    "file": "items/beginner-songs-5-lucy-locket.abc",
@@ -72,6 +102,54 @@
    ],
    "findings": "No words in the file. American sung verses mention morphine and beer (\"twenty-five cents for the morphine\").",
    "suggestion": "Keep as an instrumental with the note. It is the shorter of the two Soldier's Joy entries; keep both, or keep this one for the first tunes and the full Nottingham reel for later.",
+   "decision": "",
+   "source": ""
+  },
+  {
+   "id": "first-tunes-6-amazing-grace",
+   "file": "items/first-tunes-6-amazing-grace.abc",
+   "title": "Amazing Grace",
+   "subtitle": "",
+   "from": "samples",
+   "status": "pending",
+   "categories": [
+    "religious",
+    "context"
+   ],
+   "findings": "No words in the file. A Christian hymn; its author, John Newton, had been a slave-ship captain before he became a clergyman and abolitionist, which is often taught with it.",
+   "suggestion": "Keep; label it a hymn, like Jubilate Deo, so teachers can follow their school's guidance on religious songs.",
+   "decision": "",
+   "source": ""
+  },
+  {
+   "id": "first-tunes-7-oh-susanna",
+   "file": "items/first-tunes-7-oh-susanna.abc",
+   "title": "Oh! Susanna",
+   "subtitle": "",
+   "from": "samples",
+   "status": "pending",
+   "categories": [
+    "racism",
+    "violence",
+    "context"
+   ],
+   "findings": "No words in the file. Stephen Foster wrote it in 1848 for blackface minstrel shows, and his original second verse uses a racial slur in a joke about an explosion that kills five hundred Black people. Anyone who looks up the words can find it.",
+   "suggestion": "Keep it out of the course. If a teacher wants the tune, play the melody only and teach the minstrel history with it; never the original words.",
+   "decision": "",
+   "source": ""
+  },
+  {
+   "id": "first-tunes-8-greensleeves",
+   "file": "items/first-tunes-8-greensleeves.abc",
+   "title": "Greensleeves",
+   "subtitle": "",
+   "from": "samples",
+   "status": "pending",
+   "categories": [
+    "context"
+   ],
+   "findings": "No words in the file. The old ballad's Lady Greensleeves is sometimes read as a woman of loose reputation; the tune is also the carol What Child Is This.",
+   "suggestion": "Keep; no change needed.",
    "decision": "",
    "source": ""
   },

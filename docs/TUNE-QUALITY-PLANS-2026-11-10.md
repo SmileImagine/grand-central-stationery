@@ -413,6 +413,15 @@ whatever the emphasis:
   `node course/review/build.js --restore <id>` puts a piece back exactly.
   Most serious: Sambalele (a thrashing, and "mulata" in the chorus), Carry
   banana ("Chiney"), Mikhahi labu (innuendo and cigarettes in every verse).
+  After the merge with main, the ayah's song joined the queue (a note
+  quoting "an unmusical ayah"); the three new Gurkha items read clean. The
+  25 unpublished tunes in `course/samples/` were scanned too: Oh! Susanna
+  (minstrel song; Foster's original verse has a racial slur and a violent
+  joke), Jingle Bells (disputed minstrel history), Amazing Grace and When
+  the Saints (religious) and Greensleeves (mild) are queued as references,
+  their files untouched so the set builder's ids stay stable; the builder
+  (`course/analyze-cli.js`) now leaves every queued tune out of any set it
+  builds, and the smoke test checks it.
 - Still open: synth leads; West African tunes; more from Andrade, Jekyll,
   Fairchild and the Japanese books; original bangers (phase 4); class parts
   and the live energy fader (phase 5).

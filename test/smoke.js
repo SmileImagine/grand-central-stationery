@@ -52,6 +52,13 @@ const queue = JSON.parse(fs.readFileSync(path.join(root, 'course/review/index.js
 const inReview = from => queue.filter(it => it.from === from).length;
 assert(set.tunes.length + inReview('published') === 45, `expected 45 tunes published or in review, found ${set.tunes.length} + ${inReview('published')}`);
 assert(!set.tunes.some(t => queue.some(it => it.id === t.id)), 'a piece is both published and in the review queue');
+// The set builder leaves every queued tune out, so a regenerated set cannot bring one back from course/samples.
+const os = require('os'), trial = path.join(os.tmpdir(), `gcs-set-trial-${process.pid}.json`);
+const built = spawnSync(process.execPath, ['course/analyze-cli.js', '--set', trial], { cwd: root, encoding: 'utf8' });
+assert(built.status === 0, built.stderr || 'the set builder failed');
+const trialIds = JSON.parse(fs.readFileSync(trial, 'utf8')).tunes.map(t => t.id); fs.unlinkSync(trial);
+const leaked = trialIds.filter(id => queue.some(it => it.id === id));
+assert(!leaked.length, `the set builder would publish queued tunes: ${leaked.join(', ')}`);
 assert(new Set(set.tunes.map(t => t.id)).size === set.tunes.length, 'published tune IDs are not unique');
 assert(!set.tunes.some(t => /\bsketch\b/i.test(`${t.title}\n${t.abc}`)), 'a sketch remains in the published set');
 for (const [id, key, abcKey] of [

@@ -5,7 +5,7 @@
 //   node course/review/build.js --restore <id>   put the piece back where it came from, as it was
 const fs = require('fs'), path = require('path');
 const root = __dirname, course = path.join(root, '..'), itemsDir = path.join(root, 'items'), outFile = path.join(root, 'index.json');
-const STATUSES = ['pending', 'keep', 'change', 'remove'], FROM = ['published', 'holding'];
+const STATUSES = ['pending', 'keep', 'change', 'remove'], FROM = ['published', 'holding', 'samples'];
 const metaOf = text => { const m = {}; for (const line of text.split('\n')) { const x = line.match(/^%\s*review-([a-z-]+):\s*(.*)$/i); if (x) m[x[1].toLowerCase()] = x[2].trim(); } return m; };
 const body = text => text.split('\n').filter(l => !/^%\s*review-/.test(l)).join('\n');
 const field = (text, name) => { const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi')); return m ? m[1].trim() : ''; };
@@ -26,6 +26,9 @@ if (process.argv[2] === '--restore') {
     set.tunes.splice(at, 0, entry);
     fs.writeFileSync(setFile, JSON.stringify(set, null, 1) + '\n');
     console.log(`restored ${id} to course/set.json at position ${at}; run node course/build-sets.js`);
+  } else if (meta.from === 'samples') {
+    // The sample files were never changed: the tune is still in its file, and leaving the queue lets the set builder grade it again.
+    console.log(`restored ${id}: it is in ${meta['samples-file']} as it always was, and analyze-cli.js will grade it again`);
   } else {
     fs.writeFileSync(path.join(course, 'holding', 'items', `${id}.abc`), body(text).replace(/^\n+/, ''));
     console.log(`restored ${id} to course/holding/items; run node course/holding/build.js`);
@@ -43,6 +46,7 @@ const items = files.map(file => {
   if (!STATUSES.includes(meta.status)) errors.push(`${file}: review-status wants ${STATUSES.join(', ')}`);
   if (!meta.suggestion) errors.push(`${file}: wants a review-suggestion`);
   if (meta.from === 'published') { try { JSON.parse(meta['set-entry']); } catch (err) { errors.push(`${file}: review-set-entry is not JSON`); } }
+  if (meta.from === 'samples' && !fs.existsSync(path.join(course, 'samples', meta['samples-file'] || '-'))) errors.push(`${file}: review-samples-file names no file in course/samples`);
   if (!field(text, 'T')) errors.push(`${file}: wants a T: title`);
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id, subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),

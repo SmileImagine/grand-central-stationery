@@ -1,0 +1,15 @@
+% review-id: first-tunes-8-greensleeves
+% review-from: samples
+% review-status: pending
+% review-categories: context
+% review-findings: No words in the file. The old ballad's Lady Greensleeves is sometimes read as a woman of loose reputation; the tune is also the carol What Child Is This.
+% review-suggestion: Keep; no change needed.
+% review-decision:
+% review-samples-file: first-tunes.abc
+X:8
+T:Greensleeves
+O:England
+M:6/8
+L:1/8
+K:Em
+E | G2 A B>c B | A2 F D>E F | G2 E E>^D E | F2 ^D B,2 E | G2 A B>c B | A2 F D>E F | G2 E ^D>E ^C | E3 E2 |]
