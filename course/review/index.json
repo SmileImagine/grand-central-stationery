@@ -7,7 +7,7 @@
   "remove"
  ],
  "counts": {
-  "pending": 21,
+  "pending": 23,
   "keep": 0,
   "change": 0,
   "remove": 0
@@ -73,6 +73,22 @@
    "suggestion": "Keep; if words are added, use the first verse only.",
    "decision": "",
    "source": ""
+  },
+  {
+   "id": "canoinha-nova",
+   "file": "items/canoinha-nova.abc",
+   "title": "Canoinha nova",
+   "subtitle": "Brazilian children's circle song — provisional plate reading",
+   "from": "holding",
+   "status": "pending",
+   "categories": [
+    "racism",
+    "context"
+   ],
+   "findings": "Verse 1 (the new canoe that fell into the sea) is plain. Verse 2: \"Pra sinh'Aninha cheirar\": sinhá was the form of address enslaved people used for the master's wife or daughter. Verses 2 and 3 are courting verses (a carnation at the window; \"Menina dos olhos grandes / Não olhe pra mim chorando\").",
+   "suggestion": "Teach verse 1, which is plain, once the plate reading is checked; leave verses 2 and 3 for a Brazilian educator, with a note on sinhá's history. Do not invent replacement words here.",
+   "decision": "",
+   "source": "Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 36 (scan p. 46)"
   },
   {
    "id": "carry-banana",
@@ -229,6 +245,22 @@
    "suggestion": "Keep the full text in the file as the source, and end the class version before \"Now you married\" (the ring game works without it).",
    "decision": "",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. LXXXIX, p. 191"
+  },
+  {
+   "id": "meu-barco-e-veleiro-paraiba",
+   "file": "items/meu-barco-e-veleiro-paraiba.abc",
+   "title": "Meu barco é veleiro",
+   "subtitle": "Paraíba coco — provisional plate reading",
+   "from": "holding",
+   "status": "pending",
+   "categories": [
+    "racism",
+    "context"
+   ],
+   "findings": "The second half is a courting line about complexion: \"Eu amo a cor morena / A cor morena é que me ama\" (I love the brown colour; the brown colour loves me). Morena is an everyday, affectionate word in Brazil, but like the \"mulata\" of Sambalele it ties a love song to skin colour.",
+   "suggestion": "Keep it out of the published set until a Brazilian educator (and the coco reviewer the dossier names) says how classes sing it today; the tune itself is a good tonic-arpeggio study. Do not invent replacement words here.",
+   "decision": "",
+   "source": "Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 75 (scan p. 85)"
   },
   {
    "id": "mikhahi-labu",

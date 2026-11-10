@@ -57,7 +57,7 @@ const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], {
 assert(coverageMap.status === 0, coverageMap.stderr || coverageMap.stdout || 'coverage map checks failed');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
-// still make the 45 tunes, and the workshop and the queue's workshop pieces the 13 items.
+// still make the 45 tunes, and the workshop and the queue's workshop pieces the 18 items.
 const queue = JSON.parse(fs.readFileSync(path.join(root, 'course/review/index.json'), 'utf8')).items;
 const inReview = from => queue.filter(it => it.from === from).length;
 assert(set.tunes.length + inReview('published') === 45, `expected 45 tunes published or in review, found ${set.tunes.length} + ${inReview('published')}`);
@@ -88,5 +88,5 @@ for (const token of ['course/holding/board.html', 'lab/Play%20Along%20v1.html', 
 assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab is missing');
 
 const workshop = JSON.parse(fs.readFileSync(path.join(root, 'course/holding/index.json'), 'utf8')).items.length;
-assert(workshop + inReview('holding') === 16, `expected 16 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
+assert(workshop + inReview('holding') === 18, `expected 18 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
 console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshop} workshop items; ${queue.length} in review).`);

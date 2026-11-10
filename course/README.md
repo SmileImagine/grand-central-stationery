@@ -60,6 +60,8 @@ node course/coverage-map.js --md course/coverage-map.md
 node course/coverage-map.js --check course/coverage-map.md
 ```
 
+Two more reports read the published set the same way. `course/class-parts.js` gives each tune a conservative one-bar body-percussion part and a tonic/fifth rehearsal part, and notes written harmony, ukulele readiness and round or descant candidates without inventing chord changes. `course/dossier-gaps.js` counts only explicit `% dossier-*:` fields as a complete dossier, keeping ordinary ABC metadata as a seed. After the set changes, `make reports` rebuilds all five reports; each has a `--check` mode, and the smoke test fails while any is stale.
+
 ## Rhythms and dances
 
 ```bash

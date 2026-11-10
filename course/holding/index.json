@@ -9,7 +9,7 @@
  ],
  "counts": {
   "inbox": 0,
-  "transcription": 5,
+  "transcription": 3,
   "source-check": 5,
   "classroom-check": 0,
   "ready": 0
@@ -36,29 +36,6 @@
     "licence": "public domain (Homer B. Hulbert, \"Korean Vocal Music\", The Korean Repository 3, February 1896, pp. 45-53; Hulbert died 1949); read bar by bar from the archive.org scan of the University of Illinois copy on 2026-11-10",
     "respect": "Arirang is a national song of Korea, North and South, and on UNESCO's list (2012, 2014); present it as a living song with many regional versions, this one as the earliest written down, by an American missionary",
     "review": "a Korean culture bearer or a teacher of gugak before publishing"
-   }
-  },
-  {
-   "id": "canoinha-nova",
-   "file": "items/canoinha-nova.abc",
-   "title": "Canoinha nova",
-   "subtitle": "Brazilian children's circle song — provisional plate reading",
-   "source": "Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 36 (scan p. 46)",
-   "status": "transcription",
-   "owner": "Codex",
-   "sourceCheck": "pending",
-   "classroomCheck": "pending",
-   "updated": "2026-11-10",
-   "blocked": "Re-read all eight bars against p. 36 (scan p. 46), especially the opening arpeggio, the G-sharp in the middle, and the slurs and accents; then have a Brazilian children's-song teacher check the words and game context.",
-   "notes": "SOURCE: https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf",
-   "dossier": {
-    "function": "roda (Brazilian children's circle song); Andrade prints three verses but does not describe the play action",
-    "elements": "eight bars in 2/4; a compact rising-and-falling melody with one written G-sharp; three strophic verses",
-    "practice": "sing the first verse at Andrade's crotchet 96; teach the Portuguese by echo before adding any accompaniment",
-    "honesty": "provisional transcription from the 1928 plate; no harmony, percussion pattern, translation or game directions have been invented",
-    "licence": "public domain source, first published 1928; Andrade died in 1945; the BBM/USP scan is marked public domain by Wikimedia Commons and IMSLP",
-    "respect": "present it as a song collected in the former Federal Capital (Rio de Janeiro), not as a single definitive version for all Brazil",
-    "review": "a Brazilian Portuguese speaker and children's-song or roda practitioner before promotion"
    }
   },
   {
@@ -150,29 +127,6 @@
     "licence": "public domain (Nagai and Obata, 1895; transcription donated to the public domain by Tom Potter, 2008)",
     "respect": "a children's song, for everyone",
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
-   }
-  },
-  {
-   "id": "meu-barco-e-veleiro-paraiba",
-   "file": "items/meu-barco-e-veleiro-paraiba.abc",
-   "title": "Meu barco é veleiro",
-   "subtitle": "Paraíba coco — provisional plate reading",
-   "source": "Mário de Andrade, Ensaio sobre música brasileira (São Paulo: I. Chiarato & Cia., 1928), p. 75 (scan p. 85)",
-   "status": "transcription",
-   "owner": "Codex",
-   "sourceCheck": "pending",
-   "classroomCheck": "pending",
-   "updated": "2026-11-10",
-   "blocked": "Re-read the rhythm and barlines against p. 75 (scan p. 85); compare Andrade's Paraíba and Pernambuco versions; then have a coco practitioner review function, pulse and classroom use.",
-   "notes": "SOURCE: https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf",
-   "dossier": {
-    "function": "coco; Andrade gives a short Paraíba verse and contrasts it with a longer Pernambuco call-and-response version",
-    "elements": "2/4; the Paraíba melody is restricted to the tonic-triad arpeggio, as Andrade explicitly notes; one short strophe",
-    "practice": "learn the four Portuguese lines unaccompanied first; do not add a generic samba or bossa groove while the coco practice has not been reviewed",
-    "honesty": "provisional transcription of Andrade's Paraíba plate only; the Pernambuco chorus and solo that follow on the page are not silently combined with it",
-    "licence": "public domain source, first published 1928; Andrade died in 1945; the BBM/USP scan is marked public domain by Wikimedia Commons and IMSLP",
-    "respect": "label the collected place and variant; do not present this four-line Paraíba version as the only form of the song or of coco",
-    "review": "a Brazilian Portuguese speaker and a musician or culture bearer familiar with coco from Paraíba before promotion"
    }
   },
   {

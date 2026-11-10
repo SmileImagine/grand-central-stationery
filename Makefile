@@ -1,9 +1,12 @@
-.PHONY: smoke sets classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map
+.PHONY: smoke sets reports classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map
 
 sets:
 	node course/holding/build.js
 	node course/review/build.js
 	node course/build-sets.js
+
+# The course reports, rebuilt after the set changes (the smoke test fails while any is stale).
+reports: classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map
 
 classroom-fit:
 	node course/classroom-fit.js --md course/classroom-fit.md
