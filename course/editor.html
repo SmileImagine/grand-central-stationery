@@ -105,6 +105,7 @@ details.dossier p{margin:4px 0}
     <div class="panel" id="stagepanel" hidden>
       <h2>Workshop stage</h2>
       <div class="grid">
+        <label for="kind">Kind</label><select id="kind"><option value="tune">Whole tune</option><option value="fragment">Fragment</option></select>
         <label for="stage">Stage</label><select id="stage"></select>
         <label for="srccheck">Source check</label><select id="srccheck"><option>pending</option><option>verified</option></select>
         <label for="clscheck">Classroom check</label><select id="clscheck"><option>pending</option><option>passed</option></select>
@@ -180,7 +181,7 @@ details.dossier p{margin:4px 0}
       const og = document.createElement('optgroup'); og.label = KINDS[kind].label;
       for (const rec of records.filter(x => x.kind === kind)) {
         const o = document.createElement('option'); o.value = `${kind}/${rec.id}`;
-        o.textContent = `${VERDICT[rec.verdict] || ''} ${rec.title}${rec.group ? ` · ${STAGES[rec.group] || rec.group}` : ''}${rec.item.response ? ' · answered' : ''}`;
+        o.textContent = `${VERDICT[rec.verdict] || ''} ${rec.title}${rec.item.kind === 'fragment' ? ' · fragment' : ''}${rec.group ? ` · ${STAGES[rec.group] || rec.group}` : ''}${rec.item.response ? ' · answered' : ''}`;
         og.appendChild(o);
       }
       if (og.children.length) sel.appendChild(og);
@@ -227,6 +228,7 @@ details.dossier p{margin:4px 0}
       ai.push(`<div class="ai"><p><b>Found:</b> ${esc(it.findings)}</p><p><b>Suggestion:</b> ${esc(it.suggestion)}</p></div>`);
     } else {
       $('aiwho').textContent = 'from the workshop notes';
+      if (it.kind === 'fragment') ai.push(`<div class="ai"><p><b>A fragment:</b> ${esc(it.kindNote)}</p></div>`);
       if (it.blocked) ai.push(`<div class="ai"><p><b>Next step:</b> ${esc(it.blocked)}</p></div>`);
       if (it.notes) ai.push(`<div class="ai"><p><b>Notes:</b> ${esc(it.notes)}</p></div>`);
       if (it.dossier) ai.push(`<details class="dossier"><summary>Dossier</summary>${Object.entries(it.dossier).map(([k, v]) => `<p><b>${esc(k)}</b> ${esc(v)}</p>`).join('')}</details>`);
@@ -243,6 +245,7 @@ details.dossier p{margin:4px 0}
     if (active !== $('note')) $('note').value = getMeta(t, p, K.noteKey, true);
     if (active !== $('response')) $('response').value = getMeta(t, p, 'response', true);
     if (cur.kind === 'holding') {
+      $('kind').value = getMeta(t, p, 'kind') || 'tune';
       $('stage').value = getMeta(t, p, 'status') || 'inbox';
       $('srccheck').value = getMeta(t, p, 'source-check') || 'pending';
       $('clscheck').value = getMeta(t, p, 'classroom-check') || 'pending';
@@ -265,6 +268,7 @@ details.dossier p{margin:4px 0}
     t = setMeta(t, p, K.noteKey, $('note').value);
     t = setMeta(t, p, 'response', $('response').value);
     if (cur.kind === 'holding') {
+      t = setMeta(t, p, 'kind', $('kind').value === 'tune' && !getMeta(t, p, 'kind') ? '' : $('kind').value);
       t = setMeta(t, p, 'status', $('stage').value);
       t = setMeta(t, p, 'source-check', $('srccheck').value);
       t = setMeta(t, p, 'classroom-check', $('clscheck').value);
@@ -356,7 +360,7 @@ details.dossier p{margin:4px 0}
   /* ---- wiring ---- */
   $('file').addEventListener('input', () => { fromText(); render(); updateState(); });
   for (const id of ['note', 'response']) $(id).addEventListener('input', () => toText());
-  for (const id of ['stage', 'srccheck', 'clscheck']) $(id).addEventListener('change', () => { toText(); render(); });
+  for (const id of ['kind', 'stage', 'srccheck', 'clscheck']) $(id).addEventListener('change', () => { toText(); render(); });
   $('save').addEventListener('click', () => save());
   $('revert').addEventListener('click', () => { if (confirm('Throw away your unsaved changes?')) { $('file').value = saved; fromText(); render(true); updateState(); } });
   $('records').addEventListener('change', e => open(e.target.value));

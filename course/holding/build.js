@@ -4,6 +4,9 @@ const root = __dirname, itemsDir = path.join(root, 'items'), outFile = path.join
 const stages = ['inbox', 'transcription', 'source-check', 'classroom-check', 'ready'];
 // The teacher's verdict, apart from the stage: include it in the course, keep considering it, or reject it (with a note).
 const decisions = ['include', 'considering', 'reject'];
+// What the piece is: a whole tune, or a fragment (a bar or two taken down without the words, dance, drum or
+// variants that made it music), with holding-kind-note saying what is missing.
+const kinds = ['tune', 'fragment'];
 // Fields that may run over several lines, one "% holding-response: ..." line each, joined with newlines.
 const MULTI = ['response', 'decision-note'];
 const metaOf = text => {
@@ -42,6 +45,8 @@ const seen = new Set(), errors = [], items = files.map(file => {
   if (meta.status === 'ready' && (meta['source-check'] !== 'verified' || meta['classroom-check'] !== 'passed'))
     errors.push(`${file}: ready requires source-check: verified and classroom-check: passed`);
   if (meta.decision && !decisions.includes(meta.decision)) errors.push(`${file}: holding-decision wants ${decisions.join(', ')}`);
+  if (meta.kind && !kinds.includes(meta.kind)) errors.push(`${file}: holding-kind wants ${kinds.join(' or ')}`);
+  if (meta.kind === 'fragment' && !meta['kind-note']) errors.push(`${file}: a fragment wants a holding-kind-note saying what is missing`);
   if (meta.decision === 'reject' && !meta['decision-note']) errors.push(`${file}: a rejected tune wants a holding-decision-note saying why`);
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id,
@@ -49,6 +54,7 @@ const seen = new Set(), errors = [], items = files.map(file => {
     source: field(text, 'S'), sourceUrls: sourceUrlsOf(text), status: meta.status || 'inbox', owner: meta.owner || '',
     sourceCheck: meta['source-check'] || 'pending', classroomCheck: meta['classroom-check'] || 'pending',
     updated: meta.updated || '', blocked: meta.blocked || '', notes: field(text, 'N'),
+    kind: meta.kind || 'tune', kindNote: meta['kind-note'] || '',
     decision: meta.decision || 'considering', decisionNote: meta['decision-note'] || '',
     response: meta.response || '', responseUpdated: meta['response-updated'] || '',
     dossier: dossierOf(text)

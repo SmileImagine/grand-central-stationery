@@ -67,7 +67,13 @@ suggestions (the `holding-blocked` next step, the notes and the dossier):
 % holding-decision-note: why; a reject needs one
 % holding-response: the teacher's answer; one line each, as many as it takes
 % holding-response-updated: YYYY-MM-DD
+% holding-kind: tune | fragment   (absent means tune)
+% holding-kind-note: for a fragment, what is missing that made it music (needed)
 ```
+
+A fragment is a bar or two taken down without the words, dance, drum part or
+variants that made it musical; it is kept apart from the tunes until a record
+carries that context.
 
 A session picking up a tune reads `holding-response` first: it is the teacher
 answering what the last session suggested.
