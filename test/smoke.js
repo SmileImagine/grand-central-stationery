@@ -43,8 +43,15 @@ assert(sets.status === 0, sets.stderr || sets.stdout || 'course/sets.js is stale
 
 const arranger = spawnSync(process.execPath, ['test/arrange.test.js'], { cwd: root, encoding: 'utf8' });
 assert(arranger.status === 0, arranger.stderr || arranger.stdout || 'arranger checks failed');
+const review = spawnSync(process.execPath, ['course/review/build.js', '--check'], { cwd: root, encoding: 'utf8' });
+assert(review.status === 0, review.stderr || review.stdout || 'review queue is stale');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
-assert(set.tunes.length === 45, `expected 45 published tunes, found ${set.tunes.length}`);
+// A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
+// still make the 45 tunes, and the workshop and the queue's workshop pieces the 13 items.
+const queue = JSON.parse(fs.readFileSync(path.join(root, 'course/review/index.json'), 'utf8')).items;
+const inReview = from => queue.filter(it => it.from === from).length;
+assert(set.tunes.length + inReview('published') === 45, `expected 45 tunes published or in review, found ${set.tunes.length} + ${inReview('published')}`);
+assert(!set.tunes.some(t => queue.some(it => it.id === t.id)), 'a piece is both published and in the review queue');
 assert(new Set(set.tunes.map(t => t.id)).size === set.tunes.length, 'published tune IDs are not unique');
 assert(!set.tunes.some(t => /\bsketch\b/i.test(`${t.title}\n${t.abc}`)), 'a sketch remains in the published set');
 for (const [id, key, abcKey] of [
@@ -64,4 +71,5 @@ for (const token of ['course/holding/board.html', 'lab/Play%20Along%20v1.html', 
 assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab is missing');
 
 const workshop = JSON.parse(fs.readFileSync(path.join(root, 'course/holding/index.json'), 'utf8')).items.length;
-console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshop} workshop items).`);
+assert(workshop + inReview('holding') === 13, `expected 13 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
+console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshop} workshop items; ${queue.length} in review).`);

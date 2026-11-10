@@ -1,0 +1,25 @@
+% review-id: reelsr-t-49-soldiers-joy
+% review-from: published
+% review-status: pending
+% review-categories: substances, context
+% review-findings: No words in the file. The same sung verses as the other Soldier's Joy (morphine and beer).
+% review-suggestion: Keep as an instrumental with the note. The arranger test uses this tune; it reads it from here while it is in review.
+% review-decision:
+% review-set-entry: {"id":"reelsr-t-49-soldiers-joy","title":"Soldiers' Joy","level":5,"score":7.63,"key":"D","metre":"4/4","bars":18,"origin":"","composer":"","rhythm":"","source":"../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsr-t.abc","skills":["degree:do","degree:fa","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:1/2","key:2","leap:4th","metre:4/4","pickup","range:over-octave","repeat"],"introduces":[],"abc":"@abc\n","ontario":{"grade":6,"band":"Grade 6","concepts":["pick-up notes (anacrusis)"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","6: pick-up notes (anacrusis)","4: simple repeats","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["xmas-7-jubilate-deo-round","reelsr-t-59-sugar-in-the-gourd","first-tunes-11-soldier-s-joy","hindostan-folk-3-o-where-will-you-go"]}
+X: 49
+T:Soldiers' Joy
+% Nottingham Music Database
+S:Kevin Briggs, via EF
+M:4/4
+L:1/4
+K:D
+P:A
+F/2G/2|"D"A/2F/2D/2F/2 A/2F/2D/2F/2|"D"Ad "G"dc/2B/2|\
+"D"A/2F/2D/2F/2 A/2F/2D/2F/2|"E7"GE "A7"EF/2G/2|
+"D"A/2F/2D/2F/2 A/2F/2D/2F/2|"D"Ad "G"dg|"D/a"f/2a/2f/2d/2 "A7"e/2g/2e/2c/2|\
+"D"ed d:|
+P:B
+d/2e/2|"D"ff/2d/2 f/2a/2g/2f/2|"A7"ee/2c/2 e/2g/2f/2e/2|\
+"D"ff/2d/2 f/2a/2g/2f/2|"E7""G"e/2d/2c/2B/2 "A7""A"Ad/2e/2|
+"D""Bm"f/2d/2f/2d/2 f/2a/2g/2f/2|"Em"e/2c/2e/2c/2 "A7"e/2g/2f/2e/2|\
+"D"f/2a/2f/2d/2 "A7"e/2g/2e/2c/2|"D"ed d:|

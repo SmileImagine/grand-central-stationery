@@ -57,7 +57,8 @@ const dor = keyInfoOf(ABCJS.parseOnly('X:1\nK:Ador\nA|]\n')[0].getKeySignature()
 assert(dor.tonic === 9 && dor.scale.slice().sort((a, b) => a - b).join(' ') === '0 2 4 6 7 9 11', 'A Dorian: tonic A, the notes of G major');
 
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8')).tunes;
-const tuneAbc = id => set.find(t => t.id === id).abc;
+// A tune in the review queue (out of circulation for a classroom check) is read from there.
+const tuneAbc = id => { const t = set.find(x => x.id === id); if (t) return t.abc; const f = path.join(root, 'course/review/items', `${id}.abc`); return fs.readFileSync(f, 'utf8').split('\n').filter(l => !/^%\s*review-/.test(l)).join('\n'); };
 const chorded = set.filter(t => /"[A-G]/.test(t.abc));
 
 for (const t of chorded) for (const style of Object.keys(page.STYLES).filter(k => k !== 'auto')) {

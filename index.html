@@ -2100,6 +2100,8 @@
       samba:     { name: 'Samba de roda (Brazil)', build: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       mento:     { name: 'Mento (Jamaica)', harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'soft' } },
       minyo:     { name: 'Min\u2019y\u014D (Japanese folk)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      persian:   { name: 'Persian folk (frame drum)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      korean:    { name: 'Korean folk (janggu)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
       drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
     };
     // The harmony a style key plays with (the pop band's for a key it does not know).
@@ -2130,6 +2132,8 @@
       if (/trap|drill/.test(r)) return 'trap';
       if (/mento|ring (game|tune)/.test(r)) return 'mento';
       if (/samba|roda|ciranda|coco|batucada|partido/.test(r)) return 'samba';
+      if (/korea|arirang|gugak|janggu/.test(r)) return 'korean';
+      if (/persian|iran|tasnif|tombak|daf/.test(r)) return 'persian';
       if (/min.?y[oō]|warabe|zashiki|koto/.test(r)) return 'minyo';
       if (/reel|hornpipe|strathspey|country|bluegrass|old-?time|breakdown|fiddle|folk|barn/.test(r) || (num === 2 && den === 4)) return 'folk';
       return 'pop';
@@ -2646,6 +2650,25 @@
         }
         if (hi) drums.push('<~ ~ ~ [bd:.5 bd:.6 bd:.7 bd:.8]>');
         bass.push(lo ? ['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' ') : ['r', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
+        chords.push('pad');
+      },
+      persian: g => {   // Persian folk song: a frame drum's low dum and high tak (the kick and rim), with its rolled shimmer at the top; a drone on the song's final, no chord changes
+        const { energy, drums, bass, chords, lo, hi, nb, compound } = g;
+        if (!lo) {
+          drums.push(compound ? Array(nb).fill('bd ~ rim:.5').join(' ') : nb === 3 ? 'bd rim:.5 rim:.45' : Array.from({ length: nb }, (_, k) => ['bd', 'rim:.5', '[bd:.6 rim:.45]', 'rim:.55'][k % 4]).join(' '));
+          if (hi) drums.push(`tb:.2*${nb * 2}`);
+        } else if (energy > 0.15) drums.push(['bd:.5', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
+        bass.push(['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' '));
+        chords.push('pad');
+      },
+      korean: g => {   // Korean folk song: the janggu (the kick its low side, the rim its high side) in a lilting three, after the semachi jangdan; an open-fifth drone, no chord changes
+        const { energy, drums, bass, chords, lo, hi, nb } = g;
+        if (!lo) {
+          if (nb === 3) drums.push('[bd rim:.45 ~] [bd:.55 ~ rim:.55] [bd:.5 ~ ~]');
+          else drums.push(Array(Math.max(1, Math.round(nb / 2))).fill('[bd rim:.45] [bd:.55 rim:.5]').join(' '));
+          if (hi) drums.push(`[~ ~ rim:.25]*${nb}`);
+        } else if (energy > 0.15) drums.push(['bd:.5', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
+        bass.push(['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' '));
         chords.push('pad');
       },
       house: g => {   // four on the floor, claps on two and four, the open hat between the kicks, an offbeat bass

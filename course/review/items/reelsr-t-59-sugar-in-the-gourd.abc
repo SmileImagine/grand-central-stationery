@@ -1,0 +1,21 @@
+% review-id: reelsr-t-59-sugar-in-the-gourd
+% review-from: published
+% review-status: pending
+% review-categories: sexual, context
+% review-findings: No words in the file. Sung versions of this old-time tune have a sexual double meaning.
+% review-suggestion: Keep as an instrumental with the same note: play the tune, not the words.
+% review-decision:
+% review-set-entry: {"id":"reelsr-t-59-sugar-in-the-gourd","title":"Sugar in the Gourd","level":5,"score":7.3,"key":"A","metre":"4/4","bars":12,"origin":"","composer":"","rhythm":"","source":"../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/reelsr-t.abc","skills":["degree:do","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:1/2","dur:2","key:3","leap:4th","metre:4/4","range:over-octave","repeat"],"introduces":[],"abc":"@abc\n","ontario":{"grade":4,"band":"Grade 4","concepts":["simple repeats","the major scale (fa and ti), intervals, accidentals"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","2: half and whole notes","4: simple repeats","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["first-tunes-11-soldier-s-joy","hindostan-folk-3-o-where-will-you-go"]}
+X: 59
+T:Sugar in the Gourd
+% Nottingham Music Database
+S:Lynn Rohrbough, via EF
+M:4/4
+L:1/4
+K:A
+P:A
+"A"c/2B/2A/2G/2 EC|"A"E/2F/2A "E7"B2|"A"c/2B/2A/2G/2 EC|"D"E/2F/2A "A"A2:|
+P:B
+"A"ce/2f/2 ec|"A"B/2c/2e "A7"e2|"D"ff/2g/2 fe|"E7"B/2c/2e e2|
+"D"ab/2a/2 "A"f/2e/2c|"A"e/2f/2e "E7"c2|"F#m"AB/2c/2 "Bm"B/2A/2F|\
+"E7"E/2F/2A "A"A2:|

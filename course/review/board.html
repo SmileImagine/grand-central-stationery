@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Review queue · Grand Central Stationery</title>
+<style>
+
+:root{color-scheme:light dark;--bg:#f4f1e9;--card:#fffdf8;--ink:#24211d;--muted:#70695f;--line:#c9bfae;--accent:#77541f} @media(prefers-color-scheme:dark){:root{--bg:#171613;--card:#24211d;--ink:#f4efe5;--muted:#b4aa9b;--line:#51493d;--accent:#e2ba72}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,sans-serif}header{padding:20px 24px 12px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}h1{margin:0;font-family:Georgia,serif;font-weight:500}header a{color:var(--accent)}header p{margin:0;color:var(--muted)}main{display:grid;grid-template-columns:repeat(5,minmax(230px,1fr));gap:12px;padding:12px 24px 28px;overflow:auto;align-items:start}.column{border-top:3px solid var(--accent);min-height:180px}.column h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;margin:10px 4px;color:var(--muted)}.count{float:right}.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;margin:9px 0;box-shadow:0 2px 8px #0001}.card h3{margin:0 0 2px;font-size:17px}.sub,.source,.meta,.blocked{color:var(--muted);font-size:13px}.source{margin:8px 0}.meta{display:grid;grid-template-columns:auto 1fr;gap:2px 8px}.blocked{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}.card a{color:var(--accent)}.empty{color:var(--muted);padding:10px 4px}.dossier{font-size:13px;margin-top:8px;border-top:1px solid var(--line);padding-top:6px}.dossier summary{cursor:pointer;color:var(--accent)}.dossier p{margin:4px 0}.error{margin:24px;padding:16px;border:1px solid #b33;background:#b331;color:white;border-radius:8px}@media(max-width:800px){main{grid-template-columns:repeat(5,82vw);scroll-snap-type:x mandatory}.column{scroll-snap-align:start}header{padding-inline:16px}main{padding-inline:16px}}
+
+main{grid-template-columns:repeat(4,minmax(240px,1fr))}.cats{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}.cat{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--muted)}.cat.racism,.cat.violence,.cat.sexual{border-color:var(--accent);color:var(--accent)}.find,.sugg,.dec{font-size:13px;margin:8px 0 0}.sugg{border-top:1px solid var(--line);padding-top:8px}.from{font-size:12px;color:var(--muted)}
+@media(max-width:800px){main{grid-template-columns:repeat(4,82vw)}}
+</style>
+</head>
+<body><header><h1>Review queue</h1><a href="../board.html">Practice board</a><a href="../holding/board.html">Tune workshop</a><a href="../../index.html">Main page</a><p>Pieces out of circulation until a teacher has checked their words, titles and context for the classroom. Nothing here has been changed; each card says what was found and suggests what to do.</p></header><main id="board"></main>
+<script>
+const names={pending:'To review',keep:'Keep',change:'Change, then restore',remove:'Remove'};
+const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const show=data=>{
+  const board=document.getElementById('board');
+  const rank=['racism','violence','sexual','substances','context','religious'],weight=it=>Math.min(...it.categories.map(c=>rank.indexOf(c)).filter(i=>i>=0),9)*10-it.categories.length;   // the most serious first
+  for(const status of data.statuses){const items=data.items.filter(x=>x.status===status).sort((a,b)=>weight(a)-weight(b)||a.title.localeCompare(b.title)),col=document.createElement('section');col.className='column';col.innerHTML=`<h2>${esc(names[status])}<span class="count">${items.length}</span></h2>`;
+    if(!items.length)col.insertAdjacentHTML('beforeend','<div class="empty">Nothing here</div>');
+    for(const it of items)col.insertAdjacentHTML('beforeend',`<article class="card"><h3>${esc(it.title)}</h3><div class="sub">${esc(it.subtitle)}</div><div class="from">From the ${it.from==='published'?'published set':'tune workshop'}</div><div class="cats">${it.categories.map(c=>`<span class="cat ${esc(c)}">${esc(c)}</span>`).join('')}</div><p class="find"><b>Found:</b> ${esc(it.findings)}</p><p class="sugg"><b>Suggestion:</b> ${esc(it.suggestion)}</p>${it.decision?`<p class="dec"><b>Decision:</b> ${esc(it.decision)}</p>`:''}<p><a href="${encodeURI(it.file)}">Open ABC</a></p></article>`);
+    board.appendChild(col);
+  }
+};
+fetch('index.json').then(r=>{if(!r.ok)throw Error(`${r.status} ${r.statusText}`);return r.json()}).then(show).catch(e=>{
+  const s=window.GCS_SETS&&window.GCS_SETS.review; if(s){show(s);return}
+  document.getElementById('board').outerHTML=`<div class="error">Could not load the review queue: ${esc(e.message)}. Serve the repository rather than opening this page directly.</div>`;
+});
+</script><script src="../sets.js"></script></body></html>

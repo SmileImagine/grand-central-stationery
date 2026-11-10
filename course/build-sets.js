@@ -12,7 +12,7 @@
 const fs = require('fs'), path = require('path');
 const root = __dirname, out = path.join(root, 'sets.js');
 const read = f => { const p = path.join(root, f); return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null; };
-const sets = { tunes: read('set.json'), rhythms: read('rhythm-set.json'), dances: read('dance-set.json'), figures: read('figure-set.json'), holding: read('holding/index.json'), sketches: {} };
+const sets = { tunes: read('set.json'), rhythms: read('rhythm-set.json'), dances: read('dance-set.json'), figures: read('figure-set.json'), holding: read('holding/index.json'), review: read('review/index.json'), sketches: {} };
 if (sets.holding) for (const it of sets.holding.items) {
   const p = path.join(root, 'holding', it.file);
   if (fs.existsSync(p)) sets.sketches[it.id] = fs.readFileSync(p, 'utf8');

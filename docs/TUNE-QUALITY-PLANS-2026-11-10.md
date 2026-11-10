@@ -385,13 +385,36 @@ whatever the emphasis:
     min'yo (taiko, hyoshigi, chanchiki bell, an open-fifth drone on the
     song's final, no chord changes). A drone style now keeps a chord the
     tune writes (the open fifth) instead of filling with the key's triad.
-  - Not yet: West Africa and the Middle East. No machine-readable public
-    domain source was found this round, and typing songs from memory would
-    not be accurate enough; they want a culture bearer's version (typed as
-    CC0 from teaching practice, as the course rules allow) or a scan read
-    bar by bar.
-- Still open: synth leads; West African, Middle Eastern, Latin American
-  (Andrade 1928) and Korean tunes; original bangers (phase 4); class parts
+  - Second wave, read bar by bar from public-domain scans (each scan
+    deskewed or enhanced, and for Andrade the 900 ppi line layer laid over
+    the 150 ppi page so the beams could be told apart):
+    - Brazil: Sambalele, a roda from Laranjal, Sao Paulo (Andrade, *Ensaio
+      sobre a musica brasileira*, 1928, Wikimedia Commons), with a new
+      samba de roda style (surdo, ganza, tamborim, agogo, palmas,
+      cavaquinho). Its 1928 verse has words a class may change.
+    - Korea: Arirang as Homer Hulbert wrote it down (*The Korean
+      Repository*, February 1896; archive.org), the earliest written
+      Arirang, with a modest Korean style (janggu after the semachi
+      jangdan, an open fifth). Bar 2's flags are missing in the print.
+    - Iran: Mikhahi labu? ("Do you want hot beetroot?"), Blair Fairchild,
+      *Twelve Persian Folk-Songs* (1904; University of Rochester), with a
+      Persian frame-drum style, generic and flagged as ours.
+  - West Africa: still none. No public-domain or openly licensed staff
+    transcription of Ghanaian or other West African songs was found. A
+    culture bearer's version, or a community video transcribed by ear by
+    someone who can hear it and typed as CC0, is the way in; the recording
+    itself stays the community's.
+- Classroom check (10 November 2026): every title, note and word of the 58
+  pieces (45 published, 13 in the workshop) was read for racism, sexual or
+  violent references, drugs and alcohol, and religious content. 43 read
+  clean. The 15 with findings are in `course/review/` (out of the published
+  set, the library and the workshop until a teacher decides), each with what
+  was found and a suggestion; nothing was changed in them, and
+  `node course/review/build.js --restore <id>` puts a piece back exactly.
+  Most serious: Sambalele (a thrashing, and "mulata" in the chorus), Carry
+  banana ("Chiney"), Mikhahi labu (innuendo and cigarettes in every verse).
+- Still open: synth leads; West African tunes; more from Andrade, Jekyll,
+  Fairchild and the Japanese books; original bangers (phase 4); class parts
   and the live energy fader (phase 5).
 
 ## Decisions for the user

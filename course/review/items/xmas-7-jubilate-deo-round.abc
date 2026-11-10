@@ -1,0 +1,17 @@
+% review-id: xmas-7-jubilate-deo-round
+% review-from: published
+% review-status: pending
+% review-categories: religious
+% review-findings: A round on the Latin psalm Jubilate Deo (Psalm 100, "Rejoice in God"); no words in the file.
+% review-suggestion: Keep; label it a sacred round so teachers can follow their school's guidance on religious songs.
+% review-decision:
+% review-set-entry: {"id":"xmas-7-jubilate-deo-round","title":"Jubilate Deo (round)","level":5,"score":7.47,"key":"C","metre":"4/4","bars":6,"origin":"","composer":"","rhythm":"","source":"../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/xmas.abc","skills":["degree:do","degree:fa","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:2","key:0","leap:4th","metre:4/4","range:over-octave","rest"],"introduces":[],"abc":"@abc\n","ontario":{"grade":4,"band":"Grade 4","concepts":["the major scale (fa and ti), intervals, accidentals"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","2: half and whole notes","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["reelsr-t-59-sugar-in-the-gourd","first-tunes-11-soldier-s-joy","hindostan-folk-3-o-where-will-you-go"]}
+X: 7
+T:Jubilate Deo (round)
+% Nottingham Music Database
+P:AAB
+S:Taize?
+M:4/4
+L:1/4
+K:C
+"C"c2 "G7"d2|ec cB|cA GF|EF D2|C2 G,G,|C2 z2||

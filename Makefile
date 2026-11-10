@@ -2,6 +2,7 @@
 
 sets:
 	node course/holding/build.js
+	node course/review/build.js
 	node course/build-sets.js
 
 smoke:

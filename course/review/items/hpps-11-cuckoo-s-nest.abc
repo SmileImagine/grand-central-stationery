@@ -1,0 +1,18 @@
+% review-id: hpps-11-cuckoo-s-nest
+% review-from: published
+% review-status: pending
+% review-categories: sexual, context
+% review-findings: No words in the file. "The Cuckoo's Nest" is also the title of a bawdy folk song in which the phrase is sexual slang.
+% review-suggestion: Keep the hornpipe as an instrumental; add a note "play the tune; the sung words are not for class", and leave the title.
+% review-decision:
+% review-set-entry: {"id":"hpps-11-cuckoo-s-nest","title":"Cuckoo's Nest","level":4,"score":5.78,"key":"Dm","metre":"4/4","bars":8,"origin":"","composer":"","rhythm":"Hornpipe","source":"../../../../../../private/tmp/claude-501/-Users-faunagram-Grand-Central-Stationery--claude-worktrees-free-music-practice-sequences-9989f2/d64e36c7-23e7-4374-9a7b-033504ca427e/scratchpad/corpus-dl/nottingham-dataset-master/ABC_original/hpps.abc","skills":["degree:do","degree:fa","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:1/2","key:1","leap:4th","metre:4/4","range:over-octave"],"introduces":["range:over-octave"],"abc":"@abc\n","ontario":{"grade":4,"band":"Grade 4","concepts":["the major scale (fa and ti), intervals, accidentals","minor tonality"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","4: the major scale (fa and ti), intervals, accidentals","4: minor tonality"],"ignored":["key","texture"]},"_after":["beginner-songs-10-lightly-row"]}
+X: 11
+T:Cuckoo's Nest
+% Nottingham Music Database
+S:Song
+M:4/4
+L:1/8
+R:Hornpipe
+K:Dm
+"Dm"D2DE DCA,C|"Dm"DCDE F2"C7"FA|"F"c2cd A2GF|"C"ECCC C2"A7"FE|
+"Dm"D2DE DCA,C|"Dm"DCDE F2"C7"FG|"F"ABcA "A7"GFEF|"Dm"E2"Gm"D2 "Dm"D2||
