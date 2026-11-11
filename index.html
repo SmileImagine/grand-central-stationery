@@ -1998,7 +1998,7 @@
       return chart;
     }
     // The chart lines as comments, each the same length, so abcjs neither warns nor shifts a character.
-    const chartComment = abc => abc.replace(/^%%?(band|tuning|style|round)\b/mg, m => '%' + ' '.repeat(m.length - 1));
+    const chartComment = abc => abc.replace(/^%%?(band|tuning|style|round|fade)\b/mg, m => '%' + ' '.repeat(m.length - 1));
     /* ---- rounds: one melody, sung by groups that come in one after another ----
        A line in the ABC, "%%round 4 every=2", makes the tune a round: four
        groups, each coming in two bars after the one before. The page plays
@@ -2021,6 +2021,37 @@
       }
       return r;
     }
+    /* ---- fading a part in, a step each time round ----
+       "%%fade 2" brings voice 2 (or a round's group 2) in over four times
+       round: silent the first time, then a third, two thirds, then full, the
+       way a teacher raises a loop station's second channel under the class's
+       singing. over=3 takes three times round. Several lines fade several
+       parts (the class learning voice 2: "%%fade 1" brings voice 1 in under
+       it). The Mixer's level is the ceiling the fade rises to. */
+    const FADE_LINE = /^%%?fade\b(.*)$/;
+    function parseFades(text) {
+      const out = { parts: new Map(), problems: [], at: [], lineOf: new Map() };
+      let pos = 0;
+      for (const raw of text.split('\n')) {
+        const m = FADE_LINE.exec(raw.trim());
+        if (m) {
+          out.at.push([pos, pos + raw.length]);
+          let part = null, over = 4;
+          for (const tok of m[1].trim().split(/\s+/).filter(Boolean)) {
+            const kv = /^over=(.*)$/i.exec(tok);
+            if (kv) { const n = parseInt(kv[1], 10); if (n >= 2 && n <= 16 && String(n) === kv[1]) over = n; else out.problems.push({ text: `Fade: over=${kv[1]} is the times round to reach full level, 2 to 16.`, at: [pos, pos + raw.length] }); }
+            else if (/^[1-4]$/.test(tok)) part = +tok;
+            else out.problems.push({ text: `Fade: "${tok}" is not a part (1 to 4) or over=4.`, at: [pos, pos + raw.length] });
+          }
+          if (part === null) out.problems.push({ text: 'Fade: which part? %%fade 2 fades voice (or group) 2 in.', at: [pos, pos + raw.length] });
+          else { out.parts.set(part, over); out.lineOf.set(part, [pos, pos + raw.length]); }
+        }
+        pos += raw.length + 1;
+      }
+      return out.at.length ? out : null;
+    }
+    // A part's fade level the k-th time round (0 the first): 0, 1/(over-1), ... up to 1; 1 for a part with no fade.
+    const fadeLevel = (fades, part, k) => { const over = fades && fades.parts.get(part); return over ? Math.max(0, Math.min(1, k / (over - 1))) : 1; };
     // How well a round's groups fit: on every beat, each pair of the groups' top notes (the tune
     // going round, so every group is in), scored by its interval. Unisons, thirds, fifths, sixths
     // and octaves fit; fourths count half; seconds, sevenths and the tritone clash. `events` are the
@@ -3975,6 +4006,7 @@
         this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: n.rel || 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
         // A round: the other groups sing the melody as the first group does (with its feel), from the same list, later.
         this.round = tl && tl.round && this.leadTrack ? tl.round : null;
+        this.fades = cell.fades && cell.fades.parts.size ? cell.fades : null;
         this.lead = !this.round ? [] : mm ? shaped(this.leadTrack) : this.leadTrack.notes.map(n => ({ part: 'melody', folder: folderOf(this.leadTrack.prog), midi: n.pitch, ms: n.start * this.msPerWhole, dur: Math.max(0.03, (n.duration - (n.gap || 0)) * this.msPerWhole / 1000), vel: Math.max(0.05, Math.min(1, (n.volume || 90) / 127)), rel: 0.14 }));
         if (cell.tuning && !cell.tuning.problems.length) {   // the tuning: every pitched note, the melody's and the band's, detuned to its degree
           const off = tuningOffsets(cell.tuning, cell.keyInfo());
@@ -4121,7 +4153,11 @@
         const horizon = Math.min(now + LOOKAHEAD, this.end);
         const when = ms => Math.max(ctx.currentTime, this.ctx0 + (ms - this.abs0) / 1000);
         const pump = this.style.pump || 0;
-        const play = (n, ms, to = null) => {
+        // A %%fade line scales a part's notes by its time round (the melody's voice, or a round's group: part 1 is the first).
+        const fade = (part, k) => this.fades ? fadeLevel(this.fades, part, k) : 1;
+        const play = (n, ms, to = null, level = 1) => {
+          if (level <= 0) return;
+          if (level < 1) n = { ...n, vel: n.vel * level };
           if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setTargetAtTime(1 - pump * k, t, 0.003); g.setTargetAtTime(1, t + 0.03, 0.07); }   // a 3 ms dip, not a step (a step clicks)
           const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, to || this.route(n, bus), n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
@@ -4132,7 +4168,7 @@
             const N = (last ? this.endings : this.cycles)[cyc % this.cycles.length];
             const lo = Math.max(a, base) - base, hi = Math.min(horizon, base + this.total) - base;
             let i = this.first(N, lo);
-            while (i < N.length && N[i].ms < hi) { play(N[i], base + N[i].ms); i++; }
+            while (i < N.length && N[i].ms < hi) { play(N[i], base + N[i].ms, null, N[i].part === 'melody' ? fade((N[i].voice || 0) + 1, cyc) : 1); i++; }
             if (!this.loop) break;
             cyc++;
           }
@@ -4147,7 +4183,7 @@
             for (let c = Math.floor(lo / T); c * T < hi; c++) {
               const base = c * T;
               let i = this.first(N, lo - base);
-              while (i < N.length && N[i].ms < hi - base) { play(N[i], sh + base + N[i].ms, bus.groups[g]); i++; }
+              while (i < N.length && N[i].ms < hi - base) { play(N[i], sh + base + N[i].ms, bus.groups[g], fade(g + 1, c)); i++; }
             }
           }
         }
@@ -4737,6 +4773,7 @@
         this.chart = parseChart(text);
         this.tuning = parseTuning(text);
         this.round = parseRound(text);
+        this.fades = parseFades(text);
         // No arrangement: Chords on Auto finds chords from the melody wherever none are written (all of a tune without symbols, or the bars its symbols leave out), so the band has something to play.
         this.styleKey = styleFor(this.style, text);   // the text, not abc: chartComment has hidden the %%style line by now
         this.tuneVoice = voiceFor(text);   // the melody's sound with no instrument view (TUNE_VOICE)
@@ -4883,6 +4920,23 @@
           const against = hasMeter ? `the metre gives ${fmt(b.expected / unit)}` : inferred ? `the other bars have ${fmt(b.expected / unit)}` : 'with no M: line the score assumes 4';
           out.push({ more: MORE.bars, at: this.rangeOf(b.items[0], b.items[b.items.length - 1]), text: `Bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${against}.` + dottedTip(b.items) });
         });
+        // A song in parts: every other voice's bars against the same length (the melody's, above), named by its voice.
+        const voiceCount = Math.max(1, ...this.origElems.filter(e => e.el_type === 'note').map(e => (e._voice || 0) + 1));
+        const vnames = voiceCount > 1 ? voiceNames(this.original) : [];
+        for (let v = 1; v < voiceCount; v++) {
+          const want = inferred && bars.length ? bars[0].expected : expected, vbars = []; let vl = 0, vc = 0, vm = 1, vt = false, vi = [];
+          for (const el of this.origElems) {
+            if ((el._voice || 0) !== v) continue;
+            if (el.el_type === 'note') { if (el.startTriplet) { vt = true; vm = el.tripletMultiplier || 1; } vl += (el.duration || 0) * (vt ? vm : 1); vc++; vi.push(el); if (el.endTriplet) { vt = false; vm = 1; } }
+            else if (el.el_type === 'bar') { if (vc) vbars.push({ len: vl, items: vi }); vl = 0; vc = 0; vi = []; }
+          }
+          const who = vnames[v] || `Voice ${v + 1}`;
+          vbars.forEach((b, i) => {
+            if (want === null || Math.abs(b.len - want) < 1e-6) return;
+            if (b.len < want && (i === 0 || i === vbars.length - 1)) return;
+            out.push({ more: MORE.bars, at: this.rangeOf(b.items[0], b.items[b.items.length - 1]), text: `${who}, bar ${i + 1} holds ${fmt(b.len / unit)} beats; ${hasMeter ? 'the metre gives' : 'the melody\'s bars have'} ${fmt(want / unit)}.` + dottedTip(b.items) });
+          });
+        }
         // Lyrics: one syllable per note (rests are skipped). A hyphen splits
         // a word across notes, _ holds a syllable, * skips a note.
         const musicLines = text.split('\n').filter(l => !/^[A-Za-z]:/.test(l) && !/^%/.test(l) && l.trim() !== '');
@@ -5364,9 +5418,11 @@
         this.tl.parts = voices > 1 ? Array.from({ length: voices }, (_, v) => v ? eventsOf(v) : events) : null;
         this.tl.names = voices > 1 ? voiceNames(this.original) : null;
         this.tl.round = this.planRound(barMs);
+        this.fadeNotes = this.planFades();
         this.placeRound();
         this.k = null; this.beatK = null;
-        this.vizSchedule();
+        this.vizVoice = this.instrumentVoice(0); this.kv = null;
+        this.vizSchedule(this.tl.parts ? this.vizEvents() : null);
         this.player.setTempo(beatMs / this.beatLen());
         this.player.compile();
       }
@@ -5393,6 +5449,18 @@
         if (best) msg += ` every=${best.every} fits better (${pct(best)}${best.clash.length ? '' : ', no clash on a downbeat'}).`;
         this.roundNotes.push({ tip: true, at, text: msg, more: 'A %%round line makes the tune a round. The number (2, 3 or 4) is how many groups sing or play it; every=2 is the bars between one group coming in and the next (without it, the page picks the distance that fits best, and the hint says which); end=turns (the default) lets each group finish its last time round, so they stop one by one, and end=together stops them all when group 1 finishes. With Repeat on the groups go round until Repeat is turned off. The Mixer has a figure for each group, to mute the group the class is taking.\n\nThe fit counts, on every beat, each pair of notes the groups sound together: unisons, thirds, fifths, sixths and octaves fit, fourths count half, seconds, sevenths and the tritone clash. Only clashes on a downbeat are named: a passing clash between beats is normal in a good round. Another distance is suggested only when it fits clearly better, with no more downbeat clashes, and without the groups mostly singing the same notes. Listen before choosing.' });
         return { parts, every, off: every * barMs, end: r.end, bars };
+      }
+      // The fade lines' hint: which part comes in over how many times round, and what is wrong with a line.
+      planFades() {
+        const f = this.fades, tl = this.tl; if (!f) return [];
+        const out = [...f.problems], parts = tl.round ? tl.round.parts : tl.parts ? Math.min(4, tl.parts.length) : 1;
+        const word = tl.round ? 'group' : 'voice', name = n => tl.names && tl.names[n - 1] ? tl.names[n - 1] : `${word} ${n}`;
+        for (const [part, over] of f.parts) {
+          if (part > parts) { out.push({ text: `Fade: there is no ${word} ${part}; this tune has ${parts}.`, at: f.lineOf.get(part) }); continue; }
+          const steps = Array.from({ length: over }, (_, k) => { const v = fadeLevel(f, part, k); return v === 0 ? 'silent' : v === 1 ? 'full' : Math.round(v * 100) + '%'; });
+          out.push({ tip: true, at: f.lineOf.get(part), text: `Fade: ${name(part)} comes in over ${over} times round (${steps.join(', ')}), then stays full. It needs Repeat on; the Mixer's level is the top it rises to.`, more: 'A %%fade line raises a part a step each time round, the way a loop station\'s second channel is raised under the class\'s singing. %%fade 2 brings voice 2 (or a round\'s group 2) in over four times round: silent, a third, two thirds, then full. over=3 makes it three times round. Several lines fade several parts: to teach voice 2, sing it and let "%%fade 1" bring voice 1 in under it. Its cursor shows where the part is even while it is silent.' });
+        }
+        return out;
       }
       // The entry numbers on the staff: each group's number over the note the
       // first group is singing when that group comes in, as a round book prints them.
@@ -5525,6 +5593,9 @@
         // The sounding event: marks change only when it changes.
         const k = t < 0 ? -1 : this.indexAt(t);
         this.updateNextUp(t, k, cyc);
+        // The instrument's voice (a song in parts: the loudest part) and its sounding event.
+        if (tl.parts) { const vv = this.instrumentVoice(cyc); if (vv !== this.vizVoice) { this.vizVoice = vv; this.vizSchedule(this.vizEvents()); this.kv = null; } }
+        const VE = this.vizEvents(), kv = VE === tl.events ? k : t < 0 ? -1 : this.indexAt(t, VE), markNow = k !== this.k || kv !== this.kv;
         // In a round, the other groups' cursors, and the notes each group is on light up with the first group's.
         const lit = tl.round ? this.paintRound() : tl.parts ? this.paintVoices(t) : [], litKey = lit.map(x => typeof x === 'number' ? x : `${x.ms}/${x.i}/${x.staff}`).join(',');
         if (k !== this.k || litKey !== this.litKey) {
@@ -5536,7 +5607,11 @@
           this.k = k;
           const cur = tl.events[k], nxt = tl.events[k + 1];
           if (g) { g.classList.remove('done', 'ready'); { const e0 = cur || tl.events[0] || { line: 0, staff: 0 }; this.shapeCursor(g, e0.line, e0.staff || 0); } this.colourCursor(g, (cur || tl.events[0] || { color: 'var(--cursor)' }).color); }
-          if (this.viz && this.viz.layout) this.viz.mark(cur ? cur.midis : [], nxt ? nxt.midis : (k < 0 && tl.events[0] ? tl.events[0].midis : []), { index: k, chord: cur ? this.chordAt(cur.ev) : (tl.events[0] ? this.chordAt(tl.events[0].ev) : null) });
+        }
+        if (markNow) {
+          this.kv = kv;
+          const cur = VE[kv], nxt = VE[kv + 1];
+          if (this.viz && this.viz.layout) this.viz.mark(cur ? cur.midis : [], nxt ? nxt.midis : (kv < 0 && VE[0] ? VE[0].midis : []), { index: kv, chord: cur ? this.chordAt(cur.ev) : (VE[0] ? this.chordAt(VE[0].ev) : null) });
         }
         // The lamp pulses on each beat, counting the lead-in too; the digits show in game mode.
         const beatK = Math.floor((t + tl.lead) / tl.beatMs + 1e-6);
@@ -5554,7 +5629,7 @@
         }
         // The instrument: how far along the way to the next note.
         if (this.viz && this.viz.layout) {
-          const cur = tl.events[k], nxt = tl.events[k + 1];
+          const cur = VE[kv], nxt = VE[kv + 1];
           let u = 0, dt = 0;
           if (cur && nxt) { dt = nxt.ms - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
           else if (cur) { dt = tl.total - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
@@ -5663,7 +5738,7 @@
       // count in the box's corner opening every hint, where a hint can be explained, dismissed or jumped to.
       showNotes() {
         this.warnEl.innerHTML = '';
-        const all = [...(this.lintNotes || []), ...(gameMode ? [] : this.roundNotes || []), ...(this.vizNotes || [])], seen = new Set();
+        const all = [...(this.lintNotes || []), ...(gameMode ? [] : this.roundNotes || []), ...(gameMode ? [] : this.fadeNotes || []), ...(this.vizNotes || [])], seen = new Set();
         const notes = all.filter(n => { const k = (n.tip ? 'tip:' : 'warn:') + n.text; if (seen.has(k) || this.dismissedNotes.has(k)) return false; seen.add(k); return true; });
         this.notesShown = notes;
         const badge = this.body.querySelector('.tab[data-drawer="melody"] .badge'), warnings = notes.filter(n => !n.tip).length;
@@ -5782,11 +5857,24 @@
       }
       // The tune's events at the current tempo, for layouts that lay the
       // whole tune out (the ukulele's tab lane).
-      vizSchedule() {
+      // The instrument's plan for the notes: every timing event (as the page renders, so Tab labels each note), or once
+      // the timeline is built, the events of the voice the instrument shows (vizEvents).
+      vizSchedule(events = null) {
         if (!this.viz.layout || !this.viz.layout.schedule || !this.original) return;
         const bpm = this.bpm();
-        this.viz.schedule(this.timings().map(t => ({ ms: t.milliseconds, midis: this.eventMidis(t) })), 60000 / bpm);
+        this.viz.schedule(events ? events.map(e => ({ ms: e.ms, midis: e.midis })) : this.timings().map(t => ({ ms: t.milliseconds, midis: this.eventMidis(t) })), 60000 / bpm);
       }
+      // The voice the instrument shows in a song in parts: the loudest, by the Mixer's level and any %%fade this time
+      // round, the first of equals (voice 1 when they are level). So when voice 1 is pulled down or fading in while the
+      // class learns voice 2, the instrument shows voice 2. 0 for a tune in one voice.
+      instrumentVoice(cyc) {
+        const tl = this.tl; if (!tl || !tl.parts) return 0;
+        const mix = this.mix(), f = this.fades && this.fades.parts.size ? this.fades : null;
+        let best = 0, top = -1;
+        for (let v = 0; v < Math.min(4, tl.parts.length); v++) { const lvl = (v ? mix['group' + (v + 1)] : mix.melody) * fadeLevel(f, v + 1, Math.max(0, cyc)); if (lvl > top + 1e-6) { top = lvl; best = v; } }
+        return best;
+      }
+      vizEvents() { const tl = this.tl; return tl && tl.parts ? tl.parts[this.vizVoice || 0] || tl.events : tl ? tl.events : []; }
       vizIndex(ev) { const ts = this.timings(); let i = ts.indexOf(ev); if (i < 0) i = ts.findIndex(t => t.milliseconds > ev.milliseconds) - 1; return i; }
       // After a render: park the cursor faintly at the start.
       placeReady() {
