@@ -246,3 +246,6 @@ html.piece-route .pb-clock[hidden] { display: none; }
 html.piece-route body.game .cell .cell-body > .score { padding-top: calc(var(--clock-size) * 1.25); }
 html.piece-route .paper .abcjs-tempo { display: none; }
 @media (max-width: 700px) { html.piece-route body.game .cell-body { --clock-size: 44px; } }
+
+/* More in the piece view is the Melody, Band and Mixer drawers alone: the clock is the transport. */
+html.piece-route .dock .transport, html.piece-route .dock .departure { display: none !important; }

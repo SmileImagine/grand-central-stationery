@@ -57,7 +57,10 @@
   const teacher = () => mode !== 'practice';
   // What step 2 is doing just now: studying, looping together (Teach), in time or note by note (Practice).
   const sub = () => kind() !== 'sections' ? null : how;
-  const repeats = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
+  // Whether the music repeats: each step's own choice (looping and putting together repeat), until the clock's repeat toggle changes it.
+  const repeatsByDefault = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
+  let loopOn = null;
+  const repeats = () => !example && (loopOn === null ? repeatsByDefault() : loopOn);
   const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'perform' : 'rich';
   // Guide tones: on for a student's play-through (they can turn them off), off for an assessment (the teacher can turn them on).
   const guide = { practice: true, assess: false };
@@ -172,6 +175,7 @@
     applyMix();
     document.body.dataset.pieceKind = sub() === 'study' && !example ? 'study' : kind();
     en.fitWhole = !!shownBars() || sections() < 2;
+    en.repeatSigns = repeats();   // the score shows the repeat it plays
     // Studying, a section of more than eight notes takes two lines, so each note's diagram has room to be read.
     const shownNotes = (() => { const p = shownBars(); return (p ? found.bars.slice(p.from, p.to) : found.bars).reduce((n, b) => n + b.notes.length, 0); })();
     const shownBarCount = (() => { const p = shownBars(); return p ? p.to - p.from : found.bars.length; })();
@@ -211,7 +215,7 @@
     if (stepper) { stepNext(false); return; }
     const p = en.player, k = kind();
     if (!p.running) {
-      p.setLoop(!example && repeats());
+      p.setLoop(repeats());
       const lp = en.body.querySelector('.transport .loop'); if (lp) lp.setAttribute('aria-pressed', String(p.loop));
       if (!example && LISTEN_LAB && ((k === 'through' && listenOn) || k === 'attempt')) {
         if (!(p.pos > 0)) { attempt = null; flagsShown = []; clearMarks(); if (panel) openPanel(); }
@@ -272,16 +276,27 @@
     if (!window.GCSClock || !en) return;
     clockHost = document.createElement('div'); clockHost.className = 'pb-clock';
     en.body.appendChild(clockHost);
-    clock = window.GCSClock.create(clockHost, { bpm, min: 30, max: 200, written, label: '', labelAt: 'none',
-      onToggle: () => playPause(), onBpm: v => setBpm(v) });
+    clock = window.GCSClock.create(clockHost, { bpm, min: 30, max: 200, written, label: '', labelAt: 'none', repeat: repeats(),
+      onToggle: () => playPause(), onBpm: v => setBpm(v), onReset: () => resetPlay(), onRepeat: on => setRepeat(on) });
   }
   const clockLabel = () => { const k = kind(); return example ? `Hear ${example.words}` : ({ listen: 'Listen to the whole piece', whole: 'Play the whole piece', through: 'Play it through', hear: 'Hear the whole piece', attempt: 'Start the attempt' })[k] || (sub() === 'study' ? 'Hear this section' : 'Loop it'); };
   function paintClock() {
     if (!clock) return;
     const off = sub() === 'note' || kind() === 'decide';
     clockHost.hidden = off;
-    const beats = en && en.tl ? en.tl.countBeats : 4;
-    clock.set({ bpm, written, label: clockLabel(), beats, playing: !!(en && en.player && en.player.running) });
+    const beats = en && en.tl ? en.tl.countBeats : 4, p = en && en.player, playing = !!(p && p.running);
+    clock.set({ bpm, written, label: clockLabel(), beats, playing, repeat: repeats(), canReset: !!(p && !playing && p.pos > 0) });
+  }
+  // Back to the start, from a pause.
+  function resetPlay() { if (!en) return; if (en.player.running) en.togglePlay(); en.toTop(); wasPlaying = null; paintPlaying(); paintClock(); }
+  // Repeat on or off: the music (from the next time round when playing) and the repeat signs in the score.
+  function setRepeat(on) {
+    loopOn = !!on;
+    if (!en) return;
+    en.player.setLoop(repeats());
+    en.repeatSigns = repeats();
+    if (en.player.running) en.pending = true; else en.render();
+    paintClock(); syncUrl();
   }
   // While the music plays the hand sweeps once a bar: how far the playhead is through the bar it is in (the count-in's hand waits at twelve).
   function clockTick() {
@@ -308,7 +323,7 @@
     s = Math.max(1, Math.min(KINDS[mode].length, s));
     if (s === step && !force) return;
     stopAll();
-    step = s; bpm = tempo[step] || written; example = null;
+    step = s; bpm = tempo[step] || written; example = null; loopOn = null;
     renderSteps(); renderTools();
     if (['through', 'attempt', 'decide'].includes(kind())) openPanel(); else closePanel();
     redraw();
@@ -376,6 +391,7 @@
     h += mode === 'practice' && ['sections', 'whole', 'through'].includes(k) ? `<div class="pb-progress" aria-live="polite"></div>` : '';
     tools.innerHTML = h; wasPlaying = null;
     tools.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act)));
+    loopOn = null;
     tools.querySelectorAll('.pb-concepts [data-c]').forEach(b => b.addEventListener('click', () => { const c = +b.dataset.c < 0 ? null : concepts[+b.dataset.c]; if (c !== example) showExample(c); }));
     const q = s => tools.querySelector(s);
     if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
@@ -688,7 +704,7 @@
     const on = !!(en && en.player && en.player.running);
     if (on === wasPlaying) return;
     wasPlaying = on;
-    if (clock) { clock.set({ playing: on }); if (on && !clockRaf) clockRaf = requestAnimationFrame(clockTick); if (!on) clock.set({ turn: 0 }); }
+    if (clock) { clock.set({ playing: on, canReset: !on && en.player.pos > 0 }); if (on && !clockRaf) clockRaf = requestAnimationFrame(clockTick); if (!on && !(en.player.pos > 0)) clock.set({ turn: 0 }); }
     for (const b of tools.querySelectorAll('[data-act="play"]')) {
       b.classList.toggle('playing', on);
       b.setAttribute('aria-pressed', String(on));

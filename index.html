@@ -1022,6 +1022,21 @@
         return line.replace(/("[^"]*"|\[[A-Za-z]:[^\]]*\]|![^!]*!)|[\^_=]+(?=[A-Ga-g])/g, (m, keep) => keep || '');
       }).join('\n');
     }
+    // Repeat signs for music the page is repeating (the piece view's loops): a start repeat before the first music line,
+    // in the tune that sounds and the one shown (alone it repeats nothing), and the closing barline turned to an end
+    // repeat in the one shown only, so abcjs engraves both with room for them and the sound still plays each pass once.
+    const isMusicLine = l => l.trim() && !/^\s*(%|[A-Za-z+]:)/.test(l);
+    function startRepeat(abc) {
+      const L = abc.split('\n'), i = L.findIndex(isMusicLine); if (i < 0) return abc;
+      if (!/^\s*\|:/.test(L[i])) L[i] = /^\s*\|(?![\]|:])/.test(L[i]) ? L[i].replace(/^(\s*)\|/, '$1|:') : '|: ' + L[i];
+      return L.join('\n');
+    }
+    function endRepeat(abc) {
+      const L = abc.split('\n'); let i = L.length - 1; while (i >= 0 && !isMusicLine(L[i])) i--; if (i < 0) return abc;
+      if (/:\|\s*$/.test(L[i])) return abc;
+      L[i] = /(\|\]|\|\||\|)\s*$/.test(L[i]) ? L[i].replace(/(\|\]|\|\||\|)(\s*)$/, ':|$2') : L[i] + ' :|';
+      return L.join('\n');
+    }
     function collect(tune) {
       const out = [];
       tune.lines.forEach((line, li) => (line.staff || []).forEach(staff => (staff.voices || []).forEach((voice, vi) => {
@@ -4875,6 +4890,8 @@
         if (this.player && this.player.running) { this.pending = true; return; }
         if (this.busy) { this.pending = true; clearTimeout(this.busyRetry); this.busyRetry = setTimeout(() => { if (this.pending && !this.busy) this.render(); }, 400); return; }
         this.pending = false;
+        // Paused mid-tune, the redraw keeps the place (a resize during playback is drawn at the pause): the next Play goes on from there.
+        const keepAt = this.player && !this.player.running && this.player.pos > 0 ? this.player.pos : 0;
         this.warnEl.textContent = '';
         const text = this.getText();
         let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
@@ -4888,6 +4905,7 @@
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
         if (location.protocol === 'file:') abc = withStyle(abc, classicFor(abc));
+        if (this.repeatSigns) abc = startRepeat(abc);   // repeatSigns: the piece view repeating what is on screen
         const two = gameMode && this.lines !== 'one';
         const extra = two ? { wrap: { minSpacing: 1.6, maxSpacing: 2.8, ...(this.barsPerLine ? { preferredMeasuresPerLine: this.barsPerLine } : {}) } } : {};   // barsPerLine: the piece view's study
         const base = two ? this.twoLineWidth(abc, extra) : 600;
@@ -4896,6 +4914,7 @@
         this.origElems = collect(this.original);
         this.spelled = spell(this.original, this.origElems);
         let abcForDisplay = two ? abc : stripAccidentals(abc);
+        if (this.repeatSigns) abcForDisplay = endRepeat(abcForDisplay);
         let tune = this.renderAt(this.paper, abcForDisplay, base, undefined, extra);
         if (!tune) return;
         if (collect(tune).length !== this.origElems.length) { abcForDisplay = abc; tune = this.renderAt(this.paper, abcForDisplay, base, undefined, extra); }
@@ -4943,6 +4962,7 @@
         if (this.bpmBox) this.bpmBox.value = Math.round(this.bpm());
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
         if (this.viz && this.tl && !this.player.running) this.viz.voices(this.chordTrack(0), -1);   // stopped: the first chord's voices wait
+        if (keepAt > 0 && this.tl && keepAt < this.tl.total) { this.player.pos = keepAt; this.idle = false; this.k = null; this.paint(); }
         this.updateSignage(text);
         this.refreshBandNote();
       }
