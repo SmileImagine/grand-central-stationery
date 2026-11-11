@@ -1,0 +1,38 @@
+% holding-id: stieng-lithophone
+% holding-status: inbox
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: which piece she plays (it may be a traditional S'tiêng melody or a Vietnamese song by a named composer; many đàn đá players play both), and the player's name, which the caption gives only as "XTiêng Đn Xinh" with letters lost. Transcription: the stones' pitches and the tune need a cleaner recording or the player's own help; the machine reading here is not good enough to write the tune.
+% holding-kind: fragment
+% holding-kind-note: A record of the instrument and the pulse only; missing: the tune and its name, the stones' tuning (measured roughly here), what the second mallet plays, and the music's place in S'tiêng life.
+% source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=17 Dust-to-Digital on Instagram (posted 19 October 2026), clip 17 of 20: "XTiêng Đn Xinh" playing a lithophone at her home in Bình Phước, Vietnam, via her Facebook page
+% performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=17 a girl playing the đàn đá (lithophone) at home in Bình Phước (Dust-to-Digital, October 2026, via her Facebook page)
+% performance-note: The clip is 60 seconds of one piece, indoors. For the instrument: the S'tiêng and M'nông lithophones of Bình Phước and Đắk Nông, the first described in the West being the Ndut Lieng Krak lithophone that Georges Condominas found in 1949 (now in Paris); the Vietnamese Institute of Musicology (Hà Nội) holds field recordings.
+% dossier-function: Solo playing at home on a đàn đá, a lithophone: a row of long, roughly shaped stone slabs laid on a padded frame (here about ten to fifteen stones on two tiers), struck with two mallets. The girl plays standing, a mallet in each hand.
+% dossier-elements: A bright, ringing pentatonic sound high in the treble (the stones sound between about G5 and C sharp 7); a steady stream of eighths with longer notes on the beats; one hand plays the tune and the other answers or doubles. The most-struck stones sit near C sharp, E and F sharp (around 1100 to 1500 Hz), which with A and B suggests an F sharp minor or A major pentatonic set.
+% dossier-practice: A steady beat of about 135 a minute (beats 0.44 s apart, eighths between); moderately loud; the stones ring for half a second or so, so the notes overlap.
+% dossier-accompaniment: Tradition: the lithophone alone, or with gongs and drums in the old ensembles. In class: glockenspiel or metallophone on the pentatonic set would be the substitute, once the tune is known.
+% dossier-lyrics: None: instrumental.
+% dossier-honesty: Nothing of the tune is written here. The pulse is read from the recording; the stones' pitches were clustered by machine and came out as 19 groups spaced almost by semitones, more than the stones in the picture, so the reading mixes partials and the two mallets and cannot be trusted note by note.
+% dossier-licence: The instrument and its old repertoire are traditional; the piece is not identified and could be a composed Vietnamese song. The recording belongs to the player; no audio or video is kept here.
+% dossier-respect: A young player filmed at home and posted on her own page: credit her by name once it is known, and ask before any use beyond study. Lithophones of the Central Highlands and the southeast are a source of local and national pride (some are protected as cultural heritage); present the instrument with its people, the S'tiêng.
+% dossier-review: The player or her family, for the piece's name; a Vietnamese musicologist who knows the đàn đá of Bình Phước.
+X:1
+T:Đàn đá (S'tiêng lithophone), record
+T:A girl playing the lithophone at home in Bình Phước: pulse only
+C:not identified
+O:Vietnam, Bình Phước province, S'tiêng people
+R:instrumental
+S:Clip 17 of a Dust-to-Digital Instagram post (19 October 2026), via the player's Facebook page; pulse read from the recording
+N:HOW READ (2026-11-11): onsets found by spectral flux above 300 Hz: a stroke every 0.44-0.46 s on the beat, with eighths (0.22 s) between in most bars; the pitch of each stroke was read 50-200 ms after it, between 500 and 2300 Hz. The clearest stretch (49.6-54.5 s) moves between three stones near C sharp 6, E6 and F sharp 6.
+N:UNCERTAIN: the tune, and how many stones she uses; which partial of each stone is its pitch; whether a phrase is four or eight beats.
+M:4/4
+L:1/8
+Q:1/4=135
+K:none
+%%band drums: wb wb wb wb wb wb wb wb
+%%band bass: ~
+%%band chords: ~
+z8 | z8 |]

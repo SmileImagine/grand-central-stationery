@@ -1,0 +1,38 @@
+% holding-id: black-hills-powwow-song
+% holding-status: transcription
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: name the song and the drum group singing it, and ask the group (or the powwow committee) whether it may be taught; until then nothing here is used in class. The notes are a machine draft of 17 seconds of one phrase under crowd noise and jingles; they need a powwow singer's ear, and ideally a longer, cleaner recording of the same song.
+% holding-kind: fragment
+% holding-kind-note: One descending phrase of the lead and the seconds, 17 seconds long, taken by pitch tracker; missing: the song's name and owners, the vocables, the full form (lead, seconds, the four push-ups, honor beats, tail), the drum part, and the dance it was sung for.
+% source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=13 Dust-to-Digital on Instagram (posted 19 October 2026), clip 13 of 20: the Black Hills Powwow, Rapid City, South Dakota, via Jenn Nicoteen on Facebook
+% performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=13 the Black Hills Powwow, Rapid City, South Dakota (Dust-to-Digital, October 2026; filmed by Jenn Nicoteen, shown on "Jenn's Reels")
+% performance-note: The clip is 17 seconds of an indoor arena: jingle-dress and fancy-shawl dancers in a circle; the drum and singers are heard but not seen. Jenn Nicoteen's Facebook reel is the original; the full song, and the drum's name, may be there.
+% dossier-function: A powwow song sung at the drum for the dancers in the arena; this one carries jingle-dress and fancy-shawl dancers, so most likely an intertribal or a women's category song. Powwow songs are made and owned by singers and drum groups; some are ceremonial (honor songs, flag songs, veterans' songs) and are not to be sung outside their place.
+% dossier-elements: Northern style as heard: a high, strained lead that enters near the top of the voice and falls in terraces to a long low note where the other singers join (here the low note is F, with an octave below it from the men). The notes heard are F, G, A and C, with a passing note between D and E flat, sung with wide slides; the drum keeps a steady beat.
+% dossier-practice: Very loud, high and bright; the drum is struck together by several singers seated round one large drum, a steady beat of roughly 200 strokes a minute in this reading (unsteady under the crowd). The song falls from the lead's opening down to the low tonic; the whole song is repeated four times ("push-ups"), with honor beats (accented strokes) in places.
+% dossier-accompaniment: Tradition: one large bass drum played by the singers themselves, nothing else. The band plays nothing here; if the class ever uses this, one floor drum with soft beaters, played together.
+% dossier-lyrics: Not taken: the words were not audible, and powwow songs are often sung in vocables or in a Native language. None to be sung without the owners' consent.
+% dossier-honesty: Traditional practice; the song itself is probably owned. This draft is ours: the pitches were read by pitch tracker from a crowd recording, the slides reduced to single notes, and the lengths and bar lines guessed. Not a reliable transcription.
+% dossier-licence: Unknown: the song may be the composition of a living singer or drum group. The recording belongs to Jenn Nicoteen and the powwow; only an outline of the melody was taken, and no audio or video is kept here.
+% dossier-respect: Ask before teaching. Powwow singing belongs to Native communities and to the drum groups who make the songs; some songs are ceremonial. Present it only with the community's permission, name the drum and the powwow, and do not imitate the singing style as a novelty. If the song is one the singers say may be shared, a Lakota or Northern Plains singer should teach it.
+% dossier-review: A powwow singer or the drum group itself; the Black Hills Powwow committee (Rapid City), for the song's name and whether it may be taught.
+X:1
+T:Black Hills Powwow song (fragment)
+T:A phrase of a Northern powwow song: lead and seconds over the drum
+C:unknown (powwow drum group); not identified
+O:USA, South Dakota, Black Hills Powwow, Rapid City
+R:powwow song
+S:Clip 13 of a Dust-to-Digital Instagram post (19 October 2026), filmed by Jenn Nicoteen at the Black Hills Powwow; draft by pitch tracking
+N:HOW READ (2026-11-11): the clip's 17 seconds were pitch-tracked between D4 and E6 with the steady crowd tone subtracted; the singing sits about 40 cents above A=440, and the long low note (7.9-9.3 s, sung with an octave below) is taken as the tonic F. Held notes from the track: C (0.7-1.0 s), A (4.0-4.7 s), the note between D and E flat (6.6-6.8 s), then F (7.9-9.3 s); a second phrase starts again high (9.5 s, A flat sliding down through G to F).
+N:UNCERTAIN: almost everything: the F sharp at 5.9-6.2 s (a semitone above the tonic; perhaps F sung sharp, or a slide); the B heard at 1.2-1.4 s (a tritone above F, probably a slide from C, left out); whether the low passing note is D or E flat (it sits 250 cents below F); every length; the bar lines (the drum beat is a weak reading, about 0.30 s); which voice is the lead and which the seconds.
+M:none
+L:1/4
+Q:1/4=100
+K:F
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+c'3 z | g a2 z | a3 a | ^f d2 =e | f4- | f4 |]

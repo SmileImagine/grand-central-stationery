@@ -1,0 +1,38 @@
+% holding-id: chimaycha-ayacucho
+% holding-status: inbox
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Transcription: the women's high singing and the harp could not be separated by machine (the tracker jumps between them); take the melody by ear from a cleaner chimaycha recording, or from a printed collection, and the Quechua words with it. Source check: the song's name, the community (the page that posted it is named for Vilcanchos and Cocas, districts of Víctor Fajardo province; chimaycha is sung across southern Ayacucho), and whether it is an old song or a newer one by a named singer.
+% holding-kind: fragment
+% holding-kind-note: A record of the clip with its rhythm cell only; missing: the melody, the Quechua words, the song's name and maker, the harp part, and the dance steps (the women dance in a line while singing).
+% source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=16 Dust-to-Digital on Instagram (posted 19 October 2026), clip 16 of 20: a chimaycha performance in Ayacucho, Peru, via Fajardo Vilcanchos Cocas Ayacucho on Facebook
+% performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=16 chimaycha in Ayacucho: women singing in a line with harp, at night (Dust-to-Digital, October 2026, via Fajardo Vilcanchos Cocas Ayacucho)
+% performance-note: The clip is 60 seconds, filmed at night among the dancers. Chimaycha has many recordings: the Lucanamarca and Chuschi (Ayacucho) groups, the Instituto de Etnomusicología of the Pontificia Universidad Católica del Perú (Lima), and Raúl R. Romero's writings on Andean music name communities and singers.
+% dossier-function: A chimaycha: a song-dance of the southern Ayacucho highlands, sung by young women in a very high, bright voice and danced in a line or circle, at night, at festivals and courting gatherings. Here a group of women in festival dress (wide hats, shawls, full skirts) sing and dance, with a harp played among them.
+% dossier-elements: 2/4 with the huayno cell, an eighth and two sixteenths on each beat; a minor pentatonic melody (the pitches heard most are F, A flat, B flat, C and E flat, with D flat), sung high over the harp's bass; short phrases repeated in pairs.
+% dossier-practice: About 105 beats a minute, steady; the harp's bass marks every beat and its treble the cell; the singers' voices are very high (up to C6) and loud.
+% dossier-accompaniment: Tradition: a harp (the Ayacucho arpa, played seated or carried), often a violin and a guitar or charango, with the women singing. Source: the clip, and the genre's usual band. In class: the band's bass on the beats and a guitar or ukulele on the cell, once the melody is known.
+% dossier-lyrics: Not taken: the words are Quechua and not clear in the recording; to be found with the song and checked by a Quechua speaker from Ayacucho.
+% dossier-honesty: Traditional genre; nothing of this song's melody is written here. The rhythm cell and the tempo are read from the recording (onsets folded onto a 2/4 bar); the pitch content is from the pitch tracker over the whole clip.
+% dossier-licence: The genre is traditional; the particular song may be old (anonymous) or by a named singer. The recording belongs to the performers and the Facebook page; no audio or video is kept here.
+% dossier-respect: A festive and courting genre, nothing sacred; credit the community and the singers. Present it as women's singing of the Ayacucho highlands, in Quechua.
+% dossier-review: A chimaycha singer or a Quechua speaker from Ayacucho; an ethnomusicologist of Andean song for the song's name.
+X:1
+T:Chimaycha (Ayacucho), record
+T:Women's song-dance with harp: the rhythm cell
+C:traditional genre (Quechua, Ayacucho); song not identified
+O:Peru, Ayacucho
+R:chimaycha
+S:Clip 16 of a Dust-to-Digital Instagram post (19 October 2026), via Fajardo Vilcanchos Cocas Ayacucho on Facebook; rhythm read from the recording
+N:HOW READ (2026-11-11): onsets of the whole clip folded onto the cycle that repeats best (1.14 s, one 2/4 bar at about 105 beats a minute, in eight sixteenths): on each beat, strong on the first sixteenth, weak on the second, strong on the third and fourth, which is the huayno cell (an eighth and two sixteenths). The pitch tracker (F4 to C6) found F the most-sung note, then B flat, C, D flat, G and A flat.
+N:UNCERTAIN: the melody (the tracker jumped between the voices and the harp, often an octave apart); whether the mode is F minor or B flat minor; where the bar begins.
+M:2/4
+L:1/16
+Q:1/4=105
+K:Fm
+%%band drums: [bd _ rim rim] [bd _ rim rim]
+%%band bass: ~
+%%band chords: ~
+z8 | z8 |]

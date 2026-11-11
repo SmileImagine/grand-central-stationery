@@ -1,0 +1,43 @@
+% holding-id: debellringers-handbells
+% holding-status: transcription
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: name the piece (ask De Bellringers); if it is a hymn or folk tune in the public domain, take its melody from a printed source and keep this harmony reading only as a check; if it is a modern composition or arrangement, keep only the record and the ringing technique. Transcription: the chords are a machine reading of 27 seconds; a ringer should check them.
+% holding-kind: fragment
+% holding-kind-note: The chord sequence only, read from 27 seconds; missing: the piece's name, composer and arranger, its melody, the voicing (which bells sound in each chord), and the ringing techniques used (one ringer bends to the table to change bells).
+% source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=19 Dust-to-Digital on Instagram (posted 19 October 2026), clip 19 of 20: a handbell performance by @debellringers in the Netherlands
+% performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=19 De Bellringers, a handbell team, ringing in a church in the Netherlands (Dust-to-Digital, October 2026)
+% performance-note: The clip is 27 seconds: about eight ringers in a line at a padded table in front of a Gothic-revival altar, each with two or more bells. De Bellringers post their own videos on Instagram (@debellringers), where the piece may be named.
+% dossier-function: Concert handbell ringing: a team rings a piece as one instrument, each ringer responsible for two to four notes (one bell in each hand, more on the table), so every chord is made by several people at once.
+% dossier-elements: Harmony is the point. A first section in C minor (C minor, F minor, G, C major, A flat, B flat), then a second in A flat major whose chords move in pairs of beats: A flat, E flat, D flat (or F minor), A flat, E flat, B flat, ending on C major. The bells ring on and blend, so each chord sounds as a held wash; the top line moves mostly by step.
+% dossier-practice: About 75 beats a minute, with a ring every eighth note in the inner parts; the bells are left to ring through each chord, so how and when they are damped shapes the changes. Quiet and resonant, in a stone church.
+% dossier-accompaniment: Tradition: handbells alone (English handbells, three to five octaves). The two voices here ring the chords; in class: chime bars or handbells shared out, each pupil one or two notes, ringing when the chord contains their note.
+% dossier-lyrics: None: instrumental (if the piece is a hymn, its words belong to the hymn's own record).
+% dossier-honesty: A reading of one team's harmony. The chords were found by matching major and minor triads to the strongest pitches in each beat; the beat grid, the bar lines and the spelling are ours. No melody is written.
+% dossier-licence: Unknown: the piece is not named and may be a modern composition or arrangement still in copyright, so only the chord sequence is kept. The recording belongs to De Bellringers; no audio or video is kept here.
+% dossier-respect: Rung in a church; the piece may be sacred. Name the team; if it is a hymn, present it as one.
+% dossier-review: De Bellringers themselves, for the piece and the ringing; a handbell director for the chords.
+X:1
+T:De Bellringers, handbells (chord reading)
+T:Handbell team in a Dutch church: the harmony of 27 seconds
+C:not identified
+O:Netherlands
+R:handbell piece
+S:Clip 19 of a Dust-to-Digital Instagram post (19 October 2026), De Bellringers (@debellringers); chords read from the recording
+N:HOW READ (2026-11-11): the bell onsets fall every 0.39-0.43 s (eighths at about 75 a minute); from 1.7 s, each 0.8 s beat was reduced to its strongest pitches (harmonic salience, room tone subtracted) and matched to major and minor triads. The second section (13.7 s on) matched clearly (scores 0.45-0.57); the first less so (0.31-0.46). Overall the clip sits in A flat major and C minor (G sharp, F and D sharp, that is A flat, F and E flat, are the strongest pitch classes).
+N:UNCERTAIN: where the bars begin (written from the first clear C minor chord); the C major chords in the first section (C and G sound, the E natural is weak); D flat or F minor at 16.9-18.5 s; D minor or B flat over D at 11.3 s and 24.1 s; the voicings, which are written plainly here, not as the bells sounded.
+M:4/4
+L:1/4
+Q:1/4=75
+K:Ab
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+V:1 name="Bells" sname="Bells"
+V:2 name="Bass bells" sname="Bass" clef=bass
+[V:1] "Cm" [CEG]2 "C" [C=EG] "Fm" [FAc] | [FAc]2 "G" [G=B=d] "C" [C=EG] | "Ab" [Ace] "Cm" [CEG] "C" [C=EG] "Bb" [B=df] | "Dm" [=DF=A] "F" [F=Ac] "Fm" [FAc] "Ab" [Ace] |
+[V:1] [Ace] "Eb" [EGB]2 "Db" [DFA] | [DFA] "Ab" [Ace]3 | [Ace] "Eb" [EGB]2 "Bb" [B=df] | "Bb/D" [=DFB] "C" [C=EG]2 z |]
+[V:2] C,2 C, F,, | F,,2 G,, C, | A,, C, C, B,, | =D, F,, F,, A,, |
+[V:2] A,, E,,2 D,, | D,, A,,3 | A,, E,,2 B,,, | =D,, C,2 z |]

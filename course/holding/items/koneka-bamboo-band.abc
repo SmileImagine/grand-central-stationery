@@ -1,0 +1,43 @@
+% holding-id: koneka-bamboo-band
+% holding-status: transcription
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: what piece the children play, and whether it is a traditional Bougainville tune, a church song or a local band's composition; ask the school (via Dominic Kokomo). Transcription: only the chord loop and its bass are read; the top line on the small pipes is still to take, from a cleaner recording if one exists.
+% holding-kind: fragment
+% holding-kind-note: The harmony only (a four-chord loop and its bass, from 28 seconds); missing: the tune on the small pipes, the piece's name and maker, how the pipes are shared out among the players, and any dance or singing that goes with it.
+% source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=15 Dust-to-Digital on Instagram (posted 19 October 2026), clip 15 of 20: students performing at the Koneka Primary School in Arawa, Papua New Guinea, via Dominic Kokomo
+% performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=15 Koneka Primary School students, Arawa, Bougainville, on bamboo pipes (Dust-to-Digital, October 2026, via Dominic Kokomo)
+% performance-note: The clip is 28 seconds, outdoors at the school. Bougainville bamboo bands are well recorded; the Institute of Papua New Guinea Studies (Port Moresby) holds field recordings, and many school and village bamboo bands post their own.
+% dossier-function: A school bamboo band: a crowd of children, each blowing one or two long bamboo pipes, with older players on bundled panpipes; played outdoors for an audience at the school.
+% dossier-elements: Harmony is the point. The pipes sound a loop of four chords in D major, one chord a beat, G, B minor, A, D (IV, vi, V, I), with the long pipes on the root of each chord and the D chord held for two or three beats at the end of each pass. The pipes are tuned close to D major but not exactly (the B flat heard against the D chord is about 10 cents flat of equal temperament and may be a pipe tuned between A and B flat).
+% dossier-practice: About 63 beats a minute, one chord per beat; every pipe sounds on its beat, so the whole band moves together like a choir. Each child owns one or two notes and plays only when that note is in the chord; the pipe lengths, from the size of the children's arms up to two metres, give the bass.
+% dossier-accompaniment: Tradition: the pipes alone (Bougainville bamboo bands may also strike the ends of large pipes with rubber sandals for the bass). Here the two voices carry the chords and the bass, and the band is off; in class, the chord tones shared out like handbells: each pupil one note, played when the chord contains it.
+% dossier-lyrics: None: instrumental.
+% dossier-honesty: A reading of one school band's harmony. The chords and bass are read from the recording by machine (the strongest pitches each second) and checked for a repeating loop; the grouping into bars, and the spelling, are ours.
+% dossier-licence: Unknown: the piece is not named. A chord loop as such is common property; the tune over it (not taken) may belong to a local composer. The recording belongs to the school and Dominic Kokomo; no audio or video is kept here.
+% dossier-respect: Children filmed at their school: name the school and keep to the music, no images. Bougainville's bamboo bands are a point of local pride; present them as a living tradition, not as a curiosity.
+% dossier-review: A Bougainville musician or teacher at Koneka Primary School, for the piece's name and how the pipes are shared out.
+X:1
+T:Koneka bamboo band (chord loop)
+T:The harmony of a Bougainville school bamboo band, one chord per beat
+C:not identified
+O:Papua New Guinea, Autonomous Region of Bougainville, Arawa, Koneka Primary School
+R:bamboo band
+S:Clip 15 of a Dust-to-Digital Instagram post (19 October 2026), via Dominic Kokomo; chords read from the recording
+N:HOW READ (2026-11-11): every second of the clip was reduced to its strongest five pitches (harmonic salience, the steady room tone subtracted); from 5 s on, the chords change about every 0.98 s, and the sequence D (held) | G Bm A D | G Bm A D | D D | G Bm A D | G Bm A D | D D was read, with the low pipes on G3, B2, A2 and D3; matching major and minor triads beat by beat confirmed it (D, B minor and A strongest; the G chord scored as E minor in the first passes).
+N:UNCERTAIN: the first chord of each phrase (G and B sound with E: G with an added sixth, or E minor; a pipe between G and G sharp is heard at 21.6 s); whether the chord on B is B minor or a D chord over B; the metre (written here in 2/4, two chords a bar); the B flat that sounds against the D chords; the top line (E6 and C6 are the strongest high pitches, not a tune).
+M:2/4
+L:1/4
+Q:1/4=63
+K:D
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+V:1 name="Pipes" sname="Pipes"
+V:2 name="Low pipes" sname="Bass" clef=bass
+[V:1] "D" [DFA]2 | [DFA]2 | "G" [DGB] "Bm" [DFB] | "A" [CEA] "D" [DFA] | "G" [DGB] "Bm" [DFB] | "A" [CEA] "D" [DFA] | [DFA]2 |
+[V:1] "G" [DGB] "Bm" [DFB] | "A" [CEA] "D" [DFA] | "G" [DGB] "Bm" [DFB] | "A" [CEA] "D" [DFA] | [DFA]2 |]
+[V:2] D,2 | D,2 | G, B,, | A,, D, | G, B,, | A,, D, | D,2 |
+[V:2] G, B,, | A,, D, | G, B,, | A,, D, | D,2 |]

@@ -1,0 +1,38 @@
+% holding-id: senufo-balafon-djembe
+% holding-status: inbox
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Transcription: the balafon lines could not be read from this clip (two balafons, djembe, shaker and a crowd, filmed on a phone while walking); find a cleaner recording of a Senufo balafon ensemble, or a printed transcription, before writing any notes. Source check: which village or group, and what the occasion was (the video shows a crowd in green and yellow, likely a festival or a funeral procession).
+% holding-kind: fragment
+% holding-kind-note: A record of what the clip holds, with the pulse only; missing: the balafon parts (the lead's melody and the second's ostinato), the djembe and shaker rhythms, the chanting, and the occasion.
+% source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=14 Dust-to-Digital on Instagram (posted 19 October 2026), clip 14 of 20: a traditional Senufo performance in West Africa, via LA CULTURE SÉNOUFO on Facebook
+% performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=14 a Senufo balafon and djembe group in procession (Dust-to-Digital, October 2026, via LA CULTURE SÉNOUFO on Facebook)
+% performance-note: The clip is 26 seconds, filmed in a crowd. For clearer Senufo balafon music: the Facebook page LA CULTURE SÉNOUFO; commercial recordings of Senufo balafon groups from Korhogo (Côte d'Ivoire) and Sikasso (Mali); anthropological studies of the Senufo (Till Förster's, for one) name villages and occasions.
+% dossier-function: Processional music in a crowd: two balafons carried on the players (the frame is slung so they play while walking), a djembe and a shaker, with people singing and chanting along. Senufo balafon ensembles play at funerals, harvest festivals and initiation celebrations; which this is, the clip does not say.
+% dossier-elements: Pentatonic balafons (wooden keys over gourd resonators, with buzzing membranes) in interlocking lines over a steady eighth-note pulse; the djembe keeps the eighths.
+% dossier-practice: A steady pulse at about 116 beats a minute (eighths about 0.26 s apart), with a two-second cycle (one 4/4 bar) heard in the djembe. Loud and outdoors; the balafon players move with the crowd.
+% dossier-accompaniment: Tradition: two or three balafons (a lead and one or two seconds), djembe or other drums, shaker, and voices. In class: a pentatonic xylophone ostinato over a hand-drum pulse would be the substitute, once the parts are known.
+% dossier-lyrics: Not taken: the chanting is under the instruments and not clear; any words would be in a Senufo language (Senari or another), to be checked by a speaker.
+% dossier-honesty: Traditional practice; nothing of the music is transcribed here, only the pulse and the instruments seen and heard.
+% dossier-licence: The music is traditional; the recording belongs to the performers and the Facebook page that posted it. Nothing was taken but the pulse; no audio or video is kept here.
+% dossier-respect: If this is a funeral procession, the music belongs to that occasion; find out before teaching any of it as a dance or party piece. Some Senufo balafon music is tied to the Poro society; ask a Senufo musician which pieces may be played outside.
+% dossier-review: A Senufo balafon player, for the parts and their occasion.
+X:1
+T:Senufo balafon and djembe (record)
+T:Two balafons, djembe and shaker in procession: pulse only
+C:traditional (Senufo)
+O:West Africa (Côte d'Ivoire, Mali or Burkina Faso; not stated), Senufo people
+R:processional
+S:Clip 14 of a Dust-to-Digital Instagram post (19 October 2026), via the Facebook page LA CULTURE SÉNOUFO; pulse read from the recording
+N:HOW READ (2026-11-11): onsets were detected in the whole clip and folded onto the cycle that repeats best (2.07 s, one 4/4 bar at about 116 beats a minute); every eighth carries a stroke, and no accent pattern stood out of the crowd noise. The balafon keys could not be separated from the drums and crowd (the pitch tracker spread its notes over two octaves with no stable set).
+N:UNCERTAIN: where the bar begins; whether the music is in 4/4 or a 12/8 felt as four; everything about the melody.
+M:4/4
+L:1/8
+Q:1/4=116
+K:none
+%%band drums: wb wb wb wb wb wb wb wb
+%%band bass: ~
+%%band chords: ~
+z8 | z8 |]
