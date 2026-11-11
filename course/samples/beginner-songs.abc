@@ -57,9 +57,19 @@ G2 A2 | G2 !breath!E2 | .G.G .A.A | G2 E2 |]
 w: Bounce high, bounce low, bounce the ball to Shi-loh.
 
 X:5
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+T:Lucy Locket
+C:traditional (England)
+O:England
+R:children's singing game
+S:Grand Central Stationery course samples, beginner-songs.abc, X:5 (a classroom setting typed from memory); words traditional
+N:A so-mi-la singing game: the children sit in a ring and one creeps round to hide the "pocket" (a purse or handkerchief) behind someone, who must find it. Kitty Fisher was a famous London figure of the 1750s, and the rhyme is often said to have begun as a joke about her; the words children sing are innocent.
+Q:1/4=100
+M:2/4
+L:1/8
 K:C
+%%style folk
+GG EE | AA GE | GG EE | A2 G2 | GG EE | AA GE | GG EE | A2 G2 |]
+w: Lu-cy Lock-et lost her pock-et, Kit-ty Fish-er found it; not a pen-ny was there in it, on-ly rib-bon round it.
 
 X:6
 T:Ring Around the Rosie
@@ -74,9 +84,23 @@ GG EA | G2 !breath!E2 | GG EA | G2 !breath!E2 | !<(!G2 E2 | G2 E2 | GG !<)!G2 | 
 w: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, we all fall down.
 
 X:7
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+T:Au Clair de la Lune
+T:By the Light of the Moon
+C:traditional (France)
+O:France
+R:children's song
+S:Grand Central Stationery course samples, beginner-songs.abc, X:7 (a classroom setting typed from memory); words traditional (18th century)
+N:A French song of the eighteenth century, one of the first tunes French children learn. Only the first verse is given: the later verses, about Pierrot's neighbour Lubin and the girl next door, are a mild grown-up joke and are left out.
+N:English meaning: By the light of the moon, my friend Pierrot, lend me your pen to write a word. My candle has gone out, I have no fire left; open your door to me, for the love of God.
+Q:1/4=96
+M:4/4
+L:1/4
 K:C
+%%style folk
+C C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |
+w: Au clair de la lu-ne, mon a-mi Pier-rot, prê-te-moi ta plu-me pour é-crire un mot.
+D D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]
+w: Ma chan-delle est mor-te, je n'ai plus de feu; ou-vre-moi ta por-te pour l'a-mour de Dieu.
 
 X:8
 T:Rocky Mountain
@@ -194,9 +218,27 @@ K:C
 w: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.
 
 X:17
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+T:When the Saints Go Marching In
+C:traditional (USA)
+O:USA (African American spiritual; New Orleans)
+R:spiritual
+S:Grand Central Stationery course samples, beginner-songs.abc, X:17 (a classroom setting typed from memory); words traditional
+N:A Black American spiritual about the Day of Judgement, later the best-known New Orleans brass-band and jazz tune. It is a religious song: schools follow their own guidance on religious songs. The long F of bar 12 is split into two notes so that "num-ber" has a note for each syllable, as it is usually sung.
+Q:1/4=120
+M:4/4
+L:1/4
 K:C
+%%style swing
+C E F | G4 | z C E F | G4 | z C E F | G2 E2 | C2 E2 | D4 |
+w: Oh when the saints go march-ing in, Oh when the saints go march-ing in,
+z E E D | C2 C E | G3 G | F2 F2 | z E F G | E C D2 | C4 |]
+w: Oh Lord I want to be in that num-ber, when the saints go march-ing in.
+W:2. Oh when the sun refuse to shine, Oh when the sun refuse to shine,
+W:   Oh Lord I want to be in that number, when the sun refuse to shine.
+W:3. Oh when the trumpet sounds the call, Oh when the trumpet sounds the call,
+W:   Oh Lord I want to be in that number, when the trumpet sounds the call.
+W:4. Oh when the stars fall from the sky, Oh when the stars fall from the sky,
+W:   Oh Lord I want to be in that number, when the stars fall from the sky.
 
 X:18
 T:Row, Row, Row Your Boat

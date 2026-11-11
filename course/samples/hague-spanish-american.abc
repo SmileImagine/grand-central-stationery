@@ -1,0 +1,52 @@
+% Eleanor Hague, Spanish-American Folk-Songs (1917).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:La Rana
+T:The Frog
+C:traditional (Mexico)
+O:Mexico
+R:cumulative song (children's song)
+S:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 76, pp. 98-99, as sung by Mrs. Dane Coolidge
+N:A Mexican cumulative song and memory game: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (Hague: "Each verse adds an animal, and the whole list is repeated"). The chain: la Araña (the spider), la Rana (the frog), el Ratón (the rat), el Gato (the cat), el Perro (the dog), el Palo (the stick), la Lumbre (the fire), el Agua (the water), el Buey (the ox), el Cochino (the pig), el Herrero (the blacksmith), la Muerte (Death), Dios (God); a class may stop at the blacksmith. End with the "Ga-ra" croaks, as many as you like, the last held as long as breath lasts. Hague's last bar of the verse has two quarters, the second under a fermata; it is written here as a quarter and a held half so the bar is full. The tempo is ours.
+Q:1/4=112
+M:3/4
+L:1/8
+K:D
+%%style waltz
+C/C/ | D2 D2 D2 | F2 F2 DF | A6 | B6 | A4 B2 | F2 F2 D2 | F2 F2 E2 | D2 z2 F2 |
+w: De que A-ra-ña se sa-le~a pa-sear, Vie-ne la Ra-na y lo se tri-na. La
+w: When the spi-der goes out for a_ walk, Then comes the frog, and he sings with a croak. The
+E2 E2 C2 | D2 D2 F2 | E2 E2 C2 | D2 D2 B,2 | B,2 B,2 B,2 | B,2 C2 B,2 | B,2 !fermata!A,4 ||
+w: Ra-na, La~A-ra-ña, La Ra-na, La~A-ra-ña, Can-tan-do de-ba-jo~en la a-gua.
+w: frog and the spi-der, the frog and the spi-der, Are sing-ing be-neath the green wa-ter.
+M:2/4
+D2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 !fermata!D2 |]
+w: Ga-ra, ga-ra, ga-ra, ga-ra, ga-ra, ga-ra!
+W:Verse 2 (Hague, p. 99):
+W:La Rana se sale a pasear,
+W:Viene el Ratón y se trina,
+W:El Ratón, la Rana, la Araña, la Rana,
+W:Cantando debajo del agua.
+W:
+W:(The frog goes out for a walk, then comes the rat and sings: the rat and the frog, the spider and the frog, are singing under the water.)
+
+X:2
+T:Vámonos por Santa Anita
+T:Come, Let's Go to Santa Anita
+C:traditional (northern Mexico)
+O:northern Mexico
+R:play song
+S:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 75, p. 98, as sung by Mrs. Karbe
+N:A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), with the oxcarts in front and the oxen behind. Keep the dotted figure long-short, a skip, not even eighths; it suits skipping or a walking game in pairs. Sing the Spanish twice through (the repeat), then Hague's English singing translation. Hague marks it "Gayly"; the tempo is ours.
+Q:1/4=100
+M:2/4
+L:1/16
+K:G
+%%style folk
+|: d3 d e3 d | c3 B A3 E | D3 D d3 A | c3 B G4 :|
+w: Vá-mo-nos por San-ta~A-ni-ta, Vá-mo-nos y lo ve-rás;
+w: Las ca-rre-tas por de-lan-te, Y los bue-yes por de-trás.
+w: Come, let's go to San-ta~A-ni-ta! Come, let's go! for there you'll find
+w: In the lead the wag-ons har-nessed, And the ox-en on be-hind.

@@ -1,0 +1,39 @@
+% Allena Luce, Canciones populares (1921).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:Si me dan pasteles
+T:If You Give Me Pasteles
+C:traditional (Puerto Rico)
+O:Puerto Rico
+R:aguinaldo (Christmas song)
+S:Allena Luce, Canciones populares (New York: Silver, Burdett, 1921), "Aguinaldo (Si me dan pasteles)", p. 3
+N:A Puerto Rican aguinaldo. At Christmas, groups of singers and players go from house to house (the parranda) and the hosts give them a gift or something to eat; the song's frank hint is that the visitors want pasteles (Christmas parcels of mashed plantain and root vegetables with a filling, wrapped in banana leaves), and hot ones, because cold pasteles give people a stomach-ache. A Christmas custom with secular words. The instruments play the ritornello before the verse and between verses; the voices sing in thirds, half the class on each line; then make up a verse for the class's own party food, as the parrandas do. Guessed: the first note of the ritornello's bar 8 (read d; it could be c), the lower voice in bar 7 of the verse (G under the c), and the last bar, where Luce puts both syllables of "gen-te" under one chord. The güiro, maracas and chords of the band are ours, after the instruments documented for aguinaldos (cuatro, tres, güiro, maracas, claves, bongó); the tempo is ours.
+Q:1/4=104
+M:2/4
+L:1/8
+K:Gm
+%%style folk
+%%band drums: [ca _ ca ca] [ca _ ca ca]
+%%band drums: [sh sh sh sh] [sh sh sh sh]
+V:1 name="Voice 1"
+V:2 name="Voice 2"
+[V:1] "^Instruments"d | g d/B/ G B | A c- c e | d c B A | B/c/d/B/ G d | g d/B/ G B | c c- c e | .d .c .B .A |1 G2 z d :|2 G z [^Fcd]2 ||
+[V:2] z | z4 | z4 | z4 | z4 | z4 | z4 | z4 |1 z4 :|2 z4 ||
+[V:1] "^Voices"|: .B .B c c | d3/2 (d/ d2) | c c B B | A3/2 (A/ A2) |
+w: Si me dan pas-te-les_ dén-me-los ca-lien-tes_
+[V:1] B B c c | d3/2 (d/ d2) | c c B c | d4 :|
+w: que pas-te-les frí-os_ em-pa-chan la gen~te.
+[V:2] |: G G A A | B3/2 (B/ B2) | A A G G | ^F3/2 (F/ F2) |
+w: Si me dan pas-te-les_ dén-me-los ca-lien-tes_
+[V:2] G G A A | B3/2 (B/ B2) | G G G G | ^F4 :|
+w: que pas-te-les frí-os_ em-pa-chan la gen~te.
+W:Si me dan pasteles, dénmelos calientes,
+W:que pasteles fríos empachan la gente.
+W:(If you give me pasteles, give them to me hot, for cold pasteles give people a stomach-ache.)
+W:
+W:A variant Luce quotes:
+W:Denme mi aguinaldo, si me lo han de dar,
+W:que la noche es corta y tenemos que andar.
+W:(Give me my aguinaldo, if you are going to give it, for the night is short and we have far to go.)

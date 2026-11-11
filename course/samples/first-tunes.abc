@@ -84,9 +84,18 @@ w: all night the day I left, the wea-ther it was dry; the sun so hot I froze to 
 w: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.
 
 X:8
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
-K:C
+T:Greensleeves
+C:traditional (England, 16th century)
+O:England
+R:ballad tune
+S:Grand Central Stationery course samples, first-tunes.abc, X:8 (the first half of the tune, typed from memory)
+N:An Elizabethan ballad tune, first entered for printing in London in 1580, and the tune of the Christmas carol What Child Is This. Given here as a melody to play, without words; bar 7 is the usual cadence (G F♯ E D♯ C♯ D♯), corrected from a slip in the course's first typing.
+Q:3/8=56
+M:6/8
+L:1/8
+K:Em
+%%style ballad
+E | G2 A B>c B | A2 F D>E F | G2 E E>^D E | F2 ^D B,2 E | G2 A B>c B | A2 F D>E F | G>F E ^D>^C ^D | E3 E2 |]
 
 X:9
 T:Scarborough Fair

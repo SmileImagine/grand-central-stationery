@@ -1,0 +1,47 @@
+% Pierre Aubry, Trouvères et troubadours (1909).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:A l'entrada del tens clar
+T:At the Coming of the Bright Season
+C:anonymous (Occitan, 12th-13th century)
+O:Occitania (southern France)
+R:balada (round dance)
+S:Pierre Aubry, Trouvères et troubadours (Paris: Félix Alcan, 1909), pp. 60-61, from the chansonnier of Saint-Germain-des-Prés (Paris, BnF fr. 20050)
+N:A troubadour round dance for the coming of spring: the "April queen" calls every girl and young man to come and dance, to spite the jealous old king. A soloist (or the teacher) sings each line, the class answers "E-ya!", and everyone sings the refrain, "Away, away, jealous ones, let us dance among ourselves", dancing in a ring. The manuscript writes no rhythm: the long-short 3/4 swing, the grace notes and the two F sharps are Aubry's 1909 reading. Guessed: the F sharp on the second "jelos" in the refrain (the head sits high on the plate, but its sharp and the G-F sharp-G cadence want F sharp) and the second "E-ya!" (B, G, A, where the other two go B, c, d), both as the record reads them. Aubry marks it "Vif"; the tempo and the tabor-like drum are ours.
+Q:1/4=150
+M:3/4
+L:1/4
+K:Gmix
+%%style folk
+%%band drums: bd:.6 rim:.35 rim:.35
+%%band bass: ~
+%%band chords: ~
+"^Solo" B2 c | d2 d | d2 B | A2 z || "^All" B3 | c3 | d3- | d2 z ||
+w: A l'en-tra-da del tems clar, E_ ya!_
+"^Solo" B2 c | d2 d | d2 B | A2 z || "^All" B3 | G3 | A3- | A2 z ||
+w: Per jo-ia re-co-men-çar, E_ ya!_
+"^Solo" B2 c | d2 d | d2 B | A2 z || "^All" B3 | c3 | d3- | d2 z ||
+w: E per je-los ir-ri-tar, E_ ya!_
+"^Solo" B2 c | d2 d | d2 B | A2 B | A2 G | A2 B | A2 {G}^F | G3 ||
+w: Vol la re-gi-na mos-trar Qu'el es si a-mo-ro_ sa.
+"^All" d2 d | (d2 B) | c2 c | c2 {B}A | B2 B | (A2 G) | ^F2 G | (G2 A) |
+w: A-la-vi_ a-la-vi-a, je-los, je_ los, Lais-saz_
+B2 G | (G2 A) | B2 d | {e}(d2 B) | c2 {c}B | (A2 G) | A2 {G}^F | G3 |]
+w: nos Lais-saz_ nos Bal-lar_ en-tre nos,_ en-tre nos.
+W:In English: At the coming of the bright season, eya, to begin the joy again, eya, and to annoy the jealous, eya, the queen wants to show that she is so full of love. Away, away, jealous ones, let us, let us dance among ourselves.
+W:
+W:II. El' a fait per tot mandar, - Eya,
+W:Non sia jusqu'a la mar, - Eya,
+W:Piucela ni bachalar, - Eya,
+W:Que tuit non venguan dançar
+W:En la dansa joioza. (Refrain)
+W:(She has sent word everywhere, as far as the sea, that every girl and young man should come and dance in the joyful dance.)
+W:
+W:III. Lo reis i ven d'autra part, - Eya,
+W:Per la dansa destorbar, - Eya,
+W:Que el es en crematar, - Eya,
+W:Que on no li voill' emblar
+W:La regin' aurilloza. (Refrain)
+W:(The king comes from elsewhere to break up the dance, for he is afraid someone will steal his April queen.)

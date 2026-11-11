@@ -45,20 +45,30 @@ function transposeChord(chord, semitones) {
   });
 }
 
+// A length in eighths as ABC writes it with L:1/8.
+const eighths = x => x === 1 ? '' : x === 1.5 ? '3/2' : String(x);
 function metreRecipe(num, den, compound) {
   const units = num * 8 / den;
+  if (!Number.isInteger(units)) {
+    // A metre in sixteenths that eighths cannot count (9/16 as 2+2+2+3): a pulse on each group of two, the last of three.
+    const n = num * 16 / den;
+    if (!Number.isInteger(n) || n < 2) return null;
+    const groups = Array(Math.floor(n / 2)).fill(2); if (n % 2) groups[groups.length - 1] = 3;
+    const durs = groups.map(g => g / 2);
+    return { units, pulses: groups.length, duration: null, durs, body: `${durs.map(x => `B${eighths(x)}`).join(' ')} |` };
+  }
   const pulses = compound ? num / 3 : num;
-  if (!Number.isInteger(units) || !Number.isInteger(pulses) || pulses < 1 || units % pulses) return null;
+  if (!Number.isInteger(pulses) || pulses < 1 || units % pulses) return null;
   const duration = units / pulses;
-  const d = duration === 1 ? '' : String(duration);
-  return { units, pulses, duration, body: `${Array(pulses).fill(`B${d}`).join(' ')} |` };
+  const durs = Array(pulses).fill(duration);
+  return { units, pulses, duration, durs, body: `${durs.map(x => `B${eighths(x)}`).join(' ')} |` };
 }
 
 function bassRecipe(key, metre) {
   const tonic = keyPc(key);
   if (tonic === null || !metre) return null;
-  const fifth = (tonic + 7) % 12, d = metre.duration === 1 ? '' : String(metre.duration);
-  const notes = Array.from({ length: metre.pulses }, (_, i) => `${ABC_PC[i % 2 ? fifth : tonic]}${d}`);
+  const fifth = (tonic + 7) % 12;
+  const notes = metre.durs.map((x, i) => `${ABC_PC[i % 2 ? fifth : tonic]}${eighths(x)}`);
   return `${notes.join(' ')} |`;
 }
 
