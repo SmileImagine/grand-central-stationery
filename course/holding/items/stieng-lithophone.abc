@@ -1,38 +1,45 @@
 % holding-id: stieng-lithophone
-% holding-status: inbox
+% holding-status: transcription
 % holding-owner:
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
-% holding-blocked: Source check: which piece she plays (it may be a traditional S'tiêng melody or a Vietnamese song by a named composer; many đàn đá players play both), and the player's name, which the caption gives only as "XTiêng Đn Xinh" with letters lost. Transcription: the stones' pitches and the tune need a cleaner recording or the player's own help; the machine reading here is not good enough to write the tune.
-% holding-kind: fragment
-% holding-kind-note: A record of the instrument and the pulse only; missing: the tune and its name, the stones' tuning (measured roughly here), what the second mallet plays, and the music's place in S'tiêng life.
+% holding-blocked: Source check: which piece she plays (it may be a traditional S'tiêng melody or a Vietnamese song by a named composer; many đàn đá players play both), and the player's name, which the caption gives only as "XTiêng Đn Xinh" with letters lost; until the piece is named, nothing here is used in class. Transcription: the whole minute is drafted below (intro, the tune twice, a high closing section); check it by ear against the clip, especially the high B (b'), which may be an overtone of the F sharp stone where the two sound together.
 % source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=17 Dust-to-Digital on Instagram (posted 19 October 2026), clip 17 of 20: "XTiêng Đn Xinh" playing a lithophone at her home in Bình Phước, Vietnam, via her Facebook page
 % performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=17 a girl playing the đàn đá (lithophone) at home in Bình Phước (Dust-to-Digital, October 2026, via her Facebook page)
 % performance-note: The clip is 60 seconds of one piece, indoors. For the instrument: the S'tiêng and M'nông lithophones of Bình Phước and Đắk Nông, the first described in the West being the Ndut Lieng Krak lithophone that Georges Condominas found in 1949 (now in Paris); the Vietnamese Institute of Musicology (Hà Nội) holds field recordings.
 % dossier-function: Solo playing at home on a đàn đá, a lithophone: a row of long, roughly shaped stone slabs laid on a padded frame (here about ten to fifteen stones on two tiers), struck with two mallets. The girl plays standing, a mallet in each hand.
-% dossier-elements: A bright, ringing pentatonic sound high in the treble (the stones sound between about G5 and C sharp 7); a steady stream of eighths with longer notes on the beats; one hand plays the tune and the other answers or doubles. The most-struck stones sit near C sharp, E and F sharp (around 1100 to 1500 Hz), which with A and B suggests an F sharp minor or A major pentatonic set.
-% dossier-practice: A steady beat of about 135 a minute (beats 0.44 s apart, eighths between); moderately loud; the stones ring for half a second or so, so the notes overlap.
-% dossier-accompaniment: Tradition: the lithophone alone, or with gongs and drums in the old ensembles. In class: glockenspiel or metallophone on the pentatonic set would be the substitute, once the tune is known.
-% dossier-lyrics: None: instrumental.
-% dossier-honesty: Nothing of the tune is written here. The pulse is read from the recording; the stones' pitches were clustered by machine and came out as 19 groups spaced almost by semitones, more than the stones in the picture, so the reading mixes partials and the two mallets and cannot be trusted note by note.
-% dossier-licence: The instrument and its old repertoire are traditional; the piece is not identified and could be a composed Vietnamese song. The recording belongs to the player; no audio or video is kept here.
-% dossier-respect: A young player filmed at home and posted on her own page: credit her by name once it is known, and ask before any use beyond study. Lithophones of the Central Highlands and the southeast are a source of local and national pride (some are protected as cultural heritage); present the instrument with its people, the S'tiêng.
+% dossier-elements: Six-note scale on A (A, B, C sharp, E, F sharp, with G sharp as a passing note), from C sharp 5 up to F sharp 6, plus one high stone near B6. Form: a seven-bar intro of broken chords in both hands (C sharp, F sharp, A low; C sharp 6 and G sharp answering), the tune A (seven bars, built on repeated C sharp 6 and E6 falling through B and A to F sharp and E) played twice with a two-bar link of high B and A between, then a closing section that rolls on F sharp 5 and F sharp 6 and settles on C sharp 6 and E6, ending on repeated E6.
+% dossier-practice: A steady beat of 136 a minute (0.441 s, held through the whole minute), in eighths; the stones ring about half a second, so the notes overlap. One hand mostly carries the tune; the other adds the low F sharp or A under it, or strikes the same stone in alternation for the repeated notes.
+% dossier-accompaniment: Tradition: the lithophone alone, or with gongs and drums in the old ensembles. Here the stones alone; the band is off. In class: glockenspiel or metallophone on the six notes, two mallets.
+% dossier-lyrics: None: instrumental (if the piece turns out to be a song, its words belong in this record).
+% dossier-honesty: A draft of one performance. The stones were separated by a spectrogram factorization (one learned spectrum per stone), each stroke was assigned to the stone whose sound jumped at that moment, and the strokes were set on an eighth-note grid of 0.2205 s; the two passes of the tune agree almost note for note. The bar lines, the note lengths (every stroke is written to the next one; the stones ring on) and the spelling are ours.
+% dossier-licence: The instrument and its old repertoire are traditional; the piece is not identified and could be a composed Vietnamese song. The recording belongs to the player; only the notes were taken, and no audio or video is kept here.
+% dossier-respect: A young player filmed at home and posted on her own page: credit her by name once it is known, and ask before any use beyond study. Lithophones of the Central Highlands and the southeast are a source of local and national pride; present the instrument with its people, the S'tiêng.
 % dossier-review: The player or her family, for the piece's name; a Vietnamese musicologist who knows the đàn đá of Bình Phước.
 X:1
-T:Đàn đá (S'tiêng lithophone), record
-T:A girl playing the lithophone at home in Bình Phước: pulse only
+T:Đàn đá (S'tiêng lithophone)
+T:A girl playing the lithophone at home in Bình Phước, as heard in the clip
 C:not identified
 O:Vietnam, Bình Phước province, S'tiêng people
 R:instrumental
-S:Clip 17 of a Dust-to-Digital Instagram post (19 October 2026), via the player's Facebook page; pulse read from the recording
-N:HOW READ (2026-11-11): onsets found by spectral flux above 300 Hz: a stroke every 0.44-0.46 s on the beat, with eighths (0.22 s) between in most bars; the pitch of each stroke was read 50-200 ms after it, between 500 and 2300 Hz. The clearest stretch (49.6-54.5 s) moves between three stones near C sharp 6, E6 and F sharp 6.
-N:UNCERTAIN: the tune, and how many stones she uses; which partial of each stone is its pitch; whether a phrase is four or eight beats.
+S:Clip 17 of a Dust-to-Digital Instagram post (19 October 2026), via the player's Facebook page; draft transcription by machine, from the recording
+N:HOW READ (2026-11-11): the clip's sustained part (harmonic/percussive separation) was factored into 18 spectra; 13 were single stones (C sharp 5, E5, F sharp 5, G sharp 5, A5, B5, C sharp 6, D6, E6, F sharp 6, a stone near B6) or their upper partials (the components at C7, D7, E7, F7 and A sharp 6 rise and fall with A5, C sharp 6, B5, C sharp 5 and F sharp 5, and are read as those stones), and three were noise. Strokes were found by spectral flux in the full mix and set on a 0.441 s beat from 0.36 s; the tune's two passes (12.5 s and 28.6 s) agree in 45 of their 56 eighths, bars 2 to 4 exactly; they differ in the first bar (the second pass starts an eighth later) and in the last two (the first leads into the link, the second into the closing section).
+N:INTONATION: the low stones are close to equal temperament (C sharp 5 -9, E5 -4, F sharp 5 -10, G sharp 5 -7, A5 -1, B5 -5, C sharp 6 -10 cents); the high ones less so (E6 -20, the B6 stone -22).
+N:UNCERTAIN: the high B (b') where it sounds with F sharp: it may be the F sharp stone's overtone, not a second stroke; the strokes marked "?" by the reader (written as the note before, held); the first pass of the tune runs one eighth ahead of the grid (the bar before it is written in 7/8, and the link after it in 9/8); the D6 in the closing section (one stone, struck three times).
 M:4/4
 L:1/8
-Q:1/4=135
-K:none
-%%band drums: wb wb wb wb wb wb wb wb
+Q:1/4=136
+K:A
+%%band drums: ~
 %%band bass: ~
 %%band chords: ~
-z8 | z8 |]
+"^Intro" z f2 a2 [fa]2 [ac'] | z [cf]2 [fa]3 c'2 | g [fb'] [eg]2 [fab'] b' a2 | [fa]2 [cb']2 [ab'] b' a2 |
+[ab']2 [cb']2 [fa]2 c'2 | [gb] [fa] [eg]2 [fab'] f2 [fa] | [M:7/8] a2 c2 f b' c |
+[M:4/4] "^A" [fb']2 a2 b c' c'2 | c'2 e'2 c'2 c'2 | b c' e' e' g2 c' c' | c'2 a2 b2 b2 |
+a b c' b a2 b2 | b c' f2 a2 a2 | [fb'] b' a2 e2 a2 | "^link" [ab'] [ab'] b' b' b' [ab'] [fa] b' | [M:9/8] [fa] b' [ab']2 c2 f2 c |
+[M:4/4] "^A" z [fb']2 a b c' c'2 | c'2 e'2 c'2 c'2 | b c' e' e' g2 c' c' | c'2 a2 b2 b2 |
+a b c' b a b3 | z c' f2 a a2 [fb'] | z [fb'] a2 e2 f2 |
+"^B" f2 f2 b' f e'2 | z2 f2 d'2 [e'f']2 | f'2 f'2 f' f' f'2 | c'4 c'2 e'2 |
+e' e'2 e' e'4 | c'2 e'2 e'2 e'2 | e' f'2 c' e'2 e'2 | f'2 e'2 f' e' c' c' |
+c' c' c'2 c' c' c' c' | z d'2 g [ad'] [d'e']2 e' | z e' e' e' e' e'3 |]

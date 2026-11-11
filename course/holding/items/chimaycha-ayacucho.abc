@@ -6,7 +6,7 @@
 % holding-updated: 2026-11-11
 % holding-blocked: Transcription: the women's high singing and the harp could not be separated by machine (the tracker jumps between them); take the melody by ear from a cleaner chimaycha recording, or from a printed collection, and the Quechua words with it. Source check: the song's name, the community (the page that posted it is named for Vilcanchos and Cocas, districts of Víctor Fajardo province; chimaycha is sung across southern Ayacucho), and whether it is an old song or a newer one by a named singer.
 % holding-kind: fragment
-% holding-kind-note: A record of the clip with its rhythm cell only; missing: the melody, the Quechua words, the song's name and maker, the harp part, and the dance steps (the women dance in a line while singing).
+% holding-kind-note: A record of the clip with its rhythm cell and the harp's bass; missing: the melody, the Quechua words, the song's name and maker, the harp's treble, and the dance steps (the women dance in a line while singing).
 % source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=16 Dust-to-Digital on Instagram (posted 19 October 2026), clip 16 of 20: a chimaycha performance in Ayacucho, Peru, via Fajardo Vilcanchos Cocas Ayacucho on Facebook
 % performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=16 chimaycha in Ayacucho: women singing in a line with harp, at night (Dust-to-Digital, October 2026, via Fajardo Vilcanchos Cocas Ayacucho)
 % performance-note: The clip is 60 seconds, filmed at night among the dancers. Chimaycha has many recordings: the Lucanamarca and Chuschi (Ayacucho) groups, the Instituto de Etnomusicología of the Pontificia Universidad Católica del Perú (Lima), and Raúl R. Romero's writings on Andean music name communities and singers.
@@ -27,6 +27,7 @@ O:Peru, Ayacucho
 R:chimaycha
 S:Clip 16 of a Dust-to-Digital Instagram post (19 October 2026), via Fajardo Vilcanchos Cocas Ayacucho on Facebook; rhythm read from the recording
 N:HOW READ (2026-11-11): onsets of the whole clip folded onto the cycle that repeats best (1.14 s, one 2/4 bar at about 105 beats a minute, in eight sixteenths): on each beat, strong on the first sixteenth, weak on the second, strong on the third and fourth, which is the huayno cell (an eighth and two sixteenths). The pitch tracker (F4 to C6) found F the most-sung note, then B flat, C, D flat, G and A flat.
+N:HARP BASS: fitting a fixed harmonic spectrum to every semitone from C2 to C4 in the sustained part, the harp's low strings alternate A flat 2 and E flat 3 an eighth apart (0.29 s) through most of the clip, root and fifth of A flat, with C4 the next strongest; so the harp holds A flat major while the singers' line centres on F, its relative minor, as huayno often does. The voices were tracked again on the sustained part alone, between B4 and F sharp 6: no phrase repeated clearly enough to write down.
 N:UNCERTAIN: the melody (the tracker jumped between the voices and the harp, often an octave apart); whether the mode is F minor or B flat minor; where the bar begins.
 M:2/4
 L:1/16
@@ -35,4 +36,7 @@ K:Fm
 %%band drums: [bd _ rim rim] [bd _ rim rim]
 %%band bass: ~
 %%band chords: ~
-z8 | z8 |]
+V:1 name="Voices" sname="V."
+V:2 name="Harp bass" sname="Harp" clef=bass
+[V:1] z8 | z8 |]
+[V:2] A,,2 E,2 A,,2 E,2 | A,,2 E,2 A,,2 E,2 |]

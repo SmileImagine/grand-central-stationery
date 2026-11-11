@@ -4,14 +4,14 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
-% holding-blocked: Source check: name the song and the drum group singing it, and ask the group (or the powwow committee) whether it may be taught; until then nothing here is used in class. The notes are a machine draft of 17 seconds of one phrase under crowd noise and jingles; they need a powwow singer's ear, and ideally a longer, cleaner recording of the same song.
+% holding-blocked: Source check: name the song and the drum group singing it, and ask the group (or the powwow committee) whether it may be taught; until then nothing here is used in class. Transcription: a machine draft of the 17 seconds (the lead's phrase, the seconds' answer down to the low F, the start of the next push-up), sung with wide slides under crowd noise and jingles; it needs a powwow singer's ear, and ideally a longer, cleaner recording of the same song.
 % holding-kind: fragment
-% holding-kind-note: One descending phrase of the lead and the seconds, 17 seconds long, taken by pitch tracker; missing: the song's name and owners, the vocables, the full form (lead, seconds, the four push-ups, honor beats, tail), the drum part, and the dance it was sung for.
+% holding-kind-note: Seventeen seconds: the lead's opening phrase, the answer down to the tonic, and the start of the next phrase, drafted by pitch tracker; missing: the song's name and owners, the vocables, the rest of the form (the four push-ups, honor beats, tail), the drum part as played, and the dance it was sung for.
 % source-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=13 Dust-to-Digital on Instagram (posted 19 October 2026), clip 13 of 20: the Black Hills Powwow, Rapid City, South Dakota, via Jenn Nicoteen on Facebook
 % performance-url: https://www.instagram.com/p/Der8fSRGSJC/?img_index=13 the Black Hills Powwow, Rapid City, South Dakota (Dust-to-Digital, October 2026; filmed by Jenn Nicoteen, shown on "Jenn's Reels")
 % performance-note: The clip is 17 seconds of an indoor arena: jingle-dress and fancy-shawl dancers in a circle; the drum and singers are heard but not seen. Jenn Nicoteen's Facebook reel is the original; the full song, and the drum's name, may be there.
 % dossier-function: A powwow song sung at the drum for the dancers in the arena; this one carries jingle-dress and fancy-shawl dancers, so most likely an intertribal or a women's category song. Powwow songs are made and owned by singers and drum groups; some are ceremonial (honor songs, flag songs, veterans' songs) and are not to be sung outside their place.
-% dossier-elements: Northern style as heard: a high, strained lead that enters near the top of the voice and falls in terraces to a long low note where the other singers join (here the low note is F, with an octave below it from the men). The notes heard are F, G, A and C, with a passing note between D and E flat, sung with wide slides; the drum keeps a steady beat.
+% dossier-elements: Northern style as heard: a high, strained lead that enters near the top of the voice (C6) and falls in terraces; the seconds answer from F sharp down through E flat and E to a long F, sung with the men an octave below; a new phrase then starts high again (G and B) and falls to A flat 4 below the tonic. The notes heard are F, G, A, B flat, C with B natural, E flat, E and A flat as slides and passing notes; every note is approached by a slide.
 % dossier-practice: Very loud, high and bright; the drum is struck together by several singers seated round one large drum, a steady beat of roughly 200 strokes a minute in this reading (unsteady under the crowd). The song falls from the lead's opening down to the low tonic; the whole song is repeated four times ("push-ups"), with honor beats (accented strokes) in places.
 % dossier-accompaniment: Tradition: one large bass drum played by the singers themselves, nothing else. The band plays nothing here; if the class ever uses this, one floor drum with soft beaters, played together.
 % dossier-lyrics: Not taken: the words were not audible, and powwow songs are often sung in vocables or in a Native language. None to be sung without the owners' consent.
@@ -26,13 +26,16 @@ C:unknown (powwow drum group); not identified
 O:USA, South Dakota, Black Hills Powwow, Rapid City
 R:powwow song
 S:Clip 13 of a Dust-to-Digital Instagram post (19 October 2026), filmed by Jenn Nicoteen at the Black Hills Powwow; draft by pitch tracking
-N:HOW READ (2026-11-11): the clip's 17 seconds were pitch-tracked between D4 and E6 with the steady crowd tone subtracted; the singing sits about 40 cents above A=440, and the long low note (7.9-9.3 s, sung with an octave below) is taken as the tonic F. Held notes from the track: C (0.7-1.0 s), A (4.0-4.7 s), the note between D and E flat (6.6-6.8 s), then F (7.9-9.3 s); a second phrase starts again high (9.5 s, A flat sliding down through G to F).
-N:UNCERTAIN: almost everything: the F sharp at 5.9-6.2 s (a semitone above the tonic; perhaps F sung sharp, or a slide); the B heard at 1.2-1.4 s (a tritone above F, probably a slide from C, left out); whether the low passing note is D or E flat (it sits 250 cents below F); every length; the bar lines (the drum beat is a weak reading, about 0.30 s); which voice is the lead and which the seconds.
+N:HOW READ (2026-11-11): the clip's sustained part (harmonic/percussive separation, which takes out the drum strokes and the jingles) was pitch-tracked between G3 and E6; the singing sits about 40 cents above A=440 at the start and sags 20-30 cents by the long F, which is taken as the tonic (7.9-9.4 s, with the octave below). Phrases: the lead 0.2-4.7 s (B to C6, then B, A, G, A, B flat, A, a dip to C5, A held), the seconds 5.6-9.4 s (F sharp, B, E flat, E, F held), the next phrase 9.5-13.4 s (a quick turn G, F sharp, B, F sharp, then E, B4, G, D, G, A, F, A, B flat 4, A flat 4), drum only 13.5-15.7 s, and the start of the next (F sharp, 15.8 s). One eighth here is one drum stroke (about 0.30 s). Scored against the pitch track, each phrase aligned at its own start: 53% of voiced frames in all (lead 53%, seconds 64%, the third phrase 34%), lower than a steady instrument would give because of the slides.
+N:UNCERTAIN: almost everything: the B naturals (between B flat and B, perhaps slides from C); the F sharps (perhaps F sung sharp, a semitone above the tonic); E flat or D at 6.5-6.8 s (it sits 250 cents below F); the quick turn at 9.6-10.0 s; every length; which voice is the lead and which the seconds.
 M:none
-L:1/4
+L:1/8
 Q:1/4=100
 K:F
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~
-c'3 z | g a2 z | a3 a | ^f d2 =e | f4- | f4 |]
+"^lead" =b c' =b2 a2 g a2 _b a c a3 z6 |
+"^seconds" ^f2 =b _e =e3 f4- f |
+"^lead" {g^f=b}^f/ =e/ =B3/ g d2 g/ a/ f a _B _A2 z8 |
+^f4 |]
