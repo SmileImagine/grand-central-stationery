@@ -1,0 +1,39 @@
+% holding-id: muvili-zuma-zuma
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Curtis p. 106 (Children's Songs III). Classroom check: jump on each beat while chanting; does the one-line rhythm read well in the rhythm views, and should it live there rather than with the tunes?
+% source-url: https://archive.org/details/songstalesfromda00burl/page/106/ archive.org scan of Songs and Tales from the Dark Continent, at p. 106
+% dossier-function: A drying chant: after swimming the children jump up and down in the sun to shake the water off, chanting this and jumping on each beat; they hold the chant and the leaping to be a charm that dries them (Curtis, p. 31, from Simango).
+% dossier-elements: Rhythm only, spoken: twelve bars of 2/4 in eighths and quarters, the refrain "Mu-vi-li, zu-ma, zu-ma!" four times with "Ka-si-la" and "O-mai" between, each of those stressed on its first syllable.
+% dossier-practice: Rather quickly (quarter = 116, Curtis). Half spoken; one jump on each beat. The band plays only a soft low thump on the beat for the jumps; the notes are on one line because the chant has no pitch.
+% dossier-honesty: Traditional; the rhythm and words as Curtis printed them from C. Kamba Simango; the English line is Curtis's ("Bo-dy, bo-dy, dry off quick!"). The thump on the beat is ours.
+% dossier-licence: Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).
+% dossier-respect: A children's game, nothing sacred. Credit C. Kamba Simango. Leave out Curtis's remark beneath the plate comparing African and African-American accentuation; keep her game notes.
+% dossier-review: A Chindau speaker, for the words and stresses.
+X:1
+T:Muvi'li, zu'ma, zu'ma
+T:Drying chant: Ndau children's game
+C:traditional (Ndau), as given by C. Kamba Simango
+O:Mozambique (then Portuguese East Africa), Ndau people
+R:chant
+S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs III, p. 106 (game notes p. 31)
+N:THE GAME (Curtis, p. 31): "After the children have been swimming, they jump up and down in the sun to shake the water off and dry themselves. They sing this little half-spoken song while jumping in time to each beat of the music." They think the song and the leaping are a kind of charm that helps make them dry.
+N:THE PLATE: "A rhythmic chant, spoken rather than sung", 2/4, "Rather quickly (quarter = 116)", on a single line; stress marks over "Ka" and "O". Words in Chindau with Curtis's English under them.
+N:HOW READ (2026-11-10): p. 106 from the archive.org scan, the three lines enlarged twice; every bar checked to make two beats.
+N:UNCERTAIN: none in the rhythm; the words want a Chindau speaker.
+M:2/4
+L:1/8
+Q:1/4=116
+K:C clef=perc stafflines=1
+%%band drums: bd:.5 bd:.5
+%%band bass: ~
+%%band chords: ~
+B B B B | B B B2 | B B B B | B B B2 | !>!B B B2 | !>!B B B2 |
+w: Mu-vi-li, zu-ma, zu-ma! Mu-vi-li, zu-ma, zu-ma! Ka-si-la, ka-si-la.
+w: Bo-dy, bo-dy, dry off quick! Bo-dy, bo-dy, dry off quick! Quick-ly now, quick-ly now.
+B B B B | B B B2 | !>!B B3 | !>!B B3 | B B B B | B B B2 |]
+w: Mu-vi-li, zu-ma, zu-ma! O-mai, O-mai, Mu-vi-li, zu-ma, zu-ma!
+w: Bo-dy, bo-dy, dry off quick! You're dry, you're dry, Bo-dy, bo-dy, dry off quick!

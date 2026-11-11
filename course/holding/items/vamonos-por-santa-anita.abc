@@ -1,0 +1,34 @@
+% holding-id: vamonos-por-santa-anita
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Hague No. 75, p. 98 (the dotted-eighth and sixteenth figures in every beat). Classroom check: can a class keep the dotted figure long-short, not even, at a gay tempo?
+% source-url: https://archive.org/details/arf6149.0001.001.umich.edu/page/98/ archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98
+% dossier-function: A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), the oxcarts in front and the oxen behind.
+% dossier-elements: G major, 2/4, four bars sung twice; every beat but the last is a dotted eighth and a sixteenth, a skipping long-short figure; a range of a ninth (D above middle C to the E an octave higher).
+% dossier-practice: Gayly (Hague). The skipping figure suits skipping or a walking game in pairs; the second line of words takes the same four bars.
+% dossier-honesty: Traditional; the notes, Spanish words and English singing translation as Hague printed them from Mrs. Karbe's singing.
+% dossier-licence: Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US and in Canada (Hague d. 1954).
+% dossier-respect: A play song; nothing sacred or sensitive.
+% dossier-review: A Spanish-speaking teacher, for the words.
+X:1
+T:Vámonos por Santa Anita
+T:Come, let's go to Santa Anita: Mexican play song
+C:traditional (northern Mexico), as sung by Mrs. Karbe
+O:northern Mexico
+R:play song
+S:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 75, p. 98
+N:THE PLATE: "Gayly", 2/4 in G major, two lines of four bars with the same notes, Spanish words with Hague's English under them: "Come, let's go to Santa Anita! Come, let's go! for there you'll find / In the lead the wagons harnessed, And the oxen on behind."
+N:HOW READ (2026-11-10): p. 98 from the archive.org scan (about 600 dpi); the noteheads measured against the staff lines by a notehead reader (both lines give d d e d, c B A E, D D d A, c B G); the dotted figures read on full-size crops; "San-ta A-" is sung with the vowels joined, as Hague's underlay shows.
+N:UNCERTAIN: none in the notes; the tempo is ours (Hague gives only "Gayly").
+M:2/4
+L:1/16
+Q:1/4=100
+K:G
+|: d3 d e3 d | c3 B A3 E | D3 D d3 A | c3 B G4 :|
+w: Vá-mo-nos por San-ta~A-ni-ta, Vá-mo-nos y lo ve-rás;
+w: Las ca-rre-tas por de-lan-te, Y los bue-yes por de-trás.
+w: Come, let's go to San-ta~A-ni-ta! Come, let's go! for there you'll find
+w: In the lead the wag-ons har-nessed, And the ox-en on be-hind.

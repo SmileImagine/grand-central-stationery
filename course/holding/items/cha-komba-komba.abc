@@ -1,0 +1,36 @@
+% holding-id: cha-komba-komba
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Curtis p. 106 (Children's Songs II). Classroom check: a hopping race on one leg in time to the song, in a space where that is safe.
+% source-url: https://archive.org/details/songstalesfromda00burl/page/106/ archive.org scan of Songs and Tales from the Dark Continent, at p. 106
+% dossier-function: A singing game for the evening: the children hop on one leg in time to the song, racing to a goal. Putting the other foot down loses the race (Curtis, p. 31, from Simango).
+% dossier-elements: Three notes (F, A flat, B flat: la, do, re), two bars sung twice: four quick eighths and a held note, then a stressed note, a rest and the answer. 3/4, with a repeat.
+% dossier-practice: Rather quickly (quarter = 116, Curtis). Sung while hopping, one hop to a beat; the band plays only a soft low thump on each beat for the hops.
+% dossier-honesty: Traditional; the notes and words as Curtis printed them from C. Kamba Simango's singing; the English line is Curtis's. The thump on the beat is ours, for the hops; the plate has the voice alone.
+% dossier-licence: Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).
+% dossier-respect: A children's game, nothing sacred. Credit C. Kamba Simango. Curtis notes that the "th" of m'nthalila is not pronounced as in English and that the t is followed by a breathed h.
+% dossier-review: A Chindau speaker, for the words.
+X:1
+T:Cha-ko'mba, ko'mba
+T:Hopping song: Ndau children's game
+C:traditional (Ndau), as sung by C. Kamba Simango
+O:Mozambique (then Portuguese East Africa), Ndau people
+R:singing game
+S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs II, p. 106 (game notes p. 31)
+N:THE GAME (Curtis, p. 31): "In the evening the children play this singing-game, while hopping on one leg in time to the music to a given goal in a hopping race. They must always hop on one leg, for to put down the other foot would be to lose the race."
+N:THE PLATE: four bars of 3/4 in four flats, "Rather quickly (quarter = 116)", ending with a repeat; a stress tick over "Cha" in bars 2 and 4, and a slur from the held note into it. The two lines of words are the Chindau and Curtis's English ("Hop-ping we go").
+N:HOW READ (2026-11-10): p. 106 from the archive.org scan, the staff enlarged three times with a labelled guide at every line and space; the key signature enlarged four times (B, E, A and D flat); flags and stems counted on the enlargement; every bar checked to make six eighths.
+N:UNCERTAIN: none in the notes; the words want a Chindau speaker.
+M:3/4
+L:1/8
+Q:1/4=116
+K:Ab
+%%band drums: bd:.5 bd:.5 bd:.5
+%%band bass: ~
+%%band chords: ~
+|: A B A B (A2 | !>!B) z F B A2 | A B A B (A2 | !>!B) z F B A2 :|
+w: Cha-ko-mba, ko-mba, Cha m'n-tha-li-la, Cha-ko-mba, ko-mba, Cha m'n-tha-li-la!
+w: Cha-ko-mba, ko-mba, Hop-ping we go, Cha-ko-mba, ko-mba, Hop-ping we go!

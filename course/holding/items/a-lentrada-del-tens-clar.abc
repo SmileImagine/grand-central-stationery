@@ -1,0 +1,47 @@
+% holding-id: a-lentrada-del-tens-clar
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Aubry pp. 60-61, especially the first note of the refrain's second line (an F sharp: the head sits high, but its sharp is on the F space and the cadence G-F sharp-G wants it), the grace notes, and the second "E-ya!" (B, G, A, not B, c, d like the other two). Classroom check: the class as chorus (the "E-ya!" answers and the refrain), a soloist or the teacher on the verse lines, and a round dance in a circle.
+% source-url: https://archive.org/details/trouvresettrou00aubr/page/60/ archive.org scan of Aubry, Trouvères et troubadours (1909), at p. 60
+% source-url: https://archive.org/details/trouvresettrou00aubr/page/61/ the same, p. 61 (the refrain and verses II-III)
+% dossier-function: A round dance for the coming of spring: the "April queen" calls everyone, girl and boy, to come and dance, to spite the jealous old king; the chorus shouts "Eya!" after each of the soloist's lines and sings the refrain, "Away, away, jealous ones, let us dance among ourselves."
+% dossier-elements: Call and answer: a soloist's line (always the same seven notes, B c d d d B A) and the chorus's "E-ya!" held over four bars; then a sixteen-bar refrain for everyone. 3/4 in a long-short swing (half then quarter), the medieval first rhythmic mode as Aubry read it; G is the final, the range an octave (F sharp to e).
+% dossier-practice: Vif (Aubry). A soloist and a chorus, as the plate marks them; danced in a ring. The band plays only a tabor-like drum (ours); the plate has the voice alone.
+% dossier-honesty: Anonymous, 12th-13th century, from the chansonnier of Saint-Germain-des-Prés (Paris, BnF fr. 20050), which writes no rhythm; the 3/4 long-short rhythm, the grace notes and the two F sharps are Aubry's reading (1909). The drum is ours.
+% dossier-licence: Pierre Aubry (1874-1910), Trouvères et troubadours (Paris: Félix Alcan, 1909): public domain in the US, Canada and Europe (Aubry d. 1910).
+% dossier-respect: A secular spring dance; the "jealous" are the old husband and his kind, a stock figure of the genre. Nothing sacred.
+% dossier-review: An early-music singer, for the Occitan words and the rhythm.
+X:1
+T:A l'entrada del tens clar
+T:At the coming of the bright season: troubadour round dance
+C:anonymous (Occitan, 12th-13th century)
+O:Occitania (southern France)
+R:balada (round dance)
+S:Pierre Aubry, Trouvères et troubadours (Paris: Félix Alcan, 1909), pp. 60-61, from the chansonnier of Saint-Germain-des-Prés (Paris, BnF fr. 20050)
+N:THE WORDS, verse I (sung): "A l'entrada del tems clar, - Eya, / Per joia recomençar, - Eya, / E per jelos irritar, - Eya, / Vol la regina mostrar / Qu'el es si amorosa. / Alavi', alavia, jelos, / Laissaz nos, laissaz nos / Ballar entre nos, entre nos." At the coming of the bright season, to begin the joy again and to annoy the jealous, the queen wants to show that she is so full of love. Away, away, jealous ones, let us, let us dance among ourselves.
+N:VERSE II: "El' a fait per tot mandar, - Eya, / Non sia jusqu'a la mar, - Eya, / Piucela ni bachalar, - Eya, / Que tuit non venguan dançar / En la dansa joioza." She has sent word everywhere, as far as the sea, that every girl and young man should come and dance in the joyful dance. VERSE III: "Lo reis i ven d'autra part, - Eya, / Per la dansa destorbar, - Eya, / Que el es en crematar, - Eya, / Que on no li voill' emblar / La regin' aurilloza." The king comes from elsewhere to break up the dance, for he is afraid someone will steal his April queen. Each verse ends with the refrain.
+N:THE PLATE: Aubry's transcription in 3/4 with no key signature, the parts marked LE SOLISTE and LE CHŒUR; editorial sharps under two F's at the cadences; small grace notes in the refrain. His footnote: the song was printed once before in his La chanson populaire dans les textes musicaux du moyen âge (1905), and differs here after further research.
+N:HOW READ (2026-11-10): pp. 60-61 from the archive.org scan (no larger copy is published; staff lines 17.5 pixels apart); noteheads found and measured against the lines by a notehead reader, each staff also enlarged three times with a labelled guide at every line and space; one head that sat between G and F was settled by the position of its sharp; rhythm, ties, slurs and grace notes read from the enlargements. Words aligned from the plate: grace notes take no syllable, and slurred pairs carry one.
+N:UNCERTAIN: the F sharp at the start of the refrain's second line (see above); the tempo is ours ("Vif").
+M:3/4
+L:1/4
+Q:1/4=150
+K:Gmix
+%%band drums: bd:.6 rim:.35 rim:.35
+%%band bass: ~
+%%band chords: ~
+"^Solo" B2 c | d2 d | d2 B | A2 z || "^All" B3 | c3 | d3- | d2 z ||
+w: A l'en-tra-da del tems clar, E_ ya!
+"^Solo" B2 c | d2 d | d2 B | A2 z || "^All" B3 | G3 | A3- | A2 z ||
+w: Per jo-ia re-co-men-çar, E_ ya!
+"^Solo" B2 c | d2 d | d2 B | A2 z || "^All" B3 | c3 | d3- | d2 z ||
+w: E per je-los ir-ri-tar, E_ ya!
+"^Solo" B2 c | d2 d | d2 B | A2 B | A2 G | A2 B | A2 {G}^F | G3 ||
+w: Vol la re-gi-na mos-trar Qu'el es si a-mo-ro_ sa.
+"^All" d2 d | (d2 B) | c2 c | c2 {B}A | B2 B | (A2 G) | ^F2 G | (G2 A) |
+w: A-la-vi_ a-la-vi-a, je-los, je_-los, Lais-saz_
+B2 G | (G2 A) | B2 d | {e}(d2 B) | c2 {c}B | (A2 G) | A2 {G}^F | G3 |]
+w: nos Lais-saz_ nos Bal-lar_ en-tre nos,_ en-tre nos.

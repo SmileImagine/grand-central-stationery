@@ -1,0 +1,39 @@
+% holding-id: mu-to-to-lile
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Curtis p. 106 (Children's Songs I), especially the sixteenths against the eighths (all of bars 2-4 are sixteenths but the last note) and the stress ticks. Ask someone who speaks Chindau to hear the words and the stresses before it is published.
+% source-url: https://archive.org/details/songstalesfromda00burl/page/106/ archive.org scan of Songs and Tales from the Dark Continent, at p. 106
+% dossier-function: A rain game: children sing it while playing in the rain, calling the drops to fall until the pools are full, so they can swim, and hunt the big red-breasted bullfrogs. "To-to" is the sound of rain falling in drops (Curtis's note, from Simango).
+% dossier-elements: Four bars of 3/4 in quick sixteenths on four notes (E G A B), every bar opening "To-to li-le" with both syllables of "To-to" stressed: the stress falls on the pickup and on the downbeat, against the bar.
+% dossier-practice: Not fast (quarter = 60, Curtis). Sung by children, unaccompanied; the band rests. The stress ticks are part of the song: Curtis prints them over every "To" and "to".
+% dossier-honesty: Traditional; the notes, words and stress marks as Curtis printed them from C. Kamba Simango's singing. The English line is Curtis's singing translation, fitted to the same notes.
+% dossier-licence: Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US (published 1920) and in Canada (Curtis d. 1921; Simango, who gave the songs, d. 1966, so also out of copyright under the life-plus-50 term then in force).
+% dossier-respect: A children's game song, nothing sacred. Credit C. Kamba Simango, who brought the Ndau songs to the book. Take the notes and Curtis's game notes, not the book's general commentary, which has dated generalisations about race.
+% dossier-review: A Chindau speaker, for the words and the stresses.
+X:1
+T:Mu-to-to-li'le
+T:Drip-drop the rain: Ndau children's song
+C:traditional (Ndau), as sung by C. Kamba Simango
+O:Mozambique (then Portuguese East Africa), Ndau people
+R:children's song
+S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs I, p. 106 (game notes p. 30)
+N:THE GAME (Curtis, p. 30): "This song is sung by children when playing in the rain. They call the raindrops to pour down till all the pools are full." They swim in the pools and spear the big red-breasted bullfrogs with little pointed sticks. "To-to" is the sound of rain falling in drops.
+N:THE PLATE: one melody in 3/4, "Not fast (quarter = 60)", with the Chindau words and Curtis's English under them; a stress tick over every "To" and "to". The plate opens with a bar of rests (two quarter rests, an eighth rest) before the pickup eighth; written here as a plain pickup.
+N:HOW READ (2026-11-10): p. 106 from the archive.org scan (about 300 dpi), each staff enlarged three times with a labelled guide drawn at every line and space to read the pitches against; flags counted on the enlargement (bar 1 has two eighths, bars 2-4 are sixteenths but the last note); every bar checked to make twelve sixteenths.
+N:UNCERTAIN: none in the notes that the scan leaves open; the stresses and the words want a Chindau speaker.
+M:3/4
+L:1/16
+Q:1/4=60
+K:C
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+!>!A2 | !>!B A G2 A2 E A G z !>!A2 | !>!B A G G A A E A G z !>!A2 |
+w: To-to li-le, mv'la-nga i-ne, To-to li-le, ma-ka-ndwa a-za-le, To-
+w: "To-to," pour down, rain, let it rain, "To-to," pour down, let all the pools be full, "To-
+!>!B A G G A A E A G z !>!A2 | !>!B A G G A A E A G2 z2 |]
+w: to li-le, ti-zo bu-mwi-la mwo; To-to li-le, ti-ba-ye ma-che-che.
+w: to," pour down, and we will swim there-in; "To-to," pour down, we spear the red bull-frog.

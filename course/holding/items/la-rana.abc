@@ -1,0 +1,38 @@
+% holding-id: la-rana
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Hague No. 76, pp. 98-99, especially the last bar of the verse (two quarters on the plate, the second under a fermata, written here as a quarter and a held half) and the sixteenth pickup. Classroom check: how far down the chain to go (it ends with Death and God; a class may stop at the blacksmith), and how the chain fits the music, which the book does not write out.
+% source-url: https://archive.org/details/arf6149.0001.001.umich.edu/page/98/ archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98
+% dossier-function: A cumulative children's song: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (spider, frog, rat, cat, dog, stick, fire, water, ox, pig, blacksmith, Death, God). It ends with everyone croaking "ga-ra, ga-ra", the last croak held as long as breath lasts.
+% dossier-elements: D major, 3/4, a range of a ninth (A below middle C to the B above it); quarters with one sixteenth pickup and one pair of eighths; the croaking coda in 2/4 on one note.
+% dossier-practice: The verse sung by everyone; the chain added verse by verse (a memory game); the "ga-ra" croaks ad lib, the last one held a long time (Hague's note).
+% dossier-honesty: Traditional; the notes, Spanish words and English singing translation as Hague printed them from Mrs. Dane Coolidge's singing. The fermata bar is lengthened to fill the metre (see the N: lines).
+% dossier-licence: Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US (published 1917) and in Canada (Hague d. 1954).
+% dossier-respect: A children's song; the chain ends "La Muerte, Dios" (Death, God), which a teacher may choose to sing or leave.
+% dossier-review: A Spanish-speaking teacher, for the words and the chain.
+X:1
+T:La Rana
+T:The frog: Mexican cumulative song
+C:traditional (Mexico), as sung by Mrs. Dane Coolidge
+O:Mexico
+R:cumulative song
+S:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 76, pp. 98-99
+N:THE CHAIN (Hague, p. 99): "Each verse adds an animal, and the whole list is repeated." Verse 2: "La Rana se sale a pasear, / Viene el Raton y se trina, / El Raton, la Rana, la Araña, la Rana, / Cantando debajo del agua." The list: La Araña, la Rana; la Rana, el Raton; el Raton, el Gato; el Gato, el Perro; el Perro, el Palo; el Palo, la Lumbre; la Lumbre, el Agua; el Agua, el Buey; el Buey, el Cochino; el Cochino, el Herrero; el Herrero, la Muerte; la Muerte, Dios. In English: the spider and the frog, the frog and the rat, the rat and the cat, the cat and the dog, the dog and the stick, the stick and the light, the light and the water, the water and the ox, the ox and the pig, the pig and the blacksmith, the blacksmith and Death, Death and God.
+N:THE PLATE: 3/4 in D major, the verse with Spanish and English words, then "Ga-ra, ga-ra, ga-ra..." in 2/4 on D, "etc., ad lib. (The last one to be held a long time.)" No tempo marked. The last bar of the verse has two quarters, the second under a fermata; written here as a quarter and a half so the bar fills the metre (the fermata holds it longer still).
+N:HOW READ (2026-11-10): p. 98 from the archive.org scan (about 600 dpi); staff lines found by row darkness; the filled heads measured against them by a notehead reader, the hollow ones and the beamed pair read on full-size crops; Spanish elisions (le~a, La~A, jo~en) give one syllable to each note, as Hague's underlay does.
+N:UNCERTAIN: the length of the fermata bar (see above); the tempo is ours.
+M:3/4
+L:1/8
+Q:1/4=112
+K:D
+C/C/ | D2 D2 D2 | F2 F2 DF | A6 | B6 | A4 B2 | F2 F2 D2 | F2 F2 E2 | D2 z2 F2 |
+w: De que A-ra-ña se sa-le~a pa-sear, Vie-ne la Ra-na y lo se tri-na. La
+w: When the spi-der goes out for a_ walk, Then comes the frog, and he sings with a croak. The
+E2 E2 C2 | D2 D2 F2 | E2 E2 C2 | D2 D2 B,2 | B,2 B,2 B,2 | B,2 C2 B,2 | B,2 !fermata!A,4 ||
+w: Ra-na, La~A-ra-ña, La Ra-na, La~A-ra-ña, Can-tan-do de-ba-jo~en la a-gua.
+w: frog and the spi-der, the frog and the spi-der, Are sing-ing be-neath the green wa-ter.
+[M:2/4] D2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 !fermata!D2 |]
+w: Ga-ra, ga-ra, ga-ra, ga-ra, ga-ra, ga-ra!

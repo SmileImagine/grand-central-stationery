@@ -10,11 +10,50 @@
  "counts": {
   "inbox": 0,
   "transcription": 2,
-  "source-check": 7,
+  "source-check": 13,
   "classroom-check": 0,
   "ready": 0
  },
  "items": [
+  {
+   "id": "a-lentrada-del-tens-clar",
+   "file": "items/a-lentrada-del-tens-clar.abc",
+   "title": "A l'entrada del tens clar",
+   "subtitle": "At the coming of the bright season: troubadour round dance",
+   "source": "Pierre Aubry, Trouvères et troubadours (Paris: Félix Alcan, 1909), pp. 60-61, from the chansonnier of Saint-Germain-des-Prés (Paris, BnF fr. 20050)",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/trouvresettrou00aubr/page/60/",
+     "label": "archive.org scan of Aubry, Trouvères et troubadours (1909), at p. 60"
+    },
+    {
+     "url": "https://archive.org/details/trouvresettrou00aubr/page/61/",
+     "label": "the same, p. 61 (the refrain and verses II-III)"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Aubry pp. 60-61, especially the first note of the refrain's second line (an F sharp: the head sits high, but its sharp is on the F space and the cadence G-F sharp-G wants it), the grace notes, and the second \"E-ya!\" (B, G, A, not B, c, d like the other two). Classroom check: the class as chorus (the \"E-ya!\" answers and the refrain), a soloist or the teacher on the verse lines, and a round dance in a circle.",
+   "notes": "THE WORDS, verse I (sung): \"A l'entrada del tems clar, - Eya, / Per joia recomençar, - Eya, / E per jelos irritar, - Eya, / Vol la regina mostrar / Qu'el es si amorosa. / Alavi', alavia, jelos, / Laissaz nos, laissaz nos / Ballar entre nos, entre nos.\" At the coming of the bright season, to begin the joy again and to annoy the jealous, the queen wants to show that she is so full of love. Away, away, jealous ones, let us, let us dance among ourselves.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A round dance for the coming of spring: the \"April queen\" calls everyone, girl and boy, to come and dance, to spite the jealous old king; the chorus shouts \"Eya!\" after each of the soloist's lines and sings the refrain, \"Away, away, jealous ones, let us dance among ourselves.\"",
+    "elements": "Call and answer: a soloist's line (always the same seven notes, B c d d d B A) and the chorus's \"E-ya!\" held over four bars; then a sixteen-bar refrain for everyone. 3/4 in a long-short swing (half then quarter), the medieval first rhythmic mode as Aubry read it; G is the final, the range an octave (F sharp to e).",
+    "practice": "Vif (Aubry). A soloist and a chorus, as the plate marks them; danced in a ring. The band plays only a tabor-like drum (ours); the plate has the voice alone.",
+    "honesty": "Anonymous, 12th-13th century, from the chansonnier of Saint-Germain-des-Prés (Paris, BnF fr. 20050), which writes no rhythm; the 3/4 long-short rhythm, the grace notes and the two F sharps are Aubry's reading (1909). The drum is ours.",
+    "licence": "Pierre Aubry (1874-1910), Trouvères et troubadours (Paris: Félix Alcan, 1909): public domain in the US, Canada and Europe (Aubry d. 1910).",
+    "respect": "A secular spring dance; the \"jealous\" are the old husband and his kind, a stock figure of the genre. Nothing sacred.",
+    "review": "An early-music singer, for the Occitan words and the rhythm."
+   }
+  },
   {
    "id": "arirang-hulbert",
    "file": "items/arirang-hulbert.abc",
@@ -48,6 +87,41 @@
     "licence": "public domain (Homer B. Hulbert, \"Korean Vocal Music\", The Korean Repository 3, February 1896, pp. 45-53; Hulbert died 1949); read bar by bar from the archive.org scan of the University of Illinois copy on 2026-11-10",
     "respect": "Arirang is a national song of Korea, North and South, and on UNESCO's list (2012, 2014); present it as a living song with many regional versions, this one as the earliest written down, by an American missionary",
     "review": "a Korean culture bearer or a teacher of gugak before publishing"
+   }
+  },
+  {
+   "id": "cha-komba-komba",
+   "file": "items/cha-komba-komba.abc",
+   "title": "Cha-ko'mba, ko'mba",
+   "subtitle": "Hopping song: Ndau children's game",
+   "source": "Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs II, p. 106 (game notes p. 31)",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/106/",
+     "label": "archive.org scan of Songs and Tales from the Dark Continent, at p. 106"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Curtis p. 106 (Children's Songs II). Classroom check: a hopping race on one leg in time to the song, in a space where that is safe.",
+   "notes": "THE GAME (Curtis, p. 31): \"In the evening the children play this singing-game, while hopping on one leg in time to the music to a given goal in a hopping race. They must always hop on one leg, for to put down the other foot would be to lose the race.\"",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A singing game for the evening: the children hop on one leg in time to the song, racing to a goal. Putting the other foot down loses the race (Curtis, p. 31, from Simango).",
+    "elements": "Three notes (F, A flat, B flat: la, do, re), two bars sung twice: four quick eighths and a held note, then a stressed note, a rest and the answer. 3/4, with a repeat.",
+    "practice": "Rather quickly (quarter = 116, Curtis). Sung while hopping, one hop to a beat; the band plays only a soft low thump on each beat for the hops.",
+    "honesty": "Traditional; the notes and words as Curtis printed them from C. Kamba Simango's singing; the English line is Curtis's. The thump on the beat is ours, for the hops; the plate has the voice alone.",
+    "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
+    "respect": "A children's game, nothing sacred. Credit C. Kamba Simango. Curtis notes that the \"th\" of m'nthalila is not pronounced as in English and that the t is followed by a breathed h.",
+    "review": "A Chindau speaker, for the words."
    }
   },
   {
@@ -202,6 +276,111 @@
    }
   },
   {
+   "id": "la-rana",
+   "file": "items/la-rana.abc",
+   "title": "La Rana",
+   "subtitle": "The frog: Mexican cumulative song",
+   "source": "Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 76, pp. 98-99",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/arf6149.0001.001.umich.edu/page/98/",
+     "label": "archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Hague No. 76, pp. 98-99, especially the last bar of the verse (two quarters on the plate, the second under a fermata, written here as a quarter and a held half) and the sixteenth pickup. Classroom check: how far down the chain to go (it ends with Death and God; a class may stop at the blacksmith), and how the chain fits the music, which the book does not write out.",
+   "notes": "THE CHAIN (Hague, p. 99): \"Each verse adds an animal, and the whole list is repeated.\" Verse 2: \"La Rana se sale a pasear, / Viene el Raton y se trina, / El Raton, la Rana, la Araña, la Rana, / Cantando debajo del agua.\" The list: La Araña, la Rana; la Rana, el Raton; el Raton, el Gato; el Gato, el Perro; el Perro, el Palo; el Palo, la Lumbre; la Lumbre, el Agua; el Agua, el Buey; el Buey, el Cochino; el Cochino, el Herrero; el Herrero, la Muerte; la Muerte, Dios. In English: the spider and the frog, the frog and the rat, the rat and the cat, the cat and the dog, the dog and the stick, the stick and the light, the light and the water, the water and the ox, the ox and the pig, the pig and the blacksmith, the blacksmith and Death, Death and God.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A cumulative children's song: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (spider, frog, rat, cat, dog, stick, fire, water, ox, pig, blacksmith, Death, God). It ends with everyone croaking \"ga-ra, ga-ra\", the last croak held as long as breath lasts.",
+    "elements": "D major, 3/4, a range of a ninth (A below middle C to the B above it); quarters with one sixteenth pickup and one pair of eighths; the croaking coda in 2/4 on one note.",
+    "practice": "The verse sung by everyone; the chain added verse by verse (a memory game); the \"ga-ra\" croaks ad lib, the last one held a long time (Hague's note).",
+    "honesty": "Traditional; the notes, Spanish words and English singing translation as Hague printed them from Mrs. Dane Coolidge's singing. The fermata bar is lengthened to fill the metre (see the N: lines).",
+    "licence": "Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US (published 1917) and in Canada (Hague d. 1954).",
+    "respect": "A children's song; the chain ends \"La Muerte, Dios\" (Death, God), which a teacher may choose to sing or leave.",
+    "review": "A Spanish-speaking teacher, for the words and the chain."
+   }
+  },
+  {
+   "id": "mu-to-to-lile",
+   "file": "items/mu-to-to-lile.abc",
+   "title": "Mu-to-to-li'le",
+   "subtitle": "Drip-drop the rain: Ndau children's song",
+   "source": "Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs I, p. 106 (game notes p. 30)",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/106/",
+     "label": "archive.org scan of Songs and Tales from the Dark Continent, at p. 106"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Curtis p. 106 (Children's Songs I), especially the sixteenths against the eighths (all of bars 2-4 are sixteenths but the last note) and the stress ticks. Ask someone who speaks Chindau to hear the words and the stresses before it is published.",
+   "notes": "THE GAME (Curtis, p. 30): \"This song is sung by children when playing in the rain. They call the raindrops to pour down till all the pools are full.\" They swim in the pools and spear the big red-breasted bullfrogs with little pointed sticks. \"To-to\" is the sound of rain falling in drops.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A rain game: children sing it while playing in the rain, calling the drops to fall until the pools are full, so they can swim, and hunt the big red-breasted bullfrogs. \"To-to\" is the sound of rain falling in drops (Curtis's note, from Simango).",
+    "elements": "Four bars of 3/4 in quick sixteenths on four notes (E G A B), every bar opening \"To-to li-le\" with both syllables of \"To-to\" stressed: the stress falls on the pickup and on the downbeat, against the bar.",
+    "practice": "Not fast (quarter = 60, Curtis). Sung by children, unaccompanied; the band rests. The stress ticks are part of the song: Curtis prints them over every \"To\" and \"to\".",
+    "honesty": "Traditional; the notes, words and stress marks as Curtis printed them from C. Kamba Simango's singing. The English line is Curtis's singing translation, fitted to the same notes.",
+    "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US (published 1920) and in Canada (Curtis d. 1921; Simango, who gave the songs, d. 1966, so also out of copyright under the life-plus-50 term then in force).",
+    "respect": "A children's game song, nothing sacred. Credit C. Kamba Simango, who brought the Ndau songs to the book. Take the notes and Curtis's game notes, not the book's general commentary, which has dated generalisations about race.",
+    "review": "A Chindau speaker, for the words and the stresses."
+   }
+  },
+  {
+   "id": "muvili-zuma-zuma",
+   "file": "items/muvili-zuma-zuma.abc",
+   "title": "Muvi'li, zu'ma, zu'ma",
+   "subtitle": "Drying chant: Ndau children's game",
+   "source": "Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs III, p. 106 (game notes p. 31)",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/106/",
+     "label": "archive.org scan of Songs and Tales from the Dark Continent, at p. 106"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Curtis p. 106 (Children's Songs III). Classroom check: jump on each beat while chanting; does the one-line rhythm read well in the rhythm views, and should it live there rather than with the tunes?",
+   "notes": "THE GAME (Curtis, p. 31): \"After the children have been swimming, they jump up and down in the sun to shake the water off and dry themselves. They sing this little half-spoken song while jumping in time to each beat of the music.\" They think the song and the leaping are a kind of charm that helps make them dry.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A drying chant: after swimming the children jump up and down in the sun to shake the water off, chanting this and jumping on each beat; they hold the chant and the leaping to be a charm that dries them (Curtis, p. 31, from Simango).",
+    "elements": "Rhythm only, spoken: twelve bars of 2/4 in eighths and quarters, the refrain \"Mu-vi-li, zu-ma, zu-ma!\" four times with \"Ka-si-la\" and \"O-mai\" between, each of those stressed on its first syllable.",
+    "practice": "Rather quickly (quarter = 116, Curtis). Half spoken; one jump on each beat. The band plays only a soft low thump on the beat for the jumps; the notes are on one line because the chant has no pitch.",
+    "honesty": "Traditional; the rhythm and words as Curtis printed them from C. Kamba Simango; the English line is Curtis's (\"Bo-dy, bo-dy, dry off quick!\"). The thump on the beat is ours.",
+    "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
+    "respect": "A children's game, nothing sacred. Credit C. Kamba Simango. Leave out Curtis's remark beneath the plate comparing African and African-American accentuation; keep her game notes.",
+    "review": "A Chindau speaker, for the words and stresses."
+   }
+  },
+  {
    "id": "pass-the-ball",
    "file": "items/pass-the-ball.abc",
    "title": "Pass the ball",
@@ -308,6 +487,41 @@
     "licence": "public domain (traditional, Edo period; transcription donated to the public domain by Daisyfield.com)",
     "respect": "for everyone",
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
+   }
+  },
+  {
+   "id": "vamonos-por-santa-anita",
+   "file": "items/vamonos-por-santa-anita.abc",
+   "title": "Vámonos por Santa Anita",
+   "subtitle": "Come, let's go to Santa Anita: Mexican play song",
+   "source": "Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 75, p. 98",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/arf6149.0001.001.umich.edu/page/98/",
+     "label": "archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Hague No. 75, p. 98 (the dotted-eighth and sixteenth figures in every beat). Classroom check: can a class keep the dotted figure long-short, not even, at a gay tempo?",
+   "notes": "THE PLATE: \"Gayly\", 2/4 in G major, two lines of four bars with the same notes, Spanish words with Hague's English under them: \"Come, let's go to Santa Anita! Come, let's go! for there you'll find / In the lead the wagons harnessed, And the oxen on behind.\"",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), the oxcarts in front and the oxen behind.",
+    "elements": "G major, 2/4, four bars sung twice; every beat but the last is a dotted eighth and a sixteenth, a skipping long-short figure; a range of a ninth (D above middle C to the E an octave higher).",
+    "practice": "Gayly (Hague). The skipping figure suits skipping or a walking game in pairs; the second line of words takes the same four bars.",
+    "honesty": "Traditional; the notes, Spanish words and English singing translation as Hague printed them from Mrs. Karbe's singing.",
+    "licence": "Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US and in Canada (Hague d. 1954).",
+    "respect": "A play song; nothing sacred or sensitive.",
+    "review": "A Spanish-speaking teacher, for the words."
    }
   }
  ]
