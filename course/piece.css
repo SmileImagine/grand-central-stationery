@@ -14,7 +14,7 @@ html.piece-route body.pb-advanced.game .cell .cell-body .score { min-height: 30v
 html.piece-route body.pb-advanced.present .cell[data-type="abc"] .cell-body:not(.is-playing) .dock { opacity: 1; }
 /* Folded, the bar is its first row; the arrow points along it, and down when the bar is open. */
 html.piece-route body.pb-folded .pb-steps, html.piece-route body.pb-folded .pb-tools, html.piece-route body.pb-folded .pb-facts,
-html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-share, html.piece-route body.pb-folded .pb-more { display: none; }
+html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-share { display: none; }
 html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
 
 .piecebar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line);
@@ -37,7 +37,6 @@ html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
 .pb-modes { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .pb-modes button { border: 0; border-radius: 0; background: transparent; font-weight: 700; padding: 6px 18px; }
 .pb-modes button + button { border-left: 1px solid var(--line); }
-.pb-more[aria-expanded="true"] { background: color-mix(in srgb, var(--accent) 16%, var(--panel)) !important; border-color: var(--accent) !important; }
 .pb-modes button[data-mode="teach"].on { background: #087fca; color: #fff; }
 .pb-modes button[data-mode="practice"].on { background: #69b944; color: #fff; }
 .pb-modes button[data-mode="assess"].on { background: #79569f; color: #fff; }
@@ -87,7 +86,7 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
 .pb-progress .ladder { display: inline-flex; gap: 3px; }
 .pb-progress .rung { font-size: 12px; padding: 1px 6px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .pb-progress .rung.on { background: #69b944; border-color: #69b944; color: #fff; }
-.piecebar.missing .pb-modes, .piecebar.missing .pb-share, .piecebar.missing .pb-more, .piecebar.missing .pb-steps, .piecebar.missing .pb-tools, .piecebar.missing .pb-inst { display: none; }
+.piecebar.missing .pb-modes, .piecebar.missing .pb-share, .piecebar.missing .pb-steps, .piecebar.missing .pb-tools, .piecebar.missing .pb-inst { display: none; }
 
 /* Flags from listening, on the noteheads: an outline in the flag's colour, never covering the note. */
 .paper .pb-flagged.pb-wrong { filter: drop-shadow(0 0 4px #e72829) drop-shadow(0 0 2px #e72829) !important; }
@@ -253,3 +252,16 @@ html.piece-route .dock .transport, html.piece-route .dock .departure { display: 
 body[data-piece-mode="teach"] .pb-clock { --mode: #087fca; }
 body[data-piece-mode="practice"] .pb-clock { --mode: #3f8f1f; }
 body[data-piece-mode="assess"] .pb-clock { --mode: #79569f; }
+
+/* The practice link: small, a word and a link sign. */
+.piecebar .pb-share { min-height: 32px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 5px; font-size: 14px; }
+.piecebar .pb-share svg { display: block; }
+/* The pull tab for the full player: a small brass-edged opal tab at the foot of the music, riding on the drawers' top edge. */
+html.piece-route .pb-pull { all: unset; position: absolute; z-index: 7; left: 50%; bottom: var(--dock-h, 0px); transform: translateX(-50%);
+  width: 64px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  border: 1.5px solid #9c7a45; border-bottom: 0; border-radius: 12px 12px 0 0; background: color-mix(in srgb, var(--bg) 82%, #f3ead8);
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.08); transition: bottom 0.18s ease; }
+html.piece-route .pb-pull svg { width: 22px; height: 11px; fill: none; stroke: #9c7a45; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s; }
+html.piece-route .pb-pull[aria-expanded="true"] svg { transform: rotate(180deg); }
+html.piece-route .pb-pull:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html.piece-route .pb-pull, html.piece-route .pb-pull svg { transition: none; } }

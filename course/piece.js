@@ -78,7 +78,6 @@
       <button type="button" class="pb-gear quiet" aria-label="Ukulele setup" title="Ukulele setup: C or D tuning, high or low G (kept on this computer)" hidden>⚙</button>
       <label class="pb-show" title="What a piano, the 2-5 Keys or a ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
       <button type="button" class="pb-share"></button>
-      <button type="button" class="pb-more" aria-expanded="false" title="The full player: the ABC, the band, the mixer, note names and transposition">More</button>
     </div>
     <ol class="pb-row pb-steps" id="pb-steps" aria-label="Steps"></ol>
     <div class="pb-row pb-tools" id="pb-tools"></div>`;
@@ -142,7 +141,7 @@
     $('.pb-inst select').value = inst;
     $('.pb-show select').value = setup.show || 'melody';
     en = hook.show({ text: textNow(), inst, tr: setup.tr || 0, show: $('.pb-show select').value });
-    makeClock();
+    makeClock(); makePullTab();
     wireEngine();
     setMode(mode, step);
     requestAnimationFrame(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
@@ -318,7 +317,9 @@
     bar.classList.toggle('teacher', teacher());
     $('.pb-modes').innerHTML = teacher() ? ['teach', 'assess'].map(x => `<button type="button" role="tab" data-mode="${x}" aria-selected="${x === m}" class="${x === m ? 'on' : ''}">${P.MODES[x]}</button>`).join('') : '';
     $('.pb-modes').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode, 1); }));
-    $('.pb-share').textContent = teacher() ? 'Copy student link' : 'Copy link';
+    // A small link button: Practice and a link sign for a teacher (the students' link), the sign alone for a student.
+    $('.pb-share').innerHTML = `${teacher() ? '<span>Practice</span> ' : ''}<svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg>`;
+    $('.pb-share').setAttribute('aria-label', teacher() ? 'Copy the practice link for students' : 'Copy a link to this');
     $('.pb-share').title = teacher() ? 'Copy a link students open to practise this piece: its sections, instrument and key (never names, progress or marks)' : 'Copy a link to this piece as you are practising it';
     document.body.dataset.pieceMode = m;
     $('.pb-back').href = 'course/board.html#' + P.encodeBoard({ level: tune.level, tune: tune.id, do: m });
@@ -747,7 +748,24 @@
   const choose = (cls, v) => { const sel = en && en.body.querySelector(`.${cls} select`); if (sel) { sel.value = v; sel.dispatchEvent(new Event('change')); } };
   $('.pb-inst select').addEventListener('change', e => { const v = e.target.value; ls.set('gcs-last-inst', v); choose('instpick', v); choose('showpick', $('.pb-show select').value); afterRender(); });
   $('.pb-show select').addEventListener('change', e => { choose('showpick', e.target.value); afterRender(); });
-  $('.pb-more').addEventListener('click', () => { const on = !document.body.classList.contains('pb-advanced'); document.body.classList.toggle('pb-advanced', on); $('.pb-more').setAttribute('aria-expanded', String(on)); if (en) en.showDrawer(on ? 'melody' : null); });
+  /* The full player (the Melody, Band and Mixer drawers) waits behind a small pull tab at the foot of the music, in the
+     clock's brass and opal: tap it and the drawers slide up; the tab rides on their top edge and turns its chevron down. */
+  let pullTab = null;
+  function makePullTab() {
+    if (!en || pullTab) return;
+    pullTab = document.createElement('button'); pullTab.type = 'button'; pullTab.className = 'pb-pull'; pullTab.setAttribute('aria-expanded', 'false');
+    pullTab.setAttribute('aria-label', 'The full player: the ABC, the band and the mixer'); pullTab.title = 'The full player: the ABC, the band, the mixer, note names and transposition';
+    pullTab.innerHTML = '<svg viewBox="0 0 24 12" aria-hidden="true"><path d="M5 9l7-6 7 6"/></svg>';
+    en.body.appendChild(pullTab);
+    const dock = en.body.querySelector('.strip.dock');
+    new ResizeObserver(() => en.body.style.setProperty('--dock-h', (document.body.classList.contains('pb-advanced') && dock ? dock.offsetHeight : 0) + 'px')).observe(dock);
+    pullTab.addEventListener('click', () => {
+      const on = !document.body.classList.contains('pb-advanced');
+      document.body.classList.toggle('pb-advanced', on); pullTab.setAttribute('aria-expanded', String(on));
+      en.showDrawer(on ? 'melody' : null);
+      requestAnimationFrame(() => en.body.style.setProperty('--dock-h', (on && dock ? dock.offsetHeight : 0) + 'px'));
+    });
+  }
   $('.pb-share').addEventListener('click', async () => {
     // A teacher's link is for students: the piece to practise, with the teacher's sections, instrument and key.
     const s = teacher() ? { tune: setup.tune, level: setup.level, mode: 'practice', inst: setup.inst, show: setup.show, tr: setup.tr, cuts: setup.cuts } : { ...setup };
