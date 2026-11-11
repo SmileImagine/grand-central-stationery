@@ -317,6 +317,8 @@
     .mixer { gap: 16px; justify-content: center; align-items: flex-end; padding: 6px 0 2px; }
     body.present .cell[data-type="abc"] .strip { padding-right: 150px; }   /* clear of the slide selector in the corner */
     .member[hidden] { display: none; }
+    .mixer.groups { display: flex; flex-basis: 100%; }   /* a rhythm round's groups, under the cell's transport */
+    .mixer.groups[hidden] { display: none; }
     .member { display: flex; flex-direction: column; align-items: center; gap: 2px; font: var(--ui); color: var(--muted); }
     .member .lvl { writing-mode: vertical-lr; direction: rtl; -webkit-appearance: slider-vertical; appearance: auto; width: 20px; height: 62px; margin: 0; accent-color: var(--accent); }
     .member .figure { width: 46px; height: 46px; padding: 2px; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 8px; }
@@ -5936,12 +5938,37 @@ const SOUNDS = { crash: 'crash', ride: 'ride', high: 'tom', kick: 'kick', bd: 'k
 // Body percussion: what each drum becomes, with the part of the body that plays it.
 const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp'], tom: ['pat', 'thighs', 'Pat'], pat: ['pat', 'thighs', 'Pat'], stomp: ['stomp', 'feet', 'Stomp'], snare: ['clap', 'hands', 'Clap'], clap: ['clap', 'hands', 'Clap'], hat: ['snap', 'fingers', 'Snap'], snap: ['snap', 'fingers', 'Snap'], shaker: ['snap', 'fingers', 'Snap'], open: ['click', 'mouth', 'Click'], rim: ['click', 'mouth', 'Click'], click: ['click', 'mouth', 'Click'], wood: ['click', 'mouth', 'Click'], clave: ['clap', 'hands', 'Clap'], bell: ['snap', 'fingers', 'Snap'] };
 
-/* ================= the clock: one AudioContext, events in beats ================= */
+/* ================= the clock: one AudioContext, events in beats =================
+   A round (clock.round = { parts, off, end }, from the text's round: line) plays the same events once per group, group g
+   (0 up) coming in g*off beats after the first, each through its own level and a place left or right (gout). With Repeat on
+   the groups go round until Repeat is turned off; then the first group finishes its time round (leadEnd) and the others
+   finish theirs one by one (end=turns) or stop with it (end=together). Every view reads where each group is from the one
+   playhead (groupsAt), so the markers cannot drift from the sound. */
+const PANS = [0, -0.45, 0.45, -0.2];   // the groups' places, as the notation cells' rounds have them
 const clock = {
-  ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
+  ctx: null, out: null, gout: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
   events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
+  round: null, leadEnd: Infinity, levels: [1, 1, 1, 1],
   // the page's shared context when there is one (the main page hands a fresh one after the page has been away), woken the main page's way when it is there (Safari), else resumed
-  ensure() { const shared = audioContextProvider ? audioContextProvider() : null; if (!this.ctx || (shared && shared !== this.ctx)) { this.ctx = shared || new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (typeof wakeAudio === 'function') wakeAudio(this.ctx); else if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
+  ensure() {
+    const shared = audioContextProvider ? audioContextProvider() : null;
+    if (!this.ctx || (shared && shared !== this.ctx)) {
+      this.ctx = shared || new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination);
+      this.gout = PANS.map((x, g) => { const gg = this.ctx.createGain(); gg.gain.value = this.levels[g]; if (this.ctx.createStereoPanner) { const p = this.ctx.createStereoPanner(); p.pan.value = 0; gg.connect(p); p.connect(this.out); gg.pan = p; } else gg.connect(this.out); return gg; });
+    }
+    if (this.gout) this.gout.forEach((gg, g) => { if (gg.pan) gg.pan.pan.value = this.round ? PANS[g] : 0; });
+    if (typeof wakeAudio === 'function') wakeAudio(this.ctx); else if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx;
+  },
+  // A group's level, 0 (muted) to 1.5; a move glides over a few ms, since a jump in level clicks.
+  setLevel(g, v) { this.levels[g] = v; const gg = this.gout && this.gout[g]; if (gg) gg.gain.setTargetAtTime(v, this.ctx.currentTime, .015); },
+  groupEnd(g) { const r = this.round; return !r || r.end === 'together' ? this.leadEnd : this.leadEnd + g * r.off; },
+  end() { return this.groupEnd(this.round ? this.round.parts - 1 : 0); },
+  // Where each group of a round is at beat p (the heard one by default): its place in the cycle, or null before it comes in
+  // and after it stops. Null without a round. Group 1 (index 0) waits at the top while stopped and through the count-in.
+  groupsAt(p = this.heard()) {
+    const r = this.round; if (!r) return null; const c = this.cycle;
+    return Array.from({ length: r.parts }, (_, g) => { const local = p - g * r.off; if (g && local < 0) return null; if (p >= this.groupEnd(g)) return null; return local < 0 ? 0 : ((local % c) + c) % c; });
+  },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
   // The beat being heard: the clock less the output's latency (the views draw this, so they keep with the sound).
@@ -5949,31 +5976,41 @@ const clock = {
   start(lead = 0) {
     const ctx = this.ensure(); this.lead = lead;
     const from = this.pausedAt > 0 ? this.pausedAt : -lead;
-    this.t0 = ctx.currentTime + .06 - from / this.bps(); this.schedTo = from; this.running = true;
+    this.t0 = ctx.currentTime + .06 - from / this.bps(); this.schedTo = from; this.running = true; this.leadEnd = Infinity;
     clearInterval(this.timer); this.timer = setInterval(() => this.tick(), 40); this.tick();
   },
   pause() { if (this.running) this.pausedAt = Math.max(0, this.pos()); this.running = false; clearInterval(this.timer); },
-  stop() { this.pause(); this.pausedAt = 0; },
+  stop() { this.pause(); this.pausedAt = 0; this.leadEnd = Infinity; },
   setBpm(b) { const p = this.pos(); this.bpm = b; if (this.running) this.t0 = this.ctx.currentTime - p / this.bps(); },
   tick() {
     const horizon = (this.ctx.currentTime + .6 - this.t0) * this.bps();   // 0.6 s ahead: room for a busy page
-    const end = this.loop ? Infinity : this.cycle;
+    // Repeat off: the first group finishes the time round it is in (what is already scheduled is not cut); Repeat on again carries on.
+    if (this.loop) this.leadEnd = Infinity; else if (this.leadEnd === Infinity) this.leadEnd = (Math.floor(Math.max(0, this.schedTo) / this.cycle) + 1) * this.cycle;
+    const end = this.end(), parts = this.round ? this.round.parts : 1, off = this.round ? this.round.off : 0;
     if (this.schedTo < horizon) {
       const to = Math.min(horizon, end);
       // the count-in: clicks on the beats before zero
       for (let b = Math.ceil(this.schedTo); b < Math.min(to, 0); b++) this.fire({ sound: b === -this.lead ? 'tock' : 'tick', vel: 1, meta: true }, b);
-      const c0 = Math.floor(Math.max(0, this.schedTo) / this.cycle), c1 = Math.floor(Math.max(0, to) / this.cycle);
-      for (let c = c0; c <= c1; c++) for (const e of this.events) { const b = c * this.cycle + e.beat; if (b >= this.schedTo && b < to && b >= 0) this.fire(e, b); }
+      // each group plays the events from its own entry, through its own level, until its own end; the click keeps the first group's beats to the very end
+      for (let g = 0; g < parts; g++) {
+        const sh = g * off, lo = this.schedTo - sh, hi = to - sh, gEnd = this.groupEnd(g);
+        const c0 = Math.floor(Math.max(0, lo) / this.cycle), c1 = Math.floor(Math.max(0, hi) / this.cycle);
+        for (let c = c0; c <= c1; c++) for (const e of this.events) {
+          if (e.click && g) continue;
+          const b = c * this.cycle + e.beat; if (b < lo || b >= hi || b < 0) continue;
+          if (b + sh < (e.click ? end : gEnd)) this.fire(e, b + sh, g);
+        }
+      }
       this.schedTo = to;
     }
-    if (!this.loop && this.pos() >= this.cycle) { this.stop(); this.onDone && this.onDone(); }
+    if (end < Infinity && this.pos() >= end) { this.stop(); this.onDone && this.onDone(); }
   },
-  fire(e, beat) {
+  fire(e, beat, g = 0) {
     const when = this.t0 + beat / this.bps();
     if (e.meta) { Synth.play(this.ctx, this.out, e.sound, when, e.vel); return; }
     if (e.click) { if (this.click) Synth.play(this.ctx, this.out, e.sound, when, e.vel); return; }
     const name = this.bodyMode && BODY[e.sound] ? BODY[e.sound][0] : e.sound;
-    Synth.play(this.ctx, this.out, name, when, e.vel);
+    Synth.play(this.ctx, this.gout ? this.gout[g] : this.out, name, when, e.vel);
   }
 };
 
@@ -5989,6 +6026,7 @@ function parseRhythm(text) {
     const name = m[1].trim().toLowerCase(), body = m[2].trim();
     if (name === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) r.meter = [+mm[1], +mm[2]]; else r.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
     if (META.has(name)) { (r.meta = r.meta || {})[name] = body; return; }
+    if (name === 'round') { r.roundLine = parseRound(body, `Line ${li + 1}`, r.problems); return; }
     if (DANCE_KEYS.has(name.split(' ')[0])) return;   // a dance's own lines (pose definitions too), when both live in one text
     const bars = body.split('|').map(b => b.replace(/\s+/g, '')).filter(b => b.length);
     if (!bars.length) { r.problems.push(`Line ${li + 1}: ${name} has no steps.`); return; }
@@ -6001,7 +6039,55 @@ function parseRhythm(text) {
   r.events = [];
   r.rows.forEach((row, ri) => { for (let bi = 0; bi < r.bars; bi++) { const steps = row.bars[bi % row.bars.length]; steps.forEach((v, si) => { if (v) r.events.push({ beat: bi * r.beats + si / steps.length * r.beats, sound: row.sound, vel: v, row: ri, bar: bi, step: si }); }); } });
   for (let b = 0; b < r.cycle; b++) r.events.push({ beat: b, sound: b % r.beats === 0 ? 'tock' : 'tick', vel: .8, click: true });
+  r.tips = []; r.round = r.roundLine && r.rows.length ? planRound(r) : null;
   return r;
+}
+
+/* ---- rounds: one pattern, played by 2 to 4 groups that come in one after another ----
+   round: 4 every=1        four groups, each coming in a bar after the one before
+   round: 3 every=2b       three groups, two beats apart (b for beats; a plain number is bars)
+   end=turns (the default) lets each group finish its last time round, so they stop one by one; end=together stops them
+   all when group 1 finishes. Without every=, the groups come in at the shortest distance at which no two of them play
+   the same thing at the same time: a bar when the pattern has a bar for each group, else in beats. */
+function parseRound(body, where, problems) {
+  const r = { parts: 2, every: null, end: 'turns' };
+  for (const tok of body.split(/\s+/).filter(Boolean)) {
+    const kv = /^(parts|every|end)=(.*)$/i.exec(tok), k = kv ? kv[1].toLowerCase() : /^\d+$/.test(tok) ? 'parts' : null, v = kv ? kv[2] : tok;
+    if (k === 'parts') { const n = parseInt(v, 10); if (n >= 2 && n <= 4) r.parts = n; else problems.push(`${where}: a round has 2, 3 or 4 groups.`); }
+    else if (k === 'every') { const m = /^(\d+)\s*(b|beats?|bars?)?$/i.exec(v); if (m && +m[1] >= 1) r.every = { n: +m[1], beats: !!m[2] && m[2][0].toLowerCase() === 'b' && !/^bar/i.test(m[2]) }; else problems.push(`${where}: every=${v} wants the bars between entries (every=1), or beats with a b (every=2b).`); }
+    else if (k === 'end') { const w = v.toLowerCase(); if (w === 'turns' || w === 'together') r.end = w; else problems.push(`${where}: end=${v} wants turns (one by one) or together.`); }
+    else problems.push(`${where}: "${tok}" is not a round setting (4, every=1, every=2b, end=together).`);
+  }
+  return r;
+}
+// The pairs of groups that would play the same thing at the same time with groups `off` beats apart: the pattern shifted
+// by their distance lands on itself, accents and all (a pattern that repeats every half bar, say, two groups half a bar apart).
+function roundSame(r, off, parts) {
+  const key = (e, b) => e.row + ':' + e.vel + ':' + Math.round((((b % r.cycle) + r.cycle) % r.cycle) * 48);
+  const hits = r.events.filter(e => !e.click), set = new Set(hits.map(e => key(e, e.beat))), same = [];
+  for (let a = 0; a < parts; a++) for (let b = a + 1; b < parts; b++) { const d = (b - a) * off; if (hits.every(e => set.has(key(e, e.beat + d)))) same.push([a + 1, b + 1]); }
+  return same;
+}
+// The distance in beats to try first: whole bars, then beats; the first at which no two groups play the same (fits), else the
+// one with the fewest such pairs (fits false).
+function roundDistance(r, parts) {
+  const cands = []; for (let n = 1; n < r.bars; n++) cands.push(n * r.beats); for (let b = 1; b < r.cycle; b++) if (b % r.beats) cands.push(b);
+  let best = { off: r.beats, n: Infinity, fits: false };
+  for (const off of cands) { const n = roundSame(r, off, parts).length; if (!n) return { off, n, fits: true }; if (n < best.n) best = { off, n, fits: false }; }
+  return best;
+}
+function planRound(r) {
+  const line = r.roundLine, parts = line.parts, plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+  const say = off => off % r.beats === 0 ? plural(off / r.beats, 'bar') : plural(off, 'beat');
+  const best = roundDistance(r, parts), fits = best.fits ? best.off : null, off = line.every ? line.every.n * (line.every.beats ? 1 : r.beats) : best.off, same = roundSame(r, off, parts);
+  let msg = `Round: ${parts} groups, each coming in ${say(off)} after the one before${line.every ? '' : fits ? ' (the shortest distance at which no two groups play the same; every= sets another)' : ''}, stopping ${line.end === 'together' ? 'together' : 'one by one'}.`;
+  if (same.length) {
+    msg += same.length === parts * (parts - 1) / 2 ? ' Every group plays the same thing at the same time, so they sound as one.' : ` ${same.map(([a, b], i) => `${i ? 'g' : 'G'}roups ${a} and ${b}`).join(', ')} play the same thing at the same time, so they sound as one.`;
+    let fewer = 0; for (let n = parts - 1; n >= 2 && !fewer; n--) if (roundDistance(r, n).fits) fewer = n;
+    msg += fits ? ` every=${fits % r.beats === 0 ? fits / r.beats : fits + 'b'} keeps them apart.` : ` The pattern repeats too soon for ${parts} different groups: write more bars${fewer ? `, or have ${fewer} groups (round: ${fewer})` : ''}.`;
+  }
+  r.tips.push(msg);
+  return { parts, off, end: line.end, every: say(off), same };
 }
 
 /* ---- syllables: Kodály words for the hits in a beat; takadimi letters for the rest ---- */
@@ -6048,14 +6134,22 @@ function syllables(hits, n, beat) {
 
 /* ================= rhythm views ================= */
 const RV = {};
+// A round's marks: a group's number in a circle, on its marker as it moves (badge) and where it comes in (entry, the way a
+// round book prints the entry numbers). A muted group's marker stays, faded, so the class can still see where it is.
+const badge = (n, cls, rr = 11) => `<g class="${cls}" data-g="${n - 1}"><circle r="${rr}" fill="#fff" stroke="#222" stroke-width="2"/><text y="${rr * .42}" text-anchor="middle" font-size="${rr * 1.2}" font-weight="700" fill="#222">${n}</text></g>`;
+const entries = (r, at) => r.round ? Array.from({ length: r.round.parts }, (_, g) => { const [x, y] = at((g * r.round.off) % r.cycle); return `<g transform="translate(${x} ${y})" pointer-events="none">${badge(g + 1, 'entry', 10)}</g>`; }).join('') : '';
+const heard = g => clock.levels[g] > 0 ? 1 : .35;   // a muted group's marker, faded
+// Where the markers go: one per group in a round (null for a group not playing), else the one playhead.
+const places = (p, groups) => groups || [p];
 // Grid: a box for every step, a column per bar, the playhead sweeping; the row's own step count shapes its boxes.
+// In a round, one numbered playhead per group, the entry numbers over the top and the numbers on the playheads under the grid.
 RV.grid = {
   build(el, r, opts = {}) {
-    const W = 1000, labW = opts.body ? 120 : 90, rowH = opts.rowH || 60, barW = (W - labW - 10) / r.bars, top = 30;
-    const H = top + r.rows.length * rowH + 20;
+    const W = 1000, labW = opts.body ? 120 : 90, rowH = opts.rowH || 60, barW = (W - labW - 10) / r.bars, top = r.round ? 52 : 30, foot = r.round ? 34 : 20;
+    const H = top + r.rows.length * rowH + foot, gridBottom = top + r.rows.length * rowH;
     let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">`;
     // beat numbers
-    for (let bi = 0; bi < r.bars; bi++) for (let b = 0; b < r.beats; b++) s += `<text x="${labW + bi * barW + (b + .5) * barW / r.beats}" y="20" text-anchor="middle" font-size="16" fill="#777">${b + 1}</text>`;
+    for (let bi = 0; bi < r.bars; bi++) for (let b = 0; b < r.beats; b++) s += `<text x="${labW + bi * barW + (b + .5) * barW / r.beats}" y="${top - 10}" text-anchor="middle" font-size="16" fill="#777">${b + 1}</text>`;
     r.rows.forEach((row, ri) => {
       const y = top + ri * rowH;
       const label = opts.body && BODY[row.sound] ? BODY[row.sound][2] : row.name;
@@ -6069,21 +6163,30 @@ RV.grid = {
         });
       }
     });
-    for (let bi = 0; bi <= r.bars; bi++) s += `<line x1="${labW + bi * barW}" x2="${labW + bi * barW}" y1="${top - 4}" y2="${H - 16}" stroke="#555" stroke-width="2"/>`;
-    s += `<line id="ph" x1="${labW}" x2="${labW}" y1="${top - 8}" y2="${H - 12}" stroke="${HI}" stroke-width="4" stroke-linecap="round"/></svg>`;
-    el.innerHTML = s; this.el = el; this.r = r; this.labW = labW; this.barW = barW; this.ph = el.querySelector('#ph'); this.cells = [...el.querySelectorAll('.cell')]; this.lit = new Set();
+    for (let bi = 0; bi <= r.bars; bi++) s += `<line x1="${labW + bi * barW}" x2="${labW + bi * barW}" y1="${top - 4}" y2="${gridBottom + 4}" stroke="#555" stroke-width="2"/>`;
+    s += entries(r, b => [labW + b / r.beats * barW, 14]);
+    const n = r.round ? r.round.parts : 1;
+    for (let g = 0; g < n; g++) s += `<g class="ph" data-g="${g}"><line x1="0" x2="0" y1="${top - 8}" y2="${gridBottom + 8}" stroke="${HI}" stroke-width="4" stroke-linecap="round"/>${r.round ? `<g transform="translate(0 ${gridBottom + 20})">${badge(g + 1, 'num')}</g>` : ''}</g>`;
+    s += `</svg>`;
+    el.innerHTML = s; this.el = el; this.r = r; this.labW = labW; this.barW = barW; this.phs = [...el.querySelectorAll('.ph')]; this.lit = new Set();
+    this.cellAt = new Map(); for (const c of el.querySelectorAll('.cell')) this.cellAt.set(`${c.dataset.r}:${c.dataset.b}:${c.dataset.s}`, c);
   },
-  paint(p) {
-    const r = this.r, x = this.labW + p / r.beats * this.barW; this.ph.setAttribute('x1', x); this.ph.setAttribute('x2', x);
-    const bi = Math.floor(p / r.beats), frac = p / r.beats - bi;
+  paint(p, groups) {
+    const r = this.r, at = places(p, groups);
     for (const c of this.lit) c.setAttribute('stroke', c.dataset.k || '#e4e4e4'), c.setAttribute('stroke-width', 1); this.lit.clear();
-    r.rows.forEach((row, ri) => { const n = row.bars[bi % row.bars.length].length, si = Math.floor(frac * n); const c = this.cells.find(c => +c.dataset.r === ri && +c.dataset.b === bi && +c.dataset.s === si); if (c) { if (!c.dataset.k) c.dataset.k = c.getAttribute('stroke'); c.setAttribute('stroke', HI); c.setAttribute('stroke-width', 4); this.lit.add(c); } });
+    this.phs.forEach((ph, g) => {
+      const q = at[g]; if (q == null) { ph.setAttribute('display', 'none'); return; }
+      ph.removeAttribute('display'); ph.setAttribute('transform', `translate(${this.labW + q / r.beats * this.barW} 0)`); ph.setAttribute('opacity', groups ? heard(g) : 1);
+      const bi = Math.floor(q / r.beats), frac = q / r.beats - bi;
+      r.rows.forEach((row, ri) => { const n = row.bars[bi % row.bars.length].length, si = Math.floor(frac * n); const c = this.cellAt.get(`${ri}:${bi}:${si}`); if (c) { if (!c.dataset.k) c.dataset.k = c.getAttribute('stroke'); c.setAttribute('stroke', HI); c.setAttribute('stroke-width', 4); this.lit.add(c); } });
+    });
   }
 };
 // Wheel: the whole cycle around a circle, one ring per drum with its own step count, hits joined into a necklace.
+// In a round, one numbered hand per group and the entry numbers round the rim.
 RV.wheel = {
   build(el, r) {
-    const S = 600, cx = S / 2, cy = S / 2 + 10, R0 = 250, ringW = Math.min(40, 170 / Math.max(1, r.rows.length));
+    const S = 600, cx = S / 2, cy = S / 2 + 10, R0 = r.round ? 226 : 250, ringW = Math.min(40, (R0 - 80) / Math.max(1, r.rows.length));
     let s = `<svg viewBox="0 0 ${S} ${S + 20}" preserveAspectRatio="xMidYMid meet">`;
     const total = r.cycle, ang = b => -Math.PI / 2 + 2 * Math.PI * b / total;
     for (let b = 0; b < total; b++) { const a = ang(b), bar = b % r.beats === 0; s += `<line x1="${cx + Math.cos(a) * (R0 + 6)}" y1="${cy + Math.sin(a) * (R0 + 6)}" x2="${cx + Math.cos(a) * (R0 + (bar ? 22 : 14))}" y2="${cy + Math.sin(a) * (R0 + (bar ? 22 : 14))}" stroke="${bar ? '#333' : '#999'}" stroke-width="${bar ? 3 : 2}"/><text x="${cx + Math.cos(a) * (R0 + 36)}" y="${cy + Math.sin(a) * (R0 + 36) + 6}" text-anchor="middle" font-size="16" fill="#777">${b % r.beats + 1}</text>`; }
@@ -6094,18 +6197,26 @@ RV.wheel = {
       if (pts.length > 1) s = s.replace(`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#e6e6e6" stroke-width="1"/>`, `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#e6e6e6" stroke-width="1"/><polygon points="${pts.map(p => p.join(',')).join(' ')}" fill="${row.colour}" fill-opacity=".08" stroke="${row.colour}" stroke-opacity=".5" stroke-width="1.5"/>`);
       s += `<text x="${cx}" y="${cy - R + ringW / 2 - 2}" text-anchor="middle" font-size="${Math.min(14, ringW * .5)}" fill="${row.colour}" font-weight="600">${esc(row.name)}</text>`;
     });
-    s += `<line id="hand" x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - R0 - 4}" stroke="${HI}" stroke-width="5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="8" fill="#333"/></svg>`;
-    el.innerHTML = s; this.r = r; this.hand = el.querySelector('#hand'); this.cx = cx; this.cy = cy; this.hits = [...el.querySelectorAll('.hit')];
+    s += entries(r, b => [cx + Math.cos(ang(b)) * (R0 + 60), cy + Math.sin(ang(b)) * (R0 + 60)]);
+    const n = r.round ? r.round.parts : 1;
+    for (let g = 0; g < n; g++) s += `<g class="hand" data-g="${g}"><line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - R0 - 4}" stroke="${HI}" stroke-width="5" stroke-linecap="round"/>${r.round ? `<g transform="translate(${cx} ${cy - R0 + 18}) rotate(0)" class="tip">${badge(g + 1, 'num')}</g>` : ''}</g>`;
+    s += `<circle cx="${cx}" cy="${cy}" r="8" fill="#333"/></svg>`;
+    el.innerHTML = s; this.r = r; this.R0 = R0; this.hands = [...el.querySelectorAll('.hand')]; this.cx = cx; this.cy = cy; this.hits = [...el.querySelectorAll('.hit')];
   },
-  paint(p) {
-    this.hand.setAttribute('transform', `rotate(${360 * p / this.r.cycle} ${this.cx} ${this.cy})`);
-    for (const h of this.hits) { const d = p - +h.dataset.beat, on = d >= 0 && d < .3; h.setAttribute('stroke', on ? HI : 'none'); h.setAttribute('stroke-width', on ? 5 : 0); }
+  paint(p, groups) {
+    const at = places(p, groups), c = this.r.cycle;
+    this.hands.forEach((h, g) => {
+      const q = at[g]; if (q == null) { h.setAttribute('display', 'none'); return; }
+      const deg = 360 * q / c; h.removeAttribute('display'); h.setAttribute('transform', `rotate(${deg} ${this.cx} ${this.cy})`); h.setAttribute('opacity', groups ? heard(g) : 1);
+      const tip = h.querySelector('.tip'); if (tip) tip.setAttribute('transform', `translate(${this.cx} ${this.cy - this.R0 + 18}) rotate(${-deg})`);   // the number stays upright
+    });
+    for (const h of this.hits) { const on = at.some(q => { if (q == null) return false; const d = q - +h.dataset.beat; return d >= 0 && d < .3; }); h.setAttribute('stroke', on ? HI : 'none'); h.setAttribute('stroke-width', on ? 5 : 0); }
   }
 };
 // Syllables: Kodály stick notation beat by beat with the words under it, one line per drum.
 RV.syll = {
   build(el, r) {
-    const W = 1000, labW = 90, rowH = 110, beatW = (W - labW - 10) / r.cycle, top = 20, H = top + r.rows.length * rowH + 10;
+    const W = 1000, labW = 90, rowH = 110, beatW = (W - labW - 10) / r.cycle, top = r.round ? 48 : 20, foot = r.round ? 30 : 0, H = top + r.rows.length * rowH + 10 + foot;
     let s = `<svg viewBox="0 0 ${W} ${H + 30}" preserveAspectRatio="xMidYMid meet">`;
     this.beats = [];
     r.rows.forEach((row, ri) => {
@@ -6140,44 +6251,65 @@ RV.syll = {
         }
       }
     });
+    // a round: the entry numbers over the beat where each group comes in, and each group's number under the beat it is on
+    s += entries(r, b => [labW + b * beatW + 12, 14]);
+    if (r.round) for (let g = 0; g < r.round.parts; g++) s += `<g class="sylnum" data-g="${g}" display="none">${badge(g + 1, 'num')}</g>`;
+    this.numY = top + r.rows.length * rowH + 8; this.beatW = beatW; this.labW = labW;
     Object.entries(SYSTEMS).forEach(([k, v], i) => { const on = state.sylsys === k, x = W - 10 - (Object.keys(SYSTEMS).length - 1 - i) * 92; s += `<g class="sylsys" data-sys="${k}" style="cursor:pointer"><rect x="${x - 86}" y="${H - 6}" width="84" height="24" rx="12" fill="${on ? '#222' : '#fff'}" stroke="${on ? '#222' : '#bbb'}"/><text x="${x - 44}" y="${H + 11}" text-anchor="middle" font-size="12.5" fill="${on ? '#fff' : '#333'}">${v}</text></g>`; });
     s += `</svg>`;
     el.innerHTML = s;
     el.querySelectorAll('.sylsys').forEach(g => g.onclick = () => { state.sylsys = g.dataset.sys; state.rebuild(); });
-    this.r = r; this.cells = [...el.querySelectorAll('.beat')];
+    this.r = r; this.cells = [...el.querySelectorAll('.beat')]; this.nums = [...el.querySelectorAll('.sylnum')];
   },
-  paint(p) { const b = Math.floor(p); for (const c of this.cells) { const on = +c.dataset.beat === b; c.setAttribute('fill', on ? '#fff1c7' : '#fafafa'); c.setAttribute('stroke', on ? HI : '#e4e4e4'); c.setAttribute('stroke-width', on ? 3 : 1); } }
+  paint(p, groups) {
+    const at = places(p, groups), beats = at.map(q => q == null ? null : Math.floor(q));
+    for (const c of this.cells) { const on = beats.includes(+c.dataset.beat); c.setAttribute('fill', on ? '#fff1c7' : '#fafafa'); c.setAttribute('stroke', on ? HI : '#e4e4e4'); c.setAttribute('stroke-width', on ? 3 : 1); }
+    // the numbers under a beat with more than one group on it sit side by side
+    this.nums.forEach((el, g) => {
+      const b = beats[g]; if (b == null) { el.setAttribute('display', 'none'); return; }
+      const k = beats.slice(0, g).filter(x => x === b).length, n = beats.filter(x => x === b).length;
+      el.removeAttribute('display'); el.setAttribute('opacity', heard(g)); el.setAttribute('transform', `translate(${this.labW + (b + .5) * this.beatW + (k - (n - 1) / 2) * 24} ${this.numY + 12})`);
+    });
+  }
 };
 // Body: the grid read as body percussion, and a figure whose playing part lights up with each hit.
-RV.body = {
-  build(el, r) {
-    el.innerHTML = `<div class="split"><div id="bodyfig" style="flex:0 0 36%"></div><div id="bodygrid"></div></div>`;
-    const fig = `<svg viewBox="0 0 300 520" preserveAspectRatio="xMidYMid meet">
+// In a round, a figure for each group, numbered, side by side over the grid: each lights what its group plays now.
+const bodyFigure = (gx, n) => `<g transform="translate(${gx} 0)" class="fig" data-g="${n - 1}">
       <g stroke="#333" stroke-width="6" stroke-linecap="round" fill="none">
         <circle cx="150" cy="70" r="36" fill="#fff"/><line x1="150" y1="106" x2="150" y2="280"/>
-        <path id="arms" d="M150,140 L95,210 L80,290 M150,140 L205,210 L220,290"/>
+        <path d="M150,140 L95,210 L80,290 M150,140 L205,210 L220,290"/>
         <path d="M150,280 L110,400 L105,490 M150,280 L190,400 L195,490"/>
       </g>
-      <g id="parts" fill="${HI}" fill-opacity="0">
+      <g fill="${HI}" fill-opacity="0">
         <circle data-part="mouth" cx="150" cy="86" r="14"/>
         <circle data-part="hands" cx="80" cy="298" r="22"/><circle data-part="hands" cx="220" cy="298" r="22"/>
         <circle data-part="fingers" cx="72" cy="318" r="12"/><circle data-part="fingers" cx="228" cy="318" r="12"/>
         <ellipse data-part="thighs" cx="128" cy="345" rx="22" ry="40"/><ellipse data-part="thighs" cx="172" cy="345" rx="22" ry="40"/>
         <ellipse data-part="feet" cx="100" cy="500" rx="30" ry="14"/><ellipse data-part="feet" cx="200" cy="500" rx="30" ry="14"/>
-      </g>
-      <g id="bodylabels" font-size="16" fill="#777"></g></svg>`;
-    el.querySelector('#bodyfig').innerHTML = fig;
-    RV.grid.build(el.querySelector('#bodygrid'), r, { body: true, rowH: 110 });
-    this.r = r; this.parts = [...el.querySelectorAll('#parts [data-part]')];
-    const labels = el.querySelector('#bodylabels'); const used = new Map(); r.rows.forEach(row => { const b = BODY[row.sound]; if (b) used.set(b[1], row.colour); });
+      </g>${n ? `<g transform="translate(150 ${-8}) scale(2.2)">${badge(n, 'num')}</g>` : ''}</g>`;
+RV.body = {
+  build(el, r) {
+    const n = r.round ? r.round.parts : 0;
+    el.innerHTML = n ? `<div style="display:flex;flex-direction:column;width:100%;gap:6px"><div id="bodyfig" style="flex:1 1 48%;min-height:0"></div><div id="bodygrid" style="flex:1 1 52%;min-height:0"></div></div>`
+      : `<div class="split"><div id="bodyfig" style="flex:0 0 36%"></div><div id="bodygrid"></div></div>`;
+    const used = new Map(); r.rows.forEach(row => { const b = BODY[row.sound]; if (b) used.set(b[1], row.colour); });
     const pos = { mouth: [185, 90], hands: [240, 265], fingers: [240, 330], thighs: [205, 350], feet: [240, 505] };
-    labels.innerHTML = [...used].map(([part, col]) => `<text x="${pos[part][0]}" y="${pos[part][1]}" fill="${col}" font-weight="600">${part}</text>`).join('');
+    const labels = `<g font-size="16" fill="#777">${[...used].map(([part, col]) => `<text x="${pos[part][0]}" y="${pos[part][1]}" fill="${col}" font-weight="600">${part}</text>`).join('')}</g>`;
+    el.querySelector('#bodyfig').innerHTML = n ? `<svg viewBox="0 -40 ${300 * n} 560" preserveAspectRatio="xMidYMid meet">${Array.from({ length: n }, (_, g) => bodyFigure(300 * g, g + 1)).join('')}</svg>`
+      : `<svg viewBox="0 0 300 520" preserveAspectRatio="xMidYMid meet">${bodyFigure(0, 0)}${labels}</svg>`;
+    RV.grid.build(el.querySelector('#bodygrid'), r, { body: true, rowH: n ? 70 : 110 });
+    this.r = r; this.figs = [...el.querySelectorAll('.fig')].map(f => ({ el: f, parts: [...f.querySelectorAll('[data-part]')] }));
     this.rowParts = r.rows.map(row => BODY[row.sound] ? BODY[row.sound][1] : null);
   },
-  paint(p) {
-    RV.grid.paint(p);
-    const lit = {}; for (const e of this.r.events) { if (e.click) continue; const part = this.rowParts[e.row]; if (!part) continue; let d = p - e.beat; if (d < 0) d += this.r.cycle; if (d < .25) lit[part] = Math.max(lit[part] || 0, 1 - d / .25); }
-    for (const el of this.parts) { const k = lit[el.dataset.part] || 0; el.setAttribute('fill-opacity', k * .9); el.setAttribute('fill', k ? this.r.rows[this.rowParts.indexOf(el.dataset.part)].colour : HI); }
+  paint(p, groups) {
+    RV.grid.paint(p, groups);
+    const at = places(p, groups);
+    this.figs.forEach((f, g) => {
+      const q = at[g], lit = {};
+      if (q != null) for (const e of this.r.events) { if (e.click) continue; const part = this.rowParts[e.row]; if (!part) continue; let d = q - e.beat; if (d < 0) d += this.r.cycle; if (d < .25) lit[part] = Math.max(lit[part] || 0, 1 - d / .25); }
+      if (groups) f.el.setAttribute('opacity', q == null ? .3 : heard(g));   // a group waiting to come in, or stopped, stands faint
+      for (const el of f.parts) { const k = lit[el.dataset.part] || 0; el.setAttribute('fill-opacity', k * .9); el.setAttribute('fill', k ? this.r.rows[this.rowParts.indexOf(el.dataset.part)].colour : HI); }
+    });
   }
 };
 
@@ -6224,6 +6356,7 @@ function parseDance(text) {
   text.split('\n').forEach((raw, li) => {
     const line = raw.replace(/\/\/.*$/, '').trim(); if (!line || /^pose\s+[a-z][\w-]*\s*:/i.test(line)) return;
     const mm0 = line.match(/^([a-z]+)\s*:\s*(.*)$/i); if (mm0 && META.has(mm0[1].toLowerCase())) { (d.meta = d.meta || {})[mm0[1].toLowerCase()] = mm0[2].trim(); return; }
+    if (mm0 && mm0[1].toLowerCase() === 'round') { d.problems.push(`Line ${li + 1}: a round plays in a Rhythm cell; with a dance the drums play as one group.`); return; }
     const m = line.match(/^(meter|feet|arms|level|lean|turn|hips|shoulders|poses)\s*:\s*(.*)$/i);
     if (!m) { if (/^[a-z][a-z0-9 ]*\s*:\s*[xXo.\-\s|]+$/i.test(line)) d.drumLines.push(line); else d.problems.push(`Line ${li + 1}: wants meter:, feet:, arms:, level:, lean:, turn:, hips:, shoulders:, poses: or pose NAME:, or a drum line (name: x.x.).`); return; }
     const key = m[1].toLowerCase(), body = m[2].trim();
@@ -6852,6 +6985,7 @@ const RHYTHMS = {
   'Three against two': `meter: 2/4\nlow:  x x x\nwood: x x`,
   'Waltz': `meter: 3/4\nlow: x . .\nhat: . x x\nbell: x . . | . . .`,
   'Body percussion': `meter: 4/4\nstomp: x... .... x... ....\npat:   .... x.x. .... x.x.\nclap:  .... x... .... x...\nsnap:  ..x. .... ..x. ....`,
+  'Body percussion round (4 groups)': `meter: 4/4\nbpm: 90\nround: 4 every=1\nstomp: x. x. x. x. | .. .. .. .. | .. .. .. .. | .. .. .. ..\npat:   .. .. .. .. | x. x. xx x. | .. .. .. .. | .. .. .. ..\nclap:  .. .. .. .. | .. .. .. .. | xx x. xx x. | .. .. .. ..\nsnap:  .. .. .. .. | .. .. .. .. | .. .. .. .. | x. x. x. ..`,
   'Triplets (6/8 feel)': `meter: 4/4\nkick: x.. ... x.. ...\ntom:  ... x.. ... x..\nhat:  xxx xxx xxx xxx`
 };
 const DANCES = {
@@ -6880,7 +7014,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       };
       constructor(body, text, onChange, opts = {}) {
         this.mode = opts.mode === 'dance' ? 'dance' : 'rhythm'; this.body = body; this.opts = opts;
-        const st = this.state = { rview: 'grid', dview: 'writing', sylsys: 'kodaly', facing: ['behind', 'front', 'quarter'].includes(opts.facing) ? opts.facing : 'behind', rebuild: () => this.render() };
+        const st = this.state = { rview: 'grid', dview: 'writing', sylsys: 'counts', facing: ['behind', 'front', 'quarter'].includes(opts.facing) ? opts.facing : 'behind', rebuild: () => this.render() };
         this.lab = RhythmDance(st, () => sampler.ctx());
         const views = this.mode === 'dance' ? [['writing', 'Writing'], ['dancer', 'Dancer'], ['feet', 'Footprints'], ['figs', 'Figures'], ['laban', 'Columns'], ['benesh', 'Stave']] : [['grid', 'Grid'], ['wheel', 'Wheel'], ['syll', 'Syllables'], ['body', 'Body']];
         const key = this.mode === 'dance' ? 'dview' : 'rview'; if (views.some(v => v[0] === opts.view)) st[key] = opts.view;
@@ -6895,6 +7029,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
           <label class="xpose tempo" title="Beats per minute (a bpm: line in the text sets it)">Tempo <input type="number" class="bpm" min="30" max="240" step="1" value="80"> BPM</label>
           <label class="xpose" title="A click on every beat"><input type="checkbox" class="click"> Click</label>
           <label class="xpose" title="A bar of clicks before the start"><input type="checkbox" class="countin" checked> Count-in</label>
+          ${this.mode === 'rhythm' ? `<div class="mixer groups" hidden>${[1, 2, 3, 4].map(n => `<div class="member" data-part="group${n}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" list="gcs-mix-unity" aria-label="Group ${n} level"><button type="button" class="figure" title="Group ${n}: click to mute or unmute">${FIGURE(`<circle cx="15" cy="11" r="5"/><path d="M8 31c0-5 3-9 7-9s7 4 7 9"/><path d="M21 14c2 0 3 1 3 3"/><text x="33" y="34" text-anchor="middle" style="fill: currentColor; stroke: none; font: 700 15px 'Atkinson Hyperlegible', sans-serif">${n}</text>`)}</button><span>Group ${n}</span></div>`).join('')}</div>` : ''}
           <div class="views">${views.map(([k, v]) => `<button type="button" data-view="${k}" class="${st[key] === k ? 'on' : ''}">${v}</button>`).join('')}</div>
           ${this.mode === 'dance' ? `<label class="xpose" title="From behind, left is on the left; from in front, the figure is mirrored, so a class copying the teacher can follow">Seen from <select class="facing"><option value="behind"${st.facing === 'behind' ? ' selected' : ''}>behind</option><option value="front"${st.facing === 'front' ? ' selected' : ''}>in front</option><option value="quarter"${st.facing === 'quarter' ? ' selected' : ''}>three-quarters</option></select></label>` : ''}
           <label class="xpose" title="Replace the text with an example, or with a pattern from the course's graded set">Example <select class="examples"><optgroup label="Examples"><option value="">…</option>${Object.keys(examples).map(k => `<option>${k.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))}</option>`).join('')}</optgroup></select><select class="grade" hidden title="Show the course items whose concepts the Ontario curriculum has named by this grade"></select></label>
@@ -6935,6 +7070,18 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
           fill();
           gr.addEventListener('change', () => { try { localStorage.setItem('gcs-course-grade', gr.value); } catch (e) {} fill(); });
         });
+        // A round's groups: a level and a mute each (Group 1 to 4), moved as it plays and saved with the cell as band.mix and band.mute,
+        // the way the notation cells' mixer keeps them.
+        this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
+        for (const mem of body.querySelectorAll('.groups .member')) {
+          const part = mem.dataset.part, lvl = mem.querySelector('.lvl');
+          lvl.value = this.band.mix && this.band.mix[part] !== undefined ? this.band.mix[part] : 100;
+          if (!document.getElementById('gcs-mix-unity')) document.body.insertAdjacentHTML('beforeend', '<datalist id="gcs-mix-unity"><option value="100"></option></datalist>');
+          const say = () => { lvl.title = `${lvl.value}%`; }; say();
+          mem.classList.toggle('muted', !!(this.band.mute && this.band.mute.includes(part)));
+          lvl.addEventListener('input', () => { say(); const mix = { ...(this.band.mix || {}) }; if (+lvl.value === 100) delete mix[part]; else mix[part] = +lvl.value; if (Object.keys(mix).length) this.band.mix = mix; else delete this.band.mix; this.levels(true); });
+          mem.querySelector('.figure').addEventListener('click', () => { const on = !mem.classList.contains('muted'); mem.classList.toggle('muted', on); const mute = (this.band.mute || []).filter(x => x !== part); if (on) mute.push(part); if (mute.length) this.band.mute = mute; else delete this.band.mute; this.levels(true); });
+        }
         this.lab.clock.onDone = () => this.paint();
         const loop = () => { this.paint(); this.raf = requestAnimationFrame(loop); }; this.raf = requestAnimationFrame(loop);
         this.render();
@@ -6947,6 +7094,12 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       static gradeCap() { try { return Math.min(8, Math.max(0, parseInt(localStorage.getItem('gcs-course-grade'), 10) || 0)); } catch (e) { return 0; } }
       getText() { return this.entry.value; }
       focus() { this.entry.focus(); }
+      // Each group's gain on the clock: its fader (100 is as written), 0 when muted; all at 1 when the text is not a round.
+      levels(changed) {
+        const clock = this.lab.clock, round = clock.round, mix = this.band.mix || {}, mute = this.band.mute || [];
+        for (let g = 0; g < 4; g++) { const k = 'group' + (g + 1); clock.setLevel(g, !round ? 1 : mute.includes(k) ? 0 : mix[k] === undefined ? 1 : Math.max(0, Math.min(1.5, mix[k] / 100))); }
+        if (changed && this.opts.onBand) this.opts.onBand(Object.keys(this.band).length ? this.band : null);
+      }
       stop() { this.lab.clock.stop(); this.paint(); }
       destroy() { cancelAnimationFrame(this.raf); this.lab.clock.stop(); }
       togglePlay() {
@@ -6961,22 +7114,27 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
         const lab = this.lab, st = this.state, clock = lab.clock, text = this.entry.value;
         const r = lab.parseRhythm(text); let problems = r.problems.slice();
         const bpm = r.meta && parseFloat(r.meta.bpm || r.meta.tempo); if (bpm && !clock.running) { clock.setBpm(bpm); this.bpmBox.value = bpm; }
+        let tips = [];
         if (this.mode === 'rhythm') {
           this.beats = r.beats; clock.cycle = r.cycle; clock.events = r.events; clock.bodyMode = st.rview === 'body';
+          clock.round = r.round; tips = r.tips;
+          // the groups' faders: one for each group in the round
+          const gm = this.body.querySelector('.groups'); gm.hidden = !r.round; for (const mem of gm.children) mem.hidden = !r.round || +mem.dataset.part.slice(5) > r.round.parts;
+          this.levels();
           this.view = lab.RV[st.rview]; this.view.build(this.stage, r);
         } else {
-          const d = lab.parseDance(text); problems = d.problems.concat(problems); this.beats = d.beats; clock.bodyMode = false;
+          const d = lab.parseDance(text); problems = d.problems.concat(problems); this.beats = d.beats; clock.bodyMode = false; clock.round = null;
           clock.cycle = d.cycle; clock.events = [];
           for (let c = 0; c * r.cycle < d.cycle; c++) for (const e of r.events) { const beat = c * r.cycle + e.beat; if (beat < d.cycle) clock.events.push({ ...e, beat }); }
           if (!r.rows.length && !this.clickSet) { this.body.querySelector('.click').checked = true; clock.click = true; this.clickSet = true; }   // no drums written: the click keeps time
           this.view = lab.DV[st.dview]; this.view.build(this.stage, d);
         }
-        this.warn.textContent = problems.join('\n');
+        this.warn.innerHTML = problems.map(t => `<div class="w">${this.lab.esc(t)}</div>`).join('') + tips.map(t => `<div class="w tip">${this.lab.esc(t)}</div>`).join('');
         this.paint();
       }
       paint() {
         const clock = this.lab.clock, p = clock.heard(), c = clock.cycle || 1, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
-        if (this.view) this.view.paint(inCycle);
+        if (this.view) this.view.paint(inCycle, clock.groupsAt(p));
         this.transport.classList.toggle('playing', clock.running);
       }
     }
@@ -7134,7 +7292,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
       const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
-                   : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
+                   : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, band: cell.band, onBand: b => { if (b) cell.band = { ...b }; else delete cell.band; save(); }, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.align === 'center', font: cell.font });
       engines.set(cell.id, engine);
       if (cell.type === 'text') {
