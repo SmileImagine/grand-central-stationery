@@ -47,7 +47,7 @@
 <body>
 <main>
   <h1>The grand clock</h1>
-  <p>The piece view's one play and tempo control (<code>course/clock.js</code>, <code>course/clock.css</code>), floating over the top-left of the score where abcjs draws its tempo mark. Click or tap the face to play; drag the face or the tempo up or down to change the tempo in fives (hold Shift for ones); arrow keys and the wheel do the same; double-click the tempo for full speed. The hand sweeps once a bar and lights each beat it passes.</p>
+  <p>The piece view's one play and tempo control (<code>course/clock.js</code>, <code>course/clock.css</code>), floating over the top-left of the score where abcjs draws its tempo mark. Click or tap the face to play; drag the face or the tempo up or down to change the tempo in fives (hold Shift for ones); arrow keys and the wheel do the same; double-click the tempo for full speed. The hand sweeps once a bar and lights each beat it passes. The loop round the face (<b>|:</b> and <b>:|</b> with arrows over and under) is the repeat toggle; paused partway, a small round button at the end of the plate goes back to the start.</p>
 
   <div class="controls">
     <label>Theme <select id="theme"><option value="">Follow the system</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
@@ -67,6 +67,14 @@
       <span class="tag">dark</span></div>
   </div>
 
+  <h2>States: stopped at the start, paused partway, playing</h2>
+  <div class="sizes">
+    <figure><div data-fixed='{"playing":false,"turn":0,"repeat":false,"canReset":false}'></div><figcaption>stopped at the start, repeat off</figcaption></figure>
+    <figure><div data-fixed='{"playing":false,"turn":0.4,"repeat":true,"canReset":true}'></div><figcaption>paused partway, repeat on: back to the start shows</figcaption></figure>
+    <figure><div data-fixed='{"playing":true,"turn":0.6,"repeat":true,"canReset":true}'></div><figcaption>playing, repeat on (no reset while playing)</figcaption></figure>
+    <figure><div data-fixed='{"playing":false,"turn":0.4,"canReset":true}' data-no-repeat></div><figcaption>without onRepeat: no loop</figcaption></figure>
+  </div>
+
   <h2>Sizes and label placements (this page's theme)</h2>
   <div class="sizes">
     <figure><div data-clock style="--clock-size: 48px"></div><figcaption>48 px, label under</figcaption></figure>
@@ -83,7 +91,10 @@
   const logEl = document.getElementById('log');
   const log = s => { logEl.textContent = `${new Date().toLocaleTimeString()}  ${s}\n` + logEl.textContent; };
   const $ = id => document.getElementById(id);
-  const state = { playing: false, bpm: 72, written: 96, beats: 4, label: $('label').value, turn: 0 };
+  // pos: beats played so far; a section of four bars that stops at its end, or goes round again with repeat on.
+  const state = { playing: false, bpm: 72, written: 96, beats: 4, label: $('label').value, turn: 0, pos: 0, repeat: false };
+  const LENGTH_BARS = 4;
+  const partway = () => !state.playing && state.pos > 0;
   const clocks = [];
   const all = p => clocks.forEach(c => c.set(p));
 
@@ -91,15 +102,34 @@
     clocks.push(GCSClock.create(host, {
       bpm: state.bpm, min: 30, max: 200, written: state.written, beats: state.beats, label: state.label,
       labelAt: host.dataset.labelAt,
-      onToggle() { state.playing = !state.playing; all({ playing: state.playing }); log(`onToggle -> ${state.playing ? 'playing' : 'paused'}`); },
+      repeat: state.repeat,
+      onToggle() { state.playing = !state.playing; all({ playing: state.playing, canReset: partway() }); log(`onToggle -> ${state.playing ? 'playing' : 'paused'}`); },
       onBpm(v, info) { state.bpm = v; all({ bpm: v }); log(`onBpm(${v}) from ${info.source}`); },
+      onRepeat(on) { state.repeat = on; all({ repeat: on }); log(`onRepeat(${on})`); },
+      onReset() { state.pos = 0; state.turn = 0; all({ turn: 0, canReset: false }); log('onReset -> back to the start'); },
     }));
+  }
+  // Fixed states, not on the transport (their buttons only log).
+  for (const host of document.querySelectorAll('[data-fixed]')) {
+    const fixed = JSON.parse(host.dataset.fixed), c = GCSClock.create(host, {
+      bpm: 72, written: 96, beats: 4, label: 'Loop it', labelAt: 'none',
+      ...(host.hasAttribute('data-no-repeat') ? {} : { repeat: false, onRepeat: on => log(`(fixed) onRepeat(${on})`) }),
+      onToggle: () => log('(fixed) onToggle'), onReset: () => log('(fixed) onReset'), onBpm: v => log(`(fixed) onBpm(${v})`),
+    });
+    c.set(fixed);
   }
 
   let last = performance.now();
   function frame(now) {
     const dt = (now - last) / 1000; last = now;
-    if (state.playing) { state.turn = (state.turn + dt * state.bpm / 60 / state.beats) % 1; all({ turn: state.turn }); }
+    if (state.playing) {
+      state.pos += dt * state.bpm / 60;
+      if (state.pos >= LENGTH_BARS * state.beats) {
+        if (state.repeat) state.pos %= LENGTH_BARS * state.beats;
+        else { state.pos = 0; state.playing = false; all({ playing: false, canReset: false }); log('the end: stopped at the start'); }
+      }
+      state.turn = (state.pos / state.beats) % 1; all({ turn: state.turn });
+    }
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);

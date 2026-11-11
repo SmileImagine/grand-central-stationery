@@ -249,3 +249,7 @@ html.piece-route .paper .abcjs-tempo { display: none; }
 
 /* More in the piece view is the Melody, Band and Mixer drawers alone: the clock is the transport. */
 html.piece-route .dock .transport, html.piece-route .dock .departure { display: none !important; }
+/* The clock takes the way in's colour, as the bar does: its play triangle and an active repeat loop. */
+body[data-piece-mode="teach"] .pb-clock { --mode: #087fca; }
+body[data-piece-mode="practice"] .pb-clock { --mode: #3f8f1f; }
+body[data-piece-mode="assess"] .pb-clock { --mode: #79569f; }

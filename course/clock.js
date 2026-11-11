@@ -10,8 +10,11 @@
        labelAt: 'under',             // where the words show: 'under' the clock (small), 'beside' it, or 'none' (aria-label only)
        onToggle() {},                // play or pause pressed (click, tap, Space or Enter)
        onBpm(v, info) {},            // the user changed the tempo: v an integer, info.source 'drag' | 'key' | 'wheel' | 'reset'
+       repeat: false,                // the repeat toggle round the face; it is drawn only when repeat or onRepeat is given
+       onRepeat(on) {},              // repeat toggled by the user: on is the new state
+       onReset() {},                 // "back to the start" pressed; the button shows only while canReset is true
      });
-     clock.set({ playing, bpm, label, turn, written, beats, min, max, labelAt });   // any subset; turn 0..1 through the bar, every frame
+     clock.set({ playing, bpm, label, turn, written, beats, min, max, labelAt, repeat, canReset });   // any subset; turn 0..1 through the bar, every frame
      clock.get();                    // the state as the clock holds it
      clock.el;                       // the root element, .gcs-clock
      clock.destroy();
@@ -21,6 +24,13 @@
    that moves further is a drag and does not. The arrow keys do the same (5, Shift 1) on either, the wheel too, and a
    double click on the tempo returns it to full speed. While the tempo changes, a sign under the clock shows it large
    and a lamp-coloured ring round the rim shows how much of full speed it is.
+
+   Round the face, the repeat toggle: a start-repeat sign at nine o'clock, an end-repeat sign at three, an arrow over
+   the top from left to right and one under the bottom from right to left, a loop drawn round the clock. Faint when
+   off, in the step's colour (or ink) when on. It is a button of its own behind the face: a tap anywhere on the loop
+   toggles it, a tap on the face plays, and a press there never starts a tempo drag.
+   Back to the start: a small round button at the right-hand end of the plate, shown only while the host says the
+   music is paused partway (canReset). At the end, so nothing moves under the pointer when it comes and goes.
 
    It is drawn to float over the top-left of the score, in place of abcjs's tempo mark, on a plate of its own so it
    reads over the page's gradient and the music. Its size is the face's diameter: --clock-size on the host (or any
@@ -62,6 +72,31 @@
     </svg>`;
   }
 
+  // The loop round the face, in the face's units (the face is 100 across, centred on 0,0).
+  const LOOP = { r: 56, w: 146, h: 117 };
+  function loopSvg() {
+    const r = LOOP.r, rad = a => (a * Math.PI) / 180;
+    const at = (a, rr = r) => [rr * Math.sin(rad(a)), -rr * Math.cos(rad(a))];
+    const f = n => n.toFixed(2);
+    const arc = (a0, a1) => { const [x0, y0] = at(a0), [x1, y1] = at(a1); return `M${f(x0)} ${f(y0)}A${r} ${r} 0 0 1 ${f(x1)} ${f(y1)}`; };
+    const head = a => {   // an arrowhead at angle a, pointing clockwise along the circle
+      const [x, y] = at(a), tx = Math.cos(rad(a)), ty = Math.sin(rad(a)), nx = Math.sin(rad(a)), ny = -Math.cos(rad(a));
+      const tip = [x + tx * 7, y + ty * 7], b1 = [x - tx * 2 + nx * 6.5, y - ty * 2 + ny * 6.5], b2 = [x - tx * 2 - nx * 6.5, y - ty * 2 - ny * 6.5];
+      return `M${f(tip[0])} ${f(tip[1])}L${f(b1[0])} ${f(b1[1])}L${f(b2[0])} ${f(b2[1])}z`;
+    };
+    // |: at nine o'clock (thick bar outside, thin bar, two dots facing the face) and :| at three, mirrored.
+    const sign = side => {
+      const m = side < 0 ? -1 : 1, x = v => f(m * v);
+      const bar = (a, b) => `M${x(a)} -19L${x(b)} -19L${x(b)} 19L${x(a)} 19z`;
+      return `<path d="${bar(72, 65.5)}${bar(62.5, 60.2)}"/><circle cx="${x(55.5)}" cy="-7.5" r="3.3"/><circle cx="${x(55.5)}" cy="7.5" r="3.3"/>`;
+    };
+    return `<svg class="${NS}-loop" viewBox="${-LOOP.w / 2} ${-LOOP.h / 2} ${LOOP.w} ${LOOP.h}" aria-hidden="true" focusable="false">
+      <path class="${NS}-arc" d="${arc(-52, 50)}${arc(128, 230)}"/>
+      <path class="${NS}-head" d="${head(50)}${head(230)}"/>
+      <g class="${NS}-signs">${sign(-1)}${sign(1)}</g>
+    </svg>`;
+  }
+
   function create(host, opts) {
     opts = opts || {};
     const id = `${NS}-${++uid}`;
@@ -74,24 +109,33 @@
       playing: !!opts.playing,
       turn: 0,
       bpm: 0,
+      repeat: !!opts.repeat,
+      canReset: !!opts.canReset,
     };
+    const hasRepeat = 'repeat' in opts || typeof opts.onRepeat === 'function';
     st.bpm = toInt(Number.isFinite(opts.bpm) ? opts.bpm : (st.written || 80), st.min, st.max);
-    const cb = { onToggle: opts.onToggle, onBpm: opts.onBpm };
+    const cb = { onToggle: opts.onToggle, onBpm: opts.onBpm, onRepeat: opts.onRepeat, onReset: opts.onReset };
 
     const root = document.createElement('div');
     const at = ['under', 'beside', 'none'].includes(opts.labelAt) ? opts.labelAt : 'under';
-    root.className = `${NS} ${NS}--label-${at}`;
+    root.className = `${NS} ${NS}--label-${at}${hasRepeat ? ' has-repeat' : ''}`;
     root.setAttribute('role', 'group');
     root.setAttribute('aria-label', 'Play and tempo');
     if (opts.size) root.style.setProperty('--gcs-clock-size', typeof opts.size === 'number' ? opts.size + 'px' : opts.size);
-    root.innerHTML = `<button type="button" class="${NS}-play" title="Play or pause. Drag up or down to change the tempo.">${faceSvg(id)}</button>`
+    root.innerHTML = `<div class="${NS}-dial">`
+      + `<button type="button" class="${NS}-play" title="Play or pause. Drag up or down to change the tempo.">${faceSvg(id)}</button>`
+      + (hasRepeat ? `<button type="button" class="${NS}-repeat" aria-label="Repeat" title="Repeat: go round again at the end">${loopSvg()}</button>` : '')
+      + `</div><div class="${NS}-side">`
       + `<div class="${NS}-tempo" role="slider" tabindex="0" aria-label="Tempo" aria-orientation="vertical" title="Tempo: drag up or down, or use the arrow keys. Double-click for full speed.">`
       + `<span class="${NS}-bpm"><b></b><small>BPM</small></span><span class="${NS}-share"></span><span class="${NS}-nudge" aria-hidden="true"></span></div>`
+      + `<button type="button" class="${NS}-reset" aria-label="Back to the start" title="Back to the start" hidden>`
+      + `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.5 5.5h3v13h-3zM19 5.5v13L9.5 12z"/></svg></button></div>`
       + `<span class="${NS}-label"></span>`
       + `<div class="${NS}-bubble" aria-hidden="true"><b></b><span>BPM</span><small></small></div>`
       + `<span class="${NS}-sr" aria-live="polite"></span>`;
     const $ = sel => root.querySelector(`.${NS}-${sel}`);
     const btn = $('play'), slider = $('tempo'), labelEl = $('label'), bubble = $('bubble'), live = $('sr');
+    const repeatBtn = $('repeat'), resetBtn = $('reset');
     const hand = $('hand'), ticks = $('ticks'), ring = $('ring'), bpmEl = slider.querySelector('b'), shareEl = $('share');
     if (host) host.appendChild(root);
 
@@ -137,6 +181,16 @@
       labelEl.title = st.label;
       root.classList.toggle('no-label', !st.label);
       if (!st.playing) lightBeat(-1);
+    }
+    function drawRepeat() {
+      root.classList.toggle('is-repeat', st.repeat);
+      if (repeatBtn) repeatBtn.setAttribute('aria-pressed', String(st.repeat));
+    }
+    function drawReset() {
+      const show = st.canReset && !st.playing;
+      if (!show && document.activeElement === resetBtn) btn.focus();   // it leaves: focus goes back to play
+      resetBtn.hidden = !show;
+      root.classList.toggle('can-reset', show);
     }
     let litBeat = -2;
     function lightBeat(i) {
@@ -258,6 +312,8 @@
     slider.addEventListener('keydown', sliderKey);
     slider.addEventListener('dblclick', dbl);
     labelEl.addEventListener('click', toggle);
+    if (repeatBtn) repeatBtn.addEventListener('click', () => { st.repeat = !st.repeat; drawRepeat(); if (cb.onRepeat) cb.onRepeat(st.repeat); });
+    resetBtn.addEventListener('click', () => { if (cb.onReset) cb.onReset(); });
     for (const el of [btn, slider]) {
       el.addEventListener('pointerdown', down);
       el.addEventListener('pointermove', move);
@@ -269,7 +325,7 @@
     const onMotion = () => { shownTurn = -1; drawTurn(); };
     if (reduced.addEventListener) reduced.addEventListener('change', onMotion);
 
-    drawTicks(); drawTempo(); drawPlay(); drawTurn();
+    drawTicks(); drawTempo(); drawPlay(); drawTurn(); drawRepeat(); drawReset();
 
     return {
       el: root,
@@ -290,6 +346,8 @@
           if ('playing' in p) st.playing = !!p.playing;
           drawPlay();
         }
+        if ('repeat' in p) { st.repeat = !!p.repeat; drawRepeat(); }
+        if ('canReset' in p || 'playing' in p) { if ('canReset' in p) st.canReset = !!p.canReset; drawReset(); }
         if (Number.isFinite(p.turn)) st.turn = p.turn;
         if (Number.isFinite(p.turn) || 'playing' in p || p.beats) drawTurn();
       },
@@ -303,5 +361,5 @@
     };
   }
 
-  window.GCSClock = { create, stepFrom, version: 1 };
+  window.GCSClock = { create, stepFrom, version: 2 };
 })();
