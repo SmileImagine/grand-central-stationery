@@ -4754,7 +4754,7 @@
         const style = STYLES[this.styleKey] || {};
         if (location.protocol === 'file:') abc = withStyle(abc, classicFor(abc));
         const two = gameMode && this.lines !== 'one';
-        const extra = two ? { wrap: { minSpacing: 1.6, maxSpacing: 2.8 } } : {};
+        const extra = two ? { wrap: { minSpacing: 1.6, maxSpacing: 2.8, ...(this.barsPerLine ? { preferredMeasuresPerLine: this.barsPerLine } : {}) } } : {};   // barsPerLine: the piece view's study
         const base = two ? this.twoLineWidth(abc, extra) : 600;
         this.original = this.renderAt(this.hidden, abc, base, undefined, extra);
         if (!this.original) return;
@@ -5060,7 +5060,7 @@
         const steps = o => { const L = []; if (o.kick) L.push(miniOf(o.kick, 'bd', .6)); if (o.snare) L.push(miniOf(o.snare, 'sd', .5)); if (o.hat) L.push(miniOf(o.hat, 'hh', .35)); return L.length ? L.join('\n') : null; };
         const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, drums: o.drums || steps(o), bass: o.bass || null, chords: o.chords || (o.comp ? miniOf(compHold(o.comp), 'ch', .6) : null), ctl: o.ctl || {}, texture: o.texture || 'full' });
         if (!ch.choruses.length) {
-          const arc = this.autoArc();
+          const arc = this.plainBand ? null : this.autoArc();   // plainBand (the piece view's loops): the same chorus every time round
           if (!arc) return [spec(base)];
           return arc.map((a, k) => spec({ ...base, seed: base.seed + k, energy: base.energy + a.de, detail: base.detail + a.dd, bars: a.bars, texture: a.texture }));
         }
@@ -5320,6 +5320,7 @@
         const head = [], music = [], verses = [];   // verses[k] = w: text per music line
         let li = -1;
         for (const raw of text.split('\n')) {
+          if (/^%%(sys)?staffsep\b/.test(raw)) { head.push(raw); continue; }   // the space between lines (the piece view's study) shapes the layout too
           if (/^%/.test(raw) || raw.trim() === '') continue;
           if (/^w:/i.test(raw)) { if (li < 0) continue; const k = (verses._n = verses._n || new Map()).get(li) || 0; verses._n.set(li, k + 1); (verses[k] = verses[k] || [])[li] = raw.slice(2).trim(); }
           else if (/^[A-Za-z]:/.test(raw)) { if (/^[KMLQPVXUIm]:/.test(raw)) head.push(raw); }   // the fields that shape the music; the title and the rest would take the room the lines need
@@ -5831,7 +5832,7 @@
         // two or three systems, up to a staff space of 6 % of the height; otherwise two systems, the next always in view.
         // When none fits at a legible size (a phone), the two systems again, sliding; the score says which (fitwhole).
         this.body.classList.remove('fitwhole');
-        if (this.fitWhole) for (const n of [1, 2, 3]) {
+        if (this.fitWhole) for (const n of [1, 2, 3].filter(n => n >= (this.fitFrom || 1))) {   // fitFrom: the fewest lines to use (the piece view's study, for room under each note)
           const fitK = H / (sb.y + n * pitch); if (fitK < kMin) break;
           const kn = Math.min(6 * vh / space, fitK), w = Math.max(220, Math.round(W / kn - 2 * PAD));
           this.renderAt(this.hidden, abc, w, undefined, extra);
@@ -7711,10 +7712,18 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
             return sampler.load(folder, midi).then(() => { const bus = en.player.gains(); return bus ? sampler.play(folder, midi, sampler.ctx().currentTime + 0.03, dur, vel, bus.melody, 0.25) : null; });
           },
           ctx: () => wakeAudio(sampler.ctx()),
+          // A small diagram of the cell's instrument fingering one note (the piece view's sections): the same layouts,
+          // built on the whole tune's notes so every diagram folds octaves and picks frets as the large one does.
+          mini(host, en, midis) {
+            const v = new InstrumentView(host);
+            v.set(en.inst, en.allMidis(), en.transpose || 0, m => en.nameOf(m), null, { span: en.span, show: 'melody' });
+            if (v.layout) v.mark(midis, [], { index: -1 });
+            return v;
+          },
         },
       });
       const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'course/piece.css'; document.head.appendChild(css);
-      for (const src of ['course/practice.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
+      for (const src of ['course/analyze.js', 'course/practice.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
     }
   })();
   </script>

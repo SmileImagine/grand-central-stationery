@@ -1,24 +1,31 @@
 /*
   The piece view: one tune from the practice board, opened in the main page
-  (index.html#tune=<id>&...). Each way in is three steps, in the order a lesson
-  goes:
+  (index.html#tune=<id>&...). Two people use it, each in steps.
 
-    Teach, Practice  1 Listen            the whole piece once, at full speed, with the band.
-                     2 Learn the loops   one loop at a time on repeat, from slow to faster
-                                         (each time round a little faster, or note by note).
-                     3 Put it together   the whole piece on repeat, from slow to faster,
-                                         up to full speed with the band.
-                     Practice keeps a history on this computer; Teach does not.
-    Assess           1 Hear it           the student, and the piece played for them.
-                     2 The attempt       optional listening, whose flags only suggest.
-                     3 Decide            pass, needs more practice or not assessed, with a note.
+    A student practising alone (mode=practice; a shared link opens this):
+      1 Listen              the whole piece at full speed with the band, and the new idea in it.
+      2 Learn the sections  one section on repeat, slow and a little faster each time round
+                            (In time), or Note by note, with the app listening if they like.
+      3 Put it together     the whole piece on repeat, slow to full speed, with the band.
+      4 Play it through     the beat and the moving cursor; the student plays the tune, the app can
+                            listen and say what it heard, as a guess; then Ready to show my teacher.
 
-  Each step has one main button, Play or Pause; repeating and speeding up
-  belong to the step, not to extra buttons. The page's own cell does the work:
-  its renderer, the Player on its one AudioContext clock, Game mode and the
-  instrument view; a loop is written out as a tune of its own (course/practice.js).
-  The address carries the setup and nothing private; practice history stays in
-  this browser (gcs-practice-v1), assessments in the board's store (gcs-course-v1).
+    A teacher, on the projector, so the class sees the same listen, learn, put together:
+      Teach   1 Listen              as above, for the class.
+              2 Learn the sections  Study: one section, uncluttered, a small fingering diagram at every
+                                    note, for the class to work through at its own pace or in pairs; then
+                                    Loop together: sections that grow (1, 2, 1–2, 3, 1–3 ...) on repeat,
+                                    slow to faster. A class never plays in perfect time and nothing listens.
+              3 Put it together     the whole piece, slow to full speed, with the band.
+      Assess  1 Hear it · 2 The attempt · 3 Decide: a student's play-through from the teacher's side, with
+              the flags to check by ear and the marks.
+
+  Each step has one main button, Play or Pause, and sets what is on screen, whether it repeats, its
+  tempo and how much the band plays (rich to listen and put together, plain and the same each time
+  round for sections, the beat alone for a play-through). The page's own cell does the work: its
+  renderer, the Player on its one AudioContext clock, Game mode and the instrument view; a section is
+  written out as a tune of its own (course/practice.js). The address carries the setup and nothing
+  private; practice history stays in this browser (gcs-practice-v1), assessments in the board's store.
 */
 (function () {
   'use strict';
@@ -27,16 +34,26 @@
   const LEVEL_COLOR = { 1: '#69b944', 2: '#e0b800', 3: '#f39322', 4: '#e72829', 5: '#087fca', 6: '#79569f' };
   const CUTS_KEY = 'gcs-phrase-cuts', COURSE_KEY = 'gcs-course-v1', FOLD_KEY = 'gcs-piece-folded', FASTER_KEY = 'gcs-piece-faster';
   const ls = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const ss = { get(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
   const esc = s => String(s === null || s === undefined ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // What each step is: what is on screen, whether it repeats, its first tempo, how much the band plays.
+  const KINDS = { teach: ['listen', 'sections', 'whole'], practice: ['listen', 'sections', 'whole', 'through'], assess: ['hear', 'attempt', 'decide'] };
+  const BAND = { rich: { i: 65, c: 65, plain: false, mute: null }, plain: { i: 25, c: 10, plain: true, mute: null }, beat: { i: 30, c: 0, plain: true, mute: ['melody', 'chords', 'bass'] } };
 
   let setup = P.decodeSetup(location.hash);
   let set = null, tune = null, found = null, en = null, written = P.DEFAULT_BPM;
-  let mode = 'teach', step = 1, idx = 0, byNote = false;
-  let tempo = { 1: null, 2: null, 3: null }, bpm = null;    // each step keeps its own tempo while the page is open
-  let faster = ls.get(FASTER_KEY) !== '0';                  // faster each time round (on unless turned off here)
-  let stepper = null, listening = null, attempt = null, flagsShown = [], who = '';
-  try { who = sessionStorage.getItem('gcs-assess-student') || ''; } catch (e) {}
+  let mode = 'practice', step = 1, idx = 0, rung = 0, how = 'study', listenOn = false, example = null, concepts = [];
+  let tempo = {}, bpm = null;
+  let faster = ls.get(FASTER_KEY) !== '0';
+  let stepper = null, listening = null, attempt = null, flagsShown = [], who = ss.get('gcs-assess-student');
+  const student = () => ss.get('gcs-course-student');
+  const kind = () => KINDS[mode][step - 1];
+  const teacher = () => mode !== 'practice';
+  // What step 2 is doing just now: studying, looping together (Teach), in time or note by note (Practice).
+  const sub = () => kind() !== 'sections' ? null : how;
+  const repeats = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
+  const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'beat' : 'rich';
 
   /* ---------------- the bar across the top ---------------- */
   const bar = document.createElement('header');
@@ -46,13 +63,10 @@
       <button type="button" class="pb-fold" aria-expanded="true" aria-controls="pb-steps pb-tools" title="Fold the bar away, or open it again (F)" aria-label="Fold the bar"><span aria-hidden="true"></span></button>
       <a class="pb-back" href="course/board.html">← Board</a>
       <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><small class="pb-facts"></small></div>
-      <div class="pb-modes" role="tablist" aria-label="What to do">
-        <button type="button" role="tab" data-mode="teach">Teach</button>
-        <button type="button" role="tab" data-mode="practice">Practice</button>
-        <button type="button" role="tab" data-mode="assess">Assess</button>
-      </div>
-      <label class="pb-inst" title="The instrument shown under the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <button type="button" class="pb-share" title="Copy a link that opens this piece at this step, loop, tempo and instrument (never names, progress or marks)">Copy link</button>
+      <div class="pb-modes" role="tablist" aria-label="Teacher"></div>
+      <label class="pb-inst" title="The instrument shown with the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
+      <label class="pb-show" title="What a piano, Wicki-Hayden keyboard or ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
+      <button type="button" class="pb-share"></button>
       <button type="button" class="pb-more" aria-expanded="false" title="The full player: the ABC, the band, the mixer, note names and transposition">More</button>
     </div>
     <ol class="pb-row pb-steps" id="pb-steps" aria-label="Steps"></ol>
@@ -98,22 +112,23 @@
     $('.tape').style.background = LEVEL_COLOR[tune.level];
     $('.pb-facts').textContent = [`Level ${tune.level}`, tune.metre, sum.length, tune.origin || tune.composer].filter(Boolean).join(' · ');
     refind();
-    mode = setup.mode || 'teach';
-    step = setup.step || 1;
-    byNote = setup.by === 'note';
-    idx = Math.max(0, Math.min(found.phrases.length - 1, (setup.loop || 1) - 1));
-    tempo = { 1: written, 2: P.slowStart(written), 3: P.slowStart(written) };
-    if (mode === 'assess') tempo[1] = tempo[2] = tempo[3] = written;
+    // The new idea: each concept with the bars where it is first heard (those with none to show are left out).
+    concepts = window.GCSAnalyze ? P.conceptsOf(tune).map(c => P.exampleOf(tune, window.ABCJS, window.GCSAnalyze, c, found)).filter(Boolean).slice(0, 3) : [];
+    mode = setup.mode || 'practice';
+    step = Math.min(setup.step || 1, KINDS[mode].length);
+    how = P.HOW[mode] ? (P.HOW[mode].includes(setup.by) ? setup.by : P.HOW[mode][0]) : 'study';
+    idx = Math.max(0, Math.min(sections() - 1, (setup.loop || 1) - 1));
+    if (setup.to) { const L = P.ladder(sections()), r = L.findIndex(([a, b]) => a === idx && b === setup.to - 1); if (r >= 0) rung = r; }
+    resetTempi();
     if (setup.bpm) tempo[step] = setup.bpm;
     bpm = tempo[step];
-    $('.pb-back').href = 'course/board.html#' + P.encodeBoard({ level: tune.level, tune: tune.id, do: mode });
     let inst = setup.inst || ls.get('gcs-last-inst') || 'recorder'; if (!P.INSTRUMENTS[inst]) inst = 'recorder';
     $('.pb-inst select').value = inst;
-    en = hook.show({ text: textNow(), inst, tr: setup.tr || 0 });
-    en.fitWhole = fitWhole(); en.render();
-    requestAnimationFrame(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+    $('.pb-show select').value = setup.show || 'melody';
+    en = hook.show({ text: textNow(), inst, tr: setup.tr || 0, show: $('.pb-show select').value });
     wireEngine();
     setMode(mode, step);
+    requestAnimationFrame(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
   }
   function refind() {
     let cuts = setup.cuts;
@@ -121,45 +136,71 @@
     found = P.phrasesOf(tune.abc, window.ABCJS, { cuts });
     found.cuts = cuts && cuts.length ? cuts : null;
   }
-  const loops = () => found.phrases.length;
-  const onLoop = () => mode !== 'assess' && step === 2 && loops() > 1;      // a loop on screen, else the whole piece
-  const loop = () => found.phrases[idx];
-  const textNow = () => onLoop() ? P.phraseAbc(tune.abc, window.ABCJS, loop(), found) : tune.abc;
-  // A loop (or a short piece) is drawn as large as it fits whole; a long piece keeps Game mode's two systems at a time.
-  const fitWhole = () => onLoop() || loops() < 2;
+  const sections = () => found.phrases.length;
+  // Each step's first tempo: full speed to listen and to be assessed, a little over half speed to learn and put together.
+  function resetTempi() { tempo = {}; KINDS[mode].forEach((k, i) => { tempo[i + 1] = ['sections', 'whole'].includes(k) ? P.slowStart(written) : written; }); }
+  // What is on screen: the example of a new idea, one section, a span of sections (Loop together), or the whole piece.
+  function shownBars() {
+    if (example) return { from: example.from, to: example.to };
+    const n = sections(); if (n < 2 || kind() !== 'sections') return null;
+    if (sub() === 'together') { const L = P.ladder(n), r = L[Math.min(rung, L.length - 1)]; return r[0] === 0 && r[1] === n - 1 ? null : { from: found.phrases[r[0]].from, to: found.phrases[r[1]].to, span: r }; }
+    return { from: found.phrases[idx].from, to: found.phrases[idx].to, span: [idx, idx] };
+  }
+  function textNow() {
+    const p = shownBars();
+    let abc = p ? P.phraseAbc(tune.abc, window.ABCJS, p, found) : tune.abc;
+    // Studying a section, room under each line of music for the diagrams.
+    if (sub() === 'study' && !example) abc = /^X:.*$/m.test(abc) ? abc.replace(/^(X:.*)$/m, '$1\n%%staffsep 150') : '%%staffsep 150\n' + abc;
+    return abc;
+  }
 
-  /* ---------------- the engine: text, tempo, runs ---------------- */
-  let shown = '';
+  /* ---------------- the engine: text, band, tempo, runs ---------------- */
   function redraw() {
     if (!en) return;
     stopAll();
-    const text = textNow();
-    en.fitWhole = fitWhole();
-    if (text !== shown || en.entry.value !== text) { en.entry.value = text; en.render(); }
-    shown = text;
+    const b = BAND[bandFor()];
+    en.band.i = b.i; en.band.c = b.c; en.plainBand = b.plain;
+    if (b.mute) en.band.mute = b.mute.slice(); else delete en.band.mute;
+    document.body.dataset.pieceKind = sub() === 'study' && !example ? 'study' : kind();
+    en.fitWhole = !!shownBars() || sections() < 2;
+    // Studying, a section of more than eight notes takes two lines, so each note's diagram has room to be read.
+    const shownNotes = (() => { const p = shownBars(); return (p ? found.bars.slice(p.from, p.to) : found.bars).reduce((n, b) => n + b.notes.length, 0); })();
+    const shownBarCount = (() => { const p = shownBars(); return p ? p.to - p.from : found.bars.length; })();
+    const split = sub() === 'study' && !example && shownNotes > 8 && shownBarCount > 1;
+    en.fitFrom = split ? 2 : 1; en.barsPerLine = split ? Math.ceil(shownBarCount / 2) : 0;
+    en.entry.value = textNow();
+    en.render();
+    if (en.player) en.player.gains();
     afterRender();
   }
-  // After a render the tempo is this step's (the cell keeps a ratio to the written tempo; a loop has the same).
   function afterRender() {
     if (!en) return;
     if (en.original && Math.abs(en.bpm() - bpm) > 0.5) { en.warp = bpm / en.writtenBpm(); en.retime(); }
-    if (byNote && step === 2 && mode !== 'assess') buildStepper(); else stepper = null;
+    if (sub() === 'note') buildStepper(); else stepper = null;
     clearFlags();
     paint(); syncUrl();
+    requestAnimationFrame(drawStudy);
   }
   function setBpm(v) {
     bpm = Math.max(30, Math.min(300, Math.round(v)));
-    tempo[step] = bpm;
+    if (!example) tempo[step] = bpm;
     if (en && en.original) { en.warp = bpm / en.writtenBpm(); en.retime(); }
     paint(); syncUrl();
   }
   function stopAll() { if (en && en.player) { if (en.player.running) en.togglePlay(); en.toTop(); } stopListening(); }
   // The step's one button: play from the top (or on from a pause), or pause.
-  function playPause() {
+  async function playPause() {
     if (!en) return;
     if (stepper) { stepNext(false); return; }
-    const p = en.player;
-    if (!p.running) { p.setLoop(step !== 1); const lp = en.body.querySelector('.transport .loop'); if (lp) lp.setAttribute('aria-pressed', String(p.loop)); }
+    const p = en.player, k = kind();
+    if (!p.running) {
+      p.setLoop(!example && repeats());
+      const lp = en.body.querySelector('.transport .loop'); if (lp) lp.setAttribute('aria-pressed', String(p.loop));
+      if (!example && ((k === 'through' && listenOn) || k === 'attempt')) {
+        if (!(p.pos > 0)) { attempt = null; flagsShown = []; clearMarks(); if (panel) openPanel(); }
+        if (!listening) await startListening('attempt');
+      }
+    } else if (listening && listening.kind === 'attempt') { stopListening(); }
     en.togglePlay();
     paintPlaying();
   }
@@ -167,12 +208,17 @@
   // played, not that it was played well. Faster each time round lifts the tempo at each turn.
   let run = { top: false, cycle: 0, was: false };
   function wireEngine() {
-    // The page redraws the score when its box changes size (folding the bar, More, turning a tablet); note by note, the
-    // cursor and the instrument go back to the note the learner is on.
+    // The page redraws the score when its box changes size; the diagrams and the note by note place follow.
     const render = en.render.bind(en);
-    en.render = (...a) => { render(...a); if (stepper && en.tl && !en.player.running) requestAnimationFrame(() => showStep(false)); };
+    en.render = (...a) => { render(...a); requestAnimationFrame(() => { drawStudy(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
     const finished = en.onFinished.bind(en);
-    en.onFinished = () => { finished(); if (run.top) lapDone(1); run = { top: false, cycle: 0, was: false }; paintPlaying(); if (step === 1 && mode !== 'assess') say('That was the whole piece. Next: learn it a loop at a time.', 'Learn the loops', () => goStep(2)); };
+    en.onFinished = () => {
+      finished(); if (run.top && !example) lapDone(1); run = { top: false, cycle: 0, was: false }; paintPlaying();
+      const k = kind();
+      if (listening && listening.kind === 'attempt') judge(stopListening());
+      else if (k === 'through' && !example) openPanel();
+      if (k === 'listen' && !example) say(concepts.length ? 'That was the whole piece. Hear the new idea in it, or go on.' : 'That was the whole piece. Next: learn it a section at a time.', 'Next step', () => goStep(2));
+    };
     setInterval(() => {
       const p = en && en.player; if (!p) return;
       if (p.running && !run.was) run = { top: p.position() <= 60, cycle: Math.max(0, Math.floor(p.position() / (p.total || 1))), was: true };
@@ -182,41 +228,47 @@
     }, 200);
   }
   function lapDone(n) {
-    if (mode === 'practice') {
+    const k = kind();
+    if (mode === 'practice' && k !== 'listen') {
       let store = P.readProgress(localStorage);
-      for (let i = 0; i < n; i++) store = P.recordPractice(store, { id: tune.id, title: tune.title, kind: 'run', bpm, written, whole: !onLoop(), phrase: idx + 1, phrases: loops() });
+      const s = shownBars();
+      for (let i = 0; i < n; i++) store = P.recordPractice(store, { id: tune.id, title: tune.title, kind: 'run', bpm, written, whole: !s, phrase: idx + 1, phrases: sections() });
       P.writeProgress(localStorage, store);
     }
-    if (faster && step !== 1 && mode !== 'assess' && en.player.running && bpm < written) {
+    if (faster && repeats() && en.player.running && bpm < written) {
       const was = bpm; setBpm(P.nextLap(bpm, written));
-      if (bpm >= written && was < written) say(step === 3 ? 'Full speed: the whole piece with the band.' : 'Full speed on this loop. Next loop, or put it together?', step === 3 ? null : 'Next loop', () => goLoop(idx + 1));
+      if (bpm >= written && was < written) {
+        if (k === 'whole') say('Full speed: the whole piece with the band.');
+        else if (sub() === 'together') say('Full speed. Add the next section?', 'Next', () => goRung(rung + 1));
+        else say('Full speed on this section. On to the next?', 'Next section', () => goSection(idx + 1));
+      }
     }
     paintProgress();
   }
 
   /* ---------------- modes and steps ---------------- */
   function setMode(m, s = 1) {
-    if (m !== mode || !$('.pb-steps').children.length) stopAll();
-    mode = m;
-    for (const b of bar.querySelectorAll('.pb-modes button')) { const on = b.dataset.mode === m; b.setAttribute('aria-selected', String(on)); b.classList.toggle('on', on); }
+    if (m !== mode) { stopAll(); mode = m; resetTempi(); how = P.HOW[m] ? P.HOW[m][0] : how; }
+    bar.classList.toggle('teacher', teacher());
+    $('.pb-modes').innerHTML = teacher() ? ['teach', 'assess'].map(x => `<button type="button" role="tab" data-mode="${x}" aria-selected="${x === m}" class="${x === m ? 'on' : ''}">${P.MODES[x]}</button>`).join('') : '';
+    $('.pb-modes').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode, 1); }));
+    $('.pb-share').textContent = teacher() ? 'Copy student link' : 'Copy link';
+    $('.pb-share').title = teacher() ? 'Copy a link students open to practise this piece: its sections, instrument and key (never names, progress or marks)' : 'Copy a link to this piece as you are practising it';
     document.body.dataset.pieceMode = m;
     $('.pb-back').href = 'course/board.html#' + P.encodeBoard({ level: tune.level, tune: tune.id, do: m });
-    if (m === 'assess') tempo = { 1: written, 2: written, 3: written };
-    else if (tempo[2] === written && tempo[3] === written) tempo = { 1: written, 2: P.slowStart(written), 3: P.slowStart(written) };
     goStep(s, true);
   }
   function goStep(s, force) {
-    s = Math.max(1, Math.min(3, s));
+    s = Math.max(1, Math.min(KINDS[mode].length, s));
     if (s === step && !force) return;
     stopAll();
-    step = s; bpm = tempo[step] || written;
+    step = s; bpm = tempo[step] || written; example = null;
     renderSteps(); renderTools();
-    if (mode === 'assess' && step >= 2) openAssess(); else closeAssess();
+    if (['through', 'attempt', 'decide'].includes(kind())) openPanel(); else closePanel();
     redraw();
   }
   function renderSteps() {
-    const names = P.STEPS[mode];
-    $('.pb-steps').innerHTML = names.map((n, i) => `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`).join('');
+    $('.pb-steps').innerHTML = P.STEPS[mode].map((n, i) => `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`).join('');
     $('.pb-steps').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.step)));
   }
   const nextBtn = (label, to) => `<button type="button" class="pb-nextstep" data-to="${to}" title="The next step (Page Down)">Next: ${esc(label)} →</button>`;
@@ -227,51 +279,73 @@
       <small class="pb-share-of"></small></div>`;
   const fasterCtl = () => `<label class="chk" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time round</label>`;
   const playBtn = label => `<button type="button" class="big play" data-act="play" title="Play or pause (space)"><span class="ic" aria-hidden="true">▶</span> <span class="lbl">${esc(label)}</span></button>`;
+  // Moving between sections: arrows that point the way, not play buttons.
+  const sectionNav = () => sections() > 1 ? `<div class="pb-loopnav" role="group" aria-label="Section">
+      <button type="button" class="pb-prev" aria-label="Previous" title="Previous (←)">←</button>
+      <span class="pb-where" aria-live="polite"></span>
+      <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button></div>` : '';
+  const sectionsBtn = () => `<button type="button" class="pb-cuts quiet" title="Choose which bars make each section">Set up sections…</button>`;
+  const seg = (opts) => `<div class="seg" role="radiogroup" aria-label="How">${opts.map(([v, l]) => `<button type="button" role="radio" data-how="${v}" aria-checked="${how === v}">${esc(l)}</button>`).join('')}</div>`;
+  // The new idea, heard: a chip for each concept; choosing one shows and plays its bars, and Back returns to the piece.
+  const conceptCtl = () => !concepts.length ? '' : `<div class="pb-concepts" role="group" aria-label="New here">
+      <span class="pb-hint">New here:</span>${concepts.map((c, i) => `<button type="button" class="pb-concept" data-c="${i}" aria-pressed="${example === c}" title="Bars ${c.first}–${c.last}: show and play them">${esc(c.words)}</button>`).join('')}
+      ${example ? `<button type="button" class="pb-concept-back quiet">← The whole piece</button>` : ''}</div>`;
   function renderTools() {
+    const k = kind(), names = P.STEPS[mode];
+    const next = step < names.length ? nextBtn(names[step].toLowerCase(), step + 1) : '';
     let h = '';
-    if (mode !== 'assess' && step === 1) {
-      h = `${playBtn('Listen to the whole piece')}<span class="pb-hint">At full speed, with the band: hear how it goes before learning it.</span>${nextBtn('learn the loops', 2)}`;
-    } else if (mode !== 'assess' && step === 2) {
-      const many = loops() > 1;
-      h = `${many ? `<div class="pb-loopnav" role="group" aria-label="Loop">
-            <button type="button" class="pb-prev" aria-label="Previous loop" title="Previous loop (←)">◀</button>
-            <span class="pb-where" aria-live="polite"></span>
-            <button type="button" class="pb-next" aria-label="Next loop" title="Next loop (→)">▶</button></div>` : ''}
-        <div class="seg" role="radiogroup" aria-label="How">
-          <button type="button" role="radio" data-by="play" aria-checked="${!byNote}">Play it</button>
-          <button type="button" role="radio" data-by="note" aria-checked="${byNote}">Note by note</button></div>`;
-      if (!byNote) h += `${playBtn(many ? 'Play the loop' : 'Play')}${tempoCtl()}${fasterCtl()}`;
-      else h += `<button type="button" class="big" data-act="back" title="The note before (Backspace)">◀ Back</button>
+    if (k === 'listen') h = example
+      ? `${playBtn(`Hear ${example.words}`)}${conceptCtl()}<span class="pb-hint">Bars ${example.first}–${example.last}.</span>`
+      : `${playBtn('Listen to the whole piece')}${conceptCtl()}${next}`;
+    else if (k === 'sections' && mode === 'teach') {
+      h = `${seg([['study', 'Study'], ['together', 'Loop together']])}${sectionNav()}`;
+      h += how === 'study' ? `${playBtn('Hear this section')}${tempoCtl()}<span class="pb-hint">A fingering under every note: the class works through it at its own pace, alone or in pairs.</span>${sectionsBtn()}`
+        : `${playBtn('Loop it')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">Each section, then joined to the ones before, until it is all of it.</span>`;
+      h += next;
+    }
+    else if (k === 'sections') {
+      h = `${seg([['time', 'In time'], ['note', 'Note by note']])}${sectionNav()}`;
+      h += how === 'time' ? `${playBtn('Loop it')}${tempoCtl()}${fasterCtl()}`
+        : `<button type="button" class="big" data-act="back" title="The note before (Backspace)">◀ Back</button>
         <button type="button" class="big" data-act="hear" title="Hear this note (H)"><span aria-hidden="true">🔊</span> Hear it</button>
-        <button type="button" class="big go" data-act="next" title="Next note (space)">Next note ▶</button>
+        <button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
         <span class="pb-step" aria-live="polite"></span>
         <label class="chk" title="Play each note as it comes up"><input type="checkbox" class="pb-sound" checked> Sound each note</label>
         <button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone: a steady, matching note moves on by itself. Noise, other players and echoes can fool it; Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>`;
-      h += `<button type="button" class="pb-cuts quiet" title="Choose which bars make each loop">Set up loops…</button>${nextBtn('put it together', 3)}`;
-    } else if (mode !== 'assess') {
-      h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">From slow to full speed; the band plays along.</span>`;
-    } else if (step === 1) {
+      h += `${sectionsBtn()}${next}`;
+    }
+    else if (k === 'whole') h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">From slow to full speed, the band playing along.</span>${next}`;
+    else if (k === 'through') h = `${playBtn('Play it through')}${tempoCtl()}
+        <button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard. It is a guess: noise and echoes fool it."><span aria-hidden="true">🎤</span> Listen to me</button>
+        <span class="pb-hint">The beat and the cursor play; you play the tune.</span>`;
+    else if (k === 'hear') {
       const st = courseState();
       h = `<label class="pb-who">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Name" value="${esc(who)}">`}</label>
-        ${playBtn('Hear the whole piece')}${nextBtn('the attempt', 2)}`;
-    } else if (step === 2) {
-      h = `<button type="button" class="big toggle mic" data-act="attempt" aria-pressed="false" title="Listen to the student through the microphone, then compare with the music: a suggestion to check by ear, never a mark"><span aria-hidden="true">🎤</span> <span class="lbl">Listen to the attempt</span></button>
-        <span class="pb-hint">Optional. Or listen in the room and go on.</span>${nextBtn('decide', 3)}`;
-    } else {
-      h = `<span class="pb-hint">Decide in the panel, then save. The microphone only suggested; the result is yours.</span>`;
+        ${playBtn('Hear the whole piece')}${next}`;
     }
-    h += mode === 'practice' && step >= 2 ? `<div class="pb-progress" aria-live="polite"></div>` : '';
+    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}<span class="pb-hint">The beat and the cursor play; the student plays the tune and the microphone listens (a suggestion only).</span>${next}`;
+    else h = `<span class="pb-hint">Decide in the panel, then save. The microphone only suggested; the result is yours.</span>`;
+    h += mode === 'practice' && ['sections', 'whole', 'through'].includes(k) ? `<div class="pb-progress" aria-live="polite"></div>` : '';
     tools.innerHTML = h; wasPlaying = null;
     tools.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act)));
-    tools.querySelectorAll('[data-by]').forEach(b => b.addEventListener('click', () => { byNote = b.dataset.by === 'note'; stopAll(); renderTools(); afterRender(); }));
+    tools.querySelectorAll('[data-how]').forEach(b => b.addEventListener('click', () => { if (how === b.dataset.how) return; how = b.dataset.how; stopAll(); renderTools(); redraw(); }));
     tools.querySelectorAll('.pb-nextstep').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.to)));
+    tools.querySelectorAll('.pb-concept').forEach(b => b.addEventListener('click', () => showExample(concepts[+b.dataset.c])));
+    const back = tools.querySelector('.pb-concept-back'); if (back) back.addEventListener('click', () => showExample(null));
     const q = s => tools.querySelector(s);
-    if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => goLoop(idx - 1)); q('.pb-next').addEventListener('click', () => goLoop(idx + 1)); }
+    if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
     if (q('.pb-slower')) { q('.pb-slower').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, -1, written))); q('.pb-faster').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, 1, written))); }
     if (q('.pb-fasterlap')) q('.pb-fasterlap').addEventListener('change', e => { faster = e.target.checked; ls.set(FASTER_KEY, faster ? '1' : '0'); });
     if (q('.pb-cuts')) q('.pb-cuts').addEventListener('click', editCuts);
-    const w = q('.pa-who'); if (w) w.addEventListener('change', () => { who = w.value.trim(); try { sessionStorage.setItem('gcs-assess-student', who); } catch (e) {} });
+    const w = q('.pa-who'); if (w) w.addEventListener('change', () => { who = w.value.trim(); ss.set('gcs-assess-student', who); });
     paint();
+  }
+  // The example of a new idea: its bars on screen, played once at full speed with the band; null returns to the piece.
+  function showExample(c) {
+    stopAll();
+    example = c; bpm = c ? written : tempo[step];
+    renderTools(); redraw();
+    if (c) playPause();
   }
   function act(a) {
     if (a === 'play') playPause();
@@ -279,7 +353,44 @@
     else if (a === 'back') { if (stepper) { stepper.back(); showStep(true); } }
     else if (a === 'hear') { if (stepper && stepper.current) soundStep(); }
     else if (a === 'mic') { if (listening) stopListening(); else startListening('step'); }
-    else if (a === 'attempt') attemptToggle();
+    else if (a === 'listenon') { listenOn = !listenOn; tools.querySelector('[data-act="listenon"]').setAttribute('aria-pressed', String(listenOn)); }
+  }
+
+  /* ---------------- studying a section: a diagram at every note ---------------- */
+  let studyBox = null;
+  function drawStudy() {
+    if (studyBox) { studyBox.remove(); studyBox = null; }
+    if (!en || sub() !== 'study' || example || !en.tl || en.inst === 'off') return;
+    const score = en.scoreEl, svg = en.paper.querySelector('svg'); if (!svg) return;
+    const sr = score.getBoundingClientRect();
+    studyBox = document.createElement('div'); studyBox.className = 'pb-study'; studyBox.setAttribute('aria-hidden', 'true');
+    score.appendChild(studyBox);
+    const evs = en.tl.events.filter(e => e.midis && e.midis.length && e.groups && e.groups.length);
+    // Each line of music: its lowest point, and the top of the next; the diagrams stand in the room between.
+    const lineBox = L => { let top = Infinity, bottom = -Infinity; for (const el of svg.querySelectorAll(`.abcjs-l${L}`)) { const r = el.getBoundingClientRect(); if (!r.height) continue; top = Math.min(top, r.top); bottom = Math.max(bottom, r.bottom); } return { top, bottom }; };
+    const lines = [...new Set(evs.map(e => e.line))].sort((a, b) => a - b), boxes = {};
+    for (const L of lines) boxes[L] = lineBox(L);
+    const rotate = en.inst === 'recorder' || en.inst === 'uke';
+    let bottom = 0;
+    for (const L of lines) {
+      const on = evs.filter(e => e.line === L), xs = on.map(e => { const r = e.groups[0].getBoundingClientRect(); return r.left + r.width / 2 - sr.left; });
+      // Under the last line, room enough to read a diagram even if the class scrolls to it (a short screen).
+      const below = boxes[L].bottom - sr.top + score.scrollTop + 4, room = boxes[L + 1] ? boxes[L + 1].top - sr.top + score.scrollTop - below - 6 : Math.max(sr.height + score.scrollTop - below - 6, 190);
+      const gap = xs.length > 1 ? Math.min(...xs.slice(1).map((x, i) => x - xs[i])) : 120;
+      if (room < 28 || !(gap > 8)) continue;
+      on.forEach((e, i) => {
+        const host = document.createElement('div'); host.className = 'pb-mini inst ' + en.inst + (rotate ? ' rot' : '');
+        studyBox.appendChild(host);
+        const v = hook.mini(host, en, e.midis);
+        const vb = v.svg.viewBox.baseVal, ratio = vb && vb.width ? vb.height / vb.width : 0.3;
+        let w, h;
+        if (rotate) { h = Math.min(room, 200); w = h * ratio; if (w > gap * 0.92) { w = gap * 0.92; h = w / ratio; } }
+        else { w = Math.min(gap * 0.92, 160); h = w * ratio; if (h > room) { h = room; w = h / ratio; } }
+        bottom = Math.max(bottom, below + h);
+        host.style.cssText = `left:${(xs[i] - w / 2).toFixed(1)}px; top:${below.toFixed(1)}px; width:${w.toFixed(1)}px; height:${h.toFixed(1)}px; --bw:${w.toFixed(1)}px; --bh:${h.toFixed(1)}px; --mw:${(rotate ? h : w).toFixed(1)}px; --mh:${(rotate ? w : h).toFixed(1)}px`;
+      });
+    }
+    studyBox.style.height = `${Math.ceil(bottom + 8)}px`;   // the box reaches the lowest diagram, so a short screen scrolls to it
   }
 
   /* ---------------- note by note ---------------- */
@@ -312,11 +423,11 @@
     if (stepper.done && !was) {
       if (mode === 'practice') {
         let store = P.readProgress(localStorage);
-        store = P.recordPractice(store, { id: tune.id, title: tune.title, kind: 'steps', steps: stepper.count, heard: stepper.heard, whole: !onLoop(), phrase: idx + 1, written });
+        store = P.recordPractice(store, { id: tune.id, title: tune.title, kind: 'steps', steps: stepper.count, heard: stepper.heard, whole: !shownBars(), phrase: idx + 1, written });
         P.writeProgress(localStorage, store); paintProgress();
       }
       celebrate();
-      say(`All ${stepper.count} notes. Now play it, slowly, on repeat?`, 'Play it', () => { byNote = false; renderTools(); afterRender(); playPause(); });
+      say(`All ${stepper.count} notes. Now loop it in time, slowly?`, 'In time', () => { how = 'time'; renderTools(); redraw(); playPause(); });
       stepper.reset(); showStep(false);
       return;
     }
@@ -324,8 +435,8 @@
   }
   function celebrate() { if (reduceMotion || !en) return; en.body.classList.remove('done'); void en.body.offsetWidth; en.body.classList.add('done'); }
 
-  /* ---------------- listening (advisory) ---------------- */
-  async function startListening(kind) {
+  /* ---------------- listening (advisory; one player, never a class) ---------------- */
+  async function startListening(lkind) {
     const ctx = hook.ctx();
     if (!ctx || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { say('This browser cannot use a microphone here.'); return false; }
     let stream;
@@ -333,7 +444,7 @@
     catch (e) { say(location.protocol === 'file:' ? 'A page opened from disk cannot use the microphone: serve the folder or use the published page.' : 'The microphone was not allowed.'); return false; }
     const src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser(); an.fftSize = 2048; src.connect(an);
     const buf = new Float32Array(an.fftSize), gate = new P.NoteGate(3, 4);
-    listening = { stream, src, an, kind, raf: 0, t0: performance.now(), notes: [], quiet: 0, loud: 0, frames: 0 };
+    listening = { stream, src, an, kind: lkind, raf: 0, t0: performance.now(), notes: [], quiet: 0, loud: 0, frames: 0 };
     const btn = tools.querySelector('[data-act="mic"]'); if (btn) btn.setAttribute('aria-pressed', 'true');
     const tick = () => {
       if (!listening) return;
@@ -354,10 +465,10 @@
         if (j.verdict === 'match' || j.verdict === 'octave') { stepNext(true); if (j.verdict === 'octave') say('Heard an octave away: counted as the note (a recorder sounds an octave above what it reads).'); }
         else if (j.verdict === 'other') { const el = tools.querySelector('.pb-step'); if (el) el.textContent = `Note ${stepper.i + 1} of ${stepper.count}: heard something else (a guess)`; }
       }
-      else if (listening.kind === 'attempt') { listening.notes.push(heard); const c = tools.querySelector('.pb-hint'); if (c) c.textContent = `Listening: ${listening.notes.length} notes heard.`; }
+      else if (listening.kind === 'attempt') listening.notes.push(heard);
     };
     tick();
-    if (kind === 'step') say('Listening. Play the note shown; a steady match moves on. Next note always works.');
+    if (lkind === 'step') say('Listening. Play the note shown; a steady match moves on. Next note always works.');
     return true;
   }
   function stopListening() {
@@ -368,70 +479,76 @@
     const btn = tools.querySelector('[data-act="mic"]'); if (btn) btn.setAttribute('aria-pressed', 'false');
     return l;
   }
-  async function attemptToggle() {
-    const b = tools.querySelector('[data-act="attempt"]');
-    if (listening) { const l = stopListening(); b.setAttribute('aria-pressed', 'false'); b.querySelector('.lbl').textContent = 'Listen again'; judge(l); return; }
-    if (en.player.running) en.togglePlay();
-    clearFlags();
-    if (await startListening('attempt')) { b.setAttribute('aria-pressed', 'true'); b.querySelector('.lbl').textContent = 'Stop listening'; const c = tools.querySelector('.pb-hint'); if (c) c.textContent = 'Listening: the student plays now.'; }
-  }
-
-  /* ---------------- assess: the panel for the attempt and the decision ---------------- */
-  let panel = null;
-  function courseState() { try { const s = JSON.parse(ls.get(COURSE_KEY) || 'null'); if (s && Array.isArray(s.roster)) return { roster: s.roster, progress: s.progress || {}, levels: s.levels || {}, tests: s.tests || {} }; } catch (e) {} return { roster: [], progress: {}, levels: {}, tests: {} }; }
-  function openAssess() {
-    if (!panel) { panel = document.createElement('aside'); panel.className = 'pb-assess'; panel.setAttribute('aria-label', 'Assessment'); document.body.appendChild(panel); }
-    const st = courseState();
-    panel.innerHTML = `
-      <h2>${esc(who || 'The student')}</h2>
-      <div class="pa-flags">${attempt ? '' : step === 2 ? '<p class="muted">Press Listen to the attempt, let the student play, then Stop: anything that sounded wrong is listed here to check by ear.</p>' : '<p class="muted">No attempt listened to: your ears decide.</p>'}</div>
-      ${step === 3 ? `
-      ${!who ? `<label class="pa-row">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option>${esc(n)}</option>`).join('')}</select>` : '<input class="pa-who" placeholder="Name">'}</label>` : ''}
-      <fieldset class="pa-result"><legend>Result</legend>
-        ${Object.entries(P.RESULTS).map(([k, v]) => `<label class="pa-res pa-${k}"><input type="radio" name="pa-res" value="${k}"> ${esc(v)}</label>`).join('')}
-      </fieldset>
-      <label class="pa-row" title="Optional: the Ontario achievement chart's four levels, for report cards">Achievement level <select class="pa-mark"><option value="">—</option><option value="1">1 limited</option><option value="2">2 some</option><option value="3">3 considerable</option><option value="4">4 high degree</option></select></label>
-      <div class="pa-row pa-two">
-        <label>Tempo <input type="number" class="pa-bpm" min="20" max="400" value="${bpm}"> <small>BPM of ${written}</small></label>
-        <label>Help <select class="pa-assist">${Object.entries(P.ASSISTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      </div>
-      <label class="pa-row pa-notewrap">Note <textarea class="pa-note" rows="2" maxlength="500" placeholder="What went well; what to practise next"></textarea></label>
-      <div class="pa-row pa-save"><button type="button" class="pa-go primary">Save</button></div>
-      <p class="muted small">Saved in this browser with the board’s class records. Not in any link.</p>` : ''}`;
-    if (attempt) showFlags();
-    const q = s => panel.querySelector(s);
-    if (!q('.pa-go')) return;
-    q('.pa-go').addEventListener('click', () => {
-      const w = q('.pa-who'); const student = (w ? w.value : who || '').trim(), res = (panel.querySelector('input[name="pa-res"]:checked') || {}).value;
-      if (!student) { say('Choose the student first.'); if (w) w.focus(); else goStep(1); return; }
-      if (!res) { say('Choose a result: pass, needs more practice, or not assessed.'); return; }
-      let rec;
-      try { rec = P.makeAssessment({ student, id: tune.id, title: tune.title, level: tune.level, result: res, mark: q('.pa-mark').value, note: q('.pa-note').value, bpm: +q('.pa-bpm').value, written, assist: q('.pa-assist').value, flags: flagsShown, listened: attempt }); }
-      catch (e) { say(e.message); return; }
-      const st2 = courseState();
-      if (!st2.roster.includes(student)) st2.roster.push(student);
-      P.applyAssessment(st2, student, rec);
-      ls.set(COURSE_KEY, JSON.stringify(st2));
-      try { sessionStorage.setItem('gcs-assess-student', student); } catch (e) {}
-      say(`${student}: ${P.RESULTS[res]} saved.`, 'Back to the board', () => { location.href = $('.pb-back').href; });
-      attempt = null; flagsShown = [];
-      goStep(1, true);
-    });
-  }
-  function closeAssess() { if (panel) { panel.remove(); panel = null; } if (mode !== 'assess') { clearFlags(); attempt = null; } }
   function judge(l) {
     if (!l || !en || !en.tl) return;
     const expected = en.tl.events.filter(e => e.midis && e.midis.length).map(e => ({ ms: e.ms, midis: e.midis }));
     const r = P.alignAttempt(expected, l.notes, { noise: l.frames ? l.loud / l.frames : 0 });
     attempt = { notes: r.heard, matched: r.matched, reliability: r.reliability, summary: r.summary };
     flagsShown = r.flags.map(f => ({ ...f, kept: true }));
-    const c = tools.querySelector('.pb-hint'); if (c) c.textContent = 'Check the flags in the panel, then go on to decide.';
-    openAssess();
+    openPanel();
+    if (mode === 'assess') say('Check the flags by ear, then decide.', 'Decide', () => goStep(3));
   }
-  function showFlags() {
+
+  /* ---------------- the panel: the play-through's feedback, the assessment ---------------- */
+  let panel = null;
+  function courseState() { try { const s = JSON.parse(ls.get(COURSE_KEY) || 'null'); if (s && Array.isArray(s.roster)) return { roster: s.roster, progress: s.progress || {}, levels: s.levels || {}, tests: s.tests || {} }; } catch (e) {} return { roster: [], progress: {}, levels: {}, tests: {} }; }
+  function openPanel() {
+    if (!panel) { panel = document.createElement('aside'); panel.className = 'pb-assess'; document.body.appendChild(panel); }
+    const k = kind(), me = student();
+    panel.setAttribute('aria-label', mode === 'assess' ? 'Assessment' : 'Your play-through');
+    if (mode === 'practice') {
+      const st = courseState(), ready = !!(me && st.progress[tune.id] && st.progress[tune.id][me] && st.progress[tune.id][me].state === 'ready');
+      panel.innerHTML = `<h2>Your play-through</h2>
+        <div class="pa-flags">${attempt ? '' : `<p class="muted">${listenOn ? 'Press Play it through: the app listens while you play, then says what it heard.' : 'Turn on Listen to me and the app says what it heard. Or play it for someone.'}</p>`}</div>
+        ${me ? `<div class="pa-row pa-save"><button type="button" class="pa-ready primary">${ready ? 'Ready to show ✓' : 'Ready to show my teacher'}</button></div><p class="muted small">${esc(me)}: your teacher sees this on the board.</p>` : ''}`;
+      if (attempt) showFlags(false);
+      const rb = panel.querySelector('.pa-ready');
+      if (rb) rb.addEventListener('click', () => { const s2 = courseState(); const m = s2.progress[tune.id] || (s2.progress[tune.id] = {}); m[me] = { state: 'ready', date: new Date().toISOString().slice(0, 10) }; ls.set(COURSE_KEY, JSON.stringify(s2)); rb.textContent = 'Ready to show ✓'; say('Your teacher will see you are ready.'); });
+      return;
+    }
+    const st = courseState();
+    panel.innerHTML = `
+      <h2>${esc(who || 'The student')}</h2>
+      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? '<p class="muted">Start the attempt: the beat and the cursor play, the student plays, and anything that sounded wrong is listed here to check by ear.</p>' : '<p class="muted">No attempt listened to: your ears decide.</p>'}</div>
+      ${k === 'decide' ? `
+      ${!who ? `<label class="pa-row">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option>${esc(n)}</option>`).join('')}</select>` : '<input class="pa-who" placeholder="Name">'}</label>` : ''}
+      <fieldset class="pa-result"><legend>Result</legend>
+        ${Object.entries(P.RESULTS).map(([x, v]) => `<label class="pa-res pa-${x}"><input type="radio" name="pa-res" value="${x}"> ${esc(v)}</label>`).join('')}
+      </fieldset>
+      <label class="pa-row" title="Optional: the Ontario achievement chart's four levels, for report cards">Achievement level <select class="pa-mark"><option value="">—</option><option value="1">1 limited</option><option value="2">2 some</option><option value="3">3 considerable</option><option value="4">4 high degree</option></select></label>
+      <div class="pa-row pa-two">
+        <label>Tempo <input type="number" class="pa-bpm" min="20" max="400" value="${tempo[2] || bpm}"> <small>BPM of ${written}</small></label>
+        <label>Help <select class="pa-assist">${Object.entries(P.ASSISTS).map(([x, v]) => `<option value="${x}">${esc(v)}</option>`).join('')}</select></label>
+      </div>
+      <label class="pa-row pa-notewrap">Note <textarea class="pa-note" rows="2" maxlength="500" placeholder="What went well; what to practise next"></textarea></label>
+      <div class="pa-row pa-save"><button type="button" class="pa-go primary">Save</button></div>
+      <p class="muted small">Saved in this browser with the board’s class records. Not in any link.</p>` : ''}`;
+    if (attempt) showFlags(true);
+    const q = s => panel.querySelector(s);
+    if (!q('.pa-go')) return;
+    q('.pa-go').addEventListener('click', () => {
+      const w = q('.pa-who'); const name = (w ? w.value : who || '').trim(), res = (panel.querySelector('input[name="pa-res"]:checked') || {}).value;
+      if (!name) { say('Choose the student first.'); if (w) w.focus(); else goStep(1); return; }
+      if (!res) { say('Choose a result: pass, needs more practice, or not assessed.'); return; }
+      let rec;
+      try { rec = P.makeAssessment({ student: name, id: tune.id, title: tune.title, level: tune.level, result: res, mark: q('.pa-mark').value, note: q('.pa-note').value, bpm: +q('.pa-bpm').value, written, assist: q('.pa-assist').value, flags: flagsShown, listened: attempt }); }
+      catch (e) { say(e.message); return; }
+      const st2 = courseState();
+      if (!st2.roster.includes(name)) st2.roster.push(name);
+      P.applyAssessment(st2, name, rec);
+      ls.set(COURSE_KEY, JSON.stringify(st2));
+      ss.set('gcs-assess-student', name);
+      say(`${name}: ${P.RESULTS[res]} saved.`, 'Back to the board', () => { location.href = $('.pb-back').href; });
+      attempt = null; flagsShown = []; who = '';
+      goStep(1, true);
+    });
+  }
+  function closePanel() { if (panel) { panel.remove(); panel = null; } if (mode !== 'assess') { attempt = null; flagsShown = []; clearMarks(); } }
+  function showFlags(forTeacher) {
     const box = panel && panel.querySelector('.pa-flags'); if (!box || !attempt) return;
-    box.innerHTML = `<p class="muted">${esc(attempt.summary)}${attempt.reliability !== 'medium' ? ' The room, an echo or two instruments at once can fool it.' : ''}</p>` +
-      (flagsShown.length ? `<ul>${flagsShown.map((f, i) => `<li class="pa-flag k-${f.kind}"><button type="button" class="pa-show" data-i="${i}" ${f.at === null ? 'disabled' : ''}>${esc(f.words)}</button><small>${f.confidence === 'medium' ? 'likely' : 'unsure'}</small><label><input type="checkbox" data-i="${i}"${f.kept ? ' checked' : ''}> keep</label></li>`).join('')}</ul>` : (attempt.notes ? '<p>Nothing flagged. Listen for yourself.</p>' : ''));
+    const intro = forTeacher ? esc(attempt.summary) : `The app heard ${attempt.matched} of the ${en.tl.events.filter(e => e.midis && e.midis.length).length} notes as written. It is a guess: tap a note below to see where it is, and listen for yourself.`;
+    box.innerHTML = `<p class="muted">${intro}${attempt.reliability !== 'medium' ? ' The room, an echo or two instruments at once can fool it.' : ''}</p>` +
+      (flagsShown.length ? `<ul>${flagsShown.map((f, i) => `<li class="pa-flag k-${f.kind}"><button type="button" class="pa-show" data-i="${i}" ${f.at === null ? 'disabled' : ''}>${esc(f.words)}</button><small>${f.confidence === 'medium' ? 'likely' : 'unsure'}</small>${forTeacher ? `<label><input type="checkbox" data-i="${i}"${f.kept ? ' checked' : ''}> keep</label>` : ''}</li>`).join('')}</ul>` : (attempt.notes ? `<p>${forTeacher ? 'Nothing flagged. Listen for yourself.' : 'Nothing sounded wrong to the app.'}</p>` : ''));
     box.querySelectorAll('.pa-show').forEach(b => b.addEventListener('click', () => { const f = flagsShown[+b.dataset.i], ev = en.tl.events.filter(e => e.midis && e.midis.length)[f.at]; if (ev) { en.player.pos = ev.ms + 1; en.idle = false; en.k = null; en.paint(); } }));
     box.querySelectorAll('input[type="checkbox"]').forEach(c => c.addEventListener('change', () => { flagsShown[+c.dataset.i].kept = c.checked; markFlags(); }));
     markFlags();
@@ -443,15 +560,20 @@
     for (const f of flagsShown) if (f.kept && f.at !== null && evs[f.at]) for (const g of evs[f.at].groups || []) g.classList.add('pb-flagged', 'pb-' + f.kind);
   }
   function clearMarks() { if (en && en.paper) for (const g of en.paper.querySelectorAll('.pb-flagged')) g.classList.remove('pb-flagged', 'pb-wrong', 'pb-missed', 'pb-octave', 'pb-hesitation', 'pb-rhythm'); }
-  function clearFlags() { if (mode === 'assess' && attempt) { markFlags(); return; } flagsShown = []; clearMarks(); }
+  function clearFlags() { if (attempt) { markFlags(); return; } flagsShown = []; clearMarks(); }
 
-  /* ---------------- loops ---------------- */
-  function goLoop(i) {
-    if (!found || loops() < 2) return;
-    const n = Math.max(0, Math.min(loops() - 1, i));
-    if (n === idx && onLoop()) return;
-    idx = n;
-    if (mode === 'assess' || step !== 2) { step = 2; renderSteps(); renderTools(); }
+  /* ---------------- sections ---------------- */
+  function goSection(i) {
+    if (!found || sections() < 2) return;
+    const n = Math.max(0, Math.min(sections() - 1, i));
+    if (n === idx) return;
+    idx = n; tempo[step] = P.slowStart(written); bpm = tempo[step];
+    redraw();
+  }
+  function goRung(r) {
+    const L = P.ladder(sections()), n = Math.max(0, Math.min(L.length - 1, r));
+    if (n === rung) return;
+    rung = n; tempo[step] = P.slowStart(written); bpm = tempo[step];   // a bigger section starts slow again
     redraw();
   }
   let cutsDlg = null;
@@ -460,12 +582,12 @@
     const bars = found.bars;
     const starts = new Set(found.phrases.map(p => p.from + 1));
     const word = b => { const n = b.notes.find(x => x.lyric && x.lyric[0] && x.lyric[0].syllable); return n ? n.lyric[0].syllable : ''; };
-    cutsDlg.innerHTML = `<h2>Set up the practice loops</h2>
-      <p>Each loop is a few bars the class learns on repeat before going on. Tap a bar to start a new loop there; tap it again to join it to the loop before. ${esc(found.note || '')}</p>
-      <div class="pb-barchips">${bars.map(b => `<button type="button" data-n="${b.n}" aria-pressed="${starts.has(b.n)}" ${b.n === 1 ? 'disabled' : ''} aria-label="Bar ${b.n}${starts.has(b.n) ? ', a loop starts here' : ''}">${b.n}${word(b) ? `<small>${esc(word(b))}</small>` : ''}</button>`).join('')}</div>
+    cutsDlg.innerHTML = `<h2>Set up the sections</h2>
+      <p>A section is the few bars learned on repeat before going on. Tap a bar to start a new section there; tap it again to join it to the section before. ${esc(found.note || '')}</p>
+      <div class="pb-barchips">${bars.map(b => `<button type="button" data-n="${b.n}" aria-pressed="${starts.has(b.n)}" ${b.n === 1 ? 'disabled' : ''} aria-label="Bar ${b.n}${starts.has(b.n) ? ', a section starts here' : ''}">${b.n}${word(b) ? `<small>${esc(word(b))}</small>` : ''}</button>`).join('')}</div>
       <p class="pb-cutsum"></p>
-      <div class="row"><button type="button" class="auto quiet">Automatic</button><button type="button" class="one quiet">The whole piece as one loop</button><span class="pb-spacer"></span><button type="button" class="cancel quiet">Cancel</button><button type="button" class="done primary">Done</button></div>`;
-    const sum = () => { const s = [...starts].sort((a, b) => a - b); cutsDlg.querySelector('.pb-cutsum').textContent = `${s.length} loop${s.length === 1 ? '' : 's'}: ` + s.map((a, i) => `bars ${a}–${i + 1 < s.length ? s[i + 1] - 1 : bars.length}`).join(' · '); };
+      <div class="row"><button type="button" class="auto quiet">Automatic</button><button type="button" class="one quiet">The whole piece as one section</button><span class="pb-spacer"></span><button type="button" class="cancel quiet">Cancel</button><button type="button" class="done primary">Done</button></div>`;
+    const sum = () => { const s = [...starts].sort((a, b) => a - b); cutsDlg.querySelector('.pb-cutsum').textContent = `${s.length} section${s.length === 1 ? '' : 's'}: ` + s.map((a, i) => `bars ${a}–${i + 1 < s.length ? s[i + 1] - 1 : bars.length}`).join(' · '); };
     sum();
     cutsDlg.querySelectorAll('[data-n]').forEach(b => b.addEventListener('click', () => { const n = +b.dataset.n; if (starts.has(n)) starts.delete(n); else starts.add(n); b.setAttribute('aria-pressed', String(starts.has(n))); sum(); }));
     cutsDlg.querySelector('.auto').onclick = () => saveCuts(null);
@@ -480,69 +602,76 @@
     ls.set(CUTS_KEY, JSON.stringify(all));
     setup.cuts = cuts || undefined;
     refind();
-    idx = Math.min(idx, loops() - 1);
+    idx = Math.min(idx, sections() - 1); rung = Math.min(rung, P.ladder(sections()).length - 1);
     cutsDlg.close(); renderTools(); redraw();
-    say(cuts ? 'Loops saved on this computer and in the link.' : 'Back to the automatic loops.');
+    say(cuts ? 'Sections saved on this computer and in the link.' : 'Back to the automatic sections.');
   }
 
   /* ---------------- painting the bar, the address ---------------- */
   function paint() {
     if (!found) return;
-    const n = loops(), p = loop();
-    const where = tools.querySelector('.pb-where');
+    const n = sections(), where = tools.querySelector('.pb-where');
     if (where) {
-      where.innerHTML = `<span class="lg">Loop </span>${idx + 1} of ${n}<span class="lg"> · bars ${p.first}–${p.last}${p.label ? ` · ${esc(p.label)}` : ''}</span>`;
-      where.setAttribute('aria-label', `Loop ${idx + 1} of ${n}, bars ${p.first} to ${p.last}`);
-      tools.querySelector('.pb-prev').disabled = idx === 0;
-      tools.querySelector('.pb-next').disabled = idx === n - 1;
+      if (sub() === 'together') {
+        const L = P.ladder(n), r = L[rung], a = found.phrases[r[0]], b = found.phrases[r[1]];
+        where.innerHTML = `${r[0] === r[1] ? `Section ${r[0] + 1}` : r[0] === 0 && r[1] === n - 1 ? 'All of it' : `Sections ${r[0] + 1}–${r[1] + 1}`}<span class="lg"> · bars ${a.first}–${b.last} · ${rung + 1} of ${L.length}</span>`;
+        tools.querySelector('.pb-prev').disabled = rung === 0; tools.querySelector('.pb-next').disabled = rung === L.length - 1;
+      } else {
+        const a = found.phrases[idx];
+        where.innerHTML = `<span class="lg">Section </span>${idx + 1} of ${n}<span class="lg"> · bars ${a.first}–${a.last}${a.label ? ` · ${esc(a.label)}` : ''}</span>`;
+        tools.querySelector('.pb-prev').disabled = idx === 0; tools.querySelector('.pb-next').disabled = idx === n - 1;
+      }
+      where.setAttribute('aria-label', where.textContent);
     }
     const v = tools.querySelector('.pb-bpmv'); if (v) v.textContent = String(bpm);
     const so = tools.querySelector('.pb-share-of'); if (so) { const share = P.tempoShare(bpm, written); so.textContent = share >= 100 ? 'full speed' : `${share}% of full speed`; }
     for (const b of bar.querySelectorAll('.pb-steps button')) b.classList.toggle('done', +b.dataset.step < step);
+    $('.pb-show').hidden = !['piano', 'wh', 'uke'].includes($('.pb-inst select').value);
     paintPlaying(); paintProgress();
   }
   // The main button says what it will do: Play, or Pause while the music plays.
   let wasPlaying = null;
   function paintPlaying() {
     const on = !!(en && en.player && en.player.running);
-    if (on === wasPlaying && tools.dataset.painted === String(step)) return;
-    wasPlaying = on; tools.dataset.painted = String(step);
+    if (on === wasPlaying) return;
+    wasPlaying = on;
     for (const b of tools.querySelectorAll('[data-act="play"]')) {
       b.classList.toggle('playing', on);
       b.setAttribute('aria-pressed', String(on));
       b.querySelector('.ic').textContent = on ? '⏸' : '▶';
       if (!b.dataset.label) b.dataset.label = b.querySelector('.lbl').textContent;
-      b.querySelector('.lbl').textContent = on ? 'Pause' : b.dataset.label;
+      b.querySelector('.lbl').textContent = on ? (listening && listening.kind === 'attempt' ? 'Stop' : 'Pause') : b.dataset.label;
     }
   }
   function paintProgress() {
     const el = tools.querySelector('.pb-progress'); if (!el || !tune) return;
-    const pr = P.progressOf(P.readProgress(localStorage), tune.id, loops(), onLoop() ? idx + 1 : null);
+    const one = shownBars();
+    const pr = P.progressOf(P.readProgress(localStorage), tune.id, sections(), one ? idx + 1 : null);
     const rungs = [60, 70, 80, 90, 100].map(s => `<span class="rung${pr.ladderShare >= s ? ' on' : ''}" title="${s}% of full speed">${s}%</span>`).join('');
     el.innerHTML = pr.started ? `<span class="ladder" role="img" aria-label="Fastest on ${esc(pr.ladderOf)}: ${pr.ladderShare || 0}% of full speed">${rungs}</span><small>${esc(pr.ladderOf)}${pr.detail ? ' · ' + esc(pr.detail) : ''}. Counted on this computer.</small>` : `<small>Your practice is counted on this computer: run-throughs and the tempo you reach.</small>`;
   }
   function syncUrl() {
     if (!tune) return;
-    const s = { tune: tune.id, level: tune.level, mode, step: step > 1 ? step : undefined, loop: onLoop() ? idx + 1 : undefined, by: byNote && step === 2 && mode !== 'assess' ? 'note' : undefined,
-      bpm: bpm !== (mode === 'assess' || step === 1 ? written : P.slowStart(written)) ? bpm : undefined, inst: $('.pb-inst select').value, tr: en && en.transpose ? en.transpose : undefined, cuts: found.cuts || undefined };
-    setup = P.cleanSetup(s);
+    const s = kind() === 'sections' ? shownBars() : null, sp = s && s.span, k = kind();
+    const out = { tune: tune.id, level: tune.level, mode, step: step > 1 ? step : undefined, loop: sp ? sp[0] + 1 : undefined, to: sp && sp[1] > sp[0] ? sp[1] + 1 : undefined,
+      by: k === 'sections' && P.HOW[mode] && how !== P.HOW[mode][0] ? how : undefined,
+      bpm: example ? undefined : bpm !== (['sections', 'whole'].includes(k) ? P.slowStart(written) : written) ? bpm : undefined,
+      inst: $('.pb-inst select').value, show: $('.pb-show').hidden ? undefined : $('.pb-show select').value, tr: en && en.transpose ? en.transpose : undefined, cuts: found.cuts || undefined };
+    setup = P.cleanSetup(out);
     history.replaceState(null, '', location.pathname + location.search + '#' + P.encodeSetup(setup));
   }
 
   /* ---------------- controls ---------------- */
-  for (const b of bar.querySelectorAll('.pb-modes button')) b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode, 1); });
   $('.pb-fold').addEventListener('click', () => setFold(!document.body.classList.contains('pb-folded')));
-  $('.pb-inst select').addEventListener('change', e => {
-    const v = e.target.value; ls.set('gcs-last-inst', v);
-    const sel = en && en.body.querySelector('.instpick select');
-    if (sel) { sel.value = v; sel.dispatchEvent(new Event('change')); }
-    afterRender();
-  });
+  const choose = (cls, v) => { const sel = en && en.body.querySelector(`.${cls} select`); if (sel) { sel.value = v; sel.dispatchEvent(new Event('change')); } };
+  $('.pb-inst select').addEventListener('change', e => { const v = e.target.value; ls.set('gcs-last-inst', v); choose('instpick', v); choose('showpick', $('.pb-show select').value); afterRender(); });
+  $('.pb-show select').addEventListener('change', e => { choose('showpick', e.target.value); afterRender(); });
   $('.pb-more').addEventListener('click', () => { const on = !document.body.classList.contains('pb-advanced'); document.body.classList.toggle('pb-advanced', on); $('.pb-more').setAttribute('aria-expanded', String(on)); if (en) en.showDrawer(on ? 'melody' : null); });
   $('.pb-share').addEventListener('click', async () => {
-    const s = { ...setup }; if (s.mode === 'assess') { s.mode = 'teach'; delete s.step; }
+    // A teacher's link is for students: the piece to practise, with the teacher's sections, instrument and key.
+    const s = teacher() ? { tune: setup.tune, level: setup.level, mode: 'practice', inst: setup.inst, show: setup.show, tr: setup.tr, cuts: setup.cuts } : { ...setup };
     const url = location.href.split('#')[0] + '#' + P.encodeSetup(s);
-    try { await navigator.clipboard.writeText(url); say('Link copied: it opens this piece at this step, loop, tempo and instrument.'); } catch (e) { prompt('Copy this link:', url); }
+    try { await navigator.clipboard.writeText(url); say(teacher() ? 'Student link copied: it opens this piece to practise, with your sections, instrument and key.' : 'Link copied.'); } catch (e) { prompt('Copy this link:', url); }
   });
   // A new address typed or pasted into this tab (the page writes its own with replaceState, which fires no hashchange).
   window.addEventListener('hashchange', () => location.reload());
@@ -553,17 +682,17 @@
     if (document.querySelector('dialog[open]')) return;
     const k = e.key; let done = true;
     if ((k === ' ' || k === 'Enter') && e.target && e.target.closest && e.target.closest('button, a, [role="tab"], [role="radio"]')) return;   // a focused control keeps its own keys
-    if (k === ' ' || k === 'Enter') { if (!(mode === 'assess' && step > 1)) playPause(); }   // assessing, the student plays: the space bar starts nothing
-    else if (k === 'ArrowRight' && onLoop()) goLoop(idx + 1);
-    else if (k === 'ArrowLeft' && onLoop()) goLoop(idx - 1);
+    if (k === ' ' || k === 'Enter') { if (kind() !== 'decide') playPause(); }
+    else if (k === 'ArrowRight' && tools.querySelector('.pb-next')) tools.querySelector('.pb-next').click();
+    else if (k === 'ArrowLeft' && tools.querySelector('.pb-prev')) tools.querySelector('.pb-prev').click();
     else if (k === 'PageDown') goStep(step + 1);
     else if (k === 'PageUp') goStep(step - 1);
-    else if (k === '1' || k === '2' || k === '3') goStep(+k);
+    else if (/^[1-4]$/.test(k)) goStep(+k);
     else if (k === 'Backspace' && stepper) act('back');
     else if ((k === 'h' || k === 'H') && stepper) act('hear');
     else if (k === 'f' || k === 'F') $('.pb-fold').click();
-    else if ((k === '+' || k === '=') && step > 1) setBpm(P.nudgeTempo(bpm, 1, written));
-    else if ((k === '-' || k === '_') && step > 1) setBpm(P.nudgeTempo(bpm, -1, written));
+    else if ((k === '+' || k === '=') && tools.querySelector('.pb-faster')) setBpm(P.nudgeTempo(bpm, 1, written));
+    else if ((k === '-' || k === '_') && tools.querySelector('.pb-slower')) setBpm(P.nudgeTempo(bpm, -1, written));
     else done = false;
     if (done) { e.preventDefault(); e.stopImmediatePropagation(); }
   }, true);

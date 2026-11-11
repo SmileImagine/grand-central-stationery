@@ -17,11 +17,13 @@
       The practice board: the current set of tunes, graded into six levels, with
       three ways in.
 
-        Teach     choose a level and a piece, then open it in three steps: listen,
-                  learn the loops slow to faster, put it together slow to full
-                  speed with the band. Copy link shares the piece.
-        Practice  a learner's level, its pieces, and what they have practised
-                  on this computer; the same three steps, with a history.
+        Teach     choose a level and a piece, then open it on the projector in
+                  three steps: listen (and hear what is new), learn the sections
+                  (study each, a fingering under every note; then loop them
+                  together, growing and faster), put it together.
+        Practice  a student's level and pieces, with what they have practised on
+                  this computer: listen, learn the sections, put it together,
+                  play it through.
         Assess    choose the student, then a piece at their level (or draw one);
                   the assessment opens beside the music.
 
@@ -186,8 +188,8 @@
     <button id="theme" title="Light or dark" aria-label="Light or dark">☾</button>
   </header>
   <nav class="ways" aria-label="What to do">
-    <button type="button" data-do="teach" aria-pressed="false"><b>Teach</b><span>Listen, learn it a loop at a time, put it together</span></button>
-    <button type="button" data-do="practice" aria-pressed="false"><b>Practice</b><span>The same steps at your own pace, slow to faster</span></button>
+    <button type="button" data-do="teach" aria-pressed="false"><b>Teach</b><span>For the class: listen, learn the sections, put it together</span></button>
+    <button type="button" data-do="practice" aria-pressed="false"><b>Practice</b><span>For a student: the same steps at your own pace, then play it through</span></button>
     <button type="button" data-do="assess" aria-pressed="false"><b>Assess</b><span>Beside one student: listen, then pass or practise more</span></button>
   </nav>
   <div class="setup" id="setup"></div>
@@ -320,8 +322,8 @@
       const d = el.querySelector('#draw'); if (d) d.addEventListener('click', () => { const t = drawPiece(student); if (!t) toast('No pieces left at that level'); else openPiece(t, 'assess'); });
     }
     const WAY_NOTE = {
-      teach: 'Open a piece to teach it in three steps: <b>1 Listen</b> to the whole piece; <b>2 Learn the loops</b>, a few bars at a time on repeat, slow and a little faster each time round; <b>3 Put it together</b>, slow to full speed with the band. <b>Copy link</b> gives students the same piece and setup.',
-      practice: 'Open a piece to practise it in the same three steps: listen, learn the loops (play them, or note by note), put it together. What you practise is kept on this computer.',
+      teach: 'Open a piece to teach it on the projector in three steps: <b>1 Listen</b> to the whole piece, and to what is new in it; <b>2 Learn the sections</b>: study each one, with a fingering under every note, at the class’s own pace, then loop them together, growing and getting faster; <b>3 Put it together</b>, slow to full speed with the band. <b>Copy student link</b> gives students the piece to practise.',
+      practice: 'Open a piece to practise it: listen, learn the sections (in time, or note by note with the app listening if you like), put it together, then play it through. What you practise is kept on this computer.',
       assess: 'Choose the student, then a piece. It opens with the assessment beside the music: hear it, listen to the attempt if you like (the microphone only suggests), then decide.',
     };
     function renderLevel() {

@@ -9,7 +9,7 @@ html.piece-route .vault { top: var(--pb-h); }
    and the music and the instrument shrink to make room, so its transport and drawers are always on screen. */
 html.piece-route body:not(.pb-advanced) .strip.dock { display: none; }
 html.piece-route body.pb-advanced.game .cell .cell-body .strip.dock { flex: 0 1 auto; max-height: 50%; overflow-y: auto; }
-html.piece-route body.pb-advanced.game .cell .cell-body .inst { display: none; }   /* More is for the tune and the band: the music keeps the room */
+html.piece-route body.pb-advanced.game .cell .cell-body > .inst { display: none; }   /* More is for the tune and the band: the music keeps the room */
 html.piece-route body.pb-advanced.game .cell .cell-body .score { min-height: 30vh; flex: 1 1 0; }
 html.piece-route body.pb-advanced.present .cell[data-type="abc"] .cell-body:not(.is-playing) .dock { opacity: 1; }
 /* Folded, the bar is its first row; the arrow points along it, and down when the bar is open. */
@@ -146,13 +146,13 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
 
 /* A projector: everything a size up. A phone: the second row scrolls sideways rather than taking the screen. */
 @media (min-width: 1500px) { .piecebar { font-size: 19px; } .pb-name { font-size: 28px; } .piecebar button { min-height: 52px; } }
-@media (max-width: 1100px) { .pb-facts { display: none; } .pb-title { flex: 1 1 auto; } .pb-inst { font-size: 0; gap: 0; } .pb-inst select { font-size: 15px; } }
+@media (max-width: 1100px) { .pb-facts { display: none; } .pb-title { flex: 1 1 auto; } .pb-inst, .pb-show { font-size: 0; gap: 0; } .pb-inst select, .pb-show select { font-size: 15px; } }
 @media (max-width: 700px) {
   .piecebar { padding: 4px 8px; gap: 2px; }
   .pb-name { font-size: 18px; }
   .pb-facts { display: none; }
   .pb-title { flex-basis: 40%; }
-  .pb-share, .pb-cuts, .pb-inst { display: none; }
+  .pb-share, .pb-cuts, .pb-inst, .pb-show { display: none; }
   .pb-modes button { padding: 6px 10px; }
   .pb-tools > *, .pb-tempo > *, .pb-loopnav > * { flex: 0 0 auto; }
   .pb-tools { gap: 6px; }
@@ -174,7 +174,29 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
 @media (prefers-reduced-motion: reduce) { #pb-toast { transition: none; } }
 
 /* The phrase is the point here: the instrument stays beside it, smaller than Game mode's (a third of the height at most). */
-html.piece-route body.game .inst { height: min(30vh, calc(60vw * var(--inst-ratio, 0.3) + 2vh)) !important; min-height: 16vh; }
+html.piece-route body.game .cell-body > .inst { height: min(30vh, calc(60vw * var(--inst-ratio, 0.3) + 2vh)) !important; min-height: 16vh; }
 html.piece-route body.game .score { min-height: 30vh; }
 /* All of a phrase is on screen: no fade at the foot hinting at a next line. */
 html.piece-route body.game .fitwhole .score.twoline { -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); }
+
+/* Studying a section (Teach): no large instrument; a small diagram under every note, in the room the score leaves
+   under each line of music (the section is engraved with a wide staff separation, the last line over a padded foot). */
+html.piece-route body[data-piece-kind="study"].game .cell .cell-body > .inst { display: none; }
+html.piece-route body[data-piece-kind="study"].game .cell .cell-body .score { padding-bottom: min(24vh, 200px); -webkit-mask-image: none; mask-image: none; }
+.pb-study { position: absolute; left: 0; right: 0; top: 0; pointer-events: none; z-index: 2; }
+html.piece-route body[data-piece-kind="study"].game .cell .cell-body .score { overflow-y: auto; }
+.pb-mini { position: absolute; }
+/* Each small diagram is an .inst, for the instrument's own colours, but none of the large panel's box. */
+html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none !important; height: var(--bh) !important; width: var(--bw); min-height: 0 !important; padding: 0 !important; border: 0 !important; overflow: visible !important; }
+.pb-mini svg { position: absolute; left: 0; top: 0; width: var(--mw); height: var(--mh); overflow: visible; }
+/* The recorder and the ukulele stand upright, head at the top, as on a fingering chart. */
+.pb-mini.rot svg { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(90deg); }
+.pb-mini.rot.uke svg { transform: translate(-50%, -50%) rotate(-90deg); }   /* the ukulele is drawn head to the right: turned the other way, the nut is at the top */
+.pb-mini .runner { display: none; }
+
+/* The new idea in a piece, heard in it. */
+.pb-concepts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.pb-concept { border-style: dashed !important; }
+.pb-concept[aria-pressed="true"] { border-style: solid !important; }
+.pb-show { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+.pb-show[hidden] { display: none; }

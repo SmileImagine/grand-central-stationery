@@ -17,45 +17,63 @@ music.
 
 ## The journeys
 
-Every way in is three steps, numbered across the bar, each with one main
-button (Play, which reads Pause while the music plays). The step decides what
-is on screen, whether it repeats and its tempo; there are no separate Repeat,
-Play phrase or Play along buttons, which did the same thing in the first version.
+Two people use the piece view, and they need different things.
 
-| | Teach | Practice | Assess |
+- **A student practising alone** (`mode=practice`: the board's Practice, and
+  every link a teacher shares) can have the app listen and give direct
+  feedback. There are no Teach or Assess tabs.
+- **A teacher** (`mode=teach` or `assess`, from the board's Teach or Assess)
+  has two tabs. Teach runs on the projector, so the class sees the same
+  listen, learn, put together that it will practise later. A class never
+  plays in perfect time and no app can listen to thirty players, so Teach
+  presents and paces; it never listens. Assess is the end of one student's
+  practice, seen from the teacher's side with marking tools. A teacher who has
+  taught a piece moves straight to Assess on it; they never pass through the
+  student view.
+
+| | Teach (class, projector) | Practice (one student) | Assess (one student, teacher) |
 | --- | --- | --- | --- |
-| 1 | **Listen**: the whole piece once, full speed, with the band | the same | **Hear it**: the student's name; the piece played for them |
-| 2 | **Learn the loops**: one loop on repeat, from about 60 % and five BPM faster each time round to full speed (or **Note by note**: Next, Back, Hear it, Listen to me) | the same, with a history | **The attempt**: optional listening; its flags appear in the panel |
-| 3 | **Put it together**: the whole piece on repeat, slow to full speed, the band playing | the same, with a history | **Decide**: pass, needs more practice or not assessed, a level 1–4 if wanted, tempo, help, note, Save |
+| 1 | **Listen**: the whole piece once, full speed, rich band; **New here** chips play the bars where the piece's new idea is first heard | the same | **Hear it**: the student's name; the piece played for them |
+| 2 | **Learn the sections**: **Study** shows one section, uncluttered, with a small fingering diagram under every note, for the class to work through at its own pace or in pairs (Hear this section plays it once, slowly); **Loop together** loops sections that grow, 1, 2, 1–2, 3, 1–3 … all of it, each from about 60 % and faster each time round | **Learn the sections**: **In time** (a section on repeat, slow to full speed) or **Note by note** (Next, Back, Hear it, and the app listening if wanted) | **The attempt**: the beat and the moving cursor, the student plays, the microphone listens; its flags appear in the panel |
+| 3 | **Put it together**: the whole piece on repeat, slow to full speed, rich band | the same | **Decide**: pass, needs more practice or not assessed, a level 1–4 if wanted, tempo, help, note, Save |
+| 4 | | **Play it through**: the beat and the cursor, the student plays; with **Listen to me** on, the app says what it heard (a guess); **Ready to show my teacher** | |
 
-Each step keeps its own tempo while the page is open. **Faster each time
-round** (on unless turned off; remembered on this computer) adds five BPM at
-each repeat up to the written tempo, then holds. Teach records nothing; Practice
-keeps the history below.
+Each step has one main button, Play, which reads Pause while the music plays.
+The step decides what is on screen, whether it repeats, its tempo and the band:
+rich (energy and detail 65, the five-time-round arrangement) to listen and put
+together; plain (25 and 10, the same chorus every time round, so no new chords
+appear while a section is learned) for sections; the beat alone (melody, chords
+and bass muted) for a play-through or an attempt. **Faster each time round** (on
+unless turned off, remembered) adds five BPM at each repeat up to the written
+tempo.
 
-**Teacher, class piece.** Board → Teach → a level → a card → **Teach** opens
-step 1 → Listen → Next: learn the loops (◀ ▶ or ← → between loops) → Next:
-put it together → **Copy link** for students.
+A piano, Wicki-Hayden keyboard or ukulele gets a **Shows** picker (Melody,
+Chords, Both); the piece view starts on Melody. The ▾ arrow folds the bar to one
+row. **More** opens the full player; its Melody, Band and Mixer tabs fold with
+the same arrows. "Section" names the bars learned together, and "loop" what you
+do with them; **Set up sections…** chooses where they fall.
 
-**Student.** A shared link, or Board → Practice → their level → **Practise**:
-the same three steps.
+**The new idea.** Each concept the piece introduces at its place in the course
+(else what it has worth pointing out: a tie, a pickup, a rest off the beat, a
+wide leap) is looked for bar by bar: the first window of one bar, else two, whose
+own analysis shows it, widened to two bars. Rain, Rain's leap of a 4th is bars
+3–4; Desh's fi is bars 2–3. A concept no excerpt can show (repeats) gets no chip.
 
-**Teacher assessing.** Board → Assess → the student → a piece (or **Draw a
-piece**) → **Assess**: Hear it → The attempt → Decide → Save, which returns to
-step 1 for the next student.
-
-The ▾ arrow at the bar's left folds it to one slim row (▸ opens it again;
-remembered). **More** opens the full player (the transport and the Melody, Band
-and Mixer drawers, each tab with its own fold arrow); while it is open the
-instrument steps aside so the music and the drawers both fit.
+**The diagrams.** In Study the large instrument steps aside. The section is
+engraved with wide spaces between its lines (`%%staffsep`, which Game mode's
+one-line rewrite now keeps), more than eight notes on two lines, and each note
+gets a diagram drawn by the page's own instrument layout (`GCS.piece.mini`),
+standing upright like a fingering chart. On a short screen the study view
+scrolls to the second line.
 
 ## Links
 
-The piece view: `index.html#tune=<id>&level=<n>&mode=<teach|practice|assess>&step=<1-3>&loop=<n>&by=note&bpm=<n>&inst=<recorder|uke|piano|wh|off>&tr=<±n>&cuts=<1.5.9>`.
+The piece view: `index.html#tune=<id>&level=<n>&mode=<teach|practice|assess>&step=<1-4>&loop=<n or a-b>&by=<study|together|time|note>&bpm=<n>&inst=<recorder|uke|piano|wh|off>&show=<melody|chords|both>&tr=<±n>&cuts=<1.5.9>`.
 Only these keys are written (`SETUP_KEYS`); links from the first piece view
 (`mode=step|slow`, `phrase=`, `view=whole`) still open where they meant. A link
-carrying a name, note, result or progress is read without them, and **Copy
-link** turns Assess into Teach. The board: `course/board.html#do=<teach|practice|assess>&level=<n>&tune=<id>`.
+carrying a name, note, result or progress is read without them. A teacher's
+**Copy student link** gives the practice view of the piece with the teacher's
+sections, instrument and key. The board: `course/board.html#do=<teach|practice|assess>&level=<n>&tune=<id>`.
 The page keeps its own address current with `replaceState`, so the address bar
 is always a link to what is on screen; pasting another address reloads the view.
 The board's link carries the class instrument and the transposition that brings

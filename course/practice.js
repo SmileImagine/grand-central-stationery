@@ -36,19 +36,35 @@
   const DEFAULT_BPM = 80;              // the main page's tempo for a tune with no Q: line
   const INSTRUMENTS = { recorder: 'Recorder', uke: 'Ukulele', piano: 'Piano', wh: 'Wicki-Hayden keyboard', off: 'No instrument' };
   const MODES = { teach: 'Teach', practice: 'Practice', assess: 'Assess' };
-  /* Each way in is three steps, in order. Teach and Practice share theirs (the lesson's flow: hear it whole, learn it
-     a loop at a time from slow to faster, then put it together from slow to faster); Practice also keeps history. */
+  /* Each way in is a few steps, in order. Two people use the piece view:
+       a student practises alone (Practice), with the app listening if they like, ending in a play-through;
+       a teacher teaches the class (Teach, on the projector, so the class sees the same listen, learn, put together),
+       where nothing can listen to thirty players at once and nobody plays in perfect time: the class hears it (and
+       the new idea in it), studies each section at its own pace (alone or in pairs) with a small fingering diagram
+       at every note, then loops sections that grow, getting faster, and puts the whole together;
+       or assesses one student (Assess): the end of a student's practice, seen from the teacher's side, with marks. */
   const STEPS = {
-    teach: ['Listen', 'Learn the loops', 'Put it together'],
-    practice: ['Listen', 'Learn the loops', 'Put it together'],
+    teach: ['Listen', 'Learn the sections', 'Put it together'],                      // step 2: Study, or Loop together
+    practice: ['Listen', 'Learn the sections', 'Put it together', 'Play it through'], // step 2: In time, or Note by note
     assess: ['Hear it', 'The attempt', 'Decide'],
   };
+  // How step 2 is done (the link's by=): Teach studies each section, then loops them together; Practice loops in time, or note by note.
+  const HOW = { teach: ['study', 'together'], practice: ['time', 'note'] };
+  const SHOWS = { melody: 'Melody', chords: 'Chords', both: 'Both' };
+  /* Loop together: sections that grow. Each new loop alone, then joined to all before it, until the whole piece:
+     for four loops 1, 2, 1–2, 3, 1–3, 4, 1–4. Pairs of 0-based loop indexes, first and last. */
+  function ladder(n) {
+    if (n < 2) return [[0, 0]];
+    const out = [[0, 0]];
+    for (let k = 1; k < n; k++) out.push([k, k], [0, k]);
+    return out;
+  }
   const clampInt = (v, lo, hi) => { const n = parseInt(v, 10); return Number.isFinite(n) ? Math.max(lo, Math.min(hi, n)) : null; };
 
   /* ---------------- setup: what a link carries ----------------
      Only these keys are written or read. A student's name, progress, marks
      and notes are not setup, so no link can carry them. */
-  const SETUP_KEYS = ['tune', 'level', 'mode', 'step', 'loop', 'by', 'bpm', 'inst', 'tr', 'cuts'];
+  const SETUP_KEYS = ['tune', 'level', 'mode', 'step', 'loop', 'by', 'bpm', 'inst', 'show', 'tr', 'cuts'];
   const OLD_KEYS = ['phrase', 'view'];   // the first piece view's (11 November 2026), still read
   function cleanSetup(s = {}) {
     const out = {};
@@ -60,11 +76,14 @@
     if (mode === 'slow') { mode = 'practice'; if (!step) step = 2; }
     if (s.view === 'whole' && !step && mode !== 'assess') step = 3;
     if (MODES[mode]) out.mode = mode;
-    if (step >= 1 && step <= 3) out.step = step;
+    if (step >= 1 && step <= 4) out.step = step;   // (the first version's Teach steps 3-4 read as 3)
     if (loop >= 1) out.loop = Math.min(99, loop);
-    if (by === 'note') out.by = 'note';
+    const to = parseInt(s.to !== undefined ? s.to : String(s.loop || '').split('-')[1], 10);   // a span of loops: loop=1-3
+    if (out.loop && to > out.loop) out.to = Math.min(99, to);
+    if (by === 'note' || by === 'together') out.by = by;
     const bpm = clampInt(s.bpm, 20, 300); if (bpm !== null && s.bpm !== undefined && s.bpm !== '') out.bpm = bpm;
     if (INSTRUMENTS[s.inst]) out.inst = s.inst;
+    if (SHOWS[s.show]) out.show = s.show;
     const tr = clampInt(s.tr, -12, 12); if (tr) out.tr = tr;
     const cuts = normalCuts(s.cuts); if (cuts.length) out.cuts = cuts;
     return out;
@@ -76,7 +95,7 @@
   }
   function encodeSetup(s) {
     const c = cleanSetup(s), parts = [];
-    for (const k of SETUP_KEYS) if (c[k] !== undefined) parts.push(`${k}=${k === 'cuts' ? c.cuts.join('.') : encodeURIComponent(String(c[k]))}`);
+    for (const k of SETUP_KEYS) if (c[k] !== undefined) parts.push(`${k}=${k === 'cuts' ? c.cuts.join('.') : k === 'loop' && c.to ? `${c.loop}-${c.to}` : encodeURIComponent(String(c[k]))}`);
     return parts.join('&');
   }
   function decodeSetup(str) {
@@ -335,12 +354,12 @@
     return mk(starts, source);
   }
   const SOURCE_NOTE = {
-    teacher: 'Loops as you set them.',
-    marked: 'Loops from the phrase marks in the music.',
-    sections: 'Loops follow the tune’s sections, then groups of about four bars inside them: a guess you can change.',
-    lines: 'Loops follow the lines the tune was written in.',
-    groups: 'Loops are groups of about four bars: a guess you can change.',
-    whole: 'A short piece: one loop.',
+    teacher: 'Sections as you set them.',
+    marked: 'Sections from the phrase marks in the music.',
+    sections: 'Sections follow the tune’s parts and repeats, then groups of about four bars inside them: a guess you can change.',
+    lines: 'Sections follow the lines the tune was written in.',
+    groups: 'Sections are groups of about four bars: a guess you can change.',
+    whole: 'A short piece: one section.',
     empty: '',
   };
   function labelFor(bars, p) {
@@ -408,6 +427,21 @@
     }
     return [...head, out, ...verses].join('\n') + '\n';
   }
+  /* The idea a piece brings in, heard in it: for each concept, the first window of one bar, else two, whose own
+     analysis has it, widened to two bars so it is heard in context. The concepts: what the piece introduces at its
+     place in the course, else what it has that is worth pointing out (a tie, a pickup, a rest off the beat...). */
+  const NOTABLE = /^(tie|tie-over-bar|pickup|rest-off-beat|repeat|endings|triplet|triplet-in-compound|tuplet|accidentals|grace-notes|syncopation|metre-change|key-change|leap:(5th|6th|7th|octave|over-octave))\b/;
+  function conceptsOf(t) { const intro = (t.introduces || []).filter(x => skillWords(x)); return intro.length ? intro : (t.skills || []).filter(x => NOTABLE.test(x) && skillWords(x)).slice(0, 3); }
+  function exampleOf(t, ABCJS, analyze, tag, found = null) {
+    const f = found || phrasesOf(t.abc, ABCJS), N = f.bars.length;
+    const has = (from, to) => { try { const r = analyze.analyzeAbc(phraseAbc(t.abc, ABCJS, { from, to }, f), ABCJS)[0]; return !!(r && r.features && (r.features.skills || []).includes(tag)); } catch (e) { return false; } };
+    for (const w of [1, 2]) for (let a = 0; a + w <= N; a++) if (has(a, a + w)) {
+      let from = a, to = a + w;
+      if (to - from < 2) { if (to < N) to++; else if (from > 0) from--; }
+      return { tag, words: skillWords(tag), from, to, first: from + 1, last: to };
+    }
+    return null;
+  }
   function chordBefore(bars, from) { for (let i = from - 1; i >= 0; i--) if (bars[i].chord) return bars[i].chord; return null; }
 
   /* ---------------- tempo ----------------
@@ -465,11 +499,11 @@
     const bits = [];
     if (e.stepRuns) bits.push(`stepped through ${e.stepRuns} time${e.stepRuns === 1 ? '' : 's'}`);
     if (e.runs) bits.push(`played ${e.runs} time${e.runs === 1 ? '' : 's'}`);
-    if (phraseCount > 1 && phrasesDone) bits.push(`${Math.min(phrasesDone, phraseCount)} of ${phraseCount} loops tried`);
+    if (phraseCount > 1 && phrasesDone) bits.push(`${Math.min(phrasesDone, phraseCount)} of ${phraseCount} sections tried`);
     if (e.bestBpm) bits.push(`whole piece up to ${e.bestBpm} BPM${share !== null ? ` (${share}% of full speed)` : ''}`);
     if (e.steps && e.heard) bits.push(`microphone heard ${e.heard} of ${e.steps} stepped notes (a guess)`);
     const best = phrase ? ((e.phraseBpm || {})[phrase] || 0) : e.bestBpm;
-    return { started: true, stage, label, detail: bits.join(' · '), share, last: e.last, entry: e, ladderBpm: best, ladderShare: best && e.written ? tempoShare(best, e.written) : 0, ladderOf: phrase ? `loop ${phrase}` : 'the whole piece' };
+    return { started: true, stage, label, detail: bits.join(' · '), share, last: e.last, entry: e, ladderBpm: best, ladderShare: best && e.written ? tempoShare(best, e.written) : 0, ladderOf: phrase ? `section ${phrase}` : 'the whole piece' };
   }
 
   /* ---------------- assessment: the teacher decides ----------------
@@ -619,7 +653,7 @@
   }
 
   return {
-    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, SETUP_KEYS, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
+    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, HOW, SHOWS, SETUP_KEYS, ladder, conceptsOf, exampleOf, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
     cleanSetup, encodeSetup, decodeSetup, normalCuts, pieceHref, encodeBoard, decodeBoard,
     tunesAt, levelsOf, skillWords, learningGoal, summarize, writtenBpm, midiName, fitFor,
     barsOf, phrasesOf, phraseAbc, inEnding, transposeFor,

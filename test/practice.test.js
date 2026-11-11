@@ -33,16 +33,24 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq(P.decodeSetup('tune=x-1&mode=step&phrase=3'), { tune: 'x-1', mode: 'practice', step: 2, loop: 3, by: 'note' }, 'an old step-by-step link');
   eq(P.decodeSetup('tune=x-1&mode=slow&bpm=50'), { tune: 'x-1', mode: 'practice', step: 2, bpm: 50 }, 'an old slow-practice link');
   eq(P.decodeSetup('tune=x-1&mode=teach&view=whole'), { tune: 'x-1', mode: 'teach', step: 3 }, 'an old whole-piece link');
-  eq(P.STEPS.teach, ['Listen', 'Learn the loops', 'Put it together'], 'Teach: listen, learn the loops, put it together');
-  eq(P.STEPS.practice, P.STEPS.teach, 'Practice follows the same steps');
+  // Two people: a teacher on the projector (Teach, Assess) and a student alone (Practice). The class sees listen, learn, put together.
+  eq(P.STEPS.teach, ['Listen', 'Learn the sections', 'Put it together'], 'Teach: listen, learn the sections, put it together');
+  eq(P.STEPS.practice, [...P.STEPS.teach, 'Play it through'], 'Practice: the same, then a play-through');
   eq(P.STEPS.assess, ['Hear it', 'The attempt', 'Decide'], 'Assess: hear it, the attempt, decide');
+  eq(P.HOW, { teach: ['study', 'together'], practice: ['time', 'note'] }, 'learning the sections: the class studies then loops together; a student loops in time or note by note');
+  // Loop together: sections that grow until it is all of it, and the span in the address.
+  eq(P.ladder(4).map(([a, b]) => a === b ? `${a + 1}` : `${a + 1}-${b + 1}`), ['1', '2', '1-2', '3', '1-3', '4', '1-4'], 'each section, then joined to the ones before');
+  eq([P.ladder(1), P.ladder(2)], [[[0, 0]], [[0, 0], [1, 1], [0, 1]]], 'one section, or two');
+  eq(P.encodeSetup({ tune: 'x-1', mode: 'teach', step: 2, loop: 1, to: 3, by: 'together', show: 'melody' }), 'tune=x-1&mode=teach&step=2&loop=1-3&by=together&show=melody', 'a span of sections in the address');
+  eq(P.decodeSetup('tune=x-1&loop=2-4&show=chords'), { tune: 'x-1', loop: 2, to: 4, show: 'chords' }, 'and read back');
+  eq(P.decodeSetup('tune=x-1&loop=3-2&show=tab&by=dance'), { tune: 'x-1', loop: 3 }, 'a backwards span, an unknown show or way is dropped');
   // Private data never rides in a link, whichever way it is offered.
   const leaky = { tune: 'x-1', student: 'Ada', name: 'Ada', note: 'shaky', result: 'pass', mark: 4, progress: { runs: 3 }, roster: ['Ada'] };
   const out = P.encodeSetup(leaky);
   eq(out, 'tune=x-1', 'names, notes, results, marks and progress are not setup');
   assert(!/Ada|shaky|pass|runs/.test(out), 'nothing private in an encoded link');
   eq(P.decodeSetup('tune=x-1&student=Ada&note=shaky&result=pass'), { tune: 'x-1' }, 'a link carrying private keys is read without them');
-  eq(P.SETUP_KEYS, ['tune', 'level', 'mode', 'step', 'loop', 'by', 'bpm', 'inst', 'tr', 'cuts'], 'the setup keys are the instructional ones');
+  eq(P.SETUP_KEYS, ['tune', 'level', 'mode', 'step', 'loop', 'by', 'bpm', 'inst', 'show', 'tr', 'cuts'], 'the setup keys are the instructional ones');
   eq(P.pieceHref({ tune: 'x-1', mode: 'teach' }, true), '../index.html#tune=x-1&mode=teach', 'the board links into the main page');
   eq(P.decodeBoard(P.encodeBoard({ do: 'assess', level: 4, tune: 'morris-7-highland-mary', student: 'Ada' })), { do: 'assess', level: 4, tune: 'morris-7-highland-mary' }, 'the board address keeps the way in, level and piece, never a name');
 }
@@ -156,6 +164,22 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq(notesOf(P.phraseAbc(chh.abc, ABCJS, cf.phrases[0], cf)), barNotes(cf.bars.slice(0, cf.phrases[0].to)), 'held syllables keep their notes');
 }
 
+/* ---------------- the new idea, heard in the piece ---------------- */
+{
+  const ex = (id, tag) => P.exampleOf(tune(id), ABCJS, Analyze, tag);
+  eq(P.conceptsOf(tune('beginner-songs-1-rain-rain-go-away')), ['leap:4th'], 'what a piece introduces');
+  eq(P.conceptsOf(tune('first-tunes-3-twinkle-twinkle-little-star')), ['leap:5th'], 'else what it has worth pointing out');
+  const r = ex('beginner-songs-1-rain-rain-go-away', 'leap:4th');
+  eq([r.first, r.last, r.words], [3, 4, 'leaps of a 4th'], 'Rain, Rain: its leap of a 4th is in bars 3-4');
+  const ab = P.phraseAbc(tune('beginner-songs-1-rain-rain-go-away').abc, ABCJS, r);
+  assert(Analyze.analyzeAbc(ab, ABCJS)[0].features.skills.includes('leap:4th'), 'and those bars, on their own, have it');
+  eq([ex('hindostan-4-desh', 'degree:fi').first, ex('hindostan-folk-5-chhaila', 'grace-notes').first, ex('original-pentatonic-8-evening-bells', 'dur:4').first], [2, 8, 4], 'the note fi, a grace note, a four-beat note: where each is first heard');
+  eq(ex('hindostan-folk-1-o-give-me-those-pretty-eyes', 'metre-change').last - ex('hindostan-folk-1-o-give-me-those-pretty-eyes', 'metre-change').first, 1, 'a change of metre: heard across two bars');
+  eq(ex('reelsa-c-15-astley-s-ride', 'repeat'), null, 'a repeat cannot be shown by an excerpt: no example');
+  let shown = 0; for (const t of set.tunes) for (const c of P.conceptsOf(t)) { const e = P.exampleOf(t, ABCJS, Analyze, c); if (e) { shown++; assert(e.last - e.first >= 1 && e.first >= 1 && e.last <= P.barsOf(t.abc, ABCJS).bars.length, `${t.id} ${c}: two bars inside the piece`); } }
+  assert(shown >= 30, `examples found across the set (${shown})`);
+}
+
 /* ---------------- tempo ---------------- */
 {
   eq([P.slowStart(80), P.slowStart(120), P.slowStart(50)], [50, 70, 40], 'slow practice starts a little over half speed, never under 40');
@@ -202,8 +226,8 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq(e.phraseBpm, { 1: 50, 2: 60 }, 'each phrase keeps its best tempo');
   eq(e.log, [{ d: '2026-11-10', k: 'steps', ph: 1, bpm: 0, n: 1 }, { d: '2026-11-10', k: 'run', ph: 1, bpm: 50, n: 3 }, { d: '2026-11-11', k: 'run', ph: 2, bpm: 60, n: 1 }], 'the log folds repeats of the same thing on the same day');
   let pr = P.progressOf(back, 'tw', 3, 2);
-  eq([pr.stage, pr.label, pr.ladderShare, pr.ladderOf], ['slow', 'Slow practice', 75, 'loop 2'], 'slow practice, with loop 2 at 75% of full speed');
-  assert(/stepped through 1 time · played 4 times · 2 of 3 loops tried/.test(pr.detail), `what was done, in words: ${pr.detail}`);
+  eq([pr.stage, pr.label, pr.ladderShare, pr.ladderOf], ['slow', 'Slow practice', 75, 'section 2'], 'slow practice, with section 2 at 75% of full speed');
+  assert(/stepped through 1 time · played 4 times · 2 of 3 sections tried/.test(pr.detail), `what was done, in words: ${pr.detail}`);
   assert(/a guess/.test(pr.detail), 'what the microphone heard is called a guess');
   p = P.recordPractice(back, { id: 'tw', kind: 'run', bpm: 76, written: 80, whole: true });
   pr = P.progressOf(p, 'tw', 3);
