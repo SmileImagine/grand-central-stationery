@@ -1889,6 +1889,33 @@
       }
       return { fit: n ? 1 - cost / n : 1, same: n ? same / n : 0, clash: [...clash].sort((a, b) => a - b) };
     }
+    // A round's plan: `want` groups over a tune of `bars` bars, fit(e, n) scoring n groups e bars apart (roundFit).
+    // The distance is `written` when every= gives one; otherwise the one that fits best, up to even distances through
+    // the tune (a later entry is an earlier one the other way round): the fewest clashes on a downbeat, then the best
+    // fit, less for the groups singing the same notes (a round wants parts); between equals, the longer distance.
+    // Returns the distance (chosen: picked, not the even one), the groups there is room for, the fit, and for a
+    // written distance a clearly better one. course/round-fit.js keeps a copy of this and roundFit for the course
+    // reports; test/class-parts.test.js checks that the two agree.
+    function roundPlan(fit, bars, want, written) {
+      const even = Math.max(1, Math.floor(bars / want));
+      let every = written, chosen = false;
+      if (!every) {
+        let top = null;
+        for (let e = 1; e <= even; e++) {
+          const f = fit(e, want), score = f.fit - 0.05 * f.clash.length - 0.25 * f.same - (f.same > 0.5 ? 1 : 0) - 0.001 * (even - e);
+          if (!top || score > top.score) top = { e, score };
+        }
+        every = top ? top.e : even; chosen = !!top && top.e !== even;
+      }
+      const room = Math.ceil(bars / every), parts = Math.min(want, room);
+      if (parts < 2) return { every, chosen, room, parts, mine: null, best: null };
+      const mine = fit(every, parts); let best = null;
+      if (written) for (let e = 1; e <= Math.max(1, Math.floor(bars / parts)); e++) if (e !== every) {
+        const f = fit(e, parts);
+        if (f.same <= Math.max(0.5, mine.same) && f.fit > mine.fit + (mine.clash.length ? 0.03 : 0.08) && f.clash.length <= mine.clash.length && (!best || f.fit > best.fit)) best = { ...f, every: e };
+      }
+      return { every, chosen, room, parts, mine, best };
+    }
     /* ---- tuning: a Scala scale for the tune ----
        A line in the ABC, "%%tuning slendro: 231. 474. 717. 955. 2/1 root=C",
        gives the scale the tune is played in: its degrees above 1/1 in cents
@@ -4833,31 +4860,15 @@
         for (const line of this.getText().split('\n')) { if (ROUND_LINE.test(line.trim())) at = [pos, pos + line.length]; pos += line.length + 1; }
         for (const p of r.problems) this.roundNotes.push({ text: 'Round: ' + p, at });
         const bars = Math.max(1, Math.round(tl.total / barMs));
-        const fit = (e, n) => roundFit(tl.events, tl.total, e * barMs, n, tl.beatMs, tl.bars, tl.firstBar);
-        // Without every=, the distance that fits best, up to even distances through the tune (a later entry is an
-        // earlier one the other way round): the fewest clashes on a downbeat, then the best fit, less for the groups
-        // singing the same notes (a round wants parts); between equals, the longer distance.
-        const even = Math.max(1, Math.floor(bars / r.parts));
-        let every = r.every, chosen = false;
-        if (!every) {
-          let top = null;
-          for (let e = 1; e <= even; e++) {
-            const f = fit(e, r.parts), score = f.fit - 0.05 * f.clash.length - 0.25 * f.same - (f.same > 0.5 ? 1 : 0) - 0.001 * (even - e);
-            if (!top || score > top.score) top = { e, score };
-          }
-          every = top ? top.e : even; chosen = !!top && top.e !== even;
-        }
-        const room = Math.ceil(bars / every);
-        let parts = r.parts;
-        if (parts > room) { this.roundNotes.push({ text: `Round: the tune has ${bars} bar${bars > 1 ? 's' : ''}, so with a group coming in every ${every} there is room for ${room} group${room > 1 ? 's' : ''}${room < 2 ? ' and no round' : ''}.`, at }); parts = room; }
+        const plan = roundPlan((e, n) => roundFit(tl.events, tl.total, e * barMs, n, tl.beatMs, tl.bars, tl.firstBar), bars, r.parts, r.every);
+        const { every, chosen, room, parts, mine, best } = plan;
+        if (r.parts > room) this.roundNotes.push({ text: `Round: the tune has ${bars} bar${bars > 1 ? 's' : ''}, so with a group coming in every ${every} there is room for ${room} group${room > 1 ? 's' : ''}${room < 2 ? ' and no round' : ''}.`, at });
         if (parts < 2) return null;
-        const mine = fit(every, parts); let best = null;
-        if (r.every) for (let e = 1; e <= Math.max(1, Math.floor(bars / parts)); e++) if (e !== every) { const f = fit(e, parts); if (f.same <= Math.max(0.5, mine.same) && (!best || f.fit > best.fit)) best = { ...f, every: e }; }
         const pct = f => Math.round(f.fit * 100) + '%', clash = mine.clash.slice(0, 6);
         let msg = `Round: ${parts} groups, each coming in ${every} bar${every > 1 ? 's' : ''} after the one before${chosen ? ' (the distance that fits best; every= sets another)' : ''}, stopping ${r.end === 'together' ? 'together' : 'one by one'}. On the beats, ${pct(mine)} of the notes sounding together make unisons, thirds, fifths, sixths or octaves`;
         msg += clash.length ? `; seconds or sevenths on the downbeat of bar${clash.length > 1 ? 's' : ''} ${clash.join(', ')}${mine.clash.length > clash.length ? ' and more' : ''}.` : '.';
         if (mine.same > 0.5) msg += ` The groups sing the same notes ${Math.round(mine.same * 100)}% of the time, so it sounds more like one group than a round.`;
-        if (best && best.fit > mine.fit + (mine.clash.length ? 0.03 : 0.08) && best.clash.length <= mine.clash.length) msg += ` every=${best.every} fits better (${pct(best)}${best.clash.length ? '' : ', no clash on a downbeat'}).`;
+        if (best) msg += ` every=${best.every} fits better (${pct(best)}${best.clash.length ? '' : ', no clash on a downbeat'}).`;
         this.roundNotes.push({ tip: true, at, text: msg, more: 'A %%round line makes the tune a round. The number (2, 3 or 4) is how many groups sing or play it; every=2 is the bars between one group coming in and the next (without it, the page picks the distance that fits best, and the hint says which); end=turns (the default) lets each group finish its last time round, so they stop one by one, and end=together stops them all when group 1 finishes. With Repeat on the groups go round until Repeat is turned off. The Mixer has a figure for each group, to mute the group the class is taking.\n\nThe fit counts, on every beat, each pair of notes the groups sound together: unisons, thirds, fifths, sixths and octaves fit, fourths count half, seconds, sevenths and the tritone clash. Only clashes on a downbeat are named: a passing clash between beats is normal in a good round. Another distance is suggested only when it fits clearly better, with no more downbeat clashes, and without the groups mostly singing the same notes. Listen before choosing.' });
         return { parts, every, off: every * barMs, end: r.end, bars };
       }

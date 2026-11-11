@@ -30,6 +30,28 @@ assert(report.summary.withWrittenHarmony + report.summary.withoutWrittenHarmony 
 assert(report.summary.generatedBodyCells === set.tunes.length, 'every current metre should receive a body-percussion cell');
 assert(report.summary.generatedBassCells === set.tunes.length, 'every current key/metre should receive a bass recipe');
 
+// Rounds: the course's copy of the page's round scoring must agree with index.html's, tune by tune.
+const vm = require('vm');
+const Rounds = require('../course/round-fit.js');
+const page = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const pick = re => { const m = re.exec(page); assert(m, `index.html must define ${re}`); return m[0]; };
+const sandbox = {};
+vm.runInNewContext(pick(/const ROUND_COST = .*?;\n/) + pick(/function roundFit\([\s\S]*?\n    }\n/) + pick(/function roundPlan\([\s\S]*?\n    }\n/) + 'this.roundFit = roundFit; this.roundPlan = roundPlan; this.ROUND_COST = ROUND_COST;', sandbox);
+assert(JSON.stringify(sandbox.ROUND_COST) === JSON.stringify(Rounds.ROUND_COST), 'round interval costs must match index.html');
+for (const tune of set.tunes) {
+  const tl = Rounds.timeline(tune.abc); if (!tl) continue;
+  const bars = Math.max(1, Math.round(tl.total / tl.barMs));
+  for (const groups of [2, 3, 4]) for (const written of [null, 1, 2]) {
+    const run = (F, P) => JSON.stringify(P((e, n) => F(tl.events, tl.total, e * tl.barMs, n, tl.beatMs, tl.bars, tl.firstBar), bars, groups, written));
+    assert(run(Rounds.roundFit, Rounds.roundPlan) === run(sandbox.roundFit, sandbox.roundPlan), `${tune.id}: round plan for ${groups} groups (every=${written}) must match index.html`);
+  }
+}
+const row = title => report.tunes.find(t => t.title === title);
+assert(row('Frère Jacques').round.kind === 'round' && row('Frère Jacques').round.every === 2, 'Frère Jacques must be a round with entries two bars apart');
+assert(row('Bounce High, Bounce Low').round.kind === 'unison', 'a so-mi chant must be named as mostly unison, not a round');
+assert(row('Skip to My Lou').round.kind === 'no', 'Skip to My Lou does not work as a round');
+assert(report.tunes.filter(t => t.round.line).every(t => /^%%round [234] every=\d+$/.test(t.round.line)), 'a suggested round line must be one the page reads');
+
 const markdown = Parts.renderMarkdown(report);
 const committed = fs.readFileSync(path.join(root, 'course', 'class-parts.md'), 'utf8');
 assert(markdown === committed, 'course/class-parts.md is stale');
