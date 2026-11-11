@@ -478,6 +478,165 @@ whatever the emphasis:
   and overlapping review copies. Twenty-five are explicitly labelled originals
   or generated works, exhausting the 25/100 launch allowance; the ten remaining
   tunes must therefore be source-backed.
+- Removed later (10 November 2026): the two-bar intro. It was too long and
+  its chords were wrong, so playing from the top now has a bar of clicks in
+  the metre's beats (four in 4/4, three in 3/4, two in 6/8) and the melody
+  comes in with the band. `intro=` is no longer a setting.
+- Phase 5 (C2, the band plays like musicians), started: each style comps on
+  its own instrument (`STYLES[k].comp`: nylon guitar for folk, jig, waltz,
+  bossa, samba, mento and Afrobeats; piano for pop, march, swing and ballad;
+  electric piano for funk and lo-fi), and on another when the melody plays
+  that same instrument. A guitar strums: down from the root on the beat, up
+  across the top strings between beats. Voicings keep two semitones under
+  the melody (a guitar only leans that way) and leave out a chord tone a
+  semitone under the melody note struck with them. With Feel above 0
+  (`bandFeel`) the bass and chords lean on the beat, a chord's top note
+  sings, the band steps back under a busy melody and speaks up where it
+  holds or rests, swells with the melody's phrases, and wanders a few ms
+  either side of the grid; where the melody holds two beats or more and the
+  chord changes, the bass walks up into it by the key's steps
+  (`STYLES[k].walk`).
+- Phase 5, continued: the band answers the melody where it breathes (a note
+  held or a rest of two beats or more before a bar line). The comping
+  instrument plays two to four chord tones under the held note, most times;
+  at a four-bar phrase the drums fill the last beat on the style's fill drum
+  (`STYLES[k].fill`: snare, or rim in the soft and Latin styles) and crash
+  into the new phrase (not in a soft style). Walks and answers come once in
+  two bars at most; the pad and synth styles leave them out. All 20 styles
+  were compiled on Daisy Daisy without errors. Not yet heard by a person:
+  all of this needs listening.
+- Phase 0, done (10 November 2026): the Band is measured, not only
+  reasoned about. `node test/band-report.js` (`make band-metrics`) has the
+  page itself, in headless Chrome, play every published tune in its Auto
+  style and five tunes through all 20 styles (137 plays, about 7 minutes;
+  `--quick --no-audio` in seconds), scores each with `test/band-metrics.js`
+  and writes `docs/BAND-METRICS.md`, compared with
+  `test/band-metrics.baseline.json`. Note metrics: flat ninths against the
+  tune, chords above it, chord fit, mud (low interval limits), voice
+  leading, bass roots, timing looseness per part, accents, playing into the
+  melody's holes, bar-to-bar repetition, the arc. Audio metrics, from
+  offline renders through the page's own bus: loudness (BS.1770), the
+  melody's prominence over the band, masking, spectral tilt, low mids,
+  centroid, width, render cost. Each guardrail carries its reason and is a
+  first guess; four metrics that measured the wrong thing were fixed on the
+  first day. A voice bench sets samples against synthesis.
+- Measured and fixed the same day, against the baseline (137 plays): a held
+  pad an octave down muddied the bass in 64 plays, now 6 (voicings are
+  spaced over the bass by the low interval limits, `clearOf`, and never
+  pushed over the tune); the band's timing was sequencer-tight (drums 1.3
+  ms, out of bounds in 132 plays), now a few ms (drums 3.6, bass 3.9,
+  chords 5.9; 12 plays out); the melody stands further over the band (+0.4
+  LU; the dance styles from about 0.8 LU to about 3.5); the mix is brighter
+  (centroid 369 to 409 Hz) and no longer mono (width 0.02 to 0.10), from a
+  place and a few filters for each part (`TONE`: the comping left, the
+  cymbals and shakers right, the tune with presence), a little room always
+  open and a light exciter (`SOUND`). Guardrails broken: 475 to 234. This state is now the saved baseline for the next change.
+  Still out: width under 0.15 in most plays (the tune and bass stay in the
+  middle; possibly the bound is wrong for a classroom backing), chords
+  touching the tune in about 40.
+- Samples against synthesis, measured: the processor is not the limit (a
+  sampled voice renders at 0.005 of real time, the costliest synthesised
+  one at 0.023); the sample sets are. The FluidR3 sets stop near 8 kHz (piano,
+  guitar), 5 to 6 kHz (electric piano, recorder) and 1.3 kHz (bass), every
+  note is cut at 3.1 s, the bitrates run from 35 to 128 kbps, and all 88
+  notes are kept in stereo: about 15 MB. The sampler can now keep only every
+  few notes and retune the nearest (`SAMPLE_STEP`, off): retuning by a
+  semitone moves the spectrum by about 1 dB for piano, guitar, recorder and
+  bass (7.6 dB for the electric piano), so sets of every third note (a third
+  of the download) are viable. The next step for timbre is better samples,
+  mono, longer, every third note, which would weigh less than today's.
+  Waiting for a decision on sources, licences and download weight.
+- Better samples, done the same day (the user agreed the download): CC0
+  sets from Versilian Studios, converted by `vendor/soundfont/build-cc0.js`
+  (mono, from the onset, levelled to the set each replaces, 96 kbps MP3):
+  the Kawai grand from VCSL (37 notes, 2.0 MB, for 2.1 MB before), the
+  Baroque soprano recorder from VCSL (13 notes, 0.7 MB, for 4.5 MB), the
+  solo double bass played pizzicato from VSCO 2 (14 notes, 0.4 MB, for 1.6
+  MB) and a hi-hat, open hat, pedal hat, snare and cross-stick from VCSL
+  (0.1 MB; the other drums stay). The sampler plays each note from the
+  nearest one a set keeps (`SAMPLE_NOTES`), and `SAMPLE_SETS.use` switches
+  between the old and new sets (`--samples old` in the report). The
+  recorder is filed at its written pitch and so sounds an octave above it,
+  as a soprano recorder does: a class hears the register it plays in.
+  Measured against the baseline (137 plays, exciter off): the mix's
+  centroid 409 to 682 Hz, its tilt -3.4 to -2.4 dB an octave, the melody 1.5 LU further over the
+  band, the cymbals reaching 20 kHz (7 kHz before), notes sustaining 4.5 to
+  6 s (3.1 before); a play loads about a quarter more (943 KB for 759:
+  longer notes), the sets weigh less than half. This is the saved baseline. With real top end the exciter moved the centroid 2
+  Hz, so it is off (`SOUND.air` 0). Still FluidR3: the nylon guitar (the
+  only CC0 one found, FreePats', was recorded in poor conditions and comes
+  as .7z) and the electric piano (none found; to be synthesised). Next from
+  the same libraries, all CC0: a fiddle (VSCO 2 solo violin), brass for the
+  marches, harp, glockenspiel, marimba and xylophone for the Orff class,
+  and balafon, kalimba, mbira, conga, darbuka, frame drum and agogo for the
+  world styles.
+- The electric piano is synthesised (no CC0 set was found): two FM pairs,
+  a body bent more by a harder note and less as it rings, and a short tine
+  ping fourteen times up; low notes ring for seconds, high ones for under
+  one. It stands in for the FluidR3 set (`SAMPLE_SETS.electric_piano_1`),
+  so the comping of funk and lo-fi and the Wicki-Hayden view's melody use
+  it. Levelled by LUFS against the old samples. The voice bench: top end
+  7.6 kHz (5.1 before), a note rings 5.6 s (3.1), 0.022 of real time to
+  render, nothing to download (1.6 MB before). The melody stands about 1 LU
+  further over the band in the two styles.
+- The band now hears the melody where it sounds: under the soprano
+  recorder, an octave above what is written, so its chords no longer keep
+  an octave further down than they need (chords at or above the tune: 42
+  plays to none). The comping's upper notes (D4 up) stand right of its lower
+  ones, as a piano miked in stereo; this moved width only 0.088 to 0.097,
+  since the tune, bass, kick and snare stay in the middle for a classroom's
+  one speaker, so the width bound is now 0.05 (not mono), not 0.15.
+- Metrics corrected the same day: the timing grid has 32nds and triplets
+  (a fill's 32nd notes read as 35 ms late before), and the comping's
+  answers to the melody are a line of their own, not the top of a chord.
+  Left as they are, with reasons: chord fit under 0.7 is Crows on the Fence
+  (a pentatonic tune's added sixths and ninths over its written chords) and
+  a Morris tune; the drones let the melody stand a little over 9 LU.
+- New CC0 sets from VSCO 2 CE (2.1 MB in all): solo violin, trumpet, tuba
+  (staccato), glockenspiel, marimba and xylophone, each name's octave
+  checked by pitch detection. With no instrument view, the tune's R: line
+  picks the melody's sound: a reel, jig or hornpipe on the fiddle (the
+  course's 30 reels), a march on the trumpet; the march style's bass is the
+  tuba's oom-pah. A `%%MIDI program` reaches the strings, brass and bars
+  (before, every program without samples fell back to the piano). By ear
+  the fiddle and trumpet sit well over the band. The band does not yet
+  hear a glockenspiel or xylophone melody at its sounding octave.
+- The tuba's low-mids (band share 0.08 to 0.56 in the march sweep, over
+  the 0.45 bound) are its own sound, not build-up: the bass carries most
+  of a band's energy, and a tuba's harmonics sit at 200-500 Hz where a
+  plucked bass has little. An octave down moved the share 0.53-0.62 to
+  0.48-0.59; 3.8 dB quieter (its LUFS gap over the double bass) moved it
+  to 0.47-0.56 and left the tune 11 LU over the band, so the level stays.
+  By ear it is not muddy (its notes are short), and it sounds best at the
+  double bass's octave, so it stays there; a 2.5 dB dip at 300 Hz in its
+  samples eases it (share 0.47-0.56), and the march is exempt from the
+  low-mid bound, with the reason.
+- Found by the report: since the rounds merge the melody plays 3.0 dB
+  louder (the tune 8.2 LU over the band, 5.5 before; 42 plays over the
+  9 LU bound). The round groups' stereo panners feed the melody's chain,
+  so its mono notes are mixed up to stereo and pass the centre panner at
+  full level instead of its equal-power -3 dB. Listening on 2026-11-11
+  (fiddle, trumpet, tuba) was with the louder melody, and it was kept: a
+  forward tune suits learners. The melody's chain is now stereo on
+  purpose, the prominence bound is 12.5 LU (the thin folk styles reach
+  12.2), and this state is the baseline (52 guardrail breaks in 137
+  plays; 1 over the new prominence bound). A louder centred tune narrows
+  the mix a little: width is just under its 0.05 floor in 11 plays
+  (0.047-0.049), left as it is.
+- Glitches heard in Safari (stutters, pops): not reproduced in Chromium,
+  where no note was late (each scheduled at least 50 ms ahead) and the
+  page's main thread stayed under 16 ms a task while playing. Hardened
+  anyway: the context asks for the 'playback' buffer (23 ms against
+  5.8 in Chromium, the views already allowing for latency), the notes are
+  scheduled 600 ms ahead (320), the pump styles' duck dips over 3 ms
+  instead of stepping (a click), and fader and room changes glide.
+- The mixer's faders were cut off at the top in a short dock (flex-end
+  pushed them up past the drawer's edge); they sit at its foot by an auto
+  margin now and scroll if need be, with a tick at 100 and the value in
+  their tooltip (100 sits two thirds up, as the scale runs to 150).
+- Play wakes a Safari audio context that was left "interrupted" (after a
+  lock screen or a call; it only woke a "suspended" one), and asks an
+  iPhone for playback audio so the ring/silent switch does not mute it.
 - Still open: synth leads; actual West African language/culture/classroom
   responses and a permission-safe lullaby; Ilocano language/culture/history
   review; Native Hawaiian and Japanese reviews for the new candidates; a
@@ -556,3 +715,34 @@ a `make` target, and the smoke test runs all five.
   citation/source link, plate-reading and uncertainty record, range/key note
   and named human review for every workshop and review-queue item. Its focused
   test requires those records before a source check can be marked verified.
+
+## Completion assessment (10 November 2026)
+
+The engine work is well advanced, but the content and classroom-validation
+work are not. Phase 0 is complete as an automated baseline (reports, coverage
+map, offline audio and guardrails), though the harness samples five tunes
+through every style rather than rendering every tune/style pair, and there is
+no teacher/kids listening panel yet. Phases 1 and 2 have the idiom registry,
+style-aware harmony, textures, endings, mix bus, modern grooves and synthesised
+rhythm/bass/pad voices; still missing are a full named song roadmap
+(intro/verse/build/drop/breakdown/outro), readable key changes, synth leads,
+one-LU loudness matching and set/playlist mode.
+
+The largest unfinished block is the repertoire. None of the 37 published tunes
+has a complete seven-field dossier, eight target regions remain empty, West
+Africa remains absent, and the workshop tunes still need source, classroom and
+culture-bearer review before publication. Phase 4 is untouched: 0 of 10
+original bangers have been drafted. Phase 5 has range, accompaniment, round and
+class-part reports plus a more responsive measured band, but its generated
+parts are rehearsal recipes rather than finished chart voices; 22 tunes still
+need harmony review, and automatic music-minus-one, a live conductor energy
+fader, named-section loops/roadmap strip, cueable vamps and conducted endings
+remain to build. Phase 6 has a good gap queue, but filling it and recording
+specialist sign-off remain open. In short: automated musical infrastructure is
+strong; repertoire expansion, finished classroom UX and human listening/review
+are the critical path.
+
+On the workshop branch (11 November 2026), Phase 4 and West Africa have
+begun there: *Freeze on One* and the thirty Ontario listening bridges are
+drafted, and *Sansa Akroma* and *Go le mimli* are transcribed. None is
+published or reviewed yet.

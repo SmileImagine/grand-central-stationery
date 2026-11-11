@@ -1,4 +1,4 @@
-.PHONY: smoke sets reports classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map repertoire-audit
+.PHONY: smoke band-metrics sets reports classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map repertoire-audit
 
 # The workshop and the review queue exist only in the workshop branch, never on main (see course/README.md).
 sets:
@@ -29,3 +29,7 @@ repertoire-audit:
 
 smoke:
 	node test/smoke.js
+
+# The Band measured in headless Chrome (needs Chrome and python3): docs/BAND-METRICS.md, compared with the saved baseline.
+band-metrics:
+	node test/band-report.js

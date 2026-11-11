@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 // The arranger in each style: the chords it adds belong to that style's harmony. Also the chart's
-// intro, ending and texture settings, the band's bars as played (a repeat plays its bars again), its textures, and
-// the idiom registry (every style's groove in every metre).
+// ending and texture settings, the band's bars as played (a repeat plays its bars again), its textures, and
+// the idiom registry (every style's groove in every metre), and the band listening to the melody (Feel).
 // Runs the page's own functions (lifted out of index.html by name) on tunes parsed by abcjs.
 
 const fs = require('fs');
@@ -20,9 +20,9 @@ function lift(name) {
   let end = start + 1; while (end < html.length && !/^    [}\]];?\s*$/.test(html[end])) end++;
   return html.slice(start, end + 1).join('\n');
 }
-const names = ['PC_COLORS', 'LETTER_PC', 'ACC_SEMI', 'SHARP_NAMES', 'collect', 'spell', 'chordPcs', 'tuneBars', 'keyInfoOf', 'melodyChordFinder', 'arrange', 'STYLES', 'harmonyOf', 'CHART_LINE', 'CHART_NUM', 'parseChart', 'playedBars', 'DRUM', 'textured', 'mulberry', 'pick', 'miniOf', 'hitString', 'FIT_DUPLE', 'fitOf', 'GROOVES', 'scoreFor', 'KIT', 'formOf'];
+const names = ['PC_COLORS', 'LETTER_PC', 'ACC_SEMI', 'SHARP_NAMES', 'collect', 'spell', 'chordPcs', 'tuneBars', 'keyInfoOf', 'melodyChordFinder', 'arrange', 'STYLES', 'harmonyOf', 'CHART_LINE', 'CHART_NUM', 'parseChart', 'playedBars', 'DRUM', 'textured', 'mulberry', 'pick', 'miniOf', 'hitString', 'FIT_DUPLE', 'fitOf', 'GROOVES', 'scoreFor', 'KIT', 'formOf', 'melodyLine', 'bandFeel', 'COMP_FOLDER', 'LOW_LIMIT', 'clearOf'];
 const page = new Function(`${names.map(lift).join('\n')}\nreturn { ${names.filter(n => n !== 'SHARP_NAMES').join(', ')}, FLAT_NAMES, SHARP_NAMES };`)();
-const { chordPcs, arrange, harmonyOf, formOf, keyInfoOf, parseChart, playedBars, textured, DRUM, GROOVES, scoreFor, fitOf, KIT } = page;
+const { chordPcs, arrange, harmonyOf, formOf, keyInfoOf, parseChart, playedBars, textured, DRUM, GROOVES, scoreFor, fitOf, KIT, melodyLine, bandFeel, COMP_FOLDER, clearOf } = page;
 
 let checks = 0;
 const assert = (ok, message) => { checks++; if (!ok) throw new Error(message); };
@@ -99,9 +99,10 @@ const dj = arrangeIn(dorian, 'jig');
 for (const c of dj.added) { const cp = chordPcs(c); assert(cp.pcs.every(p => dor.scale.includes(p)), `Dorian jig: ${c} is in the mode`); }
 assert(!dj.ch[4].includes('E') && !dj.ch[4].includes('E7'), `Dorian jig: no major V at the end (${dj.ch[4]})`);
 
-// The chart's way in and out: intro= bars and ending=hit|none on the settings line.
-const sect = parseChart('%%band intro=4 ending=none\n%%band 1: energy=30 | C | G |');
-assert(sect.defaults.intro === 4 && sect.defaults.ending === 'none' && !sect.problems.length, `intro and ending settings: ${JSON.stringify(sect)}`);
+// The chart's way out: ending=hit|none on the settings line. There is no intro (a bar of clicks counts the tune in).
+const sect = parseChart('%%band ending=none\n%%band 1: energy=30 | C | G |');
+assert(sect.defaults.ending === 'none' && !sect.problems.length, `ending setting: ${JSON.stringify(sect)}`);
+assert(parseChart('%%band intro=2').problems.length === 1, 'intro is not a setting');
 assert(parseChart('%%band ending=fade').problems.length === 1, 'ending wants hit or none');
 
 // The band's bars as played. Written: a one-beat pickup, then bars of four beats, the last of three (ms at 1000 a beat).
@@ -165,5 +166,39 @@ for (const k of ['pop', 'house', 'folk', 'jig', 'ballad']) {
 }
 const built = textured(band, 'build', TB);
 assert(!built.some(n => n.midi === DRUM.kick || n.part === 'bass') && built.filter(n => n.midi === DRUM.snare).length === 8 + 16, `build: no kick or bass, a roll of eighths then sixteenths: ${built.filter(n => n.midi === DRUM.snare).length}`);
+
+// The band listening (bandFeel), at 1000 ms a beat in two bars of four. The melody: four quarters in bar 1, then a note
+// held for the whole of bar 2. Two bass notes and two chords of three notes each bar, one on the beat and one off it.
+const FB = [{ s: 0, e: 4000, beats: 4 }, { s: 4000, e: 8000, beats: 4 }];
+const tune = melodyLine([0, 1000, 2000, 3000, 4000].map((ms, i) => ({ ms, midis: [72 + i] })).concat([{ ms: 8000, midis: [] }]), 8000);
+assert(tune.length === 5 && tune[4].end === 8000 && tune[0].end === 1000 && tune[0].pcs[0] === 0, `melodyLine: onsets, ends at the next event, pitch classes: ${JSON.stringify(tune)}`);
+const plain = () => { let hit = 0; const out = []; for (const s of [0, 4000]) for (const at of [0, 1500]) { out.push({ part: 'bass', t: s + at, midi: 36, vel: 0.8 }); hit++; for (const m of [55, 60, 64]) out.push({ part: 'chords', t: s + at, midi: m, vel: 0.5, hit }); } out.push({ part: 'drums', t: 0, midi: DRUM.kick, vel: 0.9 }); return out; };
+const same = bandFeel(plain(), tune, FB, 0, 1);
+assert(JSON.stringify(same) === JSON.stringify(plain()), 'Feel 0 plays the score exactly');
+const felt = bandFeel(plain(), tune, FB, 0.6, 1), at = (part, t, midi) => felt.find(n => n.part === part && Math.abs(n.t - t) < 30 && (midi === undefined || n.midi === midi));
+assert(JSON.stringify(bandFeel(plain(), tune, FB, 0.6, 1)) === JSON.stringify(felt), 'the same seed plays the same way');
+assert(at('bass', 0).vel > at('bass', 1500).vel, `the bass leans on the downbeat: ${at('bass', 0).vel} against ${at('bass', 1500).vel}`);
+assert(at('chords', 0, 64).vel > at('chords', 0, 60).vel, 'a chord\'s top note sings over its inner note');
+assert(at('bass', 5500).vel > at('bass', 1500).vel, `the band speaks up where the melody holds: ${at('bass', 5500).vel} against ${at('bass', 1500).vel}`);
+for (const h of [1, 2, 3, 4]) { const ts = felt.filter(n => n.hit === h).map(n => n.t); assert(new Set(ts).size === 1 && Math.abs(ts[0] - [0, 1500, 4000, 5500][h - 1]) <= 20, `a chord's notes move together, a few ms at most: ${ts}`); }
+assert(felt.every((n, i) => i === 0 || felt[i - 1].t <= n.t), 'still in time order');
+assert(Object.keys(page.STYLES).every(k => !page.STYLES[k].comp || COMP_FOLDER[page.STYLES[k].comp]), 'every comping instrument has samples');
+// Voicings clear of the bass: nothing under it, no close interval too low for its register, nothing pushed over the tune.
+assert(clearOf([52, 55, 60], 48).join() === '52,55,60', 'a C chord over C3 is clear as it is');
+assert(clearOf([40, 43, 48], 48).join() === '52,55,60', 'a close chord under the bass goes up over it');
+assert(clearOf([47, 50, 55], 43).join() === '50,55,59', `a third too low for its register opens out: ${clearOf([47, 50, 55], 43)}`);
+assert(clearOf([47, 50, 55, 60], 43, 58).join() === '50,55', `a note that would rise over the tune is left out: ${clearOf([47, 50, 55, 60], 43, 58)}`);
+
+// The melody's sound: the tune's R: line with no instrument view, and every General MIDI program onto a set that is on disk.
+const PROGRAM_FOLDER = new Function(`${html.slice(html.findIndex(l => /^    const PROGRAM_FOLDER = /.test(l))).join('\n').split(/;\s*\n/)[0]}; return PROGRAM_FOLDER;`)();
+const { voiceFor } = new Function(`${lift('TUNE_VOICE')}\n${lift('voiceFor')}\nreturn { voiceFor };`)();
+assert(voiceFor('X:1\nR:reel\nK:D') === 40 && voiceFor('X:1\nR:Jig\nK:G') === 40, 'a reel and a jig take the fiddle');
+assert(voiceFor('X:1\nR:march\nK:F') === 56, 'a march takes the trumpet');
+assert(voiceFor('X:1\nR:song\nK:C') === 0 && voiceFor('X:1\nK:C') === 0, 'a song, or a tune with no R: line, keeps the piano');
+const onDisk = f => fs.existsSync(path.join(root, 'vendor', 'soundfont', f + '-mp3'));
+const named = new Set([...Array(129).keys()].map(PROGRAM_FOLDER));
+for (const k of Object.keys(page.STYLES)) for (const f of Object.values(page.STYLES[k].sound || {})) if (/^vsco_|^vcsl_/.test(f)) named.add(f);
+for (const f of named) assert(onDisk(f), `program or style sound ${f} has samples on disk`);
+assert(PROGRAM_FOLDER(40) === 'vsco_violin' && PROGRAM_FOLDER(56) === 'vsco_trumpet' && PROGRAM_FOLDER(58) === 'vsco_tuba' && PROGRAM_FOLDER(13) === 'vsco_xylophone', 'fiddle, trumpet, tuba and xylophone programs reach their sets');
 
 console.log(`Arranger checks passed (${checks} checks; ${chorded.length} chorded tunes in ${Object.keys(page.STYLES).length - 1} styles).`);

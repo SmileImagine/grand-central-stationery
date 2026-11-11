@@ -68,7 +68,7 @@ node course/repertoire-audit.js --md course/repertoire-audit.md
 node course/repertoire-audit.js --check course/repertoire-audit.md
 ```
 
-Two more reports read the published set the same way. `course/class-parts.js` gives each tune a conservative one-bar body-percussion part and a tonic/fifth rehearsal part, and notes written harmony, ukulele readiness and round or descant candidates without inventing chord changes. `course/dossier-gaps.js` counts only explicit `% dossier-*:` fields as a complete dossier, keeping ordinary ABC metadata as a seed. After the set changes, `make reports` rebuilds all six reports on the workshop branch; each has a `--check` mode, and the smoke test fails while any is stale.
+Two more reports read the published set the same way. `course/class-parts.js` gives each tune a conservative one-bar body-percussion part and a tonic/fifth rehearsal part, and notes written harmony and ukulele readiness without inventing chord changes, and sings each tune against itself to find the ones that work as rounds, scored as the page scores a `%%round` line (`course/round-fit.js` keeps a copy of the page's scoring, and `test/class-parts.test.js` checks the two agree), with the `%%round` line to try. `course/dossier-gaps.js` counts only explicit `% dossier-*:` fields as a complete dossier, keeping ordinary ABC metadata as a seed. After the set changes, `make reports` rebuilds all six reports on the workshop branch; each has a `--check` mode, and the smoke test fails while any is stale.
 
 ## Rhythms and dances
 
