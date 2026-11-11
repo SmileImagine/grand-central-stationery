@@ -21,7 +21,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | half note (“ta-ah”) (2), new | 8 | A half note: one sound held for two beats, after notes of one beat (on “down”). |
+| duration | half note (“ta-ah”) (2), new | 8 | A half note: one sound held for two beats (on “down”). |
 | pitch | intervals (unison, step, skip, leap) (4), new | 1 | The widest leap in the tune, mi up to la: a perfect 4th (on “Ring a-round the”). |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
@@ -131,18 +131,18 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”) (1) | 2 | Ti-ti beside ta: the rhythm moves twice as fast as the beat. |
-| pitch | major scale (written with notes or numbers) (4), new | 4 | Fa, the fourth note of the major scale, between mi and so. |
+| duration | half note (“ta-ah”) (2) | 1 | A half note: one sound held for two beats (on “Lou”). |
+| pitch | major scale (written with notes or numbers) (4), new | 8 | Fa, the fourth note of the major scale, between mi and so (on “Lou”). |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | — | | The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s). |
-| form | phrase (1) | 1–4 | The first phrase, about four bars ending on fa. |
+| form | phrase (1) | 1–4 | The first phrase, ending where the words take a breath (on “Lou, Lou, skip to my Lou”). |
 
 ## Twinkle, Twinkle, Little Star
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | half note (“ta-ah”) (2) | 2 | A half note: one sound held for two beats, after notes of one beat (on “lit-tle star”). |
+| duration | half note (“ta-ah”) (2) | 2 | A half note: one sound held for two beats, beside notes of one beat (on “lit-tle star”). |
 | pitch | intervals (unison, step, skip, leap) (4) | 1 | The widest leap in the tune, do up to so: a perfect 5th (on “Twin-kle, twin-kle”). |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
@@ -164,7 +164,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | half note (“ta-ah”) (2) | 1 | A half note: one sound held for two beats, after notes of one beat (on “This old man”). |
+| duration | half note (“ta-ah”) (2) | 1 | A half note: one sound held for two beats, beside notes of one beat (on “This old man”). |
 | pitch | intervals (unison, step, skip, leap) (4) | 5 | The widest leap in the tune, so down to do: a perfect 5th (on “knick-knack pad-dy-whack”). |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
@@ -186,7 +186,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | half note (“ta-ah”) (2) | 3 | A half note: one sound held for two beats, after notes of one beat (on “Broth-er John”). |
+| duration | half note (“ta-ah”) (2) | 3 | A half note: one sound held for two beats, beside notes of one beat (on “Broth-er John”). |
 | pitch | low “so”, low “la” (3) | 7 | The tune dips below do to low so (on “ding dang dong”). The bells of the last line ring down below do and back. |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
@@ -219,7 +219,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | half note (“ta-ah”) (2) | 3 | A half note: one sound held for two beats, after notes of one beat. |
+| duration | half note (“ta-ah”) (2) | 3 | A half note: one sound held for two beats, beside notes of one beat. |
 | pitch | high “do” (2) | 4 | The tune reaches high do, an octave above the do it starts from. |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
@@ -263,7 +263,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 
 | Element | Concept (grade) | Bars | Why |
 |---|---|---|---|
-| duration | half note (“ta-ah”) (2) | 6 | A half note: one sound held for two beats, after notes of one beat. |
+| duration | half note (“ta-ah”) (2) | 6 | A half note: one sound held for two beats, beside notes of one beat. |
 | pitch | intervals (unison, step, skip, leap) (4) | 6–7 | The widest leap in the tune, high so down to high do: a perfect 5th. |
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |

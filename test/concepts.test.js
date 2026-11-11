@@ -89,7 +89,8 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   eq(entry('beginner-songs-10-lightly-row', 'form').concept, 'aaba', 'Lightly Row: A A B A');
   // Reasons quote the words only where the verse fits the notes.
   eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'duration').reason.includes('(on “lit-tle star”)'), true, 'Twinkle: a reason quotes the words under its bars');
-  assert(!/on “/.test(entry('beginner-songs-11-skip-to-my-lou', 'pitch').reason), 'Skip to My Lou: its verse does not fit its notes, so no words are quoted');
+  assert(/on “/.test(entry('beginner-songs-11-skip-to-my-lou', 'form').reason), 'Skip to My Lou: its verse now fits its notes, so its words are quoted');
+  assert(!/on “/.test(entry('hindostan-folk-5-chhaila', 'duration').reason), 'Chhaila: its verse does not fit its notes, so no words are quoted');
 }
 
 /* ---------------- the Listen step's choices ---------------- */

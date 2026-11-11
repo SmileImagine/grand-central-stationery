@@ -154,7 +154,7 @@ const CONCEPTS = [
   { id: 'half', el: 'duration', name: 'a two-beat note', grade: 2, term: 'half note (“ta-ah”)', words: 'one sound held for two beats', intro: ['dur:2'],
     tune: T => simple(T) && T.f.metreDen === 4, shows: w => w.notes.some(n => writtenIs(n, 1 / 2)), span: 1,
     score: (T, w) => w.notes.some(n => writtenIs(n, 1 / 4)) ? 1 : 0,
-    reason: (T, w) => `A half note: one sound held for two beats, after notes of one beat${onWords(T, w.from, w.to)}.` },
+    reason: (T, w) => `A half note: one sound held for two beats${w.notes.some(n => writtenIs(n, 1 / 4)) ? ', beside notes of one beat' : ''}${onWords(T, w.from, w.to)}.` },
   { id: 'metre-3', el: 'duration', name: 'three beats in a bar', grade: 3, term: 'three beats per bar (3/4 metre)', words: 'three beats in every bar: strong, weak, weak', intro: ['metre:3/4'],
     tune: T => T.f.metreNum === 3 && T.f.metreDen === 4, whole: true, shows: (w, T) => !T.bars[w.from].short, span: 1,
     reason: (T, w) => `Three beats in every bar, strong-weak-weak; ${barsWord(w.from, w.to)} is the first full bar${onWords(T, w.from, w.to)}.` },

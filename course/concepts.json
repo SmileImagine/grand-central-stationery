@@ -99,7 +99,7 @@
      8,
      8
     ],
-    "reason": "A half note: one sound held for two beats, after notes of one beat (on “down”).",
+    "reason": "A half note: one sound held for two beats (on “down”).",
     "new": true
    },
    "pitch": {
@@ -629,16 +629,16 @@
   "beginner-songs-11-skip-to-my-lou": {
    "title": "Skip to My Lou",
    "duration": {
-    "concept": "ti-ti",
-    "name": "ti-ti and ta",
-    "grade": 1,
-    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
-    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
     "bars": [
-     2,
-     2
+     1,
+     1
     ],
-    "reason": "Ti-ti beside ta: the rhythm moves twice as fast as the beat."
+    "reason": "A half note: one sound held for two beats (on “Lou”)."
    },
    "pitch": {
     "concept": "fa",
@@ -647,10 +647,10 @@
     "term": "major scale (written with notes or numbers)",
     "words": "fa: the note between mi and so that the pentatonic scale leaves out",
     "bars": [
-     4,
-     4
+     8,
+     8
     ],
-    "reason": "Fa, the fourth note of the major scale, between mi and so.",
+    "reason": "Fa, the fourth note of the major scale, between mi and so (on “Lou”).",
     "new": true
    },
    "dynamics": {
@@ -675,7 +675,7 @@
      1,
      4
     ],
-    "reason": "The first phrase, about four bars ending on fa."
+    "reason": "The first phrase, ending where the words take a breath (on “Lou, Lou, skip to my Lou”)."
    }
   },
   "first-tunes-3-twinkle-twinkle-little-star": {
@@ -690,7 +690,7 @@
      2,
      2
     ],
-    "reason": "A half note: one sound held for two beats, after notes of one beat (on “lit-tle star”)."
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “lit-tle star”)."
    },
    "pitch": {
     "concept": "leap",
@@ -792,7 +792,7 @@
      1,
      1
     ],
-    "reason": "A half note: one sound held for two beats, after notes of one beat (on “This old man”)."
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “This old man”)."
    },
    "pitch": {
     "concept": "leap",
@@ -894,7 +894,7 @@
      3,
      3
     ],
-    "reason": "A half note: one sound held for two beats, after notes of one beat (on “Broth-er John”)."
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “Broth-er John”)."
    },
    "pitch": {
     "concept": "low-so-la",
@@ -1071,7 +1071,7 @@
      3,
      3
     ],
-    "reason": "A half note: one sound held for two beats, after notes of one beat."
+    "reason": "A half note: one sound held for two beats, beside notes of one beat."
    },
    "pitch": {
     "concept": "high-do",
@@ -1319,7 +1319,7 @@
      6,
      6
     ],
-    "reason": "A half note: one sound held for two beats, after notes of one beat."
+    "reason": "A half note: one sound held for two beats, beside notes of one beat."
    },
    "pitch": {
     "concept": "leap",

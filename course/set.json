@@ -553,10 +553,10 @@
    "id": "beginner-songs-11-skip-to-my-lou",
    "title": "Skip to My Lou",
    "level": 3,
-   "score": 4.21,
+   "score": 4.71,
    "key": "C",
    "metre": "2/4",
-   "bars": 8,
+   "bars": 16,
    "origin": "USA",
    "composer": "",
    "rhythm": "",
@@ -570,6 +570,7 @@
     "degree:ti",
     "dur:1",
     "dur:1/2",
+    "dur:2",
     "key:0",
     "leap:4th",
     "metre:2/4",
@@ -578,7 +579,7 @@
    "introduces": [
     "degree:fa"
    ],
-   "abc": "X:11\nT:Skip to My Lou\nO:USA\nM:2/4\nL:1/8\nK:C\nEE CC | EE G2 | DD B,B, | DD F2 | EE CC | EE G2 | DD FF | ED C2 |]\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
+   "abc": "X:11\nT:Skip to My Lou\nO:USA\nM:2/4\nL:1/8\nK:C\nE4 | C4 | E2 EE | G4 | D4 | B,4 | D2 DD | F4 |\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou,\nE4 | C4 | E2 EE | G4 | D2 DD | F2 E2 | D4 | C4 |]\nw: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -587,6 +588,7 @@
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [

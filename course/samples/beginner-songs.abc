@@ -4,7 +4,8 @@
 % Checked 11 November 2026: Bounce High, Rain Rain, Rocky Mountain and Go Tell
 % Aunt Rhody against the Kodaly teaching transcriptions of the American folk
 % versions (150 American Folk Songs and its addenda); This Old Man against the
-% BBC's Singing Together (1970), with the American "with a" pickup. Words now
+% BBC's Singing Together (1970), with the American "with a" pickup.
+% Skip to My Lou has its long "Lou, Lou" (two beats each). Words now
 % fit their notes one syllable to a note, _ marking a syllable held over two.
 
 X:1
@@ -99,8 +100,10 @@ O:USA
 M:2/4
 L:1/8
 K:C
-EE CC | EE G2 | DD B,B, | DD F2 | EE CC | EE G2 | DD FF | ED C2 |]
-w: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
+E4 | C4 | E2 EE | G4 | D4 | B,4 | D2 DD | F4 |
+w: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou,
+E4 | C4 | E2 EE | G4 | D2 DD | F2 E2 | D4 | C4 |]
+w: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
 
 X:12
 T:Baa, Baa, Black Sheep
