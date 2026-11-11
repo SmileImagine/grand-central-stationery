@@ -58,7 +58,8 @@
   function noteMetrics(cap) {
     const withEnd = n => ({ ...n, end: n.ms + Math.max(0.03, n.dur || 0.08) * 1000 });
     const notes = cap.notes.map(withEnd).sort((a, b) => a.ms - b.ms);
-    const mel = notes.filter(n => n.part === 'melody'), chords = notes.filter(n => n.part === 'chords' && !n.pad), pads = notes.filter(n => n.pad), bass = notes.filter(n => n.part === 'bass'), drums = notes.filter(n => n.part === 'drums');
+    // The comping's chords: not the held pad, and not its answers to the melody (a line of their own).
+    const mel = notes.filter(n => n.part === 'melody'), chords = notes.filter(n => n.part === 'chords' && !n.pad && !n.answer), pads = notes.filter(n => n.pad), bass = notes.filter(n => n.part === 'bass'), drums = notes.filter(n => n.part === 'drums');
     const pitched = notes.filter(n => n.part === 'chords' || n.part === 'bass');
     const g = grid(cap.bars.filter(b => !b.pickup), cap.compound);
     const segs = (cap.segs || []).slice().sort((a, b) => a.ms - b.ms);
@@ -142,8 +143,11 @@
     // ---- time and touch ----
     // Each onset's distance from the nearest step of the grid (sixteenths, or the eighths of a compound beat, or a swung
     // or triplet eighth), with the part's own lean taken out: how loose the playing is, in ms.
+    // The grid's steps within a beat: 32nds and triplets (a fill's 32nd notes are on the grid, not late), or in compound
+    // time its sixths and twelfths.
+    const STEPS = { simple: [...new Set([...Array(9).keys()].map(k => k / 8).concat([...Array(7).keys()].map(k => k / 6)))].sort((a, b) => a - b), compound: [...Array(13).keys()].map(k => k / 12) };
     // Each position in the beat keeps its own average lean (a swing's late off-beat is a style, not looseness).
-    const offset = t => { const p = g.place(t); if (!p) return null; const steps = cap.compound ? [0, 1 / 6, 1 / 3, 1 / 2, 2 / 3, 5 / 6, 1] : [0, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 3 / 4, 1]; const f = p.q - Math.floor(p.q); let best = Infinity, at = 0; for (const s of steps) if (Math.abs(f - s) < Math.abs(best)) { best = f - s; at = s % 1; } return { at: Math.round(at * 12), ms: best * p.beat }; };
+    const offset = t => { const p = g.place(t); if (!p) return null; const steps = STEPS[cap.compound ? 'compound' : 'simple']; const f = p.q - Math.floor(p.q); let best = Infinity, at = 0; for (const s of steps) if (Math.abs(f - s) < Math.abs(best)) { best = f - s; at = s % 1; } return { at: Math.round(at * 24), ms: best * p.beat }; };
     const looseness = ns => { const by = new Map(); for (const n of ns) { const o = offset(n.ms); if (!o) continue; if (!by.has(o.at)) by.set(o.at, []); by.get(o.at).push(o.ms); } const res = []; for (const a of by.values()) { const m = mean(a); for (const x of a) res.push(x - m); } return sd(res); };
     out.timingDrums = looseness(drums);
     out.timingBass = looseness(bass);
@@ -157,7 +161,7 @@
     // ---- listening ----
     // The band's own onsets (bass and chord hits) landing with the melody's, and the holes it answers: where the melody
     // waits two beats or more, whether the bass or chords play in the part after its first beat.
-    const bandOnsets = [...bass.map(n => n.ms), ...hits.map(h => h.ms)].sort((a, b) => a - b);
+    const bandOnsets = [...bass.map(n => n.ms), ...hits.map(h => h.ms), ...notes.filter(n => n.answer).map(n => n.ms)].sort((a, b) => a - b);
     const melOn = mel.map(n => n.ms);
     out.together = bandOnsets.length ? bandOnsets.filter(t => melOn.some(m => Math.abs(m - t) < 40)).length / bandOnsets.length : NaN;
     // In each hole, the band's onsets a beat after the melody's last note up to its next, against the band's onsets a
@@ -222,7 +226,7 @@
     ['prominence', 2, 9, 'the melody stands above the band, but the band is still heard (LU)'],
     ['masked', null, 0.35, 'the band leaves the melody’s strongest frequencies mostly to it'],
     ['bandLowMid', null, 0.45, 'the band builds up little between 200 and 500 Hz'],
-    ['width', 0.15, null, 'some stereo image'],
+    ['width', 0.05, null, 'not mono (the tune, bass, kick and snare stay centred so one classroom speaker loses nothing: moving the comping across the field moved width 0.088 to 0.097, so 0.15 was no target)'],
   ];
   // The styles a guard does not apply to: a drone holds the tonic against the raga's every note (its flat second too),
   // and a loop style repeats its bar on purpose.

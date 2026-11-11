@@ -503,6 +503,28 @@ whatever the emphasis:
   marches, harp, glockenspiel, marimba and xylophone for the Orff class,
   and balafon, kalimba, mbira, conga, darbuka, frame drum and agogo for the
   world styles.
+- The electric piano is synthesised (no CC0 set was found): two FM pairs,
+  a body bent more by a harder note and less as it rings, and a short tine
+  ping fourteen times up; low notes ring for seconds, high ones for under
+  one. It stands in for the FluidR3 set (`SAMPLE_SETS.electric_piano_1`),
+  so the comping of funk and lo-fi and the Wicki-Hayden view's melody use
+  it. Levelled by LUFS against the old samples. The voice bench: top end
+  7.6 kHz (5.1 before), a note rings 5.6 s (3.1), 0.022 of real time to
+  render, nothing to download (1.6 MB before). The melody stands about 1 LU
+  further over the band in the two styles.
+- The band now hears the melody where it sounds: under the soprano
+  recorder, an octave above what is written, so its chords no longer keep
+  an octave further down than they need (chords at or above the tune: 42
+  plays to none). The comping's upper notes (D4 up) stand right of its lower
+  ones, as a piano miked in stereo; this moved width only 0.088 to 0.097,
+  since the tune, bass, kick and snare stay in the middle for a classroom's
+  one speaker, so the width bound is now 0.05 (not mono), not 0.15.
+- Metrics corrected the same day: the timing grid has 32nds and triplets
+  (a fill's 32nd notes read as 35 ms late before), and the comping's
+  answers to the melody are a line of their own, not the top of a chord.
+  Left as they are, with reasons: chord fit under 0.7 is Crows on the Fence
+  (a pentatonic tune's added sixths and ninths over its written chords) and
+  a Morris tune; the drones let the melody stand a little over 9 LU.
 - Still open: synth leads; West African tunes; more from Andrade, Jekyll,
   Fairchild and the Japanese books; original bangers (phase 4); the live
   energy fader (phase 5).
