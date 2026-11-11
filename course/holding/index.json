@@ -9,8 +9,8 @@
  ],
  "counts": {
   "inbox": 3,
-  "transcription": 8,
-  "source-check": 23,
+  "transcription": 7,
+  "source-check": 24,
   "classroom-check": 36,
   "ready": 0
  },
@@ -1111,12 +1111,12 @@
    "performanceNotes": [
     "No recording of this song found. Curtis made phonograph records of the singers (book, p. xxv), not yet located (Columbia University, the Library of Congress and the Smithsonian are the likely places). For the style of Ndau singing with clapping, the International Library of African Music (ILAM, Rhodes University) holds many Ndau recordings: digitalarchives.ru.ac.za, search \"Ndau\"; listen and choose one before linking."
    ],
-   "status": "transcription",
+   "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
    "classroomCheck": "pending",
    "updated": "2026-11-10",
-   "blocked": "Transcription: the opening six bars and the four clap parts are read; the rest of the song (pp. 104-105: \"Ndo da kwumisha\", the grunted \"O ha o\" bars, the ending) is still to transcribe, though Curtis says any phrase may be repeated and the order is free, so these six bars looped are already the song as danced. Then source check (the sextuplet clap figures, and \"e\" at the end of bar 4 against \"e yo-we\" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.",
+   "blocked": "Source check against pp. 103-105 (the whole song is now transcribed, 2026-11-11): especially the low grunted bars marked * (\"O ha o\", E-G sharp-B below the staff), the sextuplet and quintuplet figures, and the two closing bars, where the 32nd-note groups are read approximately. Then (the sextuplet clap figures, and \"e\" at the end of bar 4 against \"e yo-we\" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.",
    "notes": "THE CLAPS (p. 103), one bar each, in sixteenths of a 3/4 bar: 1. two eighths (accented) | an eighth-note triplet, the last tied over | a sextuplet: (tie), clap, (hold), clap, (hold), rest. 2. (the dancers only) rest, clap, rest, clap | rest | rest. 3. four sixteenths | a sextuplet: eighth, eighth, sixteenth, sixteenth | two eighths. 4. eighth and two sixteenths | sixteenth, eighth, two thirty-seconds | three sixteenths and a rest. A footnote gives a quintuplet as another rhythm for beats 2 and 3 of the third part.",
    "kind": "tune",
    "kindNote": "",

@@ -1,10 +1,10 @@
 % holding-id: mafuve
-% holding-status: transcription
+% holding-status: source-check
 % holding-owner:
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
-% holding-blocked: Transcription: the opening six bars and the four clap parts are read; the rest of the song (pp. 104-105: "Ndo da kwumisha", the grunted "O ha o" bars, the ending) is still to transcribe, though Curtis says any phrase may be repeated and the order is free, so these six bars looped are already the song as danced. Then source check (the sextuplet clap figures, and "e" at the end of bar 4 against "e yo-we" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.
+% holding-blocked: Source check against pp. 103-105 (the whole song is now transcribed, 2026-11-11): especially the low grunted bars marked * ("O ha o", E-G sharp-B below the staff), the sextuplet and quintuplet figures, and the two closing bars, where the 32nd-note groups are read approximately. Then (the sextuplet clap figures, and "e" at the end of bar 4 against "e yo-we" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.
 % source-url: https://archive.org/details/songstalesfromda00burl/page/103/mode/1up archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 103 (music with the four clap parts; continues pp. 104-105)
 % source-url: https://archive.org/details/songstalesfromda00burl/page/29/mode/1up the same, pp. 29-30: the dance, and the words with Curtis's translation
 % performance-note: No recording of this song found. Curtis made phonograph records of the singers (book, p. xxv), not yet located (Columbia University, the Library of Congress and the Smithsonian are the likely places). For the style of Ndau singing with clapping, the International Library of African Music (ILAM, Rhodes University) holds many Ndau recordings: digitalarchives.ru.ac.za, search "Ndau"; listen and choose one before linking.
@@ -27,7 +27,8 @@ S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. S
 N:THE CLAPS (p. 103), one bar each, in sixteenths of a 3/4 bar: 1. two eighths (accented) | an eighth-note triplet, the last tied over | a sextuplet: (tie), clap, (hold), clap, (hold), rest. 2. (the dancers only) rest, clap, rest, clap | rest | rest. 3. four sixteenths | a sextuplet: eighth, eighth, sixteenth, sixteenth | two eighths. 4. eighth and two sixteenths | sixteenth, eighth, two thirty-seconds | three sixteenths and a rest. A footnote gives a quintuplet as another rhythm for beats 2 and 3 of the third part.
 N:THE PLATE: "Not fast (quarter = 63)", 3/4, four sharps; dotted bar lines divide the beats; accents on the first beat of each bar and on the run; the words in Chindau and English under the voice, the four clap staves below.
 N:HOW READ (2026-11-10): pp. 103-104 from the archive.org scan (about 300 dpi) at full size; pitches read against the staff, durations and the clap rhythms from enlargements; every beat checked to make four sixteenths.
-N:UNCERTAIN: the end of bar 4 ("e-") and the start of bar 5 ("e yo-we"): Curtis's underlay gives "e" to both; the sextuplet groupings of claps 1 and 3 (read as 1+2+2+1 and 2+2+1+1 sixths).
+N:THE REST OF THE SONG (pp. 104-105, transcribed 2026-11-11): the voice only (Curtis writes the four clap parts once, on p. 103). Bars marked * "are sung with a strange, guttural, grunting noise" (Curtis's footnote), low in the voice: E, G sharp and B below the staff. Curtis: "Any phrase or group of phrases of this song may be repeated an indefinite number of times ... There is no prescribed order for the sequence of words, or of phrases, though the above gives all the different words and phrases used, and the proper ending." Read against the staff lines at each note; every bar checked to make twelve sixteenths.
+N:UNCERTAIN: in the later bars, the sextuplet groups (written as plain sixteenths and eighths that fill the beat), bar 18's quintuplet, and the two closing bars' thirty-seconds (approximate); also the end of bar 4 ("e-") and the start of bar 5 ("e yo-we"): Curtis's underlay gives "e" to both; the sextuplet groupings of claps 1 and 3 (read as 1+2+2+1 and 2+2+1+1 sixths).
 M:3/4
 L:1/16
 Q:1/4=63
@@ -42,6 +43,21 @@ K:E
 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z3 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z3 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z4 |
 w: E- yo- we, we yo we i- ye e- yo- we, we yo we i- ye e- yo- we, we yo we i- ye
 w: A- las, O we yo we i- ye A- las, O we yo we i- ye A- las, O we yo we i- ye
-!>!B B G2 !>!F E D !>!C/C/ z2 G2 | !>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 |]
+!>!B B G2 !>!F E D !>!C/C/ z2 G2 | !>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 |
 w: Kwa- mai- we! we yo we i- ye e- e yo- we, we yo we i- ye Kwa- mai nda le- ga, yo we i- ye
 w: Moth- er's home! we yo we i- ye A- O a- las, we yo we i- ye Left my moth- er's home, yo we i- ye
+!>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z2 G2 | !>!B2 G2 !>!F E D C z4 | !>!B, G G2 !>!F E D C z4 |
+w: e- we- ye we yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e- yo- we we yo we ye kwa- mai- we, we yo we ye
+w: O a- las, we yo we i- ye Love my hus- band's home, yo we i- ye A- las, O! we yo we ye Moth- er's home, we yo we ye
+!>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, D D D B, (B, B,2) G, B,2 G, | !>!B, D D D B, (B, B,2) G, B,2 G, | "^*"!>!B, E, G,2 (3:2:2E,2E,4 G, B, B, G, |
+w: Ndo da kwu- mi- sha, yo we i- ye kwa- mai nda le- ga, ya _ e we ye Ndo da kwu- mi- sha, yo _ e we yo O ha o o wa e we yo we
+"^*"!>!B, E, G, E E4 (3C2B,2G,2 | "^*"!>!B, E, G,2 (3:2:2E,2E,4 G, B, B, G, | "^*"!>!B, E, G, E E4 (3C2B,2G,2 | "^*"!>!B, E, G,2 (3:2:2E,2E,4 G, B, B, G, |
+w: O ha o we ye ye yo we O ha o o wa e we yo we O ha o we ye ye yo we O ha o o wa e we yo we
+!>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, D D D E E z2 (5:4:5C E E C G |
+w: e- we- ye we yo we i- ye Kwa- mai nda le- ga, yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e we i- ye i ye i we yo we e
+!>!B G G2 !>!F E D !>!C/C/ z4 | !>!B, B, D D E E z2 C E E C | !>!B G G2 !>!F E D !>!C/C/ z4 | !>!B, D D D (E E- E2) C E E C |
+w: i we yo we yo we i ye e we i- ye i ye i we yo we i ye ye we yo wi i ye i we i ye i ye_ _ e we yo we
+!>!B G G2 !>!F E D !>!C/C/ z4 | !>!B G G2 !>!F E D C z4 | !>!B, D (D B,) !>!F E D C z4 | "^*"!>!B, E, G, G, (E, E,- E,2) G, B, B, G, |
+w: i ye ye we yo wi i ye i ye ye we yo we ye i we ye _ we yo we ye we _ _ _ _ _ _ yo we _ _ _
+"^*"!>!B, B, G, G, E,2 E, E, z2 G,/B,/B,/G,/ | "^*"!>!B, E, G, G, E,2 E, E, z2 G,/B,/B,/G,/ |]
+w: Kwa- mai nda le- ga, e ya, e we yo we Ndo da kwu- mi- sha, e ya e we yo we!
