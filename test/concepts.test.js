@@ -91,6 +91,41 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   assert(!/on “/.test(entry('beginner-songs-11-skip-to-my-lou', 'pitch').reason), 'Skip to My Lou: its verse does not fit its notes, so no words are quoted');
 }
 
+/* ---------------- the parts, to hear the form ---------------- */
+{
+  const parts = id => entry(id, 'form').parts;
+  const view = id => (parts(id) || []).map(p => `${p.letter} ${p.bars.join('-')} (${p.play.join('-')})`).join(' | ');
+  // Twinkle: the teacher's A B A, bars 1-4, 5-8, 9-12, each heard by its first two bars ("Twinkle, twinkle, little star").
+  eq(view('first-tunes-3-twinkle-twinkle-little-star'), 'A 1-4 (1-2) | B 5-8 (5-6) | A 9-12 (9-10)', 'Twinkle: A B A, and the opening of each');
+  // Lightly Row: the second phrase begins as the first and ends at home, so it is A′; the last is that A′ again.
+  eq(view('beginner-songs-10-lightly-row'), 'A 1-4 (1-2) | A′ 5-8 (5-6) | B 9-12 (9-10) | A′ 13-16 (13-14)', 'Lightly Row: A A′ B A′');
+  // Highland Mary: the two parts it labels, each opening with its pickup.
+  eq(view('morris-7-highland-mary'), 'A 1-9 (1-3) | B 10-18 (10-12)', 'Highland Mary: parts A and B, each from its pickup');
+  // Desh's antara begins as the sthayi does, so its opening goes on to where it climbs away.
+  eq(view('hindostan-4-desh'), 'A 1-4 (1-2) | B 5-12 (5-7)', 'Desh: B is heard until it differs');
+  // Dance All Night's bars are misread (its +GB+ chords), so it gets no letters; a single phrase has nothing to compare.
+  eq(parts('reelsd-g-1-dance-all-night'), undefined, 'Dance All Night: no parts on misread bars');
+  eq(parts('beginner-songs-4-bounce-high-bounce-low'), undefined, 'Bounce High: one phrase, no parts');
+  // Every lettering, checked straight from the bars: parts end to end; a letter again is the same music, full bar for
+  // full bar; a primed letter begins as its letter did; different letters differ in their first two full bars.
+  const keyOf = b => b.notes.map(n => (n.pitches || []).map(p => p.pitch + (p.accidental || '')).join() + '/' + n.duration).join(' ');
+  let withParts = 0;
+  for (const t of set.tunes) {
+    const ps = parts(t.id); if (!ps) continue;
+    withParts++;
+    const bs = P.barsOf(t.abc, ABCJS).bars, fulls = p => bs.slice(p.bars[0] - 1, p.bars[1]).filter(b => !b.short).map(keyOf);
+    assert(ps[0].bars[0] === 1 && ps[ps.length - 1].bars[1] === bs.length && ps.every((p, i) => !i || p.bars[0] === ps[i - 1].bars[1] + 1), `${t.id}: the parts run end to end`);
+    assert(new Set(ps.map(p => p.letter[0])).size >= 2, `${t.id}: at least two different letters`);
+    ps.forEach((p, i) => ps.slice(0, i).forEach(q => {
+      const a = fulls(p), b = fulls(q);
+      if (q.letter === p.letter) assert(JSON.stringify(a) === JSON.stringify(b), `${t.id}: ${p.letter} at bar ${p.bars[0]} is the music of bar ${q.bars[0]}`);
+      else if (q.letter[0] === p.letter[0]) assert(a[0] === b[0] && a[1] === b[1], `${t.id}: ${p.letter} begins as ${q.letter}`);
+      else assert(a[0] !== b[0] || a[1] !== b[1], `${t.id}: ${p.letter} and ${q.letter} begin differently`);
+    }));
+  }
+  eq(withParts, 16, 'sixteen pieces with parts to compare (Dance All Night is the one form of two parts left out)');
+}
+
 /* ---------------- the Listen step's choices ---------------- */
 {
   const tw = P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 12);
@@ -99,6 +134,14 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   eq(P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 5).map(c => c.el), ['duration', 'pitch'], 'a choice past the end of the piece is left out');
   eq(P.conceptChoices(null), [], 'no data, no choices');
   eq(P.conceptChoices(data.tunes['hindostan-folk-5-chhaila']).length, 6, 'Chhaila shows all six elements');
+  // A form with parts: the button reads its letters, and the parts come with the openings to play.
+  const form = tw.find(c => c.el === 'form');
+  eq(form.words, 'A B A', 'Twinkle: the form choice reads A B A');
+  eq(form.parts.map(p => [p.letter, p.from, p.to, p.play.from, p.play.to]), [['A', 0, 4, 0, 2], ['B', 4, 8, 4, 6], ['A', 8, 12, 8, 10]], 'the parts and their openings, as the piece view counts bars');
+  eq(P.formWords(form.parts), 'A: bars 1–4 and 9–12 · B: bars 5–8', 'which bars each letter is');
+  eq(P.formWords(P.conceptChoices(data.tunes['beginner-songs-10-lightly-row']).find(c => c.el === 'form').parts), 'A: bars 1–4 · A′: bars 5–8 and 13–16 · B: bars 9–12; A′ begins like A and ends differently', 'a primed letter, explained');
+  eq(P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 13).find(c => c.el === 'form').parts, undefined, 'parts that do not reach the end of the piece are stale: none');
+  eq(P.conceptChoices(data.tunes['reelsd-g-1-dance-all-night']).find(c => c.el === 'form').words, 'A and B', 'without parts, the form keeps its name');
 }
 
 console.log(`Concept checks passed (${checks} checks; ${set.tunes.length} pieces).`);

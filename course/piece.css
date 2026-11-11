@@ -278,3 +278,16 @@ html.piece-route .pb-pull:focus-visible { outline: 3px solid var(--accent); outl
 .pb-sharelist button small { grid-column: 1; color: var(--muted); }
 .pb-sharelist button .done { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--accent); font-weight: 700; }
 .pb-sharetext { width: 100%; min-height: 120px; font: 13px/1.35 ui-monospace, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: var(--panel-2); color: var(--ink); }
+
+/* Hearing the form: each part's letter stands over its opening in a box, as a rehearsal mark does, and fills with its
+   colour while that part plays (or comes next, in the pause). A letter keeps one colour, so the parts that are the same
+   look the same. */
+.paper .pb-formmark { pointer-events: none; --pf: #087fca; }
+.paper .pb-formmark.pb-l1 { --pf: #c25700; }
+.paper .pb-formmark.pb-l2 { --pf: #3f8f1f; }
+.paper .pb-formmark.pb-l3 { --pf: #79569f; }
+.paper .pb-formmark rect { fill: var(--bg); stroke: var(--pf); stroke-width: 1.6; transition: fill 0.15s; }
+.paper .pb-formmark text { fill: var(--pf); font: 700 13px 'Atkinson Hyperlegible', sans-serif; transition: fill 0.15s; }
+.paper .pb-formmark.on rect { fill: var(--pf); }
+.paper .pb-formmark.on text { fill: #fff; }
+@media (prefers-reduced-motion: reduce) { .paper .pb-formmark rect, .paper .pb-formmark text { transition: none; } }

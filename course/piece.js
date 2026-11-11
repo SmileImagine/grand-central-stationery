@@ -25,8 +25,9 @@
   tempo and how much the band plays (rich to listen and put together, plain and the same each time
   round for sections, the accompaniment without the tune for a play-through or an attempt). The page's own cell does the work: its
   renderer, the Player on its one AudioContext clock, Game mode and the instrument view; a section is
-  written out as a tune of its own (course/practice.js). The address carries the setup and nothing
-  private; practice history stays in this browser (gcs-practice-v1), assessments in the board's store.
+  written out as a tune of its own (course/practice.js). Form is heard by comparing: Listen's form choice plays the
+  opening of each part in turn, lettered A, B, A, with a pause between (hearing the form, below). The address carries
+  the setup and nothing private; practice history stays in this browser (gcs-practice-v1), assessments in the board's store.
 */
 (function () {
   'use strict';
@@ -61,6 +62,8 @@
   const repeatsByDefault = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
   let loopOn = null;
   const repeats = () => !example && (loopOn === null ? repeatsByDefault() : loopOn);
+  // The example is a form with its parts lettered (concepts.json): the demonstration of form plays it.
+  const isForm = () => !!(example && example.parts);
   const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'perform' : 'rich';
   // Guide tones: on for a student's play-through (they can turn them off), off for an assessment (the teacher can turn them on).
   const guide = { practice: true, assess: false };
@@ -163,6 +166,8 @@
   }
   function textNow() {
     const p = shownBars();
+    formMap = null;
+    if (isForm()) { const r = P.spansAbc(tune.abc, window.ABCJS, example.parts.map(x => x.play), found); formMap = r.where; return r.abc; }   // the openings of the parts
     let abc = p ? P.phraseAbc(tune.abc, window.ABCJS, p, found) : tune.abc;
     // Studying a section, room under each line of music for the diagrams.
     if (sub() === 'study' && !example) abc = /^X:.*$/m.test(abc) ? abc.replace(/^(X:.*)$/m, '$1\n%%staffsep 150') : '%%staffsep 150\n' + abc;
@@ -184,6 +189,10 @@
     const shownBarCount = (() => { const p = shownBars(); return p ? p.to - p.from : found.bars.length; })();
     const split = sub() === 'study' && !example && shownNotes > 8 && shownBarCount > 1;
     en.fitFrom = split ? 2 : 1; en.barsPerLine = split ? Math.ceil(shownBarCount / 2) : 0;
+    // Hearing the form, the openings one above another where they are the same length (two to a line past three
+    // parts), so the parts that are the same line up note for note. When those lines will not all fit on the screen at
+    // once, wireEngine's render sets them one after another instead, so Game mode never slides the first A out of view.
+    if (isForm()) { const n = example.parts.map(x => x.play.to - x.play.from); if (n.every(x => x === n[0])) en.barsPerLine = n[0] * Math.ceil(n.length / 3); }
     en.entry.value = textNow();
     en.render();
     if (en.player) en.player.gains();
@@ -195,7 +204,7 @@
     if (sub() === 'note') buildStepper(); else stepper = null;
     clearFlags();
     paint(); syncUrl();
-    requestAnimationFrame(drawStudy);
+    requestAnimationFrame(() => { drawStudy(); drawForm(); });
   }
   // The mixer for the step: a play-through's accompaniment, with the melody silent or faint; else the band as balanced.
   function applyMix() {
@@ -211,11 +220,12 @@
     if (en && en.original) { en.warp = bpm / en.writtenBpm(); en.retime(); }
     paint(); syncUrl();
   }
-  function stopAll() { if (en && en.player) { if (en.player.running) en.togglePlay(); en.toTop(); } stopListening(); }
+  function stopAll() { formQuit(); if (en && en.player) { if (en.player.running) en.togglePlay(); en.toTop(); } stopListening(); }
   // The step's one button: play from the top (or on from a pause), or pause.
   async function playPause() {
     if (!en) return;
     if (stepper) { stepNext(false); return; }
+    if (isForm()) { formToggle(); return; }
     const p = en.player, k = kind();
     if (!p.running) {
       p.setLoop(repeats());
@@ -230,13 +240,16 @@
   }
   // A run is the music playing from its start to its end (each time round when repeating). It says the music
   // played, not that it was played well. Faster each time round lifts the tempo at each turn.
-  let run = { top: false, cycle: 0, was: false };
+  let run = { top: false, cycle: 0, was: false }, cellFinished = null;
   function wireEngine() {
     // The page redraws the score when its box changes size; the diagrams and the note by note place follow.
     const render = en.render.bind(en);
-    en.render = (...a) => { render(...a); requestAnimationFrame(() => { drawStudy(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
+    // Hearing the form, openings stacked one above another that no longer all fit on the screen go back to one after another.
+    en.render = (...a) => { render(...a); if (isForm() && en.barsPerLine && !en.player.running && !en.pending && !en.body.classList.contains('fitwhole')) { en.barsPerLine = 0; render(...a); } requestAnimationFrame(() => { drawStudy(); drawForm(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
     const finished = en.onFinished.bind(en);
+    cellFinished = finished;
     en.onFinished = () => {
+      if (demo && demo.on) { formPartDone(); return; }   // one part of the form heard: a pause, then the next
       finished(); if (run.top && !example) lapDone(1); run = { top: false, cycle: 0, was: false }; paintPlaying();
       const k = kind();
       if (listening && listening.kind === 'attempt') judge(stopListening());
@@ -287,11 +300,11 @@
     if (!clock) return;
     const off = sub() === 'note' || kind() === 'decide';
     clockHost.hidden = off;
-    const beats = en && en.tl ? en.tl.countBeats : 4, p = en && en.player, playing = !!(p && p.running);
+    const beats = en && en.tl ? en.tl.countBeats : 4, p = en && en.player, playing = playingNow();
     clock.set({ bpm, written, label: clockLabel(), beats, playing, repeat: repeats(), canReset: !!(p && !playing && p.pos > 0) });
   }
   // Back to the start, from a pause.
-  function resetPlay() { if (!en) return; if (en.player.running) en.togglePlay(); en.toTop(); wasPlaying = null; paintPlaying(); paintClock(); }
+  function resetPlay() { if (!en) return; if (demo) { formQuit(); demo = { i: 0, on: false }; paintForm(); } if (en.player.running) en.togglePlay(); en.toTop(); wasPlaying = null; paintPlaying(); paintClock(); }
   // Repeat on or off: the music (from the next time round when playing) and the repeat signs in the score.
   function setRepeat(on) {
     loopOn = !!on;
@@ -366,10 +379,10 @@
   // What to hear: the whole piece, or one idea in it (its bars shown and played): one for each element of music the
   // piece shows, or failing that the new idea. A toggle, like the others.
   const barsWord = c => c.first === c.last ? `bar ${c.first}` : `bars ${c.first}–${c.last}`;
-  const conceptTitle = c => c.element ? `${c.element}${c.isNew ? ', new in this piece' : ''}: ${c.about}, in ${barsWord(c)}${c.throughout ? ' (heard all through)' : ''}` : `New in this piece: ${c.words}, in ${barsWord(c)}`;
+  const conceptTitle = c => c.parts ? `${c.element}: ${c.about}. ${P.formWords(c.parts)}` : c.element ? `${c.element}${c.isNew ? ', new in this piece' : ''}: ${c.about}, in ${barsWord(c)}${c.throughout ? ' (heard all through)' : ''}` : `New in this piece: ${c.words}, in ${barsWord(c)}`;
   const conceptCtl = () => !concepts.length ? '' : `<div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
       <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="${esc(conceptTitle(c))}">${esc(c.words)}</button>`).join('')}</div>`;
-  const exampleHint = c => c.element ? `${c.element}, ${barsWord(c)}: ${c.reason}` : `New in this piece, in ${barsWord(c)}.`;
+  const exampleHint = c => c.parts ? `Form, ${c.words}: the start of each part in turn, with a pause between. ${P.formWords(c.parts)}.` : c.element ? `${c.element}, ${barsWord(c)}: ${c.reason}` : `New in this piece, in ${barsWord(c)}.`;
   // Listening is not ready (Safari will not, and a voice is read poorly): only with the lab switch on this computer.
   const LISTEN_LAB = ls.get('gcs-listening-lab') === '1';
   function renderTools() {
@@ -462,6 +475,103 @@
       });
     }
     studyBox.style.height = `${Math.ceil(bottom + 8)}px`;   // the box reaches the lowest diagram, so a short screen scrolls to it
+  }
+
+  /* ---------------- hearing the form ----------------
+     Form is heard by comparing parts, so the demonstration plays the opening of each part in turn (concepts.json's
+     parts: Twinkle's bars 1–2, 5–6, 9–10), with a pause of a bar or so between, so the ear holds A, hears B, and knows
+     A when it comes back. On screen are those openings alone, side by side, each with its letter over its first bar
+     like a rehearsal mark (A and A look the same, B does not); the letter of the part playing, or coming next in the
+     pause, lights. The whole piece, with the other bars greyed, was tried first: it fits a screen only for the shortest
+     pieces at a size a class can read, and Game mode's two sliding lines then hide the first A when the last one plays.
+     The hint says which bars each letter is. It is the page's own Player and timeline: the openings are written out as
+     one tune (practice.js spansAbc), and a part is played by starting at its first bar and ending the Player at its
+     last (the notes ring on), so the cursor, the clock and the instrument follow as they always do; the first part has
+     the count-in. */
+  let demo = null;   // { i: the part playing or next, on: the demonstration is running, timer }
+  let formMap = null;   // where each opening's bars are in the text on screen (spansAbc)
+  const playingNow = () => !!(en && en.player && en.player.running) || !!(demo && demo.on);
+  // A part's opening in ms, from the timeline's bars.
+  function formSpan(part) {
+    const b = en && en.tl && en.tl.bars, at = formMap && formMap[example.parts.indexOf(part)];
+    if (!b || !at || b.length !== formMap[formMap.length - 1].to || !b[at.from] || !b[at.to - 1]) return null;
+    return { start: b[at.from].start, end: b[at.to - 1].end };
+  }
+  function formToggle() {
+    if (!en) return;
+    if (demo && demo.on) { clearTimeout(demo.timer); demo.on = false; if (en.player.running) en.togglePlay(); paintForm(); paintPlaying(); paintClock(); return; }   // pause: Play again starts the part over
+    if (!demo) demo = { i: 0, on: false };
+    formPlay(demo.i);
+  }
+  async function formPlay(i) {
+    const s = formSpan(example.parts[i]);
+    if (!s) { say('The parts could not be found in the music.'); formQuit(); return; }
+    demo.i = i; demo.on = true; clearTimeout(demo.timer);
+    const p = en.player;
+    p.setLoop(false);
+    if (p.running) en.togglePlay();
+    p.pos = s.start > 1 ? s.start : 0;   // from the top, the count-in
+    paintForm(); paintPlaying();
+    await en.togglePlay();
+    if (!demo || !demo.on) { if (p.running) en.togglePlay(); return; }   // left while the samples loaded: the start is ours (Play waits while they load)
+    if (demo.i !== i || !p.running) return;
+    p.end = Math.min(p.end, s.end);   // the Player stops scheduling at the part's last barline and lets its notes ring
+    if (!clockRaf) clockRaf = requestAnimationFrame(clockTick);
+    paintClock();
+  }
+  // A part has been heard: the cursor waits at its end, then moves to the next part as its letter lights, then that plays.
+  function formPartDone() {
+    const p = en.player, parts = example.parts, s = formSpan(parts[demo.i]);
+    p.pos = s ? Math.max(0, s.end - 1) : p.pos;
+    en.leadIn = false; en.idle = false; en.k = null; en.transportState(); en.paint();
+    if (demo.i + 1 >= parts.length) { formDone(); return; }
+    const bar = en.tl.bars[0] ? Math.max(...en.tl.bars.map(b => b.len)) : 2000, gap = Math.max(1400, Math.min(2600, bar));
+    demo.timer = setTimeout(() => {
+      if (!demo || !demo.on) return;
+      demo.i++; const n = formSpan(parts[demo.i]);
+      if (n) { p.pos = n.start + 1; en.k = null; en.paint(); }
+      paintForm();
+      demo.timer = setTimeout(() => { if (demo && demo.on) formPlay(demo.i); }, gap / 2);
+    }, gap / 2);
+  }
+  function formDone() {
+    const c = example;
+    demo = { i: 0, on: false };
+    if (cellFinished) cellFinished();
+    paintForm(); paintPlaying(); paintClock();
+    const primed = [...new Set(c.parts.filter(x => x.letter.length > 1).map(x => x.letter[0]))].map(l => `; ${l}′ begins like ${l}`).join('');
+    say(`${c.words}: the same letter, the same music${primed}. Now the whole piece?`, 'The whole piece', () => { showExample(null); playPause(); });
+  }
+  // Leaving the demonstration (another choice, another step, a redraw): no part is waiting to play.
+  function formQuit() { if (demo) { clearTimeout(demo.timer); demo = null; } }
+  // The letters over the music, drawn after each render.
+  function drawForm() {
+    const svg = en && en.paper && en.paper.querySelector('svg');
+    if (!svg) return;
+    for (const m of svg.querySelectorAll('.pb-formmark')) m.remove();
+    if (!isForm() || !en.tl) return;
+    const spans = example.parts.map(formSpan); if (spans.some(x => !x)) return;
+    const E = en.tl.events.filter(e => e.x !== null);
+    example.parts.forEach((part, i) => {
+      const ev = E.find(e => e.ms >= spans[i].start - 1); if (!ev) return;
+      // On the barline the part starts at (before the first bar of a line: just before its first note), level with the
+      // chord symbols, which sit over the notes and so leave the barline clear.
+      const { top } = en.cursorSpan(ev.line), w = 12 + 7 * part.letter.length;
+      const chords = [...svg.querySelectorAll(`.abcjs-chord.abcjs-l${ev.line}`)].map(c => parseFloat(c.getAttribute('y')) - 0.35 * (parseFloat(c.getAttribute('font-size')) || 16)).filter(isFinite);
+      const lines = [...svg.querySelectorAll(`.abcjs-bar.abcjs-l${ev.line}`)].map(b => { const r = b.getBoundingClientRect(), s = svg.getBoundingClientRect(), k = svg.viewBox.baseVal.width / s.width; return (r.left + r.width / 2 - s.left) * k; }).filter(x => x < ev.x + 1);
+      const x = lines.length ? Math.max(...lines) - w + 2 : ev.x - w - 4, y = chords.length ? Math.min(...chords) - 9.5 : top - 22;
+      const m = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      m.setAttribute('class', `pb-formmark pb-l${part.letter.charCodeAt(0) - 65}`); m.dataset.i = i;
+      m.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+      m.innerHTML = `<rect x="0" y="0" width="${w}" height="19" rx="4"/><text x="${w / 2}" y="10" text-anchor="middle" dominant-baseline="central">${esc(part.letter)}</text>`;
+      m.setAttribute('aria-label', `Part ${part.letter}, bars ${part.first} to ${part.last}`);
+      svg.appendChild(m);
+    });
+    paintForm();
+  }
+  function paintForm() {
+    const svg = en && en.paper && en.paper.querySelector('svg'); if (!svg) return;
+    for (const m of svg.querySelectorAll('.pb-formmark')) m.classList.toggle('on', !!(demo && demo.on) && +m.dataset.i === demo.i);
   }
 
   /* ---------------- note by note ---------------- */
@@ -710,7 +820,7 @@
   // The main button says what it will do: Play, or Pause while the music plays.
   let wasPlaying = null;
   function paintPlaying() {
-    const on = !!(en && en.player && en.player.running);
+    const on = playingNow();
     if (on === wasPlaying) return;
     wasPlaying = on;
     if (clock) { clock.set({ playing: on, canReset: !on && en.player.pos > 0 }); if (on && !clockRaf) clockRaf = requestAnimationFrame(clockTick); if (!on && !(en.player.pos > 0)) clock.set({ turn: 0 }); }

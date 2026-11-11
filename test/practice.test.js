@@ -316,4 +316,15 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   assert(all.every(f => f.confidence !== 'high'), 'no flag is ever certain');
 }
 
+/* ---------------- spans written out one after another (the form demonstration's openings) ---------------- */
+{
+  const twinkle = 'X:1\nT:Twinkle\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\n';
+  const r = P.spansAbc(twinkle, ABCJS, [{ from: 0, to: 2 }, { from: 4, to: 6 }, { from: 8, to: 10 }]);
+  eq(r.where, [{ from: 0, to: 2 }, { from: 2, to: 4 }, { from: 4, to: 6 }], 'where each span stands in the text');
+  eq(r.abc.split('\n').filter(l => /\|/.test(l)), ['C C G G | A A G2 ||', 'G G F F | E E D2 ||', 'C C G G | A A G2 |]'], 'each span on its own line, a double bar between, a final bar at the end');
+  eq(P.barsOf(r.abc, ABCJS).bars.length, 6, 'the bars of the spans, and no others');
+  const keyed = 'X:1\nM:3/4\nL:1/8\nK:G\nG2 A2 B2 | c6 |\n[K:Ador] A2 B2 c2 | e6 |]\n';
+  assert(/\[K:Ador\]/.test(P.spansAbc(keyed, ABCJS, [{ from: 0, to: 1 }, { from: 2, to: 3 }]).abc), 'a span in another key says so inline');
+}
+
 console.log(`Practice checks passed (${checks} checks).`);
