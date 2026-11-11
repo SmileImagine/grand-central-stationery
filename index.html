@@ -1385,9 +1385,10 @@
     // same places number the tablature when the score shows Tab.
     class UkuleleLayout {
       constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; }
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null, opts = {}) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
+        if (opts && opts.mini) return this.buildMini(svg);
         // The player's view of their own ukulele, looking down the neck from
         // above the near edge: the re-entrant G string is nearest, A farthest.
         // A one-point perspective does the foreshortening: everything at
@@ -1467,9 +1468,51 @@
         this.lastHand = null;
         this.sig = null; this.events = [];
       }
+      // The small diagram under a note in the piece view (opts.mini): a fingering chart, not a picture. The board
+      // is flat and drawn in outline with a light wash, the headstock is a plain shape past the nut, and there is
+      // no body, soundhole, plectrum or caption, so at a few centimetres the eye goes straight to the finger's dot
+      // and the fret number beside it. The board is wider for its length than a real one, for room to see the dot.
+      // The piece view stands it headstock up, leaning a little left (piece.css turns it MINI_TURN degrees
+      // clockwise), so the G string is on the left as on a chord chart; the numbers are turned back to stand upright.
+      buildMini(svg) {
+        this.mini = true;
+        // The margins beside the board hold a one-digit fret number; a rare 10 to 12 reaches a little past them.
+        const S = 32, font = 34, M = 0.2 * S + 0.6 * font + 2, head = 62, boardLen = 470;
+        const left = head + 12, top = 0.6 * S + M + 4, bE = left + boardLen, W = bE + 4, H = top + 3.6 * S + M + 4;
+        Object.assign(this, { S, left, top, boardLen, bE, font });
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        const g = svgEl(svg, 'g', { class: 'uke' }), y = s => top + S * s, e0 = y(-0.6), e1 = y(3.6), hx = left - head;
+        // The headstock flares a little from the nut to a gently crowned top, a tuning peg standing out from each side twice.
+        for (const [x, py] of [[hx + 18, e0 - 6], [hx + 42, e0 - 4], [hx + 18, e1 + 6], [hx + 42, e1 + 4]]) svgEl(g, 'circle', { class: 'mpeg', cx: x, cy: py, r: 7 });
+        svgEl(g, 'path', { class: 'mhead', d: `M ${left} ${e0} L ${hx + 12} ${e0 - 8} Q ${hx + 2} ${e0 - 8} ${hx + 2} ${e0 + 4} Q ${hx - 10} ${(e0 + e1) / 2} ${hx + 2} ${e1 - 4} Q ${hx + 2} ${e1 + 8} ${hx + 12} ${e1 + 8} L ${left} ${e1} Z` });
+        svgEl(g, 'rect', { class: 'mboard', x: left, y: e0, width: boardLen, height: e1 - e0 });
+        for (let i = 1; i < this.frets; i++) svgEl(g, 'line', { class: 'mfret', x1: this.fretX(i), y1: e0, x2: this.fretX(i), y2: e1 });
+        for (const [i, s] of [[5, 1.5], [7, 1.5], [10, 1.5], [12, 0.5], [12, 2.5]]) svgEl(g, 'circle', { class: 'minlay', cx: this.fretMid(i), cy: y(s), r: 0.15 * S });
+        svgEl(g, 'line', { class: 'mnut', x1: left, y1: e0, x2: left, y2: e1 });
+        // The strings, each with its glow twin, which lights from the fret to the end of the board: the part that sounds.
+        this.stringEls = this.strings.map((open, s) => {
+          const glow = svgEl(g, 'line', { class: 'stringglow', x1: left, y1: y(s), x2: bE, y2: y(s), 'stroke-width': (0.3 * S).toFixed(1) });
+          svgEl(g, 'line', { class: 'mstring', x1: left, y1: y(s), x2: bE, y2: y(s), 'stroke-width': (1.6 + s * 0.5).toFixed(1) });
+          return { glow, open, pick: null };
+        });
+        this.marksG = svgEl(svg, 'g');
+        this.startPt = { ...this.project(left - 2, 3), r: 0.5 * S, open: true };
+        this.lastHand = null;
+        this.sig = null; this.events = [];
+      }
+      // A fretted place's number beside the board, on the side nearer its string (G and C on the upright chart's
+      // left, E and A on its right), turned to read upright once the chart is stood up.
+      fretNo(p, q) {
+        const w = String(p.fret).length * 0.56 * this.font, gap = 0.2 * this.S + w / 2;
+        const y = p.s >= 2 ? this.top + 3.6 * this.S + gap : this.top - 0.6 * this.S - gap;
+        const t = svgText(this.marksG, 'lbl fretno', q.x, y, this.font, 'var(--ink)', String(p.fret), 'middle');
+        t.setAttribute('transform', `rotate(${-UkuleleLayout.MINI_TURN} ${q.x.toFixed(1)} ${y.toFixed(1)})`);
+        return t;
+      }
       // Depth 0 at the near (G) edge, 1 at the far (A) edge; the shrink factor toward the vanishing point.
-      depth(string) { return 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
+      depth(string) { return this.mini ? 1 : 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
       project(x, string) {
+        if (this.mini) return { x, y: this.top + this.S * string };   // the small chart is flat
         // The eye is above the near edge, a little toward the headstock: the far edge is a touch shorter
         // than the near one (so the two converge toward the bridge), the frets lean about six degrees,
         // the far rows crowd a little, and the whole instrument rises gently to the right. At the nut the
@@ -1515,7 +1558,7 @@
       fretX(i) { return this.left + 2 * this.boardLen * (1 - Math.pow(2, -i / 12)); }
       fretMid(i) { return (this.fretX(i - 1) + this.fretX(i)) / 2; }
       // A fretted place as a point and a radius in perspective (the radius shrinks with the string's depth).
-      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: 7.2 * this.depth(p.s), open: false }; }
+      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: this.mini ? 0.56 * this.S : 7.2 * this.depth(p.s), open: false }; }
       schedule(events, beatMs) {
         const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
         if (sig === this.sig) return;
@@ -1527,7 +1570,7 @@
       frame(u) {
         for (const st of this.stringEls || []) {
           const g = st.state === 'on' ? 0.25 + 0.7 * Math.pow(1 - u, 1.6) : st.state === 'ondeck' ? 0.06 + 0.9 * Math.pow(u, 3) : 0;
-          st.glow.style.setProperty('--g', g.toFixed(3)); st.pick.style.setProperty('--g', g.toFixed(3));
+          st.glow.style.setProperty('--g', g.toFixed(3)); if (st.pick) st.pick.style.setProperty('--g', g.toFixed(3));
         }
       }
       // The two hands are shown apart. The right hand: every sounding string
@@ -1542,18 +1585,27 @@
         const i = sched ? info.index : -1;
         const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
         const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
-        for (const st of this.stringEls) { st.state = null; st.glow.classList.remove('on', 'ondeck'); st.pick.classList.remove('on', 'ondeck'); }
-        for (const p of nextP) { const st = this.stringEls[p.s]; if (st) { st.state = 'ondeck'; st.glow.style.setProperty('--c', midiColor(p.m)); st.pick.style.setProperty('--c', midiColor(p.m)); st.glow.classList.add('ondeck'); st.pick.classList.add('ondeck'); } }
-        for (const p of nowP) { const st = this.stringEls[p.s]; if (st) { st.state = 'on'; st.glow.style.setProperty('--c', midiColor(p.m)); st.pick.style.setProperty('--c', midiColor(p.m)); st.glow.classList.remove('ondeck'); st.pick.classList.remove('ondeck'); st.glow.classList.add('on'); st.pick.classList.add('on'); } }
+        // The plectrums are the large diagram's; the small chart has none (pick null).
+        const each = (st, f) => { f(st.glow); if (st.pick) f(st.pick); };
+        for (const st of this.stringEls) { st.state = null; each(st, el => el.classList.remove('on', 'ondeck')); }
+        for (const p of nextP) { const st = this.stringEls[p.s]; if (st) { st.state = 'ondeck'; each(st, el => { el.style.setProperty('--c', midiColor(p.m)); el.classList.add('ondeck'); }); } }
+        for (const p of nowP) { const st = this.stringEls[p.s]; if (st) { st.state = 'on'; each(st, el => { el.style.setProperty('--c', midiColor(p.m)); el.classList.remove('ondeck'); el.classList.add('on'); }); } }
         this.frame(0, 0);
         const draw = (p, cls) => {
           const q = this.pt(p);
           const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls, cx: q.x, cy: q.y, r: q.r });
           c.style.setProperty('--c', midiColor(p.m));
           this.marks.push(c);
-          if (cls === 'active') this.marks.push(svgText(this.marksG, 'lbl', q.x, q.y + 0.5, q.r * 1.05, letterOn(), String(p.fret), 'middle'));
+          if (cls === 'active') this.marks.push(this.mini ? this.fretNo(p, q) : svgText(this.marksG, 'lbl', q.x, q.y + 0.5, q.r * 1.05, letterOn(), String(p.fret), 'middle'));
           return q;
         };
+        // On the small chart a sounding string glows from its fret on, and an open one is a ring just past the nut, as on a chord chart.
+        if (this.mini) for (const p of nowP) {
+          const st = this.stringEls[p.s]; if (st) st.glow.setAttribute('x1', p.fret > 0 ? this.fretX(p.fret) : this.left);
+          if (p.fret > 0) continue;
+          const o = svgEl(this.marksG, 'circle', { class: 'mopen', cx: this.left - 18, cy: this.project(0, p.s).y, r: 0.34 * this.S });
+          o.style.setProperty('--c', midiColor(p.m)); this.marks.push(o);
+        }
         const nPts = nextP.filter(p => p.fret > 0).map(p => draw(p, 'ondeck')), aPts = nowP.filter(p => p.fret > 0).map(p => draw(p, 'active'));
         const centre = pts => { const c = centroid(pts); return c && { ...c, r: pts.reduce((a, p) => a + p.r, 0) / pts.length, open: false }; };
         const nowC = centre(aPts), nextC = centre(nPts);
@@ -1570,6 +1622,7 @@
       }
     }
     UkuleleLayout.seq = 0;
+    UkuleleLayout.MINI_TURN = 80;   // degrees clockwise the piece view turns the small chart (piece.css, .pb-mini.rot.uke)
 
     // How far a moving finger has gone, 0 to 1, el ms after one onset with the next dt ms later: it holds
     // still, then slides in the last stretch, gathering speed so it lands exactly on the next onset, as a
@@ -7716,7 +7769,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
           // built on the whole tune's notes so every diagram folds octaves and picks frets as the large one does.
           mini(host, en, midis) {
             const v = new InstrumentView(host);
-            v.set(en.inst, en.allMidis(), en.transpose || 0, m => en.nameOf(m), null, { span: en.span, show: 'melody' });
+            v.set(en.inst, en.allMidis(), en.transpose || 0, m => en.nameOf(m), null, { span: en.span, show: 'melody', mini: true });
             if (v.layout) v.mark(midis, [], { index: -1 });
             return v;
           },

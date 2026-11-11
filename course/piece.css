@@ -191,8 +191,21 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
 .pb-mini svg { position: absolute; left: 0; top: 0; width: var(--mw); height: var(--mh); overflow: visible; }
 /* The recorder and the ukulele stand upright, head at the top, as on a fingering chart. */
 .pb-mini.rot svg { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(90deg); }
-.pb-mini.rot.uke svg { transform: translate(-50%, -50%) rotate(-90deg); }   /* the ukulele is drawn head to the right: turned the other way, the nut is at the top */
+/* The ukulele is drawn headstock to the left: turned 80 degrees it stands headstock up, leaning a little left, the G
+   string on the left as on a chord chart. UkuleleLayout.MINI_TURN turns its fret numbers back by the same angle. */
+.pb-mini.rot.uke svg { transform: translate(-50%, -50%) rotate(80deg); }
 .pb-mini .runner { display: none; }
+/* The small ukulele as a fingering chart (UkuleleLayout.buildMini): outlines and a light wash, no wood; the finger's
+   place a solid dot ringed in ink, its fret number beside the board, an open string a ring past the nut. */
+.pb-mini.uke .mboard, .pb-mini.uke .mhead { fill: color-mix(in srgb, var(--ink) 5%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 2.5; stroke-linejoin: round; }
+.pb-mini.uke .mpeg { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 2.5; }
+.pb-mini.uke .mfret { stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 3; }
+.pb-mini.uke .mnut { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 9; stroke-linecap: round; }
+.pb-mini.uke .minlay { fill: var(--ink); opacity: 0.16; }
+.pb-mini.uke .mstring { stroke: var(--ink); stroke-opacity: 0.6; stroke-linecap: round; }
+.pb-mini.uke .stringglow { stroke: color-mix(in srgb, var(--c) 85%, var(--ink)); filter: none; }
+.pb-mini.uke .dot.active { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 4; filter: none; animation: none; }
+.pb-mini.uke .mopen { fill: var(--panel-2); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 7; }
 
 /* The new idea in a piece, heard in it. */
 .pb-concepts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
