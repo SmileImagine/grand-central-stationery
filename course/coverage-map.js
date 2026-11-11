@@ -116,6 +116,8 @@ function buildPipeline(root) {
     function: functionOf(record.rhythm),
     generated: /^%\s*holding-generated:\s*true\s*$/mi.test(record.abc),
     compositionDraft: /^%\s*composition-series:/mi.test(record.abc),
+    // The set id of a record published early and kept here for correction (holding-published or review-published).
+    published: ((record.abc || '').match(/^%\s*(?:holding|review)-published:\s*(\S+)/mi) || [])[1] || null,
   }));
   const matrix = Object.fromEntries(REGIONS.map(region => {
     const here = records.filter(record => record.region === region);
@@ -134,7 +136,8 @@ function launchRunway(report, pipeline, target = 100, maxGeneratedShare = 0.25) 
   // A complete sourced transcription enters the existing runway while it moves through review. A newly composed
   // curriculum draft waits until its explicit `ready` gate; otherwise a planning batch of originals would be
   // mistaken for 30 launch-ready works and would obscure the source/classroom/cultural checks still required.
-  for (const record of (pipeline ? pipeline.records : []).filter(record => record.queue === 'holding' && record.kind !== 'fragment' && (!record.compositionDraft || record.status === 'ready'))) {
+  // A record already published counts once, as its published tune.
+  for (const record of (pipeline ? pipeline.records : []).filter(record => record.queue === 'holding' && record.kind !== 'fragment' && !record.published && (!record.compositionDraft || record.status === 'ready'))) {
     if (!inventory.has(record.id)) inventory.set(record.id, { id: record.id, generated: record.generated, queue: 'holding' });
   }
   const items = [...inventory.values()];

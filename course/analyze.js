@@ -226,7 +226,8 @@
       const dur = el.duration || 0;
       if (el.startTriplet) { if (el.startTriplet === 3) tripletCount++; else otherTuplets++; }
       if (el.gracenotes) graceNotes += el.gracenotes.length;
-      if (el.chord) { chordSymbols += el.chord.length; for (const c of el.chord) if (c.name) chordNames.add(c.name); }
+      // Chord symbols only: a quoted text placed above, below or beside the note ("^Solo") is an annotation, not a chord.
+      if (el.chord) for (const c of el.chord) if (!c.position || c.position === 'default') { chordSymbols++; if (c.name) chordNames.add(c.name); }
       for (const d of el.decoration || []) decorations.add(d);
       for (const p of el.pitches || []) {
         for (const s of p.startSlur || []) slurFrom.set(s.label, clock);

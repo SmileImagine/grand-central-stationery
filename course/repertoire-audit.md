@@ -148,23 +148,23 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Vámonos por Santa Anita | northern Mexico | play song | 7/7 | pending | pending |
 | holding | Xianhua diao (鮮花調) | China | popular song (xiaodiao) | 7/7 | pending | pending |
 | holding | Zdravets | Bulgaria | horo | 7/7 | pending | pending |
-| review (samples) | When the Saints Go Marching In | USA | **missing** | 0/7 | not recorded | not passed |
-| review (published) | Lucy Locket | England | **missing** | 0/7 | not recorded | not passed |
-| review (published) | Au Clair de la Lune | France | **missing** | 0/7 | not recorded | not passed |
+| review (samples) | When the Saints Go Marching In | USA | spiritual | 0/7 | not recorded | not passed |
+| review (published) | Lucy Locket | England | children's singing game | 0/7 | not recorded | not passed |
+| review (published) | Au Clair de la Lune | France | children's song | 0/7 | not recorded | not passed |
 | review (holding) | Canoinha nova | Brazil, Capital Federal (Rio de Janeiro) | roda | 7/7 | pending | pending |
 | review (holding) | Carry banana | Jamaica | ring tune | 7/7 | pending | pending |
 | review (published) | Soldier's Joy | England | reel | 0/7 | not recorded | not passed |
-| review (samples) | Greensleeves | England | **missing** | 0/7 | not recorded | not passed |
+| review (samples) | Greensleeves | England | ballad tune | 0/7 | not recorded | not passed |
 | review (published) | Rama's lullaby | India, Maharashtra | lullaby | 0/7 | not recorded | not passed |
-| review (published) | Cuckoo's Nest | **missing** | Hornpipe | 0/7 | not recorded | not passed |
+| review (published) | Cuckoo's Nest | British Isles | Hornpipe | 0/7 | not recorded | not passed |
 | review (holding) | Konpira fune fune | Japan, Kagawa | zashiki game song | 7/7 | pending | pending |
 | review (holding) | Lalishrita | India, Tamil Nadu (Srirangam) | lullaby | 7/7 | pending | pending |
 | review (holding) | Little Sally Water | Jamaica | ring game | 7/7 | pending | pending |
 | review (holding) | Meu barco é veleiro | Brazil, Paraíba | coco | 7/7 | pending | pending |
 | review (holding) | Mīkhāhī labu? | Iran (Persia) | Persian folk song | 7/7 | pending | pending |
 | review (holding) | Nirguna's lullaby | India, Maharashtra | lullaby | 7/7 | pending | pending |
-| review (published) | Soldiers' Joy | **missing** | reel | 0/7 | not recorded | not passed |
-| review (published) | Sugar in the Gourd | **missing** | reel | 0/7 | not recorded | not passed |
+| review (published) | Soldiers' Joy | Scotland and England; played across the British Isles and North America (conservative guess, 11 November 2026) | reel | 0/7 | not recorded | not passed |
+| review (published) | Sugar in the Gourd | USA (upland South) (conservative guess, 11 November 2026) | reel | 0/7 | not recorded | not passed |
 | review (holding) | Sambalelê | Brazil, Laranjal (São Paulo) | roda | 7/7 | pending | pending |
 | review (holding) | The ayah's song | India | air | 7/7 | pending | pending |
-| review (published) | Jubilate Deo (round) | **missing** | **missing** | 0/7 | not recorded | not passed |
+| review (published) | Jubilate Deo (round) | unknown (conservative guess, 11 November 2026) | hymn (sacred round) (conservative guess, 11 November 2026) | 0/7 | not recorded | not passed |

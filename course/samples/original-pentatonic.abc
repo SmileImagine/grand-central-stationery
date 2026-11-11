@@ -15,9 +15,12 @@ K:C
 X:2
 T:Crows on the Fence
 C:Grand Central Stationery (original, CC0)
+O:Course original (no cultural attribution)
+R:classroom piece
 M:4/4
 L:1/4
 K:C
+%%style folk
 "Am"A G E G | A A G2 | "C"E G A G | E D !breath!C2 | "Am"E G A G | A A G2 | "G"E G D E | "C"C4 |]
 
 X:3
@@ -47,9 +50,12 @@ K:C
 X:6
 T:Clickety Clack
 C:Grand Central Stationery (original, CC0)
+O:Course original (no cultural attribution)
+R:classroom train song
 M:2/4
 L:1/8
 K:C
+%%style march
 "C".C.C .D.D | E2 G2 | "G".E.E .D.D | "C"!breath!C4 | "C".C.C .E.E | G2 A2 | "G".G.G .E.E | "C"D2 C2 |]
 
 X:7
@@ -63,7 +69,10 @@ K:C
 X:8
 T:Evening Bells
 C:Grand Central Stationery (original, CC0)
+O:Course original (no cultural attribution)
+R:classroom piece
 M:4/4
 L:1/4
 K:C
+%%style ballad
 "Am"A2 G2 | "C"E2 G2 | "G"D2 E2 | "C"!breath!C4 | "Am"E A G G | "C"E E G G | !>(!"G"D D E D | "C"!>)!C4 |]

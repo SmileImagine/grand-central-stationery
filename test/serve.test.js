@@ -45,7 +45,8 @@ const done = err => { server.kill(); fs.rmSync(tmp, { recursive: true, force: tr
   assert((await put(`/api/tune/holding/${id}`, { text: original + '\n', etag: 'stale' })).status === 409, 'a stale etag must be refused as changed on disk');
 
   // A reject without a note fails the workshop's validation: the save is undone and the reason comes back.
-  const rejected = original.replace(/^(% holding-id:.*)$/m, '$1\n% holding-decision: reject');
+  // (the record's own decision and note are taken out first: the first record may already have them)
+  const rejected = original.replace(/^% holding-decision(?:-note)?:.*\n/gm, '').replace(/^(% holding-id:.*)$/m, '$1\n% holding-decision: reject');
   const bad = await put(`/api/tune/holding/${id}`, { text: rejected, etag: got.etag });
   assert(bad.status === 422 && /decision-note/.test((await bad.json()).error), 'a reject without a note must fail validation');
   assert(fs.readFileSync(file, 'utf8') === original, 'a failed save must leave the file as it was');
@@ -64,7 +65,7 @@ const done = err => { server.kill(); fs.rmSync(tmp, { recursive: true, force: tr
   // The review queue: a remove needs a review-decision.
   const rid = JSON.parse(fs.readFileSync(path.join(tmp, 'course/review/index.json'), 'utf8')).items[0].id;
   const rg = await (await fetch(`${base}/api/tune/review/${rid}`)).json();
-  const removed = rg.text.replace(/^% review-status:.*$/m, '% review-status: remove');
+  const removed = rg.text.replace(/^% review-decision:.*\n/gm, '').replace(/^% review-status:.*$/m, '% review-status: remove');
   assert((await put(`/api/tune/review/${rid}`, { text: removed, etag: rg.etag })).status === 422, 'a remove without a review-decision must fail validation');
   const kept = rg.text.replace(/^% review-status:.*$/m, '% review-status: keep').replace(/^% review-decision:.*$/m, '% review-decision: fine as it is\n% review-response: I agree.');
   assert((await put(`/api/tune/review/${rid}`, { text: kept, etag: rg.etag })).status === 200, 'a review record must save');

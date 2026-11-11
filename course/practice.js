@@ -385,7 +385,8 @@
      tempo in force where it starts; its bars' music with the barlines written
      afresh (a repeat kept whole when the phrase holds its end, so its endings
      play as written); the chord in force at its first note; and its verses'
-     words for its notes. The %%round and %%band lines belong to the whole tune. */
+     words for its notes. The %%round and %%band lines belong to the whole tune;
+     a piece in voices gives its first voice, the melody. */
   const isMusic = l => l.trim() && !/^\s*%/.test(l) && !/^\s*[A-Za-z+]:/.test(l);
   function phraseAbc(abc, ABCJS, p, found = null) {
     const { info, bars } = found || phrasesOf(abc, ABCJS);
@@ -394,7 +395,7 @@
     // The header: the lines before the first music line; then the fields changed in the body before the phrase.
     const head = [];
     let k = 0, pos = 0;
-    for (; k < lines.length; k++) { if (isMusic(lines[k])) break; pos += lines[k].length + 1; if (/^\s*[WwP]:|^%%(round|band)\b|^%%phrases\b/.test(lines[k]) || !lines[k].trim()) continue; head.push(lines[k]); }
+    for (; k < lines.length; k++) { if (isMusic(lines[k])) break; pos += lines[k].length + 1; if (/^\s*[WwPV]:|^%%(round|band|score|staves)\b|^%%phrases\b/.test(lines[k]) || !lines[k].trim()) continue; head.push(lines[k]); }
     const setField = (f, v) => { const i = head.findIndex(l => l.startsWith(f + ':')); const line = `${f}:${v}`; if (i < 0) head.splice(Math.max(0, head.findIndex(l => l.startsWith('K:'))), 0, line); else head[i] = line; };
     const before = text.slice(pos, B[0].start);
     for (const m of before.matchAll(/(?:^|\n)\s*([KMLQ]):([^\n%]*)|\[([KMLQ]):([^\]]*)\]/g)) { const f = m[1] || m[3], v = (m[2] !== undefined ? m[2] : m[4]).trim(); if (f === 'K') { const i = head.findIndex(l => l.startsWith('K:')); if (i >= 0) head.splice(i, 1); head.push('K:' + v); } else setField(f, v); }
@@ -405,9 +406,13 @@
     const bodyOf = b => {
       let s = text.slice(b.after !== null && b.after !== undefined && b.after <= b.start ? b.after : b.start, b.closeStart);
       s = s.split('\n').map((l, i) => (i > 0 && !isMusic(l)) ? null : l.replace(/\\\s*$/, '')).filter(l => l !== null).join(' ');
-      return s.replace(/^\s*\[?\d[\d,-]*(?=\s|["!A-Ga-gz^_=(\[{.~HLMOPSTuv])/, '').trim();
+      // A phrase is the first voice alone: its [V:] fields go, with the other voices' declarations in the header.
+      return s.replace(/\[V:[^\]]*\]\s*/g, '').replace(/^\s*\[?\d[\d,-]*(?=\s|["!A-Ga-gz^_=(\[{.~HLMOPSTuv])/, '').trim();
     };
     let out = '';
+    // Words are written after the music, and abcjs sets a w: line under the music line just above it only, so a
+    // phrase with words stays on one line even where the tune's own line breaks inside it.
+    const worded = B.some(b => b.notes.some(n => n.lyric && n.lyric.some(l => l && l.syllable)));
     B.forEach((b, i) => {
       let open = '';
       if (keep && b.open.repeat && i > 0) open = '|:';
@@ -418,7 +423,7 @@
       out += open + body;
       const last = i === B.length - 1;
       out += keep && b.close.repeat ? (B[i + 1] && B[i + 1].open.repeat ? ' ::' : ' :|') : last ? ' |]' : b.close.double ? ' ||' : ' |';
-      if (!last) out += b.lineEnd ? '\n' : ' ';
+      if (!last) out += b.lineEnd && !worded ? '\n' : ' ';
     });
     // The words: every verse that has any in the phrase; a note with no syllable takes a *. abcjs gives a tied-on note a
     // syllable slot of its own (the standard skips it), so it is written like any other note, or the words after a tie

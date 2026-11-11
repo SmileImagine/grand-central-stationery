@@ -73,21 +73,26 @@ T:Rama's lullaby
 T:Maratha lullaby
 C:traditional (Maharashtra)
 O:India, Maharashtra
-R:lullaby
+R:devotional lullaby
 S:Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66
-N:Adagio, crotchet 80; sung to him by a Hindu lady in Calcutta. No signature; the tune lies between middle C and A. Four verses, each ending in the refrain Little babe, sleep upon my knee. Check: bars 4 to 6 and the refrain's second bar.
+N:A Marathi lullaby to the infant Rama as the god Vishnu, sung to Fox Strangways (Adagio, crotchet 80) by a Hindu lady in Calcutta, with his English singing words; each of the four verses ends in the refrain "Little babe, sleep upon my knee". It is a devotional song: schools follow their own guidance on religious songs. Bars 4 and 5 as first read did not add up to two bars of 3/4, so here "born" is shortened to an eighth note and the barline moved, which puts the rest and "Little" at the end of bar 5 as at the end of bar 2; the rest after the last note is dropped. Bars 4 to 6 and the refrain's second bar are still to be checked against the plate.
+Q:1/4=80
 M:3/4
 L:1/16
-Q:1/4=80
 K:C
 %%style drone
-C C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G | A4 F2 G3 F | G3 F D3 C C4 z2 |
-w: In A-yo-dhya, the land of kings, It was Vish-nu's self That was born on the lap of Kau-shal-ya.
-C C | D4 G3 F D2 C2 | D3 C C8 z2 |]
-w: Lit-tle babe sleep up-on my knee!_
-N:2: For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.
-N:3: In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).
-N:4: And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.
+C C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G |
+w: In A-yo-dhya, the land of kings, It was Vish-nu's self That was
+A2 F2 G3 F G3 F | D3 C C4 z2 C C |
+w: born on the lap of Kau-shal-ya._ Lit-tle
+D4 G3 F D2 C2 | D3 C C8 |]
+w: babe sleep up-on my knee!__
+W:2. For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.
+W:   Little babe, sleep upon my knee!
+W:3. In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).
+W:   Little babe, sleep upon my knee!
+W:4. And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.
+W:   Little babe, sleep upon my knee!
 
 X:5
 T:Chhaila
@@ -105,3 +110,83 @@ K:Bb clef=bass
 F, F, F,2 F, | F, G, A, G,2 | D,2 E, D, C, | D,3 E, D, | B,, G,, G,,3 | C, C, (3D,E,D, C, | C,2 B,, G,, C, | C,2 C, {E,}D,3/2 C,/2 | C,3 z2 |]
 w: Must you go, my Chhai_-la, now, Leav-ing me a-lone, my_ dar_-ling! Tell me, Chhai-la_ how I shall_ live when you are_ gone?
 N:2: Shall I live, my Chhaila, say, Like a water-mill, my darling! Standing all the day desolate upon a hill?
+
+X:6
+T:Gurkha sing-song
+T:Gurkha song, danced, with drum
+C:traditional (Gurkha, Nepal)
+O:India, Dharmsala (2nd Goorkhas)
+R:song (solo and chorus, danced)
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 129, p. 57
+N:From a sing-song of the men of the 2nd Goorkhas after a hockey match: a solo answered by a chorus, a drum under it, and one or two men dancing in the middle with bent knees, bent elbows and upturned palms, sometimes crouching for a bar or two. The songs came too fast for any words to be taken down, so sing it on "la" or play it: the chorus holds the high G while the solo would climb to it, then answers the solo note for note. A grunted "Ha! Ha!" sometimes ended a chorus.
+N:The drum is Fox Strangways's: one bar of 6/8 under each bar of the voice's 4/4 (three against two), right hand on 1, 3 and 4, left on 5 and 6; which hand had the high head is not printed, so rim and bass drum are ours, as are the tempo, the drone on C and the name "upper mordent" for his ornament. High for young voices: rehearse it a fifth lower, in F.
+M:4/4
+L:1/8
+Q:1/4=108
+K:C
+%%style drone
+%%band drums: rim _ rim rim bd bd
+G2 A/c3/2 c/A3/2 A/G3/2 | G3/2G/ A/c3/2 c4 ||
+"^Solo"e2 e/g3/2 !uppermordent!e d c/d3/2 | e3/2c/ c/c3/2 c4 ||
+"^Chorus"g4 e d c/d3/2 | e3/2c/ c/c3/2 c4 |]
+
+X:7
+T:Lalishrita
+T:Tamil lullaby, from a phonogram
+C:traditional (Tamil Nadu)
+O:India, Tamil Nadu (Srirangam)
+R:devotional lullaby
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64
+N:A Tamil lullaby that lays the baby in the care of Sriranga (Vishnu, worshipped at Srirangam), taken down from a phonogram; the words are Fox Strangways's English singing translation, not the Tamil. It is a devotional song: schools follow their own guidance on religious songs. Sing it slowly and freely, holding the fermatas. No tonic is marked; the tune circles G and ends on C, so the drone is on C. Guessed: in bar 3 the two quick notes before "dle" are written as grace notes, and in bar 4 the c on "bright" is a dotted eighth, so that both bars come out whole; the five-note run on "my" (bar 2) and the rhythm of bars 7 and 8 are best readings still to be checked against the plate.
+M:6/8
+L:1/8
+Q:1/4=70
+K:C
+%%style drone
+C | C G G G2 G/A/ | G/E/ G/E/ (5:2:5E/G/E/G/E/ G z G |
+w: Ba_ _ by mine, light_ _ _ of_ my_ _ _ _ eyes, Here
+G c2 c2 {B/A/}c3/4B/4 | c3/2B/4A/4 (3G/E/G/ !fermata!F2 E/F/ |
+w: in thy cra- dle_ bright_ _ with_ _ flowers Through_
+G G G (3G/E/G/ (3G/B/G/ (3G/E/G/ | !fermata!F2 E G G E |
+w: sun- ny hours_ _ _ I_ bring thee_ _ sleep, I rock thee and
+E D G !fermata!F2 E/D/ | E/F/ G/F/ E2 D/E/ D/E/ | C3- C3 |]
+w: sing thee to sleep On the wings_ of_ my me_ lo_ dies_
+W:
+W:2. Srirangam island rises fair Where Kaveris meet;
+W:I lay thee there at Sriranga raja's feet, Full sure of His tender care.
+W:
+W:3. The golden nails no longer move On the divided cradle swung;
+W:The song is sung; my ship is borne Safe home, my babe, on the ocean of love.
+
+X:8
+T:Nirguna's lullaby
+T:Maratha lullaby
+C:traditional (Maharashtra)
+O:India, Maharashtra
+R:devotional lullaby
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67
+N:Sung to Fox Strangways by a Hindu lady in Calcutta. The title names Nirguna, the supreme being without attributes in Hindu thought, so it is labelled a devotional song: schools follow their own guidance on religious songs. No words are printed under the notes; hum it, sing it on "la" or play it. The book's prose translation is a tired mother's song at the cradle: celestial carpenters made the cradle, her hand is tired of pulling its string, her throat is dry with singing, and the baby is not yet asleep. The tune lives on C, D and E with B flat and A below, so the tonic and the drone are C. Four lines: the first is repeated, then the other three are repeated together. The mark over the E in lines 2 and 3 stands for the "squeeze", a pressed emphasis on the note. The tune lies low: sing it a fourth or fifth higher. Guessed: no tempo is printed (crotchet 80 is ours); in the last bar of lines 1 and 2 the turn D E D is read as a quarter-note triplet, as lines 3 and 4 have C D there, so every bar is whole; the second note of line 1 bar 2, of lines 2 and 3, and the middle note of the triplet in line 4 bar 2 are best readings.
+M:3/4
+L:1/8
+Q:1/4=80
+K:F
+%%style drone
+B, |: C3/2 B,/2 C2 C D | E/F/E/D/ E3 D/E/ | D B, C2 D E | (3DED C B, A, B, :|
+|: C3/2 B,/2 C C C E | (3D/E/D/ C3 C B, | C2 E D !tenuto!E2 | D B, C C D E | (3DED C B, A, B, |
+C3/2 C/2 B, C D E | (3D/E/D/ C3 B, C | C2 B, C D !tenuto!E | D B, C C D E | C D C B, A, B, |
+C3/2 B,/2 C C D E | (3D/E/D/ C3 D E | D E C2 B, C | D B, C C D E | C D C B, A, B, :|
+
+X:9
+T:The ayah's song
+T:Hindostani song from the steamer
+C:traditional (North India), sung by an unnamed ayah
+O:India
+R:air
+S:Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66
+N:One of the songs sung on board a steamer by an ayah, a children's nurse travelling with a family in colonial times, whose name the book does not give. Fox Strangways took the tune down from her singing; he notes that her pitch centre moved and that the songs were hard for him to piece together, and he admired how the slide gave a wonderful value to the close and half-close. No words, language or purpose were recorded: hum it, sing it on "la" or play it, and let the slide (the four small notes before the half-close) be smooth and unhurried. The tune lies on C and ends on C, so the drone is on C; it reaches A below middle C, so sing it a fourth or fifth higher. Guessed: the second note of bar 4 (D, possibly C) and the rests in bar 2, the first ending and the last bar are best readings.
+M:3/4
+L:1/16
+Q:1/4=80
+K:C
+%%style drone
+C |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 D | C3 D C2 C2 {B,CB,C}B,2 A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]
