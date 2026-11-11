@@ -365,13 +365,13 @@
     .inst .rec.empty { opacity: 0.45; }
     .inst .rec .window { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.5; }
     .inst .rec .joint { stroke: var(--ink); stroke-opacity: 0.25; }
-    .inst .hole { fill: var(--panel-2); stroke: var(--ink); stroke-width: 1.4; }
-    .inst .hole.closed { fill: var(--ink); }
-    .inst .hole.half { fill: url(#halfhole); }
-    .inst .hole.willclose { fill: var(--n); stroke: var(--n); }             /* fades in to covered */
-    .inst .hole.willopen { stroke: var(--n); stroke-width: 2.4; }           /* the filled dot drains away */
-    .inst .hole.flick { animation: flick 0.5s steps(2, jump-none) infinite; transform-box: fill-box; transform-origin: center; }
-    @keyframes flick { 0% { transform: scale(1); } 100% { transform: scale(1.18); } }
+    /* A hole is a floor and a rim that never change; a finger pad, always present, slides onto it
+       (solid ink) and off it (a faint ghost beside the hole). A halo in the sounding note's colour
+       marks the holes that have just changed, brightest at the onset. */
+    .inst .hole { fill: var(--panel-2); }
+    .inst .rim { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-opacity: 0.55; }
+    .inst .pad { fill: var(--ink); }
+    .inst .halo { fill: none; stroke: var(--c); stroke-width: 2.2; stroke-opacity: 0; }
     .inst .rec .name { font-size: 16px; }
     .strip { height: 26%; min-height: 96px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); position: relative; }
     /* Guastavino herringbone from the Whispering Gallery, at a whisper. */
@@ -1544,35 +1544,45 @@
       24: [.5, 1, 0, 1, 0, 0, 0, 0], 26: [.5, 0, 1, 1, 0, 0, 0, 0],
     };
     class RecorderLayout {
-      constructor() { this.runnerR = 0; this.panel = '44%'; this.changes = []; }
+      constructor() { this.runnerR = 0; this.panel = '44%'; this.pads = []; this.lastF = null; this.dt = 500; }
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 86);
         this.tuningOff = tuned ? tuningOffsets(tuned.tuning, tuned.key) : null;
+        this.lastF = null;
         // One large recorder, drawn sideways so it fills a wide panel: beak
         // at the left, foot at the right, the thumb hole below the body
-        // (the back of the instrument). The sounding fingering is solid;
-        // the next note's changes fade in, in its colour, and flicker.
+        // (the back of the instrument). Every hole has a finger pad that is
+        // always there: on the hole when it is covered, half on it when it is
+        // pinched, and a faint ghost just off it (above the body, or below it
+        // for the thumb) when it is open. A pad slides, never appears.
         svg.setAttribute('viewBox', '0 0 320 108');
-        const defs = svgEl(svg, 'defs'), grad = svgEl(defs, 'linearGradient', { id: 'halfhole', x1: 0, y1: 0, x2: 0, y2: 1 });
-        svgEl(grad, 'stop', { offset: '50%', 'stop-color': 'var(--ink)' }); svgEl(grad, 'stop', { offset: '50%', 'stop-color': 'var(--panel-2)' });
         const g = svgEl(svg, 'g', { class: 'rec' });
         this.g = g;
         svgEl(g, 'path', { class: 'body', d: 'M 14 30 L 40 26 L 300 30 Q 312 31 312 42 L 312 46 Q 312 57 300 58 L 40 62 L 14 58 Q 8 56 8 44 Q 8 32 14 30 Z' });
         svgEl(g, 'rect', { class: 'window', x: 44, y: 36, width: 14, height: 9, rx: 2 });   // the labium window
         for (const x of [100, 230]) svgEl(g, 'line', { class: 'joint', x1: x, y1: 28, x2: x, y2: 60 });
         // Holes 1-7 along the top of the body, 6 and 7 doubled; the thumb hole below.
+        // A pad lifts by its hole's diameter and a little more, so half way it covers half the hole.
         const xs = [118, 140, 162, 192, 214, 236, 258], R = 6.2, r2 = 3.8, cy = 44;
+        const hole = (x, y, r, dir) => {
+          svgEl(g, 'circle', { class: 'hole', cx: x, cy: y, r });
+          const halo = svgEl(g, 'circle', { class: 'halo', cx: x, cy: y, r: r + 2.4 });
+          const pad = svgEl(g, 'circle', { class: 'pad', cx: x, cy: y, r });
+          svgEl(g, 'circle', { class: 'rim', cx: x, cy: y, r });
+          return { pad, halo, y, lift: dir * (2 * r + 1), from: 0, to: 0, landed: false };
+        };
         this.holes = [];
-        this.holes.push([svgEl(g, 'circle', { class: 'hole thumb', cx: 128, cy: 80, r: R })]);
-        svgText(g, 'lbl cap', 128, 93, 6, 'var(--muted)', 'thumb', 'middle');
+        this.holes.push([hole(128, 80, R, 1)]);
+        svgText(g, 'lbl cap', 116, 80, 6, 'var(--muted)', 'thumb', 'end');
         xs.forEach((x, i) => {
-          if (i < 5) this.holes.push([svgEl(g, 'circle', { class: 'hole', cx: x, cy, r: R })]);
-          else this.holes.push([svgEl(g, 'circle', { class: 'hole', cx: x - 4.5, cy, r: r2 }), svgEl(g, 'circle', { class: 'hole', cx: x + 4.5, cy, r: r2 })]);
-          svgText(g, 'lbl cap', x, 19, 6, 'var(--muted)', String(i + 1), 'middle');
+          if (i < 5) this.holes.push([hole(x, cy, R, -1)]);
+          else this.holes.push([hole(x - 4.5, cy, r2, -1), hole(x + 4.5, cy, r2, -1)]);
+          svgText(g, 'lbl cap', x, 17, 6, 'var(--muted)', String(i + 1), 'middle');
         });
-        svgText(g, 'lbl cap', 60, 19, 6, 'var(--muted)', 'left hand', 'middle');
-        svgText(g, 'lbl cap', 225, 12, 6, 'var(--muted)', 'right hand', 'middle');
+        this.pads = this.holes.flat();
+        svgText(g, 'lbl cap', 60, 17, 6, 'var(--muted)', 'left hand', 'middle');
+        svgText(g, 'lbl cap', 225, 10, 6, 'var(--muted)', 'right hand', 'middle');
         // The sounding note's name, large, and the next one's, smaller and arriving.
         this.nowName = svgText(g, 'lbl name', 24, 88, 16, 'var(--muted)', '', 'start');
         this.nextName = svgText(g, 'lbl name next', 300, 88, 11, 'var(--muted)', '', 'end');
@@ -1585,17 +1595,17 @@
       state(f, i, j, pair) { const v = f ? f[i] : 0; if (pair) return v === 1 || (v === 0.5 && j === 1) ? 1 : 0; return v; }
       mark(now, next, info) {
         const cur = this.fingering(now), nxt = this.fingering(next);
-        this.changes = [];
+        // Through a rest (or a note the recorder has not got) the fingers stay
+        // where they were and go straight to the next note's fingering.
+        if (!now.length && !next.length) this.lastF = null;
+        const base = cur.f || this.lastF;
+        if (cur.f) this.lastF = cur.f;
         this.g.classList.toggle('lit', !!cur.f); this.g.classList.toggle('empty', !now.length && !next.length);
         this.g.style.setProperty('--c', cur.m !== null ? midiColor(cur.m) : 'var(--muted)');
-        this.g.style.setProperty('--n', nxt.m !== null ? midiColor(nxt.m) : 'var(--muted)');
-        this.holes.forEach((pair, i) => pair.forEach((c, j) => {
-          const a = this.state(cur.f, i, j, pair.length === 2), b = nxt.f ? this.state(nxt.f, i, j, pair.length === 2) : a;
-          c.classList.remove('closed', 'half', 'willclose', 'willopen', 'flick'); c.style.fillOpacity = ''; c.style.strokeOpacity = '';
-          if (a === 1) c.classList.add('closed'); else if (a === 0.5) c.classList.add('half');
-          // A change coming: the hole takes the next note's colour, fading
-          // in as the note approaches (drawn each frame), and flickers.
-          if (nxt.f && b !== a) { c.classList.add(b > a ? 'willclose' : 'willopen', 'flick'); this.changes.push({ c, closing: b > a }); }
+        this.holes.forEach((pair, i) => pair.forEach((h, j) => {
+          const a = this.state(base, i, j, pair.length === 2), b = nxt.f ? this.state(nxt.f, i, j, pair.length === 2) : a;
+          h.landed = !!cur.f && a !== h.from && a === h.to;   // the pad slid here for this note: its halo peaks at the onset
+          h.from = a; h.to = b;
         }));
         const name = x => x.m === null ? '' : x.f ? this.nameOf(x.m) : '?';
         this.nowName.textContent = name(cur); this.nowName.setAttribute('fill', cur.m !== null ? midiColor(cur.m) : 'var(--muted)');
@@ -1603,15 +1613,31 @@
         const cue = x => {
           if (!this.tuningOff || x.m === null || !x.f) return '';
           const c = this.tuningOff(x.m); if (Math.abs(c) < 1) return '12-TET';
-          return `${c > 0 ? '\u2191 +' : '\u2193 \u2212'}${Math.round(Math.abs(c))}\u00a2  ${c > 0 ? 'firmer air / leak' : 'gentler air / shade'}`;
+          return `${c > 0 ? '↑ +' : '↓ −'}${Math.round(Math.abs(c))}¢  ${c > 0 ? 'firmer air / leak' : 'gentler air / shade'}`;
         };
         this.nowTune.textContent = cue(cur); this.nextTune.textContent = cue(nxt);
-        this.frame(0);
+        this.frame(0, 0, this.dt);
         return { now: null, next: null };
       }
-      // u: how far the next note is from the sounding one, 0 to 1.
-      frame(u) {
-        for (const { c, closing } of this.changes) { c.style.fillOpacity = closing ? (0.05 + 0.9 * u).toFixed(3) : (1 - 0.85 * u).toFixed(3); c.style.strokeOpacity = (0.2 + 0.8 * u).toFixed(3); }
+      // u: how far the next note is from the sounding one, 0 to 1; dt: the time between them in ms.
+      // A pad that must move holds still, then slides to its new place in the
+      // last stretch before the next note, gathering speed so that it lands
+      // (and lifts) exactly on the onset, as a finger does. A slow note gives
+      // early warning by easing the pad a fifth of the way first; a fast one
+      // has only the slide, and no halo.
+      frame(u, t, dt) {
+        if (dt > 0) this.dt = dt; dt = this.dt;
+        const el = u * dt;
+        const slide = Math.min(dt, Math.max(160, Math.min(400, dt * 0.5))), pre = dt - slide;
+        const lean = 0.2 * Math.max(0, Math.min(1, (pre - 120) / 300));
+        const k = el < pre ? lean * (x => x * x * (3 - 2 * x))(el / pre) : lean + (1 - lean) * Math.pow((el - pre) / slide, 2);
+        const halo = dt < 220 ? 0 : Math.pow(Math.max(0, 1 - el / Math.min(280, dt * 0.6)), 2);
+        for (const h of this.pads) {
+          const s = h.from + (h.to - h.from) * k;   // 1 covered, 0.5 half, 0 lifted
+          h.pad.setAttribute('cy', (h.y + (1 - s) * h.lift).toFixed(2));
+          h.pad.style.fillOpacity = (0.16 + 0.84 * Math.min(1, s * 2)).toFixed(3);
+          h.halo.style.strokeOpacity = h.landed ? (0.9 * halo).toFixed(3) : '0';
+        }
         this.nextName.style.opacity = (0.15 + 0.85 * u).toFixed(3);
         if (this.nextTune) this.nextTune.style.opacity = (0.15 + 0.85 * u).toFixed(3);
       }
@@ -3815,9 +3841,9 @@
       }
       // Each frame: u is how far the next note is from the sounding one (0 at
       // the onset, 1 as the next sounds), t the playhead in ms.
-      frame(u, t) {
+      frame(u, t, dt) {
         const L = this.layout; if (!L) return;
-        if (L.frame) L.frame(u, t);
+        if (L.frame) L.frame(u, t, dt);
         const r = this.runner, p = this.pts; if (!r || !p) return;
         const from = p.now || p.next, to = p.next || p.now; if (!from) return;
         const x = from.x + (to.x - from.x) * u, y = from.y + (to.y - from.y) * u;
@@ -5050,10 +5076,11 @@
         // The instrument: how far along the way to the next note.
         if (this.viz && this.viz.layout) {
           const cur = tl.events[k], nxt = tl.events[k + 1];
-          let u = 0;
-          if (cur && nxt) { const dt = nxt.ms - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
-          else if (cur) { const dt = tl.total - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
-          this.viz.frame(u, Math.max(0, t));
+          let u = 0, dt = 0;
+          if (cur && nxt) { dt = nxt.ms - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
+          else if (cur) { dt = tl.total - cur.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t - cur.ms) / dt)) : 1; }
+          else if (nxt && t < 0) { dt = tl.lead + nxt.ms; u = dt > 0 ? Math.max(0, Math.min(1, (t + tl.lead) / dt)) : 1; }   // the count-in: the fingers find the first note as it begins
+          this.viz.frame(u, Math.max(0, t), dt);
         }
         if (gameMode && tl.total > 0) this.progress(Math.max(0, t) / tl.total);
         if (this.livePattern) this.livePattern(running ? t : -1);
