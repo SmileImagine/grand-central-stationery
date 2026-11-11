@@ -154,7 +154,7 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
   .pb-name { font-size: 18px; }
   .pb-facts { display: none; }
   .pb-title { flex-basis: 40%; }
-  .pb-share, .pb-cuts, .pb-inst, .pb-show { display: none; }
+  .pb-cuts, .pb-inst, .pb-show { display: none; }
   .pb-modes button { padding: 6px 10px; }
   .pb-tools > *, .pb-tempo > *, .pb-loopnav > * { flex: 0 0 auto; }
   .pb-tools { gap: 6px; }
@@ -265,3 +265,9 @@ html.piece-route .pb-pull svg { width: 22px; height: 11px; fill: none; stroke: #
 html.piece-route .pb-pull[aria-expanded="true"] svg { transform: rotate(180deg); }
 html.piece-route .pb-pull:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html.piece-route .pb-pull, html.piece-route .pb-pull svg { transition: none; } }
+/* The practice link waits beside the title and shows when the pointer is over it (or the keyboard reaches it); on a
+   touch screen, which cannot hover, it stays as the link sign alone. */
+.pb-title .pb-share { align-self: center; opacity: 0; transition: opacity 0.15s; }
+.pb-title:hover .pb-share, .pb-title:focus-within .pb-share, .pb-title .pb-share:focus-visible { opacity: 1; }
+@media (hover: none) { .pb-title .pb-share { opacity: 1; padding: 3px 6px; } .pb-title .pb-share span { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pb-title .pb-share { transition: none; } }

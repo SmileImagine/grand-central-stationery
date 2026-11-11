@@ -72,12 +72,11 @@
     <div class="pb-row pb-top">
       <button type="button" class="pb-fold" aria-expanded="true" aria-controls="pb-steps pb-tools" title="Fold the bar away, or open it again (F)" aria-label="Fold the bar"><span aria-hidden="true"></span></button>
       <a class="pb-back" href="course/board.html">← Board</a>
-      <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><small class="pb-facts"></small></div>
+      <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><button type="button" class="pb-share"></button><small class="pb-facts"></small></div>
       <div class="pb-modes" role="tablist" aria-label="Teacher"></div>
       <label class="pb-inst" title="The instrument shown with the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
       <button type="button" class="pb-gear quiet" aria-label="Ukulele setup" title="Ukulele setup: C or D tuning, high or low G (kept on this computer)" hidden>⚙</button>
       <label class="pb-show" title="What a piano, the 2-5 Keys or a ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <button type="button" class="pb-share"></button>
     </div>
     <ol class="pb-row pb-steps" id="pb-steps" aria-label="Steps"></ol>
     <div class="pb-row pb-tools" id="pb-tools"></div>`;
