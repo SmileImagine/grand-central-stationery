@@ -64,7 +64,7 @@ const SETS = [
   ['vsco_marimba', 'marimba', f => /\.wav$/.test(f), f => midiOf(f.split('_')[3]) + OCTAVE.marimba, m => m < 60 ? 3 : 2, 0.5, 'acoustic_grand_piano'],
   ['vsco_xylophone', 'xylo', f => /\.wav$/.test(f), f => midiOf(f.split('_')[2]) + OCTAVE.xylo - 12, () => 1.5, 0.4, 'acoustic_grand_piano'],
 ];
-// The kit: for each General MIDI drum the band plays, its takes. A drum struck harder is brighter, not only louder, and no
+// The kit (kit-mp3; CC0 from VCSL but for the kick and crash, which are CC BY 4.0, below): for each General MIDI drum the band plays, its takes. A drum struck harder is brighter, not only louder, and no
 // two strikes sound the same, so the snare, the closed hat and the toms keep three strengths (p soft, the middle, f hard)
 // and the rest one, each in two takes (Versilian's round robins, rr1 and rr2, or two strikes of one cymbal). The closed
 // hat also has l, the loose (half-open) hit. Every take of a drum is brought to the loudness of its middle take, so the
@@ -73,8 +73,7 @@ const SETS = [
 // KIT_TAKES in index.html names the strengths each drum has. The floor tom is the low tom played a fourth down (slower).
 // The toms have no FluidR3 sample to match, so they sit 1 dB under the snare. The hats and cymbals stay in stereo (their
 // two microphones hear nearly unrelated noise, which a mono sum turns into hiss) at 128 kbps; the drums are mono, 96 kbps.
-// The crash is VCSL's suspended cymbal 1 struck with a stick, the ride its suspended cymbal 2, softly; each a cymbal's
-// two strikes, matched to the FluidR3 crash and ride they replace. The stereo ones are high-passed (the number: 200 Hz for
+// The ride is VCSL's suspended cymbal 2 struck softly with a stick, two strikes, matched to the FluidR3 ride it replaces. The stereo ones are high-passed (the number: 200 Hz for
 // the hats, 350 for the cymbals, as a kit's overhead microphones are) and levelled by both channels' power, not their sum
 // (a sum of two unrelated channels reads 3 dB low). The last number trims a drum (dB): the suspended cymbals ring
 // longer than the FluidR3 ones, so at the same onset level they added 2 LU to the drums alone.
@@ -84,13 +83,19 @@ const KIT = [
   [42, 1.0, { '': 'hihat/HiHat_HitC_v3_rr%_Mid.wav', p: 'hihat/HiHat_HitC_v1_rr%_Mid.wav', f: 'hihat/HiHat_HitC_v4_rr%_Mid.wav', l: 'hihat/HiHat_HitLoose_rr%_Mid.wav' }, 0, 200],
   [44, 0.8, { '': 'hihat/HiHat_Close_rr%_Mid.wav' }, 0, 200],
   [46, 2.5, { '': 'hihat/HiHat_HitO_rr%_Mid.wav' }, 0, 200],
-  [49, 4.0, { '': ['cymbal/susCymb1_hit_stick_f1.wav', 'cymbal/susCymb1_hit_stick_mp1.wav'] }, 0, 350, -3],
+  // The kick and crash from the DrumGizmo MuldjordKit (Lars Muldjord, CC BY 4.0; muld/, its Samples/KdrumL and
+  // Samples/CrashL as fetched, hits numbered from the softest): the kick its own microphone with a little of the room
+  // (both ambience microphones at a fifth), the crash its overhead pair, the drummer's left heard on the audience's right.
+  [36, 0.9, { p: [kick(5), kick(6)], '': [kick(12), kick(13)], f: [kick(22), kick(23)] }, 0, 0, -2.5],   // 2.5 dB under the FluidR3 kick's onset level: a whole hit then carries the same energy
+  [49, 5.5, { p: [crash(2), crash(3)], '': [crash(5), crash(6)], f: [crash(7), crash(9)] }, 0, 300, -3, 1.5],
   [51, 2.5, { '': ['cymbal/susCymb2_hit_stick_pp1.wav', 'cymbal/susCymb2_hit_stick_mp1.wav'] }, 0, 350, -2],
   [50, 1.5, { '': 'tom/TomH_HitS_v3_rr%_Mid.wav', p: 'tom/TomH_HitS_v2_rr%_Mid.wav', f: 'tom/TomH_HitS_v4_rr%_Mid.wav' }],
   [47, 1.6, { '': 'tom/TomL_HitS_v3_rr%_Mid.wav', p: 'tom/TomL_HitS_v2_rr%_Mid.wav', f: 'tom/TomL_HitS_v4_rr%_Mid.wav' }],
   [43, 1.9, { '': 'tom/TomL_HitS_v3_rr%_Mid.wav', p: 'tom/TomL_HitS_v2_rr%_Mid.wav', f: 'tom/TomL_HitS_v4_rr%_Mid.wav' }, 5],
 ];
 const TOMS = [50, 47, 43];
+function kick(n) { return { mix: [[`muld/${n}-KdrumL-KdrumL.flac`, 1], [`muld/${n}-KdrumL-AmbL.flac`, 0.2], [`muld/${n}-KdrumL-AmbR.flac`, 0.2]] }; }
+function crash(n) { return { pair: [`muld/${n}-CrashL-OHR.flac`, `muld/${n}-CrashL-OHL.flac`], blend: 0.6 }; }   // the near overhead 13 dB over the far one: 0.6 of it into the far side leaves the crash 4 dB right
 // Played `semis` lower: read more slowly (linear interpolation), as a drum tuned down rings lower and longer.
 const lower = (x, semis) => { if (!semis) return x; const r = Math.pow(2, -semis / 12), n = Math.floor((x.length - 1) * r), y = new Float32Array(n); for (let i = 0; i < n; i++) { const p = i / r, k = Math.floor(p), f = p - k; y[i] = x[k] * (1 - f) + x[k + 1] * f; } return y; };
 const fluid = (set, m) => { const f = path.join(out, `${set}-mp3`, `${flat(m)}.mp3`); return fs.existsSync(f) ? read(f) : null; };
@@ -111,32 +116,38 @@ for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
   notes[name] = shaped.map(s => s.m);
   console.log(`${name}: ${shaped.length} notes ${flat(shaped[0].m)}-${flat(shaped[shaped.length - 1].m)}, matched to ${old} on ${ratios.length} (gain ${gain.toFixed(2)})`);
 }
-if (!only || only.includes('vcsl_kit')) {
-fs.mkdirSync(path.join(out, 'vcsl_kit-mp3'), { recursive: true });
+if (!only || only.includes('kit')) {
+fs.mkdirSync(path.join(out, 'kit-mp3'), { recursive: true });
 let snareLevel = null;
-for (const [m, seconds, layers, semis, stereo, trimDb] of KIT) {   // stereo: the high-pass in Hz for a stereo drum
+for (const [m, seconds, layers, semis, stereo, trimDb, win] of KIT) {   // stereo: the high-pass in Hz for a stereo drum
   // Each take as its channels (one, or two for the stereo ones), cut from the onset of their sum.
   const takes = [];
   for (const [layer, file] of Object.entries(layers)) for (const rr of [1, 2]) {
-    const f = path.join(src, Array.isArray(file) ? file[rr - 1] : file.replace('%', rr)), chans = (stereo ? readPair(f, stereo) : [read(f)]).map(x => lower(x, semis || 0));
+    // A take: one file (% its round robin), or one of two named, each a file, a mix of mono files ({ mix: [[file, gain]] }),
+    // or a stereo pair of mono files ({ pair: [left, right] }).
+    const one = Array.isArray(file) ? file[rr - 1] : file.replace('%', rr), at = f => path.join(src, f);
+    const hpf = stereo ? `highpass=f=${stereo},highpass=f=${stereo}` : null;
+    const raw = one.mix ? [one.mix.map(([f, g]) => read(at(f)).map(v => v * g)).reduce((a, b) => a.map((v, i) => v + (b[i] || 0)))] : one.pair ? (([l, r]) => one.blend ? [l.map((v, i) => v + one.blend * (r[i] || 0)), r] : [l, r])(one.pair.map(f => read(at(f), hpf))) : stereo ? readPair(at(one), stereo) : [read(at(one))];
+    const chans = raw.map(x => lower(x, semis || 0));
     const sum = chans[0].map((v, i) => chans.reduce((a, c) => a + c[i], 0) / chans.length), o = onset(sum), n = Math.min(sum.length - o, Math.round(seconds * sr)), fade = Math.round(Math.min(0.3, seconds / 3) * sr);
     const cut = chans.map(c => { const y = c.slice(o, o + n); for (let i = 0; i < Math.min(n, fade); i++) y[n - Math.min(n, fade) + i] *= Math.cos(i / Math.min(n, fade) * Math.PI / 2) ** 2; return y; });
     takes.push({ name: flat(m) + layer + (rr === 2 ? '-2' : ''), chans: cut, mono: cut[0].map((v, i) => cut.reduce((a, c) => a + c[i], 0) / cut.length) });
   }
-  const power = t => Math.sqrt(t.chans.reduce((a, c) => { const o0 = onset(t.mono); return a + rms(c, o0, Math.round(0.3 * sr)) ** 2; }, 0) / t.chans.length);   // the level both channels play at
-  const mid = power(takes[0]), o = fluid('percussion', m);
+  const span = Math.round((win || 0.3) * sr);   // the window a drum is levelled over (a crash's first second and a half, not its strike)
+  const power = t => Math.sqrt(t.chans.reduce((a, c) => { const o0 = onset(t.mono); return a + rms(c, o0, span) ** 2; }, 0) / t.chans.length);   // the level both channels play at
+  const mid = power(takes.find(t => t.name === flat(m)) || takes[0]), o = fluid('percussion', m);
   for (const t of takes) { const g = mid / Math.max(1e-6, power(t)); for (const c of t.chans) for (let i = 0; i < c.length; i++) c[i] *= g; }   // every take at the middle one's loudness
-  let g = Math.pow(10, (trimDb || 0) / 20) * (o ? level(o) / Math.max(1e-6, mid) : TOMS.includes(m) && snareLevel ? snareLevel * Math.pow(10, -1 / 20) / Math.max(1e-6, mid) : 1);
+  let g = Math.pow(10, (trimDb || 0) / 20) * (o ? rms(o, onset(o), span) / Math.max(1e-6, mid) : TOMS.includes(m) && snareLevel ? snareLevel * Math.pow(10, -1 / 20) / Math.max(1e-6, mid) : 1);
   const peak = Math.max(...takes.flatMap(t => t.chans.map(c => c.reduce((p, v) => Math.max(p, Math.abs(v)), 0)))); g = Math.min(g, 0.89 / peak);
   for (const t of takes) {
     const L = t.chans[0].length, x = new Float32Array(L * t.chans.length);
     for (let i = 0; i < L; i++) for (let c = 0; c < t.chans.length; c++) x[i * t.chans.length + c] = t.chans[c][i] * g;
-    write(x, path.join(out, 'vcsl_kit-mp3', `${t.name}.mp3`), t.chans.length, stereo ? '128k' : '96k');
+    write(x, path.join(out, 'kit-mp3', `${t.name}.mp3`), t.chans.length, stereo ? '128k' : '96k');
   }
   if (m === 38) snareLevel = mid * g;
-  console.log(`vcsl_kit ${flat(m)}: ${takes.map(t => t.name).join(' ')}${stereo ? ' (stereo)' : ''}`);
+  console.log(`kit ${flat(m)}: ${takes.map(t => t.name).join(' ')}${stereo ? ' (stereo)' : ''}`);
 }
-notes.vcsl_kit = KIT.map(k => k[0]).sort((a, b) => a - b);
-console.log(`vcsl_kit: ${KIT.length} drums (${notes.vcsl_kit.map(flat).join(' ')}), the rest from percussion`);
+notes.kit = KIT.map(k => k[0]).sort((a, b) => a - b);
+console.log(`kit: ${KIT.length} drums (${notes.kit.map(flat).join(' ')}), the rest from percussion`);
 }
 console.log('\nSAMPLE_NOTES = ' + JSON.stringify(notes));

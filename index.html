@@ -2887,32 +2887,33 @@
     // note); a note it lacks plays its nearest kept neighbour retuned, so a set of every third note is never more than a
     // semitone from the note asked for, and is a third of the download. test/band-report.js measures what that costs.
     const SAMPLE_STEP = {};
-    // The CC0 sets (vendor/soundfont/build-cc0.js, from Versilian Studios' VCSL and VSCO 2): each keeps only the notes it was
+    // The CC0 sets (vendor/soundfont/build-cc0.js, from Versilian Studios' VCSL and VSCO 2; the kit's kick and crash are
+    // Lars Muldjord's, CC BY 4.0): each keeps only the notes it was
     // recorded at, and a note between them plays its nearest, retuned. SAMPLE_SETS.use puts each in for the FluidR3 set
-    // it replaces; the kit has five drums of its own and leaves the rest to the percussion set. The recorder is filed at
+    // it replaces; the kit (kit-mp3) has eleven drums of its own and leaves the rest to the percussion set. The recorder is filed at
     // its written pitch and sounds an octave above it, as a soprano recorder does. The violin, trumpet, tuba and the bars
     // have no FluidR3 set: PROGRAM_FOLDER names them, and the glockenspiel and xylophone are filed at written pitch too.
-    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"vcsl_kit":[37,38,42,43,44,46,47,49,50,51],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
-    const SAMPLE_SETS = { use: true, acoustic_grand_piano: 'vcsl_grand_piano', recorder: 'vcsl_soprano_recorder', acoustic_bass: 'vsco_double_bass_pizz', percussion: 'vcsl_kit', electric_piano_1: 'synth-epiano' };   // the electric piano is synthesised (no CC0 set found)
+    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"kit":[36,37,38,42,43,44,46,47,49,50,51],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
+    const SAMPLE_SETS = { use: true, acoustic_grand_piano: 'vcsl_grand_piano', recorder: 'vcsl_soprano_recorder', acoustic_bass: 'vsco_double_bass_pizz', percussion: 'kit', electric_piano_1: 'synth-epiano' };   // the electric piano is synthesised (no CC0 set found)
     // How far the melody sounds above what is written: the CC0 soprano recorder an octave, as a real one does.
     const melodyOctave = inst => inst === 'recorder' && SAMPLE_SETS.use && location.protocol !== 'file:' ? 12 : 0;
-    const setOf = (folder, midi) => { const to = SAMPLE_SETS.use && location.protocol !== 'file:' && SAMPLE_SETS[folder]; return to && (to !== 'vcsl_kit' || SAMPLE_NOTES.vcsl_kit.includes(midi)) ? to : folder; };
+    const setOf = (folder, midi) => { const to = SAMPLE_SETS.use && location.protocol !== 'file:' && SAMPLE_SETS[folder]; return to && (to !== 'kit' || SAMPLE_NOTES.kit.includes(midi)) ? to : folder; };
     // The kit's takes (vendor/soundfont/build-cc0.js): each drum in two takes, and the snare, closed hat and toms at three
     // strengths, p soft and f hard beside the middle one (the letters here; l is the hat's loose, half-open hit, played for
     // some of the hard ones). A hit plays the strength its level asks for (under KIT_SOFT, over KIT_HARD; the levels the
     // Sampler is given, a backbeat at middle Energy near 0.4) and the takes in turn, as two hands do, a few cents and a
     // little level apart, so no two strikes are the same sound. The hats and cymbals are stereo.
-    const KIT_TAKES = { 37: '', 38: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: '', 50: 'pf', 51: '' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
+    const KIT_TAKES = { 36: 'pf', 37: '', 38: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: 'pf', 50: 'pf', 51: '' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
     // Where each drum sits, as the audience hears a right-handed drummer (the hats on the right, on their own bus): the
-    // high tom right, the floor tom and the ride left, and the crash's two cymbals either side (its two takes).
-    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.45, 49: [-0.3, 0.35] };
+    // high tom right, the floor tom and the ride left. The crash is where its overhead pair heard it (right of centre).
+    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.45 };
     // A closed hat closes: each strike fades after a moment, sooner when it is struck softly, a little differently every
     // time (the foot's pressure), and any hat strike chokes the one before it (an open hat closes when the next is played).
     const HATS = new Set([42, 44, 46]);
-    const takesOf = (folder, midi) => { const t = folder === 'vcsl_kit' ? KIT_TAKES[midi] : undefined; if (t === undefined) return null; const n = FLAT_NOTE(midi); return ['', ...t].flatMap(l => [n + l, n + l + '-2']); };
+    const takesOf = (folder, midi) => { const t = folder === 'kit' ? KIT_TAKES[midi] : undefined; if (t === undefined) return null; const n = FLAT_NOTE(midi); return ['', ...t].flatMap(l => [n + l, n + l + '-2']); };
     const sampleOf = (folder, midi) => {
       const keep = SAMPLE_NOTES[folder];
-      if (keep) { let best = keep[0]; for (const k of keep) if (Math.abs(k - midi) < Math.abs(best - midi)) best = k; return folder === 'vcsl_kit' ? midi : best; }
+      if (keep) { let best = keep[0]; for (const k of keep) if (Math.abs(k - midi) < Math.abs(best - midi)) best = k; return folder === 'kit' ? midi : best; }
       const st = SAMPLE_STEP[folder] || 1; return st === 1 ? midi : Math.round(midi / st) * st;
     };
     // Wake the page's audio inside a tap or click. Safari leaves a context 'interrupted' (after a lock screen, a call, a
@@ -3005,7 +3006,6 @@
             g.gain.setTargetAtTime(0, when + hold, tau); if (!dur) closeAt = when + hold + 7 * tau;
           }
         }
-        if (midi === DRUM.kick && folder === 'percussion') this.beater(ctx, when, vel, out);
         if (from !== midi) src.playbackRate.value = Math.pow(2, (midi - from) / 12);
         g.gain.setValueAtTime(vel, when);
         if (fx && src.detune) {
@@ -3023,25 +3023,6 @@
         return src;
       }
     }
-    // The beater on the sampled kick's head: the FluidR3 kick is all body (99% of it under 180 Hz), so a struck kick's
-    // click (a few milliseconds of noise around 3-4 kHz) and knock (a falling 300 Hz thump) are made here and played with
-    // it, both stronger the harder it is struck, a little different every time. Their levels put about 8% of the kick's
-    // energy above 1 kHz (none before) and add 0.7 dB to it (a single hit, measured offline).
-    Sampler.prototype.beater = function (ctx, when, vel, out) {
-      this.noise = this.noise || new WeakMap();
-      let nb = this.noise.get(ctx);
-      if (!nb) { nb = ctx.createBuffer(1, Math.round(ctx.sampleRate * 0.05), ctx.sampleRate); const d = nb.getChannelData(0), r = mulberry(4241); for (let i = 0; i < d.length; i++) d[i] = r() * 2 - 1; this.noise.set(ctx, nb); }
-      const h = Math.min(1, vel / 0.6), r = mulberry(Math.round(when * 1e4) + 36)();
-      const src = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), cg = ctx.createGain();
-      src.buffer = nb; bp.type = 'bandpass'; bp.frequency.value = 3000 + 1200 * r; bp.Q.value = 0.9;
-      src.connect(bp); bp.connect(cg); cg.connect(out);
-      cg.gain.setValueAtTime(vel * (0.1 + 0.14 * h), when); cg.gain.setTargetAtTime(0, when + 0.001, 0.0025 + 0.0015 * h);
-      src.start(when); src.stop(when + 0.04);
-      const o = ctx.createOscillator(), kg = ctx.createGain();
-      o.type = 'triangle'; o.frequency.setValueAtTime(300 + 60 * r, when); o.frequency.exponentialRampToValueAtTime(140, when + 0.03);
-      o.connect(kg); kg.connect(out); kg.gain.setValueAtTime(vel * (0.024 + 0.03 * h), when); kg.gain.setTargetAtTime(0, when + 0.002, 0.012);
-      o.start(when); o.stop(when + 0.1);
-    };
     // Voices made here rather than sampled, by name (a Band part's folder): no download, and the sounds modern styles
     // are built on. A kit plays its kick here and the rest of the drums from the percussion samples.
     const SYNTH_VOICES = { 'synth-sub': 'sub', 'synth-bass': 'bass', 'synth-pluck': 'pluck', 'synth-pad': 'pad', 'synth-epiano': 'epiano' };
