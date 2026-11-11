@@ -1,22 +1,22 @@
 # Published-tune dossier gap report
 
-Generated deterministically from `course/set.json` (40 published tunes). Only explicit `% dossier-*:` statements count as completed. Existing `O:`, `R:`, `Q:`, `C:`, lyrics, chord analysis and source paths appear as **editorial seeds**, not as inferred cultural claims.
+Generated deterministically from `course/set.json` (80 published tunes). Only explicit `% dossier-*:` statements count as completed. Existing `O:`, `R:`, `Q:`, `C:`, lyrics, chord analysis and source paths appear as **editorial seeds**, not as inferred cultural claims.
 
 A complete dossier requires function, characteristic elements, performance practice, provenance/honesty, licence, respect flags, and a reviewer/sign-off field, plus usable provenance: an external citation, bibliographic source, or identified local original.
 
 ## Summary
 
-- Complete dossiers: **0/40**.
-- Explicit origins: 25/40; usable provenance sources: 23/40; internal collection paths only: 17; private paths: 0.
-- Lyrics are present in 21/40 charts.
+- Complete dossiers: **0/80**.
+- Explicit origins: 74/80; usable provenance sources: 77/80; internal collection paths only: 3; private paths: 0.
+- Lyrics are present in 50/80 charts.
 
 | Required dossier field | Explicitly complete | Existing seed only |
 |---|---:|---:|
-| Function | 0 | 21 |
-| Characteristic elements | 0 | 40 |
-| Performance practice | 0 | 7 |
-| Provenance/honesty | 0 | 14 |
-| Licence | 0 | 15 |
+| Function | 0 | 80 |
+| Characteristic elements | 0 | 80 |
+| Performance practice | 0 | 47 |
+| Provenance/honesty | 0 | 69 |
+| Licence | 0 | 22 |
 | Respect flags | 0 | 0 |
 | Reviewer/sign-off | 0 | 0 |
 
@@ -26,66 +26,92 @@ Higher scores mean more missing dossier fields plus weaker provenance metadata. 
 
 | Tune | L | Done | Source evidence | Existing seeds | Missing explicit fields | Score |
 |---|---:|---:|---|---|---|---:|
-| Bounce High, Bounce Low | 1 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Engine, Engine, Number Nine | 1 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Rain, Rain, Go Away | 1 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Ring Around the Rosie | 1 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Starlight, Star Bright | 1 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Mary Had a Little Lamb | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Merrily We Roll Along | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Baa, Baa, Black Sheep | 3 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Jingle Bells (chorus) | 3 | 0/7 | internal container only | origin: USA; C: James Lord Pierpont (1857); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Lightly Row | 3 | 0/7 | internal container only | origin: Germany; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Rocky Mountain | 3 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Skip to My Lou | 3 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| This Old Man | 3 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Twinkle, Twinkle, Little Star | 3 | 0/7 | internal container only | origin: France; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Frère Jacques | 4 | 0/7 | internal container only | origin: France; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Oh! Susanna | 4 | 0/7 | internal container only | origin: USA; C: Stephen Foster (1848); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Amazing Grace | 3 | 0/7 | internal container only | origin: USA; R: hymn; C: Words: John Newton (1779); tune: New Britain (USA, 1829); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 79 |
-| Clickety Clack | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
-| Crows on the Fence | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
-| Evening Bells | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
-| Astley's Ride | 4 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
-| Daisy Daisy | 4 | 0/7 | bibliographic text | R: waltz; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
-| Highland Mary | 4 | 0/7 | bibliographic text | R: Morris dance; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
+| Jingle Bells (chorus) | 3 | 0/7 | internal container only | origin: USA; R: winter song; C: James Lord Pierpont (1857); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 79 |
+| Oh! Susanna | 4 | 0/7 | internal container only | origin: USA; R: parlour song; C: Stephen Foster (1848); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 79 |
 | The First Frost - Second part | 4 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
 | B. Variation | 5 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
-| Tom And Jerry | 5 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
-| Billy In The Lowground | 6 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
-| Dance All Night | 6 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
 | Fred Roden's Reel | 6 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
 | Sweet Ellen | 6 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
 | The Donegall | 6 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
 | Walking In My Sleep | 6 | 0/7 | bibliographic text | R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 76 |
+| Ba ban (八板) | 4 | 0/7 | bibliographic text | origin: China; R: instrumental air; Q: 1/4=88; C: traditional (China) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| Gurkha sing-song | 4 | 0/7 | bibliographic text | origin: India, Dharmsala (2nd Goorkhas); R: song (solo and chorus, danced); Q: 1/4=108; C: traditional (Gurkha, Nepal) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| Nirguna's lullaby | 4 | 0/7 | bibliographic text | origin: India, Maharashtra; R: devotional lullaby; Q: 1/4=80; C: traditional (Maharashtra) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| The ayah's song | 4 | 0/7 | bibliographic text | origin: India; R: air; Q: 1/4=80; C: traditional (North India), sung by an unnamed ayah | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
 | Bhairavi | 5 | 0/7 | bibliographic text | origin: India, Hindustani; R: Eka Trisra; Q: 1/4=66; C: traditional (Poona Gayan Samaj) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
 | Bhup | 5 | 0/7 | bibliographic text | origin: India, Hindustani; R: Rupak; C: traditional (Poona Gayan Samaj) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
 | Desh | 5 | 0/7 | bibliographic text | origin: India, Hindustani; R: Eka Trisra; Q: 1/4=66; C: traditional (Poona Gayan Samaj) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| Greensleeves | 5 | 0/7 | bibliographic text | origin: England; R: ballad tune; Q: 3/8=56; C: traditional (England, 16th century) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
 | Malkos | 5 | 0/7 | bibliographic text | origin: India, Hindustani; R: Eka Trisra; Q: 1/4=66; C: traditional (Poona Gayan Samaj) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| Xianhua diao (鮮花調) | 5 | 0/7 | bibliographic text | origin: China; R: popular song (xiaodiao); Q: 1/4=84; C: traditional (China, lower Yangzi) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| Adana melody | 6 | 0/7 | bibliographic text | origin: Turkey, Adana province (Çukurova); R: folk melody; Q: 1/4=56; C: traditional (Turkey), author unknown | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 75 |
+| Bounce High, Bounce Low | 1 | 0/7 | bibliographic text | origin: USA; R: children's ball-bouncing chant; C: traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Engine, Engine, Number Nine | 1 | 0/7 | bibliographic text | origin: USA; R: counting-out chant; C: traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Lucy Locket | 1 | 0/7 | bibliographic text | origin: England; R: children's singing game; Q: 1/4=100; C: traditional (England); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Rain, Rain, Go Away | 1 | 0/7 | bibliographic text | origin: England; R: children's song; C: traditional (England); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Ring Around the Rosie | 1 | 0/7 | bibliographic text | origin: England; R: singing game; C: traditional (England); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Starlight, Star Bright | 1 | 0/7 | bibliographic text | origin: USA; R: children's wishing rhyme; C: traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Mary Had a Little Lamb | 2 | 0/7 | bibliographic text | origin: USA; R: children's song; C: words: Sarah Josepha Hale (1830); tune traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Merrily We Roll Along | 2 | 0/7 | bibliographic text | origin: USA; R: children's song; C: traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Arirang | 3 | 0/7 | bibliographic text | origin: Korea (Mungyeong Saejae Arirang); R: Korean minyo; Q: 1/4=88; C: traditional (Korea); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Au Clair de la Lune | 3 | 0/7 | bibliographic text | origin: France; R: children's song; Q: 1/4=96; C: traditional (France); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Baa, Baa, Black Sheep | 3 | 0/7 | bibliographic text | origin: England; R: nursery rhyme; C: traditional (England); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Bújj, bújj, zöld ág | 3 | 0/7 | bibliographic text | origin: Hungary, Baranya county; R: children's game (arch game); Q: 1/4=96; C: traditional (Hungary); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Cha-ko'mba, ko'mba | 3 | 0/7 | bibliographic text | origin: Mozambique (then Portuguese East Africa), Ndau people; R: singing game; Q: 1/4=116; C: traditional (Ndau), as sung by C. Kamba Simango; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Lightly Row | 3 | 0/7 | bibliographic text | origin: Germany; R: children's song; C: traditional (Germany, "Hänschen klein"); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Mīkhāhī labu? | 3 | 0/7 | bibliographic text | origin: Iran (Persia); R: Persian folk song (comic song); Q: 1/4=88; C: traditional (Iran), collected by Blair Fairchild; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Rocky Mountain | 3 | 0/7 | bibliographic text | origin: USA; R: play-party song; C: traditional (USA, Appalachian); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Skip to My Lou | 3 | 0/7 | bibliographic text | origin: USA; R: play-party song; C: traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| This Old Man | 3 | 0/7 | bibliographic text | origin: England; R: counting song; C: traditional (England); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Twinkle, Twinkle, Little Star | 3 | 0/7 | bibliographic text | origin: France; R: lullaby; C: tune traditional (France, "Ah! vous dirai-je, maman"); words: Jane Taylor (1806); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| When the Saints Go Marching In | 3 | 0/7 | bibliographic text | origin: USA (African American spiritual; New Orleans); R: spiritual; Q: 1/4=120; C: traditional (USA); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| A l'entrada del tens clar | 4 | 0/7 | bibliographic text | origin: Occitania (southern France); R: balada (round dance); Q: 1/4=150; C: anonymous (Occitan, 12th-13th century); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Carry banana | 4 | 0/7 | bibliographic text | origin: Jamaica; R: ring tune; Q: 1/4=150; C: traditional (Jamaica); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Frère Jacques | 4 | 0/7 | bibliographic text | origin: France; R: round; C: traditional (France); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Galloway road | 4 | 0/7 | bibliographic text | origin: Jamaica; R: ring game; Q: 1/4=100; C: traditional (Jamaica); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| I Plant Some Rice | 4 | 0/7 | bibliographic text | origin: Philippines (Ilocos Sur, Ilocano); R: children's action song; Q: 1/4=104; C: traditional (Ilocos Sur); notation by Florencio Buado; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| La Rana | 4 | 0/7 | bibliographic text | origin: Mexico; R: cumulative song (children's song); Q: 1/4=112; C: traditional (Mexico); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Little Sally Water | 4 | 0/7 | bibliographic text | origin: Jamaica; R: ring game; Q: 1/4=84; C: traditional (Jamaica, from an English singing game); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Mu-to-to-li'le | 4 | 0/7 | bibliographic text | origin: Mozambique (then Portuguese East Africa), Ndau people; R: children's song; Q: 1/4=60; C: traditional (Ndau), as sung by C. Kamba Simango; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Na Bahia tem | 4 | 0/7 | bibliographic text | origin: Brazil (Rio de Janeiro, Bahia, Minas Gerais); R: dança cantada (sung dance in two lines); Q: 1/4=100; C: traditional (Brazil: Rio, Bahia, Minas Gerais); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| O tu'la, mntwa'na (Thula, mntwana) | 4 | 0/7 | bibliographic text | origin: South Africa (Zululand / KwaZulu-Natal); R: lullaby; Q: 3/8=50; C: traditional (Zulu), as sung by Madikane Cele; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Pass the ball | 4 | 0/7 | bibliographic text | origin: Jamaica; R: ring game; Q: 1/4=116; C: traditional (Jamaica); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Rama's lullaby | 4 | 0/7 | bibliographic text | origin: India, Maharashtra; R: devotional lullaby; Q: 1/4=80; C: traditional (Maharashtra); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Rāna jīnāk | 4 | 0/7 | bibliographic text | origin: Algiers, Algeria; R: festival song (processional); Q: 1/4=112; C: traditional (Algeria and the Maghreb); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Si me dan pasteles | 4 | 0/7 | bibliographic text | origin: Puerto Rico; R: aguinaldo (Christmas song); Q: 1/4=104; C: traditional (Puerto Rico); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Vámonos por Santa Anita | 4 | 0/7 | bibliographic text | origin: northern Mexico; R: play song; Q: 1/4=100; C: traditional (northern Mexico); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| B'qāw ʿala khēr | 5 | 0/7 | bibliographic text | origin: Algiers, Algeria; R: festival song (leave-taking); Q: 3/8=108; C: traditional (Algeria and the Maghreb); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
 | Chhaila | 5 | 0/7 | bibliographic text | origin: India, Garhwal (Himalaya); R: song; Q: 1/8=160; C: traditional (Garhwal); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
 | Mother, send to the dhobi | 5 | 0/7 | bibliographic text | origin: India, Garhwal (Himalaya); R: song; Q: 1/8=180; C: traditional (Garhwal); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
 | O where will you go | 5 | 0/7 | bibliographic text | origin: India, Garhwal (Himalaya); R: song; Q: 1/8=180; C: traditional (Garhwal); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Resvelons nous | 5 | 0/7 | bibliographic text | origin: Cambrai; copied in northern Italy before about 1436; R: rondeau, with a canon burden (May song); Q: 1/2=72; C: Guillaume Du Fay (c. 1397-1474); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Zdravets | 5 | 0/7 | bibliographic text | origin: Bulgaria; R: horo song; Q: 3/16=130; C: traditional (Bulgaria); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Lalishrita | 6 | 0/7 | bibliographic text | origin: India, Tamil Nadu (Srirangam); R: devotional lullaby; Q: 1/4=70; C: traditional (Tamil Nadu); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Mafuve | 6 | 0/7 | bibliographic text | origin: Mozambique (then Portuguese East Africa), Ndau people; R: dance song; Q: 1/4=63; C: traditional (Ndau), as sung by C. Kamba Simango; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
 | O give me those pretty eyes | 6 | 0/7 | bibliographic text | origin: India, Garhwal (Himalaya); R: song; Q: 1/4=100; C: traditional (Garhwal); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 74 |
+| Clickety Clack | 2 | 0/7 | local original | origin: Course original (no cultural attribution); R: classroom train song; C: Grand Central Stationery (original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Crows on the Fence | 2 | 0/7 | local original | origin: Course original (no cultural attribution); R: classroom piece; C: Grand Central Stationery (original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Evening Bells | 2 | 0/7 | local original | origin: Course original (no cultural attribution); R: classroom piece; C: Grand Central Stationery (original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Astley's Ride | 4 | 0/7 | bibliographic text | origin: England; R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Cuckoo's Nest | 4 | 0/7 | bibliographic text | origin: British Isles; R: hornpipe; Q: 1/4=100; C: traditional (British Isles); licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Daisy Daisy | 4 | 0/7 | bibliographic text | origin: England; R: waltz; C: Harry Dacre ("Daisy Bell", 1892); licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Highland Mary | 4 | 0/7 | bibliographic text | origin: England (Cotswold Morris); R: Morris dance; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Konpira fune fune | 5 | 0/7 | bibliographic text | origin: Japan, Kagawa (Kotohira); R: hand-game song; Q: 1/4=112; C: traditional (Japan); licence: public domain (Tom Potter's transcription, donated) | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Soldiers' Joy | 5 | 0/7 | bibliographic text | origin: Scotland and England; played across the British Isles and North America; R: reel; Q: 1/4=120; C: traditional (British Isles); licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Sugar in the Gourd | 5 | 0/7 | bibliographic text | origin: USA (upland South); R: reel; Q: 1/4=120; C: traditional (USA); licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Tom And Jerry | 5 | 0/7 | bibliographic text | origin: USA; R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Billy In The Lowground | 6 | 0/7 | bibliographic text | origin: USA; R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Dance All Night | 6 | 0/7 | bibliographic text | origin: USA; R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
+| Go le mimli | 3 | 0/7 | bibliographic text | origin: Ghana (Volta Region, Èwè-Dòmè, around Ho); R: storytelling song (glimedeha, audience interlude); Q: 3/8=72; C: traditional (Èwè-Dòmè), transcribed by Divine K. Gbagbo; licence: CC BY-NC-SA 4.0 (Gbagbo and Elder, 2019); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 70 |
+| Sakura | 4 | 0/7 | bibliographic text | origin: Japan; R: koto song; Q: 1/4=72; C: traditional (Japan); licence: public domain (Tom Potter's transcription, donated); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 70 |
+| Usagi to Kame (兎と亀) | 4 | 0/7 | bibliographic text | origin: Japan; R: children's song (school song); Q: 1/4=104; C: Benjirō Nōsho (music); Wasaburō Ishihara (Japanese words); Grace Hazard Conkling (1922 English version); licence: public domain in the US and Canada (Conkling's English, 1922); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 70 |
 
 ## Source repair queue
 
-- **Bounce High, Bounce Low:** internal container only (`course/samples/beginner-songs.abc`).
-- **Engine, Engine, Number Nine:** internal container only (`course/samples/beginner-songs.abc`).
-- **Rain, Rain, Go Away:** internal container only (`course/samples/beginner-songs.abc`).
-- **Ring Around the Rosie:** internal container only (`course/samples/beginner-songs.abc`).
-- **Starlight, Star Bright:** internal container only (`course/samples/beginner-songs.abc`).
-- **Mary Had a Little Lamb:** internal container only (`course/samples/first-tunes.abc`).
-- **Merrily We Roll Along:** internal container only (`course/samples/beginner-songs.abc`).
-- **Baa, Baa, Black Sheep:** internal container only (`course/samples/beginner-songs.abc`).
-- **Jingle Bells (chorus):** internal container only (`course/samples/beginner-songs.abc`).
-- **Lightly Row:** internal container only (`course/samples/beginner-songs.abc`).
-- **Rocky Mountain:** internal container only (`course/samples/beginner-songs.abc`).
-- **Skip to My Lou:** internal container only (`course/samples/beginner-songs.abc`).
-- **This Old Man:** internal container only (`course/samples/beginner-songs.abc`).
-- **Twinkle, Twinkle, Little Star:** internal container only (`course/samples/first-tunes.abc`).
-- **Frère Jacques:** internal container only (`course/samples/beginner-songs.abc`).
-- **Oh! Susanna:** internal container only (`course/samples/first-tunes.abc`).
 - **Amazing Grace:** internal container only (`course/samples/first-tunes.abc`).
+- **Jingle Bells (chorus):** internal container only (`course/samples/beginner-songs.abc`).
+- **Oh! Susanna:** internal container only (`course/samples/first-tunes.abc`).
 
 ## Editorial rules for filling gaps
 

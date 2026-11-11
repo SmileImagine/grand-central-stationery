@@ -47,7 +47,8 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   for (const t of set.tunes) {
     const f = Analyze.analyzeAbc(t.abc, ABCJS)[0].features;
     // A breath mark ends a phrase (form), so it alone does not make the dynamics; a phrase arc comes with them here.
-    const marked = f.decorations.some(d => d !== 'breath') || f.slurs > 0 || f.graceNotes > 0;
+    // A fermata is duration and a segno or coda only says where to go, so neither makes the dynamics.
+    const marked = f.decorations.some(d => !['breath', 'fermata', 'segno', 'coda', 'fine', 'D.C.', 'D.S.'].includes(d)) || f.slurs > 0 || f.graceNotes > 0;
     assert(!!entry(t.id, 'dynamics').absent === !marked, `${t.id}: dynamics are tagged exactly when the music marks them`);
     assert(!!entry(t.id, 'timbre').absent === !/^%%style\s+drone/m.test(t.abc), `${t.id}: timbre only when the music names its sound`);
     assert(!!entry(t.id, 'texture').absent === !(f.chordSymbols > 0 || /^%%style\s+drone|^%%round/m.test(t.abc) || f.voices > 1), `${t.id}: texture only when chords, a drone or parts are written`);
@@ -127,7 +128,7 @@ const has = (f, tag) => (f.skills || []).includes(tag);
       else assert(a[0] !== b[0] || a[1] !== b[1], `${t.id}: ${p.letter} and ${q.letter} begin differently`);
     }));
   }
-  eq(withParts, 18, 'eighteen pieces with parts to compare: every form beyond a single phrase');
+  eq(withParts, 29, 'twenty-nine pieces with parts to compare: every form beyond a single phrase');
 }
 
 /* ---------------- the Listen step's choices ---------------- */

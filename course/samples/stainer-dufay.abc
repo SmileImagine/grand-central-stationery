@@ -1,0 +1,47 @@
+% J. F. R. and C. Stainer, Dufay and his Contemporaries (1898).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:Resvelons nous
+T:Wake Up, Lovers
+C:Guillaume Du Fay (c. 1397-1474)
+O:Cambrai; copied in northern Italy before about 1436
+R:rondeau, with a canon burden (May song)
+S:J. F. R. and C. Stainer, Dufay and his Contemporaries (London: Novello, 1898), pp. 132-133, from Oxford, Bodleian Library, MS Canonici misc. 213
+N:A May-morning song by Guillaume Du Fay: wake up, lovers, and go to the woods to gather the may (green boughs and blossom brought home on May Day). Underneath, the two lower voices sing the burden "Alons ent bien tos au may" (let's be off to the may) as a canon, the tenor answering the contratenor a fifth lower one bar later; in the last three bars both leave the canon for the cadence. In class, two groups sing the burden as a round (an octave up for children's voices: seven stepwise notes in a five-bar loop) while the teacher or a soloist sings the top line. Notes as Stainer printed them in 1898 (original values halved); the sharps and flats at the cadences and the B flats are his editorial accidentals, not the manuscript's. The tempo is ours (the half note is the beat).
+Q:1/2=72
+M:3/2
+L:1/4
+K:C
+%%style ballad
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+V:1 name="Superius" sname="S"
+V:2 name="Contratenor" sname="Ct" clef=treble-8
+V:3 name="Tenor" sname="T" clef=bass
+[V:1] G2 G2 F G | A2 G F2 E | D4 ^C2 | D2 z2 E2 | F4 D2 | E4 D2 | A,2 z A, _B, C | D E D D ^C B, |
+w: Res-ve-lons_ nous res-ve-lons a-mour-eux a-lons au bois tan-tost en__ ci--lir_ le_
+[V:1] D2 z4 | A2 A2 A2 | G2 c2 _B2 | A G F E2 D | F2 z2 G2 | F4 E2 | D3 ^C D B, | A,2 z2 A2 |
+w: may et chan-te-rons chas-cun un_ vi--re-lay pour sa da-me____ s'en
+[V:1] A G F2 E2 | D4 ^C2 | D4 E2 | F3 E F G | E F D ^C ^C B, | D6- | D6 |]
+w: se--rons_ plus joi-eux____________
+[V:2] C4 D2 | C4 _B,2 | A,4 G,2 | A,6 | z6 | C4 D2 | C4 _B,2 | A,4 G,2 |
+w: A-lons ent bien tos au may a-lons ent bien tos au
+[V:2] A,6 | z6 | C4 D2 | C4 _B,2 | A,4 G,2 | A,6 | z6 | C4 D2 |
+w: may a-lons ent bien tos au may a-lons
+[V:2] C4 _B,2 | A,4 G,2 | A,6 | z6 | G,4 G,2 | A,6- | A,6 |]
+w: ent bien tos au may_
+[V:3] z6 | F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | z6 | F,4 G,2 | F,4 E,2 |
+w: A-lons ent bien tos au may a-lons ent bien
+[V:3] D,4 ^C,2 | D,6 | z6 | F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | z6 |
+w: tos au may a-lons ent bien tos au may
+[V:3] F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | E,4 E,2 | D,6- | D,6 |]
+w: a-lons ent bien tos au may_
+W:Resvelons nous, resvelons, amoureux;
+W:Alons au bois tantost en cilir le may.
+W:Et chanterons chascun un virelay
+W:Pour sa dame: s'en serons plus joieux.
+W:(Wake up, wake up, lovers; let us go to the woods now to gather the may, and each of us will sing a virelai for his lady, and be the happier for it.)
+W:Burden: Alons ent bien tos au may. (Let's be off to the may.)

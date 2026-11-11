@@ -309,6 +309,57 @@
     "reason": "The first phrase, ending where the words take a breath, then sung again straight away (on “En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line”)."
    }
   },
+  "beginner-songs-5-lucy-locket": {
+   "title": "Lucy Locket",
+   "duration": {
+    "concept": "ti-ti",
+    "name": "ti-ti and ta",
+    "grade": 1,
+    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
+    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "Ti-ti on every beat: the rhythm moves twice as fast as the beat (on “Lu-cy Lock-et”)."
+   },
+   "pitch": {
+    "concept": "mi-so-la",
+    "name": "la–so–mi",
+    "grade": 1,
+    "term": "simple melodic patterns using the notes “mi”, “so”, and “la”",
+    "words": "a pattern on so, mi and la",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "la–so–mi: the children's-song pattern (on “lost her pock-et”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, ending where the words take a breath, then sung again straight away (on “Lu-cy Lock-et lost her pock-et, Kit-ty Fish-er found it”)."
+   }
+  },
   "original-pentatonic-8-evening-bells": {
    "title": "Evening Bells",
    "duration": {
@@ -605,45 +656,44 @@
     "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
    }
   },
-  "beginner-songs-8-rocky-mountain": {
-   "title": "Rocky Mountain",
+  "curtis-dark-continent-1-cha-ko-mba-ko-mba": {
+   "title": "Cha-ko'mba, ko'mba",
    "duration": {
-    "concept": "rest",
-    "name": "a beat of silence",
-    "grade": 1,
-    "term": "quarter rest",
-    "words": "a beat of silence",
+    "concept": "metre-3",
+    "name": "three beats in a bar",
+    "grade": 3,
+    "term": "three beats per bar (3/4 metre)",
+    "words": "three beats in every bar: strong, weak, weak",
     "bars": [
-     4,
-     4
+     1,
+     1
     ],
-    "reason": "A quarter rest: a beat of silence inside the tune (on “high”).",
-    "new": true
+    "throughout": true,
+    "reason": "Three beats in every bar, strong-weak-weak; bar 1 is the first full bar."
    },
    "pitch": {
-    "concept": "leap",
-    "name": "a leap of a major 6th",
-    "grade": 4,
-    "term": "intervals (unison, step, skip, leap)",
-    "words": "a leap: the tune jumps over the notes between",
+    "concept": "low-so-la",
+    "name": "low la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
     "bars": [
-     5,
-     6
+     2,
+     2
     ],
-    "reason": "The widest leap in the tune, do up to la: a major 6th (on “when you're on that rock-y moun-tain”).",
-    "new": true
+    "reason": "The tune dips below do to low la."
    },
    "dynamics": {
-    "concept": "hairpin",
-    "name": "louder and softer",
-    "grade": 2,
-    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
-    "words": "getting louder or softer",
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
     "bars": [
-     7,
-     7
+     2,
+     2
     ],
-    "reason": "A hairpin asks for the music to grow or fade (on “hang your head and”)."
+    "reason": "Marked accents or staccato."
    },
    "timbre": {
     "absent": true,
@@ -663,7 +713,104 @@
      1,
      4
     ],
-    "reason": "The first phrase, ending where the words take a breath (on “Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high”)."
+    "reason": "The whole piece is one phrase."
+   }
+  },
+  "beginner-songs-7-au-clair-de-la-lune": {
+   "title": "Au Clair de la Lune",
+   "duration": {
+    "concept": "whole",
+    "name": "a four-beat note",
+    "grade": 2,
+    "term": "whole note (“ta-ah-ah-ah”)",
+    "words": "one sound held for four beats",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "A whole note: one sound held for four beats (on “…rot”)."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     12,
+     13
+    ],
+    "reason": "The tune dips below do to low so (on “feu; ou-vre-moi ta”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "aaba",
+    "name": "A A B A",
+    "grade": 5,
+    "term": "compositions in four or more sections (e.g., AABA)",
+    "words": "A, A again, something new (B), then A comes back",
+    "bars": [
+     12,
+     13
+    ],
+    "reason": "Four phrases, A A B A: bars 12–13 are where B ends and A comes back (on “feu; ou-vre-moi ta”).",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       13,
+       16
+      ],
+      "play": [
+       13,
+       14
+      ]
+     }
+    ]
    }
   },
   "beginner-songs-11-skip-to-my-lou": {
@@ -783,100 +930,6 @@
      9
     ],
     "reason": "Three parts, A B A: bars 8–9 are where B ends and A comes back (on “in the sky. Twin-kle, twin-kle”).",
-    "parts": [
-     {
-      "letter": "A",
-      "bars": [
-       1,
-       4
-      ],
-      "play": [
-       1,
-       2
-      ]
-     },
-     {
-      "letter": "B",
-      "bars": [
-       5,
-       8
-      ],
-      "play": [
-       5,
-       6
-      ]
-     },
-     {
-      "letter": "A",
-      "bars": [
-       9,
-       12
-      ],
-      "play": [
-       9,
-       10
-      ]
-     }
-    ]
-   }
-  },
-  "beginner-songs-12-baa-baa-black-sheep": {
-   "title": "Baa, Baa, Black Sheep",
-   "duration": {
-    "concept": "ti-ti",
-    "name": "ti-ti and ta",
-    "grade": 1,
-    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
-    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
-    "bars": [
-     2,
-     2
-    ],
-    "reason": "Ti-ti on every beat: the rhythm moves twice as fast as the beat (on “have you a-ny wool”). Baa, Baa has Twinkle’s tune; its ti-ti (“have you any wool?”) is what sets it apart."
-   },
-   "pitch": {
-    "concept": "leap",
-    "name": "a leap of a perfect 5th",
-    "grade": 4,
-    "term": "intervals (unison, step, skip, leap)",
-    "words": "a leap: the tune jumps over the notes between",
-    "bars": [
-     1,
-     1
-    ],
-    "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “Baa, baa, black sheep”)."
-   },
-   "dynamics": {
-    "concept": "piano-forte",
-    "name": "soft and loud",
-    "grade": 3,
-    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
-    "words": "soft and loud",
-    "bars": [
-     1,
-     1
-    ],
-    "reason": "A written soft or loud sign (on “Baa, baa, black sheep”)."
-   },
-   "timbre": {
-    "absent": true,
-    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
-   },
-   "texture": {
-    "absent": true,
-    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
-   },
-   "form": {
-    "concept": "ternary",
-    "name": "A B A",
-    "grade": 3,
-    "term": "ternary (ABA) form",
-    "words": "A, something new (B), then A comes back",
-    "bars": [
-     8,
-     9
-    ],
-    "reason": "Three parts, A B A: bars 8–9 are where B ends and A comes back (on “who lives down the lane. Baa, baa, black sheep”).",
     "parts": [
      {
       "letter": "A",
@@ -1183,6 +1236,279 @@
     ]
    }
   },
+  "beginner-songs-12-baa-baa-black-sheep": {
+   "title": "Baa, Baa, Black Sheep",
+   "duration": {
+    "concept": "ti-ti",
+    "name": "ti-ti and ta",
+    "grade": 1,
+    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
+    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "Ti-ti on every beat: the rhythm moves twice as fast as the beat (on “have you a-ny wool”). Baa, Baa has Twinkle’s tune; its ti-ti (“have you any wool?”) is what sets it apart."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “Baa, baa, black sheep”)."
+   },
+   "dynamics": {
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “Baa, baa, black sheep”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "ternary",
+    "name": "A B A",
+    "grade": 3,
+    "term": "ternary (ABA) form",
+    "words": "A, something new (B), then A comes back",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "Three parts, A B A: bars 8–9 are where B ends and A comes back (on “who lives down the lane. Baa, baa, black sheep”).",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     }
+    ]
+   }
+  },
+  "fairchild-persian-1-m-kh-h-labu": {
+   "title": "Mīkhāhī labu?",
+   "duration": {
+    "concept": "dotted-half",
+    "name": "a three-beat note",
+    "grade": 3,
+    "term": "dotted half note",
+    "words": "one sound held for three beats (ta-ah-ah)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A dotted half note: one sound held for three beats (on “…ār-am”)."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so and la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "The tune dips below do to low la and low so (on “nā-nā-ī nā-nā-ī”)."
+   },
+   "dynamics": {
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "A written soft or loud sign (on “nā-nā-ī nā-nā-ī”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "triads",
+    "name": "major and minor chords",
+    "grade": 7,
+    "term": "major and minor triads",
+    "words": "chords of three notes, some bright (major), some dark (minor)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The chords E5 (V) (on “mī-khā-hī la-bu bi…”)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first phrase, ending where the words take a breath, then sung again straight away (on “mī-khā-hī la-bu bi-ār-am”)."
+   }
+  },
+  "beginner-songs-17-when-the-saints-go-marching-in": {
+   "title": "When the Saints Go Marching In",
+   "duration": {
+    "concept": "dotted-half",
+    "name": "a three-beat note",
+    "grade": 3,
+    "term": "dotted half note",
+    "words": "one sound held for three beats (ta-ah-ah)",
+    "bars": [
+     11,
+     11
+    ],
+    "reason": "A dotted half note: one sound held for three beats (on “in that”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     2,
+     3
+    ],
+    "reason": "The widest leap in the tune, so down to do: a perfect 5th (on “saints go march-ing”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Oh when the saints go march-ing in”)."
+   }
+  },
+  "beginner-songs-8-rocky-mountain": {
+   "title": "Rocky Mountain",
+   "duration": {
+    "concept": "rest",
+    "name": "a beat of silence",
+    "grade": 1,
+    "term": "quarter rest",
+    "words": "a beat of silence",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "A quarter rest: a beat of silence inside the tune (on “high”).",
+    "new": true
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a major 6th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     5,
+     6
+    ],
+    "reason": "The widest leap in the tune, do up to la: a major 6th (on “when you're on that rock-y moun-tain”).",
+    "new": true
+   },
+   "dynamics": {
+    "concept": "hairpin",
+    "name": "louder and softer",
+    "grade": 2,
+    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
+    "words": "getting louder or softer",
+    "bars": [
+     7,
+     7
+    ],
+    "reason": "A hairpin asks for the music to grow or fade (on “hang your head and”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high”)."
+   }
+  },
   "first-tunes-6-amazing-grace": {
    "title": "Amazing Grace",
    "duration": {
@@ -1240,6 +1566,297 @@
      8
     ],
     "reason": "The first phrase, ending where the words take a breath (on “A-ma-zing grace, how sweet the sound that saved a wretch like me”)."
+   }
+  },
+  "kiss-gyermekjatek-1-b-jj-b-jj-z-ld-g": {
+   "title": "Bújj, bújj, zöld ág",
+   "duration": {
+    "concept": "ti-ti",
+    "name": "ti-ti and ta",
+    "grade": 1,
+    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
+    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
+    "bars": [
+     7,
+     7
+    ],
+    "reason": "Ti-ti beside ta: the rhythm moves twice as fast as the beat."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a minor 6th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     7,
+     8
+    ],
+    "reason": "The widest leap in the tune, low ti up to so: a minor 6th."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     4,
+     5
+    ],
+    "reason": "Two parts, A and B, the first played twice: bars 4–5 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       15
+      ],
+      "play": [
+       5,
+       6
+      ]
+     }
+    ]
+   }
+  },
+  "gbagbo-elder-ewe-dome-1-go-le-mimli": {
+   "title": "Go le mimli",
+   "duration": {
+    "concept": "metre-6-8",
+    "name": "two beats of three",
+    "grade": 5,
+    "term": "6/8 metre (“one-and-a two-and-a”)",
+    "words": "two beats in every bar, each split into three",
+    "bars": [
+     1,
+     1
+    ],
+    "throughout": true,
+    "reason": "Two beats in every bar, each split into three (one-and-a two-and-a); bar 1 is the first full bar (on “Go le mi”)."
+   },
+   "pitch": {
+    "concept": "leap-small",
+    "name": "a leap of a tritone",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The widest leap in the tune, fa up to ti: a tritone (on “mli to li to li”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "Two parts, A and B: bars 8–9 are where A ends and B begins (on “mli. Fi ne ke go tso go le mi”).",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "A′",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     },
+     {
+      "letter": "B′",
+      "bars": [
+       13,
+       16
+      ],
+      "play": [
+       13,
+       14
+      ]
+     }
+    ]
+   }
+  },
+  "hulbert-korean-repository-1-arirang": {
+   "title": "Arirang",
+   "duration": {
+    "concept": "tam-ti",
+    "name": "tam-ti",
+    "grade": 5,
+    "term": "dotted quarter note followed by an eighth note (“tam-ti”)",
+    "words": "a long note and a short one, together two beats (tam-ti)",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "A dotted quarter note and an eighth note: tam-ti, long then short (on “öl sa”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “…ra. Mun-gyung”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "triads",
+    "name": "major and minor chords",
+    "grade": 7,
+    "term": "major and minor triads",
+    "words": "chords of three notes, some bright (major), some dark (minor)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The chords G5 (I) (on “A-ra-rung”)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     8
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “A-ra-rung a-ra-rung a-ra-ri-o a-ra-rung öl sa pai ddi-ö-ra”)."
+   }
+  },
+  "hpps-11-cuckoo-s-nest": {
+   "title": "Cuckoo's Nest",
+   "duration": {
+    "concept": "ti-ti",
+    "name": "ti-ti and ta",
+    "grade": 1,
+    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
+    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "Ti-ti beside ta: the rhythm moves twice as fast as the beat."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so and la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The tune dips below do to low la and low so."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "I-IV-V",
+    "name": "chords I, IV and V",
+    "grade": 6,
+    "term": "chord progressions using I, IV, and V",
+    "words": "three chords: I (home), IV and V (away), and back home",
+    "bars": [
+     7,
+     8
+    ],
+    "reason": "The chords F, A7 (V), Dm (I), Gm (IV), Dm (I), ending back home on I; Dm and Gm and Dm are minor triads."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, one line of the music as written."
    }
   },
   "beginner-songs-13-fr-re-jacques": {
@@ -1558,6 +2175,356 @@
     ]
    }
   },
+  "hindostan-folk-6-gurkha-sing-song": {
+   "title": "Gurkha sing-song",
+   "duration": {
+    "concept": "tim-ka",
+    "name": "tim-ka",
+    "grade": 5,
+    "term": "dotted eighth note and sixteenth note (“tim-ka”)",
+    "words": "a long-short pair inside one beat (tim-ka)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A dotted eighth and a sixteenth: long-short, tim-ka."
+   },
+   "pitch": {
+    "concept": "pentatonic",
+    "name": "the pentatonic scale",
+    "grade": 2,
+    "term": "melodic patterns using notes of a pentatonic scale (e.g., “do–re–mi–so–la”)",
+    "words": "all five notes of the pentatonic scale: do, re, mi, so, la",
+    "bars": [
+     2,
+     3
+    ],
+    "reason": "All five notes of the pentatonic scale, do re mi so la, and no others."
+   },
+   "dynamics": {
+    "concept": "ornament",
+    "name": "an ornament",
+    "grade": 7,
+    "term": "articulation and expression marks encountered in the repertoire (here an ornament: a mordent, turn or trill)",
+    "words": "an ornament: quick neighbouring notes that decorate one note",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "An ornament sign: the note is decorated with quick notes beside it."
+   },
+   "timbre": {
+    "concept": "drone-colour",
+    "name": "tanpura and tabla",
+    "grade": 8,
+    "term": "tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina)",
+    "words": "the sound of a Hindustani drone (tanpura) and drum (tabla) under the tune",
+    "bars": [
+     2,
+     2
+    ],
+    "throughout": true,
+    "reason": "The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 2, where the melody holds a long note."
+   },
+   "texture": {
+    "concept": "bordun",
+    "name": "a bordun",
+    "grade": 2,
+    "term": "bordun patterns on “do” and “so”",
+    "words": "a bordun: the home note and the note a fifth above held under the tune",
+    "bars": [
+     3,
+     3
+    ],
+    "throughout": true,
+    "reason": "The drone holds the home note and its fifth all through, the way a bordun does; in bar 3 the melody moves through 4 different notes over it."
+   },
+   "form": {
+    "concept": "sections",
+    "name": "A, B and C",
+    "grade": 5,
+    "term": "compositions in four or more sections (e.g., AABA, ABAC)",
+    "words": "three different parts, A, B and C, one after another",
+    "bars": [
+     2,
+     3
+    ],
+    "reason": "Three different parts, A, B and C: bars 2–3 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       2
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       3,
+       4
+      ],
+      "play": [
+       3,
+       4
+      ]
+     },
+     {
+      "letter": "C",
+      "bars": [
+       5,
+       6
+      ],
+      "play": [
+       5,
+       6
+      ]
+     }
+    ]
+   }
+  },
+  "hindostan-folk-4-rama-s-lullaby": {
+   "title": "Rama's lullaby",
+   "duration": {
+    "concept": "tim-ka",
+    "name": "tim-ka",
+    "grade": 5,
+    "term": "dotted eighth note and sixteenth note (“tim-ka”)",
+    "words": "a long-short pair inside one beat (tim-ka)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A dotted eighth and a sixteenth: long-short, tim-ka (on “…yo-dhya, the land of”)."
+   },
+   "pitch": {
+    "concept": "leap-small",
+    "name": "a leap of a perfect 4th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The widest leap in the tune, re up to so: a perfect 4th (on “…yo-dhya, the land of”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "concept": "drone-colour",
+    "name": "tanpura and tabla",
+    "grade": 8,
+    "term": "tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina)",
+    "words": "the sound of a Hindustani drone (tanpura) and drum (tabla) under the tune",
+    "bars": [
+     4,
+     4
+    ],
+    "throughout": true,
+    "reason": "The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 4, where the melody rests (on “self That was”)."
+   },
+   "texture": {
+    "concept": "bordun",
+    "name": "a bordun",
+    "grade": 2,
+    "term": "bordun patterns on “do” and “so”",
+    "words": "a bordun: the home note and the note a fifth above held under the tune",
+    "bars": [
+     2,
+     2
+    ],
+    "throughout": true,
+    "reason": "The drone holds the home note and its fifth all through, the way a bordun does; in bar 2 the melody moves through 4 different notes over it (on “…yo-dhya, the land of”)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     6
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “In A-yo-dhya, the land of kings, It was Vish-nu's self That was born on the lap of Kau-shal-ya. Lit-tle”)."
+   }
+  },
+  "pinto-cantigas-1-na-bahia-tem": {
+   "title": "Na Bahia tem",
+   "duration": {
+    "concept": "sixteenths",
+    "name": "tika-tika",
+    "grade": 3,
+    "term": "sixteenth-note patterns",
+    "words": "four quick sounds on one beat (tika-tika)",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "Sixteenth notes, four to a beat: tika-tika (on “tem, Seu bem”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     4,
+     5
+    ],
+    "reason": "The widest leap in the tune, re up to la: a perfect 5th (on “tem, Na Ba-hi-a”)."
+   },
+   "dynamics": {
+    "concept": "marcato",
+    "name": "marcato",
+    "grade": 7,
+    "term": "marcato",
+    "words": "marcato: a heavy accent, each marked note played strongly",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "Marcato: the marked notes are played with a strong, heavy accent (on “tem”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Na Ba-hi-a tem, Tem, tem, tem”)."
+   }
+  },
+  "lavignac-encyclopedie-3-r-na-j-n-k": {
+   "title": "Rāna jīnāk",
+   "duration": {
+    "concept": "triplet",
+    "name": "triplets",
+    "grade": 6,
+    "term": "triplets",
+    "words": "three notes in the time of two (trip-o-let)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A triplet: three quick notes squeezed into the time of two (on “Ra”)."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     9,
+     10
+    ],
+    "reason": "The tune dips below do to low so (on “Ra”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     15
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Ra na dji nak Ya dou aï ni Ra na dji nak Na ri! Ya”)."
+   }
+  },
+  "daisyfield-japanese-1-sakura": {
+   "title": "Sakura",
+   "duration": {
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “Sa-ku-ra”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a minor 7th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     6,
+     7
+    ],
+    "reason": "The widest leap in the tune, low ti up to la: a minor 7th (on “ka-gi ri, ka-su-mi ka”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "triads",
+    "name": "major and minor chords",
+    "grade": 7,
+    "term": "major and minor triads",
+    "words": "chords of three notes, some bright (major), some dark (minor)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The chords A5 (V) (on “Sa-ku-ra”)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Sa-ku-ra! Sa-ku-ra”)."
+   }
+  },
   "first-tunes-7-oh-susanna": {
    "title": "Oh! Susanna",
    "duration": {
@@ -1615,6 +2582,509 @@
      5
     ],
     "reason": "The first phrase, ending where the words take a breath (on “I come from A-la-ba-ma with a ban-jo on my knee, I'm go…”)."
+   }
+  },
+  "curtis-dark-continent-3-mu-to-to-li-le": {
+   "title": "Mu-to-to-li'le",
+   "duration": {
+    "concept": "sixteenths",
+    "name": "tika-tika",
+    "grade": 3,
+    "term": "sixteenth-note patterns",
+    "words": "four quick sounds on one beat (tika-tika)",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "Sixteenth notes, four to a beat: tika-tika."
+   },
+   "pitch": {
+    "concept": "leap-small",
+    "name": "a leap of a perfect 4th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The widest leap in the tune, la down to mi: a perfect 4th."
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "Marked accents or staccato."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The whole piece is one phrase."
+   }
+  },
+  "richard-chinese-music-1-ba-ban": {
+   "title": "Ba ban (八板)",
+   "duration": {
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "A half note: one sound held for two beats."
+   },
+   "pitch": {
+    "concept": "pentatonic",
+    "name": "the pentatonic scale",
+    "grade": 2,
+    "term": "melodic patterns using notes of a pentatonic scale (e.g., “do–re–mi–so–la”)",
+    "words": "all five notes of the pentatonic scale: do, re, mi, so, la",
+    "bars": [
+     12,
+     14
+    ],
+    "reason": "All five notes of the pentatonic scale, do re mi so la, and no others."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "sections",
+    "name": "A, B and C",
+    "grade": 5,
+    "term": "compositions in four or more sections (e.g., AABA, ABAC)",
+    "words": "three different parts, A, B and C, one after another",
+    "bars": [
+     16,
+     17
+    ],
+    "reason": "Three different parts, A, B and C: bars 16–17 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       16
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       17,
+       28
+      ],
+      "play": [
+       17,
+       18
+      ]
+     },
+     {
+      "letter": "C",
+      "bars": [
+       29,
+       41
+      ],
+      "play": [
+       29,
+       30
+      ]
+     }
+    ]
+   }
+  },
+  "hindostan-folk-9-the-ayah-s-song": {
+   "title": "The ayah's song",
+   "duration": {
+    "concept": "tim-ka",
+    "name": "tim-ka",
+    "grade": 5,
+    "term": "dotted eighth note and sixteenth note (“tim-ka”)",
+    "words": "a long-short pair inside one beat (tim-ka)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A dotted eighth and a sixteenth: long-short, tim-ka."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The tune dips below do to low la."
+   },
+   "dynamics": {
+    "concept": "grace",
+    "name": "a grace note",
+    "grade": 7,
+    "term": "articulation and expression marks encountered in the repertoire (here an ornament, the grace note)",
+    "words": "a grace note: a quick extra note flicked in just before the main one",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "A grace note decorates the note it leads into."
+   },
+   "timbre": {
+    "concept": "drone-colour",
+    "name": "tanpura and tabla",
+    "grade": 8,
+    "term": "tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina)",
+    "words": "the sound of a Hindustani drone (tanpura) and drum (tabla) under the tune",
+    "bars": [
+     9,
+     9
+    ],
+    "throughout": true,
+    "reason": "The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 9, where the melody rests."
+   },
+   "texture": {
+    "concept": "bordun",
+    "name": "a bordun",
+    "grade": 2,
+    "term": "bordun patterns on “do” and “so”",
+    "words": "a bordun: the home note and the note a fifth above held under the tune",
+    "bars": [
+     5,
+     5
+    ],
+    "throughout": true,
+    "reason": "The drone holds the home note and its fifth all through, the way a bordun does; in bar 5 the melody moves through 4 different notes over it."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, about four bars ending on re."
+   }
+  },
+  "jekyll-jamaica-2-pass-the-ball": {
+   "title": "Pass the ball",
+   "duration": {
+    "concept": "tam-ti",
+    "name": "tam-ti",
+    "grade": 5,
+    "term": "dotted quarter note followed by an eighth note (“tam-ti”)",
+    "words": "a long note and a short one, together two beats (tam-ti)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A dotted quarter note and an eighth note: tam-ti, long then short (on “Pass the ball an' the”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of an octave",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The widest leap in the tune, do down to the do an octave lower (on “ball goin' round, the”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Pass the ball an' the ball goin' round, the”)."
+   }
+  },
+  "jekyll-jamaica-3-carry-banana": {
+   "title": "Carry banana",
+   "duration": {
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “yon-der”)."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     10,
+     10
+    ],
+    "reason": "fi, a note from outside the key signature, a half step from the so beside it (on “nine-hand ba…”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “The gal ov-er yon-der car-ry ba-na-na”)."
+   }
+  },
+  "hindostan-folk-8-nirguna-s-lullaby": {
+   "title": "Nirguna's lullaby",
+   "duration": {
+    "concept": "triplet",
+    "name": "triplets",
+    "grade": 6,
+    "term": "triplets",
+    "words": "three notes in the time of two (trip-o-let)",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "A triplet: three quick notes squeezed into the time of two."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "The tune dips below do to low la."
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "Marked accents or staccato."
+   },
+   "timbre": {
+    "concept": "drone-colour",
+    "name": "tanpura and tabla",
+    "grade": 8,
+    "term": "tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina)",
+    "words": "the sound of a Hindustani drone (tanpura) and drum (tabla) under the tune",
+    "bars": [
+     3,
+     3
+    ],
+    "throughout": true,
+    "reason": "The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 3, where the melody holds a long note."
+   },
+   "texture": {
+    "concept": "bordun",
+    "name": "a bordun",
+    "grade": 2,
+    "term": "bordun patterns on “do” and “so”",
+    "words": "a bordun: the home note and the note a fifth above held under the tune",
+    "bars": [
+     5,
+     5
+    ],
+    "throughout": true,
+    "reason": "The drone holds the home note and its fifth all through, the way a bordun does; in bar 5 the melody moves through 5 different notes over it."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, one line of the music as written."
+   }
+  },
+  "luce-canciones-1-si-me-dan-pasteles": {
+   "title": "Si me dan pasteles",
+   "duration": {
+    "concept": "syncopation",
+    "name": "syn-co-pa",
+    "grade": 4,
+    "term": "syncopation (“ti-ta-ti” or “syn-co-pa”)",
+    "words": "a longer note that starts between the beats (syn-co-pa)",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "A note starts between two beats and holds across the next one, so the accent falls off the beat."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "The widest leap in the tune, low la up to mi: a perfect 5th."
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "Marked accents or staccato."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "two-parts",
+    "name": "two parts",
+    "grade": 3,
+    "term": "simple two-part rounds, partner songs, canons",
+    "words": "two different parts at once: a tune and another line with it",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The piece is written in parts (its V: voices): a second line sounds with the tune, each group keeping its own."
+   },
+   "form": {
+    "concept": "sections",
+    "name": "A, B and C",
+    "grade": 5,
+    "term": "compositions in four or more sections (e.g., AABA, ABAC)",
+    "words": "three different parts, A, B and C, one after another",
+    "bars": [
+     9,
+     10
+    ],
+    "reason": "Three different parts, A, B and C, the first played twice: bars 9–10 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       9
+      ],
+      "play": [
+       1,
+       3
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       10,
+       10
+      ],
+      "play": [
+       10,
+       10
+      ]
+     },
+     {
+      "letter": "C",
+      "bars": [
+       11,
+       18
+      ],
+      "play": [
+       11,
+       12
+      ]
+     }
+    ]
    }
   },
   "waltzes-11-daisy-daisy": {
@@ -1682,6 +3152,520 @@
      5
     ],
     "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
+   }
+  },
+  "botsford-folk-songs-1-usagi-to-kame": {
+   "title": "Usagi to Kame (兎と亀)",
+   "duration": {
+    "concept": "tim-ka",
+    "name": "tim-ka",
+    "grade": 5,
+    "term": "dotted eighth note and sixteenth note (“tim-ka”)",
+    "words": "a long-short pair inside one beat (tim-ka)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A dotted eighth and a sixteenth: long-short, tim-ka (on “Tur-tle, tur-tle”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “go! To the foot of”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Tur-tle, tur-tle, on your way, Why are you so slow”)."
+   }
+  },
+  "hague-spanish-american-1-la-rana": {
+   "title": "La Rana",
+   "duration": {
+    "concept": "sixteenths",
+    "name": "tika-tika",
+    "grade": 3,
+    "term": "sixteenth-note patterns",
+    "words": "four quick sounds on one beat (tika-tika)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "Sixteenth notes, four to a beat: tika-tika."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so and la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     16,
+     17
+    ],
+    "reason": "The tune dips below do to low la and low so."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     16,
+     22
+    ],
+    "reason": "Two parts, A and B: bars 16–22 are where A ends and B begins."
+   }
+  },
+  "aubry-trouveres-1-a-l-entrada-del-tens-clar": {
+   "title": "A l'entrada del tens clar",
+   "duration": {
+    "concept": "dotted-half",
+    "name": "a three-beat note",
+    "grade": 3,
+    "term": "dotted half note",
+    "words": "one sound held for three beats (ta-ah-ah)",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "A dotted half note: one sound held for three beats (on “E”)."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     31,
+     31
+    ],
+    "reason": "fi, a note from outside the key signature (on “…ro”)."
+   },
+   "dynamics": {
+    "concept": "slur",
+    "name": "a slur",
+    "grade": 6,
+    "term": "slurs",
+    "words": "notes joined smoothly under a curved line",
+    "bars": [
+     34,
+     34
+    ],
+    "reason": "A slur joins two notes smoothly, with no gap between them (on “…vi”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "sections",
+    "name": "A, B and C",
+    "grade": 5,
+    "term": "compositions in four or more sections (e.g., AABA, ABAC)",
+    "words": "three different parts, A, B and C, one after another",
+    "bars": [
+     4,
+     5
+    ],
+    "reason": "Four different parts, A, B, C and D: bars 4–5 are where A ends and B begins (on “clar, E”).",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     },
+     {
+      "letter": "C",
+      "bars": [
+       13,
+       16
+      ],
+      "play": [
+       13,
+       15
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       17,
+       20
+      ],
+      "play": [
+       17,
+       18
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       21,
+       24
+      ],
+      "play": [
+       21,
+       22
+      ]
+     },
+     {
+      "letter": "A′",
+      "bars": [
+       25,
+       32
+      ],
+      "play": [
+       25,
+       26
+      ]
+     },
+     {
+      "letter": "D",
+      "bars": [
+       33,
+       48
+      ],
+      "play": [
+       33,
+       34
+      ]
+     }
+    ]
+   }
+  },
+  "jekyll-jamaica-1-galloway-road": {
+   "title": "Galloway road",
+   "duration": {
+    "concept": "triplet",
+    "name": "triplets",
+    "grade": 6,
+    "term": "triplets",
+    "words": "three notes in the time of two (trip-o-let)",
+    "bars": [
+     10,
+     10
+    ],
+    "reason": "2 triplets: three quick notes squeezed into the time of two (on “Take up the one that you”)."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "fi, a note from outside the key signature, a half step from the so beside it (on “boy them a broke rock”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Me go da Gal-lo-way road, Gal an' boy them a broke rock stone”)."
+   }
+  },
+  "philippine-progressive-music-1-i-plant-some-rice": {
+   "title": "I Plant Some Rice",
+   "duration": {
+    "concept": "tam-ti",
+    "name": "tam-ti",
+    "grade": 5,
+    "term": "dotted quarter note followed by an eighth note (“tam-ti”)",
+    "words": "a long note and a short one, together two beats (tam-ti)",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "A dotted quarter note and an eighth note: tam-ti, long then short."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "ri, a note from outside the key signature, a half step from the mi beside it."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     6
+    ],
+    "reason": "The first phrase, one line of the music as written."
+   }
+  },
+  "hague-spanish-american-2-v-monos-por-santa-anita": {
+   "title": "Vámonos por Santa Anita",
+   "duration": {
+    "concept": "tim-ka",
+    "name": "tim-ka",
+    "grade": 5,
+    "term": "dotted eighth note and sixteenth note (“tim-ka”)",
+    "words": "a long-short pair inside one beat (tim-ka)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A dotted eighth and a sixteenth: long-short, tim-ka."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of an octave",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "The widest leap in the tune, so up to the so an octave higher."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The whole piece is one phrase."
+   }
+  },
+  "curtis-dark-continent-4-o-tu-la-mntwa-na-thula-mntwana": {
+   "title": "O tu'la, mntwa'na (Thula, mntwana)",
+   "duration": {
+    "concept": "pickup",
+    "name": "the pickup",
+    "grade": 6,
+    "term": "pick-up note(s) (anacrusis)",
+    "words": "the tune starts just before the first strong beat",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first bar is only 1/3 of a beat long: the tune starts on an upbeat and lands on the strong first beat of bar 2."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of an octave",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     11,
+     11
+    ],
+    "reason": "The widest leap in the tune, do up to the do an octave higher."
+   },
+   "dynamics": {
+    "concept": "slur",
+    "name": "a slur",
+    "grade": 6,
+    "term": "slurs",
+    "words": "notes joined smoothly under a curved line",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "A slur joins two notes smoothly, with no gap between them."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     11
+    ],
+    "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
+   }
+  },
+  "jekyll-jamaica-4-little-sally-water": {
+   "title": "Little Sally Water",
+   "duration": {
+    "concept": "tim-ka",
+    "name": "tim-ka",
+    "grade": 5,
+    "term": "dotted eighth note and sixteenth note (“tim-ka”)",
+    "words": "a long-short pair inside one beat (tim-ka)",
+    "bars": [
+     9,
+     9
+    ],
+    "reason": "A dotted eighth and a sixteenth: long-short, tim-ka (on “turn to the”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a major 6th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "The widest leap in the tune, low so up to mi: a major 6th (on “eyes. Sal-ly”)."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Lit-tle Sal-ly Wa-ter sprin-kle in the sau-cer”)."
    }
   },
   "hindostan-folk-3-o-where-will-you-go": {
@@ -1753,6 +3737,172 @@
      3
     ],
     "reason": "The whole piece is one phrase."
+   }
+  },
+  "reelsr-t-59-sugar-in-the-gourd": {
+   "title": "Sugar in the Gourd",
+   "duration": {
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A half note: one sound held for two beats, beside notes of one beat."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The tune dips below do to low so."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "I-IV-V",
+    "name": "chords I, IV and V",
+    "grade": 6,
+    "term": "chord progressions using I, IV, and V",
+    "words": "three chords: I (home), IV and V (away), and back home",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "The chords E7 (V), D (IV), A (I), ending back home on I."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     4,
+     5
+    ],
+    "reason": "Two parts, A and B (the parts the tune labels), each played twice: bars 4–5 are where A ends and B begins, higher.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       12
+      ],
+      "play": [
+       5,
+       6
+      ]
+     }
+    ]
+   }
+  },
+  "reelsr-t-49-soldiers-joy": {
+   "title": "Soldiers' Joy",
+   "duration": {
+    "concept": "pickup",
+    "name": "the pickup",
+    "grade": 6,
+    "term": "pick-up note(s) (anacrusis)",
+    "words": "the tune starts just before the first strong beat",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first bar is only one beat long: the tune starts on an upbeat and lands on the strong first beat of bar 2."
+   },
+   "pitch": {
+    "concept": "high-do",
+    "name": "high do",
+    "grade": 2,
+    "term": "high “do”",
+    "words": "do again, eight notes higher",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "The tune reaches high do, an octave above the do it starts from."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "I-IV-V",
+    "name": "chords I, IV and V",
+    "grade": 6,
+    "term": "chord progressions using I, IV, and V",
+    "words": "three chords: I (home), IV and V (away), and back home",
+    "bars": [
+     7,
+     8
+    ],
+    "reason": "The chords D (I), G (IV), D/a (I), A7 (V)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     9,
+     11
+    ],
+    "reason": "Two parts, A and B (the parts the tune labels), each played twice: bars 9–11 are where A ends and B begins, higher.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       9
+      ],
+      "play": [
+       1,
+       3
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       10,
+       18
+      ],
+      "play": [
+       10,
+       12
+      ]
+     }
+    ]
    }
   },
   "reelsr-t-84-tom-and-jerry": {
@@ -1964,6 +4114,183 @@
      3
     ],
     "reason": "The whole piece is one phrase."
+   }
+  },
+  "daisyfield-japanese-2-konpira-fune-fune": {
+   "title": "Konpira fune fune",
+   "duration": {
+    "concept": "sixteenths",
+    "name": "tika-tika",
+    "grade": 3,
+    "term": "sixteenth-note patterns",
+    "words": "four quick sounds on one beat (tika-tika)",
+    "bars": [
+     10,
+     10
+    ],
+    "reason": "Sixteenth notes, four to a beat: tika-tika."
+   },
+   "pitch": {
+    "concept": "low-so-la",
+    "name": "low so and la",
+    "grade": 3,
+    "term": "low “so”, low “la”",
+    "words": "the notes below do, where the tune goes lowest",
+    "bars": [
+     15,
+     15
+    ],
+    "reason": "The tune dips below do to low la and low so."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "triads",
+    "name": "major and minor chords",
+    "grade": 7,
+    "term": "major and minor triads",
+    "words": "chords of three notes, some bright (major), some dark (minor)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The chords G5 (V)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, one line of the music as written."
+   }
+  },
+  "stoin-pesnopoyka-1-zdravets": {
+   "title": "Zdravets",
+   "duration": {
+    "concept": "syncopation",
+    "name": "syn-co-pa",
+    "grade": 4,
+    "term": "syncopation (“ti-ta-ti” or “syn-co-pa”)",
+    "words": "a longer note that starts between the beats (syn-co-pa)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A note starts between two beats and holds across the next one, so the accent falls off the beat."
+   },
+   "pitch": {
+    "concept": "steps",
+    "name": "steps",
+    "grade": 2,
+    "term": "melodic patterns",
+    "words": "notes moving by step, like walking down stairs (mi–re–do)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "mi–fa–so: each note a step from the last."
+   },
+   "dynamics": {
+    "concept": "slur",
+    "name": "a slur",
+    "grade": 6,
+    "term": "slurs",
+    "words": "notes joined smoothly under a curved line",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "A slur joins notes smoothly, with no gap between them."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     3
+    ],
+    "reason": "The first phrase, one line of the music as written."
+   }
+  },
+  "lavignac-encyclopedie-2-b-q-w-ala-kh-r": {
+   "title": "B'qāw ʿala khēr",
+   "duration": {
+    "concept": "sixteenths",
+    "name": "tika-tika",
+    "grade": 3,
+    "term": "sixteenth-note patterns",
+    "words": "four quick sounds on one beat (tika-tika)",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "Sixteenth notes, four to a beat: tika-tika (on “…oua h'”)."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "fi, a note from outside the key signature (on “B'kaou aâ”)."
+   },
+   "dynamics": {
+    "concept": "slur",
+    "name": "a slur",
+    "grade": 6,
+    "term": "slurs",
+    "words": "notes joined smoothly under a curved line",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A slur joins two notes smoothly, with no gap between them (on “la”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     3
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “B'kaou aâ la kheir”)."
    }
   },
   "hindostan-folk-5-chhaila": {
@@ -2418,6 +4745,204 @@
     ]
    }
   },
+  "first-tunes-8-greensleeves": {
+   "title": "Greensleeves",
+   "duration": {
+    "concept": "metre-6-8",
+    "name": "two beats of three",
+    "grade": 5,
+    "term": "6/8 metre (“one-and-a two-and-a”)",
+    "words": "two beats in every bar, each split into three",
+    "bars": [
+     2,
+     2
+    ],
+    "throughout": true,
+    "reason": "Two beats in every bar, each split into three (one-and-a two-and-a); bar 2 is the first full bar.",
+    "new": true
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "si and fi, notes from outside the key signature, a half step from the la beside them."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, about four bars ending on low la."
+   }
+  },
+  "van-aalst-chinese-music-1-xianhua-diao": {
+   "title": "Xianhua diao (鮮花調)",
+   "duration": {
+    "concept": "tam-ti",
+    "name": "tam-ti",
+    "grade": 5,
+    "term": "dotted quarter note followed by an eighth note (“tam-ti”)",
+    "words": "a long note and a short one, together two beats (tam-ti)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A dotted quarter note and an eighth note: tam-ti, long then short."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a minor 7th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     11,
+     11
+    ],
+    "reason": "The widest leap in the tune, re up to high do: a minor 7th."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "sections",
+    "name": "A, B and C",
+    "grade": 5,
+    "term": "compositions in four or more sections (e.g., AABA, ABAC)",
+    "words": "three different parts, A, B and C, one after another",
+    "bars": [
+     2,
+     3
+    ],
+    "reason": "Three different parts, A, B and C, the first played twice: bars 2–3 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       2
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       3,
+       12
+      ],
+      "play": [
+       3,
+       5
+      ]
+     },
+     {
+      "letter": "C",
+      "bars": [
+       13,
+       26
+      ],
+      "play": [
+       13,
+       14
+      ]
+     }
+    ]
+   }
+  },
+  "stainer-dufay-1-resvelons-nous": {
+   "title": "Resvelons nous",
+   "duration": {
+    "concept": "syncopation",
+    "name": "syn-co-pa",
+    "grade": 4,
+    "term": "syncopation (“ti-ta-ti” or “syn-co-pa”)",
+    "words": "a longer note that starts between the beats (syn-co-pa)",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A note starts between two beats and holds across the next one, so the accent falls off the beat."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "di, a note from outside the key signature, a half step from the re beside it."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "two-parts",
+    "name": "two parts",
+    "grade": 3,
+    "term": "simple two-part rounds, partner songs, canons",
+    "words": "two different parts at once: a tune and another line with it",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The piece is written in parts (its V: voices): a second line sounds with the tune, each group keeping its own."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, about four bars ending on mi."
+   }
+  },
   "hindostan-folk-1-o-give-me-those-pretty-eyes": {
    "title": "O give me those pretty eyes",
    "duration": {
@@ -2486,6 +5011,81 @@
      6
     ],
     "reason": "The whole piece is one phrase."
+   }
+  },
+  "lavignac-encyclopedie-1-adana-melody": {
+   "title": "Adana melody",
+   "duration": {
+    "concept": "sixteenths",
+    "name": "tika-tika",
+    "grade": 3,
+    "term": "sixteenth-note patterns",
+    "words": "four quick sounds on one beat (tika-tika)",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "Sixteenth notes, four to a beat: tika-tika."
+   },
+   "pitch": {
+    "concept": "accidental",
+    "name": "a note outside the key",
+    "grade": 4,
+    "term": "accidentals (sharp, flat, natural)",
+    "words": "a note bent a half step away from the scale",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "fi, a note from outside the key signature, a half step from the so beside it."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     2,
+     3
+    ],
+    "reason": "Two parts, A and B, the first played twice: bars 2–3 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       2
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       3,
+       6
+      ],
+      "play": [
+       3,
+       4
+      ]
+     }
+    ]
    }
   },
   "reelsd-g-12-the-donegall": {
@@ -2660,6 +5260,84 @@
       ]
      }
     ]
+   }
+  },
+  "hindostan-folk-7-lalishrita": {
+   "title": "Lalishrita",
+   "duration": {
+    "concept": "triplet",
+    "name": "triplets",
+    "grade": 6,
+    "term": "triplets",
+    "words": "three notes in the time of two (trip-o-let)",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "3 triplets: three quick notes squeezed into the time of two (on “sun-ny hours I bring thee”).",
+    "new": true
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “by mine, light”)."
+   },
+   "dynamics": {
+    "concept": "grace",
+    "name": "a grace note",
+    "grade": 7,
+    "term": "articulation and expression marks encountered in the repertoire (here an ornament, the grace note)",
+    "words": "a grace note: a quick extra note flicked in just before the main one",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "A grace note decorates the note it leads into (on “in thy cra-dle”)."
+   },
+   "timbre": {
+    "concept": "drone-colour",
+    "name": "tanpura and tabla",
+    "grade": 8,
+    "term": "tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina)",
+    "words": "the sound of a Hindustani drone (tanpura) and drum (tabla) under the tune",
+    "bars": [
+     10,
+     10
+    ],
+    "throughout": true,
+    "reason": "The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 10, where the melody holds a long note (on “dies”)."
+   },
+   "texture": {
+    "concept": "bordun",
+    "name": "a bordun",
+    "grade": 2,
+    "term": "bordun patterns on “do” and “so”",
+    "words": "a bordun: the home note and the note a fifth above held under the tune",
+    "bars": [
+     5,
+     5
+    ],
+    "throughout": true,
+    "reason": "The drone holds the home note and its fifth all through, the way a bordun does; in bar 5 the melody moves through 6 different notes over it (on “bright with flowers Through”)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     7
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “Ba by mine, light of my eyes, Here in thy cra-dle bright with flowers Through sun-ny hours I bring thee sleep, I rock thee and”)."
    }
   },
   "reelsd-g-54-fred-roden-s-reel": {
@@ -3003,6 +5681,66 @@
       ]
      }
     ]
+   }
+  },
+  "curtis-dark-continent-2-mafuve": {
+   "title": "Mafuve",
+   "duration": {
+    "concept": "triplet",
+    "name": "triplets",
+    "grade": 6,
+    "term": "triplets",
+    "words": "three notes in the time of two (trip-o-let)",
+    "bars": [
+     15,
+     15
+    ],
+    "reason": "A triplet: three quick notes squeezed into the time of two."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a minor 7th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     25,
+     26
+    ],
+    "reason": "The widest leap in the tune, la up to high so: a minor 7th.",
+    "new": true
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "Marked accents or staccato."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The first phrase, one line of the music as written."
    }
   }
  }

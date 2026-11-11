@@ -118,6 +118,8 @@ function solfa(T, n) {
    their own), the longest span worth trying, a score (higher is clearer), and the reason in words. */
 const simple = T => !T.f.metreCompound;
 const writtenIs = (n, v) => near(n.written, v);
+// Ornament signs abcjs reads as decorations (a grace note is counted apart, as graceNotes).
+const ORNAMENTS = /^(trill|mordent|uppermordent|lowermordent|pralltriller|turn|invertedturn|roll)$/;
 const CONCEPTS = [
   /* duration */
   { id: 'metre-change', el: 'duration', name: 'three beats, then two', grade: 3, term: 'two and four beats per bar (2/4 metre); three beats per bar (3/4 metre)',
@@ -158,6 +160,12 @@ const CONCEPTS = [
     tune: T => simple(T) && T.f.metreDen === 4, shows: w => w.notes.some(n => writtenIs(n, 1 / 2)), span: 1,
     score: (T, w) => w.notes.some(n => writtenIs(n, 1 / 4)) ? 1 : 0,
     reason: (T, w) => `A half note: one sound held for two beats${w.notes.some(n => writtenIs(n, 1 / 4)) ? ', beside notes of one beat' : ''}${onWords(T, w.from, w.to)}.` },
+  { id: 'fermata', el: 'duration', name: 'the fermata', grade: 4, term: 'fermata', words: 'a pause: the note is held longer than written', intro: [],
+    tune: T => T.f.decorations.includes('fermata'), shows: w => w.f.decorations.includes('fermata'), span: 1,
+    reason: (T, w) => `A fermata: the music waits on this note, held as long as the leader likes${onWords(T, w.from, w.to)}.` },
+  { id: 'metre-6-8', el: 'duration', name: 'two beats of three', grade: 5, term: '6/8 metre (“one-and-a two-and-a”)', words: 'two beats in every bar, each split into three', intro: ['metre:6/8'],
+    tune: T => T.f.metreNum === 6 && T.f.metreDen === 8, whole: true, shows: (w, T) => !T.bars[w.from].short, span: 1,
+    reason: (T, w) => `Two beats in every bar, each split into three (one-and-a two-and-a); ${barsWord(w.from, w.to)} is the first full bar${onWords(T, w.from, w.to)}.` },
   { id: 'metre-3', el: 'duration', name: 'three beats in a bar', grade: 3, term: 'three beats per bar (3/4 metre)', words: 'three beats in every bar: strong, weak, weak', intro: ['metre:3/4'],
     tune: T => T.f.metreNum === 3 && T.f.metreDen === 4, whole: true, shows: (w, T) => !T.bars[w.from].short, span: 1,
     reason: (T, w) => `Three beats in every bar, strong-weak-weak; ${barsWord(w.from, w.to)} is the first full bar${onWords(T, w.from, w.to)}.` },
@@ -229,6 +237,12 @@ const CONCEPTS = [
   { id: 'slur', el: 'dynamics', name: 'a slur', grade: 6, term: 'slurs', words: 'notes joined smoothly under a curved line',
     tune: T => T.f.slurs > 0, shows: w => w.f.slurs > 0, span: 1,
     reason: (T, w) => `A slur joins ${w.f.slurs === 1 ? 'two notes' : 'notes'} smoothly, with no gap between them${onWords(T, w.from, w.to)}.` },
+  { id: 'marcato', el: 'dynamics', name: 'marcato', grade: 7, term: 'marcato', words: 'marcato: a heavy accent, each marked note played strongly', intro: [],
+    tune: T => T.f.decorations.includes('marcato'), shows: w => w.f.decorations.includes('marcato'), span: 1,
+    reason: (T, w) => `Marcato: the marked notes are played with a strong, heavy accent${onWords(T, w.from, w.to)}.` },
+  { id: 'ornament', el: 'dynamics', name: 'an ornament', grade: 7, term: 'articulation and expression marks encountered in the repertoire (here an ornament: a mordent, turn or trill)', words: 'an ornament: quick neighbouring notes that decorate one note', intro: [],
+    tune: T => T.f.decorations.some(d => ORNAMENTS.test(d)), shows: w => w.f.decorations.some(d => ORNAMENTS.test(d)), span: 1,
+    reason: (T, w) => `An ornament sign: the note is decorated with quick notes beside it${onWords(T, w.from, w.to)}.` },
   { id: 'grace', el: 'dynamics', name: 'a grace note', grade: 7, term: 'articulation and expression marks encountered in the repertoire (here an ornament, the grace note)', words: 'a grace note: a quick extra note flicked in just before the main one', intro: ['grace-notes'],
     tune: T => T.f.graceNotes > 0, shows: w => w.f.graceNotes > 0, span: 1,
     reason: (T, w) => `A grace note decorates the note it leads into${onWords(T, w.from, w.to)}.` },
@@ -255,6 +269,9 @@ const CONCEPTS = [
     tune: T => T.style === 'drone', whole: true, shows: (w, T) => !T.bars[w.from].short || T.N === 1, span: 1,
     score: (T, w) => new Set(w.notes.map(n => n.midi)).size,
     reason: (T, w) => `The drone holds the home note and its fifth all through, the way a bordun does; in ${barsWord(w.from, w.to)} the melody moves through ${new Set(w.notes.map(n => n.midi)).size} different notes over it${onWords(T, w.from, w.to)}.` },
+  { id: 'two-parts', el: 'texture', name: 'two parts', grade: 3, term: 'simple two-part rounds, partner songs, canons', words: 'two different parts at once: a tune and another line with it',
+    tune: T => T.f.voices >= 2 && !/^%%round\b/m.test(T.t.abc), structural: true, at: T => firstPhrase(T),
+    reason: () => 'The piece is written in parts (its V: voices): a second line sounds with the tune, each group keeping its own.' },
   { id: 'round', el: 'texture', name: 'a round', grade: 3, term: 'simple two-part rounds, partner songs, canons', words: 'the same tune sung by groups starting one after another',
     tune: T => !!T.f.round || /^%%round\b/m.test(T.t.abc), structural: true, at: T => firstPhrase(T),
     reason: () => 'The tune is sung as a round (its %%round line): a second group starts it again while the first carries on.' },
@@ -463,7 +480,9 @@ function partsOf(T, c) {
   const fulls = u => { const out = []; for (let i = u.from; i < u.to; i++) if (!T.bars[i].short) out.push(i); return out; };
   const keys = u => fulls(u).map(i => barKey(T.bars[i]));
   const same = (a, b) => a.length === b.length && a.every((k, i) => k === b[i]);
-  const variant = (a, b) => a.length === b.length && a.length >= 2 && a[0] === b[0] && a[1] === b[1] && a.filter((k, i) => k === b[i]).length * 2 >= a.length;
+  // A variant begins as its letter did and keeps at least half of it; it may be longer or shorter (A l'entrada's last
+  // solo is its A drawn out to eight bars), compared over the shorter of the two.
+  const variant = (a, b) => { const n = Math.min(a.length, b.length); return n >= 2 && a[0] === b[0] && a[1] === b[1] && a.slice(0, n).filter((k, i) => k === b[i]).length * 2 >= n; };
   const known = [];   // each letter as first heard: { letter, keys, base, prime }
   const parts = units.map(u => {
     const k = keys(u), f = fulls(u);

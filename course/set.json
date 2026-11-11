@@ -63,8 +63,8 @@
    "metre": "2/4",
    "bars": 4,
    "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (USA)",
+   "rhythm": "children's ball-bouncing chant",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:la",
@@ -85,7 +85,7 @@
     "leap:3rd",
     "metre:2/4"
    ],
-   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 A2 | G2 !breath!E2 | .G.G .A.A | G2 E2 |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n",
+   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nC:traditional (USA)\nR:children's ball-bouncing chant\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\nG2 A2 | G2 !breath!E2 | .G.G .A.A | G2 E2 |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -99,7 +99,10 @@
      "1: accent; smooth and detached articulation",
      "1: melodic patterns on mi, so and la"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -111,8 +114,8 @@
    "metre": "2/4",
    "bars": 8,
    "origin": "England",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (England)",
+   "rhythm": "singing game",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:la",
@@ -129,7 +132,7 @@
     "dur:2",
     "leap:4th"
    ],
-   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 !breath!E2 | GG EA | G2 !breath!E2 | !<(!G2 E2 | G2 E2 | GG !<)!G2 | !>!E4 |]\nw: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
+   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nC:traditional (England)\nR:singing game\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\nGG EA | G2 !breath!E2 | GG EA | G2 !breath!E2 | !<(!G2 E2 | G2 E2 | GG !<)!G2 | !>!E4 |]\nw: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -144,7 +147,10 @@
      "2: crescendo and decrescendo",
      "1: melodic patterns on mi, so and la"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -156,8 +162,8 @@
    "metre": "2/4",
    "bars": 8,
    "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (USA)",
+   "rhythm": "children's wishing rhyme",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:la",
@@ -170,7 +176,7 @@
     "metre:2/4"
    ],
    "introduces": [],
-   "abc": "X:3\nT:Starlight, Star Bright\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG AA | G2 !breath!E2 | GG E2 | GG E2 | GG AA | GG E2 |]\nw: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.\n",
+   "abc": "X:3\nT:Starlight, Star Bright\nO:USA\nC:traditional (USA)\nR:children's wishing rhyme\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG AA | G2 !breath!E2 | GG E2 | GG E2 | GG AA | GG E2 |]\nw: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -182,7 +188,10 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "1: melodic patterns on mi, so and la"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -194,8 +203,8 @@
    "metre": "2/4",
    "bars": 4,
    "origin": "England",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (England)",
+   "rhythm": "children's song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:la",
@@ -208,7 +217,7 @@
     "metre:2/4"
    ],
    "introduces": [],
-   "abc": "X:1\nT:Rain, Rain, Go Away\nO:England\nM:2/4\nL:1/8\nK:C\nG2 E2 | GG !breath!E2 | GG AA | GG E2 |]\nw: Rain, rain, go a-way, come a-gain a-noth-er day.\n",
+   "abc": "X:1\nT:Rain, Rain, Go Away\nO:England\nC:traditional (England)\nR:children's song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\nG2 E2 | GG !breath!E2 | GG AA | GG E2 |]\nw: Rain, rain, go a-way, come a-gain a-noth-er day.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -220,7 +229,10 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "1: melodic patterns on mi, so and la"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -232,8 +244,8 @@
    "metre": "2/4",
    "bars": 8,
    "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (USA)",
+   "rhythm": "counting-out chant",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:mi",
@@ -245,7 +257,7 @@
     "metre:2/4"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Engine, Engine, Number Nine\nO:USA\nM:2/4\nL:1/8\nK:C\nGG EE | GG E2 | GG EE | GG !breath!E2 | GG EE | GG E2 | GG EE | GG E2 |]\nw: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?\n",
+   "abc": "X:2\nT:Engine, Engine, Number Nine\nO:USA\nC:traditional (USA)\nR:counting-out chant\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\nGG EE | GG E2 | GG EE | GG !breath!E2 | GG EE | GG E2 | GG EE | GG E2 |]\nw: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -257,8 +269,52 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "1: melodic patterns on mi, so and la"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
+  },
+  {
+   "id": "beginner-songs-5-lucy-locket",
+   "title": "Lucy Locket",
+   "level": 1,
+   "score": 0.96,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "England",
+   "composer": "traditional (England)",
+   "rhythm": "children's singing game",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:4th",
+    "metre:2/4"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:5\nT:Lucy Locket\nC:traditional (England)\nO:England\nR:children's singing game\nS:Grand Central Stationery course samples, beginner-songs.abc, X:5 (a classroom setting typed from memory); words traditional\nN:A so-mi-la singing game: the children sit in a ring and one creeps round to hide the \"pocket\" (a purse or handkerchief) behind someone, who must find it. Kitty Fisher was a famous London figure of the 1750s, and the rhyme is often said to have begun as a joke about her; the words children sing are innocent.\nQ:1/4=100\nM:2/4\nL:1/8\nK:C\n%%style folk\nGG EE | AA GE | GG EE | A2 G2 | GG EE | AA GE | GG EE | A2 G2 |]\nw: Lu-cy Lock-et lost her pock-et, Kit-ty Fish-er found it; not a pen-ny was there in it, on-ly rib-bon round it.\n"
   },
   {
    "id": "original-pentatonic-8-evening-bells",
@@ -268,9 +324,9 @@
    "key": "C",
    "metre": "4/4",
    "bars": 8,
-   "origin": "",
+   "origin": "Course original (no cultural attribution)",
    "composer": "Grand Central Stationery (original, CC0)",
-   "rhythm": "",
+   "rhythm": "classroom piece",
    "source": "course/samples/original-pentatonic.abc",
    "skills": [
     "degree:do",
@@ -289,22 +345,27 @@
    "introduces": [
     "dur:4"
    ],
-   "abc": "X:8\nT:Evening Bells\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A2 G2 | \"C\"E2 G2 | \"G\"D2 E2 | \"C\"!breath!C4 | \"Am\"E A G G | \"C\"E E G G | !>(!\"G\"D D E D | \"C\"!>)!C4 |]\n",
+   "abc": "X:8\nT:Evening Bells\nC:Grand Central Stationery (original, CC0)\nO:Course original (no cultural attribution)\nR:classroom piece\nM:4/4\nL:1/4\nK:C\n%%style ballad\n\"Am\"A2 G2 | \"C\"E2 G2 | \"G\"D2 E2 | \"C\"!breath!C4 | \"Am\"E A G G | \"C\"E E G G | !>(!\"G\"D D E D | \"C\"!>)!C4 |]\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "half and whole notes",
+     "crescendo and decrescendo",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
      "2: crescendo and decrescendo",
-     "7: major and minor triads beyond I, IV and V",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
-    "ignored": []
-   }
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "licence": "CC0 1.0"
   },
   {
    "id": "original-pentatonic-2-crows-on-the-fence",
@@ -314,9 +375,9 @@
    "key": "C",
    "metre": "4/4",
    "bars": 8,
-   "origin": "",
+   "origin": "Course original (no cultural attribution)",
    "composer": "Grand Central Stationery (original, CC0)",
-   "rhythm": "",
+   "rhythm": "classroom piece",
    "source": "course/samples/original-pentatonic.abc",
    "skills": [
     "degree:do",
@@ -333,21 +394,25 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Crows on the Fence\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A G E G | A A G2 | \"C\"E G A G | E D !breath!C2 | \"Am\"E G A G | A A G2 | \"G\"E G D E | \"C\"C4 |]\n",
+   "abc": "X:2\nT:Crows on the Fence\nC:Grand Central Stationery (original, CC0)\nO:Course original (no cultural attribution)\nR:classroom piece\nM:4/4\nL:1/4\nK:C\n%%style folk\n\"Am\"A G E G | A A G2 | \"C\"E G A G | E D !breath!C2 | \"Am\"E G A G | A A G2 | \"G\"E G D E | \"C\"C4 |]\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "7: major and minor triads beyond I, IV and V",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
-    "ignored": []
-   }
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "licence": "CC0 1.0"
   },
   {
    "id": "beginner-songs-20-merrily-we-roll-along",
@@ -358,8 +423,8 @@
    "metre": "4/4",
    "bars": 8,
    "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (USA)",
+   "rhythm": "children's song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -375,7 +440,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nM:4/4\nL:1/4\nK:C\nE D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]\nw: Mer-ri-ly we roll a-long, roll a-long, roll a-long, mer-ri-ly we roll a-long, o'er the deep blue_ sea.\n",
+   "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nC:traditional (USA)\nR:children's song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/4\nK:C\n%%style folk\nE D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]\nw: Mer-ri-ly we roll a-long, roll a-long, roll a-long, mer-ri-ly we roll a-long, o'er the deep blue_ sea.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -388,7 +453,10 @@
      "2: half and whole notes",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -400,8 +468,8 @@
    "metre": "4/4",
    "bars": 8,
    "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "composer": "words: Sarah Josepha Hale (1830); tune traditional (USA)",
+   "rhythm": "children's song",
    "source": "course/samples/first-tunes.abc",
    "skills": [
     "degree:do",
@@ -417,20 +485,23 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nM:4/4\nL:1/4\nK:G\nB A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]\nw: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.\n",
+   "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nC:words: Sarah Josepha Hale (1830); tune traditional (USA)\nR:children's song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/4\nK:G\n%%style folk\nB A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]\nw: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.\n",
    "ontario": {
-    "grade": 4,
-    "band": "Grade 4",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "key signatures of up to one sharp or flat"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "2: pentatonic patterns (do re mi so la), high do",
-     "4: key signatures of up to one sharp or flat"
+     "2: pentatonic patterns (do re mi so la), high do"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -441,9 +512,9 @@
    "key": "C",
    "metre": "2/4",
    "bars": 8,
-   "origin": "",
+   "origin": "Course original (no cultural attribution)",
    "composer": "Grand Central Stationery (original, CC0)",
-   "rhythm": "",
+   "rhythm": "classroom train song",
    "source": "course/samples/original-pentatonic.abc",
    "skills": [
     "degree:do",
@@ -462,34 +533,86 @@
    "introduces": [
     "range:6th"
    ],
-   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\".C.C .D.D | E2 G2 | \"G\".E.E .D.D | \"C\"!breath!C4 | \"C\".C.C .E.E | G2 A2 | \"G\".G.G .E.E | \"C\"D2 C2 |]\n",
+   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nO:Course original (no cultural attribution)\nR:classroom train song\nM:2/4\nL:1/8\nK:C\n%%style march\n\"C\".C.C .D.D | E2 G2 | \"G\".E.E .D.D | \"C\"!breath!C4 | \"C\".C.C .E.E | G2 A2 | \"G\".G.G .E.E | \"C\"D2 C2 |]\n",
    "ontario": {
-    "grade": 5,
-    "band": "Grade 5",
+    "grade": 2,
+    "band": "Grade 2",
     "concepts": [
-     "chord progressions using I and V"
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
      "1: accent; smooth and detached articulation",
-     "5: chord progressions using I and V",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
-    "ignored": []
-   }
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "licence": "CC0 1.0"
   },
   {
-   "id": "beginner-songs-8-rocky-mountain",
-   "title": "Rocky Mountain",
+   "id": "curtis-dark-continent-1-cha-ko-mba-ko-mba",
+   "title": "Cha-ko'mba, ko'mba",
    "level": 3,
-   "score": 7.22,
+   "score": 4.2,
+   "key": "Ab",
+   "metre": "3/4",
+   "bars": 4,
+   "origin": "Mozambique (then Portuguese East Africa), Ndau people",
+   "composer": "traditional (Ndau), as sung by C. Kamba Simango",
+   "rhythm": "singing game",
+   "source": "course/samples/curtis-dark-continent.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:re",
+    "dur:1",
+    "dur:1/2",
+    "key:4",
+    "leap:4th",
+    "metre:3/4",
+    "repeat",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "1: accent; smooth and detached articulation",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: simple repeats",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Cha-ko'mba, ko'mba\nT:Hopping song: Ndau children's game\nC:traditional (Ndau), as sung by C. Kamba Simango\nO:Mozambique (then Portuguese East Africa), Ndau people\nR:singing game\nS:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs II, p. 106 (game notes p. 31)\nN:An evening game of Ndau children in central Mozambique: everyone hops on one leg in time to the song, racing to a goal, and whoever puts the other foot down loses (Curtis, p. 31). C. Kamba Simango sang it for Curtis; her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the game. \"Cha-komba-komba\" means to hop on one leg; \"Cha m'nthalila\" means \"This is Mnthalila's hop\" (a name from the verb \"to jump\"); the \"th\" is a t followed by a breathed h, not the English sound. The second line is Curtis's singing English. The soft thump on each beat, for the hops, is ours; the plate has the voice alone. The Chindau spelling wants a Chindau speaker's check.\nM:3/4\nL:1/8\nQ:1/4=116\nK:Ab\n%%style folk\n%%band drums: bd:.5 bd:.5 bd:.5\n%%band bass: ~\n%%band chords: ~\n|: A B A B (A2 | !>!B) z F B A2 | A B A B (A2 | !>!B) z F B A2 :|\nw: Cha-ko-mba, ko-mba, Cha m'ntha-li-la, Cha-ko-mba, ko-mba, Cha m'ntha-li-la!\nw: Cha-ko-mba, ko-mba, Hop-ping we go, Cha-ko-mba, ko-mba, Hop-ping we go!\n"
+  },
+  {
+   "id": "beginner-songs-7-au-clair-de-la-lune",
+   "title": "Au Clair de la Lune",
+   "level": 3,
+   "score": 4.64,
    "key": "C",
-   "metre": "2/4",
+   "metre": "4/4",
    "bars": 16,
-   "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "origin": "France",
+   "composer": "traditional (France)",
+   "rhythm": "children's song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -497,33 +620,33 @@
     "degree:mi",
     "degree:re",
     "degree:so",
+    "degree:ti",
     "dur:1",
-    "dur:1/2",
+    "dur:2",
+    "dur:4",
     "key:0",
-    "leap:6th",
-    "metre:2/4",
-    "range:6th",
-    "rest"
+    "leap:4th",
+    "metre:4/4",
+    "range:6th"
    ],
-   "introduces": [
-    "leap:6th",
-    "rest"
-   ],
-   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC CE | CC CE | CC EG | G2 z2 | AG EC | AG EC | !>(!EE DD | !>)!C2 z2 |\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain, hang your head and cry.\nC2 E2 | G2 A2 | EE DC | D2 z2 | C2 E2 | G2 A2 | EE DD | C2 z2 |]\nw: Do, do, do, do, do re-mem-ber me, do, do, do, do, do re-mem-ber me.\n",
+   "introduces": [],
    "ontario": {
-    "grade": 2,
-    "band": "Grade 2",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "crescendo and decrescendo",
-     "pentatonic patterns (do re mi so la), high do"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: crescendo and decrescendo",
-     "2: pentatonic patterns (do re mi so la), high do"
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
-   }
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:7\nT:Au Clair de la Lune\nT:By the Light of the Moon\nC:traditional (France)\nO:France\nR:children's song\nS:Grand Central Stationery course samples, beginner-songs.abc, X:7 (a classroom setting typed from memory); words traditional (18th century)\nN:A French song of the eighteenth century, one of the first tunes French children learn. Only the first verse is given: the later verses, about Pierrot's neighbour Lubin and the girl next door, are a mild grown-up joke and are left out.\nN:English meaning: By the light of the moon, my friend Pierrot, lend me your pen to write a word. My candle has gone out, I have no fire left; open your door to me, for the love of God.\nQ:1/4=96\nM:4/4\nL:1/4\nK:C\n%%style folk\nC C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |\nw: Au clair de la lu-ne, mon a-mi Pier-rot, prê-te-moi ta plu-me pour é-crire un mot.\nD D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]\nw: Ma chan-delle est mor-te, je n'ai plus de feu; ou-vre-moi ta por-te pour l'a-mour de Dieu.\n"
   },
   {
    "id": "beginner-songs-11-skip-to-my-lou",
@@ -534,8 +657,8 @@
    "metre": "2/4",
    "bars": 16,
    "origin": "USA",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (USA)",
+   "rhythm": "play-party song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -555,7 +678,7 @@
    "introduces": [
     "degree:fa"
    ],
-   "abc": "X:11\nT:Skip to My Lou\nO:USA\nM:2/4\nL:1/8\nK:C\n!mf!(E4 | C4 | E2 EE | G4) | (D4 | B,4 | D2 DD | F4) |\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou,\n(E4 | C4 | E2 EE | G4) | (D2 DD | F2 E2 | D4 | C4) |]\nw: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
+   "abc": "X:11\nT:Skip to My Lou\nO:USA\nC:traditional (USA)\nR:play-party song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\n!mf!(E4 | C4 | E2 EE | G4) | (D4 | B,4 | D2 DD | F4) |\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou,\n(E4 | C4 | E2 EE | G4) | (D2 DD | F2 E2 | D4 | C4) |]\nw: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -570,7 +693,10 @@
      "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -582,8 +708,8 @@
    "metre": "4/4",
    "bars": 12,
    "origin": "France",
-   "composer": "",
-   "rhythm": "",
+   "composer": "tune traditional (France, \"Ah! vous dirai-je, maman\"); words: Jane Taylor (1806)",
+   "rhythm": "lullaby",
    "source": "course/samples/first-tunes.abc",
    "skills": [
     "degree:do",
@@ -600,7 +726,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\n!mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]\nw: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.\n",
+   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nC:tune traditional (France, \"Ah! vous dirai-je, maman\"); words: Jane Taylor (1806)\nR:lullaby\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/4\nK:C\n%%style ballad\n!mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]\nw: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -615,53 +741,10 @@
      "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
-   }
-  },
-  {
-   "id": "beginner-songs-12-baa-baa-black-sheep",
-   "title": "Baa, Baa, Black Sheep",
-   "level": 3,
-   "score": 5.82,
-   "key": "C",
-   "metre": "4/4",
-   "bars": 12,
-   "origin": "England",
-   "composer": "",
-   "rhythm": "",
-   "source": "course/samples/beginner-songs.abc",
-   "skills": [
-    "degree:do",
-    "degree:fa",
-    "degree:la",
-    "degree:mi",
-    "degree:re",
-    "degree:so",
-    "dur:1",
-    "dur:1/2",
-    "dur:2",
-    "key:0",
-    "leap:5th",
-    "metre:4/4",
-    "range:6th"
-   ],
-   "introduces": [],
-   "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\n!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]\nw: Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full. One for the mas-ter, one for the dame, one for the lit-tle boy who lives down the lane. Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full.\n",
-   "ontario": {
-    "grade": 4,
-    "band": "Grade 4",
-    "concepts": [
-     "sforzando; phrase markings",
-     "the major scale (fa and ti), intervals, accidentals"
-    ],
-    "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes",
-     "3: the signs for soft and loud (p, f)",
-     "4: sforzando; phrase markings",
-     "4: the major scale (fa and ti), intervals, accidentals"
-    ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -673,8 +756,8 @@
    "metre": "4/4",
    "bars": 8,
    "origin": "England",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (England)",
+   "rhythm": "counting song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -692,7 +775,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\n!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]\nw: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.\n",
+   "abc": "X:16\nT:This Old Man\nO:England\nC:traditional (England)\nR:counting song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/8\nK:C\n%%style march\n!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]\nw: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -708,7 +791,10 @@
      "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -720,8 +806,8 @@
    "metre": "4/4",
    "bars": 16,
    "origin": "Germany",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (Germany, \"Hänschen klein\")",
+   "rhythm": "children's song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -738,7 +824,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\n!p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |\nw: Light-ly row, light-ly row, o'er the glass-y waves we go; smooth-ly glide, smooth-ly glide, on the si-lent tide.\n!mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]\nw: Let the winds and wa-ters be min-gled with our mel-o-dy; sing and float, sing and float, in our lit-tle boat.\n",
+   "abc": "X:10\nT:Lightly Row\nO:Germany\nC:traditional (Germany, \"Hänschen klein\")\nR:children's song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/4\nK:C\n%%style folk\n!p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |\nw: Light-ly row, light-ly row, o'er the glass-y waves we go; smooth-ly glide, smooth-ly glide, on the si-lent tide.\n!mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]\nw: Let the winds and wa-ters be min-gled with our mel-o-dy; sing and float, sing and float, in our lit-tle boat.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -754,7 +840,10 @@
      "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -767,7 +856,7 @@
    "bars": 16,
    "origin": "USA",
    "composer": "James Lord Pierpont (1857)",
-   "rhythm": "",
+   "rhythm": "winter song",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -790,8 +879,7 @@
     "band": "Grade 4",
     "concepts": [
      "sforzando; phrase markings",
-     "the major scale (fa and ti), intervals, accidentals",
-     "key signatures of up to one sharp or flat"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
@@ -799,12 +887,214 @@
      "1: accent; smooth and detached articulation",
      "3: the signs for soft and loud (p, f)",
      "4: sforzando; phrase markings",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
-   "abc": "X:15\nT:Jingle Bells (chorus)\nC:James Lord Pierpont (1857)\nO:USA\nM:4/4\nL:1/4\nK:G\n!f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!\n(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!\n"
+   "abc": "X:15\nT:Jingle Bells (chorus)\nC:James Lord Pierpont (1857)\nO:USA\nR:winter song\nM:4/4\nL:1/4\nK:G\n%%style swing\n!f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!\n(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!\n"
+  },
+  {
+   "id": "beginner-songs-12-baa-baa-black-sheep",
+   "title": "Baa, Baa, Black Sheep",
+   "level": 3,
+   "score": 5.82,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "England",
+   "composer": "traditional (England)",
+   "rhythm": "nursery rhyme",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nC:traditional (England)\nR:nursery rhyme\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/4\nK:C\n%%style folk\n!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]\nw: Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full. One for the mas-ter, one for the dame, one for the lit-tle boy who lives down the lane. Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full.\n",
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "sforzando; phrase markings",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   }
+  },
+  {
+   "id": "fairchild-persian-1-m-kh-h-labu",
+   "title": "Mīkhāhī labu?",
+   "level": 3,
+   "score": 6.59,
+   "key": "Am",
+   "metre": "4/4",
+   "bars": 7,
+   "origin": "Iran (Persia)",
+   "composer": "traditional (Iran), collected by Blair Fairchild",
+   "rhythm": "Persian folk song (comic song)",
+   "source": "course/samples/fairchild-persian.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:3",
+    "dur:7",
+    "key:0",
+    "metre:4/4",
+    "range:6th",
+    "tie-over-bar"
+   ],
+   "introduces": [
+    "dur:7"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: dotted half note",
+     "3: the signs for soft and loud (p, f)",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Mīkhāhī labu?\nT:Do you want hot beetroot? (Persian folk song)\nC:traditional (Iran), collected by Blair Fairchild\nO:Iran (Persia)\nR:Persian folk song (comic song)\nS:Blair Fairchild (coll. and arr.), Twelve Persian Folk-Songs (London: Novello, 1904), no. 4, pp. 15-17; English words by Alma Strettell; University of Rochester, Sibley Music Library scan\nN:A teasing song: a suitor asks \"Do you want me to bring you hot beetroot?\" (labu, the cooked beetroot sold by street-sellers in the Persian winter), and everyone answers with the loud refrain \"nā-nā-ī\". Fairchild: \"The melodies themselves were written down as faithfully as possible just as they were sung to me in Persia.\" The notes E F G A B C, ending on E, are close to the dastgah Shur, where a Persian singer may make the F a little flat (koron); Fairchild wrote F natural, and it is kept so. Here the class sings only the first line, twice, with the refrain: the second line of verse 1 (a joke about bringing home a second wife) and Fairchild's verses 2 to 4 (a bedroom joke and two verses about cigarettes) are left out. For that, bar 3 is sung to the words of bar 1, without Fairchild's slur on its first two notes. The refrain's last E is held over a further bar, as printed after verse 2.\nM:4/4\nL:1/8\nQ:1/4=88\nK:Am\n%%style persian\n\"E5\"B A A2 B (AG) A | B2 B6 | B A A2 B (AG) A | B2 B6 |\nw: mī-khā-hī la-bu_ bi-ār-am? mī-khā-hī la-bu_ bi-ār-am?\n!f!c B B2 A G G F | E2 E6- | E8 |]\nw: nā-nā-ī nā-nā-ī_ nā-nāī!_\nW:\nW:English: Do you want me to bring you hot beetroot? Na-na-i!\n"
+  },
+  {
+   "id": "beginner-songs-17-when-the-saints-go-marching-in",
+   "title": "When the Saints Go Marching In",
+   "level": 3,
+   "score": 7.05,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 15,
+   "origin": "USA (African American spiritual; New Orleans)",
+   "composer": "traditional (USA)",
+   "rhythm": "spiritual",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "dur:3",
+    "dur:4",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "pickup",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:17\nT:When the Saints Go Marching In\nC:traditional (USA)\nO:USA (African American spiritual; New Orleans)\nR:spiritual\nS:Grand Central Stationery course samples, beginner-songs.abc, X:17 (a classroom setting typed from memory); words traditional\nN:A Black American spiritual about the Day of Judgement, later the best-known New Orleans brass-band and jazz tune. It is a religious song: schools follow their own guidance on religious songs. The long F of bar 12 is split into two notes so that \"num-ber\" has a note for each syllable, as it is usually sung.\nQ:1/4=120\nM:4/4\nL:1/4\nK:C\n%%style swing\nC E F | G4 | z C E F | G4 | z C E F | G2 E2 | C2 E2 | D4 |\nw: Oh when the saints go march-ing in, Oh when the saints go march-ing in,\nz E E D | C2 C E | G3 G | F2 F2 | z E F G | E C D2 | C4 |]\nw: Oh Lord I want to be in that num-ber, when the saints go march-ing in.\nW:2. Oh when the sun refuse to shine, Oh when the sun refuse to shine,\nW:   Oh Lord I want to be in that number, when the sun refuse to shine.\nW:3. Oh when the trumpet sounds the call, Oh when the trumpet sounds the call,\nW:   Oh Lord I want to be in that number, when the trumpet sounds the call.\nW:4. Oh when the stars fall from the sky, Oh when the stars fall from the sky,\nW:   Oh Lord I want to be in that number, when the stars fall from the sky.\n"
+  },
+  {
+   "id": "beginner-songs-8-rocky-mountain",
+   "title": "Rocky Mountain",
+   "level": 3,
+   "score": 7.22,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 16,
+   "origin": "USA",
+   "composer": "traditional (USA, Appalachian)",
+   "rhythm": "play-party song",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:6th",
+    "metre:2/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [
+    "leap:6th",
+    "rest"
+   ],
+   "abc": "X:8\nT:Rocky Mountain\nO:USA\nC:traditional (USA, Appalachian)\nR:play-party song\nS:traditional, as commonly sung in classrooms (course transcription)\nM:2/4\nL:1/8\nK:C\nCC CE | CC CE | CC EG | G2 z2 | AG EC | AG EC | !>(!EE DD | !>)!C2 z2 |\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain, hang your head and cry.\nC2 E2 | G2 A2 | EE DC | D2 z2 | C2 E2 | G2 A2 | EE DD | C2 z2 |]\nw: Do, do, do, do, do re-mem-ber me, do, do, do, do, do re-mem-ber me.\n",
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "crescendo and decrescendo",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: crescendo and decrescendo",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   }
   },
   {
    "id": "first-tunes-6-amazing-grace",
@@ -853,12 +1143,209 @@
      "4: sforzando; phrase markings",
      "6: very soft and very loud (pp, ff); slurs",
      "2: pentatonic patterns (do re mi so la), high do",
-     "3: low so and low la (notes under do)",
-     "4: key signatures of up to one sharp or flat"
+     "3: low so and low la (notes under do)"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
-   "abc": "X:6\nT:Amazing Grace\nC:Words: John Newton (1779); tune: New Britain (USA, 1829)\nO:USA\nR:hymn\nM:3/4\nL:1/4\nK:G\n!mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |\nw: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_\nd2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]\nw: once was_ lost but now am found, was blind but_ now I see. _\n"
+   "abc": "X:6\nT:Amazing Grace\nC:Words: John Newton (1779); tune: New Britain (USA, 1829)\nO:USA\nR:hymn\nM:3/4\nL:1/4\nK:G\n%%style ballad\n!mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |\nw: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_\nd2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]\nw: once was_ lost but now am found, was blind but_ now I see. _\n"
+  },
+  {
+   "id": "kiss-gyermekjatek-1-b-jj-b-jj-z-ld-g",
+   "title": "Bújj, bújj, zöld ág",
+   "level": 3,
+   "score": 7.86,
+   "key": "F",
+   "metre": "2/4",
+   "bars": 15,
+   "origin": "Hungary, Baranya county",
+   "composer": "traditional (Hungary)",
+   "rhythm": "children's game (arch game)",
+   "source": "course/samples/kiss-gyermekjatek.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "key:1",
+    "leap:6th",
+    "metre:2/4",
+    "range:octave",
+    "repeat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "simple repeats",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Bújj, bújj, zöld ág\nT:Crawl Through, Green Branch\nC:traditional (Hungary)\nO:Hungary, Baranya county\nR:children's game (arch game)\nS:Kiss Áron, Magyar gyermekjáték-gyűjtemény (Budapest, 1891), Újhold-játék No. 4, p. 207\nN:A Hungarian arch game, still one of the best known. Two children join hands and hold them high to make a gate; the others, holding hands in a line, pass under it while everyone sings. In this version from Baranya the line sings the first verse (\"Let us through, bridge-master!\") and the gatekeepers answer with the second (\"I won't let you through!\"); then all sing \"Bújj, bújj\", and \"raj-ta\" (through!) is sung once for each child passing under, as many as there are. The gate closes on the last child, who joins the gatekeepers, until all are caught (Kiss, pp. 206-207). Kiss's 1891 regional spellings are kept; today's school words run \"Bújj, bújj, zöld ág, zöld levelecske\". The translation and the tempo are ours.\nQ:1/4=96\nM:2/4\nL:1/8\nK:F\n%%style folk\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\n|: c c A A | c c A A | c c c d | c2 A2 :|\nw: E-reszsz ál-tal, e-reszsz ál-tal te hi-da-si mes-ter!\nw: Nem e-reszt-lek, nem e-reszt-lek te hi-da-si mes-ter!\nc2 B2 | A2 A2 | G2 G E | c2 c2 | c B A B |\nw: Bújj, bújj zöl-des, zöld le-ve-les-tűl, Nyit-va van az\nc B A c | B A G A | F2 F2 | F2 F2 | F2 F2 | F2 F2 |]\nw: a-rany-ka-pu, Csak búj-ja-tok raj-ta, raj-ta, raj-ta, raj-ta...\nW:In English:\nW:(The line) Let us through, let us through, you bridge-master!\nW:(The gate) I won't let you through, I won't, you bridge-master!\nW:(All) Crawl, crawl, little green one, with your green leaves; the golden gate is open, just crawl through it, through, through, through...\n"
+  },
+  {
+   "id": "gbagbo-elder-ewe-dome-1-go-le-mimli",
+   "title": "Go le mimli",
+   "level": 3,
+   "score": 9.76,
+   "key": "C",
+   "metre": "6/8",
+   "bars": 16,
+   "origin": "Ghana (Volta Region, Èwè-Dòmè, around Ho)",
+   "composer": "traditional (Èwè-Dòmè), transcribed by Divine K. Gbagbo",
+   "rhythm": "storytelling song (glimedeha, audience interlude)",
+   "source": "course/samples/gbagbo-elder-ewe-dome.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1/3",
+    "dur:2",
+    "dur:2/3",
+    "key:0",
+    "leap:tritone",
+    "metre:6/8",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Go le mimli\nT:The gourd is rolling: Èwè-Dòmè storytelling song\nC:traditional (Èwè-Dòmè), transcribed by Divine K. Gbagbo\nO:Ghana (Volta Region, Èwè-Dòmè, around Ho)\nR:storytelling song (glimedeha, audience interlude)\nS:Divine Kwasi Gbagbo and D. Rose Elder, \"Storytelling Songs of the Èwè-Dòmè of Ghana,\" African Music 11(1), 2019, pp. 91-112, Figure 5 p. 107, doi:10.21504/amj.v11i1.2294; licence CC BY-NC-SA 4.0\nN:Bar 1 is printed without words; \"Go le mi\" is sung there as in bar 5 (our guess).\nN:The two clap parts (a pulse clap and an off-beat pair) are played by the Band as claps; clap them in two groups.\nN:Among the Èwè-Dòmè around Ho, in Ghana's Volta Region, an audience member may stop a told story with a song like this one (a glimedeha), and everyone joins in, clapping. \"Go le mimli tolitolitoli\" means \"a gourd is rolling on and on\"; Figure 5's caption gives the whole as \"The gourd is rolling on, regardless of its origin\": like a story, nobody knows where it came from or where it will stop (Gbagbo and Elder, pp. 98-99). The words are as the source prints them, without tone marks; the source gives no word-by-word translation, so an Èwè speaker's help with pronunciation is welcome. Start with the voice alone, then add the two clap parts (one on the dotted quarters, one on the offbeats) by ear; no drums, bell, bass or chords. The tempo is our estimate (the source prints none). Bar 1's three lead-in notes are untexted in the source; the three notes of bar 5 are given \"Go le mi\" here so the printed words fit the notes.\nN:Licence: this transcription comes from an article published under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0); it keeps that licence and its attribution to Divine K. Gbagbo and D. Rose Elder, and may be used only noncommercially.\nM:6/8\nL:1/8\nQ:3/8=72\nK:C\n%%style folk\n%%band drums: <[cp ~ ~ cp ~ ~] [cp ~ ~ ~ ~ ~]>\n%%band drums: <[~ cp cp ~ cp cp] [~ ~ ~ ~ cp cp] [~ cp cp ~ cp cp] [~ ~ ~ cp cp ~]>\n%%band bass: ~\n%%band chords: ~\nz3 F F F | F2 B B A A | G G2 F F F | E6 |\nw: Go le mi mli to li to li to li, go le mi mli.\nz3 F F F | F2 B B A A | G G2 F F F | E2 G E G2 |\nw: Go le mi mli to li to li to li, go le mi mli. Fi ne ke\nD E2 E E E | E2 G G F F | E E2 D D D | D2 F E F2 |\nw: go tso go le mi mli to li to li to li, go le mi mli. Fi ne ke\nD E2 E E E | E2 G G F F | E E2 D D D | C6 |]\nw: go tso, go le mi mli to li to li to li go le mi mli.\n",
+   "licence": "CC BY-NC-SA 4.0 (Gbagbo and Elder, 2019)"
+  },
+  {
+   "id": "hulbert-korean-repository-1-arirang",
+   "title": "Arirang",
+   "level": 3,
+   "score": 10.16,
+   "key": "G",
+   "metre": "3/4",
+   "bars": 16,
+   "origin": "Korea (Mungyeong Saejae Arirang)",
+   "composer": "traditional (Korea)",
+   "rhythm": "Korean minyo",
+   "source": "course/samples/hulbert-korean-repository.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "dur:3/2",
+    "key:1",
+    "leap:5th",
+    "metre:3/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Arirang\nT:Korean folk song, as Hulbert wrote it down in 1896\nC:traditional (Korea)\nO:Korea (Mungyeong Saejae Arirang)\nR:Korean minyo\nS:Homer B. Hulbert, \"Korean Vocal Music\", The Korean Repository 3 (Seoul: Trilingual Press, February 1896), p. 51; archive.org, University of Illinois copy\nN:The oldest written Arirang, which Homer Hulbert heard everywhere in Seoul in 1896: a fixed chorus that everyone sings (\"Arirang, arirang, arariyo\") and verses a singer makes up, here one about the birch trees of the Mungyeong Saejae pass, all cut down to make washing clubs. Arirang is a national song of Korea, North and South, with many regional versions; this is the earliest on paper.\nN:Hulbert's romanisation is kept (A-ra-rung for Arirang); in today's spelling: \"Arirang arirang arariyo, arirang eolsa bae ddiwora. Mungyeong saejae bakdal namu, hongdukkae bangmang-i da naganda.\" Guessed: bar 2's rhythm (the print shows no flags; read as bar 1, two quavers and a minim). The janggu pattern and open-fifth drone are ours, after the semachi jangdan as commonly taught.\nM:3/4\nL:1/8\nQ:1/4=88\nK:G\n%%style korean\n\"G5\"G G G4 | G G G4 | c2 d2 e2 | c4 G2 |\nw: A-ra-rung a-ra-rung a-ra-ri-o_ \nd d d4 | e3 d G2 | c3 d G2 | G6 |\nw: a-ra-rung öl_ sa pai ddi-ö-ra.\nd2 d4 | d2 d4 | d2 d2 e2 | c3 A G2 |\nw: Mun-gyung sai-chai pak-ta-lan mu__\nd d d4 | e3 d G2 | c3 d G2 | G6 |]\nw: hong-do-kai pang-maing-i ta na-kan-da.\n"
+  },
+  {
+   "id": "hpps-11-cuckoo-s-nest",
+   "title": "Cuckoo's Nest",
+   "level": 4,
+   "score": 5.78,
+   "key": "Dm",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "British Isles",
+   "composer": "traditional (British Isles)",
+   "rhythm": "hornpipe",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/hpps.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "key:1",
+    "leap:4th",
+    "metre:4/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "the major scale (fa and ti), intervals, accidentals",
+     "minor tonality"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:11\nT:Cuckoo's Nest\n% Nottingham Music Database\nC:traditional (British Isles)\nO:British Isles\nR:hornpipe\nS:Nottingham Music Database, hpps.abc, X:11 (via github.com/jukedeck/nottingham-dataset, ABC_original/hpps.abc)\nN:A hornpipe played by fiddlers, pipers and Morris musicians in England, Scotland and Ireland. Play the tune: it is given as an instrumental, without words, because the old song of the same name is bawdy and its words are not for class.\nQ:1/4=100\nM:4/4\nL:1/8\nK:Dm\n%%style folk\n\"Dm\"D2DE DCA,C|\"Dm\"DCDE F2\"C7\"FA|\"F\"c2cd A2GF|\"C\"ECCC C2\"A7\"FE|\n\"Dm\"D2DE DCA,C|\"Dm\"DCDE F2\"C7\"FG|\"F\"ABcA \"A7\"GFEF|\"Dm\"E2\"Gm\"D2 \"Dm\"D2||\n",
+   "licence": "GPL-3.0"
   },
   {
    "id": "beginner-songs-13-fr-re-jacques",
@@ -869,8 +1356,8 @@
    "metre": "4/4",
    "bars": 8,
    "origin": "France",
-   "composer": "",
-   "rhythm": "",
+   "composer": "traditional (France)",
+   "rhythm": "round",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
@@ -888,7 +1375,7 @@
     "range:over-octave"
    ],
    "introduces": [],
-   "abc": "X:13\nT:Frère Jacques\nO:France\nM:4/4\nL:1/4\nK:C\n%%round 4 every=2\n!mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
+   "abc": "X:13\nT:Frère Jacques\nO:France\nC:traditional (France)\nR:round\nS:traditional, as commonly sung in classrooms (course transcription)\nM:4/4\nL:1/4\nK:C\n%%style folk\n%%round 4 every=2\n!mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -901,10 +1388,12 @@
      "2: half and whole notes",
      "3: the signs for soft and loud (p, f)",
      "4: sforzando; phrase markings",
-     "3: two parts (rounds, partner songs, canons)",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    }
   },
   {
@@ -915,7 +1404,7 @@
    "key": "G",
    "metre": "4/4",
    "bars": 18,
-   "origin": "",
+   "origin": "England (Cotswold Morris)",
    "composer": "",
    "rhythm": "Morris dance",
    "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/morris.abc",
@@ -937,22 +1426,23 @@
     "range:over-octave"
    ],
    "introduces": [],
-   "abc": "X: 7\nT:Highland Mary\nR:Morris dance\n%%style folk\n% Nottingham Music Database\nP:A(AB)4\nS:Ascot via Coventry MM\nM:4/4\nL:1/4\nK:G\nP:A\nD|\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"C\"A/2c/2B/2A/2|\\\n\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\nP:B\nB/2c/2|\"G\"dd dc/2B/2|\"C\"cc cB/2c/2|\"G\"de d/2c/2B/2A/2|\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\n",
+   "abc": "X: 7\nT:Highland Mary\nR:Morris dance\n%%style folk\n% Nottingham Music Database\nP:A(AB)4\nS:Ascot via Coventry MM\nO:England (Cotswold Morris)\nM:4/4\nL:1/4\nK:G\nP:A\nD|\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"C\"A/2c/2B/2A/2|\\\n\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\nP:B\nB/2c/2|\"G\"dd dc/2B/2|\"C\"cc cB/2c/2|\"G\"de d/2c/2B/2A/2|\"Am\"GF \"D7\"D2|\n\"G\"GG \"D7\"G/2F/2E/2D/2|\"G\"GA/2B/2 \"C\"cB/2c/2|\"G\"dd \"D7\"A/2c/2B/2A/2|\"G\"G2 G||\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
      "6: pick-up notes (anacrusis)",
-     "7: major and minor triads beyond I, IV and V",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -964,7 +1454,7 @@
    "key": "D",
    "metre": "4/4",
    "bars": 18,
-   "origin": "",
+   "origin": "England",
    "composer": "",
    "rhythm": "reel",
    "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsa-c.abc",
@@ -987,23 +1477,24 @@
     "repeat"
    ],
    "introduces": [],
-   "abc": "X: 15\nT:Astley's Ride\nR:reel\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nM:4/4\nL:1/4\nK:D\na/2f/2|\"D\"dd dc/2d/2|\"Em\"ee \"A7\"ef/2e/2|\"D\"d/2c/2B/2A/2 \"A/c+\"Bc|\\\n\"Bm\"d/2e/2f/2g/2 \"A7\"a/2g/2f/2e/2|\n\"D\"dd \"Bm\"dc/2d/2|\"Em\"ee \"A\"ef/2e/2|\"G\"d/2c/2B/2A/2 \"A7\"Bc|\"D\"d3:|\nd/2e/2|\"D\"ff \"D/f+\"fe/2f/2|\"G\"gg gb/2g/2|\"A7\"ee \"b\"e\"c#\"d/2e/2|\\\n\"D\"ff \"c#\"f/2g/2a/2f/2|\n\"Bm\"dd \"Bm/a\"\"A\"dc/2d/2|\"Em/g\"\"G\"ee \"Em\"\"E7/g+\"ef/2e/2|\"A7\"d/2c/2B/2A/2 Bc|\\\n\"D\"d3:|\n",
+   "abc": "X: 15\nT:Astley's Ride\nR:reel\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nO:England\nM:4/4\nL:1/4\nK:D\na/2f/2|\"D\"dd dc/2d/2|\"Em\"ee \"A7\"ef/2e/2|\"D\"d/2c/2B/2A/2 \"A/c+\"Bc|\\\n\"Bm\"d/2e/2f/2g/2 \"A7\"a/2g/2f/2e/2|\n\"D\"dd \"Bm\"dc/2d/2|\"Em\"ee \"A\"ef/2e/2|\"G\"d/2c/2B/2A/2 \"A7\"Bc|\"D\"d3:|\nd/2e/2|\"D\"ff \"D/f+\"fe/2f/2|\"G\"gg gb/2g/2|\"A7\"ee \"b\"e\"c#\"d/2e/2|\\\n\"D\"ff \"c#\"f/2g/2a/2f/2|\n\"Bm\"dd \"Bm/a\"\"A\"dc/2d/2|\"Em/g\"\"G\"ee \"Em\"\"E7/g+\"ef/2e/2|\"A7\"d/2c/2B/2A/2 Bc|\\\n\"D\"d3:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "3: dotted half note",
      "6: pick-up notes (anacrusis)",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1039,22 +1530,288 @@
    "introduces": [],
    "abc": "X: 44\nT:The First Frost - Second part\nR:reel\n% Nottingham Music Database\nS:John Goodacre 1984, via PR\nM:4/4\nL:1/4\nK:D\n\"D\"D2 F2|\"A7\"E2 C2|\"D\"DG/2B/2 A2|\"A7\"G/2A/2B/2c/2 \"D\"dA/2F/2|\"Bm\"D2 F2|\\\n\"Em\"E2 \"A7\"C2|\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2::\n\"D\"D2 F2|\"A7\"G2 CE|\"D\"D2 F2|\"A\"A2 \"G\"GF/2E/2|\"D\"D2 F2|\"Em\"E2 \"A7\"C2|\\\n\"D\"DF/2A/2 \"A7\"c/2B/2A|\"D\"dA/2F/2 D2:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "simple repeats",
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "hindostan-folk-6-gurkha-sing-song",
+   "title": "Gurkha sing-song",
+   "level": 4,
+   "score": 8.81,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 6,
+   "origin": "India, Dharmsala (2nd Goorkhas)",
+   "composer": "traditional (Gurkha, Nepal)",
+   "rhythm": "song (solo and chorus, danced)",
+   "source": "course/samples/hindostan-folk.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3/4",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:6\nT:Gurkha sing-song\nT:Gurkha song, danced, with drum\nC:traditional (Gurkha, Nepal)\nO:India, Dharmsala (2nd Goorkhas)\nR:song (solo and chorus, danced)\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 129, p. 57\nN:From a sing-song of the men of the 2nd Goorkhas after a hockey match: a solo answered by a chorus, a drum under it, and one or two men dancing in the middle with bent knees, bent elbows and upturned palms, sometimes crouching for a bar or two. The songs came too fast for any words to be taken down, so sing it on \"la\" or play it: the chorus holds the high G while the solo would climb to it, then answers the solo note for note. A grunted \"Ha! Ha!\" sometimes ended a chorus.\nN:The drum is Fox Strangways's: one bar of 6/8 under each bar of the voice's 4/4 (three against two), right hand on 1, 3 and 4, left on 5 and 6; which hand had the high head is not printed, so rim and bass drum are ours, as are the tempo, the drone on C and the name \"upper mordent\" for his ornament. High for young voices: rehearse it a fifth lower, in F.\nM:4/4\nL:1/8\nQ:1/4=108\nK:C\n%%style drone\n%%band drums: rim _ rim rim bd bd\nG2 A/c3/2 c/A3/2 A/G3/2 | G3/2G/ A/c3/2 c4 ||\n\"^Solo\"e2 e/g3/2 !uppermordent!e d c/d3/2 | e3/2c/ c/c3/2 c4 ||\n\"^Chorus\"g4 e d c/d3/2 | e3/2c/ c/c3/2 c4 |]\n"
+  },
+  {
+   "id": "hindostan-folk-4-rama-s-lullaby",
+   "title": "Rama's lullaby",
+   "level": 4,
+   "score": 8.95,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 8,
+   "origin": "India, Maharashtra",
+   "composer": "traditional (Maharashtra)",
+   "rhythm": "devotional lullaby",
+   "source": "course/samples/hindostan-folk.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3/4",
+    "key:0",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:4\nT:Rama's lullaby\nT:Maratha lullaby\nC:traditional (Maharashtra)\nO:India, Maharashtra\nR:devotional lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66\nN:A Marathi lullaby to the infant Rama as the god Vishnu, sung to Fox Strangways (Adagio, crotchet 80) by a Hindu lady in Calcutta, with his English singing words; each of the four verses ends in the refrain \"Little babe, sleep upon my knee\". It is a devotional song: schools follow their own guidance on religious songs. Bars 4 and 5 as first read did not add up to two bars of 3/4, so here \"born\" is shortened to an eighth note and the barline moved, which puts the rest and \"Little\" at the end of bar 5 as at the end of bar 2; the rest after the last note is dropped. Bars 4 to 6 and the refrain's second bar are still to be checked against the plate.\nQ:1/4=80\nM:3/4\nL:1/16\nK:C\n%%style drone\nC C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G |\nw: In A-yo-dhya, the land of kings, It was Vish-nu's self That was\nA2 F2 G3 F G3 F | D3 C C4 z2 C C |\nw: born on the lap of Kau-shal-ya._ Lit-tle\nD4 G3 F D2 C2 | D3 C C8 |]\nw: babe sleep up-on my knee!__\nW:2. For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.\nW:   Little babe, sleep upon my knee!\nW:3. In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).\nW:   Little babe, sleep upon my knee!\nW:4. And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.\nW:   Little babe, sleep upon my knee!\n"
+  },
+  {
+   "id": "pinto-cantigas-1-na-bahia-tem",
+   "title": "Na Bahia tem",
+   "level": 4,
+   "score": 9.18,
+   "key": "D",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Brazil (Rio de Janeiro, Bahia, Minas Gerais)",
+   "composer": "traditional (Brazil: Rio, Bahia, Minas Gerais)",
+   "rhythm": "dança cantada (sung dance in two lines)",
+   "source": "course/samples/pinto-cantigas.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "key:2",
+    "leap:5th",
+    "metre:2/4",
+    "range:6th",
+    "repeat",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "marcato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "7: marcato",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Na Bahia tem\nT:In Bahia There Is\nC:traditional (Brazil: Rio, Bahia, Minas Gerais)\nO:Brazil (Rio de Janeiro, Bahia, Minas Gerais)\nR:dança cantada (sung dance in two lines)\nS:Alexina de Magalhães Pinto, Cantigas das creanças e do povo e danças populares (Rio de Janeiro: F. Alves, 1916), p. 15; the dance pp. 109-112\nN:A Brazilian sung dance that children danced in Minas Gerais. The words boast of what Bahia has (a penny coconut, a glass lamp, a flat-iron, a sewing machine): Bahia was the colony's first capital, where novelties came in. The dance (Alexina, p. 112): two lines face each other about seven steps apart; bars 1-2, three steps forward, clapping once on each step; bars 3-4, three steps back; bars 5-6 forward again, 7-8 back; then partners greet and may cross over, the lines changing places, and sing it again. One line can sing the first half and the other answer. In her dance version a polka in pairs follows, for piano alone; it is left out here because the scan is too blurred to read its tune. Guessed: the two sixteenths on \"Seu bem\" (they may be eighths). The accents are Alexina's; the 1916 spellings are kept; the tempo is ours. The same words are also sung in Umbanda; this is the children's dance of 1916.\nQ:1/4=100\nM:2/4\nL:1/8\nK:D\n%%style march\n%%band drums: <[cp cp] [cp ~]>\n%%band bass: ~\n%%band chords: ~\n|: D D F F | !marcato!A4 | !marcato!G2 !marcato!F2 | !marcato!E2 z2 |\nw: Na Ba-hi-a tem, Tem, tem, tem,\nB B A G | F2 D/D/ z | F F E E | !marcato!D2 z2 :|\nw: Na Ba-hi-a tem, Seu bem, Cô-co de vin-tem.\nW:Na Bahia tem, tem, tem, tem, na Bahia tem, seu bem, côco de vintem.\nW:(In Bahia there is, there is, there is, in Bahia there is, my dear, a penny coconut.)\nW:\nW:Na Bahia tem, / Vou mandar buscar / Lampeão de vidro, / O' bahiana, / Ferro de engommar.\nW:(In Bahia there is... I'll send for a glass lamp, Bahian girl, and a flat-iron.)\nW:\nW:... machina de costura, seu bem, folle de soprar.\nW:(... a sewing machine, my dear, a bellows.)\n"
+  },
+  {
+   "id": "lavignac-encyclopedie-3-r-na-j-n-k",
+   "title": "Rāna jīnāk",
+   "level": 4,
+   "score": 9.27,
+   "key": "Am",
+   "metre": "2/4",
+   "bars": 18,
+   "origin": "Algiers, Algeria",
+   "composer": "traditional (Algeria and the Maghreb)",
+   "rhythm": "festival song (processional)",
+   "source": "course/samples/lavignac-encyclopedie.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3/2",
+    "key:0",
+    "leap:4th",
+    "metre:2/4",
+    "range:6th",
+    "repeat",
+    "rest",
+    "syncopation",
+    "triplet"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "6: triplets",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:3\nT:Rāna jīnāk\nT:We have come to you: the Maghreb's opening song\nC:traditional (Algeria and the Maghreb)\nO:Algiers, Algeria\nR:festival song (processional)\nS:Jules Rouanet, \"La musique arabe dans le Maghreb\", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824\nN:\"Perhaps the best-known tune of the Maghreb\" (Rouanet): the song that opens a feast (weddings, births, processions), played outdoors by shawms (ghaita) and drums at the head of the procession and at home by the women's ensemble of violin, frame drum and goblet drum. In class: a hello song as everyone arrives, with B'qāw ʿala khēr as its goodbye.\nN:Words as Rouanet spelled them (French-style transliteration of Algerian Arabic), \"Rana djinak, ya dou aïni ... Nari! Ya nari!\": \"We have come to you, light of my eyes ... My fire! O my fire!\", a cry of joy. The rest of each couplet was improvised good wishes, and only these words are printed. Guessed: the last sixteenth of bar 8 (B) and where \"Ya\" falls in bar 15. The tempo is ours for his \"Allegro\"; the drum is his rhythm, high strokes on the rim and low on the bass drum. An Arabic speaker should still check the words.\nM:2/4\nL:1/16\nQ:1/4=112\nK:Am\n%%style persian\n%%band drums: rim ~ rim ~ rim ~ ~ rim\n%%band drums: bd ~ ~ ~ bd ~ ~ ~\n%%band bass: ~\n%%band chords: ~\n|: c6 (3cdc | B4 A4 | A4 B2 d2 | c4 z4 | z4 B4 | d8 | c8 | d e c d B c A B | G4 z4 |\nw: Ra _ _ _ _ _ na dji _ nak Ya dou aï ni _ _ _ _ _ _ _ _\nc6 (3cdc | B4 G4 | A4 B2 d2 | B4 z4 | z4 z2 e2 | d4 c2 B2 | B2 A4 B2 | c2 d e c d B c | A4 z4 :|\nw: Ra _ _ _ _ _ na dji _ nak Na ri! Ya _ na _ _ ri! _ _ _ _ _ _ _\n"
+  },
+  {
+   "id": "daisyfield-japanese-1-sakura",
+   "title": "Sakura",
+   "level": 4,
+   "score": 9.33,
+   "key": "Dm",
+   "metre": "4/4",
+   "bars": 14,
+   "origin": "Japan",
+   "composer": "traditional (Japan)",
+   "rhythm": "koto song",
+   "source": "course/samples/daisyfield-japanese.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:1",
+    "leap:7th",
+    "metre:4/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "the major scale (fa and ti), intervals, accidentals",
+     "minor tonality"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Sakura\nT:Cherry blossoms: Japanese koto song\nC:traditional (Japan)\nO:Japan\nR:koto song\nS:Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain) (koto version; the source book is not named on the page)\nN:The cherry-blossom song, played on the koto since the Edo period and taught in Japanese schools since the Meiji era. Words in romaji; they mean: \"Cherry blossoms, cherry blossoms! Across the spring sky, as far as you can see: is it mist, or cloud? Their scent rises. Come, come, let us go and see!\" Slow and even, like a koto's plucked strings.\nN:This koto version sits a fifth below the usual school key, in the in scale on A (A, B flat, D, E, F). Its last two bars (G A B flat, then e d B flat A) differ from the school version, and the book it was taken from is not named, so check them against the version your class knows. The drone on A and E is ours.\nM:4/4\nL:1/8\nQ:1/4=72\nK:Dm\n%%style minyo\n%%band energy=20 detail=20\n\"A5\"d2 d2 e4 | d2 d2 e4 | d2 e2 f2 e2 | d2 e d B4 |\nw: Sa-ku-ra! Sa-ku-ra! Ya-yo-i no so-ra_ wa\nA2 F2 A2 B2 | A2 A F E4 | d2 e2 f2 e2 | d2 e d B4 |\nw: Mi-wa-ta-su ka-gi_ ri, ka-su-mi ka ku-mo_ ka,\nA2 F2 A2 B2 | A2 A F E4 | d2 d2 e4 | d2 d2 e4 |\nw: Ni-o-i zo i-zu_ ru. I-za-ya! I-za-ya!\nG2 A2 B4 | e d B2 A4 |]\nw: Mi ni yu-kan!___\n",
+   "licence": "public domain (Tom Potter's transcription, donated)"
   },
   {
    "id": "first-tunes-7-oh-susanna",
@@ -1066,7 +1823,7 @@
    "bars": 25,
    "origin": "USA",
    "composer": "Stephen Foster (1848)",
-   "rhythm": "",
+   "rhythm": "parlour song",
    "source": "course/samples/first-tunes.abc",
    "skills": [
     "degree:do",
@@ -1105,12 +1862,397 @@
      "6: pick-up notes (anacrusis)",
      "3: the signs for soft and loud (p, f)",
      "4: sforzando; phrase markings",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
-   "abc": "X:7\nT:Oh! Susanna\nC:Stephen Foster (1848)\nO:USA\nM:2/4\nL:1/8\nK:G\n!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |\nw: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained\nB2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |\nw: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _\n!f!(c2 c2 | e e2 e | d d B G | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]\nw: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.\n"
+   "abc": "X:7\nT:Oh! Susanna\nC:Stephen Foster (1848)\nO:USA\nR:parlour song\nM:2/4\nL:1/8\nK:G\n%%style folk\n!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |\nw: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained\nB2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |\nw: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _\n!f!(c2 c2 | e e2 e | d d B G | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]\nw: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.\n"
+  },
+  {
+   "id": "curtis-dark-continent-3-mu-to-to-li-le",
+   "title": "Mu-to-to-li'le",
+   "level": 4,
+   "score": 9.6,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 5,
+   "origin": "Mozambique (then Portuguese East Africa), Ndau people",
+   "composer": "traditional (Ndau), as sung by C. Kamba Simango",
+   "rhythm": "children's song",
+   "source": "course/samples/curtis-dark-continent.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "degree:ti",
+    "dur:1/2",
+    "dur:1/4",
+    "key:0",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:6th",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "3: sixteenth-note patterns",
+     "6: pick-up notes (anacrusis)",
+     "1: accent; smooth and detached articulation",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:3\nT:Mu-to-to-li'le\nT:Drip-drop the rain: Ndau children's song\nC:traditional (Ndau), as sung by C. Kamba Simango\nO:Mozambique (then Portuguese East Africa), Ndau people\nR:children's song\nS:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs I, p. 106 (game notes p. 30)\nN:Ndau children in central Mozambique sing this while playing in the rain, calling the drops to pour down until the pools are full, so they can swim and hunt the big red-breasted bullfrogs (Curtis, p. 30). \"To-to\" is the sound of rain falling in drops. C. Kamba Simango sang it for Curtis; her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the game. The accents are Curtis's stress marks over every \"To\" and \"to\": the stress falls on the pickup and on the downbeat, against the bar. The plate opens with a bar of rests before the first \"To\", written here as a pickup. Sung unaccompanied; the second line is Curtis's singing English. The Chindau spelling and stresses want a Chindau speaker's check.\nM:3/4\nL:1/16\nQ:1/4=60\nK:C\n%%style folk\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\n!>!A2 | !>!B A G2 A2 E A G z !>!A2 | !>!B A G G A A E A G z !>!A2 |\nw: To-to li-le, mv'la-nga i-ne, To-to li-le, ma-ka-ndwa a-za-le, To-\nw: \"To-to,\" pour down, rain, let it rain, \"To-to,\" pour down, let all the pools be full, \"To-\n!>!B A G G A A E A G z !>!A2 | !>!B A G G A A E A G2 z2 |]\nw: to li-le, ti-zo bu-mwi-la mwo; To-to li-le, ti-ba-ye ma-che-che.\nw: to,\" pour down, and we will swim there-in; \"To-to,\" pour down, we spear the red bull-frog.\n"
+  },
+  {
+   "id": "richard-chinese-music-1-ba-ban",
+   "title": "Ba ban (八板)",
+   "level": 4,
+   "score": 10.23,
+   "key": "F",
+   "metre": "2/4",
+   "bars": 41,
+   "origin": "China",
+   "composer": "traditional (China)",
+   "rhythm": "instrumental air",
+   "source": "course/samples/richard-chinese-music.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "key:1",
+    "leap:octave",
+    "metre:2/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "low so and low la (notes under do)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Ba ban (八板)\nT:Eight Beats: China's best-known instrumental tune\nC:traditional (China)\nO:China\nR:instrumental air\nS:Mary Martin Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, \"Popular Airs\", No. 20 \"Ba Ban\", p. 33\nN:Mary Richard (1899) calls Ba ban the tune known to more people in China than any other; it is the \"mother tune\" of a whole family, Lao ba ban in the north and Lao liu ban and its slow variations in Jiangnan silk-and-bamboo (sizhu) music. An ensemble plays it in heterophony: everyone plays the same tune, each instrument filling it out in its own way (\"adding flowers\"), never in chords. Learn the plain line on recorders in its three sections, then let some players add notes between the beats while others keep it plain.\nN:Richard's version is longer than the usual 68-beat Ba ban (82 beats here) and is printed as she heard it. Guessed: a short broken line in the last section read as the barline between bars 39 and 40. The wood block on each downbeat stands in for the ban clapper; the tempo is ours.\nM:2/4\nL:1/4\nQ:1/4=88\nK:F\n%%style folk\n%%band drums: wb ~\n%%band bass: ~\n%%band chords: ~\n\"^1\" A A | D G | F2 | C D | F2 | D F | F A | G2 |\nA A | D G | F2 | C D | F2 | A G | F D | C2 ||\n\"^2\" c c | A A | c d | c A | G2 | A G | F2 | D F | G2 | A G | G A | c2 ||\n\"^3\" c d | f2 | d f | f d | c2 | c d | c A | G2 | G c | c G | A c | A G | F2 |]\n"
+  },
+  {
+   "id": "hindostan-folk-9-the-ayah-s-song",
+   "title": "The ayah's song",
+   "level": 4,
+   "score": 10.37,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 9,
+   "origin": "India",
+   "composer": "traditional (North India), sung by an unnamed ayah",
+   "rhythm": "air",
+   "source": "course/samples/hindostan-folk.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3",
+    "dur:3/4",
+    "endings",
+    "grace-notes",
+    "key:0",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:octave",
+    "repeat",
+    "rest"
+   ],
+   "introduces": [
+    "endings"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)",
+     "first and second endings"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
+     "6: first and second endings",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:9\nT:The ayah's song\nT:Hindostani song from the steamer\nC:traditional (North India), sung by an unnamed ayah\nO:India\nR:air\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66\nN:One of the songs sung on board a steamer by an ayah, a children's nurse travelling with a family in colonial times, whose name the book does not give. Fox Strangways took the tune down from her singing; he notes that her pitch centre moved and that the songs were hard for him to piece together, and he admired how the slide gave a wonderful value to the close and half-close. No words, language or purpose were recorded: hum it, sing it on \"la\" or play it, and let the slide (the four small notes before the half-close) be smooth and unhurried. The tune lies on C and ends on C, so the drone is on C; it reaches A below middle C, so sing it a fourth or fifth higher. Guessed: the second note of bar 4 (D, possibly C) and the rests in bar 2, the first ending and the last bar are best readings.\nM:3/4\nL:1/16\nQ:1/4=80\nK:C\n%%style drone\nC |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 D | C3 D C2 C2 {B,CB,C}B,2 A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]\n"
+  },
+  {
+   "id": "jekyll-jamaica-2-pass-the-ball",
+   "title": "Pass the ball",
+   "level": 4,
+   "score": 10.55,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 10,
+   "origin": "Jamaica",
+   "composer": "traditional (Jamaica)",
+   "rhythm": "ring game",
+   "source": "course/samples/jekyll-jamaica.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:3/2",
+    "key:0",
+    "leap:octave",
+    "metre:4/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Pass the ball\nT:Jamaican ring game\nC:traditional (Jamaica)\nO:Jamaica\nR:ring game\nS:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIV, p. 197\nN:A Jamaican ring game in Jamaican Patois, as Jekyll printed it in 1907 (Allegro). The ring closes up tight, shoulder to shoulder; hands behind backs pass the ball round and round while the player in the middle tries to find it, and whoever is found holding it becomes the seeker. Everyone sings; \"goin'\" is one short syllable. Jekyll was an English collector in colonial Jamaica; credit the song to the Jamaican singers he heard. The mento band is ours, in the style of Jamaican country bands.\nM:4/4\nL:1/8\nQ:1/4=116\nK:C\n%%style mento\nc3 B A2 G G | A2 B2 c2 z C | C2 E2 G2 G G | A2 G2 E2 z2 |\nw: Pass the ball an' the ball goin' round, the ball goin' round an' the key can't find,\nG G G A G3 F | E2 D2 C2 z2 | C C D2 E E F2 | G G A2 G G z2 |\nw: Mo-ther, ho-ney, oh! the ball goin' round. Jour-ney, ball, jour-ney, ball, jour-ney, ball, jour-ney,\nG G G A G3 F | E2 D2 C2 z2 |]\nw: Mo-ther, ho-ney, oh! the ball can't find.\n"
+  },
+  {
+   "id": "jekyll-jamaica-3-carry-banana",
+   "title": "Carry banana",
+   "level": 4,
+   "score": 10.79,
+   "key": "E",
+   "metre": "3/4",
+   "bars": 25,
+   "origin": "Jamaica",
+   "composer": "traditional (Jamaica)",
+   "rhythm": "ring tune",
+   "source": "course/samples/jekyll-jamaica.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:2",
+    "key:4",
+    "leap:5th",
+    "metre:3/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:3\nT:Carry banana\nT:Jamaican ring tune\nC:traditional (Jamaica)\nO:Jamaica\nR:ring tune\nS:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIII, p. 196\nN:A ring game: the girl in the middle is supposed to carry a bunch of bananas on her head, and the singers comment and ask her questions (\"Look! It is a nine-hand banana. No, a China banana. Did you find it? Did you steal it?\"); the ring answers \"carry banana\", and \"You find the banana?\" is the signal to take a partner. \"Tief\" is Jamaican Patois for steal. Jekyll marks it Tempo di Valse. In the fourth line the word Jekyll printed for the variety, which can be heard as a mocking word for Chinese people, is sung \"China\", the name Jekyll gives the China banana (a stout low kind that withstands wind) in his own note.\nQ:1/4=150\nM:3/4\nL:1/8\nK:E\n%%style mento\nz2 z2 G2 | B2 B2 B2 | c4 B2 | E2 E2 E2 |\nw: The gal ov-er yon-der car-ry ba-\nF2 F2 z2 | A4 G2 | B4 A2 | D2 D2 D2 |\nw: na-na, gal oh! gal oh! car-ry ba-\nE2 E2 G2 | B2 B2 ^A2 | c2 B2 z2 | E2 E2 E2 |\nw: na-na. A nine-hand ba-na-na, car-ry ba-\nF2 F2 F2 | G2 F2 G2 | B2 A2 z2 | D2 D2 D2 |\nw: na-na, a Chi-na ba-na-na, car-ry ba-\nE2 E2 E2 | B2 B2 B2 | c4 B2 | E2 E2 E2 |\nw: na-na. You find the ba-na-na? car-ry ba-\nF2 F2 F2 | A2 A2 G2 | B2 A2 z2 | D2 D2 D2 |\nw: na-na. You tief the ba-na-na? car-ry ba-\nE2 E2 z2 |]\nw: na-na.\n"
+  },
+  {
+   "id": "hindostan-folk-8-nirguna-s-lullaby",
+   "title": "Nirguna's lullaby",
+   "level": 4,
+   "score": 11.09,
+   "key": "F",
+   "metre": "3/4",
+   "bars": 20,
+   "origin": "India, Maharashtra",
+   "composer": "traditional (Maharashtra)",
+   "rhythm": "devotional lullaby",
+   "source": "course/samples/hindostan-folk.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:3/2",
+    "dur:3/4",
+    "key:1",
+    "leap:3rd",
+    "metre:3/4",
+    "pickup",
+    "range:6th",
+    "repeat",
+    "syncopation",
+    "triplet"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets",
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "3: sixteenth-note patterns",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "6: triplets",
+     "6: pick-up notes (anacrusis)",
+     "1: accent; smooth and detached articulation",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:8\nT:Nirguna's lullaby\nT:Maratha lullaby\nC:traditional (Maharashtra)\nO:India, Maharashtra\nR:devotional lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67\nN:Sung to Fox Strangways by a Hindu lady in Calcutta. The title names Nirguna, the supreme being without attributes in Hindu thought, so it is labelled a devotional song: schools follow their own guidance on religious songs. No words are printed under the notes; hum it, sing it on \"la\" or play it. The book's prose translation is a tired mother's song at the cradle: celestial carpenters made the cradle, her hand is tired of pulling its string, her throat is dry with singing, and the baby is not yet asleep. The tune lives on C, D and E with B flat and A below, so the tonic and the drone are C. Four lines: the first is repeated, then the other three are repeated together. The mark over the E in lines 2 and 3 stands for the \"squeeze\", a pressed emphasis on the note. The tune lies low: sing it a fourth or fifth higher. Guessed: no tempo is printed (crotchet 80 is ours); in the last bar of lines 1 and 2 the turn D E D is read as a quarter-note triplet, as lines 3 and 4 have C D there, so every bar is whole; the second note of line 1 bar 2, of lines 2 and 3, and the middle note of the triplet in line 4 bar 2 are best readings.\nM:3/4\nL:1/8\nQ:1/4=80\nK:F\n%%style drone\nB, |: C3/2 B,/2 C2 C D | E/F/E/D/ E3 D/E/ | D B, C2 D E | (3DED C B, A, B, :|\n|: C3/2 B,/2 C C C E | (3D/E/D/ C3 C B, | C2 E D !tenuto!E2 | D B, C C D E | (3DED C B, A, B, |\nC3/2 C/2 B, C D E | (3D/E/D/ C3 B, C | C2 B, C D !tenuto!E | D B, C C D E | C D C B, A, B, |\nC3/2 B,/2 C C D E | (3D/E/D/ C3 D E | D E C2 B, C | D B, C C D E | C D C B, A, B, :|\n"
+  },
+  {
+   "id": "luce-canciones-1-si-me-dan-pasteles",
+   "title": "Si me dan pasteles",
+   "level": 4,
+   "score": 11.28,
+   "key": "Gm",
+   "metre": "2/4",
+   "bars": 18,
+   "origin": "Puerto Rico",
+   "composer": "traditional (Puerto Rico)",
+   "rhythm": "aguinaldo (Christmas song)",
+   "source": "course/samples/luce-canciones.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:ti",
+    "double-stops",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3/4",
+    "endings",
+    "key:2",
+    "leap:5th",
+    "metre:2/4",
+    "pickup",
+    "range:octave",
+    "repeat",
+    "rest",
+    "rest-off-beat",
+    "syncopation",
+    "tie"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs",
+     "first and second endings"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "6: pick-up notes (anacrusis)",
+     "1: accent; smooth and detached articulation",
+     "6: very soft and very loud (pp, ff); slurs",
+     "6: first and second endings",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Si me dan pasteles\nT:If You Give Me Pasteles\nC:traditional (Puerto Rico)\nO:Puerto Rico\nR:aguinaldo (Christmas song)\nS:Allena Luce, Canciones populares (New York: Silver, Burdett, 1921), \"Aguinaldo (Si me dan pasteles)\", p. 3\nN:A Puerto Rican aguinaldo. At Christmas, groups of singers and players go from house to house (the parranda) and the hosts give them a gift or something to eat; the song's frank hint is that the visitors want pasteles (Christmas parcels of mashed plantain and root vegetables with a filling, wrapped in banana leaves), and hot ones, because cold pasteles give people a stomach-ache. A Christmas custom with secular words. The instruments play the ritornello before the verse and between verses; the voices sing in thirds, half the class on each line; then make up a verse for the class's own party food, as the parrandas do. Guessed: the first note of the ritornello's bar 8 (read d; it could be c), the lower voice in bar 7 of the verse (G under the c), and the last bar, where Luce puts both syllables of \"gen-te\" under one chord. The güiro, maracas and chords of the band are ours, after the instruments documented for aguinaldos (cuatro, tres, güiro, maracas, claves, bongó); the tempo is ours.\nQ:1/4=104\nM:2/4\nL:1/8\nK:Gm\n%%style folk\n%%band drums: [ca _ ca ca] [ca _ ca ca]\n%%band drums: [sh sh sh sh] [sh sh sh sh]\nV:1 name=\"Voice 1\"\nV:2 name=\"Voice 2\"\n[V:1] \"^Instruments\"d | g d/B/ G B | A c- c e | d c B A | B/c/d/B/ G d | g d/B/ G B | c c- c e | .d .c .B .A |1 G2 z d :|2 G z [^Fcd]2 ||\n[V:2] z | z4 | z4 | z4 | z4 | z4 | z4 | z4 |1 z4 :|2 z4 ||\n[V:1] \"^Voices\"|: .B .B c c | d3/2 (d/ d2) | c c B B | A3/2 (A/ A2) |\nw: Si me dan pas-te-les_ dén-me-los ca-lien-tes_\n[V:1] B B c c | d3/2 (d/ d2) | c c B c | d4 :|\nw: que pas-te-les frí-os_ em-pa-chan la gen~te.\n[V:2] |: G G A A | B3/2 (B/ B2) | A A G G | ^F3/2 (F/ F2) |\nw: Si me dan pas-te-les_ dén-me-los ca-lien-tes_\n[V:2] G G A A | B3/2 (B/ B2) | G G G G | ^F4 :|\nw: que pas-te-les frí-os_ em-pa-chan la gen~te.\nW:Si me dan pasteles, dénmelos calientes,\nW:que pasteles fríos empachan la gente.\nW:(If you give me pasteles, give them to me hot, for cold pasteles give people a stomach-ache.)\nW:\nW:A variant Luce quotes:\nW:Denme mi aguinaldo, si me lo han de dar,\nW:que la noche es corta y tenemos que andar.\nW:(Give me my aguinaldo, if you are going to give it, for the night is short and we have far to go.)\n"
   },
   {
    "id": "waltzes-11-daisy-daisy",
@@ -1120,8 +2262,8 @@
    "key": "D",
    "metre": "3/4",
    "bars": 33,
-   "origin": "",
-   "composer": "",
+   "origin": "England",
+   "composer": "Harry Dacre (\"Daisy Bell\", 1892)",
    "rhythm": "waltz",
    "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/waltzes.abc",
    "skills": [
@@ -1147,12 +2289,12 @@
     "tie-over-bar"
    ],
    "introduces": [],
-   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\n!mf!(f/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3)|(\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"A2) (d|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3)|\n(\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"e) (ef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"d) (de|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"A2) (c|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg)|(\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2):|\n",
+   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nC:Harry Dacre (\"Daisy Bell\", 1892)\nO:England\nM:3/4\nL:1/4\nK:D\n%%style waltz\n!mf!(f/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3)|(\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"A2) (d|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3)|\n(\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"e) (ef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"d) (de|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"A2) (c|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg)|(\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2):|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
@@ -1162,14 +2304,435 @@
      "6: pick-up notes (anacrusis)",
      "3: the signs for soft and loud (p, f)",
      "4: sforzando; phrase markings",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "botsford-folk-songs-1-usagi-to-kame",
+   "title": "Usagi to Kame (兎と亀)",
+   "level": 4,
+   "score": 11.92,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 16,
+   "origin": "Japan",
+   "composer": "Benjirō Nōsho (music); Wasaburō Ishihara (Japanese words); Grace Hazard Conkling (1922 English version)",
+   "rhythm": "children's song (school song)",
+   "source": "course/samples/botsford-folk-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/4",
+    "dur:2",
+    "dur:3/4",
+    "key:0",
+    "leap:5th",
+    "metre:2/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Usagi to Kame (兎と亀)\nT:The Rabbit and the Turtle\nC:Benjirō Nōsho (music); Wasaburō Ishihara (Japanese words); Grace Hazard Conkling (1922 English version)\nO:Japan\nR:children's song (school song)\nS:Florence Hudson Botsford (ed.), Folk Songs of Many Peoples, vol. 2 (New York: The Woman's Press, 1922), \"The Rabbit and the Turtle,\" pp. 442-443, English version by Grace Hazard Conkling; University of Rochester Sibley Music Library, public domain\nN:A Japanese school song of 1901, not a folk song: music by Benjirō Nōsho and words by Wasaburō Ishihara, written for young children in the Meiji school-song movement. The fable of the hare and the tortoise as a dialogue: here the rabbit teases the slow turtle and challenges it to a race. Sing it in Grace Hazard Conkling's English version (1922); let one group be the rabbit and the class answer as the turtle, boastful against patient.\nN:The Japanese words are printed in the source but are not yet set to the notes here; a Japanese speaker should set them. The book marks Allegro; the tempo is ours. Voice and a steady walking pulse; no koto, shamisen or taiko.\nM:2/4\nL:1/16\nQ:1/4=104\nK:C\n%%style folk\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\nG3 E G3 E | E3 D D4 | D3 C D3 E | G8 |\nw: Tur- tle, tur- tle, on your way, Why are you so slow?\nG3 G E3 G | A3 G E4 | D3 D G3 E | C8 |\nw: No one else in all the world Takes so long to go!\nG3 G G3 G | A3 G G4 | c3 d c3 B | G8 |\nw: To the foot of yon- der hill Run a race with me;\nA4 c3 B | G3 G E4 | G3 E C3 E | C8 |]\nw: Then who's the bet- ter man May- be we shall see!\n",
+   "licence": "public domain in the US and Canada (Conkling's English, 1922)"
+  },
+  {
+   "id": "hague-spanish-american-1-la-rana",
+   "title": "La Rana",
+   "level": 4,
+   "score": 12.21,
+   "key": "D",
+   "metre": "3/4",
+   "bars": 22,
+   "origin": "Mexico",
+   "composer": "traditional (Mexico)",
+   "rhythm": "cumulative song (children's song)",
+   "source": "course/samples/hague-spanish-american.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3",
+    "key:2",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:over-octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "3: sixteenth-note patterns",
+     "6: pick-up notes (anacrusis)",
+     "4: the fermata",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:La Rana\nT:The Frog\nC:traditional (Mexico)\nO:Mexico\nR:cumulative song (children's song)\nS:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 76, pp. 98-99, as sung by Mrs. Dane Coolidge\nN:A Mexican cumulative song and memory game: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (Hague: \"Each verse adds an animal, and the whole list is repeated\"). The chain: la Araña (the spider), la Rana (the frog), el Ratón (the rat), el Gato (the cat), el Perro (the dog), el Palo (the stick), la Lumbre (the fire), el Agua (the water), el Buey (the ox), el Cochino (the pig), el Herrero (the blacksmith), la Muerte (Death), Dios (God); a class may stop at the blacksmith. End with the \"Ga-ra\" croaks, as many as you like, the last held as long as breath lasts. Hague's last bar of the verse has two quarters, the second under a fermata; it is written here as a quarter and a held half so the bar is full. The tempo is ours.\nQ:1/4=112\nM:3/4\nL:1/8\nK:D\n%%style waltz\nC/C/ | D2 D2 D2 | F2 F2 DF | A6 | B6 | A4 B2 | F2 F2 D2 | F2 F2 E2 | D2 z2 F2 |\nw: De que A-ra-ña se sa-le~a pa-sear, Vie-ne la Ra-na y lo se tri-na. La\nw: When the spi-der goes out for a_ walk, Then comes the frog, and he sings with a croak. The\nE2 E2 C2 | D2 D2 F2 | E2 E2 C2 | D2 D2 B,2 | B,2 B,2 B,2 | B,2 C2 B,2 | B,2 !fermata!A,4 ||\nw: Ra-na, La~A-ra-ña, La Ra-na, La~A-ra-ña, Can-tan-do de-ba-jo~en la a-gua.\nw: frog and the spi-der, the frog and the spi-der, Are sing-ing be-neath the green wa-ter.\nM:2/4\nD2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 !fermata!D2 |]\nw: Ga-ra, ga-ra, ga-ra, ga-ra, ga-ra, ga-ra!\nW:Verse 2 (Hague, p. 99):\nW:La Rana se sale a pasear,\nW:Viene el Ratón y se trina,\nW:El Ratón, la Rana, la Araña, la Rana,\nW:Cantando debajo del agua.\nW:\nW:(The frog goes out for a walk, then comes the rat and sings: the rat and the frog, the spider and the frog, are singing under the water.)\n"
+  },
+  {
+   "id": "aubry-trouveres-1-a-l-entrada-del-tens-clar",
+   "title": "A l'entrada del tens clar",
+   "level": 4,
+   "score": 12.32,
+   "key": "GMix",
+   "metre": "3/4",
+   "bars": 48,
+   "origin": "Occitania (southern France)",
+   "composer": "anonymous (Occitan, 12th-13th century)",
+   "rhythm": "balada (round dance)",
+   "source": "course/samples/aubry-trouveres.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fi",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:2",
+    "dur:3",
+    "dur:5",
+    "grace-notes",
+    "key:0",
+    "leap:5th",
+    "metre:3/4",
+    "range:6th",
+    "rest",
+    "tie-over-bar"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:A l'entrada del tens clar\nT:At the Coming of the Bright Season\nC:anonymous (Occitan, 12th-13th century)\nO:Occitania (southern France)\nR:balada (round dance)\nS:Pierre Aubry, Trouvères et troubadours (Paris: Félix Alcan, 1909), pp. 60-61, from the chansonnier of Saint-Germain-des-Prés (Paris, BnF fr. 20050)\nN:A troubadour round dance for the coming of spring: the \"April queen\" calls every girl and young man to come and dance, to spite the jealous old king. A soloist (or the teacher) sings each line, the class answers \"E-ya!\", and everyone sings the refrain, \"Away, away, jealous ones, let us dance among ourselves\", dancing in a ring. The manuscript writes no rhythm: the long-short 3/4 swing, the grace notes and the two F sharps are Aubry's 1909 reading. Guessed: the F sharp on the second \"jelos\" in the refrain (the head sits high on the plate, but its sharp and the G-F sharp-G cadence want F sharp) and the second \"E-ya!\" (B, G, A, where the other two go B, c, d), both as the record reads them. Aubry marks it \"Vif\"; the tempo and the tabor-like drum are ours.\nQ:1/4=150\nM:3/4\nL:1/4\nK:Gmix\n%%style folk\n%%band drums: bd:.6 rim:.35 rim:.35\n%%band bass: ~\n%%band chords: ~\n\"^Solo\" B2 c | d2 d | d2 B | A2 z || \"^All\" B3 | c3 | d3- | d2 z ||\nw: A l'en-tra-da del tems clar, E_ ya!_\n\"^Solo\" B2 c | d2 d | d2 B | A2 z || \"^All\" B3 | G3 | A3- | A2 z ||\nw: Per jo-ia re-co-men-çar, E_ ya!_\n\"^Solo\" B2 c | d2 d | d2 B | A2 z || \"^All\" B3 | c3 | d3- | d2 z ||\nw: E per je-los ir-ri-tar, E_ ya!_\n\"^Solo\" B2 c | d2 d | d2 B | A2 B | A2 G | A2 B | A2 {G}^F | G3 ||\nw: Vol la re-gi-na mos-trar Qu'el es si a-mo-ro_ sa.\n\"^All\" d2 d | (d2 B) | c2 c | c2 {B}A | B2 B | (A2 G) | ^F2 G | (G2 A) |\nw: A-la-vi_ a-la-vi-a, je-los, je_ los, Lais-saz_\nB2 G | (G2 A) | B2 d | {e}(d2 B) | c2 {c}B | (A2 G) | A2 {G}^F | G3 |]\nw: nos Lais-saz_ nos Bal-lar_ en-tre nos,_ en-tre nos.\nW:In English: At the coming of the bright season, eya, to begin the joy again, eya, and to annoy the jealous, eya, the queen wants to show that she is so full of love. Away, away, jealous ones, let us, let us dance among ourselves.\nW:\nW:II. El' a fait per tot mandar, - Eya,\nW:Non sia jusqu'a la mar, - Eya,\nW:Piucela ni bachalar, - Eya,\nW:Que tuit non venguan dançar\nW:En la dansa joioza. (Refrain)\nW:(She has sent word everywhere, as far as the sea, that every girl and young man should come and dance in the joyful dance.)\nW:\nW:III. Lo reis i ven d'autra part, - Eya,\nW:Per la dansa destorbar, - Eya,\nW:Que el es en crematar, - Eya,\nW:Que on no li voill' emblar\nW:La regin' aurilloza. (Refrain)\nW:(The king comes from elsewhere to break up the dance, for he is afraid someone will steal his April queen.)\n"
+  },
+  {
+   "id": "jekyll-jamaica-1-galloway-road",
+   "title": "Galloway road",
+   "level": 4,
+   "score": 12.54,
+   "key": "D",
+   "metre": "2/4",
+   "bars": 15,
+   "origin": "Jamaica",
+   "composer": "traditional (Jamaica)",
+   "rhythm": "ring game",
+   "source": "course/samples/jekyll-jamaica.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "key:2",
+    "leap:5th",
+    "metre:2/4",
+    "pickup",
+    "range:octave",
+    "rest",
+    "rest-off-beat",
+    "triplet"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets",
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: sixteenth-note patterns",
+     "6: triplets",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Galloway road\nT:Jamaican ring game\nC:traditional (Jamaica)\nO:Jamaica\nR:ring game\nS:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCVIII, p. 199\nN:A Jamaican ring game in Jamaican Patois, as Jekyll printed it in 1907 (Allegretto): \"I go to Galloway road (where there is a quarry). Girls and boys are breaking stones. They break them one by one, two by two... Choosing stones suggests choosing partners.\" Breaking stone by hand for the roads was hard, poorly paid labour in Jamaica then, worth a sentence of history in class. Jekyll describes choosing partners; schools often play its relative \"Go Dung a Manuel Road\" as a stone- or bean-bag-passing game on the beat, which suits this song too (a later practice, not Jekyll's). Jekyll was an English collector in colonial Jamaica; credit the song to the Jamaican singers he heard. The mento band is ours, in the style of Jamaican country bands.\nM:2/4\nL:1/8\nQ:1/4=100\nK:D\n%%style mento\nF | A A (3A A A | A2 z B/ c/ | (3d c B A ^G |\nw: Me go da Gal-lo-way road, Gal an' boy them a broke rock\nA2 z2 | F F G E | F D/ D/ D z | F F G E |\nw: stone, Broke them one by one gal an' boy, Broke them two by\nF D/ D/ D z | (3F F F (3G F E | F D/ D/ D F | A A B G |\nw: two gal an' boy, Take up the one that you like gal an' boy, Ah! this here one me\nA D/ D/ D z | F A B G | A D/ D/ D |]\nw: like gal an' boy, broke them t'row them down gal an' boy.\n"
+  },
+  {
+   "id": "philippine-progressive-music-1-i-plant-some-rice",
+   "title": "I Plant Some Rice",
+   "level": 4,
+   "score": 12.79,
+   "key": "G",
+   "metre": "2/4",
+   "bars": 11,
+   "origin": "Philippines (Ilocos Sur, Ilocano)",
+   "composer": "traditional (Ilocos Sur); notation by Florencio Buado",
+   "rhythm": "children's action song",
+   "source": "course/samples/philippine-progressive-music.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:mi",
+    "degree:re",
+    "degree:ri",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:3/2",
+    "key:1",
+    "leap:octave",
+    "metre:2/4",
+    "pickup",
+    "range:octave"
+   ],
+   "introduces": [
+    "degree:ri"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:I Plant Some Rice\nT:Ilocos Sur action song (historical English schoolbook version)\nC:traditional (Ilocos Sur); notation by Florencio Buado\nO:Philippines (Ilocos Sur, Ilocano)\nR:children's action song\nS:Norberto Romualdez et al., The Philippine Progressive Music Series for the Primary Grades, Silver Burdett, digitized volume revised through 1948, p. 25, \"I Plant Some Rice,\" notation by Florencio Buado; HathiTrust Public Domain\nN:An action song the book calls popular among the Ilocano people, about the year's rice work: planting, harvesting, pounding, cooking and eating. Mime the work, without tools, on the first beat of bars 2, 3, 7 and 8 (counting the pickup as bar 1), a new action in each verse. Present rice work as skilled labour.\nN:The book prints only these English school verses, with no Ilocano title or words, so this is the schoolbook's version, not necessarily the song as Ilocano families sing it; ask an Ilocano speaker about the words if you can. The tempo is ours. Voice and actions only: the book prints no accompaniment.\nM:2/4\nL:1/8\nQ:1/4=104\nK:G\n%%style folk\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\nD | G B d D | G B d B | d2 c2 | ^A2 B2 | G3 D |\nw: 1.~I plant some rice, I plant some rice, Tra la la la la la. I\nw: 2.~I har-vest rice, I har-vest rice, Tra la la la la la. I\nw: 3.~I pound some rice, I pound some rice, Tra la la la la la. I\nw: 4.~I cook some rice, I cook some rice, Tra la la la la la. I\nw: 5.~I eat some rice, I eat some rice, Tra la la la la la. I\nG B d D | G B d B | d2 B2 | A2 G2 | F3 |]\nw: plant some rice, I plant some rice, And that's a job well done.\nw: har-vest rice, I har-vest rice, And that's a job well done.\nw: pound some rice, I pound some rice, And that's a job well done.\nw: cook some rice, I cook some rice, And that's a job well done.\nw: eat some rice, I eat some rice, And that's a job well done.\n"
+  },
+  {
+   "id": "hague-spanish-american-2-v-monos-por-santa-anita",
+   "title": "Vámonos por Santa Anita",
+   "level": 4,
+   "score": 13.02,
+   "key": "G",
+   "metre": "2/4",
+   "bars": 4,
+   "origin": "northern Mexico",
+   "composer": "traditional (northern Mexico)",
+   "rhythm": "play song",
+   "source": "course/samples/hague-spanish-american.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/4",
+    "dur:3/4",
+    "key:1",
+    "leap:octave",
+    "metre:2/4",
+    "range:over-octave",
+    "repeat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Vámonos por Santa Anita\nT:Come, Let's Go to Santa Anita\nC:traditional (northern Mexico)\nO:northern Mexico\nR:play song\nS:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 75, p. 98, as sung by Mrs. Karbe\nN:A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), with the oxcarts in front and the oxen behind. Keep the dotted figure long-short, a skip, not even eighths; it suits skipping or a walking game in pairs. Sing the Spanish twice through (the repeat), then Hague's English singing translation. Hague marks it \"Gayly\"; the tempo is ours.\nQ:1/4=100\nM:2/4\nL:1/16\nK:G\n%%style folk\n|: d3 d e3 d | c3 B A3 E | D3 D d3 A | c3 B G4 :|\nw: Vá-mo-nos por San-ta~A-ni-ta, Vá-mo-nos y lo ve-rás;\nw: Las ca-rre-tas por de-lan-te, Y los bue-yes por de-trás.\nw: Come, let's go to San-ta~A-ni-ta! Come, let's go! for there you'll find\nw: In the lead the wag-ons har-nessed, And the ox-en on be-hind.\n"
+  },
+  {
+   "id": "curtis-dark-continent-4-o-tu-la-mntwa-na-thula-mntwana",
+   "title": "O tu'la, mntwa'na (Thula, mntwana)",
+   "level": 4,
+   "score": 14.04,
+   "key": "E",
+   "metre": "6/8",
+   "bars": 19,
+   "origin": "South Africa (Zululand / KwaZulu-Natal)",
+   "composer": "traditional (Zulu), as sung by Madikane Cele",
+   "rhythm": "lullaby",
+   "source": "course/samples/curtis-dark-continent.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:mi",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/3",
+    "dur:2/3",
+    "key:4",
+    "leap:octave",
+    "metre:6/8",
+    "pickup",
+    "range:octave",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "6: pick-up notes (anacrusis)",
+     "4: sforzando; phrase markings",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:4\nT:O tu'la, mntwa'na (Thula, mntwana)\nT:O hush thee, baby: Zulu lullaby\nC:traditional (Zulu), as sung by Madikane Cele\nO:South Africa (Zululand / KwaZulu-Natal)\nR:lullaby\nS:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), \"Igama la Bantwana: Song of Children (Lullaby)\", p. 135; words and notes pp. 66-68\nN:A Zulu lullaby \"very commonly used to put Zulu babies to sleep\", sung for Curtis by Madikane Cele: the mother has crossed the mountains and another woman (a grandmother, an aunt) quiets the crying child: your mother is not with you, the zig-zag trail has held her; she is coming soon and will bring you pretty berries. Curtis's 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Cele's song. Sing it softly, swaying on the dotted quarters, with no accompaniment. Each \"I-wa!\" is a long cooing glide down from B to E, slid rather than stepped, with the last two slowing (rit.). The first note of bar 13 (\"yo\") is between D sharp and E in Curtis's plate, written as D sharp. The Zulu is in Curtis's 1920 spelling (today \"Thula, mntwana\"); the second line is her singing English, which she says follows the Zulu accents. The spelling and words want a Zulu speaker's check, and this tune may differ from the lullaby \"Thula Mntwana\" sung today.\nM:6/8\nL:1/8\nQ:3/8=50\nK:E\n%%style ballad\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\ne | e2 B G G e | (B2 G E2) B | B2 B e2 B | G3 E2 B | B2 B G2 B | (G E2 E2) G | A2 A B2 B |\nw: O tu-la, mntwa-na, O tu _ la! Un-yo-ko a-ka-mu-ko, U-se-le 'zin-ta-ben: _ _ U-hlu-shwa i-zi-\nw: O hush thee, ba-by, O hush _ thee! Thy moth-er is not with thee, She tar-ried in the hills: _ _ The zig-zag trail hath\nG3 E2 G | \"^rit.\"(B2 G E3 | E3) z2 e | e2 B G G e | (B2 G E2) e | d2 d e2 B | B3 G2 B |\nw: gwe-gwe, I-wa! _ _ _ O tu-la, mntwa-na, O tu _ la, Un-yo-kou-ze-zo-bu-ya, A-\nw: held her, I-wa! _ _ _ O hush thee, ba-by, O hush _ thee! Thy moth-er soon is com-ing, She'll\nG2 G B2 B | (G E2) G2 G | \"^rit.\"(B2 G E3 | E2) z z3 |]\nw: k'pa-te-lein-to en _ hle, I-wa! _ _ _\nw: bring thee pret-ty ber _ ries, I-wa! _ _ _\n"
+  },
+  {
+   "id": "jekyll-jamaica-4-little-sally-water",
+   "title": "Little Sally Water",
+   "level": 4,
+   "score": 14.09,
+   "key": "Eb",
+   "metre": "2/4",
+   "bars": 24,
+   "origin": "Jamaica",
+   "composer": "traditional (Jamaica, from an English singing game)",
+   "rhythm": "ring game",
+   "source": "course/samples/jekyll-jamaica.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:3/2",
+    "dur:3/4",
+    "key:3",
+    "leap:6th",
+    "metre:2/4",
+    "range:over-octave",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:4\nT:Little Sally Water\nT:Jamaican ring game\nC:traditional (Jamaica, from an English singing game)\nO:Jamaica\nR:ring game\nS:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. LXXXIX, p. 191\nN:The ring game that gave its name to \"playing in the ring\", an English singing game sung in Jamaican style, with words and tune as Jekyll printed them: Andante, then Allegro where the pair wheel. The class joins hands in a ring; one child crouches in the middle as Sally Water, rises slowly at \"Rise, Sally, rise\", brushing away pretend tears, turns one way and another, and chooses a partner; the two wheel, and the partner becomes the next Sally. Jekyll's last verse, a mock wedding that ends with a kiss, is left out here, as many classes leave it out; the game is complete without it. Nothing in the tune is guessed.\nM:2/4\nL:1/8\nQ:1/4=84\nK:Eb\n%%style mento\nE E E F | E2 B,2 | G G G G | G2 E2 |\nw: Lit-tle Sal-ly Wa-ter sprin-kle in the sau-cer;\nF2 F G | F3 E | D E F D | B,2 G G |\nw: Rise, Sal-ly, rise an' wipe your weep-ing eyes. Sal-ly\nG2 B3/2 G/ | E2 B, B, | E2 F F | G2 G G |\nw: turn to the East, Sal-ly turn to the West, Sal-ly\nG2 B G | E F G A | G2 F2 | E2 z2 |\nw: turn to the ver-y one you like the best.\n[Q:1/4=144] B B B e | d c d2 | c/ c/ c/ B/ A c | B A B2 |\nw: On the car-pet you must be hap-py as the grass-bird on the tree,\nB c d e | d c B G | F G A G/ F/ | E E E z |]\nw: Rise an' stand up on your leg an' choose the one that you like the best.\n"
   },
   {
    "id": "hindostan-folk-3-o-where-will-you-go",
@@ -1209,12 +2772,114 @@
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: 9/8, 6/4, 5/4 and other compound or irregular metres",
      "6: pick-up notes (anacrusis)",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:3\nT:O where will you go\nT:Garhwali song, the answer\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 99, p. 51\nN:Tonic G, one flat. The reply to Mother, send to the dhobi; the two semiquavers are a pickup. Check: the last bar.\nM:5/8\nL:1/16\nQ:1/8=180\nK:Gdor\n%%style drone\nA c | B2 A B G2 A B c2 | B2 A c B2 A B |]\nw: O where will you go if I get back your li-nen?\nN:2: You must say where you go before I send to the dhobi.\nN:3: Little Chhaila is yours, and will you marry another?\n"
+  },
+  {
+   "id": "reelsr-t-59-sugar-in-the-gourd",
+   "title": "Sugar in the Gourd",
+   "level": 5,
+   "score": 7.3,
+   "key": "A",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "USA (upland South)",
+   "composer": "traditional (USA)",
+   "rhythm": "reel",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsr-t.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:3",
+    "leap:4th",
+    "metre:4/4",
+    "range:over-octave",
+    "repeat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "simple repeats",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:59\nT:Sugar in the Gourd\n% Nottingham Music Database\nC:traditional (USA)\nO:USA (upland South)\nR:reel\nS:Nottingham Music Database, reelsr-t.abc no. 59 (\"Lynn Rohrbough, via EF\"), from github.com/jukedeck/nottingham-dataset (ABC_original/reelsr-t.abc)\nN:An American old-time fiddle tune, also danced as a play-party game. Play it as an instrumental: the sung verses carry a grown-up double meaning and are not for class, so no words are given. Each part is played twice; the tempo is ours, a steady classroom speed. Nothing in the tune is guessed.\nQ:1/4=120\nM:4/4\nL:1/4\nK:A\n%%style folk\nP:A\n\"A\"c/2B/2A/2G/2 EC|\"A\"E/2F/2A \"E7\"B2|\"A\"c/2B/2A/2G/2 EC|\"D\"E/2F/2A \"A\"A2:|\nP:B\n\"A\"ce/2f/2 ec|\"A\"B/2c/2e \"A7\"e2|\"D\"ff/2g/2 fe|\"E7\"B/2c/2e e2|\n\"D\"ab/2a/2 \"A\"f/2e/2c|\"A\"e/2f/2e \"E7\"c2|\"F#m\"AB/2c/2 \"Bm\"B/2A/2F|\\\n\"E7\"E/2F/2A \"A\"A2:|\n",
+   "licence": "GPL-3.0"
+  },
+  {
+   "id": "reelsr-t-49-soldiers-joy",
+   "title": "Soldiers' Joy",
+   "level": 5,
+   "score": 7.63,
+   "key": "D",
+   "metre": "4/4",
+   "bars": 18,
+   "origin": "Scotland and England; played across the British Isles and North America",
+   "composer": "traditional (British Isles)",
+   "rhythm": "reel",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsr-t.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "key:2",
+    "leap:4th",
+    "metre:4/4",
+    "pickup",
+    "range:over-octave",
+    "repeat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "6: pick-up notes (anacrusis)",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:49\nT:Soldiers' Joy\n% Nottingham Music Database\nC:traditional (British Isles)\nO:Scotland and England; played across the British Isles and North America\nR:reel\nS:Nottingham Music Database, reelsr-t.abc no. 49 (\"Kevin Briggs, via EF\"), from github.com/jukedeck/nottingham-dataset (ABC_original/reelsr-t.abc)\nN:One of the best-known fiddle tunes on both sides of the Atlantic, known in Scotland since the 18th century and a favourite of American old-time fiddlers. Play it as an instrumental: some American sung verses are about drink and drugs and are not for class, so no words are given. Each part is played twice; the tempo is ours, a steady classroom speed (fiddlers play it much faster). Nothing in the tune is guessed.\nQ:1/4=120\nM:4/4\nL:1/4\nK:D\n%%style folk\nP:A\nF/2G/2|\"D\"A/2F/2D/2F/2 A/2F/2D/2F/2|\"D\"Ad \"G\"dc/2B/2|\\\n\"D\"A/2F/2D/2F/2 A/2F/2D/2F/2|\"E7\"GE \"A7\"EF/2G/2|\n\"D\"A/2F/2D/2F/2 A/2F/2D/2F/2|\"D\"Ad \"G\"dg|\"D/a\"f/2a/2f/2d/2 \"A7\"e/2g/2e/2c/2|\\\n\"D\"ed d:|\nP:B\nd/2e/2|\"D\"ff/2d/2 f/2a/2g/2f/2|\"A7\"ee/2c/2 e/2g/2f/2e/2|\\\n\"D\"ff/2d/2 f/2a/2g/2f/2|\"E7\"\"G\"e/2d/2c/2B/2 \"A7\"\"A\"Ad/2e/2|\n\"D\"\"Bm\"f/2d/2f/2d/2 f/2a/2g/2f/2|\"Em\"e/2c/2e/2c/2 \"A7\"e/2g/2f/2e/2|\\\n\"D\"f/2a/2f/2d/2 \"A7\"e/2g/2e/2c/2|\"D\"ed d:|\n",
+   "licence": "GPL-3.0"
   },
   {
    "id": "reelsr-t-84-tom-and-jerry",
@@ -1224,7 +2889,7 @@
    "key": "A",
    "metre": "4/4",
    "bars": 18,
-   "origin": "",
+   "origin": "USA",
    "composer": "",
    "rhythm": "reel",
    "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsr-t.abc",
@@ -1245,23 +2910,23 @@
     "repeat"
    ],
    "introduces": [],
-   "abc": "X: 84\nT:Tom And Jerry\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:A\nc|\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2d/2e/2f/2 e/2d/2c/2B/2|\n\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2A/2B \"A\"A::\nE/2D/2|\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"Bm\"c/2A/2B/2c/2 \"E7\"B/2A/2F/2E/2|\n\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"E7\"c/2A/2B \"A\"A:|\n",
+   "abc": "X: 84\nT:Tom And Jerry\nR:reel\n% Nottingham Music Database\nS:via PR\nO:USA\nM:4/4\nL:1/4\nK:A\nc|\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2d/2e/2f/2 e/2d/2c/2B/2|\n\"A\"ec/2B/2 A/2c/2B/2A/2|\"A\"c/2B/2A/2c/2 \"E7\"B/2A/2B/2c/2|\\\n\"A\"e/2f/2e/2f/2 a/2f/2e/2d/2|\"E7\"c/2A/2B \"A\"A::\nE/2D/2|\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"Bm\"c/2A/2B/2c/2 \"E7\"B/2A/2F/2E/2|\n\"A\"C/2E/2A/2E/2 C/2E/2A/2E/2|\"D\"D/2F/2A/2F/2 D/2F/2A/2F/2|\\\n\"A\"AA/2c/2 \"F#m\"B/2c/2A/2B/2|\"E7\"c/2A/2B \"A\"A:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V",
-     "keys encountered in the repertoire (three or more sharps or flats)"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: pick-up notes (anacrusis)",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "7: keys encountered in the repertoire (three or more sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1296,19 +2961,20 @@
    "introduces": [],
    "abc": "X: 10\nT:B. Variation\nR:reel\n% Nottingham Music Database\nS:\nM:4/4\nL:1/4\nK:G\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\\\n\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"d2|\"G\"GG/2G/2 BB/2B/2|\"G\"d/2d/2d \"D7\"gd|\\\n\"G\"G/2A/2B/2c/2 B/2A/2G/2B/2|\n\"Bm\"F/2A/2B/2c/2 B/2A/2F/2A/2|\"C\"E/2G/2c/2B/2 A/2G/2F/2E/2|\\\n\"G\"G/2E/2D/2C/2 B,/2A,/2G,/2B,/2|\n\"D\"DD/2D/2 FF/2F/2|\"D\"A/2A/2A \"D7\"dd/2c/2|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"GG/2G/2 G||\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 4,
+    "band": "Grade 4",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
-     "7: major and minor triads beyond I, IV and V",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1350,12 +3016,178 @@
      "4: syncopation (syn-co-pa)",
      "6: 9/8, 6/4, 5/4 and other compound or irregular metres",
      "6: pick-up notes (anacrusis)",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:2\nT:Mother, send to the dhobi\nT:Garhwali song\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 98, p. 51\nN:Tonic B, no signature. Three verses; the dhobi is the washerman. The first three semiquavers are a pickup and the last bar is short by the same amount. Check: the pitches of bar 2.\nM:5/8\nL:1/16\nQ:1/8=180\nK:Bphr\n%%style drone\nB d2 | c2 B c A2 A B c2 | c2 B c A2 A |]\nw: Mo-ther, send to the dho-bi to bring back my li-nen.\nN:2: Never mind where I'm going if you'll send to the dhobi.\nN:3: Oh I'm going to get me a new wife, pretty Hira.\n"
+  },
+  {
+   "id": "daisyfield-japanese-2-konpira-fune-fune",
+   "title": "Konpira fune fune",
+   "level": 5,
+   "score": 11.92,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 15,
+   "origin": "Japan, Kagawa (Kotohira)",
+   "composer": "traditional (Japan)",
+   "rhythm": "hand-game song",
+   "source": "course/samples/daisyfield-japanese.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "key:0",
+    "leap:4th",
+    "metre:2/4",
+    "range:over-octave",
+    "repeat",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "simple repeats",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: sixteenth-note patterns",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Konpira fune fune\nT:Japanese game song\nC:traditional (Japan)\nO:Japan, Kagawa (Kotohira)\nR:hand-game song\nS:Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)\nN:A party hand game from Kotohira, home of the Konpira shrine: two players face each other across a small stand and touch it in turn, in time to the song, which goes faster each time round; a player who hesitates or touches out of turn is out. The melody is given without words, as in the transcription; the words are to be added once checked against Nagai and Obata. The tune is built on the yo scale on G (G A C D E, with one passing F in bar 12) and ends on G, so the band holds an open fifth on G (G5) rather than changing chords.\nQ:1/4=112\nM:2/4\nL:1/8\nK:C\n%%style minyo\n|: \"G5\"C2 D D | C D C D | E2 G G | E G E G |\nA G A A | A2 z2 | c c A G | c c d2 |\ne e d e | c d/ c/ d c | A c A G | F G A A |\nG A G E | D G E E | D C A, G, :|\n",
+   "licence": "public domain (Tom Potter's transcription, donated)"
+  },
+  {
+   "id": "stoin-pesnopoyka-1-zdravets",
+   "title": "Zdravets",
+   "level": 5,
+   "score": 11.97,
+   "key": "APhr",
+   "metre": "9/16",
+   "bars": 6,
+   "origin": "Bulgaria",
+   "composer": "traditional (Bulgaria)",
+   "rhythm": "horo song",
+   "source": "course/samples/stoin-pesnopoyka.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2/3",
+    "key:1",
+    "leap:3rd",
+    "metre:9/16",
+    "range:6th",
+    "rest",
+    "rest-off-beat",
+    "syncopation:sustained"
+   ],
+   "introduces": [
+    "metre:9/16"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 6/4, 5/4 and other compound or irregular metres",
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: syncopation (syn-co-pa)",
+     "6: 9/8, 6/4, 5/4 and other compound or irregular metres",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Zdravets\nT:Geranium (Здравец)\nC:traditional (Bulgaria)\nO:Bulgaria\nR:horo song\nS:Vasil Stoin, Narodna pesnopoyka (Sofia, 1930), No. 102 \"Zdravets\", p. 98\nN:A Bulgarian horo song, sung while dancing the horo, the line dance of village festivities: two groups of singers, one at each end of the line, answer each other line by line. A question and its answer: \"Little geranium, little wreath, do the girls pick you?\" and the geranium tells how the girls pick it on St George's Day (6 May), weave it into wreaths and crown the lambs. Zdravets carries the word for health (zdrave) and is given for health at feasts. Count 9/16 as 2+2+2+3, quick-quick-quick-slow (\"1 2 3 4-a\"), and step a simple horo to it. Guessed: the second note of bar 3 in each line (read c; it could be B). Words in modern Bulgarian spelling (Stoin prints the pre-1945 spelling); transliteration and translation below are ours. Stoin marks it \"fast\"; the tempo, the tapan pattern and the held drone are ours.\nQ:3/16=130\nM:9/16\nL:1/16\nK:APhr\n%%style folk\n%%band drums: bd ~ rim ~ rim ~ rim ~ ~\n%%band bass: r _ _ _ _ _ _ _ _\n%%band chords: ~\nc2 c2 d2 c3 | A2 B2 c2 c3 | (B2 c2) (A2 c3) |\nw: Здрав-че, вен-че, бе-рат ли те мо _ ми _\nw: Та ме-не ли мо-ми да не бе _ рат? _\nw: Ка-то дой-де на ден на Гер-гьов _ ден, _\nw: та ме бе-рат във но-ви це-ди _ ла, _\nw: та ме ви-ят на зе-ле-ни вен _ ци _\nB2 G2 A2 F3 | A2 B2 c2 c3 | (B2 c2) (A2 A2) z |]\nw: здрав-че, вен-че, бе-рат ли те мо _ ми? _\nw: Ка-то цъф-тя, все го-ра ми-ри _ ше. _\nw: те си дой-дат ху-ба-ви де-вой _ ки, _\nw: та ме но-сят на бър-зи по-то _ ци, _\nw: и ме ту-рят на вак-ли а-гън _ ца. _\nW:Transliterated (two lines to each time through the tune):\nW:Zdravche, venche, berat li te momi? / Zdravche, venche, berat li te momi?\nW:Ta mene li momi da ne berat? / Kato tsaftya, vse gora mirishe.\nW:Kato doyde na den na Gergyovden, / te si doydat hubavi devoyki,\nW:ta me berat vav novi tsedila, / ta me nosyat na barzi pototsi,\nW:ta me viyat na zeleni ventsi / i me turyat na vakli agantsa.\nW:\nW:In English: \"Little geranium, little wreath, do the girls pick you?\" \"How could the girls not pick me? When I bloom the whole forest smells sweet. When St George's Day comes, the pretty girls come; they pick me into new cloths, carry me to swift streams, weave me into green wreaths and put me on the dark-eyed lambs.\"\n"
+  },
+  {
+   "id": "lavignac-encyclopedie-2-b-q-w-ala-kh-r",
+   "title": "B'qāw ʿala khēr",
+   "level": 5,
+   "score": 12.79,
+   "key": "Bb",
+   "metre": "3/8",
+   "bars": 18,
+   "origin": "Algiers, Algeria",
+   "composer": "traditional (Algeria and the Maghreb)",
+   "rhythm": "festival song (leave-taking)",
+   "source": "course/samples/lavignac-encyclopedie.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "dur:4",
+    "key:2",
+    "leap:5th",
+    "metre:3/8",
+    "pickup",
+    "range:6th",
+    "rest",
+    "tie-over-bar"
+   ],
+   "introduces": [
+    "metre:3/8"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "6: pick-up notes (anacrusis)",
+     "4: sforzando; phrase markings",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:B'qāw ʿala khēr\nT:Stay well: the Maghreb's closing song\nC:traditional (Algeria and the Maghreb)\nO:Algiers, Algeria\nR:festival song (leave-taking)\nS:Jules Rouanet, \"La musique arabe dans le Maghreb\", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824\nN:The closing song of every Maghreb feast with music: the musicians' goodbye to the hosts who listened. Every couplet begins \"Stay well!\", and when the old couplets run out the singers make up lines naming the guests. In class: the goodbye song at the end of a lesson, the first line sung by all, then a couplet for each child's name; Rāna jīnāk is its hello song.\nN:Words as Rouanet spelled them (a French-style transliteration of Algerian Arabic): \"Stay well! I want to go home: the muezzin's voice is in the sky (it is dawn) ... Ah! Stay well!\" The muezzin only marks the hour the feast ends; the song is not a religious text. The fit of \"fes-sa-ma-i ci Ah!\" to the notes is approximate, as he prints it; the E flats in bars 8 and 10-11 follow the key signature. Rouanet writes 6/8 (pairs of these 3/8 bars) and returns to the sign for each new couplet; the drum is his: high, low, high, low by eighths. An Arabic speaker should still check the words.\nM:3/8\nL:1/8\nQ:3/8=108\nK:Bb\n%%style persian\n%%band drums: <[rim bd rim] [bd rim bd]>\n%%band bass: ~\n%%band chords: ~\nd =e | !segno! (f g =e) | f3 | f2 f | f (=e f) | (f/=e/) d2- | d2 z | f2 f | e e2 | (c/d/ B2) |\nw: B'kaou aâ la _ _ kheir! neb- ghi ne- rou- _ oua _ h' _ H'ass el moued- den _ _ _\n(c d) (e | f) e f | B z z | e3 | d2 B | (c B c | d =e f) | B z z |]\nw: fes- _ sa- _ ma- i ci~Ah! Eb- kaou aâ la _ _ _ _ _ kheir!\n"
   },
   {
    "id": "hindostan-folk-5-chhaila",
@@ -1407,10 +3239,12 @@
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: 9/8, 6/4, 5/4 and other compound or irregular metres",
      "6: triplets",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:5\nT:Chhaila\nT:Garhwali farewell song\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 111, p. 54\nN:Written in the bass clef in the book; two bars make the unit and the rhythm is 2+3+3+2, which Fox Strangways says no barring reproduces. Sung a man's voice down; sing it an octave up for children. Check: bar 2's \"now\" (a minim in the plate, read here as a crotchet) and the last bar's rest.\nM:5/8\nL:1/8\nQ:1/8=160\nK:Bb clef=bass\n%%style drone\nF, F, F,2 F, | F, G, A, G,2 | D,2 E, D, C, | D,3 E, D, | B,, G,, G,,3 | C, C, (3D,E,D, C, | C,2 B,, G,, C, | C,2 C, {E,}D,3/2 C,/2 | C,3 z2 |]\nw: Must you go, my Chhai_-la, now, Leav-ing me a-lone, my_ dar_-ling! Tell me, Chhai-la_ how I shall_ live when you are_ gone?\nN:2: Shall I live, my Chhaila, say, Like a water-mill, my darling! Standing all the day desolate upon a hill?\n"
   },
@@ -1459,7 +3293,10 @@
      "2: pentatonic patterns (do re mi so la), high do",
      "3: low so and low la (notes under do)"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:1\nT:Bhup\nT:Bhupali, Rupak\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Rupak\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 383, p. 301\nN:Pentatonic (Sa Re Ga Pa Dha). Check: the last bar has four quavers in the plate.\nM:3/4\nL:1/8\nK:C\n%%style drone\nE | GE D3 E | C2 C2 E2 | A,A, C3 E | D2 E D2 E | GE D3 E |\nC2 C2 E2 | A,A, C3 E | GE DE z E || ED E3 E | cG c2 cc |\ncG c3 c | d2 c2 GA | E2 D2 C2 | E2 D2 A,G, | A,2 C3 E | EG DE |]\n%%tuning Bhup (Sa Re Ga Pa Dha): 203.9 386.3 702.0 884.4 2/1 map=nearest\n"
   },
@@ -1513,10 +3350,12 @@
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:4\nT:Desh\nT:Desh, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 395, p. 305\nN:Both nishads: shuddha Ni (B natural) rising, komal ni (B flat) falling. The asthayi repeats. Check: bars 6 and 7.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cmix\n%%style drone\nD2 D F2 A | =Bc c c2 _B | AG A FG A | G2 D ED z :|\nD2 D F2 A | =Bc c c2 c | c2 c2 c =B | cd c d3 |\nc =B2 c2 d | dc c2 A F | AG A FG A | G2 D ED D |]\n%%tuning Desh (Sa Re Ga ma Pa Dha ni Ni): 203.9 386.3 498.0 702.0 884.4 996.1 1088.3 2/1 map=nearest\n"
   },
@@ -1555,10 +3394,10 @@
     "syncopation:sustained"
    ],
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "keys encountered in the repertoire (three or more sharps or flats)"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
@@ -1566,10 +3405,12 @@
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: pick-up notes (anacrusis)",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "7: keys encountered in the repertoire (three or more sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:3\nT:Bhairavi\nT:Bhairavi, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 419, p. 311\nN:All four komal notes (re ga dha ni); Fox Strangways heads it Phrygian-Doric. Check: bars 4, 7 and 9 are short in this reading.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cphr\n%%style drone\nC | F3 F2 F | E3 E2 E | D3 D2 D | C2 D | D2 D z z C | D3 D2 E |\nED DC C | C3 E2 F | ED CC F || F3 A2 c | c2 c c2 c | c2 c c2 d |\ncB A F2 F | F3 F2 A | AF F D2 D | C3 D2 E | EDC C2 |]\n%%tuning Bhairavi (Sa re ga ma Pa dha ni): 111.7 315.6 498.0 702.0 813.7 996.1 2/1 map=nearest\n"
   },
@@ -1606,10 +3447,10 @@
     "dur:1/4"
    ],
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "keys encountered in the repertoire (three or more sharps or flats)"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
@@ -1620,12 +3461,194 @@
      "5: syncopated sixteenths (tika-ti, ti-tika)",
      "6: pick-up notes (anacrusis)",
      "4: the major scale (fa and ti), intervals, accidentals",
-     "4: minor tonality",
-     "7: keys encountered in the repertoire (three or more sharps or flats)"
+     "4: minor tonality"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:2\nT:Malkos\nT:Malkauns, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 407, p. 308\nN:Pentatonic with komal Ga, Dha and Ni (Sa ga ma dha ni). Check: bar 5 and bar 9.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cm\n%%style drone\nC | E2 C C2 C | C3 CA,C | C3 E2 E | E2 E C2 C | E2 A, A,2 A, |\nC3 CA,C | C3 E2 E | E2 E C2 C | E3 E2 F || B2 c c2 c | c2 c c2 c |\nc/c/B/c/ AF F2 | FE C C2 C | C3 CA,C | C3 E2 E | E2 E C2 |]\n%%tuning Malkos (Sa ga ma dha ni): 315.6 498.0 813.7 996.1 2/1 map=nearest\n"
+  },
+  {
+   "id": "first-tunes-8-greensleeves",
+   "title": "Greensleeves",
+   "level": 5,
+   "score": 13.94,
+   "key": "Em",
+   "metre": "6/8",
+   "bars": 9,
+   "origin": "England",
+   "composer": "traditional (England, 16th century)",
+   "rhythm": "ballad tune",
+   "source": "course/samples/first-tunes.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:si",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/3",
+    "dur:1/6",
+    "dur:2/3",
+    "key:1",
+    "leap:4th",
+    "metre:6/8",
+    "pickup",
+    "range:over-octave"
+   ],
+   "introduces": [
+    "degree:si",
+    "dur:1/3",
+    "dur:1/6",
+    "dur:2/3",
+    "metre:6/8"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:8\nT:Greensleeves\nC:traditional (England, 16th century)\nO:England\nR:ballad tune\nS:Grand Central Stationery course samples, first-tunes.abc, X:8 (the first half of the tune, typed from memory)\nN:An Elizabethan ballad tune, first entered for printing in London in 1580, and the tune of the Christmas carol What Child Is This. Given here as a melody to play, without words; bar 7 is the usual cadence (G F♯ E D♯ C♯ D♯), corrected from a slip in the course's first typing.\nQ:3/8=56\nM:6/8\nL:1/8\nK:Em\n%%style ballad\nE | G2 A B>c B | A2 F D>E F | G2 E E>^D E | F2 ^D B,2 E | G2 A B>c B | A2 F D>E F | G>F E ^D>^C ^D | E3 E2 |]\n"
+  },
+  {
+   "id": "van-aalst-chinese-music-1-xianhua-diao",
+   "title": "Xianhua diao (鮮花調)",
+   "level": 5,
+   "score": 17.38,
+   "key": "C",
+   "metre": "2/2",
+   "bars": 26,
+   "origin": "China",
+   "composer": "traditional (China, lower Yangzi)",
+   "rhythm": "popular song (xiaodiao)",
+   "source": "course/samples/van-aalst-chinese-music.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:3/2",
+    "dur:3/4",
+    "key-change",
+    "key:0",
+    "leap:7th",
+    "metre:2/2",
+    "range:over-octave",
+    "repeat",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [
+    "key-change",
+    "metre:2/2"
+   ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: sixteenth-note patterns",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Xianhua diao (鮮花調)\nT:The fresh flower: Chinese popular song, two early versions\nC:traditional (China, lower Yangzi)\nO:China\nR:popular song (xiaodiao)\nS:J. A. van Aalst, Chinese Music (Shanghai, 1884), p. 19; John Barrow, Travels in China (London, 1804), p. 316, as taken down by J. C. Hüttner\nN:The song that grew into today's \"Mo li hua\" (Jasmine Flower), in two early versions a century apart: J. A. van Aalst's (1884; his staff notation and his Chinese gongche notation agree note for note) and the one J. C. Hüttner took down for John Barrow, who calls it one of the most popular songs in the whole country (1804). Play or sing van Aalst's first (smaller range), then hear Barrow's and find what changed: his first phrase climbs to high do (mi mi sol la do do la), where van Aalst's turns on the note below.\nN:Neither source sets words to the notes: sing on \"la\" or play. Barrow's two stanzas mean, roughly: \"How delightful this branch of fresh flowers! One morning it fell into my house; I will stay at home with the flower and be happy\" and \"How delightful this jasmine flower! No flower in the garden excels it; I would pick one to wear, but fear the gardener would scold.\" Barrow's last bar is printed two beats short (a rest here). The clapper on each downbeat is ours; the music has no chords. Not the 1957 arrangement, which is in copyright.\nM:C|\nL:1/8\nQ:1/4=84\nK:C\n%%style ballad\n%%band drums: wb ~\n%%band bass: ~\n%%band chords: ~\n\"^van Aalst, 1884\"|: A2 Ac dBBd | c3 d c2 z2 :| A2 c2 c2 dB | c3 d c2 z2 | A4 GcAG | F3 G F2 z2 |\nA4 F2 G2 | c3 d c2 z2 | G4 AGFC | D4 F4 | G2 AD c3 B | dcAG c4 ||\n[M:C][K:D]\"^Barrow, 1804\" B2 Bd egge | d2 de d2 z2 | B2 Bd egge | d2 de d2 z2 | d2 d2 d2 Bd | e2 e2 d4 | B2 AB d2 BA |\nG2 GA G4 | BAGB A3 B | d2 eg d4 | A2 Bd ABGE | D4 E2 G2 | A3 B GAGE | D6 z2 |]\n"
+  },
+  {
+   "id": "stainer-dufay-1-resvelons-nous",
+   "title": "Resvelons nous",
+   "level": 5,
+   "score": 18.92,
+   "key": "C",
+   "metre": "3/2",
+   "bars": 23,
+   "origin": "Cambrai; copied in northern Italy before about 1436",
+   "composer": "Guillaume Du Fay (c. 1397-1474)",
+   "rhythm": "rondeau, with a canon burden (May song)",
+   "source": "course/samples/stainer-dufay.abc",
+   "skills": [
+    "accidentals",
+    "degree:di",
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:te",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3/2",
+    "dur:6",
+    "key:0",
+    "leap:octave",
+    "metre:3/2",
+    "range:over-octave",
+    "rest",
+    "syncopation",
+    "tie-over-bar"
+   ],
+   "introduces": [
+    "degree:di",
+    "degree:te",
+    "dur:6",
+    "metre:3/2"
+   ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Resvelons nous\nT:Wake Up, Lovers\nC:Guillaume Du Fay (c. 1397-1474)\nO:Cambrai; copied in northern Italy before about 1436\nR:rondeau, with a canon burden (May song)\nS:J. F. R. and C. Stainer, Dufay and his Contemporaries (London: Novello, 1898), pp. 132-133, from Oxford, Bodleian Library, MS Canonici misc. 213\nN:A May-morning song by Guillaume Du Fay: wake up, lovers, and go to the woods to gather the may (green boughs and blossom brought home on May Day). Underneath, the two lower voices sing the burden \"Alons ent bien tos au may\" (let's be off to the may) as a canon, the tenor answering the contratenor a fifth lower one bar later; in the last three bars both leave the canon for the cadence. In class, two groups sing the burden as a round (an octave up for children's voices: seven stepwise notes in a five-bar loop) while the teacher or a soloist sings the top line. Notes as Stainer printed them in 1898 (original values halved); the sharps and flats at the cadences and the B flats are his editorial accidentals, not the manuscript's. The tempo is ours (the half note is the beat).\nQ:1/2=72\nM:3/2\nL:1/4\nK:C\n%%style ballad\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\nV:1 name=\"Superius\" sname=\"S\"\nV:2 name=\"Contratenor\" sname=\"Ct\" clef=treble-8\nV:3 name=\"Tenor\" sname=\"T\" clef=bass\n[V:1] G2 G2 F G | A2 G F2 E | D4 ^C2 | D2 z2 E2 | F4 D2 | E4 D2 | A,2 z A, _B, C | D E D D ^C B, |\nw: Res-ve-lons_ nous res-ve-lons a-mour-eux a-lons au bois tan-tost en__ ci--lir_ le_\n[V:1] D2 z4 | A2 A2 A2 | G2 c2 _B2 | A G F E2 D | F2 z2 G2 | F4 E2 | D3 ^C D B, | A,2 z2 A2 |\nw: may et chan-te-rons chas-cun un_ vi--re-lay pour sa da-me____ s'en\n[V:1] A G F2 E2 | D4 ^C2 | D4 E2 | F3 E F G | E F D ^C ^C B, | D6- | D6 |]\nw: se--rons_ plus joi-eux____________\n[V:2] C4 D2 | C4 _B,2 | A,4 G,2 | A,6 | z6 | C4 D2 | C4 _B,2 | A,4 G,2 |\nw: A-lons ent bien tos au may a-lons ent bien tos au\n[V:2] A,6 | z6 | C4 D2 | C4 _B,2 | A,4 G,2 | A,6 | z6 | C4 D2 |\nw: may a-lons ent bien tos au may a-lons\n[V:2] C4 _B,2 | A,4 G,2 | A,6 | z6 | G,4 G,2 | A,6- | A,6 |]\nw: ent bien tos au may_\n[V:3] z6 | F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | z6 | F,4 G,2 | F,4 E,2 |\nw: A-lons ent bien tos au may a-lons ent bien\n[V:3] D,4 ^C,2 | D,6 | z6 | F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | z6 |\nw: tos au may a-lons ent bien tos au may\n[V:3] F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | E,4 E,2 | D,6- | D,6 |]\nw: a-lons ent bien tos au may_\nW:Resvelons nous, resvelons, amoureux;\nW:Alons au bois tantost en cilir le may.\nW:Et chanterons chascun un virelay\nW:Pour sa dame: s'en serons plus joieux.\nW:(Wake up, wake up, lovers; let us go to the woods now to gather the may, and each of us will sing a virelai for his lady, and be the happier for it.)\nW:Burden: Alons ent bien tos au may. (Let's be off to the may.)\n"
   },
   {
    "id": "hindostan-folk-1-o-give-me-those-pretty-eyes",
@@ -1661,18 +3684,76 @@
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
-     "the major scale (fa and ti), intervals, accidentals",
-     "key signatures of up to one sharp or flat"
+     "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "3: 3/4 metre",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "abc": "X:1\nT:O give me those pretty eyes\nT:Garhwali song, a dialogue\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 97, p. 51\nN:Tonic G (G Dorian with the one-flat signature). He and she sing alternate verses. The metre changes from 3/4 to 2/4 at \"make\". Check: bars 3 and 4.\nM:3/4\nL:1/8\nQ:1/4=100\nK:Gdor\n%%style drone\nG2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]\nw: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.\nN:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.\nN:3 (He): Then O let me borrow them, And keep them safe till you need them again, dear.\nN:4 (She): For six months you shall borrow them; Promise truly you'll give me them back then again, dear.\nN:5 (He): What word is this of a bargaining! I will keep your eyes and your heart and your soul, dear.\n"
+  },
+  {
+   "id": "lavignac-encyclopedie-1-adana-melody",
+   "title": "Adana melody",
+   "level": 6,
+   "score": 13.74,
+   "key": "Am",
+   "metre": "2/4",
+   "bars": 6,
+   "origin": "Turkey, Adana province (Çukurova)",
+   "composer": "traditional (Turkey), author unknown",
+   "rhythm": "folk melody",
+   "source": "course/samples/lavignac-encyclopedie.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:1/8",
+    "dur:3/4",
+    "dur:3/8",
+    "key:0",
+    "metre:2/4",
+    "range:octave",
+    "repeat",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [
+    "dur:3/8"
+   ],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "rhythms as met in repertoire: notes shorter than a sixteenth"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "7: rhythms as met in repertoire: notes shorter than a sixteenth",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Adana melody\nT:Peasant melody from Adana: hearing a neutral second\nC:traditional (Turkey), author unknown\nO:Turkey, Adana province (Çukurova)\nR:folk melody\nS:Raouf Yekta Bey, \"La musique turque\", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951\nN:A folk melody Raouf Yekta collected among the peasants of Adana province and printed to answer Europeans who heard such tunes as A minor: it is built on the tetrachord A B C D with a B lower than the European one, and he gives its exact place (A to B 65536/59049, B to C 2187/2048, C to D 9/8, so B sits about 20 cents below the piano's B). The tuning line plays his B, C and D and a pure E; the other notes stay in equal temperament. Play it tuned, then untuned, and ask the class which B is \"the right one\".\nN:No words were printed: play it on the recorder or hum it. The last two notes of the next-to-last bar (G natural, F sharp) are a close reading of small print. The drum is ours: the Sofyan usul (düm, tek-ka), a two-beat Turkish cycle, not Yekta's choice for this tune. Whether the mode is Uşşak or Hüseyni waits for a Turkish musician.\nM:2/4\nL:1/32\nQ:1/4=56\nK:Am\n%%style persian\n%%tuning Ussak (Yekta): 100. 180.45 294.13 400. 498.04 600. 701.96 800. 900. 1000. 1100. 2/1 root=A map=semitones\n%%band drums: bd [rim rim]\n%%band bass: ~\n%%band chords: ~\n|: d4 e2 e2 e4 e3 d | d4 e3 d d4 c4 :| d4 e3 d d4 c3 B | c4 d3 c c3 B B3 A | A4 B3 A A4 =G3 ^F | G4 A2 A2 A6 z2 |]\n"
   },
   {
    "id": "reelsd-g-12-the-donegall",
@@ -1707,22 +3788,25 @@
    "introduces": [],
    "abc": "X: 12\nT:The Donegall\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:D\n(3A,/2B,/2C/2|\"D\"D(D/2E/2) F/2D/2F/2A/2|d/2F/2A/2F/2 B/2F/2A/2F/2|\\\n\"Em\"E(E/2F/2) G/2F/2G/2A/2|\"D\"B/2d/2A/2F/2 \"A7\"E/2G/2F/2E/2|\n\"D\"D(D/2E/2) F/2D/2F/2A/2|\"D\"d/2F/2B/2F/2 \"A7\"A/2B/2d/2e/2|\\\n(3\"D\"f/2g/2f/2(3e/2f/2e/2 \"G\"d/2B/2A/2G/2|(3\"A7\"F/2G/2F/2(3E/2F/2E/2 \"D\"D::\nA|\"D\"d/2e/2f/2g/2 a/2f/2d/2f/2|a/2f/2d/2f/2 a(g/2f/2)|\\\n\"Em\"e/2d/2e/2f/2 g/2f/2e/2d/2|\"Em\"e/2d/2e/2f/2 \"A7\"g(f/2e/2)|\n\"D\"d/2e/2f/2g/2 a/2f/2d/2f/2|a/2f/2d/2f/2 a/2b/2a/2g/2|\\\n(3\"D\"f/2g/2f/2(3e/2f/2e/2 \"G\"d/2B/2A/2G/2|(3\"A7\"F/2G/2F/2(3E/2F/2E/2 \"D\"D:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "triplets",
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "6: triplets",
      "6: pick-up notes (anacrusis)",
      "6: very soft and very loud (pp, ff); slurs",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1766,10 +3850,10 @@
    "introduces": [],
    "abc": "X: 3\nT:Walking In My Sleep\nR:reel\n% Nottingham Music Database\nS:Old Time, via PR\nM:4/4\nL:1/4\nK:G\n\"G\"G,/2A,/2B,/2C/2 D/2G/2B/2d/2|\"G\"B2 -B/2d/2B/2A/2|\"G\"G2 [e2g2]|\\\n\"D7\"[d3f3]d/2B/2|\n\"D7\"A/2G/2F/2A/2 D/2E/2D/2E/2|\"C\"c3/2d/2 cA|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"G3z::\n\"G\"g/2b/2g/2e/2 d/2g/2e/2f/2|g/2f/2g/2b/2 g/2e/2g/2b/2|\\\n\"G\"g/2e/2d/2c/2 B/2A/2G/2D/2|\"D7\"FA3|\nf/2ab/2 a3/2e/2|\"D7\"f/2e/2d/2f/2 e/2f/2e/2f/2|g/2e/2d/2c/2 B/2d/2A/2F/2|\\\n\"G\"[G4B4]:|\n",
    "ontario": {
-    "grade": 6,
-    "band": "Grade 6",
+    "grade": 5,
+    "band": "Grade 5",
     "concepts": [
-     "chord progressions using I, IV and V"
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
@@ -1777,14 +3861,84 @@
      "3: dotted half note",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
-     "6: chord progressions using I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "hindostan-folk-7-lalishrita",
+   "title": "Lalishrita",
+   "level": 6,
+   "score": 15.97,
+   "key": "C",
+   "metre": "6/8",
+   "bars": 10,
+   "origin": "India, Tamil Nadu (Srirangam)",
+   "composer": "traditional (Tamil Nadu)",
+   "rhythm": "devotional lullaby",
+   "source": "course/samples/hindostan-folk.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1/12",
+    "dur:1/2",
+    "dur:1/3",
+    "dur:1/4",
+    "dur:1/6",
+    "dur:2",
+    "dur:2/3",
+    "grace-notes",
+    "key:0",
+    "leap:5th",
+    "metre:6/8",
+    "pickup",
+    "range:octave",
+    "rest",
+    "rest-off-beat",
+    "syncopation",
+    "tie",
+    "triplet-in-compound",
+    "tuplet"
+   ],
+   "introduces": [
+    "dur:1/12",
+    "triplet-in-compound",
+    "tuplet"
+   ],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "rhythms as met in repertoire: notes shorter than a sixteenth"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: syncopation (syn-co-pa)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "6: triplets",
+     "6: pick-up notes (anacrusis)",
+     "7: rhythms as met in repertoire: notes shorter than a sixteenth",
+     "4: the fermata",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:7\nT:Lalishrita\nT:Tamil lullaby, from a phonogram\nC:traditional (Tamil Nadu)\nO:India, Tamil Nadu (Srirangam)\nR:devotional lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64\nN:A Tamil lullaby that lays the baby in the care of Sriranga (Vishnu, worshipped at Srirangam), taken down from a phonogram; the words are Fox Strangways's English singing translation, not the Tamil. It is a devotional song: schools follow their own guidance on religious songs. Sing it slowly and freely, holding the fermatas. No tonic is marked; the tune circles G and ends on C, so the drone is on C. Guessed: in bar 3 the two quick notes before \"dle\" are written as grace notes, and in bar 4 the c on \"bright\" is a dotted eighth, so that both bars come out whole; the five-note run on \"my\" (bar 2) and the rhythm of bars 7 and 8 are best readings still to be checked against the plate.\nM:6/8\nL:1/8\nQ:1/4=70\nK:C\n%%style drone\nC | C G G G2 G/A/ | G/E/ G/E/ (5:2:5E/G/E/G/E/ G z G |\nw: Ba_ _ by mine, light_ _ _ of_ my_ _ _ _ eyes, Here\nG c2 c2 {B/A/}c3/4B/4 | c3/2B/4A/4 (3G/E/G/ !fermata!F2 E/F/ |\nw: in thy cra- dle_ bright_ _ with_ _ flowers Through_\nG G G (3G/E/G/ (3G/B/G/ (3G/E/G/ | !fermata!F2 E G G E |\nw: sun- ny hours_ _ _ I_ bring thee_ _ sleep, I rock thee and\nE D G !fermata!F2 E/D/ | E/F/ G/F/ E2 D/E/ D/E/ | C3- C3 |]\nw: sing thee to sleep On the wings_ of_ my me_ lo_ dies_\nW:\nW:2. Srirangam island rises fair Where Kaveris meet;\nW:I lay thee there at Sriranga raja's feet, Full sure of His tender care.\nW:\nW:3. The golden nails no longer move On the divided cradle swung;\nW:The song is sung; my ship is borne Safe home, my babe, on the ocean of love.\n"
   },
   {
    "id": "reelsd-g-54-fred-roden-s-reel",
@@ -1821,22 +3975,24 @@
    "introduces": [],
    "abc": "X: 54\nT:Fred Roden's Reel\nR:reel\n% Nottingham Music Database\nS:Kevin Briggs, via EF\nM:4/4\nL:1/4\nK:D\nP:A\nA|\"D\"dd/2c/2 d/2A/2F/2A/2|\"D\"df/2g/2 af|\"G\"g/2f/2e/2g/2 \"D\"f/2e/2d/2f/2|\\\n\"E7\"e/2d/2c/2B/2 \"A7\"A(3A/2B/2c/2|\n\"D\"dd/2c/2 d/2A/2F/2A/2|\"D\"df/2g/2 af|\"G\"b/2g/2e/2c/2 \"A7\"A/2c/2e/2g/2|\"D\"fd d\\\n:|\nP:B\nA,-|\"D\"A,/2D/2F/2A/2 dd|\"D\"D/2F/2A/2d/2 \"A7\"fA,-|\"D\"A,/2D/2F/2A/2 dd|\\\n\"D\"a/2f/2d/2f/2 \"A7\"eA,-|\n\"D\"A,/2D/2F/2A/2 dd|\"D\"D/2F/2A/2d/2 ff|\"G\"b/2g/2e/2c/2 \"A7\"A/2c/2e/2g/2|\\\n\"D\"fd d:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "triplets",
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: triplets",
      "6: pick-up notes (anacrusis)",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1875,10 +4031,10 @@
    "introduces": [],
    "abc": "X: 32\nT:Sweet Ellen\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:D\nF/2E/2|\"D\"DD/2E/2 FE/2D/2|F/2AF/2 A3/2A/2|\"G\"B/2A/2B/2c/2 \"D\"d/2B/2A/2G/2|\\\n\"E7\"FE/2D/2 \"A7\"EF/2E/2|\n\"D\"A,/2D/2D/2D/2 FE/2D/2|\"D\"F/2AF/2 A3/2A/2|\"G\"B/2A/2B/2c/2 \"A7\"d/2B/2A/2G/2|\\\n\"D\"FD D2::\n\"D\"f/2ab/2 a/2f/2d/2e/2|f/2e/2d/2e/2 f/2e/2d/2e/2|\"D\"f/2ab/2 a/2f/2d/2e/2|\\\n\"E7\"f/2e/2d \"A7\"e3/2e/2|\n\"D\"f/2ab/2 a/2f/2d/2e/2|\"E7\"f/2e/2d \"Bm\"BA|\"G\"B/2c/2d/2B/2 \"A7\"A/2G/2F/2E/2|\\\n\"D\"FD D2:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
@@ -1886,12 +4042,13 @@
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: pick-up notes (anacrusis)",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "5: key signatures such as D major and G minor (two sharps or flats)"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1903,7 +4060,7 @@
    "key": "C",
    "metre": "4/4",
    "bars": 16,
-   "origin": "",
+   "origin": "USA",
    "composer": "",
    "rhythm": "reel",
    "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsa-c.abc",
@@ -1925,22 +4082,24 @@
     "triplet"
    ],
    "introduces": [],
-   "abc": "X: 28\nT:Billy In The Lowground\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:C\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 D/2C/2C/2A,/2|\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|\"C\"c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C::\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"e/2ag/2 aa|\\\na/2b/2a/2g/2 e/2d/2c/2d/2|\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|\\\n(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C:|\n",
+   "abc": "X: 28\nT:Billy In The Lowground\nR:reel\n% Nottingham Music Database\nS:via PR\nO:USA\nM:4/4\nL:1/4\nK:C\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 D/2C/2C/2A,/2|\n\"C\"G,/2A,/2C/2D/2 E/2G/2A/2B/2|\"C\"c/2B/2c/2d/2 c/2A/2G/2c/2|\\\n\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C::\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"e/2ag/2 aa|\\\na/2b/2a/2g/2 e/2d/2c/2d/2|\n\"C\"e/2ge/2 gg|\"C\"g/2a/2g/2e/2 \"G\"d/2B/2G|\"Am\"A/2B/2A/2G/2 E/2G/2A/2B/2|\\\n(3\"Am\"c/2B/2A/2G/2E/2 \"G7\"D\"C\"C:|\n",
    "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
+    "grade": 6,
+    "band": "Grade 6",
     "concepts": [
-     "major and minor triads beyond I, IV and V"
+     "triplets"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "4: syncopation (syn-co-pa)",
      "6: triplets",
-     "7: major and minor triads beyond I, IV and V",
      "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
   },
@@ -1952,7 +4111,7 @@
    "key": "G",
    "metre": "4/4",
    "bars": 27,
-   "origin": "",
+   "origin": "USA",
    "composer": "",
    "rhythm": "reel",
    "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsd-g.abc",
@@ -1977,27 +4136,93 @@
     "syncopation"
    ],
    "introduces": [],
-   "abc": "X: 1\nT:Dance All Night\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 [GB][GB]|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2[GB][G/2B/2][GB]e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 [GB][GB]|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2[GB][G/2B/2][GB]:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2[CE][C/2E/2][CE][CE]|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2[GB][G/2B/2][GB]G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2[CE][C/2E/2][CE][CE]|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2[GB][G/2B/2][GB]:|\n",
+   "abc": "X: 1\nT:Dance All Night\nR:reel\n% Nottingham Music Database\nS:via PR\nO:USA\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 [GB][GB]|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2[GB][G/2B/2][GB]e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 [GB][GB]|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2[GB][G/2B/2][GB]:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2[CE][C/2E/2][CE][CE]|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2[GB][G/2B/2][GB]G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2[CE][C/2E/2][CE][CE]|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2[GB][G/2B/2][GB]:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
     "concepts": [
-     "pick-up notes (anacrusis)",
-     "chord progressions using I, IV and V"
+     "pick-up notes (anacrusis)"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "4: syncopation (syn-co-pa)",
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "6: pick-up notes (anacrusis)",
-     "6: chord progressions using I, IV and V",
      "4: simple repeats",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: key signatures of up to one sharp or flat"
+     "4: the major scale (fa and ti), intervals, accidentals"
     ],
-    "ignored": []
+    "ignored": [
+     "key",
+     "texture"
+    ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "curtis-dark-continent-2-mafuve",
+   "title": "Mafuve",
+   "level": 6,
+   "score": 19.9,
+   "key": "E",
+   "metre": "3/4",
+   "bars": 33,
+   "origin": "Mozambique (then Portuguese East Africa), Ndau people",
+   "composer": "traditional (Ndau), as sung by C. Kamba Simango",
+   "rhythm": "dance song",
+   "source": "course/samples/curtis-dark-continent.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:1/8",
+    "dur:3/4",
+    "key:4",
+    "leap:7th",
+    "metre:3/4",
+    "pickup",
+    "range:over-octave",
+    "rest",
+    "rest-off-beat",
+    "syncopation",
+    "tie",
+    "triplet",
+    "tuplet"
+   ],
+   "introduces": [
+    "dur:1/8",
+    "leap:7th"
+   ],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "rhythms as met in repertoire: notes shorter than a sixteenth"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: 3/4 metre",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "6: triplets",
+     "6: pick-up notes (anacrusis)",
+     "7: rhythms as met in repertoire: notes shorter than a sixteenth",
+     "1: accent; smooth and detached articulation",
+     "6: very soft and very loud (pp, ff); slurs",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Mafuve\nT:Dance of girls: Ndau dance song with four clap parts\nC:traditional (Ndau), as sung by C. Kamba Simango\nO:Mozambique (then Portuguese East Africa), Ndau people\nR:dance song\nS:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), \"Mafuve: Dance of Girls\", pp. 103-105 (words and dance pp. 29-30)\nN:A dance song of Ndau girls and young women in central Mozambique, about a young bride who loves her new home but longs for her mother's: \"Kwa-mai-we\", my mother's home; \"Kwa-mai nda le-ga\", I left my mother's home; \"Ndo da kwu-mi-sha\", I love my husband's home; the rest are vocables. Two girls at a time dance facing each other in the middle, starting with two stamps; the others stand round in a circle, clapping and singing (Curtis, pp. 29-30, from C. Kamba Simango). Her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the dance. No drums: the band plays Curtis's four printed hand-clap rhythms, each on its own sound so the layers can be told apart, and the dancers' two stamps; in class, four groups take one clap rhythm each and change every two or three bars, as Curtis says the clappers do. Bars marked * are sung low with a guttural, grunting sound. Curtis: any phrase may be repeated, in any order, for an hour or more; this is her written order and proper ending.\nN:Guessed (counting bars from the first full bar): the six-in-a-beat groups of bars 12, 13, 26 and 30, written as plain sixteenths and eighths that fill the beat; the five-in-a-beat group of bar 22; the thirty-second-note endings of bars 31-32, approximate; and the underlay of \"e\" at the end of bar 4 and the start of bar 5. The Chindau spelling wants a Chindau speaker's check.\nM:3/4\nL:1/16\nQ:1/4=63\nK:E\n%%style folk\n%%band drums: [bd bd] ~ ~\n%%band drums: [cp cp] [cp cp cp] [~ cp _ cp _ ~]\n%%band drums: [~ cl ~ cl] ~ ~\n%%band drums: [wb wb wb wb] [wb _ wb _ wb wb] [wb wb]\n%%band drums: [rim _ rim rim] [rim rim _ [rim rim]] [rim rim rim ~]\n%%band bass: ~\n%%band chords: ~\nG | !>!B2 !>!G2 !>!F E D !>!C/C/ z3 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z3 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z4 |\nw: E- yo- we, we yo we i- ye e- yo- we, we yo we i- ye e- yo- we, we yo we i- ye\nw: A- las, O we yo we i- ye A- las, O we yo we i- ye A- las, O we yo we i- ye\n!>!B B G2 !>!F E D !>!C/C/ z2 G2 | !>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 |\nw: Kwa- mai- we! we yo we i- ye e- e yo- we, we yo we i- ye Kwa- mai nda le- ga, yo we i- ye\nw: Moth- er's home! we yo we i- ye A- O a- las, we yo we i- ye Left my moth- er's home, yo we i- ye\n!>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z2 G2 | !>!B2 G2 !>!F E D C z4 | !>!B, G G2 !>!F E D C z4 |\nw: e- we- ye we yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e- yo- we we yo we ye kwa- mai- we, we yo we ye\nw: O a- las, we yo we i- ye Love my hus- band's home, yo we i- ye A- las, O! we yo we ye Moth- er's home, we yo we ye\n!>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, D D D B, (B, B,2) G, B,2 G, | !>!B, D D D B, (B, B,2) G, B,2 G, | \"^*\"!>!B, E, G,2 (3:2:2E,2E,4 G, B, B, G, |\nw: Ndo da kwu- mi- sha, yo we i- ye kwa- mai nda le- ga, ya _ e we ye Ndo da kwu- mi- sha, yo _ e we yo O ha o o wa e we yo we\n\"^*\"!>!B, E, G, E E4 (3C2B,2G,2 | \"^*\"!>!B, E, G,2 (3:2:2E,2E,4 G, B, B, G, | \"^*\"!>!B, E, G, E E4 (3C2B,2G,2 | \"^*\"!>!B, E, G,2 (3:2:2E,2E,4 G, B, B, G, |\nw: O ha o we ye ye yo we O ha o o wa e we yo we O ha o we ye ye yo we O ha o o wa e we yo we\n!>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, D D D E E z2 (5:4:5C E E C G |\nw: e- we- ye we yo we i- ye Kwa- mai nda le- ga, yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e we i- ye i ye i we yo we e\n!>!B G G2 !>!F E D !>!C/C/ z4 | !>!B, B, D D E E z2 C E E C | !>!B G G2 !>!F E D !>!C/C/ z4 | !>!B, D D D (E E- E2) C E E C |\nw: i we yo we yo we i ye e we i- ye i ye i we yo we i ye ye we yo wi i ye i we i ye i ye _ e we yo we\n!>!B G G2 !>!F E D !>!C/C/ z4 | !>!B G G2 !>!F E D C z4 | !>!B, D (D B,) !>!F E D C z4 | \"^*\"!>!B, E, G, G, (E, E,- E,2) G, B, B, G, |\nw: i ye ye we yo wi i ye i ye ye we yo we ye i we ye _ we yo we ye e ya e ya e ya _ e we yo we\n\"^*\"!>!B, B, G, G, E,2 E, E, z2 G,/B,/B,/G,/ | \"^*\"!>!B, E, G, G, E,2 E, E, z2 G,/B,/B,/G,/ |]\nw: Kwa- mai nda le- ga, e ya, e we yo we Ndo da kwu- mi- sha, e ya e we yo we!\nw: Left my moth- er's home, yes, yes, O a- las, _ Love my hus- band's home, yes, yes, O a- las! _\n"
   }
  ]
 }
