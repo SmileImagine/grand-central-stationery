@@ -9,8 +9,8 @@
  ],
  "counts": {
   "inbox": 0,
-  "transcription": 3,
-  "source-check": 5,
+  "transcription": 2,
+  "source-check": 6,
   "classroom-check": 0,
   "ready": 0
  },
@@ -124,15 +124,15 @@
      "label": "archive.org scan of The Music of Hindostan, at p. 57"
     }
    ],
-   "status": "transcription",
+   "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
    "classroomCheck": "pending",
    "updated": "2026-11-10",
-   "blocked": "Read the Solo and Chorus staves (p. 57, scan p. 79, staves 4-5) and the drum line under the first staff; check the three dotted figures of bar 1 and the half note of bar 2 against the plate.",
-   "notes": "From a sing-song of the men of the 2nd Goorkhas after a hockey match: the songs followed so fast that no words could be taken down; one or two men whirled in the middle of the crowd with bent knees and elbows and upturned palms, a couple of bars at a time danced crouching, and at the end of a chorus there was sometimes a grunted \"Ha! Ha!\". No tonic is marked and there is no signature; the scale is G A c d with the fourth G-c as backbone (Fox Strangways's typical Gurkha form, p. 70), so the drone is on G. The plate prints a drum line under the first staff marked \"Right.\" (the hands), then a second staff headed \"Solo.\" (with \"Drum as before.\") and \"Chorus.\"; only the first two-bar phrase is transcribed here, the solo and chorus wait.",
+   "blocked": "Source check: hear it against the plate (p. 57, scan p. 79) and confirm the three things a measurement cannot settle: the \"w\" over the e in the solo (read as an upper mordent), the right hand on the high head of the drum, and that the unlabelled first staff belongs to the same song as the solo and chorus. Then decide whether the whole plate is a tune or still a fragment.",
+   "notes": "From a sing-song of the men of the 2nd Goorkhas after a hockey match: the songs followed so fast that no words could be taken down; one or two men whirled in the middle of the crowd with bent knees and elbows and upturned palms, a couple of bars at a time danced crouching, and at the end of a chorus there was sometimes a grunted \"Ha! Ha!\".",
    "kind": "fragment",
-   "kindNote": "Two bars of the solo line. The plate also has the chorus and a drum line, not read yet, and no words were taken down. Read together, solo, chorus and drum would give the call, the answer and the beat.",
+   "kindNote": "The whole of Ex. 129 is now read: an opening phrase over the drum, two bars of solo and two of chorus answering it, the drum \"as before\" under both. What is still missing is what Fox Strangways could not take down: the words, and how many times the solo and chorus went round before the next song.",
    "decision": "considering",
    "decisionNote": "",
    "response": "",
