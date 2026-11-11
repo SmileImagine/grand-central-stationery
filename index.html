@@ -2889,16 +2889,23 @@
     // it replaces; the kit has five drums of its own and leaves the rest to the percussion set. The recorder is filed at
     // its written pitch and sounds an octave above it, as a soprano recorder does. The violin, trumpet, tuba and the bars
     // have no FluidR3 set: PROGRAM_FOLDER names them, and the glockenspiel and xylophone are filed at written pitch too.
-    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"vcsl_kit":[37,38,42,43,44,46,47,50],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
+    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"vcsl_kit":[37,38,42,43,44,46,47,49,50,51],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
     const SAMPLE_SETS = { use: true, acoustic_grand_piano: 'vcsl_grand_piano', recorder: 'vcsl_soprano_recorder', acoustic_bass: 'vsco_double_bass_pizz', percussion: 'vcsl_kit', electric_piano_1: 'synth-epiano' };   // the electric piano is synthesised (no CC0 set found)
     // How far the melody sounds above what is written: the CC0 soprano recorder an octave, as a real one does.
     const melodyOctave = inst => inst === 'recorder' && SAMPLE_SETS.use && location.protocol !== 'file:' ? 12 : 0;
     const setOf = (folder, midi) => { const to = SAMPLE_SETS.use && location.protocol !== 'file:' && SAMPLE_SETS[folder]; return to && (to !== 'vcsl_kit' || SAMPLE_NOTES.vcsl_kit.includes(midi)) ? to : folder; };
     // The kit's takes (vendor/soundfont/build-cc0.js): each drum in two takes, and the snare, closed hat and toms at three
-    // strengths, p soft and f hard beside the middle one (the letters here). A hit plays the strength its level asks for
-    // (under KIT_SOFT, over KIT_HARD; the levels the Sampler is given, a backbeat at middle Energy near 0.4) and the takes
-    // in turn, as two hands do, a few cents and a little level apart, so no two strikes are the same sound.
-    const KIT_TAKES = { 37: '', 38: 'pf', 42: 'pf', 43: 'pf', 44: '', 46: '', 47: 'pf', 50: 'pf' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
+    // strengths, p soft and f hard beside the middle one (the letters here; l is the hat's loose, half-open hit, played for
+    // some of the hard ones). A hit plays the strength its level asks for (under KIT_SOFT, over KIT_HARD; the levels the
+    // Sampler is given, a backbeat at middle Energy near 0.4) and the takes in turn, as two hands do, a few cents and a
+    // little level apart, so no two strikes are the same sound. The hats and cymbals are stereo.
+    const KIT_TAKES = { 37: '', 38: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: '', 50: 'pf', 51: '' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
+    // Where each drum sits, as the audience hears a right-handed drummer (the hats on the right, on their own bus): the
+    // high tom right, the floor tom and the ride left, and the crash's two cymbals either side (its two takes).
+    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.45, 49: [-0.3, 0.35] };
+    // A closed hat closes: each strike fades after a moment, sooner when it is struck softly, a little differently every
+    // time (the foot's pressure), and any hat strike chokes the one before it (an open hat closes when the next is played).
+    const HATS = new Set([42, 44, 46]);
     const takesOf = (folder, midi) => { const t = folder === 'vcsl_kit' ? KIT_TAKES[midi] : undefined; if (t === undefined) return null; const n = FLAT_NOTE(midi); return ['', ...t].flatMap(l => [n + l, n + l + '-2']); };
     const sampleOf = (folder, midi) => {
       const keep = SAMPLE_NOTES[folder];
@@ -2950,17 +2957,32 @@
         if (SYNTH_VOICES[folder]) return this.synth(SYNTH_VOICES[folder], midi, when, dur, vel, out, rel, fx);
         if (SYNTH_KITS[folder]) return midi === DRUM.kick ? this.synth(SYNTH_KITS[folder], midi, when, dur, vel, out, rel, fx) : this.play('percussion', midi, when, dur, vel, out, rel, fx);
         const takes = takesOf(folder, midi), from = sampleOf(folder, midi);
-        let name = FLAT_NOTE(from);
+        let name = FLAT_NOTE(from), kit = null, closeAt = 0;
         if (takes) {   // the strength the level asks for, the takes in turn, a few cents and a little level apart
-          const t = KIT_TAKES[midi], l = t.includes('p') && vel < KIT_SOFT ? 'p' : t.includes('f') && vel > KIT_HARD ? 'f' : '', k = folder + midi + l;
-          this.turns = this.turns || {}; this.turns[k] = (this.turns[k] || 0) + 1;
-          name = FLAT_NOTE(midi) + l + (this.turns[k] % 2 ? '' : '-2');
-          const at = Math.round(when * 1e4) + midi * 7919;
+          const t = KIT_TAKES[midi], at = Math.round(when * 1e4) + midi * 7919;
+          let l = t.includes('p') && vel < KIT_SOFT ? 'p' : t.includes('f') && vel > KIT_HARD ? 'f' : '';
+          if (l === 'f' && t.includes('l') && mulberry(at + 2)() < 0.3) l = 'l';
+          const k = folder + midi + l; this.turns = this.turns || {}; this.turns[k] = (this.turns[k] || 0) + 1;
+          kit = { second: this.turns[k] % 2 === 0, loose: l === 'l', r: mulberry(at + 3)() };
+          name = FLAT_NOTE(midi) + l + (kit.second ? '-2' : '');
           fx = { ...(fx || {}), cents: ((fx && fx.cents) || 0) + (mulberry(at)() - 0.5) * 16 }; vel *= 0.94 + 0.12 * mulberry(at + 1)();
         }
         const buf = this.buffers.get(folder + '/' + name); if (!buf) return null;
         const ctx = this.ctx(), src = ctx.createBufferSource(), g = ctx.createGain();
-        src.buffer = buf; src.connect(g); g.connect(out);
+        src.buffer = buf; src.connect(g);
+        const pan = kit && KIT_PAN[midi] !== undefined ? (Array.isArray(KIT_PAN[midi]) ? KIT_PAN[midi][kit.second ? 1 : 0] : KIT_PAN[midi]) : 0;
+        if (pan && ctx.createStereoPanner) { const pn = ctx.createStereoPanner(); pn.pan.value = pan; g.connect(pn); pn.connect(out); } else g.connect(out);
+        if (kit && HATS.has(midi)) {
+          this.hats = this.hats || new WeakMap();
+          const prev = this.hats.get(ctx);
+          if (prev && when > prev.when + 0.004) { prev.g.gain.cancelScheduledValues(when); prev.g.gain.setTargetAtTime(0, when, 0.008); }
+          this.hats.set(ctx, { g, when });
+          if (midi !== 46 && !kit.loose) {   // the strike closes: a short hold, then a fade, longer the harder it is struck
+            const h = Math.min(1, vel / 0.5), hold = 0.015 + 0.03 * kit.r, tau = midi === 44 ? 0.035 : (0.03 + 0.08 * h) * (0.8 + 0.4 * kit.r);
+            g.gain.setTargetAtTime(0, when + hold, tau); if (!dur) closeAt = when + hold + 7 * tau;
+          }
+        }
+        if (midi === DRUM.kick && folder === 'percussion') this.beater(ctx, when, vel, out);
         if (from !== midi) src.playbackRate.value = Math.pow(2, (midi - from) / 12);
         g.gain.setValueAtTime(vel, when);
         if (fx && src.detune) {
@@ -2973,11 +2995,30 @@
             osc.connect(vg); vg.connect(src.detune); osc.start(when); osc.stop(when + dur + rel + 0.05);
           }
         }
-        src.start(when);
+        src.start(when); if (closeAt) src.stop(closeAt);
         if (dur) { g.gain.setValueAtTime(vel, when + dur); g.gain.linearRampToValueAtTime(0.0001, when + dur + rel); src.stop(when + dur + rel + 0.02); }
         return src;
       }
     }
+    // The beater on the sampled kick's head: the FluidR3 kick is all body (99% of it under 180 Hz), so a struck kick's
+    // click (a few milliseconds of noise around 3-4 kHz) and knock (a falling 300 Hz thump) are made here and played with
+    // it, both stronger the harder it is struck, a little different every time. Their levels put about 8% of the kick's
+    // energy above 1 kHz (none before) and add 0.7 dB to it (a single hit, measured offline).
+    Sampler.prototype.beater = function (ctx, when, vel, out) {
+      this.noise = this.noise || new WeakMap();
+      let nb = this.noise.get(ctx);
+      if (!nb) { nb = ctx.createBuffer(1, Math.round(ctx.sampleRate * 0.05), ctx.sampleRate); const d = nb.getChannelData(0), r = mulberry(4241); for (let i = 0; i < d.length; i++) d[i] = r() * 2 - 1; this.noise.set(ctx, nb); }
+      const h = Math.min(1, vel / 0.6), r = mulberry(Math.round(when * 1e4) + 36)();
+      const src = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), cg = ctx.createGain();
+      src.buffer = nb; bp.type = 'bandpass'; bp.frequency.value = 3000 + 1200 * r; bp.Q.value = 0.9;
+      src.connect(bp); bp.connect(cg); cg.connect(out);
+      cg.gain.setValueAtTime(vel * (0.1 + 0.14 * h), when); cg.gain.setTargetAtTime(0, when + 0.001, 0.0025 + 0.0015 * h);
+      src.start(when); src.stop(when + 0.04);
+      const o = ctx.createOscillator(), kg = ctx.createGain();
+      o.type = 'triangle'; o.frequency.setValueAtTime(300 + 60 * r, when); o.frequency.exponentialRampToValueAtTime(140, when + 0.03);
+      o.connect(kg); kg.connect(out); kg.gain.setValueAtTime(vel * (0.024 + 0.03 * h), when); kg.gain.setTargetAtTime(0, when + 0.002, 0.012);
+      o.start(when); o.stop(when + 0.1);
+    };
     // Voices made here rather than sampled, by name (a Band part's folder): no download, and the sounds modern styles
     // are built on. A kit plays its kick here and the rest of the drums from the percussion samples.
     const SYNTH_VOICES = { 'synth-sub': 'sub', 'synth-bass': 'bass', 'synth-pluck': 'pluck', 'synth-pad': 'pad', 'synth-epiano': 'epiano' };
@@ -3616,7 +3657,7 @@
     // test/band-report.js), so a little of the mix above 3.5 kHz is saturated, which makes harmonics above it, and only what
     // lies above 6 kHz goes back in, at this level (0: none). The lab sweeps both.
     const SOUND = { room: 0.12, air: 0 };   // air off since the CC0 samples carry their own top (the lab found it moved the centroid 2 Hz)
-    const HI_DRUMS = new Set([DRUM.hatC, DRUM.hatP, DRUM.hatO, DRUM.ride, DRUM.shaker, DRUM.tamb, DRUM.cabasa]);
+    const HI_DRUMS = new Set([DRUM.hatC, DRUM.hatP, DRUM.hatO, DRUM.shaker, DRUM.tamb, DRUM.cabasa]);   // the ride sits on the kit's other side (KIT_PAN)
     const MASTER = { glue: { threshold: -26, knee: 10, ratio: 3, attack: 0.01, release: 0.25 }, trimDb: 2, limit: { threshold: -3, knee: 0, ratio: 20, attack: 0.002, release: 0.1 } };
     class Player {
       constructor(cell) {

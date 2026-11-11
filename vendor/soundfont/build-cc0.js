@@ -2,15 +2,15 @@
 'use strict';
 /*
   Build the CC0 sample sets from Versilian Studios' libraries (public domain, CC0 1.0):
-    VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare, toms)
+    VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare, toms, suspended cymbals)
     VSCO 2 CE   https://github.com/sgossner/VSCO-2-CE    (solo double bass pizzicato, solo violin, trumpet, tuba staccato,
                                                           glockenspiel, marimba, xylophone)
 
     node vendor/soundfont/build-cc0.js <downloads> [set,set...]
 
   <downloads> holds the WAVs as fetched, one folder a set: grand/ (Sustains, the v3 layer), recorder/ (Baroque Soprano
-  Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/, snare/ (Snare Drum, Modern 1) and tom/ (Tom 1 and
-  Tom 2, Stick: TomH_HitS_*, TomL_HitS_*); violin/ (Solo Violin,
+  Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/, snare/ (Snare Drum, Modern 1), tom/ (Tom 1 and
+  Tom 2, Stick: TomH_HitS_*, TomL_HitS_*) and cymbal/ (Suspended Cymbal 1 and 2: susCymb*_hit_stick_*); violin/ (Solo Violin,
   Arco Vib, f), trumpet/ (Trumpet, sus), tuba/ (Tuba, stac, v2 rr1), glock/, marimba/ and xylo/ (Percussion). Needs ffmpeg.
 
   Each note: mono, 44.1 kHz, from its onset (5 ms before it), cut to its instrument's length with a fade, every note of a
@@ -31,7 +31,9 @@ const FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'], 
 const flat = m => FLAT[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const midiOf = name => { const m = name.match(/^([A-G]#?)(-?\d)$/); return m ? SHARP[m[1]] + 12 * (+m[2] + 1) : null; };
 const read = f => { const b = execFileSync('ffmpeg', ['-v', 'error', '-i', f, '-ac', '1', '-ar', String(sr), '-f', 'f32le', '-'], { maxBuffer: 1 << 29 }); return Float32Array.from(new Float32Array(b.buffer, b.byteOffset, b.length / 4)); };
-const write = (x, f) => execFileSync('ffmpeg', ['-v', 'error', '-y', '-f', 'f32le', '-ar', String(sr), '-ac', '1', '-i', '-', '-c:a', 'libmp3lame', '-b:a', '96k', f], { input: Buffer.from(x.buffer) });
+const write = (x, f, ch = 1, rate = '96k') => execFileSync('ffmpeg', ['-v', 'error', '-y', '-f', 'f32le', '-ar', String(sr), '-ac', String(ch), '-i', '-', '-c:a', 'libmp3lame', '-b:a', rate, f], { input: Buffer.from(x.buffer) });
+// A stereo file as its two channels.
+const readPair = (f, hp) => [0, 1].map(c => { const b = execFileSync('ffmpeg', ['-v', 'error', '-i', f, '-af', `pan=mono|c0=c${c}` + (hp ? `,highpass=f=${hp},highpass=f=${hp}` : ''), '-ar', String(sr), '-f', 'f32le', '-'], { maxBuffer: 1 << 29 }); return Float32Array.from(new Float32Array(b.buffer, b.byteOffset, b.length / 4)); });
 const rms = (x, from, n) => { let s = 0, k = 0; for (let i = from; i < Math.min(x.length, from + n); i++) { s += x[i] * x[i]; k++; } return Math.sqrt(s / Math.max(1, k)); };
 const onset = x => { let pk = 0; for (const v of x) pk = Math.max(pk, Math.abs(v)); for (let i = 0; i < x.length; i++) if (Math.abs(x[i]) > pk * 0.03) return Math.max(0, i - Math.round(0.005 * sr)); return 0; };
 // From the onset, `seconds` long, the last `fade` seconds fading out.
@@ -61,17 +63,26 @@ const SETS = [
 ];
 // The kit: for each General MIDI drum the band plays, its takes. A drum struck harder is brighter, not only louder, and no
 // two strikes sound the same, so the snare, the closed hat and the toms keep three strengths (p soft, the middle, f hard)
-// and the rest one, each in two takes (Versilian's round robins, rr1 and rr2). Every take of a drum is brought to the
-// loudness of its middle take, so the band's velocity still sets how loud it is and the take only sets its colour.
+// and the rest one, each in two takes (Versilian's round robins, rr1 and rr2, or two strikes of one cymbal). The closed
+// hat also has l, the loose (half-open) hit. Every take of a drum is brought to the loudness of its middle take, so the
+// band's velocity still sets how loud it is and the take only sets its colour.
 // Files: the note's name for the middle take (D2.mp3), then the strength and the take (D2p.mp3, D2f-2.mp3, D2-2.mp3);
 // KIT_TAKES in index.html names the strengths each drum has. The floor tom is the low tom played a fourth down (slower).
-// The toms have no FluidR3 sample to match, so they sit 1 dB under the snare.
+// The toms have no FluidR3 sample to match, so they sit 1 dB under the snare. The hats and cymbals stay in stereo (their
+// two microphones hear nearly unrelated noise, which a mono sum turns into hiss) at 128 kbps; the drums are mono, 96 kbps.
+// The crash is VCSL's suspended cymbal 1 struck with a stick, the ride its suspended cymbal 2, softly; each a cymbal's
+// two strikes, matched to the FluidR3 crash and ride they replace. The stereo ones are high-passed (the number: 200 Hz for
+// the hats, 350 for the cymbals, as a kit's overhead microphones are) and levelled by both channels' power, not their sum
+// (a sum of two unrelated channels reads 3 dB low). The last number trims a drum (dB): the suspended cymbals ring
+// longer than the FluidR3 ones, so at the same onset level they added 2 LU to the drums alone.
 const KIT = [
   [38, 1.4, { '': 'snare/Snare2_HitSN_v6_rr%_Mid.wav', p: 'snare/Snare2_HitSN_v3_rr%_Mid.wav', f: 'snare/Snare2_HitSN_v9_rr%_Mid.wav' }],
   [37, 0.8, { '': 'snare/Snare2_stick_v1_rr%_Mid.wav' }],
-  [42, 1.0, { '': 'hihat/HiHat_HitC_v3_rr%_Mid.wav', p: 'hihat/HiHat_HitC_v1_rr%_Mid.wav', f: 'hihat/HiHat_HitC_v4_rr%_Mid.wav' }],
-  [44, 0.8, { '': 'hihat/HiHat_Close_rr%_Mid.wav' }],
-  [46, 2.5, { '': 'hihat/HiHat_HitO_rr%_Mid.wav' }],
+  [42, 1.0, { '': 'hihat/HiHat_HitC_v3_rr%_Mid.wav', p: 'hihat/HiHat_HitC_v1_rr%_Mid.wav', f: 'hihat/HiHat_HitC_v4_rr%_Mid.wav', l: 'hihat/HiHat_HitLoose_rr%_Mid.wav' }, 0, 200],
+  [44, 0.8, { '': 'hihat/HiHat_Close_rr%_Mid.wav' }, 0, 200],
+  [46, 2.5, { '': 'hihat/HiHat_HitO_rr%_Mid.wav' }, 0, 200],
+  [49, 4.0, { '': ['cymbal/susCymb1_hit_stick_f1.wav', 'cymbal/susCymb1_hit_stick_mp1.wav'] }, 0, 350, -3],
+  [51, 2.5, { '': ['cymbal/susCymb2_hit_stick_pp1.wav', 'cymbal/susCymb2_hit_stick_mp1.wav'] }, 0, 350, -2],
   [50, 1.5, { '': 'tom/TomH_HitS_v3_rr%_Mid.wav', p: 'tom/TomH_HitS_v2_rr%_Mid.wav', f: 'tom/TomH_HitS_v4_rr%_Mid.wav' }],
   [47, 1.6, { '': 'tom/TomL_HitS_v3_rr%_Mid.wav', p: 'tom/TomL_HitS_v2_rr%_Mid.wav', f: 'tom/TomL_HitS_v4_rr%_Mid.wav' }],
   [43, 1.9, { '': 'tom/TomL_HitS_v3_rr%_Mid.wav', p: 'tom/TomL_HitS_v2_rr%_Mid.wav', f: 'tom/TomL_HitS_v4_rr%_Mid.wav' }, 5],
@@ -100,16 +111,27 @@ for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
 if (!only || only.includes('vcsl_kit')) {
 fs.mkdirSync(path.join(out, 'vcsl_kit-mp3'), { recursive: true });
 let snareLevel = null;
-for (const [m, seconds, layers, semis] of KIT) {
+for (const [m, seconds, layers, semis, stereo, trimDb] of KIT) {   // stereo: the high-pass in Hz for a stereo drum
+  // Each take as its channels (one, or two for the stereo ones), cut from the onset of their sum.
   const takes = [];
-  for (const [layer, file] of Object.entries(layers)) for (const rr of [1, 2]) takes.push({ name: flat(m) + layer + (rr === 2 ? '-2' : ''), x: shape(lower(read(path.join(src, file.replace('%', rr))), semis || 0), seconds, Math.min(0.3, seconds / 3)) });
-  const mid = level(takes[0].x), o = fluid('percussion', m);
-  for (const t of takes) { const g = mid / Math.max(1e-6, level(t.x)); for (let i = 0; i < t.x.length; i++) t.x[i] *= g; }   // every take at the middle one's loudness
-  let g = o ? level(o) / Math.max(1e-6, mid) : TOMS.includes(m) && snareLevel ? snareLevel * Math.pow(10, -1 / 20) / Math.max(1e-6, mid) : 1;
-  const peak = Math.max(...takes.map(t => t.x.reduce((p, v) => Math.max(p, Math.abs(v)), 0))); g = Math.min(g, 0.89 / peak);
-  for (const t of takes) { for (let i = 0; i < t.x.length; i++) t.x[i] *= g; write(t.x, path.join(out, 'vcsl_kit-mp3', `${t.name}.mp3`)); }
+  for (const [layer, file] of Object.entries(layers)) for (const rr of [1, 2]) {
+    const f = path.join(src, Array.isArray(file) ? file[rr - 1] : file.replace('%', rr)), chans = (stereo ? readPair(f, stereo) : [read(f)]).map(x => lower(x, semis || 0));
+    const sum = chans[0].map((v, i) => chans.reduce((a, c) => a + c[i], 0) / chans.length), o = onset(sum), n = Math.min(sum.length - o, Math.round(seconds * sr)), fade = Math.round(Math.min(0.3, seconds / 3) * sr);
+    const cut = chans.map(c => { const y = c.slice(o, o + n); for (let i = 0; i < Math.min(n, fade); i++) y[n - Math.min(n, fade) + i] *= Math.cos(i / Math.min(n, fade) * Math.PI / 2) ** 2; return y; });
+    takes.push({ name: flat(m) + layer + (rr === 2 ? '-2' : ''), chans: cut, mono: cut[0].map((v, i) => cut.reduce((a, c) => a + c[i], 0) / cut.length) });
+  }
+  const power = t => Math.sqrt(t.chans.reduce((a, c) => { const o0 = onset(t.mono); return a + rms(c, o0, Math.round(0.3 * sr)) ** 2; }, 0) / t.chans.length);   // the level both channels play at
+  const mid = power(takes[0]), o = fluid('percussion', m);
+  for (const t of takes) { const g = mid / Math.max(1e-6, power(t)); for (const c of t.chans) for (let i = 0; i < c.length; i++) c[i] *= g; }   // every take at the middle one's loudness
+  let g = Math.pow(10, (trimDb || 0) / 20) * (o ? level(o) / Math.max(1e-6, mid) : TOMS.includes(m) && snareLevel ? snareLevel * Math.pow(10, -1 / 20) / Math.max(1e-6, mid) : 1);
+  const peak = Math.max(...takes.flatMap(t => t.chans.map(c => c.reduce((p, v) => Math.max(p, Math.abs(v)), 0)))); g = Math.min(g, 0.89 / peak);
+  for (const t of takes) {
+    const L = t.chans[0].length, x = new Float32Array(L * t.chans.length);
+    for (let i = 0; i < L; i++) for (let c = 0; c < t.chans.length; c++) x[i * t.chans.length + c] = t.chans[c][i] * g;
+    write(x, path.join(out, 'vcsl_kit-mp3', `${t.name}.mp3`), t.chans.length, stereo ? '128k' : '96k');
+  }
   if (m === 38) snareLevel = mid * g;
-  console.log(`vcsl_kit ${flat(m)}: ${takes.map(t => t.name).join(' ')}`);
+  console.log(`vcsl_kit ${flat(m)}: ${takes.map(t => t.name).join(' ')}${stereo ? ' (stereo)' : ''}`);
 }
 notes.vcsl_kit = KIT.map(k => k[0]).sort((a, b) => a - b);
 console.log(`vcsl_kit: ${KIT.length} drums (${notes.vcsl_kit.map(flat).join(' ')}), the rest from percussion`);
