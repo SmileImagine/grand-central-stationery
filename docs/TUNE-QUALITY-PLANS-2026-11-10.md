@@ -532,10 +532,24 @@ whatever the emphasis:
   course's 30 reels), a march on the trumpet; the march style's bass is the
   tuba's oom-pah. A `%%MIDI program` reaches the strings, brass and bars
   (before, every program without samples fell back to the piano). By ear
-  the fiddle and trumpet sit well over the band. Open: the tuba fills the
-  band's 200-500 Hz (low-mid share 0.08 to 0.56 in the march sweep, over
-  the 0.45 bound); the band does not yet hear a glockenspiel or xylophone
-  melody at its sounding octave.
+  the fiddle and trumpet sit well over the band. The band does not yet
+  hear a glockenspiel or xylophone melody at its sounding octave.
+- The tuba's low-mids (band share 0.08 to 0.56 in the march sweep, over
+  the 0.45 bound) are its own sound, not build-up: the bass carries most
+  of a band's energy, and a tuba's harmonics sit at 200-500 Hz where a
+  plucked bass has little. An octave down moved the share 0.53-0.62 to
+  0.48-0.59; 3.8 dB quieter (its LUFS gap over the double bass) moved it
+  to 0.47-0.56 and left the tune 11 LU over the band, so the level stays.
+  By ear it is not muddy (its notes are short), and it sounds best at the
+  double bass's octave, so it stays there; a 2.5 dB dip at 300 Hz in its
+  samples eases it (share 0.47-0.56), and the march is exempt from the
+  low-mid bound, with the reason.
+- Found by the report: since the rounds merge the melody plays 3.0 dB
+  louder (the tune 8.2 LU over the band, 5.5 before; 42 plays over the
+  9 LU bound). The round groups' stereo panners feed the melody's chain,
+  so its mono notes are mixed up to stereo and pass the centre panner at
+  full level instead of its equal-power -3 dB. Open; listening on
+  2026-11-11 (fiddle, trumpet, tuba) was with the louder melody.
 - Play wakes a Safari audio context that was left "interrupted" (after a
   lock screen or a call; it only woke a "suspended" one), and asks an
   iPhone for playback audio so the ring/silent switch does not mute it.

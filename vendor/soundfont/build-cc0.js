@@ -29,7 +29,7 @@ const out = __dirname, sr = 44100;
 const FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'], SHARP = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
 const flat = m => FLAT[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
 const midiOf = name => { const m = name.match(/^([A-G]#?)(-?\d)$/); return m ? SHARP[m[1]] + 12 * (+m[2] + 1) : null; };
-const read = f => { const b = execFileSync('ffmpeg', ['-v', 'error', '-i', f, '-ac', '1', '-ar', String(sr), '-f', 'f32le', '-'], { maxBuffer: 1 << 29 }); return Float32Array.from(new Float32Array(b.buffer, b.byteOffset, b.length / 4)); };
+const read = (f, af) => { const b = execFileSync('ffmpeg', ['-v', 'error', '-i', f, ...(af ? ['-af', af] : []), '-ac', '1', '-ar', String(sr), '-f', 'f32le', '-'], { maxBuffer: 1 << 29 }); return Float32Array.from(new Float32Array(b.buffer, b.byteOffset, b.length / 4)); };
 const write = (x, f) => execFileSync('ffmpeg', ['-v', 'error', '-y', '-f', 'f32le', '-ar', String(sr), '-ac', '1', '-i', '-', '-c:a', 'libmp3lame', '-b:a', '96k', f], { input: Buffer.from(x.buffer) });
 const rms = (x, from, n) => { let s = 0, k = 0; for (let i = from; i < Math.min(x.length, from + n); i++) { s += x[i] * x[i]; k++; } return Math.sqrt(s / Math.max(1, k)); };
 const onset = x => { let pk = 0; for (const v of x) pk = Math.max(pk, Math.abs(v)); for (let i = 0; i < x.length; i++) if (Math.abs(x[i]) > pk * 0.03) return Math.max(0, i - Math.round(0.005 * sr)); return 0; };
@@ -43,6 +43,9 @@ function shape(x, seconds, fade) {
 // The semitones from each VSCO set's file names to the pitch it sounds (pitch detection, scratch tools/pitch.js).
 const OCTAVE = { violin: 0, trumpet: 12, tuba: 12, glock: 12, marimba: 12, xylo: 12 };
 const TRUMPET_LAYER = /_v3_rr1/;   // v3 is the forte (10-20 dB over v1), a march's bright trumpet
+// An ffmpeg filter for a set's notes before they are shaped and levelled. The tuba: a gentle dip at 300 Hz, where its
+// harmonics give the march band most of its 200-500 Hz (by ear not muddy, its notes being short; this only eases them).
+const FILTER = { vsco_tuba: 'equalizer=f=300:t=q:w=1:g=-2.5' };
 // [set folder, downloads folder, the files kept, each file's MIDI note, length in seconds (by note), fade, the FluidR3 set it replaces]
 const SETS = [
   ['vcsl_grand_piano', 'grand', f => /_v3_rr1/.test(f), f => midiOf(f.split('_')[2]) + 12, m => m < 48 ? 6 : m < 72 ? 5 : 3.5, 0.6, 'acoustic_grand_piano'],
@@ -67,7 +70,7 @@ const notes = {};
 for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
   if (only && !only.includes(name)) continue;
   const files = fs.readdirSync(path.join(src, dir)).filter(keep).sort();
-  const shaped = files.map(f => { const m = midi(f); return { m, x: shape(read(path.join(src, dir, f)), seconds(m), fade) }; }).filter(s => s.m !== null).sort((a, b) => a.m - b.m);
+  const shaped = files.map(f => { const m = midi(f); return { m, x: shape(read(path.join(src, dir, f), FILTER[name]), seconds(m), fade) }; }).filter(s => s.m !== null).sort((a, b) => a.m - b.m);
   for (const s of shaped) { const g = 0.1 / Math.max(1e-6, level(s.x)); for (let i = 0; i < s.x.length; i++) s.x[i] *= g; }   // one loudness across the set
   const ratios = shaped.map(s => { const o = fluid(old, s.m); return o ? level(o) / level(s.x) : null; }).filter(Boolean).sort((a, b) => a - b);
   let gain = ratios.length ? ratios[ratios.length >> 1] : 1;
