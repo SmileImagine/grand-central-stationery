@@ -548,8 +548,25 @@ whatever the emphasis:
   louder (the tune 8.2 LU over the band, 5.5 before; 42 plays over the
   9 LU bound). The round groups' stereo panners feed the melody's chain,
   so its mono notes are mixed up to stereo and pass the centre panner at
-  full level instead of its equal-power -3 dB. Open; listening on
-  2026-11-11 (fiddle, trumpet, tuba) was with the louder melody.
+  full level instead of its equal-power -3 dB. Listening on 2026-11-11
+  (fiddle, trumpet, tuba) was with the louder melody, and it was kept: a
+  forward tune suits learners. The melody's chain is now stereo on
+  purpose, the prominence bound is 12.5 LU (the thin folk styles reach
+  12.2), and this state is the baseline (52 guardrail breaks in 137
+  plays; 1 over the new prominence bound). A louder centred tune narrows
+  the mix a little: width is just under its 0.05 floor in 11 plays
+  (0.047-0.049), left as it is.
+- Glitches heard in Safari (stutters, pops): not reproduced in Chromium,
+  where no note was late (each scheduled at least 50 ms ahead) and the
+  page's main thread stayed under 16 ms a task while playing. Hardened
+  anyway: the context asks for the 'playback' buffer (23 ms against
+  5.8 in Chromium, the views already allowing for latency), the notes are
+  scheduled 600 ms ahead (320), the pump styles' duck dips over 3 ms
+  instead of stepping (a click), and fader and room changes glide.
+- The mixer's faders were cut off at the top in a short dock (flex-end
+  pushed them up past the drawer's edge); they sit at its foot by an auto
+  margin now and scroll if need be, with a tick at 100 and the value in
+  their tooltip (100 sits two thirds up, as the scale runs to 150).
 - Play wakes a Safari audio context that was left "interrupted" (after a
   lock screen or a call; it only woke a "suspended" one), and asks an
   iPhone for playback audio so the ring/silent switch does not mute it.

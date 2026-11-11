@@ -527,7 +527,10 @@
     .dock .bandnote.err { color: var(--concourse-warn); }
     .dock .bandnote:empty { display: none; }
     .dock .drawer.bandd .bandwrap, .dock .drawer.bandd .ctl { flex: 1 1 0; max-width: none; }
-    .dock .mixer { justify-content: center; align-items: flex-end; gap: 22px; padding: 8px 10px 10px; }
+    /* The members sit at the drawer's foot by an auto top margin, not flex-end: in a drawer shorter than they are, they
+       then overflow downwards, where it scrolls, instead of upwards under the drawer above with their sliders cut off. */
+    .dock .mixer { justify-content: center; align-items: flex-start; gap: 22px; padding: 8px 10px 10px; }
+    .dock .mixer .member { margin-top: auto; }
     .cell[data-type="abc"] .cell-body { --abc-cell-h: 50vh; }
     /* Presenting: the bar alone, larger, clear of the slide selector in the corner; a drawer that opens is capped so the staff keeps its room. */
     body.present .cell[data-type="abc"] .strip.dock { height: auto; max-height: 46vh; padding-right: 0; }
@@ -2886,7 +2889,10 @@
       // One AudioContext for the page, made on first use. Browsers keep it
       // suspended until a user gesture; the Player resumes it on Play.
       ctx() {
-        if (!this._ctx && (window.AudioContext || window.webkitAudioContext)) { try { this._ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (err) { this._ctx = null; } }
+        // latencyHint 'playback': every note is scheduled ahead, so the larger buffer costs nothing but a few ms the views
+        // already allow for (latencyMs), and gives the audio thread several times the room before it glitches (in Chromium
+        // 23 ms a buffer against 5.8).
+        if (!this._ctx && (window.AudioContext || window.webkitAudioContext)) { const AC = window.AudioContext || window.webkitAudioContext; try { this._ctx = new AC({ latencyHint: 'playback' }); } catch (err) { try { this._ctx = new AC(); } catch (e) { this._ctx = null; } } }
         return this._ctx;
       }
       load(folder, midi) {
@@ -3501,7 +3507,7 @@
     const PROGRAM_FOLDER = p => p === 128 ? 'percussion' : p === 43 || (p >= 32 && p <= 39) ? 'acoustic_bass' : p >= 24 && p <= 31 ? 'acoustic_guitar_nylon' : p >= 72 && p <= 79 ? 'recorder' : p >= 4 && p <= 7 ? 'electric_piano_1'
       : [40, 41, 42, 44, 48, 49, 110].includes(p) ? 'vsco_violin' : p === 57 || p === 58 ? 'vsco_tuba' : p >= 56 && p <= 63 ? 'vsco_trumpet'
       : p === 12 || p === 15 ? 'vsco_marimba' : p === 13 ? 'vsco_xylophone' : p >= 8 && p <= 14 ? 'vsco_glockenspiel' : 'acoustic_grand_piano';
-    const LOOKAHEAD = 320;            // ms scheduled ahead of the clock
+    const LOOKAHEAD = 600;            // ms scheduled ahead of the clock: room for a busy page (a note due before it is scheduled plays late)
     // The master's compressor, trim (dB) and limiter (see the Player's bus). Measured on 10 November 2026: before them the
     // page played at about -34 dB RMS (peaks -18 dBFS); with them about -22 dB RMS, peaks -7, and the fullest chorus -19, peaks -4.
     // Each part's place in the mix: where it stands left to right, and a few filters ([type, Hz, Q, dB]). The tune is in the
@@ -3637,7 +3643,8 @@
          the fullest chorus never clips. MASTER has the settings. */
       gains() {
         const ctx = sampler.ctx(); if (!ctx) return null;
-        if (!this.bus || this.bus.ctx !== ctx) {
+        const fresh = !this.bus || this.bus.ctx !== ctx;
+        if (fresh) {
           const master = ctx.createGain(), glue = ctx.createDynamicsCompressor(), trim = ctx.createGain(), limit = ctx.createDynamicsCompressor();
           const set = (node, o) => { for (const k of Object.keys(o)) node[k].value = o[k]; };
           set(glue, MASTER.glue); trim.gain.value = Math.pow(10, MASTER.trimDb / 20); set(limit, MASTER.limit);
@@ -3659,6 +3666,10 @@
           this.bus.duck = {};
           for (const p of Object.keys(TONE)) {
             const g = ctx.createGain(), head = ctx.createGain(); g.connect(head); g.__next = head; let node = head;   // head: where a round's groups join the part's sound
+            // The melody stands forward, about 3 dB over the other parts: its head is stereo, so its notes reach the centred
+            // panner as stereo and pass it whole, where a mono part's are panned at equal power (each side -3 dB). This was
+            // first the round groups' stereo panners joining here; on 2026-11-11 it was kept, as a forward tune helps learners.
+            if (p === 'melody') { head.channelCount = 2; head.channelCountMode = 'explicit'; head.channelInterpretation = 'speakers'; }
             for (const [type, hz, q, db] of TONE[p].eq) { const f = ctx.createBiquadFilter(); f.type = type; f.frequency.value = hz; f.Q.value = q; if (db !== undefined) f.gain.value = db; node.connect(f); node = f; }
             const pan = ctx.createStereoPanner(); pan.pan.value = TONE[p].pan; node.connect(pan); pan.connect(convolver);
             if (p === 'chords' || p === 'chordsHi' || p === 'bass') { const d = ctx.createGain(); pan.connect(d); d.connect(master); this.bus.duck[p] = d; } else pan.connect(master);
@@ -3669,10 +3680,12 @@
           }
         }
         const mix = this.cell.mix();
-        for (const p of Object.keys(TONE)) this.bus[p].gain.value = mix[p === 'drumsHi' ? 'drums' : p === 'chordsHi' ? 'chords' : p];
-        this.bus.groups.forEach((gg, i) => { if (gg) gg.gain.value = mix['group' + (i + 1)]; });
+        // A fader's move glides over a few ms (a jump in level clicks); the first setting is made at once.
+        const glide = (param, v) => { if (!fresh && Math.abs(param.value - v) > 1e-4) param.setTargetAtTime(v, ctx.currentTime, 0.015); else if (fresh) param.value = v; };
+        for (const p of Object.keys(TONE)) glide(this.bus[p].gain, mix[p === 'drumsHi' ? 'drums' : p === 'chordsHi' ? 'chords' : p]);
+        this.bus.groups.forEach((gg, i) => { if (gg) glide(gg.gain, mix['group' + (i + 1)]); });
         const cycle = this.chorus(this.total > 0 ? Math.floor(Math.max(0, this.position()) / this.total) : 0);
-        this.bus.wet.gain.value = SOUND.room + (cycle ? (cycle.room || 0) * 0.7 : 0);
+        glide(this.bus.wet.gain, SOUND.room + (cycle ? (cycle.room || 0) * 0.7 : 0));
         return this.bus;
       }
       // The bus a note goes to: its part's, the cymbals and shakers to their own, the comping's notes from D4 up to theirs.
@@ -3725,7 +3738,7 @@
         const when = ms => Math.max(ctx.currentTime, this.ctx0 + (ms - this.abs0) / 1000);
         const pump = this.style.pump || 0;
         const play = (n, ms, to = null) => {
-          if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setValueAtTime(1 - pump * k, t); g.setTargetAtTime(1, t + 0.03, 0.07); }
+          if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setTargetAtTime(1 - pump * k, t, 0.003); g.setTargetAtTime(1, t + 0.03, 0.07); }   // a 3 ms dip, not a step (a step clicks)
           const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, to || this.route(n, bus), n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
         if (this.total > 0) {
@@ -3930,7 +3943,7 @@
           <div class="bandnote"></div>
           </div>
           </div>
-          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"${m.round ? ' hidden' : ''}><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
+          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"${m.round ? ' hidden' : ''}><input type="range" class="lvl" min="0" max="150" step="5" value="100" list="gcs-mix-unity" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
         this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band; this.bandGhost = '';
         const xp = body.querySelector('input.tr');
         xp.addEventListener('input', () => {
@@ -4026,6 +4039,8 @@
         for (const mem of mixer.querySelectorAll('.member')) {
           const part = mem.dataset.part, lvl = mem.querySelector('.lvl');
           lvl.value = this.band.mix && this.band.mix[part] !== undefined ? this.band.mix[part] : 100;
+          if (!document.getElementById('gcs-mix-unity')) document.body.insertAdjacentHTML('beforeend', '<datalist id="gcs-mix-unity"><option value="100"></option></datalist>');   // the faders' tick at 100
+          const say = () => { lvl.title = `${lvl.value}% (100 is the band as balanced; the tick marks it)`; }; say(); lvl.addEventListener('input', say);
           mem.classList.toggle('muted', !!(this.band.mute && this.band.mute.includes(part)));
           lvl.addEventListener('input', () => { const v = +lvl.value; const mix = { ...(this.band.mix || {}) }; if (v === 100) delete mix[part]; else mix[part] = v; if (Object.keys(mix).length) this.band.mix = mix; else delete this.band.mix; mixChange(); });
           mem.querySelector('.figure').addEventListener('click', () => { const on = !mem.classList.contains('muted'); mem.classList.toggle('muted', on); const mute = (this.band.mute || []).filter(x => x !== part); if (on) mute.push(part); if (mute.length) this.band.mute = mute; else delete this.band.mute; mixChange(); });
@@ -5486,6 +5501,8 @@ const clock = {
   ensure() { const shared = audioContextProvider ? audioContextProvider() : null; if (!this.ctx || (shared && shared !== this.ctx)) { this.ctx = shared || new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } wakeAudio(this.ctx); return this.ctx; },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
+  // The beat being heard: the clock less the output's latency (the views draw this, so they keep with the sound).
+  heard() { const c = this.ctx; return this.running && c ? this.pos() - ((c.baseLatency || 0) + (c.outputLatency || 0)) * this.bps() : this.pos(); },
   start(lead = 0) {
     const ctx = this.ensure(); this.lead = lead;
     const from = this.pausedAt > 0 ? this.pausedAt : -lead;
@@ -5496,7 +5513,7 @@ const clock = {
   stop() { this.pause(); this.pausedAt = 0; },
   setBpm(b) { const p = this.pos(); this.bpm = b; if (this.running) this.t0 = this.ctx.currentTime - p / this.bps(); },
   tick() {
-    const horizon = (this.ctx.currentTime + .3 - this.t0) * this.bps();
+    const horizon = (this.ctx.currentTime + .6 - this.t0) * this.bps();   // 0.6 s ahead: room for a busy page
     const end = this.loop ? Infinity : this.cycle;
     if (this.schedTo < horizon) {
       const to = Math.min(horizon, end);
@@ -6208,7 +6225,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
         this.paint();
       }
       paint() {
-        const clock = this.lab.clock, p = clock.pos(), c = clock.cycle || 1, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
+        const clock = this.lab.clock, p = clock.heard(), c = clock.cycle || 1, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
         if (this.view) this.view.paint(inCycle);
         this.transport.classList.toggle('playing', clock.running);
       }

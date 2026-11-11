@@ -60,7 +60,7 @@
       for (const n of p.cycles[0]) {
         if (!parts.includes(n.part) || n.ms >= span || n.ms < 0) continue;
         const when = 0.05 + n.ms / 1000;
-        if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [q, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { if (!bus.duck[q]) continue; const g = bus.duck[q].gain; g.setValueAtTime(1 - pump * k, when); g.setTargetAtTime(1, when + 0.03, 0.07); }
+        if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [q, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { if (!bus.duck[q]) continue; const g = bus.duck[q].gain; g.setTargetAtTime(1 - pump * k, when, 0.003); g.setTargetAtTime(1, when + 0.03, 0.07); }
         sampler.play(n.folder, n.midi, when, n.dur, n.vel, p.route ? p.route(n, bus) : bus[n.part], n.rel, n.fx);
       }
       const t0 = performance.now(), buf = await off.startRendering(), wall = performance.now() - t0;
