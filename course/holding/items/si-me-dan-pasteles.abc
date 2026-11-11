@@ -4,7 +4,7 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
-% holding-blocked: Source check: compare with Luce p. 3, especially bar 7 (the lower voice reads G under c, c, B, c: a fourth, not a third) and the last bar (one chord, d over F sharp, under the two syllables "gen-te"). Still to transcribe: the instrumental ritornello that opens the page (two systems, with first and second endings), which the players repeat between verses. Listen to the 1939 Library of Congress recording before trusting the band's güiro and maracas. A Spanish-speaking (Puerto Rican) teacher for the words and the parranda.
+% holding-blocked: Source check: compare with Luce p. 3, especially bar 7 (the lower voice reads G under c, c, B, c: a fourth, not a third) and the last bar (one chord, d over F sharp, under the two syllables "gen-te"). Also the ritornello (transcribed 2026-11-11): its bars 4 and 8 (sixteenths and the staccato run) and the second ending's chord (F sharp, c, d: a D7 into the verse). Listen to the 1939 Library of Congress recording before trusting the band's güiro and maracas. A Spanish-speaking (Puerto Rican) teacher for the words and the parranda.
 % source-url: https://archive.org/details/cancionespopular0000alle/page/n12/mode/1up archive.org scan of Allena Luce, Canciones populares (1921), p. 3
 % performance-url: https://blogs.loc.gov/folklife/2013/12/songs-of-the-winter-season-collected-by-sidney-robertson-cowell/ Library of Congress Folklife blog on Sidney Robertson Cowell's recordings, including Aurora Calderón singing this aguinaldo in Oakland, 10 April 1939 (LOC item 2017700903)
 % performance-url: https://www.youtube.com/watch?v=1Umj8qnObA0 Los Borincanos (title checked, not yet listened to)
@@ -28,7 +28,8 @@ R:aguinaldo
 S:Allena Luce, Canciones populares (New York: Silver, Burdett, 1921), "Aguinaldo (Si me dan pasteles)", p. 3
 N:THE PLATE: G minor, 2/4; an instrumental ritornello (two systems, Fine at the first ending), then the sung verse with a repeat, its melody doubled in thirds in the pianist's right hand, the words above; Luce's preface: collected from students of the University of Puerto Rico, versions chosen by their vote.
 N:HOW READ (2026-11-11): p. 3 from the archive.org scan (about 290 dpi); staff lines found beside each chord and both heads of every chord measured against them; durations read from the scan; every bar checked to make two quarters.
-N:UNCERTAIN: bar 7's lower voice (see the next step); the last bar's "gen-te" on one chord; the tempo is ours.
+N:THE RITORNELLO (transcribed 2026-11-11): the top line of Luce's right hand, with her two endings; the second ends on the chord F sharp, c, d (D7), leading into the verse. Read against staff lines found at each note (the page is skewed), checked bar by bar.
+N:UNCERTAIN: the first note of the ritornello's bar 8 (d, close to c); bar 7's lower voice (see the next step); the last bar's "gen-te" on one chord; the tempo is ours.
 M:2/4
 L:1/8
 Q:1/4=104
@@ -38,7 +39,10 @@ K:Gm
 %%band drums: [sh sh sh sh] [sh sh sh sh]
 V:1 name="Voice 1"
 V:2 name="Voice 2"
-[V:1] |: .B .B c c | d3/2 (d/ d2) | c c B B | A3/2 (A/ A2) |
+%  The ritornello: the players' tune (the top line of Luce's piano part), before the verse and between verses; Fine at its first ending.
+[V:1] "^Instruments"d | g d/B/ G B | A c- c e | d c B A | B/c/d/B/ G d | g d/B/ G B | c c- c e | .d .c .B .A |1 G2 z d :|2 G z [^Fcd]2 ||
+[V:2] z | z4 | z4 | z4 | z4 | z4 | z4 | z4 |1 z4 :|2 z4 ||
+[V:1] "^Voices"|: .B .B c c | d3/2 (d/ d2) | c c B B | A3/2 (A/ A2) |
 w: Si me dan pas-te-les_ dén-me-los ca-lien-tes_
 [V:1] B B c c | d3/2 (d/ d2) | c c B c | d4 :|
 w: que pas-te-les frí-os_ em-pa-chan la gen~te.
