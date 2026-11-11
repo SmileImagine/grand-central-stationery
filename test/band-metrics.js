@@ -210,6 +210,8 @@
     }
     // How much the snare's strength varies (backbeats, ghosts, fills), against its average.
     { const sn = drums.filter(n => n.midi === 38 || n.midi === 40).map(n => n.vel); out.velSpreadSnare = mean(sn) ? sd(sn) / mean(sn) : NaN; }
+    // And the closed hat's or ride's (the time-keeper's) strength, against its average.
+    { const hh = drums.filter(n => n.midi === 42 || n.midi === 51).map(n => n.vel); out.velSpreadHat = mean(hh) ? sd(hh) / mean(hh) : NaN; }
     // ---- density ----
     const beats = bars.reduce((a, b) => a + b.beats, 0) || 1;
     out.densityDrums = drums.length / beats; out.densityBass = bass.length / beats; out.densityChords = hits.length / beats; out.densityMelody = mel.length / beats;
