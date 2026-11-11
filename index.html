@@ -2695,15 +2695,15 @@
        the fullest fourth. */
     const STYLES = {
       auto:   { name: 'Auto' },
-      pop:    { name: 'Pop and rock', fills: 'rock pop soul punk', comp: 'piano', walk: true, build: true, harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
-      folk:   { name: 'Folk (boom-chick)', fills: 'country rock pop', comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      pop:    { name: 'Pop and rock', fills: 'rock pop soul punk', rideLift: true, comp: 'piano', walk: true, build: true, harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
+      folk:   { name: 'Folk (boom-chick)', fills: 'country rock pop', rideLift: true, comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       march:  { name: 'March and polka', fills: 'neworleans rock country funk pop', snareFills: true, comp: 'piano', walk: true, sound: { bass: 'vsco_tuba' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       waltz:  { name: 'Waltz', fills: 'country pop rock jazz', comp: 'guitar', walk: true, fit: { duple: 'folk', compound: 'jig' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       jig:    { name: 'Jig (6/8)', fills: 'rock country neworleans jazz afrocuban', comp: 'guitar', walk: true, fit: { duple: 'folk', triple: 'waltz' }, harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0 } },
       swing:  { name: 'Swing', fills: 'jazz neworleans', comp: 'piano', swing: 66, harmony: { rich: 'sixths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
       bossa:  { name: 'Bossa', fills: 'latin', fillsSoft: true, comp: 'guitar', harmony: { rich: 'sevenths', approach: 'ii-V-sub', cadence: 'V7', colour: 9, hit: 'soft' } },
       ballad: { name: 'Ballad', fills: 'soul gospel pop', fillsSoft: true, comp: 'piano', walk: true, fit: {}, harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9, hit: 'soft' } },
-      funk:      { name: 'Funk', fills: 'funk soul', comp: 'epiano', build: true, harmony: { rich: 'dom7', approach: 'none', cadence: 'V7', colour: 9 } },
+      funk:      { name: 'Funk', fills: 'funk soul', rideLift: true, comp: 'epiano', build: true, harmony: { rich: 'dom7', approach: 'none', cadence: 'V7', colour: 9 } },
       reggaeton: { name: 'Reggaeton (dembow)', build: true, sound: { drums: 'kit909', bass: 'synth-sub', chords: 'synth-pluck' }, pump: 0.3, harmony: { rich: 'none', approach: 'none', cadence: 'V', colour: 'add9' } },
       afrobeats: { name: 'Afrobeats', fill: 'rim', feel: 'afrobeat', comp: 'guitar', build: true, sound: { drums: 'kit909', bass: 'synth-sub' }, fit: { triple: 'waltz' }, harmony: { rich: 'sevenths', approach: 'none', cadence: 'V', colour: 9 } },
       lofi:      { name: 'Lo-fi hip-hop', fills: 'hiphop', fillsSoft: true, comp: 'epiano', swing: 58, harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9, hit: 'soft' } },
@@ -2721,6 +2721,7 @@
     // takes fills from (GMD_FILLS, the drummer below), snareFills to keep to the snare and kick (a march), fillsSoft to
     // keep them light; or fill: the one drum a style without a kit fills into a phrase with (see the Band's answers).
     // feel: the GMD genres whose groove feel the style's drums play with (GMD_FEEL), when not its fills' genres.
+    // rideLift: the drummer moves from the closed hat to the ride for the second half of every sixteen bars, with energy.
     const COMP_FOLDER = { guitar: 'acoustic_guitar_nylon', piano: 'acoustic_grand_piano', epiano: 'electric_piano_1' };
     // The harmony a style key plays with (the pop band's for a key it does not know).
     const harmonyOf = key => (STYLES[key] && STYLES[key].harmony) || STYLES.pop.harmony;
@@ -3422,7 +3423,7 @@
     // note); a note it lacks plays its nearest kept neighbour retuned, so a set of every third note is never more than a
     // semitone from the note asked for, and is a third of the download. test/band-report.js measures what that costs.
     const SAMPLE_STEP = {};
-    // The CC0 sets (vendor/soundfont/build-cc0.js, from Versilian Studios' VCSL and VSCO 2; the kit's kick and crash are
+    // The CC0 sets (vendor/soundfont/build-cc0.js, from Versilian Studios' VCSL and VSCO 2; the kit's kick, crash and ride are
     // Lars Muldjord's, CC BY 4.0): each keeps only the notes it was
     // recorded at, and a note between them plays its nearest, retuned. SAMPLE_SETS.use puts each in for the FluidR3 set
     // it replaces; the kit (kit-mp3) has eleven drums of its own and leaves the rest to the percussion set. The recorder is filed at
@@ -3438,10 +3439,10 @@
     // some of the hard ones). A hit plays the strength its level asks for (under KIT_SOFT, over KIT_HARD; the levels the
     // Sampler is given, a backbeat at middle Energy near 0.4) and the takes in turn, as two hands do, a few cents and a
     // little level apart, so no two strikes are the same sound. The hats and cymbals are stereo.
-    const KIT_TAKES = { 36: 'pf', 37: '', 38: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: 'pf', 50: 'pf', 51: '' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
+    const KIT_TAKES = { 36: 'pf', 37: '', 38: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: 'pf', 50: 'pf', 51: 'pf' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
     // Where each drum sits, as the audience hears a right-handed drummer (the hats on the right, on their own bus): the
     // high tom right, the floor tom and the ride left. The crash is where its overhead pair heard it (right of centre).
-    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.45 };
+    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.35 };
     // A closed hat closes: each strike fades after a moment, sooner when it is struck softly, a little differently every
     // time (the foot's pressure), and any hat strike chokes the one before it (an open hat closes when the next is played).
     const HATS = new Set([42, 44, 46]);
@@ -3978,6 +3979,28 @@
               }
             });
           }
+        }
+        // ---- the drummer's arc over the phrase ----
+        // In a style with a kit, with a groove the sliders write: the hats and snare swell a little through each eight
+        // bars and settle at the next; with Energy at 0.6 or more, a style with rideLift moves from the closed hat to the
+        // ride for the second half of every sixteen bars, as a drummer lifts a chorus; and at a four-bar line the
+        // drummer often opens the hat on the last off-beat (where a fill does not come, the fills below take its place).
+        if (fsty.fills && !score.ownParts.drums && !compound) {
+          const arng = mulberry(seed * 5113 + 41), real = played.filter(b => !b.pickup);
+          real.forEach((b, i) => {
+            const inBar = n => n.part === 'drums' && n.t >= b.s - 30 && n.t < b.e - 30, en = E(i + 0.5), swell = 1 + 0.07 * ((i % 8) / 7);
+            const ride = fsty.rideLift && en >= 0.6 && i % 16 >= 8;
+            for (const n of out) {
+              if (!inBar(n)) continue;
+              if ([DRUM.hatC, DRUM.hatP, DRUM.snare, DRUM.ride].includes(n.midi)) n.vel *= swell;
+              if (ride && n.midi === DRUM.hatC) { n.midi = DRUM.ride; n.vel *= 0.9; n.from = { tip: 'the ride, for the second half of the sixteen bars' }; }
+            }
+            if (i % 4 === 3 && en >= 0.4 && arng() < 0.55) {
+              const beatMs = (b.e - b.s) / Math.max(1, Math.round(b.beats)), at = b.e - beatMs / 2;
+              const h = out.find(n => inBar(n) && n.midi === DRUM.hatC && Math.abs(n.t - at) < beatMs / 6);
+              if (h) { h.midi = DRUM.hatO; h.vel *= 1.1; h.from = { tip: 'the hat opened on the last off-beat: a lift into the next phrase' }; }
+            }
+          });
         }
         // ---- the drummer's fills ----
         // Where the score says fill (a style's groove writes one into every fourth bar, and the drummer adds one into
