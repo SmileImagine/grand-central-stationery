@@ -48,7 +48,7 @@ for (const tune of set.tunes) {
 }
 const row = title => report.tunes.find(t => t.title === title);
 assert(row('Frère Jacques').round.kind === 'round' && row('Frère Jacques').round.every === 2, 'Frère Jacques must be a round with entries two bars apart');
-assert(row('Bounce High, Bounce Low').round.kind === 'unison', 'a so-mi chant must be named as mostly unison, not a round');
+assert(row('Engine, Engine, Number Nine').round.kind === 'unison', 'a so-mi chant must be named as mostly unison, not a round');
 assert(row('Skip to My Lou').round.kind === 'no', 'Skip to My Lou does not work as a round');
 assert(report.tunes.filter(t => t.round.line).every(t => /^%%round [234] every=\d+$/.test(t.round.line)), 'a suggested round line must be one the page reads');
 

@@ -66,7 +66,7 @@ function readTune(t, ABCJS) {
   const style = (/^%%style\s+(\S+)/m.exec(t.abc) || [])[1] || null;
   // Words are quoted only when the verse fits the notes: every syllable written is placed, and a note left without one
   // is only ever a held note (_). Otherwise the words drift from the notes, and quoting them would mislead.
-  const verse = (/^w:(.*)$/m.exec(t.abc) || [])[1];
+  const verse = [...t.abc.matchAll(/^w:(.*)$/mg)].map(m => m[1]).join(' ') || null;   // a verse may run over several w: lines
   const written = verse ? verse.trim().split(/[\s-]+/).filter(x => x && !/^[_*]+$/.test(x)).length : 0;
   const placed = sylls.flat().filter(l => l && l.syllable).length;
   const holds = verse ? (verse.match(/_/g) || []).length : 0;
@@ -157,7 +157,7 @@ const CONCEPTS = [
   { id: 'half', el: 'duration', name: 'a two-beat note', grade: 2, term: 'half note (“ta-ah”)', words: 'one sound held for two beats', intro: ['dur:2'],
     tune: T => simple(T) && T.f.metreDen === 4, shows: w => w.notes.some(n => writtenIs(n, 1 / 2)), span: 1,
     score: (T, w) => w.notes.some(n => writtenIs(n, 1 / 4)) ? 1 : 0,
-    reason: (T, w) => `A half note: one sound held for two beats, after notes of one beat${onWords(T, w.from, w.to)}.` },
+    reason: (T, w) => `A half note: one sound held for two beats${w.notes.some(n => writtenIs(n, 1 / 4)) ? ', beside notes of one beat' : ''}${onWords(T, w.from, w.to)}.` },
   { id: 'metre-3', el: 'duration', name: 'three beats in a bar', grade: 3, term: 'three beats per bar (3/4 metre)', words: 'three beats in every bar: strong, weak, weak', intro: ['metre:3/4'],
     tune: T => T.f.metreNum === 3 && T.f.metreDen === 4, whole: true, shows: (w, T) => !T.bars[w.from].short, span: 1,
     reason: (T, w) => `Three beats in every bar, strong-weak-weak; ${barsWord(w.from, w.to)} is the first full bar${onWords(T, w.from, w.to)}.` },
@@ -266,6 +266,10 @@ const CONCEPTS = [
   { id: 'ternary', el: 'form', name: 'A B A', grade: 3, term: 'ternary (ABA) form', words: 'A, something new (B), then A comes back',
     tune: T => formOf(T).letters === 'ABA', structural: true, at: T => seam(T, formOf(T).phrases[2].from),
     reason: (T, w) => `Three parts, A B A: ${barsWord(w.from, w.to)} are where B ends and A comes back${onWords(T, w.from, w.to)}.` },
+  { id: 'sections', el: 'form', name: 'A, B and C', grade: 5, term: 'compositions in four or more sections (e.g., AABA, ABAC)', words: 'three different parts, A, B and C, one after another',
+    tune: T => formOf(T).b !== null && baseLetters(T) >= 3, structural: true, at: T => seam(T, formOf(T).b),
+    fits: (T, a, z) => (s => s.from === a && s.to === z)(seam(T, formOf(T).b)),
+    reason: (T, w) => `${binaryWords(T).replace('Two parts, A and B', `${['Three', 'Four', 'Five'][baseLetters(T) - 3] || baseLetters(T)} different parts, ${[...'ABCDE'].slice(0, baseLetters(T)).join(', ').replace(/, ([^,]*)$/, ' and $1')}`)}: ${barsWord(w.from, w.to)} are where A ends and B begins${onWords(T, w.from, w.to)}.` },
   { id: 'binary', el: 'form', name: 'A and B', grade: 2, term: 'binary (AB) form', words: 'two different parts, A then B',
     tune: T => formOf(T).b !== null, structural: true, at: T => seam(T, formOf(T).b),
     fits: (T, a, z) => formOf(T).b !== null && formOf(T).sections.concat(formOf(T).phrases).some(s => s.from > 0 && (q => q.from === a && q.to === z)(seam(T, s.from))),
@@ -359,8 +363,8 @@ function formOf(T) {
   const head = s => { const out = []; for (let i = s.from; i < s.to && out.length < 2; i++) if (full(i)) out.push(barKey(bars[i])); return out.join(' | '); };
   let b = null;
   for (let k = 1; k < sections.length; k++) if (head(sections[k]) !== head(sections[0]) && sections[0].to - sections[0].from >= 2) { b = sections[k].from; break; }
-  // Phrases and their letters.
-  const phrases = phrasesFor(T);
+  // Phrases and their letters, from the music's own phrases (the words' commas cut finer than the form).
+  const phrases = T.found.phrases.map(p => ({ from: p.from, to: p.to }));
   const letters = [], heads = [];
   for (const p of phrases) {
     const h = barKey(bars[p.from]) + ' | ' + (bars[p.from + 1] ? barKey(bars[p.from + 1]) : '');
@@ -375,14 +379,16 @@ function formOf(T) {
   return T._form;
 }
 // Phrases: for a song, a phrase ends at the bar whose last syllable carries a comma or stop; else the piece view's.
-// A phrase of words is at least a 4/4 bar long, so "Bounce high," alone (half a phrase) is not one.
+// A phrase of words is at least two bars long and ends at a full stop, semicolon or question mark once it lasts a 4/4
+// bar, or at a comma once it lasts two: so "Twin-kle, twin-kle," and "Bounce high," (half phrases) are not phrases.
 function phrasesFor(T) {
   const ends = [];
-  let len = 0;
+  let len = 0, count = 0;
   for (let i = 0; i < T.N; i++) {
-    len += T.bars[i].dur;
+    len += T.bars[i].dur; count++;
     const s = (T.sylls[i] || []).filter(l => l && l.syllable);
-    if (s.some(l => /[,.;:!?]$/.test(l.syllable)) && len >= 1 - 1e-6) { ends.push(i + 1); len = 0; }
+    const strong = s.some(l => /[.;:!?]$/.test(l.syllable)), comma = s.some(l => /,$/.test(l.syllable));
+    if (count >= 2 && ((strong && len >= 1 - 1e-6) || (comma && len >= 2 - 1e-6))) { ends.push(i + 1); len = 0; count = 0; }
   }
   if (T.lyricsFit && ends.length) {
     if (ends[ends.length - 1] !== T.N) ends.push(T.N);
@@ -449,7 +455,7 @@ function higher(T) {
 const PRIME = ['', '′', '″', '‴'];
 function partsOf(T, c) {
   const F = formOf(T);
-  const units = c.id === 'binary' && F.sections.length > 1 ? F.sections : F.phrases;
+  const units = (c.id === 'binary' || c.id === 'sections') && F.sections.length > 1 ? F.sections : F.phrases;
   if (units.length < 2) return null;
   // A short bar may be written inside a part (Bhairavi's bar 5); several mean the bars are not read as written (Dance
   // All Night's +GB+ chords are taken for decorations), and no letters are given on bars like that.
@@ -478,6 +484,8 @@ function partsOf(T, c) {
   if (new Set(parts.map(p => p.letter[0])).size < 2) return null;
   return parts;
 }
+// How many different parts the sections make (A, B, C...), primed letters counted with their own.
+const baseLetters = T => new Set((partsOf(T, { id: 'binary' }) || []).map(p => p.letter[0])).size;
 // The parts as words: "A B A", "A A′ B A′".
 const partLetters = parts => parts.map(p => p.letter).join(' ');
 

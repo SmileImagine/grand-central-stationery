@@ -15,21 +15,21 @@ When the class takes a generated part, music-minus-one should mute the matching 
 
 | Tune | L | Rehearsal key | Metre | Body percussion (L:1/8) | Bass cell (L:1/8) | Harmony / ukulele | As a round |
 |---|---:|---|---:|---|---|---|---|
-| Bounce High, Bounce Low | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | mostly unison (100% the same notes): an echo, not a round |
+| Bounce High, Bounce Low | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 1: 75%, 0 downbeat clashes) |
 | Ring Around the Rosie | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | mostly unison (75% the same notes): an echo, not a round |
 | Starlight, Star Bright | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | mostly unison (100% the same notes): an echo, not a round |
-| Rain, Rain, Go Away | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 2: 75%, 2 downbeat clashes) |
+| Rain, Rain, Go Away | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | mostly unison (75% the same notes): an echo, not a round |
 | Engine, Engine, Number Nine | 1 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | mostly unison (100% the same notes): an echo, not a round |
 | Evening Bells | 2 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>pulse recipe only; follow written chord roots | 3 distinct written chords<br>ready from written chords | not a round (best 2 every 2: 91%, 2 downbeat clashes) |
 | Crows on the Fence | 2 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>pulse recipe only; follow written chord roots | 3 distinct written chords<br>ready from written chords | round: `%%round 4 every=2`, 89%, no downbeat clash |
 | Merrily We Roll Along | 2 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 3 every 2: 85%, 4 downbeat clashes) |
 | Mary Had a Little Lamb | 2 | G | 4/4 | `B2 B2 B2 B2 |` | `G,2 D,2 G,2 D,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 3 every 2: 85%, 4 downbeat clashes) |
 | Clickety Clack | 2 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>simple-harmony rehearsal cell | 2 distinct written chords<br>ready from written chords | not a round (best 2 every 2: 78%, 1 downbeat clash) |
-| Rocky Mountain | 2 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | try by ear: `%%round 2 every=1`, 91%, downbeat clash in bar 1 |
-| Skip to My Lou | 3 | F (+5) | 2/4 | `B2 B2 |` | `F,2 C,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 3: 59%, 4 downbeat clashes) |
+| Rocky Mountain | 3 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 3: 87%, 2 downbeat clashes) |
+| Skip to My Lou | 3 | F (+5) | 2/4 | `B2 B2 |` | `F,2 C,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 7: 75%, 2 downbeat clashes) |
 | Twinkle, Twinkle, Little Star | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | try by ear: `%%round 2 every=1`, 90%, downbeat clash in bar 1 |
 | Baa, Baa, Black Sheep | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | try by ear: `%%round 2 every=1`, 90%, downbeat clash in bar 1 |
-| This Old Man | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 4: 81%, 2 downbeat clashes) |
+| This Old Man | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 1: 75%, 1 downbeat clash) |
 | Lightly Row | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 4: 78%, 0 downbeat clashes) |
 | Jingle Bells (chorus) | 3 | G | 4/4 | `B2 B2 B2 B2 |` | `G,2 D,2 G,2 D,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 6: 68%, 7 downbeat clashes) |
 | Amazing Grace | 3 | G | 3/4 | `B2 B2 B2 |` | `G,2 D,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | round: `%%round 4 every=2`, 90%, no downbeat clash |
@@ -38,7 +38,7 @@ When the class takes a generated part, music-minus-one should mute the matching 
 | Astley's Ride | 4 | F (-9) | 4/4 | `B2 B2 B2 B2 |` | `F,2 C,2 F,2 C,2 |`<br>pulse recipe only; follow written chord roots | 11 distinct written chords<br>review Gm, Gm/g | not a round (best 3 every 4: 87%, 5 downbeat clashes) |
 | The First Frost - Second part | 4 | D | 4/4 | `B2 B2 B2 B2 |` | `D,2 A,2 D,2 A,2 |`<br>pulse recipe only; follow written chord roots | 6 distinct written chords<br>review Bm | not a round (best 4 every 6: 74%, 16 downbeat clashes) |
 | Oh! Susanna | 4 | C (-7) | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | try by ear: `%%round 4 every=2`, 82% |
-| Daisy Daisy | 4 | G (-7) | 3/4 | `B2 B2 B2 |` | `G,2 D,2 G,2 |`<br>pulse recipe only; follow written chord roots | 5 distinct written chords<br>ready from written chords | not a round (best 3 every 16: 72%, 23 downbeat clashes) |
+| Daisy Daisy | 4 | G (-7) | 3/4 | `B2 B2 B2 |` | `G,2 D,2 G,2 |`<br>pulse recipe only; follow written chord roots | 5 distinct written chords<br>ready from written chords | not a round (best 2 every 10: 75%, 9 downbeat clashes) |
 | O where will you go | 5 | GDor | 5/8 | `B B B B B |` | `G, D, G, D, G, |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 1: 33%, 1 downbeat clash) |
 | Tom And Jerry | 5 | A | 4/4 | `B2 B2 B2 B2 |` | `A,2 E,2 A,2 E,2 |`<br>pulse recipe only; follow written chord roots | 5 distinct written chords<br>review F#m, Bm | not a round (best 3 every 8: 80%, 8 downbeat clashes) |
 | B. Variation | 5 | G | 4/4 | `B2 B2 B2 B2 |` | `G,2 D,2 G,2 D,2 |`<br>pulse recipe only; follow written chord roots | 5 distinct written chords<br>review Bm | not a round (best 3 every 4: 80%, 0 downbeat clashes) |
@@ -54,7 +54,7 @@ When the class takes a generated part, music-minus-one should mute the matching 
 | Fred Roden's Reel | 6 | D | 4/4 | `B2 B2 B2 B2 |` | `D,2 A,2 D,2 A,2 |`<br>pulse recipe only; follow written chord roots | 4 distinct written chords<br>ready from written chords | not a round (best 2 every 1: 72%, 2 downbeat clashes) |
 | Sweet Ellen | 6 | D | 4/4 | `B2 B2 B2 B2 |` | `D,2 A,2 D,2 A,2 |`<br>pulse recipe only; follow written chord roots | 5 distinct written chords<br>review Bm | not a round (best 2 every 11: 84%, 4 downbeat clashes) |
 | Billy In The Lowground | 6 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>pulse recipe only; follow written chord roots | 4 distinct written chords<br>ready from written chords | not a round (best 2 every 16: 80%, 0 downbeat clashes) |
-| Dance All Night | 6 | G | 4/4 | `B2 B2 B2 B2 |` | `G,2 D,2 G,2 D,2 |`<br>pulse recipe only; follow written chord roots | 4 distinct written chords<br>ready from written chords | not a round (best 3 every 4: 70%, 19 downbeat clashes) |
+| Dance All Night | 6 | G | 4/4 | `B2 B2 B2 B2 |` | `G,2 D,2 G,2 D,2 |`<br>pulse recipe only; follow written chord roots | 4 distinct written chords<br>ready from written chords | try by ear: `%%round 4 every=8`, 83%, downbeat clash in bar 1 |
 
 ## Harmony queue
 
@@ -67,7 +67,7 @@ These charts have no written chord symbols. A teacher, arranger, or source shoul
 - **Engine, Engine, Number Nine:** C, 2/4, level 1.
 - **Merrily We Roll Along:** C, 4/4, level 2.
 - **Mary Had a Little Lamb:** G, 4/4, level 2.
-- **Rocky Mountain:** C, 2/4, level 2.
+- **Rocky Mountain:** C, 2/4, level 3.
 - **Skip to My Lou:** C, 2/4, level 3.
 - **Twinkle, Twinkle, Little Star:** C, 4/4, level 3.
 - **Baa, Baa, Black Sheep:** C, 4/4, level 3.
@@ -99,14 +99,14 @@ Each tune is sung against itself by 2, 3 and 4 groups, the groups coming in at t
 
 **Worth trying by ear** (80% or more, at most one downbeat clash):
 
-- **Rocky Mountain:** `%%round 2 every=1` (91%; clash on the downbeat of bar 1).
 - **Twinkle, Twinkle, Little Star:** `%%round 2 every=1` (90%; clash on the downbeat of bar 1).
 - **Baa, Baa, Black Sheep:** `%%round 2 every=1` (90%; clash on the downbeat of bar 1).
 - **Oh! Susanna:** `%%round 4 every=2` (82%).
+- **Dance All Night:** `%%round 4 every=8` (83%; clash on the downbeat of bar 1).
 
 **Mostly unison** (the groups would sing the same notes more than half the time, as so–mi chants do; better as an echo or with an ostinato than as a round):
 
-- **Bounce High, Bounce Low:** 100% the same notes.
 - **Ring Around the Rosie:** 75% the same notes.
 - **Starlight, Star Bright:** 100% the same notes.
+- **Rain, Rain, Go Away:** 75% the same notes.
 - **Engine, Engine, Number Nine:** 100% the same notes.

@@ -1,6 +1,12 @@
 % Public domain beginner songs, typed from memory: so-mi-la chants, do-re-mi
 % songs and the first diatonic classroom songs. Traditional unless a composer
 % is named; every composer named died well over a century ago.
+% Checked 11 November 2026: Bounce High, Rain Rain, Rocky Mountain and Go Tell
+% Aunt Rhody against the Kodaly teaching transcriptions of the American folk
+% versions (150 American Folk Songs and its addenda); This Old Man against the
+% BBC's Singing Together (1970), with the American "with a" pickup.
+% Skip to My Lou has its long "Lou, Lou" (two beats each). Words now
+% fit their notes one syllable to a note, _ marking a syllable held over two.
 
 X:1
 T:Rain, Rain, Go Away
@@ -8,7 +14,7 @@ O:England
 M:2/4
 L:1/8
 K:C
-G2 E2 | GG !breath!E2 | GG EE | AA G2 |]
+G2 E2 | GG !breath!E2 | GG AA | GG E2 |]
 w: Rain, rain, go a-way, come a-gain a-noth-er day.
 
 X:2
@@ -35,7 +41,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-G2 E2 | G2 !breath!E2 | .G.G .E.E | G2 E2 |]
+G2 A2 | G2 !breath!E2 | .G.G .A.A | G2 E2 |]
 w: Bounce high, bounce low, bounce the ball to Shi-loh.
 
 X:5
@@ -71,8 +77,10 @@ O:USA
 M:2/4
 L:1/8
 K:C
-CC EE | GG E2 | CC EE | GG !breath!E2 | CC EE | GG E2 | !>(!GG EE | !>)!DD C2 |]
-w: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.
+CC CE | CC CE | CC EG | G2 z2 | AG EC | AG EC | !>(!EE DD | !>)!C2 z2 |
+w: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain, hang your head and cry.
+C2 E2 | G2 A2 | EE DC | D2 z2 | C2 E2 | G2 A2 | EE DD | C2 z2 |]
+w: Do, do, do, do, do re-mem-ber me, do, do, do, do, do re-mem-ber me.
 
 X:9
 T:Old MacDonald Had a Farm
@@ -90,7 +98,9 @@ M:4/4
 L:1/4
 K:C
 !p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |
+w: Light-ly row, light-ly row, o'er the glass-y waves we go; smooth-ly glide, smooth-ly glide, on the si-lent tide.
 !mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]
+w: Let the winds and wa-ters be min-gled with our mel-o-dy; sing and float, sing and float, in our lit-tle boat.
 
 X:11
 T:Skip to My Lou
@@ -98,8 +108,10 @@ O:USA
 M:2/4
 L:1/8
 K:C
-!mf!(EE CC | EE G2) | (DD B,B, | DD F2) | (EE CC | EE G2) | (DD FF | ED C2) |]
-w: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
+!mf!(E4 | C4 | E2 EE | G4) | (D4 | B,4 | D2 DD | F4) |
+w: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou,
+(E4 | C4 | E2 EE | G4) | (D2 DD | F2 E2 | D4 | C4) |]
+w: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
 
 X:12
 T:Baa, Baa, Black Sheep
@@ -107,7 +119,8 @@ O:England
 M:4/4
 L:1/4
 K:C
-!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]
+!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]
+w: Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full. One for the mas-ter, one for the dame, one for the lit-tle boy who lives down the lane. Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full.
 
 X:13
 T:Frère Jacques
@@ -115,6 +128,7 @@ O:France
 M:4/4
 L:1/4
 K:C
+%%round 4 every=2
 !mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]
 w: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.
 
@@ -145,7 +159,8 @@ O:England
 M:4/4
 L:1/8
 K:C
-!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4) | (E F G2 .C.C.C.C | C D E F G4 | G2 D2 D D E F | G2 C2 C4) |]
+!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]
+w: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.
 
 X:17
 T:When the Saints Go Marching In
@@ -161,7 +176,7 @@ O:USA
 M:6/8
 L:1/8
 K:C
-C3 C3 | C2 D E3 | E2 D E2 F | G6 | c/2c/2c/2 G/2G/2G/2 E/2E/2E/2 C/2C/2C/2 | G2 F E2 D | C6 |]
+C3 C3 | C2 D E3 | E2 D E2 F | G6 | ccc GGG | EEE CCC | G2 F E2 D | C6 |]
 w: Row, row, row your boat gent-ly down the stream, mer-ri-ly mer-ri-ly mer-ri-ly mer-ri-ly life is but a dream.
 
 X:19
@@ -179,12 +194,13 @@ M:4/4
 L:1/4
 K:C
 E D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]
+w: Mer-ri-ly we roll a-long, roll a-long, roll a-long, mer-ri-ly we roll a-long, o'er the deep blue_ sea.
 
 X:21
 T:Go Tell Aunt Rhody
 O:USA
-M:4/4
-L:1/4
+M:2/4
+L:1/8
 K:C
-E E D C | D E D2 | E E D C | C4 | G G G G | E E D2 | E E D C | D E C2 |]
-w: Go tell Aunt Rho-dy, go tell Aunt Rho-dy, go tell Aunt Rho-dy the old grey goose is dead.
+E2 ED | C2 C2 | D2 DF | ED C2 | G2 GF | E2 EE | DC DE | C4 |]
+w: Go tell Aunt Rho-dy, go tell Aunt Rho-_ dy, go tell Aunt Rho-dy, the old grey goose is dead.

@@ -73,10 +73,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Versilian Studios sample libraries (vendor/soundfont/vcsl_*, vsco_*): CC0 1.0, public domain
 
 The Kawai grand piano (Sustains, the v3 layer), the Baroque soprano recorder (Sustain), the hi-hat, the modern snare 1
-and toms 1 and 2 (stick hits; the floor tom is tom 2 played a fourth lower), suspended cymbal 2 struck softly with a
-stick (the ride), each drum in two takes, the snare, closed hat and toms at three strengths and the hat's loose hit, the
-hats and ride in stereo (in vendor/soundfont/kit-mp3 with the kick and crash below), from the Versilian Community Sample
-Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
+and toms 1 and 2 (stick hits; the floor tom is tom 2 played a fourth lower), each drum in two takes, the snare, closed
+hat and toms at three strengths and the hat's loose hit, the hats in stereo (in vendor/soundfont/kit-mp3 with the
+kick, crash and ride below), from the Versilian Community Sample Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
 (v1 rr1), the solo violin (Arco Vib, f), the trumpet (sus, v3), the tuba (stac, v2 rr1), the glockenspiel, the marimba
 and the xylophone; by Versilian Studios LLC (Sam Gossner). Converted by `vendor/soundfont/build-cc0.js`: mono, trimmed, levelled,
 96 kbps MP3. No attribution is required; this is a thank-you.
@@ -111,11 +110,12 @@ purpose, even commercially, as long as you give appropriate credit, provide a li
 changes were made. https://creativecommons.org/licenses/by/4.0/
 ```
 
-## MuldjordKit by Lars Muldjord (the kick and crash in vendor/soundfont/kit-mp3: C2*.mp3, Db3*.mp3): CC BY 4.0
+## MuldjordKit by Lars Muldjord (the kick, crash and ride in vendor/soundfont/kit-mp3: C2*.mp3, Db3*.mp3, Eb3*.mp3): CC BY 4.0
 
 The kick drum (hits 5, 6, 12, 13, 22 and 23 of its 25, its own microphone with a fifth of each ambience microphone) and
 the left crash (hits 2, 3, 5, 6, 7 and 9, its overhead pair, high-passed at 300 Hz, the far overhead given 0.6 of the
-near one so the crash sits right of centre) from the MuldjordKit by Lars Muldjord for DrumGizmo
+near one so the crash sits right of centre), and the right ride (hits 2, 3, 5, 6, 8 and 9, its overhead pair, high-passed
+at 300 Hz, cut at 4.5 s with a two-second fade, 2 dB under the FluidR3 ride) from the MuldjordKit by Lars Muldjord for DrumGizmo
 (https://drumgizmo.org, https://www.muldjord.com), in the SFZ port at https://github.com/sfzinstruments/DrumGizmo.MuldjordKit.
 Converted by `vendor/soundfont/build-cc0.js`: trimmed, each strength's two takes levelled to its middle take, the kick
 matched to the FluidR3 kick and the crash 3 dB under the FluidR3 crash, MP3 (the kick mono at 96 kbps, the crash stereo

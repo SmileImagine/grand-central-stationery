@@ -46,7 +46,7 @@
       const name = m[1].trim().toLowerCase(), body = m[2].trim();
       if (name === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) r.meter = [+mm[1], +mm[2]]; else r.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
       if (name === 'title') { r.title = body; return; }
-      if (['bpm', 'tempo', 'style', 'source', 'licence', 'license', 'id', 'origin', 'difficulty', 'note'].includes(name)) { r.meta[name === 'tempo' ? 'bpm' : name] = body; return; }
+      if (['bpm', 'tempo', 'style', 'source', 'licence', 'license', 'id', 'origin', 'difficulty', 'note', 'round'].includes(name)) { r.meta[name === 'tempo' ? 'bpm' : name] = body; return; }
       const bars = body.split('|').map(b => b.replace(/\s+/g, '')).filter(b => b.length);
       if (!bars.length) { r.problems.push(`Line ${li + 1}: ${name} has no steps.`); return; }
       const bad = bars.join('').replace(/[xXo.\-]/g, ''); if (bad) r.problems.push(`Line ${li + 1}: ${name} has "${bad[0]}"; steps are x X o and . only.`);

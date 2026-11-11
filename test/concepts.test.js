@@ -59,10 +59,11 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   // Twinkle's leap of a 5th is bar 1 alone, not bars 1-2.
   eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'pitch').bars, [1, 1], 'Twinkle: the leap is in bar 1');
   eq(at('first-tunes-3-twinkle-twinkle-little-star', 'pitch').maxLeap, 7, 'Twinkle bar 1: do up to so, a 5th');
-  // Rain, Rain's leap of a 4th crosses the barline: bars 3-4, and neither bar alone has it.
-  eq(entry('beginner-songs-1-rain-rain-go-away', 'pitch').bars, [3, 4], 'Rain, Rain: the leap crosses from bar 3 to bar 4');
-  eq(at('beginner-songs-1-rain-rain-go-away', 'pitch').maxLeap, 5, 'Rain, Rain bars 3-4: mi up to la, a 4th');
-  assert(bars('beginner-songs-1-rain-rain-go-away', 3, 3).maxLeap < 5 && bars('beginner-songs-1-rain-rain-go-away', 4, 4).maxLeap < 5, 'Rain, Rain: neither bar alone has the 4th');
+  // Rocky Mountain's leap of a 6th crosses the barline: bars 5-6 (do at the end of bar 5, la at the start of bar 6).
+  const rocky = 'beginner-songs-8-rocky-mountain';
+  eq(entry(rocky, 'pitch').bars, [5, 6], 'Rocky Mountain: the leap crosses from bar 5 to bar 6');
+  eq(at(rocky, 'pitch').maxLeap, 9, 'Rocky Mountain bars 5-6: do up to la, a 6th');
+  assert(bars(rocky, 5, 5).maxLeap < 9 && bars(rocky, 6, 6).maxLeap < 9, 'Rocky Mountain: neither bar alone has the 6th');
   // Durations, as the analyzer names them.
   assert(has(at('original-pentatonic-8-evening-bells', 'duration'), 'dur:4'), 'Evening Bells: the whole note it introduces');
   assert(has(at('hindostan-2-malkos', 'duration'), 'dur:1/4'), 'Malkos: the sixteenths it introduces');
@@ -88,8 +89,9 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'form').bars, [8, 9], 'Twinkle: the return of A, at the seam');
   eq(entry('beginner-songs-10-lightly-row', 'form').concept, 'aaba', 'Lightly Row: A A B A');
   // Reasons quote the words only where the verse fits the notes.
-  assert(/on “Rain, rain, go a-way”/.test(entry('beginner-songs-1-rain-rain-go-away', 'form').reason), 'Rain, Rain: the phrase quotes its words');
-  assert(!/on “/.test(entry('beginner-songs-11-skip-to-my-lou', 'pitch').reason), 'Skip to My Lou: its verse does not fit its notes, so no words are quoted');
+  eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'duration').reason.includes('(on “lit-tle star”)'), true, 'Twinkle: a reason quotes the words under its bars');
+  assert(/on “/.test(entry('beginner-songs-11-skip-to-my-lou', 'form').reason), 'Skip to My Lou: its verse now fits its notes, so its words are quoted');
+  assert(!/on “/.test(entry('hindostan-folk-5-chhaila', 'duration').reason), 'Chhaila: its verse does not fit its notes, so no words are quoted');
 }
 
 /* ---------------- the parts, to hear the form ---------------- */
@@ -104,8 +106,9 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   eq(view('morris-7-highland-mary'), 'A 1-9 (1-3) | B 10-18 (10-12)', 'Highland Mary: parts A and B, each from its pickup');
   // Desh's antara begins as the sthayi does, so its opening goes on to where it climbs away.
   eq(view('hindostan-4-desh'), 'A 1-4 (1-2) | B 5-12 (5-7)', 'Desh: B is heard until it differs');
-  // Dance All Night's bars are misread (its +GB+ chords), so it gets no letters; a single phrase has nothing to compare.
-  eq(parts('reelsd-g-1-dance-all-night'), undefined, 'Dance All Night: no parts on misread bars');
+  // Dance All Night, its chords now written [GB] so its bars read as written: three parts, each from its pickup.
+  eq(view('reelsd-g-1-dance-all-night'), 'A 1-9 (1-3) | B 10-18 (10-12) | C 19-27 (19-21)', 'Dance All Night: parts A, B and C');
+  eq(entry('reelsd-g-1-dance-all-night', 'form').concept, 'sections', 'three different parts are not binary form');
   eq(parts('beginner-songs-4-bounce-high-bounce-low'), undefined, 'Bounce High: one phrase, no parts');
   // Every lettering, checked straight from the bars: parts end to end; a letter again is the same music, full bar for
   // full bar; a primed letter begins as its letter did; different letters differ in their first two full bars.
@@ -124,7 +127,7 @@ const has = (f, tag) => (f.skills || []).includes(tag);
       else assert(a[0] !== b[0] || a[1] !== b[1], `${t.id}: ${p.letter} and ${q.letter} begin differently`);
     }));
   }
-  eq(withParts, 17, 'seventeen pieces with parts to compare (Dance All Night is the one form of two parts left out)');
+  eq(withParts, 18, 'eighteen pieces with parts to compare: every form beyond a single phrase');
 }
 
 /* ---------------- the Listen step's choices ---------------- */
@@ -142,7 +145,8 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   eq(P.formWords(form.parts), 'A: bars 1–4 and 9–12 · B: bars 5–8', 'which bars each letter is');
   eq(P.formWords(P.conceptChoices(data.tunes['beginner-songs-10-lightly-row']).find(c => c.el === 'form').parts), 'A: bars 1–4 · A′: bars 5–8 and 13–16 · B: bars 9–12; A′ begins like A and ends differently', 'a primed letter, explained');
   eq(P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 13).find(c => c.el === 'form').parts, undefined, 'parts that do not reach the end of the piece are stale: none');
-  eq(P.conceptChoices(data.tunes['reelsd-g-1-dance-all-night']).find(c => c.el === 'form').words, 'A and B', 'without parts, the form keeps its name');
+  const bare = { form: { concept: 'binary', name: 'A and B', grade: 2, term: 'binary (AB) form', words: 'two different parts, A then B', bars: [8, 9], reason: 'x' } };
+  eq(P.conceptChoices(bare).find(c => c.el === 'form').words, 'A and B', 'without parts, the form keeps its name');
 }
 
 console.log(`Concept checks passed (${checks} checks; ${set.tunes.length} pieces).`);
