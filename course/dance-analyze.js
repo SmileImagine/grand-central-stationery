@@ -61,10 +61,12 @@
     const d = { meter: [4, 4], feet: [], arms: [], level: [], lean: [], turn: [], hips: [], shoulders: [], problems: [], title: '', meta: {} };
     text.split('\n').forEach((raw, li) => {
       const line = raw.replace(/\/\/.*$/, '').trim(); if (!line) return;
+      if (/^pose\s+[a-z][\w-]*\s*:/i.test(line)) return;   // a pose definition: the lab draws it; grading reads the feet and arms
       const m = line.match(/^([a-z]+)\s*:\s*(.*)$/i); if (!m) { d.problems.push(`Line ${li + 1}: wants meter:, feet: or arms:.`); return; }
       const key = m[1].toLowerCase(), body = m[2].trim();
       if (key === 'meter') { const mm = body.match(/^(\d+)\s*\/\s*(\d+)$/); if (mm) d.meter = [+mm[1], +mm[2]]; else d.problems.push(`Line ${li + 1}: meter wants 4/4 or 3/4.`); return; }
       if (key === 'title') { d.title = body; return; }
+      if (key === 'poses') return;
       if (!['feet', 'arms', 'level', 'lean', 'turn', 'hips', 'shoulders'].includes(key)) { d.meta[key === 'tempo' ? 'bpm' : key] = body; return; }
       const bars = body.split('|').map(b => b.trim().split(/\s+/).filter(Boolean)).filter(b => b.length);
       bars.forEach((toks, bi) => { if (toks.length !== d.meter[0]) d.problems.push(`Line ${li + 1}, bar ${bi + 1}: ${toks.length} beats in ${d.meter[0]}/${d.meter[1]}.`); });
@@ -99,7 +101,7 @@
     f.mirrored = d.feet.length >= 2 && d.feet.length % 2 === 0 && d.feet.slice(0, d.feet.length / 2).every((bar, i) => mirror(bar.join(' ')) === d.feet[i + d.feet.length / 2].join(' '));
     f.distinctBars = new Set(d.feet.map(b => b.join(' '))).size;
     f.shape = d.level.length > 0 || d.lean.length > 0; f.efforts = f.efforts || 0; f.effortMarks = [...f.effortMarks];
-    f.turns = d.turn.flat().filter(t => /^[lr]+$/.test(t)).reduce((n, t) => n + t.length, 0); f.hips = d.hips.flat().some(t => /^[lrfb]$/.test(t)); f.shoulders = d.shoulders.flat().some(t => /^[lru]$/.test(t));
+    f.turns = d.turn.flat().reduce((n, t) => n + (/^[lr]+$/.test(t) ? t.length : /^[lr]\d{1,3}$/.test(t) ? +t.slice(1) / 90 : 0), 0);   // in quarter turns; r45 is half of one f.hips = d.hips.flat().some(t => /^[lrfb]$/.test(t)); f.shoulders = d.shoulders.flat().some(t => /^[lru]$/.test(t));
     return f;
   }
   const STEP_LATTICE = {

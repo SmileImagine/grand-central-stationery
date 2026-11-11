@@ -6159,7 +6159,7 @@ function parseDance(text) {
     if (ps !== '.') { if (ps === '0') st.pose = null; else if (d.poseDefs[ps]) st.pose = ps; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: no pose called "${ps}" (define it with a line: pose ${ps}: ...).`); }
     if (sh !== '.') { if (/^[lruc]$/.test(sh)) st.shoulders = sh; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: shoulders "${sh}"? (l r u c .)`); }
     const facingFrom = st.facing;
-    if (tn !== '.') { const tm = tn.match(/^([lr])\1*$/); if (tm) st.facing += tn.length * 90 * (tm[1] === 'r' ? 1 : -1); else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: turn "${tn}"? (r or l per quarter turn: r, rr, l, ll, .)`); }
+    if (tn !== '.') { const tm = tn.match(/^([lr])\1*$/), ta = tn.match(/^([lr])(\d{1,3})$/); if (tm) st.facing += tn.length * 90 * (tm[1] === 'r' ? 1 : -1); else if (ta) st.facing += +ta[2] * (ta[1] === 'r' ? 1 : -1); else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: turn "${tn}"? (r or l per quarter turn: r, rr, l, ll; or degrees: r45, l135; or .)`); }
     if (hp !== '.') { if (/^[lrfbc]$/.test(hp)) st.hips = hp; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: hips "${hp}"? (l r f b c .)`); }
     if (at !== '.') { if (/^[uodch]$/.test(at)) st.arms = at; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: arms "${at}"? (u o d c h .)`); }
     if (lv !== '.') { if (/^[lmh]$/.test(lv)) st.level = lv; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: level "${lv}"? (l m h .)`); }
