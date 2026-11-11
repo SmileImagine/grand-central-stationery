@@ -9,7 +9,7 @@
  ],
  "counts": {
   "inbox": 0,
-  "transcription": 3,
+  "transcription": 4,
   "source-check": 23,
   "classroom-check": 0,
   "ready": 0
@@ -301,6 +301,52 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
     "respect": "A children's game, nothing sacred. Credit C. Kamba Simango. Curtis notes that the \"th\" of m'nthalila is not pronounced as in English and that the t is followed by a breathed h.",
     "review": "A Chindau speaker, for the words."
+   }
+  },
+  {
+   "id": "dle-yaman",
+   "file": "items/dle-yaman.abc",
+   "title": "Dle Yaman",
+   "subtitle": "Armenian folk song, for duduk and drone (dam)",
+   "source": "Vardan Oleyan, duduk, in a clip posted by Dust-to-Digital on Instagram (October 2026); draft transcription by pitch tracking",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Dew1VTIv2ws/",
+     "label": "Dust-to-Digital on Instagram (posted October 2026): Vardan Oleyan, duduk, with a second duduk holding the dam"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Dew1VTIv2ws/",
+     "label": "Vardan Oleyan, duduk, with a second duduk on the dam (Dust-to-Digital, October 2026)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip this draft was taken from (4 min 8 s, the tune played twice). A sung performance, and Komitas's printed setting, still to find."
+   ],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: an automatic draft from one duduk performance (pitch-tracked by machine, rhythm fitted by hand to 4/4); compare by ear with the Dust-to-Digital clip and with a printed source, ideally Komitas's own setting, before trusting any note. The Armenian words are missing. Classroom check: the class as damkash (everyone holds the low B drone, breathing in turns so it never stops) under one melody player.",
+   "notes": "HOW READ (2026-11-10): the clip's audio (4 min 8 s) was pitch-tracked with the steady drone subtracted; the drone is B (247.6 Hz, B3 at A=440, 5 cents sharp). The performance plays the tune twice (0:02-2:11 and 2:13-4:03); both passes agree on the notes, and the second, cleaner one decided the few disagreements. Each phrase takes about 12 seconds, so at 1/4=60 each phrase is three bars here.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A slow lyrical Armenian folk song, here played as an instrumental on two duduks: the lead carries the melody and its ornaments, the second holds the dam, a continuous drone on the keynote.",
+    "elements": "Melody over a drone: one held B under everything. The tune lives in five notes above it (C sharp, D, E, F sharp, G) and only falls to the drone's B at the two cadences; three sections, the first high (around F sharp and G), the second and third low (around D and E), each phrase a short turn into a long held note.",
+    "practice": "Very slow and free in the original (no steady beat; the long notes swell with vibrato); this setting fits it to 4/4 at 1/4=60 so the page can count it in, and the held notes may be stretched freely. The drone never breaks: the damkash uses circular breathing; a class can share it by breathing at different times.",
+    "accompaniment": "Tradition: two duduks, the lead on the melody and the damkash holding the dam on the keynote; the dam is the only accompaniment. Source: the Dust-to-Digital clip and its caption. The band plays nothing here (drums, bass and chords off); the drone is the second voice, for the class to hold or the page to play.",
+    "lyrics": "Missing: the song has Armenian words, but this draft is from an instrumental performance and none are written here. Words, transliteration and translation still to find, from a printed source, and to be checked by an Armenian speaker before any are sung in class.",
+    "honesty": "Traditional melody. This is a draft of one 2026 performance: the pitches were taken by a pitch tracker and checked against the recording's timing, the ornaments were reduced to plain eighths, and the bar lines and note lengths are ours. Every G was played about 40 cents flat, between F sharp and G; the notation writes a plain G.",
+    "licence": "The melody is a traditional Armenian folk song (public domain). The recording and video belong to the performers and Dust-to-Digital: only the melody was taken down, and no audio or video is kept here.",
+    "respect": "A song of longing, and one often heard at Armenian commemorations; present it as a serious song, not a novelty instrument demo. Name the player and the duduk.",
+    "review": "A duduk player or Armenian musician, for the mode, the flat G and the ornaments; ideally someone who can supply the words."
    }
   },
   {

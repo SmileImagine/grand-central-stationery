@@ -1,0 +1,44 @@
+% holding-id: dle-yaman
+% holding-status: transcription
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: an automatic draft from one duduk performance (pitch-tracked by machine, rhythm fitted by hand to 4/4); compare by ear with the Dust-to-Digital clip and with a printed source, ideally Komitas's own setting, before trusting any note. The Armenian words are missing. Classroom check: the class as damkash (everyone holds the low B drone, breathing in turns so it never stops) under one melody player.
+% source-url: https://www.instagram.com/p/Dew1VTIv2ws/ Dust-to-Digital on Instagram (posted October 2026): Vardan Oleyan, duduk, with a second duduk holding the dam
+% performance-url: https://www.instagram.com/p/Dew1VTIv2ws/ Vardan Oleyan, duduk, with a second duduk on the dam (Dust-to-Digital, October 2026)
+% performance-note: The clip this draft was taken from (4 min 8 s, the tune played twice). A sung performance, and Komitas's printed setting, still to find.
+% dossier-function: A slow lyrical Armenian folk song, here played as an instrumental on two duduks: the lead carries the melody and its ornaments, the second holds the dam, a continuous drone on the keynote.
+% dossier-elements: Melody over a drone: one held B under everything. The tune lives in five notes above it (C sharp, D, E, F sharp, G) and only falls to the drone's B at the two cadences; three sections, the first high (around F sharp and G), the second and third low (around D and E), each phrase a short turn into a long held note.
+% dossier-practice: Very slow and free in the original (no steady beat; the long notes swell with vibrato); this setting fits it to 4/4 at 1/4=60 so the page can count it in, and the held notes may be stretched freely. The drone never breaks: the damkash uses circular breathing; a class can share it by breathing at different times.
+% dossier-accompaniment: Tradition: two duduks, the lead on the melody and the damkash holding the dam on the keynote; the dam is the only accompaniment. Source: the Dust-to-Digital clip and its caption. The band plays nothing here (drums, bass and chords off); the drone is the second voice, for the class to hold or the page to play.
+% dossier-lyrics: Missing: the song has Armenian words, but this draft is from an instrumental performance and none are written here. Words, transliteration and translation still to find, from a printed source, and to be checked by an Armenian speaker before any are sung in class.
+% dossier-honesty: Traditional melody. This is a draft of one 2026 performance: the pitches were taken by a pitch tracker and checked against the recording's timing, the ornaments were reduced to plain eighths, and the bar lines and note lengths are ours. Every G was played about 40 cents flat, between F sharp and G; the notation writes a plain G.
+% dossier-licence: The melody is a traditional Armenian folk song (public domain). The recording and video belong to the performers and Dust-to-Digital: only the melody was taken down, and no audio or video is kept here.
+% dossier-respect: A song of longing, and one often heard at Armenian commemorations; present it as a serious song, not a novelty instrument demo. Name the player and the duduk.
+% dossier-review: A duduk player or Armenian musician, for the mode, the flat G and the ornaments; ideally someone who can supply the words.
+X:1
+T:Dle Yaman
+T:Armenian folk song, for duduk and drone (dam)
+C:traditional (Armenian)
+O:Armenia
+R:song (instrumental setting)
+S:Vardan Oleyan, duduk, in a clip posted by Dust-to-Digital on Instagram (October 2026); draft transcription by pitch tracking
+N:HOW READ (2026-11-10): the clip's audio (4 min 8 s) was pitch-tracked with the steady drone subtracted; the drone is B (247.6 Hz, B3 at A=440, 5 cents sharp). The performance plays the tune twice (0:02-2:11 and 2:13-4:03); both passes agree on the notes, and the second, cleaner one decided the few disagreements. Each phrase takes about 12 seconds, so at 1/4=60 each phrase is three bars here.
+N:INTONATION, in cents from equal temperament against the drone: C sharp +14, D -8, E +5, F sharp +13, G -35 to -50.
+N:UNCERTAIN: the ornaments (quick turns of two or three notes, written here as plain eighths); whether the first held G of the first pass (0:08, four seconds) is a G or a high F sharp; every note length.
+M:4/4
+L:1/8
+Q:1/4=60
+K:Bm
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+V:1 name="Duduk" sname="Dk"
+V:2 name="Dam (drone)" sname="Dam"
+[V:1] |: "^A" D E F6- | F4 G2 F2- | F6 z2 | F6 G2- | G F E4 F D | E F6 z | F6 G2- | G F E4 F D | E F6 z |
+[V:1] "^B" D C D E5- | E3 F E C D2- | D6 z2 | D F E4 F2- | F E D2 E C D E- | E7 z | B, E C D2 E3 | D C3 D C D2- | D6 z2 | D2 C6 | B,8- | B,6 z2 |
+[V:1] "^B'" D C D E5- | E3 D E C D2- | D6 z2 | D F E4 G2 | F E D2 E C D E- | E7 z | E D3 E D C2 | D C D6- | D6 z2 | D2 C3 D3 | B,8- | B,6 z2 :|
+[V:2] |: B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- |
+[V:2] B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- |
+[V:2] B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8- | B,8 :|
