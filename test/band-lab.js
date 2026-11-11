@@ -37,14 +37,15 @@
   // The melody at the pitch it sounds (the soprano recorder an octave above written), so clashes are counted as heard.
   function capture(e) {
     const p = e.player, bl = e.beatLen(), ch = p.choruses[0] || {};
-    const { setOf, sampleOf } = GCS.lab, used = new Set();   // the files actually loaded: the set in use, the note it plays from
-    for (const c of p.cycles) for (const n of c) { const f = setOf ? setOf(n.folder, n.midi) : n.folder; used.add(f + '|' + NOTE(sampleOf ? sampleOf(f, n.midi) : n.midi)); }
+    const { setOf, sampleOf, takesOf } = GCS.lab, used = new Set();   // the files actually loaded: the set in use, the note it plays from (every take of a kit drum)
+    for (const c of p.cycles) for (const n of c) { const f = setOf ? setOf(n.folder, n.midi) : n.folder, takes = takesOf && takesOf(f, n.midi); if (takes) takes.forEach(t => used.add(f + '|' + t)); else used.add(f + '|' + NOTE(sampleOf ? sampleOf(f, n.midi) : n.midi)); }
     return {
       notes: p.cycles[0].map(n => ({ part: n.part, ms: n.ms, midi: n.midi + (n.part === 'melody' && GCS.lab.melodyOctave ? GCS.lab.melodyOctave(e.inst) : 0), vel: n.vel, dur: n.dur, pad: !!(n.from && n.from.tip && / held: /.test(n.from.tip)), answer: !!(n.from && n.from.tip && /^answering/.test(n.from.tip)) })),
-      rounds: p.cycles.map(c => c.map(n => ({ part: n.part, vel: n.vel }))),
+      rounds: p.cycles.map(c => c.map(n => ({ part: n.part, vel: n.vel, ms: n.ms, midi: n.midi }))),
       bars: (ch.bars || []).map(b => ({ s: b.s, e: b.e, beats: b.beats, pickup: !!b.pickup })),
       segs: (ch.segs || []).filter(s => s.chord).map(s => ({ ms: s.ms, pcs: s.chord.pcs, root: s.chord.root })),
       compound: Math.abs(bl * 8 / 3 - Math.round(bl * 8 / 3)) < 1e-6,
+      fills: p.choruses.map(c => { const fs = []; for (const n of c.notes) if (n.part === 'drums' && n.from && / fill, after /.test(n.from.tip || '') && !fs.some(x => x.f === n.from)) fs.push({ f: n.from, t: n.t }); return fs.map(x => `${Math.round(x.t)}: ${x.f.tip.replace(/^.*\u2192 /, '')}`); }),   // the drummer's fills, each time round
       total: p.total, style: e.styleKey, comp: e.bandPlayer ? e.bandPlayer.comp() : null, used: [...used],
     };
   }
@@ -71,7 +72,7 @@
   async function job(j, cfg) {
     const e = await cell();
     await load(e, j.abc, j.style, cfg.inst || 'recorder');
-    const cap = capture(e), out = { id: j.id, asked: j.style || 'auto', style: cap.style, comp: cap.comp, used: cap.used, notes: BandMetrics.noteMetrics(cap) };
+    const cap = capture(e), out = { id: j.id, asked: j.style || 'auto', style: cap.style, comp: cap.comp, used: cap.used, fills: cap.fills, notes: BandMetrics.noteMetrics(cap) };
     if (cfg.keepNotes) out.capture = cap;
     if (cfg.audio) {
       const maxMs = cfg.maxMs || 24000;

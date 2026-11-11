@@ -188,6 +188,28 @@
       out['repeat' + name] = mean(J);                                            // 1: every bar the same rhythm as the last
       out['variety' + name] = S.length ? new Set(S.map(s => [...s].sort().join())).size / S.length : NaN;   // distinct bar rhythms per bar
     }
+    // ---- fills: the last two beats before every fourth bar line, every time round ----
+    // Each one as its hits (the sixteenth or compound sixth it falls on, and the drum): how many of them differ, how
+    // often one is the same as the fill before it, and how many drums a fill moves between (the snare alone is one).
+    {
+      const sigs = [], voices = [];
+      for (const r of (cap.rounds && cap.rounds.length ? cap.rounds : [cap.notes])) {
+        const dr = r.filter(n => n.part === 'drums');
+        bars.forEach((b, i) => {
+          if ((i + 1) % 4 || i === bars.length - 1) return;
+          const beat = (b.e - b.s) / Math.max(1, b.beats), from = b.e - 2 * beat, step = beat / (cap.compound ? 6 : 4);
+          const hs = dr.filter(n => n.ms >= from - 10 && n.ms < b.e - 10 && ![42, 44, 46, 51, 69, 70, 54].includes(n.midi));
+          sigs.push(hs.map(n => Math.round((n.ms - from) / step) + ':' + n.midi).sort().join());
+          voices.push(new Set(hs.map(n => n.midi)).size);
+        });
+      }
+      out.fillVariety = sigs.length ? new Set(sigs).size / sigs.length : NaN;    // distinct fills per fill
+      let same = 0; for (let i = 1; i < sigs.length; i++) if (sigs[i] === sigs[i - 1]) same++;
+      out.fillRepeat = sigs.length > 1 ? same / (sigs.length - 1) : NaN;         // a fill the same as the last one
+      out.fillVoices = mean(voices);                                            // drums in a fill (hats and cymbals aside)
+    }
+    // How much the snare's strength varies (backbeats, ghosts, fills), against its average.
+    { const sn = drums.filter(n => n.midi === 38 || n.midi === 40).map(n => n.vel); out.velSpreadSnare = mean(sn) ? sd(sn) / mean(sn) : NaN; }
     // ---- density ----
     const beats = bars.reduce((a, b) => a + b.beats, 0) || 1;
     out.densityDrums = drums.length / beats; out.densityBass = bass.length / beats; out.densityChords = hits.length / beats; out.densityMelody = mel.length / beats;
@@ -218,6 +240,7 @@
     ['accentBass', 0.1, null, 'the bass leans on the beat', 'drone'],
     ['answered', 1.05, null, 'the band plays more where the melody leaves room', 'drone'],
     ['repeatDrums', null, 0.97, 'the drums vary from bar to bar', 'loop'],
+    ['fillRepeat', null, 0.5, 'a drummer does not play the same fill every time', 'loop'],
   ];
   // Audio guardrails, in the same form.
   const AUDIO_GUARDS = [

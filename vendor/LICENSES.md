@@ -72,8 +72,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Versilian Studios sample libraries (vendor/soundfont/vcsl_*, vsco_*): CC0 1.0, public domain
 
-The Kawai grand piano (Sustains, the v3 layer), the Baroque soprano recorder (Sustain), the hi-hat and the modern snare 1
-from the Versilian Community Sample Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
+The Kawai grand piano (Sustains, the v3 layer), the Baroque soprano recorder (Sustain), the hi-hat, the modern snare 1
+and toms 1 and 2 (stick hits; the floor tom is tom 2 played a fourth lower), each drum in two takes and the snare, closed
+hat and toms at three strengths, from the Versilian Community Sample Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
 (v1 rr1), the solo violin (Arco Vib, f), the trumpet (sus, v3), the tuba (stac, v2 rr1), the glockenspiel, the marimba
 and the xylophone; by Versilian Studios LLC (Sam Gossner). Converted by `vendor/soundfont/build-cc0.js`: mono, trimmed, levelled,
 96 kbps MP3. No attribution is required; this is a thank-you.
@@ -85,4 +86,22 @@ https://github.com/sgossner/VSCO-2-CE and https://versilian-studios.com/vsco-com
 CC0 1.0 Universal: the person who associated a work with this deed has dedicated the work to the public domain by
 waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring
 rights, to the extent allowed by law. https://creativecommons.org/publicdomain/zero/1.0/
+```
+
+## Groove MIDI Dataset (the drummer's fills in index.html, GMD_FILLS): CC BY 4.0
+
+The Band's drummer plays fills taken from the Groove MIDI Dataset, performances by ten drummers recorded on a Roland
+TD-11 electronic kit, by Magenta (Google): Jon Gillick, Adam Roberts, Jesse Engel, Douglas Eck and David Bamman,
+"Learning to Groove with Inverse Sequence Transformations", International Conference on Machine Learning (ICML), 2019.
+https://magenta.tensorflow.org/datasets/groove
+
+Changes: `vendor/build-fills.js` keeps the last bar of each take marked "fill", cuts it where the fill starts, places
+each hit on a sixteenth or triplet grid with its velocity (in nine steps) and its timing against the grid, drops fills
+alike in their hits, and keeps twelve of each length in each genre (with a few more on the snare alone and on the
+triplet grid). The page plays them on its own kit, at its own tempo and level, in place of the groove's last beats.
+
+```
+Creative Commons Attribution 4.0 International (CC BY 4.0). You are free to share and adapt the material for any
+purpose, even commercially, as long as you give appropriate credit, provide a link to the license, and indicate if
+changes were made. https://creativecommons.org/licenses/by/4.0/
 ```

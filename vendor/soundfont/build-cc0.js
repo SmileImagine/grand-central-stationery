@@ -2,14 +2,15 @@
 'use strict';
 /*
   Build the CC0 sample sets from Versilian Studios' libraries (public domain, CC0 1.0):
-    VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare)
+    VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare, toms)
     VSCO 2 CE   https://github.com/sgossner/VSCO-2-CE    (solo double bass pizzicato, solo violin, trumpet, tuba staccato,
                                                           glockenspiel, marimba, xylophone)
 
     node vendor/soundfont/build-cc0.js <downloads> [set,set...]
 
   <downloads> holds the WAVs as fetched, one folder a set: grand/ (Sustains, the v3 layer), recorder/ (Baroque Soprano
-  Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/ and snare/ (Snare Drum, Modern 1); violin/ (Solo Violin,
+  Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/, snare/ (Snare Drum, Modern 1) and tom/ (Tom 1 and
+  Tom 2, Stick: TomH_HitS_*, TomL_HitS_*); violin/ (Solo Violin,
   Arco Vib, f), trumpet/ (Trumpet, sus), tuba/ (Tuba, stac, v2 rr1), glock/, marimba/ and xylo/ (Percussion). Needs ffmpeg.
 
   Each note: mono, 44.1 kHz, from its onset (5 ms before it), cut to its instrument's length with a fade, every note of a
@@ -58,8 +59,26 @@ const SETS = [
   ['vsco_marimba', 'marimba', f => /\.wav$/.test(f), f => midiOf(f.split('_')[3]) + OCTAVE.marimba, m => m < 60 ? 3 : 2, 0.5, 'acoustic_grand_piano'],
   ['vsco_xylophone', 'xylo', f => /\.wav$/.test(f), f => midiOf(f.split('_')[2]) + OCTAVE.xylo - 12, () => 1.5, 0.4, 'acoustic_grand_piano'],
 ];
-// The kit: one sample for each General MIDI drum the band plays; the rest stay with the FluidR3 percussion.
-const KIT = [['snare/Snare2_HitSN_v6_rr1_Mid.wav', 38, 1.4], ['snare/Snare2_stick_v1_rr1_Mid.wav', 37, 0.8], ['hihat/HiHat_HitC_v3_rr1_Mid.wav', 42, 1.0], ['hihat/HiHat_Close_rr1_Mid.wav', 44, 0.8], ['hihat/HiHat_HitO_rr1_Mid.wav', 46, 2.5]];
+// The kit: for each General MIDI drum the band plays, its takes. A drum struck harder is brighter, not only louder, and no
+// two strikes sound the same, so the snare, the closed hat and the toms keep three strengths (p soft, the middle, f hard)
+// and the rest one, each in two takes (Versilian's round robins, rr1 and rr2). Every take of a drum is brought to the
+// loudness of its middle take, so the band's velocity still sets how loud it is and the take only sets its colour.
+// Files: the note's name for the middle take (D2.mp3), then the strength and the take (D2p.mp3, D2f-2.mp3, D2-2.mp3);
+// KIT_TAKES in index.html names the strengths each drum has. The floor tom is the low tom played a fourth down (slower).
+// The toms have no FluidR3 sample to match, so they sit 1 dB under the snare.
+const KIT = [
+  [38, 1.4, { '': 'snare/Snare2_HitSN_v6_rr%_Mid.wav', p: 'snare/Snare2_HitSN_v3_rr%_Mid.wav', f: 'snare/Snare2_HitSN_v9_rr%_Mid.wav' }],
+  [37, 0.8, { '': 'snare/Snare2_stick_v1_rr%_Mid.wav' }],
+  [42, 1.0, { '': 'hihat/HiHat_HitC_v3_rr%_Mid.wav', p: 'hihat/HiHat_HitC_v1_rr%_Mid.wav', f: 'hihat/HiHat_HitC_v4_rr%_Mid.wav' }],
+  [44, 0.8, { '': 'hihat/HiHat_Close_rr%_Mid.wav' }],
+  [46, 2.5, { '': 'hihat/HiHat_HitO_rr%_Mid.wav' }],
+  [50, 1.5, { '': 'tom/TomH_HitS_v3_rr%_Mid.wav', p: 'tom/TomH_HitS_v2_rr%_Mid.wav', f: 'tom/TomH_HitS_v4_rr%_Mid.wav' }],
+  [47, 1.6, { '': 'tom/TomL_HitS_v3_rr%_Mid.wav', p: 'tom/TomL_HitS_v2_rr%_Mid.wav', f: 'tom/TomL_HitS_v4_rr%_Mid.wav' }],
+  [43, 1.9, { '': 'tom/TomL_HitS_v3_rr%_Mid.wav', p: 'tom/TomL_HitS_v2_rr%_Mid.wav', f: 'tom/TomL_HitS_v4_rr%_Mid.wav' }, 5],
+];
+const TOMS = [50, 47, 43];
+// Played `semis` lower: read more slowly (linear interpolation), as a drum tuned down rings lower and longer.
+const lower = (x, semis) => { if (!semis) return x; const r = Math.pow(2, -semis / 12), n = Math.floor((x.length - 1) * r), y = new Float32Array(n); for (let i = 0; i < n; i++) { const p = i / r, k = Math.floor(p), f = p - k; y[i] = x[k] * (1 - f) + x[k + 1] * f; } return y; };
 const fluid = (set, m) => { const f = path.join(out, `${set}-mp3`, `${flat(m)}.mp3`); return fs.existsSync(f) ? read(f) : null; };
 const level = x => rms(x, onset(x), Math.round(0.3 * sr));
 
@@ -80,13 +99,19 @@ for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
 }
 if (!only || only.includes('vcsl_kit')) {
 fs.mkdirSync(path.join(out, 'vcsl_kit-mp3'), { recursive: true });
-for (const [file, m, seconds] of KIT) {
-  const x = shape(read(path.join(src, file)), seconds, Math.min(0.3, seconds / 3)), o = fluid('percussion', m);
-  let g = o ? level(o) / Math.max(1e-6, level(x)) : 1; const peak = x.reduce((p, v) => Math.max(p, Math.abs(v)), 0); g = Math.min(g, 0.89 / peak);
-  for (let i = 0; i < x.length; i++) x[i] *= g;
-  write(x, path.join(out, 'vcsl_kit-mp3', `${flat(m)}.mp3`));
+let snareLevel = null;
+for (const [m, seconds, layers, semis] of KIT) {
+  const takes = [];
+  for (const [layer, file] of Object.entries(layers)) for (const rr of [1, 2]) takes.push({ name: flat(m) + layer + (rr === 2 ? '-2' : ''), x: shape(lower(read(path.join(src, file.replace('%', rr))), semis || 0), seconds, Math.min(0.3, seconds / 3)) });
+  const mid = level(takes[0].x), o = fluid('percussion', m);
+  for (const t of takes) { const g = mid / Math.max(1e-6, level(t.x)); for (let i = 0; i < t.x.length; i++) t.x[i] *= g; }   // every take at the middle one's loudness
+  let g = o ? level(o) / Math.max(1e-6, mid) : TOMS.includes(m) && snareLevel ? snareLevel * Math.pow(10, -1 / 20) / Math.max(1e-6, mid) : 1;
+  const peak = Math.max(...takes.map(t => t.x.reduce((p, v) => Math.max(p, Math.abs(v)), 0))); g = Math.min(g, 0.89 / peak);
+  for (const t of takes) { for (let i = 0; i < t.x.length; i++) t.x[i] *= g; write(t.x, path.join(out, 'vcsl_kit-mp3', `${t.name}.mp3`)); }
+  if (m === 38) snareLevel = mid * g;
+  console.log(`vcsl_kit ${flat(m)}: ${takes.map(t => t.name).join(' ')}`);
 }
-notes.vcsl_kit = KIT.map(k => k[1]).sort((a, b) => a - b);
+notes.vcsl_kit = KIT.map(k => k[0]).sort((a, b) => a - b);
 console.log(`vcsl_kit: ${KIT.length} drums (${notes.vcsl_kit.map(flat).join(' ')}), the rest from percussion`);
 }
 console.log('\nSAMPLE_NOTES = ' + JSON.stringify(notes));
