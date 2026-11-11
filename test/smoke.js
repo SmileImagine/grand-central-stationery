@@ -64,6 +64,10 @@ const accompanimentAudit = spawnSync(process.execPath, ['test/accompaniment-audi
 assert(accompanimentAudit.status === 0, accompanimentAudit.stderr || accompanimentAudit.stdout || 'accompaniment audit checks failed');
 const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], { cwd: root, encoding: 'utf8' });
 assert(coverageMap.status === 0, coverageMap.stderr || coverageMap.stdout || 'coverage map checks failed');
+const concepts = spawnSync(process.execPath, ['course/concepts.js', '--check'], { cwd: root, encoding: 'utf8' });
+assert(concepts.status === 0, concepts.stderr || concepts.stdout || 'course/concepts.json is stale');
+const conceptChecks = spawnSync(process.execPath, ['test/concepts.test.js'], { cwd: root, encoding: 'utf8' });
+assert(conceptChecks.status === 0, conceptChecks.stderr || conceptChecks.stdout || 'concept checks failed');
 const practice = spawnSync(process.execPath, ['test/practice.test.js'], { cwd: root, encoding: 'utf8' });
 assert(practice.status === 0, practice.stderr || practice.stdout || 'practice checks failed');
 // The piece view and the board read only the published set: never the workshop or the review queue.

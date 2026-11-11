@@ -1,4 +1,4 @@
-.PHONY: smoke band-metrics sets reports classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map
+.PHONY: smoke band-metrics sets reports classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map concepts
 
 # The workshop and the review queue exist only in the workshop branch, never on main (see course/README.md).
 sets:
@@ -7,7 +7,7 @@ sets:
 	node course/build-sets.js
 
 # The course reports, rebuilt after the set changes (the smoke test fails while any is stale).
-reports: classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map
+reports: classroom-fit class-parts dossier-gaps accompaniment-audit coverage-map concepts
 
 classroom-fit:
 	node course/classroom-fit.js --md course/classroom-fit.md
@@ -23,6 +23,10 @@ accompaniment-audit:
 
 coverage-map:
 	node course/coverage-map.js --md course/coverage-map.md
+
+# One idea from each element of music in each piece, with the bars that show it (the piece view's Listen step reads it).
+concepts:
+	node course/concepts.js
 
 smoke:
 	node test/smoke.js

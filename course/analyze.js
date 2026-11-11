@@ -192,7 +192,7 @@
     let num = +meter0.num || 4, den = +meter0.den || 4, beat = beatLength(num, den), barLen = num / den;
     let barAcc = {}, pos = 0;          // pos: whole notes since the start of the current bar
     let barIndex = 0, barHasNotes = false, barHash = [];
-    const bars = [], notes = [], tags = new Set(), warnings = [];
+    const bars = [], notes = [], rests = [], tags = new Set(), warnings = [];
     let keyChanges = 0, metreChanges = 0, repeats = 0, endings = 0, chordSymbols = 0, graceNotes = 0, multiStops = 0, slurs = 0;
     const decorations = new Set(), chordNames = new Set();
     let restCount = 0, restBeats = 0, tieCount = 0, tieOverBar = 0, tripletCount = 0, otherTuplets = 0;
@@ -232,6 +232,7 @@
       if (el.rest || !el.pitches || !el.pitches.length) {
         if (el.rest && el.rest.type !== 'spacer' && dur > 0) {
           restCount++; restBeats += durBeats; barHash.push('r' + fraction(durBeats));
+          rests.push({ onsetBeats, durBeats, written: dur, bar: barIndex });
           if (Math.abs(onsetBeats - Math.round(onsetBeats)) > EPS) tags.add('rest-off-beat');
           tags.add('rest');
         }
@@ -262,7 +263,8 @@
         if (!top.tie) pending = null;
         pos += dur; continue;
       }
-      const note = { midi: top.midi, rel, onsetBeats, durBeats, bar: barIndex, explicit: top.explicit, endsAt: pos + dur, beatAtOnset: beat };
+      // written: the note's own length in whole notes (a tie's continuation adds to durBeats, not to this)
+      const note = { midi: top.midi, rel, onsetBeats, durBeats, bar: barIndex, explicit: top.explicit, endsAt: pos + dur, beatAtOnset: beat, written: dur, tuplet: !!(el.tripletMultiplier && el.tripletMultiplier !== 1) };
       notes.push(note);
       pending = top.tie ? note : null;
       pos += dur;
@@ -283,6 +285,9 @@
       warnings: (tune.warnings || []).length,
     };
     if (extra) Object.assign(f, extra);
+    // The notes and rests themselves, for readers that need more than the summary (course/concepts.js); left out of JSON.
+    Object.defineProperty(f, 'notes', { value: notes, enumerable: false });
+    Object.defineProperty(f, 'rests', { value: rests, enumerable: false });
 
     if (n === 0) {
       Object.assign(f, { rangeSemitones: 0, lowMidi: null, highMidi: null, degreeCount: 0, pitchClasses: 0, chromaticClasses: 0, chromaticFraction: 0, pentatonicOnly: true,
