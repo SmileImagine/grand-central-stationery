@@ -2272,6 +2272,9 @@
         const settingsOf = k => { if (k === null) return chart.defaults; let ch = chart.choruses.find(c => c.n === k); if (!ch) { ch = { n: k, params: {}, bars: null }; chart.choruses.push(ch); } return ch.params; };
         const dm = body.match(/^(drums|bass|chords)\s*(\d+)?\s*:\s*(.*)$/i);
         if (dm) { const part = dm[1].toLowerCase(), o = settingsOf(dm[2] ? parseInt(dm[2], 10) : null), text = dm[3].trim(); o[part] = (o[part] ? o[part] + '\n' : '') + text; return; }
+        // "%%band melody2: pipa 2": the heterophony part (heterophony, below), the tune on a second sound; "melody2 3: off" for one time round.
+        const hm = body.match(/^(?:melody2|hetero)\s*(\d+)?\s*:\s*(.*)$/i);
+        if (hm) { const text = hm[2].trim(); for (const p of parseHetero(text).problems) chart.problems.push(`Line ${li + 1}: ${p}`); settingsOf(hm[1] ? parseInt(hm[1], 10) : null).hetero = text; return; }
         // "%%band energy = sine/8:.3:.9" gives a control a pattern (energy, detail, or a part's level); "energy=40" with a plain number is the setting below.
         const cm = body.match(/^(energy|detail|drums|bass|chords|room)\s*(\d+)?\s*=\s*(.*)$/i);
         if (cm && (cm[1].toLowerCase() === 'room' || !/^\d+(\s+[a-z]+=|\s*$)/i.test(cm[3]))) { const o = settingsOf(cm[2] ? parseInt(cm[2], 10) : null); (o.ctl = o.ctl || {})[cm[1].toLowerCase()] = cm[3].trim(); return; }
@@ -2715,7 +2718,11 @@
       persian:   { name: 'Persian folk (frame drum)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
       korean:    { name: 'Korean folk (janggu)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
       drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      sizhu:  { name: 'Sizhu (Chinese silk and bamboo)', noChords: true, hetero: 'pipa 2', fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      andean: { name: 'Andean (flute and panpipe)', noChords: true, hetero: 'panpipe 1', fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
     };
+    // noChords: a style whose music has no chords (no chord symbols are found for it, and the band plays without them);
+    // hetero: the heterophony part it turns on (a %%band melody2: line's text), the tune on a second instrument.
     // comp: the instrument that plays a style's chords (the pad styles and the synth styles keep their own), and walk: whether
     // its bass walks up into a new phrase where the melody holds or rests. fills: the Groove MIDI Dataset genres its drummer
     // takes fills from (GMD_FILLS, the drummer below), snareFills to keep to the snare and kick (a march), fillsSoft to
@@ -2753,6 +2760,8 @@
       if (/korea|arirang|gugak|janggu/.test(r)) return 'korean';
       if (/persian|iran|tasnif|tombak|daf/.test(r)) return 'persian';
       if (/min.?y[oō]|warabe|zashiki|koto/.test(r)) return 'minyo';
+      if (/sizhu|silk.and.bamboo|jiangnan/.test(r)) return 'sizhu';
+      if (/huayno|andean|sikuri|carnavalito/.test(r)) return 'andean';
       if (/reel|hornpipe|strathspey|country|bluegrass|old-?time|breakdown|fiddle|folk|barn/.test(r) || (num === 2 && den === 4)) return 'folk';
       return 'pop';
     }
@@ -3376,6 +3385,17 @@
         bass.push(['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' '));
         chords.push('pad');
       },
+      sizhu: g => {   // Chinese silk and bamboo: the ban (the clapper; here the wood block) on each bar's downbeat, the low block on the other beats at full energy; no bass and no chords, the second instrument plays the tune (melody2)
+        const { drums, bass, chords, hi, nb } = g;
+        drums.push(['wb', ...Array(Math.max(1, nb) - 1).fill(hi ? 'lwb:.3' : '~')].join(' '));
+        bass.push('~'); chords.push('~');
+      },
+      andean: g => {   // Andean huayno: the bombo's long-short-short on each beat (ours: the kick), the chajchas (goat-hoof rattle; the shaker) at full energy; no bass and no chords, flute and panpipe play the tune together (melody2)
+        const { drums, bass, chords, lo, hi, nb, compound } = g, beats = Math.max(1, nb);
+        drums.push(lo ? ['bd:.7', ...Array(beats - 1).fill('~')].join(' ') : Array(beats).fill(compound ? 'bd ~ bd:.5' : '[bd ~ bd:.5 bd:.55]').join(' '));
+        if (hi) drums.push(`sh:.25*${2 * beats}`);
+        bass.push('~'); chords.push('~');
+      },
       house: g => {   // four on the floor, claps on two and four, the open hat between the kicks, an offbeat bass
         const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
         drums.push('bd*4');
@@ -3418,6 +3438,111 @@
       GROOVES[style](g);
       return ['drums:', ...g.drums, 'bass:', ...g.bass, 'chords:', ...g.chords].join('\n');
     };
+    /* ---- heterophony: the tune again, on a second instrument ----
+       A Chinese silk-and-bamboo (sizhu) ensemble or an Andean flute and
+       panpipe pair plays one line together, each instrument filling it out
+       a little in its own way (in Chinese, jiahua, "adding flowers"); there
+       are no chords. "%%band melody2: pipa 2" turns that part on: the
+       melody, on the sound named, at an ornament level from 0 to 3.
+         0  the tune doubled exactly
+         1  now and then a passing note into the next note a third or a
+            fourth away, or a long note struck again; each note a few ms
+            early or late, so the two lines are not one
+         2  more of those, and neighbour notes on the long notes (the note,
+            the scale's next note above or below, the note again)
+         3  most notes that have room, a long note leaping to its octave, and
+            a plucked sound's long notes as repeated notes (a pipa or a
+            yangqin keeps its sound alive that way)
+       The fills come only from the tune's own scale: the notes the melody
+       plays (the key's, and any other it dwells on), so a pentatonic tune's
+       fills stay pentatonic. octave=1 (or -1) plays the line an octave up
+       (or down); off silences it ("%%band melody2 3: off" for one time round).
+       A number before the colon, as for the other lines, gives one time
+       round its own. Seeded by the band's seed and the time round, so the
+       same ABC plays the same each time. A sound named for an instrument the
+       page has no samples for plays on the nearest it has (`on`), and the
+       Band note says so. */
+    const HETERO_SOUNDS = {
+      recorder: { prog: 74, name: 'Recorder' },
+      flute: { prog: 73, name: 'Flute', on: 'the recorder' },
+      dizi: { prog: 73, name: 'Dizi', on: 'the recorder' },
+      panpipe: { prog: 75, name: 'Panpipe', on: 'the recorder' },
+      quena: { prog: 73, name: 'Quena', on: 'the recorder' },
+      violin: { prog: 40, name: 'Violin' },
+      erhu: { prog: 40, name: 'Erhu', on: 'the violin' },
+      guitar: { prog: 24, name: 'Guitar', plucked: true },
+      pipa: { prog: 24, name: 'Pipa', on: 'the nylon guitar', plucked: true },
+      piano: { prog: 0, name: 'Piano', plucked: true },
+      marimba: { prog: 12, name: 'Marimba', plucked: true },
+      yangqin: { prog: 15, name: 'Yangqin', on: 'the marimba', plucked: true },
+      xylophone: { prog: 13, name: 'Xylophone', plucked: true },
+      glockenspiel: { prog: 9, name: 'Glockenspiel', plucked: true },
+    };
+    function parseHetero(text) {
+      const h = { sound: 'recorder', level: 1, octave: 0, off: false, problems: [] }, bad = [];
+      for (const tok of (text || '').trim().split(/\s+/).filter(Boolean)) {
+        const w = tok.toLowerCase(), kv = /^(octave|level)=(.*)$/.exec(w);
+        if (w === 'off' || w === 'none') h.off = true;
+        else if (HETERO_SOUNDS[w]) h.sound = w;
+        else if (/^[0-3]$/.test(w)) h.level = +w;
+        else if (kv && kv[1] === 'level' && /^[0-3]$/.test(kv[2])) h.level = +kv[2];
+        else if (kv && kv[1] === 'octave' && /^[+-]?[0-2]$/.test(kv[2])) h.octave = +kv[2];
+        else bad.push(`"${tok}"`);
+      }
+      if (bad.length) h.problems.push(`melody2: ${bad.join(' and ')} ${bad.length > 1 ? 'are' : 'is'} not a sound (${Object.keys(HETERO_SOUNDS).join(', ')}), an ornament level (0 to 3), octave=1 or off.`);
+      return h;
+    }
+    // The tune's line as one voice: its notes (abcjs's, in whole notes), the top note where it plays a chord.
+    function topLine(notes) {
+      const at = new Map();
+      for (const n of notes) { const k = Math.round(n.start * 1e6), d = n.duration - (n.gap || 0); if (!(d > 0)) continue; const o = at.get(k); if (!o || n.pitch > o.pitch) at.set(k, { start: n.start, dur: d, pitch: n.pitch, vel: Math.max(0.05, Math.min(1, (n.volume || 90) / 127)) }); }
+      const line = [...at.values()].sort((a, b) => a.start - b.start);
+      line.forEach((n, i) => { const next = line[i + 1]; if (next && n.start + n.dur > next.start) n.dur = next.start - n.start; });   // one voice: a note ends where the next begins (abcjs lets some overlap a hair)
+      return line;
+    }
+    // The tune's own scale, as pitch classes: the notes the melody plays that are in the key, or that it dwells on
+    // (6% of its length or more), so a passing chromatic note is not a scale step and a pentatonic tune stays pentatonic.
+    function tuneScale(line, keyScale) {
+      const dur = new Array(12).fill(0); let all = 0;
+      for (const n of line) { dur[((n.pitch % 12) + 12) % 12] += n.dur; all += n.dur; }
+      return dur.map((d, pc) => d > 0 && ((keyScale && keyScale.includes(pc)) || d >= 0.06 * all) ? pc : -1).filter(pc => pc >= 0);
+    }
+    // The second instrument's line: `line` (topLine), o.level 0..3, o.octave, o.seed, o.beat (a beat in whole notes),
+    // o.compound, o.plucked, o.scale (tuneScale). Each note { start, dur (whole notes), pitch, vel, shift (ms), fill }.
+    function heterophony(line, o) {
+      const L = o.level || 0, rng = mulberry((o.seed || 1) * 7333 + 17 + L), up = 12 * (o.octave || 0), out = [];
+      const scale = o.scale && o.scale.length >= 3 ? o.scale : null, inScale = m => !!scale && scale.includes(((m % 12) + 12) % 12);
+      const between = (a, b) => { const r = [], s = Math.sign(b - a); for (let m = a + s; m !== b; m += s) if (inScale(m)) r.push(m); return r; };
+      const stepFrom = (m, dir) => { for (let k = 1; k <= 3; k++) if (inScale(m + dir * k)) return m + dir * k; return null; };   // the scale's next note, a tone or a minor third away at most
+      const beat = o.beat || 0.25, unit = beat / (o.compound ? 3 : 2), E = 1e-9;
+      const chance = [0, 0.35, 0.6, 0.85][L], wobble = [0, 6, 10, 14][L];   // wobble: ms either way
+      const top = Math.max(...line.map(n => n.pitch));
+      const push = (start, dur, pitch, vel, fill) => out.push({ start, dur, pitch: pitch + up, vel, fill: !!fill, shift: wobble && start > E ? Math.round((rng() * 2 - 1) * wobble) : 0 });
+      line.forEach((n, i) => {
+        const next = line[i + 1], d = n.dur, joined = next && Math.abs(next.start - (n.start + d)) < 1e-6;
+        if (!L || !scale || d < 2 * unit - E || rng() >= chance) { push(n.start, d, n.pitch, n.vel); return; }
+        const opts = [];
+        if (joined && Math.abs(next.pitch - n.pitch) <= 5) { const pass = between(n.pitch, next.pitch); if (pass.length && d >= (pass.length + 1) * unit - E) opts.push(['pass', o.plucked ? 2 : 3, pass]); }
+        if (d >= beat - E) opts.push(['repeat', o.plucked ? 3 : 1]);
+        if (L >= 2 && d >= (L >= 3 ? beat : 2 * beat) - E && d >= 3 * unit - E) { const nb = stepFrom(n.pitch, rng() < 0.7 ? 1 : -1); if (nb !== null) opts.push(['turn', o.plucked ? 1 : 2, nb]); }
+        if (L >= 3 && d >= 2 * beat - E && n.pitch + 12 <= top + 7) opts.push(['octave', 1]);
+        if (!opts.length) { push(n.start, d, n.pitch, n.vel); return; }
+        let r = rng() * opts.reduce((a, x) => a + x[1], 0), choice = opts[0]; for (const x of opts) { if ((r -= x[1]) < 0) { choice = x; break; } }
+        const [kind, , arg] = choice;
+        if (kind === 'pass') {
+          const head = d - arg.length * unit; push(n.start, head, n.pitch, n.vel);
+          arg.forEach((m, k) => push(n.start + head + k * unit, unit, m, n.vel * 0.8, true));
+        } else if (kind === 'turn') {
+          push(n.start, d - 2 * unit, n.pitch, n.vel); push(n.start + d - 2 * unit, unit, arg, n.vel * 0.8, true); push(n.start + d - unit, unit, n.pitch, n.vel * 0.85, true);
+        } else if (kind === 'octave') {
+          push(n.start, d / 2, n.pitch, n.vel); push(n.start + d / 2, d / 2, n.pitch + 12, n.vel * 0.85, true);
+        } else {   // repeat: struck again halfway, or a plucked sound's tremolo-like strokes at the top level
+          const k = L >= 3 && o.plucked ? Math.min(8, Math.max(2, Math.round(d / unit))) : 2, step = d / k;
+          for (let j = 0; j < k; j++) push(n.start + j * step, step, n.pitch, n.vel * (j ? 0.75 : 1), j > 0);
+        }
+      });
+      return out;
+    }
     // A sample set may keep only every few notes (SAMPLE_STEP: semitones between the notes it keeps, 1 or absent for every
     // note); a note it lacks plays its nearest kept neighbour retuned, so a set of every third note is never more than a
     // semitone from the note asked for, and is a third of the download. test/band-report.js measures what that costs.
@@ -3793,7 +3918,7 @@
           }
         }
         res.segs = segs;
-        if (!segs.some(sg => sg.chord)) return res;
+        if (!segs.some(sg => sg.chord) && !(STYLES[cell.styleKey] || {}).noChords) return res;   // a style without chords (sizhu) plays its drums without them
         const chordAt = ms => { let c = null; for (const sg of segs) { if (sg.ms <= ms + 1) c = sg.chord; else break; } return c; };
         const { energy, detail, seed } = spec;
         const key = cell.keyInfo();
@@ -3877,8 +4002,8 @@
           const events = part => score.parts[part](cyc, cyc + 1).filter(ev => ev.begin >= cyc - 1e-9 && ev.begin < cyc + 1 - 1e-9).sort((a, b) => a.begin - b.begin);
           // ---- chords ----
           const chordEvs = events('chords');
-          // A chord change inside the bar gets a hit of its own when the pattern has none there.
-          for (const sg of segs) {
+          // A chord change inside the bar gets a hit of its own when the pattern has none there (not in a style without chords: the tune's written symbols stay silent).
+          if (!(STYLES[cell.styleKey] || {}).noChords) for (const sg of segs) {
             const frac = (sg.ms - bar.s) / barMs; if (!sg.chord || frac <= 0.01 || frac >= 0.99) continue;
             if (chordEvs.some(ev => Math.abs(ev.begin - cyc - frac) < 0.02 && CHORD[ev.name.toLowerCase()] && ev.name.toLowerCase() !== 'pad')) continue;
             const nextEv = chordEvs.find(ev => ev.begin > cyc + frac + 0.02 && ev.name.toLowerCase() !== 'pad');
@@ -4230,6 +4355,7 @@
     // Measured by test/band-report.js: a handful of biquads and panners on one context costs next to nothing.
     const TONE = {
       melody:  { pan: 0, eq: [['peaking', 2800, 0.9, 2.5]] },
+      hetero:  { pan: 0.35, eq: [['peaking', 2800, 0.9, 1.5]] },   // the heterophony part: the tune again, a little right of it (the chords, when there are any, stand left)
       chords:  { pan: -0.6, eq: [['highpass', 150, 0.7], ['peaking', 330, 1.1, -3]] },
       chordsHi: { pan: 0.3, eq: [['highpass', 150, 0.7], ['peaking', 330, 1.1, -3]] },   // the comping's upper notes, as a piano miked in stereo
       bass:    { pan: 0, eq: [['highpass', 32, 0.7], ['peaking', 260, 1.0, -2.5]] },
@@ -4288,26 +4414,47 @@
         const feel = cell.feel(), mm = feel > 0 && cell.original ? melodyMap(cell.original) : null;
         const maps = new Map(), mapOf = v => { if (!v) return mm; if (!maps.has(v)) maps.set(v, melodyMap(cell.original, v)); return maps.get(v); };   // each voice phrases by its own notes
         const shaped = tr => humanize(tr, mapOf(tr.voice || 0), feel, cell.inst, (cell.band && cell.band.seed) || 1, this.msPerWhole).map(n => ({ part: 'melody', voice: tr.voice || 0, folder: folderOf(tr.prog), midi: n.midi, ms: n.start * this.msPerWhole, dur: Math.max(0.03, n.dur * this.msPerWhole / 1000), vel: n.vel, rel: n.rel, fx: n.fx }));
+        // Swing: the off-beat eighth lands late, and the on-beat one stretches to meet it (len: the note as written).
+        const swung = (start, dur, len) => {
+          const inBeat = start % beatLen, eighth = beatLen / 2;
+          if (Math.abs(inBeat - eighth) < 1e-6) return [start + (swing - 0.5) * beatLen, Math.min(dur, beatLen * (1 - swing))];
+          if (Math.abs(inBeat) < 1e-6 && Math.abs(len - eighth) < 1e-6) return [start, beatLen * swing - 0.02];
+          return [start, dur];
+        };
         for (const tr of this.tracks) {
           if (tr.part === 'drums' && file) continue;
           const folder = folderOf(tr.prog);
           if (tr.part === 'melody' && mm) { out.push(...shaped(tr)); continue; }
           for (const n of tr.notes) {
             let start = n.start, dur = n.duration - (n.gap || 0);
-            if (swing && tr.part !== 'drums') {   // the off-beat eighth lands late, and the on-beat one stretches to meet it
-              const inBeat = start % beatLen, eighth = beatLen / 2;
-              if (Math.abs(inBeat - eighth) < 1e-6) { start += (swing - 0.5) * beatLen; dur = Math.min(dur, beatLen * (1 - swing)); }
-              else if (Math.abs(inBeat) < 1e-6 && Math.abs(n.duration - eighth) < 1e-6) dur = beatLen * swing - 0.02;
-            }
+            if (swing && tr.part !== 'drums') [start, dur] = swung(start, dur, n.duration);
             out.push({ part: tr.part, voice: tr.voice || 0, folder, midi: n.pitch, ms: start * this.msPerWhole, dur: Math.max(0.03, dur * this.msPerWhole / 1000), vel: Math.max(0.05, Math.min(1, (n.volume || 90) / 127)), rel: tr.part === 'melody' ? 0.14 : 0.08 });
           }
         }
         const specs = cell.chorusSpecs();
         this.choruses = specs.map(spec => band.prepare(spec));
+        // The heterophony part (a %%band melody2: line, or the style's): the tune again on a second sound, from the
+        // melody as written (voice 1, the top note of a chord), filled out a little differently each time round in the
+        // tune's own scale, each note a few ms off the melody's (heterophony, above). It plays when the band does.
+        const lineNotes = this.leadTrack ? topLine(this.leadTrack.notes) : [], scale = tuneScale(lineNotes, (cell.keyInfo() || {}).scale);
+        const compound = Math.abs(beatLen * 8 / 3 - Math.round(beatLen * 8 / 3)) < 1e-6;
+        const heteros = specs.map(spec => {
+          const h = spec.hetero ? parseHetero(spec.hetero) : null;
+          if (!h || h.off || h.problems.length || !lineNotes.length || !band.active()) return null;
+          const snd = HETERO_SOUNDS[h.sound], folder = folderOf(snd.prog);
+          const notes = heterophony(lineNotes, { level: h.level, octave: h.octave, seed: spec.seed, beat: beatLen, compound, plucked: !!snd.plucked, scale }).map(n => {
+            let start = n.start, dur = n.dur; if (swing) [start, dur] = swung(start, dur, dur);
+            return { part: 'hetero', folder, midi: n.pitch, ms: Math.max(0, start * this.msPerWhole + n.shift), dur: Math.max(0.03, dur * this.msPerWhole / 1000), vel: n.vel * 0.7, rel: snd.plucked ? 0.3 : 0.14 };
+          });
+          return { h, snd, notes };
+        });
+        const firstHetero = heteros.find(Boolean);
+        cell.hetero = firstHetero ? { h: firstHetero.h, snd: firstHetero.snd, scale, final: lineNotes.length ? lineNotes[lineNotes.length - 1].pitch % 12 : null } : null;
+        if (cell.showHetero) cell.showHetero();
         cell.bandNotes = [...new Set(this.choruses.flatMap(c => c.problems))].map(t => ({ text: 'Band: ' + t }));
         cell.showNotes(); if (cell.refreshBandNote) cell.refreshBandNote(); if (cell.refreshPattern) cell.refreshPattern();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
-        this.cycles = this.choruses.map(ch => [...out, ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: n.rel || 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
+        this.cycles = this.choruses.map((ch, c) => [...out, ...(heteros[c] ? heteros[c].notes : []), ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: n.rel || 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
         // A round: the other groups sing the melody as the first group does (with its feel), from the same list, later.
         this.round = tl && tl.round && this.leadTrack ? tl.round : null;
         this.fades = cell.fades && cell.fades.parts.size ? cell.fades : null;
@@ -4328,7 +4475,7 @@
         if (bandOn && sect.ending === 'hit') {
           const B = backFrom(1), ring = Math.max(1.2, (this.total - B) / 1000), folder = band.folder('drums');
           this.endings = this.cycles.map((N, c) => {
-            const out = N.filter(n => n.part === 'melody' || n.ms < B - 10 || (n.part === 'drums' && n.ms < B + 15));
+            const out = N.filter(n => n.part === 'melody' || n.part === 'hetero' || n.ms < B - 10 || (n.part === 'drums' && n.ms < B + 15));
             for (const part of ['chords', 'bass']) {
               const ns = N.filter(n => n.part === part && n.ms >= B - 10); if (!ns.length) continue;
               const t0 = Math.min(...ns.map(n => n.ms));
@@ -4670,6 +4817,8 @@
       { part: 'melody', name: 'Melody', svg: FIGURE('<circle cx="19" cy="11" r="5"/><path d="M14.5 10c-1 5-2 9-4 12M23.5 10c1 5 2 9 4 12"/><path d="M12 31c0-5 3-9 7-9s7 4 7 9"/><path d="M34 7v11"/><ellipse class="fill" cx="31.5" cy="19" rx="3" ry="2.2"/><path d="M34 7c2 1 4 2 5 4"/>') },
       // A round's other groups (shown only for a round; the Melody figure is group 1 then): a singer with the group's number.
       ...[2, 3, 4].map(n => ({ part: 'group' + n, name: 'Group ' + n, round: true, svg: FIGURE(`<circle cx="15" cy="11" r="5"/><path d="M8 31c0-5 3-9 7-9s7 4 7 9"/><path d="M21 14c2 0 3 1 3 3"/><text x="33" y="34" text-anchor="middle" style="fill: currentColor; stroke: none; font: 700 15px 'Atkinson Hyperlegible', sans-serif">${n}</text>`) })),
+      // The heterophony part (shown only when it plays; named for its sound): a player with a flute held across, and a 2.
+      { part: 'hetero', name: 'Melody 2', hetero: true, svg: FIGURE('<circle cx="15" cy="11" r="5"/><path d="M8 31c0-5 3-9 7-9s7 4 7 9"/><path d="M12 17l22-6"/><path d="M24 14l0.4 1.4M29 12.6l0.4 1.4"/><text x="33" y="34" text-anchor="middle" style="fill: currentColor; stroke: none; font: 700 15px \'Atkinson Hyperlegible\', sans-serif">2</text>') },
       { part: 'chords', name: 'Chords', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><rect class="fill" x="6" y="27" width="32" height="11" rx="1.5"/><path d="M11 27v6M16 27v6M24 27v6M29 27v6M34 27v6"/>') },
       { part: 'bass', name: 'Bass', svg: FIGURE('<circle cx="13" cy="11" r="5"/><path d="M8.5 10c-1 5-2 9-4 12M17.5 10c1 5 2 9 4 12"/><path d="M6 31c0-5 3-9 7-9s7 4 7 9"/><path class="fill" d="M30 20c-4 0-6 3-5 6c-3 1-4 5-2 8c1 3 4 5 7 5s6-2 7-5c2-3 1-7-2-8c1-3-1-6-5-6z"/><path d="M30 20V7"/><path d="M30 7c2-1 3.5 0.5 2.5 2.5"/><path d="M27.5 29.5v3.5M32.5 29.5v3.5"/>') },
       { part: 'drums', name: 'Drums', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><circle class="fill" cx="22" cy="32" r="8"/><path d="M4 16h11M9.5 16v12M30 16h10M35 16v12"/><path d="M15 22l-4-5M29 22l4-5"/>') },
@@ -4761,7 +4910,7 @@
           <div class="bandnote"></div>
           </div>
           </div>
-          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"${m.round ? ' hidden' : ''}><input type="range" class="lvl" min="0" max="150" step="5" value="100" list="gcs-mix-unity" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
+          <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"${m.round || m.hetero ? ' hidden' : ''}><input type="range" class="lvl" min="0" max="150" step="5" value="100" list="gcs-mix-unity" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
         this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band; this.bandGhost = '';
         const xp = body.querySelector('input.tr');
         xp.addEventListener('input', () => {
@@ -4813,7 +4962,9 @@
         this.refreshPattern = () => {
           const ch = this.player && this.player.choruses && this.player.choruses[0], d = ch && ch.score;
           if (d && d.written && document.activeElement !== bandBox) {
-            const ghost = Mini.PARTS.filter(part => !d.ownParts[part]).flatMap(part => d.written[part].map(l => `${part}: ${l}`)).join('\n');
+            // and the style's heterophony part (sizhu's pipa, say), unless a melody2 line is typed
+            const sh = (STYLES[this.styleKey] || {}).hetero, ch = this.chart || { defaults: {}, choruses: [] }, typedH = ch.defaults.hetero !== undefined || ch.choruses.some(c => c.params.hetero !== undefined);
+            const ghost = [...Mini.PARTS.filter(part => !d.ownParts[part]).flatMap(part => d.written[part].map(l => `${part}: ${l}`)), ...(sh && !typedH ? [`melody2: ${sh}`] : [])].join('\n');
             const real = this.bandReal(), v = real + (real && ghost ? '\n' : '') + ghost;
             this.bandGhost = ghost;
             if (bandBox.value !== v) { const st = bandBox.scrollTop; bandBox.value = v; bandBox.scrollTop = st; }
@@ -4985,6 +5136,22 @@
         dlg.querySelector('.cancel').onclick = () => dlg.close();
         dlg.showModal();
       }
+      // The Mixer's Melody 2 figure: there while the heterophony part plays, named for its sound.
+      showHetero() {
+        const mem = this.body && this.body.querySelector('.mixer .member[data-part="hetero"]'); if (!mem) return;
+        mem.hidden = !this.hetero; if (!this.hetero) return;
+        const name = this.hetero.snd.name; mem.querySelector('span').textContent = name;
+        mem.querySelector('.lvl').setAttribute('aria-label', `${name} (melody 2) level`); mem.querySelector('.figure').title = `${name}, the tune again (melody 2): click to mute or unmute`;
+      }
+      // What the heterophony part plays, for the band note.
+      heteroNote() {
+        const x = this.hetero; if (!x) return '';
+        const { h, snd } = x, key = this.keyInfo(), NAMES = key.flats ? FLAT_NAMES : SHARP_NAMES, from = x.final === null ? 0 : x.final;
+        const scale = [...x.scale].sort((a, b) => ((a - from + 12) % 12) - ((b - from + 12) % 12)).map(pc => NAMES[pc].replace('#', '\u266F').replace('b', '\u266D')).join(' ');
+        const what = [' doubles it exactly', ' adds a passing note or strikes a long note again here and there', ' adds passing notes, neighbour notes round the long notes and repeated notes', ` fills out most notes that have room: passing and neighbour notes, octave leaps on long notes${snd.plucked ? ' and repeated strokes' : ''}`][h.level];
+        const oct = h.octave ? ` an octave ${h.octave > 0 ? 'up' : 'down'}${Math.abs(h.octave) > 1 ? ' twice' : ''},` : '';
+        return ` Melody 2: the tune again on the ${snd.name.toLowerCase()}${snd.on ? ` (on ${snd.on}\u2019s samples)` : ''},${oct} ornament ${h.level}: it${what}${h.level ? `, only in the tune\u2019s scale (${scale}), a few ms off the melody` : ''}. Its level and mute are in the Mixer.`;
+      }
       // What the band will play, under its controls.
       refreshBandNote() {
         const el = this.body.querySelector('.bandnote'); if (!el) return;
@@ -4998,10 +5165,11 @@
         const arc = !chart.choruses.length && this.autoArcVal && harmonyOf(this.styleKey).moves === false ? ' With Repeat on, the drone holds its tonic while the band builds and settles from one time round to the next. Arrange writes that arrangement here to keep or edit.' : !chart.choruses.length && this.autoArcVal ? ' With Repeat on, each time round builds on the last: richer chords, then approach chords, then full energy, then a quiet last time, each in the style\u2019s own harmony. Arrange writes that arrangement here to keep or edit.' : ' Arrange writes a five-chorus arrangement here to keep or edit.';
         const sect = this.sections();
         const ends = sect.ending === 'hit' ? ' The band ends on a final chord (ending=none to play on to the end).' : ' ending=none plays the groove to the end.';
-        el.textContent = charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` + ends :
+        if ((STYLES[this.styleKey] || {}).noChords && !charted) { el.textContent = `${STYLES[this.styleKey].name}: no chords; the percussion keeps time and the tune is the music.` + this.heteroNote(); return; }
+        el.textContent = (charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` + ends :
           written ? 'The band plays the melody’s chord symbols.' + arc + ends :
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc + ends :
-          'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.';
+          'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.') + this.heteroNote();
       }
       transportState() { const playing = !!(this.player && this.player.running); if (this.clock) this.clock.set({ playing, canReset: !playing && this.player.pos > 0, repeat: !!this.player.loop }); }
       getText() { return joinBand(this.entry.value, this.bandReal()); }
@@ -5128,7 +5296,7 @@
         // No arrangement: Chords on Auto finds chords from the melody wherever none are written (all of a tune without symbols, or the bars its symbols leave out), so the band has something to play.
         this.styleKey = styleFor(this.style, text);   // the text, not abc: chartComment has hidden the %%style line by now
         this.tuneVoice = voiceFor(text);   // the melody's sound with no instrument view (TUNE_VOICE)
-        if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
+        if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars) && !(STYLES[this.styleKey] || {}).noChords) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
         if (location.protocol === 'file:') abc = withStyle(abc, classicFor(abc));
@@ -5462,7 +5630,7 @@
         const b = this.band || {}, ch = this.chart || { defaults: {}, choruses: [] };
         const base = { energy: b.i === undefined ? 50 : b.i, detail: b.c === undefined ? 50 : b.c, seed: b.seed || 1, ...ch.defaults };
         const steps = o => { const L = []; if (o.kick) L.push(miniOf(o.kick, 'bd', .6)); if (o.snare) L.push(miniOf(o.snare, 'sd', .5)); if (o.hat) L.push(miniOf(o.hat, 'hh', .35)); return L.length ? L.join('\n') : null; };
-        const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, drums: o.drums || steps(o), bass: o.bass || null, chords: o.chords || (o.comp ? miniOf(compHold(o.comp), 'ch', .6) : null), ctl: o.ctl || {}, texture: o.texture || 'full' });
+        const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, drums: o.drums || steps(o), bass: o.bass || null, chords: o.chords || (o.comp ? miniOf(compHold(o.comp), 'ch', .6) : null), ctl: o.ctl || {}, texture: o.texture || 'full', hetero: o.hetero !== undefined ? o.hetero : (STYLES[this.styleKey] || {}).hetero || null });
         if (!ch.choruses.length) {
           const arc = this.plainBand ? null : this.autoArc();   // plainBand (the piece view's loops): the same chorus every time round
           if (!arc) return [spec(base)];
@@ -5483,6 +5651,7 @@
         try {
           const ch = parseChart(arrange(this.original, this.keyInfo(), { energy: 50, detail: 50, seed: 1 }, harmonyOf(this.styleKey), formOf(this.styleKey)).join('\n')).choruses;
           if (ch.length === 5) val = [{ de: 0, dd: 0, bars: null }, { de: 5, dd: 15, bars: ch[1].bars }, { de: 15, dd: 30, bars: ch[2].bars, texture: ch[2].params.texture }, { de: 30, dd: 45, bars: ch[3].bars }, { de: -20, dd: 0, bars: ch[4].bars }];
+          if (val && (STYLES[this.styleKey] || {}).noChords) val = val.map(a => ({ ...a, bars: null }));   // a style without chords: only the energy moves
         } catch (err) { console.warn('arc', err); }
         this.autoArcFor = this.original; this.autoArcStyle = this.styleKey; this.autoArcVal = val;
         return val;
@@ -5763,7 +5932,7 @@
       wake() { if (!this.raf) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); }); }
       feel() { const f = this.band && this.band.feel; return (f === undefined ? 50 : Math.max(0, Math.min(100, f))) / 100; }
       // What the mixer sets: each part's gain, 0..1 (1 is the Band's own balance).
-      mix() { const m = (this.band && this.band.mix) || {}, mute = (this.band && this.band.mute) || []; const g = k => mute.includes(k) ? 0 : m[k] === undefined ? 1 : Math.max(0, Math.min(1.5, m[k] / 100)); return { melody: g('melody'), chords: g('chords'), bass: g('bass'), drums: g('drums'), group2: g('group2'), group3: g('group3'), group4: g('group4') }; }
+      mix() { const m = (this.band && this.band.mix) || {}, mute = (this.band && this.band.mute) || []; const g = k => mute.includes(k) ? 0 : m[k] === undefined ? 1 : Math.max(0, Math.min(1.5, m[k] / 100)); return { melody: g('melody'), hetero: g('hetero'), chords: g('chords'), bass: g('bass'), drums: g('drums'), group2: g('group2'), group3: g('group3'), group4: g('group4') }; }
       // The timeline: every abcjs timing event with its time, display
       // geometry, pitches and chord in force, plus the beat and the count-in.
       buildTimeline() {
