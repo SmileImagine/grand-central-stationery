@@ -9,8 +9,8 @@
  ],
  "counts": {
   "inbox": 0,
-  "transcription": 2,
-  "source-check": 17,
+  "transcription": 3,
+  "source-check": 18,
   "classroom-check": 0,
   "ready": 0
  },
@@ -370,6 +370,51 @@
    }
   },
   {
+   "id": "mafuve",
+   "file": "items/mafuve.abc",
+   "title": "Mafuve",
+   "subtitle": "Dance of girls: Ndau dance song with four clap parts",
+   "source": "Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), \"Mafuve: Dance of Girls\", pp. 103-105 (words and dance pp. 29-30)",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/103/mode/1up",
+     "label": "archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 103 (music with the four clap parts; continues pp. 104-105)"
+    },
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/29/mode/1up",
+     "label": "the same, pp. 29-30: the dance, and the words with Curtis's translation"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No recording of this song found. Curtis made phonograph records of the singers (book, p. xxv), not yet located (Columbia University, the Library of Congress and the Smithsonian are the likely places). For the style of Ndau singing with clapping, the International Library of African Music (ILAM, Rhodes University) holds many Ndau recordings: digitalarchives.ru.ac.za, search \"Ndau\"; listen and choose one before linking."
+   ],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Transcription: the opening six bars and the four clap parts are read; the rest of the song (pp. 104-105: \"Ndo da kwumisha\", the grunted \"O ha o\" bars, the ending) is still to transcribe, though Curtis says any phrase may be repeated and the order is free, so these six bars looped are already the song as danced. Then source check (the sextuplet clap figures, and \"e\" at the end of bar 4 against \"e yo-we\" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.",
+   "notes": "THE CLAPS (p. 103), one bar each, in sixteenths of a 3/4 bar: 1. two eighths (accented) | an eighth-note triplet, the last tied over | a sextuplet: (tie), clap, (hold), clap, (hold), rest. 2. (the dancers only) rest, clap, rest, clap | rest | rest. 3. four sixteenths | a sextuplet: eighth, eighth, sixteenth, sixteenth | two eighths. 4. eighth and two sixteenths | sixteenth, eighth, two thirty-seconds | three sixteenths and a rest. A footnote gives a quintuplet as another rhythm for beats 2 and 3 of the third part.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A dance song of girls and young women (Ndau, central Mozambique). It tells of a young bride who, though she loves her husband and her new home, longs for her mother and her childhood home: \"Alas, my mother's home! I left my mother's home; I love my husband's home.\" Two girls dance at a time, facing each other, starting with two stamps; the others stand round them in a circle, clapping and singing, until their turn (Curtis pp. 29-30, from C. Kamba Simango).",
+    "elements": "3/4 at quarter = 63; E major; each bar a call on the first beat (\"E-yo-we\", \"Kwa-mai-we\") then a quick falling run of vocables (F E D C C: \"we yo we i-ye\"); the first beat carries the words and the dancers' two stamps, the rest is \"parenthetical\", carried by quicker clapping (Curtis's note under the music). Range B below middle C to B.",
+    "practice": "Not fast. The song is repeated and recombined at will: \"any phrase or group of phrases of this song may be repeated an indefinite number of times, so the song may be sung for an hour, or an hour and a half, steadily. There is no prescribed order\" (Curtis, p. 105). In class: four groups take one clap rhythm each, two dancers stamp on the first beat and do the second clap; everyone sings.",
+    "accompaniment": "Tradition: \"No drums are used, the song being accompanied by the clapping of hands\" (p. 29). Curtis prints four hand-clap rhythms under the voice and explains (p. 105) that no one keeps one rhythm all through: each clapper changes every two or three bars, but \"a chorus of clapping, composed of all four rhythms sounding at the same time, is always heard\" once the song is under way. The second rhythm (16th rest, clap, 16th rest, clap on the first beat) belongs to the two dancers. Band here: the four rhythms exactly as printed, each on its own sound so the layers can be told apart (clap, claves, wood block, rim), and the dancers' two stamps on the kick; all of these are hand claps and feet in the tradition. No bass, no chords.",
+    "lyrics": "Chindau with Curtis's singing translation. Mostly vocables (eyo'we, we yo'we iye); the words proper: \"Kwa'mai-we\" (my mother's home), \"Kwa'mai nda lega\" (I left my mother's home), \"Ndo da kwumisha\" (I love my husband's home). Fit for class as a song about missing home. Curtis's own aside (women marry very young) is left out. Spelling to be checked by a Chindau speaker.",
+    "honesty": "Traditional; the notes, words, accents and the four clap parts as Curtis printed them from C. Kamba Simango and other Ndau singers. Only the sounds of the layers are ours (in the tradition they are all hand claps).",
+    "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
+    "respect": "A social dance song, nothing sacred. Credit C. Kamba Simango. The book's general framing (\"Dark Continent\", remarks on race) stays out of the record; Curtis's description of the dance and the clapping is kept.",
+    "review": "A Chindau speaker, for the words; a teacher of southern African dance, for the stamps and the circle."
+   }
+  },
+  {
    "id": "mu-to-to-lile",
    "file": "items/mu-to-to-lile.abc",
    "title": "Mu-to-to-li'le",
@@ -441,6 +486,52 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
     "respect": "A children's game, nothing sacred. Credit C. Kamba Simango. Leave out Curtis's remark beneath the plate comparing African and African-American accentuation; keep her game notes.",
     "review": "A Chindau speaker, for the words and stresses."
+   }
+  },
+  {
+   "id": "na-bahia-tem",
+   "file": "items/na-bahia-tem.abc",
+   "title": "Na Bahia tem",
+   "subtitle": "In Bahia there is: Brazilian sung dance in two lines",
+   "source": "Alexina de Magalhães Pinto, Cantigas das creanças e do povo e danças populares (Rio de Janeiro: F. Alves, 1916), p. 15; the dance pp. 109-112",
+   "sourceUrls": [
+    {
+     "url": "https://www2.senado.leg.br/bdsf/handle/id/641120",
+     "label": "Senado Federal digital library: Alexina de Magalhães Pinto, Cantigas das creanças e do povo e danças populares (1916), the original edition; the song at p. 15, the dance pp. 109-112"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=IKMABlDnm4M",
+     "label": "children's roda version on YouTube (title checked, not yet listened to)"
+    }
+   ],
+   "performanceNotes": [
+    "The Senado Federal's 2023 re-edition of the same book (handle id/11111) includes a recording of this melody, 02_Na_Bahia.wav; its licence is not stated, so it is listed here, not linked. No archival recording by tradition-bearers found yet; the Museu do Folclore Edison Carneiro (Rio) and the Instituto Moreira Salles collections are the places to ask."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Alexina p. 15 (the two sixteenths on \"Seu bem\", and the key signature: two sharps on the first staff, one on the second; the tune has no C, so they agree) and the dance version pp. 109-110, where small crosses mark the claps (the scan is faint there: the claps here follow her written description on p. 112). Still to transcribe: the dance version's polka section (pp. 109-110, from bar 16, with piano). A Portuguese speaker for the words; classroom check: the two facing lines, three steps and three claps forward, three back.",
+   "notes": "THE DANCE (p. 112): \"dispõem-se em duas fileiras, cada cavalheiro em frente á sua dama ... dão tres passos para a frente, batendo palmas tres vezes, uma em cada passo; (as palmas vão assignaladas na musica por uma cruzinha +) ... dão tres passos para traz.\" Then en avant and back again, a greeting, the traversez, and from bar 16 a polka in pairs.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A sung dance of two facing lines (dança cantada, em fileiras, ao som de palmas), from Rio, Bahia and Minas Gerais; in Minas, children danced it. The words name what \"Bahia has\": a penny coconut, a glass lamp, a flat-iron, a sewing machine; Bahia was the colony's first seat, where novelties came in (Alexina's note, after Sílvio Romero).",
+    "elements": "2/4, eight bars in two lines with a repeat; D major (the tune uses D E F# G A B, no C); a range of a sixth, D to B; eighths and quarters with one pair of sixteenths; the \"tem, tem, tem\" falls step by step (A G F# E), the second line answers it and ends on D.",
+    "practice": "The dance (Alexina p. 112): two lines, each boy facing his partner about seven steps away. Bars 1-2, three steps forward, clapping on each step; bars 3-4, three steps back, singing and clapping; bars 5-6 forward again, 7-8 back. Then they greet each other and may cross over (traversez), the lines changing places; bars 9-16 forward and back again; from bar 16 everyone dances a polka in pairs to the end. One line can sing the first two lines and the other answer, all joining for the rest, and the forward-and-back can be replaced by other quadrille figures.",
+    "accompaniment": "Tradition: hand claps by the dancers, marked with small crosses in Alexina's score (p. 109), three per two bars, one on each step; in the dance version a polka follows, which she gives with piano. The wider Bahian practice (samba de roda) adds the viola machete, pandeiro and scraped plate (prato e faca), per the UNESCO inscription of samba de roda; that is a different, adult setting and is not used here. Band here: claps only, three in every two bars on the steps (beats 1 and 2 of the first bar, beat 1 of the second). No bass, no chords; for the polka part, the band's march-and-polka style would be the stand-in. Needs nothing new for this part.",
+    "lyrics": "Portuguese (1916 spelling: engommar, creanças). The score underlays \"Na Bahia tem, tem, tem, tem, Na Bahia tem, seu bem, côco de vintém\": \"In Bahia there is, there is, there is, in Bahia there is, my dear, a penny coconut.\" Other verses (p. 111): \"Na Bahia tem, vou mandar buscar lampeão de vidro, ó bahiana, ferro de engommar\" (I'll send for a glass lamp, Bahian girl, and a flat-iron); \"... machina de costura, seu bem, folle de soprar\" (a sewing machine, my dear, a bellows). All fit for class. Alexina notes the verses are endless and that the ones sent with the dance were boasting challenge verses, which she leaves out; so do we.",
+    "honesty": "Traditional; the tune, words and dance as Alexina de Magalhães Pinto printed them in 1916 (the tune \"Rio, Bahia, Minas\"; the dance as sent from Minas by Dr. G. Eutropio). The clap placement follows her description.",
+    "licence": "Alexina de Magalhães Pinto (1870-1921), Cantigas das creanças e do povo e danças populares (Rio de Janeiro: Francisco Alves, 1916), Bibliotheca infantil: public domain in the US (1916), Canada and Brazil (d. 1921). The scan is published by the Senado Federal library under a Creative Commons licence; the notes here are read from it, not copied from the 2023 re-edition.",
+    "respect": "The same words are sung in Umbanda as a ponto for the Baianos and the Erês (child spirits); this record is the children's dance from 1916, and a teacher may say so if asked. The book has a section of \"cantigas dos pretos\" whose dialect may caricature; nothing from it is used here.",
+    "review": "A Portuguese speaker (Brazilian), for the words and the 1916 spellings; a Brazilian teacher who knows the roda, for the dance."
    }
   },
   {

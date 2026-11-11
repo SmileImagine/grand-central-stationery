@@ -1,0 +1,41 @@
+% holding-id: na-bahia-tem
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Alexina p. 15 (the two sixteenths on "Seu bem", and the key signature: two sharps on the first staff, one on the second; the tune has no C, so they agree) and the dance version pp. 109-110, where small crosses mark the claps (the scan is faint there: the claps here follow her written description on p. 112). Still to transcribe: the dance version's polka section (pp. 109-110, from bar 16, with piano). A Portuguese speaker for the words; classroom check: the two facing lines, three steps and three claps forward, three back.
+% source-url: https://www2.senado.leg.br/bdsf/handle/id/641120 Senado Federal digital library: Alexina de Magalhães Pinto, Cantigas das creanças e do povo e danças populares (1916), the original edition; the song at p. 15, the dance pp. 109-112
+% performance-url: https://www.youtube.com/watch?v=IKMABlDnm4M children's roda version on YouTube (title checked, not yet listened to)
+% performance-note: The Senado Federal's 2023 re-edition of the same book (handle id/11111) includes a recording of this melody, 02_Na_Bahia.wav; its licence is not stated, so it is listed here, not linked. No archival recording by tradition-bearers found yet; the Museu do Folclore Edison Carneiro (Rio) and the Instituto Moreira Salles collections are the places to ask.
+% dossier-function: A sung dance of two facing lines (dança cantada, em fileiras, ao som de palmas), from Rio, Bahia and Minas Gerais; in Minas, children danced it. The words name what "Bahia has": a penny coconut, a glass lamp, a flat-iron, a sewing machine; Bahia was the colony's first seat, where novelties came in (Alexina's note, after Sílvio Romero).
+% dossier-elements: 2/4, eight bars in two lines with a repeat; D major (the tune uses D E F# G A B, no C); a range of a sixth, D to B; eighths and quarters with one pair of sixteenths; the "tem, tem, tem" falls step by step (A G F# E), the second line answers it and ends on D.
+% dossier-practice: The dance (Alexina p. 112): two lines, each boy facing his partner about seven steps away. Bars 1-2, three steps forward, clapping on each step; bars 3-4, three steps back, singing and clapping; bars 5-6 forward again, 7-8 back. Then they greet each other and may cross over (traversez), the lines changing places; bars 9-16 forward and back again; from bar 16 everyone dances a polka in pairs to the end. One line can sing the first two lines and the other answer, all joining for the rest, and the forward-and-back can be replaced by other quadrille figures.
+% dossier-accompaniment: Tradition: hand claps by the dancers, marked with small crosses in Alexina's score (p. 109), three per two bars, one on each step; in the dance version a polka follows, which she gives with piano. The wider Bahian practice (samba de roda) adds the viola machete, pandeiro and scraped plate (prato e faca), per the UNESCO inscription of samba de roda; that is a different, adult setting and is not used here. Band here: claps only, three in every two bars on the steps (beats 1 and 2 of the first bar, beat 1 of the second). No bass, no chords; for the polka part, the band's march-and-polka style would be the stand-in. Needs nothing new for this part.
+% dossier-lyrics: Portuguese (1916 spelling: engommar, creanças). The score underlays "Na Bahia tem, tem, tem, tem, Na Bahia tem, seu bem, côco de vintém": "In Bahia there is, there is, there is, in Bahia there is, my dear, a penny coconut." Other verses (p. 111): "Na Bahia tem, vou mandar buscar lampeão de vidro, ó bahiana, ferro de engommar" (I'll send for a glass lamp, Bahian girl, and a flat-iron); "... machina de costura, seu bem, folle de soprar" (a sewing machine, my dear, a bellows). All fit for class. Alexina notes the verses are endless and that the ones sent with the dance were boasting challenge verses, which she leaves out; so do we.
+% dossier-honesty: Traditional; the tune, words and dance as Alexina de Magalhães Pinto printed them in 1916 (the tune "Rio, Bahia, Minas"; the dance as sent from Minas by Dr. G. Eutropio). The clap placement follows her description.
+% dossier-licence: Alexina de Magalhães Pinto (1870-1921), Cantigas das creanças e do povo e danças populares (Rio de Janeiro: Francisco Alves, 1916), Bibliotheca infantil: public domain in the US (1916), Canada and Brazil (d. 1921). The scan is published by the Senado Federal library under a Creative Commons licence; the notes here are read from it, not copied from the 2023 re-edition.
+% dossier-respect: The same words are sung in Umbanda as a ponto for the Baianos and the Erês (child spirits); this record is the children's dance from 1916, and a teacher may say so if asked. The book has a section of "cantigas dos pretos" whose dialect may caricature; nothing from it is used here.
+% dossier-review: A Portuguese speaker (Brazilian), for the words and the 1916 spellings; a Brazilian teacher who knows the roda, for the dance.
+X:1
+T:Na Bahia tem
+T:In Bahia there is: Brazilian sung dance in two lines
+C:traditional (Brazil: Rio, Bahia, Minas Gerais)
+O:Brazil
+R:dança cantada (sung dance)
+S:Alexina de Magalhães Pinto, Cantigas das creanças e do povo e danças populares (Rio de Janeiro: F. Alves, 1916), p. 15; the dance pp. 109-112
+N:THE DANCE (p. 112): "dispõem-se em duas fileiras, cada cavalheiro em frente á sua dama ... dão tres passos para a frente, batendo palmas tres vezes, uma em cada passo; (as palmas vão assignaladas na musica por uma cruzinha +) ... dão tres passos para traz." Then en avant and back again, a greeting, the traversez, and from bar 16 a polka in pairs.
+N:THE PLATE (p. 15): 2/4, two staves, accents (^) on "tem" and on the last note, a repeat at the end; the five-line verse "Na Bahia tem, / Vou mandar buscar / Lampeão de vidro, / O' bahiana, / Ferro de engommar" printed above.
+N:HOW READ (2026-11-10): p. 15 of the 1916 scan, rendered in the browser from the Senado PDF and enlarged; pitches read against the staff (the notes lie between D and B), durations from the flags; every bar checked to make two quarters. The dance text read from the PDF's own text layer (pp. 111-112).
+N:UNCERTAIN: the pair of sixteenths on "Seu bem" (they could be eighths with the rest an eighth shorter); the clap placement (see the next step); tempo ours.
+M:2/4
+L:1/8
+Q:1/4=100
+K:D
+%%band drums: <[cp cp] [cp ~]>
+%%band bass: ~
+%%band chords: ~
+|: D D F F | !marcato!A4 | !marcato!G2 !marcato!F2 | !marcato!E2 z2 |
+w: Na Ba-hi-a tem, Tem, tem, tem,
+B B A G | F2 D/D/ z | F F E E | !marcato!D2 z2 :|
+w: Na Ba-hi-a tem, Seu bem, Cô-co de vin-tem.

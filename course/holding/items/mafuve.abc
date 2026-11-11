@@ -1,0 +1,47 @@
+% holding-id: mafuve
+% holding-status: transcription
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Transcription: the opening six bars and the four clap parts are read; the rest of the song (pp. 104-105: "Ndo da kwumisha", the grunted "O ha o" bars, the ending) is still to transcribe, though Curtis says any phrase may be repeated and the order is free, so these six bars looped are already the song as danced. Then source check (the sextuplet clap figures, and "e" at the end of bar 4 against "e yo-we" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.
+% source-url: https://archive.org/details/songstalesfromda00burl/page/103/mode/1up archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 103 (music with the four clap parts; continues pp. 104-105)
+% source-url: https://archive.org/details/songstalesfromda00burl/page/29/mode/1up the same, pp. 29-30: the dance, and the words with Curtis's translation
+% performance-note: No recording of this song found. Curtis made phonograph records of the singers (book, p. xxv), not yet located (Columbia University, the Library of Congress and the Smithsonian are the likely places). For the style of Ndau singing with clapping, the International Library of African Music (ILAM, Rhodes University) holds many Ndau recordings: digitalarchives.ru.ac.za, search "Ndau"; listen and choose one before linking.
+% dossier-function: A dance song of girls and young women (Ndau, central Mozambique). It tells of a young bride who, though she loves her husband and her new home, longs for her mother and her childhood home: "Alas, my mother's home! I left my mother's home; I love my husband's home." Two girls dance at a time, facing each other, starting with two stamps; the others stand round them in a circle, clapping and singing, until their turn (Curtis pp. 29-30, from C. Kamba Simango).
+% dossier-elements: 3/4 at quarter = 63; E major; each bar a call on the first beat ("E-yo-we", "Kwa-mai-we") then a quick falling run of vocables (F E D C C: "we yo we i-ye"); the first beat carries the words and the dancers' two stamps, the rest is "parenthetical", carried by quicker clapping (Curtis's note under the music). Range B below middle C to B.
+% dossier-practice: Not fast. The song is repeated and recombined at will: "any phrase or group of phrases of this song may be repeated an indefinite number of times, so the song may be sung for an hour, or an hour and a half, steadily. There is no prescribed order" (Curtis, p. 105). In class: four groups take one clap rhythm each, two dancers stamp on the first beat and do the second clap; everyone sings.
+% dossier-accompaniment: Tradition: "No drums are used, the song being accompanied by the clapping of hands" (p. 29). Curtis prints four hand-clap rhythms under the voice and explains (p. 105) that no one keeps one rhythm all through: each clapper changes every two or three bars, but "a chorus of clapping, composed of all four rhythms sounding at the same time, is always heard" once the song is under way. The second rhythm (16th rest, clap, 16th rest, clap on the first beat) belongs to the two dancers. Band here: the four rhythms exactly as printed, each on its own sound so the layers can be told apart (clap, claves, wood block, rim), and the dancers' two stamps on the kick; all of these are hand claps and feet in the tradition. No bass, no chords.
+% dossier-lyrics: Chindau with Curtis's singing translation. Mostly vocables (eyo'we, we yo'we iye); the words proper: "Kwa'mai-we" (my mother's home), "Kwa'mai nda lega" (I left my mother's home), "Ndo da kwumisha" (I love my husband's home). Fit for class as a song about missing home. Curtis's own aside (women marry very young) is left out. Spelling to be checked by a Chindau speaker.
+% dossier-honesty: Traditional; the notes, words, accents and the four clap parts as Curtis printed them from C. Kamba Simango and other Ndau singers. Only the sounds of the layers are ours (in the tradition they are all hand claps).
+% dossier-licence: Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).
+% dossier-respect: A social dance song, nothing sacred. Credit C. Kamba Simango. The book's general framing ("Dark Continent", remarks on race) stays out of the record; Curtis's description of the dance and the clapping is kept.
+% dossier-review: A Chindau speaker, for the words; a teacher of southern African dance, for the stamps and the circle.
+X:1
+T:Mafuve
+T:Dance of girls: Ndau dance song with four clap parts
+C:traditional (Ndau), as sung by C. Kamba Simango
+O:Mozambique (then Portuguese East Africa), Ndau people
+R:dance song
+S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), "Mafuve: Dance of Girls", pp. 103-105 (words and dance pp. 29-30)
+N:THE CLAPS (p. 103), one bar each, in sixteenths of a 3/4 bar: 1. two eighths (accented) | an eighth-note triplet, the last tied over | a sextuplet: (tie), clap, (hold), clap, (hold), rest. 2. (the dancers only) rest, clap, rest, clap | rest | rest. 3. four sixteenths | a sextuplet: eighth, eighth, sixteenth, sixteenth | two eighths. 4. eighth and two sixteenths | sixteenth, eighth, two thirty-seconds | three sixteenths and a rest. A footnote gives a quintuplet as another rhythm for beats 2 and 3 of the third part.
+N:THE PLATE: "Not fast (quarter = 63)", 3/4, four sharps; dotted bar lines divide the beats; accents on the first beat of each bar and on the run; the words in Chindau and English under the voice, the four clap staves below.
+N:HOW READ (2026-11-10): pp. 103-104 from the archive.org scan (about 300 dpi) at full size; pitches read against the staff, durations and the clap rhythms from enlargements; every beat checked to make four sixteenths.
+N:UNCERTAIN: the end of bar 4 ("e-") and the start of bar 5 ("e yo-we"): Curtis's underlay gives "e" to both; the sextuplet groupings of claps 1 and 3 (read as 1+2+2+1 and 2+2+1+1 sixths).
+M:3/4
+L:1/16
+Q:1/4=63
+K:E
+%%band drums: [bd bd] ~ ~
+%%band drums: [cp cp] [cp cp cp] [~ cp _ cp _ ~]
+%%band drums: [~ cl ~ cl] ~ ~
+%%band drums: [wb wb wb wb] [wb _ wb _ wb wb] [wb wb]
+%%band drums: [rim _ rim rim] [rim rim _ [rim rim]] [rim rim rim ~]
+%%band bass: ~
+%%band chords: ~
+G | !>!B2 !>!G2 !>!F E D !>!C/C/ z3 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z3 G | !>!B2 !>!G2 !>!F E D !>!C/C/ z4 |
+w: E- yo- we, we yo we i- ye e- yo- we, we yo we i- ye e- yo- we, we yo we i- ye
+w: A- las, O we yo we i- ye A- las, O we yo we i- ye A- las, O we yo we i- ye
+!>!B B G2 !>!F E D !>!C/C/ z2 G2 | !>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 |]
+w: Kwa- mai- we! we yo we i- ye e- e yo- we, we yo we i- ye Kwa- mai nda le- ga, yo we i- ye
+w: Moth- er's home! we yo we i- ye A- O a- las, we yo we i- ye Left my moth- er's home, yo we i- ye
