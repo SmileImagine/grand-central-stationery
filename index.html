@@ -5211,7 +5211,7 @@
             const dx = this.shift.get(d) || 0;
             (d.abselem.heads || []).forEach((head, j) => {
               const p = sp[j] || sp[0], node = head.graphelem; if (!node) return;
-              const m = p.midi + this.transpose + L.shift;
+              const m = p.midi + L.shift;   // spelled pitches are already transposed (allMidis)
               const pi = E.pos.findIndex((q, idx) => !used.has(idx) && q.m === m); if (pi < 0) return;
               used.add(pi);
               const q = E.pos[pi], bb = node.getBBox(), cx = bb.x + bb.width / 2, y = st.y + q.s * st.gap, size = st.gap * 0.95, txt = String(q.fret);
@@ -5522,14 +5522,16 @@
       progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }
       count(n) { const c = this.gamebar.querySelector('.count'); c.textContent = n; c.classList.remove('on'); void c.offsetWidth; c.classList.add('on'); }
       /* ---- the instrument view ---- */
-      allMidis() { const out = []; for (const sp of this.spelled) if (sp) for (const p of sp) out.push(p.midi + this.transpose); return out; }
-      // The written pitches of a timing event, transposed as the page is.
+      // The sounding pitches. The hidden tune is rendered with visualTranspose, which moves its parsed pitches and key,
+      // so this.spelled is already transposed: adding this.transpose again would move the view twice.
+      allMidis() { const out = []; for (const sp of this.spelled) if (sp) for (const p of sp) out.push(p.midi); return out; }
+      // The sounding pitches of a timing event (already transposed, as allMidis says).
       eventMidis(ev) {
         const out = [];
         if (!ev || !ev.elements) return out;
         for (const arr of ev.elements) for (const el of (Array.isArray(arr) ? arr : [arr])) {
           const i = this.hiddenIndex.get(el); const sp = i === undefined ? null : this.spelled[i];
-          if (sp) for (const p of sp) out.push(p.midi + this.transpose);
+          if (sp) for (const p of sp) out.push(p.midi);
         }
         return out;
       }
