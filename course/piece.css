@@ -254,7 +254,7 @@ body[data-piece-mode="practice"] .pb-clock { --mode: #3f8f1f; }
 body[data-piece-mode="assess"] .pb-clock { --mode: #79569f; }
 
 /* The practice link: small, a word and a link sign. */
-.piecebar .pb-share { min-height: 32px; padding: 3px 10px; display: inline-flex; align-items: center; gap: 5px; font-size: 14px; }
+.piecebar .pb-share { min-height: 32px; min-width: 32px; padding: 3px 7px; display: inline-flex; align-items: center; justify-content: center; }
 .piecebar .pb-share svg { display: block; }
 /* The pull tab for the full player: a small brass-edged opal tab at the foot of the music, riding on the drawers' top edge. */
 html.piece-route .pb-pull { all: unset; position: absolute; z-index: 7; left: 50%; bottom: var(--dock-h, 0px); transform: translateX(-50%);
@@ -265,9 +265,16 @@ html.piece-route .pb-pull svg { width: 22px; height: 11px; fill: none; stroke: #
 html.piece-route .pb-pull[aria-expanded="true"] svg { transform: rotate(180deg); }
 html.piece-route .pb-pull:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html.piece-route .pb-pull, html.piece-route .pb-pull svg { transition: none; } }
-/* The practice link waits beside the title and shows when the pointer is over it (or the keyboard reaches it); on a
-   touch screen, which cannot hover, it stays as the link sign alone. */
+/* Share waits beside the title and shows when the pointer is over it (or the keyboard reaches it); a touch screen,
+   which cannot hover, always shows it. */
 .pb-title .pb-share { align-self: center; opacity: 0; transition: opacity 0.15s; }
 .pb-title:hover .pb-share, .pb-title:focus-within .pb-share, .pb-title .pb-share:focus-visible { opacity: 1; }
-@media (hover: none) { .pb-title .pb-share { opacity: 1; padding: 3px 6px; } .pb-title .pb-share span { display: none; } }
+@media (hover: none) { .pb-title .pb-share { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .pb-title .pb-share { transition: none; } }
+/* The share dialog: one row per thing to share, each copying it. */
+.pb-sharelist { display: grid; gap: 8px; margin: 8px 0; }
+.pb-sharelist button { display: grid; grid-template-columns: 1fr auto; text-align: left; gap: 2px 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; cursor: pointer; }
+.pb-sharelist button:hover { border-color: var(--accent); }
+.pb-sharelist button small { grid-column: 1; color: var(--muted); }
+.pb-sharelist button .done { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--accent); font-weight: 700; }
+.pb-sharetext { width: 100%; min-height: 120px; font: 13px/1.35 ui-monospace, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: var(--panel-2); color: var(--ink); }

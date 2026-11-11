@@ -7868,6 +7868,8 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
             return sampler.load(folder, midi).then(() => { const bus = en.player.gains(); return bus ? sampler.play(folder, midi, sampler.ctx().currentTime + 0.03, dur, vel, bus.melody, 0.25) : null; });
           },
           ctx: () => wakeAudio(sampler.ctx()),
+          // A tune and the cell's band as Strudel code (the Band drawer's Copy as Strudel, for any ABC).
+          strudel: (en, abc) => Strudel.write(joinBand(abc, en.bandEntry ? en.bandEntry.value : '')),
           // A small diagram of the cell's instrument fingering one note (the piece view's sections): the same layouts,
           // built on the whole tune's notes so every diagram folds octaves and picks frets as the large one does.
           mini(host, en, midis) {

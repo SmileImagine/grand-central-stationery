@@ -317,9 +317,10 @@
     $('.pb-modes').innerHTML = teacher() ? ['teach', 'assess'].map(x => `<button type="button" role="tab" data-mode="${x}" aria-selected="${x === m}" class="${x === m ? 'on' : ''}">${P.MODES[x]}</button>`).join('') : '';
     $('.pb-modes').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode, 1); }));
     // A small link button: Practice and a link sign for a teacher (the students' link), the sign alone for a student.
-    $('.pb-share').innerHTML = `${teacher() ? '<span>Practice</span> ' : ''}<svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg>`;
-    $('.pb-share').setAttribute('aria-label', teacher() ? 'Copy the practice link for students' : 'Copy a link to this');
-    $('.pb-share').title = teacher() ? 'Copy a link students open to practise this piece: its sections, instrument and key (never names, progress or marks)' : 'Copy a link to this piece as you are practising it';
+    // Share: an icon; its dialog offers the link (a teacher's is the students' practice link), the ABC and Strudel.
+    $('.pb-share').innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>`;
+    $('.pb-share').setAttribute('aria-label', 'Share');
+    $('.pb-share').title = teacher() ? 'Share: the practice link for students, the ABC, or Strudel' : 'Share: a link to this, the ABC, or Strudel';
     document.body.dataset.pieceMode = m;
     $('.pb-back').href = 'course/board.html#' + P.encodeBoard({ level: tune.level, tune: tune.id, do: m });
     goStep(s, true);
@@ -765,12 +766,33 @@
       requestAnimationFrame(() => en.body.style.setProperty('--dock-h', (on && dock ? dock.offsetHeight : 0) + 'px'));
     });
   }
-  $('.pb-share').addEventListener('click', async () => {
-    // A teacher's link is for students: the piece to practise, with the teacher's sections, instrument and key.
+  $('.pb-share').addEventListener('click', openShare);
+  let shareDlg = null;
+  function openShare() {
+    if (!tune) return;
+    if (!shareDlg) { shareDlg = document.createElement('dialog'); shareDlg.className = 'pb-cutsdlg pb-sharedlg'; document.body.appendChild(shareDlg); }
+    // A teacher's link is for students: the piece to practise, with the teacher's sections, instrument and key; never names, progress or marks.
     const s = teacher() ? { tune: setup.tune, level: setup.level, mode: 'practice', inst: setup.inst, show: setup.show, tr: setup.tr, cuts: setup.cuts } : { ...setup };
     const url = location.href.split('#')[0] + '#' + P.encodeSetup(s);
-    try { await navigator.clipboard.writeText(url); say(teacher() ? 'Student link copied: it opens this piece to practise, with your sections, instrument and key.' : 'Link copied.'); } catch (e) { prompt('Copy this link:', url); }
-  });
+    let strudel = ''; try { strudel = hook.strudel ? hook.strudel(en, tune.abc) : ''; } catch (e) {}
+    const items = [
+      ['link', teacher() ? 'Practice link for students' : 'Link to this', teacher() ? 'Opens this piece to practise, with your sections, instrument and key.' : 'Opens this piece just as it is now.', url],
+      ['abc', 'ABC', 'The whole tune as text, for the lesson page or any ABC program.', tune.abc],
+      ...(strudel ? [['strudel', 'Strudel', 'The tune and its band as Strudel code, to play or remix at strudel.cc.', strudel]] : []),
+    ];
+    shareDlg.innerHTML = `<h2>Share ${esc(tune.title)}</h2>
+      <div class="pb-sharelist">${items.map(([k, name, about]) => `<button type="button" data-k="${k}"><b>${esc(name)}</b><small>${esc(about)}</small><span class="done" aria-live="polite"></span></button>`).join('')}</div>
+      <textarea class="pb-sharetext" readonly hidden aria-label="Copy this"></textarea>
+      <div class="row"><span class="pb-spacer"></span><button type="button" class="close primary">Done</button></div>`;
+    shareDlg.querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', async () => {
+      const text = items.find(x => x[0] === b.dataset.k)[3];
+      shareDlg.querySelectorAll('.done').forEach(d => { d.textContent = ''; });
+      try { await navigator.clipboard.writeText(text); b.querySelector('.done').textContent = 'Copied'; }
+      catch (e) { const ta = shareDlg.querySelector('.pb-sharetext'); ta.hidden = false; ta.value = text; ta.focus(); ta.select(); }   // no clipboard here: select it to copy by hand
+    }));
+    shareDlg.querySelector('.close').onclick = () => shareDlg.close();
+    shareDlg.showModal();
+  }
   // A new address typed or pasted into this tab (the page writes its own with replaceState, which fires no hashchange).
   window.addEventListener('hashchange', () => location.reload());
   // Keys: one set for the whole view, before the page's own (which present a cell, not a piece).
