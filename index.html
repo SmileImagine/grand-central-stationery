@@ -616,7 +616,7 @@
       <button id="addText" title="Add a text cell (Cmd+Enter in a cell adds one below it)">+ Text</button>
       <button id="addAbc" title="Add a notation cell (Cmd+Shift+Enter in a cell adds one below it)">+ Notation</button>
       <button id="addRhythm" title="Add a rhythm cell: drum patterns as text, shown as a grid, a wheel, syllables or body percussion">+ Rhythm</button>
-      <button id="addDance" title="Add a dance cell: steps as text, shown as a dancer, footprints, figures or a score">+ Dance</button>
+      <button id="addDance" title="Add a dance cell: steps as text, shown as a dancer on a scrolling staff, footprints, figures or a score">+ Dance</button>
     </span>
     <span class="group">
       <button id="present" title="Show one cell at a time. PageDown / PageUp move, Esc returns.">Present</button>
@@ -5465,7 +5465,7 @@ const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp']
 const clock = {
   ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
   events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
-  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } wakeAudio(this.ctx); return this.ctx; },
+  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
   start(lead = 0) {
@@ -6002,7 +6002,7 @@ DV.dancer = {
     const sl = loc(shapeLean.x, shapeLean.y);
     const S = { x: P.x + lean.x + sl.x - hipW.x * 1.4, y: P.y + lean.y + sl.y - hipW.y * 1.4, z: h + R.torso };
     // hands: the arms token sets a target; the hands take a third of a beat to get there
-    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-2.3, .1, .3], [2.3, .1, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.12, .9, -.4], [.12, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
+    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-3.5, .15, .3], [3.5, .15, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.12, .9, -.4], [.12, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
     const prevTok = fr[(k - 1 + n) % n].arms, dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, ua = this.ease((p - f.t) / dt / .35), A = hand(f.arms), A0 = hand(prevTok);
     const hands = [0, 1].map(i => { const a = A0[i].map((c, j) => c + (A[i][j] - c) * ua), w = loc(a[0], a[1]); return { x: S.x + w.x, y: S.y + w.y, z: S.z + a[2] }; });
     const SH = { l: [.3, 0], r: [0, .3], u: [.25, .25], c: [0, 0] }, shLift = [0, 1].map(i => SH[prev.shoulders][i] + (SH[f.shoulders][i] - SH[prev.shoulders][i]) * us);
@@ -6061,6 +6061,128 @@ DV.dancer = {
   }
 };
 
+// Writing: the same rig drawn the way Sutton DanceWriting draws a dancer (dancewriting.org, CC BY-SA 3.0), and the music
+// scrolling past behind it. The figure stands on a five-line staff whose lines are body levels (floor, knees, hips,
+// shoulders, top of the head), drawn to the figure's scale, so sinking and rising read off the lines. It is an elevation,
+// not a perspective: depth is written, not drawn. An open circle at a hand or foot means forward of the body, a filled one
+// behind (the dancer's forward, whichever way the camera looks). Shoulders and hips are bars, the spine bends, the leg
+// carrying the weight is bold, a planted foot hooks outward and a lifted one points. DanceWriting's movement signs mark
+// the moment: * a touch, a double arrow in the air, a turning arrow over the head, dots ahead of a travelling foot.
+// Behind the figure the same staff carries the rhythm as percussion notation (kick in the bottom space, snare in the
+// third, hats above the top line, stems up and beamed by the beat), and the steps as note heads on the floor line
+// (filled for a step, a cross for a touch or kick), with the count and the effort under them: • sudden, ⌒ sustained,
+// f strong, p light, ∿ curving, + bound. The tape scrolls right to left; whatever is under the figure is now.
+DV.writing = {
+  U: 40, floorY: 470, playX: 330, W: 900, H: 620,   // W and playX follow the stage's shape at build
+  POS: { kick: 1, stomp: 1, low: 2, tom: 3, pat: 3, wood: 6, clave: 6, bell: 6, snare: 5, rim: 5, clap: 5, shaker: 7, click: 7, ride: 8, hat: 9, snap: 9, open: 9, crash: 10 },
+  XHEAD: new Set(['hat', 'open', 'ride', 'crash', 'snap', 'shaker', 'click', 'clap', 'rim']),
+  build(el, d) {
+    const rig = this.rig = Object.create(DV.dancer); rig.prep(d);
+    // the staff runs the width of the stage, so a wide cell shows more of what is coming
+    const H = this.H, ar = el.clientHeight ? el.clientWidth / el.clientHeight : 0, W = this.W = ar ? Math.max(900, Math.min(2400, Math.round(H * ar))) : 900;
+    this.playX = Math.round(Math.min(W * .37, 600));
+    const U = this.U, G = 2 * U, Y0 = this.floorY, cyc = d.bars * d.beats;
+    const rr = d.drums ? parseRhythm(d.drums) : state.r && state.r.rows && state.r.rows.length ? state.r : null;
+    const evs = []; if (rr) for (let c = 0; c * rr.cycle < cyc; c++) for (const e of rr.events) { if (e.click) continue; const t = c * rr.cycle + e.beat; if (t < cyc - 1e-9) evs.push({ ...e, t }); }
+    // beats wide enough for the finest subdivision in the music or the steps
+    let fine = 1; for (const e of evs) for (const n of [2, 3, 4, 6, 8]) if (Math.abs(e.t * n - Math.round(e.t * n)) < 1e-6) { fine = Math.max(fine, n); break; }
+    for (const f of d.frames) fine = Math.max(fine, f.subs);
+    const ppb = this.ppb = Math.min(320, Math.max(200, 62 * Math.min(fine, 5))), cw = cyc * ppb, posY = pos => Y0 - pos * G / 2;
+    const rx = .28 * G, ry = .2 * G, head = (x, y, col, cross, small) => { const k = small ? .75 : 1; return cross
+      ? `<path class="nt" d="M${x - rx * .7 * k},${y - ry * k} L${x + rx * .7 * k},${y + ry * k} M${x - rx * .7 * k},${y + ry * k} L${x + rx * .7 * k},${y - ry * k}" stroke="${col}" stroke-width="${.07 * G}" stroke-linecap="round"/>`
+      : `<ellipse class="nt" cx="${x}" cy="${y}" rx="${rx * k}" ry="${ry * k}" transform="rotate(-20 ${x} ${y})" fill="${col}"/>`; };
+    let one = '';
+    for (let b = 0; b < cyc; b++) { const x = b * ppb, bar = b % d.beats === 0; one += `<line x1="${x}" x2="${x}" y1="${posY(8)}" y2="${Y0}" stroke="${bar ? '#bbb' : '#f0f0f0'}" stroke-width="${bar ? 3 : 2}"/>`; }
+    // the drums, grouped by beat, then by moment; a moment is a chord on one stem
+    const byBeat = new Map(); for (const e of evs) { const b = Math.floor(e.t + 1e-9); if (!byBeat.has(b)) byBeat.set(b, new Map()); const m = byBeat.get(b), k = Math.round(e.t * 1e4); if (!m.has(k)) m.set(k, []); m.get(k).push(e); }
+    for (const [b, moments] of byBeat) {
+      const ts = [...moments.keys()].sort((a, c) => a - c), stems = [];
+      for (const k of ts) {
+        const t = k / 1e4, x = t * ppb, es = moments.get(k); let lo = -Infinity, hi = Infinity;
+        for (const e of es) { const pos = this.POS[e.sound] ?? 4, y = posY(pos), col = '#8d939b'; lo = Math.max(lo, y); hi = Math.min(hi, y); one += `<g data-t="${t}" opacity=".55">${head(x, y, col, this.XHEAD.has(e.sound), e.vel < 1)}</g>`; }
+        stems.push({ x: x + rx * .92, lo, hi, t });
+      }
+      const fr = stems.map(s => s.t - b), beams = fr.every(v => Math.abs(v * 2 - Math.round(v * 2)) < 1e-6) ? 1 : fr.every(v => Math.abs(v * 4 - Math.round(v * 4)) < 1e-6) ? 2 : fr.every(v => Math.abs(v * 3 - Math.round(v * 3)) < 1e-6) ? 1 : 2;
+      const triplet = fr.some(v => Math.abs(v * 3 - Math.round(v * 3)) < 1e-6 && Math.abs(v * 2 - Math.round(v * 2)) > 1e-6);
+      const top = Math.min(...stems.map(s => s.hi)) - .95 * G;
+      for (const s of stems) one += `<line x1="${s.x}" x2="${s.x}" y1="${s.lo - ry * .3}" y2="${stems.length > 1 ? top : s.hi - .95 * G}" stroke="#b5b9bf" stroke-width="3"/>`;
+      if (stems.length > 1) { for (let i = 0; i < beams; i++) one += `<rect x="${stems[0].x - 1.5}" y="${top + i * .2 * G}" width="${stems[stems.length - 1].x - stems[0].x + 3}" height="${.11 * G}" fill="#b5b9bf"/>`; if (triplet) one += `<text x="${(stems[0].x + stems[stems.length - 1].x) / 2}" y="${top - 10}" text-anchor="middle" font-size="18" font-style="italic" fill="#999">3</text>`; }
+      else if (fr[0] > 1e-6) { const s = stems[0], y = s.hi - .95 * G; for (let i = 0; i < beams; i++) one += `<path d="M${s.x},${y + i * .2 * G} q${.35 * G},${.3 * G} ${.25 * G},${.75 * G}" stroke="#b5b9bf" stroke-width="4" fill="none"/>`; }
+    }
+    // the steps: heads on the floor line, the count and the effort under them
+    const EFF = { sudden: '•', sustained: '⌒', strong: 'f', light: 'p', indirect: '∿', bound: '+' };
+    d.frames.forEach(f => {
+      const x = f.t * ppb, col = f.moving === 'L' ? LEFT : f.moving === 'R' ? RIGHT : f.moving === 'B' ? '#333' : '#aaa';
+      if (f.moving) one += `<g data-t="${f.t}">${head(x, Y0, col, f.kind === 'touch' || f.kind === 'kick', false)}</g>`;
+      one += `<text x="${x}" y="${Y0 + 46}" text-anchor="middle" font-size="${f.sub ? 19 : 24}" font-weight="${f.moving ? 700 : 400}" fill="${col}">${countOf(f)}</text>`;
+      const marks = Object.values(f.effort || {}).map(v => EFF[v]).filter(Boolean).join(' ');
+      if (marks) one += `<text x="${x}" y="${Y0 + 80}" text-anchor="middle" font-size="24" font-style="italic" font-family="Georgia, serif" fill="#555">${marks}</text>`;
+    });
+    let tape = ''; for (let k = -Math.ceil(this.playX / cw) - 1; k <= Math.ceil((W - this.playX) / cw) + 1; k++) tape += `<g transform="translate(${k * cw} 0)">${one}</g>`;
+    const cam = state.facing === 'front' ? 'seen from in front: the dancer faces you, so their left is on your right' : state.facing === 'quarter' ? 'seen from three-quarters behind, over the dancer\'s right shoulder' : 'seen from behind: left is left';
+    let s = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><text x="${W / 2}" y="22" text-anchor="middle" font-size="14" fill="#999">${cam}</text>`;
+    for (let i = 0; i < 5; i++) s += `<line x1="0" x2="${W}" y1="${Y0 - i * G}" y2="${Y0 - i * G}" stroke="${i ? '#ccc' : '#999'}" stroke-width="${i ? 2 : 3}"/>`;
+    s += `<line x1="${this.playX}" x2="${this.playX}" y1="${posY(10.5)}" y2="${Y0 + 56}" stroke="${HI}" stroke-width="6" opacity=".35" stroke-linecap="round"/>`;
+    s += `<svg x="0" y="0" width="${W}" height="${H}" overflow="hidden"><g class="tape">${tape}</g></svg>`;   // a nested svg clips the tape to the staff when the stage is wider than the drawing
+    s += `<rect x="0" y="${posY(11)}" width="78" height="${Y0 + 90 - posY(11)}" fill="#fff" opacity=".92"/>`;
+    ['floor', 'knees', 'hips', 'shoulders', 'head'].forEach((nm, i) => { s += `<text x="8" y="${Y0 - i * G + 5}" font-size="14" fill="#999">${nm}</text>`; });
+    s += `<g class="wfig" transform="translate(${this.playX} ${Y0})"></g><text class="wsay" x="${W / 2}" y="${H - 14}" text-anchor="middle" font-size="26" font-weight="600" fill="#333"></text>`;
+    s += `<text x="${W - 8}" y="${H - 44}" text-anchor="end" font-size="12" fill="#999">○ forward  ● behind  * touch  ↕ in the air  (after Sutton DanceWriting)</text></svg>`;
+    el.innerHTML = s; this.d = d; this.tape = el.querySelector('.tape'); this.fig = el.querySelector('.wfig'); this.say = el.querySelector('.wsay');
+    this.notes = [...el.querySelectorAll('.tape [data-t]')].map(n => ({ n, t: +n.dataset.t, on: false, base: n.getAttribute('opacity') || 1 }));
+  },
+  figure(st, f, p) {
+    const rig = this.rig, R = rig.RIG, U = this.U, c = st.P;   // the camera follows the pelvis, so the playhead runs through the dancer
+    const cam = (state.facing === 'front' ? 180 : state.facing === 'quarter' ? -35 : 0) * Math.PI / 180, cc = Math.cos(cam), cs = Math.sin(cam);
+    const view = q => { const x = q.x - c.x, y = q.y - c.y; return { x: x * cc + y * cs, y: -x * cs + y * cc }; };
+    const pr = q => [view(q).x * U, -q.z * U], P = q => pr(q).map(n => n.toFixed(1)).join(',');
+    const halo = (dd, col, w, op = 1) => `<path d="${dd}" stroke="#fff" stroke-width="${w + .2 * U}" fill="none"/><path d="${dd}" stroke="${col}" stroke-width="${w}" fill="none" opacity="${op}"/>`;
+    const poly = pts => 'M' + pts.map(P).join(' L');
+    const fwdOf = (q, o) => (q.x - o.x) * st.fwd.x + (q.y - o.y) * st.fwd.y;
+    const depthMark = (q, rel, col) => { if (Math.abs(rel) < .35) return ''; const [x, y] = pr(q); return `<circle cx="${x}" cy="${y}" r="${.19 * U}" fill="${rel > 0 ? '#fff' : col}" stroke="${col}" stroke-width="${.08 * U}"/>`; };
+    const parts = [], extra = [], sinceOn = p - f.t;
+    const hipL = { x: st.P.x - R.hipHalf * st.right.x, y: st.P.y - R.hipHalf * st.right.y, z: st.P.z }, hipR = { x: st.P.x + R.hipHalf * st.right.x, y: st.P.y + R.hipHalf * st.right.y, z: st.P.z };
+    for (const [F, hip, ft, col, side] of [['L', hipL, st.L, LEFT, -1], ['R', hipR, st.R, RIGHT, 1]]) {
+      const kb = st.loc(side * .25, 1), { J, B } = rig.ik(hip, ft, R.thigh, R.shin, { x: kb.x, y: kb.y, z: .15 });
+      const weight = ft.planted && (st.weight === F || st.weight === 'B');
+      let toe;
+      if (ft.planted || ft.z < .05) toe = { x: B.x + st.fwd.x * .4 + st.right.x * side * .38, y: B.y + st.fwd.y * .4 + st.right.y * side * .38, z: B.z };
+      else { const v = { x: B.x - J.x, y: B.y - J.y, z: B.z - J.z }, l = Math.hypot(v.x, v.y, v.z) || 1; toe = { x: B.x + v.x / l * .45, y: B.y + v.y / l * .45, z: B.z + v.z / l * .45 }; }
+      let svg = halo(poly([hip, J, B, toe]), col, (weight ? .36 : .2) * U) + depthMark(toe, fwdOf(B, st.P), col);
+      // walking dots: where the foot is about to go
+      if (ft.air && ft.kind !== 'up') for (let j = 1; j <= 8; j++) { const t = p + j * .06, q = rig.foot(F, ((t % this.d.cycle) + this.d.cycle) % this.d.cycle); if (!q.air) break; const [x, y] = pr(q); svg += `<circle cx="${x}" cy="${y}" r="${.07 * U}" fill="${col}" opacity="${.7 - j * .07}"/>`; }
+      if (f.kind === 'touch' && f.moving === F && sinceOn < .6) { const [x, y] = pr(toe); extra.push(`<text x="${x + side * .45 * U}" y="${y - .25 * U}" text-anchor="middle" font-size="${.9 * U}" font-weight="700" fill="${col}">*</text>`); }
+      parts.push({ depth: (view(J).y + view(B).y) / 2, svg });
+    }
+    const shL = { x: st.S.x - R.shoulderHalf * st.right.x, y: st.S.y - R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[0] }, shR = { x: st.S.x + R.shoulderHalf * st.right.x, y: st.S.y + R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[1] };
+    const a = pr(st.P), b = pr(st.S), spine = `M${a[0].toFixed(1)},${a[1].toFixed(1)} Q${a[0].toFixed(1)},${((a[1] + b[1]) / 2).toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`;
+    const headC = { x: st.S.x, y: st.S.y, z: st.S.z + R.neck + R.head }, hp = pr(headC);
+    const rel = st.facing * Math.PI / 180 - cam, face = Math.cos(rel) < 0, faceX = -Math.sin(rel);
+    parts.push({ depth: view(st.P).y, svg: halo(poly([hipL, hipR]), '#333', .26 * U) + halo(spine, '#333', .3 * U) + halo(poly([shL, shR]), '#333', .26 * U)
+      + halo(poly([st.S, { x: st.S.x, y: st.S.y, z: st.S.z + R.neck }]), '#333', .22 * U)
+      + `<circle cx="${hp[0]}" cy="${hp[1]}" r="${R.head * U}" fill="#fff" stroke="#333" stroke-width="${.14 * U}"/>`
+      + (face ? `<circle cx="${hp[0] - .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><circle cx="${hp[0] + .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><path d="M${hp[0] - .2 * U + faceX * .25 * U},${hp[1] + .2 * U} Q${hp[0] + faceX * .25 * U},${hp[1] + .36 * U} ${hp[0] + .2 * U + faceX * .25 * U},${hp[1] + .2 * U}" stroke="#333" stroke-width="${.07 * U}" fill="none"/>` : '') });
+    for (const [i, sh, col, side] of [[0, shL, LEFT, -1], [1, shR, RIGHT, 1]]) {
+      const eb = st.loc(side * 1, -.5), { J, B } = rig.ik(sh, st.hands[i], R.upper, R.fore, { x: eb.x, y: eb.y, z: -.6 });
+      parts.push({ depth: (view(J).y + view(B).y) / 2, svg: halo(poly([sh, J, B]), col, .22 * U) + (depthMark(B, fwdOf(B, st.S), col) || `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.12 * U}" fill="${col}"/>`) });
+    }
+    let s = ''; parts.sort((x, y) => y.depth - x.depth).forEach(q => s += q.svg);
+    if (st.arms === 'c') { const q = pr(st.hands[0]); s += `<circle cx="${q[0]}" cy="${q[1]}" r="${.35 * U}" fill="${HI}" fill-opacity=".6"/>`; }
+    // movement signs: a double arrow in the air, a turning arrow over the head while the dancer turns
+    if (st.airborne) { const x = hp[0] + 1.6 * U, y = hp[1] + 1.4 * U; s += `<path d="M${x},${y - .9 * U} V${y + .9 * U} M${x - .3 * U},${y - .55 * U} L${x},${y - .9 * U} L${x + .3 * U},${y - .55 * U} M${x - .3 * U},${y + .55 * U} L${x},${y + .9 * U} L${x + .3 * U},${y + .55 * U}" stroke="#333" stroke-width="${.09 * U}" fill="none"/>`; }
+    if (Math.abs(f.facing - f.facingFrom) > 1 && Math.abs(st.facing - f.facing) > 1) { const r = f.facing > f.facingFrom; s += `<text x="${hp[0]}" y="${hp[1] - .85 * U}" text-anchor="middle" font-size="${1.1 * U}" fill="#333">${r ? '↻' : '↺'}</text>`; }
+    return `<g stroke-linecap="round" stroke-linejoin="round">${s}${extra.join('')}</g>`;
+  },
+  paint(p) {
+    const d = this.d, total = d.cycle, q = ((p % total) + total) % total, k = frameAt(d, q), f = d.frames[k];
+    this.tape.setAttribute('transform', `translate(${(this.playX - q * this.ppb).toFixed(1)} 0)`);
+    for (const nt of this.notes) { let a = q - nt.t; if (a < -1e-6) a += total; const on = a >= -1e-6 && a < .18; if (on !== nt.on) { nt.on = on; nt.n.setAttribute('opacity', on ? 1 : nt.base); nt.n.style.filter = on ? `drop-shadow(0 0 6px ${HI})` : ''; } }
+    this.fig.innerHTML = this.figure(this.rig.state(q), f, q);
+    const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' }, dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', z: ' across behind', c: ' together', p: '' };
+    this.say.textContent = `${countOf(f)}: ${names[f.kind]}${['step', 'touch', 'jump'].includes(f.kind) ? dirs[f.dir] : ''}`;
+  }
+};
+
 /* ================= examples ================= */
 const RHYTHMS = {
   'Rock beat': `meter: 4/4\nkick:  x... x... x... x...\nsnare: .... x... .... x...\nhat:   x.x. x.x. x.x. x.x.`,
@@ -6095,9 +6217,9 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       };
       constructor(body, text, onChange, opts = {}) {
         this.mode = opts.mode === 'dance' ? 'dance' : 'rhythm'; this.body = body; this.opts = opts;
-        const st = this.state = { rview: 'grid', dview: 'dancer', sylsys: 'kodaly', facing: ['behind', 'front', 'quarter'].includes(opts.facing) ? opts.facing : 'behind', rebuild: () => this.render() };
+        const st = this.state = { rview: 'grid', dview: 'writing', sylsys: 'kodaly', facing: ['behind', 'front', 'quarter'].includes(opts.facing) ? opts.facing : 'behind', rebuild: () => this.render() };
         this.lab = RhythmDance(st, () => sampler.ctx());
-        const views = this.mode === 'dance' ? [['dancer', 'Dancer'], ['feet', 'Footprints'], ['figs', 'Figures'], ['laban', 'Columns'], ['benesh', 'Stave']] : [['grid', 'Grid'], ['wheel', 'Wheel'], ['syll', 'Syllables'], ['body', 'Body']];
+        const views = this.mode === 'dance' ? [['writing', 'Writing'], ['dancer', 'Dancer'], ['feet', 'Footprints'], ['figs', 'Figures'], ['laban', 'Columns'], ['benesh', 'Stave']] : [['grid', 'Grid'], ['wheel', 'Wheel'], ['syll', 'Syllables'], ['body', 'Body']];
         const key = this.mode === 'dance' ? 'dview' : 'rview'; if (views.some(v => v[0] === opts.view)) st[key] = opts.view;
         const examples = this.mode === 'dance' ? this.lab.DANCES : this.lab.RHYTHMS;
         body.innerHTML = `<div class="mstage"></div>
