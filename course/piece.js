@@ -25,8 +25,9 @@
   tempo and how much the band plays (rich to listen and put together, plain and the same each time
   round for sections, the accompaniment without the tune for a play-through or an attempt). The page's own cell does the work: its
   renderer, the Player on its one AudioContext clock, Game mode and the instrument view; a section is
-  written out as a tune of its own (course/practice.js). The address carries the setup and nothing
-  private; practice history stays in this browser (gcs-practice-v1), assessments in the board's store.
+  written out as a tune of its own (course/practice.js). Form is heard by comparing: Listen's form choice plays the
+  opening of each part in turn, lettered A, B, A, with a pause between (hearing the form, below). The address carries
+  the setup and nothing private; practice history stays in this browser (gcs-practice-v1), assessments in the board's store.
 */
 (function () {
   'use strict';
@@ -57,7 +58,12 @@
   const teacher = () => mode !== 'practice';
   // What step 2 is doing just now: studying, looping together (Teach), in time or note by note (Practice).
   const sub = () => kind() !== 'sections' ? null : how;
-  const repeats = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
+  // Whether the music repeats: each step's own choice (looping and putting together repeat), until the clock's repeat toggle changes it.
+  const repeatsByDefault = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
+  let loopOn = null;
+  const repeats = () => !example && (loopOn === null ? repeatsByDefault() : loopOn);
+  // The example is a form with its parts lettered (concepts.json): the demonstration of form plays it.
+  const isForm = () => !!(example && example.parts);
   const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'perform' : 'rich';
   // Guide tones: on for a student's play-through (they can turn them off), off for an assessment (the teacher can turn them on).
   const guide = { practice: true, assess: false };
@@ -69,12 +75,11 @@
     <div class="pb-row pb-top">
       <button type="button" class="pb-fold" aria-expanded="true" aria-controls="pb-steps pb-tools" title="Fold the bar away, or open it again (F)" aria-label="Fold the bar"><span aria-hidden="true"></span></button>
       <a class="pb-back" href="course/board.html">← Board</a>
-      <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><small class="pb-facts"></small></div>
+      <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><button type="button" class="pb-share"></button><small class="pb-facts"></small></div>
       <div class="pb-modes" role="tablist" aria-label="Teacher"></div>
       <label class="pb-inst" title="The instrument shown with the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <label class="pb-show" title="What a piano, Wicki-Hayden keyboard or ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <button type="button" class="pb-share"></button>
-      <button type="button" class="pb-more" aria-expanded="false" title="The full player: the ABC, the band, the mixer, note names and transposition">More</button>
+      <button type="button" class="pb-gear quiet" aria-label="Ukulele setup" title="Ukulele setup: C or D tuning, high or low G (kept on this computer)" hidden>⚙</button>
+      <label class="pb-show" title="What a piano, the 2-5 Keys or a ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
     </div>
     <ol class="pb-row pb-steps" id="pb-steps" aria-label="Steps"></ol>
     <div class="pb-row pb-tools" id="pb-tools"></div>`;
@@ -138,6 +143,7 @@
     $('.pb-inst select').value = inst;
     $('.pb-show select').value = setup.show || 'melody';
     en = hook.show({ text: textNow(), inst, tr: setup.tr || 0, show: $('.pb-show select').value });
+    makeClock(); makePullTab();
     wireEngine();
     setMode(mode, step);
     requestAnimationFrame(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
@@ -160,6 +166,8 @@
   }
   function textNow() {
     const p = shownBars();
+    formMap = null;
+    if (isForm()) { const r = P.spansAbc(tune.abc, window.ABCJS, example.parts.map(x => x.play), found); formMap = r.where; return r.abc; }   // the openings of the parts
     let abc = p ? P.phraseAbc(tune.abc, window.ABCJS, p, found) : tune.abc;
     // Studying a section, room under each line of music for the diagrams.
     if (sub() === 'study' && !example) abc = /^X:.*$/m.test(abc) ? abc.replace(/^(X:.*)$/m, '$1\n%%staffsep 150') : '%%staffsep 150\n' + abc;
@@ -175,11 +183,16 @@
     applyMix();
     document.body.dataset.pieceKind = sub() === 'study' && !example ? 'study' : kind();
     en.fitWhole = !!shownBars() || sections() < 2;
+    en.repeatSigns = repeats();   // the score shows the repeat it plays
     // Studying, a section of more than eight notes takes two lines, so each note's diagram has room to be read.
     const shownNotes = (() => { const p = shownBars(); return (p ? found.bars.slice(p.from, p.to) : found.bars).reduce((n, b) => n + b.notes.length, 0); })();
     const shownBarCount = (() => { const p = shownBars(); return p ? p.to - p.from : found.bars.length; })();
     const split = sub() === 'study' && !example && shownNotes > 8 && shownBarCount > 1;
     en.fitFrom = split ? 2 : 1; en.barsPerLine = split ? Math.ceil(shownBarCount / 2) : 0;
+    // Hearing the form, the openings one above another where they are the same length (two to a line past three
+    // parts), so the parts that are the same line up note for note. When those lines will not all fit on the screen at
+    // once, wireEngine's render sets them one after another instead, so Game mode never slides the first A out of view.
+    if (isForm()) { const n = example.parts.map(x => x.play.to - x.play.from); if (n.every(x => x === n[0])) en.barsPerLine = n[0] * Math.ceil(n.length / 3); }
     en.entry.value = textNow();
     en.render();
     if (en.player) en.player.gains();
@@ -191,7 +204,7 @@
     if (sub() === 'note') buildStepper(); else stepper = null;
     clearFlags();
     paint(); syncUrl();
-    requestAnimationFrame(drawStudy);
+    requestAnimationFrame(() => { drawStudy(); drawForm(); });
   }
   // The mixer for the step: a play-through's accompaniment, with the melody silent or faint; else the band as balanced.
   function applyMix() {
@@ -207,16 +220,17 @@
     if (en && en.original) { en.warp = bpm / en.writtenBpm(); en.retime(); }
     paint(); syncUrl();
   }
-  function stopAll() { if (en && en.player) { if (en.player.running) en.togglePlay(); en.toTop(); } stopListening(); }
+  function stopAll() { formQuit(); if (en && en.player) { if (en.player.running) en.togglePlay(); en.toTop(); } stopListening(); }
   // The step's one button: play from the top (or on from a pause), or pause.
   async function playPause() {
     if (!en) return;
     if (stepper) { stepNext(false); return; }
+    if (isForm()) { formToggle(); return; }
     const p = en.player, k = kind();
     if (!p.running) {
-      p.setLoop(!example && repeats());
+      p.setLoop(repeats());
       const lp = en.body.querySelector('.transport .loop'); if (lp) lp.setAttribute('aria-pressed', String(p.loop));
-      if (!example && ((k === 'through' && listenOn) || k === 'attempt')) {
+      if (!example && LISTEN_LAB && ((k === 'through' && listenOn) || k === 'attempt')) {
         if (!(p.pos > 0)) { attempt = null; flagsShown = []; clearMarks(); if (panel) openPanel(); }
         if (!listening) await startListening('attempt');
       }
@@ -226,13 +240,16 @@
   }
   // A run is the music playing from its start to its end (each time round when repeating). It says the music
   // played, not that it was played well. Faster each time round lifts the tempo at each turn.
-  let run = { top: false, cycle: 0, was: false };
+  let run = { top: false, cycle: 0, was: false }, cellFinished = null;
   function wireEngine() {
     // The page redraws the score when its box changes size; the diagrams and the note by note place follow.
     const render = en.render.bind(en);
-    en.render = (...a) => { render(...a); requestAnimationFrame(() => { drawStudy(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
+    // Hearing the form, openings stacked one above another that no longer all fit on the screen go back to one after another.
+    en.render = (...a) => { render(...a); if (isForm() && en.barsPerLine && !en.player.running && !en.pending && !en.body.classList.contains('fitwhole')) { en.barsPerLine = 0; render(...a); } requestAnimationFrame(() => { drawStudy(); drawForm(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
     const finished = en.onFinished.bind(en);
+    cellFinished = finished;
     en.onFinished = () => {
+      if (demo && demo.on) { formPartDone(); return; }   // one part of the form heard: a pause, then the next
       finished(); if (run.top && !example) lapDone(1); run = { top: false, cycle: 0, was: false }; paintPlaying();
       const k = kind();
       if (listening && listening.kind === 'attempt') judge(stopListening());
@@ -266,14 +283,57 @@
     paintProgress();
   }
 
+  /* ---------------- the clock: play, pause and tempo, in the music ----------------
+     The grand clock (course/clock.js) stands where the score's tempo mark was, so it stays in view when the bar
+     is folded: tap it to play or pause, drag it (or its number) up or down for the tempo. Its label is the step's
+     own words (Listen to the whole piece, Loop it...). Note by note and deciding have nothing to play: it steps aside. */
+  let clock = null, clockHost = null, clockRaf = 0;
+  function makeClock() {
+    if (!window.GCSClock || !en) return;
+    clockHost = document.createElement('div'); clockHost.className = 'pb-clock';
+    en.body.appendChild(clockHost);
+    clock = window.GCSClock.create(clockHost, { bpm, min: 30, max: 200, written, label: '', labelAt: 'none', repeat: repeats(),
+      onToggle: () => playPause(), onBpm: v => setBpm(v), onReset: () => resetPlay(), onRepeat: on => setRepeat(on) });
+  }
+  const clockLabel = () => { const k = kind(); return example ? `Hear ${example.words}` : ({ listen: 'Listen to the whole piece', whole: 'Play the whole piece', through: 'Play it through', hear: 'Hear the whole piece', attempt: 'Start the attempt' })[k] || (sub() === 'study' ? 'Hear this section' : 'Loop it'); };
+  function paintClock() {
+    if (!clock) return;
+    const off = sub() === 'note' || kind() === 'decide';
+    clockHost.hidden = off;
+    const beats = en && en.tl ? en.tl.countBeats : 4, p = en && en.player, playing = playingNow();
+    clock.set({ bpm, written, label: clockLabel(), beats, playing, repeat: repeats(), canReset: !!(p && !playing && p.pos > 0) });
+  }
+  // Back to the start, from a pause.
+  function resetPlay() { if (!en) return; if (demo) { formQuit(); demo = { i: 0, on: false }; paintForm(); } if (en.player.running) en.togglePlay(); en.toTop(); wasPlaying = null; paintPlaying(); paintClock(); }
+  // Repeat on or off: the music (from the next time round when playing) and the repeat signs in the score.
+  function setRepeat(on) {
+    loopOn = !!on;
+    if (!en) return;
+    en.player.setLoop(repeats());
+    en.repeatSigns = repeats();
+    if (en.player.running) en.pending = true; else en.render();
+    paintClock(); syncUrl();
+  }
+  // While the music plays the hand sweeps once a bar: how far the playhead is through the bar it is in (the count-in's hand waits at twelve).
+  function clockTick() {
+    clockRaf = 0;
+    if (!clock || !en || !en.player.running || !en.tl) return;
+    const t = en.now(), bars = en.tl.bars || [], b = bars.find(x => t >= x.start && t < x.end);
+    clock.set({ turn: b ? Math.max(0, Math.min(1, (t - b.start) / Math.max(1, b.end - b.start))) : 0 });
+    clockRaf = requestAnimationFrame(clockTick);
+  }
+
   /* ---------------- modes and steps ---------------- */
   function setMode(m, s = 1) {
     if (m !== mode) { stopAll(); mode = m; resetTempi(); how = P.HOW[m] ? P.HOW[m][0] : how; }
     bar.classList.toggle('teacher', teacher());
     $('.pb-modes').innerHTML = teacher() ? ['teach', 'assess'].map(x => `<button type="button" role="tab" data-mode="${x}" aria-selected="${x === m}" class="${x === m ? 'on' : ''}">${P.MODES[x]}</button>`).join('') : '';
     $('.pb-modes').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode, 1); }));
-    $('.pb-share').textContent = teacher() ? 'Copy student link' : 'Copy link';
-    $('.pb-share').title = teacher() ? 'Copy a link students open to practise this piece: its sections, instrument and key (never names, progress or marks)' : 'Copy a link to this piece as you are practising it';
+    // A small link button: Practice and a link sign for a teacher (the students' link), the sign alone for a student.
+    // Share: an icon; its dialog offers the link (a teacher's is the students' practice link), the ABC and Strudel.
+    $('.pb-share').innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>`;
+    $('.pb-share').setAttribute('aria-label', 'Share');
+    $('.pb-share').title = teacher() ? 'Share: the practice link for students, the ABC, or Strudel' : 'Share: a link to this, the ABC, or Strudel';
     document.body.dataset.pieceMode = m;
     $('.pb-back').href = 'course/board.html#' + P.encodeBoard({ level: tune.level, tune: tune.id, do: m });
     goStep(s, true);
@@ -282,76 +342,78 @@
     s = Math.max(1, Math.min(KINDS[mode].length, s));
     if (s === step && !force) return;
     stopAll();
-    step = s; bpm = tempo[step] || written; example = null;
+    step = s; bpm = tempo[step] || written; example = null; loopOn = null;
     renderSteps(); renderTools();
     if (['through', 'attempt', 'decide'].includes(kind())) openPanel(); else closePanel();
     redraw();
   }
+  /* The steps across the bar. Step 2 holds its two ways in its own bubble: Teach studies the sections, then loops
+     them (1, 2a, 2b, 3); Practice goes note by note, then loops in time. Tapping a half goes there. */
+  const STEP2 = { teach: [['study', 'Study the sections', 'Study'], ['together', 'Loop them', 'Loop']], practice: [['note', 'Note by note', 'Notes'], ['time', 'Loop in time', 'Loop']] };
   function renderSteps() {
-    $('.pb-steps').innerHTML = P.STEPS[mode].map((n, i) => `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`).join('');
-    $('.pb-steps').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.step)));
+    $('.pb-steps').innerHTML = P.STEPS[mode].map((n, i) => {
+      const halves = i === 1 && STEP2[mode];
+      if (!halves) return `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`;
+      return `<li class="pb-step2${step === 2 ? ' on' : ''}" role="group" aria-label="${esc(n)}"><b aria-hidden="true">2</b>${halves.map(([v, l, sh], j) => `<button type="button" data-step="2" data-how="${v}" ${step === 2 && how === v ? 'aria-current="step"' : ''} aria-label="${esc(l)}"><span class="half">${'ab'[j]}</span> <span class="st">${esc(l)}</span><span class="sh">${esc(sh)}</span></button>`).join('')}</li>`;
+    }).join('');
+    $('.pb-steps').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => {
+      const h = b.dataset.how;
+      if (h && (h !== how || step !== 2)) { how = h; if (step === 2) { stopAll(); renderSteps(); renderTools(); redraw(); return; } }
+      goStep(+b.dataset.step);
+    }));
   }
-  const nextBtn = (label, to) => `<button type="button" class="pb-nextstep" data-to="${to}" title="The next step (Page Down)">Next: ${esc(label)} →</button>`;
+  // The tempo, small: the number between − and +, its share of full speed in the tooltip.
   const tempoCtl = () => `<div class="pb-tempo" role="group" aria-label="Tempo">
       <button type="button" class="pb-slower" aria-label="Slower" title="Five beats a minute slower (−)">−</button>
       <span class="pb-bpm"><output class="pb-bpmv">${bpm}</output> <small>BPM</small></span>
-      <button type="button" class="pb-faster" aria-label="Faster" title="Five beats a minute faster (+). The notes keep their pitch.">+</button>
-      <small class="pb-share-of"></small></div>`;
-  const fasterCtl = () => `<label class="chk" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time round</label>`;
+      <button type="button" class="pb-faster" aria-label="Faster" title="Five beats a minute faster (+). The notes keep their pitch.">+</button></div>`;
+  const fasterCtl = () => `<label class="chk" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time</label>`;
   const playBtn = label => `<button type="button" class="big play" data-act="play" title="Play or pause (space)"><span class="ic" aria-hidden="true">▶</span> <span class="lbl">${esc(label)}</span></button>`;
-  // Moving between sections: arrows that point the way, not play buttons.
-  const sectionNav = () => sections() > 1 ? `<div class="pb-loopnav" role="group" aria-label="Section">
-      <button type="button" class="pb-prev" aria-label="Previous" title="Previous (←)">←</button>
+  // Moving between sections: arrows that point the way, not play buttons; the pencil sets where the sections fall.
+  const sectionNav = (cuts = true) => sections() > 1 || cuts ? `<div class="pb-loopnav" role="group" aria-label="Section">
+      ${sections() > 1 ? `<button type="button" class="pb-prev" aria-label="Previous" title="Previous (←)">←</button>
       <span class="pb-where" aria-live="polite"></span>
-      <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button></div>` : '';
-  const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence. The microphone can hear it too, so its listening is less sure."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
-  const sectionsBtn = () => `<button type="button" class="pb-cuts quiet" title="Choose which bars make each section">Set up sections…</button>`;
-  const seg = (opts) => `<div class="seg" role="radiogroup" aria-label="How">${opts.map(([v, l]) => `<button type="button" role="radio" data-how="${v}" aria-checked="${how === v}">${esc(l)}</button>`).join('')}</div>`;
+      <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button>` : ''}
+      ${cuts ? `<button type="button" class="pb-cuts quiet" aria-label="Set up sections" title="Set up sections: choose which bars make each one">✎</button>` : ''}</div>` : '';
+  const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
   // What to hear: the whole piece, or one idea in it (its bars shown and played): one for each element of music the
   // piece shows, or failing that the new idea. A toggle, like the others.
   const barsWord = c => c.first === c.last ? `bar ${c.first}` : `bars ${c.first}–${c.last}`;
-  const conceptTitle = c => c.element ? `${c.element}${c.isNew ? ', new in this piece' : ''}: ${c.about}, in ${barsWord(c)}${c.throughout ? ' (heard all through)' : ''}` : `New in this piece: ${c.words}, in ${barsWord(c)}`;
-  const conceptCtl = () => !concepts.length ? '' : `<span class="pb-hint">Hear</span><div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
+  const conceptTitle = c => c.parts ? `${c.element}: ${c.about}. ${P.formWords(c.parts)}` : c.element ? `${c.element}${c.isNew ? ', new in this piece' : ''}: ${c.about}, in ${barsWord(c)}${c.throughout ? ' (heard all through)' : ''}` : `New in this piece: ${c.words}, in ${barsWord(c)}`;
+  const conceptCtl = () => !concepts.length ? '' : `<div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
       <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="${esc(conceptTitle(c))}">${esc(c.words)}</button>`).join('')}</div>`;
-  const exampleHint = c => c.element ? `${c.element}, ${barsWord(c)}: ${c.reason}` : `New in this piece, in ${barsWord(c)}.`;
+  const exampleHint = c => c.parts ? `Form, ${c.words}: the start of each part in turn, with a pause between. ${P.formWords(c.parts)}.` : c.element ? `${c.element}, ${barsWord(c)}: ${c.reason}` : `New in this piece, in ${barsWord(c)}.`;
+  // Listening is not ready (Safari will not, and a voice is read poorly): only with the lab switch on this computer.
+  const LISTEN_LAB = ls.get('gcs-listening-lab') === '1';
   function renderTools() {
-    const k = kind(), names = P.STEPS[mode];
-    const next = step < names.length ? nextBtn(names[step].toLowerCase(), step + 1) : '';
+    const k = kind();
     let h = '';
-    if (k === 'listen') h = `${playBtn(example ? `Hear ${example.words}` : 'Listen to the whole piece')}${conceptCtl()}${example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : ''}${next}`;
-    else if (k === 'sections' && mode === 'teach') {
-      h = `${seg([['study', 'Study'], ['together', 'Loop together']])}${sectionNav()}`;
-      h += how === 'study' ? `${playBtn('Hear this section')}${tempoCtl()}<span class="pb-hint">A fingering under every note: the class works through it at its own pace, alone or in pairs.</span>${sectionsBtn()}`
-        : `${playBtn('Loop it')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">Each section, then joined to the ones before, until it is all of it.</span>`;
-      h += next;
-    }
-    else if (k === 'sections') {
-      h = `${seg([['time', 'In time'], ['note', 'Note by note']])}${sectionNav()}`;
-      h += how === 'time' ? `${playBtn('Loop it')}${tempoCtl()}${fasterCtl()}`
-        : `<button type="button" class="big" data-act="back" title="The note before (Backspace)">◀ Back</button>
+    if (k === 'listen') h = `${conceptCtl()}${example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : ''}`;
+    else if (k === 'sections' && mode === 'teach') h = how === 'study'
+      ? `${sectionNav()}`
+      : `${sectionNav(false)}${fasterCtl()}`;
+    else if (k === 'sections') h = how === 'time'
+      ? `${sectionNav()}${fasterCtl()}`
+      : `<button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
+        <button type="button" class="big" data-act="back" title="The note before (Backspace)">Back</button>
         <button type="button" class="big" data-act="hear" title="Hear this note (H)"><span aria-hidden="true">🔊</span> Hear it</button>
-        <button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
-        <span class="pb-step" aria-live="polite"></span>
+        <span class="pb-step" aria-live="polite"></span>${sectionNav()}
         <label class="chk" title="Play each note as it comes up"><input type="checkbox" class="pb-sound" checked> Sound each note</label>
-        <button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone: a steady, matching note moves on by itself. Noise, other players and echoes can fool it; Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>`;
-      h += `${sectionsBtn()}${next}`;
-    }
-    else if (k === 'whole') h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">From slow to full speed, the band playing along.</span>${next}`;
-    else if (k === 'through') h = `${playBtn('Play it through')}${tempoCtl()}${guideCtl()}
-        <button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard. It is a guess: noise, echoes and the guide tones can fool it."><span aria-hidden="true">🎤</span> Listen to me</button>
-        <span class="pb-hint">The band plays the accompaniment; you play the tune.</span>`;
+        ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone (a test): a steady, matching note moves on by itself. Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
+    else if (k === 'whole') h = `${fasterCtl()}`;
+    else if (k === 'through') h = `${guideCtl()}
+        ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard (a test; a guess at best)."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
     else if (k === 'hear') {
       const st = courseState();
       h = `<label class="pb-who">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Name" value="${esc(who)}">`}</label>
-        ${playBtn('Hear the whole piece')}${next}`;
+`;
     }
-    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}${guideCtl()}<span class="pb-hint">The band plays the accompaniment; the student plays the tune and the microphone listens (a suggestion only).</span>${next}`;
-    else h = `<span class="pb-hint">Decide in the panel, then save. The microphone only suggested; the result is yours.</span>`;
+    else if (k === 'attempt') h = `${guideCtl()}`;
+    else h = `<span class="pb-hint">Decide in the panel, then save.</span>`;
     h += mode === 'practice' && ['sections', 'whole', 'through'].includes(k) ? `<div class="pb-progress" aria-live="polite"></div>` : '';
     tools.innerHTML = h; wasPlaying = null;
     tools.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act)));
-    tools.querySelectorAll('[data-how]').forEach(b => b.addEventListener('click', () => { if (how === b.dataset.how) return; how = b.dataset.how; stopAll(); renderTools(); redraw(); }));
-    tools.querySelectorAll('.pb-nextstep').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.to)));
+    loopOn = null;
     tools.querySelectorAll('.pb-concepts [data-c]').forEach(b => b.addEventListener('click', () => { const c = +b.dataset.c < 0 ? null : concepts[+b.dataset.c]; if (c !== example) showExample(c); }));
     const q = s => tools.querySelector(s);
     if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
@@ -415,6 +477,103 @@
     studyBox.style.height = `${Math.ceil(bottom + 8)}px`;   // the box reaches the lowest diagram, so a short screen scrolls to it
   }
 
+  /* ---------------- hearing the form ----------------
+     Form is heard by comparing parts, so the demonstration plays the opening of each part in turn (concepts.json's
+     parts: Twinkle's bars 1–2, 5–6, 9–10), with a pause of a bar or so between, so the ear holds A, hears B, and knows
+     A when it comes back. On screen are those openings alone, side by side, each with its letter over its first bar
+     like a rehearsal mark (A and A look the same, B does not); the letter of the part playing, or coming next in the
+     pause, lights. The whole piece, with the other bars greyed, was tried first: it fits a screen only for the shortest
+     pieces at a size a class can read, and Game mode's two sliding lines then hide the first A when the last one plays.
+     The hint says which bars each letter is. It is the page's own Player and timeline: the openings are written out as
+     one tune (practice.js spansAbc), and a part is played by starting at its first bar and ending the Player at its
+     last (the notes ring on), so the cursor, the clock and the instrument follow as they always do; the first part has
+     the count-in. */
+  let demo = null;   // { i: the part playing or next, on: the demonstration is running, timer }
+  let formMap = null;   // where each opening's bars are in the text on screen (spansAbc)
+  const playingNow = () => !!(en && en.player && en.player.running) || !!(demo && demo.on);
+  // A part's opening in ms, from the timeline's bars.
+  function formSpan(part) {
+    const b = en && en.tl && en.tl.bars, at = formMap && formMap[example.parts.indexOf(part)];
+    if (!b || !at || b.length !== formMap[formMap.length - 1].to || !b[at.from] || !b[at.to - 1]) return null;
+    return { start: b[at.from].start, end: b[at.to - 1].end };
+  }
+  function formToggle() {
+    if (!en) return;
+    if (demo && demo.on) { clearTimeout(demo.timer); demo.on = false; if (en.player.running) en.togglePlay(); paintForm(); paintPlaying(); paintClock(); return; }   // pause: Play again starts the part over
+    if (!demo) demo = { i: 0, on: false };
+    formPlay(demo.i);
+  }
+  async function formPlay(i) {
+    const s = formSpan(example.parts[i]);
+    if (!s) { say('The parts could not be found in the music.'); formQuit(); return; }
+    demo.i = i; demo.on = true; clearTimeout(demo.timer);
+    const p = en.player;
+    p.setLoop(false);
+    if (p.running) en.togglePlay();
+    p.pos = s.start > 1 ? s.start : 0;   // from the top, the count-in
+    paintForm(); paintPlaying();
+    await en.togglePlay();
+    if (!demo || !demo.on) { if (p.running) en.togglePlay(); return; }   // left while the samples loaded: the start is ours (Play waits while they load)
+    if (demo.i !== i || !p.running) return;
+    p.end = Math.min(p.end, s.end);   // the Player stops scheduling at the part's last barline and lets its notes ring
+    if (!clockRaf) clockRaf = requestAnimationFrame(clockTick);
+    paintClock();
+  }
+  // A part has been heard: the cursor waits at its end, then moves to the next part as its letter lights, then that plays.
+  function formPartDone() {
+    const p = en.player, parts = example.parts, s = formSpan(parts[demo.i]);
+    p.pos = s ? Math.max(0, s.end - 1) : p.pos;
+    en.leadIn = false; en.idle = false; en.k = null; en.transportState(); en.paint();
+    if (demo.i + 1 >= parts.length) { formDone(); return; }
+    const bar = en.tl.bars[0] ? Math.max(...en.tl.bars.map(b => b.len)) : 2000, gap = Math.max(1400, Math.min(2600, bar));
+    demo.timer = setTimeout(() => {
+      if (!demo || !demo.on) return;
+      demo.i++; const n = formSpan(parts[demo.i]);
+      if (n) { p.pos = n.start + 1; en.k = null; en.paint(); }
+      paintForm();
+      demo.timer = setTimeout(() => { if (demo && demo.on) formPlay(demo.i); }, gap / 2);
+    }, gap / 2);
+  }
+  function formDone() {
+    const c = example;
+    demo = { i: 0, on: false };
+    if (cellFinished) cellFinished();
+    paintForm(); paintPlaying(); paintClock();
+    const primed = [...new Set(c.parts.filter(x => x.letter.length > 1).map(x => x.letter[0]))].map(l => `; ${l}′ begins like ${l}`).join('');
+    say(`${c.words}: the same letter, the same music${primed}. Now the whole piece?`, 'The whole piece', () => { showExample(null); playPause(); });
+  }
+  // Leaving the demonstration (another choice, another step, a redraw): no part is waiting to play.
+  function formQuit() { if (demo) { clearTimeout(demo.timer); demo = null; } }
+  // The letters over the music, drawn after each render.
+  function drawForm() {
+    const svg = en && en.paper && en.paper.querySelector('svg');
+    if (!svg) return;
+    for (const m of svg.querySelectorAll('.pb-formmark')) m.remove();
+    if (!isForm() || !en.tl) return;
+    const spans = example.parts.map(formSpan); if (spans.some(x => !x)) return;
+    const E = en.tl.events.filter(e => e.x !== null);
+    example.parts.forEach((part, i) => {
+      const ev = E.find(e => e.ms >= spans[i].start - 1); if (!ev) return;
+      // On the barline the part starts at (before the first bar of a line: just before its first note), level with the
+      // chord symbols, which sit over the notes and so leave the barline clear.
+      const { top } = en.cursorSpan(ev.line), w = 12 + 7 * part.letter.length;
+      const chords = [...svg.querySelectorAll(`.abcjs-chord.abcjs-l${ev.line}`)].map(c => parseFloat(c.getAttribute('y')) - 0.35 * (parseFloat(c.getAttribute('font-size')) || 16)).filter(isFinite);
+      const lines = [...svg.querySelectorAll(`.abcjs-bar.abcjs-l${ev.line}`)].map(b => { const r = b.getBoundingClientRect(), s = svg.getBoundingClientRect(), k = svg.viewBox.baseVal.width / s.width; return (r.left + r.width / 2 - s.left) * k; }).filter(x => x < ev.x + 1);
+      const x = lines.length ? Math.max(...lines) - w + 2 : ev.x - w - 4, y = chords.length ? Math.min(...chords) - 9.5 : top - 22;
+      const m = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      m.setAttribute('class', `pb-formmark pb-l${part.letter.charCodeAt(0) - 65}`); m.dataset.i = i;
+      m.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+      m.innerHTML = `<rect x="0" y="0" width="${w}" height="19" rx="4"/><text x="${w / 2}" y="10" text-anchor="middle" dominant-baseline="central">${esc(part.letter)}</text>`;
+      m.setAttribute('aria-label', `Part ${part.letter}, bars ${part.first} to ${part.last}`);
+      svg.appendChild(m);
+    });
+    paintForm();
+  }
+  function paintForm() {
+    const svg = en && en.paper && en.paper.querySelector('svg'); if (!svg) return;
+    for (const m of svg.querySelectorAll('.pb-formmark')) m.classList.toggle('on', !!(demo && demo.on) && +m.dataset.i === demo.i);
+  }
+
   /* ---------------- note by note ---------------- */
   function buildStepper() {
     if (!en || !en.tl) { stepper = null; return; }
@@ -449,7 +608,7 @@
         P.writeProgress(localStorage, store); paintProgress();
       }
       celebrate();
-      say(`All ${stepper.count} notes. Now loop it in time, slowly?`, 'In time', () => { how = 'time'; renderTools(); redraw(); playPause(); });
+      say(`All ${stepper.count} notes. Now loop it in time, slowly?`, 'Loop in time', () => { how = 'time'; renderTools(); redraw(); playPause(); });
       stepper.reset(); showStep(false);
       return;
     }
@@ -526,7 +685,7 @@
     if (mode === 'practice') {
       const st = courseState(), ready = !!(me && st.progress[tune.id] && st.progress[tune.id][me] && st.progress[tune.id][me].state === 'ready');
       panel.innerHTML = `<h2>Your play-through</h2>
-        <div class="pa-flags">${attempt ? '' : `<p class="muted">${listenOn ? 'Press Play it through: the app listens while you play, then says what it heard.' : 'Turn on Listen to me and the app says what it heard. Or play it for someone.'}</p>`}</div>
+        <div class="pa-flags">${attempt ? '' : `<p class="muted">${!LISTEN_LAB ? 'The band plays the accompaniment; you play the tune. Play it for someone, and when it goes well, tell your teacher.' : listenOn ? 'Press Play it through: the app listens while you play, then says what it heard.' : 'Turn on Listen to me and the app says what it heard. Or play it for someone.'}</p>`}</div>
         ${me ? `<div class="pa-row pa-save"><button type="button" class="pa-ready primary">${ready ? 'Ready to show ✓' : 'Ready to show my teacher'}</button></div><p class="muted small">${esc(me)}: your teacher sees this on the board.</p>` : ''}`;
       if (attempt) showFlags(false);
       const rb = panel.querySelector('.pa-ready');
@@ -536,7 +695,7 @@
     const st = courseState();
     panel.innerHTML = `
       <h2>${esc(who || 'The student')}</h2>
-      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? '<p class="muted">Start the attempt: the band plays the accompaniment, the student plays the tune, and anything that sounded wrong is listed here to check by ear.</p>' : '<p class="muted">No attempt listened to: your ears decide.</p>'}</div>
+      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? `<p class="muted">Start the attempt: the band plays the accompaniment and the student plays the tune${LISTEN_LAB ? '; anything that sounded wrong is listed here to check by ear' : '. Listen, then decide'}.</p>` : '<p class="muted">Your ears decide.</p>'}</div>
       ${k === 'decide' ? `
       ${!who ? `<label class="pa-row">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option>${esc(n)}</option>`).join('')}</select>` : '<input class="pa-who" placeholder="Name">'}</label>` : ''}
       <fieldset class="pa-result"><legend>Result</legend>
@@ -651,17 +810,20 @@
       where.setAttribute('aria-label', where.textContent);
     }
     const v = tools.querySelector('.pb-bpmv'); if (v) v.textContent = String(bpm);
-    const so = tools.querySelector('.pb-share-of'); if (so) { const share = P.tempoShare(bpm, written); so.textContent = share >= 100 ? 'full speed' : `${share}% of full speed`; }
+    const tg = tools.querySelector('.pb-tempo'); if (tg) { const share = P.tempoShare(bpm, written); tg.title = share >= 100 ? 'Full speed' : `${share}% of full speed`; }
     for (const b of bar.querySelectorAll('.pb-steps button')) b.classList.toggle('done', +b.dataset.step < step);
+    for (const b of bar.querySelectorAll('.pb-step2')) b.classList.toggle('done', step > 2);
     $('.pb-show').hidden = !['piano', 'wh', 'uke'].includes($('.pb-inst select').value);
-    paintPlaying(); paintProgress();
+    $('.pb-gear').hidden = $('.pb-inst select').value !== 'uke' || !(G.ukeSetup && G.ukeSetup.open);
+    wasPlaying = null; paintPlaying(); paintProgress(); paintClock();
   }
   // The main button says what it will do: Play, or Pause while the music plays.
   let wasPlaying = null;
   function paintPlaying() {
-    const on = !!(en && en.player && en.player.running);
+    const on = playingNow();
     if (on === wasPlaying) return;
     wasPlaying = on;
+    if (clock) { clock.set({ playing: on, canReset: !on && en.player.pos > 0 }); if (on && !clockRaf) clockRaf = requestAnimationFrame(clockTick); if (!on && !(en.player.pos > 0)) clock.set({ turn: 0 }); }
     for (const b of tools.querySelectorAll('[data-act="play"]')) {
       b.classList.toggle('playing', on);
       b.setAttribute('aria-pressed', String(on));
@@ -690,16 +852,57 @@
 
   /* ---------------- controls ---------------- */
   $('.pb-fold').addEventListener('click', () => setFold(!document.body.classList.contains('pb-folded')));
+  // The ukulele's setup (tuning, high or low G) is the page's, shared with the lesson page; a change redraws the music and its diagrams.
+  $('.pb-gear').addEventListener('click', () => { if (G.ukeSetup) G.ukeSetup.open(); });
+  if (G.ukeSetup && G.ukeSetup.onChange) G.ukeSetup.onChange(() => { if (en) afterRender(); });
   const choose = (cls, v) => { const sel = en && en.body.querySelector(`.${cls} select`); if (sel) { sel.value = v; sel.dispatchEvent(new Event('change')); } };
   $('.pb-inst select').addEventListener('change', e => { const v = e.target.value; ls.set('gcs-last-inst', v); choose('instpick', v); choose('showpick', $('.pb-show select').value); afterRender(); });
   $('.pb-show select').addEventListener('change', e => { choose('showpick', e.target.value); afterRender(); });
-  $('.pb-more').addEventListener('click', () => { const on = !document.body.classList.contains('pb-advanced'); document.body.classList.toggle('pb-advanced', on); $('.pb-more').setAttribute('aria-expanded', String(on)); if (en) en.showDrawer(on ? 'melody' : null); });
-  $('.pb-share').addEventListener('click', async () => {
-    // A teacher's link is for students: the piece to practise, with the teacher's sections, instrument and key.
+  /* The full player (the Melody, Band and Mixer drawers) waits behind a small pull tab at the foot of the music, in the
+     clock's brass and opal: tap it and the drawers slide up; the tab rides on their top edge and turns its chevron down. */
+  let pullTab = null;
+  function makePullTab() {
+    if (!en || pullTab) return;
+    pullTab = document.createElement('button'); pullTab.type = 'button'; pullTab.className = 'pb-pull'; pullTab.setAttribute('aria-expanded', 'false');
+    pullTab.setAttribute('aria-label', 'The full player: the ABC, the band and the mixer'); pullTab.title = 'The full player: the ABC, the band, the mixer, note names and transposition';
+    pullTab.innerHTML = '<svg viewBox="0 0 24 12" aria-hidden="true"><path d="M5 9l7-6 7 6"/></svg>';
+    en.body.appendChild(pullTab);
+    const dock = en.body.querySelector('.strip.dock');
+    new ResizeObserver(() => en.body.style.setProperty('--dock-h', (document.body.classList.contains('pb-advanced') && dock ? dock.offsetHeight : 0) + 'px')).observe(dock);
+    pullTab.addEventListener('click', () => {
+      const on = !document.body.classList.contains('pb-advanced');
+      document.body.classList.toggle('pb-advanced', on); pullTab.setAttribute('aria-expanded', String(on));
+      en.showDrawer(on ? 'melody' : null);
+      requestAnimationFrame(() => en.body.style.setProperty('--dock-h', (on && dock ? dock.offsetHeight : 0) + 'px'));
+    });
+  }
+  $('.pb-share').addEventListener('click', openShare);
+  let shareDlg = null;
+  function openShare() {
+    if (!tune) return;
+    if (!shareDlg) { shareDlg = document.createElement('dialog'); shareDlg.className = 'pb-cutsdlg pb-sharedlg'; document.body.appendChild(shareDlg); }
+    // A teacher's link is for students: the piece to practise, with the teacher's sections, instrument and key; never names, progress or marks.
     const s = teacher() ? { tune: setup.tune, level: setup.level, mode: 'practice', inst: setup.inst, show: setup.show, tr: setup.tr, cuts: setup.cuts } : { ...setup };
     const url = location.href.split('#')[0] + '#' + P.encodeSetup(s);
-    try { await navigator.clipboard.writeText(url); say(teacher() ? 'Student link copied: it opens this piece to practise, with your sections, instrument and key.' : 'Link copied.'); } catch (e) { prompt('Copy this link:', url); }
-  });
+    let strudel = ''; try { strudel = hook.strudel ? hook.strudel(en, tune.abc) : ''; } catch (e) {}
+    const items = [
+      ['link', teacher() ? 'Practice link for students' : 'Link to this', teacher() ? 'Opens this piece to practise, with your sections, instrument and key.' : 'Opens this piece just as it is now.', url],
+      ['abc', 'ABC', 'The whole tune as text, for the lesson page or any ABC program.', tune.abc],
+      ...(strudel ? [['strudel', 'Strudel', 'The tune and its band as Strudel code, to play or remix at strudel.cc.', strudel]] : []),
+    ];
+    shareDlg.innerHTML = `<h2>Share ${esc(tune.title)}</h2>
+      <div class="pb-sharelist">${items.map(([k, name, about]) => `<button type="button" data-k="${k}"><b>${esc(name)}</b><small>${esc(about)}</small><span class="done" aria-live="polite"></span></button>`).join('')}</div>
+      <textarea class="pb-sharetext" readonly hidden aria-label="Copy this"></textarea>
+      <div class="row"><span class="pb-spacer"></span><button type="button" class="close primary">Done</button></div>`;
+    shareDlg.querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', async () => {
+      const text = items.find(x => x[0] === b.dataset.k)[3];
+      shareDlg.querySelectorAll('.done').forEach(d => { d.textContent = ''; });
+      try { await navigator.clipboard.writeText(text); b.querySelector('.done').textContent = 'Copied'; }
+      catch (e) { const ta = shareDlg.querySelector('.pb-sharetext'); ta.hidden = false; ta.value = text; ta.focus(); ta.select(); }   // no clipboard here: select it to copy by hand
+    }));
+    shareDlg.querySelector('.close').onclick = () => shareDlg.close();
+    shareDlg.showModal();
+  }
   // A new address typed or pasted into this tab (the page writes its own with replaceState, which fires no hashchange).
   window.addEventListener('hashchange', () => location.reload());
   // Keys: one set for the whole view, before the page's own (which present a cell, not a piece).
@@ -718,8 +921,8 @@
     else if (k === 'Backspace' && stepper) act('back');
     else if ((k === 'h' || k === 'H') && stepper) act('hear');
     else if (k === 'f' || k === 'F') $('.pb-fold').click();
-    else if ((k === '+' || k === '=') && tools.querySelector('.pb-faster')) setBpm(P.nudgeTempo(bpm, 1, written));
-    else if ((k === '-' || k === '_') && tools.querySelector('.pb-slower')) setBpm(P.nudgeTempo(bpm, -1, written));
+    else if ((k === '+' || k === '=') && clock && !clockHost.hidden) setBpm(P.nudgeTempo(bpm, 1, written));
+    else if ((k === '-' || k === '_') && clock && !clockHost.hidden) setBpm(P.nudgeTempo(bpm, -1, written));
     else done = false;
     if (done) { e.preventDefault(); e.stopImmediatePropagation(); }
   }, true);

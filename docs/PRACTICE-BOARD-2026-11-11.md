@@ -38,7 +38,19 @@ Two people use the piece view, and they need different things.
 | 3 | **Put it together**: the whole piece on repeat, slow to full speed, rich band | the same | **Decide**: pass, needs more practice or not assessed, a level 1–4 if wanted, tempo, help, note, Save |
 | 4 | | **Play it through**: the band plays the accompaniment with **Faint guide tones** (on to start; untick to go without), the student plays the tune; with **Listen to me** on, the app says what it heard (a guess); **Ready to show my teacher** | |
 
-Each step has one main button, Play, which reads Pause while the music plays.
+**The clock** (`course/clock.js`, `course/clock.css`; a demo in `lab/Clock v1.html`)
+stands in the music where the tempo mark was, so it is in view with the bar
+folded: tap it to play or pause (its name says what: "Play: Hear this
+section"), drag it or its number up or down for the tempo (Shift for single
+beats; arrows and the wheel too; a double click on the number returns to full
+speed). Its hand sweeps once a bar. It steps aside in note by note and while
+deciding. Teach's step 2 is two halves in one bubble, 2a Study the sections and
+2b Loop them; Practice's is 2a Note by note and 2b Loop in time. The bar has no
+Next buttons (the steps do it) and no long hints; Set up sections is a pencil
+by the section arrows. The Wicki-Hayden keyboard is called **2-5 Keys** on
+screen.
+
+The clock is the one play control: it reads Pause while the music plays.
 The step decides what is on screen, whether it repeats, its tempo and the band:
 rich (energy and detail 65, the five-time-round arrangement) to listen and put
 together; plain (25 and 10, the same chorus every time round, so no new chords
@@ -145,15 +157,21 @@ claims the playing was right.
 
 ## Listening
 
-Advisory only. McLeod's pitch method (as in the Play Along lab), a three-frame
-stability gate, then an edit-distance alignment of heard notes with written
-ones: wrong, missed, extra, an octave away; then timing against the player's own
-median tempo: a hesitation, a note early or late. No flag is ever "certain":
-"likely" at best, "unsure" for misses, octaves and rhythm. The whole attempt gets
-a reliability (none, low, medium), lowered by a noisy room or a count far from
-the written one, and the panel says that echoes and two instruments at once
-fool it. The teacher keeps or dismisses each flag; only the decision is the
-result.
+**Off for now.** In the teacher's trial the microphone would not open in Safari,
+and in Chrome a sung line was read too poorly for the feedback to be right. The
+listening code stays (and its tests), but nothing shows it unless
+`localStorage['gcs-listening-lab'] = '1'` is set on a computer, for testing. A
+play-through and an attempt still play the accompaniment (with faint guide
+tones if wanted); the teacher listens and decides.
+
+When it is on: McLeod's pitch method (as in the Play Along lab) behind a
+high-pass filter a little over an octave under the tune's lowest note, a
+three-frame stability gate, then an edit-distance alignment of heard notes with
+written ones (wrong, missed, extra, an octave away) and timing against the
+player's own median tempo (a hesitation, a note early or late). No flag is ever
+"certain"; the attempt gets a reliability (none, low, medium), lowered by a
+noisy room and by guide tones. Before it comes back: Safari's capture path, and
+a voice (vibrato, scoops, breath) tested against a teacher's judgement.
 
 ## Checked
 

@@ -147,7 +147,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | — | | The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s). |
-| form | ternary (ABA) form (3) | 8–9 | Three parts, A B A: bars 8–9 are where B ends and A comes back (on “in the sky. Twin-kle, twin-kle”). |
+| form | ternary (ABA) form (3) | 8–9 | Three parts, A B A: bars 8–9 are where B ends and A comes back (on “in the sky. Twin-kle, twin-kle”). Parts: A bars 1–4, B bars 5–8, A bars 9–12; the openings heard: bars 1–2, bars 5–6, bars 9–10. |
 
 ## Baa, Baa, Black Sheep
 
@@ -158,7 +158,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | — | | The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s). |
-| form | ternary (ABA) form (3) | 8–9 | Three parts, A B A: bars 8–9 are where B ends and A comes back (on “who lives down the lane. Baa, baa, black sheep”). |
+| form | ternary (ABA) form (3) | 8–9 | Three parts, A B A: bars 8–9 are where B ends and A comes back (on “who lives down the lane. Baa, baa, black sheep”). Parts: A bars 1–4, B bars 5–8, A bars 9–12; the openings heard: bars 1–2, bars 5–6, bars 9–10. |
 
 ## This Old Man
 
@@ -180,7 +180,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | — | | The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s). |
-| form | compositions in four or more sections (e.g., AABA) (5) | 12–13 | Four phrases, A A B A: bars 12–13 are where B ends and A comes back (on “mel-o-dy; sing and float”). |
+| form | compositions in four or more sections (e.g., AABA) (5) | 12–13 | Four phrases, A A B A: bars 12–13 are where B ends and A comes back (on “mel-o-dy; sing and float”). Parts: A bars 1–4, A′ bars 5–8, B bars 9–12, A′ bars 13–16; the openings heard: bars 1–2, bars 5–6, bars 9–10, bars 13–14. |
 
 ## Frère Jacques
 
@@ -202,7 +202,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 2–3 | The chords G (I), D7 (V), G (I), C (IV). |
-| form | binary (AB) form (2) | 9–11 | Two parts, A and B (the parts the tune labels): bars 9–11 are where A ends and B begins. |
+| form | binary (AB) form (2) | 9–11 | Two parts, A and B (the parts the tune labels): bars 9–11 are where A ends and B begins. Parts: A bars 1–9, B bars 10–18; the openings heard: bars 1–3, bars 10–12. |
 
 ## Astley's Ride
 
@@ -213,7 +213,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 8–9 | The chords G (IV), A7 (V), D (I), ending back home on I. |
-| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins. |
+| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins. Parts: A bars 1–9, B bars 10–18; the openings heard: bars 1–3, bars 10–12. |
 
 ## The First Frost - Second part
 
@@ -224,7 +224,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 12–13 | The chords A (V), G (IV), D (I), ending back home on I. |
-| form | binary (AB) form (2) | 8–9 | Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins. |
+| form | binary (AB) form (2) | 8–9 | Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins. Parts: A bars 1–8, B bars 9–16; the openings heard: bars 1–2, bars 9–11. |
 
 ## Daisy Daisy
 
@@ -257,7 +257,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 16–18 | The chords D (IV), A (I), F♯m, E7 (V), A (I), ending back home on I; F♯m is a minor triad. |
-| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins. |
+| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins. Parts: A bars 1–9, B bars 10–18; the openings heard: bars 1–3, bars 10–12. |
 
 ## B. Variation
 
@@ -301,7 +301,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina) (8) | 2, all through | The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 2, where the melody holds a long note. |
 | texture/harmony | bordun patterns on “do” and “so” (2) | 13, all through | The drone holds the home note and its fifth all through, the way a bordun does; in bar 13 the melody moves through 4 different notes over it. |
-| form | binary (AB) form (2) | 9–10 | Two parts, A and B: bars 9–10 are where A ends and B begins, higher. In a Hindustani composition the first part (the sthayi) keeps low and the second (the antara) climbs towards high Sa. |
+| form | binary (AB) form (2) | 9–10 | Two parts, A and B: bars 9–10 are where A ends and B begins, higher. In a Hindustani composition the first part (the sthayi) keeps low and the second (the antara) climbs towards high Sa. Parts: A bars 1–9, B bars 10–17; the openings heard: bars 1–3, bars 10–11. |
 
 ## Desh
 
@@ -312,7 +312,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina) (8) | 4, all through | The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 4, where the melody rests. |
 | texture/harmony | bordun patterns on “do” and “so” (2) | 10, all through | The drone holds the home note and its fifth all through, the way a bordun does; in bar 10 the melody moves through 4 different notes over it. |
-| form | binary (AB) form (2) | 4–5 | Two parts, A and B, the first played twice: bars 4–5 are where A ends and B begins. The second part (the antara) begins like the first, then climbs to high Sa. |
+| form | binary (AB) form (2) | 4–5 | Two parts, A and B, the first played twice: bars 4–5 are where A ends and B begins. The second part (the antara) begins like the first, then climbs to high Sa. Parts: A bars 1–4, B bars 5–12; the openings heard: bars 1–2, bars 5–7. |
 
 ## Bhairavi
 
@@ -323,7 +323,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina) (8) | 6, all through | The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 6, where the melody rests. |
 | texture/harmony | bordun patterns on “do” and “so” (2) | 10, all through | The drone holds the home note and its fifth all through, the way a bordun does; in bar 10 the melody moves through 4 different notes over it. |
-| form | binary (AB) form (2) | 10–11 | Two parts, A and B: bars 10–11 are where A ends and B begins, higher. In a Hindustani composition the first part (the sthayi) keeps low and the second (the antara) climbs towards high Sa. |
+| form | binary (AB) form (2) | 10–11 | Two parts, A and B: bars 10–11 are where A ends and B begins, higher. In a Hindustani composition the first part (the sthayi) keeps low and the second (the antara) climbs towards high Sa. Parts: A bars 1–10, B bars 11–18; the openings heard: bars 1–3, bars 11–12. |
 
 ## Malkos
 
@@ -334,7 +334,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | tone colours of world music ensembles and instruments (e.g., gamelan, shakuhachi, doumbek, sitar, djembe, ocarina) (8) | 3, all through | The tune's %%style drone line asks for a tanpura's drone and a tabla; they are heard throughout, most clearly in bar 3, where the melody holds a long note. |
 | texture/harmony | bordun patterns on “do” and “so” (2) | 13, all through | The drone holds the home note and its fifth all through, the way a bordun does; in bar 13 the melody moves through 4 different notes over it. |
-| form | binary (AB) form (2) | 10–11 | Two parts, A and B: bars 10–11 are where A ends and B begins, higher. In a Hindustani composition the first part (the sthayi) keeps low and the second (the antara) climbs towards high Sa. |
+| form | binary (AB) form (2) | 10–11 | Two parts, A and B: bars 10–11 are where A ends and B begins, higher. In a Hindustani composition the first part (the sthayi) keeps low and the second (the antara) climbs towards high Sa. Parts: A bars 1–10, B bars 11–17; the openings heard: bars 1–3, bars 11–12. |
 
 ## O give me those pretty eyes
 
@@ -356,7 +356,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | slurs (6) | 2 | A slur joins two notes smoothly, with no gap between them. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 8–9 | The chords D (I), G (IV), A7 (V), D (I), ending back home on I. |
-| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins, higher. |
+| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins, higher. Parts: A bars 1–9, B bars 10–18; the openings heard: bars 1–3, bars 10–12. |
 
 ## Walking In My Sleep
 
@@ -367,7 +367,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 6–7 | The chords C (IV), G (I), D7 (V). |
-| form | binary (AB) form (2) | 8–9 | Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins, higher. |
+| form | binary (AB) form (2) | 8–9 | Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins, higher. Parts: A bars 1–8, B bars 9–16; the openings heard: bars 1–2, bars 9–10. |
 
 ## Fred Roden's Reel
 
@@ -378,7 +378,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 8–9 | The chords G (IV), A7 (V), D (I), ending back home on I. |
-| form | binary (AB) form (2) | 9–11 | Two parts, A and B (the parts the tune labels), each played twice: bars 9–11 are where A ends and B begins. |
+| form | binary (AB) form (2) | 9–11 | Two parts, A and B (the parts the tune labels), each played twice: bars 9–11 are where A ends and B begins. Parts: A bars 1–9, B bars 10–18; the openings heard: bars 1–3, bars 10–12. |
 
 ## Sweet Ellen
 
@@ -389,7 +389,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 8–9 | The chords G (IV), A7 (V), D (I), ending back home on I. |
-| form | binary (AB) form (2) | 9–10 | Two parts, A and B, each played twice: bars 9–10 are where A ends and B begins, higher. |
+| form | binary (AB) form (2) | 9–10 | Two parts, A and B, each played twice: bars 9–10 are where A ends and B begins, higher. Parts: A bars 1–9, B bars 10–17; the openings heard: bars 1–3, bars 10–11. |
 
 ## Billy In The Lowground
 
@@ -400,7 +400,7 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I and V (5) | 8 | The chords Am, G7 (V), C (I), ending back home on I; Am is a minor triad. |
-| form | binary (AB) form (2) | 8–9 | Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins, higher. |
+| form | binary (AB) form (2) | 8–9 | Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins, higher. Parts: A bars 1–8, B bars 9–16; the openings heard: bars 1–2, bars 9–10. |
 
 ## Dance All Night
 
@@ -411,4 +411,4 @@ Shown by the 37 pieces: duration 37, pitch 37, dynamics and other expressive con
 | dynamics and other expressive controls | — | | No dynamics, articulation or expression marks are written in this piece. |
 | timbre | — | | The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on. |
 | texture/harmony | chord progressions using I, IV, and V (6) | 21–23 | The chords C (IV), D (V), G (I), ending back home on I. |
-| form | binary (AB) form (2) | 9–11 | Two parts, A and B, each played twice: bars 9–11 are where A ends and B begins. |
+| form | compositions in four or more sections (e.g., AABA, ABAC) (5) | 9–11 | Three different parts, A, B and C, each played twice: bars 9–11 are where A ends and B begins. Parts: A bars 1–9, B bars 10–18, C bars 19–27; the openings heard: bars 1–3, bars 10–12, bars 19–21. |

@@ -110,7 +110,7 @@ const sampleText = files.filter(f => f.includes(`${path.sep}course${path.sep}sam
 assert(!/\bA SKETCH\b|\(sketch\)/i.test(sampleText), 'a marked sketch remains in course/samples');
 
 const main = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const token of [...(workshopHere ? ['course/holding/board.html'] : []), 'lab/Play%20Along%20v1.html', 'class="tbtn play clock"', 'class="playmark"', 'class="dep-tempo"', 'class="lintmirror"', 'class="linttip warn" popover="manual"', 'class="nextup"', 'data-nota="staff"', 'stringglow', 'this.lastHand = ', 'keysByPitch', '12-tone approximation', 'firmer air / leak', 'course/library.html', 'case \'room\'', 'course/piece.js', 'const PIECE = ']) assert(main.includes(token), `main page is missing ${token}`);
+for (const token of [...(workshopHere ? ['course/holding/board.html'] : []), 'lab/Play%20Along%20v1.html', 'course/clock.js', 'GCSClock.create(tp', 'onRepeat: on => { this.player.setLoop(on)', 'class="lintmirror"', 'class="linttip warn" popover="manual"', 'class="nextup"', 'data-nota="staff"', 'stringglow', 'this.lastHand = ', 'keysByPitch', '12-tone approximation', 'firmer air / leak', 'course/library.html', 'case \'room\'', 'course/piece.js', 'const PIECE = ']) assert(main.includes(token), `main page is missing ${token}`);
 assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab is missing');
 
 if (!workshopHere) assert(!main.includes('course/holding/'), 'the main page must not link to the workshop on main');

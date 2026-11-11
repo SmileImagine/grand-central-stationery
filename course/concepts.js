@@ -22,6 +22,9 @@
   A small table of choices (CHOICES) records where a person's ear chose otherwise, with the reason; the tests still
   run on those bars.
 
+  A form of two or more different parts (A B A, A A′ B A′, A and B) also lists its parts, each with its letter, its bars
+  and the opening the piece view plays to let a class hear which parts are the same and which differ (partsOf, below).
+
   Bars are counted as the piece view counts them: every written bar from 1, a pickup bar included.
 
     node course/concepts.js                 writes course/concepts.json and course/concepts.md
@@ -263,6 +266,10 @@ const CONCEPTS = [
   { id: 'ternary', el: 'form', name: 'A B A', grade: 3, term: 'ternary (ABA) form', words: 'A, something new (B), then A comes back',
     tune: T => formOf(T).letters === 'ABA', structural: true, at: T => seam(T, formOf(T).phrases[2].from),
     reason: (T, w) => `Three parts, A B A: ${barsWord(w.from, w.to)} are where B ends and A comes back${onWords(T, w.from, w.to)}.` },
+  { id: 'sections', el: 'form', name: 'A, B and C', grade: 5, term: 'compositions in four or more sections (e.g., AABA, ABAC)', words: 'three different parts, A, B and C, one after another',
+    tune: T => formOf(T).b !== null && baseLetters(T) >= 3, structural: true, at: T => seam(T, formOf(T).b),
+    fits: (T, a, z) => (s => s.from === a && s.to === z)(seam(T, formOf(T).b)),
+    reason: (T, w) => `${binaryWords(T).replace('Two parts, A and B', `${['Three', 'Four', 'Five'][baseLetters(T) - 3] || baseLetters(T)} different parts, ${[...'ABCDE'].slice(0, baseLetters(T)).join(', ').replace(/, ([^,]*)$/, ' and $1')}`)}: ${barsWord(w.from, w.to)} are where A ends and B begins${onWords(T, w.from, w.to)}.` },
   { id: 'binary', el: 'form', name: 'A and B', grade: 2, term: 'binary (AB) form', words: 'two different parts, A then B',
     tune: T => formOf(T).b !== null, structural: true, at: T => seam(T, formOf(T).b),
     fits: (T, a, z) => formOf(T).b !== null && formOf(T).sections.concat(formOf(T).phrases).some(s => s.from > 0 && (q => q.from === a && q.to === z)(seam(T, s.from))),
@@ -429,6 +436,59 @@ function higher(T) {
   return mean(b) - mean(a) >= 3;
 }
 
+/* ---------------- the parts, to hear the form ----------------
+   The piece view's form demonstration plays the opening of each part in turn, with a pause between, so the ear can
+   compare A, then B, then A again. The parts are the units the form concept was read from: the phrases for A B A and
+   A A B A, the sections for A and B (the phrases when one long section holds both). Each part's letter is earned
+   bar by bar, on the full bars (a pickup or a short bar before one is left out of the comparison):
+     the same letter     every full bar matches a part already lettered, pitch and length;
+     a primed letter     the same number of full bars, the first two match, and so do at least half: A′ begins as A
+                         did and ends differently (Lightly Row's second phrase ends at home where its first stopped
+                         on so); a part that matches an A′ exactly is A′ again;
+     a new letter        anything else, even a part that begins like an earlier one and then goes its own way.
+   Letters are given only where the bars read as written and at least two letters differ.
+   A part's opening is its first two full bars, with the pickup that leads into them: one bar is a fragment ("Twinkle,
+   twinkle"), two are the first thought ("Twinkle, twinkle, little star"), about four to five seconds at a song's
+   tempo and long enough to name a reel's part by, while short enough that the parts sit close together in the ear.
+   A new letter's opening goes on (up to four full bars) until two of its bars differ from the same place in each
+   earlier part: Desh's B begins as its A did, and is heard to climb away only in its third bar. */
+const PRIME = ['', '′', '″', '‴'];
+function partsOf(T, c) {
+  const F = formOf(T);
+  const units = (c.id === 'binary' || c.id === 'sections') && F.sections.length > 1 ? F.sections : F.phrases;
+  if (units.length < 2) return null;
+  // A short bar may be written inside a part (Bhairavi's bar 5); several mean the bars are not read as written (Dance
+  // All Night's +GB+ chords are taken for decorations), and no letters are given on bars like that.
+  if (units.some(u => { let n = 0; for (let i = u.from + 1; i < u.to - 1; i++) if (T.bars[i].short) n++; return n > 1; })) return null;
+  const fulls = u => { const out = []; for (let i = u.from; i < u.to; i++) if (!T.bars[i].short) out.push(i); return out; };
+  const keys = u => fulls(u).map(i => barKey(T.bars[i]));
+  const same = (a, b) => a.length === b.length && a.every((k, i) => k === b[i]);
+  const variant = (a, b) => a.length === b.length && a.length >= 2 && a[0] === b[0] && a[1] === b[1] && a.filter((k, i) => k === b[i]).length * 2 >= a.length;
+  const known = [];   // each letter as first heard: { letter, keys, base, prime }
+  const parts = units.map(u => {
+    const k = keys(u), f = fulls(u);
+    let m = Math.min(2, f.length);   // full bars in the opening
+    let label = (known.find(x => same(x.keys, k)) || {}).letter;
+    if (!label) {
+      const orig = known.find(x => x.prime === 0 && variant(x.keys, k));
+      if (orig) { const p = known.filter(x => x.base === orig.base).length; label = orig.base + PRIME[Math.min(p, PRIME.length - 1)]; known.push({ letter: label, keys: k, base: orig.base, prime: p }); }
+      else {
+        const base = String.fromCharCode(65 + new Set(known.map(x => x.base)).size); label = base;
+        const others = known.filter(x => x.prime === 0), apart = n => others.every(x => k.slice(0, n).filter((y, j) => y !== x.keys[j]).length >= 2);
+        while (m < Math.min(4, f.length) && !apart(m)) m++;
+        known.push({ letter: base, keys: k, base, prime: 0 });
+      }
+    }
+    return { letter: label, bars: [u.from + 1, u.to], play: [u.from + 1, m ? f[m - 1] + 1 : u.to] };
+  });
+  if (new Set(parts.map(p => p.letter[0])).size < 2) return null;
+  return parts;
+}
+// How many different parts the sections make (A, B, C...), primed letters counted with their own.
+const baseLetters = T => new Set((partsOf(T, { id: 'binary' }) || []).map(p => p.letter[0])).size;
+// The parts as words: "A B A", "A A′ B A′".
+const partLetters = parts => parts.map(p => p.letter).join(' ');
+
 /* ---------------- choosing ---------------- */
 // Every span of up to `span` bars that shows the idea while no shorter span inside it does.
 function minimalSpans(T, c) {
@@ -504,6 +564,7 @@ function conceptsOfTune(t, ABCJS) {
     const entry = { concept: c.id, name: typeof c.name === 'function' ? c.name(T, w) : c.name, grade: c.grade, term: c.term, words: c.words, bars: [w.from + 1, w.to] };
     if (c.whole) entry.throughout = true;
     entry.reason = c.reason(T, w) + (pinned && pinned.why ? ` ${pinned.why}` : '');
+    if (e.id === 'form' && c.id !== 'phrase') { const parts = partsOf(T, c); if (parts) entry.parts = parts; }
     if (got.how === 'introduced') entry.new = true;
     out[e.id] = entry;
   }
@@ -514,7 +575,7 @@ function buildConcepts(set, ABCJS) {
   for (const t of set.tunes) tunes[t.id] = conceptsOfTune(t, ABCJS);
   return {
     source: 'The Ontario Curriculum, Grades 1-8: The Arts (2009), Music, Fundamental Concepts for Grades 1 to 8: the elements of music and the grade that first names each concept',
-    method: 'Generated by course/concepts.js from course/set.json. Each example is a span of bars that, written out and analysed on its own, shows the concept, while no shorter span inside it does; form is read from the sections and phrases; "throughout" marks an idea heard in every bar, with the bar where it is clearest. Bars count every written bar from 1, a pickup bar included.',
+    method: 'Generated by course/concepts.js from course/set.json. Each example is a span of bars that, written out and analysed on its own, shows the concept, while no shorter span inside it does; form is read from the sections and phrases, and a form of more than one part lists its parts (letter, bars, and the opening the piece view plays to compare them); "throughout" marks an idea heard in every bar, with the bar where it is clearest. Bars count every written bar from 1, a pickup bar included.',
     elements: ELEMENTS,
     tunes,
   };
@@ -535,6 +596,15 @@ function verify(data, set, ABCJS) {
       T = T || readTune(t, ABCJS);
       const [a, z] = [x.bars[0] - 1, x.bars[1]];
       if (!(a >= 0 && z <= T.N && z > a)) { problems.push(`${t.id} ${e.id}: bars ${x.bars} out of range`); continue; }
+      if (e.id === 'form') {
+        // The parts: as the bars letter them today, end to end over the whole piece, each opening inside its part.
+        const parts = c.id !== 'phrase' ? partsOf(T, c) : null;
+        if (JSON.stringify(parts || undefined) !== JSON.stringify(x.parts)) problems.push(`${t.id} form: the parts are no longer ${x.parts ? partLetters(x.parts) : 'none'}`);
+        if (x.parts) x.parts.forEach((p, i) => {
+          if (p.bars[0] !== (i ? x.parts[i - 1].bars[1] + 1 : 1) || (i === x.parts.length - 1 && p.bars[1] !== T.N)) problems.push(`${t.id} form: the parts do not run end to end over the piece`);
+          if (!(p.play[0] === p.bars[0] && p.play[1] >= p.play[0] && p.play[1] <= p.bars[1])) problems.push(`${t.id} form: part ${p.letter}'s opening is outside it`);
+        });
+      }
       if (c.structural) { if (!(c.fits ? c.fits(T, a, z) : (s => s && s.from === a && s.to === z)(c.at(T)))) problems.push(`${t.id} ${e.id}: ${c.id} is not at bars ${x.bars}`); continue; }
       const w = T.win(a, z);
       if (!w.f || !c.shows(w, T)) { problems.push(`${t.id} ${e.id}: bars ${x.bars} do not show ${c.id}`); continue; }
@@ -553,6 +623,7 @@ function renderMarkdown(data, set) {
   const counts = Object.fromEntries(ELEMENTS.map(e => [e.id, 0]));
   for (const t of set.tunes) for (const e of ELEMENTS) if (!data.tunes[t.id][e.id].absent) counts[e.id]++;
   L.push(`Shown by the ${set.tunes.length} pieces: ${ELEMENTS.map(e => `${e.name} ${counts[e.id]}`).join(', ')}.`, '');
+  const span = ([a, z]) => a === z ? `bar ${a}` : `bars ${a}–${z}`;
   for (const t of set.tunes) {
     const d = data.tunes[t.id];
     L.push(`## ${t.title}`, '', '| Element | Concept (grade) | Bars | Why |', '|---|---|---|---|');
@@ -560,14 +631,15 @@ function renderMarkdown(data, set) {
       const x = d[e.id];
       if (x.absent) { L.push(`| ${e.name} | — | | ${x.reason} |`); continue; }
       const bars = x.bars[0] === x.bars[1] ? `${x.bars[0]}` : `${x.bars[0]}–${x.bars[1]}`;
-      L.push(`| ${e.name} | ${x.term} (${x.grade})${x.new ? ', new' : ''} | ${bars}${x.throughout ? ', all through' : ''} | ${x.reason.replace(/\|/g, '\\|')} |`);
+      const parts = x.parts ? ` Parts: ${x.parts.map(p => `${p.letter} ${span(p.bars)}`).join(', ')}; the openings heard: ${x.parts.map(p => span(p.play)).join(', ')}.` : '';
+      L.push(`| ${e.name} | ${x.term} (${x.grade})${x.new ? ', new' : ''} | ${bars}${x.throughout ? ', all through' : ''} | ${(x.reason + parts).replace(/\|/g, '\\|')} |`);
     }
     L.push('');
   }
   return L.join('\n');
 }
 
-module.exports = { ELEMENTS, CONCEPTS, CHOICES, buildConcepts, verify, renderMarkdown, readTune };
+module.exports = { ELEMENTS, CONCEPTS, CHOICES, buildConcepts, verify, renderMarkdown, readTune, partLetters };
 
 if (require.main === module) {
   const root = path.resolve(__dirname, '..');

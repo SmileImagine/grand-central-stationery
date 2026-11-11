@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grand Central Stationery – Clock v1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="../course/clock.css" rel="stylesheet">
+  <script src="../course/clock.js"></script>
+  <style>
+    /* The page's tokens as index.html has them, light and dark. */
+    :root { --ink: #222; --bg: #fff; --panel: #fafafa; --line: #ddd; --muted: #777; --accent: #087fca; color-scheme: light; }
+    :root[data-theme="dark"] { --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --line: #333; --muted: #999; color-scheme: dark; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --line: #333; --muted: #999; color-scheme: dark; } }
+    .light { --ink: #222; --bg: #fff; --panel: #fafafa; --line: #ddd; --muted: #777; --floor: #f6f0e6; --floor-2: #fffdf8; --staff: #2a2622; color-scheme: light; }
+    .dark { --ink: #eaeaea; --bg: #111; --panel: #1b1b1b; --line: #333; --muted: #999; --floor: #0f1d2b; --floor-2: #162a3d; --staff: #efe7d8; color-scheme: dark; }
+
+    html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.4 'Atkinson Hyperlegible', system-ui, sans-serif; }
+    main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 24px 0 8px; color: var(--muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    p { margin: 4px 0 10px; max-width: 60em; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+    .controls label { display: inline-flex; gap: 6px; align-items: center; }
+    .controls input, .controls select, .controls button { font: inherit; color: inherit; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 4px 8px; min-height: 36px; }
+    .controls input[type="number"] { width: 5em; }
+    .controls input[type="text"] { width: 16em; }
+
+    /* A stand-in for the score: the concourse floor, a title, staff lines; the clock where abcjs draws "♩ = 80". */
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .score { position: relative; min-height: 220px; border-radius: 10px; overflow: hidden; color: var(--staff);
+      background: radial-gradient(ellipse at 50% 0%, var(--floor-2), var(--floor) 70%); border: 1px solid var(--line); }
+    .score .title { text-align: center; font: 600 22px/1.2 Georgia, serif; padding-top: 16px; letter-spacing: 0.04em; }
+    .score .clockspot { position: absolute; left: 12px; top: 10px; z-index: 2; }
+    .score svg.staff { position: absolute; left: 0; right: 0; top: 70px; width: 100%; height: 130px; }
+    .score svg.staff line { stroke: currentColor; stroke-width: 1; opacity: 0.8; }
+    .score svg.staff ellipse { fill: currentColor; }
+    .tag { position: absolute; right: 10px; bottom: 6px; font-size: 12px; color: var(--muted); }
+
+    .sizes { display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: flex-start; padding: 16px; border: 1px solid var(--line); border-radius: 10px; }
+    .sizes figure { margin: 0; display: grid; gap: 6px; justify-items: start; }
+    .sizes figcaption { font-size: 13px; color: var(--muted); }
+    .log { height: 150px; overflow: auto; margin: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); font: 13px/1.4 'Atkinson Hyperlegible Mono', ui-monospace, monospace; }
+    @media (max-width: 700px) { .pair { grid-template-columns: 1fr; } .score { min-height: 200px; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>The grand clock</h1>
+  <p>The piece view's one play and tempo control (<code>course/clock.js</code>, <code>course/clock.css</code>), floating over the top-left of the score where abcjs draws its tempo mark. Click or tap the face to play; drag the face or the tempo up or down to change the tempo in fives (hold Shift for ones); arrow keys and the wheel do the same; double-click the tempo for full speed. The hand sweeps once a bar and lights each beat it passes. The repeat signs either side of the face (<b>|:</b> and <b>:|</b>) are the repeat toggle; paused partway, a small round button at the end of the plate goes back to the start.</p>
+
+  <div class="controls">
+    <label>Theme <select id="theme"><option value="">Follow the system</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    <label>Written <input id="written" type="number" min="0" max="300" value="96"></label>
+    <label>Beats <select id="beats"><option>2</option><option>3</option><option selected>4</option><option>6</option></select></label>
+    <label>Label <input id="label" type="text" value="Listen to the whole piece"></label>
+    <label>Size <input id="size" type="range" min="40" max="120" value="64"> <output id="sizev">64px</output></label>
+  </div>
+
+  <h2>Over the score, light and dark</h2>
+  <div class="pair">
+    <div class="score light gcs-clock-light" style="--clock-size: var(--demo-size, 64px)"><div class="clockspot" data-clock></div><div class="title">Twinkle, Twinkle, Little Star</div>
+      <svg class="staff" viewBox="0 0 400 130" preserveAspectRatio="none" aria-hidden="true"><line x1="10" x2="390" y1="20" y2="20"/><line x1="10" x2="390" y1="30" y2="30"/><line x1="10" x2="390" y1="40" y2="40"/><line x1="10" x2="390" y1="50" y2="50"/><line x1="10" x2="390" y1="60" y2="60"/><ellipse cx="80" cy="55" rx="6" ry="4.5"/><ellipse cx="120" cy="55" rx="6" ry="4.5"/><ellipse cx="160" cy="35" rx="6" ry="4.5"/><ellipse cx="200" cy="35" rx="6" ry="4.5"/><ellipse cx="240" cy="30" rx="6" ry="4.5"/><ellipse cx="280" cy="30" rx="6" ry="4.5"/><ellipse cx="330" cy="35" rx="6" ry="4.5"/></svg>
+      <span class="tag">light</span></div>
+    <div class="score dark gcs-clock-dark" style="--clock-size: var(--demo-size, 64px)"><div class="clockspot" data-clock></div><div class="title">Twinkle, Twinkle, Little Star</div>
+      <svg class="staff" viewBox="0 0 400 130" preserveAspectRatio="none" aria-hidden="true"><line x1="10" x2="390" y1="20" y2="20"/><line x1="10" x2="390" y1="30" y2="30"/><line x1="10" x2="390" y1="40" y2="40"/><line x1="10" x2="390" y1="50" y2="50"/><line x1="10" x2="390" y1="60" y2="60"/><ellipse cx="80" cy="55" rx="6" ry="4.5"/><ellipse cx="120" cy="55" rx="6" ry="4.5"/><ellipse cx="160" cy="35" rx="6" ry="4.5"/><ellipse cx="200" cy="35" rx="6" ry="4.5"/><ellipse cx="240" cy="30" rx="6" ry="4.5"/><ellipse cx="280" cy="30" rx="6" ry="4.5"/><ellipse cx="330" cy="35" rx="6" ry="4.5"/></svg>
+      <span class="tag">dark</span></div>
+  </div>
+
+  <h2>States: stopped at the start, paused partway, playing</h2>
+  <div class="sizes">
+    <figure><div data-fixed='{"playing":false,"turn":0,"repeat":false,"canReset":false}'></div><figcaption>stopped at the start, repeat off</figcaption></figure>
+    <figure><div data-fixed='{"playing":false,"turn":0.4,"repeat":true,"canReset":true}'></div><figcaption>paused partway, repeat on: back to the start shows</figcaption></figure>
+    <figure><div data-fixed='{"playing":true,"turn":0.6,"repeat":true,"canReset":true}'></div><figcaption>playing, repeat on (no reset while playing)</figcaption></figure>
+    <figure><div data-fixed='{"playing":false,"turn":0.4,"canReset":true}' data-no-repeat></div><figcaption>without onRepeat: no loop</figcaption></figure>
+  </div>
+
+  <h2>Sizes and label placements (this page's theme)</h2>
+  <div class="sizes">
+    <figure><div data-clock style="--clock-size: 48px"></div><figcaption>48 px, label under</figcaption></figure>
+    <figure><div data-clock style="--clock-size: 64px" data-label-at="beside"></div><figcaption>64 px, label beside</figcaption></figure>
+    <figure><div data-clock style="--clock-size: 80px" data-label-at="none"></div><figcaption>80 px, label in the aria-label only</figcaption></figure>
+    <figure><div data-clock style="--clock-size: 120px"></div><figcaption>120 px, projector</figcaption></figure>
+  </div>
+
+  <h2>Events</h2>
+  <pre class="log" id="log" aria-live="off"></pre>
+</main>
+<script>
+  // One fake transport shared by every clock on the page, as the piece view's engine would drive one.
+  const logEl = document.getElementById('log');
+  const log = s => { logEl.textContent = `${new Date().toLocaleTimeString()}  ${s}\n` + logEl.textContent; };
+  const $ = id => document.getElementById(id);
+  // pos: beats played so far; a section of four bars that stops at its end, or goes round again with repeat on.
+  const state = { playing: false, bpm: 72, written: 96, beats: 4, label: $('label').value, turn: 0, pos: 0, repeat: false };
+  const LENGTH_BARS = 4;
+  const partway = () => !state.playing && state.pos > 0;
+  const clocks = [];
+  const all = p => clocks.forEach(c => c.set(p));
+
+  for (const host of document.querySelectorAll('[data-clock]')) {
+    clocks.push(GCSClock.create(host, {
+      bpm: state.bpm, min: 30, max: 200, written: state.written, beats: state.beats, label: state.label,
+      labelAt: host.dataset.labelAt,
+      repeat: state.repeat,
+      onToggle() { state.playing = !state.playing; all({ playing: state.playing, canReset: partway() }); log(`onToggle -> ${state.playing ? 'playing' : 'paused'}`); },
+      onBpm(v, info) { state.bpm = v; all({ bpm: v }); log(`onBpm(${v}) from ${info.source}`); },
+      onRepeat(on) { state.repeat = on; all({ repeat: on }); log(`onRepeat(${on})`); },
+      onReset() { state.pos = 0; state.turn = 0; all({ turn: 0, canReset: false }); log('onReset -> back to the start'); },
+    }));
+  }
+  // Fixed states, not on the transport (their buttons only log).
+  for (const host of document.querySelectorAll('[data-fixed]')) {
+    const fixed = JSON.parse(host.dataset.fixed), c = GCSClock.create(host, {
+      bpm: 72, written: 96, beats: 4, label: 'Loop it', labelAt: 'none',
+      ...(host.hasAttribute('data-no-repeat') ? {} : { repeat: false, onRepeat: on => log(`(fixed) onRepeat(${on})`) }),
+      onToggle: () => log('(fixed) onToggle'), onReset: () => log('(fixed) onReset'), onBpm: v => log(`(fixed) onBpm(${v})`),
+    });
+    c.set(fixed);
+  }
+
+  let last = performance.now();
+  function frame(now) {
+    const dt = (now - last) / 1000; last = now;
+    if (state.playing) {
+      state.pos += dt * state.bpm / 60;
+      if (state.pos >= LENGTH_BARS * state.beats) {
+        if (state.repeat) state.pos %= LENGTH_BARS * state.beats;
+        else { state.pos = 0; state.playing = false; all({ playing: false, canReset: false }); log('the end: stopped at the start'); }
+      }
+      state.turn = (state.pos / state.beats) % 1; all({ turn: state.turn });
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  $('theme').addEventListener('change', e => { if (e.target.value) document.documentElement.dataset.theme = e.target.value; else delete document.documentElement.dataset.theme; });
+  $('written').addEventListener('input', e => { state.written = +e.target.value || 0; all({ written: state.written }); });
+  $('beats').addEventListener('change', e => { state.beats = +e.target.value; all({ beats: state.beats }); });
+  $('label').addEventListener('input', e => { state.label = e.target.value; all({ label: state.label }); });
+  $('size').addEventListener('input', e => { document.documentElement.style.setProperty('--demo-size', e.target.value + 'px'); $('sizev').textContent = e.target.value + 'px'; });
+</script>
+</body>
+</html>

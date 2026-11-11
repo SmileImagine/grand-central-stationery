@@ -14,7 +14,7 @@ html.piece-route body.pb-advanced.game .cell .cell-body .score { min-height: 30v
 html.piece-route body.pb-advanced.present .cell[data-type="abc"] .cell-body:not(.is-playing) .dock { opacity: 1; }
 /* Folded, the bar is its first row; the arrow points along it, and down when the bar is open. */
 html.piece-route body.pb-folded .pb-steps, html.piece-route body.pb-folded .pb-tools, html.piece-route body.pb-folded .pb-facts,
-html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-share, html.piece-route body.pb-folded .pb-more { display: none; }
+html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-share { display: none; }
 html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
 
 .piecebar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line);
@@ -37,7 +37,6 @@ html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
 .pb-modes { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .pb-modes button { border: 0; border-radius: 0; background: transparent; font-weight: 700; padding: 6px 18px; }
 .pb-modes button + button { border-left: 1px solid var(--line); }
-.pb-more[aria-expanded="true"] { background: color-mix(in srgb, var(--accent) 16%, var(--panel)) !important; border-color: var(--accent) !important; }
 .pb-modes button[data-mode="teach"].on { background: #087fca; color: #fff; }
 .pb-modes button[data-mode="practice"].on { background: #69b944; color: #fff; }
 .pb-modes button[data-mode="assess"].on { background: #79569f; color: #fff; }
@@ -47,7 +46,10 @@ body.pb-folded .pb-fold span::before { transform: none; }
 /* The steps: numbered, the current one filled, the ones before it ticked. */
 .pb-steps { list-style: none; margin: 0; padding: 0; gap: 0; counter-reset: none; }
 .pb-steps li { display: flex; align-items: center; }
-.pb-steps li + li::before { content: ''; width: 18px; height: 2px; background: var(--line); margin: 0 2px; }
+.pb-steps li { position: relative; }
+.pb-steps li + li { margin-left: 22px; }
+/* The line between steps runs in the gap between bubbles, never inside one (step 2's bubble has its own border). */
+.pb-steps li + li::before { content: ''; position: absolute; left: -20px; top: 50%; width: 18px; height: 2px; background: var(--line); }
 .pb-steps button { border-radius: 999px !important; padding: 4px 14px 4px 6px !important; display: inline-flex; align-items: center; gap: 8px; background: transparent !important; }
 .pb-steps button b { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
 .pb-steps button.done b { border-color: var(--mode); color: var(--mode); }
@@ -84,7 +86,7 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
 .pb-progress .ladder { display: inline-flex; gap: 3px; }
 .pb-progress .rung { font-size: 12px; padding: 1px 6px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .pb-progress .rung.on { background: #69b944; border-color: #69b944; color: #fff; }
-.piecebar.missing .pb-modes, .piecebar.missing .pb-share, .piecebar.missing .pb-more, .piecebar.missing .pb-steps, .piecebar.missing .pb-tools, .piecebar.missing .pb-inst { display: none; }
+.piecebar.missing .pb-modes, .piecebar.missing .pb-share, .piecebar.missing .pb-steps, .piecebar.missing .pb-tools, .piecebar.missing .pb-inst { display: none; }
 
 /* Flags from listening, on the noteheads: an outline in the flag's colour, never covering the note. */
 .paper .pb-flagged.pb-wrong { filter: drop-shadow(0 0 4px #e72829) drop-shadow(0 0 2px #e72829) !important; }
@@ -152,14 +154,14 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
   .pb-name { font-size: 18px; }
   .pb-facts { display: none; }
   .pb-title { flex-basis: 40%; }
-  .pb-share, .pb-cuts, .pb-inst, .pb-show { display: none; }
+  .pb-cuts, .pb-inst, .pb-show { display: none; }
   .pb-modes button { padding: 6px 10px; }
   .pb-tools > *, .pb-tempo > *, .pb-loopnav > * { flex: 0 0 auto; }
   .pb-tools { gap: 6px; }
   .pb-tempo .pb-bpm { min-width: 3ch; font-size: 18px; }
   .piecebar .lg, .pb-tempo small, .pb-tempo .pb-share-of, .pb-hint { display: none; }
   .pb-steps button:not([aria-current]) .st { display: none; }
-  .pb-steps li + li::before { width: 8px; }
+  .pb-steps li + li { margin-left: 10px; } .pb-steps li + li::before { left: -9px; width: 8px; }
   .pb-tools .pb-nextstep { display: none; }   /* the numbered steps above do the same, in less room */
   .pb-loopnav .pb-where { min-width: 6ch; }
   .pb-tools .play { min-width: 0; }
@@ -195,14 +197,16 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
    string on the left as on a chord chart. UkuleleLayout.MINI_TURN turns its fret numbers back by the same angle. */
 .pb-mini.rot.uke svg { transform: translate(-50%, -50%) rotate(80deg); }
 .pb-mini .runner { display: none; }
-/* The small ukulele as a fingering chart (UkuleleLayout.buildMini): outlines and a light wash, no wood; the finger's
-   place a solid dot ringed in ink, its fret number beside the board, an open string a ring past the nut. */
-.pb-mini.uke .mboard, .pb-mini.uke .mhead { fill: color-mix(in srgb, var(--ink) 5%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 2.5; stroke-linejoin: round; }
-.pb-mini.uke .mpeg { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 2.5; }
-.pb-mini.uke .mfret { stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 3; }
+/* The small ukulele as a fingering chart in the player's view (UkuleleLayout.buildMini): a light shade with no
+   outline, so no edge reads as a string; faint grey frets under solid ink strings; the finger's place a solid dot
+   ringed in ink, its fret number beside the board, an open string a ring past the nut. */
+.pb-mini.uke .mboard { fill: color-mix(in srgb, var(--ink) 7%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mhead { fill: color-mix(in srgb, var(--ink) 11%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mpeg { fill: color-mix(in srgb, var(--ink) 16%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mfret { stroke: var(--muted); stroke-opacity: 0.55; stroke-width: 2; }
 .pb-mini.uke .mnut { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 9; stroke-linecap: round; }
 .pb-mini.uke .minlay { fill: var(--ink); opacity: 0.16; }
-.pb-mini.uke .mstring { stroke: var(--ink); stroke-opacity: 0.6; stroke-linecap: round; }
+.pb-mini.uke .mstring { stroke: var(--ink); stroke-opacity: 0.85; stroke-linecap: round; }
 .pb-mini.uke .stringglow { stroke: color-mix(in srgb, var(--c) 85%, var(--ink)); filter: none; }
 .pb-mini.uke .dot.active { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 4; filter: none; animation: none; }
 .pb-mini.uke .mopen { fill: var(--panel-2); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 7; }
@@ -213,3 +217,77 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
 .pb-concept[aria-pressed="true"] { border-style: solid !important; }
 .pb-show { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
 .pb-show[hidden] { display: none; }
+
+/* Step 2 holds its two ways: one bubble, its number, and two halves (2a, 2b), the current half filled. */
+.pb-steps .pb-step2 { border: 1px solid var(--line); border-radius: 999px; padding: 2px 4px 2px 6px; gap: 2px; }
+.pb-steps .pb-step2.on { border-color: var(--mode); }
+.pb-steps .pb-step2 > b { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; margin-right: 2px; }
+.pb-steps .pb-step2.on > b { background: var(--mode); border-color: var(--mode); color: #fff; }
+.pb-steps .pb-step2.done > b { border-color: var(--mode); color: var(--mode); }
+.pb-steps .pb-step2 button { padding: 4px 10px !important; gap: 4px; border-color: transparent !important; }
+.pb-steps .pb-step2 button .half { color: var(--muted); font-size: 13px; }
+.pb-steps .pb-step2 button[aria-current="step"] { background: color-mix(in srgb, var(--mode) 16%, var(--panel)) !important; border-color: var(--mode) !important; }
+.pb-loopnav .pb-cuts { min-width: 40px; padding: 4px 8px; font-size: 18px; }
+.pb-steps .pb-step2 .sh { display: none; }
+@media (max-width: 700px) {
+  .pb-steps { flex-wrap: nowrap; }
+  .pb-steps .pb-step2 .st { display: none; }
+  .pb-steps .pb-step2 .sh { display: inline; }
+  .pb-steps .pb-step2 button .half { display: none; }
+  .pb-title { flex-wrap: nowrap; }
+}
+
+/* The clock (course/clock.js) stands in the music where the tempo mark was: top left of the score, the music a
+   little lower to make room, so it is in view with the bar folded. abcjs's own tempo mark is not drawn. */
+html.piece-route body.game .cell-body { --clock-size: clamp(46px, 7vh, 76px); }
+html.piece-route .pb-clock { position: absolute; left: 10px; top: 12px; z-index: 6; }
+html.piece-route .pb-clock[hidden] { display: none; }
+html.piece-route body.game .cell .cell-body > .score { padding-top: calc(var(--clock-size) * 1.25); }
+html.piece-route .paper .abcjs-tempo { display: none; }
+@media (max-width: 700px) { html.piece-route body.game .cell-body { --clock-size: 44px; } }
+
+/* More in the piece view is the Melody, Band and Mixer drawers alone: the clock is the transport. */
+html.piece-route .dock .transport, html.piece-route .dock .departure { display: none !important; }
+/* The clock takes the way in's colour, as the bar does: its play triangle and an active repeat loop. */
+body[data-piece-mode="teach"] .pb-clock { --mode: #087fca; }
+body[data-piece-mode="practice"] .pb-clock { --mode: #3f8f1f; }
+body[data-piece-mode="assess"] .pb-clock { --mode: #79569f; }
+
+/* The practice link: small, a word and a link sign. */
+.piecebar .pb-share { min-height: 32px; min-width: 32px; padding: 3px 7px; display: inline-flex; align-items: center; justify-content: center; }
+.piecebar .pb-share svg { display: block; }
+/* The pull tab for the full player: a small brass-edged opal tab at the foot of the music, riding on the drawers' top edge. */
+html.piece-route .pb-pull { all: unset; position: absolute; z-index: 7; left: 50%; bottom: var(--dock-h, 0px); transform: translateX(-50%);
+  width: 64px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  border: 1.5px solid #9c7a45; border-bottom: 0; border-radius: 12px 12px 0 0; background: color-mix(in srgb, var(--bg) 82%, #f3ead8);
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.08); transition: bottom 0.18s ease; }
+html.piece-route .pb-pull svg { width: 22px; height: 11px; fill: none; stroke: #9c7a45; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s; }
+html.piece-route .pb-pull[aria-expanded="true"] svg { transform: rotate(180deg); }
+html.piece-route .pb-pull:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html.piece-route .pb-pull, html.piece-route .pb-pull svg { transition: none; } }
+/* Share waits beside the title and shows when the pointer is over it (or the keyboard reaches it); a touch screen,
+   which cannot hover, always shows it. */
+.pb-title .pb-share { align-self: center; opacity: 0; transition: opacity 0.15s; }
+.pb-title:hover .pb-share, .pb-title:focus-within .pb-share, .pb-title .pb-share:focus-visible { opacity: 1; }
+@media (hover: none) { .pb-title .pb-share { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .pb-title .pb-share { transition: none; } }
+/* The share dialog: one row per thing to share, each copying it. */
+.pb-sharelist { display: grid; gap: 8px; margin: 8px 0; }
+.pb-sharelist button { display: grid; grid-template-columns: 1fr auto; text-align: left; gap: 2px 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; cursor: pointer; }
+.pb-sharelist button:hover { border-color: var(--accent); }
+.pb-sharelist button small { grid-column: 1; color: var(--muted); }
+.pb-sharelist button .done { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--accent); font-weight: 700; }
+.pb-sharetext { width: 100%; min-height: 120px; font: 13px/1.35 ui-monospace, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: var(--panel-2); color: var(--ink); }
+
+/* Hearing the form: each part's letter stands over its opening in a box, as a rehearsal mark does, and fills with its
+   colour while that part plays (or comes next, in the pause). A letter keeps one colour, so the parts that are the same
+   look the same. */
+.paper .pb-formmark { pointer-events: none; --pf: #087fca; }
+.paper .pb-formmark.pb-l1 { --pf: #c25700; }
+.paper .pb-formmark.pb-l2 { --pf: #3f8f1f; }
+.paper .pb-formmark.pb-l3 { --pf: #79569f; }
+.paper .pb-formmark rect { fill: var(--bg); stroke: var(--pf); stroke-width: 1.6; transition: fill 0.15s; }
+.paper .pb-formmark text { fill: var(--pf); font: 700 13px 'Atkinson Hyperlegible', sans-serif; transition: fill 0.15s; }
+.paper .pb-formmark.on rect { fill: var(--pf); }
+.paper .pb-formmark.on text { fill: #fff; }
+@media (prefers-reduced-motion: reduce) { .paper .pb-formmark rect, .paper .pb-formmark text { transition: none; } }

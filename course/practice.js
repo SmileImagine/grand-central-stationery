@@ -34,7 +34,7 @@
   'use strict';
 
   const DEFAULT_BPM = 80;              // the main page's tempo for a tune with no Q: line
-  const INSTRUMENTS = { recorder: 'Recorder', uke: 'Ukulele', piano: 'Piano', wh: 'Wicki-Hayden keyboard', off: 'No instrument' };
+  const INSTRUMENTS = { recorder: 'Recorder', uke: 'Ukulele', piano: 'Piano', wh: '2-5 Keys', off: 'No instrument' };
   const MODES = { teach: 'Teach', practice: 'Practice', assess: 'Assess' };
   /* Each way in is a few steps, in order. Two people use the piece view:
        a student practises alone (Practice), with the app listening if they like, ending in a play-through;
@@ -44,12 +44,12 @@
        at every note, then loops sections that grow, getting faster, and puts the whole together;
        or assesses one student (Assess): the end of a student's practice, seen from the teacher's side, with marks. */
   const STEPS = {
-    teach: ['Listen', 'Learn the sections', 'Put it together'],                      // step 2: Study, or Loop together
-    practice: ['Listen', 'Learn the sections', 'Put it together', 'Play it through'], // step 2: In time, or Note by note
+    teach: ['Listen', 'Learn the sections', 'Put it together'],                      // step 2: 2a Study them, 2b Loop them
+    practice: ['Listen', 'Learn the sections', 'Put it together', 'Play it through'], // step 2: 2a Note by note, 2b Loop in time
     assess: ['Hear it', 'The attempt', 'Decide'],
   };
-  // How step 2 is done (the link's by=): Teach studies each section, then loops them together; Practice loops in time, or note by note.
-  const HOW = { teach: ['study', 'together'], practice: ['time', 'note'] };
+  // How step 2 is done (the link's by=), in order: Teach studies each section, then loops them together; Practice goes note by note, then loops in time.
+  const HOW = { teach: ['study', 'together'], practice: ['note', 'time'] };
   const SHOWS = { melody: 'Melody', chords: 'Chords', both: 'Both' };
   /* Loop together: sections that grow. Each new loop alone, then joined to all before it, until the whole piece:
      for four loops 1, 2, 1–2, 3, 1–3, 4, 1–4. Pairs of 0-based loop indexes, first and last. */
@@ -73,14 +73,14 @@
     // The first piece view's modes and keys: step (note by note) and slow were Practice's two ways; phrase is now loop, view=whole step 3.
     let mode = s.mode, step = parseInt(s.step, 10), by = s.by, loop = parseInt(s.loop !== undefined ? s.loop : s.phrase, 10);
     if (mode === 'step') { mode = 'practice'; by = 'note'; if (!step) step = 2; }
-    if (mode === 'slow') { mode = 'practice'; if (!step) step = 2; }
+    if (mode === 'slow') { mode = 'practice'; by = 'time'; if (!step) step = 2; }
     if (s.view === 'whole' && !step && mode !== 'assess') step = 3;
     if (MODES[mode]) out.mode = mode;
     if (step >= 1 && step <= 4) out.step = step;   // (the first version's Teach steps 3-4 read as 3)
     if (loop >= 1) out.loop = Math.min(99, loop);
     const to = parseInt(s.to !== undefined ? s.to : String(s.loop || '').split('-')[1], 10);   // a span of loops: loop=1-3
     if (out.loop && to > out.loop) out.to = Math.min(99, to);
-    if (by === 'note' || by === 'together') out.by = by;
+    if (['note', 'time', 'study', 'together'].includes(by)) out.by = by;
     const bpm = clampInt(s.bpm, 20, 300); if (bpm !== null && s.bpm !== undefined && s.bpm !== '') out.bpm = bpm;
     if (INSTRUMENTS[s.inst]) out.inst = s.inst;
     if (SHOWS[s.show]) out.show = s.show;
@@ -427,6 +427,31 @@
     }
     return [...head, out, ...verses].join('\n') + '\n';
   }
+  /* Several spans of a tune written out one after another as a tune of their own (the form demonstration's openings
+     of each part, when the whole piece will not fit on the screen): the first span's header; each span's music on a line
+     of its own, closed by a double bar (the last by a final bar), with a key, metre or unit that differs from the first
+     written inline. The words only when every span has the same verses, so no syllable lands on another span's notes.
+     Returns the text and where each span's bars are in it (0-based, end exclusive). */
+  function spansAbc(abc, ABCJS, spans, found = null) {
+    const f = found || phrasesOf(abc, ABCJS);
+    const parts = spans.map(sp => {
+      const lines = phraseAbc(abc, ABCJS, sp, f).trimEnd().split('\n'), k = lines.findIndex(isMusic);
+      return { head: lines.slice(0, k), music: lines.slice(k).filter(isMusic).join(' '), words: lines.slice(k).filter(l => /^w:/.test(l)) };
+    });
+    const field = (head, x) => (head.find(l => l.startsWith(x + ':')) || '').slice(2).trim();
+    const sameWords = parts.every(p => p.words.length === parts[0].words.length);
+    const body = [];
+    let at = 0;
+    const where = spans.map((sp, i) => {
+      const p = parts[i];
+      const inline = i ? ['L', 'M', 'K'].filter(x => field(p.head, x) !== field(parts[0].head, x) && field(p.head, x)).map(x => `[${x}:${field(p.head, x)}]`).join('') : '';
+      body.push(inline + (i < spans.length - 1 ? p.music.replace(/\|\]\s*$/, '||') : p.music));
+      if (sameWords) body.push(...p.words);
+      const span = { from: at, to: at + (sp.to - sp.from) }; at = span.to;
+      return span;
+    });
+    return { abc: [...parts[0].head, ...body].join('\n') + '\n', where };
+  }
   /* The idea a piece brings in, heard in it: for each concept, the first window of one bar, else two (a leap across
      the barline, a change of metre), whose own analysis has it. The concepts: what the piece introduces at its
      place in the course, else what it has that is worth pointing out (a tie, a pickup, a rest off the beat...). */
@@ -447,7 +472,28 @@
     return Object.keys(ELEMENT_NAMES).map(el => [el, entry[el]])
       .filter(([, x]) => x && !x.absent && Array.isArray(x.bars) && x.bars[0] >= 1 && x.bars[0] <= x.bars[1] && x.bars[1] <= n)
       .map(([el, x]) => ({ el, element: ELEMENT_NAMES[el], tag: x.concept, words: x.name, about: x.words, reason: x.reason, term: x.term, grade: x.grade,
-        isNew: !!x.new, throughout: !!x.throughout, from: x.bars[0] - 1, to: x.bars[1], first: x.bars[0], last: x.bars[1] }));
+        isNew: !!x.new, throughout: !!x.throughout, from: x.bars[0] - 1, to: x.bars[1], first: x.bars[0], last: x.bars[1],
+        ...(el === 'form' ? formParts(x.parts, n) : {}) }))
+      .map(c => c.parts ? { ...c, words: c.parts.map(p => p.letter).join(' ') } : c);
+  }
+  /* A form's parts, for its demonstration: each part's letter, its bars and the opening to play (0-based, end
+     exclusive, as phraseAbc takes them). Parts that do not run end to end over the piece, or an opening outside its
+     part, mean the data is stale: no parts, and the choice plays its bars as any other. */
+  function formParts(parts, n = Infinity) {
+    if (!Array.isArray(parts) || parts.length < 2) return {};
+    const out = parts.map(p => ({ letter: String(p.letter), first: p.bars[0], last: p.bars[1], from: p.bars[0] - 1, to: p.bars[1], play: { from: p.play[0] - 1, to: p.play[1] } }));
+    const ok = out.every((p, i) => p.first === (i ? out[i - 1].last + 1 : 1) && p.last >= p.first && p.play.from === p.from && p.play.to > p.play.from && p.play.to <= p.to) && (n === Infinity || out[out.length - 1].last === n);
+    return ok ? { parts: out } : {};
+  }
+  /* What a form's parts say, in words for the class: which bars are each letter, and what a primed letter means.
+     "A: bars 1–4 and 9–12 · B: bars 5–8". */
+  function formWords(parts) {
+    const span = p => p.first === p.last ? `${p.first}` : `${p.first}–${p.last}`;
+    const groups = [];
+    for (const p of parts) { const g = groups.find(x => x.letter === p.letter); if (g) g.spans.push(span(p)); else groups.push({ letter: p.letter, spans: [span(p)] }); }
+    const list = groups.map(g => `${g.letter}: bar${g.spans.length > 1 || /–/.test(g.spans[0]) ? 's' : ''} ${g.spans.length > 1 ? g.spans.slice(0, -1).join(', ') + ' and ' + g.spans[g.spans.length - 1] : g.spans[0]}`).join(' · ');
+    const primed = [...new Set(parts.filter(p => /[′″‴]/.test(p.letter)).map(p => p.letter[0]))];
+    return list + (primed.length ? `; ${primed.map(l => `${l}′ begins like ${l} and ends differently`).join('; ')}` : '');
   }
   function chordBefore(bars, from) { for (let i = from - 1; i >= 0; i--) if (bars[i].chord) return bars[i].chord; return null; }
 
@@ -660,7 +706,7 @@
   }
 
   return {
-    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, HOW, SHOWS, SETUP_KEYS, ladder, conceptsOf, exampleOf, conceptChoices, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
+    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, HOW, SHOWS, SETUP_KEYS, ladder, conceptsOf, exampleOf, conceptChoices, formParts, formWords, spansAbc, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
     cleanSetup, encodeSetup, decodeSetup, normalCuts, pieceHref, encodeBoard, decodeBoard,
     tunesAt, levelsOf, skillWords, learningGoal, summarize, writtenBpm, midiName, fitFor,
     barsOf, phrasesOf, phraseAbc, inEnding, transposeFor,

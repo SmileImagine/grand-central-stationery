@@ -31,13 +31,13 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq(P.decodeSetup('?bpm=1000&loop=0&step=7&by=ear&mode=dance&inst=kazoo&tr=40&tune=Bad Id'), { bpm: 300, tr: 12 }, 'out-of-range and unknown values are clamped or dropped');
   // Links from the first piece view still open where they meant: note by note and slow practice were Practice's two ways in, a phrase is a loop, the whole piece step 3.
   eq(P.decodeSetup('tune=x-1&mode=step&phrase=3'), { tune: 'x-1', mode: 'practice', step: 2, loop: 3, by: 'note' }, 'an old step-by-step link');
-  eq(P.decodeSetup('tune=x-1&mode=slow&bpm=50'), { tune: 'x-1', mode: 'practice', step: 2, bpm: 50 }, 'an old slow-practice link');
+  eq(P.decodeSetup('tune=x-1&mode=slow&bpm=50'), { tune: 'x-1', mode: 'practice', step: 2, by: 'time', bpm: 50 }, 'an old slow-practice link: looping in time');
   eq(P.decodeSetup('tune=x-1&mode=teach&view=whole'), { tune: 'x-1', mode: 'teach', step: 3 }, 'an old whole-piece link');
   // Two people: a teacher on the projector (Teach, Assess) and a student alone (Practice). The class sees listen, learn, put together.
   eq(P.STEPS.teach, ['Listen', 'Learn the sections', 'Put it together'], 'Teach: listen, learn the sections, put it together');
   eq(P.STEPS.practice, [...P.STEPS.teach, 'Play it through'], 'Practice: the same, then a play-through');
   eq(P.STEPS.assess, ['Hear it', 'The attempt', 'Decide'], 'Assess: hear it, the attempt, decide');
-  eq(P.HOW, { teach: ['study', 'together'], practice: ['time', 'note'] }, 'learning the sections: the class studies then loops together; a student loops in time or note by note');
+  eq(P.HOW, { teach: ['study', 'together'], practice: ['note', 'time'] }, 'learning the sections, in order: the class studies, then loops them; a student goes note by note, then loops in time');
   // Loop together: sections that grow until it is all of it, and the span in the address.
   eq(P.ladder(4).map(([a, b]) => a === b ? `${a + 1}` : `${a + 1}-${b + 1}`), ['1', '2', '1-2', '3', '1-3', '4', '1-4'], 'each section, then joined to the ones before');
   eq([P.ladder(1), P.ladder(2)], [[[0, 0]], [[0, 0], [1, 1], [0, 1]]], 'one section, or two');
@@ -315,6 +315,17 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   assert(/Nothing was heard/.test(r.summary), 'and it says so');
   const all = [P.alignAttempt(E, wrong), P.alignAttempt(E, oct), P.alignAttempt(E, late)].flatMap(x => x.flags);
   assert(all.every(f => f.confidence !== 'high'), 'no flag is ever certain');
+}
+
+/* ---------------- spans written out one after another (the form demonstration's openings) ---------------- */
+{
+  const twinkle = 'X:1\nT:Twinkle\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\n';
+  const r = P.spansAbc(twinkle, ABCJS, [{ from: 0, to: 2 }, { from: 4, to: 6 }, { from: 8, to: 10 }]);
+  eq(r.where, [{ from: 0, to: 2 }, { from: 2, to: 4 }, { from: 4, to: 6 }], 'where each span stands in the text');
+  eq(r.abc.split('\n').filter(l => /\|/.test(l)), ['C C G G | A A G2 ||', 'G G F F | E E D2 ||', 'C C G G | A A G2 |]'], 'each span on its own line, a double bar between, a final bar at the end');
+  eq(P.barsOf(r.abc, ABCJS).bars.length, 6, 'the bars of the spans, and no others');
+  const keyed = 'X:1\nM:3/4\nL:1/8\nK:G\nG2 A2 B2 | c6 |\n[K:Ador] A2 B2 c2 | e6 |]\n';
+  assert(/\[K:Ador\]/.test(P.spansAbc(keyed, ABCJS, [{ from: 0, to: 1 }, { from: 2, to: 3 }]).abc), 'a span in another key says so inline');
 }
 
 console.log(`Practice checks passed (${checks} checks).`);
