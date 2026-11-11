@@ -715,6 +715,16 @@ a `make` target, and the smoke test runs all five.
   citation/source link, plate-reading and uncertainty record, range/key note
   and named human review for every workshop and review-queue item. Its focused
   test requires those records before a source check can be marked verified.
+- **Practice Board as the front of the course (11 November):** the board now
+  has three ways in (Teach, Practice, Assess) and plain-language piece cards
+  (length, range, the instruments a piece fits, what it brings in). A card
+  opens the piece view (`index.html#tune=...`): the page's own cell in Game
+  mode, phrase by phrase, with Listen, Play phrase, Repeat and Play along;
+  step-by-step and slow practice with local history; and an assessment panel
+  with advisory listening. Links carry the setup only, never names or marks.
+  `course/practice.js` holds the shared rules, `test/practice.test.js` checks
+  them in `make smoke`. Design notes, limits and the next step:
+  `docs/PRACTICE-BOARD-2026-11-11.md`.
 
 ## Completion assessment (10 November 2026)
 

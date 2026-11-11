@@ -1,0 +1,293 @@
+/* The piece view (course/piece.js): a bar across the top of the main page's Game mode, sized for a projector and a
+   phone alike. The page's own colour tokens (--ink, --bg, --panel, --line, --accent, --cursor) theme it. */
+html.piece-route { --pb-h: 120px; }   /* until the bar is measured (piece.js sets it on this element) */
+html.piece-route .toolbar, html.piece-route .present-nav, html.piece-route .cell-head { display: none !important; }
+html.piece-route body.present .cell .cell-body, html.piece-route body.present .cell[data-type="abc"] .cell-body { height: calc(100dvh - var(--pb-h)); }
+html.piece-route body.present .cells { margin-top: var(--pb-h); }
+html.piece-route .vault { top: var(--pb-h); }
+/* The full player's dock waits behind More. Open, it takes what it needs (up to half the screen, scrolling past that)
+   and the music and the instrument shrink to make room, so its transport and drawers are always on screen. */
+html.piece-route body:not(.pb-advanced) .strip.dock { display: none; }
+html.piece-route body.pb-advanced.game .cell .cell-body .strip.dock { flex: 0 1 auto; max-height: 50%; overflow-y: auto; }
+html.piece-route body.pb-advanced.game .cell .cell-body > .inst { display: none; }   /* More is for the tune and the band: the music keeps the room */
+html.piece-route body.pb-advanced.game .cell .cell-body .score { min-height: 30vh; flex: 1 1 0; }
+html.piece-route body.pb-advanced.present .cell[data-type="abc"] .cell-body:not(.is-playing) .dock { opacity: 1; }
+/* Folded, the bar is its first row; the arrow points along it, and down when the bar is open. */
+html.piece-route body.pb-folded .pb-steps, html.piece-route body.pb-folded .pb-tools, html.piece-route body.pb-folded .pb-facts,
+html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-share { display: none; }
+html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
+
+.piecebar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line);
+  font: 16px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 6px 12px 4px; display: flex; flex-direction: column; gap: 4px; }
+.piecebar button, .piecebar select, .piecebar input { font: inherit; color: inherit; }
+.piecebar button { min-height: 44px; min-width: 44px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+.piecebar button:hover { border-color: var(--accent); }
+.piecebar button:focus-visible, .pb-assess :focus-visible, .pb-cutsdlg :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.piecebar button:disabled { opacity: 0.4; cursor: default; }
+.piecebar button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
+.piecebar button[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 16%, var(--panel)); border-color: var(--accent); }
+.piecebar select { min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); padding: 4px 8px; }
+.pb-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pb-spacer { flex: 1; }
+.pb-back { font-weight: 700; text-decoration: none; color: var(--accent); padding: 10px 8px 10px 0; min-height: 44px; display: inline-flex; align-items: center; white-space: nowrap; }
+.pb-title { display: flex; align-items: baseline; gap: 8px; flex: 1 1 260px; min-width: 0; flex-wrap: wrap; }
+.pb-title .tape { width: 12px; height: 22px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; align-self: center; background: var(--line); }
+.pb-name { font-size: 22px; }
+.pb-facts { color: var(--muted); font-size: 14px; }
+.pb-modes { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.pb-modes button { border: 0; border-radius: 0; background: transparent; font-weight: 700; padding: 6px 18px; }
+.pb-modes button + button { border-left: 1px solid var(--line); }
+.pb-modes button[data-mode="teach"].on { background: #087fca; color: #fff; }
+.pb-modes button[data-mode="practice"].on { background: #69b944; color: #fff; }
+.pb-modes button[data-mode="assess"].on { background: #79569f; color: #fff; }
+.pb-fold { min-width: 36px !important; padding: 0 !important; border-color: transparent !important; background: transparent !important; }
+.pb-fold span::before { content: '\25B8'; display: inline-block; font-size: 26px; line-height: 1; transform: rotate(90deg); transition: transform 0.15s; }
+body.pb-folded .pb-fold span::before { transform: none; }
+/* The steps: numbered, the current one filled, the ones before it ticked. */
+.pb-steps { list-style: none; margin: 0; padding: 0; gap: 0; counter-reset: none; }
+.pb-steps li { display: flex; align-items: center; }
+.pb-steps li { position: relative; }
+.pb-steps li + li { margin-left: 22px; }
+/* The line between steps runs in the gap between bubbles, never inside one (step 2's bubble has its own border). */
+.pb-steps li + li::before { content: ''; position: absolute; left: -20px; top: 50%; width: 18px; height: 2px; background: var(--line); }
+.pb-steps button { border-radius: 999px !important; padding: 4px 14px 4px 6px !important; display: inline-flex; align-items: center; gap: 8px; background: transparent !important; }
+.pb-steps button b { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
+.pb-steps button.done b { border-color: var(--mode); color: var(--mode); }
+.pb-steps button[aria-current="step"] { border-color: var(--mode) !important; font-weight: 700; }
+.pb-steps button[aria-current="step"] b { background: var(--mode); border-color: var(--mode); color: #fff; }
+body[data-piece-mode="teach"] .piecebar { --mode: #087fca; }
+body[data-piece-mode="practice"] .piecebar { --mode: #3f8f1f; }
+body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
+.pb-loopnav { display: inline-flex; align-items: center; gap: 6px; }
+.pb-hint { color: var(--muted); font-size: 14px; }
+.pb-tools .pb-nextstep { margin-left: auto; font-weight: 700; border-color: var(--mode); color: var(--mode); background: transparent; }
+.pb-who { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); }
+.pb-who input { min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); padding: 4px 8px; }
+/* The step's one main button: the mode's colour to play, orange with a pause sign while it plays. */
+.pb-tools .play { background: var(--mode); border-color: var(--mode); color: #fff; min-width: 9em; }
+.pb-tools .play.playing { background: #f39322; border-color: #f39322; color: #222; }
+.pb-tools .play .ic { display: inline-block; width: 1.1em; text-align: center; }
+.pb-where { font-weight: 700; min-width: 12ch; text-align: center; white-space: nowrap; }
+.pb-tempo { display: inline-flex; align-items: center; gap: 6px; }
+.pb-tempo .pb-bpm { font-weight: 700; font-size: 20px; min-width: 5ch; text-align: center; }
+.pb-tempo small, .pb-share-of { color: var(--muted); font-size: 13px; }
+.pb-inst { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+.pb-tools { min-height: 48px; }
+.pb-tools .big { font-weight: 700; padding: 8px 16px; }
+.pb-tools .go { background: #69b944; border-color: #69b944; color: #fff; }
+.pb-tools .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.pb-tools .seg button { border: 0; border-radius: 0; background: transparent; }
+.pb-tools .seg button[aria-checked="true"] { background: color-mix(in srgb, #69b944 22%, var(--panel)); font-weight: 700; }
+.pb-tools .chk { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; min-height: 44px; }
+.pb-tools .chk input { width: 20px; height: 20px; }
+.pb-step { font-weight: 700; min-width: 11ch; }
+.pb-progress { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 14px; }
+.pb-progress small { color: var(--muted); }
+.pb-progress .ladder { display: inline-flex; gap: 3px; }
+.pb-progress .rung { font-size: 12px; padding: 1px 6px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.pb-progress .rung.on { background: #69b944; border-color: #69b944; color: #fff; }
+.piecebar.missing .pb-modes, .piecebar.missing .pb-share, .piecebar.missing .pb-steps, .piecebar.missing .pb-tools, .piecebar.missing .pb-inst { display: none; }
+
+/* Flags from listening, on the noteheads: an outline in the flag's colour, never covering the note. */
+.paper .pb-flagged.pb-wrong { filter: drop-shadow(0 0 4px #e72829) drop-shadow(0 0 2px #e72829) !important; }
+.paper .pb-flagged.pb-missed { filter: drop-shadow(0 0 4px #f39322) !important; }
+.paper .pb-flagged.pb-hesitation, .paper .pb-flagged.pb-rhythm { filter: drop-shadow(0 0 4px #087fca) !important; }
+.paper .pb-flagged.pb-octave { filter: drop-shadow(0 0 3px #9a9a9a) !important; }
+
+/* The assessment panel: beside the music on a wide screen, a sheet from the bottom on a narrow one. */
+.pb-assess { position: fixed; right: 12px; top: calc(var(--pb-h) + 10px); z-index: 21; width: min(380px, calc(100vw - 24px)); max-height: calc(100dvh - var(--pb-h) - 20px); overflow: auto;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); font: 15px/1.35 'Atkinson Hyperlegible', system-ui, sans-serif; }
+.pb-assess h2 { margin: 0 0 8px; font-size: 18px; }
+.pb-assess button, .pb-assess select, .pb-assess input, .pb-assess textarea { font: inherit; color: inherit; }
+.pb-assess button { min-height: 44px; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); cursor: pointer; }
+.pb-assess button.primary { background: #79569f; border-color: #79569f; color: #fff; font-weight: 700; }
+.pb-assess button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
+.pb-assess button[aria-pressed="true"] { background: #e72829; border-color: #e72829; color: #fff; }
+.pb-assess select, .pb-assess input, .pb-assess textarea { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); padding: 4px 8px; }
+.pa-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+.pa-row > label, label.pa-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.pa-two input { width: 5em; }
+.pa-notewrap { flex-direction: column; align-items: stretch !important; }
+.pa-notewrap textarea { width: 100%; resize: vertical; }
+.pa-save { justify-content: flex-end; }
+.pb-assess .muted { color: var(--muted); }
+.pb-assess .small { font-size: 12px; margin: 4px 0 0; }
+.pa-result { border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px 8px; margin: 8px 0; display: grid; gap: 4px; }
+.pa-result legend { padding: 0 4px; color: var(--muted); }
+.pa-res { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 2px 8px; border-radius: 8px; cursor: pointer; }
+.pa-res input { width: 20px; height: 20px; }
+.pa-res:has(input:checked).pa-pass { background: color-mix(in srgb, #69b944 25%, transparent); }
+.pa-res:has(input:checked).pa-practice { background: color-mix(in srgb, #e0b800 30%, transparent); }
+.pa-res:has(input:checked).pa-na { background: color-mix(in srgb, #9a9a9a 25%, transparent); }
+.pa-flags ul { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 4px; }
+.pa-flag { display: flex; align-items: center; gap: 6px; }
+.pa-flag .pa-show { flex: 1; text-align: left; min-height: 36px; border-left-width: 5px; }
+.pa-flag.k-wrong .pa-show { border-left-color: #e72829; }
+.pa-flag.k-missed .pa-show { border-left-color: #f39322; }
+.pa-flag.k-hesitation .pa-show, .pa-flag.k-rhythm .pa-show { border-left-color: #087fca; }
+.pa-flag small { color: var(--muted); }
+
+/* Where each phrase begins. */
+.pb-cutsdlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); max-width: 640px; width: calc(100vw - 32px); font: 15px/1.35 'Atkinson Hyperlegible', system-ui, sans-serif; }
+.pb-cutsdlg::backdrop { background: rgba(0,0,0,0.35); }
+.pb-cutsdlg h2 { margin: 0 0 6px; font-size: 18px; }
+.pb-cutsdlg p { color: var(--muted); margin: 0 0 8px; }
+.pb-barchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pb-barchips button { min-width: 52px; min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+.pb-barchips button small { font-size: 11px; color: var(--muted); max-width: 7ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pb-barchips button[aria-pressed="true"] { background: #087fca; border-color: #087fca; color: #fff; }
+.pb-barchips button[aria-pressed="true"] small { color: #fff; }
+.pb-cutsdlg .row { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+.pb-cutsdlg .row button { min-height: 44px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; cursor: pointer; }
+.pb-cutsdlg .row button.primary { background: #087fca; border-color: #087fca; color: #fff; font-weight: 700; }
+.pb-cutsdlg .row button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
+
+#pb-toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 30; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font: 15px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; opacity: 0; transition: opacity 0.2s; pointer-events: none; max-width: calc(100vw - 32px); }
+#pb-toast.on { opacity: 1; pointer-events: auto; }
+#pb-toast button { margin-left: 8px; min-height: 36px; border-radius: 8px; border: 1px solid currentColor; background: transparent; color: inherit; font: inherit; padding: 4px 10px; cursor: pointer; }
+
+/* A projector: everything a size up. A phone: the second row scrolls sideways rather than taking the screen. */
+@media (min-width: 1500px) { .piecebar { font-size: 19px; } .pb-name { font-size: 28px; } .piecebar button { min-height: 52px; } }
+@media (max-width: 1100px) { .pb-facts { display: none; } .pb-title { flex: 1 1 auto; } .pb-inst, .pb-show { font-size: 0; gap: 0; } .pb-inst select, .pb-show select { font-size: 15px; } }
+@media (max-width: 700px) {
+  .piecebar { padding: 4px 8px; gap: 2px; }
+  .pb-name { font-size: 18px; }
+  .pb-facts { display: none; }
+  .pb-title { flex-basis: 40%; }
+  .pb-cuts, .pb-inst, .pb-show { display: none; }
+  .pb-modes button { padding: 6px 10px; }
+  .pb-tools > *, .pb-tempo > *, .pb-loopnav > * { flex: 0 0 auto; }
+  .pb-tools { gap: 6px; }
+  .pb-tempo .pb-bpm { min-width: 3ch; font-size: 18px; }
+  .piecebar .lg, .pb-tempo small, .pb-tempo .pb-share-of, .pb-hint { display: none; }
+  .pb-steps button:not([aria-current]) .st { display: none; }
+  .pb-steps li + li { margin-left: 10px; } .pb-steps li + li::before { left: -9px; width: 8px; }
+  .pb-tools .pb-nextstep { display: none; }   /* the numbered steps above do the same, in less room */
+  .pb-loopnav .pb-where { min-width: 6ch; }
+  .pb-tools .play { min-width: 0; }
+  .piecebar button { padding: 6px 10px; }
+  .pb-top .pb-modes { order: 3; flex: 1 1 auto; } .pb-modes button { flex: 1; }
+  .pb-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60vw; display: inline-block; }
+  .pb-tools .big { padding: 6px 10px; white-space: nowrap; }
+  .pb-progress { flex-basis: auto; white-space: nowrap; }
+  .pb-progress small { display: none; }
+  .pb-assess { left: 8px; right: 8px; width: auto; top: auto; bottom: 8px; max-height: 60dvh; }
+}
+@media (prefers-reduced-motion: reduce) { #pb-toast { transition: none; } }
+
+/* The phrase is the point here: the instrument stays beside it, smaller than Game mode's (a third of the height at most). */
+html.piece-route body.game .cell-body > .inst { height: min(30vh, calc(60vw * var(--inst-ratio, 0.3) + 2vh)) !important; min-height: 16vh; }
+html.piece-route body.game .score { min-height: 30vh; }
+/* All of a phrase is on screen: no fade at the foot hinting at a next line. */
+html.piece-route body.game .fitwhole .score.twoline { -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); }
+
+/* Studying a section (Teach): no large instrument; a small diagram under every note, in the room the score leaves
+   under each line of music (the section is engraved with a wide staff separation, the last line over a padded foot). */
+html.piece-route body[data-piece-kind="study"].game .cell .cell-body > .inst { display: none; }
+html.piece-route body[data-piece-kind="study"].game .cell .cell-body .score { padding-bottom: min(24vh, 200px); -webkit-mask-image: none; mask-image: none; }
+.pb-study { position: absolute; left: 0; right: 0; top: 0; pointer-events: none; z-index: 2; }
+html.piece-route body[data-piece-kind="study"].game .cell .cell-body .score { overflow-y: auto; }
+.pb-mini { position: absolute; }
+/* Each small diagram is an .inst, for the instrument's own colours, but none of the large panel's box. */
+html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none !important; height: var(--bh) !important; width: var(--bw); min-height: 0 !important; padding: 0 !important; border: 0 !important; overflow: visible !important; }
+.pb-mini svg { position: absolute; left: 0; top: 0; width: var(--mw); height: var(--mh); overflow: visible; }
+/* The recorder and the ukulele stand upright, head at the top, as on a fingering chart. */
+.pb-mini.rot svg { left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(90deg); }
+/* The ukulele is drawn headstock to the left: turned 80 degrees it stands headstock up, leaning a little left, the G
+   string on the left as on a chord chart. UkuleleLayout.MINI_TURN turns its fret numbers back by the same angle. */
+.pb-mini.rot.uke svg { transform: translate(-50%, -50%) rotate(80deg); }
+.pb-mini .runner { display: none; }
+/* The small ukulele as a fingering chart in the player's view (UkuleleLayout.buildMini): a light shade with no
+   outline, so no edge reads as a string; faint grey frets under solid ink strings; the finger's place a solid dot
+   ringed in ink, its fret number beside the board, an open string a ring past the nut. */
+.pb-mini.uke .mboard { fill: color-mix(in srgb, var(--ink) 7%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mhead { fill: color-mix(in srgb, var(--ink) 11%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mpeg { fill: color-mix(in srgb, var(--ink) 16%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mfret { stroke: var(--muted); stroke-opacity: 0.55; stroke-width: 2; }
+.pb-mini.uke .mnut { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 9; stroke-linecap: round; }
+.pb-mini.uke .minlay { fill: var(--ink); opacity: 0.16; }
+.pb-mini.uke .mstring { stroke: var(--ink); stroke-opacity: 0.85; stroke-linecap: round; }
+.pb-mini.uke .stringglow { stroke: color-mix(in srgb, var(--c) 85%, var(--ink)); filter: none; }
+.pb-mini.uke .dot.active { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 4; filter: none; animation: none; }
+.pb-mini.uke .mopen { fill: var(--panel-2); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 7; }
+
+/* The ideas in a piece, one per element of music, heard in it: the choices wrap within the row on a narrow screen. */
+.pb-concepts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; max-width: 100%; }
+.pb-concept { border-style: dashed !important; }
+.pb-concept[aria-pressed="true"] { border-style: solid !important; }
+.pb-show { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+.pb-show[hidden] { display: none; }
+
+/* Step 2 holds its two ways: one bubble, its number, and two halves (2a, 2b), the current half filled. */
+.pb-steps .pb-step2 { border: 1px solid var(--line); border-radius: 999px; padding: 2px 4px 2px 6px; gap: 2px; }
+.pb-steps .pb-step2.on { border-color: var(--mode); }
+.pb-steps .pb-step2 > b { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; margin-right: 2px; }
+.pb-steps .pb-step2.on > b { background: var(--mode); border-color: var(--mode); color: #fff; }
+.pb-steps .pb-step2.done > b { border-color: var(--mode); color: var(--mode); }
+.pb-steps .pb-step2 button { padding: 4px 10px !important; gap: 4px; border-color: transparent !important; }
+.pb-steps .pb-step2 button .half { color: var(--muted); font-size: 13px; }
+.pb-steps .pb-step2 button[aria-current="step"] { background: color-mix(in srgb, var(--mode) 16%, var(--panel)) !important; border-color: var(--mode) !important; }
+.pb-loopnav .pb-cuts { min-width: 40px; padding: 4px 8px; font-size: 18px; }
+.pb-steps .pb-step2 .sh { display: none; }
+@media (max-width: 700px) {
+  .pb-steps { flex-wrap: nowrap; }
+  .pb-steps .pb-step2 .st { display: none; }
+  .pb-steps .pb-step2 .sh { display: inline; }
+  .pb-steps .pb-step2 button .half { display: none; }
+  .pb-title { flex-wrap: nowrap; }
+}
+
+/* The clock (course/clock.js) stands in the music where the tempo mark was: top left of the score, the music a
+   little lower to make room, so it is in view with the bar folded. abcjs's own tempo mark is not drawn. */
+html.piece-route body.game .cell-body { --clock-size: clamp(46px, 7vh, 76px); }
+html.piece-route .pb-clock { position: absolute; left: 10px; top: 12px; z-index: 6; }
+html.piece-route .pb-clock[hidden] { display: none; }
+html.piece-route body.game .cell .cell-body > .score { padding-top: calc(var(--clock-size) * 1.25); }
+html.piece-route .paper .abcjs-tempo { display: none; }
+@media (max-width: 700px) { html.piece-route body.game .cell-body { --clock-size: 44px; } }
+
+/* More in the piece view is the Melody, Band and Mixer drawers alone: the clock is the transport. */
+html.piece-route .dock .transport, html.piece-route .dock .departure { display: none !important; }
+/* The clock takes the way in's colour, as the bar does: its play triangle and an active repeat loop. */
+body[data-piece-mode="teach"] .pb-clock { --mode: #087fca; }
+body[data-piece-mode="practice"] .pb-clock { --mode: #3f8f1f; }
+body[data-piece-mode="assess"] .pb-clock { --mode: #79569f; }
+
+/* The practice link: small, a word and a link sign. */
+.piecebar .pb-share { min-height: 32px; min-width: 32px; padding: 3px 7px; display: inline-flex; align-items: center; justify-content: center; }
+.piecebar .pb-share svg { display: block; }
+/* The pull tab for the full player: a small brass-edged opal tab at the foot of the music, riding on the drawers' top edge. */
+html.piece-route .pb-pull { all: unset; position: absolute; z-index: 7; left: 50%; bottom: var(--dock-h, 0px); transform: translateX(-50%);
+  width: 64px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  border: 1.5px solid #9c7a45; border-bottom: 0; border-radius: 12px 12px 0 0; background: color-mix(in srgb, var(--bg) 82%, #f3ead8);
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.08); transition: bottom 0.18s ease; }
+html.piece-route .pb-pull svg { width: 22px; height: 11px; fill: none; stroke: #9c7a45; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.18s; }
+html.piece-route .pb-pull[aria-expanded="true"] svg { transform: rotate(180deg); }
+html.piece-route .pb-pull:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { html.piece-route .pb-pull, html.piece-route .pb-pull svg { transition: none; } }
+/* Share waits beside the title and shows when the pointer is over it (or the keyboard reaches it); a touch screen,
+   which cannot hover, always shows it. */
+.pb-title .pb-share { align-self: center; opacity: 0; transition: opacity 0.15s; }
+.pb-title:hover .pb-share, .pb-title:focus-within .pb-share, .pb-title .pb-share:focus-visible { opacity: 1; }
+@media (hover: none) { .pb-title .pb-share { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .pb-title .pb-share { transition: none; } }
+/* The share dialog: one row per thing to share, each copying it. */
+.pb-sharelist { display: grid; gap: 8px; margin: 8px 0; }
+.pb-sharelist button { display: grid; grid-template-columns: 1fr auto; text-align: left; gap: 2px 10px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; cursor: pointer; }
+.pb-sharelist button:hover { border-color: var(--accent); }
+.pb-sharelist button small { grid-column: 1; color: var(--muted); }
+.pb-sharelist button .done { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--accent); font-weight: 700; }
+.pb-sharetext { width: 100%; min-height: 120px; font: 13px/1.35 ui-monospace, monospace; border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: var(--panel-2); color: var(--ink); }
+
+/* Hearing the form: each part's letter stands over its opening in a box, as a rehearsal mark does, and fills with its
+   colour while that part plays (or comes next, in the pause). A letter keeps one colour, so the parts that are the same
+   look the same. */
+.paper .pb-formmark { pointer-events: none; --pf: #087fca; }
+.paper .pb-formmark.pb-l1 { --pf: #c25700; }
+.paper .pb-formmark.pb-l2 { --pf: #3f8f1f; }
+.paper .pb-formmark.pb-l3 { --pf: #79569f; }
+.paper .pb-formmark rect { fill: var(--bg); stroke: var(--pf); stroke-width: 1.6; transition: fill 0.15s; }
+.paper .pb-formmark text { fill: var(--pf); font: 700 13px 'Atkinson Hyperlegible', sans-serif; transition: fill 0.15s; }
+.paper .pb-formmark.on rect { fill: var(--pf); }
+.paper .pb-formmark.on text { fill: #fff; }
+@media (prefers-reduced-motion: reduce) { .paper .pb-formmark rect, .paper .pb-formmark text { transition: none; } }

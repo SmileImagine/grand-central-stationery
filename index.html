@@ -9,6 +9,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // The front door: the site's address opens the practice board for anyone with no lesson on this page yet (nothing
+    // saved, no link). A lesson saved here, a #gcs= or #tune= link, #lesson, or one visit to the lesson page in this tab
+    // keeps the lesson page; the board's Lesson page link goes to #lesson.
+    (function () {
+      try {
+        if (location.hash === '#lesson') { sessionStorage.setItem('gcs-lesson', '1'); history.replaceState(null, '', location.pathname + location.search); return; }
+        if (location.hash || localStorage.getItem('gcs-cells-v1') || sessionStorage.getItem('gcs-lesson')) return;
+        location.replace('course/board.html');
+      } catch (e) {}
+    })();
+  </script>
   <title>Grand Central Stationery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -17,6 +29,8 @@
   <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
   <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="course/clock.css" rel="stylesheet">   <!-- the grand clock: every notation cell's play, pause, tempo, repeat and back-to-start -->
+  <script src="course/clock.js"></script>
   <script src="vendor/abcjs-basic-min.js" id="abcjs" defer></script>   <!-- abcjs 6.7.0, vendored. defer: text cells paint before its 500 KB is parsed; notation cells finish setting up on its load event -->
   <script src="vendor/impress.js" defer></script>     <!-- impress.js 2.0.0, vendored: 3D present mode. defer: it touches document.body while loading -->
   <style>
@@ -248,7 +262,7 @@
     .paper svg { display: block; }
     /* Our own additions hang off the SVG root, which abcjs gives stroke="currentColor";
        without stroke: none every letter would carry a dark one-unit outline. */
-    .paper .letter { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: none; }
+    .paper .letter { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: none; stroke-width: 0.14em; stroke-linejoin: round; paint-order: stroke fill; }
     .paper .accg { font-family: 'Noto Music'; pointer-events: none; stroke: none; }
     .paper .abcjs-lyric { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 400; }
     .paper svg { color: var(--ink); }   /* abcjs fills staff, clef, bars, rests and ledger lines with currentColor */
@@ -280,6 +294,14 @@
     .inst svg { display: block; width: 100%; height: 100%; overflow: visible; }
     .inst .lbl { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; pointer-events: none; stroke: var(--panel-2); stroke-width: 2.4px; stroke-linejoin: round; paint-order: stroke fill; }
     .inst .lbl.qw, .inst .lbl.cap, .inst .lbl.oct { stroke: none; }
+    /* A keyline for the note colours, so yellow holds on white and purple on black: a coloured letter is grown
+       by a hair in a darker shade of its own colour (lighter on a dark page; the keyline filters after <body>);
+       circles and rings take a rim of their colour mixed a little toward --ink. Large filled shapes (keys, the
+       lit recorder) keep their own edges. */
+    .inst .lbl.hue { stroke: none; filter: url(#keyline-i); }
+    :root[data-theme="dark"] .inst .lbl.hue { filter: url(#keyline-i-dark); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .inst .lbl.hue { filter: url(#keyline-i-dark); } }
+    .inst .lbl.hue.oncolor { filter: none; }   /* on its lit key the letter is black or white (inkOn) and needs no edge */
     .inst .key { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 1; transition: fill 0.12s, stroke 0.12s; }
     .inst .key.black { fill: var(--ink); }
     .inst .key.ondeck { stroke: var(--c); stroke-opacity: 1; stroke-width: 2.5; stroke-dasharray: 5 3; fill: color-mix(in srgb, var(--c) 35%, var(--panel-2)); }
@@ -291,16 +313,23 @@
     .inst .key.root { stroke: var(--c); stroke-opacity: 1; stroke-width: 3.5; }
     .inst .runner text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
     .paper .chordshape rect { stroke: none; }
-    #tuningDlg, #pasteDlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 520px; width: calc(100vw - 32px); font: var(--ui); }
-    #tuningDlg::backdrop, #pasteDlg::backdrop { background: rgba(0,0,0,0.35); }
-    #tuningDlg h2, #pasteDlg h2 { margin: 0 0 6px; font-size: 18px; }
-    #tuningDlg p, #pasteDlg p { color: var(--muted); margin: 0 0 10px; line-height: 1.4; }
+    #tuningDlg, #pasteDlg, #ukeDlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 520px; width: calc(100vw - 32px); font: var(--ui); }
+    #tuningDlg::backdrop, #pasteDlg::backdrop, #ukeDlg::backdrop { background: rgba(0,0,0,0.35); }
+    #tuningDlg h2, #pasteDlg h2, #ukeDlg h2 { margin: 0 0 6px; font-size: 18px; }
+    #tuningDlg p, #pasteDlg p, #ukeDlg p { color: var(--muted); margin: 0 0 10px; line-height: 1.4; }
     #tuningDlg .preview, #pasteDlg .preview { color: var(--ink); font-family: ui-monospace, Menlo, monospace; font-size: 12px; min-height: 1.4em; }
     #tuningDlg textarea, #pasteDlg textarea { width: 100%; min-height: 170px; box-sizing: border-box; font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px; resize: vertical; }
-    #tuningDlg .row, #pasteDlg .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+    #tuningDlg .row, #pasteDlg .row, #ukeDlg .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
     #tuningDlg .row .left, #pasteDlg .row .left { margin-right: auto; }
-    #tuningDlg button, #pasteDlg button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
-    #tuningDlg button.primary, #pasteDlg button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    #tuningDlg button, #pasteDlg button, #ukeDlg button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    #tuningDlg button.primary, #pasteDlg button.primary, #ukeDlg button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    #ukeDlg fieldset { border: 1px solid var(--line); border-radius: 10px; margin: 0 0 10px; padding: 6px 12px 10px; }
+    #ukeDlg legend { font-weight: 700; padding: 0 4px; }
+    #ukeDlg label { display: flex; gap: 8px; align-items: baseline; padding: 5px 0; line-height: 1.35; cursor: pointer; }
+    #ukeDlg label b { font-weight: 600; }
+    .instpick .ukegear { display: inline-grid; place-items: center; width: 26px; height: 26px; padding: 4px; margin-left: 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    .instpick .ukegear[hidden] { display: none; }
+    .instpick .ukegear svg { width: 100%; height: 100%; }
     .bandctl { display: none; align-items: center; gap: 10px; font: var(--ui); color: var(--muted); }
     .bandctl.on { display: inline-flex; }
     .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
@@ -328,8 +357,13 @@
     .member.muted .figure .slash { display: block; }
     .paper .numeral text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; }
     .paper .chordshape rect.root { stroke: var(--ink); stroke-width: 1; }
+    /* The keyline in the score: each coloured note (head, stem, flag, accidental, lyric) is outlined as one
+       shape, and so is each chord's little picture. */
+    .paper g.hue, .paper .chordshape { filter: url(#keyline-s); }
+    :root[data-theme="dark"] .paper g.hue, :root[data-theme="dark"] .paper .chordshape { filter: url(#keyline-s-dark); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .paper g.hue, :root:not([data-theme="light"]) .paper .chordshape { filter: url(#keyline-s-dark); } }
     .inst .runner { opacity: var(--runner-alpha, 0.95); transition: opacity 0.12s linear; }
-    .inst .runner circle { fill: var(--c); stroke: var(--panel-2); stroke-width: 2; filter: drop-shadow(0 0 4px var(--c)); }
+    .inst .runner circle { fill: var(--c); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 1.5; filter: drop-shadow(0 0 4px var(--c)); }
     .inst .runner.hide { opacity: 0; }
     /* ukulele */
     .inst .board { fill: color-mix(in srgb, var(--ink) 12%, var(--panel-2)); stroke: none; }
@@ -344,10 +378,22 @@
     .inst .stringglow { stroke: var(--c, var(--ink)); stroke-linecap: round; opacity: var(--g, 0); filter: drop-shadow(0 0 5px var(--c, var(--ink))); }
     .inst .uke .strum { fill: color-mix(in srgb, var(--c, var(--ink)) calc(var(--g, 0) * 100%), var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 1; }
     .inst .uke .strum.on, .inst .uke .strum.ondeck { stroke: var(--c); stroke-opacity: var(--g, 0); filter: drop-shadow(0 0 calc(var(--g, 0) * 7px) var(--c)); }
-    .inst .dot { fill: var(--c); stroke: var(--c); }
+    .inst .dot { fill: var(--c); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); }
     /* chord voices: a ring per voice in its note's colour, lightly filled; an open string's hollow */
-    .inst .voice { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke: var(--c); stroke-width: 2.2; }
+    .inst .voice { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 2.2; }
     .inst .voice.open { fill: none; stroke-width: 2.4; }
+    .inst .voice.around { fill: none; }
+    /* Ukulele hands: one fretting finger and one plucking pick, each always there and gliding to land
+       on the onset; the chords drawn apart from the melody (in the chord box, or as squares with ?uke=hands). */
+    .inst .uke.hands .strum { display: none; }
+    .inst .finger { fill: var(--c); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 1.6; }
+    .inst .pick { fill: var(--c, var(--ink)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1; }
+    .inst .openring { fill: none; stroke: color-mix(in srgb, var(--c, var(--ink)) 80%, var(--ink)); stroke-width: 2.2; opacity: 0; }
+    .inst svg.uke-sq .voice { fill: color-mix(in srgb, var(--c) 12%, transparent); stroke: color-mix(in srgb, var(--c) 60%, var(--panel-2)); }
+    .inst svg.uke-sq .voice.open { fill: none; }
+    .inst .ukebox .bline { stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1; }
+    .inst .ukebox .bnut { stroke: var(--ink); stroke-opacity: 0.8; stroke-width: 3; }
+    .inst .fingerno { font-weight: 700; stroke: none; }
     .inst .dot.ondeck { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke-width: 2.5; stroke-dasharray: 5 3; }
     .inst .dot.active { filter: drop-shadow(0 0 6px var(--c)); animation: instpop 0.3s cubic-bezier(.2,.9,.3,1.3); transform-box: fill-box; transform-origin: center; }
     /* tablature in the staff's place */
@@ -374,7 +420,7 @@
     .inst .hole { fill: var(--panel-2); }
     .inst .rim { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-opacity: 0.55; }
     .inst .pad { fill: var(--ink); }
-    .inst .halo { fill: none; stroke: var(--c); stroke-width: 2.2; stroke-opacity: 0; }
+    .inst .halo { fill: none; stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 2.2; stroke-opacity: 0; }
     .inst .rec .name { font-size: 16px; }
     .strip { height: 26%; min-height: 96px; display: flex; gap: 6px; padding: 6px; box-sizing: border-box; border-top: 1px solid var(--line); background: var(--panel); position: relative; }
     /* Guastavino herringbone from the Whispering Gallery, at a whisper. */
@@ -411,6 +457,7 @@
     .xpose { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--ui); }
     .xpose input { width: 3.4em; font: var(--ui); padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); color: var(--ink); text-align: center; }
     .xpose { white-space: nowrap; }
+    .xpose[hidden] { display: none; }
     .xpose select.examples { max-width: 11em; }   /* the course set's titles would otherwise widen it past the strip */
     /* ---------- the notation dock ----------
        Under the staff and the instrument sits one bar: the transport, the
@@ -430,7 +477,17 @@
     .cell[data-type="abc"] .dock { border-top: 1px solid var(--concourse-brass); background: color-mix(in srgb, var(--concourse-floor) 88%, var(--concourse-ink)); }
     .dock .dockbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; padding: 6px 10px; }
     .dock .dockbar .tabs { margin-left: auto; }
-    .dock .transport { gap: 4px; }
+    /* Light or dark, at the bar's right end, level with the drawer tabs: the page's own theme button (#theme)
+       pressed from here. The sign is the theme it goes to, as on #theme: a moon on a light page, a sun on a dark one. */
+    .dock .dockbar { position: relative; }
+    .dock .dockbar .themetog { margin-left: -8px; padding: 4px 6px; border: 0; background: transparent; color: color-mix(in srgb, var(--concourse-ink) 75%, transparent); font: 15px/1 system-ui, sans-serif; cursor: pointer; }
+    .dock .dockbar .themetog:hover { color: var(--concourse-brass); }
+    .dock .dockbar .themetog::before { content: '\263E'; }
+    :root[data-theme="dark"] .dock .dockbar .themetog::before { content: '\2600'; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .dock .dockbar .themetog::before { content: '\2600'; } }
+    body.present .dock .dockbar .themetog { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); margin: 0; }
+    .dock .transport { gap: 4px; --clock-size: 40px; }   /* the grand clock (course/clock.css) */
+    body.present .dock .transport { --clock-size: 48px; }
     .dock .tbtn { width: 34px; height: 34px; padding: 5px; border: 0; border-radius: 0; background: transparent; }
     .dock .tbtn.clock { position: relative; width: 44px; height: 44px; padding: 0; color: var(--concourse-ink); }
     .dock .clockface { width: 100%; height: 100%; overflow: visible; }
@@ -462,6 +519,10 @@
     .dock .tabs .tab[aria-pressed="true"] { border-bottom-color: var(--concourse-brass); color: var(--concourse-ink); }
     .dock .tabs .tab .badge { position: absolute; top: -7px; right: -7px; min-width: 1.2em; padding: 0 4px; border-radius: 999px; background: #d33; color: #fff; font: 700 11px/1.5 system-ui, sans-serif; text-align: center; }
     .dock .tabs .tab .badge:empty { display: none; }
+    /* Each drawer's tab folds like a disclosure: the arrow points along the bar when the drawer is shut, down when it is open. */
+    .tabs .tab .fold::before { content: '\25B8'; display: inline-block; margin-right: 0.35em; font-size: 0.9em; transition: transform 0.15s; }
+    .tabs .tab[aria-pressed="true"] .fold::before { transform: rotate(90deg); }
+    @media (prefers-reduced-motion: reduce) { .tabs .tab .fold::before { transition: none; } }
     .dock .drawer { flex: 1 1 auto; flex-basis: auto; min-height: 0; display: flex; flex-wrap: nowrap; align-items: stretch; gap: 10px; padding: 8px 10px; border-top: 0; overflow: hidden auto; overscroll-behavior: contain; background: color-mix(in srgb, var(--concourse-floor) 82%, var(--concourse-ink)); animation: passagefade 0.15s ease-out; }
     @keyframes passagefade { from { opacity: 0; } to { opacity: 0.6; } }
     .dock .drawer:hover, .dock .drawer:focus-within { opacity: 1; }
@@ -614,6 +675,10 @@
   </style>
 </head>
 <body>
+  <!-- The keyline for the note colours (.paper g.hue, .inst .lbl.hue): the shape grown by a hair, in a darker
+       shade of its own colour on a light page (a lighter one on a dark page), under the shape itself. A note's
+       head, stem and lyric are outlined as one; s for the score, i for the instruments, drawn at other scales. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="keyline-s" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feMorphology in="SourceGraphic" operator="dilate" radius="0.3" result="d"/><feColorMatrix in="d" type="matrix" values="0.55 0 0 0 0  0 0.55 0 0 0  0 0 0.55 0 0  0 0 0 1 0" result="e"/><feMerge><feMergeNode in="e"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="keyline-s-dark" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feMorphology in="SourceGraphic" operator="dilate" radius="0.3" result="d"/><feColorMatrix in="d" type="matrix" values="0.55 0 0 0 0.45  0 0.55 0 0 0.45  0 0 0.55 0 0.45  0 0 0 1 0" result="e"/><feMerge><feMergeNode in="e"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="keyline-i" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feMorphology in="SourceGraphic" operator="dilate" radius="0.45" result="d"/><feColorMatrix in="d" type="matrix" values="0.55 0 0 0 0  0 0.55 0 0 0  0 0 0.55 0 0  0 0 0 1 0" result="e"/><feMerge><feMergeNode in="e"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="keyline-i-dark" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feMorphology in="SourceGraphic" operator="dilate" radius="0.45" result="d"/><feColorMatrix in="d" type="matrix" values="0.55 0 0 0 0.45  0 0.55 0 0 0.45  0 0 0.55 0 0.45  0 0 0 1 0" result="e"/><feMerge><feMergeNode in="e"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>
   <div class="toolbar">
     <a class="wordmark" href="#" onclick="return false" title="Grand Central Stationery">
       <svg class="mark" viewBox="0 0 28 34" aria-hidden="true">
@@ -1020,6 +1085,21 @@
         return line.replace(/("[^"]*"|\[[A-Za-z]:[^\]]*\]|![^!]*!)|[\^_=]+(?=[A-Ga-g])/g, (m, keep) => keep || '');
       }).join('\n');
     }
+    // Repeat signs for music the page is repeating (the piece view's loops): a start repeat before the first music line,
+    // in the tune that sounds and the one shown (alone it repeats nothing), and the closing barline turned to an end
+    // repeat in the one shown only, so abcjs engraves both with room for them and the sound still plays each pass once.
+    const isMusicLine = l => l.trim() && !/^\s*(%|[A-Za-z+]:)/.test(l);
+    function startRepeat(abc) {
+      const L = abc.split('\n'), i = L.findIndex(isMusicLine); if (i < 0) return abc;
+      if (!/^\s*\|:/.test(L[i])) L[i] = /^\s*\|(?![\]|:])/.test(L[i]) ? L[i].replace(/^(\s*)\|/, '$1|:') : '|: ' + L[i];
+      return L.join('\n');
+    }
+    function endRepeat(abc) {
+      const L = abc.split('\n'); let i = L.length - 1; while (i >= 0 && !isMusicLine(L[i])) i--; if (i < 0) return abc;
+      if (/:\|\s*$/.test(L[i])) return abc;
+      L[i] = /(\|\]|\|\||\|)\s*$/.test(L[i]) ? L[i].replace(/(\|\]|\|\||\|)(\s*)$/, ':|$2') : L[i] + ' :|';
+      return L.join('\n');
+    }
     function collect(tune) {
       const out = [];
       tune.lines.forEach((line, li) => (line.staff || []).forEach(staff => (staff.voices || []).forEach((voice, vi) => {
@@ -1057,6 +1137,7 @@
     }
     function svgText(parent, cls, x, y, size, fill, content, anchor, baseline = 'central') {
       const t = document.createElementNS(NS, 'text');
+      if (PC_COLORS.includes(fill)) cls += ' hue';   // a note-coloured letter takes the keyline (.inst .lbl.hue; in the score its note's group does)
       t.setAttribute('class', cls); t.setAttribute('x', x.toFixed(2)); t.setAttribute('y', y.toFixed(2));
       t.setAttribute('text-anchor', anchor); t.setAttribute('dominant-baseline', baseline);
       t.setAttribute('font-size', size.toFixed(2)); t.setAttribute('fill', fill);
@@ -1098,6 +1179,13 @@
        ====================================================================== */
     const NOTE_NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
     const midiColor = m => PC_COLORS[((m % 12) + 12) % 12];
+    // Black or white, whichever reads better on a note's colour (WCAG contrast): black on the yellows,
+    // oranges, greens and pink, white on the reds, blues and purples. For a letter inside a filled circle.
+    const inkOn = hex => {
+      const lin = c => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
+      const n = parseInt(hex.slice(1), 16), L = 0.2126 * lin(n >> 16) + 0.7152 * lin((n >> 8) & 255) + 0.0722 * lin(n & 255);
+      return (L + 0.05) / 0.05 >= 1.05 / (L + 0.05) ? '#111' : '#fff';
+    };
     // Movable-do solfège: degrees above do, raised (sharp) and lowered (flat) spellings.
     const SOL_UP   = ['do', 'di', 're', 'ri', 'mi', 'fa', 'fi', 'sol', 'si', 'la', 'li', 'ti'];
     const SOL_DOWN = ['do', 'ra', 're', 'me', 'mi', 'fa', 'se', 'sol', 'le', 'la', 'te', 'ti'];
@@ -1218,7 +1306,7 @@
       mark(now, next, info) {
         const chord = info && info.chord;
         for (const k of this.allKeys) {
-          k.el.classList.remove('active', 'ondeck', 'chord', 'root'); if (k.lbl) k.lbl.setAttribute('fill', k.idleFill);
+          k.el.classList.remove('active', 'ondeck', 'chord', 'root'); if (k.lbl) { k.lbl.setAttribute('fill', k.idleFill); k.lbl.classList.remove('oncolor'); }
           if (chord && k.pc !== undefined && chord.pcs.includes(k.pc)) k.el.classList.add(k.pc === chord.root ? 'root' : 'chord');
         }
         const scheduled = info && this.events.length, i = scheduled ? info.index : -1;
@@ -1226,19 +1314,30 @@
         const nowKeys = scheduled ? ((this.events[i] || {}).keys || []) : now.map(m => this.key(m)).filter(Boolean);
         const pts = { now: [], next: [] };
         for (const k of nextKeys) { k.el.classList.add('ondeck'); pts.next.push(k); }
-        for (const k of nowKeys) { k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) k.lbl.setAttribute('fill', letterOn()); pts.now.push(k); }
+        for (const k of nowKeys) { k.el.classList.remove('ondeck'); k.el.classList.add('active'); if (k.lbl) { k.lbl.setAttribute('fill', inkOn(k.idleFill)); k.lbl.classList.add('oncolor'); } pts.now.push(k); }
         return { now: centroid(pts.now), next: centroid(pts.next) };
       }
       start() { return this.startPt || null; }
-      // Chord voices: each chord's notes on their keys, where the runner would stand. A note below or above
-      // the keys is shown an octave in.
+      // Chord voices: each chord's notes on their keys, where the runner would stand (a note below or above
+      // the keys is shown an octave in). Where a pitch has several keys (Wicki-Hayden), each voice takes the
+      // one nearest where the hand was, the last chord's centre, so the shape stays together and moves little.
       voicePlaces(track) {
         if (this.tunedKeys) return null;
         const pitches = [...this.keysByPitch.keys()], lo = Math.min(...pitches), hi = Math.max(...pitches);
-        return track.map(e => e.notes.map(m0 => {
-          let m = m0 + this.shift; while (m < lo) m += 12; while (m > hi) m -= 12;
-          const k = this.keysByPitch.get(m); return k && k.length ? { x: k[0].x, y: k[0].y, r: 5.2, m: m0 } : null;
-        }).filter(Boolean));
+        const d2 = (a, b) => (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
+        let at = null;
+        return track.map(e => {
+          const used = new Set(), out = [];
+          for (const m0 of e.notes) {
+            let cand = this.keyCandidates(m0);
+            if (!cand.length) { let m = m0 + this.shift; while (m < lo) m += 12; while (m > hi) m -= 12; cand = this.keysByPitch.get(m) || []; }
+            cand = cand.filter(k => !used.has(k)); if (!cand.length) continue;
+            const near = at || centroid(out), k = near ? cand.reduce((b, c) => d2(c, near) < d2(b, near) ? c : b) : cand[0];
+            used.add(k); out.push({ x: k.x, y: k.y, r: this.voiceR || 5.2, m: m0, around: !!this.voiceR });
+          }
+          if (out.length) at = centroid(out);
+          return out;
+        });
       }
     }
 
@@ -1299,7 +1398,7 @@
     }
     class WickiHaydenLayout extends KeyedLayout {
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
-        this.panel = '44%';
+        this.panel = '44%'; this.voiceR = 15;   // a chord voice rings the key's label
         if (tuned) return this.buildTuned(svg, midis, tuned);
         // Transpose moves the pitches on the keys, so J stays the root and
         // the fingering of a tune does not change when it is transposed.
@@ -1374,16 +1473,54 @@
       }
     }
 
-    // Ukulele, re-entrant GCEA, twelve frets. A pitch has several places; the
+    // The class's ukuleles, one setup for the whole site on this device (localStorage gcs-uke): C tuning
+    // (G C E A, the usual) or D tuning a tone up (A D F♯ B), and the fourth string, the one nearest the player,
+    // re-entrant ('high', an octave up, as on most school ukuleles) or low (notes down to the G or A below middle
+    // C). The strings are listed as the layout draws them, far to near: first string (A or B) to fourth.
+    const UKE_SETUP_KEY = 'gcs-uke';
+    const ukeSetup = (() => {
+      const read = () => { try { const v = JSON.parse(localStorage.getItem(UKE_SETUP_KEY) || '{}') || {}; return { tuning: v.tuning === 'D' ? 'D' : 'C', fourth: v.fourth === 'low' ? 'low' : 'high' }; } catch (e) { return { tuning: 'C', fourth: 'high' }; } };
+      let cur = read();
+      const fns = [], tell = () => { for (const f of fns) try { f({ ...cur }); } catch (e) { console.error(e); } };
+      // Another tab of the site changed it: this one follows.
+      window.addEventListener('storage', e => { if (e.key === UKE_SETUP_KEY) { cur = read(); tell(); } });
+      return {
+        get: () => ({ ...cur }),
+        set(v) {
+          const next = { tuning: v.tuning === 'D' ? 'D' : v.tuning === 'C' ? 'C' : cur.tuning, fourth: v.fourth === 'low' ? 'low' : v.fourth === 'high' ? 'high' : cur.fourth };
+          if (next.tuning === cur.tuning && next.fourth === cur.fourth) return;
+          cur = next; try { localStorage.setItem(UKE_SETUP_KEY, JSON.stringify(cur)); } catch (e) {}
+          tell();
+        },
+        onChange(fn) { if (typeof fn === 'function') fns.push(fn); },
+        strings() { const up = cur.tuning === 'D' ? 2 : 0; return [69 + up, 64 + up, 60 + up, (cur.fourth === 'low' ? 55 : 67) + up]; },
+      };
+    })();
+
+    // Ukulele, twelve frets, strung as the class's are (ukeSetup). A pitch has several places; the
     // one nearest the hand's last fret is chosen, lowest fret on a tie. The
     // same places number the tablature when the score shows Tab.
+    // The ukulele view: 'box' (the default: a fretting finger and a plucking pick that glide like the
+    // recorder's fingers, with the chords off the fretboard in a small chord box beyond the bridge). For
+    // comparison, ?uke= in the address can choose 'hands' (the same hands, the chords as quiet squares on
+    // the fretboard) or 'classic' (the earlier view: lit marks, a runner, the chords as circles on the board).
+    const UKE_VARIANT = (() => { try { const v = new URLSearchParams(location.search).get('uke'); return ['classic', 'hands', 'box'].includes(v) ? v : 'box'; } catch (e) { return 'box'; } })();
     class UkuleleLayout {
-      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; }
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+      constructor() { this.strings = ukeSetup.strings(); this.low = ukeSetup.get().fourth === 'low'; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; this.v = UKE_VARIANT; this.dt = 500; }
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null, opts = {}) {
         this.nameOf = nameOf;
-        this.shift = octaveFit(midis, 60, 60 + 12 + 9);
+        // The tune in the octave the strings reach most of: the lowest open string to the highest one's twelfth fret.
+        this.shift = octaveFit(midis, Math.min(...this.strings), Math.max(...this.strings) + this.frets);
+        // The small diagrams keep the classic marks (a dot and its fret number), with no hands or chord box.
+        if (opts && opts.mini) { this.v = 'classic'; this.show = 'melody'; this.useBox = this.squareVoices = false; return this.buildMini(svg); }
+        // What the view shows (AbcCell.showMode): with melody and chords both, the chords go to the chord box
+        // (or, with ?uke=hands, become squares) so the fretboard keeps the melody; with the chords only they
+        // glide on the fretboard itself and the melody's hands stand down.
+        this.show = opts.show || 'melody';
+        this.useBox = this.v === 'box' && this.show === 'both';
+        this.squareVoices = this.v === 'hands' && this.show === 'both';
         // The player's view of their own ukulele, looking down the neck from
-        // above the near edge: the re-entrant G string is nearest, A farthest.
+        // above the near edge: the fourth string (G in C tuning) is nearest, the first (A) farthest.
         // A one-point perspective does the foreshortening: everything at
         // depth d (0 near, 1 far) shrinks toward a vanishing point by k(d),
         // so the far strings crowd together, the frets lean, and a mark on
@@ -1394,7 +1531,7 @@
         // where strumming happens, past the soundhole toward the bridge.
         const S = 23, left = 92, top = 14, boardLen = 470;
         this.S = S; this.left = left; this.top = top; this.boardLen = boardLen;
-        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70, H = top + S * 3.5 + 22;
+        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70 + (this.useBox ? 142 : 0), H = top + S * 3.5 + 22;
         this.bE = bE; this.bridgeX = bridgeX;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
         const defs = svgEl(svg, 'defs');
@@ -1440,13 +1577,14 @@
         const n0 = this.project(left, -0.55), n1 = this.project(left, 3.5); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
         for (const i of [5, 7, 10]) { const p = this.project(this.fretMid(i), 1.5), k = this.depth(1.5); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
         for (const sIdx of [0.6, 2.4]) { const p = this.project(this.fretMid(12), sIdx), k = this.depth(sIdx); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
-        // The strings, nut to bridge, nearest thickest; each has a glow twin that lights in the note's colour when it is plucked.
-        const names = ['A', 'E', 'C', 'G'];
+        // The strings, nut to bridge, nearest thickest, a low fourth string heavier still; each has a glow twin
+        // that lights in the note's colour when it is plucked.
+        const names = this.strings.map(m => NOTE_NAMES[m % 12]);
         this.stringEls = [];
         this.strings.forEach((open, sIdx) => {
           const a = this.project(left - 2, sIdx), b = this.project(bridgeX, sIdx), label = this.project(left - 12, sIdx), k = this.depth(sIdx);
           const glow = svgEl(g, 'line', { class: 'stringglow', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (4.5 * k + 1.5).toFixed(2) });
-          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.7 + sIdx * 0.4).toFixed(2) });
+          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.7 + sIdx * 0.4 + (this.low && sIdx === 3 ? 0.7 : 0)).toFixed(2) });
           svgText(g, 'lbl str', label.x, label.y + 0.4, (7 + sIdx * 0.8) * k + 1, midiColor(open), names[sIdx], 'middle');
           this.stringEls.push({ glow, open });
         });
@@ -1455,15 +1593,105 @@
           const sp = this.project(bE + 72, sIdx), sk = this.depth(sIdx) * 0.62;
           this.stringEls[sIdx].pick = svgEl(g, 'path', { class: 'strum', d: `M ${sp.x} ${sp.y - 9 * sk} q ${7 * sk} 0 ${7 * sk} ${7 * sk} q 0 ${8 * sk} ${-7 * sk} ${12 * sk} q ${-7 * sk} ${-4 * sk} ${-7 * sk} ${-12 * sk} q 0 ${-7 * sk} ${7 * sk} ${-7 * sk} z` });
         });
-        svgText(g, 'lbl cap', left + 4, H - 1, 6.5, 'var(--muted)', "your view · G string nearest", 'start');
+        svgText(g, 'lbl cap', left + 4, H - 1, 6.5, 'var(--muted)', `your view · ${names[3]} string nearest`, 'start');
         this.marksG = svgEl(svg, 'g');
         this.startPt = { ...this.project(left - 2, 3), r: 8.4, open: true };
         this.lastHand = null;
         this.sig = null; this.events = [];
+        if (this.v !== 'classic') this.buildHands(svg, g, W, H);
       }
+      // The small diagram under a note in the piece view (opts.mini): a fingering chart in the player's view. The
+      // board is a light shade with no outline, so its edges do not read as strings; the frets are faint and stop at
+      // the board, while the strings are solid, run on over the nut and past the board's end, and thicken toward
+      // the player. The headstock is a plain shape past the nut, and there is no body, soundhole, plectrum or
+      // caption, so at a few centimetres the eye goes straight to the finger's dot and the fret number beside it.
+      // The perspective is the large diagram's, made stronger to read at this size (project): the fourth string
+      // (G in C tuning) nearest, the first (A) farthest. The board is wider for its length than a real one, for
+      // room to see the dot. The piece view stands it headstock up, leaning a little left (piece.css turns it
+      // MINI_TURN degrees clockwise), so the near fourth string is on the left and the far first string on the
+      // right, as on a chord chart; the numbers are turned back to stand upright.
+      buildMini(svg) {
+        this.mini = true;
+        // The margins beside the board hold a one-digit fret number; a rare 10 to 12 reaches a little past them.
+        const S = 32, font = 34, M = 0.2 * S + 0.6 * font + 4, head = 62, boardLen = 470, left = head + 22, bE = left + boardLen;
+        Object.assign(this, { S, left, top: 0, boardLen, bE, font });
+        const P = (x, s) => this.project(x, s), hx = left - head, ends = [-0.6, 3.6];
+        const y0 = P(left, ends[0]).y - M, y1 = P(left, ends[1]).y + M;
+        svg.setAttribute('viewBox', `0 ${y0.toFixed(1)} ${bE + 18} ${(y1 - y0).toFixed(1)}`);
+        const g = svgEl(svg, 'g', { class: 'uke' }), poly = pts => 'M ' + pts.map(q => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`).join(' L ') + ' Z';
+        // The headstock flares a little from the nut to a gently crowned top, a tuning peg standing out from each side twice.
+        for (const [x, s] of [[hx + 18, -0.95], [hx + 42, -0.9], [hx + 18, 3.95], [hx + 42, 3.9]]) { const q = P(x, s); svgEl(g, 'circle', { class: 'mpeg', cx: q.x, cy: q.y, r: (7 * this.depth(s)).toFixed(1) }); }
+        const h = [P(left, -0.6), P(hx + 12, -0.85), P(hx + 2, -0.85), P(hx + 2, -0.45), P(hx - 10, 1.5), P(hx + 2, 3.45), P(hx + 2, 3.85), P(hx + 12, 3.85), P(left, 3.6)].map(q => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`);
+        svgEl(g, 'path', { class: 'mhead', d: `M ${h[0]} L ${h[1]} Q ${h[2]} ${h[3]} Q ${h[4]} ${h[5]} Q ${h[6]} ${h[7]} L ${h[8]} Z` });
+        svgEl(g, 'path', { class: 'mboard', d: poly([P(left, -0.6), P(bE, -0.6), P(bE, 3.6), P(left, 3.6)]) });
+        for (let i = 1; i < this.frets; i++) { const a = P(this.fretX(i), -0.45), b = P(this.fretX(i), 3.45); svgEl(g, 'line', { class: 'mfret', x1: a.x, y1: a.y, x2: b.x, y2: b.y }); }
+        for (const [i, s] of [[5, 1.5], [7, 1.5], [10, 1.5], [12, 0.5], [12, 2.5]]) { const q = P(this.fretMid(i), s); svgEl(g, 'circle', { class: 'minlay', cx: q.x, cy: q.y, r: (0.15 * S * this.depth(s)).toFixed(1) }); }
+        const n0 = P(left, -0.6), n1 = P(left, 3.6); svgEl(g, 'line', { class: 'mnut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
+        // The strings, from the headstock past the board's end, each with its glow twin, which lights from the fret
+        // to the board's end: the part that sounds. Each is heavier for its gauge and for being nearer: the third
+        // string is the heaviest of a re-entrant set and a low fourth string heavier still; a re-entrant fourth is
+        // light, but the perspective still puts it nearest.
+        this.stringEls = this.strings.map((open, s) => {
+          const a = P(hx + 26, s), b = P(bE + 14, s), k = this.depth(s);
+          const glow = svgEl(g, 'line', { class: 'stringglow', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.3 * S * k).toFixed(1) });
+          svgEl(g, 'line', { class: 'mstring', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': ([3, 3.8, 4.6, this.low ? 5.8 : 3.6][s] * (1 - 0.2 * (3 - s) / 3)).toFixed(2) });
+          return { glow, open, pick: null };
+        });
+        this.marksG = svgEl(svg, 'g');
+        this.startPt = { ...P(left - 2, 3), r: 0.5 * S, open: true };
+        this.lastHand = null;
+        this.sig = null; this.events = [];
+      }
+      // A fretted place's number beside the board, level with its dot on the side nearer its string (the fourth and
+      // third strings on the upright chart's left, the second and first on its right), turned to read upright.
+      fretNo(p, q) {
+        const w = String(p.fret).length * 0.56 * this.font, gap = 0.2 * this.S + w / 2, near = p.s >= 2;
+        const y = this.project(q.x, near ? 3.6 : -0.6).y + (near ? gap : -gap);
+        const t = svgText(this.marksG, 'lbl fretno', q.x, y, this.font, 'var(--ink)', String(p.fret), 'middle');
+        t.setAttribute('transform', `rotate(${-UkuleleLayout.MINI_TURN} ${q.x.toFixed(1)} ${y.toFixed(1)})`);
+        return t;
+      }
+      // The hands: one fretting finger (solid while it presses a fret, a ghost while it is
+      // lifted for an open string) and one pick over the soundhole that moves across the strings to the
+      // next one plucked; both glide, holding still and landing on the onset. A ring round a string's name
+      // at the nut gathers as an open string comes and fades after it sounds: the open string's own cue,
+      // which no fret-hand travel can be mistaken for.
+      buildHands(svg, g, W, H) {
+        svg.classList.add('uke-' + this.v); if (this.squareVoices) svg.classList.add('uke-sq');
+        g.classList.add('hands');
+        this.openRings = this.strings.map((o, s) => { const p = this.project(this.left - 12, s), k = this.depth(s); return svgEl(g, 'circle', { class: 'openring', cx: p.x.toFixed(1), cy: p.y.toFixed(1), r: (8.5 * k).toFixed(2) }); });
+        this.pick = svgEl(this.marksG, 'path', { class: 'pick', d: 'M 0 -9 q 7 0 7 7 q 0 8 -7 12 q -7 -4 -7 -12 q 0 -7 7 -7 z' });
+        this.finger = svgEl(this.marksG, 'circle', { class: 'finger', r: 7 });
+        this.fingerLbl = svgText(this.marksG, 'lbl fingerno', 0, 0, 7.5, letterOn(), '', 'middle');
+        this.fFrom = this.fTo = { ...this.startPt, r: 7.2 * this.depth(3), pressed: 0, m: null, fret: 0 };
+        this.fLast = null; this.sFrom = this.sTo = 3; this.sLast = null; this.pmFrom = this.pmTo = null;
+        this.openNow = new Set(); this.openNext = new Set();
+        if (this.show === 'chords') for (const el of [this.finger, this.fingerLbl, this.pick]) el.style.display = 'none';
+        if (this.useBox) {
+          // A small chord box beyond the bridge, laid the same way as the board (A string at the top, the
+          // nut at the left): the chord's name over it and its voices gliding inside it.
+          const bx = W - 116, by = 36, fw = 20, sg = 18, nf = 5;
+          this.box = { bx, by, fw, sg, nf };
+          const bg = svgEl(g, 'g', { class: 'ukebox' }); this.boxG = bg; bg.style.display = 'none';   // shown while chords play (chordsShown)
+          for (let s = 0; s < 4; s++) svgEl(bg, 'line', { class: 'bline', x1: bx, y1: by + s * sg, x2: bx + nf * fw, y2: by + s * sg });
+          for (let f = 1; f <= nf; f++) svgEl(bg, 'line', { class: 'bline', x1: bx + f * fw, y1: by, x2: bx + f * fw, y2: by + 3 * sg });
+          svgEl(bg, 'line', { class: 'bnut', x1: bx, y1: by - 1, x2: bx, y2: by + 3 * sg + 1 });
+          this.strings.map(m => NOTE_NAMES[m % 12]).forEach((n, s) => svgText(bg, 'lbl cap', bx - 17, by + s * sg + 0.4, 7, midiColor(this.strings[s]), n, 'middle'));
+          this.boxName = svgText(bg, 'lbl name', bx + nf * fw / 2, by - 18, 15, 'var(--ink)', '', 'middle');
+        }
+      }
+      chordName(e) { if (this.boxName) this.boxName.textContent = e && e.name ? e.name : ''; }
+      // The chord box shows only while there are chords to show.
+      chordsShown(on) { if (this.boxG) this.boxG.style.display = on ? '' : 'none'; }
       // Depth 0 at the near (G) edge, 1 at the far (A) edge; the shrink factor toward the vanishing point.
-      depth(string) { return 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
+      depth(string) { return this.mini ? 1 - 0.1 * (3 - string) / 3 : 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
       project(x, string) {
+        // The small chart: the same one-point perspective, two to three times as strong (the far edge a tenth
+        // shorter, the far rows crowding by a sixth), and level, since the piece view tilts it as it stands it up.
+        if (this.mini) {
+          const d = (3 - string) / 3, cx = this.left + this.boardLen * 0.5;
+          return { x: cx + (x - cx) * this.depth(string) + 0.1 * d * this.S * 3, y: this.top + this.S * 3 - d * this.S * 3 * (1 - 0.16 * d) };
+        }
         // The eye is above the near edge, a little toward the headstock: the far edge is a touch shorter
         // than the near one (so the two converge toward the bridge), the frets lean about six degrees,
         // the far rows crowd a little, and the whole instrument rises gently to the right. At the nut the
@@ -1499,17 +1727,23 @@
       // past the nut, hollow.
       voicePlaces(track) {
         let prev = null;
+        const B = this.box;
+        if (B) return track.map(e => {
+          const frets = stringVoicing(e.pcs, e.root, this.strings, prev); if (!frets) return [];
+          prev = frets;
+          return frets.map((f, s) => ({ x: f > 0 ? B.bx + (Math.min(f, B.nf) - 0.5) * B.fw : B.bx - 7, y: B.by + s * B.sg, r: 6, m: this.strings[s] + f, lane: s, open: f === 0, fret: f }));
+        });
         return track.map(e => {
           const frets = stringVoicing(e.pcs, e.root, this.strings, prev); if (!frets) return [];
           prev = frets;
-          return frets.map((f, s) => { const q = this.project(f > 0 ? this.fretMid(f) : this.left + 8, s); return { x: q.x, y: q.y, r: 6.4 * this.depth(s), m: this.strings[s] + f, lane: s, open: f === 0, fret: f }; });
+          return frets.map((f, s) => { const q = this.project(f > 0 ? this.fretMid(f) : this.left + 8, s); return { x: q.x, y: q.y, r: (this.squareVoices ? 5 : 6.4) * this.depth(s), m: this.strings[s] + f, lane: s, open: f === 0, fret: f }; });
         });
       }
       // Fret i's wire: a real fretboard's spacing (each fret 2^(1/12) of the string's remaining length), scaled so the twelfth fret ends the board.
       fretX(i) { return this.left + 2 * this.boardLen * (1 - Math.pow(2, -i / 12)); }
       fretMid(i) { return (this.fretX(i - 1) + this.fretX(i)) / 2; }
       // A fretted place as a point and a radius in perspective (the radius shrinks with the string's depth).
-      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: 7.2 * this.depth(p.s), open: false }; }
+      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: (this.mini ? 0.54 * this.S : 7.2) * this.depth(p.s), open: false }; }
       schedule(events, beatMs) {
         const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
         if (sig === this.sig) return;
@@ -1518,10 +1752,11 @@
       }
       // Each frame, u from the sounding note's onset (0) to the next (1): the sounding string's glow
       // decays from its peak at the onset, and the next string's glow rises to peak as its note arrives.
-      frame(u) {
+      frame(u, t, dt) {
+        if (this.v !== 'classic') return this.handsFrame(u, dt);
         for (const st of this.stringEls || []) {
           const g = st.state === 'on' ? 0.25 + 0.7 * Math.pow(1 - u, 1.6) : st.state === 'ondeck' ? 0.06 + 0.9 * Math.pow(u, 3) : 0;
-          st.glow.style.setProperty('--g', g.toFixed(3)); st.pick.style.setProperty('--g', g.toFixed(3));
+          st.glow.style.setProperty('--g', g.toFixed(3)); if (st.pick) st.pick.style.setProperty('--g', g.toFixed(3));
         }
       }
       // The two hands are shown apart. The right hand: every sounding string
@@ -1531,23 +1766,33 @@
       // string asks nothing of the left hand, so the runner stays where the
       // hand last was instead of travelling to the nut.
       mark(now, next, info) {
+        if (this.v !== 'classic') return this.handsMark(now, next, info);
         for (const m of this.marks) m.remove(); this.marks = [];
         const sched = info && this.events.length;
         const i = sched ? info.index : -1;
         const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
         const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
-        for (const st of this.stringEls) { st.state = null; st.glow.classList.remove('on', 'ondeck'); st.pick.classList.remove('on', 'ondeck'); }
-        for (const p of nextP) { const st = this.stringEls[p.s]; if (st) { st.state = 'ondeck'; st.glow.style.setProperty('--c', midiColor(p.m)); st.pick.style.setProperty('--c', midiColor(p.m)); st.glow.classList.add('ondeck'); st.pick.classList.add('ondeck'); } }
-        for (const p of nowP) { const st = this.stringEls[p.s]; if (st) { st.state = 'on'; st.glow.style.setProperty('--c', midiColor(p.m)); st.pick.style.setProperty('--c', midiColor(p.m)); st.glow.classList.remove('ondeck'); st.pick.classList.remove('ondeck'); st.glow.classList.add('on'); st.pick.classList.add('on'); } }
+        // The plectrums are the large diagram's; the small chart has none (pick null).
+        const each = (st, f) => { f(st.glow); if (st.pick) f(st.pick); };
+        for (const st of this.stringEls) { st.state = null; each(st, el => el.classList.remove('on', 'ondeck')); }
+        for (const p of nextP) { const st = this.stringEls[p.s]; if (st) { st.state = 'ondeck'; each(st, el => { el.style.setProperty('--c', midiColor(p.m)); el.classList.add('ondeck'); }); } }
+        for (const p of nowP) { const st = this.stringEls[p.s]; if (st) { st.state = 'on'; each(st, el => { el.style.setProperty('--c', midiColor(p.m)); el.classList.remove('ondeck'); el.classList.add('on'); }); } }
         this.frame(0, 0);
         const draw = (p, cls) => {
           const q = this.pt(p);
           const c = svgEl(this.marksG, 'circle', { class: 'dot ' + cls, cx: q.x, cy: q.y, r: q.r });
           c.style.setProperty('--c', midiColor(p.m));
           this.marks.push(c);
-          if (cls === 'active') this.marks.push(svgText(this.marksG, 'lbl', q.x, q.y + 0.5, q.r * 1.05, letterOn(), String(p.fret), 'middle'));
+          if (cls === 'active') { const nm = this.nameOf(p.m); this.marks.push(this.mini ? this.fretNo(p, q) : svgText(this.marksG, 'lbl fingerno', q.x, q.y + 0.5, q.r * (nm.length > 1 ? 0.85 : 1.05), inkOn(midiColor(p.m)), nm, 'middle')); }
           return q;
         };
+        // On the small chart a sounding string glows from its fret on, and an open one is a ring just past the nut, as on a chord chart.
+        if (this.mini) for (const p of nowP) {
+          const st = this.stringEls[p.s]; if (st) st.glow.setAttribute('x1', this.project(p.fret > 0 ? this.fretX(p.fret) : this.left, p.s).x);
+          if (p.fret > 0) continue;
+          const c = this.project(this.left - 18, p.s), o = svgEl(this.marksG, 'circle', { class: 'mopen', cx: c.x, cy: c.y, r: 0.34 * this.S * this.depth(p.s) });
+          o.style.setProperty('--c', midiColor(p.m)); this.marks.push(o);
+        }
         const nPts = nextP.filter(p => p.fret > 0).map(p => draw(p, 'ondeck')), aPts = nowP.filter(p => p.fret > 0).map(p => draw(p, 'active'));
         const centre = pts => { const c = centroid(pts); return c && { ...c, r: pts.reduce((a, p) => a + p.r, 0) / pts.length, open: false }; };
         const nowC = centre(aPts), nextC = centre(nPts);
@@ -1562,8 +1807,59 @@
           labelMidi: nextC && nextP.length ? nextP[0].m : nowC && nowP.length ? nowP[0].m : null,
         };
       }
+      handsMark(now, next, info) {
+        const sched = info && this.events.length, i = sched ? info.index : -1;
+        const nowP = sched ? (this.events[i] ? this.events[i].pos : []) : this.place(now);
+        const nextP = sched ? (this.events[i + 1] && !info.reset ? this.events[i + 1].pos : []) : this.place(next);
+        // The plucked strings glow from the onset and fade (handsFrame).
+        for (const st of this.stringEls) { st.state = null; st.glow.classList.remove('on', 'ondeck'); }
+        for (const p of nowP) { const st = this.stringEls[p.s]; if (st) { st.state = 'on'; st.glow.style.setProperty('--c', midiColor(p.m)); st.glow.classList.add('on'); } }
+        // The finger: on the sounding note's fret, or lifted where it last pressed; then to the next
+        // note's fret, or lifted where it is for an open string. Through a rest it holds.
+        const at = p => ({ ...this.pt(p), pressed: 1, m: p.m, fret: p.fret });
+        const nowF = nowP.find(p => p.fret > 0), nextF = nextP.find(p => p.fret > 0);
+        const rest = this.fLast || { ...this.startPt, r: 7.2 * this.depth(3), m: null, fret: 0 };
+        const cur = nowF ? at(nowF) : { ...rest, pressed: 0 };
+        if (nowF) this.fLast = cur;
+        this.fFrom = cur; this.fTo = nextF ? at(nextF) : nextP.length ? { ...cur, pressed: 0 } : cur;
+        // The pick: over the string plucked now (or where it was), then over the next one.
+        const meanS = P => P.reduce((a, p) => a + p.s, 0) / P.length;
+        this.sFrom = nowP.length ? meanS(nowP) : this.sLast !== null ? this.sLast : 3;
+        if (nowP.length) this.sLast = this.sFrom;
+        this.sTo = nextP.length ? meanS(nextP) : this.sFrom;
+        this.pmFrom = nowP.length ? nowP[0].m : this.pmLast !== undefined ? this.pmLast : null; if (nowP.length) this.pmLast = this.pmFrom;
+        this.pmTo = nextP.length ? nextP[0].m : this.pmFrom;
+        this.openNow = new Set(nowP.filter(p => p.fret === 0).map(p => p.s)); this.openNext = new Set(nextP.filter(p => p.fret === 0).map(p => p.s));
+        this.openRings.forEach((c, s) => { const p = nextP.find(q => q.s === s && q.fret === 0) || nowP.find(q => q.s === s && q.fret === 0); if (p) c.style.setProperty('--c', midiColor(p.m)); });
+        this.handsFrame(0, this.dt);
+        return { now: null, next: null };
+      }
+      handsFrame(u, dt) {
+        if (dt > 0) this.dt = dt; dt = this.dt;
+        const { k } = glide(u * dt, dt), mix = (a, b) => a === null || a === undefined ? (b === null || b === undefined ? 'var(--muted)' : midiColor(b)) : b === null || b === undefined || midiColor(a) === midiColor(b) || k <= 0 ? midiColor(a) : k >= 1 ? midiColor(b) : `color-mix(in oklab, ${midiColor(b)} ${(k * 100).toFixed(0)}%, ${midiColor(a)})`;
+        const F = this.fFrom, T = this.fTo, lk = lift(u * dt, dt);
+        // Lifting for an open string, the finger fades by its own earlier, quicker curve (lift), so it is gone
+        // well before the string sounds; a press still lands with the slide.
+        const x = F.x + (T.x - F.x) * k, y = F.y + (T.y - F.y) * k, r = F.r + (T.r - F.r) * k, pr = F.pressed + (T.pressed - F.pressed) * (T.pressed < F.pressed ? lk : k);
+        this.finger.setAttribute('cx', x.toFixed(1)); this.finger.setAttribute('cy', y.toFixed(1)); this.finger.setAttribute('r', r.toFixed(2));
+        this.finger.style.setProperty('--c', mix(F.m, T.m));
+        this.finger.style.fillOpacity = (0.1 + 0.9 * pr).toFixed(3); this.finger.style.strokeOpacity = (F.m === null && T.m === null ? 0.3 : 0.5 + 0.5 * pr).toFixed(3);
+        // The circle carries the note's letter name, in black or white for its colour; the fret is the circle's
+        // place on the board.
+        const lab = k < 0.5 ? F : T, nm = lab.pressed && lab.m !== null ? this.nameOf(lab.m) : '';
+        this.fingerLbl.textContent = nm; if (nm) this.fingerLbl.setAttribute('fill', inkOn(midiColor(lab.m)));
+        this.fingerLbl.setAttribute('x', x.toFixed(1)); this.fingerLbl.setAttribute('y', (y + 0.5).toFixed(1)); this.fingerLbl.setAttribute('font-size', (r * (nm.length > 1 ? 0.95 : 1.25)).toFixed(2));
+        this.fingerLbl.style.opacity = Math.max(0, pr * 2 - 1).toFixed(3);
+        const s = this.sFrom + (this.sTo - this.sFrom) * k, q = this.project(this.bE + 72, s), sc = this.depth(s) * 0.85;
+        this.pick.setAttribute('transform', `translate(${q.x.toFixed(1)} ${q.y.toFixed(1)}) scale(${sc.toFixed(3)})`);
+        this.pick.style.setProperty('--c', mix(this.pmFrom, this.pmTo));
+        const decay = Math.pow(1 - u, 1.6);
+        for (const st of this.stringEls) st.glow.style.setProperty('--g', st.state === 'on' ? (0.2 + 0.75 * decay).toFixed(3) : '0');
+        this.openRings.forEach((c, i) => { c.style.opacity = Math.max(this.openNext.has(i) ? lk : 0, this.openNow.has(i) ? decay : 0).toFixed(3); });
+      }
     }
     UkuleleLayout.seq = 0;
+    UkuleleLayout.MINI_TURN = 80;   // degrees clockwise the piece view turns the small chart (piece.css, .pb-mini.rot.uke)
 
     // How far a moving finger has gone, 0 to 1, el ms after one onset with the next dt ms later: it holds
     // still, then slides in the last stretch, gathering speed so it lands exactly on the next onset, as a
@@ -1577,6 +1873,13 @@
       const k = el < pre ? lean * (x => x * x * (3 - 2 * x))(el / pre) : lean + (1 - lean) * Math.pow(Math.min(1, (el - pre) / slide), 2);
       const halo = dt < 220 ? 0 : Math.pow(Math.max(0, 1 - el / Math.min(280, dt * 0.6)), 2);
       return { k, halo };
+    }
+    // How far a finger has lifted for an open string, 0 to 1, el ms after one onset with the next dt ms later.
+    // It starts before glide's slide would and is done with a good stretch to spare, easing out (quick at
+    // first), so the fading circle and the ring gathering at the nut cue the open string early and clearly.
+    function lift(el, dt) {
+      const span = Math.min(dt, Math.max(240, Math.min(600, dt * 0.7))), x = Math.max(0, Math.min(1, (el - (dt - span)) / (0.55 * span)));
+      return 1 - (1 - x) * (1 - x);
     }
 
     /* ---- chord voices: a chord as voices, one dot per voice, each gliding to its note in the next chord ---- */
@@ -1663,11 +1966,15 @@
       21: [.5, 1, 1, 0, 1, 1, 0, 0], 22: [.5, 1, 1, 0, 1, 0, 0, 0], 23: [.5, 1, 1, 0, 0, 0, 0, 0],
       24: [.5, 1, 0, 1, 0, 0, 0, 0], 26: [.5, 0, 1, 1, 0, 0, 0, 0],
     };
+    // How much of the recorder a class has learnt: the first register (low C to the D above, no thumb
+    // pinch), two octaves (low C to the C two above), or the whole chart.
+    const RECORDER_SPANS = { 1: { lo: 60, hi: 74, name: 'first octave' }, 2: { lo: 60, hi: 84, name: 'two octaves' } };
     class RecorderLayout {
       constructor() { this.runnerR = 0; this.panel = '44%'; this.pads = []; this.lastF = null; this.dt = 500; }
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null, opts = {}) {
         this.nameOf = nameOf;
-        this.shift = octaveFit(midis, 60, 86);
+        const span = RECORDER_SPANS[opts.span]; this.lo = span ? span.lo : 60; this.hi = span ? span.hi : 86; this.spanName = span ? span.name : '';
+        this.shift = octaveFit(midis, this.lo, this.hi);
         this.tuningOff = tuned ? tuningOffsets(tuned.tuning, tuned.key) : null;
         this.lastF = null;
         // One large recorder, drawn sideways so it fills a wide panel: beak
@@ -1710,12 +2017,22 @@
         this.nowTune = svgText(g, 'lbl cap tune', 24, 103, 7, 'var(--muted)', '', 'start');
         this.nextTune = svgText(g, 'lbl cap tune next', 300, 103, 7, 'var(--muted)', '', 'end');
       }
-      fingering(midis) { const m = midis.length ? midis[0] + this.shift : null; return { m, f: m !== null ? RECORDER[m - 60] : null }; }
+      // A note beyond the range (the chart's, or the one the class has learnt), or in the chart's gap (the
+      // top C sharp), is fingered in the nearest octave that has it; every range holds a whole octave, so
+      // every note gets one.
+      reach(m) { return m >= this.lo && m <= this.hi && !!RECORDER[m - 60]; }
+      fold(m) {
+        if (this.reach(m)) return m;
+        let best = null;
+        for (let o = -48; o <= 48; o += 12) if (this.reach(m + o) && (best === null || Math.abs(o) < Math.abs(best - m))) best = m + o;
+        return best;
+      }
+      fingering(midis) { const m = midis.length ? this.fold(midis[0] + this.shift) : null; return { m, f: m !== null ? RECORDER[m - 60] : null }; }
       // Per hole, 0 open, 1 closed, 0.5 half; a double hole is two circles, the second covered first.
       state(f, i, j, pair) { const v = f ? f[i] : 0; if (pair) return v === 1 || (v === 0.5 && j === 1) ? 1 : 0; return v; }
       mark(now, next, info) {
         const cur = this.fingering(now), nxt = this.fingering(next);
-        // Through a rest (or a note the recorder has not got) the fingers stay
+        // Through a rest the fingers stay
         // where they were and go straight to the next note's fingering.
         if (!now.length && !next.length) this.lastF = null;
         const base = cur.f || this.lastF;
@@ -1757,7 +2074,8 @@
         this.nextName.style.opacity = (0.15 + 0.85 * u).toFixed(3);
         if (this.nextTune) this.nextTune.style.opacity = (0.15 + 0.85 * u).toFixed(3);
       }
-      has(m) { return RECORDER[m + this.shift - 60] !== undefined; }
+      has(m) { return this.reach(m + this.shift); }
+      folds() { return true; }   // a note it has not got is shown an octave over, not left off
       octaves() { return this.shift / 12; }
       start() { return null; }
     }
@@ -4138,7 +4456,7 @@
       first(N, ms) { let lo = 0, hi = N.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (N[mid].ms < ms) lo = mid + 1; else hi = mid; } return lo; }
     }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
-    const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
+    const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: '2-5 Keys', uke: 'Ukulele', recorder: 'Recorder' };
     // The sound each view plays with (General MIDI programs; the sample
     // folders are in vendor/soundfont/). Ukulele has no GM sound: nylon
     // guitar is the nearest. The Wicki-Hayden keyboard is a controller, so
@@ -4156,15 +4474,16 @@
         this.host = host; this.name = 'off'; this.layout = null;
         this.svg = svgEl(host, 'svg', { preserveAspectRatio: 'xMidYMid meet' });
       }
-      set(name, midis, transpose = 0, nameOf, tuned = null) {
+      set(name, midis, transpose = 0, nameOf, tuned = null, opts = {}) {
         this.nameOf = nameOf || (m => NOTE_NAMES[((m % 12) + 12) % 12]); this.tuned = tuned;
+        this.show = opts.show || 'melody';   // 'melody', 'chords' or 'both' (AbcCell.showMode)
         const cellBody = this.host.closest('.cell-body'); if (cellBody) { cellBody.classList.toggle('with-inst', !!INSTRUMENTS[name]); cellBody.style.setProperty('--abc-inst-cell-h', name === 'recorder' ? '72vh' : '66vh'); }
         this.name = INSTRUMENTS[name] ? name : 'off';
         this.host.classList.toggle('on', this.name !== 'off');
-        this.svg.innerHTML = ''; this.layout = null; this.runner = null;
+        this.svg.innerHTML = ''; this.svg.removeAttribute('class'); this.layout = null; this.runner = null;
         if (this.name === 'off') return;
         this.layout = new INSTRUMENTS[this.name]();
-        this.layout.build(this.svg, midis, transpose, this.nameOf, tuned);
+        this.layout.build(this.svg, midis, transpose, this.nameOf, tuned, opts);
         // The chord voices draw under the melody's marks and its runner.
         this.vTrack = null; this.vDots = [];
         this.voiceG = svgEl(this.svg, 'g', { class: 'voices' });
@@ -4175,7 +4494,7 @@
         if (this.layout.runnerR) {
           this.runner = svgEl(this.svg, 'g', { class: 'runner hide' });
           svgEl(this.runner, 'circle', { r: this.layout.runnerR });
-          this.runnerLbl = svgText(this.runner, 'lbl', 0, 0.5, this.layout.runnerR * 0.95, letterOn(), '', 'middle');   // carries the next note's name
+          this.runnerLbl = svgText(this.runner, 'lbl fingerno', 0, 0.5, this.layout.runnerR * 0.95, letterOn(), '', 'middle');   // carries the next note's name
         }
       }
       schedule(events, beatMs) { if (this.layout && this.layout.schedule) this.layout.schedule(events, beatMs); }
@@ -4196,13 +4515,17 @@
         const oct = L.octaves ? L.octaves() : 0;
         if (oct) out.push({ tip: true, more: MORE.range, text: `The ${name} shows the tune ${Math.abs(oct)} octave${Math.abs(oct) > 1 ? 's' : ''} ${oct > 0 ? 'up' : 'down'}, where it can reach the notes.` });
         const missing = [...new Set(midis.filter(m => L.has && !L.has(m)))].sort((a, b) => a - b).map(m => NOTE_NAMES[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1));
-        if (missing.length) out.push({ more: MORE.range, text: `The ${name} has no ${missing.join(', ')}, so ${missing.length > 1 ? 'those notes are' : 'that note is'} left off it.` });
+        const those = missing.length > 1 ? 'those notes are' : 'that note is';
+        if (missing.length && L.folds && L.folds()) out.push({ tip: true, more: MORE.range, text: L.spanName ? `${missing.join(', ')} ${missing.length > 1 ? 'lie' : 'lies'} beyond the ${name}'s ${L.spanName}, so ${those} fingered in the nearest octave inside it.` : `The ${name} has no ${missing.join(', ')}, so ${those} fingered in the nearest octave it has.` });
+        else if (missing.length) out.push({ more: MORE.range, text: `The ${name} has no ${missing.join(', ')}, so ${those} left off it.` });
         return out;
       }
       // The sounding note(s) and the next: the layout marks its keys and
       // answers with the points the runner travels between.
       mark(now, next, info) {
         if (!this.layout) return;
+        // Chords only: the melody's keys, strings and runner stay dark; the chord symbol's outline stays.
+        if (this.show === 'chords') { now = []; next = []; info = { ...(info || {}), index: -1, reset: true }; }
         this.pts = this.layout.mark(now, next, info);
         const r = this.runner; if (!r) return;
         if (!this.pts.next && !this.pts.now) { r.classList.add('hide'); return; }
@@ -4231,7 +4554,9 @@
       // splits from or merges into a neighbour. A voice that has just moved rings brighter as it lands.
       voices(track, t) {
         const L = this.layout, G = this.voiceG;
-        if (!L || !G || !L.voicePlaces || !track || !track.length) { if (G) G.style.display = 'none'; return; }
+        const on = !!(L && G && L.voicePlaces && this.show !== 'melody' && track && track.length);
+        if (L && L.chordsShown) L.chordsShown(on);
+        if (!on) { if (G) G.style.display = 'none'; return; }
         if (track !== this.vTrack) {
           this.vTrack = track;
           const P = L.voicePlaces(track) || [], keyOf = p => p.lane !== undefined ? 'l' + p.lane : 'm' + p.m;
@@ -4255,26 +4580,30 @@
         const pairs = this.vSteps[j] || [], last = j + 1 >= track.length;
         const dt = last ? Infinity : track[j + 1].ms - track[j].ms, { k, halo } = ahead || last ? { k: 0, halo: last ? glide(t - track[j].ms, 1e9, 0).halo : 0 } : glide(t - track[j].ms, dt, 0);
         G.style.display = '';
-        while (this.vDots.length < pairs.length) { const c = svgEl(G, 'circle', { class: 'voice' }); this.vDots.push(c); }
+        const sq = !!L.squareVoices;   // the hands prototype draws chord voices as squares, apart from the round melody finger
+        while (this.vDots.length < pairs.length) { const c = svgEl(G, sq ? 'rect' : 'circle', { class: 'voice' }); this.vDots.push(c); }
+        if (L.chordName) L.chordName(track[j]);   // stopped or before the first chord, its name waits with its voices
         this.vDots.forEach((c, i) => {
           const q = pairs[i]; if (!q) { c.style.display = 'none'; return; }
           c.style.display = '';
           const x = q.a.x + (q.b.x - q.a.x) * k, y = q.a.y + (q.b.y - q.a.y) * k, r = q.a.r + (q.b.r - q.a.r) * k;
-          c.setAttribute('cx', x.toFixed(1)); c.setAttribute('cy', y.toFixed(1)); c.setAttribute('r', r.toFixed(2));
+          if (sq) { c.setAttribute('x', (x - r).toFixed(1)); c.setAttribute('y', (y - r).toFixed(1)); c.setAttribute('width', (2 * r).toFixed(2)); c.setAttribute('height', (2 * r).toFixed(2)); c.setAttribute('rx', (r * 0.3).toFixed(2)); }
+          else { c.setAttribute('cx', x.toFixed(1)); c.setAttribute('cy', y.toFixed(1)); c.setAttribute('r', r.toFixed(2)); }
           const ca = midiColor(q.a.m), cb = midiColor(q.b.m);
           c.style.setProperty('--c', k <= 0 || ca === cb ? ca : k >= 1 ? cb : `color-mix(in oklab, ${cb} ${(k * 100).toFixed(0)}%, ${ca})`);
-          c.classList.toggle('open', k < 0.5 ? !!q.a.open : !!q.b.open);
+          c.classList.toggle('open', k < 0.5 ? !!q.a.open : !!q.b.open); c.classList.toggle('around', !!q.b.around);
           c.style.opacity = (ahead ? 0.35 : q.in ? k : q.out ? 1 - k : 1).toFixed(3);
           c.style.strokeWidth = (2.2 + (q.landed ? 2.6 * halo : 0)).toFixed(2);
         });
       }
-      label(m) { if (!this.runnerLbl) return; const nm = this.nameOf(m); this.runnerLbl.textContent = nm; this.runnerLbl.setAttribute('font-size', (this.layout.runnerR * (nm.length > 2 ? 0.7 : 0.95)).toFixed(2)); this.runnerLbl.setAttribute('fill', letterOn()); }
+      label(m) { if (!this.runnerLbl) return; const nm = this.nameOf(m); this.runnerLbl.textContent = nm; this.runnerLbl.setAttribute('font-size', (this.layout.runnerR * (nm.length > 2 ? 0.7 : 0.95)).toFixed(2)); this.runnerLbl.setAttribute('fill', inkOn(midiColor(m))); }
       clear() {
         if (!this.layout) return;
         this.pts = this.layout.mark([], [], this.layout.events ? { index: -1, reset: true } : null);
         if (this.runner) { this.runner.classList.add('hide'); this.runner.style.removeProperty('--runner-alpha'); }
         if (this.layout.frame) this.layout.frame(0, 0);
         if (this.voiceG) this.voiceG.style.display = 'none';
+        if (this.layout.chordsShown) this.layout.chordsShown(false);
       }
     }
 
@@ -4289,7 +4618,7 @@
       accidental: 'A sharp, flat or natural lasts until the bar line, so ^F ^F G ^F can be written ^F F G F. After a bar line it must be written again; =F cancels it early.',
       key: 'With no K: line the tune is in C major. K:G has one sharp, K:D two; K:F has one flat, K:Bb two; K:Am is A minor. Put K: on its own line before the music.',
       transpose: 'Transpose moves every note by the same number of semitones and respells the key. Some intervals land in keys with many sharps or flats; a semitone or two either way often lands somewhere easier to read.',
-      range: 'The instrument view shows the tune where the instrument can play it. When the written notes lie beyond its range they are shifted by whole octaves; notes that fit in no octave are left out.',
+      range: 'The instrument view shows the tune where the instrument can play it. When the written notes lie beyond its range they are shifted by whole octaves; notes that fit in no octave are left out, except on the recorder, which fingers each such note in the nearest octave it has (or, with Range set to one or two octaves, in the nearest octave inside that range).',
     };
     const KEY_NAMES = ['C', 'D\u266D', 'D', 'E\u266D', 'E', 'F', 'F\u266F', 'G', 'A\u266D', 'A', 'B\u266D', 'B'];
     const KEY_ACCS  = [0, 5, 2, 3, 4, 1, 6, 1, 4, 3, 2, 5];   // sharps or flats in the major key on each pitch class
@@ -4304,38 +4633,72 @@
       { part: 'bass', name: 'Bass', svg: FIGURE('<circle cx="13" cy="11" r="5"/><path d="M8.5 10c-1 5-2 9-4 12M17.5 10c1 5 2 9 4 12"/><path d="M6 31c0-5 3-9 7-9s7 4 7 9"/><path class="fill" d="M30 20c-4 0-6 3-5 6c-3 1-4 5-2 8c1 3 4 5 7 5s6-2 7-5c2-3 1-7-2-8c1-3-1-6-5-6z"/><path d="M30 20V7"/><path d="M30 7c2-1 3.5 0.5 2.5 2.5"/><path d="M27.5 29.5v3.5M32.5 29.5v3.5"/>') },
       { part: 'drums', name: 'Drums', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><circle class="fill" cx="22" cy="32" r="8"/><path d="M4 16h11M9.5 16v12M30 16h10M35 16v12"/><path d="M15 22l-4-5M29 22l4-5"/>') },
     ];
+    // A gear: eight teeth as a dashed ring round a ring.
+    const GEAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8.4" stroke-width="3.2" stroke-dasharray="3.2 3.4"/><circle cx="12" cy="12" r="5.6" stroke-width="3"/></svg>';
+    // The ukulele setup dialog (the gear beside the Instrument select, and GCS.ukeSetup.open for the piece view):
+    // the class's tuning and fourth string, in a teacher's words. Applying it stores it for the whole site.
+    function ukeSetupDialog() {
+      let dlg = document.getElementById('ukeDlg');
+      if (!dlg) {
+        dlg = document.createElement('dialog'); dlg.id = 'ukeDlg'; dlg.setAttribute('aria-labelledby', 'ukeDlgTitle');
+        dlg.innerHTML = `<h2 id="ukeDlgTitle">Ukulele setup</h2><p>Set this to match the class's ukuleles. The fingerings, fret numbers and tab follow it everywhere on this site, on this device.</p>
+          <fieldset><legend>Tuning</legend>
+            <label><input type="radio" name="ukeTuning" value="C"> <span><b>C tuning (G C E A)</b>: the usual tuning for school ukuleles.</span></label>
+            <label><input type="radio" name="ukeTuning" value="D"> <span><b>D tuning (A D F♯ B)</b>: every string a tone higher, as in some older songbooks.</span></label></fieldset>
+          <fieldset><legend>The fourth string, nearest you</legend>
+            <label><input type="radio" name="ukeFourth" value="high"> <span><b>High <span class="ukefourth">G</span> (re-entrant, the usual school ukulele)</b>: a thin string, higher than the one beside it.</span></label>
+            <label><input type="radio" name="ukeFourth" value="low"> <span><b>Low <span class="ukefourth">G</span></b>: a thicker string an octave lower, so notes down to the <span class="ukefourth">G</span> below middle C can be played.</span></label></fieldset>
+          <div class="row"><button type="button" class="cancel">Cancel</button><button type="button" class="apply primary">Apply</button></div>`;
+        document.body.appendChild(dlg);
+        const fourthName = () => { const t = dlg.querySelector('input[name="ukeTuning"]:checked'); for (const el of dlg.querySelectorAll('.ukefourth')) el.textContent = t && t.value === 'D' ? 'A' : 'G'; };
+        for (const r of dlg.querySelectorAll('input[name="ukeTuning"]')) r.addEventListener('change', fourthName);
+        dlg.querySelector('.cancel').onclick = () => dlg.close();
+        dlg.querySelector('.apply').onclick = () => {
+          const pick = name => { const r = dlg.querySelector(`input[name="${name}"]:checked`); return r ? r.value : null; };
+          dlg.close(); ukeSetup.set({ tuning: pick('ukeTuning'), fourth: pick('ukeFourth') });
+        };
+        dlg.fourthName = fourthName;
+      }
+      const cur = ukeSetup.get();
+      for (const r of dlg.querySelectorAll('input[name="ukeTuning"]')) r.checked = r.value === cur.tuning;
+      for (const r of dlg.querySelectorAll('input[name="ukeFourth"]')) r.checked = r.value === cur.fourth;
+      dlg.fourthName();
+      if (!dlg.open) dlg.showModal();
+    }
     class AbcCell {
       constructor(body, text, onChange, opts = {}) {
         const id = 'abc' + (++abcSeq);
         this.transpose = opts.transpose || 0;
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
-        this.names = opts.names === 'solfege' ? 'solfege' : 'letters';
+        this.names = ['solfege', 'none'].includes(opts.names) ? opts.names : 'letters';
+        this.notes = opts.notes === 'mono' ? 'mono' : 'colour';   // the staff in the note colours, or in plain ink (harder)
         this.notation = opts.nota === 'tab' ? 'tab' : 'staff';
         this.lines = 'two';
         try { if (localStorage.getItem('gcs-game-lines') === 'one') this.lines = 'one'; } catch (e) {}
         this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
         // Chords: auto (the written chords; found from the melody when none are written), numerals (the same, with Roman numerals), off (written chords only). 'detect' is the old name of auto.
         this.harmony = ['off', 'numerals', 'auto'].includes(opts.harm) ? opts.harm : 'auto';
+        this.span = RECORDER_SPANS[opts.span] ? +opts.span : 0;   // the recorder's range: 0 the whole chart, 1 or 2 octaves
+        this.show = ['melody', 'chords', 'both'].includes(opts.show) ? opts.show : 'auto';   // what the instrument shows (showMode)
         this.style = STYLES[LEGACY_STYLE[opts.style] || opts.style] ? (LEGACY_STYLE[opts.style] || opts.style) : 'auto';
         this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
         this.dismissedNotes = new Set();
         const parts = splitBand(text);
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
-          <div class="strip dock"><div class="dockbar"><div class="transport">
-            <button type="button" class="tbtn play clock" title="Play or pause; the hand sweeps once per bar" aria-label="Play"><svg class="clockface" viewBox="0 0 48 48" aria-hidden="true"><circle class="rim" cx="24" cy="24" r="21"/><path class="tick" d="M24 5v4M43 24h-4M24 43v-4M5 24h4"/><path class="clockhand" d="M24 24V9"/><circle class="hub" cx="24" cy="24" r="2.2"/><path class="playmark" d="M20 18l10 6-10 6z"/><path class="pausemark" d="M19.5 18h3.5v12h-3.5zM25 18h3.5v12H25z"/></svg><span class="clocktempo"></span></button>
-            <button type="button" class="tbtn restart" title="Back to the start" aria-label="Restart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h2.5v15H5zM19 4.5v15L8.5 12z"/></svg></button>
-            <button type="button" class="tbtn loop" title="Repeat the tune" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
-          </div>
-          <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span><label class="dep-tempo" title="Playback tempo; the ABC's Q: line sets the written tempo"><input type="number" class="bpm dep-bpm" min="20" max="400" step="1" aria-label="Tempo"><span>BPM</span></label></div>
-          <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel">Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="improv" aria-pressed="false" title="Visible choices and reply windows that follow the bars while the music plays">Improv</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div></div>
+          <div class="strip dock"><div class="dockbar"><div class="transport" role="group" aria-label="Play"></div>
+          <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span></div>
+          <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="improv" aria-pressed="false" title="Visible choices and reply windows that follow the bars while the music plays"><span class="fold" aria-hidden="true"></span>Improv</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div><button type="button" class="themetog" title="Light or dark" aria-label="Light or dark"></button></div>
           <div class="drawer melody" data-drawer="melody" hidden>
           <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
           <button type="button" class="lintall" hidden title="Every hint for this tune" aria-haspopup="dialog"></button>
           <div class="linttip warn" popover="manual" role="tooltip"></div>
           <div class="lintlist" popover="auto" role="dialog" aria-label="ABC hints"><div class="linthead">ABC hints<button type="button" class="lintclose" title="Close" aria-label="Close">\u00D7</button></div><div class="warn"></div><button type="button" class="lintundo" hidden>Show the dismissed hints again</button></div></div></div>
           <div class="ctl">
-          <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
-          <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
+          <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select><button type="button" class="ukegear" title="Ukulele setup: tuning and the fourth string, to match the class's instruments; fingerings, fret numbers and tab follow it on every page of the site" aria-label="Ukulele setup" aria-haspopup="dialog"${this.inst === 'uke' ? '' : ' hidden'}>${GEAR_SVG}</button></label>
+          <label class="xpose spanpick" title="How much of the recorder to use: the whole fingering chart, two octaves (low C to the C two above), or the first octave (low C to the D above, no thumb pinch). A note beyond it is fingered in the nearest octave inside; the tune still sounds as written."${this.inst === 'recorder' ? '' : ' hidden'}>Range <select><option value="0"${!this.span ? ' selected' : ''}>Full</option><option value="2"${this.span === 2 ? ' selected' : ''}>2 octaves</option><option value="1"${this.span === 1 ? ' selected' : ''}>1 octave</option></select></label>
+          <label class="xpose showpick" title="What the instrument shows: the melody, the chords (a ring per voice that glides to its note in the next chord), or both. Auto shows the chords on the ukulele, which a class strums while it sings, and the melody on the piano and the 2-5 Keys (a Wicki-Hayden keyboard: fifths up a row, whole tones along it, so ii-V-I and every key are one shape). The piano is as wide as what it shows."${['piano', 'wh', 'uke'].includes(this.inst) ? '' : ' hidden'}>Shows <select><option value="auto"${this.show === 'auto' ? ' selected' : ''}>Auto</option><option value="melody"${this.show === 'melody' ? ' selected' : ''}>Melody</option><option value="chords"${this.show === 'chords' ? ' selected' : ''}>Chords</option><option value="both"${this.show === 'both' ? ' selected' : ''}>Melody + chords</option></select></label>
+          <label class="xpose namepick" title="Note names on the staff and the instrument: letters, movable-do solf\u00E8ge from the key (la-based minor), or none, to read the notes without them (the ukulele keeps its string names, its tuning).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option><option value="none"${this.names === 'none' ? ' selected' : ''}>None</option></select></label>
+          <label class="xpose notespick" title="The notes on the staff: in their colours, or in plain ink, as printed music is. Mono is harder: the pitch is read from the line or space alone. The instrument keeps its colours.">Notes <select><option value="colour"${this.notes === 'colour' ? ' selected' : ''}>Colour</option><option value="mono"${this.notes === 'mono' ? ' selected' : ''}>Mono</option></select></label>
           <label class="xpose linespick" title="The game's score: the tune wrapped to the width, two lines at a time with the next line in view, or one long line that scrolls.">Game <select><option value="two"${this.lines === 'two' ? ' selected' : ''}>Two lines</option><option value="one"${this.lines === 'one' ? ' selected' : ''}>One line</option></select></label>
           <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key where none are written (a whole tune without symbols, or the bars before the first symbol and after the last); Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" class="tr" min="-12" max="12" step="1" value="${this.transpose}"></label>
@@ -4463,10 +4826,19 @@
         const hp = body.querySelector('.harmpick select');
         hp.addEventListener('change', () => { this.harmony = hp.value; this.render(); if (opts.onHarm) opts.onHarm(this.harmony); });
         body.querySelector('.tunebtn').addEventListener('click', () => this.tuningDialog(onChange));
+        body.querySelector('.themetog').addEventListener('click', () => { const t = document.getElementById('theme'); if (t) t.click(); });
         const np = body.querySelector('.namepick select');
         np.addEventListener('change', () => { this.names = np.value; this.render(); if (opts.onNames) opts.onNames(this.names); });
+        const cp = body.querySelector('.notespick select');
+        cp.addEventListener('change', () => { this.notes = cp.value; this.render(); if (opts.onNotes) opts.onNotes(this.notes); });
         const ip = body.querySelector('.instpick select');
-        ip.addEventListener('change', () => { this.inst = ip.value; this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
+        const spanBox = body.querySelector('.spanpick'), spanSel = spanBox.querySelector('select');
+        spanSel.addEventListener('change', () => { this.span = +spanSel.value; this.render(); if (opts.onSpan) opts.onSpan(this.span); });
+        const showBox = body.querySelector('.showpick'), showSel = showBox.querySelector('select');
+        showSel.addEventListener('change', () => { this.show = showSel.value; this.render(); if (opts.onShow) opts.onShow(this.show); });
+        const gear = body.querySelector('.ukegear');
+        gear.addEventListener('click', e => { e.preventDefault(); ukeSetupDialog(); });
+        ip.addEventListener('change', () => { this.inst = ip.value; gear.hidden = this.inst !== 'uke'; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
         for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
         const lp = body.querySelector('.linespick select');
@@ -4499,20 +4871,18 @@
         this.boot(body, id);
       }
       boot(body) {
+        // The transport is the grand clock (course/clock.js): the face plays and pauses, its hand sweeps once a bar;
+        // dragging it (or its number) sets the tempo in beats per minute, kept as a ratio to the written tempo across
+        // edits; the repeat signs either side repeat the tune, and the score shows them; paused partway, a button at
+        // the plate's end goes back to the start.
         const tp = body.querySelector('.transport');
-        tp.querySelector('.play').addEventListener('click', () => this.togglePlay());
-        tp.querySelector('.restart').addEventListener('click', () => this.toTop());
-        const lp = tp.querySelector('.loop');
-        lp.addEventListener('click', () => { this.player.setLoop(!this.player.loop); lp.setAttribute('aria-pressed', String(this.player.loop)); });
-        // Musicians think in beats per minute: the box shows the playing
-        // tempo, and keeps its ratio to the written one across edits.
-        this.bpmBox = body.querySelector('.bpm');
-        const setTempo = () => {
-          const written = this.writtenBpm(), v = Math.max(20, Math.min(400, parseInt(this.bpmBox.value, 10) || written));
-          this.bpmBox.value = v; this.warp = v / written; this.retime();
-        };
-        this.bpmBox.addEventListener('change', setTempo);
-        this.bpmBox.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); setTempo(); this.bpmBox.blur(); } });
+        if (window.GCSClock) this.clock = window.GCSClock.create(tp, {
+          bpm: DEFAULT_BPM, written: DEFAULT_BPM, min: 20, max: 300, labelAt: 'none', repeat: false,
+          onToggle: () => this.togglePlay(),
+          onBpm: v => { this.warp = v / this.writtenBpm(); this.retime(); },
+          onReset: () => this.toTop(),
+          onRepeat: on => { this.player.setLoop(on); this.repeatSigns = on; if (this.player.running) this.pending = true; else this.render(); },
+        });
         this.render();
       }
       writtenBpm() { return (this.original && this.original.getBpm && this.original.getBpm()) || DEFAULT_BPM; }
@@ -4529,8 +4899,7 @@
         const bpm = Math.round(this.bpm());
         this.flipText(this.body.querySelector('.dep-title'), title);
         this.flipText(this.body.querySelector('.dep-key'), key);
-        if (this.bpmBox && document.activeElement !== this.bpmBox) this.bpmBox.value = String(bpm);
-        const ct = this.body.querySelector('.clocktempo'); if (ct) ct.textContent = String(bpm);
+        if (this.clock) this.clock.set({ bpm, written: Math.round(this.writtenBpm()), beats: this.tl ? this.tl.countBeats : 4 });
       }
       // A new tempo: abcjs retimes its events, the timeline and the parts are rebuilt, the Player keeps its place.
       retime() {
@@ -4631,7 +5000,7 @@
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc + ends :
           'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.';
       }
-      transportState() { const tp = this.body.querySelector('.transport'); if (tp) { const playing = !!(this.player && this.player.running); tp.classList.toggle('playing', playing); const play = tp.querySelector('.play'); if (play) play.setAttribute('aria-label', playing ? 'Pause' : 'Play'); } }
+      transportState() { const playing = !!(this.player && this.player.running); if (this.clock) this.clock.set({ playing, canReset: !playing && this.player.pos > 0, repeat: !!this.player.loop }); }
       getText() { return joinBand(this.entry.value, this.bandReal()); }
       // The Band box without its grey lines (the sliders' pattern, shown but not kept), and the box set to a typed text.
       bandGhostIntact() { const v = this.bandEntry.value, g = this.bandGhost || ''; if (!g || !v.endsWith(g)) return false; const r = v.slice(0, v.length - g.length); return r === '' || r.endsWith('\n'); }
@@ -4711,7 +5080,7 @@
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
         this.idle = true;                                 // no frame repaints the start while the bar fades
         this.player.pos = 0;                              // the next Play is from the top, with its count-in
-        this.clearPlaying(); if (this.viz) this.viz.clear();
+        this.clearPlaying(); if (this.viz) { this.viz.clear(); this.viz.voices(this.chordTrack(0), -1); }   // stopped: the first chord's voices wait, faint
         if (gameMode) { this.progress(1); this.body.classList.remove('done'); void this.body.offsetWidth; this.body.classList.add('done'); }
         const g = this.cursor();
         if (g) { g.classList.add('done'); setTimeout(() => { if (g.isConnected && g.classList.contains('done')) this.placeReady(); }, 600); }
@@ -4744,6 +5113,8 @@
         if (this.player && this.player.running) { this.pending = true; return; }
         if (this.busy) { this.pending = true; clearTimeout(this.busyRetry); this.busyRetry = setTimeout(() => { if (this.pending && !this.busy) this.render(); }, 400); return; }
         this.pending = false;
+        // Paused mid-tune, the redraw keeps the place (a resize during playback is drawn at the pause): the next Play goes on from there.
+        const keepAt = this.player && !this.player.running && this.player.pos > 0 ? this.player.pos : 0;
         this.warnEl.textContent = '';
         const text = this.getText();
         let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
@@ -4757,14 +5128,16 @@
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
         if (location.protocol === 'file:') abc = withStyle(abc, classicFor(abc));
+        if (this.repeatSigns) abc = startRepeat(abc);   // repeatSigns: the piece view repeating what is on screen
         const two = gameMode && this.lines !== 'one';
-        const extra = two ? { wrap: { minSpacing: 1.6, maxSpacing: 2.8 } } : {};
+        const extra = two ? { wrap: { minSpacing: 1.6, maxSpacing: 2.8, ...(this.barsPerLine ? { preferredMeasuresPerLine: this.barsPerLine } : {}) } } : {};   // barsPerLine: the piece view's study
         const base = two ? this.twoLineWidth(abc, extra) : 600;
         this.original = this.renderAt(this.hidden, abc, base, undefined, extra);
         if (!this.original) return;
         this.origElems = collect(this.original);
         this.spelled = spell(this.original, this.origElems);
         let abcForDisplay = two ? abc : stripAccidentals(abc);
+        if (this.repeatSigns) abcForDisplay = endRepeat(abcForDisplay);
         let tune = this.renderAt(this.paper, abcForDisplay, base, undefined, extra);
         if (!tune) return;
         if (collect(tune).length !== this.origElems.length) { abcForDisplay = abc; tune = this.renderAt(this.paper, abcForDisplay, base, undefined, extra); }
@@ -4811,6 +5184,8 @@
         this.player.load(this.original, { midiTranspose: this.transpose || 0, program: soundProgram(this.inst, this.tuneVoice), chordsOff: this.playMode === 'melody' || location.protocol !== 'file:' }, style);
         if (this.bpmBox) this.bpmBox.value = Math.round(this.bpm());
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
+        if (this.viz && this.tl && !this.player.running) this.viz.voices(this.chordTrack(0), -1);   // stopped: the first chord's voices wait
+        if (keepAt > 0 && this.tl && keepAt < this.tl.total) { this.player.pos = keepAt; this.idle = false; this.k = null; this.paint(); }
         this.updateSignage(text);
         this.refreshBandNote();
       }
@@ -4997,7 +5372,7 @@
           for (const it of items) {
             const cur = it.bar ? groupBox(it.el).x : headX(it.el);
             let target = x1 + it.t * perWhole;
-            if (it.bar) target = it === lastBar ? xEnd : target - GAP;
+            if (it.bar) target = it === lastBar ? xEnd : it === items[0] ? cur : target - GAP;   // a barline opening the line (a start repeat) stays where abcjs engraved it, after the time signature
             const dx = target - cur;
             this.shift.set(it.el, dx);
             for (const g of it.el.abselem.elemset) g.style.setProperty('--dx', dx.toFixed(2) + 'px');
@@ -5063,7 +5438,7 @@
         const steps = o => { const L = []; if (o.kick) L.push(miniOf(o.kick, 'bd', .6)); if (o.snare) L.push(miniOf(o.snare, 'sd', .5)); if (o.hat) L.push(miniOf(o.hat, 'hh', .35)); return L.length ? L.join('\n') : null; };
         const spec = o => ({ energy: Math.max(0, Math.min(100, o.energy)) / 100, detail: Math.max(0, Math.min(100, o.detail)) / 100, seed: o.seed || 1, bars: o.bars || null, drums: o.drums || steps(o), bass: o.bass || null, chords: o.chords || (o.comp ? miniOf(compHold(o.comp), 'ch', .6) : null), ctl: o.ctl || {}, texture: o.texture || 'full' });
         if (!ch.choruses.length) {
-          const arc = this.autoArc();
+          const arc = this.plainBand ? null : this.autoArc();   // plainBand (the piece view's loops): the same chorus every time round
           if (!arc) return [spec(base)];
           return arc.map((a, k) => spec({ ...base, seed: base.seed + k, energy: base.energy + a.de, detail: base.detail + a.dd, bars: a.bars, texture: a.texture }));
         }
@@ -5132,7 +5507,9 @@
         this.indexChords();
         this.cyc = 0; this.cycleSegs = null;
         if (this.chart && this.chart.choruses.some(c => c.bars)) this.relabel(0);
-        const accScale = cssNum('--acc-size', 1.8), tab = this.tabOn();
+        const accScale = cssNum('--acc-size', 1.8), tab = this.tabOn(), mono = this.notes === 'mono';
+        // Mono: the notes keep abcjs's ink (currentColor), with no keyline; the letters stay, on an ink head.
+        const hue = c => mono ? 'currentColor' : c;
         this.dispElems.forEach((el, i) => {
           const abs = el.abselem, pitches = this.spelled[i];
           if (!abs || !pitches || !pitches.length) return;
@@ -5140,20 +5517,32 @@
           heads.forEach((head, j) => {
             const p = pitches[j] || pitches[0], node = head.graphelem;
             if (!node) return;
-            node.setAttribute('fill', p.color);           // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
-            const bb = node.getBBox(), hollow = el.duration >= 0.5;
+            node.setAttribute('fill', hue(p.color));      // fill only: abcjs shapes carry stroke="none"; a stroke fattens every edge
+            const bb = node.getBBox();
             const group = abs.elemset[0] || svg;      // inside the group: moves and pops with the note
             if (tab) return;                              // tablature: the fret number says the pitch
             const nm = this.names === 'solfege' ? this.nameOf(p.midi, p.acc) : p.letter;
-            svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * (nm.length > 2 ? 0.6 : nm.length > 1 ? 0.72 : 1.05), hollow ? p.color : letterOn(), nm, 'middle');
+            // The letter in the page's own colour with a hairline in its note's colour, shaded a little toward ink
+            // so yellow holds on white (plain ink in mono): on a filled head the edge melts into the head; in a
+            // hollow one it draws the letter over the page.
+            if (this.names !== 'none') svgText(group, 'letter', bb.x + bb.width / 2, bb.y + bb.height / 2, bb.height * (nm.length > 2 ? 0.6 : nm.length > 1 ? 0.72 : 1.05), letterOn(), nm, 'middle').style.stroke = mono ? 'currentColor' : `color-mix(in srgb, ${p.color} 75%, var(--ink))`;
             if (drawAccidentals && p.explicit) {
               const size = bb.height * accScale;
               const baselineY = bb.y + bb.height / 2 + accidentalCentre(p.explicit) * size;
-              svgText(group, 'accg', bb.x - bb.width * 0.2, baselineY, size, p.color, ACC_GLYPH[p.explicit], 'end', 'alphabetic');
+              svgText(group, 'accg', bb.x - bb.width * 0.2, baselineY, size, hue(p.color), ACC_GLYPH[p.explicit], 'end', 'alphabetic');
             }
           });
-          const color = pitches[0].color;
+          const color = hue(pitches[0].color);
           for (const g of abs.elemset || []) {
+            if (mono) break;
+            // The keyline round the whole note (.paper g.hue): its shapes, accidental and lyric go in an inner
+            // group that is outlined as one; the letter on the head stays outside it, on top, unoutlined, so it
+            // does not run into the head.
+            if (!g.querySelector(':scope > g.hue')) {
+              const k = document.createElementNS(NS, 'g'); k.setAttribute('class', 'hue');
+              for (const ch of [...g.childNodes]) if (!(ch.classList && ch.classList.contains('letter'))) k.appendChild(ch);
+              g.insertBefore(k, g.firstChild);
+            }
             for (const path of g.querySelectorAll('path')) {
               if (path.classList.contains('abcjs-ledger') || heads.some(h => h.graphelem === path)) continue;
               path.setAttribute('fill', color);
@@ -5238,7 +5627,7 @@
             const dx = this.shift.get(d) || 0;
             (d.abselem.heads || []).forEach((head, j) => {
               const p = sp[j] || sp[0], node = head.graphelem; if (!node) return;
-              const m = p.midi + this.transpose + L.shift;
+              const m = p.midi + L.shift;   // spelled pitches are already transposed (allMidis)
               const pi = E.pos.findIndex((q, idx) => !used.has(idx) && q.m === m); if (pi < 0) return;
               used.add(pi);
               const q = E.pos[pi], bb = node.getBBox(), cx = bb.x + bb.width / 2, y = st.y + q.s * st.gap, size = st.gap * 0.95, txt = String(q.fret);
@@ -5323,6 +5712,7 @@
         const head = [], music = [], verses = [];   // verses[k] = w: text per music line
         let li = -1;
         for (const raw of text.split('\n')) {
+          if (/^%%(sys)?staffsep\b/.test(raw)) { head.push(raw); continue; }   // the space between lines (the piece view's study) shapes the layout too
           if (/^%/.test(raw) || raw.trim() === '') continue;
           if (/^w:/i.test(raw)) { if (li < 0) continue; const k = (verses._n = verses._n || new Map()).get(li) || 0; verses._n.set(li, k + 1); (verses[k] = verses[k] || [])[li] = raw.slice(2).trim(); }
           else if (/^[A-Za-z]:/.test(raw)) { if (/^[KMLQPVXUIm]:/.test(raw)) head.push(raw); }   // the fields that shape the music; the title and the rest would take the room the lines need
@@ -5436,11 +5826,10 @@
       }
       lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
       updateClock(t) {
-        const clock = this.body.querySelector('.clock'), bars = this.tl && this.tl.bars;
-        if (!clock || !bars || !bars.length) return;
+        const bars = this.tl && this.tl.bars;
+        if (!this.clock || !bars || !bars.length) return;
         const bar = bars.find(b => t >= b.start && t < b.end) || (t >= bars[bars.length - 1].end ? bars[bars.length - 1] : bars[0]);
-        const turn = t < 0 ? 0 : Math.max(0, Math.min(1, (t - bar.start) / Math.max(1, bar.end - bar.start)));
-        clock.style.setProperty('--turn', turn.toFixed(4));
+        this.clock.set({ turn: t < 0 ? 0 : Math.max(0, Math.min(1, (t - bar.start) / Math.max(1, bar.end - bar.start))) });
       }
       updateNextUp(t, k, cycle) {
         const sign = this.body.querySelector('.nextup'); if (!sign) return;
@@ -5550,14 +5939,16 @@
       progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }
       count(n) { const c = this.gamebar.querySelector('.count'); c.textContent = n; c.classList.remove('on'); void c.offsetWidth; c.classList.add('on'); }
       /* ---- the instrument view ---- */
-      allMidis() { const out = []; for (const sp of this.spelled) if (sp) for (const p of sp) out.push(p.midi + this.transpose); return out; }
-      // The written pitches of a timing event, transposed as the page is.
+      // The sounding pitches. The hidden tune is rendered with visualTranspose, which moves its parsed pitches and key,
+      // so this.spelled is already transposed: adding this.transpose again would move the view twice.
+      allMidis() { const out = []; for (const sp of this.spelled) if (sp) for (const p of sp) out.push(p.midi); return out; }
+      // The sounding pitches of a timing event (already transposed, as allMidis says).
       eventMidis(ev) {
         const out = [];
         if (!ev || !ev.elements) return out;
         for (const arr of ev.elements) for (const el of (Array.isArray(arr) ? arr : [arr])) {
           const i = this.hiddenIndex.get(el); const sp = i === undefined ? null : this.spelled[i];
-          if (sp) for (const p of sp) out.push(p.midi + this.transpose);
+          if (sp) for (const p of sp) out.push(p.midi);
         }
         return out;
       }
@@ -5576,11 +5967,19 @@
       keyInfo() { return keyInfoOf(this.displayed && this.displayed.getKeySignature ? this.displayed.getKeySignature() : null); }
       // The name of a pitch (or a spelled note) in the chosen naming.
       nameOf(m, acc) {
+        if (this.names === 'none') return '';   // Names: none, on the instrument too
         const pc = ((m % 12) + 12) % 12;
         if (this.names !== 'solfege') return NOTE_NAMES[pc];
         const { doPc, flats } = this.key || (this.key = this.keyInfo());
         const dir = /flat/.test(acc || '') ? 'down' : /sharp/.test(acc || '') ? 'up' : acc === 'natural' ? (flats ? 'up' : 'down') : null;
         return solfege(pc, doPc, dir);
+      }
+      // What the instrument shows: the melody, the chords as voices, or both. Auto: the ukulele the chords (a
+      // class strums them while it sings), a keyboard the melody. A tune without chords shows its melody.
+      showMode() {
+        const want = this.show === 'auto' ? (this.inst === 'uke' ? 'chords' : 'melody') : this.show;
+        if (want === 'melody' || !['piano', 'wh', 'uke'].includes(this.inst) || CHORD_VOICES === 'off' || !this.origElems.some(e => e.chord && e.chord.length)) return 'melody';
+        return want;
       }
       // The chords the instrument's voices show this time round, one entry per change: { ms, notes (the
       // voicing), pcs, root, name }. 'played' (CHORD_VOICES): the Band's voicings as it plays them, a pad's
@@ -5629,10 +6028,12 @@
         this.key = null;
         const midis = this.allMidis();
         const tuned = this.tuning && !this.tuning.problems.length ? { tuning: this.tuning, key: this.keyInfo() } : null;
-        // A piano with chord voices reaches down to C3 for the left hand's chords.
-        const chordRoom = this.inst === 'piano' && CHORD_VOICES !== 'off' && this.origElems.some(e => e.chord && e.chord.length) ? [48] : [];
+        // The piano is as wide as what it shows: the melody's octaves (two at least), the left hand's chords
+        // (C3 to B4, a note beyond shown an octave in), or both.
+        const show = this.showMode(), chordRoom = [48, 71];
+        const room = this.inst !== 'piano' || show === 'melody' ? midis : show === 'chords' ? chordRoom : [...midis, chordRoom[0]];
         this.trackFor = null;
-        this.viz.set(this.inst, [...midis, ...chordRoom], this.transpose || 0, m => this.nameOf(m), tuned);
+        this.viz.set(this.inst, room, this.transpose || 0, m => this.nameOf(m), tuned, { span: this.span, show });
         this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule();
         const sign = this.body.querySelector('.sign'), fretted = !!(this.viz.layout && this.viz.layout.strings);
         sign.hidden = !fretted;
@@ -5778,7 +6179,7 @@
         if (this.cyc) { this.cyc = 0; this.relabel(0); }
         this.clearPlaying(); this.litKey = '';
         for (const c of this.paper.querySelectorAll('.cursorg.follower')) c.style.display = 'none';
-        if (this.viz) this.viz.clear();
+        if (this.viz) { this.viz.clear(); this.viz.voices(this.chordTrack(0), -1); }   // stopped: the first chord's voices wait, faint
         const x = this.startX(), g = this.cursor();
         if (!g || x === null) return;
         this.shapeCursor(g, 0);
@@ -5820,6 +6221,17 @@
         const pitch = staffs[1] ? staffs[1].getBBox().y - sb.y : vb.height - 2 * PAD;
         const vh = window.innerHeight / 100, space = sb.height / 4;
         const kMin = 1.6 * vh / space, kMax = 3.6 * vh / space;
+        // fitWhole (the practice board's piece view, a phrase on screen): the largest size at which all of it fits, on one,
+        // two or three systems, up to a staff space of 6 % of the height; otherwise two systems, the next always in view.
+        // When none fits at a legible size (a phone), the two systems again, sliding; the score says which (fitwhole).
+        this.body.classList.remove('fitwhole');
+        if (this.fitWhole) for (const n of [1, 2, 3].filter(n => n >= (this.fitFrom || 1))) {   // fitFrom: the fewest lines to use (the piece view's study, for room under each note)
+          const fitK = H / (sb.y + n * pitch); if (fitK < kMin) break;
+          const kn = Math.min(6 * vh / space, fitK), w = Math.max(220, Math.round(W / kn - 2 * PAD));
+          this.renderAt(this.hidden, abc, w, undefined, extra);
+          const sv = this.hidden.querySelector('svg');
+          if (sv && sv.querySelectorAll('.abcjs-staff').length <= n) { this.body.classList.add('fitwhole'); return w; }
+        }
         const k = Math.max(kMin, Math.min(kMax, H / (sb.y + 2 * pitch)));   // sb.y: what stands above the first staff (the tempo mark, the chords)
         return Math.max(220, Math.round(W / k - 2 * PAD));
       }
@@ -5831,7 +6243,7 @@
           const i = this.hiddenIndex.get(el);
           if (i === undefined || !this.dispElems[i] || !this.dispElems[i].abselem) continue;
           const sp = this.spelled[i];
-          if (sp && sp.length && !color) color = sp[0].color;
+          if (sp && sp.length && !color) color = this.notes === 'mono' ? 'var(--cursor)' : sp[0].color;   // mono: the playhead and the sounding note's glow give no colour away
           const dx = this.shift.get(this.dispElems[i]) || 0;
           // The cursor stands at the notehead, not at the left of the note's whole drawing: a wide lyric syllable or a
           // ledger line widens the drawing to the left, which put the cursor up to 13 px early and, from note to note,
@@ -6298,7 +6710,7 @@ function parseDance(text) {
     if (ps !== '.') { if (ps === '0') st.pose = null; else if (d.poseDefs[ps]) st.pose = ps; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: no pose called "${ps}" (define it with a line: pose ${ps}: ...).`); }
     if (sh !== '.') { if (/^[lruc]$/.test(sh)) st.shoulders = sh; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: shoulders "${sh}"? (l r u c .)`); }
     const facingFrom = st.facing;
-    if (tn !== '.') { const tm = tn.match(/^([lr])\1*$/); if (tm) st.facing += tn.length * 90 * (tm[1] === 'r' ? 1 : -1); else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: turn "${tn}"? (r or l per quarter turn: r, rr, l, ll, .)`); }
+    if (tn !== '.') { const tm = tn.match(/^([lr])\1*$/), ta = tn.match(/^([lr])(\d{1,3})$/); if (tm) st.facing += tn.length * 90 * (tm[1] === 'r' ? 1 : -1); else if (ta) st.facing += +ta[2] * (ta[1] === 'r' ? 1 : -1); else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: turn "${tn}"? (r or l per quarter turn: r, rr, l, ll; or degrees: r45, l135; or .)`); }
     if (hp !== '.') { if (/^[lrfbc]$/.test(hp)) st.hips = hp; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: hips "${hp}"? (l r f b c .)`); }
     if (at !== '.') { if (/^[uodch]$/.test(at)) st.arms = at; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: arms "${at}"? (u o d c h .)`); }
     if (lv !== '.') { if (/^[lmh]$/.test(lv)) st.level = lv; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: level "${lv}"? (l m h .)`); }
@@ -6531,13 +6943,19 @@ DV.dancer = {
       }
     });
     for (const F of ['L', 'R']) if (!ev[F].length) ev[F].push({ t: 0, x: fr[0][F].x, y: fr[0][F].y, z: 0, kind: 'plant', i: 0 });
-    const target = i => { const f = fr[(i + n) % n], w = f.weight; return w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; };
-    this.m = { fr, n, total, ev, target, defs: d.poseDefs || {} };
+    // a dance that travels (ends away from where it began, facing the same way) carries on from where it ended when it
+    // repeats, instead of being pulled back across the floor at the loop; the camera follows, so the loop is seamless
+    const last = fr[n - 1], net = ((last.facing % 360) + 360) % 360, mid0 = { x: (last.L.x + last.R.x) / 2, y: (last.L.y + last.R.y) / 2 };
+    const delta = net === 0 && Math.hypot(mid0.x, mid0.y) > .3 ? mid0 : { x: 0, y: 0 };
+    const target = i => { const w0 = Math.floor(i / n), f = fr[((i % n) + n) % n], w = f.weight, b = w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; return { x: b.x + delta.x * w0, y: b.y + delta.y * w0 }; };
+    this.m = { fr, n, total, ev, target, delta, defs: d.poseDefs || {} };
   },
   foot(F, p) {   // where a foot is at time p, and how far through a flight it is
     const { ev, total } = this.m, E = ev[F]; let k = E.length - 1; for (let i = 0; i < E.length; i++) if (E[i].t <= p + 1e-9) k = i; else break;
     if (E[0].t > p + 1e-9) k = E.length - 1;
-    const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
+    const D = this.m.delta || { x: 0, y: 0 }, shift = (q, k2) => (D.x || D.y) ? { ...q, x: q.x + D.x * k2, y: q.y + D.y * k2 } : q;
+    const back = E[0].t > p + 1e-9, e = back ? shift(E[k], -1) : E[k], nx = k + 1 >= E.length && !back ? shift(E[0], 1) : E[(k + 1) % E.length];   // across the loop, the travelled distance carries over
+    const tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
     const still = e === nx;   // every event is a move: a step or touch on the spot still lifts and taps down on its count (a march, a heel tap); only a foot with one event in the whole dance stays put
     const eff = nx.eff || {}, span = tn - te;
     const flight = still ? 0 : eff.time === 'sudden' ? Math.min(.3, .3 * span) : eff.time === 'sustained' ? Math.min(1.6, .95 * span) : Math.min(.6, .55 * span);
@@ -6554,7 +6972,9 @@ DV.dancer = {
   },
   pelvis(p) {
     const { fr, n, total, target } = this.m, k = frameAt({ frames: fr }, p), f = fr[k], dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, u = (p - f.t) / dt;
-    const T0 = target(k - 1), T1 = target(k), T2 = target(k + 1), mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
+    // a weight shift longer than any step (at the loop of a dance that ends turned and away from where it began) is not
+    // blended, so the pelvis stays over the feet instead of being dragged across the floor
+    const T1 = target(k), far = T => Math.hypot(T.x - T1.x, T.y - T1.y) > 2.6, T0r = target(k - 1), T2r = target(k + 1), T0 = far(T0r) ? T1 : T0r, T2 = far(T2r) ? T1 : T2r, mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
     const e1 = f.effort || {}, e2 = fr[(k + 1) % n].effort || {};
     const lead = e2.flow === 'bound' ? 0 : e2.time === 'sudden' ? .2 : .35;   // anticipation of the next move
     const settle = Math.min(.6, (e1.time === 'sudden' ? .12 : .25) / dt);     // time to finish this weight shift, in beats, so a half-beat chassé is not twice as fast
@@ -6573,7 +6993,7 @@ DV.dancer = {
     const LV = { l: -.55, m: 0, h: .18 }, lvOff = LV[prev.level] + (LV[nx.level] - LV[prev.level]) * us;
     const LN = { f: [0, .6], b: [0, -.6], l: [-.5, 0], r: [.5, 0], c: [0, 0] }, shapeLean = { x: LN[prev.lean][0] + (LN[nx.lean][0] - LN[prev.lean][0]) * us, y: LN[prev.lean][1] + (LN[nx.lean][1] - LN[prev.lean][1]) * us };
     let h = nominal + lvOff, airborne = !L.planted && !Rt.planted;
-    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; if (fr[k].pose && this.m.defs[fr[k].pose] && this.m.defs[fr[k].pose]['leg' + F]) continue; /* a posed leg is a gesture: it does not hold the pelvis up */ const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y), hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
+    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; if (fr[k].pose && this.m.defs[fr[k].pose] && this.m.defs[fr[k].pose]['leg' + F]) continue; /* a posed leg is a gesture: it does not hold the pelvis up */ const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y); if (dd > legLen * .8) continue; /* a foot out of reach (left behind at the loop of a dance that ends turned away) does not hold the pelvis down */ const hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
     if (airborne) h = nominal + lvOff + Math.max(L.z, Rt.z) * .9; else { const fly = L.air ? L : Rt.air ? Rt : null; if (fly && fly.kind !== 'up') h += (fly.eff && fly.eff.weight === 'light' ? .28 : .1) * Math.sin(Math.PI * fly.u); }
     // effort weight: a strong move drops the pelvis at the landing and recovers
     const ue = (p - f.t) / dt0; if ((f.effort || {}).weight === 'strong' && !airborne) h -= .3 * Math.max(0, 1 - ue / .45);
@@ -7052,6 +7472,11 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
     let cells = [];
     try { const saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved && Array.isArray(saved.cells) && saved.cells.length) cells = saved.cells; } catch (e) {}
     if (!cells.length) cells = SAMPLE.map(c => ({ ...c }));
+    // The piece view (index.html#tune=<id>&...): one tune from the practice board, opened for Teach, Practice or Assess
+    // by course/piece.js. It borrows the page and leaves the lesson saved here alone: nothing it shows is saved.
+    const PIECE = /(?:^#|&)tune=[a-z0-9]/.test(location.hash);
+    if (PIECE) { cells = []; document.documentElement.classList.add('piece-route'); }
+    else window.addEventListener('hashchange', () => { if (/(?:^#|&)tune=[a-z0-9]/.test(location.hash)) location.reload(); });   // a piece link pasted into this tab
     // The text font used to be one page-wide setting: hand it, once, to the
     // text cells saved under it, then forget it.
     const legacyFont = localStorage.getItem('gcs-font');
@@ -7064,7 +7489,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, font, align, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac }) => ({ type, text, font, align, pos, bg, tr, inst, nota, names, play, harm, style, band, mv, fac })) })), 300); }
+    function save() { if (PIECE) return; clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, font, align, pos, bg, tr, inst, nota, names, span, play, harm, style, band, mv, fac }) => ({ type, text, font, align, pos, bg, tr, inst, nota, names, span, play, harm, style, band, mv, fac })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -7183,7 +7608,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege' || v === 'none') cell.names = v; else delete cell.names; save(); }, notes: cell.notes, onNotes: v => { if (v === 'mono') cell.notes = v; else delete cell.notes; save(); }, span: cell.span, onSpan: v => { if (v) cell.span = v; else delete cell.span; save(); }, show: cell.show, onShow: v => { if (v && v !== 'auto') cell.show = v; else delete cell.show; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.align === 'center', font: cell.font });
       engines.set(cell.id, engine);
@@ -7521,6 +7946,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       setupCell = cell; syncSetup();
     }, true);
     function navKey(e) {
+      if (PIECE) return;                       // the piece view has its own keys (course/piece.js)
       const classic = document.body.classList.contains('present');
       if (!classic && !in3d) return;
       if (e.key === 'Escape') { e.preventDefault(); in3d ? exit3d() : exitPresent(); }
@@ -7589,7 +8015,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading|rhythm|dance)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.font) m.font = c.font; if (c.align) m.align = c.align; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.font) m.font = c.font; if (c.align) m.align = c.align; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.span) m.span = c.span; if (c.show) m.show = c.show; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -7600,7 +8026,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.font in FONTS) cur.font = j.font; if (j.align === 'center') cur.align = j.align; delete j.font; delete j.align; if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.play; delete j.harm; delete j.style; delete j.band; delete j.mv; delete j.fac; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.font in FONTS) cur.font = j.font; if (j.align === 'center') cur.align = j.align; delete j.font; delete j.align; if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.span === 1 || j.span === 2) cur.span = j.span; if (['melody', 'chords', 'both'].includes(j.show)) cur.show = j.show; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.span; delete j.show; delete j.play; delete j.harm; delete j.style; delete j.band; delete j.mv; delete j.fac; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
@@ -7674,7 +8100,40 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
     }
     window.GCS = { lab: { sampler, DRUM, STYLES, COMP_FOLDER, SYNTH_VOICES, SYNTH_KITS, SAMPLE_STEP, SAMPLE_SETS, SAMPLE_NOTES, setOf, sampleOf, takesOf, melodyOctave, SOUND, TONE },   // lab: what test/band-lab.js measures with
-      cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
+      cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder,
+      // The class's ukulele setup, for the lesson page and the piece view alike: get() is { tuning: 'C'|'D',
+      // fourth: 'high'|'low' }, open() shows the setup dialog, onChange(fn) calls fn(setup) after every change,
+      // once the page's notation has been drawn again for it.
+      ukeSetup: { get: () => ukeSetup.get(), open: () => ukeSetupDialog(), onChange: fn => ukeSetup.onChange(fn) } };
+    // A change of ukulele setup redraws every notation cell: its fingerings, fret numbers and tab follow the strings.
+    ukeSetup.onChange(() => { for (const en of engines.values()) if (en.render) en.render(); });
+    // The piece view's hooks: one notation cell, full screen in Game mode, and the page's sampler for a single note.
+    if (PIECE) {
+      Object.assign(window.GCS, {
+        piece: {
+          show(cell) { for (const en of engines.values()) if (en.player) en.player.stop(); gameMode = true; document.body.classList.add('game', 'present'); cells = [{ id: ++seq, type: 'abc', ...cell }]; rebuild(); present(0); return engines.get(cells[0].id); },
+          note(en, midi, dur = 0.7, vel = 0.8) {
+            const ctx = sampler.ctx(); if (!ctx || !en || !en.player) return Promise.resolve(null);
+            freshAudio(); wakeAudio(sampler.ctx());
+            const folder = location.protocol === 'file:' ? 'acoustic_grand_piano' : PROGRAM_FOLDER(soundProgram(en.inst, en.tuneVoice));
+            return sampler.load(folder, midi).then(() => { const bus = en.player.gains(); return bus ? sampler.play(folder, midi, sampler.ctx().currentTime + 0.03, dur, vel, bus.melody, 0.25) : null; });
+          },
+          ctx: () => wakeAudio(sampler.ctx()),
+          // A tune and the cell's band as Strudel code (the Band drawer's Copy as Strudel, for any ABC).
+          strudel: (en, abc) => Strudel.write(joinBand(abc, en.bandEntry ? en.bandEntry.value : '')),
+          // A small diagram of the cell's instrument fingering one note (the piece view's sections): the same layouts,
+          // built on the whole tune's notes so every diagram folds octaves and picks frets as the large one does.
+          mini(host, en, midis) {
+            const v = new InstrumentView(host);
+            v.set(en.inst, en.allMidis(), en.transpose || 0, m => en.nameOf(m), null, { span: en.span, show: 'melody', mini: true });
+            if (v.layout) v.mark(midis, [], { index: -1 });
+            return v;
+          },
+        },
+      });
+      for (const href of ['course/piece.css']) { const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = href; document.head.appendChild(css); }
+      for (const src of ['course/analyze.js', 'course/practice.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
+    }
   })();
   </script>
 </body>

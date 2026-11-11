@@ -2,79 +2,144 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Practice Board</title>
+  <title>Practice Board · Grand Central Stationery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
   <link href="../fonts/fonts.css" rel="stylesheet">
   <script src="../vendor/abcjs-basic-min.js" defer></script>
+  <script src="analyze.js" defer></script>
+  <script src="practice.js" defer></script>
   <script src="sets.js" defer></script>
   <style>
     /*
-      The practice board: the current set of tunes, graded into levels.
+      The practice board: the current set of tunes, graded into six levels, with
+      three ways in.
 
-      A student picks their name and sees their level: the tunes there to
-      choose from, each with its opening bars and what it brings in, a
-      Practise button that puts it on their list, Open to play it in the
-      main page, and Ready to show when they want to perform it.
+        Teach     choose a level and a piece, then open it on the projector in
+                  three steps: listen (and hear what is new), learn the sections
+                  (study each, a fingering under every note; then loop them
+                  together, growing and faster), put it together.
+        Practice  a student's level and pieces, with what they have practised on
+                  this computer: listen, learn the sections, put it together,
+                  play it through.
+        Assess    choose the student, then a piece at their level (or draw one);
+                  the assessment opens beside the music.
 
-      The teacher view shows every level as a wall of cards, a queue of
-      students who are ready to show a tune, and marks passes. A level is
-      done once half its tunes are passed, and the next one opens.
+      The address keeps the way in, the level and the piece (#do=teach&level=2&tune=...),
+      so the board can be shared or bookmarked at any of them. Names, progress
+      and marks never go in an address.
 
-      Each student's tunes carry one state: practising, ready, passed.
-      Nothing leaves the browser; Export and Import move it between computers.
+      Class records hold the teacher's wall of every level, the queue of
+      students who are ready to show a tune, the class list, the test history,
+      export, import and the spreadsheet report. A level is done once half its
+      tunes are passed, and the next one opens. Nothing leaves the browser.
     */
     :root {
       --font: 'Atkinson Hyperlegible', system-ui, sans-serif;
-      --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #777;
-      --accent: #087fca; --pass: #69b944; --ready: #e0b800; --prac: #087fca;
+      --ink: #222; --bg: #fff; --panel: #fafafa; --panel-2: #fff; --line: #ddd; --line-2: #eee; --muted: #6d6d6d;
+      --accent: #087fca; --pass: #4f9a2c; --ready: #e0b800; --prac: #087fca;
+      --teach: #087fca; --practice: #3f8f1f; --assess: #79569f;
       --l1: #69b944; --l2: #e0b800; --l3: #f39322; --l4: #e72829; --l5: #087fca; --l6: #79569f;
     }
-    :root[data-theme="dark"] { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #9a9a9a; --accent: #4fa8e8; --prac: #4fa8e8; }
-    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #9a9a9a; --accent: #4fa8e8; --prac: #4fa8e8; } }
+    :root[data-theme="dark"] { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #a2a2a2; --accent: #4fa8e8; --prac: #4fa8e8; --teach: #4fa8e8; --practice: #69b944; --assess: #a585c9; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --ink: #e8e8e8; --bg: #1b1b1b; --panel: #232323; --panel-2: #2a2a2a; --line: #3a3a3a; --line-2: #333; --muted: #a2a2a2; --accent: #4fa8e8; --prac: #4fa8e8; --teach: #4fa8e8; --practice: #69b944; --assess: #a585c9; } }
     * { box-sizing: border-box; }
     html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); }
     body { padding: 0 16px 40px; }
     button, select, input, textarea { font: inherit; color: inherit; }
-    button { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+    button { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 6px 12px; cursor: pointer; min-height: 40px; }
     button:hover { border-color: var(--accent); }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
     button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
     button.pass { background: var(--pass); border-color: var(--pass); color: #fff; }
     button.ready { background: var(--ready); border-color: var(--ready); color: #222; }
     button.quiet { border-color: transparent; background: transparent; color: var(--muted); }
-    select { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; }
+    select { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; min-height: 40px; }
     a { color: var(--accent); }
 
-    header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 0 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 3; }
-    header h1 { font-size: 20px; margin: 0; font-weight: 700; letter-spacing: 0.01em; }
+    header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 0 8px; }
+    header h1 { font-size: 22px; margin: 0; font-weight: 700; letter-spacing: 0.01em; }
     header h1 small { font-weight: 400; color: var(--muted); font-size: 14px; margin-left: 8px; }
+    header h1 small.brand { display: block; margin: 2px 0 0; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
     header .spacer { flex: 1; }
-    header label { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
-    #theme { width: 36px; padding: 6px 0; }
+    header .links { display: flex; gap: 12px; align-items: center; font-size: 15px; }
+    #theme { width: 40px; padding: 6px 0; }
 
-    .summary { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 0 0 10px; color: var(--muted); font-size: 14px; min-height: 30px; }
+    /* ---- the three ways in ---- */
+    .ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 4px 0 12px; }
+    .ways button { min-height: 64px; text-align: left; padding: 10px 14px; border-width: 2px; border-radius: 14px; display: flex; flex-direction: column; gap: 2px; }
+    .ways button b { font-size: 19px; }
+    .ways button span { font-size: 13px; color: var(--muted); }
+    .ways button[data-do="teach"] { border-color: color-mix(in srgb, var(--teach) 45%, var(--line)); }
+    .ways button[data-do="practice"] { border-color: color-mix(in srgb, var(--practice) 45%, var(--line)); }
+    .ways button[data-do="assess"] { border-color: color-mix(in srgb, var(--assess) 45%, var(--line)); }
+    .ways button[aria-pressed="true"][data-do="teach"] { background: var(--teach); border-color: var(--teach); color: #fff; }
+    .ways button[aria-pressed="true"][data-do="practice"] { background: var(--practice); border-color: var(--practice); color: #fff; }
+    .ways button[aria-pressed="true"][data-do="assess"] { background: var(--assess); border-color: var(--assess); color: #fff; }
+    .ways button[aria-pressed="true"] span { color: rgba(255,255,255,0.88); }
+
+    /* ---- the level bar and the choices for this way in ---- */
+    .setup { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 8px 0 10px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 3; }
+    .levels { display: flex; flex-wrap: wrap; gap: 6px; }
+    .levels button { display: inline-flex; align-items: center; gap: 6px; min-width: 64px; min-height: 44px; font-weight: 700; }
+    .levels button .tape { width: 10px; height: 20px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; }
+    .levels button small { font-weight: 400; color: var(--muted); }
+    .levels button[aria-pressed="true"] { border-width: 2px; border-color: var(--ink); background: var(--panel); }
+    .setup label { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+    .setup .who { font-weight: 700; color: var(--ink); }
+    .note { color: var(--muted); font-size: 14px; margin: 10px 0 0; line-height: 1.4; }
+
+    .level h2 { font-size: 20px; margin: 16px 0 2px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .level h2 .tape { width: 14px; height: 26px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; }
+    .level h2 small { font-weight: 400; color: var(--muted); font-size: 14px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 12px; align-items: start; margin-top: 10px; }
+
+    /* ---- a piece ---- */
+    .piece { background: var(--panel-2); border: 1px solid var(--line); border-left: 6px solid var(--lvl); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .piece.chosen { box-shadow: 0 0 0 3px var(--accent); }
+    .piece h3 { font-size: 17px; margin: 0; line-height: 1.25; }
+    .piece .facts { font-size: 13px; color: var(--muted); }
+    .piece .goal { font-size: 14px; }
+    .piece .incipit { margin: 0 -4px; min-height: 44px; overflow: hidden; }
+    .piece .incipit svg { color: var(--ink); max-width: 100%; height: auto; }
+    .piece .fits { display: flex; flex-wrap: wrap; gap: 4px; }
+    .piece .fit { font-size: 12px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line-2); color: var(--muted); }
+    .piece .fit.yes { border-color: color-mix(in srgb, var(--pass) 60%, var(--line)); color: var(--ink); }
+    .piece .mine { font-size: 13px; color: var(--muted); }
+    .piece .mine b { color: var(--ink); }
+    .piece .acts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 2px; }
+    .piece .acts .go { font-weight: 700; color: #fff; min-height: 44px; padding: 6px 18px; border-radius: 10px; display: inline-flex; align-items: center; text-decoration: none; border: 1px solid; }
+    .piece .acts .go.teach { background: var(--teach); border-color: var(--teach); }
+    .piece .acts .go.practice { background: var(--practice); border-color: var(--practice); }
+    .piece .acts .go.assess { background: var(--assess); border-color: var(--assess); }
+    .piece .acts .state { margin-left: auto; font-size: 13px; color: var(--muted); }
+    .piece.passed { border-left-color: var(--pass); }
+    .piece.ready { border-left-color: var(--ready); }
+
+    /* ---- next up: the student path (Practice) ---- */
+    .nextup { margin-top: 14px; border: 2px solid var(--practice); border-radius: 18px; background: color-mix(in srgb, var(--practice) 7%, var(--panel)); padding: 14px 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 18px; align-items: center; }
+    .nextup .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--practice); }
+    .nextup h2 { margin: 2px 0 4px; font-size: 26px; }
+    .nextup .incipit { grid-column: 1 / -1; min-height: 60px; }
+    .nextup .incipit svg { color: var(--ink); max-width: 100%; height: auto; }
+    .nextup .ladder { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0; }
+    .nextup .rung { font-size: 13px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+    .nextup .rung.on { background: var(--practice); border-color: var(--practice); color: #fff; }
+    .nextup .what { font-size: 14px; color: var(--muted); }
+    .nextup .cont { font-size: 20px; font-weight: 700; color: #fff; background: var(--practice); border: 0; border-radius: 14px; padding: 14px 24px; text-decoration: none; display: inline-flex; flex-direction: column; align-items: center; min-height: 64px; justify-content: center; text-align: center; }
+    .nextup .cont small { font-size: 13px; font-weight: 400; opacity: 0.9; }
+    .others { font-size: 16px; margin: 18px 0 0; color: var(--muted); font-weight: 400; }
+    @media (max-width: 700px) { .nextup { grid-template-columns: 1fr; } .nextup .cont { width: 100%; } .nextup h2 { font-size: 22px; } }
+
+    /* ---- class records (the teacher's wall, the queue, the class list, tests) ---- */
+    details.records { margin-top: 28px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 8px 12px; }
+    details.records > summary { cursor: pointer; font-weight: 700; font-size: 17px; padding: 6px 0; min-height: 40px; display: flex; align-items: center; gap: 10px; }
+    details.records > summary small { font-weight: 400; color: var(--muted); font-size: 14px; }
+    .summary { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--muted); font-size: 14px; margin: 6px 0; }
     .summary .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink); background: var(--panel); }
     .summary .pill i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .summary .pill.done { border-color: var(--pass); }
-    .summary .lead { font-weight: 700; color: var(--ink); }
-
-    /* ---- the student's page ---- */
-    .me section { margin-top: 18px; }
-    .me h2 { font-size: 18px; margin: 0 0 4px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .me h2 .tape { width: 14px; height: 26px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; }
-    .me h2 small { font-weight: 400; color: var(--muted); font-size: 14px; }
-    .me .hint { color: var(--muted); font-size: 14px; margin: 0 0 10px; line-height: 1.4; }
-    .me .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; align-items: start; }
-    .me details { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 8px 12px; margin-top: 14px; }
-    .me details summary { cursor: pointer; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; padding: 4px 0; }
-    .me details summary .tape { width: 14px; height: 26px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; }
-    .me details summary small { font-weight: 400; color: var(--muted); font-size: 14px; }
-    .me details .cards { padding: 8px 0 6px; }
-    .me details .hint { margin-top: 6px; }
-
-    /* ---- the teacher's wall ---- */
     .queue { margin-top: 14px; border: 1px solid var(--ready); border-radius: 14px; background: color-mix(in srgb, var(--ready) 8%, var(--panel)); padding: 10px 12px; }
     .queue h2 { font-size: 16px; margin: 0 0 6px; }
     .queue .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 0; border-top: 1px dashed var(--line); }
@@ -83,53 +148,27 @@
     .queue .row .what small { color: var(--muted); margin-left: 6px; }
     .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted); font-size: 13px; margin: 12px 0 0; align-items: center; }
     .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: -1px; border: 2px solid transparent; }
-    .wall { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding-top: 10px; align-items: start; }
-    .col { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 10px; }
+    .wall { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; padding-top: 10px; align-items: start; }
+    .col { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 10px; }
     .col h2 { margin: 2px 4px 8px; font-size: 16px; display: flex; align-items: center; gap: 8px; }
     .col h2 .tape { width: 14px; height: 26px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; }
     .col h2 small { font-weight: 400; color: var(--muted); font-size: 13px; margin-left: auto; }
-    .col .rungs { font-size: 12px; color: var(--muted); margin: -4px 4px 10px; line-height: 1.35; }
-    .empty { color: var(--muted); font-size: 13px; padding: 10px 4px; font-style: italic; }
-
-    /* ---- a tune card, in either view ---- */
-    .tune { background: var(--panel-2); border: 1px solid var(--line); border-left: 6px solid var(--lvl); border-radius: 10px; padding: 8px 10px 8px 10px; margin-bottom: 10px; }
-    .cards .tune { margin-bottom: 0; }
-    .tune.passed { border-color: var(--pass); border-left-color: var(--pass); background: color-mix(in srgb, var(--pass) 10%, var(--panel-2)); }
-    .tune.ready { border-color: var(--ready); border-left-color: var(--ready); background: color-mix(in srgb, var(--ready) 10%, var(--panel-2)); }
-    .tune.practising { border-color: var(--prac); border-left-color: var(--prac); }
-    .tune .top { display: flex; align-items: baseline; gap: 8px; }
-    .tune h3 { font-size: 15px; margin: 0; flex: 1; line-height: 1.25; }
-    .tune .meta { font-size: 12px; color: var(--muted); white-space: nowrap; }
-    .tune .incipit { margin: 4px -4px 0; min-height: 44px; overflow: hidden; }
-    .tune .incipit svg { color: var(--ink); max-width: 100%; height: auto; }
-    .tune .tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 6px; }
-    .tune .tag { font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 7px; }
-    .tune .tag.new { color: var(--ink); border-color: var(--lvl); }
-    .tune .tag.grade { color: var(--ink); background: var(--panel); }
-    .tune .actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-    .tune .actions .state { margin-left: auto; font-size: 13px; color: var(--muted); }
-    .tune .actions .state b { color: var(--ink); }
-    .tune .who { display: none; flex-wrap: wrap; gap: 6px; padding-top: 8px; margin-top: 8px; border-top: 1px dashed var(--line); }
-    .tune.open .who { display: flex; }
-    .chip { border-radius: 999px; padding: 3px 10px; font-size: 13px; }
+    .row-tune { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 4px; border-top: 1px dashed var(--line-2); }
+    .row-tune .t { flex: 1; min-width: 120px; font-size: 14px; }
+    .row-tune .t a { color: var(--ink); text-decoration: none; }
+    .row-tune .t a:hover { text-decoration: underline; }
+    .chip { border-radius: 999px; padding: 2px 9px; font-size: 13px; min-height: 30px; }
     .chip.practising { border-color: var(--prac); color: var(--prac); }
     .chip.ready { background: var(--ready); border-color: var(--ready); color: #222; }
     .chip.passed { background: var(--pass); border-color: var(--pass); color: #fff; }
-    .nobody { font-size: 13px; color: var(--muted); }
-    .tools { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
-    .tools label { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
-    .tests { margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 8px 12px; }
-    .tests summary { cursor: pointer; font-weight: 700; }
+    .tools { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 10px; }
+    .tests { margin-top: 12px; overflow-x: auto; }
     .tests table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 6px; }
-    .tests td, .tests th { text-align: left; padding: 4px 8px 4px 0; border-top: 1px dashed var(--line); }
+    .tests td, .tests th { text-align: left; padding: 4px 8px 4px 0; border-top: 1px dashed var(--line); vertical-align: top; }
     .tests th { color: var(--muted); font-weight: 400; border-top: 0; }
-    .mark { display: inline-block; min-width: 1.6em; text-align: center; border-radius: 999px; padding: 1px 6px; font-weight: 700; color: #222; background: var(--ready); }
-    .mark.m1 { background: var(--l4); color: #fff; } .mark.m2 { background: var(--l3); } .mark.m3 { background: var(--pass); color: #fff; } .mark.m4 { background: var(--l5); color: #fff; }
-    #testDlg .piece { font-size: 18px; font-weight: 700; margin: 6px 0; }
-    #testDlg .marks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 4px; }
-    #testDlg .marks button { text-align: left; padding: 8px 10px; line-height: 1.3; }
-    #testDlg .marks button b { display: block; }
-    .me .mylevel select { margin-left: 4px; }
+    .res { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .res.pass { background: var(--pass); color: #fff; } .res.practice { background: var(--ready); color: #222; } .res.na { background: var(--line); }
+    .res.m1 { background: var(--l4); color: #fff; } .res.m2 { background: var(--l3); color: #222; } .res.m3 { background: var(--pass); color: #fff; } .res.m4 { background: var(--l5); color: #fff; }
 
     dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 460px; width: calc(100vw - 32px); }
     dialog::backdrop { background: rgba(0,0,0,0.35); }
@@ -138,23 +177,43 @@
     dialog textarea { width: 100%; min-height: 160px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; resize: vertical; }
     dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; flex-wrap: wrap; }
     dialog .row .left { margin-right: auto; display: flex; gap: 8px; }
-    #toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    #toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity 0.2s; pointer-events: none; max-width: calc(100vw - 32px); }
     #toast.on { opacity: 1; }
-    @media (max-width: 700px) { header { position: static; } header h1 small { display: block; margin: 2px 0 0; } .tune .meta { white-space: normal; } .me .cards { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) {
+      .ways { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .ways button { min-height: 52px; padding: 6px 8px; }
+      .ways button b { font-size: 16px; }
+      .ways button span { display: none; }
+      .setup { position: static; }
+      .levels button { min-width: 48px; padding: 6px 8px; }
+      .levels button small { display: none; }
+      .cards { grid-template-columns: 1fr; }
+      header h1 small { display: block; margin: 2px 0 0; }
+      header { gap: 6px 12px; } header .spacer { display: none; } header .links { order: 3; flex-basis: 100%; }
+      .setup { gap: 6px 10px; } .setup label { font-size: 13px; } .setup select { max-width: 10em; }
+    }
+    @media (min-width: 1500px) { body { font-size: 18px; } .cards { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); } .piece h3 { font-size: 20px; } }
+    @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
   </style>
 </head>
 <body>
   <header>
-    <h1><a href="../index.html" title="Back to the main page" style="color:inherit;text-decoration:none">&larr;</a> Practice Board<small id="setname"></small></h1>
+    <h1>Practice Board<small id="setname"></small><small class="brand">Grand Central Stationery</small></h1>
     <span class="spacer"></span>
-    <label>I am <select id="student"><option value="">the teacher</option></select></label>
-    <label title="Show the tunes whose rhythm and pitch concepts the Ontario curriculum has named by this grade">For <select id="grade"><option value="0">any grade</option></select></label>
-    <a href="library.html" title="Every tune, pattern, step and dance the course holds, searchable">Library</a>
-    <button id="roster">Class list</button>
-    <button id="theme" title="Light or dark">☾</button>
-    <div class="summary" id="summary"></div>
+    <span class="links"><a href="library.html" title="Every tune, pattern, step and dance the course holds, searchable">Library</a><a href="../index.html#lesson" title="Grand Central Stationery's lesson page: text, notation, rhythm and dance cells to present to a class">Lesson page</a></span>
+    <button id="theme" title="Light or dark" aria-label="Light or dark">☾</button>
   </header>
-  <div id="view"></div>
+  <nav class="ways" aria-label="What to do">
+    <button type="button" data-do="teach" aria-pressed="false"><b>Teach</b><span>For the class: listen, learn the sections, put it together</span></button>
+    <button type="button" data-do="practice" aria-pressed="false"><b>Practice</b><span>For a student: the same steps at your own pace, then play it through</span></button>
+    <button type="button" data-do="assess" aria-pressed="false"><b>Assess</b><span>Beside one student: listen, then pass or practise more</span></button>
+  </nav>
+  <div class="setup" id="setup"></div>
+  <main id="view"></main>
+  <details class="records" id="records">
+    <summary>Class records <small id="recsum"></small></summary>
+    <div id="recview"></div>
+  </details>
 
   <dialog id="rosterDlg">
     <h2>Class list</h2>
@@ -165,20 +224,7 @@
       <button id="cancel">Cancel</button><button id="saveRoster" class="primary">Save</button>
     </div>
   </dialog>
-  <dialog id="testDlg">
-    <h2>Test</h2>
-    <p id="testWho"></p>
-    <div class="piece" id="testPiece"></div>
-    <p>The piece is open in the main page. Listen, then mark the performance on the achievement chart's four levels; a mark of 3 or 4 also passes the tune.</p>
-    <div class="marks">
-      <button type="button" data-mark="1"><b>Level 1</b>limited effectiveness</button>
-      <button type="button" data-mark="2"><b>Level 2</b>some effectiveness</button>
-      <button type="button" data-mark="3"><b>Level 3</b>considerable effectiveness</button>
-      <button type="button" data-mark="4"><b>Level 4</b>a high degree of effectiveness</button>
-    </div>
-    <div class="row"><div class="left"><button id="testAgain">Another piece</button><button id="testOpen">Open again</button></div><button id="testCancel">Cancel</button></div>
-  </dialog>
-  <div id="toast"></div>
+  <div id="toast" role="status"></div>
 
   <script>
     'use strict';
@@ -187,8 +233,9 @@
     const LEVEL_COLOR = { 1: 'var(--l1)', 2: 'var(--l2)', 3: 'var(--l3)', 4: 'var(--l4)', 5: 'var(--l5)', 6: 'var(--l6)' };
     const STATES = ['practising', 'ready', 'passed'];
     const $ = s => document.querySelector(s);
-    let set = null;
-    let state = { roster: [], progress: {}, levels: {}, tests: {} };   // progress[tuneId][name] = { state, date }; levels[name] = the level a student chose; tests[name] = [{ date, id, title, level, mark }]
+    const esc = s => String(s === null || s === undefined ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    let set = null, P = null;
+    let state = { roster: [], progress: {}, levels: {}, tests: {} };   // progress[tuneId][name] = { state, date }; levels[name] = the level a student chose; tests[name] = [{ date, id, title, level, result | mark, note, bpm, assist }]
     try {
       const s = JSON.parse(localStorage.getItem(STORE) || 'null');
       if (s && Array.isArray(s.roster)) {
@@ -198,8 +245,13 @@
       }
     } catch (e) {}
     const persist = () => { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} };
+    // Who is practising or being assessed: this tab only (sessionStorage), never the address.
     let student = '';
     try { student = sessionStorage.getItem('gcs-course-student') || ''; } catch (e) {}
+    const setStudent = n => { student = n; try { sessionStorage.setItem('gcs-course-student', n); sessionStorage.setItem('gcs-assess-student', n); } catch (e) {} };
+    // The way in, the level and the piece: the address.
+    let way = 'teach', level = null, chosen = '';
+    let inst = 'recorder'; try { inst = localStorage.getItem('gcs-last-inst') || 'recorder'; } catch (e) {}
 
     /* ---- the Ontario grade filter, shared with the lab's and the main page's pickers ----
        Each tune carries ontario.grade: the grade in which The Ontario Curriculum, Grades 1-8: The Arts first names
@@ -209,8 +261,6 @@
     try { gradeCap = Math.min(8, Math.max(0, parseInt(localStorage.getItem(GRADE_STORE), 10) || 0)); } catch (e) {}
     const gradeOf = t => (t.ontario && t.ontario.grade) || 1;
     const tunes = () => gradeCap ? set.tunes.filter(t => gradeOf(t) <= gradeCap) : set.tunes;
-    { const g = $('#grade'); for (let i = 1; i <= 8; i++) g.add(new Option(`grade ${i}`, i)); g.value = String(gradeCap);
-      g.addEventListener('change', () => { gradeCap = +g.value; try { localStorage.setItem(GRADE_STORE, String(gradeCap)); } catch (e) {} render(); }); }
 
     /* ---- theme, shared with the main page ---- */
     const isDark = () => document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
@@ -240,33 +290,18 @@
     const currentLevel = name => state.levels[name] && tunesAt(state.levels[name]).length ? state.levels[name] : derivedLevel(name);
     const testsOf = name => state.tests[name] || [];
     const levelWords = l => (set.levels && set.levels[l] || []).join(', ');
+    const firstLevel = () => { for (let l = 1; l <= 6; l++) if (tunesAt(l).length) return l; return 1; };
 
-    /* ---- the skill tags in words ---- */
-    const DEGREE = { do: 'do', di: 'di', re: 're', ri: 'ri', mi: 'mi', fa: 'fa', fi: 'fi', so: 'so', si: 'si', la: 'la', te: 'te', ti: 'ti' };
-    function wordsFor(tag) {
-      const [k, v] = tag.split(':');
-      if (k === 'degree') return DEGREE[v] || v;
-      if (k === 'dur') return ({ '1': 'one-beat notes', '2': 'two-beat notes', '3': 'three-beat notes', '4': 'four-beat notes', '1/2': 'half beats', '1/4': 'quarter beats', '3/2': 'dotted beats', '3/4': 'dotted half beats', '1/3': 'thirds of a beat', '2/3': 'two-thirds of a beat', '1/6': 'sixths of a beat' })[v] || `${v}-beat notes`;
-      if (k === 'leap') return v === 'over-octave' ? 'leaps over an octave' : `leaps of a ${v}`;
-      if (k === 'range') return ({ '6th': 'range of a 6th', octave: 'range of an octave', 'over-octave': 'range over an octave' })[v] || tag;
-      if (k === 'metre') return v;
-      if (k === 'syncopation') return v ? 'much syncopation' : 'syncopation';
-      if (k === 'key') return null;
-      return ({ tie: 'ties', 'tie-over-bar': 'ties over the bar', pickup: 'a pickup', rest: 'rests', 'rest-off-beat': 'rests off the beat', repeat: 'repeats', endings: 'first and second endings', triplet: 'triplets', 'triplet-in-compound': 'triplets', tuplet: 'tuplets', accidentals: 'accidentals', 'grace-notes': 'grace notes', 'double-stops': 'two notes at once', 'metre-change': 'a change of metre', 'key-change': 'a change of key' })[k] || tag;
-    }
+    /* ---- links into the piece view ---- */
+    // The class instrument rides in the link, with the transposition that brings the piece into its range (none when it fits as written).
+    const pieceUrl = (t, mode) => new URL(P.pieceHref({ tune: t.id, level: t.level, mode, inst, tr: P.transposeFor(summaryOf(t).fits, inst) || undefined }, true), location.href).href;
+    const openPiece = (t, mode) => {
+      if (mode === 'assess' && student) setStudent(student);
+      location.href = pieceUrl(t, mode);
+    };
+    function syncUrl() { history.replaceState(null, '', location.pathname + location.search + '#' + P.encodeBoard({ do: way, level, tune: chosen || undefined })); }
 
-    /* ---- the share link the main page reads: "=== type" blocks, deflated, base64url ---- */
-    const b64u = bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
-    async function openLink(tune) {
-      const doc = `=== text {"align":"center"}\n${tune.title}\n=== abc\n${tune.abc}`;
-      const bytes = new TextEncoder().encode(doc);
-      let tag = 't', payload = bytes;
-      if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
-      return new URL('../index.html', location.href).href + '#gcs=' + tag + b64u(payload);
-    }
-    const openTune = async t => { window.open(await openLink(t), 'gcs-page'); };
-
-    /* ---- incipit: the header fields and the first bars ---- */
+    /* ---- the incipit: the header fields and the first bars ---- */
     function incipit(abc, n = 2) {
       const lines = abc.split('\n');
       const head = lines.filter(l => /^[KLMQ]:/.test(l));
@@ -276,233 +311,193 @@
     }
 
     /* ---- rendering ---- */
+    const tape = l => `<span class="tape" style="background:${LEVEL_COLOR[l]}" aria-hidden="true"></span>`;
+    const summaries = new Map();
+    const summaryOf = t => { if (!summaries.has(t.id)) summaries.set(t.id, P.summarize(t, { ABCJS: window.ABCJS, analyze: window.GCSAnalyze, set })); return summaries.get(t.id); };
     function render() {
       $('#setname').textContent = set.name;
-      const sel = $('#student'); sel.innerHTML = '<option value="">the teacher</option>';
-      for (const n of state.roster) sel.add(new Option(n, n));
+      for (const b of document.querySelectorAll('.ways button')) b.setAttribute('aria-pressed', String(b.dataset.do === way));
       if (!state.roster.includes(student)) student = '';
-      sel.value = student;
-      const view = $('#view'); view.innerHTML = ''; view.className = student ? 'me' : '';
-      if (student) renderStudent(view); else renderTeacher(view);
+      if (!level || !tunesAt(level).length) level = (way !== 'teach' && student && currentLevel(student)) || firstLevel();
+      renderSetup(); renderLevel(); renderRecords(); syncUrl();
+    }
+    function renderSetup() {
+      const el = $('#setup');
+      const levels = [1, 2, 3, 4, 5, 6].filter(l => tunesAt(l).length).map(l => `<button type="button" data-level="${l}" aria-pressed="${l === level}" title="${esc(levelWords(l))}">${tape(l)}${l}<small>${tunesAt(l).length} piece${tunesAt(l).length === 1 ? '' : 's'}</small></button>`).join('');
+      const names = `<option value="">${way === 'assess' ? 'Choose a student…' : 'Just me'}</option>${state.roster.map(n => `<option${n === student ? ' selected' : ''}>${esc(n)}</option>`).join('')}`;
+      const who = way === 'teach' ? '' : state.roster.length ? `<label>${way === 'assess' ? 'Student' : 'Practising as'} <select id="who">${names}</select></label>` : way === 'assess' ? `<button type="button" id="addNames">Add the class list</button>` : '';
+      el.innerHTML = `<div class="levels" role="group" aria-label="Level">${levels}</div>${who}
+        <label title="The instrument the class plays: the piece opens with its fingering or keys under the music">Instrument <select id="inst">${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}"${k === inst ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
+        <label title="Show the tunes whose rhythm and pitch concepts the Ontario curriculum has named by this grade">Grade <select id="grade"><option value="0">any</option>${[1, 2, 3, 4, 5, 6, 7, 8].map(g => `<option value="${g}"${g === gradeCap ? ' selected' : ''}>${g}</option>`).join('')}</select></label>
+        ${way === 'assess' && student ? `<button type="button" id="draw" title="A piece at ${esc(student)}'s level that they have not passed or been tested on">Draw a piece for ${esc(student)}</button>` : ''}`;
+      el.querySelectorAll('[data-level]').forEach(b => b.addEventListener('click', () => { level = +b.dataset.level; chosen = ''; if (way !== 'teach' && student) { state.levels[student] = level; persist(); } render(); }));
+      const w = el.querySelector('#who'); if (w) w.addEventListener('change', () => { setStudent(w.value); level = (student && currentLevel(student)) || level; render(); });
+      const an = el.querySelector('#addNames'); if (an) an.addEventListener('click', openRoster);
+      el.querySelector('#inst').addEventListener('change', e => { inst = e.target.value; try { localStorage.setItem('gcs-last-inst', inst); } catch (err) {} });
+      el.querySelector('#grade').addEventListener('change', e => { gradeCap = +e.target.value; try { localStorage.setItem(GRADE_STORE, String(gradeCap)); } catch (err) {} render(); });
+      const d = el.querySelector('#draw'); if (d) d.addEventListener('click', () => { const t = drawPiece(student); if (!t) toast('No pieces left at that level'); else openPiece(t, 'assess'); });
+    }
+    const WAY_NOTE = {
+      teach: 'Open a piece to teach it on the projector in three steps: <b>1 Listen</b> to the whole piece, and to what is new in it; <b>2 Learn the sections</b>: study each one, with a fingering under every note, at the class’s own pace, then loop them together, growing and getting faster; <b>3 Put it together</b>, slow to full speed with the band. <b>Copy student link</b> gives students the piece to practise.',
+      practice: 'Open a piece to practise it: listen, learn the sections (in time, or note by note with the app listening if you like), put it together, then play it through. What you practise is kept on this computer.',
+      assess: 'Choose the student, then a piece. It opens with the assessment beside the music: hear it, listen to the attempt if you like (the microphone only suggests), then decide.',
+    };
+    function renderLevel() {
+      const view = $('#view'); view.innerHTML = '';
+      const s = document.createElement('section'); s.className = 'level';
+      const here = tunesAt(level);
+      const head = way !== 'teach' && student ? `${esc(student)}: ${levelDone(level, student) ? 'done ✓' : `${passedAt(level, student)} of ${here.length} passed, ${Math.max(0, needed(level) - passedAt(level, student))} more to move up`}` : `${here.length} piece${here.length === 1 ? '' : 's'}`;
+      s.innerHTML = `<h2>${tape(level)}Level ${level}<small>${head}</small></h2><p class="note">This level: ${esc(levelWords(level))}.<br>${WAY_NOTE[way]}</p><div class="cards"></div>`;
+      const cards = s.querySelector('.cards');
+      const next = way === 'practice' ? nextUp(here) : null;
+      if (next) { s.insertBefore(nextCard(next), cards); const o = document.createElement('h3'); o.className = 'others'; o.textContent = 'Or choose another piece at this level'; s.insertBefore(o, cards); }
+      for (const t of here) cards.appendChild(pieceCard(t));
+      view.appendChild(s);
+      const c = chosen && view.querySelector(`[data-id="${CSS.escape(chosen)}"]`);
+      if (c) requestAnimationFrame(() => c.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+    }
+    /* The student path: one piece to go on with. The piece practised most recently at this level and not passed;
+       else the first not yet started (the board's order is the course's); else the first not passed. Continue picks
+       up where the history says: step by step for a new piece, else slow practice one step above the best tempo. */
+    function nextUp(here) {
+      const store = P.readProgress(localStorage), passed = t => student && stateOf(t.id, student) === 'passed';
+      const open = here.filter(t => !passed(t));
+      const tried = open.filter(t => store.tunes[t.id]).sort((a, b) => (store.tunes[b.id].last || '').localeCompare(store.tunes[a.id].last || ''));
+      return tried[0] || open.find(t => !store.tunes[t.id]) || open[0] || null;
+    }
+    function nextCard(t) {
+      const el = document.createElement('section'); el.className = 'nextup'; el.setAttribute('aria-label', 'Next up');
+      const store = P.readProgress(localStorage), pr = P.progressOf(store, t.id), e = pr.entry;
+      const written = P.writtenBpm(t.abc, window.ABCJS);
+      const best = e ? Math.max(e.bestBpm || 0, ...Object.values(e.phraseBpm || {})) : 0;
+      // At full speed on a phrase: the whole piece at full speed next. The tempo always rides in the link (slow practice would start low without it).
+      const atSpeed = best >= written && !(e && e.bestBpm >= written);
+      const bpm = atSpeed ? P.slowStart(written) : best ? Math.min(written, P.nudgeTempo(best, 1, written)) : P.slowStart(written);
+      // A new piece starts at 1 Listen; one in progress goes on at 2 Learn the loops, a step above its best tempo; once a loop is at full speed, 3 Put it together.
+      const stepTo = pr.stage === 'new' ? 1 : atSpeed ? 3 : 2;
+      const href = new URL(P.pieceHref({ tune: t.id, level: t.level, mode: 'practice', step: stepTo > 1 ? stepTo : undefined, inst, bpm: stepTo > 1 ? bpm : undefined, tr: P.transposeFor(summaryOf(t).fits, inst) || undefined }, true), location.href).href;
+      const share = best && written ? Math.round(100 * best / written) : 0;
+      el.innerHTML = `<div><div class="kicker">${pr.started ? 'Keep going' : 'Next up'}</div><h2>${esc(t.title)}</h2>
+          <div class="ladder" role="img" aria-label="Best tempo so far: ${share}% of full speed">${[60, 70, 80, 90, 100].map(s => `<span class="rung${share >= s ? ' on' : ''}">${s}%</span>`).join('')}</div>
+          <div class="what">${pr.started ? esc(pr.detail || pr.label) : esc(summaryOf(t).goal)}</div></div>
+        <a class="cont" href="${esc(href)}">${pr.started ? 'Continue' : 'Start'}<small>${stepTo === 1 ? 'step 1: listen to it' : stepTo === 3 ? `step 3: put it together, from ${P.slowStart(written)} BPM` : `step 2: the loops at ${bpm} BPM`}</small></a>
+        <div class="incipit" aria-hidden="true"></div>`;
+      el.querySelector('.cont').addEventListener('click', () => { if (student && !stateOf(t.id, student)) setState(t.id, student, 'practising'); chosen = t.id; syncUrl(); });
+      queueRender(el.querySelector('.incipit'), incipit(t.abc, 4));
+      return el;
+    }
+    function pieceCard(t) {
+      const el = document.createElement('article');
+      const sum = summaryOf(t);
+      const st = student ? stateOf(t.id, student) : '';
+      el.className = 'piece' + (chosen === t.id ? ' chosen' : '') + (st ? ' ' + st : '');
+      el.dataset.id = t.id; el.style.setProperty('--lvl', LEVEL_COLOR[t.level]);
+      const who = t.origin || t.composer || '';
+      const fits = sum.fits.filter(f => f.id !== 'recorder' || !sum.fits.find(g => g.id === 'recorder1' && g.fits && !g.tr)).map(f => `<span class="fit${f.fits ? ' yes' : ''}" title="${f.fits ? (f.tr ? `Fits ${f.name.toLowerCase()} moved ${f.tr > 0 ? 'up' : 'down'} ${Math.abs(f.tr)} semitones (Transpose)` : `Fits ${f.name.toLowerCase()} as written`) : `Too wide for ${f.name.toLowerCase()}`}">${esc(f.name)} ${f.fits ? (f.tr ? `${f.tr > 0 ? '↑' : '↓'}${Math.abs(f.tr)}` : '✓') : '✗'}</span>`).join('');
+      let mine = '';
+      if (way === 'practice') { const pr = P.progressOf(P.readProgress(localStorage), t.id); mine = pr.started ? `<b>${esc(pr.label)}</b>${pr.detail ? ': ' + esc(pr.detail) : ''}` : 'Not practised on this computer yet.'; }
+      if (way !== 'teach' && student) { const last = testsOf(student).filter(x => x.id === t.id).pop(); const s2 = st ? `${student} is ${st === 'passed' ? `passed (${esc(dateOf(t.id, student))})` : st === 'ready' ? 'ready to show it' : 'practising it'}` : ''; mine += (mine ? '<br>' : '') + [s2, last ? `last assessed ${esc(last.date)}: ${esc(P.resultWords(last))}` : ''].filter(Boolean).join(' · '); }
+      const go = way === 'teach' ? ['teach', 'Teach'] : way === 'practice' ? ['practice', 'Practise'] : ['assess', 'Assess'];
+      const mode = way;   // a piece opens at step 1, Listen (Assess: Hear it)
+      el.innerHTML = `<h3>${esc(t.title)}</h3>
+        <div class="facts">${esc([t.metre, sum.length, sum.range, who].filter(Boolean).join(' · '))}</div>
+        <div class="goal">${esc(sum.goal)}</div>
+        <div class="incipit" aria-hidden="true"></div>
+        <div class="fits" aria-label="Instruments">${fits}</div>
+        ${mine ? `<div class="mine">${mine}</div>` : ''}
+        <div class="acts"><a class="go ${go[0]}" role="button" href="${esc(pieceUrl(t, mode))}">${go[1]}</a><button type="button" class="copy" title="Copy a link to this piece (piece, instrument; no names or progress)">Copy link</button>
+          ${way === 'practice' && student ? (st === 'ready' ? `<button type="button" class="set ready" data-to="practising" title="Back to practising">Ready to show ✓</button>` : st === 'passed' ? '' : `<button type="button" class="set" data-to="ready" title="Tell your teacher you can play it through">Ready to show</button>`) : ''}</div>`;
+      el.querySelector('.go').addEventListener('click', e => {
+        if (way === 'assess' && !student) { e.preventDefault(); toast(state.roster.length ? 'Choose the student first' : 'Add the class list first'); const w = $('#who'); if (w) w.focus(); return; }
+        if (way !== 'teach' && student && !st) setState(t.id, student, 'practising');
+        if (student) setStudent(student);
+        chosen = t.id; syncUrl();   // Back from the piece returns here, to this card
+      });
+      el.querySelector('.copy').addEventListener('click', async () => { const url = pieceUrl(t, way === 'assess' ? 'teach' : way); try { await navigator.clipboard.writeText(url); toast('Link copied: it opens this piece for anyone'); } catch (e) { prompt('Copy this link:', url); } });
+      for (const b of el.querySelectorAll('.set')) b.addEventListener('click', () => { setState(t.id, student, b.dataset.to); render(); if (b.dataset.to === 'ready') toast(`Tell your teacher ${t.title} is ready`); });
+      queueRender(el.querySelector('.incipit'), incipit(t.abc, 4));
+      return el;
     }
 
-    function levelPills(sum, name) {
-      for (let l = 1; l <= 6; l++) {
-        if (!tunesAt(l).length) continue;
-        const pill = document.createElement('span'); pill.className = 'pill' + (levelDone(l, name) ? ' done' : '');
-        pill.innerHTML = `<i style="background:${LEVEL_COLOR[l]}"></i> Level ${l}: ${passedAt(l, name)} of ${tunesAt(l).length}${levelDone(l, name) ? ' ✓' : ''}`;
-        sum.appendChild(pill);
-      }
-    }
-    const tape = l => `<span class="tape" style="background:${LEVEL_COLOR[l]}"></span>`;
-
-    /* The student's page: what they are practising, their level's tunes to pick from, the levels ahead, the levels done. */
-    function renderStudent(view) {
-      const sum = $('#summary'); sum.innerHTML = '';
-      const cur = currentLevel(student);
-      const lead = document.createElement('span'); lead.className = 'lead';
-      lead.textContent = cur ? `${student}, you are on level ${cur}` : `${student}, you have passed every level in this set`;
-      sum.appendChild(lead);
-      const my = document.createElement('label'); my.className = 'mylevel'; my.title = 'Pick the level you are working on. On your own computer the board cannot see your teacher\'s passes, so this sets the level you see here.';
-      my.innerHTML = `My level <select><option value="">from my passes</option>${[1, 2, 3, 4, 5, 6].filter(l => tunesAt(l).length).map(l => `<option value="${l}"${state.levels[student] === l ? ' selected' : ''}>level ${l}</option>`).join('')}</select>`;
-      my.querySelector('select').addEventListener('change', e => { if (e.target.value) state.levels[student] = +e.target.value; else delete state.levels[student]; persist(); render(); });
-      sum.appendChild(my); levelPills(sum, student);
-      const myTests = testsOf(student);
-      if (myTests.length) {
-        const d = document.createElement('details'); d.className = 'tests';
-        d.innerHTML = `<summary>Tests: ${myTests.length}, latest ${markPill(myTests[myTests.length - 1].mark)}</summary>${testTable(myTests, false)}`;
-        view.appendChild(d);
-      }
-
-      const mine = tunes().filter(t => ['practising', 'ready'].includes(stateOf(t.id, student)));
-      if (mine.length) {
-        const s = document.createElement('section');
-        s.innerHTML = `<h2>Practising now<small>${mine.length} tune${mine.length === 1 ? '' : 's'}</small></h2>
-          <p class="hint">Open plays a tune in the main page: listen, slow it down, play along. When you can play it through, press <b>Ready to show</b>, then play it for your teacher or send a video.</p>
-          <div class="cards"></div>`;
-        for (const t of mine) s.querySelector('.cards').appendChild(tuneCard(t, { bars: 4 }));
-        view.appendChild(s);
-      }
-
-      if (cur) {
-        const s = document.createElement('section');
-        const left = needed(cur) - passedAt(cur, student);
-        s.innerHTML = `<h2>${tape(cur)}Level ${cur}: pick a tune<small>pass ${left} more to move up</small></h2>
-          <p class="hint">${mine.length ? '' : 'Choose any tune here and press <b>Practise</b>. '}Tunes at this level use ${esc(levelWords(cur))}. The outlined words on a card are what it brings in that the tunes before it did not.</p>
-          <div class="cards"></div>`;
-        for (const t of tunesAt(cur)) s.querySelector('.cards').appendChild(tuneCard(t, { bars: 4 }));
-        view.appendChild(s);
-      }
-
-      const ahead = cur ? [cur + 1, cur + 2].filter(l => l <= 6 && tunesAt(l).length) : [];
-      for (const l of ahead) {
-        const d = document.createElement('details');
-        d.innerHTML = `<summary>${tape(l)}Level ${l}: looking ahead<small>${tunesAt(l).length} tunes</small></summary>
-          <p class="hint">You can try these early if one takes your fancy. They use ${esc(levelWords(l))}.</p><div class="cards"></div>`;
-        for (const t of tunesAt(l)) d.querySelector('.cards').appendChild(tuneCard(t, {}));
-        view.appendChild(d);
-      }
-
-      for (let l = 1; l <= 6; l++) {
-        if (!tunesAt(l).length || l === cur || ahead.includes(l) || (cur !== null && l > cur)) continue;
-        const d = document.createElement('details');
-        const done = levelDone(l, student);
-        d.innerHTML = `<summary>${tape(l)}Level ${l}: ${done ? 'done ✓' : 'before this one'}<small>${passedAt(l, student)} of ${tunesAt(l).length} passed</small></summary>
-          <p class="hint">${done ? 'Come back for the ones you skipped whenever you like.' : 'Earlier tunes, if you want to go back over them.'}</p><div class="cards"></div>`;
-        for (const t of tunesAt(l)) d.querySelector('.cards').appendChild(tuneCard(t, {}));
-        view.appendChild(d);
-      }
-    }
-
-    /* The teacher's page: the ready queue, then every level as a wall of cards showing each student's state. */
-    function renderTeacher(view) {
-      const sum = $('#summary'); sum.innerHTML = '';
-      const names = state.roster;
-      const ready = [];
-      const shown = tunes();
-      for (const t of shown) for (const n of names) if (stateOf(t.id, n) === 'ready') ready.push([n, t]);
+    /* ---- class records: the teacher's wall, the ready queue, tests, the class list ---- */
+    function renderRecords() {
+      const names = state.roster, shown = tunes();
+      const ready = []; for (const t of shown) for (const n of names) if (stateOf(t.id, n) === 'ready') ready.push([n, t]);
       const passes = shown.reduce((s, t) => s + names.filter(n => stateOf(t.id, n) === 'passed').length, 0);
-      const scope = gradeCap ? ` (the ${shown.length} of ${set.tunes.length} tunes for grade ${gradeCap} and under)` : '';
-      sum.textContent = names.length
-        ? `${names.length} students, ${passes} passes across ${shown.length} tunes${ready.length ? `, ${ready.length} ready to show` : ''}${scope}. Choose a name to see that student's page.`
-        : `${shown.length} tunes in six levels${scope}. Add names with Class list; each student then picks their name to see their level.`;
-
+      $('#recsum').textContent = names.length ? `${names.length} students · ${passes} passes${ready.length ? ` · ${ready.length} ready to show` : ''}` : 'class list, passes, tests';
+      if (ready.length && !$('#records').open) $('#records').open = true;
+      const v = $('#recview'); v.innerHTML = '';
       const tools = document.createElement('div'); tools.className = 'tools';
-      tools.innerHTML = `<label title="Pick a student and the board draws a tune at their level for them to perform; mark it on the achievement chart and the mark is saved">Test <select id="testName"><option value="">a student…</option>${names.map(n => `<option>${esc(n)}</option>`).join('')}</select></label><button id="testGo" class="primary">Draw a piece</button>
-        <span class="spacer" style="flex:1"></span><button id="report" title="A spreadsheet of every student's level, passes per level and test marks">Export levels and marks</button>`;
-      tools.querySelector('#testGo').addEventListener('click', () => { const n = tools.querySelector('#testName').value; if (!n) { toast('Choose a student first'); return; } startTest(n); });
+      tools.innerHTML = `<button id="roster">Class list</button><button id="report" title="A spreadsheet of every student's level, passes per level and assessments">Export levels and results</button>`;
+      tools.querySelector('#roster').addEventListener('click', openRoster);
       tools.querySelector('#report').addEventListener('click', exportReport);
-      view.appendChild(tools);
-      const allTests = names.flatMap(n => testsOf(n).map(t => ({ ...t, name: n }))).sort((a, b) => b.date.localeCompare(a.date));
-      if (allTests.length) {
-        const d = document.createElement('details'); d.className = 'tests';
-        d.innerHTML = `<summary>Tests: ${allTests.length}</summary>${testTable(allTests.slice(0, 40), true)}${allTests.length > 40 ? '<p class="hint">The export has them all.</p>' : ''}`;
-        view.appendChild(d);
-      }
-
+      v.appendChild(tools);
+      const sum = document.createElement('div'); sum.className = 'summary';
+      sum.textContent = names.length ? `Tap a student's name on a tune to mark it passed, tap again to clear. A level is done at half its tunes passed.` : `Add names with Class list: each student can then practise as themselves, and you can assess them.`;
+      v.appendChild(sum);
       if (ready.length) {
         const q = document.createElement('section'); q.className = 'queue';
         q.innerHTML = `<h2>Ready to show</h2>`;
         for (const [n, t] of ready) {
           const row = document.createElement('div'); row.className = 'row';
-          row.innerHTML = `<span class="what"><b>${esc(n)}</b>: ${esc(t.title)}<small>level ${t.level}</small></span>
-            <button class="open">Open</button><button class="not">Not yet</button><button class="pass">Passed ✓</button>`;
-          row.querySelector('.open').addEventListener('click', () => openTune(t));
+          row.innerHTML = `<span class="what"><b>${esc(n)}</b>: ${esc(t.title)}<small>level ${t.level}</small></span><button class="open">Assess</button><button class="not">Not yet</button><button class="pass">Passed ✓</button>`;
+          row.querySelector('.open').addEventListener('click', () => { setStudent(n); openPiece(t, 'assess'); });
           row.querySelector('.not').addEventListener('click', () => { setState(t.id, n, 'practising'); render(); });
           row.querySelector('.pass').addEventListener('click', () => { setState(t.id, n, 'passed'); render(); toast(`${n} passed ${t.title}`); });
           q.appendChild(row);
         }
-        view.appendChild(q);
+        v.appendChild(q);
       }
-
+      const allTests = names.flatMap(n => testsOf(n).map(t => ({ ...t, name: n }))).sort((a, b) => b.date.localeCompare(a.date));
+      if (allTests.length) {
+        const d = document.createElement('details'); d.className = 'tests';
+        d.innerHTML = `<summary>Assessments: ${allTests.length}</summary>${testTable(allTests.slice(0, 60))}${allTests.length > 60 ? '<p class="note">The export has them all.</p>' : ''}`;
+        v.appendChild(d);
+      }
+      if (!names.length) return;
       const legend = document.createElement('div'); legend.className = 'legend';
-      legend.innerHTML = `<span><b>Class</b> on a card shows every student:</span><span><i style="border-color:var(--prac)"></i>practising</span><span><i style="background:var(--ready)"></i>ready to show</span><span><i style="background:var(--pass)"></i>passed</span><span>Tap a name to mark it passed, tap again to clear. A level is done at half its tunes passed.</span>`;
-      view.appendChild(legend);
-
+      legend.innerHTML = `<span><i style="border-color:var(--prac)"></i>practising</span><span><i style="background:var(--ready)"></i>ready to show</span><span><i style="background:var(--pass)"></i>passed</span>`;
+      v.appendChild(legend);
       const wall = document.createElement('div'); wall.className = 'wall';
       for (let l = 1; l <= 6; l++) {
+        const here = tunesAt(l); if (!here.length) continue;
         const col = document.createElement('section'); col.className = 'col';
-        const tunes = tunesAt(l);
-        const here = names.filter(n => currentLevel(n) === l).length;
-        col.innerHTML = `<h2>${tape(l)}Level ${l}<small>${names.length ? `${here} student${here === 1 ? '' : 's'} here` : `${tunes.length} tune${tunes.length === 1 ? '' : 's'}`}</small></h2>
-          <div class="rungs">${(set.levels && set.levels[l] || []).slice(0, 4).join(' · ')}</div>`;
-        if (!tunes.length) { const e = document.createElement('div'); e.className = 'empty'; e.textContent = 'No tunes at this level in this set yet.'; col.appendChild(e); }
-        for (const t of tunes) col.appendChild(tuneCard(t, {}));
+        const at = names.filter(n => currentLevel(n) === l).length;
+        col.innerHTML = `<h2>${tape(l)}Level ${l}<small>${at} student${at === 1 ? '' : 's'} here</small></h2>`;
+        for (const t of here) {
+          const row = document.createElement('div'); row.className = 'row-tune';
+          row.innerHTML = `<span class="t"><a href="${esc(pieceUrl(t, 'teach'))}">${esc(t.title)}</a></span>`;
+          for (const n of names) {
+            const s = stateOf(t.id, n), b = document.createElement('button'); b.className = 'chip' + (s ? ' ' + s : ''); b.textContent = n; b.title = `${n}: ${s || 'not started'}`;
+            b.addEventListener('click', () => { setState(t.id, n, s === 'passed' ? '' : 'passed'); render(); });
+            row.appendChild(b);
+          }
+          col.appendChild(row);
+        }
         wall.appendChild(col);
       }
-      view.appendChild(wall);
+      v.appendChild(wall);
     }
-
-    const openCards = {};                     // which teacher cards show their Class chips, kept across re-renders
-    function tuneCard(t, { bars = 2 } = {}) {
-      const el = document.createElement('article');
-      const st = student ? stateOf(t.id, student) : '';
-      el.className = 'tune' + (st ? ' ' + st : '');
-      el.style.setProperty('--lvl', LEVEL_COLOR[t.level]);
-      const intro = new Set(t.introduces || []);
-      const tags = (t.skills || []).map(s => [s, wordsFor(s)]).filter(([, w]) => w);
-      const shown = tags.filter(([s]) => intro.has(s)).concat(tags.filter(([s]) => !intro.has(s) && !/^(degree|dur|metre|range):/.test(s))).slice(0, 6);
-      const who = t.origin || t.composer || '';
-      let actions;
-      if (!student) {
-        const n = STATES.map(s => state.roster.filter(name => stateOf(t.id, name) === s).length);
-        const bits = [n[2] && `<b>${n[2]}</b> passed`, n[1] && `<b>${n[1]}</b> ready`, n[0] && `<b>${n[0]}</b> practising`].filter(Boolean);
-        actions = `<button class="toggle">Class</button><span class="state">${bits.join(' · ')}</span>`;
-      }
-      else if (st === 'passed') actions = `<span class="state"><b>Passed ✓</b> ${esc(dateOf(t.id, student))}</span>`;
-      else if (st === 'ready') actions = `<button class="set ready" data-to="practising" title="Back to practising">Ready to show ✓</button><button class="set quiet" data-to="">Stop</button>`;
-      else if (st === 'practising') actions = `<button class="set primary" data-to="ready">Ready to show</button><button class="set quiet" data-to="">Stop</button>`;
-      else actions = `<button class="set" data-to="practising">Practise</button>`;
-      el.innerHTML = `
-        <div class="top"><h3>${esc(t.title)}</h3><span class="meta">${esc(t.key)} · ${esc(t.metre)} · ${t.bars} bars</span></div>
-        <div class="incipit"></div>
-        <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${esc(who)}</span>` : ''}${t.ontario ? `<span class="tag grade" title="Ontario curriculum: ${esc(t.ontario.concepts.join('; '))}">grade ${t.ontario.grade}</span>` : ''}</div>
-        <div class="actions"><button class="open" title="Open this tune in the main page, ready to play">Open</button>${actions}</div>
-        <div class="who"></div>`;
-      el.querySelector('.open').addEventListener('click', () => openTune(t));
-      for (const b of el.querySelectorAll('.set')) b.addEventListener('click', () => {
-        const to = b.dataset.to; setState(t.id, student, to); render();
-        if (to === 'ready') toast(`Tell your teacher ${t.title} is ready`);
-      });
-      if (!student) {
-        const who = el.querySelector('.who');
-        if (!state.roster.length) who.innerHTML = '<span class="nobody">No class list yet.</span>';
-        for (const n of state.roster) {
-          const b = document.createElement('button'); const s = stateOf(t.id, n); b.className = 'chip' + (s ? ' ' + s : ''); b.textContent = n; b.title = s || 'not started';
-          b.addEventListener('click', () => { setState(t.id, n, s === 'passed' ? '' : 'passed'); render(); });
-          who.appendChild(b);
-        }
-        el.querySelector('.toggle').addEventListener('click', () => { el.classList.toggle('open'); openCards[t.id] = el.classList.contains('open'); });
-        if (openCards[t.id]) el.classList.add('open');
-      }
-      queueRender(el.querySelector('.incipit'), incipit(t.abc, bars));
-      return el;
-    }
-    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-
-    /* ---- tests: a random piece from the student's level, marked on the achievement chart ---- */
-    const markPill = m => `<span class="mark m${m}">${m}</span>`;
-    const testTable = (tests, withName) => `<table><tr>${withName ? '<th>Student</th>' : ''}<th>Date</th><th>Tune</th><th>Level</th><th>Mark</th></tr>${tests.map(t => `<tr>${withName ? `<td>${esc(t.name)}</td>` : ''}<td>${esc(t.date)}</td><td>${esc(t.title)}</td><td>${t.level}</td><td>${markPill(t.mark)}</td></tr>`).join('')}</table>`;
-    const testDlg = $('#testDlg'); let test = null;
+    const resPill = t => t.result ? `<span class="res ${t.result}">${esc(P.RESULTS[t.result])}</span>${t.mark ? ` <span class="res m${t.mark}">${t.mark}</span>` : ''}` : t.mark ? `<span class="res m${t.mark}">Level ${t.mark}</span>` : '';
+    const testTable = tests => `<table><tr><th>Student</th><th>Date</th><th>Piece</th><th>Result</th><th>Tempo</th><th>Help</th><th>Note</th></tr>${tests.map(t => `<tr><td>${esc(t.name)}</td><td>${esc(t.date)}</td><td>${esc(t.title)}${t.phrase ? ` <small>(loop ${t.phrase})</small>` : ''}</td><td>${resPill(t)}</td><td>${t.bpm ? `${t.bpm}${t.written ? ` of ${t.written}` : ''}` : ''}</td><td>${esc(t.assist ? P.ASSISTS[t.assist] || '' : '')}</td><td>${esc(t.note || '')}</td></tr>`).join('')}</table>`;
     function drawPiece(name) {
       const lvl = currentLevel(name) || 6;
-      const at = tunesAt(lvl), fresh = at.filter(t => stateOf(t.id, name) !== 'passed' && !testsOf(name).some(x => x.id === t.id));
-      const pool = fresh.length ? fresh : at.filter(t => stateOf(t.id, name) !== 'passed').length ? at.filter(t => stateOf(t.id, name) !== 'passed') : at;
-      if (!pool.length) return null;
-      let tune = pool[Math.floor(Math.random() * pool.length)];
-      if (test && pool.length > 1 && tune.id === test.tune.id) tune = pool[(pool.indexOf(tune) + 1) % pool.length];
-      return { name, tune, level: lvl };
+      const at = tunesAt(lvl), notPassed = at.filter(t => stateOf(t.id, name) !== 'passed');
+      const fresh = notPassed.filter(t => !testsOf(name).some(x => x.id === t.id));
+      const pool = fresh.length ? fresh : notPassed.length ? notPassed : at;
+      return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
     }
-    function startTest(name) {
-      const t = drawPiece(name); if (!t) { toast('No tunes at that level'); return; }
-      test = t;
-      $('#testWho').textContent = `${name}, level ${t.level}`;
-      $('#testPiece').textContent = t.tune.title;
-      openTune(t.tune);
-      if (!testDlg.open) testDlg.showModal();
-    }
-    $('#testAgain').addEventListener('click', () => { if (test) startTest(test.name); });
-    $('#testOpen').addEventListener('click', () => { if (test) openTune(test.tune); });
-    $('#testCancel').addEventListener('click', () => { test = null; testDlg.close(); });
-    for (const b of testDlg.querySelectorAll('.marks button')) b.addEventListener('click', () => {
-      if (!test) return;
-      const mark = +b.dataset.mark, date = new Date().toISOString().slice(0, 10);
-      (state.tests[test.name] = state.tests[test.name] || []).push({ date, id: test.tune.id, title: test.tune.title, level: test.level, mark });
-      if (mark >= 3) setState(test.tune.id, test.name, 'passed'); else persist();
-      toast(`${test.name}: ${test.tune.title}, level ${mark}${mark >= 3 ? ', passed' : ''}`);
-      test = null; testDlg.close(); render();
-    });
 
-    /* ---- the report: one row per student, then every test ---- */
+    /* ---- the report: one row per student, then every assessment ---- */
     function exportReport() {
       const q = v => { const s = v === null || v === undefined ? '' : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
-      const rows = [['Student', 'Current level', 'Chosen level', ...[1, 2, 3, 4, 5, 6].map(l => `Level ${l} passed of ${tunesAt(l).length}`), 'Tunes practising', 'Tunes ready', 'Tests', 'Average mark', 'Latest test date', 'Latest test tune', 'Latest test level', 'Latest mark']];
+      const rows = [['Student', 'Current level', 'Chosen level', ...[1, 2, 3, 4, 5, 6].map(l => `Level ${l} passed of ${tunesAt(l).length}`), 'Tunes practising', 'Tunes ready', 'Assessments', 'Latest date', 'Latest piece', 'Latest result', 'Latest note']];
       for (const n of state.roster) {
-        const ts = testsOf(n), last = ts[ts.length - 1], avg = ts.length ? (ts.reduce((s, t) => s + t.mark, 0) / ts.length).toFixed(2) : '';
-        rows.push([n, currentLevel(n) || 'all done', state.levels[n] || '', ...[1, 2, 3, 4, 5, 6].map(l => passedAt(l, n)), tunes().filter(t => stateOf(t.id, n) === 'practising').length, tunes().filter(t => stateOf(t.id, n) === 'ready').length, ts.length, avg, last ? last.date : '', last ? last.title : '', last ? last.level : '', last ? last.mark : '']);
+        const ts = testsOf(n), last = ts[ts.length - 1];
+        rows.push([n, currentLevel(n) || 'all done', state.levels[n] || '', ...[1, 2, 3, 4, 5, 6].map(l => passedAt(l, n)), tunes().filter(t => stateOf(t.id, n) === 'practising').length, tunes().filter(t => stateOf(t.id, n) === 'ready').length, ts.length, last ? last.date : '', last ? last.title : '', last ? P.resultWords(last) : '', last ? last.note || '' : '']);
       }
-      rows.push([], ['Tests'], ['Student', 'Date', 'Tune', 'Level', 'Mark']);
-      for (const n of state.roster) for (const t of testsOf(n)) rows.push([n, t.date, t.title, t.level, t.mark]);
+      rows.push([], ['Assessments'], ['Student', 'Date', 'Piece', 'Level', 'Loop', 'Result', 'Achievement (1-4)', 'Tempo', 'Written tempo', 'Help', 'Note', 'Flags kept']);
+      for (const n of state.roster) for (const t of testsOf(n)) rows.push([n, t.date, t.title, t.level, t.phrase || '', t.result ? P.RESULTS[t.result] : '', t.mark || '', t.bpm || '', t.written || '', t.assist ? P.ASSISTS[t.assist] : '', t.note || '', (t.flags || []).filter(f => f.kept).length || '']);
       rows.push([], ['Tunes in the set'], ['Level', 'Tune', 'Key', 'Metre', 'Ontario grade', 'Passed by']);
       for (const t of set.tunes) rows.push([t.level, t.title, t.key, t.metre, t.ontario ? t.ontario.grade : '', state.roster.filter(n => stateOf(t.id, n) === 'passed').join('; ')]);
       const a = document.createElement('a');
@@ -527,11 +522,10 @@
       };
       requestAnimationFrame(step);
     }
-    document.querySelector('script[src$="abcjs-basic-min.js"]').addEventListener('load', drain);
 
     /* ---- class list dialog, export and import ---- */
     const dlg = $('#rosterDlg');
-    $('#roster').addEventListener('click', () => { $('#names').value = state.roster.join('\n'); dlg.showModal(); });
+    function openRoster() { $('#names').value = state.roster.join('\n'); dlg.showModal(); }
     $('#cancel').addEventListener('click', () => dlg.close());
     $('#saveRoster').addEventListener('click', () => {
       state.roster = [...new Set($('#names').value.split('\n').map(s => s.trim()).filter(Boolean))];
@@ -551,24 +545,32 @@
         state.roster = [...new Set([...state.roster, ...j.roster])];
         for (const [id, m] of Object.entries(j.progress || {})) state.progress[id] = { ...(state.progress[id] || {}), ...m };
         Object.assign(state.levels, j.levels || {});
-        for (const [n, ts] of Object.entries(j.tests || {})) { const have = state.tests[n] || (state.tests[n] = []); for (const t of ts) if (!have.some(x => x.date === t.date && x.id === t.id)) have.push(t); have.sort((a, b) => a.date.localeCompare(b.date)); }
+        for (const [n, ts] of Object.entries(j.tests || {})) { const have = state.tests[n] || (state.tests[n] = []); for (const t of ts) if (!have.some(x => x.date === t.date && x.id === t.id && x.result === t.result && x.mark === t.mark)) have.push(t); have.sort((a, b) => a.date.localeCompare(b.date)); }
         for (const [id, m] of Object.entries(j.sends || {}))                     // an export from the first board
           for (const [name, date] of Object.entries(m)) (state.progress[id] || (state.progress[id] = {}))[name] = { state: 'passed', date };
         persist(); dlg.close(); render(); toast('Imported');
       } catch (err) { toast('That file is not a practice board export'); }
       e.target.value = '';
     });
-    $('#student').addEventListener('change', e => { student = e.target.value; try { sessionStorage.setItem('gcs-course-student', student); } catch (err) {} render(); });
+    for (const b of document.querySelectorAll('.ways button')) b.addEventListener('click', () => { way = b.dataset.do; if (way !== 'teach' && student) level = currentLevel(student) || level; render(); });
     let toastTimer;
-    function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2200); }
+    function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 2400); }
 
     /* ---- go ---- */
     // Served, the board fetches set.json; opened from disk, where a page may not fetch, it uses the copy in sets.js (node course/build-sets.js).
     const ready = document.readyState === 'complete' ? Promise.resolve() : new Promise(r => window.addEventListener('load', r));
     fetch('set.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .catch(err => ready.then(() => { if (window.GCS_SETS && window.GCS_SETS.tunes) return window.GCS_SETS.tunes; throw err; }))
-      .then(s => { set = s; render(); })
-      .catch(err => { $('#summary').textContent = location.protocol === 'file:' ? 'The board found no tunes: opened from disk it reads course/sets.js, which node course/build-sets.js writes; or serve the folder (double-click serve.command) and open course/board.html from there.' : `Could not load set.json (${err.message}).`; });
+      .then(s => ready.then(() => s))
+      .then(s => {
+        set = s; P = window.GCSPractice;
+        const b = P.decodeBoard(location.hash);
+        way = b.do || 'teach'; level = b.level || null; chosen = b.tune && set.tunes.some(t => t.id === b.tune) ? b.tune : '';
+        if (chosen && !level) level = set.tunes.find(t => t.id === chosen).level;
+        render(); drain();
+      })
+      .catch(err => { $('#view').innerHTML = `<p class="note">${location.protocol === 'file:' ? 'The board found no tunes: opened from disk it reads course/sets.js, which node course/build-sets.js writes; or serve the folder (double-click serve.command) and open course/board.html from there.' : `Could not load set.json (${esc(err.message)}).`}</p>`; });
+    window.addEventListener('hashchange', () => { if (!P || !set) return; const b = P.decodeBoard(location.hash); way = b.do || way; level = b.level || level; chosen = b.tune || ''; render(); });
   </script>
 </body>
 </html>
