@@ -25,10 +25,9 @@
    double click on the tempo returns it to full speed. While the tempo changes, a sign under the clock shows it large
    and a lamp-coloured ring round the rim shows how much of full speed it is.
 
-   Round the face, the repeat toggle: a start-repeat sign at nine o'clock, an end-repeat sign at three, an arrow over
-   the top from left to right and one under the bottom from right to left, a loop drawn round the clock. Faint when
-   off, in the step's colour (or ink) when on. It is a button of its own behind the face: a tap anywhere on the loop
-   toggles it, a tap on the face plays, and a press there never starts a tempo drag.
+   Either side of the face, the repeat toggle: a start-repeat sign at nine o'clock and an end-repeat sign at three, as
+   the music writes them. Faint when off, in the step's colour (or ink) when on. It is a button of its own behind the
+   face: a tap on either sign toggles it, a tap on the face plays, and a press there never starts a tempo drag.
    Back to the start: a small round button at the right-hand end of the plate, shown only while the host says the
    music is paused partway (canReset). At the end, so nothing moves under the pointer when it comes and goes.
 
@@ -73,17 +72,9 @@
   }
 
   // The loop round the face, in the face's units (the face is 100 across, centred on 0,0).
-  const LOOP = { r: 56, w: 146, h: 117 };
+  const LOOP = { w: 146, h: 100 };
   function loopSvg() {
-    const r = LOOP.r, rad = a => (a * Math.PI) / 180;
-    const at = (a, rr = r) => [rr * Math.sin(rad(a)), -rr * Math.cos(rad(a))];
     const f = n => n.toFixed(2);
-    const arc = (a0, a1) => { const [x0, y0] = at(a0), [x1, y1] = at(a1); return `M${f(x0)} ${f(y0)}A${r} ${r} 0 0 1 ${f(x1)} ${f(y1)}`; };
-    const head = a => {   // an arrowhead at angle a, pointing clockwise along the circle
-      const [x, y] = at(a), tx = Math.cos(rad(a)), ty = Math.sin(rad(a)), nx = Math.sin(rad(a)), ny = -Math.cos(rad(a));
-      const tip = [x + tx * 7, y + ty * 7], b1 = [x - tx * 2 + nx * 6.5, y - ty * 2 + ny * 6.5], b2 = [x - tx * 2 - nx * 6.5, y - ty * 2 - ny * 6.5];
-      return `M${f(tip[0])} ${f(tip[1])}L${f(b1[0])} ${f(b1[1])}L${f(b2[0])} ${f(b2[1])}z`;
-    };
     // |: at nine o'clock (thick bar outside, thin bar, two dots facing the face) and :| at three, mirrored.
     const sign = side => {
       const m = side < 0 ? -1 : 1, x = v => f(m * v);
@@ -91,8 +82,6 @@
       return `<path d="${bar(72, 65.5)}${bar(62.5, 60.2)}"/><circle cx="${x(55.5)}" cy="-7.5" r="3.3"/><circle cx="${x(55.5)}" cy="7.5" r="3.3"/>`;
     };
     return `<svg class="${NS}-loop" viewBox="${-LOOP.w / 2} ${-LOOP.h / 2} ${LOOP.w} ${LOOP.h}" aria-hidden="true" focusable="false">
-      <path class="${NS}-arc" d="${arc(-52, 50)}${arc(128, 230)}"/>
-      <path class="${NS}-head" d="${head(50)}${head(230)}"/>
       <g class="${NS}-signs">${sign(-1)}${sign(1)}</g>
     </svg>`;
   }

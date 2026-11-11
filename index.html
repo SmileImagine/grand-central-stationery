@@ -5149,7 +5149,7 @@
           for (const it of items) {
             const cur = it.bar ? groupBox(it.el).x : headX(it.el);
             let target = x1 + it.t * perWhole;
-            if (it.bar) target = it === lastBar ? xEnd : target - GAP;
+            if (it.bar) target = it === lastBar ? xEnd : it === items[0] ? cur : target - GAP;   // a barline opening the line (a start repeat) stays where abcjs engraved it, after the time signature
             const dx = target - cur;
             this.shift.set(it.el, dx);
             for (const g of it.el.abselem.elemset) g.style.setProperty('--dx', dx.toFixed(2) + 'px');

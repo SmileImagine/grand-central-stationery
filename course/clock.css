@@ -6,8 +6,7 @@
    Colours: the face and its brass are the clock's own (the concourse palette, light and dark); the words take the
    page's --ink and --muted, the plate behind it the page's --bg, the focus ring --accent, the play mark --mode when
    the piece view sets it (Teach, Practice, Assess). Override any --gcs-clock-* token on .gcs-clock to restyle.
-   With a repeat toggle (.has-repeat) the face sits in a loop of arrows and repeat signs: the dial is then 1.46 × the
-   size across and 1.17 × it high. */
+   With a repeat toggle (.has-repeat) the face sits between two repeat signs: the dial is then 1.46 × the size across. */
 .gcs-clock {
   --gcs-clock-size: var(--clock-size, 64px);
   --gcs-clock-brass: #9c7a45; --gcs-clock-brass-hi: #ead39f; --gcs-clock-brass-lo: #6a4e26;
@@ -56,7 +55,7 @@
 }
 
 /* ---- the dial: the face, and the repeat loop round it ---- */
-.gcs-clock.has-repeat { --dial-w: calc(var(--s) * 1.46); --dial-h: calc(var(--s) * 1.17); }
+.gcs-clock.has-repeat { --dial-w: calc(var(--s) * 1.46); --dial-h: var(--s); }
 .gcs-clock-dial { grid-area: face; position: relative; width: var(--dial-w); height: var(--dial-h); }
 
 /* ---- the face: the play button, over the repeat button (round, so a press outside the circle reaches the loop) ---- */
@@ -93,14 +92,13 @@
 .gcs-clock.is-playing .gcs-clock-pausemark { display: inline; }
 .gcs-clock.is-playing .gcs-clock-pausemark { stroke: color-mix(in srgb, var(--gcs-clock-lamp) 28%, var(--gcs-clock-opal)); }
 
-/* ---- repeat: |: at nine, :| at three, an arrow over the top and one back under the bottom ---- */
+/* ---- repeat: |: at nine, :| at three ---- */
 .gcs-clock button.gcs-clock-repeat {
   all: unset; position: absolute; z-index: 1; inset: 0; box-sizing: border-box; border-radius: 42%;
   cursor: pointer; touch-action: manipulation; color: var(--muted, #777);
 }
 .gcs-clock-loop { display: block; width: 100%; height: 100%; overflow: visible; opacity: 0.5; transition: opacity 0.15s, color 0.15s; }
-.gcs-clock-arc { fill: none; stroke: currentColor; stroke-width: 5; stroke-linecap: round; }
-.gcs-clock-head, .gcs-clock-signs { fill: currentColor; }
+.gcs-clock-signs { fill: currentColor; }
 .gcs-clock button.gcs-clock-repeat:hover .gcs-clock-loop { opacity: 0.7; }
 .gcs-clock.is-repeat button.gcs-clock-repeat { color: var(--gcs-clock-repeat-on); }
 .gcs-clock.is-repeat .gcs-clock-loop { opacity: 1; }
