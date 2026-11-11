@@ -8,14 +8,19 @@ licence: CC BY-SA 3.0
 title: Orientale, first phrase
 origin: Isadora Duncan, Orientale (a Chopin dance, to the Mazurka in A minor, Op. 68 No. 2), reconstructed by Hortense Kooluris
 source: Orientale as taught by Sylvia Gold, written in Sutton DanceWriting by Alison Kincaid (The Center for Sutton Movement Writing, 2000), page 4, lines 1 and 2: https://www.dancewriting.org/library/duncan/index.html
-note: read for the rig, not transcribed symbol for symbol. A bar's wait, then three bars of light travelling steps, one on every count, the hands lifted near the shoulders with the wrists bent back (lower and wider in the second bar), and a bar of three striking steps in place, the arms down. The notation turns the shoulders and hips a little to the diagonal; this keeps the dancer square to the front.
+note: read for the rig, not transcribed symbol for symbol. A bar's wait, then three bars of a lilting Duncan run, one step on every count, the hands lifted near the shoulders with the wrists bent back (lower and wider in the second bar): on 1 a step with the free knee lifting forward, on 2 a step into a bent knee with the other leg trailing behind, on 3 the feet gathering and rising onto the balls; the second bar mirrors which leg leads the gesture. Then a bar of three striking steps in place, the arms down. The notation turns the shoulders and hips a little to the diagonal; this keeps the dancer square to the front.
 meter: 3/4
 bpm: 132
-feet:  .  .  .  | Lf^ Rf^ Lf^ | Rf^ Lf^ Rf^ | Lf^ Rf^ Lf^ | Rp!_ Lp!_ Rp!_
-poses: start . . | lift . .   | wide . .    | lift . .    | down . .
+feet:   .  .  .   | Lf^ Rf  Lc^ | Rf^ Lf  Rc^ | Lf^ Rf  Lc^ | Rp!_ Lp!_ Rp!_
+level:  .  .  .   | m   l   h   | m   l   h   | m   l   h   | m    .    .
+poses:  start . . | a1  a2  a3  | b1  b2  b3  | a1  a2  a3  | down .    .
 pose start: arms=20,20 hand=flat lean=-5 nod=-10
-pose lift: arms=55,165 hand=flat lean=8 tilt=8 look=15 nod=-10
-pose wide: arms=70,40 hand=flat lean=8 tilt=-8 look=-15
+pose a1: arms=55,165 hand=flat lean=8 tilt=8 look=15 nod=-10 legR=35f45,-10f10 footR=point
+pose a2: arms=55,165 hand=flat lean=10 tilt=8 look=15 nod=-10 legL=20b30,30b70 footL=point
+pose a3: arms=55,165 hand=flat lean=4 tilt=8 look=15 nod=-10 foot=ball
+pose b1: arms=70,40 hand=flat lean=8 tilt=-8 look=-15 legL=20b30,30b70 footL=point
+pose b2: arms=70,40 hand=flat lean=10 tilt=-8 look=-15 legR=35f45,-10f10 footR=point
+pose b3: arms=70,40 hand=flat lean=4 tilt=-8 look=-15 foot=ball
 pose down: arms=12,25 hand=flat nod=15 stretch=.95
 low:   x . . | x . . | x . . | x . . | x x x
 hat:   . x x | . X x | . X x | . X x | . . .
