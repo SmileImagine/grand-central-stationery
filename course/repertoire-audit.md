@@ -4,10 +4,10 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 
 ## Summary
 
-- 93 records: 70 in the workshop and 23 in review.
-- 50/93 have all seven core dossier fields.
-- 51/93 have both an exact citation and an HTTPS source link.
-- 40/93 carry both `N:HOW READ` and `N:UNCERTAIN`; 12/93 state classroom range or rehearsal-key guidance.
+- 90 records: 70 in the workshop and 20 in review.
+- 50/90 have all seven core dossier fields.
+- 51/90 have both an exact citation and an HTTPS source link.
+- 40/90 carry both `N:HOW READ` and `N:UNCERTAIN`; 12/90 state classroom range or rehearsal-key guidance.
 - Human classroom/culture/language reviews recorded as passed: 0.
 - Human-review packets prepared but not completed: 2.
 
@@ -76,15 +76,12 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Vámonos por Santa Anita | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Spanish-speaking teacher, for the words. |
 | holding | Xianhua diao (鮮花調) | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Chinese speaker for the characters and the singing; ideally a musician who plays Jiangnan sizhu, for the ornaments. |
 | holding | Zdravets | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Bulgarian speaker, for the spelling, stresses and translation; a Bulgarian dance teacher, for the horo step. |
-| review | Jingle Bells (chorus) | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | When the Saints Go Marching In | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | Lucy Locket | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | Au Clair de la Lune | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | Canoinha nova | 7/7 | yes | yes | **no** | plate/range/source record as marked | a Brazilian Portuguese speaker and children's-song or roda practitioner before promotion |
 | review | Carry banana | 7/7 | yes | **no** | **no** | plate/range/source record as marked | a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing |
 | review | Soldier's Joy | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
-| review | Amazing Grace | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
-| review | Oh! Susanna | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | Greensleeves | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | Rama's lullaby | 0/7 | yes | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
 | review | Cuckoo's Nest | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
@@ -171,15 +168,12 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Vámonos por Santa Anita | northern Mexico | play song | 7/7 | pending | pending |
 | holding | Xianhua diao (鮮花調) | China | popular song (xiaodiao) | 7/7 | pending | pending |
 | holding | Zdravets | Bulgaria | horo | 7/7 | pending | pending |
-| review (samples) | Jingle Bells (chorus) | **missing** | **missing** | 0/7 | not recorded | not passed |
 | review (samples) | When the Saints Go Marching In | USA | **missing** | 0/7 | not recorded | not passed |
 | review (published) | Lucy Locket | England | **missing** | 0/7 | not recorded | not passed |
 | review (published) | Au Clair de la Lune | France | **missing** | 0/7 | not recorded | not passed |
 | review (holding) | Canoinha nova | Brazil, Capital Federal (Rio de Janeiro) | roda | 7/7 | pending | pending |
 | review (holding) | Carry banana | Jamaica | ring tune | 7/7 | pending | pending |
 | review (published) | Soldier's Joy | England | reel | 0/7 | not recorded | not passed |
-| review (samples) | Amazing Grace | USA | **missing** | 0/7 | not recorded | not passed |
-| review (samples) | Oh! Susanna | **missing** | **missing** | 0/7 | not recorded | not passed |
 | review (samples) | Greensleeves | England | **missing** | 0/7 | not recorded | not passed |
 | review (published) | Rama's lullaby | India, Maharashtra | lullaby | 0/7 | not recorded | not passed |
 | review (published) | Cuckoo's Nest | **missing** | Hornpipe | 0/7 | not recorded | not passed |

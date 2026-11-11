@@ -1,18 +1,18 @@
 # Tune coverage map
 
-Generated deterministically from `course/set.json` (37 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
+Generated deterministically from `course/set.json` (40 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
 
 ## Launch runway
 
-- **69/100** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.
-- **4/69** are explicitly labelled course originals or generated works (5.8%); the launch allowance is at most 25/100 (25%).
-- **31** tunes remain to reach 100. At most 21 additional originals could fit under the numerical allowance, but source-backed repertoire remains the priority for geographic and cultural coverage.
+- **72/100** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.
+- **4/72** are explicitly labelled course originals or generated works (5.6%); the launch allowance is at most 25/100 (25%).
+- **28** tunes remain to reach 100. At most 21 additional originals could fit under the numerical allowance, but source-backed repertoire remains the priority for geographic and cultural coverage.
 
 ## Coverage by region, level and function
 
 | Region | L1 | L2 | L3 | L4 | L5 | L6 | Game | Dance | Lullaby | Song/air | Total | Auto styles |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| North America (general) | 3 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7 | folk 5, pop 2 |
+| North America (general) | 3 | 3 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 1 | 10 | folk 6, pop 3, waltz 1 |
 | North American Indigenous | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
 | Caribbean | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
 | Latin America | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
@@ -29,8 +29,8 @@ Generated deterministically from `course/set.json` (37 published tunes). Regions
 
 - Empty target regions: North American Indigenous, Caribbean, Latin America, West Africa, Middle East, East Asia, Southeast Asia, Pacific.
 - No tune at levels 1-4: North American Indigenous, Caribbean, Latin America, West Africa, Middle East, South Asia, East Asia, Southeast Asia, Pacific.
-- 15 tunes have no explicit origin; 17 have no explicit classroom function or tune type.
-- Only 22/37 tunes state an origin and 20/37 state a function/type.
+- 15 tunes have no explicit origin; 19 have no explicit classroom function or tune type.
+- Only 25/40 tunes state an origin and 21/40 state a function/type.
 
 ## Private workshop and review pipeline
 
@@ -38,7 +38,7 @@ These candidates are **not published coverage**. They show which empty cells hav
 
 | Region | Workshop | Review | Game | Dance | Lullaby | Song/air | Total |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| North America (general) | 1 | 2 | 0 | 0 | 0 | 1 | 3 |
+| North America (general) | 1 | 1 | 0 | 0 | 0 | 1 | 2 |
 | North American Indigenous | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Caribbean | 3 | 2 | 3 | 0 | 0 | 0 | 5 |
 | Latin America | 4 | 3 | 1 | 1 | 0 | 1 | 7 |
@@ -49,7 +49,7 @@ These candidates are **not published coverage**. They show which empty cells hav
 | East Asia | 5 | 1 | 1 | 0 | 0 | 4 | 6 |
 | Southeast Asia | 2 | 0 | 0 | 0 | 0 | 1 | 2 |
 | Pacific | 1 | 0 | 0 | 0 | 0 | 1 | 1 |
-| Unspecified | 43 | 6 | 3 | 5 | 1 | 11 | 49 |
+| Unspecified | 43 | 4 | 3 | 5 | 1 | 11 | 47 |
 
 - Published-empty regions with private candidates: Caribbean, Latin America, West Africa, Middle East, East Asia, Southeast Asia, Pacific.
 - Published-empty regions with no private candidate: North American Indigenous.
@@ -74,10 +74,12 @@ These candidates are **not published coverage**. They show which empty cells hav
 | Baa, Baa, Black Sheep | 3 | England | **missing** | Europe |
 | This Old Man | 3 | England | **missing** | Europe |
 | Lightly Row | 3 | Germany | **missing** | Europe |
+| Jingle Bells (chorus) | 3 | USA | **missing** | North America (general) |
 | Frère Jacques | 4 | France | **missing** | Europe |
 | Highland Mary | 4 | **missing** | Morris dance | Unspecified |
 | Astley's Ride | 4 | **missing** | reel | Unspecified |
 | The First Frost - Second part | 4 | **missing** | reel | Unspecified |
+| Oh! Susanna | 4 | USA | **missing** | North America (general) |
 | Daisy Daisy | 4 | **missing** | waltz | Unspecified |
 | Tom And Jerry | 5 | **missing** | reel | Unspecified |
 | B. Variation | 5 | **missing** | reel | Unspecified |

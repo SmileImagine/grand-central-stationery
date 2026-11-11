@@ -83,10 +83,10 @@ for (const f of ['course/board.html', 'course/piece.js', 'course/practice.js']) 
 }
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
-// still make the 45 tunes, and the workshop and the queue's workshop pieces the 18 items.
+// still make the 48 tunes, and the workshop and the queue's workshop pieces the 18 items.
 const queue = workshopHere ? JSON.parse(fs.readFileSync(path.join(root, 'course/review/index.json'), 'utf8')).items : [];
 const inReview = from => queue.filter(it => it.from === from).length;
-if (workshopHere) assert(set.tunes.length + inReview('published') === 45, `expected 45 tunes published or in review, found ${set.tunes.length} + ${inReview('published')}`);
+if (workshopHere) assert(set.tunes.length + inReview('published') === 48, `expected 48 tunes published or in review (45, and the three sample songs published on 11 November), found ${set.tunes.length} + ${inReview('published')}`);
 else {
   assert(!fs.existsSync(path.join(root, 'course/review')) && !fs.existsSync(path.join(root, 'course/holding')), 'main must not carry the workshop or the review queue');
   const embedded = fs.readFileSync(path.join(root, 'course/sets.js'), 'utf8');
