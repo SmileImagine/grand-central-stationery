@@ -6392,13 +6392,19 @@ DV.dancer = {
       }
     });
     for (const F of ['L', 'R']) if (!ev[F].length) ev[F].push({ t: 0, x: fr[0][F].x, y: fr[0][F].y, z: 0, kind: 'plant', i: 0 });
-    const target = i => { const f = fr[(i + n) % n], w = f.weight; return w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; };
-    this.m = { fr, n, total, ev, target, defs: d.poseDefs || {} };
+    // a dance that travels (ends away from where it began, facing the same way) carries on from where it ended when it
+    // repeats, instead of being pulled back across the floor at the loop; the camera follows, so the loop is seamless
+    const last = fr[n - 1], net = ((last.facing % 360) + 360) % 360, mid0 = { x: (last.L.x + last.R.x) / 2, y: (last.L.y + last.R.y) / 2 };
+    const delta = net === 0 && Math.hypot(mid0.x, mid0.y) > .3 ? mid0 : { x: 0, y: 0 };
+    const target = i => { const w0 = Math.floor(i / n), f = fr[((i % n) + n) % n], w = f.weight, b = w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; return { x: b.x + delta.x * w0, y: b.y + delta.y * w0 }; };
+    this.m = { fr, n, total, ev, target, delta, defs: d.poseDefs || {} };
   },
   foot(F, p) {   // where a foot is at time p, and how far through a flight it is
     const { ev, total } = this.m, E = ev[F]; let k = E.length - 1; for (let i = 0; i < E.length; i++) if (E[i].t <= p + 1e-9) k = i; else break;
     if (E[0].t > p + 1e-9) k = E.length - 1;
-    const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
+    const D = this.m.delta || { x: 0, y: 0 }, shift = (q, k2) => (D.x || D.y) ? { ...q, x: q.x + D.x * k2, y: q.y + D.y * k2 } : q;
+    const back = E[0].t > p + 1e-9, e = back ? shift(E[k], -1) : E[k], nx = k + 1 >= E.length && !back ? shift(E[0], 1) : E[(k + 1) % E.length];   // across the loop, the travelled distance carries over
+    const tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
     const still = e === nx;   // every event is a move: a step or touch on the spot still lifts and taps down on its count (a march, a heel tap); only a foot with one event in the whole dance stays put
     const eff = nx.eff || {}, span = tn - te;
     const flight = still ? 0 : eff.time === 'sudden' ? Math.min(.3, .3 * span) : eff.time === 'sustained' ? Math.min(1.6, .95 * span) : Math.min(.6, .55 * span);
@@ -6415,7 +6421,9 @@ DV.dancer = {
   },
   pelvis(p) {
     const { fr, n, total, target } = this.m, k = frameAt({ frames: fr }, p), f = fr[k], dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, u = (p - f.t) / dt;
-    const T0 = target(k - 1), T1 = target(k), T2 = target(k + 1), mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
+    // a weight shift longer than any step (at the loop of a dance that ends turned and away from where it began) is not
+    // blended, so the pelvis stays over the feet instead of being dragged across the floor
+    const T1 = target(k), far = T => Math.hypot(T.x - T1.x, T.y - T1.y) > 2.6, T0r = target(k - 1), T2r = target(k + 1), T0 = far(T0r) ? T1 : T0r, T2 = far(T2r) ? T1 : T2r, mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
     const e1 = f.effort || {}, e2 = fr[(k + 1) % n].effort || {};
     const lead = e2.flow === 'bound' ? 0 : e2.time === 'sudden' ? .2 : .35;   // anticipation of the next move
     const settle = Math.min(.6, (e1.time === 'sudden' ? .12 : .25) / dt);     // time to finish this weight shift, in beats, so a half-beat chassé is not twice as fast
@@ -6434,7 +6442,7 @@ DV.dancer = {
     const LV = { l: -.55, m: 0, h: .18 }, lvOff = LV[prev.level] + (LV[nx.level] - LV[prev.level]) * us;
     const LN = { f: [0, .6], b: [0, -.6], l: [-.5, 0], r: [.5, 0], c: [0, 0] }, shapeLean = { x: LN[prev.lean][0] + (LN[nx.lean][0] - LN[prev.lean][0]) * us, y: LN[prev.lean][1] + (LN[nx.lean][1] - LN[prev.lean][1]) * us };
     let h = nominal + lvOff, airborne = !L.planted && !Rt.planted;
-    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; if (fr[k].pose && this.m.defs[fr[k].pose] && this.m.defs[fr[k].pose]['leg' + F]) continue; /* a posed leg is a gesture: it does not hold the pelvis up */ const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y), hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
+    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; if (fr[k].pose && this.m.defs[fr[k].pose] && this.m.defs[fr[k].pose]['leg' + F]) continue; /* a posed leg is a gesture: it does not hold the pelvis up */ const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y); if (dd > legLen * .8) continue; /* a foot out of reach (left behind at the loop of a dance that ends turned away) does not hold the pelvis down */ const hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
     if (airborne) h = nominal + lvOff + Math.max(L.z, Rt.z) * .9; else { const fly = L.air ? L : Rt.air ? Rt : null; if (fly && fly.kind !== 'up') h += (fly.eff && fly.eff.weight === 'light' ? .28 : .1) * Math.sin(Math.PI * fly.u); }
     // effort weight: a strong move drops the pelvis at the landing and recovers
     const ue = (p - f.t) / dt0; if ((f.effort || {}).weight === 'strong' && !airborne) h -= .3 * Math.max(0, 1 - ue / .45);
