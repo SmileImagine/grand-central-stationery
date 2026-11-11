@@ -7070,6 +7070,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
     // by course/piece.js. It borrows the page and leaves the lesson saved here alone: nothing it shows is saved.
     const PIECE = /(?:^#|&)tune=[a-z0-9]/.test(location.hash);
     if (PIECE) { cells = []; document.documentElement.classList.add('piece-route'); }
+    else window.addEventListener('hashchange', () => { if (/(?:^#|&)tune=[a-z0-9]/.test(location.hash)) location.reload(); });   // a piece link pasted into this tab
     // The text font used to be one page-wide setting: hand it, once, to the
     // text cells saved under it, then forget it.
     const legacyFont = localStorage.getItem('gcs-font');
