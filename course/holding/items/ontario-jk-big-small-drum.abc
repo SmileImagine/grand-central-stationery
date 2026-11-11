@@ -1,0 +1,34 @@
+% holding-id: ontario-jk-big-small-drum
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Confirm the Kodo listening link and test whether the cue language supports movement without turning taiko into a generic loud-drum stereotype.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: JK
+% composition-elements: beat, sound quality, speed and volume — contrast large and small movements while staying together
+% composition-listen: Kodo — "O-Daiko"
+% composition-listen-url: https://www.youtube.com/results?search_query=Kodo+O-Daiko+official
+% composition-bridge: Watch the preparation before a strike and the space after it; compare one grounded sound with a light answer.
+% composition-context: Kodo's staged taiko performance can introduce ensemble focus, gesture and resonance. This is an original classroom pulse study for body percussion, not taiko repertoire.
+% composition-distance: Original rhythm, melody and words; no Kodo passage is copied. Use classroom drums only after naming that they are not taiko.
+% improv: {"id":"A","bars":"1-2","role":"conductor","prompt":"Which body size?","choices":["big grounded","tiny precise","freeze and listen"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"two groups","prompt":"Who answers?","choices":["left group","right group","everyone together"],"replyBars":2}
+% dossier-honesty: Original classroom piece using broad contrasts of gesture and resonance.
+% dossier-licence: Draft original; Kodo's recording and choreography are not included.
+% dossier-respect: Name taiko and Kodo specifically; do not claim that a classroom tub drum reproduces Japanese taiko practice.
+% dossier-review: Early-years teacher; educator familiar with taiko pedagogy.
+X:1
+T:Big Drum, Small Drum
+C:Grand Central Stationery workshop
+R:movement pulse
+S:Original classroom composition, 2026; listening bridge to Kodo
+M:2/4
+L:1/4
+Q:1/4=80
+K:C
+%%style march
+C z | C C | z G | G z | C2 | G G | C z | C2 |]
+w: Big, * big drum. * Small, small sound. Wait and hear. Small, small, big. *

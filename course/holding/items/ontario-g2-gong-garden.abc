@@ -1,0 +1,34 @@
+% holding-id: ontario-g2-gong-garden
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Choose one authorized Gamelan Sekar Jaya performance and ask an Indonesian gamelan educator to review the framing.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 2
+% composition-elements: pentatonic melody, long and short sounds, simple accompaniment, bordun and AB form
+% composition-listen: Gamelan Sekar Jaya — a Balinese gamelan performance
+% composition-listen-url: https://www.youtube.com/results?search_query=Gamelan+Sekar+Jaya+official+performance
+% composition-bridge: Listen for nested time: quick interlocking tones inside slower punctuation from larger gongs.
+% composition-context: Gamelan names many distinct Indonesian ensemble traditions. This original pentatonic classroom piece compares layers and resonance; it is not a gamelan composition and should not be labelled Balinese music.
+% composition-distance: Original notes and form; no named composition, tuning, kotekan pattern or gong cycle is copied.
+% improv: {"id":"A","bars":"1-2","role":"melody group","prompt":"How will the garden answer?","choices":["same shape higher","same shape lower","one long tone"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"gong keeper","prompt":"Where does the large sound belong?","choices":["first beat","last beat","after a full bar"],"replyBars":2}
+% dossier-honesty: Original pentatonic layering study; gamelan is a listening comparison only.
+% dossier-licence: Draft original; reference performances remain separately copyrighted.
+% dossier-respect: Identify the particular ensemble and island in the chosen recording; avoid treating all gamelan as one style.
+% dossier-review: Indonesian gamelan educator and Grade 2 teacher.
+X:1
+T:Gong Garden
+C:Grand Central Stationery workshop
+R:pentatonic layer study
+S:Original classroom composition, 2026; listening bridge to Gamelan Sekar Jaya
+M:4/4
+L:1/4
+Q:1/4=92
+K:C
+%%style drone
+C D E2 | G A G2 | E D C2 | G4 | A G E2 | D E G2 | E D C2 | C4 |]
+w: Small sounds grow-ing, big gong knows the way. Ring, then lis-ten; slow sound ends the day.

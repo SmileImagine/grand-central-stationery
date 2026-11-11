@@ -2,8 +2,8 @@
 % review-from: holding
 % review-status: pending
 % review-categories: context
-% review-findings: No words. Our N: line quotes Fox Strangways calling the singer, a domestic servant on a colonial steamer, "an unmusical ayah": colonial condescension, in our notes rather than in the song.
-% review-suggestion: Keep the melody; rephrase that note in our own words (one of the songs an ayah, a children's nurse, sang on board a steamer; the book says she lost her key and the songs were hard to piece together) and restore.
+% review-findings: No words. Fox Strangways calls the unnamed singer, a domestic worker and children's nurse on a colonial steamer, "an unmusical ayah"; our N: line now paraphrases his pitch observations without repeating that dismissal.
+% review-suggestion: Keep pending until a South Asian music/history reviewer checks the revised framing and the ethics of presenting an anonymous worker's melody; the requested human review has not occurred.
 % review-decision:
 % holding-id: the-ayahs-song
 % holding-status: source-check
@@ -12,6 +12,15 @@
 % holding-classroom-check: pending
 % holding-updated: 2026-11-09
 % holding-blocked: Teacher to check against the plate (p. 66, scan p. 90): the second note of bar 4 (D or C), the last bar's rest, and the four small notes of the slide before the half-close.
+% dossier-function: undetermined air recorded from an unnamed ayah, a children's nurse, aboard a steamer; no classroom function is documented
+% dossier-elements: slow 3/4 C-centred air with printed slides at the close and half-close, irregular rests and a range extending to A3
+% dossier-practice: Adagio, quarter note = 80 as printed; sing or play with flexible slides; the written A3-G4 range is too low for conservative young-unison voices, and F (+5, D4-C5) is the provisional rehearsal key
+% dossier-accompaniment: no accompaniment is printed; begin unaccompanied, and treat the C drone as our optional pitch support rather than source practice
+% dossier-lyrics: no words are printed and the singer is unnamed; do not invent lyrics, language or translation
+% dossier-honesty: historical-source transcription: melody and printed grace-note slide follow Fox Strangways; tonic/drone, final-rest reading and any backing are our interpretations
+% dossier-licence: public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); both staves checked twice against p. 66 on 2026-11-09
+% dossier-respect: the colonial source dismisses the unnamed domestic worker's musicianship; paraphrase that account, foreground her anonymity and labour, and do not infer language or regional identity from the steamer setting
+% dossier-review: South Asian music historian or culture bearer, colonial-history/context reviewer, second plate reader and classroom teacher; all reviews still required
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/66/mode/1up archive.org scan of The Music of Hindostan, at p. 66
 X:1
 T:The ayah's song
@@ -20,7 +29,7 @@ C:traditional (North India)
 O:India
 R:air
 S:Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66
-N:Adagio, crotchet 80. One of the songs an unmusical ayah sang on board the steamer; Fox Strangways says she lost her key a good deal and the songs were difficult to piece together, and that the slide gave a wonderful value to the close and the half-close. The slide to the half-close is printed as four small notes (B, C B, C) before the B,; it is kept here as grace notes. No tonic is marked and there is no signature; the tune lies on C with its fifth below and ends on C, so the drone is on C. No words are printed. The tune reaches A below middle C: sing it a fourth or fifth higher.
+N:Adagio, crotchet 80. One of the songs an ayah, a children's nurse, sang on board the steamer; Fox Strangways reports that her pitch centre shifted and that the songs were difficult for him to piece together, while the slide gave a wonderful value to the close and half-close. The slide to the half-close is printed as four small notes (B, C B, C) before the B,; it is kept here as grace notes. No tonic is marked and there is no signature; the tune lies on C with its fifth below and ends on C, so the drone is on C. No words are printed. The tune reaches A below middle C: sing it a fourth or fifth higher.
 N:HOW READ (2026-11-09): both staves cropped at 800, 1600 and 2400 dpi (scratch crops a/b-ex160-*, q160-*, f160-*), heads measured against the staff lines and the ledger lines by a detector, then eyed; two passes. Against the first sketch: bar 3 ends E3 D (not E3 C); the first-time bar is B,12 then A,8 z3 C, as the sketch had; the hollow half notes were measured by eye since the detector finds only filled heads.
 N:UNCERTAIN: bar 4, second note read D (a 16th beamed after the dotted C; the first sketch had D D2); the rests in bars 2 and the first ending are dotted eighth rests; in the last bar the C may be a dotted half followed by a rest, which would make the bar long, so it is written C8 z4.
 M:3/4

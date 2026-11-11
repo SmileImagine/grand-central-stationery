@@ -1,0 +1,33 @@
+% holding-id: ontario-g6-chimurenga-crossings
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Thomas Mapfumo recording and have a Zimbabwean educator review chimurenga history and the mbira-guitar comparison.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 6
+% composition-elements: 6/4 compound metre, pickup, 3:2 layering, I-IV-V progressions and major/perfect intervals
+% composition-listen: Thomas Mapfumo — "Shumba"
+% composition-listen-url: https://www.youtube.com/results?search_query=Thomas+Mapfumo+Shumba+official
+% composition-bridge: Hear electric guitar and bass take interlocking cyclical roles associated with mbira-informed chimurenga sound.
+% composition-context: Thomas Mapfumo's chimurenga music connects Shona musical resources with anticolonial and post-independence political expression. This new 6/4 exercise is not chimurenga.
+% composition-distance: Original pitches, harmony and rhythmic cells; no mbira-derived guitar line, lyric or arrangement from the recording is copied.
+% improv: {"id":"A","bars":"1-2","role":"two ostinato groups","prompt":"How do the layers cross?","choices":["three over two","alternate bars","meet only at the start"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"melody soloist","prompt":"Choose an interval frame","choices":["major third","perfect fourth","perfect fifth"],"replyBars":2}
+% dossier-honesty: Original compound-metre exercise; not a chimurenga transcription or mbira part.
+% dossier-licence: Draft original; reference work and recording remain copyrighted.
+% dossier-respect: Teach the word chimurenga, political history and Shona sources; do not reduce the genre to a guitar texture.
+% dossier-review: Zimbabwean music educator and Grade 6 teacher.
+X:1
+T:Crossing Lines
+C:Grand Central Stationery workshop
+R:compound-metre interlock study
+S:Original classroom composition, 2026; listening bridge to Thomas Mapfumo
+M:6/4
+L:1/8
+Q:3/8=88
+K:G
+%%style folk
+D | "G"G2 B2 d2 B2 A2 G2 | "C"E2 G2 c2 G2 E2 D2 | "D"F2 A2 d2 A2 F2 E2 | "G"G12 |
+D | "G"G2 A2 B2 d2 B2 G2 | "C"E2 F2 G2 c2 G2 E2 | "D"F2 E2 D2 A2 F2 D2 | "G"G12 |]

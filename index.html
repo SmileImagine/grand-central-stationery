@@ -521,6 +521,16 @@
     .dock .bandnote.err { color: var(--concourse-warn); }
     .dock .bandnote:empty { display: none; }
     .dock .drawer.bandd .bandwrap, .dock .drawer.bandd .ctl { flex: 1 1 0; max-width: none; }
+    .dock .drawer.improvd { align-items: center; gap: 12px; font: 14px/1.35 system-ui, sans-serif; }
+    .improvcard { flex: 1 1 360px; min-width: 0; padding: 8px 12px; border-left: 4px solid var(--concourse-brass); background: color-mix(in srgb, var(--concourse-paper) 80%, transparent); border-radius: 3px 10px 10px 3px; }
+    .improvmeta { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .improvprompt { display: block; margin: 2px 0 7px; font: 600 20px/1.2 Georgia, serif; color: var(--concourse-ink); }
+    .improvchoices { display: flex; flex-wrap: wrap; gap: 6px; }
+    .improvchoices button { padding: 6px 11px; }
+    .improvchoices button[aria-pressed="true"] { background: var(--concourse-brass); color: #20180d; border-color: var(--concourse-brass); }
+    .improvnext { flex: 0 1 260px; color: var(--muted); }
+    .improvnext b { color: var(--concourse-ink); }
+    .improvempty { color: var(--muted); }
     .dock .mixer { justify-content: center; align-items: flex-end; gap: 22px; padding: 8px 10px 10px; }
     .cell[data-type="abc"] .cell-body { --abc-cell-h: 50vh; }
     /* Presenting: the bar alone, larger, clear of the slide selector in the corner; a drawer that opens is capped so the staff keeps its room. */
@@ -3542,7 +3552,7 @@
             <button type="button" class="tbtn loop" title="Repeat the tune" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
           </div>
           <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span><label class="dep-tempo" title="Playback tempo; the ABC's Q: line sets the written tempo"><input type="number" class="bpm dep-bpm" min="20" max="400" step="1" aria-label="Tempo"><span>BPM</span></label></div>
-          <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel">Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div></div>
+          <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel">Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls">Band</button><button type="button" class="tab" data-drawer="improv" aria-pressed="false" title="Visible choices and reply windows that follow the bars while the music plays">Improv</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them">Mixer</button></div></div>
           <div class="drawer melody" data-drawer="melody" hidden>
           <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
           <button type="button" class="lintall" hidden title="Every hint for this tune" aria-haspopup="dialog"></button>
@@ -3572,6 +3582,7 @@
           <div class="bandnote"></div>
           </div>
           </div>
+          <div class="drawer improvd" data-drawer="improv" hidden><div class="improvcard"><div class="improvmeta"></div><strong class="improvprompt"></strong><div class="improvchoices"></div></div><div class="improvnext"></div><div class="improvempty" hidden>No improv cues yet. In the workshop editor, add <code>% improv: {…}</code> cue lines; each cue stays inside the ABC.</div></div>
           <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"><input type="range" class="lvl" min="0" max="150" step="5" value="100" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
         this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band; this.bandGhost = '';
         const xp = body.querySelector('input.tr');
@@ -3692,10 +3703,16 @@
         this.lintWire();
         this.hidden = document.createElement('div'); this.hidden.className = 'hidden'; document.body.appendChild(this.hidden);
         this.entry.value = parts.melody;
+        this.improvChoice = {}; this.improvKey = '';
+        body.querySelector('.improvd').addEventListener('click', e => {
+          const button = e.target.closest('button[data-cue]'); if (!button) return;
+          this.improvChoice[button.dataset.cue] = button.dataset.choice; this.improvKey = '';
+          this.liveImprov(this.player && this.player.running ? this.now() : -1);
+        });
         this.origElems = []; this.dispElems = []; this.spelled = []; this.hiddenIndex = new Map(); this.cursorLine = null;
         this.shift = new Map();          // displayed element -> horizontal shift from proportional spacing
         this.pending = false;            // a render was requested during playback
-        this.entry.addEventListener('input', () => { this.render(); onChange(this.getText()); });
+        this.entry.addEventListener('input', () => { this.render(); this.improvKey = ''; this.liveImprov(-1); onChange(this.getText()); });
         this.bandEntry.addEventListener('input', () => { this.render(); onChange(this.getText()); });
         if (!document.body.classList.contains('present')) this.showDrawer('melody');   // editing: the text is in view; presenting: the bar alone
         this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
@@ -3749,10 +3766,41 @@
         this.wake();
       }
       // One drawer open at a time under the bar (null: none).
-      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); }
+      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); if (name === 'improv') { this.improvKey = ''; this.liveImprov(this.player && this.player.running ? this.now() : -1); } }
       showMixer(open) { this.showDrawer(open ? 'mix' : null); }
       // The music starts: presenting, every drawer closes so the staff and the instrument have the screen, unless the score is open to be watched; editing, only the mixer closes.
-      drawersForPlay() { const watching = this.drawer === 'band'; if (document.body.classList.contains('present')) { if (!watching) this.showDrawer(null); } else if (this.drawer === 'mix') this.showDrawer(null); }
+      drawersForPlay() { const watching = this.drawer === 'band' || this.drawer === 'improv'; if (document.body.classList.contains('present')) { if (!watching) this.showDrawer(null); } else if (this.drawer === 'mix') this.showDrawer(null); }
+      improvCues() {
+        const cues = [];
+        for (const m of this.getText().matchAll(/^%\s*improv:\s*(\{.*\})\s*$/gm)) try {
+          const cue = JSON.parse(m[1]), bars = String(cue.bars || '').match(/^(\d+)(?:-(\d+))?$/);
+          if (!cue.id || !cue.prompt || !bars || !Array.isArray(cue.choices) || cue.choices.length < 2 || cue.choices.length > 4) continue;
+          cues.push({ ...cue, from: +bars[1], to: +(bars[2] || bars[1]) });
+        } catch (e) {}
+        return cues.sort((a, b) => a.from - b.from || a.to - b.to);
+      }
+      // Visible decisions stay aligned to written bars. Selecting one is intentionally a conducting cue only: it
+      // does not interrupt the audio or generate a solo, so the musicians still have to listen and answer.
+      liveImprov(t) {
+        if (this.drawer !== 'improv') return;
+        const html = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const box = this.body.querySelector('.improvd'), card = box.querySelector('.improvcard'), empty = box.querySelector('.improvempty'), nextEl = box.querySelector('.improvnext'), cues = this.improvCues();
+        if (!cues.length) { card.hidden = true; nextEl.hidden = true; empty.hidden = false; return; }
+        empty.hidden = true;
+        const bars = this.tl && this.tl.bars || [], bi = t < 0 ? 1 : Math.max(1, bars.findIndex(b => t >= b.start && t < b.end) + 1 || bars.length);
+        const active = t < 0 ? cues[0] : cues.find(c => bi >= c.from && bi <= c.to);
+        const next = cues.find(c => c.from > (active ? active.to : bi));
+        const key = `${active ? active.id : '-'}:${bi}:${next ? next.id : '-'}:${active ? this.improvChoice[active.id] || '' : ''}`;
+        if (key === this.improvKey) return; this.improvKey = key;
+        card.hidden = !active;
+        if (active) {
+          box.querySelector('.improvmeta').textContent = `${active.role || 'players'} · bar ${bi}${active.replyBars ? ` · ${active.replyBars}-bar reply` : ''}`;
+          box.querySelector('.improvprompt').textContent = active.prompt;
+          const chosen = this.improvChoice[active.id] || '';
+          box.querySelector('.improvchoices').innerHTML = active.choices.map((choice, i) => `<button type="button" data-cue="${html(active.id)}" data-choice="${html(choice)}" aria-pressed="${String(choice === chosen)}" title="Choice ${i + 1}">${html(choice)}</button>`).join('');
+        }
+        nextEl.hidden = !next; nextEl.innerHTML = next ? `<b>Next, bar ${next.from}:</b> ${html(next.prompt)}` : '';
+      }
       // The tuning under the text: what it is, or what is wrong with it.
       tuningNotes() {
         const t = this.tuning; if (!t) return [];
@@ -4632,6 +4680,7 @@
         }
         if (gameMode && tl.total > 0) this.progress(Math.max(0, t) / tl.total);
         if (this.livePattern) this.livePattern(running ? t : -1);
+        this.liveImprov(running ? t : -1);
         if (running) this.raf = requestAnimationFrame(() => { this.raf = null; this.paint(); });
       }
       progress(f) { const p = this.gamebar.querySelector('.prog'); p.style.width = (Math.max(0, Math.min(1, f)) * 100).toFixed(1) + '%'; }

@@ -1,0 +1,37 @@
+% holding-id: ontario-g8-gamelan-city
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Select a specific authorized I Nyoman Windha performance and ask a Balinese gamelan educator to review tuning, form and interlocking-language cautions.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 8
+% composition-elements: world-ensemble timbre, polyphonic texture, layered form, arranging and constrained group improvisation
+% composition-listen: I Nyoman Windha — a performed composition for Balinese gamelan
+% composition-listen-url: https://www.youtube.com/results?search_query=I+Nyoman+Windha+gamelan+official
+% composition-bridge: Hear coordinated interlocking parts, sectional contrast, paired tuning shimmer and large-scale punctuation.
+% composition-context: Balinese gamelan composition is a living, changing art with ensemble-specific tuning and rehearsal practice. This equal-tempered classroom polyphony is not gamelan and does not reproduce kotekan.
+% composition-distance: Original notes and sectional plan; no Windha passage, tuning, interlock or gong structure is copied.
+% improv: {"id":"A","bars":"1-2","role":"two melodic groups","prompt":"Design the interlock without collisions","choices":["alternate eighths","trade beats","one holds while one moves"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"section leader","prompt":"How does the form turn?","choices":["sudden cut","gong then new layer","thin out gradually"],"replyBars":2}
+% dossier-honesty: Original polyphonic coordination study; not gamelan repertoire.
+% dossier-licence: Draft original; reference works and recordings remain copyrighted.
+% dossier-respect: Name the chosen ensemble, composer and island; explain that equal-tempered school instruments cannot reproduce paired gamelan tuning.
+% dossier-review: Balinese gamelan educator and Grade 8 teacher.
+X:1
+T:Gamelan City
+C:Grand Central Stationery workshop
+R:polyphonic coordination study
+S:Original classroom composition, 2026; listening bridge to I Nyoman Windha
+M:4/4
+L:1/8
+Q:1/4=120
+K:C
+%%style drone
+V:1 name="Line A"
+V:2 name="Line B"
+[V:1] C2 E2 G2 A2 | G2 E2 D4 | E2 G2 A2 c2 | G8 |
+[V:1] A2 G2 E2 D2 | C2 E2 G4 | A2 G2 E2 D2 | C8 |]
+[V:2] z C z E z G z A | z G z E D4 | z E z G z A z c | G8 |
+[V:2] z A z G z E z D | C2 G2 E4 | z A z G z E z D | C8 |]

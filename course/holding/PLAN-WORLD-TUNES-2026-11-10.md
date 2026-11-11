@@ -80,6 +80,70 @@ Ranked within each region. "Band now" means the page's current sounds;
 Avoid: Curtis's rain ceremony and Manchiki spirit songs; Junod's exorcism and
 war tunes (Tunes 24-29, 32); the owl song (witchcraft associations, tobacco).
 
+### West Africa update (11 November 2026)
+
+1. **Sansa Akroma** (Ghana). Addo and Adu, “Examining the Use of Folk
+   Resources for Creative Arts Education in Ghana's Basic Schools,” *IJEA*
+   23(4), 2022, Figure 3, p. 18, DOI 10.26209/ijea23n4, CC BY-NC 4.0. A
+   Ghanaian early-years teacher describes moving stones or oranges while the
+   children sing, using the game for counting, vocabulary, reasoning and
+   eye-hand coordination. The eight-bar 2/4 score is checked bar by bar. The
+   source does **not** identify the language or a community, translate the
+   words, give a tempo, or document instrumental accompaniment. The workshop
+   record therefore starts unaccompanied, names quarter note = 96 as our trial
+   tempo, and requires a Ghanaian teacher familiar with the game plus a
+   competent speaker before classroom approval. It is one Ghanaian candidate,
+   not evidence for a generic West African performance style.
+   A dated human-review packet now asks for the language, translation,
+   pronunciation, score corrections, passing action, tempo, accompaniment,
+   classroom range and permission to credit the reviewer. The article's
+   authors are named as possible first contacts, not as completed reviewers;
+   no one has yet been contacted and the classroom check remains pending.
+2. **Go le mimli** (Èwè-Dòmè, Ghana). Divine Kwasi Gbagbo and D. Rose
+   Elder, "Storytelling Songs of the Èwè-Dòmè of Ghana," *African Music*
+   11(1), 2019, Figure 5, p. 107, DOI 10.21504/amj.v11i1.2294. The
+   publisher-linked AMIRA catalogue records CC BY-NC-SA 4.0. This is a
+   *glimedeha*, an audience-interrupting teaching/storytelling song about the
+   continuing movement of a gourd and the continuing work of community
+   storytelling. Its sixteen-bar 6/8 melody and two printed handclap layers
+   have been checked bar by bar. No chords, bass, bell or drum were added.
+   The source gives an overall translation and performance context but no
+   tempo, tone-marked text, word-by-word translation or recording of this
+   song. It therefore waits for an Èwè-Dòmè storyteller/music educator and
+   speaker, a second plate reader and a classroom teacher.
+
+The private pipeline now has two distinct West African classroom functions:
+a Ghanaian counting/passing game and an Èwè-Dòmè storytelling interlude.
+Neither is published coverage. A permission-safe lullaby remains desirable,
+but not at the cost of transcribing a restricted recording, reusing lyrics
+without a melody licence or importing accompaniment from another community.
+
+### Southeast Asia update (11 November 2026)
+
+1. **I Plant Some Rice** (Ilocos Sur, Philippines). Norberto Romualdez et
+   al., *The Philippine Progressive Music Series for the Primary Grades*,
+   digitized volume revised through 1948, printed p. 25, HathiTrust handle
+   `2027/miun.ash9039.0001.001`. HathiTrust marks the item Public Domain. The
+   page labels the melody an Ilocos Sur folk song, credits notation to
+   Florencio Buado and gives a secular action-song sequence—plant, harvest,
+   pound, cook and eat—suited to a classroom movement lesson. The complete
+   600 ppi plate is checked measure by measure: a one-eighth pickup, nine
+   full 2/4 bars and a three-eighth close, D4-D5 in G, with an A-sharp in the
+   contrasting phrase. Voice and mime are the only source evidence; the
+   workshop record mutes every generated band part.
+
+   The printed English verses are **not** treated as traditional Ilocano
+   lyrics. The book gives no Ilocano title/text, translation credit, singer,
+   collector, tempo, accompaniment or recording, and the NCCA has warned
+   that English-only school translations can obscure Filipino songs' origin.
+   A linked packet therefore asks an Ilocano practitioner and speaker, a
+   Filipino music historian, second plate reader and classroom teacher to
+   decide whether the English adaptation should be retained, replaced with
+   permissioned living words or omitted. No reviewer has been contacted and
+   no review is complete. This gives the Southeast Asia pipeline its first
+   complete, singable classroom tune beside the existing permission-blocked
+   S'tiêng lithophone fragment, without changing published coverage.
+
 ### Latin America and the Caribbean
 
 1. **Na Bahia tem** (Brazil, Rio/Bahia/Minas). Alexina de Magalhães Pinto,
@@ -285,6 +349,24 @@ README paragraph is updated, as the project already does.
    a record passes its classroom check; performance links are listened to by
    a person before they are trusted, and the record says who listened.
 
+### Launch runway update, 11 November 2026
+
+- The generated coverage report counts **90/100** unique published or complete
+  workshop tunes. It excludes eight incomplete fragments and every review copy.
+- **25/90** are explicitly labelled originals or generated works. The user's
+  25% allowance caps that category at 25 of 100, so all ten remaining tunes
+  must be source-backed; generated work is not a geographic-coverage tool.
+- This batch adds two sourced candidates and one original: Queen
+  Liliʻuokalani's *Aloha ʻOe* (Pacific, authored song), Ishihara and Nōsho's
+  *Usagi to Kame* (East Asian children's teaching song), and the CC0,
+  AI-assisted movement game *Freeze on One*. All remain in the workshop.
+- The next high-value batch is three or four source-backed classroom functions:
+  a permission-safe Pacific game or lullaby, a Caribbean children's song or
+  dance, a Middle Eastern children's teaching song, and a community-approved
+  North American Indigenous route rather than an uninvited transcription.
+  Add at most one original only if a source or permission gate blocks one of
+  those cells.
+
 ## E. Open questions for the teacher
 
 - Who can review Chindau and Zulu, Portuguese, Spanish, Quechua, Arabic,
@@ -292,8 +374,8 @@ README paragraph is updated, as the project already does.
   Colleagues, families at the school, or consultants?
 - Is a song with sacred use elsewhere (Na Bahia tem as an Umbanda ponto) fine
   in its children's form, with a note?
-- For gaps with no public-domain notation (Ghana, Afro-Caribbean rhythms,
-  Levantine children's songs, Romani songs): would you accept a CC0
+- For gaps with no public-domain notation (additional Ghanaian functions,
+  Afro-Caribbean rhythms, Levantine children's songs, Romani songs): would you accept a CC0
   transcription made with a tradition-bearer, credited by name?
   **Answered 2026-11-11: yes, definitely.** Such a record says who sang or
   played it, when and where, and that they agreed to a CC0 release; its

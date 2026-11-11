@@ -1,0 +1,33 @@
+% holding-id: ontario-g7-log-drum-constellation
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Choose an authorized Kabza De Small recording and ask a South African amapiano producer/educator to review the production-language comparison.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 7
+% composition-elements: minor triads, bass-register timbre, syncopated repertoire rhythm, layered texture and arrangement through density
+% composition-listen: Kabza De Small — "Sponono"
+% composition-listen-url: https://www.youtube.com/results?search_query=Kabza+De+Small+Sponono+official
+% composition-bridge: Listen for spacious tempo, keyboard harmony, vocal layers and the pitch-shaped log-drum bass as an arranging voice.
+% composition-context: Amapiano developed in South African townships and is shaped by producers, dancers, DJs and changing local scenes. This new classroom minor loop is not an amapiano track.
+% composition-distance: Original melody and loop; no log-drum line, sample, vocal, chord sequence or production from the reference is copied.
+% improv: {"id":"A","bars":"1-2","role":"bass improviser","prompt":"Choose the bass gesture","choices":["root then leap","slide downward","one note and space"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"arranger","prompt":"Create the drop with texture","choices":["remove drums","remove chords","all layers enter"],"replyBars":2}
+% dossier-honesty: Original minor-loop arrangement lab; not an amapiano pastiche.
+% dossier-licence: Draft original; reference work and recording remain copyrighted.
+% dossier-respect: Name South African producers and dance communities; do not detach the log drum from amapiano and market it as a generic preset.
+% dossier-review: South African amapiano producer/educator and Grade 7 teacher.
+X:1
+T:Log-Drum Constellation
+C:Grand Central Stationery workshop
+R:minor-loop arrangement lab
+S:Original classroom composition, 2026; listening bridge to Kabza De Small
+M:4/4
+L:1/8
+Q:1/4=112
+K:Fm
+%%style pop
+"Fm"F2 A2 c3 A | "Db"D2 F2 A3 F | "Ab"A2 c2 e3 c | "Eb"E2 G2 B4 |
+"Fm"z F3 A2 c2 | "Db"z D3 F2 A2 | "Ab"z A3 c2 e2 | "Eb"E8 |]

@@ -1,0 +1,34 @@
+% holding-id: ontario-jk-silver-drop
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Test with mallets and found sounds; verify that children can choose dynamics without striking hard or unsafely.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: JK
+% composition-elements: sound quality, speed and volume — hear one sound decay, then decide when another sound belongs
+% composition-listen: Evelyn Glennie — "A Little Prayer"
+% composition-listen-url: https://www.youtube.com/results?search_query=Evelyn+Glennie+A+Little+Prayer
+% composition-bridge: Listen past the attack into the fading sound; compare metal, wood, voice and silence.
+% composition-context: Evelyn Glennie's solo percussion work invites close listening to resonance and touch. This original two-note sound study does not imitate her composition.
+% composition-distance: Original notes and words; the lesson reference is named for listening only, with no audio or score embedded.
+% improv: {"id":"A","bars":"1-2","role":"one player","prompt":"What follows the silver sound?","choices":["soft echo","lower answer","let it fade"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"circle","prompt":"Pass the sound when you hear space","choices":["clockwise","across the circle","unexpected neighbour"],"replyBars":2}
+% dossier-honesty: Original resonance study; no phrase from the reference is used.
+% dossier-licence: Draft original; the listening reference remains copyrighted.
+% dossier-respect: Introduce Glennie as a composer-performer and discuss listening through vibration without using disability as inspiration rhetoric.
+% dossier-review: Early-years and accessibility-minded music educators.
+X:1
+T:Silver Drop
+C:Grand Central Stationery workshop
+R:resonance study
+S:Original classroom composition, 2026; listening bridge to Evelyn Glennie
+M:2/4
+L:1/4
+Q:1/4=64
+K:C
+%%style ballad
+E2 | z2 | G2 | z2 | E G | z2 | G E | E2 |]
+w: Shine. * Hear. * Drop and wait. * Soft-ly home.

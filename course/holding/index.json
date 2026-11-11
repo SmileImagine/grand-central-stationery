@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10",
+ "generated": "2026-11-11",
  "stages": [
   "inbox",
   "transcription",
@@ -8,10 +8,10 @@
   "ready"
  ],
  "counts": {
-  "inbox": 0,
-  "transcription": 4,
-  "source-check": 23,
-  "classroom-check": 0,
+  "inbox": 3,
+  "transcription": 37,
+  "source-check": 22,
+  "classroom-check": 8,
   "ready": 0
  },
  "items": [
@@ -46,6 +46,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A round dance for the coming of spring: the \"April queen\" calls everyone, girl and boy, to come and dance, to spite the jealous old king; the chorus shouts \"Eya!\" after each of the soloist's lines and sings the refrain, \"Away, away, jealous ones, let us dance among ourselves.\"",
     "elements": "Call and answer: a soloist's line (always the same seven notes, B c d d d B A) and the chorus's \"E-ya!\" held over four bars; then a sixteen-bar refrain for everyone. 3/4 in a long-short swing (half then quarter), the medieval first rhythmic mode as Aubry read it; G is the final, the range an octave (F sharp to e).",
@@ -54,7 +56,9 @@
     "licence": "Pierre Aubry (1874-1910), Trouvères et troubadours (Paris: Félix Alcan, 1909): public domain in the US, Canada and Europe (Aubry d. 1910).",
     "respect": "A secular spring dance; the \"jealous\" are the old husband and his kind, a stock figure of the genre. Nothing sacred.",
     "review": "An early-music singer, for the Occitan words and the rhythm."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "adana-melody",
@@ -85,6 +89,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A \"simple popular melody collected in Asia Minor, among the peasants of the province of Adana\"; Yekta prints it to show that a melody a European would call A minor without a leading tone is in fact in another mode, built on the tetrachord A-B-C-D with a B lower than the European one, and that \"even a man who knows nothing of music\" in the East hears the difference (p. 2951).",
     "elements": "2/4, quarter = 56; eight bars, the first two repeated; dotted sixteenth and thirty-second figures (a \"snap\") on almost every beat; final A, range F sharp to e; the tetrachord A B C D with E above and G, F sharp below as ornaments.",
@@ -95,7 +101,66 @@
     "licence": "Raouf Yekta Bey (1871-1935), \"La musique turque\", in Lavignac and La Laurencie (eds.), Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922): public domain in the US (1922) and in Canada (Yekta d. 1935).",
     "respect": "A secular folk melody; nothing sensitive. Yekta wrote as a Turkish theorist answering European dismissals of Eastern scales; his own argument is the lesson.",
     "review": "A Turkish musician (a bağlama or ney player), for the makam and the tuning."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "aloha-oe",
+   "file": "items/aloha-oe.abc",
+   "title": "Aloha ʻOe",
+   "subtitle": "Farewell to Thee",
+   "source": "Queen Liliʻuokalani, Aloha Oe: Farewell to Thee, autographed sheet music placed in the Liliʻuokalani School cornerstone, 12 April 1912, Hawaiʻi State Archives M494-3-2, vocal score pp. 3-4; public domain",
+   "sourceUrls": [
+    {
+     "url": "https://ags.hawaii.gov/archives/online-exhibitions/music-from-the-queens-collection/",
+     "label": "Hawaiʻi State Archives exhibition identifying the Queen's manuscript collections and the 1912 autographed Aloha ʻOe score"
+    },
+    {
+     "url": "https://files.hawaii.gov/dags/archives/M494/M494-3-2_o.pdf",
+     "label": "Hawaiʻi State Archives, M494-3-2, seven-page scan of the autographed 1912 score"
+    },
+    {
+     "url": "https://digital.library.manoa.hawaii.edu/items/show/31961",
+     "label": "University of Hawaiʻi at Mānoa catalogue record SCORE AL 008 and historical note"
+    },
+    {
+     "url": "https://www.loc.gov/static/programs/national-recording-preservation-board/documents/Aloha-Oe_Revell-Carr.pdf",
+     "label": "Library of Congress National Recording Registry essay on the song's history and later reception"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "This record was read from the Queen's autographed score, not from a modern recording. A reviewer-led demonstration should establish Hawaiian pronunciation and the relationship between solo verse and communal refrain; do not copy a commercial recording's arrangement."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "The autograph score and authorship are checked, but no human review has occurred. A Native Hawaiian music educator or historian, a competent Hawaiian-language speaker, a second score reader and a classroom music teacher must check the text, pronunciation, historical framing, verse-to-chorus practice and classroom key before publication.",
+   "notes": "CONTEXT: Hawaiʻi State Archives dates the composition to 1878; the University of Hawaiʻi catalogue says it was written in 1877 or 1878 and later transcribed during the Queen's 1895-1896 house arrest. The 1912 edition credits both words and music to \"Her Majesty Liliuokalani of Hawaii\" and prints the 1884 copyright notice. These are authored historical facts, not evidence that every later tourist arrangement reflects Hawaiian practice.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "Queen Liliʻuokalani's composed Hawaiian farewell and love song; in class it can teach solo verse and communal refrain, sustained phrase singing, a one-beat pickup and the chromatic upper neighbour G-sharp",
+    "elements": "sixteen complete 4/4 bars after a one-beat pickup; G major, D4-C5 range, mostly stepwise verse and refrain, dotted-quarter/eighth figures, a held verse cadence that leads directly into the refrain pickup, and two written G-sharps that resolve to A",
+    "practice": "The 1912 score marks Moderato, gives the verse to a solo voice with piano and expands the refrain to SATB chorus with piano. Quarter note = 84 is our rehearsal estimate, not the Queen's metronome mark. Let one singer or a small group carry the verse and the class join on the refrain. The written G-major range D4-C5 fits the conservative C4-D5 young-unison range, so G is the first rehearsal key to test",
+    "accompaniment": "The source documents composed piano accompaniment and SATB writing for the refrain, but this workshop record transcribes only the vocal melody. Begin unaccompanied or with a quiet pitch reference; do not add ukulele, steel guitar, hula percussion or a generic \"island\" groove as though the score required it. Any generated harmony must be labelled as a new classroom arrangement, not traditional Hawaiian practice",
+    "lyrics": "The autograph prints Hawaiian text in 1912 orthography without modern ʻokina or kahakō, plus English and German singing translations. This ABC keeps the plate's Hawaiian spelling and the refrain's printed English phrases as source evidence. A competent Hawaiian-language speaker must supply modern orthography, meaning and pronunciation before students sing it",
+    "honesty": "Authored historical-source transcription, not an anonymous folk song: words and music are by Queen Liliʻuokalani, composed in 1877 or 1878. The melody follows the 1912 autographed edition at Hawaiʻi State Archives; ABC spelling, bar numbering, rehearsal tempo, melody-only reduction and muted-band directives are ours",
+    "licence": "The composition and 1884 publication are public domain; Liliʻuokalani died in 1917. Hawaiʻi State Archives provides the 1912 autographed score as an open government archive scan. Reuse this melody transcription as public-domain source material, while separately crediting the Queen and the archive",
+    "respect": "Name Queen Liliʻuokalani and the Hawaiian Kingdom context. University of Hawaiʻi notes that the song can be heard both as a love song and as a statement of Hawaiian sovereignty. Do not reduce it to tourist \"island music,\" label it traditional or anonymous, stage a generic hula, or detach it from the overthrow and annexation history when that history is discussed",
+    "review": "Native Hawaiian music educator or historian, competent Hawaiian-language speaker, second score reader and classroom music teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "arirang-hulbert",
@@ -124,6 +189,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "folk song (minyo); the \"Mungyeong Saejae\" Arirang, which Hulbert heard everywhere in Seoul in 1896; the chorus is fixed and the verses are improvised",
     "elements": "3/4 (Hulbert's notation of a lilting triple metre, the semachi jangdan); five notes, G A C D E, ending on G; the chorus \"Arirang, arirang, arariyo\" then a verse about the birch trees of Mungyeong Saejae made into washing clubs",
@@ -132,7 +199,9 @@
     "licence": "public domain (Homer B. Hulbert, \"Korean Vocal Music\", The Korean Repository 3, February 1896, pp. 45-53; Hulbert died 1949); read bar by bar from the archive.org scan of the University of Illinois copy on 2026-11-10",
     "respect": "Arirang is a national song of Korea, North and South, and on UNESCO's list (2012, 2014); present it as a living song with many regional versions, this one as the earliest written down, by an American missionary",
     "review": "a Korean culture bearer or a teacher of gugak before publishing"
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "ba-ban",
@@ -172,6 +241,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "An instrumental popular air: Richard (1899) calls it a tune known all over China, by more people than any other single tune. It is played, not sung, and is the framework that ensembles vary and ornament.",
     "elements": "2/4 in quarters and halves; pentatonic on F (F G A c d, the gong mode), ending on F; range C to f; three phrases (16, 12 and 13 bars), each answering the last with the same falling cadences (F2 | C D | F2).",
@@ -182,7 +253,59 @@
     "licence": "Mary Martin Richard (d. 1903), Paper on Chinese Music (Shanghai: American Presbyterian Mission Press, 1899): public domain everywhere.",
     "respect": "Avoid the first part of the same appendix (Nos. 1-17), Confucian ritual hymns. Richard was a missionary; some of her appendix tunes were adapted for hymns. Ba ban itself is a secular popular tune.",
     "review": "A player of Chinese instruments (Jiangnan sizhu), for the form and the ornaments."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "black-hills-powwow-song",
+   "file": "items/black-hills-powwow-song.abc",
+   "title": "Black Hills Powwow song (fragment)",
+   "subtitle": "A phrase of a Northern powwow song: lead and seconds over the drum",
+   "source": "Clip 13 of a Dust-to-Digital Instagram post (19 October 2026), filmed by Jenn Nicoteen at the Black Hills Powwow; draft by pitch tracking",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=13",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 13 of 20: the Black Hills Powwow, Rapid City, South Dakota, via Jenn Nicoteen on Facebook"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=13",
+     "label": "the Black Hills Powwow, Rapid City, South Dakota (Dust-to-Digital, October 2026; filmed by Jenn Nicoteen, shown on \"Jenn's Reels\")"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 17 seconds of an indoor arena: jingle-dress and fancy-shawl dancers in a circle; the drum and singers are heard but not seen. Jenn Nicoteen's Facebook reel is the original; the full song, and the drum's name, may be there."
+   ],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: name the song and the drum group singing it, and ask the group (or the powwow committee) whether it may be taught; until then nothing here is used in class. Transcription: a machine draft of the 17 seconds (the lead's phrase, the seconds' answer down to the low F, the start of the next push-up), sung with wide slides under crowd noise and jingles; it needs a powwow singer's ear, and ideally a longer, cleaner recording of the same song.",
+   "notes": "HOW READ (2026-11-11): the clip's sustained part (harmonic/percussive separation, which takes out the drum strokes and the jingles) was pitch-tracked between G3 and E6; the singing sits about 40 cents above A=440 at the start and sags 20-30 cents by the long F, which is taken as the tonic (7.9-9.4 s, with the octave below). Phrases: the lead 0.2-4.7 s (B to C6, then B, A, G, A, B flat, A, a dip to C5, A held), the seconds 5.6-9.4 s (F sharp, B, E flat, E, F held), the next phrase 9.5-13.4 s (a quick turn G, F sharp, B, F sharp, then E, B4, G, D, G, A, F, A, B flat 4, A flat 4), drum only 13.5-15.7 s, and the start of the next (F sharp, 15.8 s). One eighth here is one drum stroke (about 0.30 s). Scored against the pitch track, each phrase aligned at its own start: 53% of voiced frames in all (lead 53%, seconds 64%, the third phrase 34%), lower than a steady instrument would give because of the slides.",
+   "kind": "fragment",
+   "kindNote": "Seventeen seconds: the lead's opening phrase, the answer down to the tonic, and the start of the next phrase, drafted by pitch tracker; missing: the song's name and owners, the vocables, the rest of the form (the four push-ups, honor beats, tail), the drum part as played, and the dance it was sung for.",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "A powwow song sung at the drum for the dancers in the arena; this one carries jingle-dress and fancy-shawl dancers, so most likely an intertribal or a women's category song. Powwow songs are made and owned by singers and drum groups; some are ceremonial (honor songs, flag songs, veterans' songs) and are not to be sung outside their place.",
+    "elements": "Northern style as heard: a high, strained lead that enters near the top of the voice (C6) and falls in terraces; the seconds answer from F sharp down through E flat and E to a long F, sung with the men an octave below; a new phrase then starts high again (G and B) and falls to A flat 4 below the tonic. The notes heard are F, G, A, B flat, C with B natural, E flat, E and A flat as slides and passing notes; every note is approached by a slide.",
+    "practice": "Very loud, high and bright; the drum is struck together by several singers seated round one large drum, a steady beat of roughly 200 strokes a minute in this reading (unsteady under the crowd). The song falls from the lead's opening down to the low tonic; the whole song is repeated four times (\"push-ups\"), with honor beats (accented strokes) in places.",
+    "accompaniment": "Tradition: one large bass drum played by the singers themselves, nothing else. The band plays nothing here; if the class ever uses this, one floor drum with soft beaters, played together.",
+    "lyrics": "Not taken: the words were not audible, and powwow songs are often sung in vocables or in a Native language. None to be sung without the owners' consent.",
+    "honesty": "Traditional practice; the song itself is probably owned. This draft is ours: the pitches were read by pitch tracker from a crowd recording, the slides reduced to single notes, and the lengths and bar lines guessed. Not a reliable transcription.",
+    "licence": "Unknown: the song may be the composition of a living singer or drum group. The recording belongs to Jenn Nicoteen and the powwow; only an outline of the melody was taken, and no audio or video is kept here.",
+    "respect": "Ask before teaching. Powwow singing belongs to Native communities and to the drum groups who make the songs; some songs are ceremonial. Present it only with the community's permission, name the drum and the powwow, and do not imitate the singing style as a novelty. If the song is one the singers say may be shared, a Lakota or Northern Plains singer should teach it.",
+    "review": "A powwow singer or the drum group itself; the Black Hills Powwow committee (Rapid City), for the song's name and whether it may be taught."
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "bqaw-ala-kheir",
@@ -213,6 +336,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "The closing song of every Maghreb feast: the musicians' leave-taking of the hosts who listened to them (Rouanet's footnote 2), \"the obligatory conclusion of every feast, whatever its character, where there is any music at all\". Every couplet begins \"Stay in peace!\"; when the traditional couplets run out, the singers improvise lines naming the guests and the people they wish to honour, rhyming the names with formulas of thanks.",
     "elements": "6/8, dotted quarter = 108; a two-eighth pickup and three short phrases, ending on B flat and going back to the sign; key of two flats with E natural as a leading tone to F; range B flat to g.",
@@ -223,7 +348,9 @@
     "licence": "Jules Rouanet (1858-1944), in Lavignac, Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922; section copyright 1920): public domain in the US and in Canada (Rouanet d. 1944).",
     "respect": "The words mention the muezzin's call, as the sign that night is over; nothing in the song is a religious text. Rouanet's framing is a colonial scholar's; the record keeps his facts about the music.",
     "review": "An Arabic speaker familiar with Algerian song, for the words and the class couplets."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "bujj-bujj-zold-ag",
@@ -254,6 +381,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "An arch game (Újhold-játék, \"new-moon game\"). Two children join hands and hold them up to make a gate; the others, holding hands in a line, pass under it while everyone sings. In No. 4 the line and the gatekeepers trade the first verse: \"Let us through, bridge-keeper!\" \"I won't let you through, bridge-keeper!\", and the gate closes on the last child, who joins the gatekeepers (Kiss, pp. 206-207).",
     "elements": "F major, 2/4; a repeated four-bar call and answer (c c A A, twice, then c c c d | c A), the \"Bújj, bújj\" verse in eighths and quarters, and a long tail of \"raj-ta, raj-ta\" on F, as many as there are children to pass. Range E to d.",
@@ -264,7 +393,9 @@
     "licence": "Kiss Áron (1845-1908), Magyar gyermekjáték-gyűjtemény (Budapest: Hornyánszky, 1891): public domain everywhere. The MEK file is the 2000 reprint of the 1891 pages; its new preface and notes are not used.",
     "respect": "A children's game; nothing sensitive.",
     "review": "A Hungarian speaker or Kodály-trained teacher, for the words and the game."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "cha-komba-komba",
@@ -293,6 +424,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A singing game for the evening: the children hop on one leg in time to the song, racing to a goal. Putting the other foot down loses the race (Curtis, p. 31, from Simango).",
     "elements": "Three notes (F, A flat, B flat: la, do, re), two bars sung twice: four quick eighths and a held note, then a stressed note, a rest and the answer. 3/4, with a repeat.",
@@ -301,7 +434,159 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
     "respect": "A children's game, nothing sacred. Credit C. Kamba Simango. Curtis notes that the \"th\" of m'nthalila is not pronounced as in English and that the t is followed by a breathed h.",
     "review": "A Chindau speaker, for the words."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "chimaycha-ayacucho",
+   "file": "items/chimaycha-ayacucho.abc",
+   "title": "Chimaycha (Ayacucho), record",
+   "subtitle": "Women's song-dance with harp: the rhythm cell",
+   "source": "Clip 16 of a Dust-to-Digital Instagram post (19 October 2026), via Fajardo Vilcanchos Cocas Ayacucho on Facebook; rhythm read from the recording",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=16",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 16 of 20: a chimaycha performance in Ayacucho, Peru, via Fajardo Vilcanchos Cocas Ayacucho on Facebook"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=16",
+     "label": "chimaycha in Ayacucho: women singing in a line with harp, at night (Dust-to-Digital, October 2026, via Fajardo Vilcanchos Cocas Ayacucho)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 60 seconds, filmed at night among the dancers. Chimaycha has many recordings: the Lucanamarca and Chuschi (Ayacucho) groups, the Instituto de Etnomusicología of the Pontificia Universidad Católica del Perú (Lima), and Raúl R. Romero's writings on Andean music name communities and singers."
+   ],
+   "status": "inbox",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Transcription: the women's high singing and the harp could not be separated by machine (the tracker jumps between them); take the melody by ear from a cleaner chimaycha recording, or from a printed collection, and the Quechua words with it. Source check: the song's name, the community (the page that posted it is named for Vilcanchos and Cocas, districts of Víctor Fajardo province; chimaycha is sung across southern Ayacucho), and whether it is an old song or a newer one by a named singer.",
+   "notes": "HOW READ (2026-11-11): onsets of the whole clip folded onto the cycle that repeats best (1.14 s, one 2/4 bar at about 105 beats a minute, in eight sixteenths): on each beat, strong on the first sixteenth, weak on the second, strong on the third and fourth, which is the huayno cell (an eighth and two sixteenths). The pitch tracker (F4 to C6) found F the most-sung note, then B flat, C, D flat, G and A flat.",
+   "kind": "fragment",
+   "kindNote": "A record of the clip with its rhythm cell and the harp's bass; missing: the melody, the Quechua words, the song's name and maker, the harp's treble, and the dance steps (the women dance in a line while singing).",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "A chimaycha: a song-dance of the southern Ayacucho highlands, sung by young women in a very high, bright voice and danced in a line or circle, at night, at festivals and courting gatherings. Here a group of women in festival dress (wide hats, shawls, full skirts) sing and dance, with a harp played among them.",
+    "elements": "2/4 with the huayno cell, an eighth and two sixteenths on each beat; a minor pentatonic melody (the pitches heard most are F, A flat, B flat, C and E flat, with D flat), sung high over the harp's bass; short phrases repeated in pairs.",
+    "practice": "About 105 beats a minute, steady; the harp's bass marks every beat and its treble the cell; the singers' voices are very high (up to C6) and loud.",
+    "accompaniment": "Tradition: a harp (the Ayacucho arpa, played seated or carried), often a violin and a guitar or charango, with the women singing. Source: the clip, and the genre's usual band. In class: the band's bass on the beats and a guitar or ukulele on the cell, once the melody is known.",
+    "lyrics": "Not taken: the words are Quechua and not clear in the recording; to be found with the song and checked by a Quechua speaker from Ayacucho.",
+    "honesty": "Traditional genre; nothing of this song's melody is written here. The rhythm cell and the tempo are read from the recording (onsets folded onto a 2/4 bar); the pitch content is from the pitch tracker over the whole clip.",
+    "licence": "The genre is traditional; the particular song may be old (anonymous) or by a named singer. The recording belongs to the performers and the Facebook page; no audio or video is kept here.",
+    "respect": "A festive and courting genre, nothing sacred; credit the community and the singers. Present it as women's singing of the Ayacucho highlands, in Quechua.",
+    "review": "A chimaycha singer or a Quechua speaker from Ayacucho; an ethnomusicologist of Andean song for the song's name."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "dampet-culture-group",
+   "file": "items/dampet-culture-group.abc",
+   "title": "Dampet Culture Group (record)",
+   "subtitle": "Part singing with ukulele, Kavieng, New Ireland: pulse only",
+   "source": "Clip 20 of a Dust-to-Digital Instagram post (19 October 2026), via Helen Taivii Sapien; pulse read from the recording",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=20",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 20 of 20: the Dampet Culture Group performing in Kavieng, New Ireland, Papua New Guinea, via Helen Taivii Sapien"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=20",
+     "label": "the Dampet Culture Group, Kavieng, New Ireland (Dust-to-Digital, October 2026, via Helen Taivii Sapien; the video is dated 10.07.26)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 60 seconds, outdoors on gravel. Helen Taivii Sapien's Facebook post is the original. For New Ireland singing: the Institute of Papua New Guinea Studies (Port Moresby) holds field recordings, and the group may have its own videos."
+   ],
+   "status": "inbox",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: the song's name and language, whether it is a customary (kastom) song of a clan or a newer song with a known maker, and whether the group would let it be taught; ask the Dampet Culture Group through Helen Taivii Sapien. Transcription: the parts could not be read from this outdoor recording (many voices, ukulele, wind and crowd, pitch drifting); a cleaner recording, or the group's help, is needed for the harmony.",
+   "notes": "HOW READ (2026-11-11): onsets of the whole clip folded onto the cycle that repeats best (2.50 s): two strong strokes in it, 1.25 s apart, with weaker beats between, so a beat of about 0.62 s with every second one stressed. The pitch tracker found many voices at once and no single line; the pitches drift about 50 cents over the minute.",
+   "kind": "fragment",
+   "kindNote": "A record of the clip and its pulse only; missing: the melody and the harmony parts, the words, the song's name and owners, the ukulele's chords, and the dance.",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "A culture group's performance: men and women in leaf and grass costume with feathered headdresses, singing in parts and dancing in a group, one of them playing a red ukulele, for an audience (perhaps at a festival or an arrival ceremony; the clip does not say).",
+    "elements": "Many voices in close harmony around a high melody, with the ukulele strummed underneath; a steady beat with a stress on every second beat. The voices drift in pitch through the clip (a quarter-tone flat at the start, near A=440 later), as outdoor group singing does.",
+    "practice": "About 97 beats a minute (beats 0.62 s apart), the stress every 1.25 s; full voices, outdoors, sung while dancing.",
+    "accompaniment": "Tradition: voices, and in the newer style the ukulele or guitar of the string bands; older New Ireland dance songs use the kundu (hourglass drum) and the garamut (slit drum). In class: the band's chords and a soft beat, once the parts are known.",
+    "lyrics": "Not taken: not clear in the recording; the language may be Tok Pisin or one of New Ireland's own (Tigak, Kara, Nalik and others around Kavieng); to be checked by a speaker.",
+    "honesty": "Nothing of the music is transcribed here: only the pulse, the instruments and what the video shows.",
+    "licence": "Unknown: customary songs belong to clans and communities in New Ireland, and string-band songs to their makers. The recording belongs to the group and Helen Taivii Sapien; no audio or video is kept here.",
+    "respect": "Customary songs and dances in New Ireland can be tied to clans, to the malagan funerary cycle or to ceremonies; ask the group what this one is and whether it may be sung elsewhere before teaching any of it. Name the group and Kavieng; present the costumes as their own, not as a show.",
+    "review": "The Dampet Culture Group, through Helen Taivii Sapien; a New Ireland speaker of the song's language."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "debellringers-handbells",
+   "file": "items/debellringers-handbells.abc",
+   "title": "De Bellringers, handbells (chord reading)",
+   "subtitle": "Handbell team in a Dutch church: the harmony of 27 seconds",
+   "source": "Clip 19 of a Dust-to-Digital Instagram post (19 October 2026), De Bellringers (@debellringers); chords read from the recording",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=19",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 19 of 20: a handbell performance by @debellringers in the Netherlands"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=19",
+     "label": "De Bellringers, a handbell team, ringing in a church in the Netherlands (Dust-to-Digital, October 2026)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 27 seconds: about eight ringers in a line at a padded table in front of a Gothic-revival altar, each with two or more bells. De Bellringers post their own videos on Instagram (@debellringers), where the piece may be named."
+   ],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: name the piece (ask De Bellringers); if it is a hymn or folk tune in the public domain, take its melody from a printed source and keep this harmony reading only as a check; if it is a modern composition or arrangement, keep only the record and the ringing technique. Transcription: the chords are a machine reading of 27 seconds; a ringer should check them.",
+   "notes": "HOW READ (2026-11-11): the bell onsets fall every 0.39-0.43 s (eighths at about 75 a minute); from 1.7 s, each 0.8 s beat was reduced to its strongest pitches (harmonic salience, room tone subtracted) and matched to major and minor triads. The second section (13.7 s on) matched clearly (scores 0.45-0.57); the first less so (0.31-0.46). Overall the clip sits in A flat major and C minor (G sharp, F and D sharp, that is A flat, F and E flat, are the strongest pitch classes).",
+   "kind": "fragment",
+   "kindNote": "The chord sequence only, read from 27 seconds; missing: the piece's name, composer and arranger, its melody, the voicing (which bells sound in each chord), and the ringing techniques used (one ringer bends to the table to change bells).",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "Concert handbell ringing: a team rings a piece as one instrument, each ringer responsible for two to four notes (one bell in each hand, more on the table), so every chord is made by several people at once.",
+    "elements": "Harmony is the point. A first section in C minor (C minor, F minor, G, C major, A flat, B flat), then a second in A flat major whose chords move in pairs of beats: A flat, E flat, D flat (or F minor), A flat, E flat, B flat, ending on C major. The bells ring on and blend, so each chord sounds as a held wash; the top line moves mostly by step.",
+    "practice": "About 75 beats a minute, with a ring every eighth note in the inner parts; the bells are left to ring through each chord, so how and when they are damped shapes the changes. Quiet and resonant, in a stone church.",
+    "accompaniment": "Tradition: handbells alone (English handbells, three to five octaves). The two voices here ring the chords; in class: chime bars or handbells shared out, each pupil one or two notes, ringing when the chord contains their note.",
+    "lyrics": "None: instrumental (if the piece is a hymn, its words belong to the hymn's own record).",
+    "honesty": "A reading of one team's harmony. The chords were found by matching major and minor triads to the strongest pitches in each beat; the beat grid, the bar lines and the spelling are ours. No melody is written.",
+    "licence": "Unknown: the piece is not named and may be a modern composition or arrangement still in copyright, so only the chord sequence is kept. The recording belongs to De Bellringers; no audio or video is kept here.",
+    "respect": "Rung in a church; the piece may be sacred. Name the team; if it is a hymn, present it as one.",
+    "review": "De Bellringers themselves, for the piece and the ringing; a handbell director for the chords."
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "dle-yaman",
@@ -337,6 +622,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A slow lyrical Armenian folk song, here played as an instrumental on two duduks: the lead carries the melody and its ornaments, the second holds the dam, a continuous drone on the keynote.",
     "elements": "Melody over a drone: one held B under everything. The tune lives in five notes above it (C sharp, D, E, F sharp, G) and only falls to the drone's B at the two cadences; three sections, the first high (around F sharp and G), the second and third low (around D and E), each phrase a short turn into a long held note.",
@@ -347,7 +634,54 @@
     "licence": "The melody is a traditional Armenian folk song (public domain). The recording and video belong to the performers and Dust-to-Digital: only the melody was taken down, and no audio or video is kept here.",
     "respect": "A song of longing, and one often heard at Armenian commemorations; present it as a serious song, not a novelty instrument demo. Name the player and the duduk.",
     "review": "A duduk player or Armenian musician, for the mode, the flat G and the ornaments; ideally someone who can supply the words."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "freeze-on-one",
+   "file": "items/freeze-on-one.abc",
+   "title": "Freeze on One",
+   "subtitle": "Original offbeat-entry movement game",
+   "source": "Grand Central Stationery, \"Freeze on One\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. The first recording should be a classroom demo made with participant consent; do not market a generated playback as evidence that students find the hook effective."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "This original is licence-safe and fully notated, but it has not been tried with students. A classroom music teacher, movement/accessibility reviewer, second score reader and student listening panel must check the hook, breath, lyric alignment, safe movement choices and whether the offbeat entries are teachable at the proposed tempo.",
+   "notes": "HOW READ (2026-11-11): No source plate exists because this is a new composition. The bar-by-bar compositional audit is: bars 1-2 each begin with one eighth rest and contain seven eighth-note onsets, first E-E-G-A-G-E-D then D-D-E-G-E-D-C; bars 3 and 7 place a rest after four eighth notes and contain seven sung onsets; bars 4 and 8 hold C4 for two beats and leave two beats silent. Bars 5-6 repeat the offbeat-entry shape at a higher melodic peak. Every bar totals eight eighth units, the only pitches are C-D-E-G-A, every leap is a fourth or smaller and the written range is C4-C5.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original classroom freeze-and-move game and teaching song; students enter after an eighth rest, follow short movement cues, hold the two-beat freeze and invent one new safe movement for the second half",
+    "elements": "eight bars in 4/4; C-major pentatonic pitch set C-D-E-G-A, C4-C5 octave range, repeated offbeat eighth-note entries, a mid-bar eighth rest in bars 3 and 7, two-beat sung freeze cues followed by two beats of silence, and an A/B lyric form over the same Am-G-F-C loop",
+    "practice": "Quarter note = 112 is the authored target, but begin at 88 and raise the tempo after the class can enter together after the opening rest. Speak the cue, sing it, then add student-chosen accessible movements. C4-C5 fits the conservative C4-D5 young-unison range and C major is the intended rehearsal key",
+    "accompaniment": "The harmony and groove are newly authored, not traditional: Am-G-F-C, with optional foot stomps on beats 1 and 3, claps on 2 and 4 and bass roots on the downbeats. Keep the final two beats of bars 4 and 8 silent so the freeze reads. A future pop/funk band arrangement is part of this composition and must not be labelled Afrobeats, Latin, Indigenous or any other cultural idiom without actually using and reviewing that idiom",
+    "lyrics": "Original English cue words written for this record. Teachers may replace movement verbs with accessible alternatives while preserving the seven-syllable cue shape; record classroom substitutions as adaptations rather than folklore variants",
+    "honesty": "Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm, safety and teaching constraints. It is not traditional, not collected from a community and not modelled on a named song; melody, words, harmony and accompaniment guidance are new",
+    "licence": "CC0 1.0. Grand Central Stationery dedicates the generated melody, words, chord loop and this ABC encoding to the public domain to the extent legally possible",
+    "respect": "Culture-neutral course original. Do not use it to fill a geographic coverage cell or relabel its generic pop/funk rehearsal groove as a cultural tradition. Movement must be optional and adaptable for seated, standing, signing or instrument-only participation",
+    "review": "Classroom music teacher, movement/accessibility reviewer, second score reader and student listening panel; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "galloway-road",
@@ -376,6 +710,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "game: a ring game about breaking stones on the Galloway road quarry; choosing stones stands for choosing partners. A relative of the stone-passing song \"Go Dung a Manuel Road\"",
     "elements": "2/4 with triplets on \"Galloway\" and \"Take up the one that you\"; the refrain \"gal an' boy\" on a falling F D D D; the raised G sharp leading to A in bar 3",
@@ -384,7 +720,62 @@
     "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
     "respect": "a work and play song; the words describe convict and labourer stone-breaking, worth a sentence of history in class",
     "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "go-le-mimli",
+   "file": "items/go-le-mimli.abc",
+   "title": "Go le mimli",
+   "subtitle": "Èwè-Dòmè storytelling interlude",
+   "source": "Divine Kwasi Gbagbo and D. Rose Elder, \"Storytelling Songs of the Èwè-Dòmè of Ghana,\" African Music 11(1), 2019, pp. 91-112, Figure 5 p. 107, doi:10.21504/amj.v11i1.2294, CC BY-NC-SA 4.0",
+   "sourceUrls": [
+    {
+     "url": "https://doi.org/10.21504/amj.v11i1.2294",
+     "label": "stable DOI for Gbagbo and Elder (2019)"
+    },
+    {
+     "url": "https://journal.ru.ac.za/index.php/africanmusic/article/download/2294/1232",
+     "label": "Rhodes University article PDF; Figure 5 is on journal p. 107 (PDF p. 17)"
+    },
+    {
+     "url": "https://data.africamultiple.uni-bayreuth.de/resource/32083",
+     "label": "AMIRA catalogue record for the article, recording CC BY-NC-SA 4.0 and public access"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "The article and its references link field recordings for three other songs, but not for \"Go le mimli\"; do not substitute an unrelated Èwè performance. Ask the named human reviewer to demonstrate the words and clapping."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "An Èwè-Dòmè storyteller or music educator and a competent Èwè-Dòmè speaker must check the words, tones, pronunciation, clapping, classroom framing and whether this interlude may be taught outside a community storytelling session; a classroom music teacher and second plate reader are also required, and none of these reviews has occurred.",
+   "notes": "CONTEXT: The article calls this a glimedeha, an audience interruption during storytelling. It says the rolling gourd's uncertain origin and destination stand for an unending, evolving storytelling process and that the song asks narrator and audience to participate, learn moral lessons and keep community stories alive (pp. 98-99).",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "An Èwè-Dòmè glimedeha, or audience-interrupting song, used during community storytelling around Ho in Ghana's Volta Region; this interlude pauses the plot, brings the audience into the performance, reinforces learning from the story and helps keep community stories alive",
+    "elements": "sixteen bars in 6/8; a C4-B4 descending diatonic melody, with bar 1 a wordless three-note lead-in and bars 5-12 extending bars 1-8 before a four-bar cadence; Figure 5 also prints two counter-rhythmic handclap layers, one in dotted quarters and one filling selected offbeats with eighth-note pairs",
+    "practice": "An audience member introduces the interlude and the gathering joins; the source says a leader chooses a key that does not \"catch the throat\" and that songs stop the story's forward motion to create tension. Figure 5 is in C and the C4-B4 classroom range fits a conservative C4-D5 young-unison span. No tempo is printed; dotted quarter = 72 is our rehearsal estimate, to be replaced if an Èwè-Dòmè reviewer demonstrates another pace",
+    "accompaniment": "The source says storytelling participants always clap or body-tap, though instruments are not present at every session. Figure 5's two handclap parts are transcribed below as separate percussion voices. Start with voice alone, add each clap group by ear, and use no chords, bass, bell or drum; the band directives are muted because generated accompaniment would not be source evidence",
+    "lyrics": "Figure 5 prints \"Go le mimli tolitolitoli\" and \"Fi ne ke go tso\" without tone marks or a word-by-word translation. The article renders the main idea as \"A gourd is rolling on and on\" and the caption as \"The gourd is rolling on, regardless of its origin,\" explaining uncertainty about the gourd's origin and destination. Keep the plate's spelling for review; an Èwè-Dòmè speaker must confirm segmentation, tones, meaning and pronunciation before students sing it",
+    "honesty": "Openly licensed source transcription: melody, printed words and both clap layers follow Gbagbo and Elder's Figure 5, transcribed by Divine K. Gbagbo. ABC spelling, bar numbering, the rehearsal tempo and the decision to put each printed clap layer on its own one-line percussion staff are ours; no harmony or regional style has been generated",
+    "licence": "Gbagbo and Elder (2019), African Music 11(1), pp. 91-112, is recorded by the publisher-linked AMIRA catalogue as CC BY-NC-SA 4.0. This noncommercial workshop transcription is attributed to the authors and Divine K. Gbagbo and must remain under CC BY-NC-SA 4.0; it is not cleared for the public AGPL repertoire without a licensing decision",
+    "respect": "The article identifies this as Èwè-Dòmè storytelling practice around Ho, not a generic Ghanaian or West African pattern. Although the article discusses storytelling at festivals, wakes, initiations and other gatherings, it describes this particular glimedeha as an audience interlude and gives no sacred or ceremonial claim for it. A community reviewer must still approve classroom use and the story context",
+    "review": "An Èwè-Dòmè storyteller or music educator, a competent Èwè-Dòmè speaker, a second score reader and a classroom music teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "gurkha-dance-tune",
@@ -400,12 +791,12 @@
    ],
    "performances": [],
    "performanceNotes": [],
-   "status": "transcription",
+   "status": "classroom-check",
    "owner": "",
-   "sourceCheck": "pending",
+   "sourceCheck": "verified",
    "classroomCheck": "pending",
    "updated": "2026-11-10",
-   "blocked": "Read the one bar again at 2400 dpi (p. 57, scan p. 79, first staff): the grouping of beats 1 and 3 (eighth plus two sixteenths, or a triplet) and the end of beat 0 (G c and a rest); then source-check.",
+   "blocked": "A Nepali/Gurkha culture bearer and dance teacher should review the historical military setting, movement description and classroom use; no such review has occurred.",
    "notes": "\"To such tunes as\" this, four men A, B, C, D danced, lifting the foot to the level of the knee, their movements on the four beats of the bar, which the plate numbers 1 2 3 0 (0 is the silent beat): (1) all clap hands; (2) B and D touch right palm to A and C's left palm, fingers pointing upwards; (3) clap hands; (0) D and B touch left palm to A and C's right palm, and all step backwards instead of forwards on this beat. No words, no tempo and no tonic are printed; no signature, and the notes are d, c and G, so the drone is on G and the band's clap line marks the three hand-beats and leaves beat 0 silent.",
    "kind": "fragment",
    "kindNote": "One bar, which four men repeated while they clapped and danced (the moves are in the N: line). It would want the clap pattern as a rhythm part, the dance as steps for the class, and how many times round it went.",
@@ -413,7 +804,21 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
-   "dossier": null
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "one-bar dance-tune fragment for a four-man clapping dance, as described by Fox Strangways",
+    "elements": "one repeated 4/4 bar on G, C and D; beats labelled 1, 2, 3, 0; claps or palm touches on each labelled beat, with beat 0 also stepping backwards",
+    "practice": "the source gives no tempo or repeat count; the written C rehearsal key spans G4-D5 and fits the conservative C4-D5 young-unison range; quarter note = 100 is our trial tempo",
+    "accompaniment": "the source documents the dancers' handclaps and palm touches but no instrument; use the notated clap line alone, with the generated drone and any added percussion muted unless a reviewer chooses otherwise",
+    "lyrics": "no words are printed; do not add words or infer a language",
+    "honesty": "historical-source fragment: the one bar and movements follow Fox Strangways; the G drone, tempo, timbre mapping and classroom repetition are ours, not described as traditional",
+    "licence": "public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); ABC read bar by bar from p. 57 on 2026-11-10",
+    "respect": "the source records men of the 2nd Goorkhas in colonial India; do not use that military setting to claim a language, a pan-Nepali identity or present-day dance practice",
+    "review": "Nepali/Gurkha culture bearer and dance teacher, plus a classroom teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "gurkha-sing-song",
@@ -429,12 +834,12 @@
    ],
    "performances": [],
    "performanceNotes": [],
-   "status": "source-check",
+   "status": "classroom-check",
    "owner": "",
-   "sourceCheck": "pending",
+   "sourceCheck": "verified",
    "classroomCheck": "pending",
    "updated": "2026-11-10",
-   "blocked": "Source check: hear it against the plate (p. 57, scan p. 79) and confirm the three things a measurement cannot settle: the \"w\" over the e in the solo (read as an upper mordent), the right hand on the high head of the drum, and that the unlabelled first staff belongs to the same song as the solo and chorus.",
+   "blocked": "A Nepali/Gurkha culture bearer, singer and drummer should review the historical military setting, vocal/drum interpretation and classroom use; no such review has occurred.",
    "notes": "From a sing-song of the men of the 2nd Goorkhas after a hockey match: the songs followed so fast that no words could be taken down; one or two men whirled in the middle of the crowd with bent knees and elbows and upturned palms, a couple of bars at a time danced crouching, and at the end of a chorus there was sometimes a grunted \"Ha! Ha!\".",
    "kind": "tune",
    "kindNote": "",
@@ -442,7 +847,21 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
-   "dossier": null
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "social sing-song after a hockey match, with solo/chorus singing, dancing and drum",
+    "elements": "an opening phrase followed by a two-bar solo and answering two-bar chorus; C final over a G-C frame; the printed 6/8 right/left drum line runs three-against-two under the 4/4 voice",
+    "practice": "one or two men danced with bent knees, bent elbows and upturned palms, sometimes crouching for a few bars; the written G4-G5 octave is high for young unison voices, so rehearse in F (-7 semitones, C4-C5); quarter note = 108 is ours",
+    "accompaniment": "Fox Strangways prints a two-hand drum line and says \"Drum as before\" under the solo; the page maps printed right-hand strokes to rim and left-hand strokes to low drum only as a rehearsal substitute, not as an identified instrument or timbre",
+    "lyrics": "no words were taken down because the songs followed too quickly; the occasional grunted \"Ha! Ha!\" at a chorus ending is the only vocal text reported",
+    "honesty": "historical-source transcription: melody, solo/chorus labels and right/left drum attacks follow the plate; tonic/drone, tempo, ornament name and drum timbres are our interpretations",
+    "licence": "public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); all six vocal bars and the drum line checked against p. 57 on 2026-11-10",
+    "respect": "the source records men of the 2nd Goorkhas in colonial India and supplies no words; do not infer language, community identity or present-day performance practice from the regiment or location",
+    "review": "Nepali/Gurkha culture bearer, singer and drummer, plus a classroom teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "gurkha-song-first-version",
@@ -471,7 +890,74 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
-   "dossier": null
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "variation-song fragment from the same men's social sing-song as Ex. 129; the four versions were sung in turn",
+    "elements": "first of four two-bar melodic variants, without words; pentatonic material and ornamental short-long figures over a G-centred open-fifth rehearsal drone",
+    "practice": "the source gives no tempo, words or exact order beyond the four numbered versions; the written E4-E5 octave is high for young unison voices, and B-flat (-2 semitones, D4-D5) is the provisional rehearsal key",
+    "accompaniment": "no drum line is printed for Ex. 130; start unaccompanied, and treat the generated G drone as our optional pitch support rather than source practice",
+    "lyrics": "no words were taken down; do not add text or infer a language",
+    "honesty": "historical-source fragment: only the first version is transcribed here; the G drone, tempo and classroom treatment are ours, and the complete four-version piece remains to be entered",
+    "licence": "public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); first version read from p. 57, with variants visible on pp. 57-58",
+    "respect": "the source records men of the 2nd Goorkhas in colonial India; do not infer a language, a pan-Nepali identity or present-day practice from the regiment or location",
+    "review": "Nepali/Gurkha culture bearer and singer, plus a second plate reader and classroom teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "i-plant-some-rice",
+   "file": "items/i-plant-some-rice.abc",
+   "title": "I Plant Some Rice",
+   "subtitle": "Ilocos Sur action song (historical English schoolbook version)",
+   "source": "Norberto Romualdez et al., The Philippine Progressive Music Series for the Primary Grades, Silver Burdett, digitized volume revised through 1948, p. 25, \"I Plant Some Rice,\" notation by Florencio Buado; HathiTrust Public Domain",
+   "sourceUrls": [
+    {
+     "url": "https://hdl.handle.net/2027/miun.ash9039.0001.001",
+     "label": "HathiTrust stable handle for the University of Michigan digitized volume; printed p. 25 (scan p. 34)"
+    },
+    {
+     "url": "https://babel.hathitrust.org/cgi/pt?id=miun.ash9039.0001.001&seq=34",
+     "label": "direct HathiTrust page image for printed p. 25"
+    },
+    {
+     "url": "https://ncca.gov.ph/about-culture-and-arts/in-focus/defining-the-filipino-through-song/",
+     "label": "Philippine National Commission for Culture and the Arts discussion of English translations and cultural attribution in school songbooks"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No authoritative institutional recording or named Ilocano practitioner's performance of this exact song was located. Do not substitute a similarly titled rice song or a modern school arrangement; seek a reviewer-led demonstration with explicit consent."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "The plate and public-domain status are checked, but no human review has occurred. An Ilocano music educator or culture bearer, a competent Ilocano speaker, a Filipino music historian, a second plate reader and a classroom music teacher must check the melody, the English adaptation, any living Ilocano words or title, the actions, tempo and classroom framing before publication.",
+   "notes": "CONTEXT: The page calls this an \"Action Song\" popular among Ilocano people. It assigns planting gestures to the first beats of printed measures 2, 3, 7 and 8; the later verses substitute harvesting, pounding, cooking and eating. Those claims document the schoolbook's instructions, not a present-day practice, and need Ilocano review.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "packet-ready",
+   "reviewPacket": "reviews/i-plant-some-rice-review.md",
+   "dossier": {
+    "function": "Ilocos Sur children's action song about a five-stage rice cycle: planting, harvesting, pounding, cooking and eating; the source assigns gestures to the work verb in each verse",
+    "elements": "eleven notated measures in 2/4 when the source's one-eighth pickup is counted as measure 1; G major with one chromatic A-sharp, a D4-D5 octave range, two repeated four-eighth-note rice phrases, a six-note contrasting \"Tra la\" phrase and a short cadential answer",
+    "practice": "The source asks for the work action on the first beats of its measures 2, 3, 7 and 8. Mime the actions without tools: its harvesting instruction mentions a small cutting instrument, but a classroom should not supply one. No tempo is printed; quarter note = 104 is our rehearsal estimate. G major gives D4-D5, exactly the conservative young-unison span, so no transposition is proposed before a teacher trial",
+    "accompaniment": "The page prints one unaccompanied vocal line and action instructions, with no harmony, instruments or percussion. Begin with voice and mime only, letting the four action beats clarify the pulse; do not infer rondalla, bamboo poles, kulintang, guitar or a generic Philippine groove. All generated band parts are muted",
+    "lyrics": "The source prints five English classroom verses but no Ilocano title, words, translation credit or language evidence. Treat \"I plant/harvest/pound/cook/eat some rice\" as this historical schoolbook's English adaptation, not as authenticated traditional Ilocano text. An Ilocano speaker and practitioner must decide whether to retain it, replace it with checked living words, or teach the melody without words",
+    "honesty": "Historical-source transcription: the melody, English action verses and gesture points follow the source plate, which labels the tune \"Ilocos Sur Folk Song\" and credits notation to Florencio Buado. ABC spelling, bar numbers, rehearsal tempo, safety adaptation and muted-band directives are ours. The source does not establish who supplied the melody or who wrote the English words",
+    "licence": "HathiTrust marks this digitized volume Public Domain and says it may be copied, used and redistributed. The scan is catalogued as the 1914 title but the volume itself carries revisions and copyright lines through 1948; this record cites that exact digitized volume and relies on HathiTrust's item-level determination, while flagging its caveat that separately authored portions can require independent rights checks",
+    "respect": "Keep the specific Ilocos Sur and Ilocano attribution; do not turn the piece into a generic Filipino or Southeast Asian song. The volume belongs to a colonial-era English-language school curriculum, and the Philippine NCCA has warned that teaching translated folk songs only in English can obscure their origin. Present rice work as skilled labour, avoid costume or accent caricature, use no real cutting tools, and wait for Ilocano review before claiming the actions or English text as living practice",
+    "review": "Ilocano music educator or culture bearer familiar with children's or rice-work songs, competent Ilocano speaker, Filipino music historian, second score reader and classroom music teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "kazoe-uta",
@@ -500,6 +986,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "counting song (kazoe-uta): each verse counts on, one, two, three; sung for ball bouncing (temari) and other children's games",
     "elements": "miyako-bushi (in) scale on E (E F A B C), cadences on B and E; 4/4; the band holds an open fifth E and B",
@@ -508,7 +996,59 @@
     "licence": "public domain (Nagai and Obata, 1895; transcription donated to the public domain by Tom Potter, 2008)",
     "respect": "a children's song, for everyone",
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "koneka-bamboo-band",
+   "file": "items/koneka-bamboo-band.abc",
+   "title": "Koneka bamboo band",
+   "subtitle": "A Bougainville school bamboo band: the call and the chord loop",
+   "source": "Clip 15 of a Dust-to-Digital Instagram post (19 October 2026), via Dominic Kokomo; draft transcription by machine, from the recording",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=15",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 15 of 20: students performing at the Koneka Primary School in Arawa, Papua New Guinea, via Dominic Kokomo"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=15",
+     "label": "Koneka Primary School students, Arawa, Bougainville, on bamboo pipes (Dust-to-Digital, October 2026, via Dominic Kokomo)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 28 seconds, outdoors at the school. Bougainville bamboo bands are well recorded; the Institute of Papua New Guinea Studies (Port Moresby) holds field recordings, and many school and village bamboo bands post their own."
+   ],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: what piece the children play, and whether it is a traditional Bougainville tune, a church song or a local band's composition; ask the school (via Dominic Kokomo). Transcription: the opening call, the chord loop, its rhythm and its bass are read; check the voicing by ear (which pipes sound in each chord), and whether a tune runs over the loop that this recording does not let through.",
+   "notes": "HOW READ (2026-11-11): the clip's sustained part (harmonic/percussive separation) was pitch-tracked for the call (0.3-5.0 s: A4, then D5 D5 B4 B4 C sharp 5 C sharp 5 A4 A4, twice, each note struck twice at 0.31 s); from 5.05 s every beat (0.975 s) was reduced to its strongest pitches and matched to major and minor triads, giving the sequence D D D | G Bm A D | G Bm A D | D D | G Bm A D | G Bm A D | D D, with the low pipes on G3, B2, A2 and D3. In each beat the band strikes twice, on the beat and 0.26-0.33 s later.",
+   "kind": "fragment",
+   "kindNote": "The whole 28-second clip as heard (a call on one pipe, then the band's chord loop); missing: the piece's name and maker, the rest of the piece, how the pipes are shared out among the players, and any dance or singing that goes with it.",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "A school bamboo band: a crowd of children, each blowing one or two long bamboo pipes, with older players on bundled panpipes; played outdoors for an audience at the school.",
+    "elements": "Harmony is the point. A single pipe calls first, D, B, C sharp, A, each note struck twice; then the whole band answers with a loop of four chords in D major, G, B minor, A, D (IV, vi, V, I), one chord to each dotted-quarter beat of a 6/8, each chord struck short then long; the call's notes are the chords' top line, and the long pipes take the roots, with the D chord held for three beats at the end of each pass. The pipes are tuned close to D major but not exactly (the B flat heard against the D chord is about 10 cents flat of equal temperament and may be a pipe tuned between A and B flat).",
+    "practice": "6/8 at about 63 dotted-quarter beats a minute (eighths 0.31 s), one chord per beat, struck on the beat and again an eighth later; every pipe sounds on its beat, so the whole band moves together like a choir. Each child owns one or two notes and plays only when that note is in the chord; the pipe lengths, from the size of the children's arms up to two metres, give the bass.",
+    "accompaniment": "Tradition: the pipes alone (Bougainville bamboo bands may also strike the ends of large pipes with rubber sandals for the bass). Here the two voices carry the chords and the bass, and the band is off; in class, the chord tones shared out like handbells: each pupil one note, played when the chord contains it.",
+    "lyrics": "None: instrumental.",
+    "honesty": "A reading of one school band. The call was pitch-tracked from the first five seconds (one pipe alone); the chords and bass were read by machine from the strongest pitches of each beat and checked by matching triads; the rhythm from the strokes. The voicing (call notes on top, roots below) is ours, as are the bar lines and the spelling.",
+    "licence": "Unknown: the piece is not named. A chord loop as such is common property; the call and the piece as a whole may belong to a local composer. The recording belongs to the school and Dominic Kokomo; no audio or video is kept here.",
+    "respect": "Children filmed at their school: name the school and keep to the music, no images. Bougainville's bamboo bands are a point of local pride; present them as a living tradition, not as a curiosity.",
+    "review": "A Bougainville musician or teacher at Koneka Primary School, for the piece's name and how the pipes are shared out."
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "la-rana",
@@ -537,6 +1077,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A cumulative children's song: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (spider, frog, rat, cat, dog, stick, fire, water, ox, pig, blacksmith, Death, God). It ends with everyone croaking \"ga-ra, ga-ra\", the last croak held as long as breath lasts.",
     "elements": "D major, 3/4, a range of a ninth (A below middle C to the B above it); quarters with one sixteenth pickup and one pair of eighths; the croaking coda in 2/4 on one note.",
@@ -545,7 +1087,9 @@
     "licence": "Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US (published 1917) and in Canada (Hague d. 1954).",
     "respect": "A children's song; the chain ends \"La Muerte, Dios\" (Death, God), which a teacher may choose to sing or leave.",
     "review": "A Spanish-speaking teacher, for the words and the chain."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "mafuve",
@@ -580,6 +1124,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A dance song of girls and young women (Ndau, central Mozambique). It tells of a young bride who, though she loves her husband and her new home, longs for her mother and her childhood home: \"Alas, my mother's home! I left my mother's home; I love my husband's home.\" Two girls dance at a time, facing each other, starting with two stamps; the others stand round them in a circle, clapping and singing, until their turn (Curtis pp. 29-30, from C. Kamba Simango).",
     "elements": "3/4 at quarter = 63; E major; each bar a call on the first beat (\"E-yo-we\", \"Kwa-mai-we\") then a quick falling run of vocables (F E D C C: \"we yo we i-ye\"); the first beat carries the words and the dancers' two stamps, the rest is \"parenthetical\", carried by quicker clapping (Curtis's note under the music). Range B below middle C to B.",
@@ -590,7 +1136,9 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
     "respect": "A social dance song, nothing sacred. Credit C. Kamba Simango. The book's general framing (\"Dark Continent\", remarks on race) stays out of the record; Curtis's description of the dance and the clapping is kept.",
     "review": "A Chindau speaker, for the words; a teacher of southern African dance, for the stamps and the circle."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "mu-to-to-lile",
@@ -619,6 +1167,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A rain game: children sing it while playing in the rain, calling the drops to fall until the pools are full, so they can swim, and hunt the big red-breasted bullfrogs. \"To-to\" is the sound of rain falling in drops (Curtis's note, from Simango).",
     "elements": "Four bars of 3/4 in quick sixteenths on four notes (E G A B), every bar opening \"To-to li-le\" with both syllables of \"To-to\" stressed: the stress falls on the pickup and on the downbeat, against the bar.",
@@ -627,7 +1177,9 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US (published 1920) and in Canada (Curtis d. 1921; Simango, who gave the songs, d. 1966, so also out of copyright under the life-plus-50 term then in force).",
     "respect": "A children's game song, nothing sacred. Credit C. Kamba Simango, who brought the Ndau songs to the book. Take the notes and Curtis's game notes, not the book's general commentary, which has dated generalisations about race.",
     "review": "A Chindau speaker, for the words and the stresses."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "muvili-zuma-zuma",
@@ -656,6 +1208,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A drying chant: after swimming the children jump up and down in the sun to shake the water off, chanting this and jumping on each beat; they hold the chant and the leaping to be a charm that dries them (Curtis, p. 31, from Simango).",
     "elements": "Rhythm only, spoken: twelve bars of 2/4 in eighths and quarters, the refrain \"Mu-vi-li, zu-ma, zu-ma!\" four times with \"Ka-si-la\" and \"O-mai\" between, each of those stressed on its first syllable.",
@@ -664,7 +1218,9 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada (Simango d. 1966, out of copyright under the life-plus-50 term then in force).",
     "respect": "A children's game, nothing sacred. Credit C. Kamba Simango. Leave out Curtis's remark beneath the plate comparing African and African-American accentuation; keep her game notes.",
     "review": "A Chindau speaker, for the words and stresses."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "na-bahia-tem",
@@ -700,6 +1256,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A sung dance of two facing lines (dança cantada, em fileiras, ao som de palmas), from Rio, Bahia and Minas Gerais; in Minas, children danced it. The words name what \"Bahia has\": a penny coconut, a glass lamp, a flat-iron, a sewing machine; Bahia was the colony's first seat, where novelties came in (Alexina's note, after Sílvio Romero).",
     "elements": "2/4, eight bars in two lines with a repeat; D major (the tune uses D E F# G A B, no C); a range of a sixth, D to B; eighths and quarters with one pair of sixteenths; the \"tem, tem, tem\" falls step by step (A G F# E), the second line answers it and ends on D.",
@@ -710,7 +1268,2019 @@
     "licence": "Alexina de Magalhães Pinto (1870-1921), Cantigas das creanças e do povo e danças populares (Rio de Janeiro: Francisco Alves, 1916), Bibliotheca infantil: public domain in the US (1916), Canada and Brazil (d. 1921). The scan is published by the Senado Federal library under a Creative Commons licence; the notes here are read from it, not copied from the 2023 re-edition.",
     "respect": "The same words are sung in Umbanda as a ponto for the Baianos and the Erês (child spirits); this record is the children's dance from 1916, and a teacher may say so if asked. The book has a section of \"cantigas dos pretos\" whose dialect may caricature; nothing from it is used here.",
     "review": "A Portuguese speaker (Brazilian), for the words and the 1916 spellings; a Brazilian teacher who knows the roda, for the dance."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "ontario-g1-cumbia-switch",
+   "file": "items/ontario-g1-cumbia-switch.abc",
+   "title": "Cumbia Switch",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Lucho Bermúdez",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Lucho Bermúdez recording and ask a Colombian educator to review the history/context language before using the word cumbia in the lesson title.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original Grade 1 tune; Colombian recording is a listening bridge only.",
+    "licence": "Draft original; the listening reference remains copyrighted.",
+    "respect": "Teach cumbia's Colombian Caribbean roots and multiple lineages; do not claim this simplified classroom rhythm is cumbia.",
+    "review": "Colombian music educator and Grade 1 classroom teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "1",
+    "elements": "duration (2/4, quarter/eighth/rest), timbre (voice, scraper, drum), form (call and response), pitch (mi-so-la)",
+    "listen": "Lucho Bermúdez — \"Colombia Tierra Querida\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Lucho+Bermudez+Colombia+Tierra+Querida+official",
+    "bridge": "Listen for a clear dance pulse, contrasting instrumental colours and a melody that invites a group response.",
+    "context": "Lucho Bermúdez helped bring Colombian Caribbean dance-orchestra music to national and international audiences. This is a new classroom 2/4 tune, not an arrangement or an authentic cumbia pattern.",
+    "distance": "Original notes, rhythm and words; no melody, lyric or arrangement from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "teacher then class",
+     "prompt": "Choose the answer rhythm",
+     "choices": [
+      "two beats",
+      "four quick sounds",
+      "beat then rest"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "percussion group",
+     "prompt": "Which colour answers the voice?",
+     "choices": [
+      "scraper",
+      "hand drum",
+      "claps"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g1-sodade-shape",
+   "file": "items/ontario-g1-sodade-shape.abc",
+   "title": "Sodade Shape",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Cesária Évora",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Confirm the authorized Cesária Évora recording and have a Cabo Verdean educator review the context and morna language.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original solfège contour study beside a listening lesson on Évora.",
+    "licence": "Draft original; reference song and performance remain copyrighted.",
+    "respect": "Teach Cabo Verde and Kriolu context; do not translate morna simply as \"sad music.\"",
+    "review": "Cabo Verdean music educator and Grade 1 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "1",
+    "elements": "pitch (high/low and melodic contour on mi-so-la), dynamics (gentle accent, smooth/detached), form (question and answer)",
+    "listen": "Cesária Évora — \"Sodade\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Cesaria+Evora+Sodade+official",
+    "bridge": "Follow the rise and fall of a sung phrase and notice how a restrained voice can carry strong feeling.",
+    "context": "Cesária Évora's recording introduces morna from Cabo Verde, Kriolu language, migration and longing. This wordless contour study is not a morna and does not borrow the song.",
+    "distance": "Entirely original three-note melody; no lyric, chord sequence or rhythmic signature from \"Sodade\" is reproduced."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "solo singer then class",
+     "prompt": "How does the answer move?",
+     "choices": [
+      "same contour",
+      "turn downward",
+      "stay on one note"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "conductor",
+     "prompt": "Choose the articulation",
+     "choices": [
+      "smooth",
+      "detached",
+      "one gentle accent"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g1-water-groove",
+   "file": "items/ontario-g1-water-groove.abc",
+   "title": "Water Groove",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Fela Kuti",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify the authorized Fela Kuti recording and have a Nigerian/Afrobeat-informed educator check that the lesson distinguishes one classroom ostinato from Afrobeat's full history and ensemble practice.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original mi-so-la study using ensemble layering only as a listening comparison.",
+    "licence": "Draft original; the Fela Kuti work and recording remain copyrighted.",
+    "respect": "Include Fela Kuti's name, Nigeria and political context; do not teach Afrobeat as merely a generic classroom drum loop.",
+    "review": "Grade 1 teacher and Nigerian/Afrobeat-informed music educator."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "1",
+    "elements": "duration (beat versus rhythm, quarter and paired eighths, quarter rest), pitch (mi-so-la), texture (unison ostinato), form (call and response)",
+    "listen": "Fela Kuti — \"Water No Get Enemy\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Fela+Kuti+Water+No+Get+Enemy+official",
+    "bridge": "Track one repeating part while other layers enter; hear that a groove can stay steady while the surface changes.",
+    "context": "Fela Kuti's recording connects Afrobeat with Nigerian political music, long-form ensemble layering and dance. This three-note original is a first ostinato lesson, not an Afrobeat reproduction.",
+    "distance": "Original melody, rhythm and words; no horn line, lyric, bass pattern or harmony from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "leader then class",
+     "prompt": "Keep or change the last beat?",
+     "choices": [
+      "same note",
+      "two quick notes",
+      "rest"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "three groups",
+     "prompt": "Which layer enters?",
+     "choices": [
+      "voice ostinato",
+      "clap beat",
+      "shaker eighths"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g2-gong-garden",
+   "file": "items/ontario-g2-gong-garden.abc",
+   "title": "Gong Garden",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Gamelan Sekar Jaya",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Choose one authorized Gamelan Sekar Jaya performance and ask an Indonesian gamelan educator to review the framing.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original pentatonic layering study; gamelan is a listening comparison only.",
+    "licence": "Draft original; reference performances remain separately copyrighted.",
+    "respect": "Identify the particular ensemble and island in the chosen recording; avoid treating all gamelan as one style.",
+    "review": "Indonesian gamelan educator and Grade 2 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "2",
+    "elements": "pentatonic melody, long and short sounds, simple accompaniment, bordun and AB form",
+    "listen": "Gamelan Sekar Jaya — a Balinese gamelan performance",
+    "listen-url": "https://www.youtube.com/results?search_query=Gamelan+Sekar+Jaya+official+performance",
+    "bridge": "Listen for nested time: quick interlocking tones inside slower punctuation from larger gongs.",
+    "context": "Gamelan names many distinct Indonesian ensemble traditions. This original pentatonic classroom piece compares layers and resonance; it is not a gamelan composition and should not be labelled Balinese music.",
+    "distance": "Original notes and form; no named composition, tuning, kotekan pattern or gong cycle is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "melody group",
+     "prompt": "How will the garden answer?",
+     "choices": [
+      "same shape higher",
+      "same shape lower",
+      "one long tone"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "gong keeper",
+     "prompt": "Where does the large sound belong?",
+     "choices": [
+      "first beat",
+      "last beat",
+      "after a full bar"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g2-kora-steps",
+   "file": "items/ontario-g2-kora-steps.abc",
+   "title": "Kora Steps",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Toumani Diabaté",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Toumani Diabaté recording and have a Mande music educator review the kora and jeli context.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original pentatonic variation study; the kora recording remains the primary listening text.",
+    "licence": "Draft original; reference recording is separately copyrighted.",
+    "respect": "Introduce kora and jeli history through reliable sources; do not call a classroom arpeggio a traditional Mande pattern.",
+    "review": "Mande music educator and Grade 2 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "2",
+    "elements": "pentatonic pattern, crescendo and diminuendo, simple accompaniment and verse/chorus contrast",
+    "listen": "Toumani Diabaté — \"Jarabi\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Toumani+Diabate+Jarabi+official",
+    "bridge": "Hear how a repeating foundation supports delicate variation and a long melodic line.",
+    "context": "Toumani Diabaté's kora playing connects with hereditary jeli practice and contemporary concert collaboration in Mali. This new barred-instrument song is not a kora piece.",
+    "distance": "Original tune, lyric and chord-free bordun; no kora pattern or \"Jarabi\" melody is transcribed."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "one player over do-so",
+     "prompt": "Change one note or one rhythm?",
+     "choices": [
+      "new final note",
+      "double one note",
+      "leave a rest"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "whole class",
+     "prompt": "Shape the volume",
+     "choices": [
+      "grow",
+      "fade",
+      "arch up then down"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g2-mbira-mirror",
+   "file": "items/ontario-g2-mbira-mirror.abc",
+   "title": "Mbira Mirror",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Stella Chiweshe",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify the Stella Chiweshe recording link; ask a Zimbabwean mbira educator to review the context and the boundary between a pentatonic classroom ostinato and mbira repertoire.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original pentatonic bordun study; mbira is the listening subject, not the claimed style of the draft.",
+    "licence": "Draft original; reference recording remains copyrighted.",
+    "respect": "Do not detach mbira dzavadzimu from Shona history and living practice or market a xylophone ostinato as \"African mbira music.\"",
+    "review": "Zimbabwean mbira educator and Grade 2 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "2",
+    "elements": "pitch (do-re-mi-so-la pentatonic and high do), duration (half and whole notes), texture (melody over do-so bordun), form (AB)",
+    "listen": "Stella Chiweshe — \"Chachimurenga\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Stella+Chiweshe+Chachimurenga",
+    "bridge": "Follow one repeating interlocking figure while the voice moves independently; notice cyclical rather than chord-by-chord listening.",
+    "context": "Stella Chiweshe is a major Zimbabwean mbira performer. The recording can introduce mbira dzavadzimu, interlocking parts and cultural responsibility; this original pentatonic school piece is not mbira repertoire.",
+    "distance": "Original melody and bordun; no kushaura/kutsinhira part, lyric or recording phrase is transcribed."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "melody player over bordun",
+     "prompt": "Mirror or cross the contour?",
+     "choices": [
+      "mirror it",
+      "reverse it",
+      "hold high do"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "ostinato group",
+     "prompt": "How does the cycle change?",
+     "choices": [
+      "same",
+      "one rest",
+      "swap do and so"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g3-cape-town-round",
+   "file": "items/ontario-g3-cape-town-round.abc",
+   "title": "Cape Town Round",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Abdullah Ibrahim",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify the recording link, test the canon entry, and ask a South African jazz educator to review context.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original Grade 3 canon; South African jazz is encountered through the recording.",
+    "licence": "Draft original; reference work and recording remain copyrighted.",
+    "respect": "Include apartheid history and Ibrahim's authorship; do not call any repeated school riff \"Cape jazz.\"",
+    "review": "South African jazz educator and Grade 3 choir teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "3",
+    "elements": "3/4 metre, sixteenth-note pair, piano/mf dynamics, ABA contour and simple two-part canon",
+    "listen": "Abdullah Ibrahim — \"Mannenberg\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Abdullah+Ibrahim+Mannenberg+official",
+    "bridge": "Hear a memorable line become a shared anthem as the ensemble repeats, answers and intensifies it.",
+    "context": "\"Mannenberg\" is bound to Cape Town, South African jazz and resistance-era public life. This original 3/4 school canon does not reproduce its groove or melody.",
+    "distance": "Original metre, notes and words; no riff, harmony or arrangement from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "group 1 then group 2",
+     "prompt": "Enter as canon or answer after the phrase?",
+     "choices": [
+      "canon after one bar",
+      "answer after two bars",
+      "unison"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "soloist over the round",
+     "prompt": "Build a three-note reply",
+     "choices": [
+      "rising",
+      "falling",
+      "repeat one pitch"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g3-nueva-cancion-circle",
+   "file": "items/ontario-g3-nueva-cancion-circle.abc",
+   "title": "Three-Beat Testimony",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Mercedes Sosa and Violeta Parra",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Mercedes Sosa recording and review political/cultural context with a Latin American music educator.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original partner-song material; nueva canción is taught through the named artists and history.",
+    "licence": "Draft original; reference work and performance remain copyrighted.",
+    "respect": "Credit both songwriter Violeta Parra and performer Mercedes Sosa; connect the song to its words rather than treating it as background folk colour.",
+    "review": "Latin American music educator and Grade 3 choir teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "3",
+    "elements": "3/4 metre, dotted half note, dynamic contrast, partner-song texture and ABA form",
+    "listen": "Mercedes Sosa — \"Gracias a la Vida\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Mercedes+Sosa+Gracias+a+la+Vida+official",
+    "bridge": "Notice how vocal timbre, breath and phrase shape make a repeated metre carry a public message.",
+    "context": "Mercedes Sosa's performance connects Violeta Parra's song with nueva canción, social testimony and Latin American political history. This is an original wordless partner-song study.",
+    "distance": "No lyric, melody or harmony from the copyrighted work is used; the reference is for listening and historical inquiry."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "partner A then B",
+     "prompt": "Answer the long note",
+     "choices": [
+      "one long note",
+      "three walking notes",
+      "silence then one note"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "whole class",
+     "prompt": "Shape the phrase together",
+     "choices": [
+      "soft to strong",
+      "strong to soft",
+      "steady"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g3-qawwali-question",
+   "file": "items/ontario-g3-qawwali-question.abc",
+   "title": "Question in the Circle",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Nusrat Fateh Ali Khan",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Select an authorized Nusrat Fateh Ali Khan recording and ask a qawwali-informed Muslim/South Asian educator to review whether this secular comparison is appropriate.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original secular call-and-response study; it is not qawwali repertoire.",
+    "licence": "Draft original; reference composition and recording remain copyrighted.",
+    "respect": "Name the devotional context and avoid using sacred words as interchangeable vocal material.",
+    "review": "Qawwali-informed cultural/religious reviewer and Grade 3 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "3",
+    "elements": "presto/largo contrast, sixteenth-note cell, loud/soft symbols, call and response and ABA form",
+    "listen": "Nusrat Fateh Ali Khan — \"Allah Hoo\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Nusrat+Fateh+Ali+Khan+Allah+Hoo+official",
+    "bridge": "Listen to lead voice and party answer, repetition that gathers energy, handclaps and virtuosic variation.",
+    "context": "Qawwali is a Sufi devotional performance tradition, not simply a vocal style. This secular original teaches musical conversation and must not be presented as qawwali.",
+    "distance": "Original tune and neutral English lyric; no devotional text, melodic phrase or harmonium pattern is borrowed."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "lead singer then group",
+     "prompt": "What kind of answer?",
+     "choices": [
+      "exact words",
+      "same rhythm new pitches",
+      "clapped answer"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "conductor",
+     "prompt": "Change the energy without speeding up",
+     "choices": [
+      "add voices",
+      "add claps",
+      "sing softer"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g4-bahia-signal",
+   "file": "items/ontario-g4-bahia-signal.abc",
+   "title": "Bahia Signal",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Ilê Aiyê",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Ilê Aiyê recording and ask an Afro-Brazilian educator to review bloco afro, Bahia and cultural context.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original syncopation study; bloco afro music is taught through the actual recording and history.",
+    "licence": "Draft original; Ilê Aiyê's music and recording remain copyrighted.",
+    "respect": "Teach the ensemble's Black Brazilian political context; do not use costumes or generic \"carnival\" framing.",
+    "review": "Afro-Brazilian/Bahia music educator and Grade 4 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "4",
+    "elements": "syncopation, accents, two-part polyphony, major/minor colour and repeat-based form",
+    "listen": "Ilê Aiyê — \"Que Bloco É Esse?\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Ile+Aiye+Que+Bloco+E+Esse+official",
+    "bridge": "Listen for massed percussion, a declarative chorus and identity carried through ensemble sound.",
+    "context": "Ilê Aiyê is a bloco afro founded in Salvador, Bahia, with Black cultural and political significance. This original school signal is not samba-reggae or an Ilê Aiyê arrangement.",
+    "distance": "Original tune, words and percussion-neutral score; no chorus, drum part or arrangement from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "caller then chorus",
+     "prompt": "Choose the chorus entrance",
+     "choices": [
+      "on beat one",
+      "one eighth late",
+      "after a rest"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "two percussion groups",
+     "prompt": "Build the texture",
+     "choices": [
+      "alternate",
+      "overlap",
+      "one group silent"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g4-son-lantern",
+   "file": "items/ontario-g4-son-lantern.abc",
+   "title": "Son Lantern",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Compay Segundo",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Buena Vista Social Club/Compay Segundo link and have a Cuban son educator review the comparison and clave language.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original syncopation piece; son is encountered through listening, not claimed by the classroom groove.",
+    "licence": "Draft original; reference song and recording remain copyrighted.",
+    "respect": "Identify Cuban son and its musicians; do not call every clave-adjacent classroom pattern salsa or son.",
+    "review": "Cuban son educator and Grade 4 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "4",
+    "elements": "syncopation, major/minor contrast, accidentals, simple two-part texture, repeat and coda-like ending",
+    "listen": "Buena Vista Social Club / Compay Segundo — \"Chan Chan\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Buena+Vista+Social+Club+Chan+Chan+official",
+    "bridge": "Track the repeating harmonic cycle, the conversational vocal delivery and the independent percussion timeline.",
+    "context": "The recording can introduce Cuban son, Compay Segundo and the late-twentieth-century international revival around veteran Cuban musicians. This new syncopation study is not son and uses no \"Chan Chan\" material.",
+    "distance": "Original melody, lyric, rhythm and harmony; no tres figure, bass line or chord cycle from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "melody player",
+     "prompt": "Place the answer around the beat",
+     "choices": [
+      "start on beat",
+      "start off beat",
+      "wait one beat"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "two groups",
+     "prompt": "What kind of conversation?",
+     "choices": [
+      "echo rhythm",
+      "contrary contour",
+      "one group rests"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g4-tarab-arc",
+   "file": "items/ontario-g4-tarab-arc.abc",
+   "title": "Arc of the Night",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Umm Kulthum",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Select an authorized Umm Kulthum recording excerpt and ask an Arab music educator to review maqam/tarab framing and the approximate equal-tempered notation.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original expressive minor study; not Arabic repertoire and not a maqam demonstration.",
+    "licence": "Draft original; Umm Kulthum's recorded performance and underlying composition remain copyrighted where applicable.",
+    "respect": "Centre Umm Kulthum and Arabic listening practices; explain that staff notation and 12-tone classroom instruments omit important pitch and ornament detail.",
+    "review": "Arab music educator and Grade 4 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "4",
+    "elements": "accidentals, intervals, minor tonality, fermata, expressive dynamics and phrase-level improvisation",
+    "listen": "Umm Kulthum — \"Alf Leila Wa Leila\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Umm+Kulthum+Alf+Leila+Wa+Leila+official",
+    "bridge": "Hear how a singer reshapes a line, how the ensemble answers, and how expectation can build across a long performance.",
+    "context": "Umm Kulthum's concert practice can introduce Arabic art music, maqam, tarab and audience-performer exchange. This short equal-tempered original is not a maqam composition.",
+    "distance": "Original pitches and no Arabic text; no copyrighted phrase or orchestration is copied. The E-flat colour is not presented as a complete maqam."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "soloist",
+     "prompt": "Reshape the final two notes",
+     "choices": [
+      "ornament once",
+      "hold and bend gently",
+      "leave silence"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "ensemble answer",
+     "prompt": "How will the group respond?",
+     "choices": [
+      "same cadence",
+      "short echo",
+      "drone only"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g5-lando-lines",
+   "file": "items/ontario-g5-lando-lines.abc",
+   "title": "Landó Lines",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Susana Baca",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Susana Baca recording and ask an Afro-Peruvian music educator to review landó context and rhythmic language.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original 6/8 study; landó is encountered through the recording, not claimed by the draft.",
+    "licence": "Draft original; reference song, poem and performance remain copyrighted.",
+    "respect": "Centre Afro-Peruvian history and Baca's scholarship; do not equate any 6/8 cajón exercise with landó.",
+    "review": "Afro-Peruvian music educator and Grade 5 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "5",
+    "elements": "6/8 metre, dotted-quarter/eighth relationships, part singing, I-V harmony and rondo-like returns",
+    "listen": "Susana Baca — \"María Landó\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Susana+Baca+Maria+Lando+official",
+    "bridge": "Hear the tension between compound pulse, vocal phrasing and percussion, and notice how storytelling sits inside groove.",
+    "context": "Susana Baca's recording can introduce Afro-Peruvian music, landó, poetry and Black Peruvian cultural memory. This original 6/8 piece is not a landó.",
+    "distance": "Original melody, English lyric and I-V harmony; no copyrighted poetic text, tune or cajón pattern is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "soloist over class pulse",
+     "prompt": "Place three notes across two big beats",
+     "choices": [
+      "3+3",
+      "2+2+2",
+      "one long then two short"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "rondo leader",
+     "prompt": "Return or depart?",
+     "choices": [
+      "A phrase",
+      "new B phrase",
+      "percussion only"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g5-raga-rondo",
+   "file": "items/ontario-g5-raga-rondo.abc",
+   "title": "Drone Rondo",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Ravi Shankar",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Select a specific authorized Ravi Shankar Raga Jog recording and have a Hindustani music educator review every use of raga/tala terminology.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original constrained-improvisation study; not a raga or Hindustani composition.",
+    "licence": "Draft original; Ravi Shankar's composition/performance remains copyrighted where applicable.",
+    "respect": "State explicitly that a five-note set does not define a raga; use the recording and expert explanation as primary sources.",
+    "review": "Hindustani music educator and Grade 5 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "5",
+    "elements": "6/8 metre, dotted rhythms, rondo form, drone texture and melodic improvisation within a limited pitch set",
+    "listen": "Ravi Shankar — Raga Jog",
+    "listen-url": "https://www.youtube.com/results?search_query=Ravi+Shankar+Raga+Jog+official",
+    "bridge": "Listen for a melody unfolding over a drone, gradual pacing and improvisation that reveals rather than abandons constraints.",
+    "context": "A raga is more than a scale, and a Hindustani performance has its own melodic grammar, time cycle and form. This original five-note classroom rondo is not Raga Jog.",
+    "distance": "Original equal-tempered pitches and form; no alap phrase, gat, tala pattern or recording passage is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "soloist over drone",
+     "prompt": "Choose a three-note path",
+     "choices": [
+      "rise then rest",
+      "circle one note",
+      "fall to the drone"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "class drone and soloist",
+     "prompt": "How will A return?",
+     "choices": [
+      "exactly",
+      "ornament one note",
+      "return more softly"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g5-ska-steps",
+   "file": "items/ontario-g5-ska-steps.abc",
+   "title": "Ska Steps",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to The Skatalites",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Skatalites recording and ask a Jamaican ska educator to review historical context and the offbeat-comping comparison.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original offbeat articulation study; not a Skatalites arrangement.",
+    "licence": "Draft original; reference composition and performance remain copyrighted.",
+    "respect": "Teach Jamaican authorship and chronology; do not collapse ska, reggae and generic \"island music.\"",
+    "review": "Jamaican ska educator and Grade 5 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "5",
+    "elements": "dotted rhythm, part singing, I-V chord movement, articulation and rondo/chorus contrast",
+    "listen": "The Skatalites — \"Guns of Navarone\"",
+    "listen-url": "https://www.youtube.com/results?search_query=The+Skatalites+Guns+of+Navarone+official",
+    "bridge": "Hear the offbeat accompaniment, horn conversation and buoyant ensemble precision.",
+    "context": "The Skatalites are foundational to Jamaican ska and its links with mento, jazz, R&B and later reggae. This original classroom song uses offbeat rests as a comparison, not a ska claim.",
+    "distance": "Original melody, lyric and I-V harmony; no horn riff, bass line or recording arrangement is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "horn or voice pair",
+     "prompt": "Answer the phrase",
+     "choices": [
+      "same rhythm",
+      "shorter reply",
+      "one held note"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "accompaniment group",
+     "prompt": "Where does the chord land?",
+     "choices": [
+      "on beats",
+      "between beats",
+      "alternate both"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g6-chimurenga-crossings",
+   "file": "items/ontario-g6-chimurenga-crossings.abc",
+   "title": "Crossing Lines",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Thomas Mapfumo",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Thomas Mapfumo recording and have a Zimbabwean educator review chimurenga history and the mbira-guitar comparison.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original compound-metre exercise; not a chimurenga transcription or mbira part.",
+    "licence": "Draft original; reference work and recording remain copyrighted.",
+    "respect": "Teach the word chimurenga, political history and Shona sources; do not reduce the genre to a guitar texture.",
+    "review": "Zimbabwean music educator and Grade 6 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "6",
+    "elements": "6/4 compound metre, pickup, 3:2 layering, I-IV-V progressions and major/perfect intervals",
+    "listen": "Thomas Mapfumo — \"Shumba\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Thomas+Mapfumo+Shumba+official",
+    "bridge": "Hear electric guitar and bass take interlocking cyclical roles associated with mbira-informed chimurenga sound.",
+    "context": "Thomas Mapfumo's chimurenga music connects Shona musical resources with anticolonial and post-independence political expression. This new 6/4 exercise is not chimurenga.",
+    "distance": "Original pitches, harmony and rhythmic cells; no mbira-derived guitar line, lyric or arrangement from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "two ostinato groups",
+     "prompt": "How do the layers cross?",
+     "choices": [
+      "three over two",
+      "alternate bars",
+      "meet only at the start"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "melody soloist",
+     "prompt": "Choose an interval frame",
+     "choices": [
+      "major third",
+      "perfect fourth",
+      "perfect fifth"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g6-five-windows",
+   "file": "items/ontario-g6-five-windows.abc",
+   "title": "Five Windows",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Paul Desmond and the Dave Brubeck Quartet",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Dave Brubeck Quartet recording and trial the 3+2/2+3 cueing with a Grade 6 class.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original 5/4 study; the reference's authorship and distinctive riff remain separate.",
+    "licence": "Draft original; \"Take Five\" and its recordings remain copyrighted.",
+    "respect": "Credit Paul Desmond, not only the bandleader; discuss unusual metre without calling it exotic.",
+    "review": "Grade 6 band/choir teacher and jazz educator."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "6",
+    "elements": "5/4 metre, anacrusis, triplet, interval names, I-IV-V harmony and layered ostinati",
+    "listen": "The Dave Brubeck Quartet — \"Take Five\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Dave+Brubeck+Quartet+Take+Five+official",
+    "bridge": "Feel 5/4 as a repeating grouping, then hear how a solo can range freely while the ostinato stays dependable.",
+    "context": "Paul Desmond composed \"Take Five\" for the Dave Brubeck Quartet. This original 5/4 study uses a different melody, harmony and grouping material.",
+    "distance": "No riff, chord progression, solo language or drum pattern from \"Take Five\" is copied; credit Desmond as composer in the lesson."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "rhythm section",
+     "prompt": "How do five beats group?",
+     "choices": [
+      "3+2",
+      "2+3",
+      "five even"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "soloist over I-IV-V",
+     "prompt": "Build a reply from one interval",
+     "choices": [
+      "major third",
+      "perfect fourth",
+      "perfect fifth"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g6-tabla-carousel",
+   "file": "items/ontario-g6-tabla-carousel.abc",
+   "title": "Nine-Spoke Carousel",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Zakir Hussain",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Choose an authorized Zakir Hussain performance, have a tabla educator review tala/bol terminology, and verify the 9/8 notation with students.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original 9/8 layering study; it does not teach a named tala.",
+    "licence": "Draft original; reference recording remains copyrighted.",
+    "respect": "Use a tabla educator's demonstration for bols and technique; do not call arbitrary syllables konnakol or tabla language.",
+    "review": "Tabla/Hindustani rhythm educator and Grade 6 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "6",
+    "elements": "9/8 compound metre, triplets, acceleration/deceleration, layering and four-part body percussion",
+    "listen": "Zakir Hussain — \"Making Music\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Zakir+Hussain+Making+Music+official",
+    "bridge": "Hear rhythmic ideas stated, varied and answered across instruments while a larger cycle remains intelligible.",
+    "context": "Zakir Hussain's collaborations can open discussion of tabla, Hindustani rhythmic training and intercultural ensemble work. This original 9/8 body-percussion carousel is not a tala composition.",
+    "distance": "Original melody and neutral classroom rhythm; no tabla composition, bol sequence or recorded passage is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "rhythm leader",
+     "prompt": "Group nine eighths",
+     "choices": [
+      "2+2+2+3",
+      "3+3+3",
+      "4+2+3"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "four body-percussion parts",
+     "prompt": "Change the density",
+     "choices": [
+      "one layer",
+      "add one each bar",
+      "all then sudden solo"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g7-blue-engine",
+   "file": "items/ontario-g7-blue-engine.abc",
+   "title": "Blue Engine",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Muddy Waters and Willie Dixon",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Muddy Waters recording and have a blues educator review cultural history, form and improvisation framing.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original 12-bar teaching blues; listening reference remains distinct.",
+    "licence": "Draft original; the Dixon/Waters work and recording remain copyrighted.",
+    "respect": "Teach blues as Black American history and living expression, not just a scale or chord worksheet.",
+    "review": "Blues educator and Grade 7 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "7",
+    "elements": "blues scale, 12-bar blues, major/minor triads, marcato articulation and improvised call-and-response soloing",
+    "listen": "Muddy Waters — \"Hoochie Coochie Man\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Muddy+Waters+Hoochie+Coochie+Man+official",
+    "bridge": "Hear the stop-time riff, vocal authority, tension between speech and pitch, and ensemble answers.",
+    "context": "Muddy Waters' Chicago blues recording connects Delta traditions, electrification, Black migration and the music industry. This original school blues uses a different riff and neutral words.",
+    "distance": "Original melody, lyric and accompaniment; no stop-time riff, Willie Dixon lyric or recording arrangement is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-4",
+     "role": "soloist over I chord",
+     "prompt": "Build a four-bar statement",
+     "choices": [
+      "three-note motif",
+      "space after every idea",
+      "repeat then vary"
+     ],
+     "replyBars": 4
+    },
+    {
+     "id": "B",
+     "bars": "9-12",
+     "role": "next soloist",
+     "prompt": "Answer and close the chorus",
+     "choices": [
+      "higher answer",
+      "rhythmic answer",
+      "one-note answer"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "ontario-g7-dabke-drive",
+   "file": "items/ontario-g7-dabke-drive.abc",
+   "title": "Dabke Drive",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Omar Souleyman",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Select an authorized Omar Souleyman performance and ask a Syrian/Levantine dabke educator to review context, dance relationship and electronic framing.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original electronic-dance comparison study; not dabke repertoire.",
+    "licence": "Draft original; reference composition/performance remains copyrighted.",
+    "respect": "Locate Syria and the Levant, distinguish social dance practice from a concert-video image, and use a culture bearer for steps.",
+    "review": "Syrian/Levantine dabke educator and Grade 7 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "7",
+    "elements": "minor triads, marcato, repertoire rhythm, body-part isolation/weight transfer and improvised melodic turns",
+    "listen": "Omar Souleyman — \"Warni Warni\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Omar+Souleyman+Warni+Warni+official",
+    "bridge": "Hear relentless electronic pulse, ornamented vocal/keyboard lines and music made for communal line dancing.",
+    "context": "Omar Souleyman's music relates Syrian wedding performance, dabke and electronic production for global stages. This original minor dance study is not dabke music and supplies no traditional steps.",
+    "distance": "Original melody, harmony and words; no synth line, vocal phrase or beat from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "melody leader",
+     "prompt": "Turn one three-note cell",
+     "choices": [
+      "ornament first note",
+      "repeat middle note",
+      "leap to final note"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "line leader",
+     "prompt": "Signal the group musically",
+     "choices": [
+      "marcato hit",
+      "rising pickup",
+      "one beat of silence"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g7-log-drum-constellation",
+   "file": "items/ontario-g7-log-drum-constellation.abc",
+   "title": "Log-Drum Constellation",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Kabza De Small",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Choose an authorized Kabza De Small recording and ask a South African amapiano producer/educator to review the production-language comparison.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original minor-loop arrangement lab; not an amapiano pastiche.",
+    "licence": "Draft original; reference work and recording remain copyrighted.",
+    "respect": "Name South African producers and dance communities; do not detach the log drum from amapiano and market it as a generic preset.",
+    "review": "South African amapiano producer/educator and Grade 7 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "7",
+    "elements": "minor triads, bass-register timbre, syncopated repertoire rhythm, layered texture and arrangement through density",
+    "listen": "Kabza De Small — \"Sponono\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Kabza+De+Small+Sponono+official",
+    "bridge": "Listen for spacious tempo, keyboard harmony, vocal layers and the pitch-shaped log-drum bass as an arranging voice.",
+    "context": "Amapiano developed in South African townships and is shaped by producers, dancers, DJs and changing local scenes. This new classroom minor loop is not an amapiano track.",
+    "distance": "Original melody and loop; no log-drum line, sample, vocal, chord sequence or production from the reference is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "bass improviser",
+     "prompt": "Choose the bass gesture",
+     "choices": [
+      "root then leap",
+      "slide downward",
+      "one note and space"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "arranger",
+     "prompt": "Create the drop with texture",
+     "choices": [
+      "remove drums",
+      "remove chords",
+      "all layers enter"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g8-cinema-assembly",
+   "file": "items/ontario-g8-cinema-assembly.abc",
+   "title": "Cinema Assembly",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to A. R. Rahman",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized A. R. Rahman recording, choose a film-context excerpt, and ask an Indian film-music educator to review the lesson framing.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original cinematic arranging exercise; Rahman's recording is for analysis and comparison.",
+    "licence": "Draft original; reference song, film and recordings remain copyrighted.",
+    "respect": "Name the film, credited artists and languages in the selected excerpt; avoid using \"Bollywood\" as a catch-all for all Indian music.",
+    "review": "Indian film-music educator and Grade 8 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "8",
+    "elements": "major/minor tonality, homophonic/polyphonic texture, form for a specific dramatic purpose and arranging for mixed ensemble",
+    "listen": "A. R. Rahman — \"Jai Ho\"",
+    "listen-url": "https://www.youtube.com/results?search_query=A+R+Rahman+Jai+Ho+official",
+    "bridge": "Hear how percussion, voices, strings, electronic production and sectional buildup serve a cinematic arc.",
+    "context": "A. R. Rahman's film work can open study of Indian cinema, multilingual song, studio production and global circulation. This new ensemble theme is not a Bollywood imitation or a \"Jai Ho\" arrangement.",
+    "distance": "Original melody, lyric-free form and harmony; no hook, rhythm, vocal, sample or orchestration from the recording is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "small ensemble",
+     "prompt": "Score the opening image",
+     "choices": [
+      "single line",
+      "chordal bed",
+      "rhythmic fragments"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "full class arranger",
+     "prompt": "Build the final scene",
+     "choices": [
+      "add one layer per bar",
+      "sudden full entrance",
+      "solo then ensemble answer"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g8-gamelan-city",
+   "file": "items/ontario-g8-gamelan-city.abc",
+   "title": "Gamelan City",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to I Nyoman Windha",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Select a specific authorized I Nyoman Windha performance and ask a Balinese gamelan educator to review tuning, form and interlocking-language cautions.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original polyphonic coordination study; not gamelan repertoire.",
+    "licence": "Draft original; reference works and recordings remain copyrighted.",
+    "respect": "Name the chosen ensemble, composer and island; explain that equal-tempered school instruments cannot reproduce paired gamelan tuning.",
+    "review": "Balinese gamelan educator and Grade 8 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "8",
+    "elements": "world-ensemble timbre, polyphonic texture, layered form, arranging and constrained group improvisation",
+    "listen": "I Nyoman Windha — a performed composition for Balinese gamelan",
+    "listen-url": "https://www.youtube.com/results?search_query=I+Nyoman+Windha+gamelan+official",
+    "bridge": "Hear coordinated interlocking parts, sectional contrast, paired tuning shimmer and large-scale punctuation.",
+    "context": "Balinese gamelan composition is a living, changing art with ensemble-specific tuning and rehearsal practice. This equal-tempered classroom polyphony is not gamelan and does not reproduce kotekan.",
+    "distance": "Original notes and sectional plan; no Windha passage, tuning, interlock or gong structure is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "two melodic groups",
+     "prompt": "Design the interlock without collisions",
+     "choices": [
+      "alternate eighths",
+      "trade beats",
+      "one holds while one moves"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "section leader",
+     "prompt": "How does the form turn?",
+     "choices": [
+      "sudden cut",
+      "gong then new layer",
+      "thin out gradually"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-g8-sahel-guitar-layers",
+   "file": "items/ontario-g8-sahel-guitar-layers.abc",
+   "title": "Sahel Guitar Layers",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Ali Farka Touré",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Verify an authorized Ali Farka Touré recording and ask a Malian/Songhai music educator to review style and cultural context.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original modal dialogue study; listening reference remains the source for Malian style.",
+    "licence": "Draft original; reference work and recording remain copyrighted.",
+    "respect": "Do not imply that Malian music derives from US blues; discuss reciprocal histories carefully and centre Touré's own account.",
+    "review": "Malian/Songhai music educator and Grade 8 teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "8",
+    "elements": "modal tonality, monophonic/homophonic/polyphonic texture, arranging for purpose and improvised dialogue",
+    "listen": "Ali Farka Touré — \"Ai Du\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Ali+Farka+Toure+Ai+Du+official",
+    "bridge": "Hear voice and guitar converse, repeated modal ground, subtle rhythmic displacement and the space between phrases.",
+    "context": "Ali Farka Touré's music grows from Malian/Songhai traditions and a personal relationship with blues heard across the Atlantic. This original Dorian study is not \"desert blues\" repertoire.",
+    "distance": "Original melody and accompaniment plan; no guitar figure, lyric, vocal contour or recording harmony is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "guitar/keyboard and voice",
+     "prompt": "Choose the conversation",
+     "choices": [
+      "instrument asks",
+      "voice asks",
+      "overlap briefly"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "arranger",
+     "prompt": "Change the texture for purpose",
+     "choices": [
+      "monophonic focus",
+      "homophonic support",
+      "polyphonic dialogue"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-jk-big-small-drum",
+   "file": "items/ontario-jk-big-small-drum.abc",
+   "title": "Big Drum, Small Drum",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Kodo",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Confirm the Kodo listening link and test whether the cue language supports movement without turning taiko into a generic loud-drum stereotype.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original classroom piece using broad contrasts of gesture and resonance.",
+    "licence": "Draft original; Kodo's recording and choreography are not included.",
+    "respect": "Name taiko and Kodo specifically; do not claim that a classroom tub drum reproduces Japanese taiko practice.",
+    "review": "Early-years teacher; educator familiar with taiko pedagogy."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "JK",
+    "elements": "beat, sound quality, speed and volume — contrast large and small movements while staying together",
+    "listen": "Kodo — \"O-Daiko\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Kodo+O-Daiko+official",
+    "bridge": "Watch the preparation before a strike and the space after it; compare one grounded sound with a light answer.",
+    "context": "Kodo's staged taiko performance can introduce ensemble focus, gesture and resonance. This is an original classroom pulse study for body percussion, not taiko repertoire.",
+    "distance": "Original rhythm, melody and words; no Kodo passage is copied. Use classroom drums only after naming that they are not taiko."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "conductor",
+     "prompt": "Which body size?",
+     "choices": [
+      "big grounded",
+      "tiny precise",
+      "freeze and listen"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "two groups",
+     "prompt": "Who answers?",
+     "choices": [
+      "left group",
+      "right group",
+      "everyone together"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-jk-hello-echo",
+   "file": "items/ontario-jk-hello-echo.abc",
+   "title": "Hello, Echo",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Ella Jenkins",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Try with a JK class; confirm the two-note range, reply window and listening link, then have an early-years music teacher review it.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "New classroom composition by Grand Central Stationery; only the participatory idea is compared with the listening reference.",
+    "licence": "Draft original intended for the project's licence; the referenced recording remains separately copyrighted.",
+    "respect": "Credit Ella Jenkins in the lesson and listen to her performance rather than presenting this piece as a substitute.",
+    "review": "Early-years music teacher and JK classroom trial."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "JK",
+    "elements": "beat, sound quality, speed and volume — keep a shared pulse, then choose an echo, a changed ending or silence",
+    "listen": "Ella Jenkins — \"You'll Sing a Song and I'll Sing a Song\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Ella+Jenkins+You%27ll+Sing+a+Song+and+I%27ll+Sing+a+Song",
+    "bridge": "Notice how a leader leaves room for a real answer; compare exact echoing with a reply that changes one thing.",
+    "context": "Ella Jenkins made participatory call-and-response central to children's music. This tiny original greeting is a listening doorway, not a transcription of her melody or words.",
+    "distance": "Original two-note melody, words and form; the named recording is for listening and discussion only. Do not label this as an Ella Jenkins composition."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "teacher then class",
+     "prompt": "How will we answer hello?",
+     "choices": [
+      "same echo",
+      "new ending",
+      "one bar of space"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "child leader then class",
+     "prompt": "Choose the sound colour",
+     "choices": [
+      "voice",
+      "clap",
+      "small drum"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-jk-silver-drop",
+   "file": "items/ontario-jk-silver-drop.abc",
+   "title": "Silver Drop",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Evelyn Glennie",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Test with mallets and found sounds; verify that children can choose dynamics without striking hard or unsafely.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original resonance study; no phrase from the reference is used.",
+    "licence": "Draft original; the listening reference remains copyrighted.",
+    "respect": "Introduce Glennie as a composer-performer and discuss listening through vibration without using disability as inspiration rhetoric.",
+    "review": "Early-years and accessibility-minded music educators."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "JK",
+    "elements": "sound quality, speed and volume — hear one sound decay, then decide when another sound belongs",
+    "listen": "Evelyn Glennie — \"A Little Prayer\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Evelyn+Glennie+A+Little+Prayer",
+    "bridge": "Listen past the attack into the fading sound; compare metal, wood, voice and silence.",
+    "context": "Evelyn Glennie's solo percussion work invites close listening to resonance and touch. This original two-note sound study does not imitate her composition.",
+    "distance": "Original notes and words; the lesson reference is named for listening only, with no audio or score embedded."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "one player",
+     "prompt": "What follows the silver sound?",
+     "choices": [
+      "soft echo",
+      "lower answer",
+      "let it fade"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "circle",
+     "prompt": "Pass the sound when you hear space",
+     "choices": [
+      "clockwise",
+      "across the circle",
+      "unexpected neighbour"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-sk-bamboo-breath",
+   "file": "items/ontario-sk-bamboo-breath.abc",
+   "title": "Bamboo Breath",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Riley Lee",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Replace the search result with an authorized Riley Lee track link and ask a shakuhachi-informed educator to review the listening language.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original breath-and-silence exercise; not shakuhachi repertoire.",
+    "licence": "Draft original; the listening recording remains copyrighted.",
+    "respect": "Name the instrument and performer; avoid calling any airy classroom flute sound \"Zen\" or claiming a spiritual practice.",
+    "review": "Shakuhachi-informed educator and early-years teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "SK",
+    "elements": "speed, volume, pitch and silence — make a long sound, notice breath, and let silence complete the phrase",
+    "listen": "Riley Lee — \"Dai Bosatsu\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Riley+Lee+Dai+Bosatsu+shakuhachi",
+    "bridge": "Listen to breath as part of the tone and to silence as part of the phrase, not as an empty mistake.",
+    "context": "Riley Lee's shakuhachi performance can introduce a Japanese end-blown bamboo flute and the discipline of sustained listening. This new vocal study is not honkyoku and does not imitate a sacred piece.",
+    "distance": "Original melody and words; no pitch sequence or ornament is taken from the reference."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "solo then circle",
+     "prompt": "What belongs after the long tone?",
+     "choices": [
+      "breath sound",
+      "soft hum",
+      "silence"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "two soloists",
+     "prompt": "How does the answer begin?",
+     "choices": [
+      "from quiet",
+      "from bright",
+      "after waiting"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-sk-pan-parade",
+   "file": "items/ontario-sk-pan-parade.abc",
+   "title": "Pan Parade",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Lord Kitchener",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Confirm the Lord Kitchener recording access and ask a Trinidadian steelpan educator to review the framing and instrument language.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "New beginner tune, with steelpan used only as a listening focus.",
+    "licence": "Draft original; reference song and recording remain copyrighted.",
+    "respect": "Say steelpan, not steel drum; locate Trinidad and Tobago and show a real steel orchestra before classroom instruments imitate brightness.",
+    "review": "Trinidadian steelpan educator and early-years teacher."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "SK",
+    "elements": "beat, pitch direction, timbre and volume — trace a rising shape and choose who carries the beat",
+    "listen": "Lord Kitchener — \"Pan in A Minor\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Lord+Kitchener+Pan+in+A+Minor",
+    "bridge": "Listen for the bright family of steelpan tone colours and the way calypso singing can celebrate the instrument and its players.",
+    "context": "Steelpan was created in Trinidad and Tobago and developed through community innovation and competition. This original classroom parade uses voices or barred instruments; it is not calypso and not a steelband score.",
+    "distance": "Original tune and words; no line from Lord Kitchener's copyrighted song is copied."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "conductor",
+     "prompt": "Who carries the bright beat?",
+     "choices": [
+      "bells",
+      "voices",
+      "claps"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "one child then group",
+     "prompt": "Where does the melody travel?",
+     "choices": [
+      "up",
+      "down",
+      "same note"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "ontario-sk-pata-steps",
+   "file": "items/ontario-sk-pata-steps.abc",
+   "title": "Pata Steps",
+   "subtitle": "",
+   "source": "Original classroom composition, 2026; listening bridge to Miriam Makeba",
+   "sourceUrls": [],
+   "performances": [],
+   "performanceNotes": [],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Confirm the authorized Miriam Makeba recording and trial the movement prompts with an SK class.",
+   "notes": "",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "honesty": "Original social-movement chant beside a listening study of Makeba.",
+    "licence": "Draft original; the reference recording remains copyrighted.",
+    "respect": "Teach Makeba's name, language and political context; do not reduce the recording to an anonymous dance beat.",
+    "review": "Early-years teacher and South African music educator."
+   },
+   "composition": {
+    "series": "Ontario Listening Bridges — set 1",
+    "grade": "SK",
+    "elements": "steady beat, speed, volume and sound quality — move on the beat and leave room for a partner's choice",
+    "listen": "Miriam Makeba — \"Pata Pata\"",
+    "listen-url": "https://www.youtube.com/results?search_query=Miriam+Makeba+Pata+Pata+official",
+    "bridge": "Hear how repeated vocal and instrumental ideas make social movement feel communal; notice leader and group energy.",
+    "context": "Miriam Makeba's internationally known recording can open a lesson on South African popular music, language, dance and apartheid-era history. This is a new movement chant, not a \"Pata Pata\" arrangement.",
+    "distance": "Original melody and English words; no hook, bass line or lyric from the recording is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "movement leader",
+     "prompt": "Choose the travelling step",
+     "choices": [
+      "side-side",
+      "forward-back",
+      "stay and groove"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-6",
+     "role": "partner pairs",
+     "prompt": "How will your partner answer?",
+     "choices": [
+      "mirror",
+      "make it smaller",
+      "change direction"
+     ],
+     "replyBars": 2
+    }
+   ]
   },
   {
    "id": "pass-the-ball",
@@ -739,6 +3309,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "game: a passing game in a closed ring (no dancing); hands behind backs pass a ball while the seeker in the middle tries to find it",
     "elements": "call and response by section; quavers on the words, a dotted crotchet on \"round\"; the melody falls by step to the tonic at each cadence",
@@ -747,7 +3319,9 @@
     "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
     "respect": "a children's game, for everyone; say it is Jamaican and that the words are Jamaican Patois",
     "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "rana-jinak",
@@ -782,6 +3356,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "The opening song of the Maghreb feast. Rouanet: \"perhaps the best-known tune of the Maghreb\"; it is played at religious and secular feasts alike, births, circumcisions, weddings, and the procession to a saint's tomb, and when the procession arrives the ghaitas play it again. The words greet the hosts: \"We have come to you!\", then wishes of joy and prosperity, the lines broken by the cry \"My fire! O my fire!\" (Rouanet's footnote 1).",
     "elements": "2/4, Allegro; eighteen bars sung twice; final A, range G to e (a ninth); a dotted quarter and a sixteenth-note triplet that open each half, a run of eight sixteenths on \"ni\", and the answering cry \"Na-ri! Ya na-ri!\".",
@@ -792,7 +3368,9 @@
     "licence": "Jules Rouanet (1858-1944), \"La musique arabe dans le Maghreb\", in Lavignac and La Laurencie (eds.), Encyclopédie de la musique et dictionnaire du Conservatoire, Part I vol. 5 (Paris: Delagrave, 1922; the section dated \"Copyright by Librairie Delagrave, 1920\"): public domain in the US (published before 1931) and in Canada (Rouanet d. 1944).",
     "respect": "The tune also leads processions to saints' tombs, where the first verse of the Qur'an is recited aloud (Rouanet p. 2824); the song itself is not a religious text. Rouanet writes as a French colonial musicologist in Algiers; the record quotes his facts about the music, not his framing.",
     "review": "An Arabic speaker familiar with Algerian song, for the words; ideally an Algerian musician, for the tempo and the drum strokes."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "resvelons-nous",
@@ -825,6 +3403,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A May-morning song: wake up, lovers, and go to the woods to gather the may (green boughs and blossom brought home on May Day). The burden underneath is the company's own call, \"Alons ent bien tos au may\", let's be off to the may.",
     "elements": "A five-bar burden sung as a canon: the contratenor sings it, the tenor answers a fifth lower one bar later, each resting a bar before going round again. Over it a solo top line in 3/2. Cadences on D with the open fifth D-A.",
@@ -833,7 +3413,9 @@
     "licence": "Stainer, Dufay and his Contemporaries (London: Novello, 1898): public domain in the US (published 1898) and in Canada (the editors died 1901, 1937 and 1939). Notes read from the IMSLP scan of the Sibley Music Library copy.",
     "respect": "A secular spring song; nothing sacred or sensitive.",
     "review": "An early-music singer or choir director, for the editorial accidentals and the tempo."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "sakura-koto",
@@ -862,6 +3444,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "song for the koto: cherry blossom in spring; taught in Japanese schools since the Meiji era",
     "elements": "in (miyako-bushi) scale on A (A B flat D E F), here a fifth below the usual school key; 4/4; the band holds an open fifth A and E, quietly, as a koto's open strings might",
@@ -870,7 +3454,108 @@
     "licence": "public domain (traditional, Edo period; transcription donated to the public domain by Daisyfield.com)",
     "respect": "for everyone",
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "sansa-akroma",
+   "file": "items/sansa-akroma.abc",
+   "title": "Sansa Akroma",
+   "subtitle": "Ghanaian counting and passing game",
+   "source": "Akosua Obuo Addo and Justina Adu, \"Examining the Use of Folk Resources for Creative Arts Education in Ghana's Basic Schools,\" International Journal of Education & the Arts 23(4), 2022, Figure 3, p. 18, doi:10.26209/ijea23n4, CC BY-NC 4.0",
+   "sourceUrls": [
+    {
+     "url": "https://doi.org/10.26209/ijea23n4",
+     "label": "stable DOI for Addo and Adu (2022)"
+    },
+    {
+     "url": "https://www.ijea.org/v23n4/v23n4.pdf",
+     "label": "open article PDF, Figure 3 on p. 18 and interview on pp. 17-18"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "The article reports the interviewed teacher singing the game but links no audio; seek a reviewer-led demonstration rather than substituting an unrelated online version."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "The human-review packet is ready, but no reviewer has been contacted and no response has been received. A Ghanaian early-years teacher familiar with this game and a speaker competent in the source words must check the language, pronunciation, passing action, tempo and classroom framing.",
+   "notes": "SOURCE WORDS: \"Sansa akroma nena wuo ɔkyekyer nkokɔma / ɔse ɔkɛ yɛ adwuma nena awuo, ɔkyekyer nkokɔma\" (article pp. 17-18). The source says the game teaches counting and vocabulary but does not identify the language or provide a translation; words are therefore held for language review rather than aligned under the notes.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "packet-ready",
+   "reviewPacket": "reviews/sansa-akroma-review.md",
+   "dossier": {
+    "function": "Ghanaian early-years counting and passing game; children move stones or, in the interviewed teacher's class, oranges while singing",
+    "elements": "eight bars in 2/4; a quarter-note triplet fills bar 1, bars 3 and 7 use dotted-eighth/sixteenth cells, and the C4-A4 melody repeats after bar 8",
+    "practice": "the source teacher moves one object per child to connect counting, vocabulary, reasoning and eye-hand coordination; no tempo is printed, so quarter note = 96 is our rehearsal estimate; C4-A4 fits the conservative C4-D5 young-unison range and C is a practical rehearsal key",
+    "accompaniment": "the article documents singing and object passing, not an instrumental ensemble or harmony; begin unaccompanied and let the passing clicks carry the pulse; any generated drone, chords or percussion must be labelled as our rehearsal aid and muted by default",
+    "lyrics": "the article prints the teacher's sung words but gives no translation or language name; keep them as a source quotation for review, and do not ask a class to sing them until a competent speaker confirms text, meaning and pronunciation",
+    "honesty": "openly licensed source transcription: melody and words follow Addo and Adu's Figure 3 and interview text; tempo, bar numbering, ABC spelling and any accompaniment are ours",
+    "licence": "Addo and Adu (2022) is licensed CC BY-NC 4.0; this noncommercial ABC transcription of Figure 3 retains that licence and attribution",
+    "respect": "the source identifies a Ghanaian singing game but does not name its language or a specific community; do not relabel it Akan, Twi or generally \"West African,\" and do not import a bell pattern or harmony from geography alone",
+    "review": "Ghanaian early-years teacher familiar with the game and a competent speaker of the source words, plus a classroom music teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "senufo-balafon-djembe",
+   "file": "items/senufo-balafon-djembe.abc",
+   "title": "Senufo balafon and djembe (record)",
+   "subtitle": "Two balafons, djembe and shaker in procession: pulse only",
+   "source": "Clip 14 of a Dust-to-Digital Instagram post (19 October 2026), via the Facebook page LA CULTURE SÉNOUFO; pulse read from the recording",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=14",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 14 of 20: a traditional Senufo performance in West Africa, via LA CULTURE SÉNOUFO on Facebook"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=14",
+     "label": "a Senufo balafon and djembe group in procession (Dust-to-Digital, October 2026, via LA CULTURE SÉNOUFO on Facebook)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 26 seconds, filmed in a crowd. For clearer Senufo balafon music: the Facebook page LA CULTURE SÉNOUFO; commercial recordings of Senufo balafon groups from Korhogo (Côte d'Ivoire) and Sikasso (Mali); anthropological studies of the Senufo (Till Förster's, for one) name villages and occasions."
+   ],
+   "status": "inbox",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Transcription: the balafon's tuning is measured (an equal five-note scale, below), but its lines could not be read from this clip (two balafons, djembe, shaker and a crowd, filmed on a phone while walking): the strokes found do not settle into a repeating pattern. Find a cleaner recording of a Senufo balafon ensemble, or a printed transcription, before writing any notes. Source check: which village or group, and what the occasion was (the video shows a crowd in green and yellow, likely a festival or a funeral procession).",
+   "notes": "HOW READ (2026-11-11): onsets were detected in the whole clip and folded onto the cycle that repeats best (2.07 s, one 4/4 bar at about 116 beats a minute); every eighth carries a stroke, and no accent pattern stood out of the crowd noise. The balafon keys could not be separated from the drums and crowd (the pitch tracker spread its notes over two octaves with no stable set).",
+   "kind": "fragment",
+   "kindNote": "A record of what the clip holds: the pulse and the balafon's tuning; missing: the balafon parts (the lead's melody and the second's ostinato), the djembe and shaker rhythms, the chanting, and the occasion.",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "Processional music in a crowd: two balafons carried on the players (the frame is slung so they play while walking), a djembe and a shaker, with people singing and chanting along. Senufo balafon ensembles play at funerals, harvest festivals and initiation celebrations; which this is, the clip does not say.",
+    "elements": "Balafons (wooden keys over gourd resonators, with buzzing membranes) tuned to an equal pentatonic: five steps of about 240 cents to the octave, not the Western pentatonic of whole tones and minor thirds; in interlocking lines over a steady eighth-note pulse; the djembe keeps the eighths.",
+    "practice": "A steady pulse at about 116 beats a minute (eighths about 0.26 s apart), with a two-second cycle (one 4/4 bar) heard in the djembe. Loud and outdoors; the balafon players move with the crowd.",
+    "accompaniment": "Tradition: two or three balafons (a lead and one or two seconds), djembe or other drums, shaker, and voices. In class: a pentatonic xylophone ostinato over a hand-drum pulse would be the substitute, once the parts are known.",
+    "lyrics": "Not taken: the chanting is under the instruments and not clear; any words would be in a Senufo language (Senari or another), to be checked by a speaker.",
+    "honesty": "Traditional practice; nothing of the music is transcribed here, only the pulse and the instruments seen and heard.",
+    "licence": "The music is traditional; the recording belongs to the performers and the Facebook page that posted it. Nothing was taken but the pulse; no audio or video is kept here.",
+    "respect": "If this is a funeral procession, the music belongs to that occasion; find out before teaching any of it as a dance or party piece. Some Senufo balafon music is tied to the Poro society; ask a Senufo musician which pieces may be played outside.",
+    "review": "A Senufo balafon player, for the parts and their occasion."
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "si-me-dan-pasteles",
@@ -914,6 +3599,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A Christmas aguinaldo: at Christmas, groups of singers and players go from house to house (the parranda), and the hosts give them a little gift or refreshments; the song's frank hint is that the visitors expect pasteles, and hot ones (Luce's note).",
     "elements": "G minor, 2/4, eight bars sung twice; the melody in parallel thirds with a second voice beneath; each line a quick run of eighths and a held note (\"pas-te-les__\", \"ca-lien-tes__\"); range of the top voice A to d.",
@@ -924,7 +3611,59 @@
     "licence": "Allena Luce (compiler), Canciones populares (New York: Silver, Burdett, copyright 1921): public domain in the US (published 1921). Luce's death year is not known, so the Canadian status is unconfirmed; the record takes only the traditional tune and its thirds, not her arrangement.",
     "respect": "A seasonal Christian custom with secular words; fine for a winter-holiday unit that includes other traditions. Nothing sensitive.",
     "review": "A Puerto Rican teacher or musician, for the words, the parranda and the cuatro's part."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "stieng-lithophone",
+   "file": "items/stieng-lithophone.abc",
+   "title": "Đàn đá (S'tiêng lithophone)",
+   "subtitle": "A girl playing the lithophone at home in Bình Phước, as heard in the clip",
+   "source": "Clip 17 of a Dust-to-Digital Instagram post (19 October 2026), via the player's Facebook page; draft transcription by machine, from the recording",
+   "sourceUrls": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=17",
+     "label": "Dust-to-Digital on Instagram (posted 19 October 2026), clip 17 of 20: \"XTiêng Đn Xinh\" playing a lithophone at her home in Bình Phước, Vietnam, via her Facebook page"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.instagram.com/p/Der8fSRGSJC/?img_index=17",
+     "label": "a girl playing the đàn đá (lithophone) at home in Bình Phước (Dust-to-Digital, October 2026, via her Facebook page)"
+    }
+   ],
+   "performanceNotes": [
+    "The clip is 60 seconds of one piece, indoors. For the instrument: the S'tiêng and M'nông lithophones of Bình Phước and Đắk Nông, the first described in the West being the Ndut Lieng Krak lithophone that Georges Condominas found in 1949 (now in Paris); the Vietnamese Institute of Musicology (Hà Nội) holds field recordings."
+   ],
+   "status": "transcription",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: which piece she plays (it may be a traditional S'tiêng melody or a Vietnamese song by a named composer; many đàn đá players play both), and the player's name, which the caption gives only as \"XTiêng Đn Xinh\" with letters lost; until the piece is named, nothing here is used in class. Transcription: the whole minute is drafted below (intro, the tune twice, a high closing section); check it by ear against the clip, especially the high B (b'), which may be an overtone of the F sharp stone where the two sound together.",
+   "notes": "HOW READ (2026-11-11): the clip's sustained part (harmonic/percussive separation) was factored into 18 spectra; 13 were single stones (C sharp 5, E5, F sharp 5, G sharp 5, A5, B5, C sharp 6, D6, E6, F sharp 6, a stone near B6) or their upper partials (the components at C7, D7, E7, F7 and A sharp 6 rise and fall with A5, C sharp 6, B5, C sharp 5 and F sharp 5, and are read as those stones), and three were noise. Strokes were found by spectral flux in the full mix and set on a 0.441 s beat from 0.36 s; the tune's two passes (12.5 s and 28.6 s) agree in 45 of their 56 eighths, bars 2 to 4 exactly; they differ in the first bar (the second pass starts an eighth later) and in the last two (the first leads into the link, the second into the closing section).",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "Solo playing at home on a đàn đá, a lithophone: a row of long, roughly shaped stone slabs laid on a padded frame (here about ten to fifteen stones on two tiers), struck with two mallets. The girl plays standing, a mallet in each hand.",
+    "elements": "Six-note scale on A (A, B, C sharp, E, F sharp, with G sharp as a passing note), from C sharp 5 up to F sharp 6, plus one high stone near B6. Form: a seven-bar intro of broken chords in both hands (C sharp, F sharp, A low; C sharp 6 and G sharp answering), the tune A (seven bars, built on repeated C sharp 6 and E6 falling through B and A to F sharp and E) played twice with a two-bar link of high B and A between, then a closing section that rolls on F sharp 5 and F sharp 6 and settles on C sharp 6 and E6, ending on repeated E6.",
+    "practice": "A steady beat of 136 a minute (0.441 s, held through the whole minute), in eighths; the stones ring about half a second, so the notes overlap. One hand mostly carries the tune; the other adds the low F sharp or A under it, or strikes the same stone in alternation for the repeated notes.",
+    "accompaniment": "Tradition: the lithophone alone, or with gongs and drums in the old ensembles. Here the stones alone; the band is off. In class: glockenspiel or metallophone on the six notes, two mallets.",
+    "lyrics": "None: instrumental (if the piece turns out to be a song, its words belong in this record).",
+    "honesty": "A draft of one performance. The stones were separated by a spectrogram factorization (one learned spectrum per stone), each stroke was assigned to the stone whose sound jumped at that moment, and the strokes were set on an eighth-note grid of 0.2205 s; the two passes of the tune agree almost note for note. The bar lines, the note lengths (every stroke is written to the next one; the stones ring on) and the spelling are ours.",
+    "licence": "The instrument and its old repertoire are traditional; the piece is not identified and could be a composed Vietnamese song. The recording belongs to the player; only the notes were taken, and no audio or video is kept here.",
+    "respect": "A young player filmed at home and posted on her own page: credit her by name once it is known, and ask before any use beyond study. Lithophones of the Central Highlands and the southeast are a source of local and national pride; present the instrument with its people, the S'tiêng.",
+    "review": "The player or her family, for the piece's name; a Vietnamese musicologist who knows the đàn đá of Bình Phước."
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "thula-mntwana-curtis",
@@ -959,6 +3698,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A Zulu lullaby \"very commonly used to put Zulu babies to sleep\" (Curtis, from Madikane Cele). A mother has had to cross the mountains and left her baby with another woman, a grandmother, an aunt or a co-wife, who quiets the crying child: your mother is not with you, the zig-zag trail has held her; she is coming soon, she will bring you something pretty (fruit or bright berries).",
     "elements": "6/8, dotted quarter = 50, \"sung softly and with swaying rhythm\"; E major, range E to e (an octave); the rocking quarter-eighth figure throughout; three \"cooing\" glides falling from B to E (Curtis: \"intervals blurred in a long cooing, downward slur\"), each ending a half-verse on \"I-wa!\", the last two with a ritardando.",
@@ -969,7 +3710,66 @@
     "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada.",
     "respect": "Nothing sacred. Credit Madikane Cele. Curtis's surrounding remarks on race (\"naturally emotional\", \"primitive races\", the missionary anecdotes) stay out of the record; her account of the song and its use is kept.",
     "review": "A Zulu speaker, for the spelling, the words and whether the tune is known today."
-   }
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "usagi-to-kame",
+   "file": "items/usagi-to-kame.abc",
+   "title": "Usagi to Kame (兎と亀)",
+   "subtitle": "The Rabbit and the Turtle",
+   "source": "Florence Hudson Botsford (ed.), Folk Songs of Many Peoples, vol. 2 (New York: The Woman's Press, 1922), \"The Rabbit and the Turtle,\" pp. 442-443, English version by Grace Hazard Conkling; University of Rochester Sibley Music Library, public domain",
+   "sourceUrls": [
+    {
+     "url": "https://urresearch.rochester.edu/institutionalPublicationPublicView.action?institutionalItemId=18892",
+     "label": "University of Rochester Sibley Music Library catalogue and public-domain determination for Folk Songs of Many Peoples"
+    },
+    {
+     "url": "http://hdl.handle.net/1802/19325",
+     "label": "stable University of Rochester handle for both volumes"
+    },
+    {
+     "url": "https://www.lib.kunitachi.ac.jp/songindex/detail/1129",
+     "label": "Kunitachi College of Music Library song index naming Wasaburō Ishihara and Benjirō Nōsho and giving the melody incipit"
+    },
+    {
+     "url": "https://www.klnet.pref.kanagawa.jp/uploads/2021/04/ca91894de4711cc9ab7254e71b407984.pdf",
+     "label": "Kanagawa Prefectural Library exhibition guide identifying the 1901-1902 school-song collection and its educational context"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No modern recording was used for the transcription. The 1922 score provides an English dialogue version and Japanese-script text; ask the named reviewer to demonstrate the Japanese words rather than copying a commercial children's recording or its arrangement."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "The melody, authorship and 1901 publication history are checked, but no human review has occurred. A Japanese children's-music educator or shōka historian, a competent Japanese speaker, a second score reader, a rights reviewer for the 1922 English version and a classroom music teacher must check the text, translation, dialogue game and teaching frame before publication.",
+   "notes": "CONTEXT: Kunitachi College of Music Library identifies the song as \"Usagi to Kame,\" names Ishihara and Nōsho and gives the incipit. Kanagawa Prefectural Library places it in the graded 1901-1902 Yōnen Shōka collection, written for primary-school children. That evidence supports an authored school-song identity, not the \"traditional Japanese folk song\" label sometimes attached to it.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "Japanese composed children's teaching song retelling the hare-and-tortoise race as dialogue; useful for character roles, quick dotted rhythms, steady 2/4 pulse and comparing boastful and patient delivery",
+    "elements": "sixteen two-four bars in C major, repeated dotted-eighth/sixteenth cells, C4-D5 octave-plus-second classroom range, four balanced four-bar phrases and a melody that repeatedly contrasts G-E gestures with held C or G cadences",
+    "practice": "The 1922 plate marks Allegro but gives no metronome number; quarter note = 104 is our rehearsal estimate. Assign the first English-source stanza to the rabbit and let the class speak the later turtle answer before deciding whether to sing reviewed Japanese words. C4-D5 exactly spans the conservative young-unison range, and C major is the practical first rehearsal key",
+    "accompaniment": "Botsford prints an uncredited piano accompaniment, but this record transcribes only the vocal line. Begin with voice and a walking pulse or alternating knee taps; do not infer koto, shamisen, taiko or a min'yō accompaniment. Any generated chords or percussion must be labelled as our classroom arrangement rather than Japanese traditional practice",
+    "lyrics": "Wasaburō Ishihara's Japanese text and Benjirō Nōsho's music first appeared in a 1901 school-song collection. Botsford prints Japanese script on p. 443 and aligns Grace Hazard Conkling's English version to the melody on p. 442. This ABC preserves only that source-aligned English stanza pending Japanese transcription, modern orthography, pronunciation and translation review",
+    "honesty": "Authored historical school song, not anonymous warabe-uta: music by Benjirō Nōsho and Japanese words by Wasaburō Ishihara. The melody and English words follow Botsford's 1922 plate; composer/lyricist attribution is independently confirmed by Kunitachi College of Music Library. ABC spelling, bar numbering, rehearsal tempo, melody-only reduction and muted-band directives are ours",
+    "licence": "Ishihara died in 1922 and Nōsho in 1936, so the 1901 composition is public domain. University of Rochester marks the complete 1922 source item public domain. Grace Hazard Conkling's English version is reproduced from that institutional PD item, but a rights reviewer must still confirm its status for every launch jurisdiction because Conkling died in 1958",
+    "respect": "Present this as a Meiji-period composed school song and fable, not a timeless or generic Japanese folk tune. Do not add costumes, accents or instruments merely from geography. A Japanese reviewer should decide how to explain the school-song movement and whether the historical English adaptation is suitable beside checked Japanese words",
+    "review": "Japanese children's-music educator or shōka historian, competent Japanese speaker, rights reviewer for the English version, second score reader and classroom music teacher; all reviews still required"
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "vamonos-por-santa-anita",
@@ -998,6 +3798,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), the oxcarts in front and the oxen behind.",
     "elements": "G major, 2/4, four bars sung twice; every beat but the last is a dotted eighth and a sixteenth, a skipping long-short figure; a range of a ninth (D above middle C to the E an octave higher).",
@@ -1006,7 +3808,9 @@
     "licence": "Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US and in Canada (Hague d. 1954).",
     "respect": "A play song; nothing sacred or sensitive.",
     "review": "A Spanish-speaking teacher, for the words."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "xianhua-diao",
@@ -1054,6 +3858,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A popular song (xiaodiao) of the lower Yangzi, sung for entertainment by a solo singer who often accompanied herself or himself; Barrow heard it in Canton and calls it \"one of the most popular songs in the whole country\"; van Aalst prints it as a popular song a century later. Its words praise a fresh flower, the jasmine (moli), too lovely to pick.",
     "elements": "Pentatonic (F G A c d in van Aalst, the gong mode on F with B natural, 凡, as a passing tone; G A B d e in Barrow, the gong mode on G), both ending on the fifth degree (zhi); 4/4 in eighths and quarters with a dotted quarter at each half-line; van Aalst C to d (a ninth), Barrow D to g (an eleventh).",
@@ -1064,7 +3870,9 @@
     "licence": "J. A. van Aalst (1858-after 1914), Chinese Music (Shanghai: Inspectorate General of Customs, 1884); John Barrow (1764-1848), Travels in China (London: Cadell and Davies, 1804), tune taken down by Hüttner (d. 1847): both public domain in the US and Canada.",
     "respect": "Barrow and van Aalst write as outsiders who often dismiss Chinese music (Barrow's \"aggregation of harsh sounds\"); the record keeps their facts and transcriptions only. The tune became a political symbol in 2011 (the \"Jasmine Revolution\" calls); not something to raise in class unless asked.",
     "review": "A Chinese speaker for the characters and the singing; ideally a musician who plays Jiangnan sizhu, for the ornaments."
-   }
+   },
+   "composition": null,
+   "improv": []
   },
   {
    "id": "zdravets",
@@ -1100,6 +3908,8 @@
    "decisionNote": "",
    "response": "",
    "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
    "dossier": {
     "function": "A horo song: sung while dancing the horo, the line dance of Bulgarian village festivities. A question and its answer: \"Little geranium, little wreath, do the girls pick you?\" and the geranium tells how the girls pick it on St George's Day, weave it into wreaths and crown the lambs. Zdravets (Geranium macrorrhizum) carries the word for health, zdrave, and is given for health at feasts.",
     "elements": "9/16 in the grouping 2+2+2+3 (quick-quick-quick-slow), the daychovo horo's metre; two three-bar lines, each a ten-syllable verse line; final A with B flat above it, a range of a sixth (F to d).",
@@ -1110,7 +3920,9 @@
     "licence": "Vasil Stoin (1880-1938), Narodna pesnopoyka (Sofia: Ministry of Education, 1930): public domain in the US (published 1930; PD from 1 January 2026) and in Canada and Bulgaria (Stoin d. 1938).",
     "respect": "St George's Day (Gergyovden, 6 May) is a Christian and folk feast; the garlanded lamb is the feast's sacrificed lamb (kurban). That is a fact a teacher may give or leave; the song itself is about flowers, girls and lambs.",
     "review": "A Bulgarian speaker, for the spelling, stresses and translation; a Bulgarian dance teacher, for the horo step."
-   }
+   },
+   "composition": null,
+   "improv": []
   }
  ]
 }

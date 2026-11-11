@@ -1,11 +1,20 @@
 % holding-id: gurkha-sing-song
-% holding-status: source-check
+% holding-status: classroom-check
 % holding-owner:
-% holding-source-check: pending
+% holding-source-check: verified
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
-% holding-blocked: Source check: hear it against the plate (p. 57, scan p. 79) and confirm the three things a measurement cannot settle: the "w" over the e in the solo (read as an upper mordent), the right hand on the high head of the drum, and that the unlabelled first staff belongs to the same song as the solo and chorus.
+% holding-blocked: A Nepali/Gurkha culture bearer, singer and drummer should review the historical military setting, vocal/drum interpretation and classroom use; no such review has occurred.
 % holding-kind: tune
+% dossier-function: social sing-song after a hockey match, with solo/chorus singing, dancing and drum
+% dossier-elements: an opening phrase followed by a two-bar solo and answering two-bar chorus; C final over a G-C frame; the printed 6/8 right/left drum line runs three-against-two under the 4/4 voice
+% dossier-practice: one or two men danced with bent knees, bent elbows and upturned palms, sometimes crouching for a few bars; the written G4-G5 octave is high for young unison voices, so rehearse in F (-7 semitones, C4-C5); quarter note = 108 is ours
+% dossier-accompaniment: Fox Strangways prints a two-hand drum line and says "Drum as before" under the solo; the page maps printed right-hand strokes to rim and left-hand strokes to low drum only as a rehearsal substitute, not as an identified instrument or timbre
+% dossier-lyrics: no words were taken down because the songs followed too quickly; the occasional grunted "Ha! Ha!" at a chorus ending is the only vocal text reported
+% dossier-honesty: historical-source transcription: melody, solo/chorus labels and right/left drum attacks follow the plate; tonic/drone, tempo, ornament name and drum timbres are our interpretations
+% dossier-licence: public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); all six vocal bars and the drum line checked against p. 57 on 2026-11-10
+% dossier-respect: the source records men of the 2nd Goorkhas in colonial India and supplies no words; do not infer language, community identity or present-day performance practice from the regiment or location
+% dossier-review: Nepali/Gurkha culture bearer, singer and drummer, plus a classroom teacher; all reviews still required
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up archive.org scan of The Music of Hindostan, at p. 57
 X:1
 T:Gurkha sing-song
@@ -18,7 +27,8 @@ N:From a sing-song of the men of the 2nd Goorkhas after a hockey match: the song
 N:THE PLATE: a first staff of two bars with a drum line under it, then a second staff headed "Solo." (marked "Drum as before.") for two bars, a double bar, and "Chorus." for two bars. The chorus answers the solo: it holds the high g for the half bar in which the solo climbs to it, then sings the rest of the solo note for note. No signature, no tonic marked and no tempo; the notes are G A c d e g, and all three phrases end on a held c, so c is the final and the G a fourth below it is the floor of the opening phrase (Fox Strangways's G-c backbone, p. 70). The drone plays C, the key.
 N:THE DRUM: one line, strokes above it marked "Right.", below it "Left.", in 6/8 against the voice's common time, one drum bar to each bar of the song. Right hand on 1, 3 and 4 of the six, left hand on 5 and 6; the strokes on 1, 3 and 4 stand under the voice's G, its dotted c and its c on the half bar, so the drum's two dotted-quarter beats fall on the voice's two half notes, three against two. The band line plays that bar as six even steps (rim for the right hand, bd for the left, the project's high and low head of a hand drum); which hand had the high head is not printed.
 N:HOW READ (2026-11-10): the page rendered at 1200 dpi from the archive.org PDF; each filled notehead found by shape and measured against its staff's five lines (every head within 0.3 of a step: bar 1 of the first staff measures A, c, c, A where the 2026-11-09 reading had B, c, d, B by eye, now corrected); the four hollow half notes measured by their rims (c, c; the chorus opens on g); the drum strokes placed against the barlines; rhythm and the ornament read from zoomed crops (the solo's e-d pair has a single beam, so two eighths).
-N:UNCERTAIN: the snapped figures (sixteenth then dotted eighth) printed over a 6/8 drum may be Fox Strangways's way of writing a lilt between two and three; the "w" ornament, read as an upper mordent; which hand played the high head.
+N:SOURCE CHECK (2026-11-10): the complete p. 57 plate confirms that the opening staff, the labelled Solo and Chorus, and "Drum as before" all belong to Ex. 129. The ornament is visibly a w-shaped mark over the solo e. The drum line labels strokes above the line "Right" and below it "Left"; it does not identify high and low heads, so that timbre mapping remains ours.
+N:UNCERTAIN: the snapped figures (sixteenth then dotted eighth) printed over a 6/8 drum may be Fox Strangways's way of writing a lilt between two and three; "upper mordent" is our name for the printed w-shaped ornament; the drum's instrument and head timbres are not identified.
 M:4/4
 L:1/8
 Q:1/4=108

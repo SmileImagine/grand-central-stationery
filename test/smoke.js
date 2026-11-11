@@ -62,6 +62,10 @@ const accompanimentAudit = spawnSync(process.execPath, ['test/accompaniment-audi
 assert(accompanimentAudit.status === 0, accompanimentAudit.stderr || accompanimentAudit.stdout || 'accompaniment audit checks failed');
 const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], { cwd: root, encoding: 'utf8' });
 assert(coverageMap.status === 0, coverageMap.stderr || coverageMap.stdout || 'coverage map checks failed');
+if (workshopHere) {
+  const repertoireAudit = spawnSync(process.execPath, ['test/repertoire-audit.test.js'], { cwd: root, encoding: 'utf8' });
+  assert(repertoireAudit.status === 0, repertoireAudit.stderr || repertoireAudit.stdout || 'private repertoire audit checks failed');
+}
 const saveServer = spawnSync(process.execPath, ['test/serve.test.js'], { cwd: root, encoding: 'utf8' });
 assert(saveServer.status === 0, saveServer.stderr || saveServer.stdout || 'tune editor save server checks failed');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));

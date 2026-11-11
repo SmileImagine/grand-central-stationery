@@ -7,6 +7,15 @@
 % holding-blocked: Check both bars against the plate (p. 57, scan p. 79, last staff): the lengths in bar 1 (read one eighth short) and bar 2 (read two eighths short); then read the 2nd, 3rd and 4th versions on p. 58 (scan p. 80) as variants.
 % holding-kind: fragment
 % holding-kind-note: The first of four versions of one tune that the men sang in turn; the 2nd to 4th (p. 58) show how they varied it. The four versions together, sung in turn, are the piece.
+% dossier-function: variation-song fragment from the same men's social sing-song as Ex. 129; the four versions were sung in turn
+% dossier-elements: first of four two-bar melodic variants, without words; pentatonic material and ornamental short-long figures over a G-centred open-fifth rehearsal drone
+% dossier-practice: the source gives no tempo, words or exact order beyond the four numbered versions; the written E4-E5 octave is high for young unison voices, and B-flat (-2 semitones, D4-D5) is the provisional rehearsal key
+% dossier-accompaniment: no drum line is printed for Ex. 130; start unaccompanied, and treat the generated G drone as our optional pitch support rather than source practice
+% dossier-lyrics: no words were taken down; do not add text or infer a language
+% dossier-honesty: historical-source fragment: only the first version is transcribed here; the G drone, tempo and classroom treatment are ours, and the complete four-version piece remains to be entered
+% dossier-licence: public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); first version read from p. 57, with variants visible on pp. 57-58
+% dossier-respect: the source records men of the 2nd Goorkhas in colonial India; do not infer a language, a pan-Nepali identity or present-day practice from the regiment or location
+% dossier-review: Nepali/Gurkha culture bearer and singer, plus a second plate reader and classroom teacher; all reviews still required
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up archive.org scan of The Music of Hindostan, at p. 57
 X:1
 T:Gurkha song, first version

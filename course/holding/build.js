@@ -7,6 +7,10 @@ const decisions = ['include', 'considering', 'reject'];
 // What the piece is: a whole tune, or a fragment (a bar or two taken down without the words, dance, drum or
 // variants that made it music), with holding-kind-note saying what is missing.
 const kinds = ['tune', 'fragment'];
+// Human review is a separate evidence trail. Preparing or sending a packet
+// never counts as a passed classroom/culture/language review.
+const reviewStatuses = ['not-started', 'packet-ready', 'sent', 'response-received', 'complete'];
+const compositionGrades = ['JK', 'SK', '1', '2', '3', '4', '5', '6', '7', '8'];
 // Fields that may run over several lines, one "% holding-response: ..." line each, joined with newlines.
 const MULTI = ['response', 'decision-note'];
 const metaOf = text => {
@@ -35,6 +39,38 @@ const sourceUrlsOf = text => [...text.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$
 // says where one might be found when there is no link (an archive and its shelf mark).
 const performanceUrlsOf = text => [...text.matchAll(/^%\s*performance-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
 const performanceNotesOf = text => [...text.matchAll(/^%\s*performance-note:\s*(.+)$/gmi)].map(m => m[1].trim());
+// Original classroom pieces can carry an intentional curriculum/listening bridge without pretending that the
+// analyzer inferred it. These fields belong to the draft and travel with the ABC through the editor and downloads.
+const COMPOSITION = ['series', 'grade', 'elements', 'listen', 'listen-url', 'bridge', 'distance', 'context'];
+const COMPOSITION_MULTI = new Set(['elements', 'bridge', 'distance', 'context']);
+const compositionOf = text => {
+  const c = {};
+  for (const line of text.split('\n')) {
+    const m = line.match(/^%\s*composition-([a-z-]+):\s*(.*)$/i);
+    if (m && COMPOSITION.includes(m[1].toLowerCase())) {
+      const k = m[1].toLowerCase(), v = m[2].trim();
+      c[k] = COMPOSITION_MULTI.has(k) && c[k] ? `${c[k]}\n${v}` : v;
+    }
+  }
+  return Object.keys(c).length ? c : null;
+};
+// One self-contained JSON cue per line. abcjs ignores the comment, while the main player's Improv drawer can put
+// the choice in musical time. Example: % improv: {"id":"A","bars":"1-2","prompt":"Echo or answer?",...}
+const improvOf = (text, file, errors) => {
+  const cues = [];
+  for (const match of text.matchAll(/^%\s*improv:\s*(.+)$/gmi)) {
+    try {
+      const cue = JSON.parse(match[1]);
+      if (!cue || typeof cue !== 'object' || Array.isArray(cue)) throw Error('wants a JSON object');
+      if (!cue.id || !cue.prompt) throw Error('wants id and prompt');
+      if (!/^\d+(?:-\d+)?$/.test(String(cue.bars || ''))) throw Error('bars wants 1 or 1-2');
+      if (!Array.isArray(cue.choices) || cue.choices.length < 2 || cue.choices.length > 4 || cue.choices.some(x => typeof x !== 'string' || !x.trim())) throw Error('choices wants two to four labels');
+      if (cue.replyBars !== undefined && (!Number.isInteger(cue.replyBars) || cue.replyBars < 1 || cue.replyBars > 16)) throw Error('replyBars wants an integer from 1 to 16');
+      cues.push(cue);
+    } catch (e) { errors.push(`${file}: improv cue ${e.message}`); }
+  }
+  return cues;
+};
 const field = (text, name) => {
   const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi'));
   return m ? m[1].trim() : '';
@@ -42,6 +78,7 @@ const field = (text, name) => {
 const files = fs.readdirSync(itemsDir).filter(f => f.endsWith('.abc')).sort();
 const seen = new Set(), errors = [], items = files.map(file => {
   const text = fs.readFileSync(path.join(itemsDir, file), 'utf8'), meta = metaOf(text);
+  const composition = compositionOf(text), improv = improvOf(text, file, errors);
   const id = meta.id || file.replace(/\.abc$/, '');
   if (seen.has(id)) errors.push(`${file}: duplicate holding-id ${id}`); else seen.add(id);
   if (!stages.includes(meta.status)) errors.push(`${file}: holding-status wants ${stages.join(', ')}`);
@@ -49,10 +86,18 @@ const seen = new Set(), errors = [], items = files.map(file => {
   for (const s of sourceUrlsOf(text)) if (!/^https?:\/\//.test(s.url)) errors.push(`${file}: source-url wants a web address, not ${s.url}`);
   for (const s of performanceUrlsOf(text)) if (!/^https?:\/\//.test(s.url)) errors.push(`${file}: performance-url wants a web address, not ${s.url}`);
   if (!field(text, 'S')) errors.push(`${file}: wants an S: source`);
+  if (composition && !compositionGrades.includes(composition.grade)) errors.push(`${file}: composition-grade wants ${compositionGrades.join(', ')}`);
+  if (composition && composition['listen-url'] && !/^https?:\/\//.test(composition['listen-url'])) errors.push(`${file}: composition-listen-url wants a web address`);
   if (meta.status === 'ready' && (meta['source-check'] !== 'verified' || meta['classroom-check'] !== 'passed'))
     errors.push(`${file}: ready requires source-check: verified and classroom-check: passed`);
   if (meta.decision && !decisions.includes(meta.decision)) errors.push(`${file}: holding-decision wants ${decisions.join(', ')}`);
   if (meta.kind && !kinds.includes(meta.kind)) errors.push(`${file}: holding-kind wants ${kinds.join(' or ')}`);
+  if (meta['review-status'] && !reviewStatuses.includes(meta['review-status'])) errors.push(`${file}: holding-review-status wants ${reviewStatuses.join(', ')}`);
+  if (meta['review-status'] && meta['review-status'] !== 'not-started' && !meta['review-packet']) errors.push(`${file}: holding-review-status ${meta['review-status']} wants a holding-review-packet`);
+  if (meta['review-packet']) {
+    const packet = path.resolve(root, meta['review-packet']);
+    if (path.relative(root, packet).startsWith('..') || !fs.existsSync(packet)) errors.push(`${file}: holding-review-packet must name an existing file inside course/holding`);
+  }
   if (meta.kind === 'fragment' && !meta['kind-note']) errors.push(`${file}: a fragment wants a holding-kind-note saying what is missing`);
   if (meta.decision === 'reject' && !meta['decision-note']) errors.push(`${file}: a rejected tune wants a holding-decision-note saying why`);
   return {
@@ -64,7 +109,8 @@ const seen = new Set(), errors = [], items = files.map(file => {
     kind: meta.kind || 'tune', kindNote: meta['kind-note'] || '',
     decision: meta.decision || 'considering', decisionNote: meta['decision-note'] || '',
     response: meta.response || '', responseUpdated: meta['response-updated'] || '',
-    dossier: dossierOf(text)
+    reviewStatus: meta['review-status'] || 'not-started', reviewPacket: meta['review-packet'] || '',
+    dossier: dossierOf(text), composition, improv
   };
 });
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

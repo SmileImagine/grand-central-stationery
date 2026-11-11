@@ -12,6 +12,15 @@
 % holding-classroom-check: pending
 % holding-updated: 2026-11-09
 % holding-blocked: Teacher to check against the plate (pp. 66-67, scan pp. 90-91): the 3/4 metre and the tempo (none found printed), the second note of each line (B, or C), the middle note of the triplet in line 4, and the short last bars of lines 1 and 2.
+% dossier-function: Maratha devotional lullaby; the translated prose is a tired caregiver singing while pulling the cradle string
+% dossier-elements: four-line 3/4 melody with repeats, triplet turns and Fox Strangways's wavy "squeeze" ornament; C final and a B-flat key signature whose B-flat does not occur
+% dossier-practice: no tempo is printed; quarter note = 80 is our lullaby estimate; the written A3-F4 range is low for conservative young-unison singing, and B-flat (+5 semitones, D4-Bb4) is the provisional rehearsal key
+% dossier-accompaniment: no accompaniment is printed; begin unaccompanied, and treat the C drone as our optional pitch support rather than documented Maratha practice
+% dossier-lyrics: no words are under the notes; the book gives only an English prose translation, so there is no approved singable text and no language pronunciation to teach
+% dossier-honesty: historical-source transcription: melody and prose meaning follow Fox Strangways; 3/4 barring, trial tempo, C drone and ornament rendering remain editorial interpretations named in the uncertainty note
+% dossier-licence: public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); four staves checked twice against pp. 66-67 on 2026-11-09
+% dossier-respect: the title and prose invoke Nirguna, the supreme being without attributes in Hindu thought; keep out of classroom publication until Hindu/Marathi context and school guidance explicitly approve its use
+% dossier-review: Marathi speaker, Hindu educator or culture bearer, second plate reader and classroom teacher; all reviews still required
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/66/mode/1up archive.org scan of The Music of Hindostan, at p. 66
 X:1
 T:Nirguna's lullaby

@@ -1,0 +1,33 @@
+% holding-id: ontario-g6-five-windows
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Dave Brubeck Quartet recording and trial the 3+2/2+3 cueing with a Grade 6 class.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 6
+% composition-elements: 5/4 metre, anacrusis, triplet, interval names, I-IV-V harmony and layered ostinati
+% composition-listen: The Dave Brubeck Quartet — "Take Five"
+% composition-listen-url: https://www.youtube.com/results?search_query=Dave+Brubeck+Quartet+Take+Five+official
+% composition-bridge: Feel 5/4 as a repeating grouping, then hear how a solo can range freely while the ostinato stays dependable.
+% composition-context: Paul Desmond composed "Take Five" for the Dave Brubeck Quartet. This original 5/4 study uses a different melody, harmony and grouping material.
+% composition-distance: No riff, chord progression, solo language or drum pattern from "Take Five" is copied; credit Desmond as composer in the lesson.
+% improv: {"id":"A","bars":"1-2","role":"rhythm section","prompt":"How do five beats group?","choices":["3+2","2+3","five even"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"soloist over I-IV-V","prompt":"Build a reply from one interval","choices":["major third","perfect fourth","perfect fifth"],"replyBars":2}
+% dossier-honesty: Original 5/4 study; the reference's authorship and distinctive riff remain separate.
+% dossier-licence: Draft original; "Take Five" and its recordings remain copyrighted.
+% dossier-respect: Credit Paul Desmond, not only the bandleader; discuss unusual metre without calling it exotic.
+% dossier-review: Grade 6 band/choir teacher and jazz educator.
+X:1
+T:Five Windows
+C:Grand Central Stationery workshop
+R:five-beat ostinato study
+S:Original classroom composition, 2026; listening bridge to Paul Desmond and the Dave Brubeck Quartet
+M:5/4
+L:1/8
+Q:1/4=116
+K:Am
+%%style pop
+E | "Am"A2 c2 B2 A2 E2 | "Dm"F2 A2 G2 F2 D2 | "E"^G2 B2 A2 G2 E2 | "Am"A10 |
+E | "Am"A2 B2 c2 A2 E2 | "Dm"F2 G2 A2 F2 D2 | "E"(3GAB c2 B2 G2 E2 | "Am"A10 |]

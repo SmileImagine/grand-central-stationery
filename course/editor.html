@@ -56,6 +56,13 @@ details.dossier{font-size:13px;margin:0 0 10px}
 details.dossier summary{cursor:pointer;color:var(--accent)}
 details.dossier p{margin:4px 0}
 .grid{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14px}
+.field{display:grid;gap:4px;margin:0 0 10px}.field>span{font-size:12px;color:var(--muted)}
+.field input,.field select{width:100%}
+.sectionnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}.sectionnav button{padding:4px 9px;font-size:12px}
+.cuepreview{border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:10px;background:var(--bg)}
+.cuepreview strong{display:block;font:500 19px/1.25 Georgia,serif;margin-bottom:4px}.cuepreview .cuewho{font-size:12px;color:var(--muted)}
+.cuechoices{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.cuechoices button[aria-pressed=true]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.cuebar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}.cuebar span{font-size:12px;color:var(--muted)}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.on{opacity:1}
@@ -80,6 +87,7 @@ details.dossier p{margin:4px 0}
     <div class="panel titles"><h2 id="title"></h2><div class="sub" id="subtitle"></div><div class="src" id="source"></div><div class="where" id="where"></div></div>
     <div class="panel">
       <h2>The file <small>everything below is saved as typed; the controls on the right write their lines here too</small></h2>
+      <nav class="sectionnav" aria-label="Jump to a part of this tune"><button type="button" data-jump="melody">Melody</button><button type="button" data-jump="lyrics">Lyrics</button><button type="button" data-jump="accompaniment">Accompaniment</button><button type="button" data-jump="elements">Elements</button><button type="button" data-jump="context">Context</button><button type="button" data-jump="links">Links</button><button type="button" data-jump="improv">Improv cues</button></nav>
       <textarea id="file" spellcheck="false" aria-label="The record's ABC file"></textarea>
     </div>
     <div class="panel">
@@ -111,6 +119,26 @@ details.dossier p{margin:4px 0}
         <label for="clscheck">Classroom check</label><select id="clscheck"><option>pending</option><option>passed</option></select>
       </div>
       <p class="hint" id="stagehint"></p>
+    </div>
+    <div class="panel" id="compositionpanel">
+      <h2>Composition & listening bridge <small>original work beside a recording, not a copy of it</small></h2>
+      <div class="grid">
+        <label for="compgrade">Intended grade</label><select id="compgrade"><option value="">Not set</option><option>JK</option><option>SK</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select>
+      </div>
+      <label class="field" for="compelements"><span>Highlighted elements and what students do</span><textarea id="compelements" rows="3" placeholder="duration: steady beat — keep it while a partner changes timbre"></textarea></label>
+      <label class="field" for="complisten"><span>Listen beside (artist — recording)</span><input id="complisten" type="text" placeholder="Artist — “Recording”"></label>
+      <label class="field" for="complistenurl"><span>Recording or authorized listening link</span><input id="complistenurl" type="url" placeholder="https://…"></label>
+      <label class="field" for="compbridge"><span>Listening bridge: the one feature to compare</span><textarea id="compbridge" rows="2"></textarea></label>
+      <label class="field" for="compcontext"><span>Cultural and historical context for the lesson</span><textarea id="compcontext" rows="4"></textarea></label>
+      <label class="field" for="compdistance"><span>Copyright / cultural distance note</span><textarea id="compdistance" rows="3" placeholder="Original melody, words and arrangement; the named recording is for listening only…"></textarea></label>
+    </div>
+    <div class="panel" id="improvpanel">
+      <h2>Improvisation cues <small>choice + listening + turn-taking + pulse + reply window</small></h2>
+      <p class="hint">One JSON object per line. Cues travel inside the ABC as <code>% improv:</code> comments and appear in the main page’s Improv drawer during playback.</p>
+      <textarea id="improvcues" rows="7" spellcheck="false" placeholder='{"id":"A","bars":"1-2","role":"leader","prompt":"Echo or answer?","choices":["echo","change the ending","rest"],"replyBars":2}'></textarea>
+      <div class="row" style="margin-top:8px"><button type="button" id="addcue">Add a starter cue</button><button type="button" id="cueprev">‹ Previous</button><button type="button" id="cuenext">Next ›</button></div>
+      <div class="cuepreview" id="cuepreview" hidden><span class="cuewho" id="cuewho"></span><strong id="cueprompt"></strong><div class="cuechoices" id="cuechoices"></div><div class="cuebar"><span id="cuetime"></span><span id="cuestatus" role="status"></span></div></div>
+      <p class="hint bad" id="cueerror" hidden></p>
     </div>
     <div class="row">
       <button id="play">Play in the main page</button>
@@ -164,10 +192,23 @@ details.dossier p{margin:4px 0}
     kept.splice(at, 0, ...add);
     return kept.join('\n');
   }
+  function getTaggedLines(text, tag) {
+    const re = new RegExp(`^%\\s*${tag}:\\s?(.*)$`, 'i'), out = [];
+    for (const line of text.split('\n')) { const m = line.match(re); if (m) out.push(m[1]); }
+    return out.join('\n').trim();
+  }
+  function setTaggedLines(text, tag, value) {
+    const re = new RegExp(`^%\\s*${tag}:`, 'i'), lines = text.split('\n'), kept = []; let at = -1;
+    for (const line of lines) { if (re.test(line)) { if (at < 0) at = kept.length; } else kept.push(line); }
+    const add = String(value || '').replace(/\r/g, '').split('\n').map(x => x.trim()).filter(Boolean).map(x => `% ${tag}: ${x}`);
+    if (at < 0) { at = 0; kept.forEach((line, i) => { if (/^%\s*(?:holding|review|composition)-/i.test(line)) at = i + 1; }); }
+    kept.splice(at, 0, ...add); return kept.join('\n');
+  }
   const abcField = (text, f) => { const m = text.match(new RegExp(`^${f}:\\s*(.+)$`, 'mi')); return m ? m[1].trim() : ''; };
 
   /* ---- the records: both folders' index.json (or the copy in sets.js when served without them) ---- */
   let records = [], cur = null, saved = '', etag = null, canSave = false, savedResponse = '';
+  let cueAt = 0;
   const getJSON = url => fetch(url, { cache: 'no-store' }).then(r => { if (!r.ok) throw Error(`${r.status} ${r.statusText}`); return r.json(); });
   async function loadIndex() {
     const sets = () => window.GCS_SETS || {};   // read late: sets.js loads after this script
@@ -253,6 +294,10 @@ details.dossier p{margin:4px 0}
       $('stagehint').textContent = ready ? 'Ready to publish needs the source verified and the classroom check passed.' : '';
       $('stagehint').className = ready ? 'hint bad' : 'hint';
     }
+    const compFields = { compgrade: 'grade', compelements: 'elements', complisten: 'listen', complistenurl: 'listen-url', compbridge: 'bridge', compcontext: 'context', compdistance: 'distance' };
+    for (const [id, key] of Object.entries(compFields)) if (active !== $(id)) $(id).value = getMeta(t, 'composition', key, ['elements', 'bridge', 'context', 'distance'].includes(key));
+    if (active !== $('improvcues')) $('improvcues').value = getTaggedLines(t, 'improv');
+    showCue();
     const ru = getMeta(t, p, 'response-updated');
     $('respdate').textContent = ru ? `(last saved ${ru})` : '';
     $('title').textContent = abcField(t, 'T') || cur.id;
@@ -273,8 +318,39 @@ details.dossier p{margin:4px 0}
       t = setMeta(t, p, 'source-check', $('srccheck').value);
       t = setMeta(t, p, 'classroom-check', $('clscheck').value);
     }
+    t = setMeta(t, 'composition', 'grade', $('compgrade').value);
+    t = setMeta(t, 'composition', 'elements', $('compelements').value);
+    t = setMeta(t, 'composition', 'listen', $('complisten').value);
+    t = setMeta(t, 'composition', 'listen-url', $('complistenurl').value);
+    t = setMeta(t, 'composition', 'bridge', $('compbridge').value);
+    t = setMeta(t, 'composition', 'context', $('compcontext').value);
+    t = setMeta(t, 'composition', 'distance', $('compdistance').value);
+    t = setTaggedLines(t, 'improv', $('improvcues').value);
     if (t !== ta.value) { ta.value = t; ta.setSelectionRange(Math.min(s, t.length), Math.min(e, t.length)); ta.scrollTop = scrollTop; }
     fromText(); updateState();
+  }
+  function parsedCues() {
+    const cues = [], errors = [];
+    $('improvcues').value.split('\n').map(x => x.trim()).filter(Boolean).forEach((line, i) => {
+      try {
+        const cue = JSON.parse(line);
+        if (!cue || !cue.id || !cue.prompt || !/^\d+(?:-\d+)?$/.test(String(cue.bars || '')) || !Array.isArray(cue.choices) || cue.choices.length < 2 || cue.choices.length > 4) throw Error('needs id, bars, prompt, and 2–4 choices');
+        cues.push(cue);
+      } catch (e) { errors.push(`Cue ${i + 1}: ${e.message}`); }
+    });
+    return { cues, errors };
+  }
+  function showCue() {
+    const { cues, errors } = parsedCues(), err = $('cueerror'), box = $('cuepreview');
+    err.hidden = !errors.length; err.textContent = errors.join(' ');
+    if (!cues.length) { box.hidden = true; cueAt = 0; return; }
+    cueAt = (cueAt + cues.length) % cues.length; const cue = cues[cueAt]; box.hidden = false;
+    $('cuewho').textContent = `${cue.role || 'players'} · cue ${cueAt + 1} of ${cues.length}`;
+    $('cueprompt').textContent = cue.prompt;
+    $('cuetime').textContent = `Bars ${cue.bars}${cue.replyBars ? ` · ${cue.replyBars}-bar reply` : ''}`;
+    $('cuestatus').textContent = '';
+    $('cuechoices').innerHTML = cue.choices.map(x => `<button type="button" aria-pressed="false">${esc(x)}</button>`).join('');
+    for (const b of $('cuechoices').querySelectorAll('button')) b.addEventListener('click', () => { for (const x of $('cuechoices').querySelectorAll('button')) x.setAttribute('aria-pressed', String(x === b)); $('cuestatus').textContent = `Chosen: ${b.textContent}`; });
   }
   // The source: the S: citation, then every web address the file holds, the "% source-url:" lines first
   // (a set entry's source, an N: line or a comment may carry one too).
@@ -368,6 +444,18 @@ details.dossier p{margin:4px 0}
   $('file').addEventListener('input', () => { fromText(); render(); updateState(); });
   for (const id of ['note', 'response']) $(id).addEventListener('input', () => toText());
   for (const id of ['kind', 'stage', 'srccheck', 'clscheck']) $(id).addEventListener('change', () => { toText(); render(); });
+  for (const id of ['compgrade', 'compelements', 'complisten', 'complistenurl', 'compbridge', 'compcontext', 'compdistance', 'improvcues']) $(id).addEventListener(id === 'compgrade' ? 'change' : 'input', () => { toText(); if (id === 'improvcues') showCue(); });
+  $('addcue').addEventListener('click', () => {
+    const starter = JSON.stringify({ id: String.fromCharCode(65 + parsedCues().cues.length), bars: '1-2', role: 'leader then class', prompt: 'Echo, answer, or leave space?', choices: ['echo', 'change the ending', 'rest'], replyBars: 2 });
+    $('improvcues').value = [$('improvcues').value.trim(), starter].filter(Boolean).join('\n'); cueAt = parsedCues().cues.length - 1; toText(); showCue(); $('improvcues').focus();
+  });
+  $('cueprev').addEventListener('click', () => { cueAt--; showCue(); }); $('cuenext').addEventListener('click', () => { cueAt++; showCue(); });
+  const jumpPatterns = { melody: /^K:.*$/m, lyrics: /^w:.*$/m, accompaniment: /^%%(?:style|band).*$/m, elements: /^%\s*composition-elements:.*$/m, context: /^%\s*composition-context:.*$/m, links: /^%\s*(?:source|performance|composition-listen)-url:.*$/m, improv: /^%\s*improv:.*$/m };
+  for (const b of document.querySelectorAll('[data-jump]')) b.addEventListener('click', () => {
+    const ta = $('file'), m = ta.value.match(jumpPatterns[b.dataset.jump]);
+    if (!m) { toast(`No ${b.textContent.toLowerCase()} section yet`); return; }
+    const start = m.index, end = start + m[0].length; ta.focus(); ta.setSelectionRange(start, end); const before = ta.value.slice(0, start).split('\n').length; ta.scrollTop = Math.max(0, (before - 4) * 20);
+  });
   $('save').addEventListener('click', () => save());
   $('revert').addEventListener('click', () => { if (confirm('Throw away your unsaved changes?')) { $('file').value = saved; fromText(); render(true); updateState(); } });
   $('records').addEventListener('change', e => open(e.target.value));

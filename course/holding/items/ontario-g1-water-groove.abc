@@ -1,0 +1,35 @@
+% holding-id: ontario-g1-water-groove
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Verify the authorized Fela Kuti recording and have a Nigerian/Afrobeat-informed educator check that the lesson distinguishes one classroom ostinato from Afrobeat's full history and ensemble practice.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 1
+% composition-elements: duration (beat versus rhythm, quarter and paired eighths, quarter rest), pitch (mi-so-la), texture (unison ostinato), form (call and response)
+% composition-listen: Fela Kuti — "Water No Get Enemy"
+% composition-listen-url: https://www.youtube.com/results?search_query=Fela+Kuti+Water+No+Get+Enemy+official
+% composition-bridge: Track one repeating part while other layers enter; hear that a groove can stay steady while the surface changes.
+% composition-context: Fela Kuti's recording connects Afrobeat with Nigerian political music, long-form ensemble layering and dance. This three-note original is a first ostinato lesson, not an Afrobeat reproduction.
+% composition-distance: Original melody, rhythm and words; no horn line, lyric, bass pattern or harmony from the recording is copied.
+% improv: {"id":"A","bars":"1-2","role":"leader then class","prompt":"Keep or change the last beat?","choices":["same note","two quick notes","rest"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"three groups","prompt":"Which layer enters?","choices":["voice ostinato","clap beat","shaker eighths"],"replyBars":2}
+% dossier-honesty: Original mi-so-la study using ensemble layering only as a listening comparison.
+% dossier-licence: Draft original; the Fela Kuti work and recording remain copyrighted.
+% dossier-respect: Include Fela Kuti's name, Nigeria and political context; do not teach Afrobeat as merely a generic classroom drum loop.
+% dossier-review: Grade 1 teacher and Nigerian/Afrobeat-informed music educator.
+X:1
+T:Water Groove
+C:Grand Central Stationery workshop
+R:layered classroom groove
+S:Original classroom composition, 2026; listening bridge to Fela Kuti
+M:4/4
+L:1/8
+Q:1/4=100
+K:C
+%%style pop
+E2 E2 G2 A2 | G4 E2 z2 | E2 E2 G G A2 | G4 z4 |
+A2 A2 G2 E2 | G4 E2 z2 | E E E E G2 A2 | G4 E4 |]
+w: Wa-ter keeps mov-ing, round ev-ery stone. Keep the beat, leave some room. Lis-ten, add a lay-er; change one thing, come home.

@@ -1,0 +1,34 @@
+% holding-id: ontario-g5-raga-rondo
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Select a specific authorized Ravi Shankar Raga Jog recording and have a Hindustani music educator review every use of raga/tala terminology.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 5
+% composition-elements: 6/8 metre, dotted rhythms, rondo form, drone texture and melodic improvisation within a limited pitch set
+% composition-listen: Ravi Shankar — Raga Jog
+% composition-listen-url: https://www.youtube.com/results?search_query=Ravi+Shankar+Raga+Jog+official
+% composition-bridge: Listen for a melody unfolding over a drone, gradual pacing and improvisation that reveals rather than abandons constraints.
+% composition-context: A raga is more than a scale, and a Hindustani performance has its own melodic grammar, time cycle and form. This original five-note classroom rondo is not Raga Jog.
+% composition-distance: Original equal-tempered pitches and form; no alap phrase, gat, tala pattern or recording passage is copied.
+% improv: {"id":"A","bars":"1-2","role":"soloist over drone","prompt":"Choose a three-note path","choices":["rise then rest","circle one note","fall to the drone"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"class drone and soloist","prompt":"How will A return?","choices":["exactly","ornament one note","return more softly"],"replyBars":2}
+% dossier-honesty: Original constrained-improvisation study; not a raga or Hindustani composition.
+% dossier-licence: Draft original; Ravi Shankar's composition/performance remains copyrighted where applicable.
+% dossier-respect: State explicitly that a five-note set does not define a raga; use the recording and expert explanation as primary sources.
+% dossier-review: Hindustani music educator and Grade 5 teacher.
+X:1
+T:Drone Rondo
+C:Grand Central Stationery workshop
+R:five-note improvisation study
+S:Original classroom composition, 2026; listening bridge to Ravi Shankar
+M:6/8
+L:1/8
+Q:3/8=68
+K:Dm
+%%style drone
+D3 F2 A | G3 F3 | A2 c A2 G | F6 |
+D3 A2 c | A3 G3 | F2 G A2 F | D6 |]

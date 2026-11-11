@@ -1,0 +1,34 @@
+% holding-id: ontario-g3-nueva-cancion-circle
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Mercedes Sosa recording and review political/cultural context with a Latin American music educator.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 3
+% composition-elements: 3/4 metre, dotted half note, dynamic contrast, partner-song texture and ABA form
+% composition-listen: Mercedes Sosa — "Gracias a la Vida"
+% composition-listen-url: https://www.youtube.com/results?search_query=Mercedes+Sosa+Gracias+a+la+Vida+official
+% composition-bridge: Notice how vocal timbre, breath and phrase shape make a repeated metre carry a public message.
+% composition-context: Mercedes Sosa's performance connects Violeta Parra's song with nueva canción, social testimony and Latin American political history. This is an original wordless partner-song study.
+% composition-distance: No lyric, melody or harmony from the copyrighted work is used; the reference is for listening and historical inquiry.
+% improv: {"id":"A","bars":"1-2","role":"partner A then B","prompt":"Answer the long note","choices":["one long note","three walking notes","silence then one note"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"whole class","prompt":"Shape the phrase together","choices":["soft to strong","strong to soft","steady"],"replyBars":2}
+% dossier-honesty: Original partner-song material; nueva canción is taught through the named artists and history.
+% dossier-licence: Draft original; reference work and performance remain copyrighted.
+% dossier-respect: Credit both songwriter Violeta Parra and performer Mercedes Sosa; connect the song to its words rather than treating it as background folk colour.
+% dossier-review: Latin American music educator and Grade 3 choir teacher.
+X:1
+T:Three-Beat Testimony
+C:Grand Central Stationery workshop
+R:partner-song study
+S:Original classroom composition, 2026; listening bridge to Mercedes Sosa and Violeta Parra
+M:3/4
+L:1/4
+Q:1/4=78
+K:G
+%%style waltz
+G B d | d2 B | A G E | D3 | G A B | d2 B | A G F | G3 |]
+w: Oh, the line keeps walk-ing. Oh, the long note stays. Hear an-oth-er an-swer; meet me at the end.

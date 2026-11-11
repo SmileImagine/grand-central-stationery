@@ -1,0 +1,34 @@
+% holding-id: ontario-sk-pata-steps
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Confirm the authorized Miriam Makeba recording and trial the movement prompts with an SK class.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: SK
+% composition-elements: steady beat, speed, volume and sound quality — move on the beat and leave room for a partner's choice
+% composition-listen: Miriam Makeba — "Pata Pata"
+% composition-listen-url: https://www.youtube.com/results?search_query=Miriam+Makeba+Pata+Pata+official
+% composition-bridge: Hear how repeated vocal and instrumental ideas make social movement feel communal; notice leader and group energy.
+% composition-context: Miriam Makeba's internationally known recording can open a lesson on South African popular music, language, dance and apartheid-era history. This is a new movement chant, not a "Pata Pata" arrangement.
+% composition-distance: Original melody and English words; no hook, bass line or lyric from the recording is used.
+% improv: {"id":"A","bars":"1-2","role":"movement leader","prompt":"Choose the travelling step","choices":["side-side","forward-back","stay and groove"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"partner pairs","prompt":"How will your partner answer?","choices":["mirror","make it smaller","change direction"],"replyBars":2}
+% dossier-honesty: Original social-movement chant beside a listening study of Makeba.
+% dossier-licence: Draft original; the reference recording remains copyrighted.
+% dossier-respect: Teach Makeba's name, language and political context; do not reduce the recording to an anonymous dance beat.
+% dossier-review: Early-years teacher and South African music educator.
+X:1
+T:Pata Steps
+C:Grand Central Stationery workshop
+R:movement chant
+S:Original classroom composition, 2026; listening bridge to Miriam Makeba
+M:2/4
+L:1/4
+Q:1/4=104
+K:C
+%%style pop
+E E | G z | E G | A z | G G | E z | A G | E2 |]
+w: Step, step, freeze. Step and turn. Groove, groove, listen. You choose, home.

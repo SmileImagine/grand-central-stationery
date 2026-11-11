@@ -26,6 +26,15 @@ const sourceUrlsOf = text => [...text.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$
 // Performances, as in the workshop: "% performance-url: <url> <who, when>" and "% performance-note: where one might be found".
 const performanceUrlsOf = text => [...text.matchAll(/^%\s*performance-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
 const performanceNotesOf = text => [...text.matchAll(/^%\s*performance-note:\s*(.+)$/gmi)].map(m => m[1].trim());
+const DOSSIER = ['function', 'elements', 'practice', 'accompaniment', 'lyrics', 'honesty', 'licence', 'respect', 'review'];
+const dossierOf = text => {
+  const dossier = {};
+  for (const line of text.split('\n')) {
+    const match = line.match(/^%\s*dossier-([a-z]+):\s*(.*)$/i);
+    if (match && DOSSIER.includes(match[1].toLowerCase())) dossier[match[1].toLowerCase()] = match[2].trim();
+  }
+  return Object.keys(dossier).length ? dossier : null;
+};
 const field = (text, name) => { const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi')); return m ? m[1].trim() : ''; };
 
 if (process.argv[2] === '--restore') {
@@ -73,7 +82,7 @@ const items = files.map(file => {
     id, file: `items/${file}`, title: field(text, 'T') || id, subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),
     from: meta.from, status: meta.status, categories: (meta.categories || '').split(/,\s*/).filter(Boolean),
     findings: meta.findings || '', suggestion: meta.suggestion || '', decision: meta.decision || '', source: field(text, 'S'), sourceUrls: sourceUrlsOf(text), performances: performanceUrlsOf(text), performanceNotes: performanceNotesOf(text),
-    response: meta.response || '', responseUpdated: meta['response-updated'] || ''
+    response: meta.response || '', responseUpdated: meta['response-updated'] || '', dossier: dossierOf(text)
   };
 });
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

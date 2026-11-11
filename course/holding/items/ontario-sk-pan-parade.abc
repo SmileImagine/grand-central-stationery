@@ -1,0 +1,34 @@
+% holding-id: ontario-sk-pan-parade
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Confirm the Lord Kitchener recording access and ask a Trinidadian steelpan educator to review the framing and instrument language.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: SK
+% composition-elements: beat, pitch direction, timbre and volume — trace a rising shape and choose who carries the beat
+% composition-listen: Lord Kitchener — "Pan in A Minor"
+% composition-listen-url: https://www.youtube.com/results?search_query=Lord+Kitchener+Pan+in+A+Minor
+% composition-bridge: Listen for the bright family of steelpan tone colours and the way calypso singing can celebrate the instrument and its players.
+% composition-context: Steelpan was created in Trinidad and Tobago and developed through community innovation and competition. This original classroom parade uses voices or barred instruments; it is not calypso and not a steelband score.
+% composition-distance: Original tune and words; no line from Lord Kitchener's copyrighted song is copied.
+% improv: {"id":"A","bars":"1-2","role":"conductor","prompt":"Who carries the bright beat?","choices":["bells","voices","claps"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"one child then group","prompt":"Where does the melody travel?","choices":["up","down","same note"],"replyBars":2}
+% dossier-honesty: New beginner tune, with steelpan used only as a listening focus.
+% dossier-licence: Draft original; reference song and recording remain copyrighted.
+% dossier-respect: Say steelpan, not steel drum; locate Trinidad and Tobago and show a real steel orchestra before classroom instruments imitate brightness.
+% dossier-review: Trinidadian steelpan educator and early-years teacher.
+X:1
+T:Pan Parade
+C:Grand Central Stationery workshop
+R:parade song
+S:Original classroom composition, 2026; listening bridge to Lord Kitchener
+M:2/4
+L:1/4
+Q:1/4=108
+K:C
+%%style folk
+C E | G z | E G | A z | A G | E z | G E | C2 |]
+w: Bright sound, up! Bright sound, up! Now come down. Ring and rest. Home.

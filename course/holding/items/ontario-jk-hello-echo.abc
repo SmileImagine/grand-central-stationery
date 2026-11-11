@@ -1,0 +1,34 @@
+% holding-id: ontario-jk-hello-echo
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Try with a JK class; confirm the two-note range, reply window and listening link, then have an early-years music teacher review it.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: JK
+% composition-elements: beat, sound quality, speed and volume — keep a shared pulse, then choose an echo, a changed ending or silence
+% composition-listen: Ella Jenkins — "You'll Sing a Song and I'll Sing a Song"
+% composition-listen-url: https://www.youtube.com/results?search_query=Ella+Jenkins+You%27ll+Sing+a+Song+and+I%27ll+Sing+a+Song
+% composition-bridge: Notice how a leader leaves room for a real answer; compare exact echoing with a reply that changes one thing.
+% composition-context: Ella Jenkins made participatory call-and-response central to children's music. This tiny original greeting is a listening doorway, not a transcription of her melody or words.
+% composition-distance: Original two-note melody, words and form; the named recording is for listening and discussion only. Do not label this as an Ella Jenkins composition.
+% improv: {"id":"A","bars":"1-2","role":"teacher then class","prompt":"How will we answer hello?","choices":["same echo","new ending","one bar of space"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"child leader then class","prompt":"Choose the sound colour","choices":["voice","clap","small drum"],"replyBars":2}
+% dossier-honesty: New classroom composition by Grand Central Stationery; only the participatory idea is compared with the listening reference.
+% dossier-licence: Draft original intended for the project's licence; the referenced recording remains separately copyrighted.
+% dossier-respect: Credit Ella Jenkins in the lesson and listen to her performance rather than presenting this piece as a substitute.
+% dossier-review: Early-years music teacher and JK classroom trial.
+X:1
+T:Hello, Echo
+C:Grand Central Stationery workshop
+R:call-and-response greeting
+S:Original classroom composition, 2026; listening bridge to Ella Jenkins
+M:2/4
+L:1/4
+Q:1/4=88
+K:C
+%%style folk
+E G | G E | E G | z2 | G E | E G | G E | E2 |]
+w: Hel-lo! Hel-lo! Your turn. * I hear you. You hear me. Hel-lo, friend.

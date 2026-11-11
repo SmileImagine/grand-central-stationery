@@ -15,6 +15,7 @@ const root = __dirname;
 const port = parseInt(process.argv[2] || process.env.PORT || '8765', 10);
 const HOST = '127.0.0.1';
 const FOLDERS = { holding: 'course/holding', review: 'course/review' };
+const PRIVATE_REVIEW = path.join(root, 'course', 'private-review', 'reviewer-outreach.local.json');
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
   '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon',
@@ -37,6 +38,10 @@ function sameSite(req) {
   return hostOk && (!origin || origin === `http://${req.headers.host}`) && /^application\/json\b/.test(req.headers['content-type'] || '');
 }
 
+function localHost(req) {
+  return new RegExp(`^(127\\.0\\.0\\.1|localhost|\\[::1\\]):${port}$`).test(req.headers.host || '');
+}
+
 function readBody(req, limit = 512 * 1024) {
   return new Promise((resolve, reject) => {
     let size = 0; const chunks = [];
@@ -47,7 +52,18 @@ function readBody(req, limit = 512 * 1024) {
 }
 
 async function api(req, res, url) {
-  if (url.pathname === '/api/ping') return send(res, 200, { ok: true, save: true });
+  if (url.pathname === '/api/ping') return send(res, 200, { ok: true, save: true, privateReviewerOutreach: fs.existsSync(PRIVATE_REVIEW) });
+  if (url.pathname === '/api/reviewer-outreach') {
+    if (req.method !== 'GET') return send(res, 405, { error: 'GET only' });
+    if (!localHost(req)) return send(res, 403, { error: 'Reviewer outreach is available only through this machine\'s loopback server' });
+    if (!fs.existsSync(PRIVATE_REVIEW)) return send(res, 404, { available: false });
+    try {
+      const data = JSON.parse(fs.readFileSync(PRIVATE_REVIEW, 'utf8'));
+      return send(res, 200, { available: true, ...data });
+    } catch (e) {
+      return send(res, 500, { error: `Local reviewer file is unreadable: ${e.message}` });
+    }
+  }
   const m = url.pathname.match(/^\/api\/tune\/([a-z]+)\/([^/]+)$/);
   const file = m && recordPath(m[1], decodeURIComponent(m[2]));
   if (!file) return send(res, 400, { error: 'Not a tune record: wants /api/tune/holding|review/<id>' });
@@ -80,14 +96,18 @@ function staticFile(req, res, url) {
   try { rel = decodeURIComponent(url.pathname); } catch (e) { return send(res, 400, 'Bad path', 'text/plain'); }
   let file = path.join(root, path.normalize(rel));
   if (file !== root && !file.startsWith(root + path.sep)) return send(res, 403, 'Forbidden', 'text/plain');
-  if (path.relative(root, file).split(path.sep).some(p => p === '.git')) return send(res, 404, 'Not found', 'text/plain');
+  const privatePath = candidate => {
+    const parts = path.relative(root, candidate).split(path.sep);
+    return parts.some(p => p === '.git') || (parts[0] === 'course' && parts[1] === 'private-review');
+  };
+  if (privatePath(file)) return send(res, 404, 'Not found', 'text/plain');
   fs.stat(file, (err, st) => {
     if (!err && st.isDirectory()) {
       if (!url.pathname.endsWith('/')) { res.writeHead(301, { Location: url.pathname + '/' + url.search }); return res.end(); }
       const index = path.join(file, 'index.html');
       if (fs.existsSync(index)) { file = index; st = fs.statSync(index); }
       else {
-        const names = fs.readdirSync(file, { withFileTypes: true }).filter(d => !d.name.startsWith('.')).map(d => d.name + (d.isDirectory() ? '/' : ''));
+        const names = fs.readdirSync(file, { withFileTypes: true }).filter(d => !d.name.startsWith('.') && !privatePath(path.join(file, d.name))).map(d => d.name + (d.isDirectory() ? '/' : ''));
         const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
         return send(res, 200, `<!doctype html><meta charset="utf-8"><title>${esc(rel)}</title><ul>${names.map(n => `<li><a href="${esc(encodeURI(n))}">${esc(n)}</a>`).join('')}</ul>`, 'text/html; charset=utf-8');
       }

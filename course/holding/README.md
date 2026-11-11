@@ -111,6 +111,26 @@ runs `build.js` and `build-sets.js`, and undoes the save if validation fails.
 If another session changed the file since you opened it, the editor asks
 before overwriting. The boards' **Edit** links open it on that tune.
 
+Original classroom compositions can also carry structured fields that the
+editor exposes beside the source text:
+
+```text
+% composition-grade: JK | SK | 1 ... 8
+% composition-elements: the intended Ontario elements and what students do
+% composition-listen: Artist — "Recording"
+% composition-listen-url: https://... an authorized recording or discovery link
+% composition-bridge: the one high-level feature to compare
+% composition-context: cultural and historical lesson framing
+% composition-distance: what the draft does not copy or claim
+% improv: {"id":"A","bars":"1-2","role":"leader then class","prompt":"Echo or answer?","choices":["echo","change the ending","rest"],"replyBars":2}
+```
+
+The notation cell's **Improv** drawer follows those bar ranges during playback
+and shows the selected option without generating the musical answer. Choice,
+listening, turn-taking, shared pulse and a defined reply window are the first
+implementation boundary. `docs/ONTARIO-LISTENING-BRIDGES-2026-11-11.md` maps
+the first 30 drafts, three per level from JK through Grade 8.
+
 After changing an item by hand, run:
 
 ```bash
@@ -123,7 +143,51 @@ runs both) so the library's from-disk copy, `course/sets.js`, carries the
 change. CI can use `node course/holding/build.js --check` to detect a
 stale board. Serve the repository and open `course/holding/board.html`.
 
+The branch-wide evidence audit covers this workshop and the review queue. It
+lists missing core dossier fields, citation/source links, plate-reading and
+uncertainty records, range/key guidance and the human reviewer still required:
+
+```bash
+node course/repertoire-audit.js --md course/repertoire-audit.md
+node course/repertoire-audit.js --check course/repertoire-audit.md
+```
+
+A reviewer named in `% dossier-review:` is still awaited unless an actual
+classroom/culture/language sign-off is separately recorded. The audit never
+treats the requested reviewer as a completed review.
+
+A tune with a prepared human-review request may link it explicitly without
+claiming that review happened:
+
+```text
+% holding-review-status: packet-ready
+% holding-review-packet: reviews/sansa-akroma-review.md
+```
+
+The allowed review states are `not-started`, `packet-ready`, `sent`,
+`response-received` and `complete`. Only use the last three when the external
+event actually occurred, and keep `% holding-classroom-check: pending` until
+the required classroom, cultural and language sign-offs are recorded.
+
 To publish a ready tune, move its ABC into an appropriate sample/source file,
 remove the holding metadata, grade it with `analyze-cli.js`, append it to the
 practice set, and delete its holding item. Publication is a deliberate review
 step; the board never promotes a tune automatically.
+
+## Local-only reviewer outreach
+
+Named contacts, contact routes and draft emails are deliberately kept out of
+the generated indexes and Git. The local server reads them from
+`course/private-review/reviewer-outreach.local.json`; that directory is
+ignored by Git, is refused by the static-file server, and can be read only
+through `/api/reviewer-outreach` on the loopback host. When the file exists,
+the holding and review cards show a **Local reviewer outreach** section with
+authority limits, evidence links and copyable email drafts. A source author or
+scholar is never labelled a community rights holder merely because they are a
+convenient contact.
+
+Run `node serve.js`, then use the workshop or review board at `localhost`.
+Opening the HTML as a file or publishing the branch exposes neither the local
+data nor the drafts. Do not put sent messages, personal replies or reviewer
+contact details into an ABC record or generated index; keep them in the
+ignored local file until a reviewer explicitly consents to attribution.

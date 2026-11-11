@@ -1,0 +1,34 @@
+% holding-id: ontario-g3-qawwali-question
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Select an authorized Nusrat Fateh Ali Khan recording and ask a qawwali-informed Muslim/South Asian educator to review whether this secular comparison is appropriate.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 3
+% composition-elements: presto/largo contrast, sixteenth-note cell, loud/soft symbols, call and response and ABA form
+% composition-listen: Nusrat Fateh Ali Khan — "Allah Hoo"
+% composition-listen-url: https://www.youtube.com/results?search_query=Nusrat+Fateh+Ali+Khan+Allah+Hoo+official
+% composition-bridge: Listen to lead voice and party answer, repetition that gathers energy, handclaps and virtuosic variation.
+% composition-context: Qawwali is a Sufi devotional performance tradition, not simply a vocal style. This secular original teaches musical conversation and must not be presented as qawwali.
+% composition-distance: Original tune and neutral English lyric; no devotional text, melodic phrase or harmonium pattern is borrowed.
+% improv: {"id":"A","bars":"1-2","role":"lead singer then group","prompt":"What kind of answer?","choices":["exact words","same rhythm new pitches","clapped answer"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"conductor","prompt":"Change the energy without speeding up","choices":["add voices","add claps","sing softer"],"replyBars":2}
+% dossier-honesty: Original secular call-and-response study; it is not qawwali repertoire.
+% dossier-licence: Draft original; reference composition and recording remain copyrighted.
+% dossier-respect: Name the devotional context and avoid using sacred words as interchangeable vocal material.
+% dossier-review: Qawwali-informed cultural/religious reviewer and Grade 3 teacher.
+X:1
+T:Question in the Circle
+C:Grand Central Stationery workshop
+R:secular call and response
+S:Original classroom composition, 2026; listening bridge to Nusrat Fateh Ali Khan
+M:3/4
+L:1/8
+Q:1/4=116
+K:Dm
+%%style drone
+D2 F2 A2 | A/2G/2 F2 E2 D | F2 A2 z2 | D6 | D2 F2 A2 | c2 A2 G2 | F/2G/2 A2 E2 D | D6 |]
+w: Ask the cir-cle, leave a space. Hear the an-swer change its shape. Add a lay-er, keep the beat. Ask and an-swer, then re-peat.

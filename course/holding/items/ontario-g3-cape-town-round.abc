@@ -1,0 +1,34 @@
+% holding-id: ontario-g3-cape-town-round
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Verify the recording link, test the canon entry, and ask a South African jazz educator to review context.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 3
+% composition-elements: 3/4 metre, sixteenth-note pair, piano/mf dynamics, ABA contour and simple two-part canon
+% composition-listen: Abdullah Ibrahim — "Mannenberg"
+% composition-listen-url: https://www.youtube.com/results?search_query=Abdullah+Ibrahim+Mannenberg+official
+% composition-bridge: Hear a memorable line become a shared anthem as the ensemble repeats, answers and intensifies it.
+% composition-context: "Mannenberg" is bound to Cape Town, South African jazz and resistance-era public life. This original 3/4 school canon does not reproduce its groove or melody.
+% composition-distance: Original metre, notes and words; no riff, harmony or arrangement from the recording is copied.
+% improv: {"id":"A","bars":"1-2","role":"group 1 then group 2","prompt":"Enter as canon or answer after the phrase?","choices":["canon after one bar","answer after two bars","unison"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"soloist over the round","prompt":"Build a three-note reply","choices":["rising","falling","repeat one pitch"],"replyBars":2}
+% dossier-honesty: Original Grade 3 canon; South African jazz is encountered through the recording.
+% dossier-licence: Draft original; reference work and recording remain copyrighted.
+% dossier-respect: Include apartheid history and Ibrahim's authorship; do not call any repeated school riff "Cape jazz."
+% dossier-review: South African jazz educator and Grade 3 choir teacher.
+X:1
+T:Cape Town Round
+C:Grand Central Stationery workshop
+R:three-beat canon
+S:Original classroom composition, 2026; listening bridge to Abdullah Ibrahim
+M:3/4
+L:1/8
+Q:1/4=108
+K:C
+%%style waltz
+E/2F/2 G2 A2 G | E2 G2 z2 | A2 G2 E2 | D6 | E/2F/2 G2 A2 G | E2 D2 C2 | G2 E2 D2 | C6 |]
+w: One small line can trav-el, hear it turn a-round. Make a space, then an-swer; bring the cir-cle home.

@@ -2,6 +2,12 @@
 
 Generated deterministically from `course/set.json` (37 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
 
+## Launch runway
+
+- **69/100** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.
+- **4/69** are explicitly labelled course originals or generated works (5.8%); the launch allowance is at most 25/100 (25%).
+- **31** tunes remain to reach 100. At most 21 additional originals could fit under the numerical allowance, but source-backed repertoire remains the priority for geographic and cultural coverage.
+
 ## Coverage by region, level and function
 
 | Region | L1 | L2 | L3 | L4 | L5 | L6 | Game | Dance | Lullaby | Song/air | Total | Auto styles |
@@ -25,6 +31,28 @@ Generated deterministically from `course/set.json` (37 published tunes). Regions
 - No tune at levels 1-4: North American Indigenous, Caribbean, Latin America, West Africa, Middle East, South Asia, East Asia, Southeast Asia, Pacific.
 - 15 tunes have no explicit origin; 17 have no explicit classroom function or tune type.
 - Only 22/37 tunes state an origin and 20/37 state a function/type.
+
+## Private workshop and review pipeline
+
+These candidates are **not published coverage**. They show which empty cells have evidence in progress and which still have no candidate at all. Review items remain withheld until their stated human reviews and decisions occur.
+
+| Region | Workshop | Review | Game | Dance | Lullaby | Song/air | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| North America (general) | 1 | 2 | 0 | 0 | 0 | 1 | 3 |
+| North American Indigenous | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Caribbean | 3 | 2 | 3 | 0 | 0 | 0 | 5 |
+| Latin America | 4 | 3 | 1 | 1 | 0 | 1 | 7 |
+| West Africa | 4 | 0 | 1 | 0 | 0 | 1 | 4 |
+| Europe | 2 | 4 | 0 | 3 | 0 | 0 | 6 |
+| Middle East | 2 | 1 | 0 | 0 | 0 | 1 | 3 |
+| South Asia | 3 | 4 | 0 | 1 | 3 | 3 | 7 |
+| East Asia | 5 | 1 | 1 | 0 | 0 | 4 | 6 |
+| Southeast Asia | 2 | 0 | 0 | 0 | 0 | 1 | 2 |
+| Pacific | 1 | 0 | 0 | 0 | 0 | 1 | 1 |
+| Unspecified | 43 | 6 | 3 | 5 | 1 | 11 | 49 |
+
+- Published-empty regions with private candidates: Caribbean, Latin America, West Africa, Middle East, East Asia, Southeast Asia, Pacific.
+- Published-empty regions with no private candidate: North American Indigenous.
 
 ## Metadata queue
 

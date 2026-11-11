@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-10",
+ "generated": "2026-11-11",
  "statuses": [
   "pending",
   "keep",
@@ -31,7 +31,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "beginner-songs-17-when-the-saints-go-marching-in",
@@ -51,7 +52,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "beginner-songs-5-lucy-locket",
@@ -71,7 +73,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "beginner-songs-7-au-clair-de-la-lune",
@@ -92,7 +95,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "canoinha-nova",
@@ -118,7 +122,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "roda (Brazilian children's circle song); Andrade prints three verses but does not describe the play action",
+    "elements": "eight bars in 2/4; a compact rising-and-falling melody with one written G-sharp; three strophic verses",
+    "practice": "sing the first verse at Andrade's crotchet 96; teach the Portuguese by echo before adding any accompaniment",
+    "honesty": "provisional transcription from the 1928 plate; no harmony, percussion pattern, translation or game directions have been invented",
+    "licence": "public domain source, first published 1928; Andrade died in 1945; the BBM/USP scan is marked public domain by Wikimedia Commons and IMSLP",
+    "respect": "present it as a song collected in the former Federal Capital (Rio de Janeiro), not as a single definitive version for all Brazil",
+    "review": "a Brazilian Portuguese speaker and children's-song or roda practitioner before promotion"
+   }
   },
   {
    "id": "carry-banana",
@@ -143,7 +156,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "game: a chorus ring tune; the singers tease a girl carrying a bunch of bananas on her head, and \"You find the banana?\" is the signal to take a partner",
+    "elements": "3/4 waltz (Jekyll: Tempo di Valse); call \"the gal over yonder\" and the chorus \"carry banana\" answering; a raised A sharp leading to the B",
+    "practice": "one in a bar; leaders sing the questions, the ring answers \"carry banana\"; a nine-hand bunch is market size, the China banana a stout low kind",
+    "honesty": "arranged: melody and words as Jekyll printed them; the band plays a waltz under it",
+    "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
+    "respect": "for everyone; \"tief\" is Patois for steal",
+    "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
   },
   {
    "id": "first-tunes-11-soldier-s-joy",
@@ -164,7 +186,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "first-tunes-6-amazing-grace",
@@ -185,7 +208,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "first-tunes-7-oh-susanna",
@@ -207,7 +231,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "first-tunes-8-greensleeves",
@@ -227,7 +252,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "hindostan-folk-4-rama-s-lullaby",
@@ -252,7 +278,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "hpps-11-cuckoo-s-nest",
@@ -273,7 +300,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "konpira-fune-fune",
@@ -299,7 +327,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "game: a zashiki-asobi (party game) song from Kotohira, Kagawa; two players take turns touching a small stand in time, and a player who hesitates loses",
+    "elements": "yo scale on G (G A C D E) ending on G; 2/4; the band holds an open fifth on G and plays taiko, hyoshigi and the chanchiki bell; no Western chord changes",
+    "practice": "speeds up each time round in the game; the shamisen is the traditional accompaniment",
+    "honesty": "arranged: the melody as Nagai and Obata printed it (via Daisyfield); the taiko-and-bell backing is ours, after festival min'yo",
+    "licence": "public domain (Nagai and Obata, 1895; transcription donated to the public domain by Tom Potter, 2008)",
+    "respect": "a party game song, for everyone",
+    "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
+   }
   },
   {
    "id": "lalishrita",
@@ -324,7 +361,18 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "Tamil devotional lullaby, sung to a baby and placing the child in Sriranga's care",
+    "elements": "flexible 6/8 phonogram transcription with triplets, grace-like runs, fermatas and rallentandos; C-centred melody spanning an octave plus a second",
+    "practice": "Adagio, quarter note = 70 as printed; sing freely through the irregular bars and ornaments; the written range C4-C5 fits the conservative young-unison range, but the source's lyric underlay still needs checking",
+    "accompaniment": "the plate prints only the vocal melody; begin unaccompanied, and treat the page's C drone as our optional pitch support, not documented Tamil practice",
+    "lyrics": "Fox Strangways supplies an English singing translation, not the original Tamil words; stanza 2 is explicitly Hindu devotional text, so no classroom verse is approved until Tamil-language and Hindu-context review",
+    "honesty": "historical-source transcription from a phonogram: melody and English singing translation follow Fox Strangways; tonic/drone, ABC handling of the five-note run and any backing are ours",
+    "licence": "public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); four staves checked twice against p. 64 on 2026-11-09",
+    "respect": "sacred/devotional reference to Sriranga (Vishnu at Srirangam); keep out of classroom publication until a Hindu/Tamil reviewer and the school context explicitly approve its use",
+    "review": "Tamil speaker, Hindu educator or culture bearer, second plate reader and classroom teacher; all reviews still required"
+   }
   },
   {
    "id": "little-sally-water",
@@ -349,7 +397,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "game and dance: the ring game that gave its name to all \"playing in the ring\"; Sally crouches in the middle, rises, chooses a partner, and the two wheel",
+    "elements": "two sections: an Andante call (rise, turn to the East and West) and an Allegro for the wheeling dance; English singing-game roots (Jekyll) sung in Jamaican style",
+    "practice": "the tempo changes where the wheeling starts; the partner chosen becomes the next Sally Water",
+    "honesty": "arranged: melody and words as Jekyll printed them; mento backing ours",
+    "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
+    "respect": "for everyone; the last verse is a mock wedding, which some classes will skip",
+    "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
   },
   {
    "id": "meu-barco-e-veleiro-paraiba",
@@ -375,7 +432,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "coco; Andrade gives a short Paraíba verse and contrasts it with a longer Pernambuco call-and-response version",
+    "elements": "2/4; the Paraíba melody is restricted to the tonic-triad arpeggio, as Andrade explicitly notes; one short strophe",
+    "practice": "learn the four Portuguese lines unaccompanied first; do not add a generic samba or bossa groove while the coco practice has not been reviewed",
+    "honesty": "provisional transcription of Andrade's Paraíba plate only; the Pernambuco chorus and solo that follow on the page are not silently combined with it",
+    "licence": "public domain source, first published 1928; Andrade died in 1945; the BBM/USP scan is marked public domain by Wikimedia Commons and IMSLP",
+    "respect": "label the collected place and variant; do not present this four-line Paraíba version as the only form of the song or of coco",
+    "review": "a Brazilian Portuguese speaker and a musician or culture bearer familiar with coco from Paraíba before promotion"
+   }
   },
   {
    "id": "mikhahi-labu",
@@ -402,7 +468,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "comic song: a suitor offers gifts (hot beetroot from the winter street-sellers, fireworks, a mattress, cigarettes) with a teasing refrain, \"nā-nā-ī\"",
+    "elements": "4/4, slow but gay; each verse two short phrases ending \"bi-ār-am?\" (shall I bring?) on B, then the refrain falling from C to E; notes E F G A B C, ending on E, close to the dastgah Shur; no Western harmony (Fairchild avoided it on purpose)",
+    "practice": "a solo voice with the refrain answered loudly (forte); the band holds an open fifth on E with a frame-drum pattern of low dum and high tak",
+    "honesty": "arranged: the melody and romanised words of verse 1 as Fairchild printed them; the frame-drum pattern and drone are ours and generic, not a tombak or daf rhythm a Persian musician has given us",
+    "licence": "public domain (Blair Fairchild, Twelve Persian Folk-Songs, London: Novello, 1904; Fairchild died 1933, Alma Strettell 1939; University of Rochester, Sibley Music Library scan, \"This item is in the public domain\"); read bar by bar from the 400 ppi scan on 2026-11-10",
+    "respect": "verse 1 jokes about bringing a second wife; verses 2 to 4 are fine for any class, and the refrain is the fun part",
+    "review": "a Persian culture bearer (a speaker and a musician of Persian folk song) before publishing"
+   }
   },
   {
    "id": "nirgunas-lullaby",
@@ -427,7 +502,18 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "Maratha devotional lullaby; the translated prose is a tired caregiver singing while pulling the cradle string",
+    "elements": "four-line 3/4 melody with repeats, triplet turns and Fox Strangways's wavy \"squeeze\" ornament; C final and a B-flat key signature whose B-flat does not occur",
+    "practice": "no tempo is printed; quarter note = 80 is our lullaby estimate; the written A3-F4 range is low for conservative young-unison singing, and B-flat (+5 semitones, D4-Bb4) is the provisional rehearsal key",
+    "accompaniment": "no accompaniment is printed; begin unaccompanied, and treat the C drone as our optional pitch support rather than documented Maratha practice",
+    "lyrics": "no words are under the notes; the book gives only an English prose translation, so there is no approved singable text and no language pronunciation to teach",
+    "honesty": "historical-source transcription: melody and prose meaning follow Fox Strangways; 3/4 barring, trial tempo, C drone and ornament rendering remain editorial interpretations named in the uncertainty note",
+    "licence": "public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); four staves checked twice against pp. 66-67 on 2026-11-09",
+    "respect": "the title and prose invoke Nirguna, the supreme being without attributes in Hindu thought; keep out of classroom publication until Hindu/Marathi context and school guidance explicitly approve its use",
+    "review": "Marathi speaker, Hindu educator or culture bearer, second plate reader and classroom teacher; all reviews still required"
+   }
   },
   {
    "id": "reelsr-t-49-soldiers-joy",
@@ -448,7 +534,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "reelsr-t-59-sugar-in-the-gourd",
@@ -469,7 +556,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   },
   {
    "id": "sambalele",
@@ -496,7 +584,16 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "roda (circle song and dance); sung in a ring with clapping, and still one of Brazil's best-known children's songs",
+    "elements": "2/4 with the Brazilian syncopation (semiquaver, quaver, semiquaver) and quaver triplets in the verse; a solo verse and a \"Pisa, pisa\" chorus that answers; D major, the verse reaching up to A, the chorus closing on D",
+    "practice": "crotchet = 100 (Andrade); the ring claps and stamps on \"pisa\" (step); a samba de roda backing: surdo, ganza, tamborim, agogo, palmas and a strummed cavaquinho",
+    "honesty": "arranged: the melody and words as Andrade printed them (Laranjal, Sao Paulo); the samba de roda band is ours, in the idiom",
+    "licence": "public domain (Mario de Andrade died 1945; Ensaio sobre a musica brasileira, 1928; Wikimedia Commons scan, Public Domain Mark); read bar by bar from the scan on 2026-11-10",
+    "respect": "the 1928 verse says Sambalele needs \"a good thrashing\" and calls a woman \"mulata\", a word with a colonial and racial history; many classes sing the chorus and other words, and a Brazilian teacher should choose the verse",
+    "review": "a Brazilian culture bearer (a samba de roda or music teacher) before publishing"
+   }
   },
   {
    "id": "the-ayahs-song",
@@ -508,8 +605,8 @@
    "categories": [
     "context"
    ],
-   "findings": "No words. Our N: line quotes Fox Strangways calling the singer, a domestic servant on a colonial steamer, \"an unmusical ayah\": colonial condescension, in our notes rather than in the song.",
-   "suggestion": "Keep the melody; rephrase that note in our own words (one of the songs an ayah, a children's nurse, sang on board a steamer; the book says she lost her key and the songs were hard to piece together) and restore.",
+   "findings": "No words. Fox Strangways calls the unnamed singer, a domestic worker and children's nurse on a colonial steamer, \"an unmusical ayah\"; our N: line now paraphrases his pitch observations without repeating that dismissal.",
+   "suggestion": "Keep pending until a South Asian music/history reviewer checks the revised framing and the ethics of presenting an anonymous worker's melody; the requested human review has not occurred.",
    "decision": "",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66",
    "sourceUrls": [
@@ -521,7 +618,18 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": {
+    "function": "undetermined air recorded from an unnamed ayah, a children's nurse, aboard a steamer; no classroom function is documented",
+    "elements": "slow 3/4 C-centred air with printed slides at the close and half-close, irregular rests and a range extending to A3",
+    "practice": "Adagio, quarter note = 80 as printed; sing or play with flexible slides; the written A3-G4 range is too low for conservative young-unison voices, and F (+5, D4-C5) is the provisional rehearsal key",
+    "accompaniment": "no accompaniment is printed; begin unaccompanied, and treat the C drone as our optional pitch support rather than source practice",
+    "lyrics": "no words are printed and the singer is unnamed; do not invent lyrics, language or translation",
+    "honesty": "historical-source transcription: melody and printed grace-note slide follow Fox Strangways; tonic/drone, final-rest reading and any backing are our interpretations",
+    "licence": "public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); both staves checked twice against p. 66 on 2026-11-09",
+    "respect": "the colonial source dismisses the unnamed domestic worker's musicianship; paraphrase that account, foreground her anonymity and labour, and do not infer language or regional identity from the steamer setting",
+    "review": "South Asian music historian or culture bearer, colonial-history/context reviewer, second plate reader and classroom teacher; all reviews still required"
+   }
   },
   {
    "id": "xmas-7-jubilate-deo-round",
@@ -541,7 +649,8 @@
    "performances": [],
    "performanceNotes": [],
    "response": "",
-   "responseUpdated": ""
+   "responseUpdated": "",
+   "dossier": null
   }
  ]
 }

@@ -1,0 +1,33 @@
+% holding-id: ontario-g8-sahel-guitar-layers
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Ali Farka Touré recording and ask a Malian/Songhai music educator to review style and cultural context.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 8
+% composition-elements: modal tonality, monophonic/homophonic/polyphonic texture, arranging for purpose and improvised dialogue
+% composition-listen: Ali Farka Touré — "Ai Du"
+% composition-listen-url: https://www.youtube.com/results?search_query=Ali+Farka+Toure+Ai+Du+official
+% composition-bridge: Hear voice and guitar converse, repeated modal ground, subtle rhythmic displacement and the space between phrases.
+% composition-context: Ali Farka Touré's music grows from Malian/Songhai traditions and a personal relationship with blues heard across the Atlantic. This original Dorian study is not "desert blues" repertoire.
+% composition-distance: Original melody and accompaniment plan; no guitar figure, lyric, vocal contour or recording harmony is copied.
+% improv: {"id":"A","bars":"1-2","role":"guitar/keyboard and voice","prompt":"Choose the conversation","choices":["instrument asks","voice asks","overlap briefly"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"arranger","prompt":"Change the texture for purpose","choices":["monophonic focus","homophonic support","polyphonic dialogue"],"replyBars":2}
+% dossier-honesty: Original modal dialogue study; listening reference remains the source for Malian style.
+% dossier-licence: Draft original; reference work and recording remain copyrighted.
+% dossier-respect: Do not imply that Malian music derives from US blues; discuss reciprocal histories carefully and centre Touré's own account.
+% dossier-review: Malian/Songhai music educator and Grade 8 teacher.
+X:1
+T:Sahel Guitar Layers
+C:Grand Central Stationery workshop
+R:modal dialogue study
+S:Original classroom composition, 2026; listening bridge to Ali Farka Touré
+M:4/4
+L:1/8
+Q:1/4=92
+K:Ddor
+%%style drone
+D2 F2 G3 A | c2 A2 G4 | F2 G2 A3 F | D8 |
+z D3 F2 G2 | A2 c2 A3 G | F2 E2 D2 A2 | D8 |]

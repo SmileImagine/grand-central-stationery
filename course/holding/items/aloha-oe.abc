@@ -1,0 +1,49 @@
+% holding-id: aloha-oe
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-updated: 2026-11-11
+% holding-blocked: The autograph score and authorship are checked, but no human review has occurred. A Native Hawaiian music educator or historian, a competent Hawaiian-language speaker, a second score reader and a classroom music teacher must check the text, pronunciation, historical framing, verse-to-chorus practice and classroom key before publication.
+% holding-kind: tune
+% source-url: https://ags.hawaii.gov/archives/online-exhibitions/music-from-the-queens-collection/ Hawaiʻi State Archives exhibition identifying the Queen's manuscript collections and the 1912 autographed Aloha ʻOe score
+% source-url: https://files.hawaii.gov/dags/archives/M494/M494-3-2_o.pdf Hawaiʻi State Archives, M494-3-2, seven-page scan of the autographed 1912 score
+% source-url: https://digital.library.manoa.hawaii.edu/items/show/31961 University of Hawaiʻi at Mānoa catalogue record SCORE AL 008 and historical note
+% source-url: https://www.loc.gov/static/programs/national-recording-preservation-board/documents/Aloha-Oe_Revell-Carr.pdf Library of Congress National Recording Registry essay on the song's history and later reception
+% performance-note: This record was read from the Queen's autographed score, not from a modern recording. A reviewer-led demonstration should establish Hawaiian pronunciation and the relationship between solo verse and communal refrain; do not copy a commercial recording's arrangement.
+% dossier-function: Queen Liliʻuokalani's composed Hawaiian farewell and love song; in class it can teach solo verse and communal refrain, sustained phrase singing, a one-beat pickup and the chromatic upper neighbour G-sharp
+% dossier-elements: sixteen complete 4/4 bars after a one-beat pickup; G major, D4-C5 range, mostly stepwise verse and refrain, dotted-quarter/eighth figures, a held verse cadence that leads directly into the refrain pickup, and two written G-sharps that resolve to A
+% dossier-practice: The 1912 score marks Moderato, gives the verse to a solo voice with piano and expands the refrain to SATB chorus with piano. Quarter note = 84 is our rehearsal estimate, not the Queen's metronome mark. Let one singer or a small group carry the verse and the class join on the refrain. The written G-major range D4-C5 fits the conservative C4-D5 young-unison range, so G is the first rehearsal key to test
+% dossier-accompaniment: The source documents composed piano accompaniment and SATB writing for the refrain, but this workshop record transcribes only the vocal melody. Begin unaccompanied or with a quiet pitch reference; do not add ukulele, steel guitar, hula percussion or a generic "island" groove as though the score required it. Any generated harmony must be labelled as a new classroom arrangement, not traditional Hawaiian practice
+% dossier-lyrics: The autograph prints Hawaiian text in 1912 orthography without modern ʻokina or kahakō, plus English and German singing translations. This ABC keeps the plate's Hawaiian spelling and the refrain's printed English phrases as source evidence. A competent Hawaiian-language speaker must supply modern orthography, meaning and pronunciation before students sing it
+% dossier-honesty: Authored historical-source transcription, not an anonymous folk song: words and music are by Queen Liliʻuokalani, composed in 1877 or 1878. The melody follows the 1912 autographed edition at Hawaiʻi State Archives; ABC spelling, bar numbering, rehearsal tempo, melody-only reduction and muted-band directives are ours
+% dossier-licence: The composition and 1884 publication are public domain; Liliʻuokalani died in 1917. Hawaiʻi State Archives provides the 1912 autographed score as an open government archive scan. Reuse this melody transcription as public-domain source material, while separately crediting the Queen and the archive
+% dossier-respect: Name Queen Liliʻuokalani and the Hawaiian Kingdom context. University of Hawaiʻi notes that the song can be heard both as a love song and as a statement of Hawaiian sovereignty. Do not reduce it to tourist "island music," label it traditional or anonymous, stage a generic hula, or detach it from the overthrow and annexation history when that history is discussed
+% dossier-review: Native Hawaiian music educator or historian, competent Hawaiian-language speaker, second score reader and classroom music teacher; all reviews still required
+X:1
+T:Aloha ʻOe
+T:Farewell to Thee
+C:Queen Liliʻuokalani (1838-1917)
+O:Hawaiʻi (Kingdom of Hawaiʻi)
+R:composed farewell song and air
+S:Queen Liliʻuokalani, Aloha Oe: Farewell to Thee, autographed sheet music placed in the Liliʻuokalani School cornerstone, 12 April 1912, Hawaiʻi State Archives M494-3-2, vocal score pp. 3-4; public domain
+N:CONTEXT: Hawaiʻi State Archives dates the composition to 1878; the University of Hawaiʻi catalogue says it was written in 1877 or 1878 and later transcribed during the Queen's 1895-1896 house arrest. The 1912 edition credits both words and music to "Her Majesty Liliuokalani of Hawaii" and prints the 1884 copyright notice. These are authored historical facts, not evidence that every later tourist arrangement reflects Hawaiian practice.
+N:HOW READ (2026-11-11): The vocal line on score pp. 3-4 was enlarged from the Hawaiʻi State Archives scan and checked against the public-domain music21 MusicXML encoding. Pickup: D4-G4 eighths. Verse bars 1-8: B4 dotted quarter then A4-G4-F-sharp4-G4-E4 eighths; D4 half, quarter rest, B4 quarter; A4 dotted quarter then G-sharp4-A4-A4-C5-B4 eighths; A4 dotted half then D4-G4 eighths; the first phrase repeats from B4; D4 half, quarter rest, D4-D4 eighths; E4 quarter then A4-G4-F-sharp4-B4-A4-F-sharp4 eighths; G4 is held for five eighths and the refrain pickup G4-G4-F-sharp4 completes the bar. Refrain bars 9-16: E4 and G4 quarters, C5-E4-E4-E4 eighths; D4-G4-B4 quarters, G4-G4 eighths; eight eighths F-sharp4-F-sharp4-F-sharp4-G4-A4-G-sharp4-A4-C5; B4 half, G4 quarter, eighth rest, F-sharp4 eighth; E4-G4 quarters, C5 dotted quarter, E4 eighth; D4-D4-G4-G4 eighths, B4 dotted quarter, G4 eighth; F-sharp4 dotted quarter, G4 eighth, B4 eighth, A4 quarter, F-sharp4 eighth; G4 dotted half.
+N:UNCERTAIN: The score gives Moderato but no metronome mark. It prints no ʻokina or kahakō, and this record does not modernize the language. The piano and SATB refrain have not been transcribed, and the historical note about the song's political meaning needs Native Hawaiian review. A second plate reader and all named language, cultural and classroom reviews remain required.
+M:4/4
+L:1/8
+Q:1/4=84
+K:G
+%%style folk
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+D G | B3 A G F G E | D4 z2 B2 | A3 ^G A A c B | A6 D G |
+w: Ha- a- heo ka u- a i na pa- li Ke ni- hi a- e- la ka na- he- le
+B3 A G F G E | D4 z2 D D | E2 A G F B A F | G5 G G F |
+w: E ha- ha- i a- na i ka li- ko Pu- a A- hi- hi Le- hu- a o u- ka, A- lo- ha
+E2 G2 c E E E | D2 G2 B2 G G | F F F G A ^G A c | B4 G2 z F |
+w: o- e, a- lo- ha o- e, E ke o- na- o- na no- ho i ka li- po A
+E2 G2 c3 E | D D G G B3 G | F3 G B A2 F | G6 |]
+w: fond em- brace, a ho- i a- e au, Un- til we meet a- gain.

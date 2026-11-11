@@ -1,0 +1,54 @@
+% holding-id: go-le-mimli
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: An Èwè-Dòmè storyteller or music educator and a competent Èwè-Dòmè speaker must check the words, tones, pronunciation, clapping, classroom framing and whether this interlude may be taught outside a community storytelling session; a classroom music teacher and second plate reader are also required, and none of these reviews has occurred.
+% holding-kind: tune
+% source-url: https://doi.org/10.21504/amj.v11i1.2294 stable DOI for Gbagbo and Elder (2019)
+% source-url: https://journal.ru.ac.za/index.php/africanmusic/article/download/2294/1232 Rhodes University article PDF; Figure 5 is on journal p. 107 (PDF p. 17)
+% source-url: https://data.africamultiple.uni-bayreuth.de/resource/32083 AMIRA catalogue record for the article, recording CC BY-NC-SA 4.0 and public access
+% performance-note: The article and its references link field recordings for three other songs, but not for "Go le mimli"; do not substitute an unrelated Èwè performance. Ask the named human reviewer to demonstrate the words and clapping.
+% dossier-function: An Èwè-Dòmè glimedeha, or audience-interrupting song, used during community storytelling around Ho in Ghana's Volta Region; this interlude pauses the plot, brings the audience into the performance, reinforces learning from the story and helps keep community stories alive
+% dossier-elements: sixteen bars in 6/8; a C4-B4 descending diatonic melody, with bar 1 a wordless three-note lead-in and bars 5-12 extending bars 1-8 before a four-bar cadence; Figure 5 also prints two counter-rhythmic handclap layers, one in dotted quarters and one filling selected offbeats with eighth-note pairs
+% dossier-practice: An audience member introduces the interlude and the gathering joins; the source says a leader chooses a key that does not "catch the throat" and that songs stop the story's forward motion to create tension. Figure 5 is in C and the C4-B4 classroom range fits a conservative C4-D5 young-unison span. No tempo is printed; dotted quarter = 72 is our rehearsal estimate, to be replaced if an Èwè-Dòmè reviewer demonstrates another pace
+% dossier-accompaniment: The source says storytelling participants always clap or body-tap, though instruments are not present at every session. Figure 5's two handclap parts are transcribed below as separate percussion voices. Start with voice alone, add each clap group by ear, and use no chords, bass, bell or drum; the band directives are muted because generated accompaniment would not be source evidence
+% dossier-lyrics: Figure 5 prints "Go le mimli tolitolitoli" and "Fi ne ke go tso" without tone marks or a word-by-word translation. The article renders the main idea as "A gourd is rolling on and on" and the caption as "The gourd is rolling on, regardless of its origin," explaining uncertainty about the gourd's origin and destination. Keep the plate's spelling for review; an Èwè-Dòmè speaker must confirm segmentation, tones, meaning and pronunciation before students sing it
+% dossier-honesty: Openly licensed source transcription: melody, printed words and both clap layers follow Gbagbo and Elder's Figure 5, transcribed by Divine K. Gbagbo. ABC spelling, bar numbering, the rehearsal tempo and the decision to put each printed clap layer on its own one-line percussion staff are ours; no harmony or regional style has been generated
+% dossier-licence: Gbagbo and Elder (2019), African Music 11(1), pp. 91-112, is recorded by the publisher-linked AMIRA catalogue as CC BY-NC-SA 4.0. This noncommercial workshop transcription is attributed to the authors and Divine K. Gbagbo and must remain under CC BY-NC-SA 4.0; it is not cleared for the public AGPL repertoire without a licensing decision
+% dossier-respect: The article identifies this as Èwè-Dòmè storytelling practice around Ho, not a generic Ghanaian or West African pattern. Although the article discusses storytelling at festivals, wakes, initiations and other gatherings, it describes this particular glimedeha as an audience interlude and gives no sacred or ceremonial claim for it. A community reviewer must still approve classroom use and the story context
+% dossier-review: An Èwè-Dòmè storyteller or music educator, a competent Èwè-Dòmè speaker, a second score reader and a classroom music teacher; all reviews still required
+X:1
+T:Go le mimli
+T:Èwè-Dòmè storytelling interlude
+C:traditional (Èwè-Dòmè), transcribed by Divine K. Gbagbo
+O:Ghana (Volta Region, Èwè-Dòmè)
+R:storytelling teaching song
+S:Divine Kwasi Gbagbo and D. Rose Elder, "Storytelling Songs of the Èwè-Dòmè of Ghana," African Music 11(1), 2019, pp. 91-112, Figure 5 p. 107, doi:10.21504/amj.v11i1.2294, CC BY-NC-SA 4.0
+N:CONTEXT: The article calls this a glimedeha, an audience interruption during storytelling. It says the rolling gourd's uncertain origin and destination stand for an unending, evolving storytelling process and that the song asks narrator and audience to participate, learn moral lessons and keep community stories alive (pp. 98-99).
+N:HOW READ (2026-11-11): Figure 5 was extracted from the publisher PDF at its embedded 150 ppi resolution and enlarged. Melody bars 1-4: z3 F F F | F2 B B A A | G G2 F F F | E6. Bars 5-8: z3 F F F | F2 B B A A | G G2 F F F | E2 G E G2. Bars 9-12: D E2 E E E | E2 G G F F | E E2 D D D | D2 F E F2. Bars 13-16: bar 9 | bar 10 | bar 11 | C6. The dotted-quarter clap layer is B3 B3 in odd bars and B3 z3 in even bars. The offbeat layer is z B B z B B in odd bars; even bars alternate z3 z B B then z3 B B z through bar 14; bar 16 is silent. Every melody and clap bar was checked to total six eighths.
+N:UNCERTAIN: The plate leaves bar 1's three sung notes untexted, so no words were supplied there. It prints no tempo, repeat, dynamics, tone marks, word-by-word translation or named performer for this song. The article's discussion establishes the overall meaning and practice but not a specific story that must precede it. A second plate reader and the named language/cultural reviews remain required.
+M:6/8
+L:1/8
+Q:3/8=72
+K:C
+%%style folk
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+V:1 name="Voice" sname="V"
+V:2 name="Pulse claps" sname="P" clef=perc stafflines=1
+V:3 name="Offbeat claps" sname="O" clef=perc stafflines=1
+[V:1] z3 F F F | F2 B B A A | G G2 F F F | E6 |
+w: * * * mli to li to li to li, go le mi mli.
+[V:1] z3 F F F | F2 B B A A | G G2 F F F | E2 G E G2 |
+w: * * * Go le mi mli to li to li to li, go le mi mli. Fi ne ke
+[V:1] D E2 E E E | E2 G G F F | E E2 D D D | D2 F E F2 |
+w: go tso go le mi mli to li to li to li, go le mi mli. Fi ne ke
+[V:1] D E2 E E E | E2 G G F F | E E2 D D D | C6 |]
+w: go tso, go le mi mli to li to li to li go le mi mli.
+[V:2] B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 |
+[V:2] B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 |]
+[V:3] z B B z B B | z3 z B B | z B B z B B | z3 B B z | z B B z B B | z3 z B B | z B B z B B | z3 B B z |
+[V:3] z B B z B B | z3 z B B | z B B z B B | z3 B B z | z B B z B B | z3 z B B | z B B z B B | z6 |]

@@ -1,0 +1,35 @@
+% holding-id: ontario-g5-ska-steps
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Skatalites recording and ask a Jamaican ska educator to review historical context and the offbeat-comping comparison.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 5
+% composition-elements: dotted rhythm, part singing, I-V chord movement, articulation and rondo/chorus contrast
+% composition-listen: The Skatalites — "Guns of Navarone"
+% composition-listen-url: https://www.youtube.com/results?search_query=The+Skatalites+Guns+of+Navarone+official
+% composition-bridge: Hear the offbeat accompaniment, horn conversation and buoyant ensemble precision.
+% composition-context: The Skatalites are foundational to Jamaican ska and its links with mento, jazz, R&B and later reggae. This original classroom song uses offbeat rests as a comparison, not a ska claim.
+% composition-distance: Original melody, lyric and I-V harmony; no horn riff, bass line or recording arrangement is copied.
+% improv: {"id":"A","bars":"1-2","role":"horn or voice pair","prompt":"Answer the phrase","choices":["same rhythm","shorter reply","one held note"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"accompaniment group","prompt":"Where does the chord land?","choices":["on beats","between beats","alternate both"],"replyBars":2}
+% dossier-honesty: Original offbeat articulation study; not a Skatalites arrangement.
+% dossier-licence: Draft original; reference composition and performance remain copyrighted.
+% dossier-respect: Teach Jamaican authorship and chronology; do not collapse ska, reggae and generic "island music."
+% dossier-review: Jamaican ska educator and Grade 5 teacher.
+X:1
+T:Ska Steps
+C:Grand Central Stationery workshop
+R:offbeat articulation song
+S:Original classroom composition, 2026; listening bridge to The Skatalites
+M:4/4
+L:1/8
+Q:1/4=124
+K:C
+%%style pop
+"C"z E z G z A G E | "G"z D z G z A G2 | "C"E2 G2 A3 G | E8 |
+"G"z G z A z B A G | "C"z E z G z A G2 | "G"D2 G2 F3 D | "C"C8 |]
+w: Step in the space, hear the band. Trade one line from hand to hand. Keep the ground, lift the sound. Meet the beat when it comes round.

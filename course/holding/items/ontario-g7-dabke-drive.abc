@@ -1,0 +1,33 @@
+% holding-id: ontario-g7-dabke-drive
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Select an authorized Omar Souleyman performance and ask a Syrian/Levantine dabke educator to review context, dance relationship and electronic framing.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 7
+% composition-elements: minor triads, marcato, repertoire rhythm, body-part isolation/weight transfer and improvised melodic turns
+% composition-listen: Omar Souleyman — "Warni Warni"
+% composition-listen-url: https://www.youtube.com/results?search_query=Omar+Souleyman+Warni+Warni+official
+% composition-bridge: Hear relentless electronic pulse, ornamented vocal/keyboard lines and music made for communal line dancing.
+% composition-context: Omar Souleyman's music relates Syrian wedding performance, dabke and electronic production for global stages. This original minor dance study is not dabke music and supplies no traditional steps.
+% composition-distance: Original melody, harmony and words; no synth line, vocal phrase or beat from the recording is copied.
+% improv: {"id":"A","bars":"1-2","role":"melody leader","prompt":"Turn one three-note cell","choices":["ornament first note","repeat middle note","leap to final note"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"line leader","prompt":"Signal the group musically","choices":["marcato hit","rising pickup","one beat of silence"],"replyBars":2}
+% dossier-honesty: Original electronic-dance comparison study; not dabke repertoire.
+% dossier-licence: Draft original; reference composition/performance remains copyrighted.
+% dossier-respect: Locate Syria and the Levant, distinguish social dance practice from a concert-video image, and use a culture bearer for steps.
+% dossier-review: Syrian/Levantine dabke educator and Grade 7 teacher.
+X:1
+T:Dabke Drive
+C:Grand Central Stationery workshop
+R:minor dance-line study
+S:Original classroom composition, 2026; listening bridge to Omar Souleyman
+M:4/4
+L:1/8
+Q:1/4=126
+K:Dm
+%%style pop
+!marcato!D2 F2 A3 G | F2 E2 D4 | A2 B2 c3 A | G2 F2 E4 |
+!marcato!D2 A2 d3 c | B2 A2 G4 | F2 G2 A3 E | D8 |]

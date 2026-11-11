@@ -1,12 +1,21 @@
 % holding-id: gurkha-dance-tune
-% holding-status: transcription
+% holding-status: classroom-check
 % holding-owner:
-% holding-source-check: pending
+% holding-source-check: verified
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
-% holding-blocked: Read the one bar again at 2400 dpi (p. 57, scan p. 79, first staff): the grouping of beats 1 and 3 (eighth plus two sixteenths, or a triplet) and the end of beat 0 (G c and a rest); then source-check.
+% holding-blocked: A Nepali/Gurkha culture bearer and dance teacher should review the historical military setting, movement description and classroom use; no such review has occurred.
 % holding-kind: fragment
 % holding-kind-note: One bar, which four men repeated while they clapped and danced (the moves are in the N: line). It would want the clap pattern as a rhythm part, the dance as steps for the class, and how many times round it went.
+% dossier-function: one-bar dance-tune fragment for a four-man clapping dance, as described by Fox Strangways
+% dossier-elements: one repeated 4/4 bar on G, C and D; beats labelled 1, 2, 3, 0; claps or palm touches on each labelled beat, with beat 0 also stepping backwards
+% dossier-practice: the source gives no tempo or repeat count; the written C rehearsal key spans G4-D5 and fits the conservative C4-D5 young-unison range; quarter note = 100 is our trial tempo
+% dossier-accompaniment: the source documents the dancers' handclaps and palm touches but no instrument; use the notated clap line alone, with the generated drone and any added percussion muted unless a reviewer chooses otherwise
+% dossier-lyrics: no words are printed; do not add words or infer a language
+% dossier-honesty: historical-source fragment: the one bar and movements follow Fox Strangways; the G drone, tempo, timbre mapping and classroom repetition are ours, not described as traditional
+% dossier-licence: public domain source (A. H. Fox Strangways, The Music of Hindostan, 1914; author died 1948); ABC read bar by bar from p. 57 on 2026-11-10
+% dossier-respect: the source records men of the 2nd Goorkhas in colonial India; do not use that military setting to claim a language, a pan-Nepali identity or present-day dance practice
+% dossier-review: Nepali/Gurkha culture bearer and dance teacher, plus a classroom teacher; all reviews still required
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up archive.org scan of The Music of Hindostan, at p. 57
 X:1
 T:Gurkha dance tune
@@ -16,8 +25,8 @@ O:India, Dharmsala (2nd Goorkhas)
 R:dance
 S:Fox Strangways, The Music of Hindostan (1914), Ex. 127, p. 57
 N:"To such tunes as" this, four men A, B, C, D danced, lifting the foot to the level of the knee, their movements on the four beats of the bar, which the plate numbers 1 2 3 0 (0 is the silent beat): (1) all clap hands; (2) B and D touch right palm to A and C's left palm, fingers pointing upwards; (3) clap hands; (0) D and B touch left palm to A and C's right palm, and all step backwards instead of forwards on this beat. No words, no tempo and no tonic are printed; no signature, and the notes are d, c and G, so the drone is on G and the band's clap line marks the three hand-beats and leaves beat 0 silent.
-N:HOW READ (2026-11-09): one staff, cropped at 1200, 1600 and 2400 dpi (scratch crops w-ex127-*, n-ex127-*, d-ex127-*); pitches from the detector (d G G, d d, c, G) with the second and third notes of beat 3 and the c of beat 0 read by eye; one pass only.
-N:UNCERTAIN: the rhythm of beats 1 and 3 (written eighth and two sixteenths; a triplet is possible), the pitch of the second and third notes of beat 3, and the rest that closes beat 0.
+N:HOW READ (2026-11-10): the one staff was checked again against Internet Archive PDF scan page 79 at 300 and 600 dpi. Beat 1 is d eighth plus G-G sixteenths (there is no triplet mark); beat 2 is d-d eighths; beat 3 is c eighth plus c-c sixteenths; beat 0 is G-c sixteenths and an eighth rest. The four beat labels and final repeat barline agree with the movement prose below the plate.
+N:UNCERTAIN: the source gives neither tempo nor number of repetitions. The noteheads are secure at the scan's resolution; a second human plate reader should still confirm them before publication.
 M:4/4
 L:1/8
 Q:1/4=100

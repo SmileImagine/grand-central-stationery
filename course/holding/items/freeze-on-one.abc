@@ -1,0 +1,44 @@
+% holding-id: freeze-on-one
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with students. A classroom music teacher, movement/accessibility reviewer, second score reader and student listening panel must check the hook, breath, lyric alignment, safe movement choices and whether the offbeat entries are teachable at the proposed tempo.
+% holding-kind: tune
+% source-local: course/holding/items/freeze-on-one.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; do not market a generated playback as evidence that students find the hook effective.
+% dossier-function: original classroom freeze-and-move game and teaching song; students enter after an eighth rest, follow short movement cues, hold the two-beat freeze and invent one new safe movement for the second half
+% dossier-elements: eight bars in 4/4; C-major pentatonic pitch set C-D-E-G-A, C4-C5 octave range, repeated offbeat eighth-note entries, a mid-bar eighth rest in bars 3 and 7, two-beat sung freeze cues followed by two beats of silence, and an A/B lyric form over the same Am-G-F-C loop
+% dossier-practice: Quarter note = 112 is the authored target, but begin at 88 and raise the tempo after the class can enter together after the opening rest. Speak the cue, sing it, then add student-chosen accessible movements. C4-C5 fits the conservative C4-D5 young-unison range and C major is the intended rehearsal key
+% dossier-accompaniment: The harmony and groove are newly authored, not traditional: Am-G-F-C, with optional foot stomps on beats 1 and 3, claps on 2 and 4 and bass roots on the downbeats. Keep the final two beats of bars 4 and 8 silent so the freeze reads. A future pop/funk band arrangement is part of this composition and must not be labelled Afrobeats, Latin, Indigenous or any other cultural idiom without actually using and reviewing that idiom
+% dossier-lyrics: Original English cue words written for this record. Teachers may replace movement verbs with accessible alternatives while preserving the seven-syllable cue shape; record classroom substitutions as adaptations rather than folklore variants
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm, safety and teaching constraints. It is not traditional, not collected from a community and not modelled on a named song; melody, words, harmony and accompaniment guidance are new
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the generated melody, words, chord loop and this ABC encoding to the public domain to the extent legally possible
+% dossier-respect: Culture-neutral course original. Do not use it to fill a geographic coverage cell or relabel its generic pop/funk rehearsal groove as a cultural tradition. Movement must be optional and adaptable for seated, standing, signing or instrument-only participation
+% dossier-review: Classroom music teacher, movement/accessibility reviewer, second score reader and student listening panel; all reviews still required
+X:1
+T:Freeze on One
+T:Original offbeat-entry movement game
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:classroom movement game and teaching song
+S:Grand Central Stationery, "Freeze on One" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. The bar-by-bar compositional audit is: bars 1-2 each begin with one eighth rest and contain seven eighth-note onsets, first E-E-G-A-G-E-D then D-D-E-G-E-D-C; bars 3 and 7 place a rest after four eighth notes and contain seven sung onsets; bars 4 and 8 hold C4 for two beats and leave two beats silent. Bars 5-6 repeat the offbeat-entry shape at a higher melodic peak. Every bar totals eight eighth units, the only pitches are C-D-E-G-A, every leap is a fourth or smaller and the written range is C4-C5.
+N:UNCERTAIN: Catchiness, student preference, breath comfort at quarter note = 112, lyric-to-note clarity and the safety/accessibility of each movement cue have not been tested. The pop/funk label describes an intended new arrangement, not a reviewed genre emulation. A second score reader, classroom trial, accessibility review and student listening panel remain required before publication.
+M:4/4
+L:1/8
+Q:1/4=112
+K:C
+%%style pop
+"Am"z E E G A G E D | "G"z D D E G E D C |
+w: Step left, step right, clap the beat Turn round, sit down, wait for one
+"F"E E G A z E G A | "C"C4 z4 |
+w: Move, move, now don't you be late Freeze!
+"Am"z G G A c A G E | "G"z E E G A G E D |
+w: Switch it up and try once more Make a brand new move in four
+"F"A A G E z E D C | "C"C4 z4 |]
+w: Three, two, rea- dy, here we go Go!

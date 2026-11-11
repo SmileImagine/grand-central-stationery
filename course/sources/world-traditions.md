@@ -176,6 +176,13 @@ Nketia's books (e.g. *Folk Songs of Ghana*, Legon 1963) are in copyright. The be
 - Akosua O. Addo, *Mmofra Dwom: a small collection of children's songs from Ghana* (University of Minnesota): https://experts.umn.edu/en/publications/mmofra-dwom-a-small-collection-of-children-songs-from-ghana/fingerprints/. By a Ghanaian music educator; access and licence unstated ("All rights are reserved" site notice). Verdict: ask permission.
 - W.K. Amoaku, *African Songs and Rhythms for Children: A Selection from Ghana* (Schott): commercial Orff collection by a Ghanaian author; in copyright. Verdict: reference only.
 
+### Èwè-Dòmè storytelling songs (Ghana)
+
+- Divine Kwasi Gbagbo and D. Rose Elder, "Storytelling Songs of the Èwè-Dòmè of Ghana," *African Music* 11(1), 2019, pp. 91-112: https://doi.org/10.21504/amj.v11i1.2294. The publisher PDF gives six staff transcriptions by Gbagbo with words, translations or explanations, clapping, melodic analysis and field context around Ho. The publisher-linked AMIRA catalogue record, https://data.africamultiple.uni-bayreuth.de/resource/32083, states CC BY-NC-SA 4.0 and public access. Verdict: use with attribution in the noncommercial workshop and retain CC BY-NC-SA; do not move the transcription into the public AGPL set without resolving the licence boundary. The article page's migrated footer is internally inconsistent (it names BY-NC-SA in prose but links to BY), so the workshop cites the unambiguous AMIRA item-level record.
+- The selected workshop item, "Go le mimli" (Figure 5, p. 107), is a *glimedeha*, an audience-interrupting storytelling song about an endlessly rolling gourd and the continuing work of story transmission. It is identified specifically as Èwè-Dòmè practice; do not relabel its clapping as a generic Ghanaian or West African groove. The score has no tempo or word-level translation and the article links no recording of this song, so an Èwè-Dòmè storyteller/speaker must review it before classroom use.
+- Rejected lead: Edwin Asa Adjei, *Gender Role Stereotypes in African Children's Literature* (University of Ghana MPhil thesis, 2014), Appendix B, reproduces the words of the Hausa/Niger lullaby "Hinda Hindatou" from Sutherland-Addy and Diaw (2005) but supplies no melody or reuse licence. Verdict: context only; do not make a tune record from it.
+- Rejected lead: recent teaching pages for "Simama Kaa" disagree on Ghana versus Tanzania while the text is Swahili and authoritative teaching sources identify Tanzania/East Africa. Verdict: do not use it to fill a West African cell.
+
 ### Yoruba and Mande music
 
 **For the class.** Yoruba music of Nigeria and Benin is built on the dùndún talking drums, hourglass drums whose pitch bends to imitate the three tones of the Yoruba language, together with bàtá drums and bells, and praise singing. Mande music of Mali, Guinea and Senegal centres on the jeli (griot) who keeps history in song with the kora (a 21-string harp), the balafon and the ngoni; the djembe and dunun drums accompany dances for harvests and weddings. Both traditions are among the most shared West African musics in the world.
@@ -367,7 +374,8 @@ The Korean jangdan in `world.rhythms.txt` is traditional.
 
 **Sources.**
 
-- *Philippine Progressive Music Series* (Norberto Romualdez and Horatio Parker, Silver Burdett; editions 1920s to 1947): a copy on Scribd (https://www.scribd.com/document/500838726/philippine-music-series) carries a HathiTrust public domain notice for the 1941 and 1947 printings. The HathiTrust record itself could not be fetched on the date; unverified. Verdict: use freely once the HathiTrust full-view status is confirmed; the series was compiled in the Philippines by a Filipino jurist and musician.
+- *The Philippine Progressive Music Series for the Primary Grades* (Norberto Romualdez et al., Silver Burdett): University of Michigan/HathiTrust scan, stable handle https://hdl.handle.net/2027/miun.ash9039.0001.001. HathiTrust explicitly marks the item Public Domain and permits copying, use and redistribution. Although the catalogue title dates it to 1914, the scanned volume itself acknowledges a 1947 Philippine revision and prints copyright lines through 1948, so cite the exact digitized volume rather than calling every page the 1914 edition. The notice also cautions that separately authored portions may need an independent rights check. Printed p. 25 (scan p. 34), "I Plant Some Rice," is labelled "Ilocos Sur Folk Song" and credits notation to Florencio Buado; it prints five English action verses but no Ilocano text or translation credit. Verdict: permission-safe workshop source under HathiTrust's item-level determination, with historical, Ilocano language/culture and second-reader review still required.
+- National Commission for Culture and the Arts, "Defining the Filipino Through Song": https://ncca.gov.ph/about-culture-and-arts/in-focus/defining-the-filipino-through-song/. It warns that schoolbook practice of translating Filipino songs into English and teaching only the translation can make local songs seem foreign. Verdict: use as a respect flag; never call the series' English words traditional Ilocano lyrics without evidence.
 - Filipinas Heritage Library catalogue: Bahay Kubo as transcribed by Romualdez in *The Progressive Music Series* (1932), https://www.filipinaslibrary.org.ph/biblio/35647; a 78 rpm Tinikling by Juan Silos Jr.'s rondalla. Catalogue only; licence unstated. Verdict: reference only.
 - Wikipedia, "Bahay Kubo (song)": https://en.wikipedia.org/wiki/Bahay_Kubo_(song). First printed in Emilia Cavan's 1924 compilation. CC BY-SA background.
 
@@ -420,6 +428,34 @@ The Tinikling step in `world.dances.txt` is traditional.
 - New Zealand Ministry of Education, Pasifika Early Literacy Project (Te Whāriki online): https://tewhariki.tahurangi.education.govt.nz/te-whariki/learning-resources/pelp-resources/5637145230.c and the dual-language series on TKI with MP3 songs, e.g. a Tongan song MP3 (https://eesoll.tki.org.nz/Media/Instructional-Series/Pasifika-dual-language/Tongan/MP3s/Oku-O-ki-Fe-a-e-Fanga-Ki-i-Fonu-Pe-pee) and the Tokelauan "Ko te Pehe" (https://eesoll.tki.org.nz/Media/Instructional-Series/Pasifika-dual-language/Tokelauan/PDFs/The-Song-Ko-te-Pehe). Samoan, Tongan, Tokelauan, Cook Islands Māori and Niuean flip books with songs. Licence: unverified (TKI copyright page could not be fetched; NZ government sites commonly use CC BY, but not confirmed here). Verdict: unverified; use in class, ask before copying.
 - Pasifika Beatz (songs in ten Pacific languages, free to stream): https://www.scoop.co.nz/stories/CU2105/S00051.htm. Commercial streaming. Verdict: reference only.
 - Huapala also lists Samoan songs (see above). Reference only.
+
+### Hawaiʻi and Japanese school-song sources added 11 November 2026
+
+- Hawaiʻi State Archives, “Music from the Queen's Collection”:
+  https://ags.hawaii.gov/archives/online-exhibitions/music-from-the-queens-collection/
+  and autographed 1912 score M494-3-2:
+  https://files.hawaii.gov/dags/archives/M494/M494-3-2_o.pdf. The archive
+  identifies Queen Liliʻuokalani's manuscript collection and dates *Aloha ʻOe*
+  to 1878. Composition public domain; archive scan used as the primary plate.
+- University of Hawaiʻi at Mānoa, SCORE AL 008:
+  https://digital.library.manoa.hawaii.edu/items/show/31961. Catalogue and
+  context record for the 1912 score, including the love-song and sovereignty
+  readings. Use for context, not as a substitute for Native Hawaiian review.
+- University of Rochester Sibley Music Library, Florence Hudson Botsford,
+  *Folk Songs of Many Peoples*, vol. 2 (1922), pp. 442-443:
+  https://urresearch.rochester.edu/institutionalPublicationPublicView.action?institutionalItemId=18892
+  (stable handle http://hdl.handle.net/1802/19325). The repository marks the
+  volume public domain. The *Usagi to Kame* melody was read from this plate;
+  Grace Hazard Conkling's English adaptation still has a launch-jurisdiction
+  rights check because she died in 1958.
+- Kunitachi College of Music Library song index:
+  https://www.lib.kunitachi.ac.jp/songindex/detail/1129, confirming Wasaburō
+  Ishihara as lyricist and Benjirō Nōsho as composer and supplying the melody
+  incipit. Kanagawa Prefectural Library's exhibition guide places the song in
+  the 1901-1902 *Yōnen Shōka* school-song collection:
+  https://www.klnet.pref.kanagawa.jp/uploads/2021/04/ca91894de4711cc9ab7254e71b407984.pdf.
+  Verdict: public-domain composition and source plate; Japanese language,
+  historical framing and English-adaptation rights review still required.
 
 ## Protocol summary
 

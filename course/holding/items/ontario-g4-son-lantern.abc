@@ -1,0 +1,35 @@
+% holding-id: ontario-g4-son-lantern
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Buena Vista Social Club/Compay Segundo link and have a Cuban son educator review the comparison and clave language.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 4
+% composition-elements: syncopation, major/minor contrast, accidentals, simple two-part texture, repeat and coda-like ending
+% composition-listen: Buena Vista Social Club / Compay Segundo — "Chan Chan"
+% composition-listen-url: https://www.youtube.com/results?search_query=Buena+Vista+Social+Club+Chan+Chan+official
+% composition-bridge: Track the repeating harmonic cycle, the conversational vocal delivery and the independent percussion timeline.
+% composition-context: The recording can introduce Cuban son, Compay Segundo and the late-twentieth-century international revival around veteran Cuban musicians. This new syncopation study is not son and uses no "Chan Chan" material.
+% composition-distance: Original melody, lyric, rhythm and harmony; no tres figure, bass line or chord cycle from the recording is copied.
+% improv: {"id":"A","bars":"1-2","role":"melody player","prompt":"Place the answer around the beat","choices":["start on beat","start off beat","wait one beat"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"two groups","prompt":"What kind of conversation?","choices":["echo rhythm","contrary contour","one group rests"],"replyBars":2}
+% dossier-honesty: Original syncopation piece; son is encountered through listening, not claimed by the classroom groove.
+% dossier-licence: Draft original; reference song and recording remain copyrighted.
+% dossier-respect: Identify Cuban son and its musicians; do not call every clave-adjacent classroom pattern salsa or son.
+% dossier-review: Cuban son educator and Grade 4 teacher.
+X:1
+T:Son Lantern
+C:Grand Central Stationery workshop
+R:syncopation study
+S:Original classroom composition, 2026; listening bridge to Compay Segundo
+M:4/4
+L:1/8
+Q:1/4=96
+K:C
+%%style bossa
+"C"z E3 G2 A2 | "Am"G2 E2 z D3 | "F"F2 A2 G3 E | "G"D8 |
+"C"z E3 G2 _B2 | "Am"A2 G2 E3 D | "G"D2 G2 F3 D | "C"C8 |]
+w: Light the lan-tern af-ter one. Leave a space for some-one. Shift the start and hear it lean; find the ground a-gain.

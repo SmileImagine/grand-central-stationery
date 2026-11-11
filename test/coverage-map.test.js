@@ -8,6 +8,8 @@ const Coverage = require('../course/coverage-map.js');
 const root = path.resolve(__dirname, '..');
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course', 'set.json'), 'utf8'));
 const report = Coverage.buildReport(set, 'course/set.json');
+const pipeline = Coverage.buildPipeline(root);
+const runway = Coverage.launchRunway(report, pipeline);
 let checks = 0;
 const assert = (ok, message) => { checks++; if (!ok) throw new Error(message); };
 
@@ -22,6 +24,34 @@ assert(report.matrix['North American Indigenous'].total === 0, 'the current set 
 assert(Coverage.functionOf('lullaby') === 'lullaby', 'a lullaby rhythm must map to the lullaby function');
 assert(report.matrix['South Asia'].functions.lullaby === report.tunes.filter(t => t.region === 'South Asia' && t.function === 'lullaby').length, 'South Asia lullabies must match the published set');
 assert(report.summary.missingOrigin > 0 && report.summary.missingFunction > 0, 'missing metadata must remain visible');
+assert(pipeline.records.find(record => record.id === 'sansa-akroma').region === 'West Africa', 'Sansa Akroma must fill the private West African pipeline only from its explicit Ghana origin');
+assert(pipeline.records.find(record => record.id === 'sansa-akroma').function === 'game song', 'Sansa Akroma must fill the private game-song function from its explicit R field');
+assert(pipeline.records.find(record => record.id === 'go-le-mimli').region === 'West Africa', 'Go le mimli must fill the private West African pipeline from its explicit Ghana origin');
+assert(pipeline.records.find(record => record.id === 'go-le-mimli').function === 'song or air', 'Go le mimli must fill a distinct private teaching/storytelling song function');
+assert(pipeline.matrix['West Africa'].holding >= 2, 'the private pipeline must expose both West African candidates');
+assert(pipeline.matrix['West Africa'].functions['game song'] >= 1 && pipeline.matrix['West Africa'].functions['song or air'] >= 1, 'West Africa must show two distinct private classroom functions');
+const riceSong = pipeline.records.find(record => record.id === 'i-plant-some-rice');
+assert(riceSong && riceSong.region === 'Southeast Asia', 'I Plant Some Rice must fill the private Southeast Asian pipeline only from its explicit Philippine origin');
+assert(riceSong.function === 'song or air', 'I Plant Some Rice must expose its explicit action-song function without being promoted to a published tune');
+assert(pipeline.matrix['Southeast Asia'].holding >= 1 && pipeline.matrix['Southeast Asia'].review === 0, 'the Southeast Asian candidate must remain in the private workshop');
+const aloha = pipeline.records.find(record => record.id === 'aloha-oe');
+assert(aloha && aloha.region === 'Pacific', 'Aloha ʻOe must fill the private Pacific pipeline only from its explicit Hawaiʻi origin');
+assert(aloha.function === 'song or air', 'Aloha ʻOe must expose its stated composed-song function');
+const usagi = pipeline.records.find(record => record.id === 'usagi-to-kame');
+assert(usagi && usagi.region === 'East Asia', 'Usagi to Kame must fill the private East Asian pipeline only from its explicit Japan origin');
+assert(usagi.function === 'song or air', 'Usagi to Kame must expose its stated teaching-song function');
+const freeze = pipeline.records.find(record => record.id === 'freeze-on-one');
+assert(freeze && freeze.generated === true, 'Freeze on One must be explicitly counted as generated');
+assert(report.tunes.filter(tune => tune.generated).length === 3, 'the published set must retain its three explicit course originals');
+assert(pipeline.records.find(record => record.id === 'black-hills-powwow-song').kind === 'fragment', 'incomplete recordings must retain their fragment identity');
+const publishedIds = new Set(report.tunes.map(tune => tune.id));
+const completeWorkshop = pipeline.records.filter(record => record.queue === 'holding' && record.kind !== 'fragment' && (!record.compositionDraft || record.status === 'ready') && !publishedIds.has(record.id));
+assert(runway.total === report.tunes.length + completeWorkshop.length, 'launch runway must count each published or launch-eligible workshop tune exactly once');
+assert(runway.generated === report.tunes.filter(tune => tune.generated).length + completeWorkshop.filter(record => record.generated).length, 'launch runway must count every launch-eligible generated tune exactly once');
+assert(pipeline.records.filter(record => record.compositionDraft && record.status !== 'ready').length >= 30, 'the Ontario composition batch must remain outside the launch runway until its review gates pass');
+assert(runway.remaining === Math.max(0, runway.target - runway.total), 'launch runway remaining count must follow the target');
+assert(runway.maxGenerated === 25 && runway.generatedSlots === Math.max(0, 25 - runway.generated), 'launch runway must enforce the 25% launch allowance');
+assert(runway.generated <= runway.maxGenerated, 'the current launch inventory must not exceed its 25-work generated allowance');
 
 for (const region of report.regions) {
   const row = report.matrix[region];
@@ -29,5 +59,5 @@ for (const region of report.regions) {
   assert(Object.values(row.functions).reduce((a, b) => a + b, 0) === row.total, `${region}: function counts do not total`);
 }
 
-assert(Coverage.renderMarkdown(report) === fs.readFileSync(path.join(root, 'course', 'coverage-map.md'), 'utf8'), 'course/coverage-map.md is stale');
+assert(Coverage.renderMarkdown(report, pipeline) === fs.readFileSync(path.join(root, 'course', 'coverage-map.md'), 'utf8'), 'course/coverage-map.md is stale');
 console.log(`Coverage map checks passed (${checks} checks; ${report.tunes.length} tunes, ${report.regions.length} regions).`);

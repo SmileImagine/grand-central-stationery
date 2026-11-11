@@ -11,6 +11,10 @@ const root = path.resolve(__dirname, '..');
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'gcs-serve-'));
 fs.cpSync(path.join(root, 'course'), path.join(tmp, 'course'), { recursive: true });
 fs.copyFileSync(path.join(root, 'serve.js'), path.join(tmp, 'serve.js'));
+const privateDir = path.join(tmp, 'course', 'private-review');
+fs.mkdirSync(privateDir, { recursive: true });
+const fixtureHoldingId = JSON.parse(fs.readFileSync(path.join(tmp, 'course/holding/index.json'), 'utf8')).items[0].id;
+fs.writeFileSync(path.join(privateDir, 'reviewer-outreach.local.json'), JSON.stringify({ schema: 1, records: { [`holding/${fixtureHoldingId}`]: { contacts: [{ name: 'Local test reviewer' }] } } }));
 const port = 20000 + Math.floor(Math.random() * 20000);
 const base = `http://127.0.0.1:${port}`;
 let checks = 0;
@@ -25,8 +29,12 @@ const done = err => { server.kill(); fs.rmSync(tmp, { recursive: true, force: tr
   assert((await (await fetch(base + '/api/ping')).json()).save === true, 'ping must say the server can save');
   assert((await fetch(base + '/course/editor.html')).status === 200, 'the editor page must be served');
   assert([403, 404].includes((await fetch(base + '/%2e%2e/%2e%2e/%2e%2e/etc/hosts')).status), 'a path outside the folder must not be served');
+  const outreach = await (await fetch(base + '/api/reviewer-outreach')).json();
+  assert(outreach.available === true && outreach.records[`holding/${fixtureHoldingId}`].contacts[0].name === 'Local test reviewer', 'the loopback API must load the ignored reviewer file');
+  assert((await fetch(base + '/course/private-review/reviewer-outreach.local.json')).status === 404, 'the reviewer file must never be served as a static file');
+  assert((await fetch(base + '/course/private-review/')).status === 404, 'the private reviewer directory must never be listed');
 
-  const id = JSON.parse(fs.readFileSync(path.join(tmp, 'course/holding/index.json'), 'utf8')).items[0].id;
+  const id = fixtureHoldingId;
   const file = path.join(tmp, 'course/holding/items', `${id}.abc`), original = fs.readFileSync(file, 'utf8');
   const got = await (await fetch(`${base}/api/tune/holding/${id}`)).json();
   assert(got.text === original && /^[0-9a-f]{40}$/.test(got.etag), 'GET must return the file and its etag');

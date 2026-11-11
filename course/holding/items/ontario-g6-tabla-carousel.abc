@@ -1,0 +1,33 @@
+% holding-id: ontario-g6-tabla-carousel
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Choose an authorized Zakir Hussain performance, have a tabla educator review tala/bol terminology, and verify the 9/8 notation with students.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 6
+% composition-elements: 9/8 compound metre, triplets, acceleration/deceleration, layering and four-part body percussion
+% composition-listen: Zakir Hussain — "Making Music"
+% composition-listen-url: https://www.youtube.com/results?search_query=Zakir+Hussain+Making+Music+official
+% composition-bridge: Hear rhythmic ideas stated, varied and answered across instruments while a larger cycle remains intelligible.
+% composition-context: Zakir Hussain's collaborations can open discussion of tabla, Hindustani rhythmic training and intercultural ensemble work. This original 9/8 body-percussion carousel is not a tala composition.
+% composition-distance: Original melody and neutral classroom rhythm; no tabla composition, bol sequence or recorded passage is copied.
+% improv: {"id":"A","bars":"1-2","role":"rhythm leader","prompt":"Group nine eighths","choices":["2+2+2+3","3+3+3","4+2+3"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"four body-percussion parts","prompt":"Change the density","choices":["one layer","add one each bar","all then sudden solo"],"replyBars":2}
+% dossier-honesty: Original 9/8 layering study; it does not teach a named tala.
+% dossier-licence: Draft original; reference recording remains copyrighted.
+% dossier-respect: Use a tabla educator's demonstration for bols and technique; do not call arbitrary syllables konnakol or tabla language.
+% dossier-review: Tabla/Hindustani rhythm educator and Grade 6 teacher.
+X:1
+T:Nine-Spoke Carousel
+C:Grand Central Stationery workshop
+R:compound-metre layer study
+S:Original classroom composition, 2026; listening bridge to Zakir Hussain
+M:9/8
+L:1/8
+Q:3/8=92
+K:D
+%%style jig
+D2 E F2 A B2 A | F3 E3 D3 | A2 B d2 B A2 F | E9 |
+D2 F A2 B d2 A | B3 A3 F3 | E2 F A2 F E2 D | D9 |]

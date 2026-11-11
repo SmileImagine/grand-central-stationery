@@ -1,0 +1,34 @@
+% holding-id: ontario-g7-blue-engine
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Verify an authorized Muddy Waters recording and have a blues educator review cultural history, form and improvisation framing.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 7
+% composition-elements: blues scale, 12-bar blues, major/minor triads, marcato articulation and improvised call-and-response soloing
+% composition-listen: Muddy Waters — "Hoochie Coochie Man"
+% composition-listen-url: https://www.youtube.com/results?search_query=Muddy+Waters+Hoochie+Coochie+Man+official
+% composition-bridge: Hear the stop-time riff, vocal authority, tension between speech and pitch, and ensemble answers.
+% composition-context: Muddy Waters' Chicago blues recording connects Delta traditions, electrification, Black migration and the music industry. This original school blues uses a different riff and neutral words.
+% composition-distance: Original melody, lyric and accompaniment; no stop-time riff, Willie Dixon lyric or recording arrangement is copied.
+% improv: {"id":"A","bars":"1-4","role":"soloist over I chord","prompt":"Build a four-bar statement","choices":["three-note motif","space after every idea","repeat then vary"],"replyBars":4}
+% improv: {"id":"B","bars":"9-12","role":"next soloist","prompt":"Answer and close the chorus","choices":["higher answer","rhythmic answer","one-note answer"],"replyBars":4}
+% dossier-honesty: Original 12-bar teaching blues; listening reference remains distinct.
+% dossier-licence: Draft original; the Dixon/Waters work and recording remain copyrighted.
+% dossier-respect: Teach blues as Black American history and living expression, not just a scale or chord worksheet.
+% dossier-review: Blues educator and Grade 7 teacher.
+X:1
+T:Blue Engine
+C:Grand Central Stationery workshop
+R:12-bar blues
+S:Original classroom composition, 2026; listening bridge to Muddy Waters and Willie Dixon
+M:4/4
+L:1/8
+Q:1/4=96
+K:C
+%%style swing
+"C7"C2 _E2 F2 ^F2 | G4 _B2 G2 | C2 _E2 F2 G2 | C8 |
+"F7"F2 _A2 B2 C2 | F4 _E2 C2 | "C7"C2 _E2 F2 ^F2 | G8 |
+"G7"G2 _B2 c2 _B2 | "F7"F2 _A2 G2 F2 | "C7"C2 _E2 F2 G2 | "G7"C8 |]

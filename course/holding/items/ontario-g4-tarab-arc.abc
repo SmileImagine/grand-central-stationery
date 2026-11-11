@@ -1,0 +1,34 @@
+% holding-id: ontario-g4-tarab-arc
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Select an authorized Umm Kulthum recording excerpt and ask an Arab music educator to review maqam/tarab framing and the approximate equal-tempered notation.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: 4
+% composition-elements: accidentals, intervals, minor tonality, fermata, expressive dynamics and phrase-level improvisation
+% composition-listen: Umm Kulthum — "Alf Leila Wa Leila"
+% composition-listen-url: https://www.youtube.com/results?search_query=Umm+Kulthum+Alf+Leila+Wa+Leila+official
+% composition-bridge: Hear how a singer reshapes a line, how the ensemble answers, and how expectation can build across a long performance.
+% composition-context: Umm Kulthum's concert practice can introduce Arabic art music, maqam, tarab and audience-performer exchange. This short equal-tempered original is not a maqam composition.
+% composition-distance: Original pitches and no Arabic text; no copyrighted phrase or orchestration is copied. The E-flat colour is not presented as a complete maqam.
+% improv: {"id":"A","bars":"1-2","role":"soloist","prompt":"Reshape the final two notes","choices":["ornament once","hold and bend gently","leave silence"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"ensemble answer","prompt":"How will the group respond?","choices":["same cadence","short echo","drone only"],"replyBars":2}
+% dossier-honesty: Original expressive minor study; not Arabic repertoire and not a maqam demonstration.
+% dossier-licence: Draft original; Umm Kulthum's recorded performance and underlying composition remain copyrighted where applicable.
+% dossier-respect: Centre Umm Kulthum and Arabic listening practices; explain that staff notation and 12-tone classroom instruments omit important pitch and ornament detail.
+% dossier-review: Arab music educator and Grade 4 teacher.
+X:1
+T:Arc of the Night
+C:Grand Central Stationery workshop
+R:expressive minor study
+S:Original classroom composition, 2026; listening bridge to Umm Kulthum
+M:4/4
+L:1/8
+Q:1/4=70
+K:Dm
+%%style drone
+D2 F2 A3 G | F2 _E2 D4 | A2 B2 c3 A | G6 z2 |
+F2 A2 d3 c | B2 A2 G4 | F2 _E2 D2 A2 | !fermata!D8 |]

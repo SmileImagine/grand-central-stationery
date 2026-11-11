@@ -1,0 +1,49 @@
+% holding-id: usagi-to-kame
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-updated: 2026-11-11
+% holding-blocked: The melody, authorship and 1901 publication history are checked, but no human review has occurred. A Japanese children's-music educator or shōka historian, a competent Japanese speaker, a second score reader, a rights reviewer for the 1922 English version and a classroom music teacher must check the text, translation, dialogue game and teaching frame before publication.
+% holding-kind: tune
+% source-url: https://urresearch.rochester.edu/institutionalPublicationPublicView.action?institutionalItemId=18892 University of Rochester Sibley Music Library catalogue and public-domain determination for Folk Songs of Many Peoples
+% source-url: http://hdl.handle.net/1802/19325 stable University of Rochester handle for both volumes
+% source-url: https://www.lib.kunitachi.ac.jp/songindex/detail/1129 Kunitachi College of Music Library song index naming Wasaburō Ishihara and Benjirō Nōsho and giving the melody incipit
+% source-url: https://www.klnet.pref.kanagawa.jp/uploads/2021/04/ca91894de4711cc9ab7254e71b407984.pdf Kanagawa Prefectural Library exhibition guide identifying the 1901-1902 school-song collection and its educational context
+% performance-note: No modern recording was used for the transcription. The 1922 score provides an English dialogue version and Japanese-script text; ask the named reviewer to demonstrate the Japanese words rather than copying a commercial children's recording or its arrangement.
+% dossier-function: Japanese composed children's teaching song retelling the hare-and-tortoise race as dialogue; useful for character roles, quick dotted rhythms, steady 2/4 pulse and comparing boastful and patient delivery
+% dossier-elements: sixteen two-four bars in C major, repeated dotted-eighth/sixteenth cells, C4-D5 octave-plus-second classroom range, four balanced four-bar phrases and a melody that repeatedly contrasts G-E gestures with held C or G cadences
+% dossier-practice: The 1922 plate marks Allegro but gives no metronome number; quarter note = 104 is our rehearsal estimate. Assign the first English-source stanza to the rabbit and let the class speak the later turtle answer before deciding whether to sing reviewed Japanese words. C4-D5 exactly spans the conservative young-unison range, and C major is the practical first rehearsal key
+% dossier-accompaniment: Botsford prints an uncredited piano accompaniment, but this record transcribes only the vocal line. Begin with voice and a walking pulse or alternating knee taps; do not infer koto, shamisen, taiko or a min'yō accompaniment. Any generated chords or percussion must be labelled as our classroom arrangement rather than Japanese traditional practice
+% dossier-lyrics: Wasaburō Ishihara's Japanese text and Benjirō Nōsho's music first appeared in a 1901 school-song collection. Botsford prints Japanese script on p. 443 and aligns Grace Hazard Conkling's English version to the melody on p. 442. This ABC preserves only that source-aligned English stanza pending Japanese transcription, modern orthography, pronunciation and translation review
+% dossier-honesty: Authored historical school song, not anonymous warabe-uta: music by Benjirō Nōsho and Japanese words by Wasaburō Ishihara. The melody and English words follow Botsford's 1922 plate; composer/lyricist attribution is independently confirmed by Kunitachi College of Music Library. ABC spelling, bar numbering, rehearsal tempo, melody-only reduction and muted-band directives are ours
+% dossier-licence: Ishihara died in 1922 and Nōsho in 1936, so the 1901 composition is public domain. University of Rochester marks the complete 1922 source item public domain. Grace Hazard Conkling's English version is reproduced from that institutional PD item, but a rights reviewer must still confirm its status for every launch jurisdiction because Conkling died in 1958
+% dossier-respect: Present this as a Meiji-period composed school song and fable, not a timeless or generic Japanese folk tune. Do not add costumes, accents or instruments merely from geography. A Japanese reviewer should decide how to explain the school-song movement and whether the historical English adaptation is suitable beside checked Japanese words
+% dossier-review: Japanese children's-music educator or shōka historian, competent Japanese speaker, rights reviewer for the English version, second score reader and classroom music teacher; all reviews still required
+X:1
+T:Usagi to Kame (兎と亀)
+T:The Rabbit and the Turtle
+C:Benjirō Nōsho (music); Wasaburō Ishihara (Japanese words); Grace Hazard Conkling (1922 English version)
+O:Japan
+R:children's teaching song
+S:Florence Hudson Botsford (ed.), Folk Songs of Many Peoples, vol. 2 (New York: The Woman's Press, 1922), "The Rabbit and the Turtle," pp. 442-443, English version by Grace Hazard Conkling; University of Rochester Sibley Music Library, public domain
+N:CONTEXT: Kunitachi College of Music Library identifies the song as "Usagi to Kame," names Ishihara and Nōsho and gives the incipit. Kanagawa Prefectural Library places it in the graded 1901-1902 Yōnen Shōka collection, written for primary-school children. That evidence supports an authored school-song identity, not the "traditional Japanese folk song" label sometimes attached to it.
+N:HOW READ (2026-11-11): Botsford p. 442 (PDF scan p. 456) was rendered at 300 ppi and checked bar by bar against the Kunitachi incipit. In sixteenth-note units, bars 1-4 are G4 dotted eighth, E4 sixteenth, G4 dotted eighth, E4 sixteenth; E4 dotted eighth, D4 sixteenth, D4 quarter; D4 dotted eighth, C4 sixteenth, D4 dotted eighth, E4 sixteenth; G4 half. Bars 5-8: G4 dotted eighth, G4 sixteenth, E4 dotted eighth, G4 sixteenth; A4 dotted eighth, G4 sixteenth, E4 quarter; D4 dotted eighth, D4 sixteenth, G4 dotted eighth, E4 sixteenth; C4 half. Bars 9-12: four G4 notes alternating dotted eighth and sixteenth; A4 dotted eighth, G4 sixteenth, G4 quarter; C5 dotted eighth, D5 sixteenth, C5 dotted eighth, B4 sixteenth; G4 half. Bars 13-16: A4 quarter, C5 dotted eighth, B4 sixteenth; G4 dotted eighth, G4 sixteenth, E4 quarter; G4 dotted eighth, E4 sixteenth, C4 dotted eighth, E4 sixteenth; C4 half. Every bar totals eight sixteenth units.
+N:UNCERTAIN: Botsford does not credit Ishihara or Nōsho on the plate, identify the piano arranger or print a metronome mark. The Japanese text on p. 443 has not been transcribed into modern Japanese or romanization, and Conkling's English wording has not been checked line by line by a Japanese speaker. The source's public-domain statement is clear for the US item, but the English adaptation needs jurisdiction review. A second plate reader and all named language, historical and classroom reviews remain required.
+M:2/4
+L:1/16
+Q:1/4=104
+K:C
+%%style folk
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+G3 E G3 E | E3 D D4 | D3 C D3 E | G8 |
+w: Tur- tle, tur- tle, on your way, Why are you so slow?
+G3 G E3 G | A3 G E4 | D3 D G3 E | C8 |
+w: No one else in all the world Takes so long to go!
+G3 G G3 G | A3 G G4 | c3 d c3 B | G8 |
+w: To the foot of yon- der hill Run a race with me;
+A4 c3 B | G3 G E4 | G3 E C3 E | C8 |]
+w: Then who's the bet- ter man May- be we shall see!

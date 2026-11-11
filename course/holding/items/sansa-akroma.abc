@@ -1,0 +1,38 @@
+% holding-id: sansa-akroma
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: packet-ready
+% holding-review-packet: reviews/sansa-akroma-review.md
+% holding-updated: 2026-11-11
+% holding-blocked: The human-review packet is ready, but no reviewer has been contacted and no response has been received. A Ghanaian early-years teacher familiar with this game and a speaker competent in the source words must check the language, pronunciation, passing action, tempo and classroom framing.
+% holding-kind: tune
+% dossier-function: Ghanaian early-years counting and passing game; children move stones or, in the interviewed teacher's class, oranges while singing
+% dossier-elements: eight bars in 2/4; a quarter-note triplet fills bar 1, bars 3 and 7 use dotted-eighth/sixteenth cells, and the C4-A4 melody repeats after bar 8
+% dossier-practice: the source teacher moves one object per child to connect counting, vocabulary, reasoning and eye-hand coordination; no tempo is printed, so quarter note = 96 is our rehearsal estimate; C4-A4 fits the conservative C4-D5 young-unison range and C is a practical rehearsal key
+% dossier-accompaniment: the article documents singing and object passing, not an instrumental ensemble or harmony; begin unaccompanied and let the passing clicks carry the pulse; any generated drone, chords or percussion must be labelled as our rehearsal aid and muted by default
+% dossier-lyrics: the article prints the teacher's sung words but gives no translation or language name; keep them as a source quotation for review, and do not ask a class to sing them until a competent speaker confirms text, meaning and pronunciation
+% dossier-honesty: openly licensed source transcription: melody and words follow Addo and Adu's Figure 3 and interview text; tempo, bar numbering, ABC spelling and any accompaniment are ours
+% dossier-licence: Addo and Adu (2022) is licensed CC BY-NC 4.0; this noncommercial ABC transcription of Figure 3 retains that licence and attribution
+% dossier-respect: the source identifies a Ghanaian singing game but does not name its language or a specific community; do not relabel it Akan, Twi or generally "West African," and do not import a bell pattern or harmony from geography alone
+% dossier-review: Ghanaian early-years teacher familiar with the game and a competent speaker of the source words, plus a classroom music teacher; all reviews still required
+% source-url: https://doi.org/10.26209/ijea23n4 stable DOI for Addo and Adu (2022)
+% source-url: https://www.ijea.org/v23n4/v23n4.pdf open article PDF, Figure 3 on p. 18 and interview on pp. 17-18
+% performance-note: The article reports the interviewed teacher singing the game but links no audio; seek a reviewer-led demonstration rather than substituting an unrelated online version.
+X:1
+T:Sansa Akroma
+T:Ghanaian counting and passing game
+C:source teacher, as documented by Addo and Adu (2022)
+O:Ghana
+R:singing game
+S:Akosua Obuo Addo and Justina Adu, "Examining the Use of Folk Resources for Creative Arts Education in Ghana's Basic Schools," International Journal of Education & the Arts 23(4), 2022, Figure 3, p. 18, doi:10.26209/ijea23n4, CC BY-NC 4.0
+N:SOURCE WORDS: "Sansa akroma nena wuo ɔkyekyer nkokɔma / ɔse ɔkɛ yɛ adwuma nena awuo, ɔkyekyer nkokɔma" (article pp. 17-18). The source says the game teaches counting and vocabulary but does not identify the language or provide a translation; words are therefore held for language review rather than aligned under the notes.
+N:HOW READ (2026-11-10): Figure 3 was extracted from the journal PDF at its embedded 192 ppi resolution and checked bar by bar. Bar 1: C4-C4-D4 quarter-note triplet filling 2/4. Bar 2: E4 quarter, G4-G4 eighths. Bar 3: F4 dotted eighth, F4 sixteenth, G4-G4 eighths. Bar 4: E4-E4-E4 eighths, eighth rest. Bar 5: A4-E4-F4-F4 eighths. Bar 6: E4-E4-G4-E4 eighths. Bar 7: D4 dotted eighth, D4 sixteenth, E4-F4 eighths. Bar 8: C4-C4-C4 eighths, eighth rest, then repeat.
+N:UNCERTAIN: Figure 3 prints no tempo, chord symbols, movement rhythm, translation, language name or community name. Its final-bar first-ending bracket appears without a printed second ending; this record treats the whole eight bars as the repeated game. A second human plate reader and the named Ghanaian/language reviews are still required before publication.
+M:2/4
+L:1/8
+Q:1/4=96
+K:C
+|: (3C2C2D2 | E2 G G | F3/2 F/2 G G | E E E z |
+A E F F | E E G E | D3/2 D/2 E F | C C C z :|]

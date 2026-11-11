@@ -1,0 +1,53 @@
+% holding-id: i-plant-some-rice
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: packet-ready
+% holding-review-packet: reviews/i-plant-some-rice-review.md
+% holding-updated: 2026-11-11
+% holding-blocked: The plate and public-domain status are checked, but no human review has occurred. An Ilocano music educator or culture bearer, a competent Ilocano speaker, a Filipino music historian, a second plate reader and a classroom music teacher must check the melody, the English adaptation, any living Ilocano words or title, the actions, tempo and classroom framing before publication.
+% holding-kind: tune
+% source-url: https://hdl.handle.net/2027/miun.ash9039.0001.001 HathiTrust stable handle for the University of Michigan digitized volume; printed p. 25 (scan p. 34)
+% source-url: https://babel.hathitrust.org/cgi/pt?id=miun.ash9039.0001.001&seq=34 direct HathiTrust page image for printed p. 25
+% source-url: https://ncca.gov.ph/about-culture-and-arts/in-focus/defining-the-filipino-through-song/ Philippine National Commission for Culture and the Arts discussion of English translations and cultural attribution in school songbooks
+% performance-note: No authoritative institutional recording or named Ilocano practitioner's performance of this exact song was located. Do not substitute a similarly titled rice song or a modern school arrangement; seek a reviewer-led demonstration with explicit consent.
+% dossier-function: Ilocos Sur children's action song about a five-stage rice cycle: planting, harvesting, pounding, cooking and eating; the source assigns gestures to the work verb in each verse
+% dossier-elements: eleven notated measures in 2/4 when the source's one-eighth pickup is counted as measure 1; G major with one chromatic A-sharp, a D4-D5 octave range, two repeated four-eighth-note rice phrases, a six-note contrasting "Tra la" phrase and a short cadential answer
+% dossier-practice: The source asks for the work action on the first beats of its measures 2, 3, 7 and 8. Mime the actions without tools: its harvesting instruction mentions a small cutting instrument, but a classroom should not supply one. No tempo is printed; quarter note = 104 is our rehearsal estimate. G major gives D4-D5, exactly the conservative young-unison span, so no transposition is proposed before a teacher trial
+% dossier-accompaniment: The page prints one unaccompanied vocal line and action instructions, with no harmony, instruments or percussion. Begin with voice and mime only, letting the four action beats clarify the pulse; do not infer rondalla, bamboo poles, kulintang, guitar or a generic Philippine groove. All generated band parts are muted
+% dossier-lyrics: The source prints five English classroom verses but no Ilocano title, words, translation credit or language evidence. Treat "I plant/harvest/pound/cook/eat some rice" as this historical schoolbook's English adaptation, not as authenticated traditional Ilocano text. An Ilocano speaker and practitioner must decide whether to retain it, replace it with checked living words, or teach the melody without words
+% dossier-honesty: Historical-source transcription: the melody, English action verses and gesture points follow the source plate, which labels the tune "Ilocos Sur Folk Song" and credits notation to Florencio Buado. ABC spelling, bar numbers, rehearsal tempo, safety adaptation and muted-band directives are ours. The source does not establish who supplied the melody or who wrote the English words
+% dossier-licence: HathiTrust marks this digitized volume Public Domain and says it may be copied, used and redistributed. The scan is catalogued as the 1914 title but the volume itself carries revisions and copyright lines through 1948; this record cites that exact digitized volume and relies on HathiTrust's item-level determination, while flagging its caveat that separately authored portions can require independent rights checks
+% dossier-respect: Keep the specific Ilocos Sur and Ilocano attribution; do not turn the piece into a generic Filipino or Southeast Asian song. The volume belongs to a colonial-era English-language school curriculum, and the Philippine NCCA has warned that teaching translated folk songs only in English can obscure their origin. Present rice work as skilled labour, avoid costume or accent caricature, use no real cutting tools, and wait for Ilocano review before claiming the actions or English text as living practice
+% dossier-review: Ilocano music educator or culture bearer familiar with children's or rice-work songs, competent Ilocano speaker, Filipino music historian, second score reader and classroom music teacher; all reviews still required
+X:1
+T:I Plant Some Rice
+T:Ilocos Sur action song (historical English schoolbook version)
+C:traditional (Ilocos Sur); notation by Florencio Buado
+O:Philippines (Ilocos Sur, Ilocano)
+R:children's action song
+S:Norberto Romualdez et al., The Philippine Progressive Music Series for the Primary Grades, Silver Burdett, digitized volume revised through 1948, p. 25, "I Plant Some Rice," notation by Florencio Buado; HathiTrust Public Domain
+N:CONTEXT: The page calls this an "Action Song" popular among Ilocano people. It assigns planting gestures to the first beats of printed measures 2, 3, 7 and 8; the later verses substitute harvesting, pounding, cooking and eating. Those claims document the schoolbook's instructions, not a present-day practice, and need Ilocano review.
+N:HOW READ (2026-11-11): Printed p. 25 (PDF scan p. 34) was extracted at its embedded 600 ppi and checked as a complete page and enlarged score crops. The source counts the pickup as measure 1: m1 D4 eighth pickup; m2 G4-B4-D5-D4 eighths; m3 G4-B4-D5-B4 eighths; m4 D5 and C5 quarters; m5 A-sharp4 and B4 quarters; m6 G4 dotted quarter, D4 eighth; m7 repeats m2; m8 repeats m3; m9 D5 and B4 quarters; m10 A4 and G4 quarters; m11 F-sharp4 dotted quarter. The one-eighth pickup and three-eighth close balance, and every intervening bar totals four eighths. The source's action points at measures 2, 3, 7 and 8 independently corroborate this bar reading.
+N:UNCERTAIN: The page prints no tempo, dynamics, accompaniment, source-language words, translation credit, collector, singer, collection date or place more specific than Ilocos Sur. It does not say whether the English text translates an Ilocano text or was newly fitted for school. HathiTrust's item-level Public Domain notice includes a general caveat about separately authored portions. A second plate reading and all named historical, language, cultural and classroom reviews remain required.
+M:2/4
+L:1/8
+Q:1/4=104
+K:G
+%%style folk
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+D | G B d D | G B d B | d2 c2 | ^A2 B2 | G3 D |
+w: 1.~I plant some rice, I plant some rice, Tra la la la la la.
+w: 2.~I har-vest rice, I har-vest rice, Tra la la la la la.
+w: 3.~I pound some rice, I pound some rice, Tra la la la la la.
+w: 4.~I cook some rice, I cook some rice, Tra la la la la la.
+w: 5.~I eat some rice, I eat some rice, Tra la la la la la.
+G B d D | G B d B | d2 B2 | A2 G2 | F3 |]
+w: I plant some rice, I plant some rice, And that's a job well done.
+w: I har-vest rice, I har-vest rice, And that's a job well done.
+w: I pound some rice, I pound some rice, And that's a job well done.
+w: I cook some rice, I cook some rice, And that's a job well done.
+w: I eat some rice, I eat some rice, And that's a job well done.

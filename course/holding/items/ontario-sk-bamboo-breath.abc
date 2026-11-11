@@ -1,0 +1,34 @@
+% holding-id: ontario-sk-bamboo-breath
+% holding-status: transcription
+% holding-generated: true
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: Replace the search result with an authorized Riley Lee track link and ask a shakuhachi-informed educator to review the listening language.
+% composition-series: Ontario Listening Bridges — set 1
+% composition-grade: SK
+% composition-elements: speed, volume, pitch and silence — make a long sound, notice breath, and let silence complete the phrase
+% composition-listen: Riley Lee — "Dai Bosatsu"
+% composition-listen-url: https://www.youtube.com/results?search_query=Riley+Lee+Dai+Bosatsu+shakuhachi
+% composition-bridge: Listen to breath as part of the tone and to silence as part of the phrase, not as an empty mistake.
+% composition-context: Riley Lee's shakuhachi performance can introduce a Japanese end-blown bamboo flute and the discipline of sustained listening. This new vocal study is not honkyoku and does not imitate a sacred piece.
+% composition-distance: Original melody and words; no pitch sequence or ornament is taken from the reference.
+% improv: {"id":"A","bars":"1-2","role":"solo then circle","prompt":"What belongs after the long tone?","choices":["breath sound","soft hum","silence"],"replyBars":2}
+% improv: {"id":"B","bars":"5-6","role":"two soloists","prompt":"How does the answer begin?","choices":["from quiet","from bright","after waiting"],"replyBars":2}
+% dossier-honesty: Original breath-and-silence exercise; not shakuhachi repertoire.
+% dossier-licence: Draft original; the listening recording remains copyrighted.
+% dossier-respect: Name the instrument and performer; avoid calling any airy classroom flute sound "Zen" or claiming a spiritual practice.
+% dossier-review: Shakuhachi-informed educator and early-years teacher.
+X:1
+T:Bamboo Breath
+C:Grand Central Stationery workshop
+R:slow listening song
+S:Original classroom composition, 2026; listening bridge to Riley Lee
+M:2/4
+L:1/4
+Q:1/4=56
+K:C
+%%style drone
+G2 | z2 | E2 | z2 | G E | z2 | E G | E2 |]
+w: Long tone. * Breathe. * Hear it fade. * Breathe and hum.

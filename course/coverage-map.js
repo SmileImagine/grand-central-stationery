@@ -11,6 +11,7 @@
 const fs = require('fs');
 const path = require('path');
 const Audit = require('./accompaniment-audit.js');
+const Repertoire = require('./repertoire-audit.js');
 
 const REGIONS = [
   'North America (general)',
@@ -64,6 +65,7 @@ function buildReport(set, source = 'course/set.json') {
   const tunes = set.tunes.map(tune => {
     const origin = field(tune.abc, 'O') || tune.origin || '';
     const rhythm = field(tune.abc, 'R') || tune.rhythm || '';
+    const composer = field(tune.abc, 'C') || tune.composer || '';
     return {
       id: tune.id,
       title: tune.title,
@@ -73,6 +75,7 @@ function buildReport(set, source = 'course/set.json') {
       region: regionOf(origin),
       function: functionOf(rhythm),
       style: Audit.styleDecision(tune.abc).style,
+      generated: /grand central stationery.*original|ai-assisted original|course original/i.test(composer),
     };
   });
   const matrix = Object.fromEntries(REGIONS.map(region => [region, {
@@ -99,13 +102,84 @@ function buildReport(set, source = 'course/set.json') {
   };
 }
 
+function buildPipeline(root) {
+  const records = Repertoire.readRecords(root).map(record => ({
+    id: record.id,
+    title: record.title,
+    queue: record.queue,
+    from: record.from,
+    origin: record.origin,
+    rhythm: record.rhythm,
+    kind: record.kind,
+    status: record.status,
+    region: regionOf(record.origin),
+    function: functionOf(record.rhythm),
+    generated: /^%\s*holding-generated:\s*true\s*$/mi.test(record.abc),
+    compositionDraft: /^%\s*composition-series:/mi.test(record.abc),
+  }));
+  const matrix = Object.fromEntries(REGIONS.map(region => {
+    const here = records.filter(record => record.region === region);
+    return [region, {
+      holding: here.filter(record => record.queue === 'holding').length,
+      review: here.filter(record => record.queue === 'review').length,
+      functions: Object.fromEntries(FUNCTIONS.map(fn => [fn, here.filter(record => record.function === fn).length])),
+      total: here.length,
+    }];
+  }));
+  return { records, matrix };
+}
+
+function launchRunway(report, pipeline, target = 100, maxGeneratedShare = 0.25) {
+  const inventory = new Map(report.tunes.map(tune => [tune.id, { id: tune.id, generated: tune.generated, queue: 'published' }]));
+  // A complete sourced transcription enters the existing runway while it moves through review. A newly composed
+  // curriculum draft waits until its explicit `ready` gate; otherwise a planning batch of originals would be
+  // mistaken for 30 launch-ready works and would obscure the source/classroom/cultural checks still required.
+  for (const record of (pipeline ? pipeline.records : []).filter(record => record.queue === 'holding' && record.kind !== 'fragment' && (!record.compositionDraft || record.status === 'ready'))) {
+    if (!inventory.has(record.id)) inventory.set(record.id, { id: record.id, generated: record.generated, queue: 'holding' });
+  }
+  const items = [...inventory.values()];
+  const total = items.length;
+  const generated = items.filter(item => item.generated).length;
+  const maxGenerated = Math.floor(target * maxGeneratedShare);
+  return {
+    target,
+    total,
+    generated,
+    sourced: total - generated,
+    remaining: Math.max(0, target - total),
+    maxGenerated,
+    generatedSlots: Math.max(0, maxGenerated - generated),
+    generatedShare: total ? generated / total : 0,
+  };
+}
+
 const styleCounts = styles => Object.entries(styles).map(([k, v]) => `${k} ${v}`).join(', ') || '—';
-function renderMarkdown(report) {
+function renderMarkdown(report, pipeline = null) {
   const metadataQueue = report.tunes.filter(t => !t.origin || t.function === 'unspecified');
+  const launch = launchRunway(report, pipeline);
+  const pipelineLines = pipeline ? [
+    '## Private workshop and review pipeline',
+    '',
+    'These candidates are **not published coverage**. They show which empty cells have evidence in progress and which still have no candidate at all. Review items remain withheld until their stated human reviews and decisions occur.',
+    '',
+    '| Region | Workshop | Review | Game | Dance | Lullaby | Song/air | Total |',
+    '|---|---:|---:|---:|---:|---:|---:|---:|',
+    ...REGIONS.map(region => { const row = pipeline.matrix[region]; return `| ${region} | ${row.holding} | ${row.review} | ${TARGET_FUNCTIONS.map(fn => row.functions[fn]).join(' | ')} | ${row.total} |`; }),
+    '',
+    `- Published-empty regions with private candidates: ${report.summary.emptyRegions.filter(region => pipeline.matrix[region].total > 0).join(', ') || 'none'}.`,
+    `- Published-empty regions with no private candidate: ${report.summary.emptyRegions.filter(region => pipeline.matrix[region].total === 0).join(', ') || 'none'}.`,
+    '',
+  ] : [];
   return [
     '# Tune coverage map',
     '',
     `Generated deterministically from \`${report.source}\` (${report.tunes.length} published tunes). Regions come only from explicit \`O:\` fields and functions only from \`R:\`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.`,
+    '',
+    '## Launch runway',
+    '',
+    `- **${launch.total}/${launch.target}** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.`,
+    `- **${launch.generated}/${launch.total}** are explicitly labelled course originals or generated works (${(launch.generatedShare * 100).toFixed(1)}%); the launch allowance is at most ${launch.maxGenerated}/${launch.target} (25%).`,
+    `- **${launch.remaining}** tunes remain to reach ${launch.target}. At most ${launch.generatedSlots} additional originals could fit under the numerical allowance, but source-backed repertoire remains the priority for geographic and cultural coverage.`,
     '',
     '## Coverage by region, level and function',
     '',
@@ -120,6 +194,7 @@ function renderMarkdown(report) {
     `- ${report.summary.missingOrigin} tunes have no explicit origin; ${report.summary.missingFunction} have no explicit classroom function or tune type.`,
     `- Only ${report.summary.explicitOrigin}/${report.tunes.length} tunes state an origin and ${report.summary.explicitFunction}/${report.tunes.length} state a function/type.`,
     '',
+    ...pipelineLines,
     '## Metadata queue',
     '',
     '| Tune | Level | Origin | Function/type | Region used |',
@@ -149,7 +224,9 @@ function run(argv) {
   }
   const set = JSON.parse(fs.readFileSync(opt.set, 'utf8'));
   const source = path.relative(process.cwd(), path.resolve(opt.set)) || path.basename(opt.set);
-  const report = buildReport(set, source), markdown = renderMarkdown(report);
+  const root = path.resolve(__dirname, '..');
+  const pipeline = fs.existsSync(path.join(root, 'course', 'holding', 'items')) ? buildPipeline(root) : null;
+  const report = buildReport(set, source), markdown = renderMarkdown(report, pipeline);
   if (opt.md) fs.writeFileSync(opt.md, markdown);
   if (opt.check) {
     const old = fs.existsSync(opt.check) ? fs.readFileSync(opt.check, 'utf8') : '';
@@ -165,4 +242,4 @@ if (require.main === module) {
   catch (err) { console.error(err.message || err); process.exit(1); }
 }
 
-module.exports = { REGIONS, FUNCTIONS, TARGET_FUNCTIONS, regionOf, functionOf, buildReport, renderMarkdown };
+module.exports = { REGIONS, FUNCTIONS, TARGET_FUNCTIONS, regionOf, functionOf, buildReport, buildPipeline, launchRunway, renderMarkdown };

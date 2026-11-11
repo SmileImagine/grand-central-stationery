@@ -399,11 +399,22 @@ whatever the emphasis:
     - Iran: Mikhahi labu? ("Do you want hot beetroot?"), Blair Fairchild,
       *Twelve Persian Folk-Songs* (1904; University of Rochester), with a
       Persian frame-drum style, generic and flagged as ours.
-  - West Africa: still none. No public-domain or openly licensed staff
-    transcription of Ghanaian or other West African songs was found. A
-    culture bearer's version, or a community video transcribed by ear by
-    someone who can hear it and typed as CC0, is the way in; the recording
-    itself stays the community's.
+  - West Africa: two private workshop candidates now, neither published. *Sansa
+    Akroma* is transcribed bar by bar from Figure 3 of Addo and Adu (2022), a
+    CC BY-NC 4.0 study of folk resources in Ghanaian basic schools. Their
+    interviewed teacher describes it as a counting/passing game with stones
+    or oranges. The article does not name the language or community, give a
+    translation, tempo, harmony or instrumental practice, so the record does
+    not infer any of those from Ghana. A Ghanaian early-years teacher familiar
+    with the game and a competent speaker of the source words must review it
+    before publication. A human-review packet is prepared and names the two
+    article authors as possible first contacts, but no one has been contacted
+    and no review is marked complete. *Go le mimli* adds a distinct
+    Èwè-Dòmè teaching/storytelling function from Gbagbo and Elder (2019),
+    Figure 5, under CC BY-NC-SA 4.0 as recorded by the publisher-linked AMIRA
+    catalogue. Its melody and two handclap layers are checked bar by bar; no
+    harmony or regional drum pattern was added. It still needs an Èwè-Dòmè
+    storyteller/speaker, second plate reader and classroom teacher.
 - Classroom check (10 November 2026): every title, note and word of the 58
   pieces (45 published, 13 in the workshop) was read for racism, sexual or
   violent references, drugs and alcohol, and religious content. 43 read
@@ -422,9 +433,57 @@ whatever the emphasis:
   their files untouched so the set builder's ids stay stable; the builder
   (`course/analyze-cli.js`) now leaves every queued tune out of any set it
   builds, and the smoke test checks it.
-- Still open: synth leads; West African tunes; more from Andrade, Jekyll,
-  Fairchild and the Japanese books; original bangers (phase 4); the live
-  energy fader (phase 5).
+- Repertoire continuation (10 November 2026): the two verifiable Gurkha plate
+  checks now read as source-checked, with the drum-timbre and present-day
+  practice uncertainties kept explicit; all three Gurkha records now have the
+  seven core dossier fields. The queued Lalishrita, Nirguna and ayah records
+  also gained complete evidence-led dossiers without changing their pending
+  human-review status. `course/repertoire-audit.md` now measures all 51 private
+  records: 38 have all seven core fields, 39 have a citation plus HTTPS source
+  link, and no culture/language/classroom review is falsely marked passed.
+- West African continuation (11 November 2026): *Go le mimli* adds a
+  permission-safe private teaching/storytelling function beside the Sansa
+  game, with source-notated claps and no generated harmony. Sansa's review
+  request is now a dated packet linked from the workshop board; packet-ready
+  is reported separately from completed human review. Rejected leads remain
+  documented rather than promoted: a University of Ghana thesis reproduces
+  Hausa lullaby words without melody or reuse licence, and "Simama Kaa" is
+  inconsistently labelled Ghanaian despite its Swahili/Tanzanian evidence.
+- Southeast Asian continuation (11 November 2026): *I Plant Some Rice* adds
+  the private pipeline's first complete, singable Southeast Asian tune, an Ilocos Sur
+  action song from the HathiTrust Public Domain scan of *The Philippine
+  Progressive Music Series*. The 600 ppi plate is checked measure by measure,
+  the D4-D5 range and G rehearsal key are recorded, and voice plus mime are
+  retained without inferred rondalla, bamboo, gong or drum accompaniment.
+  Its five English verses are labelled as the historical schoolbook
+  adaptation, not authenticated traditional Ilocano text. A linked packet
+  requires an Ilocano practitioner/speaker, Filipino music historian, second
+  plate reader and classroom teacher; no one has been contacted and no review
+  is complete.
+- Pacific, East Asian and launch-runway continuation (11 November 2026):
+  *Aloha ʻOe* adds the private pipeline's first complete Pacific candidate,
+  read from Queen Liliʻuokalani's autographed 1912 score in Hawaiʻi State
+  Archives and cross-checked against a public-domain MusicXML encoding. It is
+  labelled as the Queen's composed farewell/love song, not anonymous folklore;
+  Hawaiian-language, Native Hawaiian historical/cultural, second-plate and
+  classroom reviews remain open. *Usagi to Kame* adds a 1901 Japanese
+  children's teaching song, read bar by bar from Botsford's 1922 Sibley scan
+  with Ishihara/Nōsho authorship checked against Japanese institutional
+  catalogues. Its Japanese text and the jurisdictional status of Conkling's
+  English adaptation still need human review. *Freeze on One* is the first
+  new Phase 4 draft: a CC0, AI-assisted offbeat-entry movement game with no
+  cultural attribution and an explicit classroom/accessibility review gate.
+  The generated coverage report now counts 90 unique published or complete
+  workshop tunes toward the 100-tune launch target, excluding eight fragments
+  and overlapping review copies. Twenty-five are explicitly labelled originals
+  or generated works, exhausting the 25/100 launch allowance; the ten remaining
+  tunes must therefore be source-backed.
+- Still open: synth leads; actual West African language/culture/classroom
+  responses and a permission-safe lullaby; Ilocano language/culture/history
+  review; Native Hawaiian and Japanese reviews for the new candidates; a
+  community-approved North American Indigenous route; more from Andrade,
+  Jekyll, Fairchild and the Japanese books; classroom trials for original
+  bangers (phase 4); the live energy fader (phase 5).
 
 ## Decisions for the user
 
@@ -464,8 +523,15 @@ a `make` target, and the smoke test runs all five.
 - **Coverage map and Phase 6 gap queue:** `course/coverage-map.js` cross-tabs
   the published tunes by region, level, function and Auto style. Eight target
   regions are empty, 15 tunes state no origin and 17 no function or type. The
-  classifier never infers Indigenous identity from a country. The South Asian
-  lullabies are queued for review, so the map currently shows none.
+  classifier never infers Indigenous identity from a country. A separate
+  private-pipeline table now shows candidates without counting them as
+  published coverage; West Africa has one workshop game and one
+  teaching/storytelling candidate, while
+  North American Indigenous and Pacific still have none; Southeast Asia now
+  has one complete Ilocos Sur action-song candidate beside its existing
+  permission-blocked S'tiêng lithophone fragment. The
+  South Asian lullabies are queued for review, so the published map currently
+  shows none.
 - **Latin American holding tunes (Phase 3):** *Canoinha nova* and the Paraíba
   version of *Meu barco é veleiro*, from Mário de Andrade's 1928
   public-domain *Ensaio*, are provisional plate readings with the
@@ -482,4 +548,11 @@ a `make` target, and the smoke test runs all five.
   metadata is kept as an editorial seed, not promoted to a cultural claim.
 - **Original-tune decision (Phase 4):** originals should be agent-written and
   enter `course/holding` for musical, classroom and editorial review before
-  publication. None has been drafted yet.
+  publication. *Freeze on One* is the first new draft under that rule: CC0,
+  AI-assisted, range/rhythm audited and still awaiting teacher, accessibility,
+  second-reader and student-panel review.
+- **Private repertoire evidence audit (Phases 3 and 6):**
+  `course/repertoire-audit.js` reports the seven core dossier fields, exact
+  citation/source link, plate-reading and uncertainty record, range/key note
+  and named human review for every workshop and review-queue item. Its focused
+  test requires those records before a source check can be marked verified.
