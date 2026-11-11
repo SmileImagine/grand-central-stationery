@@ -1,0 +1,54 @@
+% holding-id: cbc-modern-g4-screenlight
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial must check the text, syncopation, C-major/C-minor contrast and listening context.
+% source-local: course/holding/items/cbc-modern-g4-screenlight.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. Claudia Bouvette's recording is a listening reference only.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: 4
+% composition-elements: syncopation across the middle of the bar; sixteenth-note pairs; major/minor contrast through E/E-flat and A/A-flat; crescendo, decrescendo and fermata; two-part ostinato; sixteen-bar ABBA form
+% composition-listen: Claudia Bouvette — "Amour écran" (2026), a Francophone dream/electro-pop single and CBC Music Top 20 selection dated 9 November 2026
+% composition-listen-url: https://www.bonsound.com/fr/release/amour-ecran/
+% composition-bridge: Hear how airy synthesizer timbres, an insistent electronic pulse and an 1980s-coloured major/minor haze can support intimate French-language pop writing.
+% composition-context: Claudia Bouvette is a Montréal singer-songwriter. "Amour écran" was written with Soran Dussaigne and released by Bonsound; the label describes it as modern dream pop with atmospheric synthesizers.
+% composition-distance: Original French classroom text, melody, C/Cm contrast and ostinato; no words, melodic cell, synth patch, bass line or chord progression from "Amour écran" is used.
+% improv: {"id":"A","bars":"5-8","role":"synth or barred-instrument player","prompt":"Choose the B-section colour","choices":["bright major third","shadowed minor third","alternate each bar"],"replyBars":4}
+% improv: {"id":"B","bars":"13-16","role":"whole class","prompt":"Choose the final texture","choices":["melody alone","add two-note ostinato","fade to whispered rhythm"],"replyBars":4}
+% dossier-function: original Grade 4 Francophone electro/dream-pop listening bridge; students sing a syncopated ABBA song, compare parallel major and minor colour, and select the final texture in real time
+% dossier-elements: sixteen bars in 4/4; C-major A sections and parallel C-minor B section using E-flat and A-flat; C4-C5 melody range; eighths, quarters, a dotted-quarter/eighth syncopation, paired sixteenths, whole note and final fermata; crescendo/decrescendo; optional C-G two-note ostinato; ABBA form
+% dossier-practice: Rehearsal key C/C minor; written range C4-C5. Quarter note = 100 target, start at 76. Speak the French rhythm with a fluent model, clap the middle-of-bar syncopation, sing the major A, lower E and A for B, then add the ostinato. Do not perform the text publicly before language review.
+% dossier-accompaniment: Newly authored generic electronic-pop loop C-Am-F-G for A and Cm-Ab-Fm-G for B. Classroom version uses bass roots, soft shaker eighths and a neutral sustained keyboard; do not imitate Bouvette's synth sounds or production.
+% dossier-lyrics: Original French text: "Lumière d'écran, je vois la nuit; je choisis l'ombre ou bien la couleur. Une voix répond, puis je réponds; nos deux chemins reviennent au coeur." Intended sense: screen light, I see the night; I choose shadow or colour; one voice answers, then I answer; our two paths return to the heart. A Francophone reviewer must correct idiom and sung stress.
+% dossier-honesty: AI-assisted original course composition, 11 November 2026; not a Claudia Bouvette work, translation, arrangement or soundalike. The genre label identifies a listening comparison only.
+% dossier-licence: CC0 1.0 for melody, text, chords, ostinato and ABC; "Amour écran" and its recording remain copyrighted.
+% dossier-respect: Centre a current Francophone Canadian artist and use French as living creative language, not decoration. Pronunciation, idiom and cultural context require Francophone review before publication.
+% dossier-review: Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial; all reviews still required
+X:1
+T:Screenlight
+T:Lumière d'écran — original major/minor electro-pop bridge
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 4 Francophone electro-pop listening bridge
+S:Grand Central Stationery, "Screenlight" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): Every bar totals eight eighth units. A, bars 1-4 and 13-16, uses C major with E natural and A natural; B, bars 5-12, uses E flat and A flat. Bars 2, 6, 10 and 14 place a dotted quarter across beat 2 into beat 3; bars 3, 7 and 11 contain paired sixteenths. Final C4 whole note carries a fermata. Melody range C4-C5; ABBA 4+4+4+4.
+N:UNCERTAIN: French idiom and sung stress, live major/minor choice, syncopation, synth balance and originality all require named reviewers and a classroom trial.
+M:4/4
+L:1/8
+Q:1/4=100
+K:C
+%%style pop
+"C"E2 EE G2 A2 | "Am"G2 E3 D C2 | "F"E/2F/2 G2 A2 G E2 | "G"D4 z4 |
+w: Lu-mière d'é-cran, je vois la nuit; je choi-sis l'om-bre ou bien la cou-leur.
+[K:Cm]"Cm"_E2 _E_E G2 _A2 | "Ab"G2 _E3 D C2 | "Fm"_E/2F/2 G2 _A2 G _E2 | "G"D4 z4 |
+w: U-ne voix ré-pond, puis je ré-ponds; nos deux che-mins re-viennent au coeur.
+"Cm"_E2 G2 _A2 G2 | "Ab"G2 _E3 D C2 | "Fm"F/2G/2 _A2 G2 _E D2 | "G"G4 z4 |
+w: Om-bre, cou-leur, choi-sis, puis ré-ponds; é-coute l'au-tre, change le son.
+[K:C]"C"E2 EE G2 A2 | "Am"G2 E3 D C2 | "G"DE G2 E2 D2 | "C"!fermata!C8 |]
+w: Lu-mière d'é-cran, je vois la nuit; nos deux che-mins re-viennent au coeur.

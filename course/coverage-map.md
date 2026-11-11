@@ -49,7 +49,7 @@ These candidates are **not published coverage**. They show which empty cells hav
 | East Asia | 5 | 1 | 1 | 0 | 0 | 4 | 6 |
 | Southeast Asia | 2 | 0 | 0 | 0 | 0 | 1 | 2 |
 | Pacific | 1 | 0 | 0 | 0 | 0 | 1 | 1 |
-| Unspecified | 43 | 4 | 3 | 5 | 1 | 24 | 47 |
+| Unspecified | 53 | 4 | 3 | 6 | 1 | 24 | 57 |
 
 - Published-empty regions with private candidates: Caribbean, Latin America, West Africa, Middle East, East Asia, Southeast Asia, Pacific.
 - Published-empty regions with no private candidate: North American Indigenous.

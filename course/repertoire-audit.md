@@ -4,10 +4,10 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 
 ## Summary
 
-- 90 records: 70 in the workshop and 20 in review.
-- 80/90 have all seven core dossier fields.
-- 81/90 have both an exact citation and an HTTPS source link.
-- 70/90 carry both `N:HOW READ` and `N:UNCERTAIN`; 42/90 state classroom range or rehearsal-key guidance.
+- 100 records: 80 in the workshop and 20 in review.
+- 90/100 have all seven core dossier fields.
+- 91/100 have both an exact citation and an HTTPS source link.
+- 80/100 carry both `N:HOW READ` and `N:UNCERTAIN`; 52/100 state classroom range or rehearsal-key guidance.
 - Human classroom/culture/language reviews recorded as passed: 0.
 - Human-review packets prepared but not completed: 2.
 
@@ -76,6 +76,16 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Black Hills Powwow song (fragment) | USA, South Dakota, Black Hills Powwow, Rapid City | powwow song | 7/7 | pending | pending |
 | holding | B'qāw ʿala khēr | Algiers, Algeria | festival song (leave-taking) | 7/7 | pending | pending |
 | holding | Bújj, bújj, zöld ág | Hungary, Baranya county | children's game | 7/7 | pending | pending |
+| holding | Bright-Line Boots | Course original (no cultural attribution) | Grade 1 country-pop listening bridge | 7/7 | verified | pending |
+| holding | Mountain Window | Course original (no cultural attribution) | Grade 2 indie-folk listening bridge | 7/7 | verified | pending |
+| holding | Three-Way Streetlight | Course original (no cultural attribution) | Grade 3 jazz-pop listening bridge | 7/7 | verified | pending |
+| holding | Screenlight | Course original (no cultural attribution) | Grade 4 Francophone electro-pop listening bridge | 7/7 | verified | pending |
+| holding | Blue Room Answer | Course original (no cultural attribution) | Grade 5 alternative-R&B listening bridge | 7/7 | verified | pending |
+| holding | Room for the Verse | Course original (no cultural attribution) | Grade 6 alternative-hip-hop listening bridge | 7/7 | verified | pending |
+| holding | Signal Drop | Course original (no cultural attribution) | Grade 7 electronic arranging listening bridge | 7/7 | verified | pending |
+| holding | Many Hands, One Sky | Course original (no cultural attribution) | Grade 8 orchestral indie-rock listening bridge | 7/7 | verified | pending |
+| holding | Glow and Grow | Course original (no cultural attribution) | early-years wordless listening bridge | 7/7 | verified | pending |
+| holding | Mirrorball Hello | Course original (no cultural attribution) | early-years dance-pop listening bridge | 7/7 | verified | pending |
 | holding | Cha-ko'mba, ko'mba | Mozambique (then Portuguese East Africa), Ndau people | singing game | 7/7 | pending | pending |
 | holding | Chimaycha (Ayacucho), record | Peru, Ayacucho | chimaycha | 7/7 | pending | pending |
 | holding | Dampet Culture Group (record) | Papua New Guinea, New Ireland Province, Kavieng | song and dance | 7/7 | pending | pending |

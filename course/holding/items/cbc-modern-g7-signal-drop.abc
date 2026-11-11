@@ -1,0 +1,52 @@
+% holding-id: cbc-modern-g7-signal-drop
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Grade 7 teacher, Indigenous electronic-music educator or approved reviewer, second score reader and student arranging trial must approve the boundary language, triadic loop, drop choices and contextual framing before publication.
+% source-local: course/holding/items/cbc-modern-g7-signal-drop.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The Halluci Nation's CBC Music concert is a listening reference only; do not sample its drum groups, voices or recording.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: 7
+% composition-elements: D-minor, F-major, C-major and A-minor triads; melodic minor seventh; marcato and legato articulation; crescendo into a production drop; homophonic hook against an independent bass ostinato; eight-bar AB loop
+% composition-listen: The Halluci Nation — CBC Music Live concert (2023), including "Electric Pow Wow Drum" at 2:30 and collaborations with Indigenous singers and artists
+% composition-listen-url: https://www.youtube.com/watch?v=51hg7fUZLSs
+% composition-bridge: Listen for production-scale contrast: layers accumulate, a drop changes density, bass and pulse organize the room, and collaborators remain audible as distinct musical agents.
+% composition-context: The Halluci Nation is an Indigenous-led electronic duo rooted in Ottawa club nights and collaboration. CBC describes their work as combining electronic genres with drumming and vocal chanting; those cultural materials belong to the artists and collaborators, not to this exercise.
+% composition-distance: This is a generic original electronic arranging loop using keyboard triads and synthesized or acoustic classroom sounds only. It contains no powwow drum rhythm, vocable, chant, sample, melody, title phrase or imitation of the reference.
+% improv: {"id":"A","bars":"3-4","role":"producer/conductor","prompt":"Build toward the drop","choices":["add one layer each bar","crescendo one layer","hold density steady"],"replyBars":2}
+% improv: {"id":"B","bars":"5-8","role":"producer/conductor","prompt":"What survives the drop?","choices":["bass only","hook only","silence for one bar then all return"],"replyBars":4}
+% dossier-function: original Grade 7 electronic arranging lab; melody, bass and chord groups perform an eight-bar loop while a student conductor decides how layers accumulate, disappear and return
+% dossier-elements: eight bars in 4/4; D natural minor hook C-D-E-F-G-A, D4-C5 range; Dm, F, C and Am triads; eighth-note bass ostinato; marcato hook and legato chord layer; crescendo into bars 3-4 and contrasting sparse bars 5-6; homophonic hook/chords against an independent bass; AB loop
+% dossier-practice: Rehearsal key D minor; written hook range D4-C5 and bass range D3-A3, with octave displacement allowed. Quarter note = 112, begin at 88. Rehearse each neutral layer alone, label entrances with cards, then run the loop while the conductor selects a build and a drop. Use only classroom-created or clearly licensed sounds and document their sources.
+% dossier-accompaniment: Written parts are the whole accompaniment: generic synth or mallet hook, bass roots and Dm-F-C-Am triads. Drums are optional neutral kick on 1/3 and clap on 2/4. Powwow drums, vocables, chants, regalia imagery and extracted Indigenous samples are expressly out of scope.
+% dossier-lyrics: Instrumental. Do not add invented vocables or imitate a language or vocal chant. Spoken layer names such as "bass," "hook" and "chords" may be used as rehearsal cues only.
+% dossier-honesty: AI-assisted original electronic loop, 11 November 2026. It is not Indigenous music and is not by, arranged from or in the style of The Halluci Nation; the named work is used only for critical listening to arrangement and collaboration.
+% dossier-licence: CC0 1.0 for the written hook, bass, triads and ABC. The Halluci Nation concert, compositions and all collaborator performances remain copyrighted and must not be sampled.
+% dossier-respect: Name The Halluci Nation and the credited collaborators in the selected performance. Explain collaboration versus appropriation, follow local board protocols for Indigenous education and obtain Indigenous review; never label this exercise "powwow," "tribal" or Indigenous electronic music.
+% dossier-review: Grade 7 teacher, Indigenous electronic-music educator or approved Indigenous reviewer, second score reader, copyright/sampling check and student arranging trial; all reviews still required
+X:1
+T:Signal Drop
+T:Original electronic density-and-drop lab
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 7 electronic arranging listening bridge
+S:Grand Central Stationery, "Signal Drop" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): Every bar totals eight eighth units. Melody bars 1-4 use the D-natural-minor pitch set and marcato quarters; bars 5-6 hold or rest for the drop; bars 7-8 restore the hook. Bass uses repeated eighth-note roots D-F-C-A. Chord symbols give Dm-F-C-Am. Melody range D4-C5, largest leap a fifth, AB form 4+4.
+N:UNCERTAIN: The cultural boundary, sound selection, degree of stylistic neutrality, accessibility of the conductor choices and originality need Indigenous, classroom and second-reader review.
+M:4/4
+L:1/8
+Q:1/4=112
+K:Dm
+%%style pop
+V:1 name="Hook" sname="H"
+V:2 name="Bass" sname="B" clef=bass
+[V:1] "Dm"!marcato!D2 F2 A2 F2 | "F"!marcato!F2 A2 c2 A2 | !<(!"C"G2 A2 c2 A2 | "Am"E2 A2 c2 A2!<)! |
+[V:1] "Dm"D6 z2 | "F"z8 | "C"G2 A2 c2 A2 | "Am"A4 "Dm"D4 |]
+[V:2] D,D,D,D,D,D,D,D, | F,F,F,F,F,F,F,F, | C,C,C,C,C,C,C,C, | A,A,A,A,A,A,A,A, |
+[V:2] D,8 | z8 | C,C,C,C,C,C,C,C, | A,A,A,A,D,4 |]

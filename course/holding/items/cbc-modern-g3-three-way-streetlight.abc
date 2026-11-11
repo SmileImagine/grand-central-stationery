@@ -1,0 +1,52 @@
+% holding-id: cbc-modern-g3-three-way-streetlight
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Grade 3 teacher, jazz educator, second score reader and student singing trial must check the 3/4 swing option, two-part entry, range and whether the improvisation prompt produces musical rather than random answers.
+% source-local: course/holding/items/cbc-modern-g3-three-way-streetlight.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. Laila Biali's performance is a listening reference only.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: 3
+% composition-elements: 3/4 metre; quarter, paired eighth, dotted-quarter/eighth and half-note rhythms; C-major scale within an octave; crescendo and decrescendo; ABA form; delayed two-part imitation
+% composition-listen: Laila Biali — "Satellite", official artist performance/video listing
+% composition-listen-url: https://lailabiali.com/media-videos/
+% composition-bridge: Listen for how jazz-pop balances a clear song with elastic phrasing, piano conversation, dynamic arcs and room for musicians to answer one another.
+% composition-context: Laila Biali is a Canadian singer, pianist, composer and broadcaster whose work moves between contemporary jazz and song-based pop writing.
+% composition-distance: Original 3/4 C-major melody, words and delayed entry; no melody, lyric, piano voicing, solo or arrangement from "Satellite" is used.
+% improv: {"id":"A","bars":"5-6","role":"solo voice or instrument","prompt":"Answer the three-note question","choices":["same contour","reverse contour","one repeated pitch"],"replyBars":2}
+% improv: {"id":"B","bars":"9-12","role":"second group","prompt":"Choose the texture of the return","choices":["unison","enter two bars late","hum long notes underneath"],"replyBars":4}
+% dossier-function: original Grade 3 jazz-pop listening bridge; students sing an ABA streetlight song, improvise a constrained two-bar answer and choose unison, imitation or held-tone texture for the final A
+% dossier-elements: twelve bars in 3/4; C-major pitches C-D-E-F-G-A-B-C, C4-C5 range; quarters, eighth pairs, dotted-quarter/eighth figures, half notes and quarter rests; dynamic arch in B; ABA form 4+4+4; optional two-bar delayed imitation on the last A
+% dossier-practice: Rehearsal key C; written range C4-C5. Dotted half = 58 target. Count three evenly before trying a gentle long-short eighth interpretation as a comparison, not a rule. Teach A, teach B, make one three-note answer, then add the selected final texture.
+% dossier-accompaniment: Newly authored C-Am-Dm-G jazz-pop shell chords, one chord per bar; piano may play roots and sevenths while bass plays beat 1 and a brush marks all three beats. No transcription of Biali's piano language.
+% dossier-lyrics: Original English lyric. The final four bars may be sung on words, "doo," or hummed when the chosen texture would make text unclear.
+% dossier-honesty: AI-assisted original composition, 11 November 2026; not a jazz standard, not traditional and not by or in the style of Laila Biali. The label names the listening lens, not an authenticity claim.
+% dossier-licence: CC0 1.0 for the tune, words, chords and ABC; the reference remains copyrighted.
+% dossier-respect: Credit Biali's multiple roles and listen to her actual phrasing before discussing jazz-pop. Do not teach "swing" as a single universal jazz rhythm; compare straight and long-short readings and ask what changes.
+% dossier-review: Grade 3 teacher, jazz educator, second score reader and student singing trial; all reviews still required
+X:1
+T:Three-Way Streetlight
+T:Original 3/4 song with a delayed return
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 3 jazz-pop listening bridge
+S:Grand Central Stationery, "Three-Way Streetlight" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): Every bar totals six eighth units. A bars 1-4: C quarter D eighth-E eighth G quarter; E dotted quarter D eighth C quarter; D-E eighths F quarter E quarter; C half plus quarter rest. B bars 5-8 rise from E4 to C5 and return. Bars 9-12 restate A with a changed final bar. Pitch range C4-C5, largest leap a fourth, ABA 4+4+4.
+N:UNCERTAIN: The optional long-short eighths, delayed entry, vocal peak C5 and constrained improvisation need classroom testing. A jazz educator and second reader must review the framing and originality.
+M:3/4
+L:1/8
+Q:3/4=58
+K:C
+%%style swing
+"C"C2 DE G2 | "Am"E3 D C2 | "Dm"DE F2 E2 | "G"C4 z2 |
+w: Three-way street-light, red turns gold; each small an-swer changes what we hold.
+"Am"E2 FG A2 | "Dm"G3 A G2 | !<(!"G"A2 B2 c2 | !>)!G4 z2 |
+w: Send me a ques-tion, leave me some room; I will send it back with a dif-fer-ent bloom.
+"C"C2 DE G2 | "Am"E3 D C2 | "Dm"DE F2 E2 | "C"C6 |]
+w: Three-way street-light, red turns gold; hear our two lines meet and hold.

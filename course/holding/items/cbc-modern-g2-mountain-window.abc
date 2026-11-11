@@ -1,0 +1,50 @@
+% holding-id: cbc-modern-g2-mountain-window
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Grade 2 teacher, second score reader and student trial must check breath, the crescendo and decrescendo, the pentatonic variation task and the listening-context wording.
+% source-local: course/holding/items/cbc-modern-g2-mountain-window.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. Braden Lam's recording is a listening reference only.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: 2
+% composition-elements: do-re-mi-so-la pentatonic melody; half and whole notes; crescendo and decrescendo; do-so bordun; eight-bar AB form with varied return
+% composition-listen: Braden Lam — "Coquihalla" (2026), a CBC Music Top 20 selection dated 9 November 2026
+% composition-listen-url: https://www.universalmusic.ca/2026/08/28/indie-folk-artist-braden-lam-launches-into-new-era-with-the-release-of-his-single-coquihalla/
+% composition-bridge: Hear how indie folk-pop can turn travel and place into an intimate story through acoustic colour, a repeated pulse and a widening chorus.
+% composition-context: Braden Lam is a Canadian indie-folk songwriter based in Halifax; the referenced release takes its title from British Columbia's Coquihalla route.
+% composition-distance: Original pentatonic tune, fictional window lyric and C-G bordun; no lyric, melodic phrase, guitar figure or chord progression from "Coquihalla" is used.
+% improv: {"id":"A","bars":"3-4","role":"small group","prompt":"Change one part of the view","choices":["raise one note","lower one note","stretch one note"],"replyBars":2}
+% improv: {"id":"B","bars":"7-8","role":"whole class","prompt":"Shape the arrival","choices":["crescendo home","decrescendo home","sudden soft home"],"replyBars":2}
+% dossier-function: original Grade 2 indie-folk listening bridge; students sing an AB travel song over a do-so bordun, vary one two-bar window, then choose the dynamic shape of the arrival
+% dossier-elements: eight bars in 4/4, C pentatonic C-D-E-G-A, C4-A4 range; quarters, half notes and a whole note; crescendo in bars 3-4 and decrescendo or alternate selected shape in bars 7-8; AB form with related two-bar cells; optional C-G bordun
+% dossier-practice: Rehearsal key C; written range C4-A4. Quarter note = 84 target. Sing unaccompanied, add bordun, then trace the contour with a hand. For the variation, change only one pitch or duration so classmates can name what stayed the same.
+% dossier-accompaniment: Newly authored open-fifth C-G bordun for classroom instruments, with optional acoustic guitar playing C and Am only. It suggests spacious folk-pop without copying Lam's production or claiming a regional style.
+% dossier-lyrics: Original English words about an imagined mountain view. No place name or personal story from the reference is reused.
+% dossier-honesty: AI-assisted original composition, 11 November 2026. It is neither traditional nor associated with the Coquihalla or any community along it.
+% dossier-licence: CC0 1.0 for melody, words, bordun and ABC; Braden Lam's song and recording remain copyrighted.
+% dossier-respect: Use a map only to locate the referenced title and artist's Canadian geography; do not turn a real highway or the communities around it into scenery for an invented cultural claim.
+% dossier-review: Grade 2 music teacher, second score reader, student singing trial and Canadian listening-context check; all reviews still required
+X:1
+T:Mountain Window
+T:Original pentatonic travel song
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 2 indie-folk listening bridge
+S:Grand Central Stationery, "Mountain Window" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): Every bar totals four quarter units. Bars 1-2: C quarter, D quarter, E half; G half, E half. Bars 3-4: E-D quarters, C half; G whole. Bars 5-6: G-A-G-E quarters; D half, E half. Bars 7-8: E-G quarters, D half; C whole. Pitch set C-D-E-G-A, range a sixth, largest leap a fourth, AB form 4+4.
+N:UNCERTAIN: Breath, dynamic span, success of the constrained variation and originality against common pentatonic school songs require classroom and second-reader review.
+M:4/4
+L:1/4
+Q:1/4=84
+K:C
+%%style folk
+"C"C D E2 | G2 E2 | !<(!"Am"E D C2 | "C"G4!<)! |
+w: Through the moun-tain win-dow, lines be-gin to grow;
+"Am"G A G E | "G"D2 E2 | !>(!"C"E G D2 | C4!>)! |]
+w: ev-'ry turn can change the view, still we find our road.

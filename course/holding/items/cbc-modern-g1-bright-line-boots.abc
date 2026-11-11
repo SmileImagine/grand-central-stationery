@@ -1,0 +1,50 @@
+% holding-id: cbc-modern-g1-bright-line-boots
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Grade 1 teacher, accessibility reviewer, second score reader and student trial must check the call-and-response timing, articulation words and comfortable tempo.
+% source-local: course/holding/items/cbc-modern-g1-bright-line-boots.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. Shania Twain's recording is a listening reference only.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: 1
+% composition-elements: 2/4 metre; quarter and paired eighth notes plus quarter rests; mi-so-la melodic patterns; accented and smooth articulation; eight-bar call-and-response form
+% composition-listen: Shania Twain — "Faded Blue Jeans" (2026), official artist video
+% composition-listen-url: https://www.youtube.com/watch?v=hZdHrUCc8Bk
+% composition-bridge: Listen for how a contemporary country-pop track combines a direct story, a firm backbeat, short hooks and contrasting vocal articulation.
+% composition-context: Shania Twain is an Ontario-born Canadian singer-songwriter whose work connects country writing with pop production and performance.
+% composition-distance: Original three-note E-G-A classroom tune and lyric; no hook, words, chord sequence, guitar figure or drum pattern from "Faded Blue Jeans" is used.
+% improv: {"id":"A","bars":"3-4","role":"solo caller","prompt":"Choose how the boots answer","choices":["two accented stomps","four light taps","one silent pose"],"replyBars":2}
+% improv: {"id":"B","bars":"7-8","role":"class","prompt":"Choose the last articulation","choices":["smooth","detached","accent then smooth"],"replyBars":2}
+% dossier-function: original Grade 1 country-pop listening bridge; a caller sings the first two bars, the class answers, and a student selects an accented, detached or smooth body-percussion reply
+% dossier-elements: eight bars in 2/4; E-G-A only (mi-so-la in C), E4-A4 range; quarters, paired eighths and quarter rests; accent, legato and staccato options; call-and-response form 2+2+2+2
+% dossier-practice: Rehearsal key C; written range E4-A4. Quarter note = 92 target, begin at 76. Echo the spoken rhythm, sing on solfa, add words, then add optional seated foot taps or hand pats. Keep stomping low-force and optional.
+% dossier-accompaniment: Newly authored C-F-G country-pop classroom pattern: bass root on beat 1 and light clap or brush on beat 2. Optional open-string ukulele or guitar may play one chord per bar; no imitation of Twain's arrangement.
+% dossier-lyrics: Original English lyric about following a bright path. "Boots" may become shoes, wheels, hands or any learner-chosen travel word without changing the learning target.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026; not traditional, not by Shania Twain and not an arrangement or soundalike.
+% dossier-licence: CC0 1.0 for melody, lyric, harmony and ABC; the reference song and recording remain copyrighted.
+% dossier-respect: Present Twain as a working Canadian songwriter and producer-crossing artist, not as a costume or a generic symbol of rural life. Country music contains many communities and approaches.
+% dossier-review: Grade 1 music teacher, accessibility reviewer, second score reader and student singing trial; all reviews still required
+X:1
+T:Bright-Line Boots
+T:Original mi-so-la call and response
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 1 country-pop listening bridge
+S:Grand Central Stationery, "Bright-Line Boots" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): Each bar totals four eighth units. Bars 1, 3 and 5 use four eighth notes; bars 2 and 6 use two quarters; bars 4 and 8 use one quarter plus a quarter rest; bar 7 uses two quarters. Pitch set E-G-A, range a fourth, largest leap a third; phrases are 2+2+2+2 bars.
+N:UNCERTAIN: Whether the tempo and boot metaphor include every class, and whether the hook feels distinct from the reference and common mi-so-la songs, require student and second-reader checks.
+M:2/4
+L:1/8
+Q:1/4=92
+K:C
+%%style folk
+"C"EE GA | G2 E2 | "F"AA GE | G2 z2 |
+w: Boots on the bright line, where will it go? Tap me an an-swer, fast or slow.
+"C"EG GA | "G"G2 E2 | "C"A2 G2 | E2 z2 |]
+w: Light on the road-way, sing what you see; choose how the last notes sound to me.

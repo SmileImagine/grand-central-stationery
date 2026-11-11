@@ -9,9 +9,9 @@
  ],
  "counts": {
   "inbox": 3,
-  "transcription": 7,
-  "source-check": 24,
-  "classroom-check": 36,
+  "transcription": 6,
+  "source-check": 25,
+  "classroom-check": 46,
   "ready": 0
  },
  "items": [
@@ -396,6 +396,796 @@
    },
    "composition": null,
    "improv": []
+  },
+  {
+   "id": "cbc-modern-g1-bright-line-boots",
+   "file": "items/cbc-modern-g1-bright-line-boots.abc",
+   "title": "Bright-Line Boots",
+   "subtitle": "Original mi-so-la call and response",
+   "source": "Grand Central Stationery, \"Bright-Line Boots\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Shania Twain's recording is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 1 teacher, accessibility reviewer, second score reader and student trial must check the call-and-response timing, articulation words and comfortable tempo.",
+   "notes": "HOW READ (2026-11-11): Each bar totals four eighth units. Bars 1, 3 and 5 use four eighth notes; bars 2 and 6 use two quarters; bars 4 and 8 use one quarter plus a quarter rest; bar 7 uses two quarters. Pitch set E-G-A, range a fourth, largest leap a third; phrases are 2+2+2+2 bars.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 1 country-pop listening bridge; a caller sings the first two bars, the class answers, and a student selects an accented, detached or smooth body-percussion reply",
+    "elements": "eight bars in 2/4; E-G-A only (mi-so-la in C), E4-A4 range; quarters, paired eighths and quarter rests; accent, legato and staccato options; call-and-response form 2+2+2+2",
+    "practice": "Rehearsal key C; written range E4-A4. Quarter note = 92 target, begin at 76. Echo the spoken rhythm, sing on solfa, add words, then add optional seated foot taps or hand pats. Keep stomping low-force and optional.",
+    "accompaniment": "Newly authored C-F-G country-pop classroom pattern: bass root on beat 1 and light clap or brush on beat 2. Optional open-string ukulele or guitar may play one chord per bar; no imitation of Twain's arrangement.",
+    "lyrics": "Original English lyric about following a bright path. \"Boots\" may become shoes, wheels, hands or any learner-chosen travel word without changing the learning target.",
+    "honesty": "AI-assisted original composition for Grand Central Stationery, 11 November 2026; not traditional, not by Shania Twain and not an arrangement or soundalike.",
+    "licence": "CC0 1.0 for melody, lyric, harmony and ABC; the reference song and recording remain copyrighted.",
+    "respect": "Present Twain as a working Canadian songwriter and producer-crossing artist, not as a costume or a generic symbol of rural life. Country music contains many communities and approaches.",
+    "review": "Grade 1 music teacher, accessibility reviewer, second score reader and student singing trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "1",
+    "elements": "2/4 metre; quarter and paired eighth notes plus quarter rests; mi-so-la melodic patterns; accented and smooth articulation; eight-bar call-and-response form",
+    "listen": "Shania Twain — \"Faded Blue Jeans\" (2026), official artist video",
+    "listen-url": "https://www.youtube.com/watch?v=hZdHrUCc8Bk",
+    "bridge": "Listen for how a contemporary country-pop track combines a direct story, a firm backbeat, short hooks and contrasting vocal articulation.",
+    "context": "Shania Twain is an Ontario-born Canadian singer-songwriter whose work connects country writing with pop production and performance.",
+    "distance": "Original three-note E-G-A classroom tune and lyric; no hook, words, chord sequence, guitar figure or drum pattern from \"Faded Blue Jeans\" is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "3-4",
+     "role": "solo caller",
+     "prompt": "Choose how the boots answer",
+     "choices": [
+      "two accented stomps",
+      "four light taps",
+      "one silent pose"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "7-8",
+     "role": "class",
+     "prompt": "Choose the last articulation",
+     "choices": [
+      "smooth",
+      "detached",
+      "accent then smooth"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g2-mountain-window",
+   "file": "items/cbc-modern-g2-mountain-window.abc",
+   "title": "Mountain Window",
+   "subtitle": "Original pentatonic travel song",
+   "source": "Grand Central Stationery, \"Mountain Window\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Braden Lam's recording is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 2 teacher, second score reader and student trial must check breath, the crescendo and decrescendo, the pentatonic variation task and the listening-context wording.",
+   "notes": "HOW READ (2026-11-11): Every bar totals four quarter units. Bars 1-2: C quarter, D quarter, E half; G half, E half. Bars 3-4: E-D quarters, C half; G whole. Bars 5-6: G-A-G-E quarters; D half, E half. Bars 7-8: E-G quarters, D half; C whole. Pitch set C-D-E-G-A, range a sixth, largest leap a fourth, AB form 4+4.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 2 indie-folk listening bridge; students sing an AB travel song over a do-so bordun, vary one two-bar window, then choose the dynamic shape of the arrival",
+    "elements": "eight bars in 4/4, C pentatonic C-D-E-G-A, C4-A4 range; quarters, half notes and a whole note; crescendo in bars 3-4 and decrescendo or alternate selected shape in bars 7-8; AB form with related two-bar cells; optional C-G bordun",
+    "practice": "Rehearsal key C; written range C4-A4. Quarter note = 84 target. Sing unaccompanied, add bordun, then trace the contour with a hand. For the variation, change only one pitch or duration so classmates can name what stayed the same.",
+    "accompaniment": "Newly authored open-fifth C-G bordun for classroom instruments, with optional acoustic guitar playing C and Am only. It suggests spacious folk-pop without copying Lam's production or claiming a regional style.",
+    "lyrics": "Original English words about an imagined mountain view. No place name or personal story from the reference is reused.",
+    "honesty": "AI-assisted original composition, 11 November 2026. It is neither traditional nor associated with the Coquihalla or any community along it.",
+    "licence": "CC0 1.0 for melody, words, bordun and ABC; Braden Lam's song and recording remain copyrighted.",
+    "respect": "Use a map only to locate the referenced title and artist's Canadian geography; do not turn a real highway or the communities around it into scenery for an invented cultural claim.",
+    "review": "Grade 2 music teacher, second score reader, student singing trial and Canadian listening-context check; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "2",
+    "elements": "do-re-mi-so-la pentatonic melody; half and whole notes; crescendo and decrescendo; do-so bordun; eight-bar AB form with varied return",
+    "listen": "Braden Lam — \"Coquihalla\" (2026), a CBC Music Top 20 selection dated 9 November 2026",
+    "listen-url": "https://www.universalmusic.ca/2026/08/28/indie-folk-artist-braden-lam-launches-into-new-era-with-the-release-of-his-single-coquihalla/",
+    "bridge": "Hear how indie folk-pop can turn travel and place into an intimate story through acoustic colour, a repeated pulse and a widening chorus.",
+    "context": "Braden Lam is a Canadian indie-folk songwriter based in Halifax; the referenced release takes its title from British Columbia's Coquihalla route.",
+    "distance": "Original pentatonic tune, fictional window lyric and C-G bordun; no lyric, melodic phrase, guitar figure or chord progression from \"Coquihalla\" is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "3-4",
+     "role": "small group",
+     "prompt": "Change one part of the view",
+     "choices": [
+      "raise one note",
+      "lower one note",
+      "stretch one note"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "7-8",
+     "role": "whole class",
+     "prompt": "Shape the arrival",
+     "choices": [
+      "crescendo home",
+      "decrescendo home",
+      "sudden soft home"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g3-three-way-streetlight",
+   "file": "items/cbc-modern-g3-three-way-streetlight.abc",
+   "title": "Three-Way Streetlight",
+   "subtitle": "Original 3/4 song with a delayed return",
+   "source": "Grand Central Stationery, \"Three-Way Streetlight\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Laila Biali's performance is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 3 teacher, jazz educator, second score reader and student singing trial must check the 3/4 swing option, two-part entry, range and whether the improvisation prompt produces musical rather than random answers.",
+   "notes": "HOW READ (2026-11-11): Every bar totals six eighth units. A bars 1-4: C quarter D eighth-E eighth G quarter; E dotted quarter D eighth C quarter; D-E eighths F quarter E quarter; C half plus quarter rest. B bars 5-8 rise from E4 to C5 and return. Bars 9-12 restate A with a changed final bar. Pitch range C4-C5, largest leap a fourth, ABA 4+4+4.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 3 jazz-pop listening bridge; students sing an ABA streetlight song, improvise a constrained two-bar answer and choose unison, imitation or held-tone texture for the final A",
+    "elements": "twelve bars in 3/4; C-major pitches C-D-E-F-G-A-B-C, C4-C5 range; quarters, eighth pairs, dotted-quarter/eighth figures, half notes and quarter rests; dynamic arch in B; ABA form 4+4+4; optional two-bar delayed imitation on the last A",
+    "practice": "Rehearsal key C; written range C4-C5. Dotted half = 58 target. Count three evenly before trying a gentle long-short eighth interpretation as a comparison, not a rule. Teach A, teach B, make one three-note answer, then add the selected final texture.",
+    "accompaniment": "Newly authored C-Am-Dm-G jazz-pop shell chords, one chord per bar; piano may play roots and sevenths while bass plays beat 1 and a brush marks all three beats. No transcription of Biali's piano language.",
+    "lyrics": "Original English lyric. The final four bars may be sung on words, \"doo,\" or hummed when the chosen texture would make text unclear.",
+    "honesty": "AI-assisted original composition, 11 November 2026; not a jazz standard, not traditional and not by or in the style of Laila Biali. The label names the listening lens, not an authenticity claim.",
+    "licence": "CC0 1.0 for the tune, words, chords and ABC; the reference remains copyrighted.",
+    "respect": "Credit Biali's multiple roles and listen to her actual phrasing before discussing jazz-pop. Do not teach \"swing\" as a single universal jazz rhythm; compare straight and long-short readings and ask what changes.",
+    "review": "Grade 3 teacher, jazz educator, second score reader and student singing trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "3",
+    "elements": "3/4 metre; quarter, paired eighth, dotted-quarter/eighth and half-note rhythms; C-major scale within an octave; crescendo and decrescendo; ABA form; delayed two-part imitation",
+    "listen": "Laila Biali — \"Satellite\", official artist performance/video listing",
+    "listen-url": "https://lailabiali.com/media-videos/",
+    "bridge": "Listen for how jazz-pop balances a clear song with elastic phrasing, piano conversation, dynamic arcs and room for musicians to answer one another.",
+    "context": "Laila Biali is a Canadian singer, pianist, composer and broadcaster whose work moves between contemporary jazz and song-based pop writing.",
+    "distance": "Original 3/4 C-major melody, words and delayed entry; no melody, lyric, piano voicing, solo or arrangement from \"Satellite\" is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "5-6",
+     "role": "solo voice or instrument",
+     "prompt": "Answer the three-note question",
+     "choices": [
+      "same contour",
+      "reverse contour",
+      "one repeated pitch"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "9-12",
+     "role": "second group",
+     "prompt": "Choose the texture of the return",
+     "choices": [
+      "unison",
+      "enter two bars late",
+      "hum long notes underneath"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g4-screenlight",
+   "file": "items/cbc-modern-g4-screenlight.abc",
+   "title": "Screenlight",
+   "subtitle": "Lumière d'écran — original major/minor electro-pop bridge",
+   "source": "Grand Central Stationery, \"Screenlight\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Claudia Bouvette's recording is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial must check the text, syncopation, C-major/C-minor contrast and listening context.",
+   "notes": "HOW READ (2026-11-11): Every bar totals eight eighth units. A, bars 1-4 and 13-16, uses C major with E natural and A natural; B, bars 5-12, uses E flat and A flat. Bars 2, 6, 10 and 14 place a dotted quarter across beat 2 into beat 3; bars 3, 7 and 11 contain paired sixteenths. Final C4 whole note carries a fermata. Melody range C4-C5; ABBA 4+4+4+4.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 4 Francophone electro/dream-pop listening bridge; students sing a syncopated ABBA song, compare parallel major and minor colour, and select the final texture in real time",
+    "elements": "sixteen bars in 4/4; C-major A sections and parallel C-minor B section using E-flat and A-flat; C4-C5 melody range; eighths, quarters, a dotted-quarter/eighth syncopation, paired sixteenths, whole note and final fermata; crescendo/decrescendo; optional C-G two-note ostinato; ABBA form",
+    "practice": "Rehearsal key C/C minor; written range C4-C5. Quarter note = 100 target, start at 76. Speak the French rhythm with a fluent model, clap the middle-of-bar syncopation, sing the major A, lower E and A for B, then add the ostinato. Do not perform the text publicly before language review.",
+    "accompaniment": "Newly authored generic electronic-pop loop C-Am-F-G for A and Cm-Ab-Fm-G for B. Classroom version uses bass roots, soft shaker eighths and a neutral sustained keyboard; do not imitate Bouvette's synth sounds or production.",
+    "lyrics": "Original French text: \"Lumière d'écran, je vois la nuit; je choisis l'ombre ou bien la couleur. Une voix répond, puis je réponds; nos deux chemins reviennent au coeur.\" Intended sense: screen light, I see the night; I choose shadow or colour; one voice answers, then I answer; our two paths return to the heart. A Francophone reviewer must correct idiom and sung stress.",
+    "honesty": "AI-assisted original course composition, 11 November 2026; not a Claudia Bouvette work, translation, arrangement or soundalike. The genre label identifies a listening comparison only.",
+    "licence": "CC0 1.0 for melody, text, chords, ostinato and ABC; \"Amour écran\" and its recording remain copyrighted.",
+    "respect": "Centre a current Francophone Canadian artist and use French as living creative language, not decoration. Pronunciation, idiom and cultural context require Francophone review before publication.",
+    "review": "Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "4",
+    "elements": "syncopation across the middle of the bar; sixteenth-note pairs; major/minor contrast through E/E-flat and A/A-flat; crescendo, decrescendo and fermata; two-part ostinato; sixteen-bar ABBA form",
+    "listen": "Claudia Bouvette — \"Amour écran\" (2026), a Francophone dream/electro-pop single and CBC Music Top 20 selection dated 9 November 2026",
+    "listen-url": "https://www.bonsound.com/fr/release/amour-ecran/",
+    "bridge": "Hear how airy synthesizer timbres, an insistent electronic pulse and an 1980s-coloured major/minor haze can support intimate French-language pop writing.",
+    "context": "Claudia Bouvette is a Montréal singer-songwriter. \"Amour écran\" was written with Soran Dussaigne and released by Bonsound; the label describes it as modern dream pop with atmospheric synthesizers.",
+    "distance": "Original French classroom text, melody, C/Cm contrast and ostinato; no words, melodic cell, synth patch, bass line or chord progression from \"Amour écran\" is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "5-8",
+     "role": "synth or barred-instrument player",
+     "prompt": "Choose the B-section colour",
+     "choices": [
+      "bright major third",
+      "shadowed minor third",
+      "alternate each bar"
+     ],
+     "replyBars": 4
+    },
+    {
+     "id": "B",
+     "bars": "13-16",
+     "role": "whole class",
+     "prompt": "Choose the final texture",
+     "choices": [
+      "melody alone",
+      "add two-note ostinato",
+      "fade to whispered rhythm"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g5-blue-room-answer",
+   "file": "items/cbc-modern-g5-blue-room-answer.abc",
+   "title": "Blue Room Answer",
+   "subtitle": "Original 6/8 song about leaving space",
+   "source": "Grand Central Stationery, \"Blue Room Answer\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Charlotte Day Wilson's CBC Music performance is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 5 teacher, Black Canadian/R&B music educator, second score reader and student trial must check the 6/8 pocket, two-part refrain, vocal range and contextual language.",
+   "notes": "HOW READ (2026-11-11): Every bar totals six eighth units. Bars 1 and 3 use six even eighths; bars 2 and 4 use quarter-eighth plus dotted quarter; bar 5 ties F4 from the last eighth of the first beat into the first eighth of the second; bar 6 is A4 dotted quarter plus rest. Bars 9-12 use quarter-eighth pairs and dotted quarters. Range D4-C5, form AAB 4+4+4.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 5 alternative-R&B listening bridge; students sing a 6/8 verse, answer a two-bar question with sound or silence, then choose one of three lower-part roles for the refrain",
+    "elements": "twelve bars in 6/8 felt as two; D minor, pitch set C-D-E-F-A with C sharp only on A-major V, D4-C5 range; dotted quarters, even eighths, quarter-eighth pairs and a tie across the middle beat; Dm-A (i-V); verse/refrain AAB form; optional two-part homophony in bars 9-12",
+    "practice": "Rehearsal key D minor; written melody range D4-C5 and choice-part range A3-F4. Dotted quarter = 56 target, begin at 44. Pat two large beats, whisper the lyric, sing the melody, rehearse every lower-part option with the whole class, then split. Sliding is optional and must be comfortable, never caricatured.",
+    "accompaniment": "Newly authored Dm-A open voicings with bass only on the first dotted-quarter beat and a soft rim or hand pat on the second. Silence is part of the arrangement. Do not imitate Wilson's recording, vocal sound or production.",
+    "lyrics": "Original English text about listening before answering. Words are deliberately spare; students may replace the final noun with a class-selected image while preserving the rhythm.",
+    "honesty": "AI-assisted original composition, 11 November 2026; not by Charlotte Day Wilson and not an R&B transcription, pastiche or claim of cultural authenticity.",
+    "licence": "CC0 1.0 for melody, lyric, lower part, harmony and ABC; \"Work\" and CBC's performance remain copyrighted.",
+    "respect": "Teach alternative R&B and soul as evolving Black musical practices shaped by named artists, technologies and local scenes. Avoid reducing the lesson to \"smooth singing\" or copying Wilson's vocal identity.",
+    "review": "Grade 5 teacher, Black Canadian/R&B music educator, second score reader and student singing trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "5",
+    "elements": "6/8 metre felt in two; dotted-quarter pulse, quarter-eighth and tied syncopation; D-minor i-V harmony; verse/refrain form; two-part homophony and call-and-response",
+    "listen": "Charlotte Day Wilson — \"Work\", performed for CBC Music Live in Toronto (2024 video)",
+    "listen-url": "https://www.youtube.com/watch?v=-E9BghcWNTc",
+    "bridge": "Listen for a restrained pocket, close vocal timbre, repeated words and the expressive weight created when accompaniment leaves space.",
+    "context": "Charlotte Day Wilson is a Toronto singer, songwriter, producer and multi-instrumentalist working across alternative R&B and soul; the linked performance is published by CBC Music.",
+    "distance": "Original D-minor melody, English words, lower part and i-V accompaniment; no lyric, melody, harmony, bass figure, vocal inflection or arrangement from \"Work\" is reproduced."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "5-6",
+     "role": "solo singer or instrument",
+     "prompt": "Answer the held question",
+     "choices": [
+      "three even notes",
+      "one bent or slid note",
+      "leave the space empty"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "9-12",
+     "role": "lower-part group",
+     "prompt": "Choose how close the refrain feels",
+     "choices": [
+      "sing thirds below",
+      "hold one home note",
+      "enter only on the last line"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g6-room-for-the-verse",
+   "file": "items/cbc-modern-g6-room-for-the-verse.abc",
+   "title": "Room for the Verse",
+   "subtitle": "Original pickup-and-triplet cypher bridge",
+   "source": "Grand Central Stationery, \"Room for the Verse\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. TOBi's recording is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 6 teacher, hip-hop educator, second score reader and student cypher trial must check the spoken flow, anacrusis, triplet/eighth contrast, content-safety process and accompaniment balance.",
+   "notes": "HOW READ (2026-11-11): The score starts with one sung pickup eighth after an eighth rest. Every full bar totals eight eighth units. Bars 1-4 are the sung hook; bars 5-8 provide notated straight, triplet and offbeat models for replacing with a student two-bar thought; bars 9-12 return to the hook; bars 13-16 repeat it under the live arrangement choice. Pitch set D-E-F-G-A with C sharp on the A chord, range D4-A4.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 6 alternative-hip-hop cypher bridge; the class maintains a four-bar ostinato, pairs write and perform a two-bar answer under clear content rules, and a conductor chooses the final drop and return",
+    "elements": "sixteen bars in 4/4 with one sung pickup eighth after an eighth rest; D-minor hook D-F-G-A with C sharp on the A-major V, D4-A4 range; straight eighths, eighth-note triplets and syncopated rests; Dm-Gm-A (i-iv-V); layered body percussion, spoken rhythm and sung hook; verse/hook AABA form",
+    "practice": "Rehearsal key D minor; written hook range D4-A4, with spoken verses adaptable to any comfortable voice. Quarter note = 88. Establish the kick-pat on beats 1 and 3 and clap on 2 and 4, speak the pickup, compare one bar of straight eighths with one of triplets, then write only two bars. Offer beat-making, conducting or instrumental roles instead of public rapping.",
+    "accompaniment": "Newly authored Dm-Gm-A loop, bass roots and classroom body percussion. No copyrighted sample and no attempt to copy TOBi's beat. A digital version may use only licensed or student-recorded sounds whose provenance is documented.",
+    "lyrics": "Original English hook and verse frame. Student verses must follow class-agreed boundaries: no personal disclosures required, no insults, slurs or naming classmates, and anyone may pass. Record student authorship and consent before saving text.",
+    "honesty": "AI-assisted original composition, 11 November 2026; not by TOBi, not freestyle evidence and not a transcription or imitation. The reference teaches listening and craft.",
+    "licence": "CC0 1.0 for the supplied hook, verse frame, harmony and ABC. Student verses retain student authorship unless separately and knowingly licensed; TOBi's work remains copyrighted.",
+    "respect": "Teach hip-hop as a Black cultural practice with histories of DJing, MCing, dance, visual art, community testimony and technological invention. Do not frame rap as merely speaking over a beat or require stereotyped delivery.",
+    "review": "Grade 6 teacher, hip-hop educator, second score reader, privacy/accessibility reviewer and student cypher trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "6",
+    "elements": "anacrusis; straight eighths against eighth-note triplets; syncopated rests; i-iv-V harmony in D minor; layered ostinato, spoken verse and sung hook; sixteen-bar verse/hook form",
+    "listen": "TOBi — \"Just Us In The Room\" (2026), a CBC Music Top 20 selection dated 9 November 2026",
+    "listen-url": "https://audiomack.com/tobi/song/just-us-in-the-room-6046703",
+    "bridge": "Listen for how a contemporary hip-hop track controls conversational timing, rhyme placement, space and changes of vocal register inside a repeating production frame.",
+    "context": "TOBi is a Nigerian-born, Brampton-raised Canadian rapper and singer. The artist-uploaded track is categorized as hip-hop/rap and was released in September 2026.",
+    "distance": "Original classroom-safe words, D-minor hook, body-percussion ostinato and chord loop; no flow, lyric, beat, sample, melody or production element from TOBi's recording is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "5-8",
+     "role": "solo or pair",
+     "prompt": "Complete the two-bar thought",
+     "choices": [
+      "straight eighth flow",
+      "triplet flow",
+      "speak only on beats 2 and 4"
+     ],
+     "replyBars": 4
+    },
+    {
+     "id": "B",
+     "bars": "13-16",
+     "role": "producer/conductor",
+     "prompt": "Choose the hook arrangement",
+     "choices": [
+      "all layers in",
+      "voice and bass only",
+      "drop one bar then return"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g7-signal-drop",
+   "file": "items/cbc-modern-g7-signal-drop.abc",
+   "title": "Signal Drop",
+   "subtitle": "Original electronic density-and-drop lab",
+   "source": "Grand Central Stationery, \"Signal Drop\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. The Halluci Nation's CBC Music concert is a listening reference only; do not sample its drum groups, voices or recording."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 7 teacher, Indigenous electronic-music educator or approved reviewer, second score reader and student arranging trial must approve the boundary language, triadic loop, drop choices and contextual framing before publication.",
+   "notes": "HOW READ (2026-11-11): Every bar totals eight eighth units. Melody bars 1-4 use the D-natural-minor pitch set and marcato quarters; bars 5-6 hold or rest for the drop; bars 7-8 restore the hook. Bass uses repeated eighth-note roots D-F-C-A. Chord symbols give Dm-F-C-Am. Melody range D4-C5, largest leap a fifth, AB form 4+4.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 7 electronic arranging lab; melody, bass and chord groups perform an eight-bar loop while a student conductor decides how layers accumulate, disappear and return",
+    "elements": "eight bars in 4/4; D natural minor hook C-D-E-F-G-A, D4-C5 range; Dm, F, C and Am triads; eighth-note bass ostinato; marcato hook and legato chord layer; crescendo into bars 3-4 and contrasting sparse bars 5-6; homophonic hook/chords against an independent bass; AB loop",
+    "practice": "Rehearsal key D minor; written hook range D4-C5 and bass range D3-A3, with octave displacement allowed. Quarter note = 112, begin at 88. Rehearse each neutral layer alone, label entrances with cards, then run the loop while the conductor selects a build and a drop. Use only classroom-created or clearly licensed sounds and document their sources.",
+    "accompaniment": "Written parts are the whole accompaniment: generic synth or mallet hook, bass roots and Dm-F-C-Am triads. Drums are optional neutral kick on 1/3 and clap on 2/4. Powwow drums, vocables, chants, regalia imagery and extracted Indigenous samples are expressly out of scope.",
+    "lyrics": "Instrumental. Do not add invented vocables or imitate a language or vocal chant. Spoken layer names such as \"bass,\" \"hook\" and \"chords\" may be used as rehearsal cues only.",
+    "honesty": "AI-assisted original electronic loop, 11 November 2026. It is not Indigenous music and is not by, arranged from or in the style of The Halluci Nation; the named work is used only for critical listening to arrangement and collaboration.",
+    "licence": "CC0 1.0 for the written hook, bass, triads and ABC. The Halluci Nation concert, compositions and all collaborator performances remain copyrighted and must not be sampled.",
+    "respect": "Name The Halluci Nation and the credited collaborators in the selected performance. Explain collaboration versus appropriation, follow local board protocols for Indigenous education and obtain Indigenous review; never label this exercise \"powwow,\" \"tribal\" or Indigenous electronic music.",
+    "review": "Grade 7 teacher, Indigenous electronic-music educator or approved Indigenous reviewer, second score reader, copyright/sampling check and student arranging trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "7",
+    "elements": "D-minor, F-major, C-major and A-minor triads; melodic minor seventh; marcato and legato articulation; crescendo into a production drop; homophonic hook against an independent bass ostinato; eight-bar AB loop",
+    "listen": "The Halluci Nation — CBC Music Live concert (2023), including \"Electric Pow Wow Drum\" at 2:30 and collaborations with Indigenous singers and artists",
+    "listen-url": "https://www.youtube.com/watch?v=51hg7fUZLSs",
+    "bridge": "Listen for production-scale contrast: layers accumulate, a drop changes density, bass and pulse organize the room, and collaborators remain audible as distinct musical agents.",
+    "context": "The Halluci Nation is an Indigenous-led electronic duo rooted in Ottawa club nights and collaboration. CBC describes their work as combining electronic genres with drumming and vocal chanting; those cultural materials belong to the artists and collaborators, not to this exercise.",
+    "distance": "This is a generic original electronic arranging loop using keyboard triads and synthesized or acoustic classroom sounds only. It contains no powwow drum rhythm, vocable, chant, sample, melody, title phrase or imitation of the reference."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "3-4",
+     "role": "producer/conductor",
+     "prompt": "Build toward the drop",
+     "choices": [
+      "add one layer each bar",
+      "crescendo one layer",
+      "hold density steady"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "5-8",
+     "role": "producer/conductor",
+     "prompt": "What survives the drop?",
+     "choices": [
+      "bass only",
+      "hook only",
+      "silence for one bar then all return"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-g8-many-hands-one-sky",
+   "file": "items/cbc-modern-g8-many-hands-one-sky.abc",
+   "title": "Many Hands, One Sky",
+   "subtitle": "Original changing-metre collective arranging song",
+   "source": "Grand Central Stationery, \"Many Hands, One Sky\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Broken Social Scene's recording is a listening reference only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Grade 8 teacher, indie-rock/recording educator, second score reader, student arranging group and copyright reviewer must test the three textures, mixed ensemble options, range and originality.",
+   "notes": "HOW READ (2026-11-11): Bars 1-3, 5-7, 9-11 and 13-15 contain eight eighth units; bars 4, 8, 12 and 16 change to 3/4 and contain six. Melody uses D mixolydian, D4-B4, largest leap a fifth. Bars 1-4 are unison; 5-8 add chordal support; 9-12 add an independent counterline; 13-16 use the selected cumulative, swapped or subtractive texture. Form is four related four-bar panels.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original Grade 8 orchestral/collective indie-rock arranging bridge; students distribute melody, chords, pedal and counterline across available voices and instruments, then justify a live texture plan for the final four bars",
+    "elements": "sixteen bars, mainly 4/4 with 3/4 bars 4, 8, 12 and 16; D mixolydian D-E-F#-G-A-B-C, D4-B4 melody range; eighths, quarters, halves and changing bar length; D-C-G harmony over intermittent D pedal; monophony in bars 1-4, homophony in 5-8, imitative/polyphonic layers in 9-16; cumulative crescendo and through-built A-B-C-D arrangement",
+    "practice": "Rehearsal key D mixolydian; written melody range D4-B4 and counterline range A3-A4, with transposition or octave displacement allowed. Quarter note = 96. Rehearse the changing-metre phrase without accompaniment, assign one function per group, balance acoustic and electronic instruments, then have arrangers mark foreground, background, entry and exit on a shared chart.",
+    "accompaniment": "Newly authored D-C-G indie-rock frame for any ensemble: guitars or keys on chords, cello/bass on D pedal, percussion on a neutral backbeat and optional strings or winds on the counterline. Avoid the reference's recognizable banjo/string gestures and production arc.",
+    "lyrics": "Original English words about collective authorship. The lyric does not paraphrase the reference; students may replace the final two lines with jointly credited class text after consent and editorial review.",
+    "honesty": "AI-assisted original composition, 11 November 2026; not by Broken Social Scene and not an arrangement, cover or soundalike. The collective's recording is a case study in texture and ensemble authorship.",
+    "licence": "CC0 1.0 for supplied melody, words, harmony, counterline and ABC. New student text or arrangement decisions retain their authors' rights unless separately licensed; the reference remains copyrighted.",
+    "respect": "Credit the named collective and the song's listed writers rather than presenting its layered sound as anonymous \"indie.\" Discuss whose ideas are foregrounded, credited and consented to when a large group creates together.",
+    "review": "Grade 8 teacher, indie-rock/recording educator, second score reader, student arranging group and copyright reviewer; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "8",
+    "elements": "monophonic opening, homophonic refrain and polyphonic final layer; changing 4/4 and 3/4 metres; D-mixolydian pitch language; triadic harmony, pedal point and crescendo; sixteen-bar through-built arrangement",
+    "listen": "Broken Social Scene — \"Anthems for a Seventeen Year-Old Girl\", from You Forgot It in People (2002/2003), official artist audio",
+    "listen-url": "https://www.youtube.com/watch?v=FJYbIZmOEEA",
+    "bridge": "Hear how a Canadian indie-rock collective builds emotional scale through repetition, accumulating instruments, changing timbres and multiple musicians sharing an arrangement.",
+    "context": "Broken Social Scene is a Toronto musical collective. The reference credits multiple writers and its arrangement is known for a repeated vocal idea surrounded by gradually expanding banjo, strings and band texture.",
+    "distance": "Original D-mixolydian melody, lyric, counterline, metre changes and D-C-G harmony; no words, melody, banjo figure, string line, form or production detail from the reference is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "5-8",
+     "role": "ensemble",
+     "prompt": "Choose the homophonic colour",
+     "choices": [
+      "voices plus chords",
+      "instruments only",
+      "one voice with pedal tone"
+     ],
+     "replyBars": 4
+    },
+    {
+     "id": "B",
+     "bars": "13-16",
+     "role": "arranger/conductor",
+     "prompt": "Choose how the collective arrives",
+     "choices": [
+      "add one layer each bar",
+      "swap foreground and background",
+      "remove layers to one final voice"
+     ],
+     "replyBars": 4
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-jk-glow-and-grow",
+   "file": "items/cbc-modern-jk-glow-and-grow.abc",
+   "title": "Glow and Grow",
+   "subtitle": "Original two-note sound-choice game",
+   "source": "Grand Central Stationery, \"Glow and Grow\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Beverly Glenn-Copeland's recording is a listening reference only, not a performance model to reproduce."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "A Kindergarten music teacher, early-years accessibility reviewer, second score reader and student listening group must test the humming range, pacing, sensory choices and whether the two live choices are understandable without interrupting the flow.",
+   "notes": "HOW READ (2026-11-11): No source plate exists. Every bar contains four quarter-note units: bar 1 C4 half then D4 half; bar 2 C4 whole; bar 3 D4 half then C4 half; bar 4 C4 whole. Pitch set C-D, range one major second, form question-answer 2+2.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original JK listening-bridge and sound-choice game; an adult sings or plays the four bars while one child chooses the sound colour for the question and another chooses the dynamic shape of the answer",
+    "elements": "four bars in 4/4 at quarter note = 64; only C4 and D4; bars 1 and 3 use two half notes, bars 2 and 4 use one whole note; C4-D4 major second range; question-answer form 2+2 bars; dynamics and timbre are supplied by the live choices rather than fixed notation",
+    "practice": "Rehearsal key C; written range C4-D4. Keep the pulse in a slow rocking motion. Offer visual cards for hum, oo and chime, plus louder, softer and still. Participation may be vocal, instrumental, gestural or listening-only; never require a child to sing solo.",
+    "accompaniment": "No automatic band. Optional adult keyboard holds a very quiet C-G open fifth for all four bars; a single chime may replace the voice when selected. The sparse texture is newly authored and is not an arrangement of \"Ever New.\"",
+    "lyrics": "Wordless on purpose: \"mm\" may become \"oo.\" The absence of fixed words makes timbre, contour, breath and conversational choice the lesson.",
+    "honesty": "AI-assisted original composition for Grand Central Stationery, 11 November 2026. It is not by Beverly Glenn-Copeland and is not a simplified or transcribed version of \"Ever New.\"",
+    "licence": "CC0 1.0 for the melody, choice design, accompaniment suggestion and this ABC encoding. \"Ever New\" and its recording remain under their owners' copyright.",
+    "respect": "Introduce Glenn-Copeland by name and pronouns used in the artist's current materials; discuss the career and music without reducing the artist to identity labels. Do not call this classroom miniature ambient, new age or Glenn-Copeland's style; call it a listening bridge.",
+    "review": "Kindergarten music teacher, early-years/accessibility reviewer, second score reader and student listening trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "JK",
+    "elements": "steady pulse; two contrasting note lengths; high and low; soft and medium dynamics; humming, breath and classroom-instrument timbres; four-bar question-and-answer form",
+    "listen": "Beverly Glenn-Copeland — \"Ever New\", from Keyboard Fantasies (1986), as linked by the artist's official Bandcamp",
+    "listen-url": "https://beverlyglenn-copeland.bandcamp.com/track/ever-new-2",
+    "bridge": "Hear how a patient pulse, repeated shapes, warm voice and spacious keyboard colour can make very little material feel continually alive.",
+    "context": "Beverly Glenn-Copeland is a Canadian composer and singer whose electronic and acoustic work found a new international audience decades after Keyboard Fantasies was recorded.",
+    "distance": "This four-bar C-D humming game uses neither the reference melody, words, harmony nor keyboard pattern; it borrows only the general questions \"what changes slowly?\" and \"how can timbre create space?\""
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "1-2",
+     "role": "child conductor",
+     "prompt": "Choose the colour of the hum",
+     "choices": [
+      "closed-mouth hum",
+      "open oo",
+      "one soft chime"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "3-4",
+     "role": "child conductor",
+     "prompt": "Choose how the answer arrives",
+     "choices": [
+      "grow louder",
+      "grow softer",
+      "stay still"
+     ],
+     "replyBars": 2
+    }
+   ]
+  },
+  {
+   "id": "cbc-modern-sk-mirrorball-hello",
+   "file": "items/cbc-modern-sk-mirrorball-hello.abc",
+   "title": "Mirrorball Hello",
+   "subtitle": "Original greeting-and-freeze dance game",
+   "source": "Grand Central Stationery, \"Mirrorball Hello\" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0",
+   "sourceUrls": [
+    {
+     "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "label": "CC0 1.0 public-domain dedication applied to this original course composition"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No source performance exists. Carly Rae Jepsen's recording is for a compare-and-notice lesson only."
+   ],
+   "status": "classroom-check",
+   "owner": "",
+   "sourceCheck": "verified",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "An SK teacher, movement/accessibility reviewer, second score reader and student listening group must test the tempo, cue cards, range and safe freeze choices.",
+   "notes": "HOW READ (2026-11-11): Every bar totals eight eighth units. Bars 1 and 3: four quarter notes E-E-G-E; bars 2 and 4: four paired eighths G-E-D-C followed by C half; bars 5 and 6: paired eighths plus quarters; bar 7 four quarters; bar 8 C half and half rest. Pitch set C-D-E-G, range C4-G4, largest leap a fourth, form AABB.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "original SK dance-pop listening bridge and accessible movement game; the class sings two repeated greetings, follows one selected movement, then chooses the size and energy of the ending",
+    "elements": "eight bars in 4/4, C-major pitch set C-D-E-G, C4-G4 range; quarter notes, paired eighths, half notes and half-bar rests; repeated two-bar hook in bars 1-4, contrasting response in bars 5-8; AABB form; steady beat and soft/strong contrast",
+    "practice": "Rehearsal key C; written range C4-G4. Begin at quarter note = 88 and rise toward 104 only if words and movements stay relaxed. Teach the pulse seated first. Every movement choice has standing and seated versions; a learner may conduct or play the beat instead of moving.",
+    "accompaniment": "Newly authored C-F-G pop loop with optional bass roots on beat 1, clap on beats 2 and 4 and shaker eighths. Keep bars 4 and 8 sparse so the live decision is audible; do not recreate the reference's beat or synth sounds.",
+    "lyrics": "Original English greeting and movement words. Teachers may substitute names or accessible action verbs while preserving the rhythm and crediting the classroom adaptation.",
+    "honesty": "AI-assisted original course composition, 11 November 2026. It is a listening bridge, not a Carly Rae Jepsen song, soundalike, transcription or arrangement.",
+    "licence": "CC0 1.0 for melody, lyric, harmony and ABC. The referenced song and recording remain copyrighted and are linked, not reproduced.",
+    "respect": "Name Jepsen and the source track; use the comparison to hear craft in contemporary Canadian pop rather than treating pop as musically simple or disposable.",
+    "review": "SK classroom teacher, movement/accessibility reviewer, second score reader and student listening trial; all reviews still required"
+   },
+   "composition": {
+    "series": "CBC Modern Canadian Bridges — pilot",
+    "grade": "SK",
+    "elements": "steady beat in 4/4; paired eighth notes and quarter notes; high, middle and low; loud/soft contrast; repeated pop hook; eight-bar AABB movement form",
+    "listen": "Carly Rae Jepsen — \"Don't Leave Me on the Dance Floor\" (2026), included in the CBC Music Top 20 dated 9 November 2026",
+    "listen-url": "https://www.carlyraemusic.com/music/",
+    "bridge": "Notice the reliable dance pulse, a short memorable vocal hook and the way production drops or adds layers to frame a choice to move.",
+    "context": "Carly Rae Jepsen is a British Columbia-born Canadian pop songwriter and performer; CBC's current Top 20 placed this 2026 release among its new Canadian selections.",
+    "distance": "Original C-major three-note tune, lyric and C-F-G harmony; no melody, words, bass line, drum pattern or production sound from Jepsen's track is used."
+   },
+   "improv": [
+    {
+     "id": "A",
+     "bars": "3-4",
+     "role": "movement leader",
+     "prompt": "How does the hello move?",
+     "choices": [
+      "two side steps",
+      "two shoulder taps",
+      "two seated reaches"
+     ],
+     "replyBars": 2
+    },
+    {
+     "id": "B",
+     "bars": "7-8",
+     "role": "whole class",
+     "prompt": "Choose the ending energy",
+     "choices": [
+      "tiny and soft",
+      "bright and strong",
+      "freeze in silence"
+     ],
+     "replyBars": 2
+    }
+   ]
   },
   {
    "id": "cha-komba-komba",
@@ -3026,7 +3816,7 @@
    "performanceNotes": [
     "No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that two student groups can hold the interlock."
    ],
-   "status": "transcription",
+   "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
    "classroomCheck": "pending",

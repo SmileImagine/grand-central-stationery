@@ -1,0 +1,50 @@
+% holding-id: cbc-modern-jk-glow-and-grow
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Kindergarten music teacher, early-years accessibility reviewer, second score reader and student listening group must test the humming range, pacing, sensory choices and whether the two live choices are understandable without interrupting the flow.
+% source-local: course/holding/items/cbc-modern-jk-glow-and-grow.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. Beverly Glenn-Copeland's recording is a listening reference only, not a performance model to reproduce.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: JK
+% composition-elements: steady pulse; two contrasting note lengths; high and low; soft and medium dynamics; humming, breath and classroom-instrument timbres; four-bar question-and-answer form
+% composition-listen: Beverly Glenn-Copeland — "Ever New", from Keyboard Fantasies (1986), as linked by the artist's official Bandcamp
+% composition-listen-url: https://beverlyglenn-copeland.bandcamp.com/track/ever-new-2
+% composition-bridge: Hear how a patient pulse, repeated shapes, warm voice and spacious keyboard colour can make very little material feel continually alive.
+% composition-context: Beverly Glenn-Copeland is a Canadian composer and singer whose electronic and acoustic work found a new international audience decades after Keyboard Fantasies was recorded.
+% composition-distance: This four-bar C-D humming game uses neither the reference melody, words, harmony nor keyboard pattern; it borrows only the general questions "what changes slowly?" and "how can timbre create space?"
+% improv: {"id":"A","bars":"1-2","role":"child conductor","prompt":"Choose the colour of the hum","choices":["closed-mouth hum","open oo","one soft chime"],"replyBars":2}
+% improv: {"id":"B","bars":"3-4","role":"child conductor","prompt":"Choose how the answer arrives","choices":["grow louder","grow softer","stay still"],"replyBars":2}
+% dossier-function: original JK listening-bridge and sound-choice game; an adult sings or plays the four bars while one child chooses the sound colour for the question and another chooses the dynamic shape of the answer
+% dossier-elements: four bars in 4/4 at quarter note = 64; only C4 and D4; bars 1 and 3 use two half notes, bars 2 and 4 use one whole note; C4-D4 major second range; question-answer form 2+2 bars; dynamics and timbre are supplied by the live choices rather than fixed notation
+% dossier-practice: Rehearsal key C; written range C4-D4. Keep the pulse in a slow rocking motion. Offer visual cards for hum, oo and chime, plus louder, softer and still. Participation may be vocal, instrumental, gestural or listening-only; never require a child to sing solo.
+% dossier-accompaniment: No automatic band. Optional adult keyboard holds a very quiet C-G open fifth for all four bars; a single chime may replace the voice when selected. The sparse texture is newly authored and is not an arrangement of "Ever New."
+% dossier-lyrics: Wordless on purpose: "mm" may become "oo." The absence of fixed words makes timbre, contour, breath and conversational choice the lesson.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026. It is not by Beverly Glenn-Copeland and is not a simplified or transcribed version of "Ever New."
+% dossier-licence: CC0 1.0 for the melody, choice design, accompaniment suggestion and this ABC encoding. "Ever New" and its recording remain under their owners' copyright.
+% dossier-respect: Introduce Glenn-Copeland by name and pronouns used in the artist's current materials; discuss the career and music without reducing the artist to identity labels. Do not call this classroom miniature ambient, new age or Glenn-Copeland's style; call it a listening bridge.
+% dossier-review: Kindergarten music teacher, early-years/accessibility reviewer, second score reader and student listening trial; all reviews still required
+X:1
+T:Glow and Grow
+T:Original two-note sound-choice game
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:early-years wordless listening bridge
+S:Grand Central Stationery, "Glow and Grow" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists. Every bar contains four quarter-note units: bar 1 C4 half then D4 half; bar 2 C4 whole; bar 3 D4 half then C4 half; bar 4 C4 whole. Pitch set C-D, range one major second, form question-answer 2+2.
+N:UNCERTAIN: The best tempo, whether children prefer voice or chime, and whether the dynamic cards read clearly require a classroom trial. A second score reader must repeat the originality comparison against "Ever New" and common two-note early-years songs.
+M:4/4
+L:1/4
+Q:1/4=64
+K:C
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+C2 D2 | C4 | D2 C2 | C4 |]
+w: Mm __ mm __ mm __ mm __

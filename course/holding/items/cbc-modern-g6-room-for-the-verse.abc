@@ -1,0 +1,54 @@
+% holding-id: cbc-modern-g6-room-for-the-verse
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: A Grade 6 teacher, hip-hop educator, second score reader and student cypher trial must check the spoken flow, anacrusis, triplet/eighth contrast, content-safety process and accompaniment balance.
+% source-local: course/holding/items/cbc-modern-g6-room-for-the-verse.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. TOBi's recording is a listening reference only.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: 6
+% composition-elements: anacrusis; straight eighths against eighth-note triplets; syncopated rests; i-iv-V harmony in D minor; layered ostinato, spoken verse and sung hook; sixteen-bar verse/hook form
+% composition-listen: TOBi — "Just Us In The Room" (2026), a CBC Music Top 20 selection dated 9 November 2026
+% composition-listen-url: https://audiomack.com/tobi/song/just-us-in-the-room-6046703
+% composition-bridge: Listen for how a contemporary hip-hop track controls conversational timing, rhyme placement, space and changes of vocal register inside a repeating production frame.
+% composition-context: TOBi is a Nigerian-born, Brampton-raised Canadian rapper and singer. The artist-uploaded track is categorized as hip-hop/rap and was released in September 2026.
+% composition-distance: Original classroom-safe words, D-minor hook, body-percussion ostinato and chord loop; no flow, lyric, beat, sample, melody or production element from TOBi's recording is used.
+% improv: {"id":"A","bars":"5-8","role":"solo or pair","prompt":"Complete the two-bar thought","choices":["straight eighth flow","triplet flow","speak only on beats 2 and 4"],"replyBars":4}
+% improv: {"id":"B","bars":"13-16","role":"producer/conductor","prompt":"Choose the hook arrangement","choices":["all layers in","voice and bass only","drop one bar then return"],"replyBars":4}
+% dossier-function: original Grade 6 alternative-hip-hop cypher bridge; the class maintains a four-bar ostinato, pairs write and perform a two-bar answer under clear content rules, and a conductor chooses the final drop and return
+% dossier-elements: sixteen bars in 4/4 with one sung pickup eighth after an eighth rest; D-minor hook D-F-G-A with C sharp on the A-major V, D4-A4 range; straight eighths, eighth-note triplets and syncopated rests; Dm-Gm-A (i-iv-V); layered body percussion, spoken rhythm and sung hook; verse/hook AABA form
+% dossier-practice: Rehearsal key D minor; written hook range D4-A4, with spoken verses adaptable to any comfortable voice. Quarter note = 88. Establish the kick-pat on beats 1 and 3 and clap on 2 and 4, speak the pickup, compare one bar of straight eighths with one of triplets, then write only two bars. Offer beat-making, conducting or instrumental roles instead of public rapping.
+% dossier-accompaniment: Newly authored Dm-Gm-A loop, bass roots and classroom body percussion. No copyrighted sample and no attempt to copy TOBi's beat. A digital version may use only licensed or student-recorded sounds whose provenance is documented.
+% dossier-lyrics: Original English hook and verse frame. Student verses must follow class-agreed boundaries: no personal disclosures required, no insults, slurs or naming classmates, and anyone may pass. Record student authorship and consent before saving text.
+% dossier-honesty: AI-assisted original composition, 11 November 2026; not by TOBi, not freestyle evidence and not a transcription or imitation. The reference teaches listening and craft.
+% dossier-licence: CC0 1.0 for the supplied hook, verse frame, harmony and ABC. Student verses retain student authorship unless separately and knowingly licensed; TOBi's work remains copyrighted.
+% dossier-respect: Teach hip-hop as a Black cultural practice with histories of DJing, MCing, dance, visual art, community testimony and technological invention. Do not frame rap as merely speaking over a beat or require stereotyped delivery.
+% dossier-review: Grade 6 teacher, hip-hop educator, second score reader, privacy/accessibility reviewer and student cypher trial; all reviews still required
+X:1
+T:Room for the Verse
+T:Original pickup-and-triplet cypher bridge
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 6 alternative-hip-hop listening bridge
+S:Grand Central Stationery, "Room for the Verse" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): The score starts with one sung pickup eighth after an eighth rest. Every full bar totals eight eighth units. Bars 1-4 are the sung hook; bars 5-8 provide notated straight, triplet and offbeat models for replacing with a student two-bar thought; bars 9-12 return to the hook; bars 13-16 repeat it under the live arrangement choice. Pitch set D-E-F-G-A with C sharp on the A chord, range D4-A4.
+N:UNCERTAIN: Student comfort, authorship workflow, text safety, whether the triplet notation reads cleanly and whether the groove supports rather than crowds speech require specialist and classroom trials.
+M:4/4
+L:1/8
+Q:1/4=88
+K:Dm
+%%style funk
+z D | "Dm"F2 F A2 G F2 | "Gm"G2 G A z2 G2 | "A"A2 ^C2 E2 ^C2 | "Dm"D6 z D |
+w: Make room for the verse, make room for the view; lis-ten to the first voice, then an-swer with the new.
+"Dm"D D F F A2 z2 | "Gm"(3GAG (3FGA G2 z2 | "A"z2 ^C E A2 G2 | "Dm"F2 E2 D4 |
+w: Start with a straight line, turn it in three; leave two beats o-pen, then bring it home to me.
+"Dm"F2 F A2 G F2 | "Gm"G2 G A z2 G2 | "A"A2 ^C2 E2 ^C2 | "Dm"D6 z2 |
+w: Make room for the verse, make room for the view; lis-ten to the first voice, then an-swer with the new.
+"Dm"F2 F A2 G F2 | "Gm"G2 G A z2 G2 | "A"A2 ^C2 E2 ^C2 | "Dm"D8 |]
+w: Choose what stays and choose what drops; one bar breathes, then the whole room locks.

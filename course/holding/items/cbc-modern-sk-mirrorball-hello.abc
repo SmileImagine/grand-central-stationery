@@ -1,0 +1,50 @@
+% holding-id: cbc-modern-sk-mirrorball-hello
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
+% holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
+% holding-updated: 2026-11-11
+% holding-blocked: An SK teacher, movement/accessibility reviewer, second score reader and student listening group must test the tempo, cue cards, range and safe freeze choices.
+% source-local: course/holding/items/cbc-modern-sk-mirrorball-hello.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. Carly Rae Jepsen's recording is for a compare-and-notice lesson only.
+% composition-series: CBC Modern Canadian Bridges — pilot
+% composition-grade: SK
+% composition-elements: steady beat in 4/4; paired eighth notes and quarter notes; high, middle and low; loud/soft contrast; repeated pop hook; eight-bar AABB movement form
+% composition-listen: Carly Rae Jepsen — "Don't Leave Me on the Dance Floor" (2026), included in the CBC Music Top 20 dated 9 November 2026
+% composition-listen-url: https://www.carlyraemusic.com/music/
+% composition-bridge: Notice the reliable dance pulse, a short memorable vocal hook and the way production drops or adds layers to frame a choice to move.
+% composition-context: Carly Rae Jepsen is a British Columbia-born Canadian pop songwriter and performer; CBC's current Top 20 placed this 2026 release among its new Canadian selections.
+% composition-distance: Original C-major three-note tune, lyric and C-F-G harmony; no melody, words, bass line, drum pattern or production sound from Jepsen's track is used.
+% improv: {"id":"A","bars":"3-4","role":"movement leader","prompt":"How does the hello move?","choices":["two side steps","two shoulder taps","two seated reaches"],"replyBars":2}
+% improv: {"id":"B","bars":"7-8","role":"whole class","prompt":"Choose the ending energy","choices":["tiny and soft","bright and strong","freeze in silence"],"replyBars":2}
+% dossier-function: original SK dance-pop listening bridge and accessible movement game; the class sings two repeated greetings, follows one selected movement, then chooses the size and energy of the ending
+% dossier-elements: eight bars in 4/4, C-major pitch set C-D-E-G, C4-G4 range; quarter notes, paired eighths, half notes and half-bar rests; repeated two-bar hook in bars 1-4, contrasting response in bars 5-8; AABB form; steady beat and soft/strong contrast
+% dossier-practice: Rehearsal key C; written range C4-G4. Begin at quarter note = 88 and rise toward 104 only if words and movements stay relaxed. Teach the pulse seated first. Every movement choice has standing and seated versions; a learner may conduct or play the beat instead of moving.
+% dossier-accompaniment: Newly authored C-F-G pop loop with optional bass roots on beat 1, clap on beats 2 and 4 and shaker eighths. Keep bars 4 and 8 sparse so the live decision is audible; do not recreate the reference's beat or synth sounds.
+% dossier-lyrics: Original English greeting and movement words. Teachers may substitute names or accessible action verbs while preserving the rhythm and crediting the classroom adaptation.
+% dossier-honesty: AI-assisted original course composition, 11 November 2026. It is a listening bridge, not a Carly Rae Jepsen song, soundalike, transcription or arrangement.
+% dossier-licence: CC0 1.0 for melody, lyric, harmony and ABC. The referenced song and recording remain copyrighted and are linked, not reproduced.
+% dossier-respect: Name Jepsen and the source track; use the comparison to hear craft in contemporary Canadian pop rather than treating pop as musically simple or disposable.
+% dossier-review: SK classroom teacher, movement/accessibility reviewer, second score reader and student listening trial; all reviews still required
+X:1
+T:Mirrorball Hello
+T:Original greeting-and-freeze dance game
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:early-years dance-pop listening bridge
+S:Grand Central Stationery, "Mirrorball Hello" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): Every bar totals eight eighth units. Bars 1 and 3: four quarter notes E-E-G-E; bars 2 and 4: four paired eighths G-E-D-C followed by C half; bars 5 and 6: paired eighths plus quarters; bar 7 four quarters; bar 8 C half and half rest. Pitch set C-D-E-G, range C4-G4, largest leap a fourth, form AABB.
+N:UNCERTAIN: Catchiness, safe movement pacing, lyric clarity and the best ending choices await a classroom trial. A second reader must compare the hook with the listening reference and common greeting songs.
+M:4/4
+L:1/8
+Q:1/4=104
+K:C
+%%style pop
+"C"E2 E2 G2 E2 | "F"GE DC C4 | "C"E2 E2 G2 E2 | "G"GE DC C4 |
+w: Hel-lo, hel-lo, light the room; wave it high and make it bloom. Hel-lo, hel-lo, light the room; choose a move and make some room.
+"F"EF G2 EF G2 | "G"GA G2 ED C2 | "C"E2 G2 E2 D2 | C4 z4 |]
+w: Step or reach, you choose the way; big or small, we end to-day; three, two, one, our lights say go!
