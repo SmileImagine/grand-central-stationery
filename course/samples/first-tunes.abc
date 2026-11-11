@@ -43,14 +43,33 @@ K:G
 G G A B | G B A D | G G A B | G2 F2 | G G A B | c B A G | F D E F | G2 G2 |]
 
 X:6
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
-K:C
+T:Amazing Grace
+C:Words: John Newton (1779); tune: New Britain (USA, 1829)
+O:USA
+R:hymn
+M:3/4
+L:1/4
+K:G
+N:A Christian hymn: follow your school's guidance on religious songs. Newton had been a slave-ship captain before he became a clergyman and, later, an abolitionist; that history is often taught with it.
+D | G2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | d3- | d2 B/2d/2 |
+w: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_
+d2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | G3- | G2 |]
+w: once was_ lost but now am found, was blind but_ now I see. _
 
 X:7
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
-K:C
+T:Oh! Susanna
+C:Stephen Foster (1848)
+O:USA
+M:2/4
+L:1/8
+K:G
+N:The first verse and the chorus only, in standard spelling. Foster wrote the song for blackface minstrel shows; his original second verse uses a racial slur in a violent joke, and it is never sung here. Teach that history with the song.
+G/2A/2 | B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G G/2A/2 |
+w: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained
+B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |
+w: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _
+c2 c2 | e e2 e | d d B G | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |]
+w: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.
 
 X:8
 T:Withheld

@@ -1,13 +1,13 @@
 # Accompaniment audit
 
-Generated deterministically from `course/set.json` (37 published tunes). This records what the page will actually do on **Auto**; it does not invent cultural metadata or treat detected chords as reviewed harmony.
+Generated deterministically from `course/set.json` (40 published tunes). This records what the page will actually do on **Auto**; it does not invent cultural metadata or treat detected chords as reviewed harmony.
 
 ## Summary
 
-- Auto styles: drone: 8; folk: 19; pop: 9; waltz: 1.
-- Style selected by: R field: 11; explicit style: 9; generic fallback: 9; metre only: 8.
-- Harmony source: detected chords: 14; tonic drone: 8; written chords: 15.
-- 9 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
+- Auto styles: drone: 8; folk: 20; pop: 10; waltz: 2.
+- Style selected by: R field: 11; explicit style: 9; generic fallback: 10; metre only: 10.
+- Harmony source: detected chords: 17; tonic drone: 8; written chords: 15.
+- 10 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
 - 29 tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.
 - 12 Nottingham imports link to their canonical repository files; 0 published source paths point into temporary or private directories.
 
@@ -23,6 +23,7 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 | Baa, Baa, Black Sheep | 3 | pop | detected chords | O: England |
 | This Old Man | 3 | pop | detected chords | O: England |
 | Lightly Row | 3 | pop | detected chords | O: Germany |
+| Jingle Bells (chorus) | 3 | pop | detected chords | O: USA; source: James Lord Pierpont (1857) |
 | Frère Jacques | 4 | pop | detected chords | O: France |
 
 ## Whole-set audit
@@ -45,10 +46,13 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 | Baa, Baa, Black Sheep | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
 | This Old Man | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
 | Lightly Row | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
+| Jingle Bells (chorus) | pop | generic fallback | detected chords | idiom not stated |
+| Amazing Grace | waltz | metre only | detected chords | — |
 | Frère Jacques | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
 | Highland Mary | folk | explicit style | written chords | no origin in ABC |
 | Astley's Ride | folk | R field | written chords | no origin in ABC |
 | The First Frost - Second part | folk | R field | written chords | no origin in ABC |
+| Oh! Susanna | folk | metre only | detected chords | — |
 | Daisy Daisy | waltz | R field | written chords | no origin in ABC |
 | O where will you go | drone | explicit style | tonic drone | — |
 | Tom And Jerry | folk | R field | written chords | no origin in ABC |
@@ -85,6 +89,7 @@ Generated deterministically from `course/set.json` (37 published tunes). This re
 - **Baa, Baa, Black Sheep:** idiom not stated; no source or composer in ABC.
 - **This Old Man:** idiom not stated; no source or composer in ABC.
 - **Lightly Row:** idiom not stated; no source or composer in ABC.
+- **Jingle Bells (chorus):** idiom not stated.
 - **Frère Jacques:** idiom not stated; no source or composer in ABC.
 - **Highland Mary:** no origin in ABC.
 - **Astley's Ride:** no origin in ABC.

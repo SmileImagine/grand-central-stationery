@@ -123,7 +123,7 @@ const has = (f, tag) => (f.skills || []).includes(tag);
       else assert(a[0] !== b[0] || a[1] !== b[1], `${t.id}: ${p.letter} and ${q.letter} begin differently`);
     }));
   }
-  eq(withParts, 16, 'sixteen pieces with parts to compare (Dance All Night is the one form of two parts left out)');
+  eq(withParts, 17, 'seventeen pieces with parts to compare (Dance All Night is the one form of two parts left out)');
 }
 
 /* ---------------- the Listen step's choices ---------------- */

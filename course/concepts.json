@@ -997,6 +997,154 @@
     ]
    }
   },
+  "beginner-songs-15-jingle-bells-chorus": {
+   "title": "Jingle Bells (chorus)",
+   "duration": {
+    "concept": "whole",
+    "name": "a four-beat note",
+    "grade": 2,
+    "term": "whole note (“ta-ah-ah-ah”)",
+    "words": "one sound held for four beats",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "A whole note: one sound held for four beats."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "The widest leap in the tune, so down to do: a perfect 5th."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     4,
+     5
+    ],
+    "reason": "Two parts, A and B: bars 4–5 are where A ends and B begins.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     },
+     {
+      "letter": "B′",
+      "bars": [
+       13,
+       16
+      ],
+      "play": [
+       13,
+       14
+      ]
+     }
+    ]
+   }
+  },
+  "first-tunes-6-amazing-grace": {
+   "title": "Amazing Grace",
+   "duration": {
+    "concept": "dotted-half",
+    "name": "a three-beat note",
+    "grade": 3,
+    "term": "dotted half note",
+    "words": "one sound held for three beats (ta-ah-ah)",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "A dotted half note: one sound held for three beats."
+   },
+   "pitch": {
+    "concept": "pentatonic",
+    "name": "the pentatonic scale",
+    "grade": 2,
+    "term": "melodic patterns using notes of a pentatonic scale (e.g., “do–re–mi–so–la”)",
+    "words": "all five notes of the pentatonic scale: do, re, mi, so, la",
+    "bars": [
+     3,
+     5
+    ],
+    "reason": "All five notes of the pentatonic scale, do re mi so la, and no others."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, about four bars ending on low so."
+   }
+  },
   "beginner-songs-13-fr-re-jacques": {
    "title": "Frère Jacques",
    "duration": {
@@ -1295,6 +1443,57 @@
       ]
      }
     ]
+   }
+  },
+  "first-tunes-7-oh-susanna": {
+   "title": "Oh! Susanna",
+   "duration": {
+    "concept": "syncopation",
+    "name": "syn-co-pa",
+    "grade": 4,
+    "term": "syncopation (“ti-ta-ti” or “syn-co-pa”)",
+    "words": "a longer note that starts between the beats (syn-co-pa)",
+    "bars": [
+     19,
+     19
+    ],
+    "reason": "Short-long-short, syn-co-pa: the long note starts off the beat and holds across it."
+   },
+   "pitch": {
+    "concept": "leap-small",
+    "name": "a leap of a perfect 4th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     17,
+     18
+    ],
+    "reason": "The widest leap in the tune, do up to fa: a perfect 4th."
+   },
+   "dynamics": {
+    "absent": true,
+    "reason": "No dynamics, articulation or expression marks are written in this piece."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, about four bars ending on re."
    }
   },
   "waltzes-11-daisy-daisy": {

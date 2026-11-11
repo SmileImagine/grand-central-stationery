@@ -406,17 +406,17 @@
       out += keep && b.close.repeat ? (B[i + 1] && B[i + 1].open.repeat ? ' ::' : ' :|') : last ? ' |]' : b.close.double ? ' ||' : ' |';
       if (!last) out += b.lineEnd ? '\n' : ' ';
     });
-    // The words: every verse that has any in the phrase; a tied-on note takes none, a note with no syllable a *.
+    // The words: every verse that has any in the phrase; a note with no syllable takes a *. abcjs gives a tied-on note a
+    // syllable slot of its own (the standard skips it), so it is written like any other note, or the words after a tie
+    // would each land one note early.
     const verses = [];
     const notes = B.flatMap(b => b.notes);
     const maxV = Math.max(0, ...notes.map(n => (n.lyric || []).length));
     for (let v = 0; v < maxV; v++) {
       if (!notes.some(n => n.lyric && n.lyric[v] && n.lyric[v].syllable)) continue;
       // A syllable ending _ is held over the next note; each further note it holds takes another _.
-      let w = '', tiedOn = false, held = 0;
+      let w = '', held = 0;
       for (const n of notes) {
-        const tieIn = tiedOn; tiedOn = (n.pitches || []).some(x => x.startTie);
-        if (tieIn && (n.pitches || []).some(x => x.endTie)) continue;
         const l = n.lyric && n.lyric[v];
         if (!l || !l.syllable) { if (held === 1) held = 2; else w += held ? '_ ' : '* '; continue; }
         const syl = l.syllable.replace(/\s+/g, '~').replace(/[-_*|]/g, m => '\\' + m);

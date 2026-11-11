@@ -774,6 +774,103 @@
    }
   },
   {
+   "id": "beginner-songs-15-jingle-bells-chorus",
+   "title": "Jingle Bells (chorus)",
+   "level": 3,
+   "score": 5.71,
+   "key": "G",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "USA",
+   "composer": "James Lord Pierpont (1857)",
+   "rhythm": "",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:4",
+    "key:1",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:15\nT:Jingle Bells (chorus)\nC:James Lord Pierpont (1857)\nO:USA\nM:4/4\nL:1/4\nK:G\nN:A winter sleigh song. Research in 2017 traced its first known performance to a minstrel show in Boston in 1857; others dispute that reading. The chorus words are sung here.\nB B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | B A A B | A2 d2 |\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!\nB B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | d d c A | G4 |]\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!\n"
+  },
+  {
+   "id": "first-tunes-6-amazing-grace",
+   "title": "Amazing Grace",
+   "level": 3,
+   "score": 7.68,
+   "key": "G",
+   "metre": "3/4",
+   "bars": 17,
+   "origin": "USA",
+   "composer": "Words: John Newton (1779); tune: New Britain (USA, 1829)",
+   "rhythm": "hymn",
+   "source": "course/samples/first-tunes.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:5",
+    "key:1",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:octave",
+    "tie-over-bar"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "6: pick-up notes (anacrusis)",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:6\nT:Amazing Grace\nC:Words: John Newton (1779); tune: New Britain (USA, 1829)\nO:USA\nR:hymn\nM:3/4\nL:1/4\nK:G\nN:A Christian hymn: follow your school's guidance on religious songs. Newton had been a slave-ship captain before he became a clergyman and, later, an abolitionist; that history is often taught with it.\nD | G2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | d3- | d2 B/2d/2 |\nw: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_\nd2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | G3- | G2 |]\nw: once was_ lost but now am found, was blind but_ now I see. _\n"
+  },
+  {
    "id": "beginner-songs-13-fr-re-jacques",
    "title": "Frère Jacques",
    "level": 4,
@@ -971,6 +1068,62 @@
     ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "first-tunes-7-oh-susanna",
+   "title": "Oh! Susanna",
+   "level": 4,
+   "score": 9.43,
+   "key": "G",
+   "metre": "2/4",
+   "bars": 25,
+   "origin": "USA",
+   "composer": "Stephen Foster (1848)",
+   "rhythm": "",
+   "source": "course/samples/first-tunes.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:3/2",
+    "dur:3/4",
+    "key:1",
+    "leap:4th",
+    "metre:2/4",
+    "pickup",
+    "range:6th",
+    "syncopation"
+   ],
+   "introduces": [
+    "dur:3/4"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: sixteenth-note patterns",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:7\nT:Oh! Susanna\nC:Stephen Foster (1848)\nO:USA\nM:2/4\nL:1/8\nK:G\nN:The first verse and the chorus only, in standard spelling. Foster wrote the song for blackface minstrel shows; his original second verse uses a racial slur in a violent joke, and it is never sung here. Teach that history with the song.\nG/2A/2 | B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G G/2A/2 |\nw: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained\nB2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |\nw: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _\nc2 c2 | e e2 e | d d B G | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |]\nw: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.\n"
   },
   {
    "id": "waltzes-11-daisy-daisy",

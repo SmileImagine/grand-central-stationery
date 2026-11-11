@@ -1,15 +1,15 @@
 # Classroom range report
 
-Generated deterministically from `course/set.json` (37 published tunes). A suggestion stays within the page's ±12-semitone control and puts every melody note in the named range. A key that already fits is left alone; otherwise the report prefers an easier key signature, then the smaller shift. It is a starting key for rehearsal, not a judgement about an individual singer.
+Generated deterministically from `course/set.json` (40 published tunes). A suggestion stays within the page's ±12-semitone control and puts every melody note in the named range. A key that already fits is left alone; otherwise the report prefers an easier key signature, then the smaller shift. It is a starting key for rehearsal, not a judgement about an individual singer.
 
 ## Range profiles
 
 | Profile | Range | As written | With transposition | No fit |
 |---|---:|---:|---:|---:|
-| Young unison voices | C4-D5 | 21 | 26 | 11 |
-| Soprano recorder | C5-D7 | 0 | 25 | 12 |
-| Soprano ukulele (12 frets) | C4-A5 | 24 | 29 | 8 |
-| One-octave classroom set | C4-C5 | 16 | 21 | 16 |
+| Young unison voices | C4-D5 | 23 | 29 | 11 |
+| Soprano recorder | C5-D7 | 0 | 28 | 12 |
+| Soprano ukulele (12 frets) | C4-A5 | 27 | 32 | 8 |
+| One-octave classroom set | C4-C5 | 16 | 24 | 16 |
 
 - **Young unison voices:** C4-D5; the plan's deliberately conservative starting range.
 - **Soprano recorder:** C5-D7, ordinary written/sounding range.
@@ -18,7 +18,7 @@ Generated deterministically from `course/set.json` (37 published tunes). A sugge
 
 ## Singing keys to try
 
-21 tunes already sit wholly in C4-D5. The table lists the rest; “too wide” means transposition cannot solve the span.
+23 tunes already sit wholly in C4-D5. The table lists the rest; “too wide” means transposition cannot solve the span.
 
 | Tune | Level | Written key and range | Young voices |
 |---|---:|---|---|
@@ -26,6 +26,7 @@ Generated deterministically from `course/set.json` (37 published tunes). A sugge
 | Frère Jacques | 4 | C; G3-A4 (14 semitones) | +5 → F (C4-D5) |
 | Highland Mary | 4 | G; D4-E5 (14 semitones) | -2 → F (C4-D5) |
 | Astley's Ride | 4 | D; A4-B5 (14 semitones) | -9 → F (C4-D5) |
+| Oh! Susanna | 4 | G; G4-E5 (9 semitones) | -7 → C (C4-A4) |
 | Daisy Daisy | 4 | D; A4-A5 (12 semitones) | -7 → G (D4-D5) |
 | Tom And Jerry | 5 | A; C#4-A5 (20 semitones) | too wide |
 | B. Variation | 5 | G; G3-G5 (24 semitones) | too wide |
@@ -59,10 +60,13 @@ Generated deterministically from `course/set.json` (37 published tunes). A sugge
 | Baa, Baa, Black Sheep | as written | +12 → C (C5-A5) | as written | as written |
 | This Old Man | as written | +12 → C (C5-A5) | as written | as written |
 | Lightly Row | as written | +12 → C (C5-G5) | as written | as written |
+| Jingle Bells (chorus) | as written | +5 → C (C5-G5) | as written | -7 → C (C4-G4) |
+| Amazing Grace | as written | +10 → F (C5-C6) | as written | -2 → F (C4-C5) |
 | Frère Jacques | +5 → F (C4-D5) | needs more than ±12 | +12 → C (G4-A5) | too wide |
 | Highland Mary | -2 → F (C4-D5) | +10 → F (C5-D6) | as written | too wide |
 | Astley's Ride | -9 → F (C4-D5) | +10 → C (G5-A6) | -2 → C (G4-A5) | too wide |
 | The First Frost - Second part | as written | +12 → D (C#5-D6) | as written | too wide |
+| Oh! Susanna | -7 → C (C4-A4) | +5 → C (C5-A5) | as written | -7 → C (C4-A4) |
 | Daisy Daisy | -7 → G (D4-D5) | +10 → C (G5-G6) | as written | -9 → F (C4-C5) |
 | O where will you go | as written | +7 → DDor (D5-G5) | as written | as written |
 | Tom And Jerry | too wide | +12 → A (C#5-A6) | as written | too wide |
