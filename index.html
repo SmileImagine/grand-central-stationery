@@ -402,14 +402,23 @@
     .paper .tabstr { stroke: currentColor; stroke-opacity: 0.55; stroke-width: 0.9; }
     .paper .fretno { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
     .paper .tabclef { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; opacity: 0.7; letter-spacing: 0.05em; }
-    /* The sign at the score's top left: Staff or Tab, for a fretted instrument. */
+    /* The score's top-left corner: the transport (the grand clock, course/clock.css) and, for a fretted instrument,
+       the sign for Staff or Tab beside it. It stands over the cell, not in the score, so the game's masks never fade
+       it; clearCorner moves the music down just enough that none of it is under the corner. abcjs's tempo mark, whose
+       row the clock takes, is not drawn: the clock says the tempo. */
     .score { position: relative; }
-    .score .sign { position: absolute; left: 8px; top: 4px; z-index: 4; display: flex; gap: 2px; font: 700 11px/1 'Atkinson Hyperlegible', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
-    .score .sign[hidden] { display: none; }
-    .score .sign button { font: inherit; letter-spacing: inherit; padding: 5px 7px 4px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: var(--muted); }
-    .score .sign button:hover { color: var(--ink); }
-    .score .sign button[aria-pressed="true"] { color: var(--ink); border-bottom-color: #9c7a45; }
-    body.present .score .sign { font-size: 13px; left: 14px; top: 8px; }
+    .cell[data-type="abc"] .cell-body > .score { flex: 1 1 0; margin-top: var(--clock-room, 0px); }   /* the score takes what the instrument and the dock leave (its drawn size is no claim on the room) */
+    .cell[data-type="abc"] .paper .abcjs-tempo { display: none; }
+    .corner { position: absolute; z-index: 5; left: 8px; top: 6px; display: flex; align-items: center; gap: 4px 12px; --clock-size: 40px; }
+    body.present .corner { left: 14px; top: 10px; --clock-size: 48px; }
+    body.game .corner { top: 14px; }   /* under the game's progress bar */
+    .corner .transport { gap: 4px; }
+    .corner .sign { display: flex; gap: 2px; font: 700 11px/1 'Atkinson Hyperlegible', sans-serif; letter-spacing: 0.14em; text-transform: uppercase; }
+    .corner .sign[hidden] { display: none; }
+    .corner .sign button { font: inherit; letter-spacing: inherit; padding: 5px 7px 4px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; color: var(--muted); }
+    .corner .sign button:hover { color: var(--ink); }
+    .corner .sign button[aria-pressed="true"] { color: var(--ink); border-bottom-color: #9c7a45; }
+    body.present .corner .sign { font-size: 13px; }
     /* recorder: --c is the sounding note's colour, --n the next note's */
     .inst .rec .body { fill: color-mix(in srgb, var(--ink) 10%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1.2; transition: filter 0.2s; }
     .inst .rec.lit .body { stroke: var(--c); stroke-width: 2; filter: drop-shadow(0 0 6px var(--c)); }
@@ -462,14 +471,22 @@
     .xpose[hidden] { display: none; }
     .xpose select.examples { max-width: 11em; }   /* the course set's titles would otherwise widen it past the strip */
     /* ---------- the notation dock ----------
-       Under the staff and the instrument sits one bar: the transport, the
-       tempo, and three tabs (Melody, Band, Mixer). The open tab's drawer
+       Under the staff and the instrument sits one bar of tabs (Melody, Band,
+       Mixer); the transport is in the score's corner. The open tab's drawer
        hangs under the bar. The melody's ABC is typed in the Melody drawer
        beside the instrument's controls; the %%band lines in the Band drawer
        beside the band's; the mixer is the third. In edit mode the Melody
        drawer is open; presenting and in the game the bar stands alone until
-       a tab is tapped, and the drawers close when the music starts. */
-    .cell[data-type="abc"] .strip.dock { flex-direction: column; height: auto; min-height: 0; max-height: 58%; padding: 0; gap: 0; font: 14px system-ui, sans-serif; }
+       a tab is tapped, and the drawers close when the music starts.
+       A drawer is as tall as what is in it, whichever tab it is (.dock
+       .drawer: any drawer added later gets this too). Editing, the cell
+       grows by the open drawer's height (--drawer-h), so the staff keeps its
+       room and nothing in the drawer is cut off or scrolls. Presenting, the
+       dock is capped so the staff keeps the screen; past the cap the open
+       drawer scrolls as one, its parts at their own heights. */
+    .cell[data-type="abc"] .strip.dock { flex: 0 0 auto; flex-direction: column; height: auto; min-height: 0; max-height: none; padding: 0; gap: 0; font: 14px system-ui, sans-serif; }
+    .cell[data-type="abc"] .cell-body { height: calc(var(--abc-cell-h) + var(--drawer-h, 0px)); }
+    .cell[data-type="abc"] .cell-body.with-inst { height: calc(var(--abc-inst-cell-h, 66vh) + var(--drawer-h, 0px)); }
     /* The Concourse: warm stone, brass rules, one hierarchy of signs, and
        passages that fade in rather than move the score. */
     .cell[data-type="abc"] .cell-body { --concourse-floor: #f6f0e6; --concourse-ink: #2a2622; --concourse-brass: #9c7a45; --concourse-light: #f39322; --concourse-celestial: #2f6f7e; --concourse-warn: #b8603d; background: var(--concourse-floor); color: var(--concourse-ink); }
@@ -478,38 +495,15 @@
     .cell[data-type="abc"] .score, .cell[data-type="abc"] .inst, .cell[data-type="abc"] .dock, .cell[data-type="abc"] .drawer { transition: opacity 0.3s ease, background-color 0.3s ease; }
     .cell[data-type="abc"] .dock { border-top: 1px solid var(--concourse-brass); background: color-mix(in srgb, var(--concourse-floor) 88%, var(--concourse-ink)); }
     .dock .dockbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; padding: 6px 10px; }
-    .dock .dockbar .tabs { margin-left: auto; }
     /* Light or dark, at the bar's right end, level with the drawer tabs: the page's own theme button (#theme)
        pressed from here. The sign is the theme it goes to, as on #theme: a moon on a light page, a sun on a dark one. */
     .dock .dockbar { position: relative; }
-    .dock .dockbar .themetog { margin-left: -8px; padding: 4px 6px; border: 0; background: transparent; color: color-mix(in srgb, var(--concourse-ink) 75%, transparent); font: 15px/1 system-ui, sans-serif; cursor: pointer; }
+    .dock .dockbar .themetog { margin-left: auto; padding: 4px 6px; border: 0; background: transparent; color: color-mix(in srgb, var(--concourse-ink) 75%, transparent); font: 15px/1 system-ui, sans-serif; cursor: pointer; }
     .dock .dockbar .themetog:hover { color: var(--concourse-brass); }
     .dock .dockbar .themetog::before { content: '\263E'; }
     :root[data-theme="dark"] .dock .dockbar .themetog::before { content: '\2600'; }
     @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .dock .dockbar .themetog::before { content: '\2600'; } }
     body.present .dock .dockbar .themetog { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); margin: 0; }
-    .dock .transport { gap: 4px; --clock-size: 40px; }   /* the grand clock (course/clock.css) */
-    body.present .dock .transport { --clock-size: 48px; }
-    .dock .tbtn { width: 34px; height: 34px; padding: 5px; border: 0; border-radius: 0; background: transparent; }
-    .dock .tbtn.clock { position: relative; width: 44px; height: 44px; padding: 0; color: var(--concourse-ink); }
-    .dock .clockface { width: 100%; height: 100%; overflow: visible; }
-    .dock .clockface .rim { fill: color-mix(in srgb, var(--concourse-floor) 88%, white); stroke: var(--concourse-brass); stroke-width: 2.2; }
-    .dock .clockface .tick { stroke: currentColor; stroke-width: 1; opacity: 0.5; }
-    .dock .clockface .clockhand { stroke: var(--concourse-brass); stroke-width: 2; stroke-linecap: round; transform-origin: 24px 24px; transform: rotate(calc(var(--turn, 0) * 1turn)); }
-    .dock .clockface .hub { fill: var(--concourse-brass); }
-    .dock .clockface .playmark, .dock .clockface .pausemark { fill: var(--concourse-brass); stroke: var(--concourse-floor); stroke-width: 1.8; paint-order: stroke; opacity: 1; }
-    .dock .clockface .playmark { fill: #fff; stroke: var(--concourse-brass); stroke-width: 1.4; filter: drop-shadow(0 0 2px #0006); }
-    .dock .clockface .pausemark { display: none; }
-    .dock .transport.playing .clockface .playmark { display: none; }
-    .dock .transport.playing .clockface .pausemark { display: block; }
-    .dock .clocktempo { position: absolute; inset: auto 0 7px; text-align: center; font: 700 7px/1 'Atkinson Hyperlegible Mono', monospace; color: var(--concourse-ink); pointer-events: none; }
-    .dock .loop[aria-pressed="true"] { box-shadow: inset 0 -2px var(--concourse-brass); color: var(--concourse-brass); }
-    .dock .departure { min-width: 12em; display: flex; flex: 0 1 28em; flex-wrap: wrap; gap: 2px 9px; align-items: baseline; color: color-mix(in srgb, var(--concourse-ink) 65%, transparent); font: 12px/1.2 Cinzel, Georgia, serif; letter-spacing: 0.12em; text-transform: uppercase; }
-    .dock .departure strong { flex-basis: 100%; color: var(--concourse-ink); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 28em; }
-    .dock .departure .flap { animation: flap 0.18s ease-out; }
-    .dock .dep-tempo { display: inline-flex; align-items: baseline; gap: 3px; }
-    .dock .dep-tempo input { width: 3.4em; padding: 0 2px 1px; border: 0; border-bottom: 1px solid var(--concourse-brass); border-radius: 0; color: var(--concourse-ink); background: transparent; text-align: right; font: 700 12px/1 'Atkinson Hyperlegible Mono', monospace; }
-    .dock .dep-tempo input:focus { outline: 1px solid color-mix(in srgb, var(--concourse-brass) 55%, transparent); outline-offset: 2px; }
     @keyframes flap { 0% { transform: rotateX(70deg); opacity: 0.25; } 100% { transform: rotateX(0); opacity: 1; } }
     .dock .xpose { font: inherit; gap: 6px; }
     .dock .xpose input, .dock .xpose select { font: inherit; padding: 4px 6px; border-radius: 6px; }
@@ -517,7 +511,7 @@
     .dock .xpose input, .dock .xpose select, .dock button:not(.clock) { border-width: 0 0 1px; border-radius: 0; border-color: var(--concourse-brass); background: transparent; }
     .dock .xpose input[type="number"] { width: 3.6em; }
     .dock .tabs { gap: 6px; }
-    .dock .tabs .tab { font: 600 13px/1 Cinzel, Georgia, serif; letter-spacing: 0.12em; text-transform: uppercase; padding: 7px 4px 5px; margin: 0 6px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; position: relative; }
+    .dock .tabs .tab { white-space: nowrap; font: 600 13px/1 Cinzel, Georgia, serif; letter-spacing: 0.12em; text-transform: uppercase; padding: 7px 4px 5px; margin: 0 6px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; position: relative; }
     .dock .tabs .tab[aria-pressed="true"] { border-bottom-color: var(--concourse-brass); color: var(--concourse-ink); }
     .dock .tabs .tab .badge { position: absolute; top: -7px; right: -7px; min-width: 1.2em; padding: 0 4px; border-radius: 999px; background: #d33; color: #fff; font: 700 11px/1.5 system-ui, sans-serif; text-align: center; }
     .dock .tabs .tab .badge:empty { display: none; }
@@ -535,7 +529,7 @@
        count in the box's corner opens every hint. Both float over the page (popovers), so nothing moves the layout.
        The wrapper carries the box's font, so its height is in the box's lines, and the box and mirror fill it exactly. */
     /* The frame is the wrapper's: the text above, a thin strip along its foot with the count of hints. */
-    .dock .editwrap { position: relative; flex: 1 1 auto; min-height: calc(2 * 1.3em + 28px); box-sizing: border-box; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); }
+    .dock .editwrap { position: relative; flex: 1 1 auto; min-height: calc(clamp(2, var(--abc-lines, 2), 12) * 1.3em + 28px); box-sizing: border-box; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); font: 700 clamp(12px, 2.6vh, 24px)/1.3 var(--mono); }
     .dock .editwrap:focus-within { border-color: var(--accent); }
     .dock .editwrap .entry, .dock .lintmirror { position: absolute; inset: 0 0 18px 0; width: 100%; height: calc(100% - 18px); min-height: 0; margin: 0; box-sizing: border-box; border: 0; border-radius: 6px 6px 0 0; padding: 4px 8px; font: inherit; white-space: pre; }
     .dock .editwrap .entry { background: transparent; }
@@ -563,7 +557,7 @@
     /* The Band box: the arrangement as typed, and under it, grey, the pattern the sliders write for any part not typed;
        a mirror behind the box draws both, and while the band plays it lights the word that is sounding. The foot of
        the box says what that word became, or how the grey lines work, with Back to the sliders when the pattern is typed. */
-    .dock .bandwrap { position: relative; flex: 1 1 0; min-width: 0; min-height: calc(2 * 1.35em + 28px); box-sizing: border-box; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); font: 600 clamp(12px, 2.2vh, 18px)/1.35 var(--mono); }
+    .dock .bandwrap { position: relative; flex: 1 1 0; min-width: 0; min-height: calc(clamp(2, var(--band-lines, 2), 12) * 1.35em + 28px); box-sizing: border-box; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); font: 600 clamp(12px, 2.2vh, 18px)/1.35 var(--mono); }
     .dock .bandwrap:focus-within { border-color: var(--accent); }
     .dock .bandwrap .bandentry, .dock .bandmirror { position: absolute; inset: 0 0 18px 0; width: 100%; height: calc(100% - 18px); min-height: 0; margin: 0; box-sizing: border-box; border: 0; border-radius: 6px 6px 0 0; padding: 4px 8px; font: inherit; white-space: pre; }
     .dock .bandwrap .bandentry { color: transparent; caret-color: var(--ink); background: transparent; resize: none; outline: none; overflow: auto; }
@@ -583,7 +577,7 @@
     .dock .bandfoot .patreset:hover { color: var(--ink); }
     .dock .bandfoot .patreset[hidden] { display: none; }
     .dock .bandentry::placeholder, .dock .entry::placeholder { color: var(--muted); opacity: 0.8; font-weight: 400; }
-    .dock .ctl { flex: 0 1 auto; display: flex; flex-wrap: wrap; align-content: flex-start; align-items: center; gap: 6px 14px; max-width: 48%; overflow-y: auto; overscroll-behavior: contain; }
+    .dock .ctl { flex: 0 1 auto; display: flex; flex-wrap: wrap; align-content: flex-start; align-items: center; gap: 6px 14px; max-width: 48%; }
     .dock .ctl .xpose { white-space: nowrap; }
     .dock .bandctl { display: none; flex-wrap: wrap; align-items: center; gap: 6px 14px; font: inherit; }
     .dock .bandctl.on { display: flex; }
@@ -599,9 +593,8 @@
     .dock .mixer .member { margin-top: auto; }
     .cell[data-type="abc"] .cell-body { --abc-cell-h: 50vh; }
     /* Presenting: the bar alone, larger, clear of the slide selector in the corner; a drawer that opens is capped so the staff keeps its room. */
-    body.present .cell[data-type="abc"] .strip.dock { height: auto; max-height: 46vh; padding-right: 0; }
+    body.present .cell[data-type="abc"] .strip.dock { flex: 0 1 auto; height: auto; max-height: 46vh; padding-right: 0; }
     body.present .dock .dockbar { padding: 8px 160px 8px 14px; font-size: 15px; }
-    body.present .dock .tbtn { width: 46px; height: 46px; }
     body.game .cell[data-type="abc"] .strip.dock { max-height: 40vh; background: transparent; }
     body.game .dock .dockbar { background: color-mix(in srgb, var(--bg) 55%, transparent); border-radius: 12px; margin: 2px 10px 6px; }
     body.game .dock .drawer { background: color-mix(in srgb, var(--bg) 70%, transparent); border-radius: 12px; margin: 0 10px 8px; padding-top: 8px; }
@@ -645,9 +638,8 @@
       .entry { min-height: 3.2em; }
       .side { min-width: 0; max-width: none; gap: 4px 10px; }
       .side .audio { gap: 4px 10px; }
-      .cell[data-type="abc"] .cell-body { height: 56vh; }
+      .cell[data-type="abc"] .cell-body { --abc-cell-h: 56vh; }
       /* The dock on a phone: the controls wrap under the text instead of beside it. */
-      .cell[data-type="abc"] .strip.dock { max-height: 60%; }
       .dock .drawer { flex-wrap: wrap; overflow-y: auto; }
       .dock .ctl, .dock .drawer.bandd .ctl { flex: 1 1 100%; max-width: none; overflow: visible; }
       .dock .melodytext, .dock .bandwrap { flex: 1 1 100%; }
@@ -660,6 +652,7 @@
       /* Presenting on a phone: the strip takes what it needs, and the nav moves to the top corner, clear of it. */
       body.present .strip { height: auto; max-height: 40vh; }
       body.present .present-nav, body.present3d .present-nav { bottom: auto; top: 6px; }
+      body.present .dock .dockbar { padding-right: 44px; }   /* the slide selector is at the top now: only the theme button to clear */
     }
     @media (max-width: 700px) and (orientation: landscape) {
       .cell-body { height: 60vh; }
@@ -4748,10 +4741,8 @@
         this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
         this.dismissedNotes = new Set();
         const parts = splitBand(text);
-        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
-          <div class="strip dock"><div class="dockbar"><div class="transport" role="group" aria-label="Play"></div>
-          <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span></div>
-          <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div><button type="button" class="themetog" title="Light or dark" aria-label="Light or dark"></button></div>
+        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div></div><div class="corner"><div class="transport" role="group" aria-label="Play"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
+          <div class="strip dock"><div class="dockbar"><div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div><button type="button" class="themetog" title="Light or dark" aria-label="Light or dark"></button></div>
           <div class="drawer melody" data-drawer="melody" hidden>
           <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
           <button type="button" class="lintall" hidden title="Every hint for this tune" aria-haspopup="dialog"></button>
@@ -4902,7 +4893,7 @@
         const gear = body.querySelector('.ukegear');
         gear.addEventListener('click', e => { e.preventDefault(); ukeSetupDialog(); });
         ip.addEventListener('change', () => { this.inst = ip.value; gear.hidden = this.inst !== 'uke'; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
-        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
+        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body; this.corner = body.querySelector('.corner');
         for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
         const lp = body.querySelector('.linespick select');
         lp.addEventListener('change', () => { this.lines = lp.value; try { localStorage.setItem('gcs-game-lines', this.lines); } catch (e) {} for (const en of engines.values()) if (en.oneLine) { en.lines = this.lines; if (en.linesBox) en.linesBox.value = this.lines; } if (gameMode) this.render(); });
@@ -4921,8 +4912,13 @@
         this.entry.addEventListener('input', () => { this.render(); onChange(this.getText()); });
         this.bandEntry.addEventListener('input', () => { this.render(); onChange(this.getText()); });
         if (!document.body.classList.contains('present')) this.showDrawer('melody');   // editing: the text is in view; presenting: the bar alone
-        this.ro = new ResizeObserver(() => { if (this.frame) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
+        this.ro = new ResizeObserver(() => { if (this.frame || this.boxKey() === this.lastBox) return; this.frame = requestAnimationFrame(() => { this.frame = null; this.render(); }); });
         this.ro.observe(this.scoreEl);
+        // The clock grows a button when paused partway: the music moves clear of it, without a new render.
+        this.cornerRo = new ResizeObserver(() => { const svg = this.paper.querySelector('svg'); if (svg && !(this.player && this.player.running)) this.clearCorner(svg); });
+        this.cornerRo.observe(this.corner);
+        this.dockRo = new ResizeObserver(() => this.sizeDrawer());   // a drawer's content changes height (a note, a wrap)
+        this.dockRo.observe(body.querySelector('.dock'));
         // abcjs is deferred: on a cold load it may arrive after the cells are built.
         if (!window.ABCJS) { document.getElementById('abcjs').addEventListener('load', () => this.boot(body, id), { once: true }); return; }
         this.boot(body, id);
@@ -4950,12 +4946,8 @@
         el.textContent = text; el.classList.remove('flap', 'flip'); void el.offsetWidth;
         el.classList.add(el.classList.contains('nextup') ? 'flip' : 'flap');
       }
-      updateSignage(text = this.getText()) {
-        const title = ((text.match(/^T:\s*(.+)$/m) || [])[1] || 'Untitled').trim();
-        const key = ((text.match(/^K:\s*([^\s]+)/m) || [])[1] || 'C').trim();
+      updateSignage() {
         const bpm = Math.round(this.bpm());
-        this.flipText(this.body.querySelector('.dep-title'), title);
-        this.flipText(this.body.querySelector('.dep-key'), key);
         if (this.clock) this.clock.set({ bpm, written: Math.round(this.writtenBpm()), beats: this.tl ? this.tl.countBeats : 4 });
       }
       // A new tempo: abcjs retimes its events, the timeline and the parts are rebuilt, the Player keeps its place.
@@ -4969,7 +4961,15 @@
         this.wake();
       }
       // One drawer open at a time under the bar (null: none).
-      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); }
+      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); this.sizeDrawer(); }
+      // Editing, the cell grows by the open drawer's height (--drawer-h), so the drawer is as tall as what is in it and the
+      // staff keeps its room. Set as the drawer opens or its text boxes change, before the frame is drawn, so the staff never
+      // shrinks for a frame (the resize observer covers the rest).
+      sizeDrawer() {
+        const dock = this.body.querySelector('.dock'), bar = this.body.querySelector('.dockbar'); if (!dock || !bar) return;
+        const h = Math.max(0, dock.offsetHeight - bar.offsetHeight - 1) + 'px';
+        if (this.body.style.getPropertyValue('--drawer-h') !== h) this.body.style.setProperty('--drawer-h', h);
+      }
       showMixer(open) { this.showDrawer(open ? 'mix' : null); }
       // The music starts: presenting, every drawer closes so the staff and the instrument have the screen, unless the score is open to be watched; editing, only the mixer closes.
       drawersForPlay() { const watching = this.drawer === 'band'; if (document.body.classList.contains('present')) { if (!watching) this.showDrawer(null); } else if (this.drawer === 'mix') this.showDrawer(null); }
@@ -5213,8 +5213,12 @@
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
         if (this.viz && this.tl && !this.player.running) this.viz.voices(this.chordTrack(0), -1);   // stopped: the first chord's voices wait
         if (keepAt > 0 && this.tl && keepAt < this.tl.total) { this.player.pos = keepAt; this.idle = false; this.k = null; this.paint(); }
-        this.updateSignage(text);
+        this.updateSignage();
         this.refreshBandNote();
+        // The text boxes are as tall as their lines, up to a dozen (the drawer grows with them; past that they scroll).
+        this.body.style.setProperty('--abc-lines', this.entry.value.split('\n').length);
+        this.body.style.setProperty('--band-lines', this.bandEntry.value.split('\n').length);
+        this.sizeDrawer();
       }
 
       /* ---- warnings ----
@@ -5602,9 +5606,12 @@
       }
       fit() {
         const svg = this.paper.querySelector('svg');
-        if (!svg) return;
+        if (svg && this.scale(svg)) this.clearCorner(svg);
+      }
+      // The score's size in its box (false while the cell is hidden).
+      scale(svg) {
         const vb = svg.viewBox.baseVal, { W, H } = this.boxSize();
-        if (!(W > 0 && H > 0)) return;
+        if (!(W > 0 && H > 0)) return false;
         const two = gameMode && this.lines !== 'one';
         const k = two ? W / vb.width                                                 // two lines: fill the width, the paper slides up a system at a time
                 : gameMode ? H / vb.height : Math.min(W / vb.width, H / vb.height);   // one line: fill the height, the width scrolls
@@ -5612,7 +5619,48 @@
         svg.setAttribute('width', (vb.width * k).toFixed(2)); svg.setAttribute('height', (vb.height * k).toFixed(2));
         this.paper.style.height = ''; this.paper.style.overflow = '';
         if (!gameMode) this.paper.style.transform = '';
+        return true;
       }
+      /* The transport, the grand clock, stands in the score's top-left corner (.corner), where abcjs keeps a row for
+         its tempo mark (not drawn: the clock says the tempo). After each fit the music under the corner is measured:
+         a title on a narrow screen, an R: line, a high chord symbol; in the game, every system as it slides up to the
+         top (two lines) or everything that scrolls past (one line). If any of it would be under the clock, the score
+         moves down by just that much (--clock-room, its top margin), and the fit is taken again; when the corner is
+         already clear, the music keeps all its room. The clock is never over a note, and never needs dragging. */
+      clearCorner(svg) {
+        let room = this.room || 0;
+        const apply = r => { this.room = r; this.body.style.setProperty('--clock-room', r + 'px'); this.scale(svg); };
+        const tp = this.body.querySelector('.corner .transport');
+        if (!tp || !tp.offsetWidth) { if (room) apply(0); this.lastBox = this.boxKey(); return; }   // no clock here (the piece view has its own)
+        const two = gameMode && this.lines !== 'one', one = gameMode && !two, vb = svg.viewBox.baseVal;
+        // Every mark of the music, in the SVG's units, with the system it belongs to (the header counts as the first).
+        const sr = svg.getBoundingClientRect(), k0 = sr.width / vb.width, tops = new Map(), marks = [];
+        for (const el of svg.querySelectorAll('path, text, rect, circle, ellipse, line, polygon, polyline, use, image')) {
+          if (el.closest('.cursorg')) continue;
+          const r = el.getBoundingClientRect(); if (!r.width && !r.height) continue;
+          const w = el.closest('.abcjs-staff-wrapper'), line = w ? +((w.getAttribute('class').match(/abcjs-l(\d+)/) || [])[1] || 0) : 0;
+          if (two && !tops.has(line)) tops.set(line, this.lineTop(line));
+          marks.push({ x0: (r.left - sr.left) / k0, x1: (r.right - sr.left) / k0, y: (r.top - sr.top) / k0 - (two ? tops.get(line) : 0) });
+        }
+        const gap = 4;
+        for (let i = 0; i < 8; i++) {
+          const cr = this.corner.getBoundingClientRect(), sc = this.scoreEl.getBoundingClientRect();
+          const k = parseFloat(svg.getAttribute('width')) / vb.width;
+          const x = sc.left + this.paper.offsetLeft, y = sc.top + this.paper.offsetTop;   // the paper's place before the game slides it
+          const L = (cr.left - gap - x) / k, R = (cr.right + gap - x) / k;
+          let top = Infinity;
+          for (const m of marks) if ((one || (m.x1 > L && m.x0 < R)) && m.y < top) top = m.y;
+          const need = cr.bottom + gap - (y + top * k), most = Math.ceil(cr.bottom + gap - (sc.top - room));
+          let next = room;
+          if (need > 0.5) next = Math.min(most, Math.ceil(room + need));
+          else if (need < -12 && room > 0) next = Math.max(0, Math.floor(room + need + 6));   // clear by more than it needs: give the room back
+          if (next === room) break;
+          apply(room = next);
+        }
+        this.lastBox = this.boxKey();
+      }
+      // The score's box as the resize observer sees it, without the corner's room (a change of room alone is not a resize).
+      boxKey() { return this.scoreEl.clientWidth + 'x' + (this.scoreEl.clientHeight + (this.room || 0)); }
       clearPlaying() {
         for (const g of this.paper.querySelectorAll('.playing')) { g.classList.remove('playing'); g.style.filter = ''; }
       }
@@ -6312,9 +6360,14 @@
         this.winLine = line;
         const svg = this.paper.querySelector('svg'); if (!svg) return;
         const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width;
-        let bottom = 0;   // of the line before, in SVG units: the lowest edge of its notes, bars and lyrics
+        this.paper.style.transform = `translateY(${(-this.lineTop(line) * ks).toFixed(1)}px)`;
+      }
+      // How far the game's two lines slide the paper up to put a system on top, in SVG units: just past the line before
+      // (the lowest edge of its notes, bars and lyrics).
+      lineTop(line) {
+        let bottom = 0;
         if (line > 0) for (const d of this.dispElems) if (d._line === line - 1 && d.abselem) for (const g of d.abselem.elemset || []) { const bb = g.getBBox(); bottom = Math.max(bottom, bb.y + bb.height); }
-        this.paper.style.transform = `translateY(${(-(bottom > 0 ? bottom + 2 : 0) * ks).toFixed(1)}px)`;
+        return bottom > 0 ? bottom + 2 : 0;
       }
       // The game's two lines: the width to engrave at so that two systems
       // fill the score's height, between a smallest and a largest staff. A
