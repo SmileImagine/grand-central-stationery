@@ -291,16 +291,23 @@
     .inst .key.root { stroke: var(--c); stroke-opacity: 1; stroke-width: 3.5; }
     .inst .runner text { font-family: 'Atkinson Hyperlegible', sans-serif; font-weight: 700; stroke: none; pointer-events: none; }
     .paper .chordshape rect { stroke: none; }
-    #tuningDlg, #pasteDlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 520px; width: calc(100vw - 32px); font: var(--ui); }
-    #tuningDlg::backdrop, #pasteDlg::backdrop { background: rgba(0,0,0,0.35); }
-    #tuningDlg h2, #pasteDlg h2 { margin: 0 0 6px; font-size: 18px; }
-    #tuningDlg p, #pasteDlg p { color: var(--muted); margin: 0 0 10px; line-height: 1.4; }
+    #tuningDlg, #pasteDlg, #ukeDlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 18px; max-width: 520px; width: calc(100vw - 32px); font: var(--ui); }
+    #tuningDlg::backdrop, #pasteDlg::backdrop, #ukeDlg::backdrop { background: rgba(0,0,0,0.35); }
+    #tuningDlg h2, #pasteDlg h2, #ukeDlg h2 { margin: 0 0 6px; font-size: 18px; }
+    #tuningDlg p, #pasteDlg p, #ukeDlg p { color: var(--muted); margin: 0 0 10px; line-height: 1.4; }
     #tuningDlg .preview, #pasteDlg .preview { color: var(--ink); font-family: ui-monospace, Menlo, monospace; font-size: 12px; min-height: 1.4em; }
     #tuningDlg textarea, #pasteDlg textarea { width: 100%; min-height: 170px; box-sizing: border-box; font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px; resize: vertical; }
-    #tuningDlg .row, #pasteDlg .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+    #tuningDlg .row, #pasteDlg .row, #ukeDlg .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
     #tuningDlg .row .left, #pasteDlg .row .left { margin-right: auto; }
-    #tuningDlg button, #pasteDlg button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
-    #tuningDlg button.primary, #pasteDlg button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    #tuningDlg button, #pasteDlg button, #ukeDlg button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    #tuningDlg button.primary, #pasteDlg button.primary, #ukeDlg button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    #ukeDlg fieldset { border: 1px solid var(--line); border-radius: 10px; margin: 0 0 10px; padding: 6px 12px 10px; }
+    #ukeDlg legend { font-weight: 700; padding: 0 4px; }
+    #ukeDlg label { display: flex; gap: 8px; align-items: baseline; padding: 5px 0; line-height: 1.35; cursor: pointer; }
+    #ukeDlg label b { font-weight: 600; }
+    .instpick .ukegear { display: inline-grid; place-items: center; width: 26px; height: 26px; padding: 4px; margin-left: 2px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); cursor: pointer; }
+    .instpick .ukegear[hidden] { display: none; }
+    .instpick .ukegear svg { width: 100%; height: 100%; }
     .bandctl { display: none; align-items: center; gap: 10px; font: var(--ui); color: var(--muted); }
     .bandctl.on { display: inline-flex; }
     .bandctl label { display: inline-flex; align-items: center; gap: 4px; }
@@ -1380,17 +1387,42 @@
       }
     }
 
-    // Ukulele, re-entrant GCEA, twelve frets. A pitch has several places; the
+    // The class's ukuleles, one setup for the whole site on this device (localStorage gcs-uke): C tuning
+    // (G C E A, the usual) or D tuning a tone up (A D F♯ B), and the fourth string, the one nearest the player,
+    // re-entrant ('high', an octave up, as on most school ukuleles) or low (notes down to the G or A below middle
+    // C). The strings are listed as the layout draws them, far to near: first string (A or B) to fourth.
+    const UKE_SETUP_KEY = 'gcs-uke';
+    const ukeSetup = (() => {
+      const read = () => { try { const v = JSON.parse(localStorage.getItem(UKE_SETUP_KEY) || '{}') || {}; return { tuning: v.tuning === 'D' ? 'D' : 'C', fourth: v.fourth === 'low' ? 'low' : 'high' }; } catch (e) { return { tuning: 'C', fourth: 'high' }; } };
+      let cur = read();
+      const fns = [], tell = () => { for (const f of fns) try { f({ ...cur }); } catch (e) { console.error(e); } };
+      // Another tab of the site changed it: this one follows.
+      window.addEventListener('storage', e => { if (e.key === UKE_SETUP_KEY) { cur = read(); tell(); } });
+      return {
+        get: () => ({ ...cur }),
+        set(v) {
+          const next = { tuning: v.tuning === 'D' ? 'D' : v.tuning === 'C' ? 'C' : cur.tuning, fourth: v.fourth === 'low' ? 'low' : v.fourth === 'high' ? 'high' : cur.fourth };
+          if (next.tuning === cur.tuning && next.fourth === cur.fourth) return;
+          cur = next; try { localStorage.setItem(UKE_SETUP_KEY, JSON.stringify(cur)); } catch (e) {}
+          tell();
+        },
+        onChange(fn) { if (typeof fn === 'function') fns.push(fn); },
+        strings() { const up = cur.tuning === 'D' ? 2 : 0; return [69 + up, 64 + up, 60 + up, (cur.fourth === 'low' ? 55 : 67) + up]; },
+      };
+    })();
+
+    // Ukulele, twelve frets, strung as the class's are (ukeSetup). A pitch has several places; the
     // one nearest the hand's last fret is chosen, lowest fret on a tie. The
     // same places number the tablature when the score shows Tab.
     class UkuleleLayout {
-      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; }
+      constructor() { this.strings = ukeSetup.strings(); this.low = ukeSetup.get().fourth === 'low'; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; }
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null, opts = {}) {
         this.nameOf = nameOf;
-        this.shift = octaveFit(midis, 60, 60 + 12 + 9);
+        // The tune in the octave the strings reach most of: the lowest open string to the highest one's twelfth fret.
+        this.shift = octaveFit(midis, Math.min(...this.strings), Math.max(...this.strings) + this.frets);
         if (opts && opts.mini) return this.buildMini(svg);
         // The player's view of their own ukulele, looking down the neck from
-        // above the near edge: the re-entrant G string is nearest, A farthest.
+        // above the near edge: the fourth string (G in C tuning) is nearest, the first (A) farthest.
         // A one-point perspective does the foreshortening: everything at
         // depth d (0 near, 1 far) shrinks toward a vanishing point by k(d),
         // so the far strings crowd together, the frets lean, and a mark on
@@ -1447,13 +1479,14 @@
         const n0 = this.project(left, -0.55), n1 = this.project(left, 3.5); svgEl(g, 'line', { class: 'nut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
         for (const i of [5, 7, 10]) { const p = this.project(this.fretMid(i), 1.5), k = this.depth(1.5); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
         for (const sIdx of [0.6, 2.4]) { const p = this.project(this.fretMid(12), sIdx), k = this.depth(sIdx); svgEl(g, 'ellipse', { class: 'inlay', cx: p.x, cy: p.y, rx: 4.4 * k, ry: 3.6 * k }); }
-        // The strings, nut to bridge, nearest thickest; each has a glow twin that lights in the note's colour when it is plucked.
-        const names = ['A', 'E', 'C', 'G'];
+        // The strings, nut to bridge, nearest thickest, a low fourth string heavier still; each has a glow twin
+        // that lights in the note's colour when it is plucked.
+        const names = this.strings.map(m => NOTE_NAMES[m % 12]);
         this.stringEls = [];
         this.strings.forEach((open, sIdx) => {
           const a = this.project(left - 2, sIdx), b = this.project(bridgeX, sIdx), label = this.project(left - 12, sIdx), k = this.depth(sIdx);
           const glow = svgEl(g, 'line', { class: 'stringglow', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (4.5 * k + 1.5).toFixed(2) });
-          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.7 + sIdx * 0.4).toFixed(2) });
+          svgEl(g, 'line', { class: 'string', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.7 + sIdx * 0.4 + (this.low && sIdx === 3 ? 0.7 : 0)).toFixed(2) });
           svgText(g, 'lbl str', label.x, label.y + 0.4, (7 + sIdx * 0.8) * k + 1, midiColor(open), names[sIdx], 'middle');
           this.stringEls.push({ glow, open });
         });
@@ -1462,7 +1495,7 @@
           const sp = this.project(bE + 72, sIdx), sk = this.depth(sIdx) * 0.62;
           this.stringEls[sIdx].pick = svgEl(g, 'path', { class: 'strum', d: `M ${sp.x} ${sp.y - 9 * sk} q ${7 * sk} 0 ${7 * sk} ${7 * sk} q 0 ${8 * sk} ${-7 * sk} ${12 * sk} q ${-7 * sk} ${-4 * sk} ${-7 * sk} ${-12 * sk} q 0 ${-7 * sk} ${7 * sk} ${-7 * sk} z` });
         });
-        svgText(g, 'lbl cap', left + 4, H - 1, 6.5, 'var(--muted)', "your view · G string nearest", 'start');
+        svgText(g, 'lbl cap', left + 4, H - 1, 6.5, 'var(--muted)', `your view · ${names[3]} string nearest`, 'start');
         this.marksG = svgEl(svg, 'g');
         this.startPt = { ...this.project(left - 2, 3), r: 8.4, open: true };
         this.lastHand = null;
@@ -1473,10 +1506,11 @@
       // the board, while the strings are solid, run on over the nut and past the board's end, and thicken toward
       // the player. The headstock is a plain shape past the nut, and there is no body, soundhole, plectrum or
       // caption, so at a few centimetres the eye goes straight to the finger's dot and the fret number beside it.
-      // The perspective is the large diagram's, made stronger to read at this size (project): G nearest, A farthest.
-      // The board is wider for its length than a real one, for room to see the dot. The piece view stands it
-      // headstock up, leaning a little left (piece.css turns it MINI_TURN degrees clockwise), so the near G string
-      // is on the left and the far A on the right; the numbers are turned back to stand upright.
+      // The perspective is the large diagram's, made stronger to read at this size (project): the fourth string
+      // (G in C tuning) nearest, the first (A) farthest. The board is wider for its length than a real one, for
+      // room to see the dot. The piece view stands it headstock up, leaning a little left (piece.css turns it
+      // MINI_TURN degrees clockwise), so the near fourth string is on the left and the far first string on the
+      // right, as on a chord chart; the numbers are turned back to stand upright.
       buildMini(svg) {
         this.mini = true;
         // The margins beside the board hold a one-digit fret number; a rare 10 to 12 reaches a little past them.
@@ -1495,12 +1529,13 @@
         for (const [i, s] of [[5, 1.5], [7, 1.5], [10, 1.5], [12, 0.5], [12, 2.5]]) { const q = P(this.fretMid(i), s); svgEl(g, 'circle', { class: 'minlay', cx: q.x, cy: q.y, r: (0.15 * S * this.depth(s)).toFixed(1) }); }
         const n0 = P(left, -0.6), n1 = P(left, 3.6); svgEl(g, 'line', { class: 'mnut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
         // The strings, from the headstock past the board's end, each with its glow twin, which lights from the fret
-        // to the board's end: the part that sounds. Each is heavier for being nearer and for its gauge, G heaviest
-        // (a low G's weight; a re-entrant G is as thin as A, but the perspective still puts it nearest).
+        // to the board's end: the part that sounds. Each is heavier for its gauge and for being nearer: the third
+        // string is the heaviest of a re-entrant set and a low fourth string heavier still; a re-entrant fourth is
+        // light, but the perspective still puts it nearest.
         this.stringEls = this.strings.map((open, s) => {
           const a = P(hx + 26, s), b = P(bE + 14, s), k = this.depth(s);
           const glow = svgEl(g, 'line', { class: 'stringglow', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.3 * S * k).toFixed(1) });
-          svgEl(g, 'line', { class: 'mstring', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': ((2.6 + s * 1.1) * k).toFixed(2) });
+          svgEl(g, 'line', { class: 'mstring', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': ([3, 3.8, 4.6, this.low ? 5.8 : 3.6][s] * (1 - 0.2 * (3 - s) / 3)).toFixed(2) });
           return { glow, open, pick: null };
         });
         this.marksG = svgEl(svg, 'g');
@@ -1508,8 +1543,8 @@
         this.lastHand = null;
         this.sig = null; this.events = [];
       }
-      // A fretted place's number beside the board, level with its dot on the side nearer its string (G and C on the
-      // upright chart's left, E and A on its right), turned to read upright once the chart is stood up.
+      // A fretted place's number beside the board, level with its dot on the side nearer its string (the fourth and
+      // third strings on the upright chart's left, the second and first on its right), turned to read upright.
       fretNo(p, q) {
         const w = String(p.fret).length * 0.56 * this.font, gap = 0.2 * this.S + w / 2, near = p.s >= 2;
         const y = this.project(q.x, near ? 3.6 : -0.6).y + (near ? gap : -gap);
@@ -4396,6 +4431,38 @@
       { part: 'bass', name: 'Bass', svg: FIGURE('<circle cx="13" cy="11" r="5"/><path d="M8.5 10c-1 5-2 9-4 12M17.5 10c1 5 2 9 4 12"/><path d="M6 31c0-5 3-9 7-9s7 4 7 9"/><path class="fill" d="M30 20c-4 0-6 3-5 6c-3 1-4 5-2 8c1 3 4 5 7 5s6-2 7-5c2-3 1-7-2-8c1-3-1-6-5-6z"/><path d="M30 20V7"/><path d="M30 7c2-1 3.5 0.5 2.5 2.5"/><path d="M27.5 29.5v3.5M32.5 29.5v3.5"/>') },
       { part: 'drums', name: 'Drums', svg: FIGURE('<circle cx="22" cy="10" r="5"/><path d="M13 27c0-5 4-8 9-8s9 3 9 8"/><circle class="fill" cx="22" cy="32" r="8"/><path d="M4 16h11M9.5 16v12M30 16h10M35 16v12"/><path d="M15 22l-4-5M29 22l4-5"/>') },
     ];
+    // A gear: eight teeth as a dashed ring round a ring.
+    const GEAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="8.4" stroke-width="3.2" stroke-dasharray="3.2 3.4"/><circle cx="12" cy="12" r="5.6" stroke-width="3"/></svg>';
+    // The ukulele setup dialog (the gear beside the Instrument select, and GCS.ukeSetup.open for the piece view):
+    // the class's tuning and fourth string, in a teacher's words. Applying it stores it for the whole site.
+    function ukeSetupDialog() {
+      let dlg = document.getElementById('ukeDlg');
+      if (!dlg) {
+        dlg = document.createElement('dialog'); dlg.id = 'ukeDlg'; dlg.setAttribute('aria-labelledby', 'ukeDlgTitle');
+        dlg.innerHTML = `<h2 id="ukeDlgTitle">Ukulele setup</h2><p>Set this to match the class's ukuleles. The fingerings, fret numbers and tab follow it everywhere on this site, on this device.</p>
+          <fieldset><legend>Tuning</legend>
+            <label><input type="radio" name="ukeTuning" value="C"> <span><b>C tuning (G C E A)</b>: the usual tuning for school ukuleles.</span></label>
+            <label><input type="radio" name="ukeTuning" value="D"> <span><b>D tuning (A D F♯ B)</b>: every string a tone higher, as in some older songbooks.</span></label></fieldset>
+          <fieldset><legend>The fourth string, nearest you</legend>
+            <label><input type="radio" name="ukeFourth" value="high"> <span><b>High <span class="ukefourth">G</span> (re-entrant, the usual school ukulele)</b>: a thin string, higher than the one beside it.</span></label>
+            <label><input type="radio" name="ukeFourth" value="low"> <span><b>Low <span class="ukefourth">G</span></b>: a thicker string an octave lower, so notes down to the <span class="ukefourth">G</span> below middle C can be played.</span></label></fieldset>
+          <div class="row"><button type="button" class="cancel">Cancel</button><button type="button" class="apply primary">Apply</button></div>`;
+        document.body.appendChild(dlg);
+        const fourthName = () => { const t = dlg.querySelector('input[name="ukeTuning"]:checked'); for (const el of dlg.querySelectorAll('.ukefourth')) el.textContent = t && t.value === 'D' ? 'A' : 'G'; };
+        for (const r of dlg.querySelectorAll('input[name="ukeTuning"]')) r.addEventListener('change', fourthName);
+        dlg.querySelector('.cancel').onclick = () => dlg.close();
+        dlg.querySelector('.apply').onclick = () => {
+          const pick = name => { const r = dlg.querySelector(`input[name="${name}"]:checked`); return r ? r.value : null; };
+          dlg.close(); ukeSetup.set({ tuning: pick('ukeTuning'), fourth: pick('ukeFourth') });
+        };
+        dlg.fourthName = fourthName;
+      }
+      const cur = ukeSetup.get();
+      for (const r of dlg.querySelectorAll('input[name="ukeTuning"]')) r.checked = r.value === cur.tuning;
+      for (const r of dlg.querySelectorAll('input[name="ukeFourth"]')) r.checked = r.value === cur.fourth;
+      dlg.fourthName();
+      if (!dlg.open) dlg.showModal();
+    }
     class AbcCell {
       constructor(body, text, onChange, opts = {}) {
         const id = 'abc' + (++abcSeq);
@@ -4428,7 +4495,7 @@
           <div class="linttip warn" popover="manual" role="tooltip"></div>
           <div class="lintlist" popover="auto" role="dialog" aria-label="ABC hints"><div class="linthead">ABC hints<button type="button" class="lintclose" title="Close" aria-label="Close">\u00D7</button></div><div class="warn"></div><button type="button" class="lintundo" hidden>Show the dismissed hints again</button></div></div></div>
           <div class="ctl">
-          <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
+          <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select><button type="button" class="ukegear" title="Ukulele setup: tuning and the fourth string, to match the class's instruments; fingerings, fret numbers and tab follow it on every page of the site" aria-label="Ukulele setup" aria-haspopup="dialog"${this.inst === 'uke' ? '' : ' hidden'}>${GEAR_SVG}</button></label>
           <label class="xpose spanpick" title="How much of the recorder to use: the whole fingering chart, two octaves (low C to the C two above), or the first octave (low C to the D above, no thumb pinch). A note beyond it is fingered in the nearest octave inside; the tune still sounds as written."${this.inst === 'recorder' ? '' : ' hidden'}>Range <select><option value="0"${!this.span ? ' selected' : ''}>Full</option><option value="2"${this.span === 2 ? ' selected' : ''}>2 octaves</option><option value="1"${this.span === 1 ? ' selected' : ''}>1 octave</option></select></label>
           <label class="xpose showpick" title="What the instrument shows: the melody, the chords (a ring per voice that glides to its note in the next chord), or both. Auto shows the chords on the ukulele, which a class strums while it sings, and the melody on the piano and the 2-5 Keys (a Wicki-Hayden keyboard: fifths up a row, whole tones along it, so ii-V-I and every key are one shape). The piano is as wide as what it shows."${['piano', 'wh', 'uke'].includes(this.inst) ? '' : ' hidden'}>Shows <select><option value="auto"${this.show === 'auto' ? ' selected' : ''}>Auto</option><option value="melody"${this.show === 'melody' ? ' selected' : ''}>Melody</option><option value="chords"${this.show === 'chords' ? ' selected' : ''}>Chords</option><option value="both"${this.show === 'both' ? ' selected' : ''}>Melody + chords</option></select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
@@ -4565,7 +4632,9 @@
         spanSel.addEventListener('change', () => { this.span = +spanSel.value; this.render(); if (opts.onSpan) opts.onSpan(this.span); });
         const showBox = body.querySelector('.showpick'), showSel = showBox.querySelector('select');
         showSel.addEventListener('change', () => { this.show = showSel.value; this.render(); if (opts.onShow) opts.onShow(this.show); });
-        ip.addEventListener('change', () => { this.inst = ip.value; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
+        const gear = body.querySelector('.ukegear');
+        gear.addEventListener('click', e => { e.preventDefault(); ukeSetupDialog(); });
+        ip.addEventListener('change', () => { this.inst = ip.value; gear.hidden = this.inst !== 'uke'; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
         for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
         const lp = body.querySelector('.linespick select');
@@ -7765,7 +7834,13 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
     }
     window.GCS = { lab: { sampler, DRUM, STYLES, COMP_FOLDER, SYNTH_VOICES, SYNTH_KITS, SAMPLE_STEP, SAMPLE_SETS, SAMPLE_NOTES, setOf, sampleOf, takesOf, melodyOctave, SOUND, TONE },   // lab: what test/band-lab.js measures with
-      cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
+      cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder,
+      // The class's ukulele setup, for the lesson page and the piece view alike: get() is { tuning: 'C'|'D',
+      // fourth: 'high'|'low' }, open() shows the setup dialog, onChange(fn) calls fn(setup) after every change,
+      // once the page's notation has been drawn again for it.
+      ukeSetup: { get: () => ukeSetup.get(), open: () => ukeSetupDialog(), onChange: fn => ukeSetup.onChange(fn) } };
+    // A change of ukulele setup redraws every notation cell: its fingerings, fret numbers and tab follow the strings.
+    ukeSetup.onChange(() => { for (const en of engines.values()) if (en.render) en.render(); });
     // The piece view's hooks: one notation cell, full screen in Game mode, and the page's sampler for a single note.
     if (PIECE) {
       Object.assign(window.GCS, {
