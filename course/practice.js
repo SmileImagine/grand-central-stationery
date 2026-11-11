@@ -44,12 +44,12 @@
        at every note, then loops sections that grow, getting faster, and puts the whole together;
        or assesses one student (Assess): the end of a student's practice, seen from the teacher's side, with marks. */
   const STEPS = {
-    teach: ['Listen', 'Learn the sections', 'Put it together'],                      // step 2: Study, or Loop together
-    practice: ['Listen', 'Learn the sections', 'Put it together', 'Play it through'], // step 2: In time, or Note by note
+    teach: ['Listen', 'Learn the sections', 'Put it together'],                      // step 2: 2a Study them, 2b Loop them
+    practice: ['Listen', 'Learn the sections', 'Put it together', 'Play it through'], // step 2: 2a Note by note, 2b Loop in time
     assess: ['Hear it', 'The attempt', 'Decide'],
   };
-  // How step 2 is done (the link's by=): Teach studies each section, then loops them together; Practice loops in time, or note by note.
-  const HOW = { teach: ['study', 'together'], practice: ['time', 'note'] };
+  // How step 2 is done (the link's by=), in order: Teach studies each section, then loops them together; Practice goes note by note, then loops in time.
+  const HOW = { teach: ['study', 'together'], practice: ['note', 'time'] };
   const SHOWS = { melody: 'Melody', chords: 'Chords', both: 'Both' };
   /* Loop together: sections that grow. Each new loop alone, then joined to all before it, until the whole piece:
      for four loops 1, 2, 1–2, 3, 1–3, 4, 1–4. Pairs of 0-based loop indexes, first and last. */
@@ -73,14 +73,14 @@
     // The first piece view's modes and keys: step (note by note) and slow were Practice's two ways; phrase is now loop, view=whole step 3.
     let mode = s.mode, step = parseInt(s.step, 10), by = s.by, loop = parseInt(s.loop !== undefined ? s.loop : s.phrase, 10);
     if (mode === 'step') { mode = 'practice'; by = 'note'; if (!step) step = 2; }
-    if (mode === 'slow') { mode = 'practice'; if (!step) step = 2; }
+    if (mode === 'slow') { mode = 'practice'; by = 'time'; if (!step) step = 2; }
     if (s.view === 'whole' && !step && mode !== 'assess') step = 3;
     if (MODES[mode]) out.mode = mode;
     if (step >= 1 && step <= 4) out.step = step;   // (the first version's Teach steps 3-4 read as 3)
     if (loop >= 1) out.loop = Math.min(99, loop);
     const to = parseInt(s.to !== undefined ? s.to : String(s.loop || '').split('-')[1], 10);   // a span of loops: loop=1-3
     if (out.loop && to > out.loop) out.to = Math.min(99, to);
-    if (by === 'note' || by === 'together') out.by = by;
+    if (['note', 'time', 'study', 'together'].includes(by)) out.by = by;
     const bpm = clampInt(s.bpm, 20, 300); if (bpm !== null && s.bpm !== undefined && s.bpm !== '') out.bpm = bpm;
     if (INSTRUMENTS[s.inst]) out.inst = s.inst;
     if (SHOWS[s.show]) out.show = s.show;

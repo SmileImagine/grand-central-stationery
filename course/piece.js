@@ -211,7 +211,7 @@
     if (!p.running) {
       p.setLoop(!example && repeats());
       const lp = en.body.querySelector('.transport .loop'); if (lp) lp.setAttribute('aria-pressed', String(p.loop));
-      if (!example && ((k === 'through' && listenOn) || k === 'attempt')) {
+      if (!example && LISTEN_LAB && ((k === 'through' && listenOn) || k === 'attempt')) {
         if (!(p.pos > 0)) { attempt = null; flagsShown = []; clearMarks(); if (panel) openPanel(); }
         if (!listening) await startListening('attempt');
       }
@@ -282,68 +282,69 @@
     if (['through', 'attempt', 'decide'].includes(kind())) openPanel(); else closePanel();
     redraw();
   }
+  /* The steps across the bar. Step 2 holds its two ways in its own bubble: Teach studies the sections, then loops
+     them (1, 2a, 2b, 3); Practice goes note by note, then loops in time. Tapping a half goes there. */
+  const STEP2 = { teach: [['study', 'Study the sections', 'Study'], ['together', 'Loop them', 'Loop']], practice: [['note', 'Note by note', 'Notes'], ['time', 'Loop in time', 'Loop']] };
   function renderSteps() {
-    $('.pb-steps').innerHTML = P.STEPS[mode].map((n, i) => `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`).join('');
-    $('.pb-steps').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.step)));
+    $('.pb-steps').innerHTML = P.STEPS[mode].map((n, i) => {
+      const halves = i === 1 && STEP2[mode];
+      if (!halves) return `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`;
+      return `<li class="pb-step2${step === 2 ? ' on' : ''}" role="group" aria-label="${esc(n)}"><b aria-hidden="true">2</b>${halves.map(([v, l, sh], j) => `<button type="button" data-step="2" data-how="${v}" ${step === 2 && how === v ? 'aria-current="step"' : ''} aria-label="${esc(l)}"><span class="half">${'ab'[j]}</span> <span class="st">${esc(l)}</span><span class="sh">${esc(sh)}</span></button>`).join('')}</li>`;
+    }).join('');
+    $('.pb-steps').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => {
+      const h = b.dataset.how;
+      if (h && (h !== how || step !== 2)) { how = h; if (step === 2) { stopAll(); renderSteps(); renderTools(); redraw(); return; } }
+      goStep(+b.dataset.step);
+    }));
   }
-  const nextBtn = (label, to) => `<button type="button" class="pb-nextstep" data-to="${to}" title="The next step (Page Down)">Next: ${esc(label)} →</button>`;
+  // The tempo, small: the number between − and +, its share of full speed in the tooltip.
   const tempoCtl = () => `<div class="pb-tempo" role="group" aria-label="Tempo">
       <button type="button" class="pb-slower" aria-label="Slower" title="Five beats a minute slower (−)">−</button>
       <span class="pb-bpm"><output class="pb-bpmv">${bpm}</output> <small>BPM</small></span>
-      <button type="button" class="pb-faster" aria-label="Faster" title="Five beats a minute faster (+). The notes keep their pitch.">+</button>
-      <small class="pb-share-of"></small></div>`;
-  const fasterCtl = () => `<label class="chk" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time round</label>`;
+      <button type="button" class="pb-faster" aria-label="Faster" title="Five beats a minute faster (+). The notes keep their pitch.">+</button></div>`;
+  const fasterCtl = () => `<label class="chk" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time</label>`;
   const playBtn = label => `<button type="button" class="big play" data-act="play" title="Play or pause (space)"><span class="ic" aria-hidden="true">▶</span> <span class="lbl">${esc(label)}</span></button>`;
-  // Moving between sections: arrows that point the way, not play buttons.
-  const sectionNav = () => sections() > 1 ? `<div class="pb-loopnav" role="group" aria-label="Section">
-      <button type="button" class="pb-prev" aria-label="Previous" title="Previous (←)">←</button>
+  // Moving between sections: arrows that point the way, not play buttons; the pencil sets where the sections fall.
+  const sectionNav = (cuts = true) => sections() > 1 || cuts ? `<div class="pb-loopnav" role="group" aria-label="Section">
+      ${sections() > 1 ? `<button type="button" class="pb-prev" aria-label="Previous" title="Previous (←)">←</button>
       <span class="pb-where" aria-live="polite"></span>
-      <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button></div>` : '';
-  const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence. The microphone can hear it too, so its listening is less sure."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
-  const sectionsBtn = () => `<button type="button" class="pb-cuts quiet" title="Choose which bars make each section">Set up sections…</button>`;
-  const seg = (opts) => `<div class="seg" role="radiogroup" aria-label="How">${opts.map(([v, l]) => `<button type="button" role="radio" data-how="${v}" aria-checked="${how === v}">${esc(l)}</button>`).join('')}</div>`;
+      <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button>` : ''}
+      ${cuts ? `<button type="button" class="pb-cuts quiet" aria-label="Set up sections" title="Set up sections: choose which bars make each one">✎</button>` : ''}</div>` : '';
+  const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
   // What to hear: the whole piece, or the new idea in it (its bars shown and played). A toggle, like the others.
   const barsWord = c => c.first === c.last ? `bar ${c.first}` : `bars ${c.first}–${c.last}`;
-  const conceptCtl = () => !concepts.length ? '' : `<span class="pb-hint">Hear</span><div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
+  const conceptCtl = () => !concepts.length ? '' : `<div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
       <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="New in this piece: ${esc(c.words)}, in ${barsWord(c)}">${esc(c.words)}</button>`).join('')}</div>`;
+  // Listening is not ready (Safari will not, and a voice is read poorly): only with the lab switch on this computer.
+  const LISTEN_LAB = ls.get('gcs-listening-lab') === '1';
   function renderTools() {
-    const k = kind(), names = P.STEPS[mode];
-    const next = step < names.length ? nextBtn(names[step].toLowerCase(), step + 1) : '';
+    const k = kind();
     let h = '';
-    if (k === 'listen') h = `${playBtn(example ? `Hear ${example.words}` : 'Listen to the whole piece')}${conceptCtl()}${example ? `<span class="pb-hint">New in this piece, in ${barsWord(example)}.</span>` : ''}${next}`;
-    else if (k === 'sections' && mode === 'teach') {
-      h = `${seg([['study', 'Study'], ['together', 'Loop together']])}${sectionNav()}`;
-      h += how === 'study' ? `${playBtn('Hear this section')}${tempoCtl()}<span class="pb-hint">A fingering under every note: the class works through it at its own pace, alone or in pairs.</span>${sectionsBtn()}`
-        : `${playBtn('Loop it')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">Each section, then joined to the ones before, until it is all of it.</span>`;
-      h += next;
-    }
-    else if (k === 'sections') {
-      h = `${seg([['time', 'In time'], ['note', 'Note by note']])}${sectionNav()}`;
-      h += how === 'time' ? `${playBtn('Loop it')}${tempoCtl()}${fasterCtl()}`
-        : `<button type="button" class="big" data-act="back" title="The note before (Backspace)">◀ Back</button>
+    if (k === 'listen') h = `${playBtn(example ? `Hear ${example.words}` : 'Listen to the whole piece')}${conceptCtl()}`;
+    else if (k === 'sections' && mode === 'teach') h = how === 'study'
+      ? `${playBtn('Hear this section')}${sectionNav()}${tempoCtl()}`
+      : `${playBtn('Loop it')}${sectionNav(false)}${tempoCtl()}${fasterCtl()}`;
+    else if (k === 'sections') h = how === 'time'
+      ? `${playBtn('Loop it')}${sectionNav()}${tempoCtl()}${fasterCtl()}`
+      : `<button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
+        <button type="button" class="big" data-act="back" title="The note before (Backspace)">Back</button>
         <button type="button" class="big" data-act="hear" title="Hear this note (H)"><span aria-hidden="true">🔊</span> Hear it</button>
-        <button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
-        <span class="pb-step" aria-live="polite"></span>
+        <span class="pb-step" aria-live="polite"></span>${sectionNav()}
         <label class="chk" title="Play each note as it comes up"><input type="checkbox" class="pb-sound" checked> Sound each note</label>
-        <button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone: a steady, matching note moves on by itself. Noise, other players and echoes can fool it; Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>`;
-      h += `${sectionsBtn()}${next}`;
-    }
-    else if (k === 'whole') h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">From slow to full speed, the band playing along.</span>${next}`;
+        ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone (a test): a steady, matching note moves on by itself. Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
+    else if (k === 'whole') h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}`;
     else if (k === 'through') h = `${playBtn('Play it through')}${tempoCtl()}${guideCtl()}
-        <button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard. It is a guess: noise, echoes and the guide tones can fool it."><span aria-hidden="true">🎤</span> Listen to me</button>
-        <span class="pb-hint">The band plays the accompaniment; you play the tune.</span>`;
+        ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard (a test; a guess at best)."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
     else if (k === 'hear') {
       const st = courseState();
       h = `<label class="pb-who">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Name" value="${esc(who)}">`}</label>
-        ${playBtn('Hear the whole piece')}${next}`;
+        ${playBtn('Hear the whole piece')}`;
     }
-    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}${guideCtl()}<span class="pb-hint">The band plays the accompaniment; the student plays the tune and the microphone listens (a suggestion only).</span>${next}`;
-    else h = `<span class="pb-hint">Decide in the panel, then save. The microphone only suggested; the result is yours.</span>`;
+    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}${guideCtl()}`;
+    else h = `<span class="pb-hint">Decide in the panel, then save.</span>`;
     h += mode === 'practice' && ['sections', 'whole', 'through'].includes(k) ? `<div class="pb-progress" aria-live="polite"></div>` : '';
     tools.innerHTML = h; wasPlaying = null;
     tools.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act)));
-    tools.querySelectorAll('[data-how]').forEach(b => b.addEventListener('click', () => { if (how === b.dataset.how) return; how = b.dataset.how; stopAll(); renderTools(); redraw(); }));
-    tools.querySelectorAll('.pb-nextstep').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.to)));
     tools.querySelectorAll('.pb-concepts [data-c]').forEach(b => b.addEventListener('click', () => { const c = +b.dataset.c < 0 ? null : concepts[+b.dataset.c]; if (c !== example) showExample(c); }));
     const q = s => tools.querySelector(s);
     if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
@@ -441,7 +442,7 @@
         P.writeProgress(localStorage, store); paintProgress();
       }
       celebrate();
-      say(`All ${stepper.count} notes. Now loop it in time, slowly?`, 'In time', () => { how = 'time'; renderTools(); redraw(); playPause(); });
+      say(`All ${stepper.count} notes. Now loop it in time, slowly?`, 'Loop in time', () => { how = 'time'; renderTools(); redraw(); playPause(); });
       stepper.reset(); showStep(false);
       return;
     }
@@ -518,7 +519,7 @@
     if (mode === 'practice') {
       const st = courseState(), ready = !!(me && st.progress[tune.id] && st.progress[tune.id][me] && st.progress[tune.id][me].state === 'ready');
       panel.innerHTML = `<h2>Your play-through</h2>
-        <div class="pa-flags">${attempt ? '' : `<p class="muted">${listenOn ? 'Press Play it through: the app listens while you play, then says what it heard.' : 'Turn on Listen to me and the app says what it heard. Or play it for someone.'}</p>`}</div>
+        <div class="pa-flags">${attempt ? '' : `<p class="muted">${!LISTEN_LAB ? 'The band plays the accompaniment; you play the tune. Play it for someone, and when it goes well, tell your teacher.' : listenOn ? 'Press Play it through: the app listens while you play, then says what it heard.' : 'Turn on Listen to me and the app says what it heard. Or play it for someone.'}</p>`}</div>
         ${me ? `<div class="pa-row pa-save"><button type="button" class="pa-ready primary">${ready ? 'Ready to show ✓' : 'Ready to show my teacher'}</button></div><p class="muted small">${esc(me)}: your teacher sees this on the board.</p>` : ''}`;
       if (attempt) showFlags(false);
       const rb = panel.querySelector('.pa-ready');
@@ -528,7 +529,7 @@
     const st = courseState();
     panel.innerHTML = `
       <h2>${esc(who || 'The student')}</h2>
-      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? '<p class="muted">Start the attempt: the band plays the accompaniment, the student plays the tune, and anything that sounded wrong is listed here to check by ear.</p>' : '<p class="muted">No attempt listened to: your ears decide.</p>'}</div>
+      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? `<p class="muted">Start the attempt: the band plays the accompaniment and the student plays the tune${LISTEN_LAB ? '; anything that sounded wrong is listed here to check by ear' : '. Listen, then decide'}.</p>` : '<p class="muted">Your ears decide.</p>'}</div>
       ${k === 'decide' ? `
       ${!who ? `<label class="pa-row">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option>${esc(n)}</option>`).join('')}</select>` : '<input class="pa-who" placeholder="Name">'}</label>` : ''}
       <fieldset class="pa-result"><legend>Result</legend>
@@ -643,8 +644,9 @@
       where.setAttribute('aria-label', where.textContent);
     }
     const v = tools.querySelector('.pb-bpmv'); if (v) v.textContent = String(bpm);
-    const so = tools.querySelector('.pb-share-of'); if (so) { const share = P.tempoShare(bpm, written); so.textContent = share >= 100 ? 'full speed' : `${share}% of full speed`; }
+    const tg = tools.querySelector('.pb-tempo'); if (tg) { const share = P.tempoShare(bpm, written); tg.title = share >= 100 ? 'Full speed' : `${share}% of full speed`; }
     for (const b of bar.querySelectorAll('.pb-steps button')) b.classList.toggle('done', +b.dataset.step < step);
+    for (const b of bar.querySelectorAll('.pb-step2')) b.classList.toggle('done', step > 2);
     $('.pb-show').hidden = !['piano', 'wh', 'uke'].includes($('.pb-inst select').value);
     paintPlaying(); paintProgress();
   }
