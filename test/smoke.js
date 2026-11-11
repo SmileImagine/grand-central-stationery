@@ -64,6 +64,13 @@ const accompanimentAudit = spawnSync(process.execPath, ['test/accompaniment-audi
 assert(accompanimentAudit.status === 0, accompanimentAudit.stderr || accompanimentAudit.stdout || 'accompaniment audit checks failed');
 const coverageMap = spawnSync(process.execPath, ['test/coverage-map.test.js'], { cwd: root, encoding: 'utf8' });
 assert(coverageMap.status === 0, coverageMap.stderr || coverageMap.stdout || 'coverage map checks failed');
+const practice = spawnSync(process.execPath, ['test/practice.test.js'], { cwd: root, encoding: 'utf8' });
+assert(practice.status === 0, practice.stderr || practice.stdout || 'practice checks failed');
+// The piece view and the board read only the published set: never the workshop or the review queue.
+for (const f of ['course/board.html', 'course/piece.js', 'course/practice.js']) {
+  const text = fs.readFileSync(path.join(root, f), 'utf8');
+  assert(!/course\/(holding|review)\/|holding\/index|review\/index/.test(text), `${f} must not reach the workshop or the review queue`);
+}
 const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8'));
 // A piece in the review queue is out of circulation, not lost: the published set and the queue's published pieces
 // still make the 45 tunes, and the workshop and the queue's workshop pieces the 18 items.
@@ -99,7 +106,7 @@ const sampleText = files.filter(f => f.includes(`${path.sep}course${path.sep}sam
 assert(!/\bA SKETCH\b|\(sketch\)/i.test(sampleText), 'a marked sketch remains in course/samples');
 
 const main = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const token of [...(workshopHere ? ['course/holding/board.html'] : []), 'lab/Play%20Along%20v1.html', 'class="tbtn play clock"', 'class="playmark"', 'class="dep-tempo"', 'class="lintmirror"', 'class="linttip warn" popover="manual"', 'class="nextup"', 'data-nota="staff"', 'stringglow', 'this.lastHand = ', 'keysByPitch', '12-tone approximation', 'firmer air / leak', 'course/library.html', 'case \'room\'']) assert(main.includes(token), `main page is missing ${token}`);
+for (const token of [...(workshopHere ? ['course/holding/board.html'] : []), 'lab/Play%20Along%20v1.html', 'class="tbtn play clock"', 'class="playmark"', 'class="dep-tempo"', 'class="lintmirror"', 'class="linttip warn" popover="manual"', 'class="nextup"', 'data-nota="staff"', 'stringglow', 'this.lastHand = ', 'keysByPitch', '12-tone approximation', 'firmer air / leak', 'course/library.html', 'case \'room\'', 'course/piece.js', 'const PIECE = ']) assert(main.includes(token), `main page is missing ${token}`);
 assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab is missing');
 
 if (!workshopHere) assert(!main.includes('course/holding/'), 'the main page must not link to the workshop on main');

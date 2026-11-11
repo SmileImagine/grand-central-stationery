@@ -5823,6 +5823,17 @@
         const pitch = staffs[1] ? staffs[1].getBBox().y - sb.y : vb.height - 2 * PAD;
         const vh = window.innerHeight / 100, space = sb.height / 4;
         const kMin = 1.6 * vh / space, kMax = 3.6 * vh / space;
+        // fitWhole (the practice board's piece view, a phrase on screen): the largest size at which all of it fits, on one,
+        // two or three systems, up to a staff space of 6 % of the height; otherwise two systems, the next always in view.
+        // When none fits at a legible size (a phone), the two systems again, sliding; the score says which (fitwhole).
+        this.body.classList.remove('fitwhole');
+        if (this.fitWhole) for (const n of [1, 2, 3]) {
+          const fitK = H / (sb.y + n * pitch); if (fitK < kMin) break;
+          const kn = Math.min(6 * vh / space, fitK), w = Math.max(220, Math.round(W / kn - 2 * PAD));
+          this.renderAt(this.hidden, abc, w, undefined, extra);
+          const sv = this.hidden.querySelector('svg');
+          if (sv && sv.querySelectorAll('.abcjs-staff').length <= n) { this.body.classList.add('fitwhole'); return w; }
+        }
         const k = Math.max(kMin, Math.min(kMax, H / (sb.y + 2 * pitch)));   // sb.y: what stands above the first staff (the tempo mark, the chords)
         return Math.max(220, Math.round(W / k - 2 * PAD));
       }
@@ -7055,6 +7066,10 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
     let cells = [];
     try { const saved = JSON.parse(localStorage.getItem(STORE) || 'null'); if (saved && Array.isArray(saved.cells) && saved.cells.length) cells = saved.cells; } catch (e) {}
     if (!cells.length) cells = SAMPLE.map(c => ({ ...c }));
+    // The piece view (index.html#tune=<id>&...): one tune from the practice board, opened for Teach, Practice or Assess
+    // by course/piece.js. It borrows the page and leaves the lesson saved here alone: nothing it shows is saved.
+    const PIECE = /(?:^#|&)tune=[a-z0-9]/.test(location.hash);
+    if (PIECE) { cells = []; document.documentElement.classList.add('piece-route'); }
     // The text font used to be one page-wide setting: hand it, once, to the
     // text cells saved under it, then forget it.
     const legacyFont = localStorage.getItem('gcs-font');
@@ -7067,7 +7082,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
     const engines = new Map();       // cell id -> engine
     window.gcsEngines = engines;     // for debugging from the console
     let saveTimer = null;
-    function save() { clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, font, align, pos, bg, tr, inst, nota, names, span, play, harm, style, band, mv, fac }) => ({ type, text, font, align, pos, bg, tr, inst, nota, names, span, play, harm, style, band, mv, fac })) })), 300); }
+    function save() { if (PIECE) return; clearTimeout(saveTimer); saveTimer = setTimeout(() => localStorage.setItem(STORE, JSON.stringify({ cells: cells.map(({ type, text, font, align, pos, bg, tr, inst, nota, names, span, play, harm, style, band, mv, fac }) => ({ type, text, font, align, pos, bg, tr, inst, nota, names, span, play, harm, style, band, mv, fac })) })), 300); }
     /* ---------- toast with one action (undo) ---------- */
     const toastEl = document.getElementById('toast');
     let toastTimer = null;
@@ -7524,6 +7539,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       setupCell = cell; syncSetup();
     }, true);
     function navKey(e) {
+      if (PIECE) return;                       // the piece view has its own keys (course/piece.js)
       const classic = document.body.classList.contains('present');
       if (!classic && !in3d) return;
       if (e.key === 'Escape') { e.preventDefault(); in3d ? exit3d() : exitPresent(); }
@@ -7678,6 +7694,23 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
     }
     window.GCS = { lab: { sampler, DRUM, STYLES, COMP_FOLDER, SYNTH_VOICES, SYNTH_KITS, SAMPLE_STEP, SAMPLE_SETS, SAMPLE_NOTES, setOf, sampleOf, takesOf, melodyOctave, SOUND, TONE },   // lab: what test/band-lab.js measures with
       cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder };
+    // The piece view's hooks: one notation cell, full screen in Game mode, and the page's sampler for a single note.
+    if (PIECE) {
+      Object.assign(window.GCS, {
+        piece: {
+          show(cell) { for (const en of engines.values()) if (en.player) en.player.stop(); gameMode = true; document.body.classList.add('game', 'present'); cells = [{ id: ++seq, type: 'abc', ...cell }]; rebuild(); present(0); return engines.get(cells[0].id); },
+          note(en, midi, dur = 0.7, vel = 0.8) {
+            const ctx = sampler.ctx(); if (!ctx || !en || !en.player) return Promise.resolve(null);
+            freshAudio(); wakeAudio(sampler.ctx());
+            const folder = location.protocol === 'file:' ? 'acoustic_grand_piano' : PROGRAM_FOLDER(soundProgram(en.inst, en.tuneVoice));
+            return sampler.load(folder, midi).then(() => { const bus = en.player.gains(); return bus ? sampler.play(folder, midi, sampler.ctx().currentTime + 0.03, dur, vel, bus.melody, 0.25) : null; });
+          },
+          ctx: () => wakeAudio(sampler.ctx()),
+        },
+      });
+      const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'course/piece.css'; document.head.appendChild(css);
+      for (const src of ['course/practice.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
+    }
   })();
   </script>
 </body>

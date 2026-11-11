@@ -1,0 +1,149 @@
+/* The piece view (course/piece.js): a bar across the top of the main page's Game mode, sized for a projector and a
+   phone alike. The page's own colour tokens (--ink, --bg, --panel, --line, --accent, --cursor) theme it. */
+html.piece-route { --pb-h: 120px; }   /* until the bar is measured (piece.js sets it on this element) */
+html.piece-route .toolbar, html.piece-route .present-nav, html.piece-route .cell-head { display: none !important; }
+html.piece-route body.present .cell .cell-body, html.piece-route body.present .cell[data-type="abc"] .cell-body { height: calc(100dvh - var(--pb-h)); }
+html.piece-route body.present .cells { margin-top: var(--pb-h); }
+html.piece-route .vault { top: var(--pb-h); }
+/* The full player's dock waits behind More. */
+html.piece-route body:not(.pb-advanced) .strip.dock { display: none; }
+
+.piecebar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line);
+  font: 16px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 6px 12px 4px; display: flex; flex-direction: column; gap: 4px; }
+.piecebar button, .piecebar select, .piecebar input { font: inherit; color: inherit; }
+.piecebar button { min-height: 44px; min-width: 44px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+.piecebar button:hover { border-color: var(--accent); }
+.piecebar button:focus-visible, .pb-assess :focus-visible, .pb-cutsdlg :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.piecebar button:disabled { opacity: 0.4; cursor: default; }
+.piecebar button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
+.piecebar button[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 16%, var(--panel)); border-color: var(--accent); }
+.piecebar select { min-height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); padding: 4px 8px; }
+.pb-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.pb-spacer { flex: 1; }
+.pb-back { font-weight: 700; text-decoration: none; color: var(--accent); padding: 10px 8px 10px 0; min-height: 44px; display: inline-flex; align-items: center; white-space: nowrap; }
+.pb-title { display: flex; align-items: baseline; gap: 8px; flex: 1 1 260px; min-width: 0; flex-wrap: wrap; }
+.pb-title .tape { width: 12px; height: 22px; border-radius: 3px; transform: skewX(-12deg); display: inline-block; align-self: center; background: var(--line); }
+.pb-name { font-size: 22px; }
+.pb-facts { color: var(--muted); font-size: 14px; }
+.pb-modes { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.pb-modes button { border: 0; border-radius: 0; background: transparent; font-weight: 700; padding: 6px 18px; }
+.pb-modes button + button { border-left: 1px solid var(--line); }
+.pb-modes button[data-mode="teach"].on { background: #087fca; color: #fff; }
+.pb-modes button[data-mode="practice"].on { background: #69b944; color: #fff; }
+.pb-modes button[data-mode="assess"].on { background: #79569f; color: #fff; }
+.pb-phrase { display: inline-flex; align-items: center; gap: 6px; }
+.pb-where { font-weight: 700; min-width: 12ch; text-align: center; }
+.pb-tempo { display: inline-flex; align-items: center; gap: 6px; }
+.pb-tempo .pb-bpm { font-weight: 700; font-size: 20px; min-width: 5ch; text-align: center; }
+.pb-tempo small, .pb-share-of { color: var(--muted); font-size: 13px; }
+.pb-inst { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+.pb-tools { min-height: 48px; }
+.pb-tools .big { font-weight: 700; padding: 8px 16px; }
+.pb-tools .listen { border-color: #087fca; color: #087fca; background: transparent; }
+.pb-tools .phraseplay { background: #087fca; border-color: #087fca; color: #fff; }
+.pb-tools .phraseplay.playing { background: #f39322; border-color: #f39322; }
+.pb-tools .along { background: #69b944; border-color: #69b944; color: #fff; }
+.pb-tools .go { background: #69b944; border-color: #69b944; color: #fff; }
+.pb-tools .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.pb-tools .seg button { border: 0; border-radius: 0; background: transparent; }
+.pb-tools .seg button[aria-checked="true"] { background: color-mix(in srgb, #69b944 22%, var(--panel)); font-weight: 700; }
+.pb-tools .chk { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; min-height: 44px; }
+.pb-tools .chk input { width: 20px; height: 20px; }
+.pb-step { font-weight: 700; min-width: 11ch; }
+.pb-progress { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 14px; }
+.pb-progress small { color: var(--muted); }
+.pb-progress .ladder { display: inline-flex; gap: 3px; }
+.pb-progress .rung { font-size: 12px; padding: 1px 6px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.pb-progress .rung.on { background: #69b944; border-color: #69b944; color: #fff; }
+.pb-assess-note { color: var(--muted); }
+.piecebar.missing .pb-modes, .piecebar.missing .pb-share, .piecebar.missing .pb-more, .piecebar.missing .pb-nav, .piecebar.missing .pb-tools { display: none; }
+
+/* Flags from listening, on the noteheads: an outline in the flag's colour, never covering the note. */
+.paper .pb-flagged.pb-wrong { filter: drop-shadow(0 0 4px #e72829) drop-shadow(0 0 2px #e72829) !important; }
+.paper .pb-flagged.pb-missed { filter: drop-shadow(0 0 4px #f39322) !important; }
+.paper .pb-flagged.pb-hesitation, .paper .pb-flagged.pb-rhythm { filter: drop-shadow(0 0 4px #087fca) !important; }
+.paper .pb-flagged.pb-octave { filter: drop-shadow(0 0 3px #9a9a9a) !important; }
+
+/* The assessment panel: beside the music on a wide screen, a sheet from the bottom on a narrow one. */
+.pb-assess { position: fixed; right: 12px; top: calc(var(--pb-h) + 10px); z-index: 21; width: min(380px, calc(100vw - 24px)); max-height: calc(100dvh - var(--pb-h) - 20px); overflow: auto;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.18); font: 15px/1.35 'Atkinson Hyperlegible', system-ui, sans-serif; }
+.pb-assess h2 { margin: 0 0 8px; font-size: 18px; }
+.pb-assess button, .pb-assess select, .pb-assess input, .pb-assess textarea { font: inherit; color: inherit; }
+.pb-assess button { min-height: 44px; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); cursor: pointer; }
+.pb-assess button.primary { background: #79569f; border-color: #79569f; color: #fff; font-weight: 700; }
+.pb-assess button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
+.pb-assess button[aria-pressed="true"] { background: #e72829; border-color: #e72829; color: #fff; }
+.pb-assess select, .pb-assess input, .pb-assess textarea { min-height: 40px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); padding: 4px 8px; }
+.pa-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+.pa-row > label, label.pa-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.pa-two input { width: 5em; }
+.pa-notewrap { flex-direction: column; align-items: stretch !important; }
+.pa-notewrap textarea { width: 100%; resize: vertical; }
+.pa-save { justify-content: flex-end; }
+.pb-assess .muted { color: var(--muted); }
+.pb-assess .small { font-size: 12px; margin: 4px 0 0; }
+.pa-result { border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px 8px; margin: 8px 0; display: grid; gap: 4px; }
+.pa-result legend { padding: 0 4px; color: var(--muted); }
+.pa-res { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 2px 8px; border-radius: 8px; cursor: pointer; }
+.pa-res input { width: 20px; height: 20px; }
+.pa-res:has(input:checked).pa-pass { background: color-mix(in srgb, #69b944 25%, transparent); }
+.pa-res:has(input:checked).pa-practice { background: color-mix(in srgb, #e0b800 30%, transparent); }
+.pa-res:has(input:checked).pa-na { background: color-mix(in srgb, #9a9a9a 25%, transparent); }
+.pa-flags ul { list-style: none; margin: 4px 0; padding: 0; display: grid; gap: 4px; }
+.pa-flag { display: flex; align-items: center; gap: 6px; }
+.pa-flag .pa-show { flex: 1; text-align: left; min-height: 36px; border-left-width: 5px; }
+.pa-flag.k-wrong .pa-show { border-left-color: #e72829; }
+.pa-flag.k-missed .pa-show { border-left-color: #f39322; }
+.pa-flag.k-hesitation .pa-show, .pa-flag.k-rhythm .pa-show { border-left-color: #087fca; }
+.pa-flag small { color: var(--muted); }
+
+/* Where each phrase begins. */
+.pb-cutsdlg { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); max-width: 640px; width: calc(100vw - 32px); font: 15px/1.35 'Atkinson Hyperlegible', system-ui, sans-serif; }
+.pb-cutsdlg::backdrop { background: rgba(0,0,0,0.35); }
+.pb-cutsdlg h2 { margin: 0 0 6px; font-size: 18px; }
+.pb-cutsdlg p { color: var(--muted); margin: 0 0 8px; }
+.pb-barchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pb-barchips button { min-width: 52px; min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+.pb-barchips button small { font-size: 11px; color: var(--muted); max-width: 7ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pb-barchips button[aria-pressed="true"] { background: #087fca; border-color: #087fca; color: #fff; }
+.pb-barchips button[aria-pressed="true"] small { color: #fff; }
+.pb-cutsdlg .row { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+.pb-cutsdlg .row button { min-height: 44px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); font: inherit; cursor: pointer; }
+.pb-cutsdlg .row button.primary { background: #087fca; border-color: #087fca; color: #fff; font-weight: 700; }
+.pb-cutsdlg .row button.quiet { background: transparent; border-color: transparent; color: var(--muted); }
+
+#pb-toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 30; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font: 15px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; opacity: 0; transition: opacity 0.2s; pointer-events: none; max-width: calc(100vw - 32px); }
+#pb-toast.on { opacity: 1; pointer-events: auto; }
+#pb-toast button { margin-left: 8px; min-height: 36px; border-radius: 8px; border: 1px solid currentColor; background: transparent; color: inherit; font: inherit; padding: 4px 10px; cursor: pointer; }
+
+/* A projector: everything a size up. A phone: the second row scrolls sideways rather than taking the screen. */
+@media (min-width: 1500px) { .piecebar { font-size: 19px; } .pb-name { font-size: 28px; } .piecebar button { min-height: 52px; } }
+@media (max-width: 1100px) { .pb-facts { display: none; } .pb-title { flex: 1 1 auto; } .pb-inst { font-size: 0; gap: 0; } .pb-inst select { font-size: 15px; } }
+@media (max-width: 700px) {
+  .piecebar { padding: 4px 8px; gap: 2px; }
+  .pb-name { font-size: 18px; }
+  .pb-facts { display: none; }
+  .pb-title { flex-basis: 40%; }
+  .pb-share, .pb-cuts, .pb-inst { display: none; }
+  .pb-modes button { padding: 6px 10px; }
+  .pb-tools, .pb-nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .pb-tools > *, .pb-nav > *, .pb-nav .pb-phrase > *, .pb-nav .pb-tempo > * { flex: 0 0 auto; }
+  .pb-tools { flex-wrap: wrap; overflow: visible; gap: 6px; }
+  .pb-nav { gap: 4px; } .pb-nav button { min-width: 40px; padding: 4px 8px; } .pb-tempo .pb-bpm { min-width: 3ch; font-size: 18px; }
+  .piecebar .lg, .pb-tempo small, .pb-tempo .pb-share-of, .pb-nav .pb-spacer { display: none; }
+  .pb-where { min-width: 0; white-space: nowrap; }
+  .piecebar button { padding: 6px 10px; }
+  .pb-top .pb-modes { order: 3; flex: 1 1 auto; } .pb-modes button { flex: 1; }
+  .pb-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60vw; display: inline-block; }
+  .pb-tools .big { padding: 6px 10px; white-space: nowrap; }
+  .pb-progress { flex-basis: auto; white-space: nowrap; }
+  .pb-progress small { display: none; }
+  .pb-assess { left: 8px; right: 8px; width: auto; top: auto; bottom: 8px; max-height: 60dvh; }
+}
+@media (prefers-reduced-motion: reduce) { #pb-toast { transition: none; } }
+
+/* The phrase is the point here: the instrument stays beside it, smaller than Game mode's (a third of the height at most). */
+html.piece-route body.game .inst { height: min(30vh, calc(60vw * var(--inst-ratio, 0.3) + 2vh)) !important; min-height: 16vh; }
+html.piece-route body.game .score { min-height: 30vh; }
+/* All of a phrase is on screen: no fade at the foot hinting at a next line. */
+html.piece-route body.game .fitwhole .score.twoline { -webkit-mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); mask-image: linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent); }
