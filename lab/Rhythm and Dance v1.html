@@ -558,6 +558,25 @@ const frameAt = (d, p) => { let k = 0; for (let i = 0; i < d.frames.length; i++)
 
 /* ================= dance views ================= */
 const DV = {};
+// A head that reads from any side. Hair covers the back of the skull, and its edge is the plane through the ears, which
+// seen at an angle is an ellipse: facing us the hair is a crescent behind the face, side-on half the head, facing away all
+// of it. Ears sit on that edge; eyes, nose and mouth are placed on the sphere, so they slide and foreshorten as the head
+// turns. f and rg are the face's and the head's right direction as the camera sees them (x across, y away from the
+// camera); ny drops the features with a nod; rot tilts the whole head.
+const HEAD = (hx, hy, r, f, rg, ny, rot, w) => {
+  const n = v => v.toFixed(1), toward = -f.y, sb = f.x >= 0 ? -1 : 1, e = r * Math.min(1, Math.abs(toward)), HAIR = '#5c5c5c';
+  let s = `<circle cx="${n(hx)}" cy="${n(hy)}" r="${n(r)}" fill="#fff"/>`;
+  const sw1 = sb > 0 ? 1 : 0, sw2 = toward > 0 ? 1 - sw1 : sw1;
+  if (toward < .995) s += `<path d="M${n(hx)},${n(hy - r)} A${n(r)},${n(r)} 0 0 ${sw1} ${n(hx)},${n(hy + r)} A${n(Math.max(.01, e))},${n(r)} 0 0 ${sw2} ${n(hx)},${n(hy - r)} Z" fill="${HAIR}"/>`;
+  if (toward > -.25) s += `<path d="M${n(hx - .86 * r)},${n(hy - .5 * r)} A${n(r)},${n(r)} 0 0 1 ${n(hx + .86 * r)},${n(hy - .5 * r)} Q${n(hx + f.x * .4 * r)},${n(hy - .74 * r)} ${n(hx - .86 * r)},${n(hy - .5 * r)} Z" fill="${HAIR}"/>`;   // the hairline over the brow
+  const c = Math.cos(.6), sn = Math.sin(.6);
+  for (const k of [-1, 1]) { const v = { x: f.x * c + k * rg.x * sn, y: f.y * c + k * rg.y * sn }; if (v.y < -.12) s += `<ellipse cx="${n(hx + v.x * r * .86)}" cy="${n(hy - .1 * r + ny)}" rx="${n(.09 * r * Math.max(.45, -v.y))}" ry="${n(.1 * r)}" fill="#333"/>`; }
+  if (f.y < .3) s += `<path d="M${n(hx + f.x * r * .74)},${n(hy - .06 * r + ny)} L${n(hx + f.x * r * 1.08)},${n(hy + .16 * r + ny)} L${n(hx + f.x * r * .8)},${n(hy + .24 * r + ny)}" stroke="#333" stroke-width="${n(w * .8)}" fill="none" stroke-linejoin="round"/>`;   // the nose
+  if (f.y < -.3) { const mx = hx + f.x * r * .8, hw2 = .24 * r * -f.y; s += `<path d="M${n(mx - hw2)},${n(hy + .44 * r + ny)} Q${n(mx)},${n(hy + .56 * r + ny)} ${n(mx + hw2)},${n(hy + .44 * r + ny)}" stroke="#333" stroke-width="${n(w * .8)}" fill="none"/>`; }
+  for (const k of [-1, 1]) { const ex = k * rg.x, ed = k * rg.y; if (ed < .5) s += `<ellipse cx="${n(hx + ex * r * .97)}" cy="${n(hy + .06 * r + ny * .3)}" rx="${n(r * (.08 + .08 * Math.min(1, Math.abs(ed) + .2)))}" ry="${n(.22 * r)}" fill="#fff" stroke="#333" stroke-width="${n(w * .7)}"/>`; }
+  s += `<circle cx="${n(hx)}" cy="${n(hy)}" r="${n(r)}" fill="none" stroke="#333" stroke-width="${n(w * 2)}"/>`;
+  return `<g transform="rotate(${n(rot)} ${n(hx)} ${n(hy)})">${s}</g>`;
+};
 // A footprint: sole and five toes, toes forward (up the page), the big toe on the inner side and the instep hollowed. Drawn as a right foot;
 // the left is its mirror. scale < 0 turns it round for the view from in front.
 const FOOT = (x, y, side, scale, fill, stroke, extra = '', rot = 0) => `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${side * Math.abs(scale)} ${scale})"${extra}><path d="M-11,-9 C-10,-1 -4,3 -6,15 C-7,22 4,23 6,17 C9,9 13,0 10,-9 C8,-15 -9,-15 -11,-9 Z" fill="${fill}" stroke="${stroke}" stroke-width="${2 / Math.abs(scale)}" stroke-linejoin="round"/><circle cx="-7" cy="-20" r="4.4" fill="${fill}" stroke="${stroke}" stroke-width="${1.6 / Math.abs(scale)}"/><circle cx="-0.5" cy="-22.5" r="2.9" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/><circle cx="4.5" cy="-22" r="2.5" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/><circle cx="8.5" cy="-20" r="2.2" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/><circle cx="11.5" cy="-17" r="2" fill="${fill}" stroke="${stroke}" stroke-width="${1.4 / Math.abs(scale)}"/></g>`;
@@ -902,10 +921,9 @@ DV.dancer = {
       const { F, hip, J, B, toe, weight, side } = lg, col = F === 'L' ? LEFT : RIGHT, depth = (view(J).y + view(B).y) / 2;
       parts.push({ depth, svg: line([hip, J, B], col, .3 * U, weight ? 1 : .7) + line([B, toe], col, .2 * U, weight ? 1 : .7) + `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.12 * U}" fill="${weight ? col : '#fff'}" stroke="${col}" stroke-width="${.08 * U}"/>` });
     }
-    const rel = sk.faceYaw * Math.PI / 180 - cam, face = Math.cos(rel) < 0, faceX = -Math.sin(rel);   // the face shows when the head has turned toward the camera; the eyes slide toward the side it looks to
-    const hp = pr(sk.headC), ny = sk.nod * .006 * U;
+    const hp = pr(sk.headC), ny = sk.nod * .006 * U, ya = sk.faceYaw * Math.PI / 180, nt = pr(sk.neckTop), rotA = Math.atan2(hp[0] - nt[0], nt[1] - hp[1]) * 180 / Math.PI;
     parts.push({ depth: view(st.P).y, svg: line([hipL, hipR], '#333', .3 * U) + line([{ x: st.P.x, y: st.P.y, z: st.P.z }, { x: st.S.x, y: st.S.y, z: st.S.z }], '#333', .34 * U) + line([shL, shR], '#333', .3 * U) });
-    parts.push({ depth: view(st.S).y - .01, svg: line([{ x: st.S.x, y: st.S.y, z: st.S.z }, sk.neckTop], '#333', .25 * U) + `<circle cx="${hp[0]}" cy="${hp[1]}" r="${R.head * U}" fill="#fff" stroke="#333" stroke-width="${.14 * U}"/>` + (face ? `<circle cx="${hp[0] - .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U + ny}" r="${.05 * U}" fill="#333"/><circle cx="${hp[0] + .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U + ny}" r="${.05 * U}" fill="#333"/><path d="M${hp[0] - .2 * U + faceX * .25 * U},${hp[1] + .2 * U + ny} Q${hp[0] + faceX * .25 * U},${hp[1] + .36 * U + ny} ${hp[0] + .2 * U + faceX * .25 * U},${hp[1] + .2 * U + ny}" stroke="#333" stroke-width="${.07 * U}" fill="none"/>` : '') });
+    parts.push({ depth: view(st.S).y - .01, svg: line([{ x: st.S.x, y: st.S.y, z: st.S.z }, sk.neckTop], '#333', .25 * U) + HEAD(hp[0], hp[1], R.head * U, view({ x: Math.sin(ya), y: Math.cos(ya) }), view({ x: Math.cos(ya), y: -Math.sin(ya) }), ny, rotA, .07 * U) });
     for (const am of sk.arms) {
       const { sh, J, B } = am, col = am.i ? RIGHT : LEFT;
       parts.push({ depth: (view(J).y + view(B).y) / 2, svg: line([sh, J, B], col, .24 * U) + `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${(am.shape === 'fist' ? .16 : .12) * U}" fill="${col}"/>` });
@@ -1037,6 +1055,12 @@ DV.writing = {
       const legP = thruPts(hip, J, B, 14).concat(qpts(pb, [pb[0] + (pt[0] - pb[0]) * .3, pb[1] + (pt[1] - pb[1]) * .3 + heel], pt, 4, 1));
       const [w0, wa, wt] = weight ? [.46 * U, .2 * U, .09 * U] : [.3 * U, .13 * U, .07 * U];
       let svg = brush(legP, taper(15, w0, wa, .8).concat(taper(5, wa, wt).slice(1)), col) + depthMark(toe, fwdOf(B, st.P), col);
+      // the knee: its cap on the side that faces the camera, the crease behind it on the side that faces away
+      { const m3 = { x: (hip.x + B.x) / 2, y: (hip.y + B.y) / 2, z: (hip.z + B.z) / 2 }; let kf = { x: J.x - m3.x, y: J.y - m3.y, z: J.z - m3.z }, kl = Math.hypot(kf.x, kf.y, kf.z);
+        if (kl < .05) { kf = { x: st.fwd.x, y: st.fwd.y, z: 0 }; kl = 1; } kf = { x: kf.x / kl, y: kf.y / kl, z: kf.z / kl };
+        const kd = (kf.x * cs * -1 + kf.y * cc), pj = pr({ x: J.x + kf.x * .1, y: J.y + kf.y * .1, z: J.z + kf.z * .1 });   // kd > 0: the knee points away from the camera
+        if (kd < -.25) svg += `<ellipse cx="${pj[0].toFixed(1)}" cy="${pj[1].toFixed(1)}" rx="${(.12 * U).toFixed(1)}" ry="${(.1 * U).toFixed(1)}" fill="#fff" fill-opacity=".85" stroke="${col}" stroke-width="${(.05 * U).toFixed(1)}"/>`;
+        else if (kd > .25) { const q = pr(J); svg += `<path d="M${(q[0] - .13 * U).toFixed(1)},${(q[1] + .02 * U).toFixed(1)} Q${q[0].toFixed(1)},${(q[1] + .1 * U).toFixed(1)} ${(q[0] + .13 * U).toFixed(1)},${(q[1] + .02 * U).toFixed(1)}" stroke="#fff" stroke-width="${(.05 * U).toFixed(1)}" fill="none" stroke-linecap="round"/>`; } }
       // walking dots: where the foot is about to go
       if (ft.air && ft.kind !== 'up' && ft.kind !== 'pose') for (let j = 1; j <= 8; j++) { const t = p + j * .06, q = rig.foot(F, ((t % this.d.cycle) + this.d.cycle) % this.d.cycle); if (!q.air) break; const [x, y] = pr(q); svg += `<circle cx="${x}" cy="${y}" r="${.07 * U}" fill="${col}" opacity="${.7 - j * .07}"/>`; }
       if (f.kind === 'touch' && f.moving === F && sinceOn < .6) { const [x, y] = pr(toe); extra.push(`<text x="${x + side * .45 * U}" y="${y - .25 * U}" text-anchor="middle" font-size="${.9 * U}" font-weight="700" fill="${col}" opacity="${(1 - sinceOn / .6).toFixed(2)}">*</text>`); }
@@ -1047,15 +1071,42 @@ DV.writing = {
     const nH = up(hipL, hipR), nS = up(shL, shR), a = pr(st.P), b = [(pr(shL)[0] + pr(shR)[0]) / 2, (pr(shL)[1] + pr(shR)[1]) / 2], Ls = Math.hypot(b[0] - a[0], b[1] - a[1]) * .42;
     const spine = cpts(a, [a[0] + nH[0] * Ls, a[1] + nH[1] * Ls], [b[0] - nS[0] * Ls, b[1] - nS[1] * Ls], b, 12);
     const nk = pr(sk.neckTop), hp = pr(sk.headC), hr = R.head * U;
-    // the face: shown when the head turns toward the camera, its features sliding toward the side it looks to, dropping
-    // with a nod, turning with the head's tilt; seen side-on a nose marks where the dancer looks, even from behind
-    const rel = sk.faceYaw * Math.PI / 180 - cam, face = Math.cos(rel) < 0, faceX = -Math.sin(rel), ny = sk.nod * .006 * U, rotA = Math.atan2(hp[0] - nk[0], nk[1] - hp[1]) * 180 / Math.PI;
-    let faceSvg = face ? `<circle cx="${hp[0] - .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U + ny}" r="${.05 * U}" fill="#333"/><circle cx="${hp[0] + .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U + ny}" r="${.05 * U}" fill="#333"/><path d="M${hp[0] - .2 * U + faceX * .25 * U},${hp[1] + .2 * U + ny} Q${hp[0] + faceX * .25 * U},${hp[1] + .36 * U + ny} ${hp[0] + .2 * U + faceX * .25 * U},${hp[1] + .2 * U + ny}" stroke="#333" stroke-width="${.07 * U}" fill="none"/>` : '';
-    if (Math.abs(faceX) > .5) { const sx = Math.sign(faceX), x0 = hp[0] + sx * hr, y0 = hp[1] + ny * .6; faceSvg += `<path d="M${x0},${y0 - .14 * U} L${x0 + sx * .2 * U},${y0 + .04 * U} L${x0},${y0 + .1 * U}" fill="#fff" stroke="#333" stroke-width="${.08 * U}" stroke-linejoin="round"/>`; }
+    // the head, from any side (see HEAD), tilted along the neck; and the body as a solid form (it takes the spine's place:
+    // the hip bar sits inside the pelvis, the shoulder bar stays as DanceWriting's shoulders) with what marks its front
+    // and its back. Each level of the torso is an ellipse round the spine (half-width a across, b front to back) turned
+    // with the chest or the hips; its outline is that ellipse as the camera sees it, so the body narrows to a profile as
+    // the dancer turns and an arm behind the body goes behind it. Front: collarbones, breastbone, the arch of the ribs,
+    // navel, the creases of the hips. Back: the spine's groove, the shoulder blades, the line of the seat.
+    const vd = q => ({ x: q.x * cc + q.y * cs, y: -q.x * cs + q.y * cc }), nrm = v => { const l = Math.hypot(v.x, v.y) || 1; return { x: v.x / l, y: v.y / l }; };
+    const ya = sk.faceYaw * Math.PI / 180, ny = sk.nod * .006 * U, rotA = Math.atan2(hp[0] - nk[0], nk[1] - hp[1]) * 180 / Math.PI;
+    const headSvg = HEAD(hp[0], hp[1], hr, vd({ x: Math.sin(ya), y: Math.cos(ya) }), vd({ x: Math.cos(ya), y: -Math.sin(ya) }), ny, rotA, .07 * U);
+    const axes = t => { const k = Math.min(1, Math.max(0, t)); return { r: vd(nrm({ x: st.right.x + (st.shRight.x - st.right.x) * k, y: st.right.y + (st.shRight.y - st.right.y) * k })), f: vd(nrm({ x: st.fwd.x + (st.shFwd.x - st.fwd.x) * k, y: st.fwd.y + (st.shFwd.y - st.fwd.y) * k })) }; };
+    const PROF = [[-.2, .5, .46], [-.08, .82, .56], [0, .9, .56], [.18, .8, .5], [.38, .64, .44], [.6, .8, .54], [.82, .96, .58], [.97, .9, .5], [1.08, .3, .3]];
+    const prof = t => { for (let i = 1; i < PROF.length; i++) if (t <= PROF[i][0]) { const [t0, a0, b0] = PROF[i - 1], [t1, a1, b1] = PROF[i], k = Math.max(0, (t - t0) / (t1 - t0)); return [a0 + (a1 - a0) * k, b0 + (b1 - b0) * k]; } return PROF[PROF.length - 1].slice(1); };
+    const c1 = [a[0] + nH[0] * Ls, a[1] + nH[1] * Ls], c2 = [b[0] - nS[0] * Ls, b[1] - nS[1] * Ls], SL = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+    const bez = t => { const v = 1 - t; return [0, 1].map(k => v * v * v * a[k] + 3 * v * v * t * c1[k] + 3 * v * t * t * c2[k] + t * t * t * b[k]); };
+    const at = t => { let c, tg; if (t < 0) { tg = nrm({ x: c1[0] - a[0], y: c1[1] - a[1] }); c = [a[0] + tg.x * t * SL, a[1] + tg.y * t * SL]; } else if (t > 1) { tg = nrm({ x: b[0] - c2[0], y: b[1] - c2[1] }); c = [b[0] + tg.x * (t - 1) * SL, b[1] + tg.y * (t - 1) * SL]; } else { c = bez(t); const q1 = bez(Math.min(1, t + .01)), q0 = bez(Math.max(0, t - .01)); tg = nrm({ x: q1[0] - q0[0], y: q1[1] - q0[1] }); } if (!tg.x && !tg.y) tg = { x: 0, y: -1 }; return { c, n: { x: -tg.y, y: tg.x } }; };
+    const sp = (t, sd, dz) => { const { c, n } = at(t), [A2, B2] = prof(t), ax = axes(t), off = (sd * A2 * ax.r.x + dz * B2 * ax.f.x) * U; return [c[0] + n.x * off, c[1] + n.y * off]; };
+    const P2 = q => q[0].toFixed(1) + ',' + q[1].toFixed(1), TS = Array.from({ length: 17 }, (_, i) => -.2 + 1.28 * i / 16);
+    const rim = TS.map(t => { const { c, n } = at(t), [A2, B2] = prof(t), ax = axes(t), hw = U * Math.hypot(A2 * ax.r.x, B2 * ax.f.x); return [[c[0] + n.x * hw, c[1] + n.y * hw], [c[0] - n.x * hw, c[1] - n.y * hw]]; });
+    let body = `<path d="M${rim.map(q => P2(q[0])).join(' L')} L${rim.map(q => P2(q[1])).reverse().join(' L')}Z" fill="#ebe7e0" stroke="#cfc8bc" stroke-width="${(.05 * U).toFixed(1)}" stroke-linejoin="round"/>`;
+    const facing = t => -axes(t).f.y, vis = (t, front) => Math.max(0, Math.min(1, ((front ? 1 : -1) * facing(t) - .1) / .35));
+    const mark = (d, t, front, extra = '') => { const o = vis(t, front); return o > .02 ? `<path d="${d}" stroke="#9c9284" stroke-width="${(.06 * U).toFixed(1)}" fill="none" stroke-linecap="round" opacity="${o.toFixed(2)}"${extra}/>` : ''; };
+    const dot = (q, t, front, r2) => { const o = vis(t, front); return o > .02 ? `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${(r2 * U).toFixed(1)}" fill="#9c9284" opacity="${o.toFixed(2)}"/>` : ''; };
+    let marks = '';
+    for (const k of [-1, 1]) {
+      marks += mark(`M${P2(sp(.975, k * .06, .95))} Q${P2(sp(.95, k * .38, .92))} ${P2(sp(.99, k * .72, .55))}`, .9, true);   // collarbones
+      marks += mark(`M${P2(sp(.12, k * .66, .72))} Q${P2(sp(-.02, k * .4, .9))} ${P2(sp(-.13, k * .12, .96))}`, 0, true);   // the creases of the hips
+      marks += mark(`M${P2(sp(.9, k * .2, -.92))} Q${P2(sp(.74, k * .24, -.95))} ${P2(sp(.66, k * .6, -.75))}`, .8, false);   // shoulder blades
+      marks += mark(`M${P2(sp(-.17, k * .05, -.98))} Q${P2(sp(-.21, k * .45, -.9))} ${P2(sp(-.07, k * .8, -.6))}`, 0, false);   // the line of the seat
+    }
+    marks += mark(`M${P2(sp(.93, 0, 1))} L${P2(sp(.72, 0, 1))}`, .85, true) + mark(`M${P2(sp(.57, -.6, .78))} Q${P2(sp(.72, 0, 1.05))} ${P2(sp(.57, .6, .78))}`, .6, true) + dot(sp(.3, 0, 1), .3, true, .05);
+    for (let t = .92; t > .1; t -= .08) marks += dot(sp(t, 0, -1), t, false, .035);
+    marks += mark(`M${P2(sp(-.02, 0, -1))} L${P2(sp(-.15, 0, -1))}`, 0, false);
     const bar = (A, B) => { const a2 = pr(A), b2 = pr(B); return Array.from({ length: 7 }, (_, i) => [a2[0] + (b2[0] - a2[0]) * i / 6, a2[1] + (b2[1] - a2[1]) * i / 6]); };
-    parts.push({ depth: view(st.P).y, svg: brush(bar(hipL, hipR), swell(7, .14 * U, .32 * U), '#333') + brush(spine, taper(13, .36 * U, .26 * U), '#333') + brush(bar(shL, shR), swell(7, .12 * U, .3 * U), '#333')
+    parts.push({ depth: view(st.P).y, svg: brush(bar(hipL, hipR), swell(7, .12 * U, .26 * U), '#333') + body + brush(bar(shL, shR), swell(7, .1 * U, .24 * U), '#333') + marks
       + brush([b, [(b[0] + nk[0]) / 2, (b[1] + nk[1]) / 2], nk], [.24 * U, .2 * U, .17 * U], '#333')
-      + `<circle cx="${hp[0]}" cy="${hp[1]}" r="${hr}" fill="#fff" stroke="#333" stroke-width="${.14 * U}"/>` + `<g transform="rotate(${rotA.toFixed(1)} ${hp[0].toFixed(1)} ${hp[1].toFixed(1)})">${faceSvg}</g>` });
+      + headSvg });
     // hands: the fingers carry on from the forearm, shaped by the pose (flat, point, spread, cup, or a fist)
     const handMark = (J, B, shape, col) => {
       const pj = pr(J), pb = pr(B); let dx = pb[0] - pj[0], dy = pb[1] - pj[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l;
