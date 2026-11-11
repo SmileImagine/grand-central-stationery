@@ -645,8 +645,11 @@ DV.figs = {
 // proportions cannot drift. Coordinates: x across (the dancer's right positive), y forward, z up, in units where
 // the figure stands about 7.2 tall.
 DV.dancer = {
-  RIG: { thigh: 2.0, shin: 1.9, torso: 2.5, neck: .35, head: .55, upper: 1.25, fore: 1.15, hipHalf: .5, shoulderHalf: 1.25 },
+  RIG: { thigh: 2.0, shin: 1.9, torso: 2.5, neck: .35, head: .55, upper: 1.25, fore: 1.15, hipHalf: .5, shoulderHalf: 1.05 },
   ease: t => { t = Math.min(1, Math.max(0, t)); return t < .5 ? 2 * t * t : 1 - (2 - 2 * t) ** 2 / 2; },
+  // arriving on a count: accelerate in and stop on the contact, like a stamp or a clap (sudden strikes harder);
+  // sustained and light moves keep a soft landing
+  arrive(t, eff = {}) { t = Math.min(1, Math.max(0, t)); return eff.time === 'sustained' || eff.weight === 'light' ? this.ease(t) : eff.time === 'sudden' ? t * t * t : t * t; },
   prep(d) {
     const fr = d.frames, n = fr.length, total = d.bars * d.beats, ev = { L: [], R: [] };
     fr.forEach((f, i) => {
@@ -669,7 +672,7 @@ DV.dancer = {
     const eff = nx.eff || {}, span = tn - te;
     const flight = still ? 0 : eff.time === 'sudden' ? Math.min(.3, .3 * span) : eff.time === 'sustained' ? Math.min(1.6, .95 * span) : Math.min(.6, .55 * span);
     if (flight && p >= tn - flight) {
-      const u = (p - (tn - flight)) / flight, s = eff.time === 'sudden' ? 1 - (1 - u) ** 3 : this.ease(u), arc = Math.sin(Math.PI * u);
+      const u = (p - (tn - flight)) / flight, s = this.arrive(u, eff), arc = Math.sin(Math.PI * s);   // the arc rides the eased path, so the foot rises gently and drops into the floor
       const dist = Math.hypot(nx.x - e.x, nx.y - e.y);
       let h = nx.kind === 'up' ? 0 : nx.hop ? .45 : nx.jump ? .55 : .22 + .12 * dist;
       h *= eff.weight === 'light' ? 1.6 : eff.weight === 'strong' ? .55 : 1; if (eff.time === 'sustained') h *= .75;
@@ -696,7 +699,7 @@ DV.dancer = {
     // next frame's value fills a window just before that frame's onset, so a clap or a hip accent connects on the note.
     // The window follows the next move's effort: sudden is a snap, sustained fills the gap, otherwise about a third of a beat.
     const tn = k + 1 < n ? fr[k + 1].t : total, dt0 = (tn - f.t) || 1, nx = fr[(k + 1) % n], ne = nx.effort || {};
-    const win = Math.min(dt0 * .85, ne.time === 'sudden' ? .16 : ne.time === 'sustained' ? dt0 : .35), us = this.ease((p - (tn - win)) / win), prev = f;
+    const win = Math.min(dt0 * .85, ne.time === 'sudden' ? .16 : ne.time === 'sustained' ? dt0 : .35), us = this.arrive((p - (tn - win)) / win, ne), prev = f;
     const LV = { l: -.55, m: 0, h: .18 }, lvOff = LV[prev.level] + (LV[nx.level] - LV[prev.level]) * us;
     const LN = { f: [0, .6], b: [0, -.6], l: [-.5, 0], r: [.5, 0], c: [0, 0] }, shapeLean = { x: LN[prev.lean][0] + (LN[nx.lean][0] - LN[prev.lean][0]) * us, y: LN[prev.lean][1] + (LN[nx.lean][1] - LN[prev.lean][1]) * us };
     let h = nominal + lvOff, airborne = !L.planted && !Rt.planted;
@@ -716,13 +719,13 @@ DV.dancer = {
     const S = { x: P.x + lean.x + sl.x - hipW.x * 1.4, y: P.y + lean.y + sl.y - hipW.y * 1.4, z: h + R.torso };
     // hands: the arms token sets where the hands are on its count; they travel in the window before it. Claps on
     // consecutive counts open and meet again between them, so every c is a contact.
-    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-3.5, .15, .3], [3.5, .15, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.07, .9, -.4], [.07, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
+    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-3.3, .15, .3], [3.3, .15, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.07, .9, -.4], [.07, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
     const A0 = hand(f.arms), A = hand(nx.arms), reclap = f.arms === 'c' && nx.arms === 'c' ? Math.sin(Math.PI * Math.min(1, Math.max(0, (p - f.t) / dt0))) * .55 : 0;
     const hands = [0, 1].map(i => { const a = A0[i].map((c, j) => c + (A[i][j] - c) * us); a[0] += (i ? 1 : -1) * reclap; const w = loc(a[0], a[1]); return { x: S.x + w.x, y: S.y + w.y, z: S.z + a[2] }; });
     const SH = { l: [.3, 0], r: [0, .3], u: [.25, .25], c: [0, 0] }, shLift = [0, 1].map(i => SH[prev.shoulders][i] + (SH[nx.shoulders][i] - SH[prev.shoulders][i]) * us);
     // contrapposto: the hip over the supporting foot rides up, the shoulders answer the other way
     const mid = { x: (L.x + Rt.x) / 2, y: (L.y + Rt.y) / 2 }, halfW = Math.max(.4, Math.hypot(L.x - Rt.x, L.y - Rt.y) / 2);
-    const over = Math.max(-1, Math.min(1, ((P.x - mid.x) * right.x + (P.y - mid.y) * right.y) / halfW)), hipTilt = airborne ? 0 : .13 * over;
+    const over = Math.max(-1, Math.min(1, ((P.x - mid.x) * right.x + (P.y - mid.y) * right.y) / halfW)), hipTilt = airborne ? 0 : .045 * over;   // a hint only: plenty of steps tilt the hips the other way
     return { P: { ...P, z: h }, S, L, R: Rt, hands, weight: f.weight, arms: f.arms, airborne, right, fwd, loc, facing, shLift, hipTilt, shTilt: -.6 * hipTilt, since: p - f.t };
   },
   ik(A, B, l1, l2, bendDir) {   // two-bone: joint between A and B bending toward bendDir
@@ -847,7 +850,7 @@ DV.writing = {
     ['floor', 'knees', 'hips', 'shoulders', 'head'].forEach((nm, i) => { s += `<text x="8" y="${Y0 - i * G + 5}" font-size="14" fill="#999">${nm}</text>`; });
     s += `<g class="wfig" transform="translate(${this.playX} ${Y0})"></g><text class="wsay" x="${W / 2}" y="${H - 14}" text-anchor="middle" font-size="26" font-weight="600" fill="#333"></text>`;
     s += `<text x="${W - 8}" y="${H - 44}" text-anchor="end" font-size="12" fill="#999">○ forward  ● behind  * touch  ↕ in the air  (after Sutton DanceWriting)</text></svg>`;
-    el.innerHTML = s; this.d = d; this.tape = el.querySelector('.tape'); this.fig = el.querySelector('.wfig'); this.say = el.querySelector('.wsay');
+    el.innerHTML = s; this.d = d; this.lastQ = null; this.tape = el.querySelector('.tape'); this.fig = el.querySelector('.wfig'); this.say = el.querySelector('.wsay');
     this.notes = [...el.querySelectorAll('.tape [data-t]')].map(n => ({ n, t: +n.dataset.t, on: false, base: n.getAttribute('opacity') || 1 }));
   },
   figure(st, f, p) {
@@ -902,8 +905,9 @@ DV.writing = {
   },
   paint(p) {
     const d = this.d, total = d.cycle, q = ((p % total) + total) % total, k = frameAt(d, q), f = d.frames[k];
+    if (q === this.lastQ) return; this.lastQ = q;   // paused: nothing to redraw
     this.tape.setAttribute('transform', `translate(${(this.playX - q * this.ppb).toFixed(1)} 0)`);
-    for (const nt of this.notes) { let a = q - nt.t; if (a < -1e-6) a += total; const on = a >= -1e-6 && a < .18; if (on !== nt.on) { nt.on = on; nt.n.setAttribute('opacity', on ? 1 : nt.base); nt.n.style.filter = on ? `drop-shadow(0 0 6px ${HI})` : ''; } }
+    for (const nt of this.notes) { let a = q - nt.t; if (a < -1e-6) a += total; const on = a >= -1e-6 && a < .18; if (on !== nt.on) { nt.on = on; nt.n.setAttribute('opacity', on ? 1 : nt.base); } }   // opacity only: a CSS filter on SVG is slow in Safari
     this.fig.innerHTML = this.figure(this.rig.state(q), f, q);
     const names = { step: `step ${f.moving === 'L' ? 'left' : 'right'}`, touch: `touch ${f.moving === 'L' ? 'left' : 'right'}`, jump: 'jump', hop: 'hop', kick: `kick ${f.moving === 'L' ? 'left' : 'right'}`, hold: 'hold' }, dirs = { f: ' forward', b: ' back', s: ' to the side', x: ' across', z: ' across behind', c: ' together', p: '' };
     this.say.textContent = `${countOf(f)}: ${names[f.kind]}${['step', 'touch', 'jump'].includes(f.kind) ? dirs[f.dir] : ''}`;
@@ -992,7 +996,8 @@ function paint() {
   const p = clock.pos(), c = clock.cycle, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
   if (state.view) state.view.paint(inCycle);
   const beat = Math.floor(p), frac = p - beat; $('#lamp').classList.toggle('on', clock.running && frac < .18);
-  $('#play').textContent = clock.running ? '❚❚' : '▶'; $('#play').classList.toggle('on', clock.running);
+  // touch the button only when it changes: Safari drops a click when the text under the pointer is replaced between press and release
+  const pl = $('#play'), sym = clock.running ? '❚❚' : '▶'; if (pl.textContent !== sym) { pl.textContent = sym; pl.classList.toggle('on', clock.running); }
 }
 (function loop() { paint(); requestAnimationFrame(loop); })();
 $('#play').onclick = () => { if (clock.running) clock.pause(); else clock.start($('#countin').checked && clock.pausedAt === 0 ? state.r.beats : 0); };
