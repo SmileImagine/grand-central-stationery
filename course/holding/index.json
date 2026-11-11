@@ -10,7 +10,7 @@
  "counts": {
   "inbox": 0,
   "transcription": 2,
-  "source-check": 6,
+  "source-check": 7,
   "classroom-check": 0,
   "ready": 0
  },
@@ -234,6 +234,45 @@
     "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
     "respect": "a children's game, for everyone; say it is Jamaican and that the words are Jamaican Patois",
     "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing"
+   }
+  },
+  {
+   "id": "resvelons-nous",
+   "file": "items/resvelons-nous.abc",
+   "title": "Resvelons nous",
+   "subtitle": "Wake up, lovers: a May song with a canon burden",
+   "source": "J. F. R. and C. Stainer, Dufay and his Contemporaries (London: Novello, 1898), pp. 132-133, from Oxford, Bodleian Library, MS Canonici misc. 213",
+   "sourceUrls": [
+    {
+     "url": "https://imslp.org/wiki/Dufay_and_his_Contemporaries_(Various)",
+     "label": "IMSLP: Stainer, Dufay and his Contemporaries (1898), the full scan; the song is at pp. 132-133 (pdf pp. 170-171)"
+    },
+    {
+     "url": "https://catalog.hathitrust.org/Record/100887415",
+     "label": "HathiTrust: another full-view scan of the same book"
+    }
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: hear all three voices against Stainer pp. 132-133 (IMSLP #344705, pdf pp. 170-171), especially the editorial accidentals (Stainer's sharps and flats over the notes) and the burden's last three bars, which leave the canon. Then classroom check: can a class hold the burden as a two-part round, an octave up, while the teacher sings the top line?",
+   "notes": "THE WORDS (top voice): \"Resvelons nous, resvelons, amoureux; / Alons au bois tantost en cilir le may. / Et chanterons chascun un virelay / Pour sa dame: s'en serons plus joieux.\" Wake up, wake up, lovers; let us go to the woods now to gather the may, and each of us will sing a virelai for his lady, and be the happier for it. The burden: \"Alons ent bien tos au may\", let's be off to the may.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A May-morning song: wake up, lovers, and go to the woods to gather the may (green boughs and blossom brought home on May Day). The burden underneath is the company's own call, \"Alons ent bien tos au may\", let's be off to the may.",
+    "elements": "A five-bar burden sung as a canon: the contratenor sings it, the tenor answers a fifth lower one bar later, each resting a bar before going round again. Over it a solo top line in 3/2. Cadences on D with the open fifth D-A.",
+    "practice": "Two groups sing the burden as a round, the second group starting one bar after the first (an octave up for children's voices); a soloist or the teacher sings the top line. The burden alone is a first canon: seven notes, stepwise, a five-bar loop. The band rests; the three voices are the whole piece.",
+    "honesty": "Composed, not traditional: Guillaume Du Fay, before about 1436 (the date by which it was copied into Oxford, Bodleian Library, Canonici misc. 213). The notes are Stainer's 1898 transcription, note values halved, with his editorial accidentals.",
+    "licence": "Stainer, Dufay and his Contemporaries (London: Novello, 1898): public domain in the US (published 1898) and in Canada (the editors died 1901, 1937 and 1939). Notes read from the IMSLP scan of the Sibley Music Library copy.",
+    "respect": "A secular spring song; nothing sacred or sensitive.",
+    "review": "An early-music singer or choir director, for the editorial accidentals and the tempo."
    }
   },
   {

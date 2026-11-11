@@ -1,0 +1,55 @@
+% holding-id: resvelons-nous
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: hear all three voices against Stainer pp. 132-133 (IMSLP #344705, pdf pp. 170-171), especially the editorial accidentals (Stainer's sharps and flats over the notes) and the burden's last three bars, which leave the canon. Then classroom check: can a class hold the burden as a two-part round, an octave up, while the teacher sings the top line?
+% source-url: https://imslp.org/wiki/Dufay_and_his_Contemporaries_(Various) IMSLP: Stainer, Dufay and his Contemporaries (1898), the full scan; the song is at pp. 132-133 (pdf pp. 170-171)
+% source-url: https://catalog.hathitrust.org/Record/100887415 HathiTrust: another full-view scan of the same book
+% dossier-function: A May-morning song: wake up, lovers, and go to the woods to gather the may (green boughs and blossom brought home on May Day). The burden underneath is the company's own call, "Alons ent bien tos au may", let's be off to the may.
+% dossier-elements: A five-bar burden sung as a canon: the contratenor sings it, the tenor answers a fifth lower one bar later, each resting a bar before going round again. Over it a solo top line in 3/2. Cadences on D with the open fifth D-A.
+% dossier-practice: Two groups sing the burden as a round, the second group starting one bar after the first (an octave up for children's voices); a soloist or the teacher sings the top line. The burden alone is a first canon: seven notes, stepwise, a five-bar loop. The band rests; the three voices are the whole piece.
+% dossier-honesty: Composed, not traditional: Guillaume Du Fay, before about 1436 (the date by which it was copied into Oxford, Bodleian Library, Canonici misc. 213). The notes are Stainer's 1898 transcription, note values halved, with his editorial accidentals.
+% dossier-licence: Stainer, Dufay and his Contemporaries (London: Novello, 1898): public domain in the US (published 1898) and in Canada (the editors died 1901, 1937 and 1939). Notes read from the IMSLP scan of the Sibley Music Library copy.
+% dossier-respect: A secular spring song; nothing sacred or sensitive.
+% dossier-review: An early-music singer or choir director, for the editorial accidentals and the tempo.
+X:1
+T:Resvelons nous
+T:Wake up, lovers: a May song with a canon burden
+C:Guillaume Du Fay (c. 1397-1474)
+O:Cambrai; copied in northern Italy
+R:rondeau, with a canon burden
+S:J. F. R. and C. Stainer, Dufay and his Contemporaries (London: Novello, 1898), pp. 132-133, from Oxford, Bodleian Library, MS Canonici misc. 213
+N:THE WORDS (top voice): "Resvelons nous, resvelons, amoureux; / Alons au bois tantost en cilir le may. / Et chanterons chascun un virelay / Pour sa dame: s'en serons plus joieux." Wake up, wake up, lovers; let us go to the woods now to gather the may, and each of us will sing a virelai for his lady, and be the happier for it. The burden: "Alons ent bien tos au may", let's be off to the may.
+N:THE PLATE: three voices. Superius (treble clef) with the words; Contratenor (tenor clef) and Tenor (bass clef) with the burden, which Stainer marks "Burden in canon between the two lower parts". The canon is at the fifth below, one bar apart: the tenor's E answers the contratenor's B flat, so the answer is diatonic, not exact. In the last three bars both lower voices leave the canon for the cadence. Stainer halves the original values (a half note for the original semibreve) and prints his editorial accidentals over the notes; they are written into the notes here.
+N:HOW READ (2026-11-10): pp. 132-133 rendered at 600 dpi from the IMSLP scan; every staff's lines found by row darkness and each notehead, hollow or filled, measured against them (clefs: treble, tenor, bass), with the measured pitch drawn over the scan to check; the ledger notes below the treble staff (bars 7 and 16) measured on their own; rhythm, rests, ties and editorial accidentals read from the scan; the cadences (D-A-D in bar 4, the open fifth at the end) agree with the reading. Words aligned to the notes from the plate.
+N:UNCERTAIN: the editorial accidentals (the C sharps at cadences, the B flats in bars 2, 7 and 11) are Stainer's, not the manuscript's; the tempo is ours (the half note is the beat).
+M:3/2
+L:1/4
+Q:1/2=72
+K:C
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+V:1 name="Superius" sname="S"
+V:2 name="Contratenor" sname="Ct" clef=treble-8
+V:3 name="Tenor" sname="T" clef=bass
+[V:1] G2 G2 F G | A2 G F2 E | D4 ^C2 | D2 z2 E2 | F4 D2 | E4 D2 | A,2 z A, _B, C | D E D D ^C B, |
+w: Res-ve-lons_ nous res-ve-lons a-mour-eux a-lons au bois tan-tost en__ ci--lir_ le_
+[V:1] D2 z4 | A2 A2 A2 | G2 c2 _B2 | A G F E2 D | F2 z2 G2 | F4 E2 | D3 ^C D B, | A,2 z2 A2 |
+w: may et chan-te-rons chas-cun un_ vi--re-lay pour sa da-me____ s'en
+[V:1] A G F2 E2 | D4 ^C2 | D4 E2 | F3 E F G | E F D ^C ^C B, | D6- | D6 |]
+w: se--rons_ plus joi-eux____________
+[V:2] C4 D2 | C4 _B,2 | A,4 G,2 | A,6 | z6 | C4 D2 | C4 _B,2 | A,4 G,2 |
+w: A-lons ent bien tos au may a-lons ent bien tos au
+[V:2] A,6 | z6 | C4 D2 | C4 _B,2 | A,4 G,2 | A,6 | z6 | C4 D2 |
+w: may a-lons ent bien tos au may a-lons
+[V:2] C4 _B,2 | A,4 G,2 | A,6 | z6 | G,4 G,2 | A,6- | A,6 |]
+w: ent bien tos au may
+[V:3] z6 | F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | z6 | F,4 G,2 | F,4 E,2 |
+w: A-lons ent bien tos au may a-lons ent bien
+[V:3] D,4 ^C,2 | D,6 | z6 | F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | z6 |
+w: tos au may a-lons ent bien tos au may
+[V:3] F,4 G,2 | F,4 E,2 | D,4 ^C,2 | D,6 | E,4 E,2 | D,6- | D,6 |]
+w: a-lons ent bien tos au may

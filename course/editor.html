@@ -281,7 +281,8 @@ details.dossier p{margin:4px 0}
   function showSource(t) {
     const cite = [...t.matchAll(/^S:\s*(.+)$/gmi)].map(m => m[1].trim()), seen = new Set(), links = [];
     for (const m of t.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$/gmi)) if (!seen.has(m[1])) { seen.add(m[1]); links.push([m[1], m[2].trim()]); }
-    for (const m of t.matchAll(/https?:\/\/[^\s"'<>)\]]+/g)) { const u = m[0].replace(/[.,;]$/, ''); if (!seen.has(u)) { seen.add(u); links.push([u, '']); } }
+    // Other addresses in the file; balanced parentheses belong to the address (IMSLP's "..._(Various)"), and one already listed is not repeated.
+    for (const m of t.matchAll(/https?:\/\/(?:[^\s"'<>()\]]|\([^\s"'<>()]*\))+/g)) { const u = m[0].replace(/[.,;]$/, ''); if (![...seen].some(s => s === u || s.startsWith(u))) { seen.add(u); links.push([u, '']); } }
     const safe = links.filter(([u]) => /^https?:\/\//.test(u));
     $('source').innerHTML = `<b>Source:</b> ${cite.length ? cite.map(esc).join('; ') : '<span class="hint">none recorded in this file</span>'}`
       + (safe.length ? `<ul>${safe.map(([u, l]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(l || u.replace(/^https?:\/\//, ''))}</a> ↗</li>`).join('')}</ul>`
