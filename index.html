@@ -348,14 +348,15 @@
     /* chord voices: a ring per voice in its note's colour, lightly filled; an open string's hollow */
     .inst .voice { fill: color-mix(in srgb, var(--c) 30%, var(--panel-2)); stroke: var(--c); stroke-width: 2.2; }
     .inst .voice.open { fill: none; stroke-width: 2.4; }
+    .inst .voice.around { fill: none; }
     /* Ukulele hands: one fretting finger and one plucking pick, each always there and gliding to land
        on the onset; the chords drawn apart from the melody (in the chord box, or as squares with ?uke=hands). */
     .inst .uke.hands .strum { display: none; }
     .inst .finger { fill: var(--c); stroke: var(--c); stroke-width: 2.2; }
     .inst .pick { fill: var(--c, var(--ink)); stroke: var(--ink); stroke-opacity: 0.5; stroke-width: 1; }
     .inst .openring { fill: none; stroke: var(--c, var(--ink)); stroke-width: 2.2; opacity: 0; }
-    .inst svg.uke-hands .voice { fill: color-mix(in srgb, var(--c) 12%, transparent); stroke: color-mix(in srgb, var(--c) 60%, var(--panel-2)); }
-    .inst svg.uke-hands .voice.open { fill: none; }
+    .inst svg.uke-sq .voice { fill: color-mix(in srgb, var(--c) 12%, transparent); stroke: color-mix(in srgb, var(--c) 60%, var(--panel-2)); }
+    .inst svg.uke-sq .voice.open { fill: none; }
     .inst .ukebox .bline { stroke: var(--ink); stroke-opacity: 0.4; stroke-width: 1; }
     .inst .ukebox .bnut { stroke: var(--ink); stroke-opacity: 0.8; stroke-width: 3; }
     .inst .fingerno { font-weight: 700; }
@@ -1231,15 +1232,26 @@
         return { now: centroid(pts.now), next: centroid(pts.next) };
       }
       start() { return this.startPt || null; }
-      // Chord voices: each chord's notes on their keys, where the runner would stand. A note below or above
-      // the keys is shown an octave in.
+      // Chord voices: each chord's notes on their keys, where the runner would stand (a note below or above
+      // the keys is shown an octave in). Where a pitch has several keys (Wicki-Hayden), each voice takes the
+      // one nearest where the hand was, the last chord's centre, so the shape stays together and moves little.
       voicePlaces(track) {
         if (this.tunedKeys) return null;
         const pitches = [...this.keysByPitch.keys()], lo = Math.min(...pitches), hi = Math.max(...pitches);
-        return track.map(e => e.notes.map(m0 => {
-          let m = m0 + this.shift; while (m < lo) m += 12; while (m > hi) m -= 12;
-          const k = this.keysByPitch.get(m); return k && k.length ? { x: k[0].x, y: k[0].y, r: 5.2, m: m0 } : null;
-        }).filter(Boolean));
+        const d2 = (a, b) => (a.x - b.x) ** 2 + (a.y - b.y) ** 2;
+        let at = null;
+        return track.map(e => {
+          const used = new Set(), out = [];
+          for (const m0 of e.notes) {
+            let cand = this.keyCandidates(m0);
+            if (!cand.length) { let m = m0 + this.shift; while (m < lo) m += 12; while (m > hi) m -= 12; cand = this.keysByPitch.get(m) || []; }
+            cand = cand.filter(k => !used.has(k)); if (!cand.length) continue;
+            const near = at || centroid(out), k = near ? cand.reduce((b, c) => d2(c, near) < d2(b, near) ? c : b) : cand[0];
+            used.add(k); out.push({ x: k.x, y: k.y, r: this.voiceR || 5.2, m: m0, around: !!this.voiceR });
+          }
+          if (out.length) at = centroid(out);
+          return out;
+        });
       }
     }
 
@@ -1300,7 +1312,7 @@
     }
     class WickiHaydenLayout extends KeyedLayout {
       build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null) {
-        this.panel = '44%';
+        this.panel = '44%'; this.voiceR = 15;   // a chord voice rings the key's label
         if (tuned) return this.buildTuned(svg, midis, tuned);
         // Transpose moves the pitches on the keys, so J stays the root and
         // the fingering of a tune does not change when it is transposed.
@@ -1384,10 +1396,16 @@
     // the fretboard) or 'classic' (the earlier view: lit marks, a runner, the chords as circles on the board).
     const UKE_VARIANT = (() => { try { const v = new URLSearchParams(location.search).get('uke'); return ['classic', 'hands', 'box'].includes(v) ? v : 'box'; } catch (e) { return 'box'; } })();
     class UkuleleLayout {
-      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; this.v = UKE_VARIANT; this.squareVoices = this.v === 'hands'; this.dt = 500; }
-      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12]) {
+      constructor() { this.strings = [69, 64, 60, 67]; this.frets = 12; this.hand = 1; this.marks = []; this.runnerR = 7; this.panel = '34%'; this.glows = []; this.v = UKE_VARIANT; this.dt = 500; }
+      build(svg, midis, transpose = 0, nameOf = m => NOTE_NAMES[((m % 12) + 12) % 12], tuned = null, opts = {}) {
         this.nameOf = nameOf;
         this.shift = octaveFit(midis, 60, 60 + 12 + 9);
+        // What the view shows (AbcCell.showMode): with melody and chords both, the chords go to the chord box
+        // (or, with ?uke=hands, become squares) so the fretboard keeps the melody; with the chords only they
+        // glide on the fretboard itself and the melody's hands stand down.
+        this.show = opts.show || 'melody';
+        this.useBox = this.v === 'box' && this.show === 'both';
+        this.squareVoices = this.v === 'hands' && this.show === 'both';
         // The player's view of their own ukulele, looking down the neck from
         // above the near edge: the re-entrant G string is nearest, A farthest.
         // A one-point perspective does the foreshortening: everything at
@@ -1400,7 +1418,7 @@
         // where strumming happens, past the soundhole toward the bridge.
         const S = 23, left = 92, top = 14, boardLen = 470;
         this.S = S; this.left = left; this.top = top; this.boardLen = boardLen;
-        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70 + (this.v === 'box' ? 142 : 0), H = top + S * 3.5 + 22;
+        const bE = left + boardLen, bridgeX = bE + 150, W = bridgeX + 70 + (this.useBox ? 142 : 0), H = top + S * 3.5 + 22;
         this.bE = bE; this.bridgeX = bridgeX;
         svg.setAttribute('viewBox', `-2 -2 ${W + 4} ${H + 4}`);
         const defs = svgEl(svg, 'defs');
@@ -1474,7 +1492,7 @@
       // at the nut gathers as an open string comes and fades after it sounds: the open string's own cue,
       // which no fret-hand travel can be mistaken for.
       buildHands(svg, g, W, H) {
-        svg.classList.add('uke-' + this.v);
+        svg.classList.add('uke-' + this.v); if (this.squareVoices) svg.classList.add('uke-sq');
         g.classList.add('hands');
         this.openRings = this.strings.map((o, s) => { const p = this.project(this.left - 12, s), k = this.depth(s); return svgEl(g, 'circle', { class: 'openring', cx: p.x.toFixed(1), cy: p.y.toFixed(1), r: (8.5 * k).toFixed(2) }); });
         this.pick = svgEl(this.marksG, 'path', { class: 'pick', d: 'M 0 -9 q 7 0 7 7 q 0 8 -7 12 q -7 -4 -7 -12 q 0 -7 7 -7 z' });
@@ -1483,7 +1501,8 @@
         this.fFrom = this.fTo = { ...this.startPt, r: 7.2 * this.depth(3), pressed: 0, m: null, fret: 0 };
         this.fLast = null; this.sFrom = this.sTo = 3; this.sLast = null; this.pmFrom = this.pmTo = null;
         this.openNow = new Set(); this.openNext = new Set();
-        if (this.v === 'box') {
+        if (this.show === 'chords') for (const el of [this.finger, this.fingerLbl, this.pick]) el.style.display = 'none';
+        if (this.useBox) {
           // A small chord box beyond the bridge, laid the same way as the board (A string at the top, the
           // nut at the left): the chord's name over it and its voices gliding inside it.
           const bx = W - 116, by = 36, fw = 20, sg = 18, nf = 5;
@@ -4266,6 +4285,7 @@
       }
       set(name, midis, transpose = 0, nameOf, tuned = null, opts = {}) {
         this.nameOf = nameOf || (m => NOTE_NAMES[((m % 12) + 12) % 12]); this.tuned = tuned;
+        this.show = opts.show || 'melody';   // 'melody', 'chords' or 'both' (AbcCell.showMode)
         const cellBody = this.host.closest('.cell-body'); if (cellBody) { cellBody.classList.toggle('with-inst', !!INSTRUMENTS[name]); cellBody.style.setProperty('--abc-inst-cell-h', name === 'recorder' ? '72vh' : '66vh'); }
         this.name = INSTRUMENTS[name] ? name : 'off';
         this.host.classList.toggle('on', this.name !== 'off');
@@ -4313,6 +4333,8 @@
       // answers with the points the runner travels between.
       mark(now, next, info) {
         if (!this.layout) return;
+        // Chords only: the melody's keys, strings and runner stay dark; the chord symbol's outline stays.
+        if (this.show === 'chords') { now = []; next = []; info = { ...(info || {}), index: -1, reset: true }; }
         this.pts = this.layout.mark(now, next, info);
         const r = this.runner; if (!r) return;
         if (!this.pts.next && !this.pts.now) { r.classList.add('hide'); return; }
@@ -4341,7 +4363,7 @@
       // splits from or merges into a neighbour. A voice that has just moved rings brighter as it lands.
       voices(track, t) {
         const L = this.layout, G = this.voiceG;
-        const on = !!(L && G && L.voicePlaces && track && track.length);
+        const on = !!(L && G && L.voicePlaces && this.show !== 'melody' && track && track.length);
         if (L && L.chordsShown) L.chordsShown(on);
         if (!on) { if (G) G.style.display = 'none'; return; }
         if (track !== this.vTrack) {
@@ -4369,7 +4391,7 @@
         G.style.display = '';
         const sq = !!L.squareVoices;   // the hands prototype draws chord voices as squares, apart from the round melody finger
         while (this.vDots.length < pairs.length) { const c = svgEl(G, sq ? 'rect' : 'circle', { class: 'voice' }); this.vDots.push(c); }
-        if (L.chordName) L.chordName(ahead ? null : track[j]);
+        if (L.chordName) L.chordName(track[j]);   // stopped or before the first chord, its name waits with its voices
         this.vDots.forEach((c, i) => {
           const q = pairs[i]; if (!q) { c.style.display = 'none'; return; }
           c.style.display = '';
@@ -4378,7 +4400,7 @@
           else { c.setAttribute('cx', x.toFixed(1)); c.setAttribute('cy', y.toFixed(1)); c.setAttribute('r', r.toFixed(2)); }
           const ca = midiColor(q.a.m), cb = midiColor(q.b.m);
           c.style.setProperty('--c', k <= 0 || ca === cb ? ca : k >= 1 ? cb : `color-mix(in oklab, ${cb} ${(k * 100).toFixed(0)}%, ${ca})`);
-          c.classList.toggle('open', k < 0.5 ? !!q.a.open : !!q.b.open);
+          c.classList.toggle('open', k < 0.5 ? !!q.a.open : !!q.b.open); c.classList.toggle('around', !!q.b.around);
           c.style.opacity = (ahead ? 0.35 : q.in ? k : q.out ? 1 - k : 1).toFixed(3);
           c.style.strokeWidth = (2.2 + (q.landed ? 2.6 * halo : 0)).toFixed(2);
         });
@@ -4433,6 +4455,7 @@
         // Chords: auto (the written chords; found from the melody when none are written), numerals (the same, with Roman numerals), off (written chords only). 'detect' is the old name of auto.
         this.harmony = ['off', 'numerals', 'auto'].includes(opts.harm) ? opts.harm : 'auto';
         this.span = RECORDER_SPANS[opts.span] ? +opts.span : 0;   // the recorder's range: 0 the whole chart, 1 or 2 octaves
+        this.show = ['melody', 'chords', 'both'].includes(opts.show) ? opts.show : 'auto';   // what the instrument shows (showMode)
         this.style = STYLES[LEGACY_STYLE[opts.style] || opts.style] ? (LEGACY_STYLE[opts.style] || opts.style) : 'auto';
         this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
         this.dismissedNotes = new Set();
@@ -4453,6 +4476,7 @@
           <div class="ctl">
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose spanpick" title="How much of the recorder to use: the whole fingering chart, two octaves (low C to the C two above), or the first octave (low C to the D above, no thumb pinch). A note beyond it is fingered in the nearest octave inside; the tune still sounds as written."${this.inst === 'recorder' ? '' : ' hidden'}>Range <select><option value="0"${!this.span ? ' selected' : ''}>Full</option><option value="2"${this.span === 2 ? ' selected' : ''}>2 octaves</option><option value="1"${this.span === 1 ? ' selected' : ''}>1 octave</option></select></label>
+          <label class="xpose showpick" title="What the instrument shows: the melody, the chords (a ring per voice that glides to its note in the next chord), or both. Auto shows the chords on the ukulele, which a class strums while it sings, and the melody on the piano and the Wicki-Hayden keyboard. The piano is as wide as what it shows."${['piano', 'wh', 'uke'].includes(this.inst) ? '' : ' hidden'}>Shows <select><option value="auto"${this.show === 'auto' ? ' selected' : ''}>Auto</option><option value="melody"${this.show === 'melody' ? ' selected' : ''}>Melody</option><option value="chords"${this.show === 'chords' ? ' selected' : ''}>Chords</option><option value="both"${this.show === 'both' ? ' selected' : ''}>Melody + chords</option></select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
           <label class="xpose linespick" title="The game's score: the tune wrapped to the width, two lines at a time with the next line in view, or one long line that scrolls.">Game <select><option value="two"${this.lines === 'two' ? ' selected' : ''}>Two lines</option><option value="one"${this.lines === 'one' ? ' selected' : ''}>One line</option></select></label>
           <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key where none are written (a whole tune without symbols, or the bars before the first symbol and after the last); Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
@@ -4585,7 +4609,9 @@
         const ip = body.querySelector('.instpick select');
         const spanBox = body.querySelector('.spanpick'), spanSel = spanBox.querySelector('select');
         spanSel.addEventListener('change', () => { this.span = +spanSel.value; this.render(); if (opts.onSpan) opts.onSpan(this.span); });
-        ip.addEventListener('change', () => { this.inst = ip.value; spanBox.hidden = this.inst !== 'recorder'; this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
+        const showBox = body.querySelector('.showpick'), showSel = showBox.querySelector('select');
+        showSel.addEventListener('change', () => { this.show = showSel.value; this.render(); if (opts.onShow) opts.onShow(this.show); });
+        ip.addEventListener('change', () => { this.inst = ip.value; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
         this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body;
         for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
         const lp = body.querySelector('.linespick select');
@@ -4793,7 +4819,7 @@
         if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
         this.idle = true;                                 // no frame repaints the start while the bar fades
         this.player.pos = 0;                              // the next Play is from the top, with its count-in
-        this.clearPlaying(); if (this.viz) this.viz.clear();
+        this.clearPlaying(); if (this.viz) { this.viz.clear(); this.viz.voices(this.chordTrack(0), -1); }   // stopped: the first chord's voices wait, faint
         if (gameMode) { this.progress(1); this.body.classList.remove('done'); void this.body.offsetWidth; this.body.classList.add('done'); }
         const g = this.cursor();
         if (g) { g.classList.add('done'); setTimeout(() => { if (g.isConnected && g.classList.contains('done')) this.placeReady(); }, 600); }
@@ -4893,6 +4919,7 @@
         this.player.load(this.original, { midiTranspose: this.transpose || 0, program: soundProgram(this.inst, this.tuneVoice), chordsOff: this.playMode === 'melody' || location.protocol !== 'file:' }, style);
         if (this.bpmBox) this.bpmBox.value = Math.round(this.bpm());
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
+        if (this.viz && this.tl && !this.player.running) this.viz.voices(this.chordTrack(0), -1);   // stopped: the first chord's voices wait
         this.updateSignage(text);
         this.refreshBandNote();
       }
@@ -5665,6 +5692,13 @@
         const dir = /flat/.test(acc || '') ? 'down' : /sharp/.test(acc || '') ? 'up' : acc === 'natural' ? (flats ? 'up' : 'down') : null;
         return solfege(pc, doPc, dir);
       }
+      // What the instrument shows: the melody, the chords as voices, or both. Auto: the ukulele the chords (a
+      // class strums them while it sings), a keyboard the melody. A tune without chords shows its melody.
+      showMode() {
+        const want = this.show === 'auto' ? (this.inst === 'uke' ? 'chords' : 'melody') : this.show;
+        if (want === 'melody' || !['piano', 'wh', 'uke'].includes(this.inst) || CHORD_VOICES === 'off' || !this.origElems.some(e => e.chord && e.chord.length)) return 'melody';
+        return want;
+      }
       // The chords the instrument's voices show this time round, one entry per change: { ms, notes (the
       // voicing), pcs, root, name }. 'played' (CHORD_VOICES): the Band's voicings as it plays them, a pad's
       // only where it plays nothing else; with the Band silent (Melody only, a page from disk), or 'written',
@@ -5712,10 +5746,12 @@
         this.key = null;
         const midis = this.allMidis();
         const tuned = this.tuning && !this.tuning.problems.length ? { tuning: this.tuning, key: this.keyInfo() } : null;
-        // A piano with chord voices reaches down to C3 for the left hand's chords.
-        const chordRoom = this.inst === 'piano' && CHORD_VOICES !== 'off' && this.origElems.some(e => e.chord && e.chord.length) ? [48] : [];
+        // The piano is as wide as what it shows: the melody's octaves (two at least), the left hand's chords
+        // (C3 to B4, a note beyond shown an octave in), or both.
+        const show = this.showMode(), chordRoom = [48, 71];
+        const room = this.inst !== 'piano' || show === 'melody' ? midis : show === 'chords' ? chordRoom : [...midis, chordRoom[0]];
         this.trackFor = null;
-        this.viz.set(this.inst, [...midis, ...chordRoom], this.transpose || 0, m => this.nameOf(m), tuned, { span: this.span });
+        this.viz.set(this.inst, room, this.transpose || 0, m => this.nameOf(m), tuned, { span: this.span, show });
         this.vizNotes = this.viz.notes(midis); this.showNotes(); this.vizSchedule();
         const sign = this.body.querySelector('.sign'), fretted = !!(this.viz.layout && this.viz.layout.strings);
         sign.hidden = !fretted;
@@ -5861,7 +5897,7 @@
         if (this.cyc) { this.cyc = 0; this.relabel(0); }
         this.clearPlaying(); this.litKey = '';
         for (const c of this.paper.querySelectorAll('.cursorg.follower')) c.style.display = 'none';
-        if (this.viz) this.viz.clear();
+        if (this.viz) { this.viz.clear(); this.viz.voices(this.chordTrack(0), -1); }   // stopped: the first chord's voices wait, faint
         const x = this.startX(), g = this.cursor();
         if (!g || x === null) return;
         this.shapeCursor(g, 0);
@@ -6381,7 +6417,7 @@ function parseDance(text) {
     if (ps !== '.') { if (ps === '0') st.pose = null; else if (d.poseDefs[ps]) st.pose = ps; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: no pose called "${ps}" (define it with a line: pose ${ps}: ...).`); }
     if (sh !== '.') { if (/^[lruc]$/.test(sh)) st.shoulders = sh; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: shoulders "${sh}"? (l r u c .)`); }
     const facingFrom = st.facing;
-    if (tn !== '.') { const tm = tn.match(/^([lr])\1*$/); if (tm) st.facing += tn.length * 90 * (tm[1] === 'r' ? 1 : -1); else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: turn "${tn}"? (r or l per quarter turn: r, rr, l, ll, .)`); }
+    if (tn !== '.') { const tm = tn.match(/^([lr])\1*$/), ta = tn.match(/^([lr])(\d{1,3})$/); if (tm) st.facing += tn.length * 90 * (tm[1] === 'r' ? 1 : -1); else if (ta) st.facing += +ta[2] * (ta[1] === 'r' ? 1 : -1); else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: turn "${tn}"? (r or l per quarter turn: r, rr, l, ll; or degrees: r45, l135; or .)`); }
     if (hp !== '.') { if (/^[lrfbc]$/.test(hp)) st.hips = hp; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: hips "${hp}"? (l r f b c .)`); }
     if (at !== '.') { if (/^[uodch]$/.test(at)) st.arms = at; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: arms "${at}"? (u o d c h .)`); }
     if (lv !== '.') { if (/^[lmh]$/.test(lv)) st.level = lv; else d.problems.push(`Bar ${bi + 1}, beat ${b + 1}: level "${lv}"? (l m h .)`); }
@@ -6614,13 +6650,19 @@ DV.dancer = {
       }
     });
     for (const F of ['L', 'R']) if (!ev[F].length) ev[F].push({ t: 0, x: fr[0][F].x, y: fr[0][F].y, z: 0, kind: 'plant', i: 0 });
-    const target = i => { const f = fr[(i + n) % n], w = f.weight; return w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; };
-    this.m = { fr, n, total, ev, target, defs: d.poseDefs || {} };
+    // a dance that travels (ends away from where it began, facing the same way) carries on from where it ended when it
+    // repeats, instead of being pulled back across the floor at the loop; the camera follows, so the loop is seamless
+    const last = fr[n - 1], net = ((last.facing % 360) + 360) % 360, mid0 = { x: (last.L.x + last.R.x) / 2, y: (last.L.y + last.R.y) / 2 };
+    const delta = net === 0 && Math.hypot(mid0.x, mid0.y) > .3 ? mid0 : { x: 0, y: 0 };
+    const target = i => { const w0 = Math.floor(i / n), f = fr[((i % n) + n) % n], w = f.weight, b = w === 'B' ? { x: (f.L.x + f.R.x) / 2, y: (f.L.y + f.R.y) / 2 } : { x: f[w].x, y: f[w].y }; return { x: b.x + delta.x * w0, y: b.y + delta.y * w0 }; };
+    this.m = { fr, n, total, ev, target, delta, defs: d.poseDefs || {} };
   },
   foot(F, p) {   // where a foot is at time p, and how far through a flight it is
     const { ev, total } = this.m, E = ev[F]; let k = E.length - 1; for (let i = 0; i < E.length; i++) if (E[i].t <= p + 1e-9) k = i; else break;
     if (E[0].t > p + 1e-9) k = E.length - 1;
-    const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
+    const D = this.m.delta || { x: 0, y: 0 }, shift = (q, k2) => (D.x || D.y) ? { ...q, x: q.x + D.x * k2, y: q.y + D.y * k2 } : q;
+    const back = E[0].t > p + 1e-9, e = back ? shift(E[k], -1) : E[k], nx = k + 1 >= E.length && !back ? shift(E[0], 1) : E[(k + 1) % E.length];   // across the loop, the travelled distance carries over
+    const tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
     const still = e === nx;   // every event is a move: a step or touch on the spot still lifts and taps down on its count (a march, a heel tap); only a foot with one event in the whole dance stays put
     const eff = nx.eff || {}, span = tn - te;
     const flight = still ? 0 : eff.time === 'sudden' ? Math.min(.3, .3 * span) : eff.time === 'sustained' ? Math.min(1.6, .95 * span) : Math.min(.6, .55 * span);
@@ -6637,7 +6679,9 @@ DV.dancer = {
   },
   pelvis(p) {
     const { fr, n, total, target } = this.m, k = frameAt({ frames: fr }, p), f = fr[k], dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, u = (p - f.t) / dt;
-    const T0 = target(k - 1), T1 = target(k), T2 = target(k + 1), mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
+    // a weight shift longer than any step (at the loop of a dance that ends turned and away from where it began) is not
+    // blended, so the pelvis stays over the feet instead of being dragged across the floor
+    const T1 = target(k), far = T => Math.hypot(T.x - T1.x, T.y - T1.y) > 2.6, T0r = target(k - 1), T2r = target(k + 1), T0 = far(T0r) ? T1 : T0r, T2 = far(T2r) ? T1 : T2r, mid = (a, b) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }), lerp = (a, b, s) => ({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
     const e1 = f.effort || {}, e2 = fr[(k + 1) % n].effort || {};
     const lead = e2.flow === 'bound' ? 0 : e2.time === 'sudden' ? .2 : .35;   // anticipation of the next move
     const settle = Math.min(.6, (e1.time === 'sudden' ? .12 : .25) / dt);     // time to finish this weight shift, in beats, so a half-beat chassé is not twice as fast
@@ -6656,7 +6700,7 @@ DV.dancer = {
     const LV = { l: -.55, m: 0, h: .18 }, lvOff = LV[prev.level] + (LV[nx.level] - LV[prev.level]) * us;
     const LN = { f: [0, .6], b: [0, -.6], l: [-.5, 0], r: [.5, 0], c: [0, 0] }, shapeLean = { x: LN[prev.lean][0] + (LN[nx.lean][0] - LN[prev.lean][0]) * us, y: LN[prev.lean][1] + (LN[nx.lean][1] - LN[prev.lean][1]) * us };
     let h = nominal + lvOff, airborne = !L.planted && !Rt.planted;
-    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; if (fr[k].pose && this.m.defs[fr[k].pose] && this.m.defs[fr[k].pose]['leg' + F]) continue; /* a posed leg is a gesture: it does not hold the pelvis up */ const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y), hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
+    for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; if (fr[k].pose && this.m.defs[fr[k].pose] && this.m.defs[fr[k].pose]['leg' + F]) continue; /* a posed leg is a gesture: it does not hold the pelvis up */ const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y); if (dd > legLen * .8) continue; /* a foot out of reach (left behind at the loop of a dance that ends turned away) does not hold the pelvis down */ const hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
     if (airborne) h = nominal + lvOff + Math.max(L.z, Rt.z) * .9; else { const fly = L.air ? L : Rt.air ? Rt : null; if (fly && fly.kind !== 'up') h += (fly.eff && fly.eff.weight === 'light' ? .28 : .1) * Math.sin(Math.PI * fly.u); }
     // effort weight: a strong move drops the pelvis at the landing and recovers
     const ue = (p - f.t) / dt0; if ((f.effort || {}).weight === 'strong' && !airborne) h -= .3 * Math.max(0, 1 - ue / .45);
@@ -7266,7 +7310,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, span: cell.span, onSpan: v => { if (v) cell.span = v; else delete cell.span; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege') cell.names = v; else delete cell.names; save(); }, span: cell.span, onSpan: v => { if (v) cell.span = v; else delete cell.span; save(); }, show: cell.show, onShow: v => { if (v && v !== 'auto') cell.show = v; else delete cell.show; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.align === 'center', font: cell.font });
       engines.set(cell.id, engine);
@@ -7672,7 +7716,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
        with no separators becomes one text cell. */
     const SEP = /^=== (page|text|abc|heading|rhythm|dance)\s*(\{.*\})?\s*$/;
     function serialize() {
-      const meta = c => { const m = { ...(c.pos || {}) }; if (c.font) m.font = c.font; if (c.align) m.align = c.align; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.span) m.span = c.span; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
+      const meta = c => { const m = { ...(c.pos || {}) }; if (c.font) m.font = c.font; if (c.align) m.align = c.align; if (c.bg) m.bg = c.bg; if (c.tr) m.tr = c.tr; if (c.inst) m.inst = c.inst; if (c.nota) m.nota = c.nota; if (c.names) m.names = c.names; if (c.span) m.span = c.span; if (c.show) m.show = c.show; if (c.play) m.play = c.play; if (c.harm) m.harm = c.harm; if (c.style) m.style = c.style; if (c.mv) m.mv = c.mv; if (c.fac) m.fac = c.fac; if (c.band) m.band = c.band; return Object.keys(m).length ? ' ' + JSON.stringify(m) : ''; };
       const page = JSON.stringify({ proportional });
       return `=== page ${page}\n` + cells.map(c => `=== ${c.type}${meta(c)}\n${c.text}`).join('\n') + '\n';
     }
@@ -7683,7 +7727,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
         if (m && m[1] === 'page') { cur = null; try { page = JSON.parse(m[2] || '{}'); } catch (err) {} }
         else if (m) {
           cur = { id: ++seq, type: m[1], text: '' };
-          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.font in FONTS) cur.font = j.font; if (j.align === 'center') cur.align = j.align; delete j.font; delete j.align; if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.span === 1 || j.span === 2) cur.span = j.span; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.span; delete j.play; delete j.harm; delete j.style; delete j.band; delete j.mv; delete j.fac; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
+          if (m[2]) { try { const j = JSON.parse(m[2]); if (j.font in FONTS) cur.font = j.font; if (j.align === 'center') cur.align = j.align; delete j.font; delete j.align; if (j.bg) cur.bg = j.bg; if (j.tr) cur.tr = j.tr; if (j.inst) cur.inst = j.inst; if (j.nota) cur.nota = j.nota; if (j.names) cur.names = j.names; if (j.span === 1 || j.span === 2) cur.span = j.span; if (['melody', 'chords', 'both'].includes(j.show)) cur.show = j.show; if (j.play) cur.play = j.play; if (j.harm) cur.harm = j.harm; if (j.style) cur.style = j.style; if (j.mv) cur.mv = j.mv; if (j.fac) cur.fac = j.fac; if (j.band) cur.band = j.band; delete j.bg; delete j.tr; delete j.inst; delete j.nota; delete j.names; delete j.span; delete j.show; delete j.play; delete j.harm; delete j.style; delete j.band; delete j.mv; delete j.fac; if (Object.keys(j).length) cur.pos = j; } catch (err) {} }
           out.push(cur);
         }
         else if (cur) cur.text += (cur.text ? '\n' : '') + line;
