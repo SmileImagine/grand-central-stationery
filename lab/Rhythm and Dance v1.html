@@ -665,7 +665,7 @@ DV.dancer = {
     const { ev, total } = this.m, E = ev[F]; let k = E.length - 1; for (let i = 0; i < E.length; i++) if (E[i].t <= p + 1e-9) k = i; else break;
     if (E[0].t > p + 1e-9) k = E.length - 1;
     const e = E[k], nx = E[(k + 1) % E.length], tn = nx.t > p + 1e-9 ? nx.t : nx.t + total, te = e.t > p + 1e-9 ? e.t - total : e.t;   // the next event after p, wrapping round the cycle
-    const still = Math.hypot(nx.x - e.x, nx.y - e.y) < 1e-6 && !nx.hop && !nx.jump && nx.kind !== 'up' && e.kind !== 'up';
+    const still = e === nx;   // every event is a move: a step or touch on the spot still lifts and taps down on its count (a march, a heel tap); only a foot with one event in the whole dance stays put
     const eff = nx.eff || {}, span = tn - te;
     const flight = still ? 0 : eff.time === 'sudden' ? Math.min(.3, .3 * span) : eff.time === 'sustained' ? Math.min(1.6, .95 * span) : Math.min(.6, .55 * span);
     if (flight && p >= tn - flight) {
@@ -692,10 +692,13 @@ DV.dancer = {
     const R = this.RIG, { fr, n, total } = this.m, k = frameAt({ frames: fr }, p), f = fr[k];
     const L = this.foot('L', p), Rt = this.foot('R', p), P = this.pelvis(p), legLen = R.thigh + R.shin - .08, nominal = legLen - .22;
     // height from leg reach, each foot's limit relaxing as it leaves the floor; nobody on the floor means a jump
-    // shape: level (sinking and sinking) and lean, each easing in over half a beat from the previous frame's value
-    const dt0 = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, us = this.ease((p - f.t) / dt0 / .5), prev = fr[(k - 1 + n) % n];
-    const LV = { l: -.55, m: 0, h: .18 }, lvOff = LV[prev.level] + (LV[f.level] - LV[prev.level]) * us;
-    const LN = { f: [0, .6], b: [0, -.6], l: [-.5, 0], r: [.5, 0], c: [0, 0] }, shapeLean = { x: LN[prev.lean][0] + (LN[f.lean][0] - LN[prev.lean][0]) * us, y: LN[prev.lean][1] + (LN[f.lean][1] - LN[prev.lean][1]) * us };
+    // shape and arms arrive on the count, like a foot landing: each frame's value holds from its onset, and the move to the
+    // next frame's value fills a window just before that frame's onset, so a clap or a hip accent connects on the note.
+    // The window follows the next move's effort: sudden is a snap, sustained fills the gap, otherwise about a third of a beat.
+    const tn = k + 1 < n ? fr[k + 1].t : total, dt0 = (tn - f.t) || 1, nx = fr[(k + 1) % n], ne = nx.effort || {};
+    const win = Math.min(dt0 * .85, ne.time === 'sudden' ? .16 : ne.time === 'sustained' ? dt0 : .35), us = this.ease((p - (tn - win)) / win), prev = f;
+    const LV = { l: -.55, m: 0, h: .18 }, lvOff = LV[prev.level] + (LV[nx.level] - LV[prev.level]) * us;
+    const LN = { f: [0, .6], b: [0, -.6], l: [-.5, 0], r: [.5, 0], c: [0, 0] }, shapeLean = { x: LN[prev.lean][0] + (LN[nx.lean][0] - LN[prev.lean][0]) * us, y: LN[prev.lean][1] + (LN[nx.lean][1] - LN[prev.lean][1]) * us };
     let h = nominal + lvOff, airborne = !L.planted && !Rt.planted;
     for (const [F, ft] of [['L', L], ['R', Rt]]) { if (ft.kind === 'up' && !ft.air) continue; const hipX = P.x + (F === 'L' ? -R.hipHalf : R.hipHalf), dd = Math.hypot(ft.x - hipX, ft.y - P.y), hmax = Math.sqrt(Math.max(0, legLen * legLen - dd * dd)) + (lvOff > 0 ? lvOff : 0); h = Math.min(h, hmax + ft.z * 1.4 + (ft.kind === 'up' ? 9 : 0)); }
     if (airborne) h = nominal + lvOff + Math.max(L.z, Rt.z) * .9; else { const fly = L.air ? L : Rt.air ? Rt : null; if (fly && fly.kind !== 'up') h += (fly.eff && fly.eff.weight === 'light' ? .28 : .1) * Math.sin(Math.PI * fly.u); }
@@ -707,16 +710,20 @@ DV.dancer = {
     const facing = f.facingFrom + (f.facing - f.facingFrom) * this.ease((p - f.t) / dt0 / .85), fa = facing * Math.PI / 180;
     const right = { x: Math.cos(fa), y: -Math.sin(fa) }, fwd = { x: Math.sin(fa), y: Math.cos(fa) }, loc = (x, y) => ({ x: x * right.x + y * fwd.x, y: x * right.y + y * fwd.y });
     // hips: a push to the side or a tilt, the shoulders countering a little
-    const HP = { l: [-.4, 0], r: [.4, 0], f: [0, .35], b: [0, -.35], c: [0, 0] }, hipLoc = [HP[prev.hips][0] + (HP[f.hips][0] - HP[prev.hips][0]) * us, HP[prev.hips][1] + (HP[f.hips][1] - HP[prev.hips][1]) * us], hipW = loc(hipLoc[0], hipLoc[1]);
+    const HP = { l: [-.4, 0], r: [.4, 0], f: [0, .35], b: [0, -.35], c: [0, 0] }, hipLoc = [HP[prev.hips][0] + (HP[nx.hips][0] - HP[prev.hips][0]) * us, HP[prev.hips][1] + (HP[nx.hips][1] - HP[prev.hips][1]) * us], hipW = loc(hipLoc[0], hipLoc[1]);
     P.x += hipW.x; P.y += hipW.y;
     const sl = loc(shapeLean.x, shapeLean.y);
     const S = { x: P.x + lean.x + sl.x - hipW.x * 1.4, y: P.y + lean.y + sl.y - hipW.y * 1.4, z: h + R.torso };
-    // hands: the arms token sets a target; the hands take a third of a beat to get there
-    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-3.5, .15, .3], [3.5, .15, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.12, .9, -.4], [.12, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
-    const prevTok = fr[(k - 1 + n) % n].arms, dt = ((k + 1 < n ? fr[k + 1].t : total) - f.t) || 1, ua = this.ease((p - f.t) / dt / .35), A = hand(f.arms), A0 = hand(prevTok);
-    const hands = [0, 1].map(i => { const a = A0[i].map((c, j) => c + (A[i][j] - c) * ua), w = loc(a[0], a[1]); return { x: S.x + w.x, y: S.y + w.y, z: S.z + a[2] }; });
-    const SH = { l: [.3, 0], r: [0, .3], u: [.25, .25], c: [0, 0] }, shLift = [0, 1].map(i => SH[prev.shoulders][i] + (SH[f.shoulders][i] - SH[prev.shoulders][i]) * us);
-    return { P: { ...P, z: h }, S, L, R: Rt, hands, weight: f.weight, arms: f.arms, airborne, right, fwd, loc, facing, shLift };
+    // hands: the arms token sets where the hands are on its count; they travel in the window before it. Claps on
+    // consecutive counts open and meet again between them, so every c is a contact.
+    const hand = tok => ({ u: [[-.6, .1, 2.5], [.6, .1, 2.5]], o: [[-3.5, .15, .3], [3.5, .15, .3]], d: [[-.75, .15, -2.25], [.75, .15, -2.25]], c: [[-.07, .9, -.4], [.07, .9, -.4]], h: [[-.95, -.1, -1.9], [.95, -.1, -1.9]] }[tok] || [[-.75, .15, -2.25], [.75, .15, -2.25]]);
+    const A0 = hand(f.arms), A = hand(nx.arms), reclap = f.arms === 'c' && nx.arms === 'c' ? Math.sin(Math.PI * Math.min(1, Math.max(0, (p - f.t) / dt0))) * .55 : 0;
+    const hands = [0, 1].map(i => { const a = A0[i].map((c, j) => c + (A[i][j] - c) * us); a[0] += (i ? 1 : -1) * reclap; const w = loc(a[0], a[1]); return { x: S.x + w.x, y: S.y + w.y, z: S.z + a[2] }; });
+    const SH = { l: [.3, 0], r: [0, .3], u: [.25, .25], c: [0, 0] }, shLift = [0, 1].map(i => SH[prev.shoulders][i] + (SH[nx.shoulders][i] - SH[prev.shoulders][i]) * us);
+    // contrapposto: the hip over the supporting foot rides up, the shoulders answer the other way
+    const mid = { x: (L.x + Rt.x) / 2, y: (L.y + Rt.y) / 2 }, halfW = Math.max(.4, Math.hypot(L.x - Rt.x, L.y - Rt.y) / 2);
+    const over = Math.max(-1, Math.min(1, ((P.x - mid.x) * right.x + (P.y - mid.y) * right.y) / halfW)), hipTilt = airborne ? 0 : .13 * over;
+    return { P: { ...P, z: h }, S, L, R: Rt, hands, weight: f.weight, arms: f.arms, airborne, right, fwd, loc, facing, shLift, hipTilt, shTilt: -.6 * hipTilt, since: p - f.t };
   },
   ik(A, B, l1, l2, bendDir) {   // two-bone: joint between A and B bending toward bendDir
     const v = { x: B.x - A.x, y: B.y - A.y, z: B.z - A.z }; let d = Math.hypot(v.x, v.y, v.z); const reach = l1 + l2 - .01;
@@ -733,14 +740,14 @@ DV.dancer = {
     const sgn = 1;
     const line = (pts, col, w, op = 1) => `<path d="M${pts.map(q => pr(q).join(',')).join(' L')}" stroke="${col}" stroke-width="${w}" fill="none" opacity="${op}"/>`;
     const parts = [];
-    const hipL = { x: st.P.x - R.hipHalf * st.right.x, y: st.P.y - R.hipHalf * st.right.y, z: st.P.z }, hipR = { x: st.P.x + R.hipHalf * st.right.x, y: st.P.y + R.hipHalf * st.right.y, z: st.P.z };
+    const hipL = { x: st.P.x - R.hipHalf * st.right.x, y: st.P.y - R.hipHalf * st.right.y, z: st.P.z - st.hipTilt }, hipR = { x: st.P.x + R.hipHalf * st.right.x, y: st.P.y + R.hipHalf * st.right.y, z: st.P.z + st.hipTilt };
     for (const [F, hip, ft, col, side] of [['L', hipL, st.L, LEFT, -1], ['R', hipR, st.R, RIGHT, 1]]) {
       const kb = st.loc(side * .25, 1), { J, B } = this.ik(hip, ft, R.thigh, R.shin, { x: kb.x, y: kb.y, z: .15 });
       const weight = ft.planted && (st.weight === F || st.weight === 'B');
       const depth = (view(J).y + view(B).y) / 2;
       parts.push({ depth, svg: line([hip, J, B], col, .3 * U, weight ? 1 : .7) + `<ellipse cx="${pr(B)[0] + side * .2 * U}" cy="${pr(B)[1] + .05 * U}" rx="${.42 * U}" ry="${.16 * U}" fill="${weight ? col : '#fff'}" stroke="${col}" stroke-width="${.1 * U}"/>` });
     }
-    const shL = { x: st.S.x - R.shoulderHalf * st.right.x, y: st.S.y - R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[0] }, shR = { x: st.S.x + R.shoulderHalf * st.right.x, y: st.S.y + R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[1] };
+    const shL = { x: st.S.x - R.shoulderHalf * st.right.x, y: st.S.y - R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[0] - st.shTilt }, shR = { x: st.S.x + R.shoulderHalf * st.right.x, y: st.S.y + R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[1] + st.shTilt };
     const rel = st.facing * Math.PI / 180 - cam, face = Math.cos(rel) < 0, faceX = -Math.sin(rel);   // the face shows when the dancer has turned toward the camera; the eyes slide toward the side turned to
     parts.push({ depth: view(st.P).y, svg: line([hipL, hipR], '#333', .3 * U) + line([{ x: st.P.x, y: st.P.y, z: st.P.z }, { x: st.S.x, y: st.S.y, z: st.S.z }], '#333', .34 * U) + line([shL, shR], '#333', .3 * U) });
     const headC = { x: st.S.x, y: st.S.y, z: st.S.z + R.neck + R.head }, hp = pr(headC);
@@ -752,7 +759,7 @@ DV.dancer = {
     const sh = pr({ x: st.P.x, y: st.P.y, z: 0 });
     let s = `<ellipse cx="${sh[0]}" cy="${sh[1] + .1 * U}" rx="${(1.6 - Math.min(.6, st.P.z - 3.4) * .5) * U}" ry="${.3 * U}" fill="#000" opacity="${st.airborne ? .06 : .1}"/>`;
     parts.sort((a, b) => b.depth - a.depth).forEach(q => s += q.svg);
-    if (st.arms === 'c') { const c = pr(st.hands[0]); s += `<circle cx="${c[0]}" cy="${c[1]}" r="${.35 * U}" fill="${HI}" fill-opacity=".6"/>`; }
+    if (st.arms === 'c' && st.since < .3) { const c = pr(st.hands[0]); s += `<circle cx="${c[0]}" cy="${c[1]}" r="${.35 * U}" fill="${HI}" fill-opacity="${(.7 * (1 - st.since / .3)).toFixed(2)}"/>`; }
     return `<g stroke-linecap="round" stroke-linejoin="round">${s}</g>`;
   },
   build(el, d) {
@@ -775,8 +782,10 @@ DV.dancer = {
 // scrolling past behind it. The figure stands on a five-line staff whose lines are body levels (floor, knees, hips,
 // shoulders, top of the head), drawn to the figure's scale, so sinking and rising read off the lines. It is an elevation,
 // not a perspective: depth is written, not drawn. An open circle at a hand or foot means forward of the body, a filled one
-// behind (the dancer's forward, whichever way the camera looks). Shoulders and hips are bars, the spine bends, the leg
-// carrying the weight is bold, a planted foot hooks outward and a lifted one points. DanceWriting's movement signs mark
+// behind (the dancer's forward, whichever way the camera looks). Limbs are single curves through the knee or elbow; the
+// hip bar tilts up over the supporting foot and the shoulders answer the other way, and the spine bends between them into
+// a C or an S, the head following; the leg carrying the weight is bold, a planted foot hooks outward and a lifted one points.
+// Contacts land on the count: feet, claps and shape changes travel in the window before their onset, not after it. DanceWriting's movement signs mark
 // the moment: * a touch, a double arrow in the air, a turning arrow over the head, dots ahead of a travelling foot.
 // Behind the figure the same staff carries the rhythm as percussion notation (kick in the bottom space, snare in the
 // third, hats above the top line, stems up and beamed by the beat), and the steps as note heads on the floor line
@@ -851,33 +860,41 @@ DV.writing = {
     const fwdOf = (q, o) => (q.x - o.x) * st.fwd.x + (q.y - o.y) * st.fwd.y;
     const depthMark = (q, rel, col) => { if (Math.abs(rel) < .35) return ''; const [x, y] = pr(q); return `<circle cx="${x}" cy="${y}" r="${.19 * U}" fill="${rel > 0 ? '#fff' : col}" stroke="${col}" stroke-width="${.08 * U}"/>`; };
     const parts = [], extra = [], sinceOn = p - f.t;
-    const hipL = { x: st.P.x - R.hipHalf * st.right.x, y: st.P.y - R.hipHalf * st.right.y, z: st.P.z }, hipR = { x: st.P.x + R.hipHalf * st.right.x, y: st.P.y + R.hipHalf * st.right.y, z: st.P.z };
+    // curves: a limb is one stroke through its joint (the quadratic whose curve passes through the knee or elbow), so a
+    // straight leg is straight and a bent one bends softly, the way a pen draws it
+    const thru = (A, J, B) => { const a = pr(A), j = pr(J), b = pr(B), c = [2 * j[0] - (a[0] + b[0]) / 2, 2 * j[1] - (a[1] + b[1]) / 2]; return `M${a[0].toFixed(1)},${a[1].toFixed(1)} Q${c[0].toFixed(1)},${c[1].toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`; };
+    const up = (A, B) => { const a = pr(A), b = pr(B); let dx = b[0] - a[0], dy = b[1] - a[1]; const l = Math.hypot(dx, dy); if (l < .2 * U) return [0, -1]; dx /= l; dy /= l; return dx > 0 ? [dy, -dx] : [-dy, dx]; };   // the normal of a bar that points up the page
+    const hipL = { x: st.P.x - R.hipHalf * st.right.x, y: st.P.y - R.hipHalf * st.right.y, z: st.P.z - st.hipTilt }, hipR = { x: st.P.x + R.hipHalf * st.right.x, y: st.P.y + R.hipHalf * st.right.y, z: st.P.z + st.hipTilt };
     for (const [F, hip, ft, col, side] of [['L', hipL, st.L, LEFT, -1], ['R', hipR, st.R, RIGHT, 1]]) {
       const kb = st.loc(side * .25, 1), { J, B } = rig.ik(hip, ft, R.thigh, R.shin, { x: kb.x, y: kb.y, z: .15 });
       const weight = ft.planted && (st.weight === F || st.weight === 'B');
       let toe;
       if (ft.planted || ft.z < .05) toe = { x: B.x + st.fwd.x * .4 + st.right.x * side * .38, y: B.y + st.fwd.y * .4 + st.right.y * side * .38, z: B.z };
       else { const v = { x: B.x - J.x, y: B.y - J.y, z: B.z - J.z }, l = Math.hypot(v.x, v.y, v.z) || 1; toe = { x: B.x + v.x / l * .45, y: B.y + v.y / l * .45, z: B.z + v.z / l * .45 }; }
-      let svg = halo(poly([hip, J, B, toe]), col, (weight ? .36 : .2) * U) + depthMark(toe, fwdOf(B, st.P), col);
+      const pb = pr(B), pt = pr(toe), heel = ft.planted || ft.z < .05 ? .1 * U : 0;
+      let svg = halo(`${thru(hip, J, B)} Q${(pb[0] + (pt[0] - pb[0]) * .3).toFixed(1)},${(pb[1] + (pt[1] - pb[1]) * .3 + heel).toFixed(1)} ${pt[0].toFixed(1)},${pt[1].toFixed(1)}`, col, (weight ? .36 : .2) * U) + depthMark(toe, fwdOf(B, st.P), col);
       // walking dots: where the foot is about to go
       if (ft.air && ft.kind !== 'up') for (let j = 1; j <= 8; j++) { const t = p + j * .06, q = rig.foot(F, ((t % this.d.cycle) + this.d.cycle) % this.d.cycle); if (!q.air) break; const [x, y] = pr(q); svg += `<circle cx="${x}" cy="${y}" r="${.07 * U}" fill="${col}" opacity="${.7 - j * .07}"/>`; }
-      if (f.kind === 'touch' && f.moving === F && sinceOn < .6) { const [x, y] = pr(toe); extra.push(`<text x="${x + side * .45 * U}" y="${y - .25 * U}" text-anchor="middle" font-size="${.9 * U}" font-weight="700" fill="${col}">*</text>`); }
+      if (f.kind === 'touch' && f.moving === F && sinceOn < .6) { const [x, y] = pr(toe); extra.push(`<text x="${x + side * .45 * U}" y="${y - .25 * U}" text-anchor="middle" font-size="${.9 * U}" font-weight="700" fill="${col}" opacity="${(1 - sinceOn / .6).toFixed(2)}">*</text>`); }
       parts.push({ depth: (view(J).y + view(B).y) / 2, svg });
     }
-    const shL = { x: st.S.x - R.shoulderHalf * st.right.x, y: st.S.y - R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[0] }, shR = { x: st.S.x + R.shoulderHalf * st.right.x, y: st.S.y + R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[1] };
-    const a = pr(st.P), b = pr(st.S), spine = `M${a[0].toFixed(1)},${a[1].toFixed(1)} Q${a[0].toFixed(1)},${((a[1] + b[1]) / 2).toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`;
-    const headC = { x: st.S.x, y: st.S.y, z: st.S.z + R.neck + R.head }, hp = pr(headC);
+    const shL = { x: st.S.x - R.shoulderHalf * st.right.x, y: st.S.y - R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[0] - st.shTilt }, shR = { x: st.S.x + R.shoulderHalf * st.right.x, y: st.S.y + R.shoulderHalf * st.right.y, z: st.S.z + st.shLift[1] + st.shTilt };
+    // the spine leaves the hips square to the hip bar and meets the shoulders square to theirs, so tilted hips and
+    // shoulders bend it into a C or an S; the neck and head carry on the line the shoulders give them
+    const nH = up(hipL, hipR), nS = up(shL, shR), a = pr(st.P), b = [(pr(shL)[0] + pr(shR)[0]) / 2, (pr(shL)[1] + pr(shR)[1]) / 2], Ls = Math.hypot(b[0] - a[0], b[1] - a[1]) * .42;
+    const spine = `M${a[0].toFixed(1)},${a[1].toFixed(1)} C${(a[0] + nH[0] * Ls).toFixed(1)},${(a[1] + nH[1] * Ls).toFixed(1)} ${(b[0] - nS[0] * Ls).toFixed(1)},${(b[1] - nS[1] * Ls).toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`;
+    const nk = [b[0] + nS[0] * R.neck * U, b[1] + nS[1] * R.neck * U], hp = [nk[0] + nS[0] * R.head * U, nk[1] + nS[1] * R.head * U];
     const rel = st.facing * Math.PI / 180 - cam, face = Math.cos(rel) < 0, faceX = -Math.sin(rel);
     parts.push({ depth: view(st.P).y, svg: halo(poly([hipL, hipR]), '#333', .26 * U) + halo(spine, '#333', .3 * U) + halo(poly([shL, shR]), '#333', .26 * U)
-      + halo(poly([st.S, { x: st.S.x, y: st.S.y, z: st.S.z + R.neck }]), '#333', .22 * U)
+      + halo(`M${b[0].toFixed(1)},${b[1].toFixed(1)} L${nk[0].toFixed(1)},${nk[1].toFixed(1)}`, '#333', .22 * U)
       + `<circle cx="${hp[0]}" cy="${hp[1]}" r="${R.head * U}" fill="#fff" stroke="#333" stroke-width="${.14 * U}"/>`
       + (face ? `<circle cx="${hp[0] - .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><circle cx="${hp[0] + .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><path d="M${hp[0] - .2 * U + faceX * .25 * U},${hp[1] + .2 * U} Q${hp[0] + faceX * .25 * U},${hp[1] + .36 * U} ${hp[0] + .2 * U + faceX * .25 * U},${hp[1] + .2 * U}" stroke="#333" stroke-width="${.07 * U}" fill="none"/>` : '') });
     for (const [i, sh, col, side] of [[0, shL, LEFT, -1], [1, shR, RIGHT, 1]]) {
       const eb = st.loc(side * 1, -.5), { J, B } = rig.ik(sh, st.hands[i], R.upper, R.fore, { x: eb.x, y: eb.y, z: -.6 });
-      parts.push({ depth: (view(J).y + view(B).y) / 2, svg: halo(poly([sh, J, B]), col, .22 * U) + (depthMark(B, fwdOf(B, st.S), col) || `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.12 * U}" fill="${col}"/>`) });
+      parts.push({ depth: (view(J).y + view(B).y) / 2, svg: halo(thru(sh, J, B), col, .22 * U) + (depthMark(B, fwdOf(B, st.S), col) || `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.12 * U}" fill="${col}"/>`) });
     }
     let s = ''; parts.sort((x, y) => y.depth - x.depth).forEach(q => s += q.svg);
-    if (st.arms === 'c') { const q = pr(st.hands[0]); s += `<circle cx="${q[0]}" cy="${q[1]}" r="${.35 * U}" fill="${HI}" fill-opacity=".6"/>`; }
+    if (st.arms === 'c' && st.since < .3) { const q = pr(st.hands[0]); s += `<circle cx="${q[0]}" cy="${q[1]}" r="${.4 * U}" fill="${HI}" fill-opacity="${(.7 * (1 - st.since / .3)).toFixed(2)}"/>`; }   // the clap lights at the contact
     // movement signs: a double arrow in the air, a turning arrow over the head while the dancer turns
     if (st.airborne) { const x = hp[0] + 1.6 * U, y = hp[1] + 1.4 * U; s += `<path d="M${x},${y - .9 * U} V${y + .9 * U} M${x - .3 * U},${y - .55 * U} L${x},${y - .9 * U} L${x + .3 * U},${y - .55 * U} M${x - .3 * U},${y + .55 * U} L${x},${y + .9 * U} L${x + .3 * U},${y + .55 * U}" stroke="#333" stroke-width="${.09 * U}" fill="none"/>`; }
     if (Math.abs(f.facing - f.facingFrom) > 1 && Math.abs(st.facing - f.facing) > 1) { const r = f.facing > f.facingFrom; s += `<text x="${hp[0]}" y="${hp[1] - .85 * U}" text-anchor="middle" font-size="${1.1 * U}" fill="#333">${r ? '↻' : '↺'}</text>`; }
