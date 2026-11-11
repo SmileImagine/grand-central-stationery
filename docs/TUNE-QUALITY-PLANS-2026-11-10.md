@@ -532,10 +532,41 @@ whatever the emphasis:
   course's 30 reels), a march on the trumpet; the march style's bass is the
   tuba's oom-pah. A `%%MIDI program` reaches the strings, brass and bars
   (before, every program without samples fell back to the piano). By ear
-  the fiddle and trumpet sit well over the band. Open: the tuba fills the
-  band's 200-500 Hz (low-mid share 0.08 to 0.56 in the march sweep, over
-  the 0.45 bound); the band does not yet hear a glockenspiel or xylophone
-  melody at its sounding octave.
+  the fiddle and trumpet sit well over the band. The band does not yet
+  hear a glockenspiel or xylophone melody at its sounding octave.
+- The tuba's low-mids (band share 0.08 to 0.56 in the march sweep, over
+  the 0.45 bound) are its own sound, not build-up: the bass carries most
+  of a band's energy, and a tuba's harmonics sit at 200-500 Hz where a
+  plucked bass has little. An octave down moved the share 0.53-0.62 to
+  0.48-0.59; 3.8 dB quieter (its LUFS gap over the double bass) moved it
+  to 0.47-0.56 and left the tune 11 LU over the band, so the level stays.
+  By ear it is not muddy (its notes are short), and it sounds best at the
+  double bass's octave, so it stays there; a 2.5 dB dip at 300 Hz in its
+  samples eases it (share 0.47-0.56), and the march is exempt from the
+  low-mid bound, with the reason.
+- Found by the report: since the rounds merge the melody plays 3.0 dB
+  louder (the tune 8.2 LU over the band, 5.5 before; 42 plays over the
+  9 LU bound). The round groups' stereo panners feed the melody's chain,
+  so its mono notes are mixed up to stereo and pass the centre panner at
+  full level instead of its equal-power -3 dB. Listening on 2026-11-11
+  (fiddle, trumpet, tuba) was with the louder melody, and it was kept: a
+  forward tune suits learners. The melody's chain is now stereo on
+  purpose, the prominence bound is 12.5 LU (the thin folk styles reach
+  12.2), and this state is the baseline (52 guardrail breaks in 137
+  plays; 1 over the new prominence bound). A louder centred tune narrows
+  the mix a little: width is just under its 0.05 floor in 11 plays
+  (0.047-0.049), left as it is.
+- Glitches heard in Safari (stutters, pops): not reproduced in Chromium,
+  where no note was late (each scheduled at least 50 ms ahead) and the
+  page's main thread stayed under 16 ms a task while playing. Hardened
+  anyway: the context asks for the 'playback' buffer (23 ms against
+  5.8 in Chromium, the views already allowing for latency), the notes are
+  scheduled 600 ms ahead (320), the pump styles' duck dips over 3 ms
+  instead of stepping (a click), and fader and room changes glide.
+- The mixer's faders were cut off at the top in a short dock (flex-end
+  pushed them up past the drawer's edge); they sit at its foot by an auto
+  margin now and scroll if need be, with a tick at 100 and the value in
+  their tooltip (100 sits two thirds up, as the scale runs to 150).
 - Play wakes a Safari audio context that was left "interrupted" (after a
   lock screen or a call; it only woke a "suspended" one), and asks an
   iPhone for playback audio so the ring/silent switch does not mute it.

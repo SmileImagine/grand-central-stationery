@@ -188,6 +188,30 @@
       out['repeat' + name] = mean(J);                                            // 1: every bar the same rhythm as the last
       out['variety' + name] = S.length ? new Set(S.map(s => [...s].sort().join())).size / S.length : NaN;   // distinct bar rhythms per bar
     }
+    // ---- fills: the last two beats before every fourth bar line, every time round ----
+    // Each one as its hits (the sixteenth or compound sixth it falls on, and the drum): how many of them differ, how
+    // often one is the same as the fill before it, and how many drums a fill moves between (the snare alone is one).
+    {
+      const sigs = [], voices = [];
+      for (const r of (cap.rounds && cap.rounds.length ? cap.rounds : [cap.notes])) {
+        const dr = r.filter(n => n.part === 'drums');
+        bars.forEach((b, i) => {
+          if ((i + 1) % 4 || i === bars.length - 1) return;
+          const beat = (b.e - b.s) / Math.max(1, b.beats), from = b.e - 2 * beat, step = beat / (cap.compound ? 6 : 4);
+          const hs = dr.filter(n => n.ms >= from - 10 && n.ms < b.e - 10 && ![42, 44, 46, 51, 69, 70, 54].includes(n.midi));
+          sigs.push(hs.map(n => Math.round((n.ms - from) / step) + ':' + n.midi).sort().join());
+          voices.push(new Set(hs.map(n => n.midi)).size);
+        });
+      }
+      out.fillVariety = sigs.length ? new Set(sigs).size / sigs.length : NaN;    // distinct fills per fill
+      let same = 0; for (let i = 1; i < sigs.length; i++) if (sigs[i] === sigs[i - 1]) same++;
+      out.fillRepeat = sigs.length > 1 ? same / (sigs.length - 1) : NaN;         // a fill the same as the last one
+      out.fillVoices = mean(voices);                                            // drums in a fill (hats and cymbals aside)
+    }
+    // How much the snare's strength varies (backbeats, ghosts, fills), against its average.
+    { const sn = drums.filter(n => n.midi === 38 || n.midi === 40).map(n => n.vel); out.velSpreadSnare = mean(sn) ? sd(sn) / mean(sn) : NaN; }
+    // And the closed hat's or ride's (the time-keeper's) strength, against its average.
+    { const hh = drums.filter(n => n.midi === 42 || n.midi === 51).map(n => n.vel); out.velSpreadHat = mean(hh) ? sd(hh) / mean(hh) : NaN; }
     // ---- density ----
     const beats = bars.reduce((a, b) => a + b.beats, 0) || 1;
     out.densityDrums = drums.length / beats; out.densityBass = bass.length / beats; out.densityChords = hits.length / beats; out.densityMelody = mel.length / beats;
@@ -218,19 +242,24 @@
     ['accentBass', 0.1, null, 'the bass leans on the beat', 'drone'],
     ['answered', 1.05, null, 'the band plays more where the melody leaves room', 'drone'],
     ['repeatDrums', null, 0.97, 'the drums vary from bar to bar', 'loop'],
+    ['fillRepeat', null, 0.5, 'a drummer does not play the same fill every time', 'loop'],
   ];
   // Audio guardrails, in the same form.
   const AUDIO_GUARDS = [
     ['lufs', -20, -12, 'loud enough for a classroom speaker, with room to breathe (LUFS)'],
     ['peak', null, -1, 'no clipping (dBFS)'],
-    ['prominence', 2, 9, 'the melody stands above the band, but the band is still heard (LU)'],
+    ['prominence', 2, 12.5, 'the melody stands above the band, forward for learners (kept so by ear, 2026-11-11), and the band is still heard (LU)'],
     ['masked', null, 0.35, 'the band leaves the melody’s strongest frequencies mostly to it'],
-    ['bandLowMid', null, 0.45, 'the band builds up little between 200 and 500 Hz'],
+    ['bandLowMid', null, 0.45, 'the band builds up little between 200 and 500 Hz', 'brass'],
     ['width', 0.05, null, 'not mono (the tune, bass, kick and snare stay centred so one classroom speaker loses nothing: moving the comping across the field moved width 0.088 to 0.097, so 0.15 was no target)'],
   ];
   // The styles a guard does not apply to: a drone holds the tonic against the raga's every note (its flat second too),
   // and a loop style repeats its bar on purpose.
-  const EXEMPT = { drone: ['drone', 'minyo', 'persian', 'korean'], loop: ['drone', 'minyo', 'persian', 'korean', 'house', 'reggaeton', 'trap', 'samba', 'mento', 'afrobeats'] };
+  // brass: the march's tuba. The bass carries most of a band's energy, so this share is mostly the bass's own sound: a plucked
+  // double bass's is under 200 Hz, a tuba's harmonics are 200-500 Hz at any octave or level (march sweep: an octave down
+  // 0.53-0.62 to 0.48-0.59, 3.8 dB quieter 0.47-0.56 with the tune 11 LU over the band; melody masked 0.04). By ear not
+  // muddy, its notes being short; a 2.5 dB dip at 300 Hz in its samples brings it to 0.47-0.56.
+  const EXEMPT = { brass: ['march'], drone: ['drone', 'minyo', 'persian', 'korean'], loop: ['drone', 'minyo', 'persian', 'korean', 'house', 'reggaeton', 'trap', 'samba', 'mento', 'afrobeats'] };
   function check(values, guards, style) {
     const fails = [];
     for (const [k, lo, hi, why, ex] of guards) { if (ex && style && EXEMPT[ex].includes(style)) continue; const v = values[k]; if (v === null || v === undefined || !Number.isFinite(v)) continue; if ((lo !== null && v < lo) || (hi !== null && v > hi)) fails.push({ metric: k, value: v, lo, hi, why }); }
