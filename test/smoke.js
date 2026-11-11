@@ -104,5 +104,6 @@ assert(fs.existsSync(path.join(root, 'lab/Play Along v1.html')), 'Play Along lab
 
 if (!workshopHere) assert(!main.includes('course/holding/'), 'the main page must not link to the workshop on main');
 const workshop = workshopHere ? JSON.parse(fs.readFileSync(path.join(root, 'course/holding/index.json'), 'utf8')).items.length : 0;
-if (workshopHere) assert(workshop + inReview('holding') === 18, `expected 18 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
+// A floor, not a count: new tunes join the workshop, and none of the 18 present when this check was written may go missing.
+if (workshopHere) assert(workshop + inReview('holding') >= 18, `expected at least 18 workshop items in the workshop or in review, found ${workshop} + ${inReview('holding')}`);
 console.log(`Smoke checks passed (${checks} checks; ${set.tunes.length} published tunes; ${workshopHere ? `${workshop} workshop items; ${queue.length} in review` : 'no workshop here (main)'}).`);
