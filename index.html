@@ -2688,7 +2688,8 @@
                    with the drums' own downbeat, no crash).
        Beside the harmony: sound, the kit and voices a style plays with
        instead of the samples (drums: 'kit808' or 'kit909', a synthesised
-       kick with the sampled kit; bass: 'synth-sub' or 'synth-bass'; chords:
+       kick with the sampled kit, or 'kitSynth', a whole acoustic kit made
+       on the spot; bass: 'synth-sub' or 'synth-bass'; chords:
        'synth-pluck' or 'synth-pad'), pump, how far the chords and bass
        duck under each kick (0..1), the breathing of dance music, and build:
        the arrangement's third time round ends in a snare-roll build into
@@ -3491,7 +3492,8 @@
       load(folder, midi) {
         folder = setOf(folder, midi);
         if (SYNTH_VOICES[folder]) return Promise.resolve(true);                       // made on the spot
-        if (SYNTH_KITS[folder]) return midi === DRUM.kick ? Promise.resolve(true) : this.load('percussion', midi);
+        if (SYNTH_KITS[folder]) return SYNTH_KITS[folder] === 'drumkit' ? (KIT_SYNTH.drums.has(midi) ? Promise.resolve(kitWarm(this.ctx(), midi)) : this.load('percussion', midi))
+                                     : midi === DRUM.kick ? Promise.resolve(true) : this.load('percussion', midi);
         const takes = takesOf(folder, midi); if (takes) return Promise.all(takes.map(n => this.file(folder, n))).then(b => b[0]);
         return this.file(folder, FLAT_NOTE(sampleOf(folder, midi)));
       }
@@ -3515,7 +3517,7 @@
       play(folder, midi, when, dur, vel, out, rel = 0.08, fx = null) {
         folder = setOf(folder, midi);
         if (SYNTH_VOICES[folder]) return this.synth(SYNTH_VOICES[folder], midi, when, dur, vel, out, rel, fx);
-        if (SYNTH_KITS[folder]) return midi === DRUM.kick ? this.synth(SYNTH_KITS[folder], midi, when, dur, vel, out, rel, fx) : this.play('percussion', midi, when, dur, vel, out, rel, fx);
+        if (SYNTH_KITS[folder]) return (SYNTH_KITS[folder] === 'drumkit' ? KIT_SYNTH.drums.has(midi) : midi === DRUM.kick) ? this.synth(SYNTH_KITS[folder], midi, when, dur, vel, out, rel, fx) : this.play('percussion', midi, when, dur, vel, out, rel, fx);
         const takes = takesOf(folder, midi), from = sampleOf(folder, midi);
         let name = FLAT_NOTE(from), kit = null, closeAt = 0;
         if (takes) {   // the strength the level asks for, the takes in turn, a few cents and a little level apart
@@ -3560,13 +3562,15 @@
       }
     }
     // Voices made here rather than sampled, by name (a Band part's folder): no download, and the sounds modern styles
-    // are built on. A kit plays its kick here and the rest of the drums from the percussion samples.
+    // are built on. The 808 and 909 kits play their kick here and the rest of the drums from the percussion samples; the
+    // synthesised acoustic kit (kitSynth) plays the whole kit here, and only the hand percussion from the samples.
     const SYNTH_VOICES = { 'synth-sub': 'sub', 'synth-bass': 'bass', 'synth-pluck': 'pluck', 'synth-pad': 'pad', 'synth-epiano': 'epiano' };
-    const SYNTH_KITS = { kit808: 'kick808', kit909: 'kick909' };
+    const SYNTH_KITS = { kit808: 'kick808', kit909: 'kick909', kitSynth: 'drumkit' };
     // One synthesised note, with play()'s arguments: an 808's long falling boom or a 909's short punch (each with a
     // click), a sub bass (a sine with a touch of its octave), a saw bass and a pluck (saws through a filter that
     // closes), and a pad (detuned saws through a soft filter, slow to rise). It returns what the Player can stop.
     Sampler.prototype.synth = function (kind, midi, when, dur, vel, out, rel, fx) {
+      if (kind === 'drumkit') return this.kit(midi, when, vel, out);
       const ctx = this.ctx(), f = 440 * Math.pow(2, (midi - 69) / 12), cents = (fx && fx.cents) || 0, L = SYNTH_LEVEL[kind] || 1;
       const amp = ctx.createGain(), oscs = [];
       amp.gain.setValueAtTime(0, when); amp.connect(out);
@@ -3616,6 +3620,103 @@
     // parts of pop played at about -46 dB (drums), -34 (bass) and -37 (chords); the voices at these levels land near
     // them, the kick and bass of a dance style a little forward.
     const SYNTH_LEVEL = { kick808: 0.1, kick909: 0.1, sub: 0.055, bass: 0.055, pluck: 0.12, pad: 0.055, epiano: 0.075 };   // epiano: matched to the FluidR3 electric piano by LUFS
+    // The synthesised acoustic kit (kitSynth), beside the sampled one: every drum a GM drum map's kit has, made on the spot.
+    // A hit varies with its strength (vel: a backbeat at middle Energy near 0.4), harder brighter, noisier and higher at
+    // the onset, and a little from hit to hit (its level, pitch, length and the noise's place, seeded by its time and
+    // drum), as the sampled takes do. use: play it in place of the sampled kit (the page's ?kit=synth, the lab's --kit
+    // synth); level: each drum's, matched to the sampled kit by test/band-report.js and the A/B lab on 10 November 2026
+    // (within a dB in a groove, from ghost notes to accents).
+    const KIT_SYNTH = {
+      use: /[?&]kit=synth\b/.test(location.search) ? 1 : 0,
+      drums: new Set([DRUM.kick, DRUM.snare, DRUM.rim, DRUM.hatC, DRUM.hatP, DRUM.hatO, DRUM.tomHi, DRUM.tomMid, DRUM.tomLo, DRUM.crash, DRUM.ride]),
+      level: { all: 1.2, [DRUM.kick]: 0.11, [DRUM.rim]: 0.2, [DRUM.snare]: 0.135, [DRUM.hatC]: 0.027, [DRUM.hatP]: 0.034, [DRUM.hatO]: 0.0195, [DRUM.tomLo]: 0.066, [DRUM.tomMid]: 0.057, [DRUM.tomHi]: 0.06, [DRUM.crash]: 0.105, [DRUM.ride]: 0.054 },
+      noise: new WeakMap(), metal: new WeakMap(),
+    };
+    // Two seconds of white noise, and of the 808's six inharmonic squares summed (each band-limited below Nyquist at the
+    // pitch it plays and rounded to whole cycles, so the two seconds loop): made once a context, so a hat or a cymbal is
+    // one or two buffer sources, not six oscillators.
+    const kitNoise = ctx => { let b = KIT_SYNTH.noise.get(ctx); if (!b) { const n = ctx.sampleRate * 2, r = mulberry(7); b = ctx.createBuffer(1, n, ctx.sampleRate); const d = b.getChannelData(0); for (let i = 0; i < n; i++) d[i] = r() * 2 - 1; KIT_SYNTH.noise.set(ctx, b); } return b; };
+    const kitMetal = (ctx, scale) => {
+      let m = KIT_SYNTH.metal.get(ctx); if (!m) KIT_SYNTH.metal.set(ctx, m = {}); if (m[scale]) return m[scale];
+      const sr = ctx.sampleRate, n = sr * 2, b = ctx.createBuffer(1, n, sr), d = b.getChannelData(0);
+      for (const f0 of [205.3, 304.4, 369.6, 522.7, 540, 800]) {
+        const f = Math.round(f0 * scale * 2) / 2;
+        for (let h = 1; h * f < 0.45 * sr; h += 2) {   // a square's odd harmonics, each at 1/h, by rotating (x, y)
+          const w = 2 * Math.PI * h * f / sr, c = Math.cos(w), sn = Math.sin(w), a = 4 / Math.PI / h; let x = 0, y = 1;
+          for (let i = 0; i < n; i++) { d[i] += a * x; const nx = x * c + y * sn; y = y * c - x * sn; x = nx; }
+        }
+      }
+      return m[scale] = b;
+    };
+    // Made while the tune loads rather than at the first hit, so the scheduler never waits on them.
+    const kitWarm = (ctx, midi) => { if (ctx) { kitNoise(ctx); const sc = midi === DRUM.crash ? 1.45 : midi === DRUM.ride ? 1.9 : midi === DRUM.hatC || midi === DRUM.hatP || midi === DRUM.hatO ? 1 : 0; if (sc) kitMetal(ctx, sc); } return true; };
+    Sampler.prototype.kit = function (midi, when, vel, out) {
+      const ctx = this.ctx(), r = mulberry(Math.round(when * 1e4) + midi * 7919), j = a => 1 + (r() - 0.5) * 2 * a, srcs = [];
+      const hard = Math.max(0, Math.min(1, vel / 0.6)), lv = KIT_SYNTH.level;
+      const amp = ctx.createGain(); amp.gain.value = vel * Math.min(1, 0.55 + 3 * vel) * (1.15 - 0.3 * hard) * lv.all * (lv[midi] || 0) * j(0.05); amp.connect(out);
+      const gain = (to, peak, decay, attack = 0.001) => { const g = ctx.createGain(); g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(peak, when + attack); g.gain.setTargetAtTime(0, when + attack, decay / 4.6); g.connect(to); return g; };   // decay: to -40 dB
+      const filt = (to, type, f, q = 0.7) => { const b = ctx.createBiquadFilter(); b.type = type; b.frequency.value = f; b.Q.value = q; b.connect(to); return b; };
+      const osc = (to, type, f) => { const o = ctx.createOscillator(); o.type = type; o.frequency.value = f; o.connect(to); srcs.push(o); return o; };
+      const loop = (to, buf, at, rate = 1) => { const s = ctx.createBufferSource(); s.buffer = buf; s.loop = true; s.playbackRate.value = rate; s.connect(to); s.at = at; srcs.push(s); return s; };
+      const noise = to => loop(to, kitNoise(ctx), r() * 1.5), metal = (to, scale) => loop(to, kitMetal(ctx, scale), r() * 1.9, j(0.006));
+      let end;
+      if (midi === DRUM.kick) {
+        // A beater on a big drum: a sine falling to the drum's note within a few ms (from higher after a harder stroke),
+        // a shell mode above it, and the beater's knock and click, filtered noise brighter the harder.
+        const f = 54 * j(0.02), dec = (0.3 + 0.12 * hard) * j(0.08), b = osc(gain(amp, 1, dec, 0.002), 'sine', f);
+        b.frequency.setValueAtTime(f * (2 + 1.2 * hard), when); b.frequency.exponentialRampToValueAtTime(f * 1.15, when + 0.03); b.frequency.exponentialRampToValueAtTime(f, when + 0.2);
+        const s = osc(gain(amp, 0.25, 0.09), 'sine', f * 2.7 * j(0.02)); s.frequency.setValueAtTime(f * 3.4, when); s.frequency.exponentialRampToValueAtTime(f * 2.7, when + 0.02);
+        noise(filt(filt(gain(amp, 0.3 + 0.5 * hard, 0.025), 'lowpass', 1800 + 2200 * hard), 'highpass', 350));
+        osc(gain(amp, 0.12 + 0.12 * hard, 0.03), 'triangle', 620 * j(0.04));
+        end = when + dec + 0.05;
+      } else if (midi === DRUM.snare) {
+        // The head: two modes falling a little in pitch, short. The wires: noise through a high-pass, darker and shorter
+        // after a soft stroke, longer and brighter after a hard one. And the stick's crack.
+        const f = 190 * j(0.015), bd = (0.12 + 0.05 * hard) * j(0.1), wd = (0.24 + 0.12 * hard) * j(0.1);
+        const a = osc(gain(amp, 1, bd), 'triangle', f); a.frequency.setValueAtTime(f * 1.35, when); a.frequency.exponentialRampToValueAtTime(f, when + 0.025);
+        const b = osc(gain(amp, 0.32, bd * 0.6), 'sine', f * 1.72); b.frequency.setValueAtTime(f * 2.2, when); b.frequency.exponentialRampToValueAtTime(f * 1.72, when + 0.02);
+        osc(gain(amp, 0.3, bd * 0.5), 'sine', f * 2.65 * j(0.02));
+        noise(filt(filt(gain(amp, 0.3 + 0.35 * hard, wd, 0.002), 'lowpass', 2500 + 4000 * hard), 'highpass', 550 - 200 * hard));
+        noise(filt(gain(amp, 0.15 + 0.35 * hard, 0.012), 'bandpass', 2000 * j(0.1), 0.9));
+        end = when + Math.max(bd, wd) + 0.05;
+      } else if (midi === DRUM.rim) {   // a side-stick: the stick's wood across the rim, a knock and a short ring
+        osc(gain(amp, 0.08, 0.07), 'sine', 470 * j(0.02)); osc(gain(amp, 0.25, 0.09), 'triangle', 1650 * j(0.02)); osc(gain(amp, 0.3, 0.15), 'sine', 3150 * j(0.02));
+        noise(filt(gain(amp, 0.9, 0.05), 'bandpass', 3800 * j(0.05), 1)); noise(filt(gain(amp, 0.25, 0.03), 'bandpass', 1100 * j(0.05), 1));
+        end = when + 0.2;
+      } else if (midi === DRUM.hatC || midi === DRUM.hatP || midi === DRUM.hatO) {
+        // The metal through a high-pass and a band-pass, with noise for the air between the two cymbals, and the stick (or
+        // the foot's chick) as broader noise reaching down to a few hundred Hz. Closed: short,
+        // and longer and brighter after a harder stroke (the cymbals pressed less tight), never twice the same length;
+        // pedalled shorter, darker and slower to speak; open long, until a closed or pedalled one chokes it.
+        const open = midi === DRUM.hatO, pedal = midi === DRUM.hatP, dec = (open ? 0.9 : pedal ? 0.1 : 0.1 + 0.14 * hard) * j(open ? 0.12 : 0.18);
+        const g = gain(amp, 1, dec, pedal ? 0.006 : 0.0005), hp = filt(g, 'highpass', (pedal ? 4000 : 5500) * j(0.06));
+        const mg = ctx.createGain(); mg.gain.value = 0.9; mg.connect(filt(hp, 'bandpass', (pedal ? 6000 : open ? 7000 : 7000 + 2500 * hard) * j(0.06), 0.8)); metal(mg, 1);
+        const ng = ctx.createGain(); ng.gain.value = (0.25 + 0.4 * hard) * j(0.15); ng.connect(filt(hp, 'lowpass', 9000 + 4000 * hard)); noise(ng);
+        noise(filt(filt(gain(amp, pedal ? 0.6 : (open ? 0.5 : 0.45 + 0.3 * hard) * j(0.15), open ? 0.5 : pedal ? 0.05 : 0.04, pedal ? 0.004 : 0.0005), 'lowpass', pedal ? 1500 : 3500), 'highpass', pedal ? 180 : 250));
+        end = when + dec * 1.2 + 0.02;
+        if (open) this.openHat = { amp, ctx, end };
+        else if (this.openHat && this.openHat.ctx === ctx && this.openHat.end > when) { this.openHat.amp.gain.setTargetAtTime(0, when, 0.01); this.openHat = null; }
+      } else if (midi === DRUM.tomHi || midi === DRUM.tomMid || midi === DRUM.tomLo) {
+        // A tom: a sine falling from above its note (further after a harder stroke) and on a little as it rings, the
+        // membrane's second mode, and the stick on the head.
+        const f = { [DRUM.tomHi]: 165, [DRUM.tomMid]: 128, [DRUM.tomLo]: 104 }[midi] * j(0.012), dec = ({ [DRUM.tomHi]: 0.55, [DRUM.tomMid]: 0.65, [DRUM.tomLo]: 0.75 }[midi] + 0.15 * hard) * j(0.08);
+        const b = osc(gain(amp, 1, dec, 0.002), 'sine', f); b.frequency.setValueAtTime(f * (1.3 + 0.35 * hard), when); b.frequency.exponentialRampToValueAtTime(f, when + 0.07); b.frequency.exponentialRampToValueAtTime(f * 0.95, when + dec);
+        const s = osc(gain(amp, 0.4, dec * 0.35), 'triangle', f * 1.59); s.frequency.setValueAtTime(f * 1.9, when); s.frequency.exponentialRampToValueAtTime(f * 1.59, when + 0.05);
+        osc(gain(amp, 0.45, dec * 0.3), 'sine', f * 2.14 * j(0.01)); osc(gain(amp, 0.35, dec * 0.25), 'sine', f * 2.65 * j(0.01)); osc(gain(amp, 0.2, dec * 0.2), 'sine', f * 3.16 * j(0.01));
+        noise(filt(filt(gain(amp, 0.5 + 0.5 * hard, 0.06), 'lowpass', 2500 + 1500 * hard), 'highpass', f * 2.5));
+        end = when + dec + 0.05;
+      } else {   // the crash (the metal higher, more noise, longer after a harder stroke) and the ride (higher still, with a bell)
+        const crash = midi === DRUM.crash, dec = (crash ? 1.8 + 0.6 * hard : 1.1) * j(0.08), g = gain(amp, crash ? 0.8 : 0.45, dec, crash ? 0.003 : 0.001), hp = filt(g, 'highpass', crash ? 2500 - 800 * hard : 3500);
+        const mg = ctx.createGain(); mg.gain.value = crash ? 0.5 : 0.7; mg.connect(filt(hp, 'bandpass', crash ? 5000 : 7500, 0.6)); metal(mg, crash ? 1.45 : 1.9);
+        const ng = ctx.createGain(); ng.gain.value = crash ? 0.6 + 0.3 * hard : 0.25; ng.connect(filt(hp, 'lowpass', crash ? 7000 + 3000 * hard : 12000)); noise(ng);
+        noise(filt(filt(gain(amp, crash ? 0.5 + 0.3 * hard : 0.2, dec * (crash ? 0.5 : 0.35), 0.002), 'lowpass', crash ? 2500 : 4000), 'highpass', 350));
+        if (!crash) { const bell = gain(amp, 0.012 + 0.02 * hard, 0.5); for (const k of [1, 2.07, 2.76]) osc(bell, 'sine', 660 * k * j(0.004)); }
+        end = when + dec + 0.05;
+      }
+      for (const s of srcs) { if (s.at !== undefined) s.start(when, s.at); else s.start(when); s.stop(end); }
+      const main = srcs[0];
+      return { stop: () => { for (const s of srcs) { try { s.stop(); } catch (err) {} } }, set onended(fn) { main.onended = fn; } };
+    };
     const sampler = new Sampler();
     // The bars as played, from the bars as written ({ s, e, beats } in ms, in the order of the text): a repeat plays its
     // bars again, so the band follows abcjs's timings, where each bar's first event says which written bar it is. A bar
@@ -4112,10 +4213,11 @@
         res.notes = textured(bandFeel(out, mel, played, feelK, seed), spec.texture, played); res.bars = played;
         return res;
       }
-      // The sound each part plays with: the samples, unless the style names its own (STYLES[k].sound: a kit and synthesised voices).
+      // The sound each part plays with: the samples, unless the style names its own (STYLES[k].sound: a kit and synthesised
+      // voices), or the page asks for the synthesised kit in place of the sampled one (?kit=synth; KIT_SYNTH.use).
       folder(part) {
         const snd = (STYLES[this.cell.styleKey] || {}).sound || {};
-        return part === 'drums' ? (snd.drums || 'percussion') : part === 'bass' ? (snd.bass || 'acoustic_bass') : (snd.chords || COMP_FOLDER[this.comp()]);
+        return part === 'drums' ? (snd.drums || (KIT_SYNTH.use ? 'kitSynth' : 'percussion')) : part === 'bass' ? (snd.bass || 'acoustic_bass') : (snd.chords || COMP_FOLDER[this.comp()]);
       }
       // The instrument that comps: the style's (STYLES[k].comp, the electric piano unless it says), or, when the melody
       // plays on that same instrument, another, so the tune stands out from its chords (a synth style keeps its synth).
@@ -8372,7 +8474,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       document.fonts.ready.then(rerenderAll).catch(() => {});
       document.fonts.load("400 100px 'Noto Music'", '\u266F\u266D\u266E').then(rerenderAll).catch(() => {});
     }
-    window.GCS = { lab: { sampler, DRUM, STYLES, COMP_FOLDER, SYNTH_VOICES, SYNTH_KITS, SAMPLE_STEP, SAMPLE_SETS, SAMPLE_NOTES, setOf, sampleOf, takesOf, melodyOctave, SOUND, TONE },   // lab: what test/band-lab.js measures with
+    window.GCS = { lab: { sampler, DRUM, STYLES, COMP_FOLDER, SYNTH_VOICES, SYNTH_KITS, KIT_SYNTH, SAMPLE_STEP, SAMPLE_SETS, SAMPLE_NOTES, setOf, sampleOf, takesOf, melodyOctave, SOUND, TONE },   // lab: what test/band-lab.js measures with
       cells: () => cells, engines, addCell, present, exitPresent, present3d, exit3d, rebuild, FONTS, serialize, parse, loadDocument, shareLink, readShared, undoDelete, reorder,
       // The class's ukulele setup, for the lesson page and the piece view alike: get() is { tuning: 'C'|'D',
       // fourth: 'high'|'low' }, open() shows the setup dialog, onChange(fn) calls fn(setup) after every change,
