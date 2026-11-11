@@ -212,8 +212,8 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
 .pb-mini.uke .dot.active { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 4; filter: none; animation: none; }
 .pb-mini.uke .mopen { fill: var(--panel-2); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 7; }
 
-/* The new idea in a piece, heard in it. */
-.pb-concepts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+/* The ideas in a piece, one per element of music, heard in it: the choices wrap within the row on a narrow screen. */
+.pb-concepts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; max-width: 100%; }
 .pb-concept { border-style: dashed !important; }
 .pb-concept[aria-pressed="true"] { border-style: solid !important; }
 .pb-show { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }

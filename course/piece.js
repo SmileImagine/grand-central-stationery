@@ -48,7 +48,7 @@
 
   let setup = P.decodeSetup(location.hash);
   let set = null, tune = null, found = null, en = null, written = P.DEFAULT_BPM;
-  let mode = 'practice', step = 1, idx = 0, rung = 0, how = 'study', listenOn = false, example = null, concepts = [];
+  let mode = 'practice', step = 1, idx = 0, rung = 0, how = 'study', listenOn = false, example = null, concepts = [], conceptData = null;
   let tempo = {}, bpm = null;
   let faster = ls.get(FASTER_KEY) !== '0';
   let stepper = null, listening = null, attempt = null, flagsShown = [], who = ss.get('gcs-assess-student');
@@ -104,7 +104,9 @@
     return fetch('course/set.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
       .catch(() => new Promise((res, rej) => { if (window.GCS_SETS) return res(window.GCS_SETS.tunes); const sc = document.createElement('script'); sc.src = 'course/sets.js'; sc.onload = () => window.GCS_SETS ? res(window.GCS_SETS.tunes) : rej(new Error('no sets')); sc.onerror = rej; document.head.appendChild(sc); }));
   }
-  Promise.all([loadSet(), abcjsReady]).then(([s]) => { set = s; start(); }).catch(err => {
+  // One idea from each element of music in each piece (course/concepts.js); without it, the analyzer's own guess.
+  const loadConcepts = () => fetch('course/concepts.json').then(r => r.ok ? r.json() : null).catch(() => null);
+  Promise.all([loadSet(), abcjsReady, loadConcepts()]).then(([s, , c]) => { set = s; conceptData = c; start(); }).catch(err => {
     $('.pb-name').textContent = 'The board’s tunes could not be loaded';
     $('.pb-facts').textContent = location.protocol === 'file:' ? 'Opened from disk: run node course/build-sets.js, or serve the folder.' : String(err.message || err);
   });
@@ -123,8 +125,11 @@
     $('.tape').style.background = LEVEL_COLOR[tune.level];
     $('.pb-facts').textContent = [`Level ${tune.level}`, tune.metre, sum.length, tune.origin || tune.composer].filter(Boolean).join(' · ');
     refind();
-    // The new idea: each concept with the bars where it is first heard (those with none to show are left out).
-    concepts = window.GCSAnalyze ? P.conceptsOf(tune).map(c => P.exampleOf(tune, window.ABCJS, window.GCSAnalyze, c, found)).filter(Boolean).slice(0, 3) : [];
+    // What to hear in it: one idea from each element of music, with the bars that show it (course/concepts.json); failing
+    // that, the new idea, with the bars where the analyzer first finds it (those with none to show are left out).
+    const mine = conceptData && conceptData.tunes && conceptData.tunes[tune.id];
+    concepts = mine ? P.conceptChoices(mine, found.bars.length)
+      : window.GCSAnalyze ? P.conceptsOf(tune).map(c => P.exampleOf(tune, window.ABCJS, window.GCSAnalyze, c, found)).filter(Boolean).slice(0, 3) : [];
     mode = setup.mode || 'practice';
     step = Math.min(setup.step || 1, KINDS[mode].length);
     how = P.HOW[mode] ? (P.HOW[mode].includes(setup.by) ? setup.by : P.HOW[mode][0]) : 'study';
@@ -238,7 +243,7 @@
       const k = kind();
       if (listening && listening.kind === 'attempt') judge(stopListening());
       else if (k === 'through' && !example) openPanel();
-      if (k === 'listen' && !example) say(concepts.length ? 'That was the whole piece. Hear the new idea in it, or go on.' : 'That was the whole piece. Next: learn it a section at a time.', 'Next step', () => goStep(2));
+      if (k === 'listen' && !example) say(concepts.length ? `That was the whole piece. Hear ${concepts[0].element ? 'one idea at a time' : 'the new idea'} in it, or go on.` : 'That was the whole piece. Next: learn it a section at a time.', 'Next step', () => goStep(2));
     };
     setInterval(() => {
       const p = en && en.player; if (!p) return;
@@ -357,16 +362,19 @@
       <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button>` : ''}
       ${cuts ? `<button type="button" class="pb-cuts quiet" aria-label="Set up sections" title="Set up sections: choose which bars make each one">✎</button>` : ''}</div>` : '';
   const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
-  // What to hear: the whole piece, or the new idea in it (its bars shown and played). A toggle, like the others.
+  // What to hear: the whole piece, or one idea in it (its bars shown and played): one for each element of music the
+  // piece shows, or failing that the new idea. A toggle, like the others.
   const barsWord = c => c.first === c.last ? `bar ${c.first}` : `bars ${c.first}–${c.last}`;
+  const conceptTitle = c => c.element ? `${c.element}${c.isNew ? ', new in this piece' : ''}: ${c.about}, in ${barsWord(c)}${c.throughout ? ' (heard all through)' : ''}` : `New in this piece: ${c.words}, in ${barsWord(c)}`;
   const conceptCtl = () => !concepts.length ? '' : `<div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
-      <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="New in this piece: ${esc(c.words)}, in ${barsWord(c)}">${esc(c.words)}</button>`).join('')}</div>`;
+      <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="${esc(conceptTitle(c))}">${esc(c.words)}</button>`).join('')}</div>`;
+  const exampleHint = c => c.element ? `${c.element}, ${barsWord(c)}: ${c.reason}` : `New in this piece, in ${barsWord(c)}.`;
   // Listening is not ready (Safari will not, and a voice is read poorly): only with the lab switch on this computer.
   const LISTEN_LAB = ls.get('gcs-listening-lab') === '1';
   function renderTools() {
     const k = kind();
     let h = '';
-    if (k === 'listen') h = `${conceptCtl()}`;
+    if (k === 'listen') h = `${conceptCtl()}${example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : ''}`;
     else if (k === 'sections' && mode === 'teach') h = how === 'study'
       ? `${sectionNav()}`
       : `${sectionNav(false)}${fasterCtl()}`;

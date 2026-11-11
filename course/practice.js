@@ -438,6 +438,17 @@
     for (const w of [1, 2]) for (let a = 0; a + w <= N; a++) if (has(a, a + w)) return { tag, words: skillWords(tag), from: a, to: a + w, first: a + 1, last: a + w };
     return null;
   }
+  /* One idea from each element of music, heard in the piece (course/concepts.json, written by course/concepts.js): a choice
+     for each element the piece shows, in the curriculum's order, ready for the Listen step. n is the piece's bar count,
+     so an entry that has gone stale never points past the end. */
+  const ELEMENT_NAMES = { duration: 'Duration', pitch: 'Pitch', dynamics: 'Dynamics', timbre: 'Timbre', texture: 'Texture and harmony', form: 'Form' };
+  function conceptChoices(entry, n = Infinity) {
+    if (!entry) return [];
+    return Object.keys(ELEMENT_NAMES).map(el => [el, entry[el]])
+      .filter(([, x]) => x && !x.absent && Array.isArray(x.bars) && x.bars[0] >= 1 && x.bars[0] <= x.bars[1] && x.bars[1] <= n)
+      .map(([el, x]) => ({ el, element: ELEMENT_NAMES[el], tag: x.concept, words: x.name, about: x.words, reason: x.reason, term: x.term, grade: x.grade,
+        isNew: !!x.new, throughout: !!x.throughout, from: x.bars[0] - 1, to: x.bars[1], first: x.bars[0], last: x.bars[1] }));
+  }
   function chordBefore(bars, from) { for (let i = from - 1; i >= 0; i--) if (bars[i].chord) return bars[i].chord; return null; }
 
   /* ---------------- tempo ----------------
@@ -649,7 +660,7 @@
   }
 
   return {
-    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, HOW, SHOWS, SETUP_KEYS, ladder, conceptsOf, exampleOf, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
+    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, HOW, SHOWS, SETUP_KEYS, ladder, conceptsOf, exampleOf, conceptChoices, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
     cleanSetup, encodeSetup, decodeSetup, normalCuts, pieceHref, encodeBoard, decodeBoard,
     tunesAt, levelsOf, skillWords, learningGoal, summarize, writtenBpm, midiName, fitFor,
     barsOf, phrasesOf, phraseAbc, inEnding, transposeFor,
