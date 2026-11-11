@@ -525,6 +525,20 @@ whatever the emphasis:
   Left as they are, with reasons: chord fit under 0.7 is Crows on the Fence
   (a pentatonic tune's added sixths and ninths over its written chords) and
   a Morris tune; the drones let the melody stand a little over 9 LU.
+- New CC0 sets from VSCO 2 CE (2.1 MB in all): solo violin, trumpet, tuba
+  (staccato), glockenspiel, marimba and xylophone, each name's octave
+  checked by pitch detection. With no instrument view, the tune's R: line
+  picks the melody's sound: a reel, jig or hornpipe on the fiddle (the
+  course's 30 reels), a march on the trumpet; the march style's bass is the
+  tuba's oom-pah. A `%%MIDI program` reaches the strings, brass and bars
+  (before, every program without samples fell back to the piano). By ear
+  the fiddle and trumpet sit well over the band. Open: the tuba fills the
+  band's 200-500 Hz (low-mid share 0.08 to 0.56 in the march sweep, over
+  the 0.45 bound); the band does not yet hear a glockenspiel or xylophone
+  melody at its sounding octave.
+- Play wakes a Safari audio context that was left "interrupted" (after a
+  lock screen or a call; it only woke a "suspended" one), and asks an
+  iPhone for playback audio so the ring/silent switch does not mute it.
 - Still open: synth leads; West African tunes; more from Andrade, Jekyll,
   Fairchild and the Japanese books; original bangers (phase 4); the live
   energy fader (phase 5).

@@ -73,8 +73,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Versilian Studios sample libraries (vendor/soundfont/vcsl_*, vsco_*): CC0 1.0, public domain
 
 The Kawai grand piano (Sustains, the v3 layer), the Baroque soprano recorder (Sustain), the hi-hat and the modern snare 1
-from the Versilian Community Sample Library (VCSL), and the solo double bass pizzicato (v1 rr1) from VSCO 2 Community
-Edition, by Versilian Studios LLC (Sam Gossner). Converted by `vendor/soundfont/build-cc0.js`: mono, trimmed, levelled,
+from the Versilian Community Sample Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
+(v1 rr1), the solo violin (Arco Vib, f), the trumpet (sus, v3), the tuba (stac, v2 rr1), the glockenspiel, the marimba
+and the xylophone; by Versilian Studios LLC (Sam Gossner). Converted by `vendor/soundfont/build-cc0.js`: mono, trimmed, levelled,
 96 kbps MP3. No attribution is required; this is a thank-you.
 
 https://github.com/sgossner/VCSL and https://versilian-studios.com/vcsl/

@@ -3,12 +3,14 @@
 /*
   Build the CC0 sample sets from Versilian Studios' libraries (public domain, CC0 1.0):
     VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare)
-    VSCO 2 CE   https://github.com/sgossner/VSCO-2-CE    (solo double bass, pizzicato)
+    VSCO 2 CE   https://github.com/sgossner/VSCO-2-CE    (solo double bass pizzicato, solo violin, trumpet, tuba staccato,
+                                                          glockenspiel, marimba, xylophone)
 
-    node vendor/soundfont/build-cc0.js <downloads>
+    node vendor/soundfont/build-cc0.js <downloads> [set,set...]
 
   <downloads> holds the WAVs as fetched, one folder a set: grand/ (Sustains, the v3 layer), recorder/ (Baroque Soprano
-  Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/ and snare/ (Snare Drum, Modern 1). Needs ffmpeg.
+  Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/ and snare/ (Snare Drum, Modern 1); violin/ (Solo Violin,
+  Arco Vib, f), trumpet/ (Trumpet, sus), tuba/ (Tuba, stac, v2 rr1), glock/, marimba/ and xylo/ (Percussion). Needs ffmpeg.
 
   Each note: mono, 44.1 kHz, from its onset (5 ms before it), cut to its instrument's length with a fade, every note of a
   set brought to one loudness (the RMS of its first 0.3 s), the set matched to the FluidR3 set it stands in for on the
@@ -21,7 +23,8 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
-const src = process.argv[2]; if (!src) { console.error('usage: build-cc0.js <downloads>'); process.exit(1); }
+const src = process.argv[2]; if (!src) { console.error('usage: build-cc0.js <downloads> [set,set...]'); process.exit(1); }
+const only = process.argv[3] ? process.argv[3].split(',') : null;   // build just these sets (the others' downloads need not be there)
 const out = __dirname, sr = 44100;
 const FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'], SHARP = { C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8, A: 9, 'A#': 10, B: 11 };
 const flat = m => FLAT[((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
@@ -37,11 +40,23 @@ function shape(x, seconds, fade) {
   return y;
 }
 
+// The semitones from each VSCO set's file names to the pitch it sounds (pitch detection, scratch tools/pitch.js).
+const OCTAVE = { violin: 0, trumpet: 12, tuba: 12, glock: 12, marimba: 12, xylo: 12 };
+const TRUMPET_LAYER = /_v3_rr1/;   // v3 is the forte (10-20 dB over v1), a march's bright trumpet
 // [set folder, downloads folder, the files kept, each file's MIDI note, length in seconds (by note), fade, the FluidR3 set it replaces]
 const SETS = [
   ['vcsl_grand_piano', 'grand', f => /_v3_rr1/.test(f), f => midiOf(f.split('_')[2]) + 12, m => m < 48 ? 6 : m < 72 ? 5 : 3.5, 0.6, 'acoustic_grand_piano'],
   ['vcsl_soprano_recorder', 'recorder', f => /\.wav$/.test(f), f => midiOf(f.split('_')[2]), () => 4.5, 0.4, 'recorder'],
   ['vsco_double_bass_pizz', 'bass', f => /_v1_rr1/.test(f), f => midiOf(f.split('_')[2]) + 12, () => 3, 0.5, 'acoustic_bass'],
+  // VSCO 2 CE: the fiddle, the march's brass and the Orff class's bars. Each name's octave was checked by pitch detection
+  // (OCTAVE below); the glockenspiel and xylophone are filed at their written pitch, as they are read (they sound two
+  // octaves and one octave up). The melody sets are levelled to the piano they stand in for, the tuba to the bass.
+  ['vsco_violin', 'violin', f => /_f\.wav$/.test(f), f => midiOf(f.split('_')[2]) + OCTAVE.violin, () => 4.5, 0.4, 'acoustic_grand_piano'],
+  ['vsco_trumpet', 'trumpet', f => TRUMPET_LAYER.test(f), f => midiOf(f.split('_')[3]) + OCTAVE.trumpet, () => 4, 0.4, 'acoustic_grand_piano'],
+  ['vsco_tuba', 'tuba', f => /_v2_rr1_/.test(f), f => midiOf(f.split('_')[2]) + OCTAVE.tuba, () => 1.2, 0.25, 'acoustic_bass'],
+  ['vsco_glockenspiel', 'glock', f => /\.wav$/.test(f), f => midiOf(f.replace('.wav', '').split('_')[2]) + OCTAVE.glock - 24, () => 3, 0.8, 'acoustic_grand_piano'],
+  ['vsco_marimba', 'marimba', f => /\.wav$/.test(f), f => midiOf(f.split('_')[3]) + OCTAVE.marimba, m => m < 60 ? 3 : 2, 0.5, 'acoustic_grand_piano'],
+  ['vsco_xylophone', 'xylo', f => /\.wav$/.test(f), f => midiOf(f.split('_')[2]) + OCTAVE.xylo - 12, () => 1.5, 0.4, 'acoustic_grand_piano'],
 ];
 // The kit: one sample for each General MIDI drum the band plays; the rest stay with the FluidR3 percussion.
 const KIT = [['snare/Snare2_HitSN_v6_rr1_Mid.wav', 38, 1.4], ['snare/Snare2_stick_v1_rr1_Mid.wav', 37, 0.8], ['hihat/HiHat_HitC_v3_rr1_Mid.wav', 42, 1.0], ['hihat/HiHat_Close_rr1_Mid.wav', 44, 0.8], ['hihat/HiHat_HitO_rr1_Mid.wav', 46, 2.5]];
@@ -50,6 +65,7 @@ const level = x => rms(x, onset(x), Math.round(0.3 * sr));
 
 const notes = {};
 for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
+  if (only && !only.includes(name)) continue;
   const files = fs.readdirSync(path.join(src, dir)).filter(keep).sort();
   const shaped = files.map(f => { const m = midi(f); return { m, x: shape(read(path.join(src, dir, f)), seconds(m), fade) }; }).filter(s => s.m !== null).sort((a, b) => a.m - b.m);
   for (const s of shaped) { const g = 0.1 / Math.max(1e-6, level(s.x)); for (let i = 0; i < s.x.length; i++) s.x[i] *= g; }   // one loudness across the set
@@ -62,6 +78,7 @@ for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
   notes[name] = shaped.map(s => s.m);
   console.log(`${name}: ${shaped.length} notes ${flat(shaped[0].m)}-${flat(shaped[shaped.length - 1].m)}, matched to ${old} on ${ratios.length} (gain ${gain.toFixed(2)})`);
 }
+if (!only || only.includes('vcsl_kit')) {
 fs.mkdirSync(path.join(out, 'vcsl_kit-mp3'), { recursive: true });
 for (const [file, m, seconds] of KIT) {
   const x = shape(read(path.join(src, file)), seconds, Math.min(0.3, seconds / 3)), o = fluid('percussion', m);
@@ -71,4 +88,5 @@ for (const [file, m, seconds] of KIT) {
 }
 notes.vcsl_kit = KIT.map(k => k[1]).sort((a, b) => a - b);
 console.log(`vcsl_kit: ${KIT.length} drums (${notes.vcsl_kit.map(flat).join(' ')}), the rest from percussion`);
+}
 console.log('\nSAMPLE_NOTES = ' + JSON.stringify(notes));

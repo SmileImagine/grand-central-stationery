@@ -2206,7 +2206,7 @@
       auto:   { name: 'Auto' },
       pop:    { name: 'Pop and rock', fill: 'sd', comp: 'piano', walk: true, build: true, harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
       folk:   { name: 'Folk (boom-chick)', fill: 'sd', comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
-      march:  { name: 'March and polka', fill: 'sd', comp: 'piano', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      march:  { name: 'March and polka', fill: 'sd', comp: 'piano', walk: true, sound: { bass: 'vsco_tuba' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       waltz:  { name: 'Waltz', fill: 'sd', comp: 'guitar', walk: true, fit: { duple: 'folk', compound: 'jig' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
       jig:    { name: 'Jig (6/8)', fill: 'sd', comp: 'guitar', walk: true, fit: { duple: 'folk', triple: 'waltz' }, harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0 } },
       swing:  { name: 'Swing', fill: 'sd', comp: 'piano', swing: 66, harmony: { rich: 'sixths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
@@ -2844,8 +2844,9 @@
     // The CC0 sets (vendor/soundfont/build-cc0.js, from Versilian Studios' VCSL and VSCO 2): each keeps only the notes it was
     // recorded at, and a note between them plays its nearest, retuned. SAMPLE_SETS.use puts each in for the FluidR3 set
     // it replaces; the kit has five drums of its own and leaves the rest to the percussion set. The recorder is filed at
-    // its written pitch and sounds an octave above it, as a soprano recorder does.
-    const SAMPLE_NOTES = {"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"vcsl_kit":[37,38,42,44,46]};
+    // its written pitch and sounds an octave above it, as a soprano recorder does. The violin, trumpet, tuba and the bars
+    // have no FluidR3 set: PROGRAM_FOLDER names them, and the glockenspiel and xylophone are filed at written pitch too.
+    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"vcsl_kit":[37,38,42,44,46],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
     const SAMPLE_SETS = { use: true, acoustic_grand_piano: 'vcsl_grand_piano', recorder: 'vcsl_soprano_recorder', acoustic_bass: 'vsco_double_bass_pizz', percussion: 'vcsl_kit', electric_piano_1: 'synth-epiano' };   // the electric piano is synthesised (no CC0 set found)
     // How far the melody sounds above what is written: the CC0 soprano recorder an octave, as a real one does.
     const melodyOctave = inst => inst === 'recorder' && SAMPLE_SETS.use && location.protocol !== 'file:' ? 12 : 0;
@@ -2855,6 +2856,14 @@
       if (keep) { let best = keep[0]; for (const k of keep) if (Math.abs(k - midi) < Math.abs(best - midi)) best = k; return folder === 'vcsl_kit' ? midi : best; }
       const st = SAMPLE_STEP[folder] || 1; return st === 1 ? midi : Math.round(midi / st) * st;
     };
+    // Wake the page's audio inside a tap or click. Safari leaves a context 'interrupted' (after a lock screen, a call, a
+    // tab in the background) as well as 'suspended', and only a resume in a gesture brings either back; on an iPhone the
+    // ring/silent switch mutes Web Audio unless the page asks for playback audio, as a music app does.
+    function wakeAudio(ctx) {
+      try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch (e) {}
+      if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => {});
+      return ctx;
+    }
     class Sampler {
       constructor() { this.buffers = new Map(); this.loading = new Map(); this._ctx = null; }
       // One AudioContext for the page, made on first use. Browsers keep it
@@ -3352,7 +3361,7 @@
       // plays on that same instrument, another, so the tune stands out from its chords (a synth style keeps its synth).
       comp() {
         const st = STYLES[this.cell.styleKey] || {}; if (st.sound && st.sound.chords) return 'synth';
-        const want = st.comp || 'epiano', mel = PROGRAM_FOLDER(soundProgram(this.cell.inst));
+        const want = st.comp || 'epiano', mel = PROGRAM_FOLDER(soundProgram(this.cell.inst, this.cell.tuneVoice));
         return COMP_FOLDER[want] !== mel ? want : want === 'guitar' ? 'piano' : want === 'piano' ? 'guitar' : 'piano';
       }
     }
@@ -3469,7 +3478,12 @@
       for (const g of groups.values()) if (g.length > 1) g.sort((a, b) => a.midi - b.midi).forEach((n, j) => { n.start += j * strum * 1000 / msPerWhole; });
       return out;
     }
-    const PROGRAM_FOLDER = p => p === 128 ? 'percussion' : p >= 32 && p <= 39 ? 'acoustic_bass' : p >= 24 && p <= 31 ? 'acoustic_guitar_nylon' : p >= 72 && p <= 79 ? 'recorder' : p >= 4 && p <= 7 ? 'electric_piano_1' : 'acoustic_grand_piano';
+    // A General MIDI program's samples. The strings, brass and tuned percussion have only their CC0 sets (vendor/soundfont/vsco_*):
+    // violin, cello, the string sections and fiddle on the violin; trombone and tuba on the tuba; the other brass on the trumpet;
+    // marimba and dulcimer on the marimba, xylophone on the xylophone, the other bells on the glockenspiel.
+    const PROGRAM_FOLDER = p => p === 128 ? 'percussion' : p === 43 || (p >= 32 && p <= 39) ? 'acoustic_bass' : p >= 24 && p <= 31 ? 'acoustic_guitar_nylon' : p >= 72 && p <= 79 ? 'recorder' : p >= 4 && p <= 7 ? 'electric_piano_1'
+      : [40, 41, 42, 44, 48, 49, 110].includes(p) ? 'vsco_violin' : p === 57 || p === 58 ? 'vsco_tuba' : p >= 56 && p <= 63 ? 'vsco_trumpet'
+      : p === 12 || p === 15 ? 'vsco_marimba' : p === 13 ? 'vsco_xylophone' : p >= 8 && p <= 14 ? 'vsco_glockenspiel' : 'acoustic_grand_piano';
     const LOOKAHEAD = 320;            // ms scheduled ahead of the clock
     // The master's compressor, trim (dB) and limiter (see the Player's bus). Measured on 10 November 2026: before them the
     // page played at about -34 dB RMS (peaks -18 dBFS); with them about -22 dB RMS, peaks -7, and the fullest chorus -19, peaks -4.
@@ -3657,7 +3671,7 @@
       groupOn(g, ms) { const sh = g * this.round.off; return (this.entered[g] || ms >= sh) && ms < this.groupEnd(g); }
       start(fromMs) {
         const ctx = sampler.ctx(); if (!ctx) return;
-        if (ctx.state === 'suspended') ctx.resume();
+        wakeAudio(ctx);
         this.stopAll();
         if (this.bus && this.bus.duck) for (const d of Object.values(this.bus.duck)) { d.gain.cancelScheduledValues(0); d.gain.value = 1; }   // no dip left over from before
         this.ctx0 = ctx.currentTime + 0.05; this.abs0 = fromMs; this.until = fromMs; this.running = true; this.pausedAt = null;
@@ -3736,7 +3750,11 @@
     // it takes an electric piano. A page opened from disk can only load the
     // embedded piano, so it keeps the piano for every view.
     const INSTRUMENT_PROGRAMS = { off: 0, piano: 0, wh: 4, uke: 24, recorder: 74 };
-    const soundProgram = inst => location.protocol === 'file:' ? 0 : (INSTRUMENT_PROGRAMS[inst] || 0);
+    // With no instrument view the tune's R: line chooses, as its music is played: a reel, jig or hornpipe on the fiddle, a
+    // march on the trumpet, anything else on the piano. A view's instrument keeps its own sound (the class plays along on it).
+    const TUNE_VOICE = [[/reel|jig|hornpipe|strathspey|slide|slip|fiddle|bluegrass|old-?time|breakdown|morris|contra|barn/, 40], [/march|two-?step|quickstep/, 56]];
+    const voiceFor = abc => { const r = ((abc || '').match(/^R:\s*(.+)$/m) || [, ''])[1].toLowerCase(); const v = TUNE_VOICE.find(([re]) => re.test(r)); return v ? v[1] : 0; };
+    const soundProgram = (inst, voice = 0) => location.protocol === 'file:' ? 0 : !inst || inst === 'off' ? voice : (INSTRUMENT_PROGRAMS[inst] || 0);
 
     class InstrumentView {
       constructor(host) {
@@ -4184,7 +4202,7 @@
       // counting, the clicks count in, and the first note falls at zero.
       async togglePlay() {
         const p = this.player; if (!p || this.busy) return;
-        const ctx = sampler.ctx(); if (ctx && ctx.state === 'suspended') ctx.resume();   // inside the gesture, before any await
+        wakeAudio(sampler.ctx());   // inside the gesture, before any await
         if (p.running) { p.pause(); this.leadIn = false; this.transportState(); this.wake(); if (this.pending) this.render(); return; }
         if (!this.tl) { this.render(); if (!this.tl) return; }      // the cell was laid out at no size
         this.body.classList.remove('done');
@@ -4249,6 +4267,7 @@
         this.round = parseRound(text);
         // No arrangement: Chords on Auto finds chords from the melody wherever none are written (all of a tune without symbols, or the bars its symbols leave out), so the band has something to play.
         this.styleKey = styleFor(this.style, text);   // the text, not abc: chartComment has hidden the %%style line by now
+        this.tuneVoice = voiceFor(text);   // the melody's sound with no instrument view (TUNE_VOICE)
         if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars)) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
         const style = STYLES[this.styleKey] || {};
@@ -4304,7 +4323,7 @@
         // the Band or the melody alone plays. Then the timeline at the
         // chosen tempo, which builds the Band's parts and compiles the list.
         try { this.original.setTiming(this.bpm(), 0); } catch (err) {}
-        this.player.load(this.original, { midiTranspose: this.transpose || 0, program: soundProgram(this.inst), chordsOff: this.playMode === 'melody' || location.protocol !== 'file:' }, style);
+        this.player.load(this.original, { midiTranspose: this.transpose || 0, program: soundProgram(this.inst, this.tuneVoice), chordsOff: this.playMode === 'melody' || location.protocol !== 'file:' }, style);
         if (this.bpmBox) this.bpmBox.value = Math.round(this.bpm());
         try { this.buildTimeline(); } catch (err) { console.warn('timeline', err); }
         this.updateSignage(text);
@@ -5446,7 +5465,7 @@ const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp']
 const clock = {
   ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
   events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
-  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
+  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } wakeAudio(this.ctx); return this.ctx; },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
   start(lead = 0) {
@@ -6146,7 +6165,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       stop() { this.lab.clock.stop(); this.paint(); }
       destroy() { cancelAnimationFrame(this.raf); this.lab.clock.stop(); }
       togglePlay() {
-        const clock = this.lab.clock, ctx = sampler.ctx(); if (ctx && ctx.state === 'suspended') ctx.resume();
+        const clock = this.lab.clock, ctx = wakeAudio(sampler.ctx());
         if (clock.running) { clock.pause(); this.paint(); return; }
         for (const en of engines.values()) if (en !== this) { if (en.player && en.player.running) en.togglePlay && en.togglePlay(); else if (en.stop && en.lab && en.lab.clock.running) en.stop(); }
         clock.start(this.body.querySelector('.countin').checked && clock.pausedAt === 0 ? this.beats : 0);

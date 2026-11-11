@@ -88,7 +88,7 @@
   // and the highest third-octave band within 60 dB of its loudest), and how long a note sustains.
   async function voices() {
     const { sampler, SYNTH_VOICES, SYNTH_KITS, DRUM, SAMPLE_SETS } = GCS.lab, sr = 44100, out = [];
-    const sets = [['acoustic_grand_piano', 0], ['vcsl_grand_piano', 0], ['acoustic_guitar_nylon', 0], ['electric_piano_1', 0], ['recorder', 12], ['vcsl_soprano_recorder', 12], ['acoustic_bass', -24], ['vsco_double_bass_pizz', -24], ...Object.keys(SYNTH_VOICES).map(f => [f, /sub|bass/.test(f) ? -24 : 0]), ['percussion', null], ['vcsl_kit', null], ...Object.keys(SYNTH_KITS).map(f => [f, null])];
+    const sets = [['acoustic_grand_piano', 0], ['vcsl_grand_piano', 0], ['acoustic_guitar_nylon', 0], ['electric_piano_1', 0], ['recorder', 12], ['vcsl_soprano_recorder', 12], ['acoustic_bass', -24], ['vsco_double_bass_pizz', -24], ['vsco_violin', 12], ['vsco_trumpet', 0], ['vsco_tuba', -24], ['vsco_glockenspiel', 12], ['vsco_marimba', 0], ['vsco_xylophone', 12], ...Object.keys(SYNTH_VOICES).map(f => [f, /sub|bass/.test(f) ? -24 : 0]), ['percussion', null], ['vcsl_kit', null], ...Object.keys(SYNTH_KITS).map(f => [f, null])];
     const was = SAMPLE_SETS.use; SAMPLE_SETS.use = false;   // each set by its own name
     try {
     for (const [folder, shift] of sets) {

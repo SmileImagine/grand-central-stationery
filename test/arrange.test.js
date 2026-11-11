@@ -189,4 +189,16 @@ assert(clearOf([40, 43, 48], 48).join() === '52,55,60', 'a close chord under the
 assert(clearOf([47, 50, 55], 43).join() === '50,55,59', `a third too low for its register opens out: ${clearOf([47, 50, 55], 43)}`);
 assert(clearOf([47, 50, 55, 60], 43, 58).join() === '50,55', `a note that would rise over the tune is left out: ${clearOf([47, 50, 55, 60], 43, 58)}`);
 
+// The melody's sound: the tune's R: line with no instrument view, and every General MIDI program onto a set that is on disk.
+const PROGRAM_FOLDER = new Function(`${html.slice(html.findIndex(l => /^    const PROGRAM_FOLDER = /.test(l))).join('\n').split(/;\s*\n/)[0]}; return PROGRAM_FOLDER;`)();
+const { voiceFor } = new Function(`${lift('TUNE_VOICE')}\n${lift('voiceFor')}\nreturn { voiceFor };`)();
+assert(voiceFor('X:1\nR:reel\nK:D') === 40 && voiceFor('X:1\nR:Jig\nK:G') === 40, 'a reel and a jig take the fiddle');
+assert(voiceFor('X:1\nR:march\nK:F') === 56, 'a march takes the trumpet');
+assert(voiceFor('X:1\nR:song\nK:C') === 0 && voiceFor('X:1\nK:C') === 0, 'a song, or a tune with no R: line, keeps the piano');
+const onDisk = f => fs.existsSync(path.join(root, 'vendor', 'soundfont', f + '-mp3'));
+const named = new Set([...Array(129).keys()].map(PROGRAM_FOLDER));
+for (const k of Object.keys(page.STYLES)) for (const f of Object.values(page.STYLES[k].sound || {})) if (/^vsco_|^vcsl_/.test(f)) named.add(f);
+for (const f of named) assert(onDisk(f), `program or style sound ${f} has samples on disk`);
+assert(PROGRAM_FOLDER(40) === 'vsco_violin' && PROGRAM_FOLDER(56) === 'vsco_trumpet' && PROGRAM_FOLDER(58) === 'vsco_tuba' && PROGRAM_FOLDER(13) === 'vsco_xylophone', 'fiddle, trumpet, tuba and xylophone programs reach their sets');
+
 console.log(`Arranger checks passed (${checks} checks; ${chorded.length} chorded tunes in ${Object.keys(page.STYLES).length - 1} styles).`);
