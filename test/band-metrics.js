@@ -223,7 +223,7 @@
   const AUDIO_GUARDS = [
     ['lufs', -20, -12, 'loud enough for a classroom speaker, with room to breathe (LUFS)'],
     ['peak', null, -1, 'no clipping (dBFS)'],
-    ['prominence', 2, 9, 'the melody stands above the band, but the band is still heard (LU)'],
+    ['prominence', 2, 12.5, 'the melody stands above the band, forward for learners (kept so by ear, 2026-11-11), and the band is still heard (LU)'],
     ['masked', null, 0.35, 'the band leaves the melody’s strongest frequencies mostly to it'],
     ['bandLowMid', null, 0.45, 'the band builds up little between 200 and 500 Hz', 'brass'],
     ['width', 0.05, null, 'not mono (the tune, bass, kick and snare stay centred so one classroom speaker loses nothing: moving the comping across the field moved width 0.088 to 0.097, so 0.15 was no target)'],

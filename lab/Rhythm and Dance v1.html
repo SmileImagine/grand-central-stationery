@@ -175,9 +175,12 @@ const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp']
 const clock = {
   ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
   events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
-  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
+  // the page's shared context when there is one (the main page hands a fresh one after the page has been away), woken the main page's way when it is there (Safari), else resumed
+  ensure() { const shared = audioContextProvider ? audioContextProvider() : null; if (!this.ctx || (shared && shared !== this.ctx)) { this.ctx = shared || new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } if (typeof wakeAudio === 'function') wakeAudio(this.ctx); else if (this.ctx.state === 'suspended') this.ctx.resume(); return this.ctx; },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
+  // The beat being heard: the clock less the output's latency (the views draw this, so they keep with the sound).
+  heard() { const c = this.ctx; return this.running && c ? this.pos() - ((c.baseLatency || 0) + (c.outputLatency || 0)) * this.bps() : this.pos(); },
   start(lead = 0) {
     const ctx = this.ensure(); this.lead = lead;
     const from = this.pausedAt > 0 ? this.pausedAt : -lead;
@@ -188,7 +191,7 @@ const clock = {
   stop() { this.pause(); this.pausedAt = 0; },
   setBpm(b) { const p = this.pos(); this.bpm = b; if (this.running) this.t0 = this.ctx.currentTime - p / this.bps(); },
   tick() {
-    const horizon = (this.ctx.currentTime + .3 - this.t0) * this.bps();
+    const horizon = (this.ctx.currentTime + .6 - this.t0) * this.bps();   // 0.6 s ahead: room for a busy page
     const end = this.loop ? Infinity : this.cycle;
     if (this.schedTo < horizon) {
       const to = Math.min(horizon, end);
@@ -1008,7 +1011,7 @@ function rebuild() {
   paint();
 }
 function paint() {
-  const p = clock.pos(), c = clock.cycle, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
+  const p = clock.heard(), c = clock.cycle, inCycle = p < 0 ? 0 : ((p % c) + c) % c;
   if (state.view) state.view.paint(inCycle);
   const beat = Math.floor(p), frac = p - beat; $('#lamp').classList.toggle('on', clock.running && frac < .18);
   // touch the button only when it changes: Safari drops a click when the text under the pointer is replaced between press and release
