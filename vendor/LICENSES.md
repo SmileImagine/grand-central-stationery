@@ -101,6 +101,9 @@ Changes: `vendor/build-fills.js` keeps the last bar of each take marked "fill", 
 each hit on a sixteenth or triplet grid with its velocity (in nine steps) and its timing against the grid, drops fills
 alike in their hits, and keeps twelve of each length in each genre (with a few more on the snare alone and on the
 triplet grid). The page plays them on its own kit, at its own tempo and level, in place of the groove's last beats.
+`vendor/build-feel.js` reads the dataset's grooves (the takes marked "beat") down to each genre's feel: for the kick,
+snare and hat or ride on each sixteenth or triplet step of a 4/4 bar, how often it is played, how hard against the
+take's average, how much that varies within a take, and how early or late (GMD_FEEL in index.html).
 
 ```
 Creative Commons Attribution 4.0 International (CC BY 4.0). You are free to share and adapt the material for any
