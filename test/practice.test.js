@@ -92,8 +92,13 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   const rain = P.phrasesOf(tune('beginner-songs-1-rain-rain-go-away').abc, ABCJS);
   eq([rain.source, spans(rain)], ['whole', '1-4'], 'a four-bar song is one phrase');
   // No structure written: groups of four bars, a guess the page says it is.
-  const tw = P.phrasesOf(tune('first-tunes-3-twinkle-twinkle-little-star').abc, ABCJS);
+  const twinkle = tune('first-tunes-3-twinkle-twinkle-little-star').abc;
+  const tw = P.phrasesOf(twinkle.replace(/[()]/g, '').replace(/![^!\s]*!/g, ''), ABCJS);
   eq([tw.source, spans(tw)], ['groups', '1-4 5-8 9-12'], 'twelve bars on one line: three four-bar phrases');
+  // Phrase arcs (slurs of a bar and a half or more) are the tune's own phrases; a short slur is not.
+  const arcs = P.phrasesOf(twinkle, ABCJS);
+  eq([arcs.source, spans(arcs)], ['marked', '1-4 5-8 9-12'], 'Twinkle\'s phrase arcs: three four-bar phrases');
+  eq(spans(P.phrasesOf('X:1\nM:4/4\nL:1/4\nK:C\n(C D) E F | G A B c | c B A G | F E D C | C D E F | G A B c | c B A G | F E D C |]\n', ABCJS)), '1-4 5-8', 'a two-note slur ends no phrase');
   assert(/guess/.test(tw.note), 'a guessed phrasing says so');
   // Explicit parts and source lines; a pickup leads into its phrase.
   const hm = P.phrasesOf(tune('morris-7-highland-mary').abc, ABCJS);

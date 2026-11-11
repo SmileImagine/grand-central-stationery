@@ -63,8 +63,16 @@
     "new": true
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "Marked accents or staccato (on “bounce the ball to”)."
    },
    "timbre": {
     "absent": true,
@@ -116,8 +124,16 @@
     "new": true
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "Marked accents or staccato (on “down”)."
    },
    "timbre": {
     "absent": true,
@@ -321,8 +337,16 @@
     "reason": "All five notes of the pentatonic scale, do re mi so la, and no others."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "hairpin",
+    "name": "louder and softer",
+    "grade": 2,
+    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
+    "words": "getting louder or softer",
+    "bars": [
+     7,
+     7
+    ],
+    "reason": "A hairpin asks for the music to grow or fade."
    },
    "timbre": {
     "absent": true,
@@ -350,7 +374,7 @@
      1,
      4
     ],
-    "reason": "The first phrase, about four bars ending on do."
+    "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
    }
   },
   "original-pentatonic-2-crows-on-the-fence": {
@@ -409,7 +433,7 @@
      1,
      4
     ],
-    "reason": "The first phrase, about four bars ending on do."
+    "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
    }
   },
   "beginner-songs-20-merrily-we-roll-along": {
@@ -541,8 +565,16 @@
     "reason": "All five notes of the pentatonic scale, do re mi so la, and no others."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "Marked accents or staccato."
    },
    "timbre": {
     "absent": true,
@@ -570,7 +602,7 @@
      1,
      4
     ],
-    "reason": "The first phrase, about four bars ending on do."
+    "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
    }
   },
   "beginner-songs-8-rocky-mountain": {
@@ -602,8 +634,16 @@
     "new": true
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "hairpin",
+    "name": "louder and softer",
+    "grade": 2,
+    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
+    "words": "getting louder or softer",
+    "bars": [
+     7,
+     7
+    ],
+    "reason": "A hairpin asks for the music to grow or fade (on “hang your head and”)."
    },
    "timbre": {
     "absent": true,
@@ -654,8 +694,16 @@
     "new": true
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “Lou”)."
    },
    "timbre": {
     "absent": true,
@@ -705,8 +753,16 @@
     "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “Twin-kle, twin-kle”)."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “Twin-kle, twin-kle”)."
    },
    "timbre": {
     "absent": true,
@@ -791,8 +847,16 @@
     "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “Baa, baa, black sheep”)."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “Baa, baa, black sheep”)."
    },
    "timbre": {
     "absent": true,
@@ -877,8 +941,16 @@
     "reason": "The widest leap in the tune, so down to do: a perfect 5th (on “knick-knack pad-dy-whack”)."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "Marked accents or staccato (on “knick-knack pad-dy-whack”)."
    },
    "timbre": {
     "absent": true,
@@ -928,8 +1000,16 @@
     "reason": "The widest leap in the tune, so down to do: a perfect 5th (on “on the si-lent tide”)."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "hairpin",
+    "name": "louder and softer",
+    "grade": 2,
+    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
+    "words": "getting louder or softer",
+    "bars": [
+     11,
+     11
+    ],
+    "reason": "A hairpin asks for the music to grow or fade (on “min-gled with our”)."
    },
    "timbre": {
     "absent": true,
@@ -998,6 +1078,170 @@
     ]
    }
   },
+  "beginner-songs-15-jingle-bells-chorus": {
+   "title": "Jingle Bells (chorus)",
+   "duration": {
+    "concept": "whole",
+    "name": "a four-beat note",
+    "grade": 2,
+    "term": "whole note (“ta-ah-ah-ah”)",
+    "words": "one sound held for four beats",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "A whole note: one sound held for four beats (on “way”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "The widest leap in the tune, so down to do: a perfect 5th (on “jin-gle all the”)."
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "Marked accents or staccato (on “sleigh, hey”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     4,
+     5
+    ],
+    "reason": "Two parts, A and B: bars 4–5 are where A ends and B begins (on “way! Oh, what fun it”).",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     },
+     {
+      "letter": "B′",
+      "bars": [
+       13,
+       16
+      ],
+      "play": [
+       13,
+       14
+      ]
+     }
+    ]
+   }
+  },
+  "first-tunes-6-amazing-grace": {
+   "title": "Amazing Grace",
+   "duration": {
+    "concept": "dotted-half",
+    "name": "a three-beat note",
+    "grade": 3,
+    "term": "dotted half note",
+    "words": "one sound held for three beats (ta-ah-ah)",
+    "bars": [
+     8,
+     8
+    ],
+    "reason": "A dotted half note: one sound held for three beats (on “me”)."
+   },
+   "pitch": {
+    "concept": "pentatonic",
+    "name": "the pentatonic scale",
+    "grade": 2,
+    "term": "melodic patterns using notes of a pentatonic scale (e.g., “do–re–mi–so–la”)",
+    "words": "all five notes of the pentatonic scale: do, re, mi, so, la",
+    "bars": [
+     3,
+     5
+    ],
+    "reason": "All five notes of the pentatonic scale, do re mi so la, and no others (on “grace, how sweet the sound that”)."
+   },
+   "dynamics": {
+    "concept": "hairpin",
+    "name": "louder and softer",
+    "grade": 2,
+    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
+    "words": "getting louder or softer",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "A hairpin asks for the music to grow or fade (on “saved a”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     8
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “A-ma-zing grace, how sweet the sound that saved a wretch like me”)."
+   }
+  },
   "beginner-songs-13-fr-re-jacques": {
    "title": "Frère Jacques",
    "duration": {
@@ -1025,8 +1269,16 @@
     "reason": "The tune dips below do to low so (on “ding dang dong”). The bells of the last line ring down below do and back."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “Are you sleep-ing”)."
    },
    "timbre": {
     "absent": true,
@@ -1306,6 +1558,65 @@
     ]
    }
   },
+  "first-tunes-7-oh-susanna": {
+   "title": "Oh! Susanna",
+   "duration": {
+    "concept": "syncopation",
+    "name": "syn-co-pa",
+    "grade": 4,
+    "term": "syncopation (“ti-ta-ti” or “syn-co-pa”)",
+    "words": "a longer note that starts between the beats (syn-co-pa)",
+    "bars": [
+     19,
+     19
+    ],
+    "reason": "Short-long-short, syn-co-pa: the long note starts off the beat and holds across it (on “…san-na, oh”)."
+   },
+   "pitch": {
+    "concept": "leap-small",
+    "name": "a leap of a perfect 4th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     17,
+     18
+    ],
+    "reason": "The widest leap in the tune, do up to fa: a perfect 4th (on “cry. Oh! Su…”)."
+   },
+   "dynamics": {
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “I come”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     5
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “I come from A-la-ba-ma with a ban-jo on my knee, I'm go…”)."
+   }
+  },
   "waltzes-11-daisy-daisy": {
    "title": "Daisy Daisy",
    "duration": {
@@ -1333,8 +1644,16 @@
     "reason": "The widest leap in the tune, re down to low so: a perfect 5th."
    },
    "dynamics": {
-    "absent": true,
-    "reason": "No dynamics, articulation or expression marks are written in this piece."
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign."
    },
    "timbre": {
     "absent": true,
@@ -1362,7 +1681,7 @@
      1,
      5
     ],
-    "reason": "The first phrase, about four bars ending on low so."
+    "reason": "The first phrase, ending where the music marks it (a phrase arc or a breath mark)."
    }
   },
   "hindostan-folk-3-o-where-will-you-go": {

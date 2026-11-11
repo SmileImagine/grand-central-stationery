@@ -1,21 +1,21 @@
 # Published-tune dossier gap report
 
-Generated deterministically from `course/set.json` (37 published tunes). Only explicit `% dossier-*:` statements count as completed. Existing `O:`, `R:`, `Q:`, `C:`, lyrics, chord analysis and source paths appear as **editorial seeds**, not as inferred cultural claims.
+Generated deterministically from `course/set.json` (40 published tunes). Only explicit `% dossier-*:` statements count as completed. Existing `O:`, `R:`, `Q:`, `C:`, lyrics, chord analysis and source paths appear as **editorial seeds**, not as inferred cultural claims.
 
 A complete dossier requires function, characteristic elements, performance practice, provenance/honesty, licence, respect flags, and a reviewer/sign-off field, plus usable provenance: an external citation, bibliographic source, or identified local original.
 
 ## Summary
 
-- Complete dossiers: **0/37**.
-- Explicit origins: 22/37; usable provenance sources: 23/37; internal collection paths only: 14; private paths: 0.
-- Lyrics are present in 18/37 charts.
+- Complete dossiers: **0/40**.
+- Explicit origins: 25/40; usable provenance sources: 23/40; internal collection paths only: 17; private paths: 0.
+- Lyrics are present in 21/40 charts.
 
 | Required dossier field | Explicitly complete | Existing seed only |
 |---|---:|---:|
-| Function | 0 | 20 |
-| Characteristic elements | 0 | 37 |
+| Function | 0 | 21 |
+| Characteristic elements | 0 | 40 |
 | Performance practice | 0 | 7 |
-| Provenance/honesty | 0 | 11 |
+| Provenance/honesty | 0 | 14 |
 | Licence | 0 | 15 |
 | Respect flags | 0 | 0 |
 | Reviewer/sign-off | 0 | 0 |
@@ -34,12 +34,15 @@ Higher scores mean more missing dossier fields plus weaker provenance metadata. 
 | Mary Had a Little Lamb | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Merrily We Roll Along | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Baa, Baa, Black Sheep | 3 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Jingle Bells (chorus) | 3 | 0/7 | internal container only | origin: USA; C: James Lord Pierpont (1857); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Lightly Row | 3 | 0/7 | internal container only | origin: Germany; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Rocky Mountain | 3 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Skip to My Lou | 3 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | This Old Man | 3 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Twinkle, Twinkle, Little Star | 3 | 0/7 | internal container only | origin: France; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Frère Jacques | 4 | 0/7 | internal container only | origin: France; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Oh! Susanna | 4 | 0/7 | internal container only | origin: USA; C: Stephen Foster (1848); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Amazing Grace | 3 | 0/7 | internal container only | origin: USA; R: hymn; C: Words: John Newton (1779); tune: New Britain (USA, 1829); lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 79 |
 | Clickety Clack | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
 | Crows on the Fence | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
 | Evening Bells | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
@@ -74,12 +77,15 @@ Higher scores mean more missing dossier fields plus weaker provenance metadata. 
 - **Mary Had a Little Lamb:** internal container only (`course/samples/first-tunes.abc`).
 - **Merrily We Roll Along:** internal container only (`course/samples/beginner-songs.abc`).
 - **Baa, Baa, Black Sheep:** internal container only (`course/samples/beginner-songs.abc`).
+- **Jingle Bells (chorus):** internal container only (`course/samples/beginner-songs.abc`).
 - **Lightly Row:** internal container only (`course/samples/beginner-songs.abc`).
 - **Rocky Mountain:** internal container only (`course/samples/beginner-songs.abc`).
 - **Skip to My Lou:** internal container only (`course/samples/beginner-songs.abc`).
 - **This Old Man:** internal container only (`course/samples/beginner-songs.abc`).
 - **Twinkle, Twinkle, Little Star:** internal container only (`course/samples/first-tunes.abc`).
 - **Frère Jacques:** internal container only (`course/samples/beginner-songs.abc`).
+- **Oh! Susanna:** internal container only (`course/samples/first-tunes.abc`).
+- **Amazing Grace:** internal container only (`course/samples/first-tunes.abc`).
 
 ## Editorial rules for filling gaps
 

@@ -14,7 +14,7 @@ O:England
 M:2/4
 L:1/8
 K:C
-G2 E2 | GG E2 | GG AA | GG E2 |]
+G2 E2 | GG !breath!E2 | GG AA | GG E2 |]
 w: Rain, rain, go a-way, come a-gain a-noth-er day.
 
 X:2
@@ -23,7 +23,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 |]
+GG EE | GG E2 | GG EE | GG !breath!E2 | GG EE | GG E2 | GG EE | GG E2 |]
 w: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?
 
 X:3
@@ -32,7 +32,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-G2 E2 | G2 E2 | GG AA | G2 E2 | GG E2 | GG E2 | GG AA | GG E2 |]
+G2 E2 | G2 E2 | GG AA | G2 !breath!E2 | GG E2 | GG E2 | GG AA | GG E2 |]
 w: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.
 
 X:4
@@ -41,7 +41,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-G2 A2 | G2 E2 | GG AA | G2 E2 |]
+G2 A2 | G2 !breath!E2 | .G.G .A.A | G2 E2 |]
 w: Bounce high, bounce low, bounce the ball to Shi-loh.
 
 X:5
@@ -55,8 +55,8 @@ O:England
 M:2/4
 L:1/8
 K:C
-GG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]
-w: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, all fall down.
+GG EA | G2 !breath!E2 | GG EA | G2 !breath!E2 | !<(!G2 E2 | G2 E2 | GG !<)!G2 | !>!E4 |]
+w: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, we all fall down.
 
 X:7
 T:Withheld
@@ -69,7 +69,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-CC CE | CC CE | CC EG | G2 z2 | AG EC | AG EC | EE DD | C2 z2 |
+CC CE | CC CE | CC EG | G2 z2 | AG EC | AG EC | !>(!EE DD | !>)!C2 z2 |
 w: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain, hang your head and cry.
 C2 E2 | G2 A2 | EE DC | D2 z2 | C2 E2 | G2 A2 | EE DD | C2 z2 |]
 w: Do, do, do, do, do re-mem-ber me, do, do, do, do, do re-mem-ber me.
@@ -89,9 +89,9 @@ O:Germany
 M:4/4
 L:1/4
 K:C
-G E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |
+!p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |
 w: Light-ly row, light-ly row, o'er the glass-y waves we go; smooth-ly glide, smooth-ly glide, on the si-lent tide.
-D D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]
+!mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]
 w: Let the winds and wa-ters be min-gled with our mel-o-dy; sing and float, sing and float, in our lit-tle boat.
 
 X:11
@@ -100,9 +100,9 @@ O:USA
 M:2/4
 L:1/8
 K:C
-E4 | C4 | E2 EE | G4 | D4 | B,4 | D2 DD | F4 |
+!mf!(E4 | C4 | E2 EE | G4) | (D4 | B,4 | D2 DD | F4) |
 w: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou,
-E4 | C4 | E2 EE | G4 | D2 DD | F2 E2 | D4 | C4 |]
+(E4 | C4 | E2 EE | G4) | (D2 DD | F2 E2 | D4 | C4) |]
 w: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
 
 X:12
@@ -111,7 +111,7 @@ O:England
 M:4/4
 L:1/4
 K:C
-C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]
+!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]
 w: Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full. One for the mas-ter, one for the dame, one for the lit-tle boy who lives down the lane. Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full.
 
 X:13
@@ -121,7 +121,7 @@ M:4/4
 L:1/4
 K:C
 %%round 4 every=2
-C D E C | C D E C | E F G2 | E F G2 | G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C | C G, C2 | C G, C2 |]
+!mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]
 w: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.
 
 X:14
@@ -134,9 +134,16 @@ G>A GF | EF G2 | DE F2 | EF G2 | G>A GF | EF G2 | D2 G2 | E2 C2 |]
 w: Lon-don Bridge is fall-ing down, fall-ing down, fall-ing down, Lon-don Bridge is fall-ing down, my fair la-dy.
 
 X:15
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
-K:C
+T:Jingle Bells (chorus)
+C:James Lord Pierpont (1857)
+O:USA
+M:4/4
+L:1/4
+K:G
+!f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |
+w: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!
+(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]
+w: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!
 
 X:16
 T:This Old Man
@@ -144,7 +151,7 @@ O:England
 M:4/4
 L:1/8
 K:C
-G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2 EF | G2 C2 CC C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4 |]
+!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]
 w: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.
 
 X:17
@@ -175,7 +182,7 @@ O:USA
 M:4/4
 L:1/4
 K:C
-E D C D | E E E2 | D D D2 | E G G2 | E D C D | E E E E | D D E D | C4 |]
+E D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]
 w: Mer-ri-ly we roll a-long, roll a-long, roll a-long, mer-ri-ly we roll a-long, o'er the deep blue_ sea.
 
 X:21
