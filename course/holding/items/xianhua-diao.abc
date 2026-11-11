@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with both versions as read, no words under the notes (neither source sets them) and the English sense of Barrow's two stanzas in an N: line; Barrow's short last bar kept with a rest; ballad style under the record's band lines, equal temperament; keep correcting here
+% holding-published: van-aalst-chinese-music-1-xianhua-diao
 % holding-blocked: Source check: van Aalst p. 19 (staff and gongche agree; check bar 11's last note B and the old-style quarter rests) and Barrow p. 316 (bars 9-11 and 13, and the last bar, printed as a dotted half). A Chinese speaker to confirm the characters behind Barrow's romanization and to fit stanza I to one of the two melodies (neither source prints the words under the notes). Engine: the band wants a heterophony part (the tune itself on a second instrument, ornamented) before this sounds like the tradition.
 % source-url: https://archive.org/details/cu31924067290001/page/n28/mode/1up van Aalst, Chinese Music (1884), p. 19: "Song called 鮮花 (The Fresh Beautiful Flower)", staff and gongche
 % source-url: https://archive.org/details/cu31924067290001/page/n25/mode/1up van Aalst p. 16: his table of the gongche note names
@@ -35,6 +38,8 @@ M:C|
 L:1/8
 Q:1/4=84
 K:C
+% style: conservative guess, 11 November 2026 (neutral and unhurried; the page has no Chinese style, and the %%band lines below keep only the clapper)
+%%style ballad
 %%band drums: wb ~
 %%band bass: ~
 %%band chords: ~

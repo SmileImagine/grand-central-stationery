@@ -1,15 +1,21 @@
 % review-id: beginner-songs-17-when-the-saints-go-marching-in
 % review-from: samples
-% review-status: pending
+% review-status: change
 % review-categories: religious
 % review-findings: No words in the file. A Christian spiritual about the day of judgement.
 % review-suggestion: Keep; label it a spiritual, as above.
-% review-decision:
+% review-decision: published to main on 11 November 2026 labelled a spiritual (R: spiritual, N: schools follow their own guidance on religious songs), with the traditional words added (chorus under the notes, three verses in W:) and the long F of bar 12 split into two halves for "num-ber"; %%style swing; keep correcting here
+% review-published: beginner-songs-17-when-the-saints-go-marching-in
 % review-samples-file: beginner-songs.abc
+% conservative guess, 11 November 2026: C:, R:, S:, %%style below
 X:17
 T:When the Saints Go Marching In
 O:USA
+C:traditional (USA)
+R:spiritual
+S:course/samples/beginner-songs.abc, X:17 (typed from memory)
 M:4/4
 L:1/4
 K:C
+%%style swing
 C E F | G4 | z C E F | G4 | z C E F | G2 E2 | C2 E2 | D4 | z E E D | C2 C E | G3 G | F4 | z E F G | E C D2 | C4 |]

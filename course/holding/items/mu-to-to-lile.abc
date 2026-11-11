@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with nothing guessed, %%style folk, the band silent as before, and Curtis's colonial framing kept out, with a one-sentence teacher's note on it; keep correcting here
+% holding-published: curtis-dark-continent-3-mu-to-to-li-le
 % holding-blocked: Source check: compare with Curtis p. 106 (Children's Songs I), especially the sixteenths against the eighths (all of bars 2-4 are sixteenths but the last note) and the stress ticks. Ask someone who speaks Chindau to hear the words and the stresses before it is published.
 % source-url: https://archive.org/details/songstalesfromda00burl/page/106/ archive.org scan of Songs and Tales from the Dark Continent, at p. 106
 % dossier-function: A rain game: children sing it while playing in the rain, calling the drops to fall until the pools are full, so they can swim, and hunt the big red-breasted bullfrogs. "To-to" is the sound of rain falling in drops (Curtis's note, from Simango).
@@ -13,6 +16,8 @@
 % dossier-licence: Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US (published 1920) and in Canada (Curtis d. 1921; Simango, who gave the songs, d. 1966, so also out of copyright under the life-plus-50 term then in force).
 % dossier-respect: A children's game song, nothing sacred. Credit C. Kamba Simango, who brought the Ndau songs to the book. Take the notes and Curtis's game notes, not the book's general commentary, which has dated generalisations about race.
 % dossier-review: A Chindau speaker, for the words and the stresses.
+% dossier-accompaniment: none: children sing it while playing in the rain and the plate has the voice alone; the band rests (conservative guess, 11 November 2026)
+% dossier-lyrics: Chindau with Curtis's singing English, all sung, nothing left out; meaning from Curtis's appendix: to-to, the sound of rain falling in drops; lile, pour down; rain, let it rain (the appendix spells it "mfula ngaine", the plate "mv'langa ine"); makandwa azale, the pools full; tizo bumwila, we shall swim; macheche, the red-breasted bullfrog; spelling and stresses for a Chindau speaker (conservative guess, 11 November 2026)
 X:1
 T:Mu-to-to-li'le
 T:Drip-drop the rain: Ndau children's song
@@ -28,6 +33,8 @@ M:3/4
 L:1/16
 Q:1/4=60
 K:C
+% the %%style line below: (conservative guess, 11 November 2026)
+%%style folk
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~

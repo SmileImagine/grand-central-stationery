@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with Rouanet's transliterated opening words and their English meaning in an N: line; bar 8's last sixteenth and the place of "Ya" in bar 15 kept as read and named as guessed; equal temperament (no documented tuning); persian style under the record's band lines; keep correcting here
+% holding-published: lavignac-encyclopedie-3-r-na-j-n-k
 % holding-blocked: Source check: compare with Rouanet p. 2824 (the sixteenth run in bar 8, the second ending of the phrase in bar 15, and the accompaniment rhythm). An Arabic speaker who knows Algerian song (darja) to write the opening couplet in Arabic script and check the transliteration and meaning; Rouanet prints only the first words. Classroom check: as a hello song paired with B'qāw ʿala khēr (the goodbye song, its own record).
 % source-url: https://archive.org/details/encyclopdiedel05lavi/page/n353/mode/1up archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824 (Rouanet, "La musique arabe dans le Maghreb")
 % source-url: https://archive.org/details/encyclopdiedel05lavi/page/n352/mode/1up the page before (p. 2823): the festival procession and its instruments
@@ -31,6 +34,8 @@ M:2/4
 L:1/16
 Q:1/4=112
 K:Am
+% style: conservative guess, 11 November 2026 (frame-drum dum and tak and no chords, nearest to the derbouka and tar; the %%band lines below play Rouanet's rhythm)
+%%style persian
 %%band drums: rim ~ rim ~ rim ~ ~ rim
 %%band drums: bd ~ ~ ~ bd ~ ~ ~
 %%band bass: ~

@@ -1,19 +1,25 @@
 % review-id: reelsr-t-49-soldiers-joy
 % review-from: published
-% review-status: pending
+% review-status: change
 % review-categories: substances, context
 % review-findings: No words in the file. The same sung verses as the other Soldier's Joy (morphine and beer).
 % review-suggestion: Keep as an instrumental with the note. The arranger test uses this tune; it reads it from here while it is in review.
-% review-decision:
+% review-decision: published to main on 11 November 2026 as an instrumental with a note that the sung verses (drink and drugs) are not for class; C:, O:, Q:1/4=120 and %%style folk added; the music unchanged; keep correcting here
+% review-published: reelsr-t-49-soldiers-joy
 % review-set-entry: {"id":"reelsr-t-49-soldiers-joy","title":"Soldiers' Joy","level":5,"score":7.63,"key":"D","metre":"4/4","bars":18,"origin":"","composer":"","rhythm":"reel","source":"https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsr-t.abc","skills":["degree:do","degree:fa","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:1/2","key:2","leap:4th","metre:4/4","pickup","range:over-octave","repeat"],"introduces":[],"abc":"@abc\n","ontario":{"grade":6,"band":"Grade 6","concepts":["pick-up notes (anacrusis)"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","6: pick-up notes (anacrusis)","4: simple repeats","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["xmas-7-jubilate-deo-round","reelsr-t-59-sugar-in-the-gourd","first-tunes-11-soldier-s-joy","hindostan-folk-3-o-where-will-you-go"],"licence":"GPL-3.0"}
 X: 49
 T:Soldiers' Joy
+C:traditional (British Isles) (conservative guess, 11 November 2026)
+O:Scotland and England; played across the British Isles and North America (conservative guess, 11 November 2026)
 R:reel
 % Nottingham Music Database
 S:Kevin Briggs, via EF
+Q:1/4=120
 M:4/4
 L:1/4
 K:D
+%%style folk
+% %%style folk and Q:1/4=120: conservative guess, 11 November 2026 (a reel; a steady classroom speed)
 P:A
 F/2G/2|"D"A/2F/2D/2F/2 A/2F/2D/2F/2|"D"Ad "G"dc/2B/2|\
 "D"A/2F/2D/2F/2 A/2F/2D/2F/2|"E7"GE "A7"EF/2G/2|

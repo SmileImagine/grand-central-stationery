@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 as the record reads it, with Kiss's 1891 spellings and our English translation, and the folk style added (the band rests); keep correcting here
+% holding-published: kiss-gyermekjatek-1-b-jj-b-jj-z-ld-g
 % holding-blocked: Source check: compare with Kiss p. 207, No. 4 (bar 7 "zöld le-ve-": G, G, E). A Hungarian speaker for the words and the translation. Classroom check: the arch game as Kiss describes it, with the "raj-ta" bars sung once for each child passing under.
 % source-url: https://mek.oszk.hu/10800/10818/10818.pdf Hungarian Electronic Library (MEK): Kiss Áron, Magyar gyermekjáték-gyűjtemény (1891), reprint of the 1891 pages; this game at printed p. 207 (PDF p. 235), Nos. 3 and 4, with the game on p. 206
 % performance-note: The Institute for Musicology in Budapest holds many field recordings of "Bújj, bújj, zöld ág" (for example Szebény, Baranya county, 1965, collected by Andrásfalvy and Olsvai; zti.hungaricana.hu). It is still one of the best-known Hungarian children's games, so school and kindergarten recordings are easy to find; listen and choose one sung by children before linking.
@@ -31,6 +34,8 @@ M:2/4
 L:1/8
 Q:1/4=96
 K:F
+% style folk: conservative guess, 11 November 2026
+%%style folk
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~

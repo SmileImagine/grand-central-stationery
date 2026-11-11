@@ -20,6 +20,7 @@
 % dossier-respect: present it as a song collected in the former Federal Capital (Rio de Janeiro), not as a single definitive version for all Brazil
 % dossier-review: a Brazilian Portuguese speaker and children's-song or roda practitioner before promotion
 % source-url: https://upload.wikimedia.org/wikipedia/commons/4/49/Ensaio_sobre_a_Musica_Brasileira_%281928%29.pdf#page=46 Wikimedia Commons scan of the Ensaio, at scan page 46
+% conservative guess, 11 November 2026: %%style below (a children's circle song, not samba de roda, so the neutral folk style rather than samba)
 X:1
 T:Canoinha nova
 T:Brazilian children's circle song — provisional plate reading
@@ -35,6 +36,7 @@ M:2/4
 L:1/8
 Q:1/4=96
 K:C
+%%style folk
 G A c A | G z G e | e d c A | G ^G A2 |
 w: Ma-mãi eu vou, Ma-mãi eu vou bus-car A ca-no-i-nha
 A A G G | c c A A | c3 G | A4 |]

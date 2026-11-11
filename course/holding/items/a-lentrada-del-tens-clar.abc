@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with Aubry's readings of the refrain's F sharp and the second "E-ya!" marked as guesses, an underlay typo fixed ("je_ los" to "je_ los", so "los" falls on the F sharp), verses II and III as text, and no tuning; keep correcting here
+% holding-published: aubry-trouveres-1-a-l-entrada-del-tens-clar
 % holding-blocked: Source check: compare with Aubry pp. 60-61, especially the first note of the refrain's second line (an F sharp: the head sits high, but its sharp is on the F space and the cadence G-F sharp-G wants it), the grace notes, and the second "E-ya!" (B, G, A, not B, c, d like the other two). Classroom check: the class as chorus (the "E-ya!" answers and the refrain), a soloist or the teacher on the verse lines, and a round dance in a circle.
 % source-url: https://archive.org/details/trouvresettrou00aubr/page/60/ archive.org scan of Aubry, Trouvères et troubadours (1909), at p. 60
 % source-url: https://archive.org/details/trouvresettrou00aubr/page/61/ the same, p. 61 (the refrain and verses II-III)
@@ -14,6 +17,8 @@
 % dossier-licence: Pierre Aubry (1874-1910), Trouvères et troubadours (Paris: Félix Alcan, 1909): public domain in the US, Canada and Europe (Aubry d. 1910).
 % dossier-respect: A secular spring dance; the "jealous" are the old husband and his kind, a stock figure of the genre. Nothing sacred.
 % dossier-review: An early-music singer, for the Occitan words and the rhythm.
+% dossier-accompaniment: Aubry prints the voice alone; the tabor-like drum is ours, bass and chords rest. Style folk only as a nominal setting, since the band lines decide what plays (conservative guess, 11 November 2026)
+% dossier-lyrics: Occitan, three verses with the refrain; verse I under the notes, II and III as text with an English meaning. All fit for class; the jealous old king is a stock figure of the genre (conservative guess, 11 November 2026)
 X:1
 T:A l'entrada del tens clar
 T:At the coming of the bright season: troubadour round dance
@@ -30,6 +35,8 @@ M:3/4
 L:1/4
 Q:1/4=150
 K:Gmix
+% style folk: conservative guess, 11 November 2026
+%%style folk
 %%band drums: bd:.6 rim:.35 rim:.35
 %%band bass: ~
 %%band chords: ~
@@ -42,6 +49,6 @@ w: E per je-los ir-ri-tar, E_ ya!
 "^Solo" B2 c | d2 d | d2 B | A2 B | A2 G | A2 B | A2 {G}^F | G3 ||
 w: Vol la re-gi-na mos-trar Qu'el es si a-mo-ro_ sa.
 "^All" d2 d | (d2 B) | c2 c | c2 {B}A | B2 B | (A2 G) | ^F2 G | (G2 A) |
-w: A-la-vi_ a-la-vi-a, je-los, je_-los, Lais-saz_
+w: A-la-vi_ a-la-vi-a, je-los, je_ los, Lais-saz_
 B2 G | (G2 A) | B2 d | {e}(d2 B) | c2 {c}B | (A2 G) | A2 {G}^F | G3 |]
 w: nos Lais-saz_ nos Bal-lar_ en-tre nos,_ en-tre nos.

@@ -34,5 +34,10 @@ M:2/4
 L:1/8
 Q:1/4=96
 K:C
+% the %%style line and the muted %%band lines below: (conservative guess, 11 November 2026)
+%%style folk
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
 |: (3C2C2D2 | E2 G G | F3/2 F/2 G G | E E E z |
 A E F F | E E G E | D3/2 D/2 E F | C C C z :|]

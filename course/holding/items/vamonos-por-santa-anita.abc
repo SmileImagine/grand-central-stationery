@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 as the record reads it, with the folk style added; keep correcting here
+% holding-published: hague-spanish-american-2-v-monos-por-santa-anita
 % holding-blocked: Source check: compare with Hague No. 75, p. 98 (the dotted-eighth and sixteenth figures in every beat). Classroom check: can a class keep the dotted figure long-short, not even, at a gay tempo?
 % source-url: https://archive.org/details/arf6149.0001.001.umich.edu/page/98/ archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98
 % dossier-function: A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), the oxcarts in front and the oxen behind.
@@ -13,6 +16,8 @@
 % dossier-licence: Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US and in Canada (Hague d. 1954).
 % dossier-respect: A play song; nothing sacred or sensitive.
 % dossier-review: A Spanish-speaking teacher, for the words.
+% dossier-accompaniment: The record transcribes the voice alone; no traditional accompaniment is documented here. Band: the folk (boom-chick) style, a light 2/4 accompaniment for a play song (conservative guess, 11 November 2026)
+% dossier-lyrics: Spanish, two lines sung to the repeated four bars, then Hague's English singing translation. Fit for class (conservative guess, 11 November 2026)
 X:1
 T:Vámonos por Santa Anita
 T:Come, let's go to Santa Anita: Mexican play song
@@ -27,6 +32,8 @@ M:2/4
 L:1/16
 Q:1/4=100
 K:G
+% style folk: conservative guess, 11 November 2026
+%%style folk
 |: d3 d e3 d | c3 B A3 E | D3 D d3 A | c3 B G4 :|
 w: Vá-mo-nos por San-ta~A-ni-ta, Vá-mo-nos y lo ve-rás;
 w: Las ca-rre-tas por de-lan-te, Y los bue-yes por de-trás.

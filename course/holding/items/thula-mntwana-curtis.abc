@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with bar 13's first note as D sharp (Curtis: between D sharp and E), the glides as the record writes them, Curtis's 1920 spelling, %%style ballad with the band silent, and Curtis's colonial framing kept out, with a one-sentence teacher's note on it; keep correcting here
+% holding-published: curtis-dark-continent-4-o-tu-la-mntwa-na-thula-mntwana
 % holding-blocked: Source check: compare with Curtis p. 135, especially the three glides (Curtis's *1 and *2) and bar 13's first note (*3, "between D sharp and E"). A Zulu speaker to give the modern spelling (Curtis writes "O tu'la, mntwa'na"; today "Thula, mntwana"), check the words and translation, and say whether this tune is still sung. Classroom check: sung softly, swaying, with no accompaniment.
 % source-url: https://archive.org/details/songstalesfromda00burl/page/135/mode/1up archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 135 (music)
 % source-url: https://archive.org/details/songstalesfromda00burl/page/66/mode/1up the same, pp. 66-68: the words with Curtis's literal and metrical translations, and her note
@@ -32,6 +35,8 @@ M:6/8
 L:1/8
 Q:3/8=50
 K:E
+% the %%style line below: (conservative guess, 11 November 2026)
+%%style ballad
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~

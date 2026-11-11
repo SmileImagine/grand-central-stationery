@@ -6,6 +6,9 @@
 % holding-review-status: packet-ready
 % holding-review-packet: reviews/i-plant-some-rice-review.md
 % holding-updated: 2026-11-11
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with the five English schoolbook verses, labelled as the book's school version (no Ilocano words); the published copy moves the "I" that opens each second line onto the last eighth (D) of the first line, where the syllable count puts it, so every verse's second half lines up; the record's w: lines still need that correction; keep correcting here
+% holding-published: philippine-progressive-music-1-i-plant-some-rice
 % holding-blocked: The plate and public-domain status are checked, but no human review has occurred. An Ilocano music educator or culture bearer, a competent Ilocano speaker, a Filipino music historian, a second plate reader and a classroom music teacher must check the melody, the English adaptation, any living Ilocano words or title, the actions, tempo and classroom framing before publication.
 % holding-kind: tune
 % source-url: https://hdl.handle.net/2027/miun.ash9039.0001.001 HathiTrust stable handle for the University of Michigan digitized volume; printed p. 25 (scan p. 34)
@@ -40,14 +43,14 @@ K:G
 %%band bass: ~
 %%band chords: ~
 D | G B d D | G B d B | d2 c2 | ^A2 B2 | G3 D |
-w: 1.~I plant some rice, I plant some rice, Tra la la la la la.
-w: 2.~I har-vest rice, I har-vest rice, Tra la la la la la.
-w: 3.~I pound some rice, I pound some rice, Tra la la la la la.
-w: 4.~I cook some rice, I cook some rice, Tra la la la la la.
-w: 5.~I eat some rice, I eat some rice, Tra la la la la la.
+w: 1.~I plant some rice, I plant some rice, Tra la la la la la. I
+w: 2.~I har-vest rice, I har-vest rice, Tra la la la la la. I
+w: 3.~I pound some rice, I pound some rice, Tra la la la la la. I
+w: 4.~I cook some rice, I cook some rice, Tra la la la la la. I
+w: 5.~I eat some rice, I eat some rice, Tra la la la la la. I
 G B d D | G B d B | d2 B2 | A2 G2 | F3 |]
-w: I plant some rice, I plant some rice, And that's a job well done.
-w: I har-vest rice, I har-vest rice, And that's a job well done.
-w: I pound some rice, I pound some rice, And that's a job well done.
-w: I cook some rice, I cook some rice, And that's a job well done.
-w: I eat some rice, I eat some rice, And that's a job well done.
+w: plant some rice, I plant some rice, And that's a job well done.
+w: har-vest rice, I har-vest rice, And that's a job well done.
+w: pound some rice, I pound some rice, And that's a job well done.
+w: cook some rice, I cook some rice, And that's a job well done.
+w: eat some rice, I eat some rice, And that's a job well done.

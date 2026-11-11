@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with Rouanet's transliterated words under the notes and their English meaning in an N: line; the approximate underlay of "fes-sa-ma-i ci Ah!" and the signature E flats kept as read and named in the N: line; equal temperament (no documented tuning); persian style under the record's band lines; keep correcting here
+% holding-published: lavignac-encyclopedie-2-b-q-w-ala-kh-r
 % holding-blocked: Source check: compare with Rouanet p. 2824, especially the naturals (E natural only where he marks one; the other E's are E flat by the key signature), the three half-bars of 3/8 he prints inside the 6/8, and the return to the sign. An Arabic speaker for the words. Classroom check: as the goodbye song, with a couplet for each child, as the tradition names each guest.
 % source-url: https://archive.org/details/encyclopdiedel05lavi/page/n353/mode/1up archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824 (Rouanet, "La musique arabe dans le Maghreb")
 % performance-note: No recording found yet; the same places as Rāna jīnāk (AMAR; the Yafil 78s on Gallica). Listen before linking.
@@ -30,6 +33,8 @@ M:3/8
 L:1/8
 Q:3/8=108
 K:Bb
+% style: conservative guess, 11 November 2026 (frame-drum dum and tak and no chords, nearest to the derbouka and tar; the %%band lines below play Rouanet's rhythm)
+%%style persian
 %%band drums: <[rim bd rim] [bd rim bd]>
 %%band bass: ~
 %%band chords: ~

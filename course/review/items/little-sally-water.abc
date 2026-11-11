@@ -1,10 +1,11 @@
 % review-id: little-sally-water
 % review-from: holding
-% review-status: pending
+% review-status: change
 % review-categories: sexual
 % review-findings: Last verse: a mock wedding ("Now you married I give you joy, first a gal an' second a boy") ending "give her a kiss an' send her out". Mild, and common in playground versions.
 % review-suggestion: Keep the full text in the file as the source, and end the class version before "Now you married" (the ring game works without it).
-% review-decision:
+% review-decision: published to main on 11 November 2026 without the last verse (bars 25-32, the mock wedding that ends with a kiss), as the review suggested; the full text stays here as the source; keep correcting here
+% review-published: jekyll-jamaica-4-little-sally-water
 % holding-id: little-sally-water
 % holding-status: source-check
 % holding-owner:
@@ -15,6 +16,8 @@
 % dossier-function: game and dance: the ring game that gave its name to all "playing in the ring"; Sally crouches in the middle, rises, chooses a partner, and the two wheel
 % dossier-elements: two sections: an Andante call (rise, turn to the East and West) and an Allegro for the wheeling dance; English singing-game roots (Jekyll) sung in Jamaican style
 % dossier-practice: the tempo changes where the wheeling starts; the partner chosen becomes the next Sally Water
+% dossier-accompaniment: Jekyll prints the tune alone; a ring of clapping singers is the documented setting; the mento band (banjo, rumba box, guitar, hand drums) is ours (conservative guess, 11 November 2026)
+% dossier-lyrics: Jekyll's words, in his spelling of Jamaican speech; the class sings to "choose the one that you like the best" and leaves out the last verse (a mock wedding ending with a kiss); no Jamaican speaker has checked them yet (conservative guess, 11 November 2026)
 % dossier-honesty: arranged: melody and words as Jekyll printed them; mento backing ours
 % dossier-licence: public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10
 % dossier-respect: for everyone; the last verse is a mock wedding, which some classes will skip

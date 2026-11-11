@@ -7,9 +7,9 @@
   "remove"
  ],
  "counts": {
-  "pending": 20,
+  "pending": 5,
   "keep": 0,
-  "change": 0,
+  "change": 15,
   "remove": 0
  },
  "items": [
@@ -19,14 +19,14 @@
    "title": "When the Saints Go Marching In",
    "subtitle": "",
    "from": "samples",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "religious"
    ],
    "findings": "No words in the file. A Christian spiritual about the day of judgement.",
    "suggestion": "Keep; label it a spiritual, as above.",
-   "decision": "",
-   "source": "",
+   "decision": "published to main on 11 November 2026 labelled a spiritual (R: spiritual, N: schools follow their own guidance on religious songs), with the traditional words added (chorus under the notes, three verses in W:) and the long F of bar 12 split into two halves for \"num-ber\"; %%style swing; keep correcting here",
+   "source": "course/samples/beginner-songs.abc, X:17 (typed from memory)",
    "sourceUrls": [],
    "performances": [],
    "performanceNotes": [],
@@ -40,14 +40,14 @@
    "title": "Lucy Locket",
    "subtitle": "",
    "from": "published",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "context"
    ],
    "findings": "Kitty Fisher, named in the rhyme, was an eighteenth-century London courtesan, and the rhyme is said to begin as a joke about her. The words themselves are innocent.",
    "suggestion": "Keep as written; no change needed. A note for the teacher at most.",
-   "decision": "",
-   "source": "",
+   "decision": "published to main on 11 November 2026 unchanged, with an N: teacher's note on Kitty Fisher (named as a famous London figure, without detail); %%style folk; keep correcting here",
+   "source": "course/samples/beginner-songs.abc, X:5 (typed from memory)",
    "sourceUrls": [],
    "performances": [],
    "performanceNotes": [],
@@ -61,15 +61,15 @@
    "title": "Au Clair de la Lune",
    "subtitle": "",
    "from": "published",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "sexual",
     "context"
    ],
    "findings": "No words in the file. The later French verses (Lubin and the brunette) are mildly suggestive.",
    "suggestion": "Keep; if words are added, use the first verse only.",
-   "decision": "",
-   "source": "",
+   "decision": "published to main on 11 November 2026 with the first French verse under the notes and its English meaning in an N: line; the later verses (Lubin and the girl next door) are left out and the N: line says so; %%style folk; keep correcting here",
+   "source": "course/samples/beginner-songs.abc, X:7 (typed from memory)",
    "sourceUrls": [],
    "performances": [],
    "performanceNotes": [],
@@ -118,13 +118,13 @@
    "title": "Carry banana",
    "subtitle": "Jamaican ring tune",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "racism"
    ],
    "findings": "\"a Chiney banana\": Jekyll explains it is a variety, the China banana (\"a stout low kind which withstands wind\"), but \"Chiney\" can be heard as a mocking word for Chinese people.",
    "suggestion": "Sing \"China banana\", Jekyll's own word for it in his note, and record the change in the N: line and in review-decision.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 with \"China banana\" sung for Jekyll's printed word in the fourth line (his own name for the variety in his note), recorded in the N: line; %%style mento kept (it plays a waltz in 3/4); still wants a Jamaican culture bearer's hearing; keep correcting here",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIII, p. 196",
    "sourceUrls": [
     {
@@ -159,8 +159,8 @@
    ],
    "findings": "No words in the file. American sung verses mention morphine and beer (\"twenty-five cents for the morphine\").",
    "suggestion": "Keep as an instrumental with the note. It is the shorter of the two Soldier's Joy entries; keep both, or keep this one for the first tunes and the full Nottingham reel for later.",
-   "decision": "",
-   "source": "",
+   "decision": "reviewed 11 November 2026: fine as an instrumental, but this short setting was typed from memory and its opening is not the usual A part. The full Nottingham reel (reelsr-t-49-soldiers-joy) is published instead; a fiddler should check this one before it returns.",
+   "source": "course/samples/first-tunes.abc, X:11 (typed from memory)",
    "sourceUrls": [],
    "performances": [],
    "performanceNotes": [],
@@ -174,14 +174,14 @@
    "title": "Greensleeves",
    "subtitle": "",
    "from": "samples",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "context"
    ],
    "findings": "No words in the file. The old ballad's Lady Greensleeves is sometimes read as a woman of loose reputation; the tune is also the carol What Child Is This.",
    "suggestion": "Keep; no change needed.",
-   "decision": "",
-   "source": "",
+   "decision": "published to main on 11 November 2026 with bar 7 corrected to the usual cadence (G F# E D# C# D#; the first typing had G E D# E C#), as a melody to play without words, with an N: line naming the ballad and the carol What Child Is This; %%style ballad; keep correcting here",
+   "source": "course/samples/first-tunes.abc, X:8 (typed from memory)",
    "sourceUrls": [],
    "performances": [],
    "performanceNotes": [],
@@ -195,13 +195,13 @@
    "title": "Rama's lullaby",
    "subtitle": "Maratha lullaby",
    "from": "published",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "religious"
    ],
    "findings": "A Maratha lullaby to the infant Rama as Vishnu (\"It was Vishnu's self that was born on the lap of Kaushalya\"), with devas strewing flowers: Hindu devotional words.",
    "suggestion": "Keep; label it a devotional lullaby, as above.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 labelled a devotional lullaby (N: schools follow their own guidance on religious songs), with bars 4 and 5 rebarred to make two whole 3/4 bars (\"born\" shortened from a quarter to an eighth, the barline moved one beat later so the rest and \"Little\" end bar 5) and the final rest dropped; bars 4 to 6 and the refrain's second bar still to be checked against the plate; keep correcting here",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66",
    "sourceUrls": [
     {
@@ -221,14 +221,14 @@
    "title": "Cuckoo's Nest",
    "subtitle": "",
    "from": "published",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "sexual",
     "context"
    ],
    "findings": "No words in the file. \"The Cuckoo's Nest\" is also the title of a bawdy folk song in which the phrase is sexual slang.",
    "suggestion": "Keep the hornpipe as an instrumental; add a note \"play the tune; the sung words are not for class\", and leave the title.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as an instrumental hornpipe, title kept, with an N: line that the old song of that name is bawdy and its words are not for class; %%style folk; keep correcting here",
    "source": "Song",
    "sourceUrls": [],
    "performances": [],
@@ -243,14 +243,14 @@
    "title": "Konpira fune fune",
    "subtitle": "Japanese game song",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "substances",
     "context"
    ],
    "findings": "No words in the file. The zashiki-asobi it belongs to is traditionally a drinking game at geisha parties in Kotohira: the player who hesitates drinks.",
    "suggestion": "Keep the tune and the hand game; reword the dossier from \"party game\" to \"a party hand game from Kotohira\" and teach the touching game only.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as the melody without words (none in the transcription), with the touching game only, described as a party hand game from Kotohira and nothing said of drinking; keep correcting here (words still to add, notes still to check against Nagai and Obata 1895)",
    "source": "Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)",
    "sourceUrls": [
     {
@@ -278,13 +278,13 @@
    "title": "Lalishrita",
    "subtitle": "Tamil lullaby, from a phonogram",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "religious"
    ],
    "findings": "A Tamil lullaby that lays the baby at the feet of Sriranga (Vishnu at Srirangam): Hindu devotional words (Fox Strangways's singing translation; stanza 2: \"I lay thee there at Sriranga raja's feet, full sure of His tender care\").",
    "suggestion": "Keep; label it a devotional lullaby so teachers can follow their school's guidance on religious songs.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as a devotional lullaby (R: devotional lullaby, with the note that schools follow their own guidance on religious songs), with two guesses so every bar is whole: bar 3's two quick notes before \"dle\" as grace notes, and bar 4's c on \"bright\" as a dotted eighth; stanzas 2 and 3 as W: lines; the Tamil/Hindu and plate reviews in the dossier have not happened; keep correcting here",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 155, p. 64",
    "sourceUrls": [
     {
@@ -314,13 +314,13 @@
    "title": "Little Sally Water",
    "subtitle": "Jamaican ring game",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "sexual"
    ],
    "findings": "Last verse: a mock wedding (\"Now you married I give you joy, first a gal an' second a boy\") ending \"give her a kiss an' send her out\". Mild, and common in playground versions.",
    "suggestion": "Keep the full text in the file as the source, and end the class version before \"Now you married\" (the ring game works without it).",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 without the last verse (bars 25-32, the mock wedding that ends with a kiss), as the review suggested; the full text stays here as the source; keep correcting here",
    "source": "Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. LXXXIX, p. 191",
    "sourceUrls": [
     {
@@ -336,6 +336,8 @@
     "function": "game and dance: the ring game that gave its name to all \"playing in the ring\"; Sally crouches in the middle, rises, chooses a partner, and the two wheel",
     "elements": "two sections: an Andante call (rise, turn to the East and West) and an Allegro for the wheeling dance; English singing-game roots (Jekyll) sung in Jamaican style",
     "practice": "the tempo changes where the wheeling starts; the partner chosen becomes the next Sally Water",
+    "accompaniment": "Jekyll prints the tune alone; a ring of clapping singers is the documented setting; the mento band (banjo, rumba box, guitar, hand drums) is ours (conservative guess, 11 November 2026)",
+    "lyrics": "Jekyll's words, in his spelling of Jamaican speech; the class sings to \"choose the one that you like the best\" and leaves out the last verse (a mock wedding ending with a kiss); no Jamaican speaker has checked them yet (conservative guess, 11 November 2026)",
     "honesty": "arranged: melody and words as Jekyll printed them; mento backing ours",
     "licence": "public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10",
     "respect": "for everyone; the last verse is a mock wedding, which some classes will skip",
@@ -371,6 +373,8 @@
     "function": "coco; Andrade gives a short Paraíba verse and contrasts it with a longer Pernambuco call-and-response version",
     "elements": "2/4; the Paraíba melody is restricted to the tonic-triad arpeggio, as Andrade explicitly notes; one short strophe",
     "practice": "learn the four Portuguese lines unaccompanied first; do not add a generic samba or bossa groove while the coco practice has not been reviewed",
+    "accompaniment": "coco is sung in a ring with clapping and stamping, with ganza, pandeiro or zabumba; nothing is printed with this version; the page's samba style (samba de roda: pandeiro, ganza, palmas) is the nearest idiom it has, and the dossier-practice caution against a generic groove stands until a coco practitioner has reviewed it (conservative guess, 11 November 2026)",
+    "lyrics": "Andrade's four Portuguese lines; the second half (bars 5 to 8) has 12 notes for 17 syllables (about 14 with elisions), so the underlay or the notes there must be re-read from the plate; \"morena\" (dark-haired or brown-skinned girl) is an everyday affectionate word in Brazil and needs only a short note, but a Brazilian educator should confirm (conservative guess, 11 November 2026)",
     "honesty": "provisional transcription of Andrade's Paraíba plate only; the Pernambuco chorus and solo that follow on the page are not silently combined with it",
     "licence": "public domain source, first published 1928; Andrade died in 1945; the BBM/USP scan is marked public domain by Wikimedia Commons and IMSLP",
     "respect": "label the collected place and variant; do not present this four-line Paraíba version as the only form of the song or of coco",
@@ -383,7 +387,7 @@
    "title": "Mīkhāhī labu?",
    "subtitle": "Do you want hot beetroot? (Persian folk song)",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "sexual",
     "substances",
@@ -391,7 +395,7 @@
    ],
    "findings": "Verse 1, line 2: \"sarat havu biaram?\" (shall I bring a second wife over your head?). Verse 2: \"qeri-to doshak biaram?\", Strettell: \"A new mattress by thine to-night?\" (bedroom innuendo). Verses 3 and 4: cigarettes (\"sigar\"). The refrain \"na-na-i\" is clean. The dossier wrongly says verses 2 to 4 are fine.",
    "suggestion": "Correct the dossier first. For class, sing only the first line (\"mikhahi labu biaram?\", shall I bring you hot beetroot?) with the refrain, or choose another of Fairchild's twelve songs after reading its words.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 with the first line sung twice and the refrain (bar 3 sung to bar 1's words, without the slur on its first two notes); left out: verse 1 line 2 (the second-wife joke), verse 2 (the mattress line) and verses 3 and 4 (cigarettes); no %%tuning (Fairchild prints F natural; a koron F is a question for a Persian musician); dossier-respect corrected as the review asked; keep correcting here",
    "source": "Blair Fairchild (coll. and arr.), Twelve Persian Folk-Songs (London: Novello, 1904), no. 4, pp. 15-17; English words by Alma Strettell; University of Rochester scan",
    "sourceUrls": [
     {
@@ -407,9 +411,11 @@
     "function": "comic song: a suitor offers gifts (hot beetroot from the winter street-sellers, fireworks, a mattress, cigarettes) with a teasing refrain, \"nā-nā-ī\"",
     "elements": "4/4, slow but gay; each verse two short phrases ending \"bi-ār-am?\" (shall I bring?) on B, then the refrain falling from C to E; notes E F G A B C, ending on E, close to the dastgah Shur; no Western harmony (Fairchild avoided it on purpose)",
     "practice": "a solo voice with the refrain answered loudly (forte); the band holds an open fifth on E with a frame-drum pattern of low dum and high tak",
+    "accompaniment": "Fairchild's piano part avoids Western harmony; Persian practice would be a voice with tombak or daf; the page's persian style (frame-drum dum and tak, a drone on E) stands in for it, not a rhythm a Persian musician has given us (conservative guess, 11 November 2026)",
+    "lyrics": "class version: the first line, \"mi-khahi labu biaram?\", sung twice, then the refrain; verse 1 line 2 and verses 2 to 4 left out (a second wife, a mattress, cigarettes); romanised words as Fairchild printed them, not yet checked by a Persian speaker (conservative guess, 11 November 2026)",
     "honesty": "arranged: the melody and romanised words of verse 1 as Fairchild printed them; the frame-drum pattern and drone are ours and generic, not a tombak or daf rhythm a Persian musician has given us",
     "licence": "public domain (Blair Fairchild, Twelve Persian Folk-Songs, London: Novello, 1904; Fairchild died 1933, Alma Strettell 1939; University of Rochester, Sibley Music Library scan, \"This item is in the public domain\"); read bar by bar from the 400 ppi scan on 2026-11-10",
-    "respect": "verse 1 jokes about bringing a second wife; verses 2 to 4 are fine for any class, and the refrain is the fun part",
+    "respect": "verse 1 line 2 jokes about bringing home a second wife; verse 2 line 2 is a bedroom joke (a new mattress by thine to-night); verses 3 and 4 offer cigarettes; the first line (hot beetroot) and the refrain are fine for any class, and the refrain is the fun part (corrected 11 November 2026, as the review found)",
     "review": "a Persian culture bearer (a speaker and a musician of Persian folk song) before publishing"
    }
   },
@@ -419,13 +425,13 @@
    "title": "Nirguna's lullaby",
    "subtitle": "Maratha lullaby",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "religious"
    ],
    "findings": "No words under the notes; the title names Nirguna, the supreme being in Hindu thought, and the book's prose translation is a tired mother's lullaby (celestial carpenters made the cradle; my baby is not yet asleep).",
    "suggestion": "Keep; label it a devotional lullaby. Nothing in the words to change.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as a wordless devotional lullaby (hum, \"la\" or play; the prose translation summarised in N:), with one guess so every bar is whole: the last bar of lines 1 and 2 reads the turn D E D as a quarter-note triplet (3DED, as lines 3 and 4 have C D there); the low Bs sound B flat as the signature gives them (the record's note that the B flat never sounds needs checking against the plate); keep correcting here",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 162, pp. 66-67",
    "sourceUrls": [
     {
@@ -455,14 +461,14 @@
    "title": "Soldiers' Joy",
    "subtitle": "",
    "from": "published",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "substances",
     "context"
    ],
    "findings": "No words in the file. The same sung verses as the other Soldier's Joy (morphine and beer).",
    "suggestion": "Keep as an instrumental with the note. The arranger test uses this tune; it reads it from here while it is in review.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as an instrumental with a note that the sung verses (drink and drugs) are not for class; C:, O:, Q:1/4=120 and %%style folk added; the music unchanged; keep correcting here",
    "source": "Kevin Briggs, via EF",
    "sourceUrls": [],
    "performances": [],
@@ -477,14 +483,14 @@
    "title": "Sugar in the Gourd",
    "subtitle": "",
    "from": "published",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "sexual",
     "context"
    ],
    "findings": "No words in the file. Sung versions of this old-time tune have a sexual double meaning.",
    "suggestion": "Keep as an instrumental with the same note: play the tune, not the words.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as an instrumental with a note that the sung verses carry a grown-up double meaning and are not for class; C:, O:, Q:1/4=120 and %%style folk added; the music unchanged; keep correcting here",
    "source": "Lynn Rohrbough, via EF",
    "sourceUrls": [],
    "performances": [],
@@ -523,6 +529,8 @@
     "function": "roda (circle song and dance); sung in a ring with clapping, and still one of Brazil's best-known children's songs",
     "elements": "2/4 with the Brazilian syncopation (semiquaver, quaver, semiquaver) and quaver triplets in the verse; a solo verse and a \"Pisa, pisa\" chorus that answers; D major, the verse reaching up to A, the chorus closing on D",
     "practice": "crotchet = 100 (Andrade); the ring claps and stamps on \"pisa\" (step); a samba de roda backing: surdo, ganza, tamborim, agogo, palmas and a strummed cavaquinho",
+    "accompaniment": "a ring that claps and stamps on \"pisa\"; the samba de roda instruments (pandeiro, ganza, agogo, palmas, cavaquinho) are the idiom the dossier names; Andrade prints the tune alone (conservative guess, 11 November 2026)",
+    "lyrics": "none of Andrade's 1928 words can go to class as printed: verse I calls for a thrashing, and the chorus and verses II and III all sing \"mulata\"; the song is widely sung by Brazilian children today with other words (from memory, not checked: a chorus \"Samba, samba, samba, o Lele / Pisa na barra da saia, o Lala\", which fits the chorus notes syllable for syllable); a Brazilian educator must give the class words before publishing (conservative guess, 11 November 2026)",
     "honesty": "arranged: the melody and words as Andrade printed them (Laranjal, Sao Paulo); the samba de roda band is ours, in the idiom",
     "licence": "public domain (Mario de Andrade died 1945; Ensaio sobre a musica brasileira, 1928; Wikimedia Commons scan, Public Domain Mark); read bar by bar from the scan on 2026-11-10",
     "respect": "the 1928 verse says Sambalele needs \"a good thrashing\" and calls a woman \"mulata\", a word with a colonial and racial history; many classes sing the chorus and other words, and a Brazilian teacher should choose the verse",
@@ -535,13 +543,13 @@
    "title": "The ayah's song",
    "subtitle": "Hindostani song from the steamer",
    "from": "holding",
-   "status": "pending",
+   "status": "change",
    "categories": [
     "context"
    ],
    "findings": "No words. Fox Strangways calls the unnamed singer, a domestic worker and children's nurse on a colonial steamer, \"an unmusical ayah\"; our N: line now paraphrases his pitch observations without repeating that dismissal.",
    "suggestion": "Keep pending until a South Asian music/history reviewer checks the revised framing and the ethics of presenting an anonymous worker's melody; the requested human review has not occurred.",
-   "decision": "",
+   "decision": "published to main on 11 November 2026 as a wordless air (hum, \"la\" or play), with the singer named only as the book allows and Fox Strangways's dismissal left out; bar 4's second note (D) and the rests in bar 2, the first ending and the last bar are the record's best readings; the South Asian context review has not happened; keep correcting here",
    "source": "Fox Strangways, The Music of Hindostan (1914), Ex. 160, p. 66",
    "sourceUrls": [
     {
@@ -577,7 +585,7 @@
    ],
    "findings": "A round on the Latin psalm Jubilate Deo (Psalm 100, \"Rejoice in God\"); no words in the file.",
    "suggestion": "Keep; label it a sacred round so teachers can follow their school's guidance on religious songs.",
-   "decision": "",
+   "decision": "reviewed 11 November 2026: fit for class as a labelled sacred round, but not republished until its copyright is settled. The Nottingham file credits it \"Taize?\": if it is Jacques Berthier's Taizé canon (1978) it is in copyright; if it is the anonymous round credited to Praetorius it is public domain. Compare it with a Berthier score first; the reviewer's publish-ready version (%%round 2 every=3, style ballad) is in the review notes.",
    "source": "Taize?",
    "sourceUrls": [],
    "performances": [],

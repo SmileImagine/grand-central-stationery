@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with nothing guessed or left out and %%style mento; keep correcting here
+% holding-published: jekyll-jamaica-2-pass-the-ball
 % holding-blocked: Have a Jamaican culture bearer hear it with the mento band; the notes already match the 1907 plate.
 % dossier-function: game: a passing game in a closed ring (no dancing); hands behind backs pass a ball while the seeker in the middle tries to find it
 % dossier-elements: call and response by section; quavers on the words, a dotted crotchet on "round"; the melody falls by step to the tonic at each cadence
@@ -12,6 +15,8 @@
 % dossier-licence: public domain (published 1907; Project Gutenberg: for the use of anyone anywhere); notes converted from Gutenberg's MusicXML and checked bar by bar against its page image on 2026-11-10
 % dossier-respect: a children's game, for everyone; say it is Jamaican and that the words are Jamaican Patois
 % dossier-review: a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing
+% dossier-accompaniment: Jekyll prints the voice alone and names no instruments; everyone in the ring sings; the band plays a mento backing (band, strum, rumba-box bass) in the idiom of Jamaican country bands, ours (conservative guess, 11 November 2026)
+% dossier-lyrics: Jamaican Patois as Jekyll printed it, one verse, all sung in class, nothing left out (conservative guess, 11 November 2026)
 % source-url: https://www.gutenberg.org/ebooks/35410 Project Gutenberg #35410: Jamaican Song and Story, with page images and the music
 X:1
 T:Pass the ball

@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 as Stainer reads it (his editorial accidentals kept and said so), with no tuning; keep correcting here
+% holding-published: stainer-dufay-1-resvelons-nous
 % holding-blocked: Source check: hear all three voices against Stainer pp. 132-133 (IMSLP #344705, pdf pp. 170-171), especially the editorial accidentals (Stainer's sharps and flats over the notes) and the burden's last three bars, which leave the canon. Then classroom check: can a class hold the burden as a two-part round, an octave up, while the teacher sings the top line?
 % source-url: https://imslp.org/wiki/Dufay_and_his_Contemporaries_(Various) IMSLP: Stainer, Dufay and his Contemporaries (1898), the full scan; the song is at pp. 132-133 (pdf pp. 170-171)
 % source-url: https://catalog.hathitrust.org/Record/100887415 HathiTrust: another full-view scan of the same book
@@ -14,6 +17,8 @@
 % dossier-licence: Stainer, Dufay and his Contemporaries (London: Novello, 1898): public domain in the US (published 1898) and in Canada (the editors died 1901, 1937 and 1939). Notes read from the IMSLP scan of the Sibley Music Library copy.
 % dossier-respect: A secular spring song; nothing sacred or sensitive.
 % dossier-review: An early-music singer or choir director, for the editorial accidentals and the tempo.
+% dossier-accompaniment: None: the three voices are the whole piece, and the band rests. Style ballad only as a nominal setting, since the band lines silence it (conservative guess, 11 November 2026)
+% dossier-lyrics: Middle French; the top voice's four lines and the burden, as Stainer underlays them, with an English meaning. Fit for class (conservative guess, 11 November 2026)
 X:1
 T:Resvelons nous
 T:Wake up, lovers: a May song with a canon burden
@@ -29,6 +34,8 @@ M:3/2
 L:1/4
 Q:1/2=72
 K:C
+% style ballad: conservative guess, 11 November 2026
+%%style ballad
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~

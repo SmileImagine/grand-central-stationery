@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with Yekta's own tuning (the %%tuning line already here) and a persian style under the record's Sofyan band lines; bar 7's last two notes (G natural, F sharp) kept as read and named as uncertain in an N: line; keep correcting here
+% holding-published: lavignac-encyclopedie-1-adana-melody
 % holding-blocked: Source check: compare with Yekta p. 2951 (the dotted sixteenth and thirty-second figures, and the natural on G in bar 7); confirm the page of the Sofyan rhythm (Yekta's usul chapter, "I. Rythme Sofian"). A Turkish musician to hear the tuning (B about 20 cents flat) and say which makam it is (Uşşak or Hüseyni). Classroom check: play it tuned and then in plain equal temperament, and ask the class which B is "the right one".
 % source-url: https://archive.org/details/encyclopdiedel05lavi/page/n480/mode/1up archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951 (Raouf Yekta Bey, "La musique turque")
 % performance-note: No recording possible for this exact melody: Yekta gives no title and says its author is unknown. For the sound of the mode, any taksim or folk song in makam Uşşak; for the region, the Çukurova folk tradition of Adana (bağlama, davul and zurna). Listen and choose one before linking.
@@ -30,6 +33,8 @@ M:2/4
 L:1/32
 Q:1/4=56
 K:Am
+% style: conservative guess, 11 November 2026 (frame-drum dum and tak, no chord changes, the closest of the page styles to a Turkish usul; the %%band lines below still set the drum)
+%%style persian
 %%tuning Ussak (Yekta): 100. 180.45 294.13 400. 498.04 600. 701.96 800. 900. 1000. 1100. 2/1 root=A map=semitones
 %%band drums: bd [rim rim]
 %%band bass: ~

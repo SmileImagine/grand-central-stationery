@@ -1,16 +1,22 @@
 % review-id: beginner-songs-7-au-clair-de-la-lune
 % review-from: published
-% review-status: pending
+% review-status: change
 % review-categories: sexual, context
 % review-findings: No words in the file. The later French verses (Lubin and the brunette) are mildly suggestive.
 % review-suggestion: Keep; if words are added, use the first verse only.
-% review-decision:
+% review-decision: published to main on 11 November 2026 with the first French verse under the notes and its English meaning in an N: line; the later verses (Lubin and the girl next door) are left out and the N: line says so; %%style folk; keep correcting here
+% review-published: beginner-songs-7-au-clair-de-la-lune
 % review-set-entry: {"id":"beginner-songs-7-au-clair-de-la-lune","title":"Au Clair de la Lune","level":3,"score":4.64,"key":"C","metre":"4/4","bars":16,"origin":"France","composer":"","rhythm":"","source":"course/samples/beginner-songs.abc","skills":["degree:do","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:2","dur:4","key:0","leap:4th","metre:4/4","range:6th"],"introduces":["degree:ti"],"abc":"@abc\n","ontario":{"grade":4,"band":"Grade 4","concepts":["the major scale (fa and ti), intervals, accidentals"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","2: half and whole notes","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["beginner-songs-11-skip-to-my-lou"]}
+% conservative guess, 11 November 2026: C:, R:, S:, %%style below
 X:7
 T:Au Clair de la Lune
 O:France
+C:traditional (France)
+R:children's song
+S:course/samples/beginner-songs.abc, X:7 (typed from memory)
 M:4/4
 L:1/4
 K:C
+%%style folk
 C C C D | E2 D2 | C E D D | C4 | C C C D | E2 D2 | C E D D | C4 |
 D D D D | A,2 A,2 | D C B, A, | G,4 | C C C D | E2 D2 | C E D D | C4 |]

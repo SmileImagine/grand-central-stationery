@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with the verse's last bar as written here (a quarter and a held half for Hague's two quarters under a fermata), the chain and verse 2 as text, and the waltz style added; keep correcting here
+% holding-published: hague-spanish-american-1-la-rana
 % holding-blocked: Source check: compare with Hague No. 76, pp. 98-99, especially the last bar of the verse (two quarters on the plate, the second under a fermata, written here as a quarter and a held half) and the sixteenth pickup. Classroom check: how far down the chain to go (it ends with Death and God; a class may stop at the blacksmith), and how the chain fits the music, which the book does not write out.
 % source-url: https://archive.org/details/arf6149.0001.001.umich.edu/page/98/ archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98
 % dossier-function: A cumulative children's song: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (spider, frog, rat, cat, dog, stick, fire, water, ox, pig, blacksmith, Death, God). It ends with everyone croaking "ga-ra, ga-ra", the last croak held as long as breath lasts.
@@ -13,6 +16,8 @@
 % dossier-licence: Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US (published 1917) and in Canada (Hague d. 1954).
 % dossier-respect: A children's song; the chain ends "La Muerte, Dios" (Death, God), which a teacher may choose to sing or leave.
 % dossier-review: A Spanish-speaking teacher, for the words and the chain.
+% dossier-accompaniment: The record transcribes the voice alone; no traditional accompaniment is documented here. Band: the waltz style, a plain 3/4 accompaniment for a children's song (conservative guess, 11 November 2026)
+% dossier-lyrics: Spanish with Hague's English singing translation under the notes; verse 2 and the whole chain (p. 99) as text. All fit for class; the chain ends with Death and God (la Muerte, Dios), and a class may stop at the blacksmith (conservative guess, 11 November 2026)
 X:1
 T:La Rana
 T:The frog: Mexican cumulative song
@@ -28,6 +33,8 @@ M:3/4
 L:1/8
 Q:1/4=112
 K:D
+% style waltz: conservative guess, 11 November 2026
+%%style waltz
 C/C/ | D2 D2 D2 | F2 F2 DF | A6 | B6 | A4 B2 | F2 F2 D2 | F2 F2 E2 | D2 z2 F2 |
 w: De que A-ra-ña se sa-le~a pa-sear, Vie-ne la Ra-na y lo se tri-na. La
 w: When the spi-der goes out for a_ walk, Then comes the frog, and he sings with a croak. The

@@ -4,13 +4,17 @@
 % review-categories: substances, context
 % review-findings: No words in the file. American sung verses mention morphine and beer ("twenty-five cents for the morphine").
 % review-suggestion: Keep as an instrumental with the note. It is the shorter of the two Soldier's Joy entries; keep both, or keep this one for the first tunes and the full Nottingham reel for later.
-% review-decision:
+% review-decision: reviewed 11 November 2026: fine as an instrumental, but this short setting was typed from memory and its opening is not the usual A part. The full Nottingham reel (reelsr-t-49-soldiers-joy) is published instead; a fiddler should check this one before it returns.
 % review-set-entry: {"id":"first-tunes-11-soldier-s-joy","title":"Soldier's Joy","level":5,"score":6.5,"key":"D","metre":"4/4","bars":8,"origin":"England","composer":"","rhythm":"reel","source":"course/samples/first-tunes.abc","skills":["degree:do","degree:fa","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:1/2","dur:2","key:2","leap:3rd","metre:4/4","range:over-octave"],"introduces":[],"abc":"@abc\n","ontario":{"grade":4,"band":"Grade 4","concepts":["the major scale (fa and ti), intervals, accidentals"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","2: half and whole notes","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["hindostan-folk-3-o-where-will-you-go"]}
+% conservative guess, 11 November 2026: C:, S:, %%style below
 X:11
 T:Soldier's Joy
 R:reel
 O:England
+C:traditional (British Isles and North America)
+S:course/samples/first-tunes.abc, X:11 (typed from memory)
 M:4/4
 L:1/8
 K:D
+%%style folk
 d2 ef d2 cd | B2 AB d2 fg | afef dcde | fedc d4 | d2 ef d2 cd | B2 AB d2 fg | afef dBAF | A2 G2 F2 D2 |]

@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-11
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with the broken barline in the last section read as a barline (bars 39-40) and named; instrumental; folk style under the record's band lines (wood block only), equal temperament; keep correcting here
+% holding-published: richard-chinese-music-1-ba-ban
 % holding-blocked: Source check: compare with Richard p. 33, No. 20 (a broken barline in the last line, read as a barline: "A c | A G | F2"). Listen to a Lao liu ban / Lao ba ban performance and say how close Richard's version is. Classroom check: on recorders, in four sections, then the whole, with the teacher ornamenting a second line (heterophony) once the band can play one.
 % source-url: https://archive.org/details/paperonchinesemu00rich/page/n34/mode/1up archive.org scan of Mary Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, No. 20 "Ba Ban", p. 33
 % source-url: https://archive.org/details/paperonchinesemu00rich/page/n24/mode/1up the same, around p. 24: Richard on Ba Ban as the best-known tune in China
@@ -32,6 +35,8 @@ M:2/4
 L:1/4
 Q:1/4=88
 K:F
+% style: conservative guess, 11 November 2026 (neutral; the page has no Chinese style, and the %%band lines below keep only the wood block)
+%%style folk
 %%band drums: wb ~
 %%band bass: ~
 %%band chords: ~

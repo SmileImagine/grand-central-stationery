@@ -4,6 +4,9 @@
 % holding-source-check: pending
 % holding-classroom-check: pending
 % holding-updated: 2026-11-10
+% holding-decision: include
+% holding-decision-note: published to main on 11 November 2026 with the six-in-a-beat groups of bars 12, 13, 26 and 30, the five-in-a-beat group of bar 22 and the thirty-seconds of bars 31-32 as read here (bars counted from the first full bar; this record's UNCERTAIN line calls bar 22 "bar 18"), the underlay of bars 26 and 30 corrected to p. 105 (bar 26: "i we i ye i ye _ e we yo we"; bar 30: "e ya e ya e ya _ e we yo we"; this record's w: lines still need the same fix), Curtis's English for bars 31-32 added under the closing line, %%style folk, the %%band clap parts kept, and Curtis's colonial framing kept out, with a one-sentence teacher's note on it; keep correcting here
+% holding-published: curtis-dark-continent-2-mafuve
 % holding-blocked: Source check against pp. 103-105 (the whole song is now transcribed, 2026-11-11): especially the low grunted bars marked * ("O ha o", E-G sharp-B below the staff), the sextuplet and quintuplet figures, and the two closing bars, where the 32nd-note groups are read approximately. Then (the sextuplet clap figures, and "e" at the end of bar 4 against "e yo-we" at the start of bar 5), a Chindau speaker for the words, and a classroom try: four groups, one clap part each, two dancers stamping in the middle.
 % source-url: https://archive.org/details/songstalesfromda00burl/page/103/mode/1up archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 103 (music with the four clap parts; continues pp. 104-105)
 % source-url: https://archive.org/details/songstalesfromda00burl/page/29/mode/1up the same, pp. 29-30: the dance, and the words with Curtis's translation
@@ -33,6 +36,8 @@ M:3/4
 L:1/16
 Q:1/4=63
 K:E
+% the %%style line below: (conservative guess, 11 November 2026)
+%%style folk
 %%band drums: [bd bd] ~ ~
 %%band drums: [cp cp] [cp cp cp] [~ cp _ cp _ ~]
 %%band drums: [~ cl ~ cl] ~ ~
@@ -56,8 +61,9 @@ w: O ha o we ye ye yo we O ha o o wa e we yo we O ha o we ye ye yo we O ha o o w
 !>!B, G G2 !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, G G G !>!F E D !>!C/C/ z4 | !>!B, D D D E E z2 (5:4:5C E E C G |
 w: e- we- ye we yo we i- ye Kwa- mai nda le- ga, yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e we i- ye i ye i we yo we e
 !>!B G G2 !>!F E D !>!C/C/ z4 | !>!B, B, D D E E z2 C E E C | !>!B G G2 !>!F E D !>!C/C/ z4 | !>!B, D D D (E E- E2) C E E C |
-w: i we yo we yo we i ye e we i- ye i ye i we yo we i ye ye we yo wi i ye i we i ye i ye_ _ e we yo we
+w: i we yo we yo we i ye e we i- ye i ye i we yo we i ye ye we yo wi i ye i we i ye i ye _ e we yo we
 !>!B G G2 !>!F E D !>!C/C/ z4 | !>!B G G2 !>!F E D C z4 | !>!B, D (D B,) !>!F E D C z4 | "^*"!>!B, E, G, G, (E, E,- E,2) G, B, B, G, |
-w: i ye ye we yo wi i ye i ye ye we yo we ye i we ye _ we yo we ye we _ _ _ _ _ _ yo we _ _ _
+w: i ye ye we yo wi i ye i ye ye we yo we ye i we ye _ we yo we ye e ya e ya e ya _ e we yo we
+w: Left my moth- er's home, yes, yes, O a- las, _ Love my hus- band's home, yes, yes, O a- las! _
 "^*"!>!B, B, G, G, E,2 E, E, z2 G,/B,/B,/G,/ | "^*"!>!B, E, G, G, E,2 E, E, z2 G,/B,/B,/G,/ |]
 w: Kwa- mai nda le- ga, e ya, e we yo we Ndo da kwu- mi- sha, e ya e we yo we!

@@ -4,14 +4,21 @@
 % review-categories: religious
 % review-findings: A round on the Latin psalm Jubilate Deo (Psalm 100, "Rejoice in God"); no words in the file.
 % review-suggestion: Keep; label it a sacred round so teachers can follow their school's guidance on religious songs.
-% review-decision:
+% review-decision: reviewed 11 November 2026: fit for class as a labelled sacred round, but not republished until its copyright is settled. The Nottingham file credits it "Taize?": if it is Jacques Berthier's Taizé canon (1978) it is in copyright; if it is the anonymous round credited to Praetorius it is public domain. Compare it with a Berthier score first; the reviewer's publish-ready version (%%round 2 every=3, style ballad) is in the review notes.
 % review-set-entry: {"id":"xmas-7-jubilate-deo-round","title":"Jubilate Deo (round)","level":5,"score":7.47,"key":"C","metre":"4/4","bars":6,"origin":"","composer":"","rhythm":"","source":"https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/xmas.abc","skills":["degree:do","degree:fa","degree:la","degree:mi","degree:re","degree:so","degree:ti","dur:1","dur:2","key:0","leap:4th","metre:4/4","range:over-octave","rest"],"introduces":[],"abc":"@abc\n","ontario":{"grade":4,"band":"Grade 4","concepts":["the major scale (fa and ti), intervals, accidentals"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","2: half and whole notes","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"_after":["reelsr-t-59-sugar-in-the-gourd","first-tunes-11-soldier-s-joy","hindostan-folk-3-o-where-will-you-go"],"licence":"GPL-3.0"}
 X: 7
 T:Jubilate Deo (round)
+C:unknown (the source file says "Taize?") (conservative guess, 11 November 2026)
+O:unknown (conservative guess, 11 November 2026)
+R:hymn (sacred round) (conservative guess, 11 November 2026)
 % Nottingham Music Database
 P:AAB
 S:Taize?
+Q:1/4=96
 M:4/4
 L:1/4
 K:C
+%%style ballad
+%%round 2 every=3
+% %%style ballad, %%round 2 every=3 and Q:1/4=96: conservative guess, 11 November 2026
 "C"c2 "G7"d2|ec cB|cA GF|EF D2|C2 G,G,|C2 z2||

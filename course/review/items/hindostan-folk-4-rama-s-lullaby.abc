@@ -1,10 +1,11 @@
 % review-id: hindostan-folk-4-rama-s-lullaby
 % review-from: published
-% review-status: pending
+% review-status: change
 % review-categories: religious
 % review-findings: A Maratha lullaby to the infant Rama as Vishnu ("It was Vishnu's self that was born on the lap of Kaushalya"), with devas strewing flowers: Hindu devotional words.
 % review-suggestion: Keep; label it a devotional lullaby, as above.
-% review-decision:
+% review-decision: published to main on 11 November 2026 labelled a devotional lullaby (N: schools follow their own guidance on religious songs), with bars 4 and 5 rebarred to make two whole 3/4 bars ("born" shortened from a quarter to an eighth, the barline moved one beat later so the rest and "Little" end bar 5) and the final rest dropped; bars 4 to 6 and the refrain's second bar still to be checked against the plate; keep correcting here
+% review-published: hindostan-folk-4-rama-s-lullaby
 % review-set-entry: {"id":"hindostan-folk-4-rama-s-lullaby","title":"Rama's lullaby","level":4,"score":8.92,"key":"C","metre":"3/4","bars":9,"origin":"India, Maharashtra","composer":"traditional (Maharashtra)","rhythm":"lullaby","source":"course/samples/hindostan-folk.abc","skills":["degree:do","degree:fa","degree:la","degree:re","degree:so","dur:1","dur:1/2","dur:1/4","dur:2","dur:3/4","key:0","leap:4th","metre:3/4","pickup","range:6th","rest","syncopation"],"introduces":["dur:3/4"],"ontario":{"grade":6,"band":"Grade 6","concepts":["pick-up notes (anacrusis)"],"all":["1: quarter and eighth notes, quarter rests, 2/4 and 4/4","2: half and whole notes","3: 3/4 metre","3: sixteenth-note patterns","4: syncopation (syn-co-pa)","5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)","5: syncopated sixteenths (tika-ti, ti-tika)","6: pick-up notes (anacrusis)","4: the major scale (fa and ti), intervals, accidentals"],"ignored":["key","texture"]},"abc":"@abc\n","_after":["reelsd-g-44-the-first-frost-second-part"]}
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/66/mode/1up archive.org scan of The Music of Hindostan, at p. 66
 X:4
