@@ -16,11 +16,11 @@ A chord is shown as voices: one ring per voice, in its note's colour, that holds
 
 ## Left open
 
-- **Ukulele: melody and chords together.** The view shows both: the melody's runner and the chord rings. In class a ukulele usually strums the chords while the children sing, so the chords alone may be the better default there.
+- **Shows (done, 11 November).** A Shows choice beside Instrument picks melody, chords or both on the piano, the Wicki-Hayden keyboard and the ukulele. Auto shows the chords on the ukulele and the melody on the keyboards. With the chords only, the melody's keys, strings and runner stay dark; the symbol's outline stays. Stopped, the first chord's voices wait in place. In chords-only mode the ukulele's strings could also glow with each strum; they don't yet.
 - **Guitar.** There is no guitar view yet. `stringVoicing` works for six strings, but strumming every string puts a non-root bass on the low strings (G7 120001, D 200232). A guitar needs muted strings (x) and the root (or a slash bass) as the lowest voice.
-- **Piano range.** With chords, the piano reaches down to C3, so it is three octaves and its keys are smaller. A Band note below C3 (a pad) is shown an octave in.
+- **Piano range.** The piano is as wide as what it shows: the melody's octaves (two at least, as before), C3 to B4 for the chords, both together for both. A melody that fits one octave still gets two; one would be smaller still.
 - **"As played" detail.** The rings follow the Band's choices exactly: Detail's sevenths, Arrange's choruses, and a chord re-voiced under a high melody note. A new voicing within one chord moves the rings too. If that is too busy, show one voicing per chord change.
-- **Wicki-Hayden.** No rings yet. A pitch has several keys there, so it would want the layout's least-travel scheduling.
+- **Wicki-Hayden (done).** A ring circles the key's label. Where a pitch has several keys, each voice takes the one nearest the last chord's centre (greedy, not the melody's least-travel scheduling).
 - **Count-in.** Before the first chord, its rings wait faint. They could glide in instead.
 
 ## Seen in passing (not changed here)
