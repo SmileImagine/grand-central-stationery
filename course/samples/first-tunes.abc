@@ -15,7 +15,7 @@ O:USA
 M:4/4
 L:1/4
 K:G
-B A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]
+B A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]
 
 X:3
 T:Twinkle, Twinkle, Little Star
@@ -23,7 +23,7 @@ O:France
 M:4/4
 L:1/4
 K:C
-C C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]
+!mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]
 
 X:4
 T:Ode to Joy
@@ -50,10 +50,9 @@ R:hymn
 M:3/4
 L:1/4
 K:G
-N:A Christian hymn: follow your school's guidance on religious songs. Newton had been a slave-ship captain before he became a clergyman and, later, an abolitionist; that history is often taught with it.
-D | G2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | d3- | d2 B/2d/2 |
+!mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |
 w: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_
-d2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | G3- | G2 |]
+d2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]
 w: once was_ lost but now am found, was blind but_ now I see. _
 
 X:7
@@ -63,12 +62,11 @@ O:USA
 M:2/4
 L:1/8
 K:G
-N:The first verse and the chorus only, in standard spelling. Foster wrote the song for blackface minstrel shows; his original second verse uses a racial slur in a violent joke, and it is never sung here. Teach that history with the song.
-G/2A/2 | B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G G/2A/2 |
+!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |
 w: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained
-B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |
+B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |
 w: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _
-c2 c2 | e e2 e | d d B G | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |]
+!f!(c2 c2 | e e2 e | d d B G | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]
 w: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.
 
 X:8

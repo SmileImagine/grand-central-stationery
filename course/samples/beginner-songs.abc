@@ -8,7 +8,7 @@ O:England
 M:2/4
 L:1/8
 K:C
-G2 E2 | GG E2 | GG EE | AA G2 |]
+G2 E2 | GG !breath!E2 | GG EE | AA G2 |]
 w: Rain, rain, go a-way, come a-gain a-noth-er day.
 
 X:2
@@ -17,7 +17,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 |]
+GG EE | GG E2 | GG EE | GG !breath!E2 | GG EE | GG E2 | GG EE | GG E2 |]
 w: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?
 
 X:3
@@ -26,7 +26,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-G2 E2 | G2 E2 | GG AA | G2 E2 | GG E2 | GG E2 | GG AA | G2 E2 |]
+G2 E2 | G2 E2 | GG AA | G2 !breath!E2 | GG E2 | GG E2 | GG AA | GG E2 |]
 w: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.
 
 X:4
@@ -35,7 +35,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-G2 E2 | G2 E2 | GG EE | G2 E2 |]
+G2 E2 | G2 !breath!E2 | .G.G .E.E | G2 E2 |]
 w: Bounce high, bounce low, bounce the ball to Shi-loh.
 
 X:5
@@ -49,8 +49,8 @@ O:England
 M:2/4
 L:1/8
 K:C
-GG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]
-w: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.
+GG EA | G2 !breath!E2 | GG EA | G2 !breath!E2 | !<(!G2 E2 | G2 E2 | GG !<)!G2 | !>!E4 |]
+w: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, we all fall down.
 
 X:7
 T:Withheld
@@ -63,7 +63,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-CC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]
+CC EE | GG E2 | CC EE | GG !breath!E2 | CC EE | GG E2 | !>(!GG EE | !>)!DD C2 |]
 w: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.
 
 X:9
@@ -81,8 +81,8 @@ O:Germany
 M:4/4
 L:1/4
 K:C
-G E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |
-D D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]
+!p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |
+!mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]
 
 X:11
 T:Skip to My Lou
@@ -90,7 +90,7 @@ O:USA
 M:2/4
 L:1/8
 K:C
-EE CC | EE G2 | DD B,B, | DD F2 | EE CC | EE G2 | DD FF | ED C2 |]
+!mf!(EE CC | EE G2) | (DD B,B, | DD F2) | (EE CC | EE G2) | (DD FF | ED C2) |]
 w: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
 
 X:12
@@ -99,7 +99,7 @@ O:England
 M:4/4
 L:1/4
 K:C
-C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]
+!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]
 
 X:13
 T:Frère Jacques
@@ -107,7 +107,7 @@ O:France
 M:4/4
 L:1/4
 K:C
-C D E C | C D E C | E F G2 | E F G2 | G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C | C G, C2 | C G, C2 |]
+!mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]
 w: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.
 
 X:14
@@ -126,10 +126,9 @@ O:USA
 M:4/4
 L:1/4
 K:G
-N:A winter sleigh song. Research in 2017 traced its first known performance to a minstrel show in Boston in 1857; others dispute that reading. The chorus words are sung here.
-B B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | B A A B | A2 d2 |
+!f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |
 w: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!
-B B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | d d c A | G4 |]
+(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]
 w: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!
 
 X:16
@@ -138,7 +137,7 @@ O:England
 M:4/4
 L:1/8
 K:C
-G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4 | E F G2 C C C C | C D E F G4 | G2 D2 D D E F | G2 C2 C4 |]
+!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4) | (E F G2 .C.C.C.C | C D E F G4 | G2 D2 D D E F | G2 C2 C4) |]
 
 X:17
 T:Withheld
@@ -168,7 +167,7 @@ O:USA
 M:4/4
 L:1/4
 K:C
-E D C D | E E E2 | D D D2 | E G G2 | E D C D | E E E E | D D E D | C4 |]
+E D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]
 
 X:21
 T:Go Tell Aunt Rhody

@@ -405,7 +405,7 @@ function phraseWhy(T, w) {
 function phraseEnd(T, w, p) {
   if (p.by === 'words') return ', ending where the words take a breath';
   if (p.by === 'lines') return ', one line of the music as written';
-  if (p.by === 'marked') return ', ending at a breath mark';
+  if (p.by === 'marked') return ', ending where the music marks it (a phrase arc or a breath mark)';
   if (p.by === 'whole') return '';
   return `, about four bars ending on ${solfa(T, lastNote(T, w))}`;
 }

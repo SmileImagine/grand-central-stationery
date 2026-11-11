@@ -259,6 +259,20 @@
       }
     }
     if (cur && cur.els.length) { const last = cur.els[cur.els.length - 1]; finish(last.endChar, last.endChar, 'none'); }
+    // Phrase marks: a slur over a bar and a half or more (as course/analyze.js reads them) ends a phrase where it ends,
+    // as a breath mark does; a shorter slur only joins notes.
+    const phraseEnds = new Set(), slurFrom = new Map();
+    let clock = 0;
+    bars.forEach((b, i) => {
+      for (const el of b.els) {
+        const dur = el.rest && el.rest.type === 'spacer' ? 0 : (el.duration || 0) * (el.tripletMultiplier || 1);
+        for (const p of el.pitches || []) {
+          for (const s of p.startSlur || []) slurFrom.set(s.label, clock);
+          for (const label of p.endSlur || []) { const from = slurFrom.get(label); slurFrom.delete(label); if (from !== undefined && clock + dur - from >= 1.5 * barLen - 1e-9) phraseEnds.add(i); }
+        }
+        clock += dur;
+      }
+    });
     // Where each source line ends (a line ending in \ continues), and which bars are short (pickups, the bar before one).
     bars.forEach((b, i) => {
       b.n = i + 1;
@@ -267,7 +281,7 @@
       const lineText = text.slice(text.lastIndexOf('\n', b.end - 1) + 1, (text.indexOf('\n', b.end) + 1 || text.length + 1) - 1);
       b.lineEnd = !next || (gap.includes('\n') && !/\\\s*$/.test(lineText));
       b.short = b.dur < barLen * 0.74;
-      b.breath = b.notes.some(n => (n.decoration || []).some(d => d === 'breath' || d === 'fermata'));
+      b.breath = phraseEnds.has(i) || b.notes.some(n => (n.decoration || []).some(d => d === 'breath' || d === 'fermata'));
       b.chord = null;
       for (const n of b.els) for (const c of n.chord || []) if (!c.position || c.position === 'default') b.chord = c.name;
       b.firstChord = (b.els[0] && (b.els[0].chord || []).find(c => !c.position || c.position === 'default') || {}).name || null;

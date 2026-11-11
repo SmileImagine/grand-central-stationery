@@ -193,7 +193,9 @@
     let barAcc = {}, pos = 0;          // pos: whole notes since the start of the current bar
     let barIndex = 0, barHasNotes = false, barHash = [];
     const bars = [], notes = [], rests = [], tags = new Set(), warnings = [];
-    let keyChanges = 0, metreChanges = 0, repeats = 0, endings = 0, chordSymbols = 0, graceNotes = 0, multiStops = 0, slurs = 0;
+    let keyChanges = 0, metreChanges = 0, repeats = 0, endings = 0, chordSymbols = 0, graceNotes = 0, multiStops = 0, slurs = 0, phraseMarks = 0;
+    // A slur over a bar and a half or more is a phrase mark (the curriculum's grade 4); a shorter one joins notes (grade 6).
+    let clock = 0; const slurFrom = new Map();
     const decorations = new Set(), chordNames = new Set();
     let restCount = 0, restBeats = 0, tieCount = 0, tieOverBar = 0, tripletCount = 0, otherTuplets = 0;
     let pending = null;               // a note waiting for its tied continuation
@@ -226,7 +228,11 @@
       if (el.gracenotes) graceNotes += el.gracenotes.length;
       if (el.chord) { chordSymbols += el.chord.length; for (const c of el.chord) if (c.name) chordNames.add(c.name); }
       for (const d of el.decoration || []) decorations.add(d);
-      for (const p of el.pitches || []) if (p.startSlur) slurs += p.startSlur.length;
+      for (const p of el.pitches || []) {
+        for (const s of p.startSlur || []) slurFrom.set(s.label, clock);
+        for (const label of p.endSlur || []) { const from = slurFrom.get(label); slurFrom.delete(label); if (from !== undefined && clock + dur - from >= 1.5 * barLen - 1e-9) phraseMarks++; else slurs++; }
+      }
+      clock += dur * (el.tripletMultiplier || 1);
       const onsetBeats = pos / beat, durBeats = dur / beat;
 
       if (el.rest || !el.pitches || !el.pitches.length) {
@@ -280,7 +286,7 @@
       tempo: tune.getBpm ? tune.getBpm() : null, pickup: !!(tune.getPickupLength && tune.getPickupLength() > EPS),
       noteCount: n, barCount: bars.length, voices: countVoices(tune),
       keyAccidentals: ((key0 && key0.accidentals) || []).filter(a => a.acc !== 'natural').length, keyChanges, metreChanges,
-      repeats, endings, chordSymbols, graceNotes, multiStops, restCount, tieCount, tieOverBar, tripletCount, otherTuplets, slurs,
+      repeats, endings, chordSymbols, graceNotes, multiStops, restCount, tieCount, tieOverBar, tripletCount, otherTuplets, slurs: slurs + slurFrom.size, phraseMarks,
       decorations: [...decorations].sort(), chordDegrees: chordDegreesOf(chordNames, tonic, key0),
       warnings: (tune.warnings || []).length,
     };
@@ -292,7 +298,7 @@
     if (n === 0) {
       Object.assign(f, { rangeSemitones: 0, lowMidi: null, highMidi: null, degreeCount: 0, pitchClasses: 0, chromaticClasses: 0, chromaticFraction: 0, pentatonicOnly: true,
         maxLeap: 0, meanInterval: 0, leapFraction: 0, distinctBars: 0, repetition: 0, effectiveBars: 0, totalBeats: 0, notesPerBeat: 0, restFraction: 0, belowDo: 0, keyMode: '',
-        syncopations: 0, syncopationFraction: 0, smallestBeatFraction: 1, durations: [], rhythmRung: 1, skills: [], degrees: [], slurs: 0, decorations: [], chordDegrees: [] });
+        syncopations: 0, syncopationFraction: 0, smallestBeatFraction: 1, durations: [], rhythmRung: 1, skills: [], degrees: [], slurs: 0, phraseMarks: 0, decorations: [], chordDegrees: [] });
       return f;
     }
 
@@ -440,7 +446,7 @@
     ['dynamics', 1, 'accent; smooth and detached articulation', f => f.decorations.some(d => ['accent', 'staccato', 'tenuto', 'emphasis'].includes(d))],
     ['dynamics', 2, 'crescendo and decrescendo', f => f.decorations.some(d => /^(crescendo|diminuendo)\(/.test(d))],
     ['dynamics', 3, 'the signs for soft and loud (p, f)', f => f.decorations.some(d => ['p', 'f', 'mp', 'mf'].includes(d))],
-    ['dynamics', 4, 'sforzando; phrase markings', f => f.decorations.some(d => /^s(f|fz|ffz)$/.test(d))],
+    ['dynamics', 4, 'sforzando; phrase markings', f => f.phraseMarks > 0 || f.decorations.some(d => /^s(f|fz|ffz)$/.test(d))],
     ['dynamics', 6, 'very soft and very loud (pp, ff); slurs', f => f.slurs > 0 || f.decorations.some(d => /^(pp+|ff+)$/.test(d))],
     ['dynamics', 7, 'marcato', f => f.decorations.includes('marcato')],
     // texture and harmony: parts and the chord symbols over the tune
