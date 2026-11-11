@@ -1,0 +1,46 @@
+% holding-id: si-me-dan-pasteles
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: compare with Luce p. 3, especially bar 7 (the lower voice reads G under c, c, B, c: a fourth, not a third) and the last bar (one chord, d over F sharp, under the two syllables "gen-te"). Still to transcribe: the instrumental ritornello that opens the page (two systems, with first and second endings), which the players repeat between verses. Listen to the 1939 Library of Congress recording before trusting the band's güiro and maracas. A Spanish-speaking (Puerto Rican) teacher for the words and the parranda.
+% source-url: https://archive.org/details/cancionespopular0000alle/page/n12/mode/1up archive.org scan of Allena Luce, Canciones populares (1921), p. 3
+% performance-url: https://blogs.loc.gov/folklife/2013/12/songs-of-the-winter-season-collected-by-sidney-robertson-cowell/ Library of Congress Folklife blog on Sidney Robertson Cowell's recordings, including Aurora Calderón singing this aguinaldo in Oakland, 10 April 1939 (LOC item 2017700903)
+% performance-url: https://www.youtube.com/watch?v=1Umj8qnObA0 Los Borincanos (title checked, not yet listened to)
+% performance-url: https://www.youtube.com/watch?v=Zi4U8-yWUsk Los Aguadillanos (title checked, not yet listened to)
+% performance-note: The instrument line-up for aguinaldos is documented on Folkways FW 8802, Songs and Dances of Puerto Rico (recorded by William S. Marlens, 1956): Cuarteto Puerto Rico of Cayey on cuatro, tres, maracas, claves, güiro and bongó (liner notes at folkways-media.si.edu/docs/folkways/artwork/FW08802.pdf).
+% dossier-function: A Christmas aguinaldo: at Christmas, groups of singers and players go from house to house (the parranda), and the hosts give them a little gift or refreshments; the song's frank hint is that the visitors expect pasteles, and hot ones (Luce's note).
+% dossier-elements: G minor, 2/4, eight bars sung twice; the melody in parallel thirds with a second voice beneath; each line a quick run of eighths and a held note ("pas-te-les__", "ca-lien-tes__"); range of the top voice A to d.
+% dossier-practice: Sung by the visiting group, two voices in thirds, with the players' ritornello between verses, and verses made up on the spot (Luce mentions many amusing variants). In class: half the room on the melody, half on the third below; then make up a verse for the class's own party food.
+% dossier-accompaniment: Tradition (FW 8802 notes): cuatro (the ten-string Puerto Rican guitar) and tres strum and play the ritornello; güiro (scraped gourd), maracas, claves and bongó keep the beat. Band here: the cabasa as a güiro stand-in, long scrape then two short (a common güiro figure; ours, to be checked against the recordings), shakers for the maracas, the nylon guitar strumming the chords the band finds, and the bass. Needs: güiro, cuatro, bongó (the drum-sample work in progress may cover the percussion).
+% dossier-lyrics: Spanish: "Si me dan pasteles, dénmelos calientes, que pasteles fríos empachan la gente": "If you give me pasteles, give them to me hot, for cold pasteles give people a stomach-ache." A variant Luce quotes: "Denme mi aguinaldo, si me lo han de dar, que la noche es corta y tenemos que andar": "Give me my aguinaldo, if you're going to give it, for the night is short and we have far to go." Pasteles are Puerto Rican Christmas parcels of mashed plantain and root vegetables with a filling, wrapped in banana leaves. Fit for class.
+% dossier-honesty: Traditional; the two sung voices as Luce printed them (top two notes of her right hand where it has three), not her piano part. The güiro, maracas and the band's chords are ours, after the documented line-up.
+% dossier-licence: Allena Luce (compiler), Canciones populares (New York: Silver, Burdett, copyright 1921): public domain in the US (published 1921). Luce's death year is not known, so the Canadian status is unconfirmed; the record takes only the traditional tune and its thirds, not her arrangement.
+% dossier-respect: A seasonal Christian custom with secular words; fine for a winter-holiday unit that includes other traditions. Nothing sensitive.
+% dossier-review: A Puerto Rican teacher or musician, for the words, the parranda and the cuatro's part.
+X:1
+T:Si me dan pasteles
+T:Aguinaldo: Puerto Rican Christmas song in two voices
+C:traditional (Puerto Rico)
+O:Puerto Rico
+R:aguinaldo
+S:Allena Luce, Canciones populares (New York: Silver, Burdett, 1921), "Aguinaldo (Si me dan pasteles)", p. 3
+N:THE PLATE: G minor, 2/4; an instrumental ritornello (two systems, Fine at the first ending), then the sung verse with a repeat, its melody doubled in thirds in the pianist's right hand, the words above; Luce's preface: collected from students of the University of Puerto Rico, versions chosen by their vote.
+N:HOW READ (2026-11-11): p. 3 from the archive.org scan (about 290 dpi); staff lines found beside each chord and both heads of every chord measured against them; durations read from the scan; every bar checked to make two quarters.
+N:UNCERTAIN: bar 7's lower voice (see the next step); the last bar's "gen-te" on one chord; the tempo is ours.
+M:2/4
+L:1/8
+Q:1/4=104
+K:Gm
+%%style folk
+%%band drums: [ca _ ca ca] [ca _ ca ca]
+%%band drums: [sh sh sh sh] [sh sh sh sh]
+V:1 name="Voice 1"
+V:2 name="Voice 2"
+[V:1] |: .B .B c c | d3/2 (d/ d2) | c c B B | A3/2 (A/ A2) |
+w: Si me dan pas-te-les_ dén-me-los ca-lien-tes_
+[V:1] B B c c | d3/2 (d/ d2) | c c B c | d4 :|
+w: que pas-te-les frí-os_ em-pa-chan la gen~te.
+[V:2] |: G G A A | B3/2 (B/ B2) | A A G G | ^F3/2 (F/ F2) |
+[V:2] G G A A | B3/2 (B/ B2) | G G G G | ^F4 :|

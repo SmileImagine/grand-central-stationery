@@ -10,7 +10,7 @@
  "counts": {
   "inbox": 0,
   "transcription": 3,
-  "source-check": 18,
+  "source-check": 23,
   "classroom-check": 0,
   "ready": 0
  },
@@ -57,6 +57,47 @@
    }
   },
   {
+   "id": "adana-melody",
+   "file": "items/adana-melody.abc",
+   "title": "Adana melody",
+   "subtitle": "Peasant melody from Adana: hearing a neutral second",
+   "source": "Raouf Yekta Bey, \"La musique turque\", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/encyclopdiedel05lavi/page/n480/mode/1up",
+     "label": "archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951 (Raouf Yekta Bey, \"La musique turque\")"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No recording possible for this exact melody: Yekta gives no title and says its author is unknown. For the sound of the mode, any taksim or folk song in makam Uşşak; for the region, the Çukurova folk tradition of Adana (bağlama, davul and zurna). Listen and choose one before linking."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: compare with Yekta p. 2951 (the dotted sixteenth and thirty-second figures, and the natural on G in bar 7); confirm the page of the Sofyan rhythm (Yekta's usul chapter, \"I. Rythme Sofian\"). A Turkish musician to hear the tuning (B about 20 cents flat) and say which makam it is (Uşşak or Hüseyni). Classroom check: play it tuned and then in plain equal temperament, and ask the class which B is \"the right one\".",
+   "notes": "YEKTA'S TETRACHORD (p. 2951): \"Valeurs justes\": la to si 65536/59049, si to do 2048/2187 (i.e. 2187/2048 up), do to ré 9/8 (the whole fourth 3/4, i.e. 4/3 up). \"Valeurs approximatives\": 10/9, 16/15, 9/8. Compare his second example on the same page, a Turkish tune \"essentially in A minor\", built on a pentachord A B C D E with B a full tone above A (9/8).",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A \"simple popular melody collected in Asia Minor, among the peasants of the province of Adana\"; Yekta prints it to show that a melody a European would call A minor without a leading tone is in fact in another mode, built on the tetrachord A-B-C-D with a B lower than the European one, and that \"even a man who knows nothing of music\" in the East hears the difference (p. 2951).",
+    "elements": "2/4, quarter = 56; eight bars, the first two repeated; dotted sixteenth and thirty-second figures (a \"snap\") on almost every beat; final A, range F sharp to e; the tetrachord A B C D with E above and G, F sharp below as ornaments.",
+    "practice": "Unhurried. No words were printed: play it on the recorder or hum it. The point is the B: Yekta gives its exact place.",
+    "accompaniment": "Yekta prints no accompaniment for this melody. Turkish rhythmic cycles (usul) are played on a drum with two strokes, düm (low, the right hand at the centre) and tek (high, at the rim); his first usul, Sofyan, in two beats, is \"düm - tek ka\" (a dactyl: a long and two shorts). Band here: Sofyan on the kick (düm) and rim (tek, ka), our choice of usul for a two-beat folk melody, not Yekta's for this tune; no bass, no chords. Folk practice in Adana (Çukurova) would use bağlama, or davul and zurna; needs a bağlama sound.",
+    "lyrics": "None printed.",
+    "honesty": "The melody as Yekta printed it. The tuning line is built from his own ratios for the tetrachord (A to B 65536/59049, B to C 2187/2048, C to D 9/8: B at 180.45 cents above A, C at 294.13, D at 498.04); E is taken as the pure fifth 3/2 above A; the other notes stay in equal temperament. The Sofyan drum is ours.",
+    "licence": "Raouf Yekta Bey (1871-1935), \"La musique turque\", in Lavignac and La Laurencie (eds.), Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922): public domain in the US (1922) and in Canada (Yekta d. 1935).",
+    "respect": "A secular folk melody; nothing sensitive. Yekta wrote as a Turkish theorist answering European dismissals of Eastern scales; his own argument is the lesson.",
+    "review": "A Turkish musician (a bağlama or ney player), for the makam and the tuning."
+   }
+  },
+  {
    "id": "arirang-hulbert",
    "file": "items/arirang-hulbert.abc",
    "title": "Arirang",
@@ -91,6 +132,56 @@
     "licence": "public domain (Homer B. Hulbert, \"Korean Vocal Music\", The Korean Repository 3, February 1896, pp. 45-53; Hulbert died 1949); read bar by bar from the archive.org scan of the University of Illinois copy on 2026-11-10",
     "respect": "Arirang is a national song of Korea, North and South, and on UNESCO's list (2012, 2014); present it as a living song with many regional versions, this one as the earliest written down, by an American missionary",
     "review": "a Korean culture bearer or a teacher of gugak before publishing"
+   }
+  },
+  {
+   "id": "ba-ban",
+   "file": "items/ba-ban.abc",
+   "title": "Ba ban (八板)",
+   "subtitle": "Eight Beats: China's best-known instrumental tune",
+   "source": "Mary Martin Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, \"Popular Airs\", No. 20 \"Ba Ban\", p. 33",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/paperonchinesemu00rich/page/n34/mode/1up",
+     "label": "archive.org scan of Mary Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, No. 20 \"Ba Ban\", p. 33"
+    },
+    {
+     "url": "https://archive.org/details/paperonchinesemu00rich/page/n24/mode/1up",
+     "label": "the same, around p. 24: Richard on Ba Ban as the best-known tune in China"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=TDi3ozohWBE",
+     "label": "\"Lao liu ban\", a Jiangnan sizhu ensemble (title checked, not yet listened to): the best-known descendant of Ba ban"
+    }
+   ],
+   "performanceNotes": [
+    "Ba ban (Eight Beats) is the \"mother tune\" of a whole family: Lao ba ban in the north, Lao liu ban and its slower variations (Zhonghua liu ban, Man liu ban) in Jiangnan sizhu (silk-and-bamboo) music; recordings of these are plentiful; choose one by a named ensemble."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: compare with Richard p. 33, No. 20 (a broken barline in the last line, read as a barline: \"A c | A G | F2\"). Listen to a Lao liu ban / Lao ba ban performance and say how close Richard's version is. Classroom check: on recorders, in four sections, then the whole, with the teacher ornamenting a second line (heterophony) once the band can play one.",
+   "notes": "THE PLATE: 2/4, no key signature (written here in F, since the tune is pentatonic on F and no B occurs), three staves of quarters and halves, double bar at the end of the first staff and of the piece; headed '\"Ba Ban\"   Popular Airs.'",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "An instrumental popular air: Richard (1899) calls it a tune known all over China, by more people than any other single tune. It is played, not sung, and is the framework that ensembles vary and ornament.",
+    "elements": "2/4 in quarters and halves; pentatonic on F (F G A c d, the gong mode), ending on F; range C to f; three phrases (16, 12 and 13 bars), each answering the last with the same falling cadences (F2 | C D | F2).",
+    "practice": "Played by an ensemble in heterophony: everyone plays the same tune, each instrument filling it out in its own way (passing notes, octaves, repeated notes; in Chinese, jiahua, \"adding flowers\"). In class: learn the skeleton on recorders in sections, then let some players add notes between the beats while others keep the plain line.",
+    "accompaniment": "Tradition: a silk-and-bamboo (sizhu) or wind-and-percussion ensemble, all on the melody: erhu (two-string fiddle), dizi (flute), pipa (lute), yangqin (dulcimer), sheng (mouth organ), with a clapper (ban) marking the downbeat; never chords. Band here: only a wood block on the first beat of each bar, standing in for the ban; no bass, no chords. Needs: a heterophony part (the tune on a second sound, ornamented), and erhu, dizi, pipa, yangqin sounds.",
+    "lyrics": "None: an instrumental piece.",
+    "honesty": "Traditional; the melody as Richard printed it, in her appendix of popular airs. Her version is longer than the usual 68-beat Ba ban (82 beats here); it is printed as she heard it, and the record does not claim it is the standard form. The wood block is ours.",
+    "licence": "Mary Martin Richard (d. 1903), Paper on Chinese Music (Shanghai: American Presbyterian Mission Press, 1899): public domain everywhere.",
+    "respect": "Avoid the first part of the same appendix (Nos. 1-17), Confucian ritual hymns. Richard was a missionary; some of her appendix tunes were adapted for hymns. Ba ban itself is a secular popular tune.",
+    "review": "A player of Chinese instruments (Jiangnan sizhu), for the form and the ornaments."
    }
   },
   {
@@ -132,6 +223,47 @@
     "licence": "Jules Rouanet (1858-1944), in Lavignac, Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922; section copyright 1920): public domain in the US and in Canada (Rouanet d. 1944).",
     "respect": "The words mention the muezzin's call, as the sign that night is over; nothing in the song is a religious text. Rouanet's framing is a colonial scholar's; the record keeps his facts about the music.",
     "review": "An Arabic speaker familiar with Algerian song, for the words and the class couplets."
+   }
+  },
+  {
+   "id": "bujj-bujj-zold-ag",
+   "file": "items/bujj-bujj-zold-ag.abc",
+   "title": "Bújj, bújj, zöld ág",
+   "subtitle": "Crawl through, green branch: Hungarian arch game",
+   "source": "Kiss Áron, Magyar gyermekjáték-gyűjtemény (Budapest, 1891), Újhold-játék No. 4, p. 207",
+   "sourceUrls": [
+    {
+     "url": "https://mek.oszk.hu/10800/10818/10818.pdf",
+     "label": "Hungarian Electronic Library (MEK): Kiss Áron, Magyar gyermekjáték-gyűjtemény (1891), reprint of the 1891 pages; this game at printed p. 207 (PDF p. 235), Nos. 3 and 4, with the game on p. 206"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "The Institute for Musicology in Budapest holds many field recordings of \"Bújj, bújj, zöld ág\" (for example Szebény, Baranya county, 1965, collected by Andrásfalvy and Olsvai; zti.hungaricana.hu). It is still one of the best-known Hungarian children's games, so school and kindergarten recordings are easy to find; listen and choose one sung by children before linking."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: compare with Kiss p. 207, No. 4 (bar 7 \"zöld le-ve-\": G, G, E). A Hungarian speaker for the words and the translation. Classroom check: the arch game as Kiss describes it, with the \"raj-ta\" bars sung once for each child passing under.",
+   "notes": "THE GAME (Kiss p. 206, No. 1, the same game): \"Két gyermek összefogódzik, kezöket magasra fölemelik, azaz kaput alkotnak kezeikből. A többiek szintén összefogódzanak egy sorba, és átbújnak a kapun\": two children join hands and raise them high, making a gate; the others join hands in a line and pass through it. At the end the gatekeepers must not let the last one through, but catch her and stand her beside the gatekeeper on the left; and so on until all are caught.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "An arch game (Újhold-játék, \"new-moon game\"). Two children join hands and hold them up to make a gate; the others, holding hands in a line, pass under it while everyone sings. In No. 4 the line and the gatekeepers trade the first verse: \"Let us through, bridge-keeper!\" \"I won't let you through, bridge-keeper!\", and the gate closes on the last child, who joins the gatekeepers (Kiss, pp. 206-207).",
+    "elements": "F major, 2/4; a repeated four-bar call and answer (c c A A, twice, then c c c d | c A), the \"Bújj, bújj\" verse in eighths and quarters, and a long tail of \"raj-ta, raj-ta\" on F, as many as there are children to pass. Range E to d.",
+    "practice": "Walking pace. The two parts of the first verse are sung by the line and by the gatekeepers in turn; the \"rajta\" bars are counted out, one for each child under the arch (Kiss: \"a hány átbúvó van\", as many as pass through).",
+    "accompaniment": "None: a children's game sung while walking under the arch (Kiss's description). Band: rests. A clave on the walking beat would be our addition, and is not written.",
+    "lyrics": "Hungarian. \"Ereszsz által, ereszsz által, te hidasi mester!\" (Let us through, let us through, you bridge-master!) / \"Nem eresztlek, nem eresztlek, te hidasi mester!\" (I won't let you through, I won't, you bridge-master!) / \"Bújj, bújj zöldes, zöld levelestűl, nyitva van az aranykapu, csak bújjatok rajta, rajta, rajta, rajta...\" (Crawl, crawl, little green one, with your green leaves; the golden gate is open, just crawl through it, through, through, through...). Kiss's spelling (ereszsz, eresztlek, levelestűl) is regional and of 1891; today's school version runs \"Bújj, bújj, zöld ág, zöld levelecske, nyitva van az aranykapu, csak bújjatok rajta\". Fit for class. Translation ours, to be checked.",
+    "honesty": "Traditional; notes and words as Kiss printed them (Baranya county). Version 3 on the same page (Veszprém, \"Bújj, bújj zöld ág, zöld leveles szál! Hányat termett a mogyoró?\") is another tune for the same game, not transcribed here.",
+    "licence": "Kiss Áron (1845-1908), Magyar gyermekjáték-gyűjtemény (Budapest: Hornyánszky, 1891): public domain everywhere. The MEK file is the 2000 reprint of the 1891 pages; its new preface and notes are not used.",
+    "respect": "A children's game; nothing sensitive.",
+    "review": "A Hungarian speaker or Kodály-trained teacher, for the words and the game."
    }
   },
   {
@@ -692,6 +824,105 @@
     "licence": "public domain (traditional, Edo period; transcription donated to the public domain by Daisyfield.com)",
     "respect": "for everyone",
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing"
+   }
+  },
+  {
+   "id": "si-me-dan-pasteles",
+   "file": "items/si-me-dan-pasteles.abc",
+   "title": "Si me dan pasteles",
+   "subtitle": "Aguinaldo: Puerto Rican Christmas song in two voices",
+   "source": "Allena Luce, Canciones populares (New York: Silver, Burdett, 1921), \"Aguinaldo (Si me dan pasteles)\", p. 3",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/cancionespopular0000alle/page/n12/mode/1up",
+     "label": "archive.org scan of Allena Luce, Canciones populares (1921), p. 3"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://blogs.loc.gov/folklife/2013/12/songs-of-the-winter-season-collected-by-sidney-robertson-cowell/",
+     "label": "Library of Congress Folklife blog on Sidney Robertson Cowell's recordings, including Aurora Calderón singing this aguinaldo in Oakland, 10 April 1939 (LOC item 2017700903)"
+    },
+    {
+     "url": "https://www.youtube.com/watch?v=1Umj8qnObA0",
+     "label": "Los Borincanos (title checked, not yet listened to)"
+    },
+    {
+     "url": "https://www.youtube.com/watch?v=Zi4U8-yWUsk",
+     "label": "Los Aguadillanos (title checked, not yet listened to)"
+    }
+   ],
+   "performanceNotes": [
+    "The instrument line-up for aguinaldos is documented on Folkways FW 8802, Songs and Dances of Puerto Rico (recorded by William S. Marlens, 1956): Cuarteto Puerto Rico of Cayey on cuatro, tres, maracas, claves, güiro and bongó (liner notes at folkways-media.si.edu/docs/folkways/artwork/FW08802.pdf)."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: compare with Luce p. 3, especially bar 7 (the lower voice reads G under c, c, B, c: a fourth, not a third) and the last bar (one chord, d over F sharp, under the two syllables \"gen-te\"). Still to transcribe: the instrumental ritornello that opens the page (two systems, with first and second endings), which the players repeat between verses. Listen to the 1939 Library of Congress recording before trusting the band's güiro and maracas. A Spanish-speaking (Puerto Rican) teacher for the words and the parranda.",
+   "notes": "THE PLATE: G minor, 2/4; an instrumental ritornello (two systems, Fine at the first ending), then the sung verse with a repeat, its melody doubled in thirds in the pianist's right hand, the words above; Luce's preface: collected from students of the University of Puerto Rico, versions chosen by their vote.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A Christmas aguinaldo: at Christmas, groups of singers and players go from house to house (the parranda), and the hosts give them a little gift or refreshments; the song's frank hint is that the visitors expect pasteles, and hot ones (Luce's note).",
+    "elements": "G minor, 2/4, eight bars sung twice; the melody in parallel thirds with a second voice beneath; each line a quick run of eighths and a held note (\"pas-te-les__\", \"ca-lien-tes__\"); range of the top voice A to d.",
+    "practice": "Sung by the visiting group, two voices in thirds, with the players' ritornello between verses, and verses made up on the spot (Luce mentions many amusing variants). In class: half the room on the melody, half on the third below; then make up a verse for the class's own party food.",
+    "accompaniment": "Tradition (FW 8802 notes): cuatro (the ten-string Puerto Rican guitar) and tres strum and play the ritornello; güiro (scraped gourd), maracas, claves and bongó keep the beat. Band here: the cabasa as a güiro stand-in, long scrape then two short (a common güiro figure; ours, to be checked against the recordings), shakers for the maracas, the nylon guitar strumming the chords the band finds, and the bass. Needs: güiro, cuatro, bongó (the drum-sample work in progress may cover the percussion).",
+    "lyrics": "Spanish: \"Si me dan pasteles, dénmelos calientes, que pasteles fríos empachan la gente\": \"If you give me pasteles, give them to me hot, for cold pasteles give people a stomach-ache.\" A variant Luce quotes: \"Denme mi aguinaldo, si me lo han de dar, que la noche es corta y tenemos que andar\": \"Give me my aguinaldo, if you're going to give it, for the night is short and we have far to go.\" Pasteles are Puerto Rican Christmas parcels of mashed plantain and root vegetables with a filling, wrapped in banana leaves. Fit for class.",
+    "honesty": "Traditional; the two sung voices as Luce printed them (top two notes of her right hand where it has three), not her piano part. The güiro, maracas and the band's chords are ours, after the documented line-up.",
+    "licence": "Allena Luce (compiler), Canciones populares (New York: Silver, Burdett, copyright 1921): public domain in the US (published 1921). Luce's death year is not known, so the Canadian status is unconfirmed; the record takes only the traditional tune and its thirds, not her arrangement.",
+    "respect": "A seasonal Christian custom with secular words; fine for a winter-holiday unit that includes other traditions. Nothing sensitive.",
+    "review": "A Puerto Rican teacher or musician, for the words, the parranda and the cuatro's part."
+   }
+  },
+  {
+   "id": "thula-mntwana-curtis",
+   "file": "items/thula-mntwana-curtis.abc",
+   "title": "O tu'la, mntwa'na (Thula, mntwana)",
+   "subtitle": "O hush thee, baby: Zulu lullaby",
+   "source": "Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), \"Igama la Bantwana: Song of Children (Lullaby)\", p. 135; words and notes pp. 66-68",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/135/mode/1up",
+     "label": "archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 135 (music)"
+    },
+    {
+     "url": "https://archive.org/details/songstalesfromda00burl/page/66/mode/1up",
+     "label": "the same, pp. 66-68: the words with Curtis's literal and metrical translations, and her note"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No recording of this melody found. Curtis made phonograph records of her singers (book p. xxv), not yet located. The modern Zulu lullaby \"Thula Mntwana\" (taught by Sbongiseni Duma in Carnegie Hall's Musical Explorers) shares the theme, a child waiting for its mother, but is very likely a different tune; listen before comparing. A transcription with a Zulu tradition-bearer (CC0, credited by name) would be the best companion record."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-11",
+   "blocked": "Source check: compare with Curtis p. 135, especially the three glides (Curtis's *1 and *2) and bar 13's first note (*3, \"between D sharp and E\"). A Zulu speaker to give the modern spelling (Curtis writes \"O tu'la, mntwa'na\"; today \"Thula, mntwana\"), check the words and translation, and say whether this tune is still sung. Classroom check: sung softly, swaying, with no accompaniment.",
+   "notes": "CURTIS'S FOOTNOTES (p. 135): *1 \"Intervals blurred in a long cooing, downward slur from B to E.\" *2 \"Intervals a little more distinct than in the former phrase, because of the pronounced retard, but all the indeterminate sounds in the downward sweep, from interval to interval, are heard as when the finger slides from stop to stop on the violin.\" *3 \"Note between D sharp and E\" (the first note of bar 13, written here as D sharp).",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A Zulu lullaby \"very commonly used to put Zulu babies to sleep\" (Curtis, from Madikane Cele). A mother has had to cross the mountains and left her baby with another woman, a grandmother, an aunt or a co-wife, who quiets the crying child: your mother is not with you, the zig-zag trail has held her; she is coming soon, she will bring you something pretty (fruit or bright berries).",
+    "elements": "6/8, dotted quarter = 50, \"sung softly and with swaying rhythm\"; E major, range E to e (an octave); the rocking quarter-eighth figure throughout; three \"cooing\" glides falling from B to E (Curtis: \"intervals blurred in a long cooing, downward slur\"), each ending a half-verse on \"I-wa!\", the last two with a ritardando.",
+    "practice": "Sung by one woman to a baby carried on her back, swaying. In class: everyone sings softly and sways on the dotted quarters; the glides are slid, not stepped (\"as when the finger slides from stop to stop on the violin\", Curtis's footnote).",
+    "accompaniment": "None: a lullaby sung to one child, with the swaying of the singer's body as its only beat (Curtis pp. 66-67). Band: rests. A soft shaker on each dotted quarter would be our addition and is not written; the record leaves the voice alone.",
+    "lyrics": "Zulu, in Curtis's 1920 spelling, with her metrical translation (which she says matches the Zulu accents and line lengths): \"O hush thee, baby, O hush thee! Thy mother is not with thee; she tarried in the mountains, the zig-zag trail hath held her. I-wa! O hush thee, baby, O hush thee! Thy mother soon is coming, she'll bring thee pretty berries. I-wa!\" Fit for class. The spelling waits for a Zulu speaker (see review).",
+    "honesty": "Traditional; notes, words, glides and tempo as Curtis printed them from Madikane Qandeyana Cele's singing. Nothing added.",
+    "licence": "Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada.",
+    "respect": "Nothing sacred. Credit Madikane Cele. Curtis's surrounding remarks on race (\"naturally emotional\", \"primitive races\", the missionary anecdotes) stay out of the record; her account of the song and its use is kept.",
+    "review": "A Zulu speaker, for the spelling, the words and whether the tune is known today."
    }
   },
   {

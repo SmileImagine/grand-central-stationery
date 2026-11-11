@@ -1,0 +1,41 @@
+% holding-id: ba-ban
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: compare with Richard p. 33, No. 20 (a broken barline in the last line, read as a barline: "A c | A G | F2"). Listen to a Lao liu ban / Lao ba ban performance and say how close Richard's version is. Classroom check: on recorders, in four sections, then the whole, with the teacher ornamenting a second line (heterophony) once the band can play one.
+% source-url: https://archive.org/details/paperonchinesemu00rich/page/n34/mode/1up archive.org scan of Mary Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, No. 20 "Ba Ban", p. 33
+% source-url: https://archive.org/details/paperonchinesemu00rich/page/n24/mode/1up the same, around p. 24: Richard on Ba Ban as the best-known tune in China
+% performance-url: https://www.youtube.com/watch?v=TDi3ozohWBE "Lao liu ban", a Jiangnan sizhu ensemble (title checked, not yet listened to): the best-known descendant of Ba ban
+% performance-note: Ba ban (Eight Beats) is the "mother tune" of a whole family: Lao ba ban in the north, Lao liu ban and its slower variations (Zhonghua liu ban, Man liu ban) in Jiangnan sizhu (silk-and-bamboo) music; recordings of these are plentiful; choose one by a named ensemble.
+% dossier-function: An instrumental popular air: Richard (1899) calls it a tune known all over China, by more people than any other single tune. It is played, not sung, and is the framework that ensembles vary and ornament.
+% dossier-elements: 2/4 in quarters and halves; pentatonic on F (F G A c d, the gong mode), ending on F; range C to f; three phrases (16, 12 and 13 bars), each answering the last with the same falling cadences (F2 | C D | F2).
+% dossier-practice: Played by an ensemble in heterophony: everyone plays the same tune, each instrument filling it out in its own way (passing notes, octaves, repeated notes; in Chinese, jiahua, "adding flowers"). In class: learn the skeleton on recorders in sections, then let some players add notes between the beats while others keep the plain line.
+% dossier-accompaniment: Tradition: a silk-and-bamboo (sizhu) or wind-and-percussion ensemble, all on the melody: erhu (two-string fiddle), dizi (flute), pipa (lute), yangqin (dulcimer), sheng (mouth organ), with a clapper (ban) marking the downbeat; never chords. Band here: only a wood block on the first beat of each bar, standing in for the ban; no bass, no chords. Needs: a heterophony part (the tune on a second sound, ornamented), and erhu, dizi, pipa, yangqin sounds.
+% dossier-lyrics: None: an instrumental piece.
+% dossier-honesty: Traditional; the melody as Richard printed it, in her appendix of popular airs. Her version is longer than the usual 68-beat Ba ban (82 beats here); it is printed as she heard it, and the record does not claim it is the standard form. The wood block is ours.
+% dossier-licence: Mary Martin Richard (d. 1903), Paper on Chinese Music (Shanghai: American Presbyterian Mission Press, 1899): public domain everywhere.
+% dossier-respect: Avoid the first part of the same appendix (Nos. 1-17), Confucian ritual hymns. Richard was a missionary; some of her appendix tunes were adapted for hymns. Ba ban itself is a secular popular tune.
+% dossier-review: A player of Chinese instruments (Jiangnan sizhu), for the form and the ornaments.
+X:1
+T:Ba ban (八板)
+T:Eight Beats: China's best-known instrumental tune
+C:traditional (China)
+O:China
+R:instrumental air
+S:Mary Martin Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, "Popular Airs", No. 20 "Ba Ban", p. 33
+N:THE PLATE: 2/4, no key signature (written here in F, since the tune is pentatonic on F and no B occurs), three staves of quarters and halves, double bar at the end of the first staff and of the piece; headed '"Ba Ban"   Popular Airs.'
+N:HOW READ (2026-11-11): p. 33 from the archive.org scan (staff lines 22 pixels apart); every head measured against the staff lines and read again with the lines drawn over each staff, enlarged twice; every bar checked to make two quarters. A short broken line between "c" and "A" in the last staff is read as a barline (the bar would otherwise hold four quarters).
+N:UNCERTAIN: that broken barline; the tempo is ours.
+M:2/4
+L:1/4
+Q:1/4=88
+K:F
+%%band drums: wb ~
+%%band bass: ~
+%%band chords: ~
+"^1" A A | D G | F2 | C D | F2 | D F | F A | G2 |
+A A | D G | F2 | C D | F2 | A G | F D | C2 ||
+"^2" c c | A A | c d | c A | G2 | A G | F2 | D F | G2 | A G | G A | c2 ||
+"^3" c d | f2 | d f | f d | c2 | c d | c A | G2 | G c | c G | A c | A G | F2 |]

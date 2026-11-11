@@ -1,0 +1,46 @@
+% holding-id: thula-mntwana-curtis
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: compare with Curtis p. 135, especially the three glides (Curtis's *1 and *2) and bar 13's first note (*3, "between D sharp and E"). A Zulu speaker to give the modern spelling (Curtis writes "O tu'la, mntwa'na"; today "Thula, mntwana"), check the words and translation, and say whether this tune is still sung. Classroom check: sung softly, swaying, with no accompaniment.
+% source-url: https://archive.org/details/songstalesfromda00burl/page/135/mode/1up archive.org scan of Curtis, Songs and Tales from the Dark Continent (1920), p. 135 (music)
+% source-url: https://archive.org/details/songstalesfromda00burl/page/66/mode/1up the same, pp. 66-68: the words with Curtis's literal and metrical translations, and her note
+% performance-note: No recording of this melody found. Curtis made phonograph records of her singers (book p. xxv), not yet located. The modern Zulu lullaby "Thula Mntwana" (taught by Sbongiseni Duma in Carnegie Hall's Musical Explorers) shares the theme, a child waiting for its mother, but is very likely a different tune; listen before comparing. A transcription with a Zulu tradition-bearer (CC0, credited by name) would be the best companion record.
+% dossier-function: A Zulu lullaby "very commonly used to put Zulu babies to sleep" (Curtis, from Madikane Cele). A mother has had to cross the mountains and left her baby with another woman, a grandmother, an aunt or a co-wife, who quiets the crying child: your mother is not with you, the zig-zag trail has held her; she is coming soon, she will bring you something pretty (fruit or bright berries).
+% dossier-elements: 6/8, dotted quarter = 50, "sung softly and with swaying rhythm"; E major, range E to e (an octave); the rocking quarter-eighth figure throughout; three "cooing" glides falling from B to E (Curtis: "intervals blurred in a long cooing, downward slur"), each ending a half-verse on "I-wa!", the last two with a ritardando.
+% dossier-practice: Sung by one woman to a baby carried on her back, swaying. In class: everyone sings softly and sways on the dotted quarters; the glides are slid, not stepped ("as when the finger slides from stop to stop on the violin", Curtis's footnote).
+% dossier-accompaniment: None: a lullaby sung to one child, with the swaying of the singer's body as its only beat (Curtis pp. 66-67). Band: rests. A soft shaker on each dotted quarter would be our addition and is not written; the record leaves the voice alone.
+% dossier-lyrics: Zulu, in Curtis's 1920 spelling, with her metrical translation (which she says matches the Zulu accents and line lengths): "O hush thee, baby, O hush thee! Thy mother is not with thee; she tarried in the mountains, the zig-zag trail hath held her. I-wa! O hush thee, baby, O hush thee! Thy mother soon is coming, she'll bring thee pretty berries. I-wa!" Fit for class. The spelling waits for a Zulu speaker (see review).
+% dossier-honesty: Traditional; notes, words, glides and tempo as Curtis printed them from Madikane Qandeyana Cele's singing. Nothing added.
+% dossier-licence: Natalie Curtis Burlin (d. 1921), Songs and Tales from the Dark Continent (G. Schirmer, 1920): public domain in the US and in Canada.
+% dossier-respect: Nothing sacred. Credit Madikane Cele. Curtis's surrounding remarks on race ("naturally emotional", "primitive races", the missionary anecdotes) stay out of the record; her account of the song and its use is kept.
+% dossier-review: A Zulu speaker, for the spelling, the words and whether the tune is known today.
+X:1
+T:O tu'la, mntwa'na (Thula, mntwana)
+T:O hush thee, baby: Zulu lullaby
+C:traditional (Zulu), as sung by Madikane Cele
+O:South Africa (Zululand / KwaZulu-Natal)
+R:lullaby
+S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), "Igama la Bantwana: Song of Children (Lullaby)", p. 135; words and notes pp. 66-68
+N:CURTIS'S FOOTNOTES (p. 135): *1 "Intervals blurred in a long cooing, downward slur from B to E." *2 "Intervals a little more distinct than in the former phrase, because of the pronounced retard, but all the indeterminate sounds in the downward sweep, from interval to interval, are heard as when the finger slides from stop to stop on the violin." *3 "Note between D sharp and E" (the first note of bar 13, written here as D sharp).
+N:THE PLATE: "Sung softly and with swaying rhythm", dotted quarter = 50, 6/8, four sharps; five staves; Zulu above, English below; slurs and wavy lines over the glides; "rit." over the two "I-wa!" endings.
+N:HOW READ (2026-11-11): p. 135 from the archive.org scan (about 300 dpi), each staff with its five lines drawn over it; pitches read against them, durations from the flags; every bar checked to make six eighths. The opening (quarter and eighth rests before "O") is written as a pickup.
+N:UNCERTAIN: bar 13's first note (Curtis: between D sharp and E); the second note of bars 2 and 12 (a flagged G inside the glide, read as an eighth so the bar fills).
+M:6/8
+L:1/8
+Q:3/8=50
+K:E
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+e | e2 B G G e | (B2 G E2) B | B2 B e2 B | G3 E2 B | B2 B G2 B | (G E2 E2) G | A2 A B2 B |
+w: O tu-la, mntwa-na, O tu _ la! Un-yo-ko a-ka-mu-ko, U-se-le 'zin-ta-ben: _ _ U-hlu-shwa i-zi-
+w: O hush thee, ba-by, O hush _ thee! Thy moth-er is not with thee, She tar-ried in the hills: _ _ The zig-zag trail hath
+G3 E2 G | "^rit."(B2 G E3 | E3) z2 e | e2 B G G e | (B2 G E2) e | d2 d e2 B | B3 G2 B |
+w: gwe-gwe, I-wa! _ _ _ O tu-la, mntwa-na, O tu _ la, Un-yo-kou-ze-zo-bu-ya, A-
+w: held her, I-wa! _ _ _ O hush thee, ba-by, O hush _ thee! Thy moth-er soon is com-ing, She'll
+G2 G B2 B | (G E2) G2 G | "^rit."(B2 G E3 | E2) z z3 |]
+w: k'pa-te-lein-to en _ hle, I-wa! _ _ _
+w: bring thee pret-ty ber _ ries, I-wa! _ _ _

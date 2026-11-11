@@ -1,0 +1,43 @@
+% holding-id: bujj-bujj-zold-ag
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: compare with Kiss p. 207, No. 4 (bar 7 "zöld le-ve-": G, G, E). A Hungarian speaker for the words and the translation. Classroom check: the arch game as Kiss describes it, with the "raj-ta" bars sung once for each child passing under.
+% source-url: https://mek.oszk.hu/10800/10818/10818.pdf Hungarian Electronic Library (MEK): Kiss Áron, Magyar gyermekjáték-gyűjtemény (1891), reprint of the 1891 pages; this game at printed p. 207 (PDF p. 235), Nos. 3 and 4, with the game on p. 206
+% performance-note: The Institute for Musicology in Budapest holds many field recordings of "Bújj, bújj, zöld ág" (for example Szebény, Baranya county, 1965, collected by Andrásfalvy and Olsvai; zti.hungaricana.hu). It is still one of the best-known Hungarian children's games, so school and kindergarten recordings are easy to find; listen and choose one sung by children before linking.
+% dossier-function: An arch game (Újhold-játék, "new-moon game"). Two children join hands and hold them up to make a gate; the others, holding hands in a line, pass under it while everyone sings. In No. 4 the line and the gatekeepers trade the first verse: "Let us through, bridge-keeper!" "I won't let you through, bridge-keeper!", and the gate closes on the last child, who joins the gatekeepers (Kiss, pp. 206-207).
+% dossier-elements: F major, 2/4; a repeated four-bar call and answer (c c A A, twice, then c c c d | c A), the "Bújj, bújj" verse in eighths and quarters, and a long tail of "raj-ta, raj-ta" on F, as many as there are children to pass. Range E to d.
+% dossier-practice: Walking pace. The two parts of the first verse are sung by the line and by the gatekeepers in turn; the "rajta" bars are counted out, one for each child under the arch (Kiss: "a hány átbúvó van", as many as pass through).
+% dossier-accompaniment: None: a children's game sung while walking under the arch (Kiss's description). Band: rests. A clave on the walking beat would be our addition, and is not written.
+% dossier-lyrics: Hungarian. "Ereszsz által, ereszsz által, te hidasi mester!" (Let us through, let us through, you bridge-master!) / "Nem eresztlek, nem eresztlek, te hidasi mester!" (I won't let you through, I won't, you bridge-master!) / "Bújj, bújj zöldes, zöld levelestűl, nyitva van az aranykapu, csak bújjatok rajta, rajta, rajta, rajta..." (Crawl, crawl, little green one, with your green leaves; the golden gate is open, just crawl through it, through, through, through...). Kiss's spelling (ereszsz, eresztlek, levelestűl) is regional and of 1891; today's school version runs "Bújj, bújj, zöld ág, zöld levelecske, nyitva van az aranykapu, csak bújjatok rajta". Fit for class. Translation ours, to be checked.
+% dossier-honesty: Traditional; notes and words as Kiss printed them (Baranya county). Version 3 on the same page (Veszprém, "Bújj, bújj zöld ág, zöld leveles szál! Hányat termett a mogyoró?") is another tune for the same game, not transcribed here.
+% dossier-licence: Kiss Áron (1845-1908), Magyar gyermekjáték-gyűjtemény (Budapest: Hornyánszky, 1891): public domain everywhere. The MEK file is the 2000 reprint of the 1891 pages; its new preface and notes are not used.
+% dossier-respect: A children's game; nothing sensitive.
+% dossier-review: A Hungarian speaker or Kodály-trained teacher, for the words and the game.
+X:1
+T:Bújj, bújj, zöld ág
+T:Crawl through, green branch: Hungarian arch game
+C:traditional (Hungary)
+O:Hungary, Baranya county
+R:children's game
+S:Kiss Áron, Magyar gyermekjáték-gyűjtemény (Budapest, 1891), Újhold-játék No. 4, p. 207
+N:THE GAME (Kiss p. 206, No. 1, the same game): "Két gyermek összefogódzik, kezöket magasra fölemelik, azaz kaput alkotnak kezeikből. A többiek szintén összefogódzanak egy sorba, és átbújnak a kapun": two children join hands and raise them high, making a gate; the others join hands in a line and pass through it. At the end the gatekeepers must not let the last one through, but catch her and stand her beside the gatekeeper on the left; and so on until all are caught.
+N:THE PLATE: No. 4, one flat, 2/4, three staves; the first four bars with a repeat and two lines of words (the passers, then the gatekeepers); the last eight bars ending "raj-ta, raj-ta, raj-ta, raj-ta .. (a hány átbúvó van)" (as many as pass through). "(Baranya.)"
+N:HOW READ (2026-11-11): printed p. 207 rendered at 300 dpi from the MEK PDF; staff lines found by row darkness; every head found along each staff and measured against the lines, the uncertain ones read again beside the lines found at that note; every bar checked to make two quarters.
+N:UNCERTAIN: none in the notes; tempo ours.
+M:2/4
+L:1/8
+Q:1/4=96
+K:F
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+|: c c A A | c c A A | c c c d | c2 A2 :|
+w: E-reszsz ál-tal, e-reszsz ál-tal te hi-da-si mes-ter!
+w: Nem e-reszt-lek, nem e-reszt-lek te hi-da-si mes-ter!
+c2 B2 | A2 A2 | G2 G E | c2 c2 | c B A B |
+w: Bújj, bújj zöl-des, zöld le-ve-les-tűl, Nyit-va van az
+c B A c | B A G A | F2 F2 | F2 F2 | F2 F2 | F2 F2 |]
+w: a-rany-ka-pu, Csak búj-ja-tok raj-ta, raj-ta, raj-ta, raj-ta...

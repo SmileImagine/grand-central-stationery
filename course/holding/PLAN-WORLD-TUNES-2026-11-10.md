@@ -275,7 +275,9 @@ README paragraph is updated, as the project already does.
    tem (Brazil), Rāna jīnāk with B'qāw (Maghreb), Zdravets (Bulgaria),
    Xianhua diao in both variants (China). Then the classroom-friendly
    second choices: the Zulu lullaby, Si me dan pasteles, Bújj bújj zöld ág,
-   the Adana neutral-second lesson, Ba ban.
+   the Adana neutral-second lesson, Ba ban. (All eleven built by
+   2026-11-11; Mafuve's later phrases, Na Bahia tem's polka and Si me dan
+   pasteles's ritornello still to transcribe.)
 3. Engine steps C1-C3 on main (sounds, kit words, heterophony), then return
    to the wave-1 records and swap their stand-ins for the real instruments.
 4. Wave 2: the rest of part B, and C4-C5 as the records ask for them.
@@ -293,3 +295,7 @@ README paragraph is updated, as the project already does.
 - For gaps with no public-domain notation (Ghana, Afro-Caribbean rhythms,
   Levantine children's songs, Romani songs): would you accept a CC0
   transcription made with a tradition-bearer, credited by name?
+  **Answered 2026-11-11: yes, definitely.** Such a record says who sang or
+  played it, when and where, and that they agreed to a CC0 release; its
+  `dossier-licence` names them, and `dossier-honesty` says it is a new
+  transcription, not a historical source.

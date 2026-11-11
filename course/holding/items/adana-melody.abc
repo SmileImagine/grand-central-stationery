@@ -1,0 +1,37 @@
+% holding-id: adana-melody
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-11
+% holding-blocked: Source check: compare with Yekta p. 2951 (the dotted sixteenth and thirty-second figures, and the natural on G in bar 7); confirm the page of the Sofyan rhythm (Yekta's usul chapter, "I. Rythme Sofian"). A Turkish musician to hear the tuning (B about 20 cents flat) and say which makam it is (Uşşak or Hüseyni). Classroom check: play it tuned and then in plain equal temperament, and ask the class which B is "the right one".
+% source-url: https://archive.org/details/encyclopdiedel05lavi/page/n480/mode/1up archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951 (Raouf Yekta Bey, "La musique turque")
+% performance-note: No recording possible for this exact melody: Yekta gives no title and says its author is unknown. For the sound of the mode, any taksim or folk song in makam Uşşak; for the region, the Çukurova folk tradition of Adana (bağlama, davul and zurna). Listen and choose one before linking.
+% dossier-function: A "simple popular melody collected in Asia Minor, among the peasants of the province of Adana"; Yekta prints it to show that a melody a European would call A minor without a leading tone is in fact in another mode, built on the tetrachord A-B-C-D with a B lower than the European one, and that "even a man who knows nothing of music" in the East hears the difference (p. 2951).
+% dossier-elements: 2/4, quarter = 56; eight bars, the first two repeated; dotted sixteenth and thirty-second figures (a "snap") on almost every beat; final A, range F sharp to e; the tetrachord A B C D with E above and G, F sharp below as ornaments.
+% dossier-practice: Unhurried. No words were printed: play it on the recorder or hum it. The point is the B: Yekta gives its exact place.
+% dossier-accompaniment: Yekta prints no accompaniment for this melody. Turkish rhythmic cycles (usul) are played on a drum with two strokes, düm (low, the right hand at the centre) and tek (high, at the rim); his first usul, Sofyan, in two beats, is "düm - tek ka" (a dactyl: a long and two shorts). Band here: Sofyan on the kick (düm) and rim (tek, ka), our choice of usul for a two-beat folk melody, not Yekta's for this tune; no bass, no chords. Folk practice in Adana (Çukurova) would use bağlama, or davul and zurna; needs a bağlama sound.
+% dossier-lyrics: None printed.
+% dossier-honesty: The melody as Yekta printed it. The tuning line is built from his own ratios for the tetrachord (A to B 65536/59049, B to C 2187/2048, C to D 9/8: B at 180.45 cents above A, C at 294.13, D at 498.04); E is taken as the pure fifth 3/2 above A; the other notes stay in equal temperament. The Sofyan drum is ours.
+% dossier-licence: Raouf Yekta Bey (1871-1935), "La musique turque", in Lavignac and La Laurencie (eds.), Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922): public domain in the US (1922) and in Canada (Yekta d. 1935).
+% dossier-respect: A secular folk melody; nothing sensitive. Yekta wrote as a Turkish theorist answering European dismissals of Eastern scales; his own argument is the lesson.
+% dossier-review: A Turkish musician (a bağlama or ney player), for the makam and the tuning.
+X:1
+T:Adana melody
+T:Peasant melody from Adana: hearing a neutral second
+C:traditional (Turkey), author unknown
+O:Turkey, Adana province (Çukurova)
+R:folk melody
+S:Raouf Yekta Bey, "La musique turque", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951
+N:YEKTA'S TETRACHORD (p. 2951): "Valeurs justes": la to si 65536/59049, si to do 2048/2187 (i.e. 2187/2048 up), do to ré 9/8 (the whole fourth 3/4, i.e. 4/3 up). "Valeurs approximatives": 10/9, 16/15, 9/8. Compare his second example on the same page, a Turkish tune "essentially in A minor", built on a pentachord A B C D E with B a full tone above A (9/8).
+N:HOW READ (2026-11-11): p. 2951 from the archive.org scan (about 190 dpi, staff lines 14.6 pixels apart: small); every head measured against the staff lines by a column scan and read again on four-times enlargements; beams counted on the enlargements; every bar checked to make sixteen thirty-seconds. Bars 3-4 repeat bars 1-2 note for note, so they are written with a repeat sign.
+N:UNCERTAIN: bar 7's last two notes (G natural and F sharp, small and close to accidentals); tempo as Yekta gives it.
+M:2/4
+L:1/32
+Q:1/4=56
+K:Am
+%%tuning Ussak (Yekta): 100. 180.45 294.13 400. 498.04 600. 701.96 800. 900. 1000. 1100. 2/1 root=A map=semitones
+%%band drums: bd [rim rim]
+%%band bass: ~
+%%band chords: ~
+|: d4 e2 e2 e4 e3 d | d4 e3 d d4 c4 :| d4 e3 d d4 c3 B | c4 d3 c c3 B B3 A | A4 B3 A A4 =G3 ^F | G4 A2 A2 A6 z2 |]
