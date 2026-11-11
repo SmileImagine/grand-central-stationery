@@ -21,7 +21,8 @@ assert(report.matrix['North American Indigenous'].total === 0, 'the current set 
 // The South Asian lullabies (Rama's, Nirguna's) are in the review queue, so the map counts none; it must still read the type.
 assert(Coverage.functionOf('lullaby') === 'lullaby', 'a lullaby rhythm must map to the lullaby function');
 assert(report.matrix['South Asia'].functions.lullaby === report.tunes.filter(t => t.region === 'South Asia' && t.function === 'lullaby').length, 'South Asia lullabies must match the published set');
-assert(report.summary.missingOrigin > 0 && report.summary.missingFunction > 0, 'missing metadata must remain visible');
+// Gaps are counted, never hidden: some Nottingham reels name no origin; every published tune now names its type.
+assert(report.summary.missingOrigin > 0 && Number.isInteger(report.summary.missingFunction) && report.summary.missingFunction >= 0, 'missing metadata must remain visible');
 
 for (const region of report.regions) {
   const row = report.matrix[region];

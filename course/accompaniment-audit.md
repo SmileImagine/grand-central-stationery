@@ -4,58 +4,48 @@ Generated deterministically from `course/set.json` (40 published tunes). This re
 
 ## Summary
 
-- Auto styles: drone: 8; folk: 20; pop: 10; waltz: 2.
-- Style selected by: R field: 11; explicit style: 9; generic fallback: 10; metre only: 10.
-- Harmony source: detected chords: 17; tonic drone: 8; written chords: 15.
-- 10 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
-- 29 tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.
+- Auto styles: ballad: 6; drone: 8; folk: 22; march: 2; swing: 1; waltz: 1.
+- Style selected by: R field: 13; explicit style: 23; metre only: 4.
+- Harmony source: detected chords: 16; tonic drone: 8; written chords: 16.
+- 0 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
+- 6 tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.
 - 12 Nottingham imports link to their canonical repository files; 0 published source paths point into temporary or private directories.
 
 ## Idiom decisions still needed
 
 | Tune | Level | Auto style | Harmony | What is known |
 |---|---:|---|---|---|
-| Evening Bells | 2 | pop | written chords | source: Grand Central Stationery (original, CC0) |
-| Crows on the Fence | 2 | pop | written chords | source: Grand Central Stationery (original, CC0) |
-| Merrily We Roll Along | 2 | pop | detected chords | O: USA |
-| Mary Had a Little Lamb | 2 | pop | detected chords | O: USA |
-| Twinkle, Twinkle, Little Star | 3 | pop | detected chords | O: France |
-| Baa, Baa, Black Sheep | 3 | pop | detected chords | O: England |
-| This Old Man | 3 | pop | detected chords | O: England |
-| Lightly Row | 3 | pop | detected chords | O: Germany |
-| Jingle Bells (chorus) | 3 | pop | detected chords | O: USA; source: James Lord Pierpont (1857) |
-| Frère Jacques | 4 | pop | detected chords | O: France |
 
 ## Whole-set audit
 
 | Tune | Auto style | Chosen by | Harmony | Flags |
 |---|---|---|---|---|
-| Bounce High, Bounce Low | folk | metre only | detected chords | no source or composer in ABC |
-| Ring Around the Rosie | folk | metre only | detected chords | no source or composer in ABC |
-| Starlight, Star Bright | folk | metre only | detected chords | no source or composer in ABC |
-| Rain, Rain, Go Away | folk | metre only | detected chords | no source or composer in ABC |
-| Engine, Engine, Number Nine | folk | metre only | detected chords | no source or composer in ABC |
-| Evening Bells | pop | generic fallback | written chords | idiom not stated; no origin in ABC |
-| Crows on the Fence | pop | generic fallback | written chords | idiom not stated; no origin in ABC |
-| Merrily We Roll Along | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Mary Had a Little Lamb | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Clickety Clack | folk | metre only | written chords | no origin in ABC |
-| Rocky Mountain | folk | metre only | detected chords | no source or composer in ABC |
-| Skip to My Lou | folk | metre only | detected chords | no source or composer in ABC |
-| Twinkle, Twinkle, Little Star | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Baa, Baa, Black Sheep | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| This Old Man | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Lightly Row | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Jingle Bells (chorus) | pop | generic fallback | detected chords | idiom not stated |
-| Amazing Grace | waltz | metre only | detected chords | — |
-| Frère Jacques | pop | generic fallback | detected chords | idiom not stated; no source or composer in ABC |
-| Highland Mary | folk | explicit style | written chords | no origin in ABC |
-| Astley's Ride | folk | R field | written chords | no origin in ABC |
+| Bounce High, Bounce Low | folk | metre only | detected chords | — |
+| Ring Around the Rosie | folk | metre only | detected chords | — |
+| Starlight, Star Bright | folk | metre only | detected chords | — |
+| Rain, Rain, Go Away | ballad | R field | detected chords | — |
+| Engine, Engine, Number Nine | folk | metre only | detected chords | — |
+| Evening Bells | ballad | explicit style | written chords | — |
+| Crows on the Fence | folk | explicit style | written chords | — |
+| Merrily We Roll Along | folk | explicit style | detected chords | — |
+| Mary Had a Little Lamb | folk | explicit style | detected chords | — |
+| Clickety Clack | march | explicit style | written chords | — |
+| Rocky Mountain | ballad | R field | detected chords | — |
+| Skip to My Lou | ballad | R field | detected chords | — |
+| Twinkle, Twinkle, Little Star | ballad | explicit style | written chords | — |
+| Baa, Baa, Black Sheep | folk | explicit style | detected chords | — |
+| This Old Man | march | explicit style | detected chords | — |
+| Lightly Row | folk | explicit style | detected chords | — |
+| Jingle Bells (chorus) | swing | explicit style | detected chords | — |
+| Amazing Grace | ballad | explicit style | detected chords | — |
+| Frère Jacques | folk | explicit style | detected chords | — |
+| Highland Mary | folk | explicit style | written chords | — |
+| Astley's Ride | folk | R field | written chords | — |
 | The First Frost - Second part | folk | R field | written chords | no origin in ABC |
-| Oh! Susanna | folk | metre only | detected chords | — |
-| Daisy Daisy | waltz | R field | written chords | no origin in ABC |
+| Oh! Susanna | folk | explicit style | detected chords | — |
+| Daisy Daisy | waltz | explicit style | written chords | — |
 | O where will you go | drone | explicit style | tonic drone | — |
-| Tom And Jerry | folk | R field | written chords | no origin in ABC |
+| Tom And Jerry | folk | R field | written chords | — |
 | B. Variation | folk | R field | written chords | no origin in ABC |
 | Mother, send to the dhobi | drone | explicit style | tonic drone | — |
 | Chhaila | drone | explicit style | tonic drone | — |
@@ -68,38 +58,14 @@ Generated deterministically from `course/set.json` (40 published tunes). This re
 | Walking In My Sleep | folk | R field | written chords | no origin in ABC |
 | Fred Roden's Reel | folk | R field | written chords | no origin in ABC |
 | Sweet Ellen | folk | R field | written chords | no origin in ABC |
-| Billy In The Lowground | folk | R field | written chords | no origin in ABC |
-| Dance All Night | folk | R field | written chords | no origin in ABC |
+| Billy In The Lowground | folk | R field | written chords | — |
+| Dance All Night | folk | R field | written chords | — |
 
 ## Provenance repair queue
 
-- **Bounce High, Bounce Low:** no source or composer in ABC.
-- **Ring Around the Rosie:** no source or composer in ABC.
-- **Starlight, Star Bright:** no source or composer in ABC.
-- **Rain, Rain, Go Away:** no source or composer in ABC.
-- **Engine, Engine, Number Nine:** no source or composer in ABC.
-- **Evening Bells:** idiom not stated; no origin in ABC.
-- **Crows on the Fence:** idiom not stated; no origin in ABC.
-- **Merrily We Roll Along:** idiom not stated; no source or composer in ABC.
-- **Mary Had a Little Lamb:** idiom not stated; no source or composer in ABC.
-- **Clickety Clack:** no origin in ABC.
-- **Rocky Mountain:** no source or composer in ABC.
-- **Skip to My Lou:** no source or composer in ABC.
-- **Twinkle, Twinkle, Little Star:** idiom not stated; no source or composer in ABC.
-- **Baa, Baa, Black Sheep:** idiom not stated; no source or composer in ABC.
-- **This Old Man:** idiom not stated; no source or composer in ABC.
-- **Lightly Row:** idiom not stated; no source or composer in ABC.
-- **Jingle Bells (chorus):** idiom not stated.
-- **Frère Jacques:** idiom not stated; no source or composer in ABC.
-- **Highland Mary:** no origin in ABC.
-- **Astley's Ride:** no origin in ABC.
 - **The First Frost - Second part:** no origin in ABC.
-- **Daisy Daisy:** no origin in ABC.
-- **Tom And Jerry:** no origin in ABC.
 - **B. Variation:** no origin in ABC.
 - **The Donegall:** no origin in ABC.
 - **Walking In My Sleep:** no origin in ABC.
 - **Fred Roden's Reel:** no origin in ABC.
 - **Sweet Ellen:** no origin in ABC.
-- **Billy In The Lowground:** no origin in ABC.
-- **Dance All Night:** no origin in ABC.

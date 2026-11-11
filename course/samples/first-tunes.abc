@@ -13,18 +13,26 @@ w: Hot cross buns, hot cross buns, one a pen-ny, two a pen-ny, hot cross buns.
 X:2
 T:Mary Had a Little Lamb
 O:USA
+C:words: Sarah Josepha Hale (1830); tune traditional (USA)
+R:children's song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:G
+%%style folk
 B A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]
 w: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.
 
 X:3
 T:Twinkle, Twinkle, Little Star
 O:France
+C:tune traditional (France, "Ah! vous dirai-je, maman"); words: Jane Taylor (1806)
+R:lullaby
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:C
+%%style ballad
 !mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]
 w: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.
 
@@ -53,6 +61,7 @@ R:hymn
 M:3/4
 L:1/4
 K:G
+%%style ballad
 !mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |
 w: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_
 d2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]
@@ -62,9 +71,11 @@ X:7
 T:Oh! Susanna
 C:Stephen Foster (1848)
 O:USA
+R:parlour song
 M:2/4
 L:1/8
 K:G
+%%style folk
 !mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |
 w: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained
 B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |

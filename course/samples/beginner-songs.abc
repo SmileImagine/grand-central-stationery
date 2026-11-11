@@ -11,6 +11,9 @@
 X:1
 T:Rain, Rain, Go Away
 O:England
+C:traditional (England)
+R:children's song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -20,6 +23,9 @@ w: Rain, rain, go a-way, come a-gain a-noth-er day.
 X:2
 T:Engine, Engine, Number Nine
 O:USA
+C:traditional (USA)
+R:counting-out chant
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -29,6 +35,9 @@ w: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train shou
 X:3
 T:Starlight, Star Bright
 O:USA
+C:traditional (USA)
+R:children's wishing rhyme
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -38,6 +47,9 @@ w: Star-light, star bright, first star I see to-night, wish I may, wish I might,
 X:4
 T:Bounce High, Bounce Low
 O:USA
+C:traditional (USA)
+R:children's ball-bouncing chant
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -52,6 +64,9 @@ K:C
 X:6
 T:Ring Around the Rosie
 O:England
+C:traditional (England)
+R:singing game
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -66,6 +81,9 @@ K:C
 X:8
 T:Rocky Mountain
 O:USA
+C:traditional (USA, Appalachian)
+R:play-party song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -86,9 +104,13 @@ w: Old Mac-Don-ald had a farm, E I E I O, and on that farm he had a cow, E I E I
 X:10
 T:Lightly Row
 O:Germany
+C:traditional (Germany, "Hänschen klein")
+R:children's song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:C
+%%style folk
 !p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |
 w: Light-ly row, light-ly row, o'er the glass-y waves we go; smooth-ly glide, smooth-ly glide, on the si-lent tide.
 !mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]
@@ -97,6 +119,9 @@ w: Let the winds and wa-ters be min-gled with our mel-o-dy; sing and float, sing
 X:11
 T:Skip to My Lou
 O:USA
+C:traditional (USA)
+R:play-party song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:2/4
 L:1/8
 K:C
@@ -108,18 +133,26 @@ w: Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.
 X:12
 T:Baa, Baa, Black Sheep
 O:England
+C:traditional (England)
+R:nursery rhyme
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:C
+%%style folk
 !mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]
 w: Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full. One for the mas-ter, one for the dame, one for the lit-tle boy who lives down the lane. Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full.
 
 X:13
 T:Frère Jacques
 O:France
+C:traditional (France)
+R:round
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:C
+%%style folk
 %%round 4 every=2
 !mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]
 w: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.
@@ -137,9 +170,11 @@ X:15
 T:Jingle Bells (chorus)
 C:James Lord Pierpont (1857)
 O:USA
+R:winter song
 M:4/4
 L:1/4
 K:G
+%%style swing
 !f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |
 w: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!
 (B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]
@@ -148,9 +183,13 @@ w: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride
 X:16
 T:This Old Man
 O:England
+C:traditional (England)
+R:counting song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/8
 K:C
+%%style march
 !mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]
 w: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.
 
@@ -179,9 +218,13 @@ G>G | A2 G2 c2 | B4 G>G | A2 G2 d2 | c4 G>G | g2 e2 c2 | B2 A2 f>f | e2 c2 d2 | 
 X:20
 T:Merrily We Roll Along
 O:USA
+C:traditional (USA)
+R:children's song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:C
+%%style folk
 E D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]
 w: Mer-ri-ly we roll a-long, roll a-long, roll a-long, mer-ri-ly we roll a-long, o'er the deep blue_ sea.
 
