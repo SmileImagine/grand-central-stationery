@@ -99,7 +99,7 @@ function report(results, base) {
   const count = new Map(); for (const r of ok) for (const f of r.fails) count.set(f.metric, (count.get(f.metric) || 0) + 1);
   const all = [...M.GUARDS, ...M.AUDIO_GUARDS];
   lines.push('## Guardrails', '', '| Metric | Bound | Plays outside | Why |', '| --- | --- | --- | --- |');
-  for (const [k, lo, hi, why, ex] of all) lines.push(`| ${k} | ${lo === null ? '' : '≥ ' + lo}${lo !== null && hi !== null ? ', ' : ''}${hi === null ? '' : '≤ ' + hi} | ${count.get(k) || 0} of ${ok.filter(r => k in r.notes || (r.audio && k in r.audio)).length} | ${why}${ex ? ` (not in the ${ex} styles)` : ''} |`);
+  for (const [k, lo, hi, why, ex] of all) lines.push(`| ${k} | ${lo === null ? '' : '≥ ' + lo}${lo !== null && hi !== null ? ', ' : ''}${hi === null ? '' : '≤ ' + hi} | ${count.get(k) || 0} of ${ok.filter(r => k in r.notes || (r.audio && k in r.audio)).length} | ${why}${ex ? ` (not in ${ex === 'brass' ? 'the march: a tuba’s sound is there' : `the ${ex} styles`})` : ''} |`);
   lines.push('');
   // Against the baseline: the median of each metric over the same plays.
   if (base) {

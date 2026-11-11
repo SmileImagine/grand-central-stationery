@@ -15,6 +15,9 @@ Not here, read in place:
 | Corpus | Where | Licence |
 |---|---|---|
 | Groove MIDI Dataset (Magenta, Google) | https://magenta.tensorflow.org/datasets/groove, the MIDI-only zip (3 MB, 1,150 performances with style, tempo and metre in `info.csv`) | CC BY 4.0 |
+| Sutton DanceWriting library (Valerie Sutton) | https://www.dancewriting.org/library/index.html: stick-figure Sheet Dance scores as scanned PDFs and images. Ballet (1973–83: Bournonville barres and Monday School, Lilac Fairy, Rose Adagio, the *Les Sylphides* Prelude, Lila Zali's six variations), Isadora Duncan dances as taught by Sylvia Gold (eight Schubert dances, 1984; Chopin's Prelude and Orientale, notated by Alison Kincaid), and three Burmese and Thai pages with no notator or date. Not yet typed. | CC BY-SA 3.0: the site home page says "All sections of Sutton Movement Writing are free to use" under that licence; the library pages carry no notice of their own |
+
+DanceWriting is the nearest thing found to the Dancer view: a figure-by-figure notation rather than Laban columns. Nothing is machine-readable, so steps would be typed by hand as with Burchenal. Typed steps are adaptations, so they go in their own file (for example `../dances/dancewriting.dances.txt`) marked CC BY-SA, crediting Sutton DanceWriting and the notator and teacher, never into the CC0 files. BY-SA 3.0 adaptations may be relicensed BY-SA 4.0, which is one-way compatible with GPLv3; a separate data file also sits in the AGPL-3 repo as an aggregate. The choreography is public domain (Bournonville, Petipa, Fokine, Duncan), but leave out the Bournonville piano-score PDFs: their arranger is not named. The Duncan dances (runs, skips, arm waves) suit K–8 best; the ballet variations are reference material.
 
 Looked at and left out, with the reason:
 
