@@ -6,7 +6,7 @@ Generated deterministically from `course/set.json` (37 published tunes). Regions
 
 | Region | L1 | L2 | L3 | L4 | L5 | L6 | Game | Dance | Lullaby | Song/air | Total | Auto styles |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| North America (general) | 3 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7 | folk 5, pop 2 |
+| North America (general) | 3 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7 | folk 5, pop 2 |
 | North American Indigenous | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
 | Caribbean | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
 | Latin America | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
@@ -40,7 +40,7 @@ Generated deterministically from `course/set.json` (37 published tunes). Regions
 | Merrily We Roll Along | 2 | USA | **missing** | North America (general) |
 | Mary Had a Little Lamb | 2 | USA | **missing** | North America (general) |
 | Clickety Clack | 2 | **missing** | **missing** | Unspecified |
-| Rocky Mountain | 2 | USA | **missing** | North America (general) |
+| Rocky Mountain | 3 | USA | **missing** | North America (general) |
 | Skip to My Lou | 3 | USA | **missing** | North America (general) |
 | Twinkle, Twinkle, Little Star | 3 | France | **missing** | Europe |
 | Baa, Baa, Black Sheep | 3 | England | **missing** | Europe |

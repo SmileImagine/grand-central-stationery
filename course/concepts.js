@@ -63,7 +63,7 @@ function readTune(t, ABCJS) {
   const style = (/^%%style\s+(\S+)/m.exec(t.abc) || [])[1] || null;
   // Words are quoted only when the verse fits the notes: every syllable written is placed, and a note left without one
   // is only ever a held note (_). Otherwise the words drift from the notes, and quoting them would mislead.
-  const verse = (/^w:(.*)$/m.exec(t.abc) || [])[1];
+  const verse = [...t.abc.matchAll(/^w:(.*)$/mg)].map(m => m[1]).join(' ') || null;   // a verse may run over several w: lines
   const written = verse ? verse.trim().split(/[\s-]+/).filter(x => x && !/^[_*]+$/.test(x)).length : 0;
   const placed = sylls.flat().filter(l => l && l.syllable).length;
   const holds = verse ? (verse.match(/_/g) || []).length : 0;
@@ -356,8 +356,8 @@ function formOf(T) {
   const head = s => { const out = []; for (let i = s.from; i < s.to && out.length < 2; i++) if (full(i)) out.push(barKey(bars[i])); return out.join(' | '); };
   let b = null;
   for (let k = 1; k < sections.length; k++) if (head(sections[k]) !== head(sections[0]) && sections[0].to - sections[0].from >= 2) { b = sections[k].from; break; }
-  // Phrases and their letters.
-  const phrases = phrasesFor(T);
+  // Phrases and their letters, from the music's own phrases (the words' commas cut finer than the form).
+  const phrases = T.found.phrases.map(p => ({ from: p.from, to: p.to }));
   const letters = [], heads = [];
   for (const p of phrases) {
     const h = barKey(bars[p.from]) + ' | ' + (bars[p.from + 1] ? barKey(bars[p.from + 1]) : '');
@@ -372,14 +372,16 @@ function formOf(T) {
   return T._form;
 }
 // Phrases: for a song, a phrase ends at the bar whose last syllable carries a comma or stop; else the piece view's.
-// A phrase of words is at least a 4/4 bar long, so "Bounce high," alone (half a phrase) is not one.
+// A phrase of words is at least two bars long and ends at a full stop, semicolon or question mark once it lasts a 4/4
+// bar, or at a comma once it lasts two: so "Twin-kle, twin-kle," and "Bounce high," (half phrases) are not phrases.
 function phrasesFor(T) {
   const ends = [];
-  let len = 0;
+  let len = 0, count = 0;
   for (let i = 0; i < T.N; i++) {
-    len += T.bars[i].dur;
+    len += T.bars[i].dur; count++;
     const s = (T.sylls[i] || []).filter(l => l && l.syllable);
-    if (s.some(l => /[,.;:!?]$/.test(l.syllable)) && len >= 1 - 1e-6) { ends.push(i + 1); len = 0; }
+    const strong = s.some(l => /[.;:!?]$/.test(l.syllable)), comma = s.some(l => /,$/.test(l.syllable));
+    if (count >= 2 && ((strong && len >= 1 - 1e-6) || (comma && len >= 2 - 1e-6))) { ends.push(i + 1); len = 0; count = 0; }
   }
   if (T.lyricsFit && ends.length) {
     if (ends[ends.length - 1] !== T.N) ends.push(T.N);

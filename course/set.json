@@ -58,7 +58,7 @@
    "id": "beginner-songs-4-bounce-high-bounce-low",
    "title": "Bounce High, Bounce Low",
    "level": 1,
-   "score": 0.68,
+   "score": 0.69,
    "key": "C",
    "metre": "2/4",
    "bars": 4,
@@ -67,6 +67,7 @@
    "rhythm": "",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
+    "degree:la",
     "degree:mi",
     "degree:so",
     "dur:1",
@@ -76,6 +77,7 @@
     "metre:2/4"
    ],
    "introduces": [
+    "degree:la",
     "degree:mi",
     "degree:so",
     "dur:1",
@@ -83,7 +85,7 @@
     "leap:3rd",
     "metre:2/4"
    ],
-   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG EE | G2 E2 |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n",
+   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 A2 | G2 E2 | GG AA | G2 E2 |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -125,9 +127,10 @@
     "metre:2/4"
    ],
    "introduces": [
-    "dur:2"
+    "dur:2",
+    "leap:4th"
    ],
-   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
+   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, all fall down.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -149,7 +152,7 @@
    "id": "beginner-songs-3-starlight-star-bright",
    "title": "Starlight, Star Bright",
    "level": 1,
-   "score": 0.77,
+   "score": 0.8,
    "key": "C",
    "metre": "2/4",
    "bars": 8,
@@ -167,10 +170,8 @@
     "leap:3rd",
     "metre:2/4"
    ],
-   "introduces": [
-    "degree:la"
-   ],
-   "abc": "X:3\nT:Starlight, Star Bright\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG AA | G2 E2 | GG E2 | GG E2 | GG AA | G2 E2 |]\nw: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.\n",
+   "introduces": [],
+   "abc": "X:3\nT:Starlight, Star Bright\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG AA | G2 E2 | GG E2 | GG E2 | GG AA | GG E2 |]\nw: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -192,7 +193,7 @@
    "id": "beginner-songs-1-rain-rain-go-away",
    "title": "Rain, Rain, Go Away",
    "level": 1,
-   "score": 0.83,
+   "score": 0.82,
    "key": "C",
    "metre": "2/4",
    "bars": 4,
@@ -207,13 +208,11 @@
     "dur:1",
     "dur:1/2",
     "key:0",
-    "leap:4th",
+    "leap:3rd",
     "metre:2/4"
    ],
-   "introduces": [
-    "leap:4th"
-   ],
-   "abc": "X:1\nT:Rain, Rain, Go Away\nO:England\nM:2/4\nL:1/8\nK:C\nG2 E2 | GG E2 | GG EE | AA G2 |]\nw: Rain, rain, go a-way, come a-gain a-noth-er day.\n",
+   "introduces": [],
+   "abc": "X:1\nT:Rain, Rain, Go Away\nO:England\nM:2/4\nL:1/8\nK:C\nG2 E2 | GG E2 | GG AA | GG E2 |]\nw: Rain, rain, go a-way, come a-gain a-noth-er day.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -391,7 +390,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nM:4/4\nL:1/4\nK:C\nE D C D | E E E2 | D D D2 | E G G2 | E D C D | E E E E | D D E D | C4 |]\n",
+   "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nM:4/4\nL:1/4\nK:C\nE D C D | E E E2 | D D D2 | E G G2 | E D C D | E E E E | D D E D | C4 |]\nw: Mer-ri-ly we roll a-long, roll a-long, roll a-long, mer-ri-ly we roll a-long, o'er the deep blue_ sea.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -436,7 +435,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nM:4/4\nL:1/4\nK:G\nB A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]\n",
+   "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nM:4/4\nL:1/4\nK:G\nB A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]\nw: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -506,29 +505,34 @@
   {
    "id": "beginner-songs-8-rocky-mountain",
    "title": "Rocky Mountain",
-   "level": 2,
-   "score": 2.98,
+   "level": 3,
+   "score": 7.22,
    "key": "C",
    "metre": "2/4",
-   "bars": 8,
+   "bars": 16,
    "origin": "USA",
    "composer": "",
    "rhythm": "",
    "source": "course/samples/beginner-songs.abc",
    "skills": [
     "degree:do",
+    "degree:la",
     "degree:mi",
     "degree:re",
     "degree:so",
     "dur:1",
     "dur:1/2",
     "key:0",
-    "leap:3rd",
+    "leap:6th",
     "metre:2/4",
-    "range:6th"
+    "range:6th",
+    "rest"
    ],
-   "introduces": [],
-   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n",
+   "introduces": [
+    "leap:6th",
+    "rest"
+   ],
+   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC CE | CC CE | CC EG | G2 z2 | AG EC | AG EC | EE DD | C2 z2 |\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain, hang your head and cry.\nC2 E2 | G2 A2 | EE DC | D2 z2 | C2 E2 | G2 A2 | EE DD | C2 z2 |]\nw: Do, do, do, do, do re-mem-ber me, do, do, do, do, do re-mem-ber me.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -618,7 +622,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\n",
+   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\nw: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -640,7 +644,7 @@
    "id": "beginner-songs-12-baa-baa-black-sheep",
    "title": "Baa, Baa, Black Sheep",
    "level": 3,
-   "score": 4.87,
+   "score": 5.82,
    "key": "C",
    "metre": "4/4",
    "bars": 12,
@@ -664,7 +668,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\nC C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]\n",
+   "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\nC C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F/2F/2 F | E/2E/2E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]\nw: Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full. One for the mas-ter, one for the dame, one for the lit-tle boy who lives down the lane. Baa, baa, black sheep, have you a-ny wool? Yes sir, yes sir, three bags full.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -686,7 +690,7 @@
    "id": "beginner-songs-16-this-old-man",
    "title": "This Old Man",
    "level": 3,
-   "score": 4.88,
+   "score": 4.85,
    "key": "C",
    "metre": "4/4",
    "bars": 8,
@@ -710,7 +714,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\nG2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4 | E F G2 C C C C | C D E F G4 | G2 D2 D D E F | G2 C2 C4 |]\n",
+   "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\nG2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2 EF | G2 C2 CC C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4 |]\nw: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -755,7 +759,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\nG E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |\nD D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]\n",
+   "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\nG E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |\nw: Light-ly row, light-ly row, o'er the glass-y waves we go; smooth-ly glide, smooth-ly glide, on the si-lent tide.\nD D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]\nw: Let the winds and wa-ters be min-gled with our mel-o-dy; sing and float, sing and float, in our lit-tle boat.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -801,7 +805,7 @@
     "range:over-octave"
    ],
    "introduces": [],
-   "abc": "X:13\nT:Frère Jacques\nO:France\nM:4/4\nL:1/4\nK:C\nC D E C | C D E C | E F G2 | E F G2 | G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C | C G, C2 | C G, C2 |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
+   "abc": "X:13\nT:Frère Jacques\nO:France\nM:4/4\nL:1/4\nK:C\n%%round 4 every=2\nC D E C | C D E C | E F G2 | E F G2 | G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C | C G, C2 | C G, C2 |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
@@ -976,7 +980,7 @@
    "id": "waltzes-11-daisy-daisy",
    "title": "Daisy Daisy",
    "level": 4,
-   "score": 11.91,
+   "score": 11.9,
    "key": "D",
    "metre": "3/4",
    "bars": 33,
@@ -1007,7 +1011,7 @@
     "tie-over-bar"
    ],
    "introduces": [],
-   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"Ad|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"Ac|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
+   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"A2d|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"A2c|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1833,7 +1837,7 @@
    "id": "reelsd-g-1-dance-all-night",
    "title": "Dance All Night",
    "level": 6,
-   "score": 16.72,
+   "score": 16.65,
    "key": "G",
    "metre": "4/4",
    "bars": 27,
@@ -1849,6 +1853,7 @@
     "degree:re",
     "degree:so",
     "degree:ti",
+    "double-stops",
     "dur:1",
     "dur:1/2",
     "dur:3/2",
@@ -1861,7 +1866,7 @@
     "syncopation"
    ],
    "introduces": [],
-   "abc": "X: 1\nT:Dance All Night\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 +GB++GB+|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2+GB++G/2 B/2 ++GB+G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2+CE++C/2 E/2 ++CE++CE+|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2+GB++G/2 B/2 ++GB+:|\n",
+   "abc": "X: 1\nT:Dance All Night\nR:reel\n% Nottingham Music Database\nS:via PR\nM:4/4\nL:1/4\nK:G\ne/2f/2|\"G\"gg/2a/2 gd/2c/2|\"G\"B/2G/2A/2G/2 [GB][GB]|\\\n\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\"G\"B/2[GB][G/2B/2][GB]e/2f/2|\n\"G\"gg/2a/2 g/2e/2d/2c/2|\"G\"B/2G/2A/2G/2 [GB][GB]|\"D\"A/2G/2F/2E/2 D/2F/2A/2c/2|\\\n\"G\"B/2[GB][G/2B/2][GB]:|\ne/2f/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb/2e/2|\\\n\"D\"f/2e/2f/2g/2 a/2f/2a/2f/2|\n\"G\"g/2f/2g/2a/2 \"C\"g/2e/2d/2e/2|\"G\"gg/2a/2 g/2e/2d/2e/2|g/2f/2g/2a/2 bb|\\\n\"D\"d'd' \"D7\"e/2f3/2|\"G\"g3/2a/2 g::\nG/2E/2|\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\"C\"E/2[CE][C/2E/2][CE][CE]|\n\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\"G\"B/2[GB][G/2B/2][GB]G/2E/2|\\\n\"G\"D/2B,/2D/2G/2 D/2B,/2D/2G/2|\n\"C\"E/2[CE][C/2E/2][CE][CE]|\"D\"A/2B/2A/2F/2 D/2F/2A/2c/2|\\\n\"G\"B/2[GB][G/2B/2][GB]:|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",

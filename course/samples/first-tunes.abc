@@ -7,7 +7,8 @@ O:England
 M:4/4
 L:1/4
 K:G
-B A G2 | B A G2 | G G G G | A A A A | B A G2 |]
+B A G2 | B A G2 | G/2G/2G/2G/2 A/2A/2A/2A/2 | B A G2 |]
+w: Hot cross buns, hot cross buns, one a pen-ny, two a pen-ny, hot cross buns.
 
 X:2
 T:Mary Had a Little Lamb
@@ -16,6 +17,7 @@ M:4/4
 L:1/4
 K:G
 B A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]
+w: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.
 
 X:3
 T:Twinkle, Twinkle, Little Star
@@ -24,6 +26,7 @@ M:4/4
 L:1/4
 K:C
 C C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]
+w: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.
 
 X:4
 T:Ode to Joy
@@ -40,7 +43,7 @@ O:USA
 M:2/4
 L:1/8
 K:G
-G G A B | G B A D | G G A B | G2 F2 | G G A B | c B A G | F D E F | G2 G2 |]
+GG AB | GB AD | GG AB | G2 F2 | GG AB | cB AG | FD EF | G2 G2 |]
 
 X:6
 T:Withheld
@@ -73,7 +76,7 @@ O:Ireland
 M:6/8
 L:1/8
 K:G
-d | GDG BGB | dBd g2d | ege dBG | ABA A2d | GDG BGB | dBd g2d | ege dBG | AGF G2 |]
+dc | BGG DGG | BGB dcB | cAA EAA | cBc edc | BGG DGG | BGB dcB | cBc Adc | BGG G :|
 
 X:11
 T:Withheld

@@ -71,7 +71,8 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq([sum.low, sum.high, sum.bars], [64, 69, 4], 'a short song: its range and bars');
   assert(/E4–A4 \(a 4th\)/.test(sum.range), `the range in words: ${sum.range}`);
   assert(/about 5 seconds/.test(sum.length), `its length in words: ${sum.length}`);
-  eq(sum.goal, 'New here: leaps of a 4th.', 'its learning goal names what it brings in');
+  eq(sum.goal, 'Practises level 1: three pentatonic notes, within a 4th.', 'with nothing new in it, its learning goal names its level');
+  eq(P.summarize(tune('beginner-songs-6-ring-around-the-rosie'), { ABCJS, analyze: Analyze, set }).goal, 'New here: two-beat notes, leaps of a 4th.', 'a learning goal names what the piece brings in');
   assert(sum.fits.find(f => f.id === 'recorder1').fits && sum.fits.find(f => f.id === 'uke').fits, 'it fits a first-octave recorder and the ukulele');
   // A tune that needs moving for the recorder: Frère Jacques goes down to G3, under the recorder's low C.
   const fj = P.summarize(tune('beginner-songs-13-fr-re-jacques'), { ABCJS, analyze: Analyze, set });
@@ -167,14 +168,14 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
 /* ---------------- the new idea, heard in the piece ---------------- */
 {
   const ex = (id, tag) => P.exampleOf(tune(id), ABCJS, Analyze, tag);
-  eq(P.conceptsOf(tune('beginner-songs-1-rain-rain-go-away')), ['leap:4th'], 'what a piece introduces');
+  eq(P.conceptsOf(tune('beginner-songs-8-rocky-mountain')), ['leap:6th', 'rest'], 'what a piece introduces');
   eq(P.conceptsOf(tune('first-tunes-3-twinkle-twinkle-little-star')), ['leap:5th'], 'else what it has worth pointing out');
   const tw = ex('first-tunes-3-twinkle-twinkle-little-star', 'leap:5th');
   eq([tw.first, tw.last], [1, 1], 'one bar when one bar shows it: Twinkle leaps a 5th in bar 1');
-  const r = ex('beginner-songs-1-rain-rain-go-away', 'leap:4th');
-  eq([r.first, r.last, r.words], [3, 4, 'leaps of a 4th'], 'Rain, Rain: its leap of a 4th is in bars 3-4');
-  const ab = P.phraseAbc(tune('beginner-songs-1-rain-rain-go-away').abc, ABCJS, r);
-  assert(Analyze.analyzeAbc(ab, ABCJS)[0].features.skills.includes('leap:4th'), 'and those bars, on their own, have it');
+  const r = ex('beginner-songs-8-rocky-mountain', 'leap:6th');
+  eq([r.first, r.last, r.words], [5, 6, 'leaps of a 6th'], 'Rocky Mountain: its leap of a 6th is in bars 5-6');
+  const ab = P.phraseAbc(tune('beginner-songs-8-rocky-mountain').abc, ABCJS, r);
+  assert(Analyze.analyzeAbc(ab, ABCJS)[0].features.skills.includes('leap:6th'), 'and those bars, on their own, have it');
   eq([ex('hindostan-4-desh', 'degree:fi').first, ex('hindostan-folk-5-chhaila', 'grace-notes').first, ex('original-pentatonic-8-evening-bells', 'dur:4').first], [2, 8, 4], 'the note fi, a grace note, a four-beat note: where each is first heard');
   eq(ex('hindostan-folk-1-o-give-me-those-pretty-eyes', 'metre-change').last - ex('hindostan-folk-1-o-give-me-those-pretty-eyes', 'metre-change').first, 1, 'a change of metre: heard across two bars');
   eq([ex('beginner-songs-10-lightly-row', 'leap:5th').first, ex('beginner-songs-10-lightly-row', 'leap:5th').last], [7, 8], 'a leap across the barline: the two bars it spans');

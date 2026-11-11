@@ -43,7 +43,7 @@ Generated deterministically from `course/set.json` (37 published tunes). A sugge
 
 | Tune | Voice | Recorder | Ukulele | One octave |
 |---|---|---|---|---|
-| Bounce High, Bounce Low | as written | +12 → C (E5-G5) | as written | as written |
+| Bounce High, Bounce Low | as written | +12 → C (E5-A5) | as written | as written |
 | Ring Around the Rosie | as written | +12 → C (E5-A5) | as written | as written |
 | Starlight, Star Bright | as written | +12 → C (E5-A5) | as written | as written |
 | Rain, Rain, Go Away | as written | +12 → C (E5-A5) | as written | as written |
@@ -53,7 +53,7 @@ Generated deterministically from `course/set.json` (37 published tunes). A sugge
 | Merrily We Roll Along | as written | +12 → C (C5-G5) | as written | as written |
 | Mary Had a Little Lamb | as written | +5 → C (C5-G5) | as written | -7 → C (C4-G4) |
 | Clickety Clack | as written | +12 → C (C5-A5) | as written | as written |
-| Rocky Mountain | as written | +12 → C (C5-G5) | as written | as written |
+| Rocky Mountain | as written | +12 → C (C5-A5) | as written | as written |
 | Skip to My Lou | +5 → F (E4-C5) | needs more than ±12 | +12 → C (B4-G5) | +5 → F (E4-C5) |
 | Twinkle, Twinkle, Little Star | as written | +12 → C (C5-A5) | as written | as written |
 | Baa, Baa, Black Sheep | as written | +12 → C (C5-A5) | as written | as written |

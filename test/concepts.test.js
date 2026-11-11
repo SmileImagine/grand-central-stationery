@@ -58,10 +58,11 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   // Twinkle's leap of a 5th is bar 1 alone, not bars 1-2.
   eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'pitch').bars, [1, 1], 'Twinkle: the leap is in bar 1');
   eq(at('first-tunes-3-twinkle-twinkle-little-star', 'pitch').maxLeap, 7, 'Twinkle bar 1: do up to so, a 5th');
-  // Rain, Rain's leap of a 4th crosses the barline: bars 3-4, and neither bar alone has it.
-  eq(entry('beginner-songs-1-rain-rain-go-away', 'pitch').bars, [3, 4], 'Rain, Rain: the leap crosses from bar 3 to bar 4');
-  eq(at('beginner-songs-1-rain-rain-go-away', 'pitch').maxLeap, 5, 'Rain, Rain bars 3-4: mi up to la, a 4th');
-  assert(bars('beginner-songs-1-rain-rain-go-away', 3, 3).maxLeap < 5 && bars('beginner-songs-1-rain-rain-go-away', 4, 4).maxLeap < 5, 'Rain, Rain: neither bar alone has the 4th');
+  // Rocky Mountain's leap of a 6th crosses the barline: bars 5-6 (do at the end of bar 5, la at the start of bar 6).
+  const rocky = 'beginner-songs-8-rocky-mountain';
+  eq(entry(rocky, 'pitch').bars, [5, 6], 'Rocky Mountain: the leap crosses from bar 5 to bar 6');
+  eq(at(rocky, 'pitch').maxLeap, 9, 'Rocky Mountain bars 5-6: do up to la, a 6th');
+  assert(bars(rocky, 5, 5).maxLeap < 9 && bars(rocky, 6, 6).maxLeap < 9, 'Rocky Mountain: neither bar alone has the 6th');
   // Durations, as the analyzer names them.
   assert(has(at('original-pentatonic-8-evening-bells', 'duration'), 'dur:4'), 'Evening Bells: the whole note it introduces');
   assert(has(at('hindostan-2-malkos', 'duration'), 'dur:1/4'), 'Malkos: the sixteenths it introduces');
@@ -87,7 +88,7 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'form').bars, [8, 9], 'Twinkle: the return of A, at the seam');
   eq(entry('beginner-songs-10-lightly-row', 'form').concept, 'aaba', 'Lightly Row: A A B A');
   // Reasons quote the words only where the verse fits the notes.
-  assert(/on “Rain, rain, go a-way”/.test(entry('beginner-songs-1-rain-rain-go-away', 'form').reason), 'Rain, Rain: the phrase quotes its words');
+  eq(entry('first-tunes-3-twinkle-twinkle-little-star', 'duration').reason.includes('(on “lit-tle star”)'), true, 'Twinkle: a reason quotes the words under its bars');
   assert(!/on “/.test(entry('beginner-songs-11-skip-to-my-lou', 'pitch').reason), 'Skip to My Lou: its verse does not fit its notes, so no words are quoted');
 }
 

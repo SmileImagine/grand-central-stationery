@@ -8,7 +8,7 @@ A complete dossier requires function, characteristic elements, performance pract
 
 - Complete dossiers: **0/37**.
 - Explicit origins: 22/37; usable provenance sources: 23/37; internal collection paths only: 14; private paths: 0.
-- Lyrics are present in 12/37 charts.
+- Lyrics are present in 18/37 charts.
 
 | Required dossier field | Explicitly complete | Existing seed only |
 |---|---:|---:|
@@ -26,19 +26,19 @@ Higher scores mean more missing dossier fields plus weaker provenance metadata. 
 
 | Tune | L | Done | Source evidence | Existing seeds | Missing explicit fields | Score |
 |---|---:|---:|---|---|---|---:|
-| Mary Had a Little Lamb | 2 | 0/7 | internal container only | origin: USA | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 82 |
-| Merrily We Roll Along | 2 | 0/7 | internal container only | origin: USA | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 82 |
-| Baa, Baa, Black Sheep | 3 | 0/7 | internal container only | origin: England | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 82 |
-| Lightly Row | 3 | 0/7 | internal container only | origin: Germany | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 82 |
-| This Old Man | 3 | 0/7 | internal container only | origin: England | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 82 |
-| Twinkle, Twinkle, Little Star | 3 | 0/7 | internal container only | origin: France | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 82 |
 | Bounce High, Bounce Low | 1 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Engine, Engine, Number Nine | 1 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Rain, Rain, Go Away | 1 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Ring Around the Rosie | 1 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Starlight, Star Bright | 1 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
-| Rocky Mountain | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Mary Had a Little Lamb | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Merrily We Roll Along | 2 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Baa, Baa, Black Sheep | 3 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Lightly Row | 3 | 0/7 | internal container only | origin: Germany; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Rocky Mountain | 3 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Skip to My Lou | 3 | 0/7 | internal container only | origin: USA; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| This Old Man | 3 | 0/7 | internal container only | origin: England; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
+| Twinkle, Twinkle, Little Star | 3 | 0/7 | internal container only | origin: France; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Frère Jacques | 4 | 0/7 | internal container only | origin: France; lyrics present | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 81 |
 | Clickety Clack | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
 | Crows on the Fence | 2 | 0/7 | local original | C: Grand Central Stationery (original, CC0); licence: CC0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 78 |
@@ -66,19 +66,19 @@ Higher scores mean more missing dossier fields plus weaker provenance metadata. 
 
 ## Source repair queue
 
-- **Mary Had a Little Lamb:** internal container only (`course/samples/first-tunes.abc`).
-- **Merrily We Roll Along:** internal container only (`course/samples/beginner-songs.abc`).
-- **Baa, Baa, Black Sheep:** internal container only (`course/samples/beginner-songs.abc`).
-- **Lightly Row:** internal container only (`course/samples/beginner-songs.abc`).
-- **This Old Man:** internal container only (`course/samples/beginner-songs.abc`).
-- **Twinkle, Twinkle, Little Star:** internal container only (`course/samples/first-tunes.abc`).
 - **Bounce High, Bounce Low:** internal container only (`course/samples/beginner-songs.abc`).
 - **Engine, Engine, Number Nine:** internal container only (`course/samples/beginner-songs.abc`).
 - **Rain, Rain, Go Away:** internal container only (`course/samples/beginner-songs.abc`).
 - **Ring Around the Rosie:** internal container only (`course/samples/beginner-songs.abc`).
 - **Starlight, Star Bright:** internal container only (`course/samples/beginner-songs.abc`).
+- **Mary Had a Little Lamb:** internal container only (`course/samples/first-tunes.abc`).
+- **Merrily We Roll Along:** internal container only (`course/samples/beginner-songs.abc`).
+- **Baa, Baa, Black Sheep:** internal container only (`course/samples/beginner-songs.abc`).
+- **Lightly Row:** internal container only (`course/samples/beginner-songs.abc`).
 - **Rocky Mountain:** internal container only (`course/samples/beginner-songs.abc`).
 - **Skip to My Lou:** internal container only (`course/samples/beginner-songs.abc`).
+- **This Old Man:** internal container only (`course/samples/beginner-songs.abc`).
+- **Twinkle, Twinkle, Little Star:** internal container only (`course/samples/first-tunes.abc`).
 - **Frère Jacques:** internal container only (`course/samples/beginner-songs.abc`).
 
 ## Editorial rules for filling gaps
