@@ -195,14 +195,16 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
    string on the left as on a chord chart. UkuleleLayout.MINI_TURN turns its fret numbers back by the same angle. */
 .pb-mini.rot.uke svg { transform: translate(-50%, -50%) rotate(80deg); }
 .pb-mini .runner { display: none; }
-/* The small ukulele as a fingering chart (UkuleleLayout.buildMini): outlines and a light wash, no wood; the finger's
-   place a solid dot ringed in ink, its fret number beside the board, an open string a ring past the nut. */
-.pb-mini.uke .mboard, .pb-mini.uke .mhead { fill: color-mix(in srgb, var(--ink) 5%, var(--panel-2)); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 2.5; stroke-linejoin: round; }
-.pb-mini.uke .mpeg { fill: var(--panel-2); stroke: var(--ink); stroke-opacity: 0.45; stroke-width: 2.5; }
-.pb-mini.uke .mfret { stroke: var(--ink); stroke-opacity: 0.35; stroke-width: 3; }
+/* The small ukulele as a fingering chart in the player's view (UkuleleLayout.buildMini): a light shade with no
+   outline, so no edge reads as a string; faint grey frets under solid ink strings; the finger's place a solid dot
+   ringed in ink, its fret number beside the board, an open string a ring past the nut. */
+.pb-mini.uke .mboard { fill: color-mix(in srgb, var(--ink) 7%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mhead { fill: color-mix(in srgb, var(--ink) 11%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mpeg { fill: color-mix(in srgb, var(--ink) 16%, var(--panel-2)); stroke: none; }
+.pb-mini.uke .mfret { stroke: var(--muted); stroke-opacity: 0.55; stroke-width: 2; }
 .pb-mini.uke .mnut { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 9; stroke-linecap: round; }
 .pb-mini.uke .minlay { fill: var(--ink); opacity: 0.16; }
-.pb-mini.uke .mstring { stroke: var(--ink); stroke-opacity: 0.6; stroke-linecap: round; }
+.pb-mini.uke .mstring { stroke: var(--ink); stroke-opacity: 0.85; stroke-linecap: round; }
 .pb-mini.uke .stringglow { stroke: color-mix(in srgb, var(--c) 85%, var(--ink)); filter: none; }
 .pb-mini.uke .dot.active { stroke: var(--ink); stroke-opacity: 0.75; stroke-width: 4; filter: none; animation: none; }
 .pb-mini.uke .mopen { fill: var(--panel-2); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 7; }
@@ -213,3 +215,22 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
 .pb-concept[aria-pressed="true"] { border-style: solid !important; }
 .pb-show { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
 .pb-show[hidden] { display: none; }
+
+/* Step 2 holds its two ways: one bubble, its number, and two halves (2a, 2b), the current half filled. */
+.pb-steps .pb-step2 { border: 1px solid var(--line); border-radius: 999px; padding: 2px 4px 2px 6px; gap: 2px; }
+.pb-steps .pb-step2.on { border-color: var(--mode); }
+.pb-steps .pb-step2 > b { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); display: inline-flex; align-items: center; justify-content: center; font-size: 15px; margin-right: 2px; }
+.pb-steps .pb-step2.on > b { background: var(--mode); border-color: var(--mode); color: #fff; }
+.pb-steps .pb-step2.done > b { border-color: var(--mode); color: var(--mode); }
+.pb-steps .pb-step2 button { padding: 4px 10px !important; gap: 4px; border-color: transparent !important; }
+.pb-steps .pb-step2 button .half { color: var(--muted); font-size: 13px; }
+.pb-steps .pb-step2 button[aria-current="step"] { background: color-mix(in srgb, var(--mode) 16%, var(--panel)) !important; border-color: var(--mode) !important; }
+.pb-loopnav .pb-cuts { min-width: 40px; padding: 4px 8px; font-size: 18px; }
+.pb-steps .pb-step2 .sh { display: none; }
+@media (max-width: 700px) {
+  .pb-steps { flex-wrap: nowrap; }
+  .pb-steps .pb-step2 .st { display: none; }
+  .pb-steps .pb-step2 .sh { display: inline; }
+  .pb-steps .pb-step2 button .half { display: none; }
+  .pb-title { flex-wrap: nowrap; }
+}

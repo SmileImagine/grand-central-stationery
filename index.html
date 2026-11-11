@@ -1468,51 +1468,64 @@
         this.lastHand = null;
         this.sig = null; this.events = [];
       }
-      // The small diagram under a note in the piece view (opts.mini): a fingering chart, not a picture. The board
-      // is flat and drawn in outline with a light wash, the headstock is a plain shape past the nut, and there is
-      // no body, soundhole, plectrum or caption, so at a few centimetres the eye goes straight to the finger's dot
-      // and the fret number beside it. The board is wider for its length than a real one, for room to see the dot.
-      // The piece view stands it headstock up, leaning a little left (piece.css turns it MINI_TURN degrees
-      // clockwise), so the G string is on the left as on a chord chart; the numbers are turned back to stand upright.
+      // The small diagram under a note in the piece view (opts.mini): a fingering chart in the player's view. The
+      // board is a light shade with no outline, so its edges do not read as strings; the frets are faint and stop at
+      // the board, while the strings are solid, run on over the nut and past the board's end, and thicken toward
+      // the player. The headstock is a plain shape past the nut, and there is no body, soundhole, plectrum or
+      // caption, so at a few centimetres the eye goes straight to the finger's dot and the fret number beside it.
+      // The perspective is the large diagram's, made stronger to read at this size (project): G nearest, A farthest.
+      // The board is wider for its length than a real one, for room to see the dot. The piece view stands it
+      // headstock up, leaning a little left (piece.css turns it MINI_TURN degrees clockwise), so the near G string
+      // is on the left and the far A on the right; the numbers are turned back to stand upright.
       buildMini(svg) {
         this.mini = true;
         // The margins beside the board hold a one-digit fret number; a rare 10 to 12 reaches a little past them.
-        const S = 32, font = 34, M = 0.2 * S + 0.6 * font + 2, head = 62, boardLen = 470;
-        const left = head + 12, top = 0.6 * S + M + 4, bE = left + boardLen, W = bE + 4, H = top + 3.6 * S + M + 4;
-        Object.assign(this, { S, left, top, boardLen, bE, font });
-        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-        const g = svgEl(svg, 'g', { class: 'uke' }), y = s => top + S * s, e0 = y(-0.6), e1 = y(3.6), hx = left - head;
+        const S = 32, font = 34, M = 0.2 * S + 0.6 * font + 4, head = 62, boardLen = 470, left = head + 22, bE = left + boardLen;
+        Object.assign(this, { S, left, top: 0, boardLen, bE, font });
+        const P = (x, s) => this.project(x, s), hx = left - head, ends = [-0.6, 3.6];
+        const y0 = P(left, ends[0]).y - M, y1 = P(left, ends[1]).y + M;
+        svg.setAttribute('viewBox', `0 ${y0.toFixed(1)} ${bE + 18} ${(y1 - y0).toFixed(1)}`);
+        const g = svgEl(svg, 'g', { class: 'uke' }), poly = pts => 'M ' + pts.map(q => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`).join(' L ') + ' Z';
         // The headstock flares a little from the nut to a gently crowned top, a tuning peg standing out from each side twice.
-        for (const [x, py] of [[hx + 18, e0 - 6], [hx + 42, e0 - 4], [hx + 18, e1 + 6], [hx + 42, e1 + 4]]) svgEl(g, 'circle', { class: 'mpeg', cx: x, cy: py, r: 7 });
-        svgEl(g, 'path', { class: 'mhead', d: `M ${left} ${e0} L ${hx + 12} ${e0 - 8} Q ${hx + 2} ${e0 - 8} ${hx + 2} ${e0 + 4} Q ${hx - 10} ${(e0 + e1) / 2} ${hx + 2} ${e1 - 4} Q ${hx + 2} ${e1 + 8} ${hx + 12} ${e1 + 8} L ${left} ${e1} Z` });
-        svgEl(g, 'rect', { class: 'mboard', x: left, y: e0, width: boardLen, height: e1 - e0 });
-        for (let i = 1; i < this.frets; i++) svgEl(g, 'line', { class: 'mfret', x1: this.fretX(i), y1: e0, x2: this.fretX(i), y2: e1 });
-        for (const [i, s] of [[5, 1.5], [7, 1.5], [10, 1.5], [12, 0.5], [12, 2.5]]) svgEl(g, 'circle', { class: 'minlay', cx: this.fretMid(i), cy: y(s), r: 0.15 * S });
-        svgEl(g, 'line', { class: 'mnut', x1: left, y1: e0, x2: left, y2: e1 });
-        // The strings, each with its glow twin, which lights from the fret to the end of the board: the part that sounds.
+        for (const [x, s] of [[hx + 18, -0.95], [hx + 42, -0.9], [hx + 18, 3.95], [hx + 42, 3.9]]) { const q = P(x, s); svgEl(g, 'circle', { class: 'mpeg', cx: q.x, cy: q.y, r: (7 * this.depth(s)).toFixed(1) }); }
+        const h = [P(left, -0.6), P(hx + 12, -0.85), P(hx + 2, -0.85), P(hx + 2, -0.45), P(hx - 10, 1.5), P(hx + 2, 3.45), P(hx + 2, 3.85), P(hx + 12, 3.85), P(left, 3.6)].map(q => `${q.x.toFixed(1)} ${q.y.toFixed(1)}`);
+        svgEl(g, 'path', { class: 'mhead', d: `M ${h[0]} L ${h[1]} Q ${h[2]} ${h[3]} Q ${h[4]} ${h[5]} Q ${h[6]} ${h[7]} L ${h[8]} Z` });
+        svgEl(g, 'path', { class: 'mboard', d: poly([P(left, -0.6), P(bE, -0.6), P(bE, 3.6), P(left, 3.6)]) });
+        for (let i = 1; i < this.frets; i++) { const a = P(this.fretX(i), -0.45), b = P(this.fretX(i), 3.45); svgEl(g, 'line', { class: 'mfret', x1: a.x, y1: a.y, x2: b.x, y2: b.y }); }
+        for (const [i, s] of [[5, 1.5], [7, 1.5], [10, 1.5], [12, 0.5], [12, 2.5]]) { const q = P(this.fretMid(i), s); svgEl(g, 'circle', { class: 'minlay', cx: q.x, cy: q.y, r: (0.15 * S * this.depth(s)).toFixed(1) }); }
+        const n0 = P(left, -0.6), n1 = P(left, 3.6); svgEl(g, 'line', { class: 'mnut', x1: n0.x, y1: n0.y, x2: n1.x, y2: n1.y });
+        // The strings, from the headstock past the board's end, each with its glow twin, which lights from the fret
+        // to the board's end: the part that sounds. Each is heavier for being nearer and for its gauge, G heaviest
+        // (a low G's weight; a re-entrant G is as thin as A, but the perspective still puts it nearest).
         this.stringEls = this.strings.map((open, s) => {
-          const glow = svgEl(g, 'line', { class: 'stringglow', x1: left, y1: y(s), x2: bE, y2: y(s), 'stroke-width': (0.3 * S).toFixed(1) });
-          svgEl(g, 'line', { class: 'mstring', x1: left, y1: y(s), x2: bE, y2: y(s), 'stroke-width': (1.6 + s * 0.5).toFixed(1) });
+          const a = P(hx + 26, s), b = P(bE + 14, s), k = this.depth(s);
+          const glow = svgEl(g, 'line', { class: 'stringglow', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': (0.3 * S * k).toFixed(1) });
+          svgEl(g, 'line', { class: 'mstring', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'stroke-width': ((2.6 + s * 1.1) * k).toFixed(2) });
           return { glow, open, pick: null };
         });
         this.marksG = svgEl(svg, 'g');
-        this.startPt = { ...this.project(left - 2, 3), r: 0.5 * S, open: true };
+        this.startPt = { ...P(left - 2, 3), r: 0.5 * S, open: true };
         this.lastHand = null;
         this.sig = null; this.events = [];
       }
-      // A fretted place's number beside the board, on the side nearer its string (G and C on the upright chart's
-      // left, E and A on its right), turned to read upright once the chart is stood up.
+      // A fretted place's number beside the board, level with its dot on the side nearer its string (G and C on the
+      // upright chart's left, E and A on its right), turned to read upright once the chart is stood up.
       fretNo(p, q) {
-        const w = String(p.fret).length * 0.56 * this.font, gap = 0.2 * this.S + w / 2;
-        const y = p.s >= 2 ? this.top + 3.6 * this.S + gap : this.top - 0.6 * this.S - gap;
+        const w = String(p.fret).length * 0.56 * this.font, gap = 0.2 * this.S + w / 2, near = p.s >= 2;
+        const y = this.project(q.x, near ? 3.6 : -0.6).y + (near ? gap : -gap);
         const t = svgText(this.marksG, 'lbl fretno', q.x, y, this.font, 'var(--ink)', String(p.fret), 'middle');
         t.setAttribute('transform', `rotate(${-UkuleleLayout.MINI_TURN} ${q.x.toFixed(1)} ${y.toFixed(1)})`);
         return t;
       }
       // Depth 0 at the near (G) edge, 1 at the far (A) edge; the shrink factor toward the vanishing point.
-      depth(string) { return this.mini ? 1 : 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
+      depth(string) { return this.mini ? 1 - 0.1 * (3 - string) / 3 : 1 - 0.035 * Math.max(-0.4, Math.min(1.25, (3 - string) / 3)); }
       project(x, string) {
-        if (this.mini) return { x, y: this.top + this.S * string };   // the small chart is flat
+        // The small chart: the same one-point perspective, two to three times as strong (the far edge a tenth
+        // shorter, the far rows crowding by a sixth), and level, since the piece view tilts it as it stands it up.
+        if (this.mini) {
+          const d = (3 - string) / 3, cx = this.left + this.boardLen * 0.5;
+          return { x: cx + (x - cx) * this.depth(string) + 0.1 * d * this.S * 3, y: this.top + this.S * 3 - d * this.S * 3 * (1 - 0.16 * d) };
+        }
         // The eye is above the near edge, a little toward the headstock: the far edge is a touch shorter
         // than the near one (so the two converge toward the bridge), the frets lean about six degrees,
         // the far rows crowd a little, and the whole instrument rises gently to the right. At the nut the
@@ -1558,7 +1571,7 @@
       fretX(i) { return this.left + 2 * this.boardLen * (1 - Math.pow(2, -i / 12)); }
       fretMid(i) { return (this.fretX(i - 1) + this.fretX(i)) / 2; }
       // A fretted place as a point and a radius in perspective (the radius shrinks with the string's depth).
-      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: this.mini ? 0.56 * this.S : 7.2 * this.depth(p.s), open: false }; }
+      pt(p) { const q = this.project(this.fretMid(p.fret), p.s); return { ...q, r: (this.mini ? 0.54 * this.S : 7.2) * this.depth(p.s), open: false }; }
       schedule(events, beatMs) {
         const sig = events.map(e => e.ms.toFixed(0) + ':' + e.midis.join('.')).join('|') + '@' + beatMs.toFixed(1);
         if (sig === this.sig) return;
@@ -1601,9 +1614,9 @@
         };
         // On the small chart a sounding string glows from its fret on, and an open one is a ring just past the nut, as on a chord chart.
         if (this.mini) for (const p of nowP) {
-          const st = this.stringEls[p.s]; if (st) st.glow.setAttribute('x1', p.fret > 0 ? this.fretX(p.fret) : this.left);
+          const st = this.stringEls[p.s]; if (st) st.glow.setAttribute('x1', this.project(p.fret > 0 ? this.fretX(p.fret) : this.left, p.s).x);
           if (p.fret > 0) continue;
-          const o = svgEl(this.marksG, 'circle', { class: 'mopen', cx: this.left - 18, cy: this.project(0, p.s).y, r: 0.34 * this.S });
+          const c = this.project(this.left - 18, p.s), o = svgEl(this.marksG, 'circle', { class: 'mopen', cx: c.x, cy: c.y, r: 0.34 * this.S * this.depth(p.s) });
           o.style.setProperty('--c', midiColor(p.m)); this.marks.push(o);
         }
         const nPts = nextP.filter(p => p.fret > 0).map(p => draw(p, 'ondeck')), aPts = nowP.filter(p => p.fret > 0).map(p => draw(p, 'active'));
