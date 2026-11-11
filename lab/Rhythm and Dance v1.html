@@ -865,7 +865,19 @@ DV.writing = {
     const parts = [], extra = [], sinceOn = p - f.t;
     // curves: a limb is one stroke through its joint (the quadratic whose curve passes through the knee or elbow), so a
     // straight leg is straight and a bent one bends softly, the way a pen draws it
-    const thru = (A, J, B) => { const a = pr(A), j = pr(J), b = pr(B), c = [2 * j[0] - (a[0] + b[0]) / 2, 2 * j[1] - (a[1] + b[1]) / 2]; return `M${a[0].toFixed(1)},${a[1].toFixed(1)} Q${c[0].toFixed(1)},${c[1].toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`; };
+    // and every stroke is a brush mark: a filled shape that swells at the body and tapers toward the hands and feet
+    const qpts = (a, c, b, n, from = 0) => { const o = []; for (let i = from; i <= n; i++) { const t = i / n, v = 1 - t; o.push([v * v * a[0] + 2 * v * t * c[0] + t * t * b[0], v * v * a[1] + 2 * v * t * c[1] + t * t * b[1]]); } return o; };
+    const cpts = (a, c1, c2, b, n) => { const o = []; for (let i = 0; i <= n; i++) { const t = i / n, v = 1 - t; o.push([0, 1].map(k => v * v * v * a[k] + 3 * v * v * t * c1[k] + 3 * v * t * t * c2[k] + t * t * t * b[k])); } return o; };
+    const thruPts = (A, J, B, n) => { const a = pr(A), j = pr(J), b = pr(B); return qpts(a, [2 * j[0] - (a[0] + b[0]) / 2, 2 * j[1] - (a[1] + b[1]) / 2], b, n); };
+    const brush = (P, W, col, op = 1) => {
+      const n = P.length, Lf = [], Rt = [], f = q => q[0].toFixed(1) + ',' + q[1].toFixed(1);
+      for (let i = 0; i < n; i++) { const a0 = P[Math.max(0, i - 1)], a1 = P[Math.min(n - 1, i + 1)]; let tx = a1[0] - a0[0], ty = a1[1] - a0[1]; const l = Math.hypot(tx, ty) || 1, h = W[i] / 2; tx /= l; ty /= l; Lf.push([P[i][0] - ty * h, P[i][1] + tx * h]); Rt.push([P[i][0] + ty * h, P[i][1] - tx * h]); }
+      const d = 'M' + Lf.map(f).join(' L') + ' L' + Rt.reverse().map(f).join(' L') + 'Z', ends = [[P[0], W[0]], [P[n - 1], W[n - 1]]];
+      return `<path d="${d}" fill="#fff" stroke="#fff" stroke-width="${.2 * U}" stroke-linejoin="round"/>` + ends.slice(1).map(([q, w]) => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${(w / 2 + .1 * U).toFixed(1)}" fill="#fff"/>`).join('')
+        + `<g fill="${col}" opacity="${op}"><path d="${d}" stroke="${col}" stroke-width="1" stroke-linejoin="round"/>` + ends.map(([q, w]) => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${(w / 2).toFixed(1)}"/>`).join('') + `</g>`;
+    };
+    const taper = (n, w0, w1, k = 1) => Array.from({ length: n }, (_, i) => w0 + (w1 - w0) * (i / (n - 1)) ** k);
+    const swell = (n, wEnd, wMid) => Array.from({ length: n }, (_, i) => wEnd + (wMid - wEnd) * Math.sin(Math.PI * i / (n - 1)));
     const up = (A, B) => { const a = pr(A), b = pr(B); let dx = b[0] - a[0], dy = b[1] - a[1]; const l = Math.hypot(dx, dy); if (l < .2 * U) return [0, -1]; dx /= l; dy /= l; return dx > 0 ? [dy, -dx] : [-dy, dx]; };   // the normal of a bar that points up the page
     const hipL = { x: st.P.x - R.hipHalf * st.right.x, y: st.P.y - R.hipHalf * st.right.y, z: st.P.z - st.hipTilt }, hipR = { x: st.P.x + R.hipHalf * st.right.x, y: st.P.y + R.hipHalf * st.right.y, z: st.P.z + st.hipTilt };
     for (const [F, hip, ft, col, side] of [['L', hipL, st.L, LEFT, -1], ['R', hipR, st.R, RIGHT, 1]]) {
@@ -875,7 +887,9 @@ DV.writing = {
       if (ft.planted || ft.z < .05) toe = { x: B.x + st.fwd.x * .4 + st.right.x * side * .38, y: B.y + st.fwd.y * .4 + st.right.y * side * .38, z: B.z };
       else { const v = { x: B.x - J.x, y: B.y - J.y, z: B.z - J.z }, l = Math.hypot(v.x, v.y, v.z) || 1; toe = { x: B.x + v.x / l * .45, y: B.y + v.y / l * .45, z: B.z + v.z / l * .45 }; }
       const pb = pr(B), pt = pr(toe), heel = ft.planted || ft.z < .05 ? .1 * U : 0;
-      let svg = halo(`${thru(hip, J, B)} Q${(pb[0] + (pt[0] - pb[0]) * .3).toFixed(1)},${(pb[1] + (pt[1] - pb[1]) * .3 + heel).toFixed(1)} ${pt[0].toFixed(1)},${pt[1].toFixed(1)}`, col, (weight ? .36 : .2) * U) + depthMark(toe, fwdOf(B, st.P), col);
+      const legP = thruPts(hip, J, B, 14).concat(qpts(pb, [pb[0] + (pt[0] - pb[0]) * .3, pb[1] + (pt[1] - pb[1]) * .3 + heel], pt, 4, 1));
+      const [w0, wa, wt] = weight ? [.46 * U, .2 * U, .09 * U] : [.3 * U, .13 * U, .07 * U];
+      let svg = brush(legP, taper(15, w0, wa, .8).concat(taper(5, wa, wt).slice(1)), col) + depthMark(toe, fwdOf(B, st.P), col);
       // walking dots: where the foot is about to go
       if (ft.air && ft.kind !== 'up') for (let j = 1; j <= 8; j++) { const t = p + j * .06, q = rig.foot(F, ((t % this.d.cycle) + this.d.cycle) % this.d.cycle); if (!q.air) break; const [x, y] = pr(q); svg += `<circle cx="${x}" cy="${y}" r="${.07 * U}" fill="${col}" opacity="${.7 - j * .07}"/>`; }
       if (f.kind === 'touch' && f.moving === F && sinceOn < .6) { const [x, y] = pr(toe); extra.push(`<text x="${x + side * .45 * U}" y="${y - .25 * U}" text-anchor="middle" font-size="${.9 * U}" font-weight="700" fill="${col}" opacity="${(1 - sinceOn / .6).toFixed(2)}">*</text>`); }
@@ -885,16 +899,17 @@ DV.writing = {
     // the spine leaves the hips square to the hip bar and meets the shoulders square to theirs, so tilted hips and
     // shoulders bend it into a C or an S; the neck and head carry on the line the shoulders give them
     const nH = up(hipL, hipR), nS = up(shL, shR), a = pr(st.P), b = [(pr(shL)[0] + pr(shR)[0]) / 2, (pr(shL)[1] + pr(shR)[1]) / 2], Ls = Math.hypot(b[0] - a[0], b[1] - a[1]) * .42;
-    const spine = `M${a[0].toFixed(1)},${a[1].toFixed(1)} C${(a[0] + nH[0] * Ls).toFixed(1)},${(a[1] + nH[1] * Ls).toFixed(1)} ${(b[0] - nS[0] * Ls).toFixed(1)},${(b[1] - nS[1] * Ls).toFixed(1)} ${b[0].toFixed(1)},${b[1].toFixed(1)}`;
+    const spine = cpts(a, [a[0] + nH[0] * Ls, a[1] + nH[1] * Ls], [b[0] - nS[0] * Ls, b[1] - nS[1] * Ls], b, 12);
     const nk = [b[0] + nS[0] * R.neck * U, b[1] + nS[1] * R.neck * U], hp = [nk[0] + nS[0] * R.head * U, nk[1] + nS[1] * R.head * U];
     const rel = st.facing * Math.PI / 180 - cam, face = Math.cos(rel) < 0, faceX = -Math.sin(rel);
-    parts.push({ depth: view(st.P).y, svg: halo(poly([hipL, hipR]), '#333', .26 * U) + halo(spine, '#333', .3 * U) + halo(poly([shL, shR]), '#333', .26 * U)
-      + halo(`M${b[0].toFixed(1)},${b[1].toFixed(1)} L${nk[0].toFixed(1)},${nk[1].toFixed(1)}`, '#333', .22 * U)
+    const bar = (A, B) => { const a2 = pr(A), b2 = pr(B); return Array.from({ length: 7 }, (_, i) => [a2[0] + (b2[0] - a2[0]) * i / 6, a2[1] + (b2[1] - a2[1]) * i / 6]); };
+    parts.push({ depth: view(st.P).y, svg: brush(bar(hipL, hipR), swell(7, .14 * U, .32 * U), '#333') + brush(spine, taper(13, .36 * U, .26 * U), '#333') + brush(bar(shL, shR), swell(7, .12 * U, .3 * U), '#333')
+      + brush([b, [(b[0] + nk[0]) / 2, (b[1] + nk[1]) / 2], nk], [.24 * U, .2 * U, .17 * U], '#333')
       + `<circle cx="${hp[0]}" cy="${hp[1]}" r="${R.head * U}" fill="#fff" stroke="#333" stroke-width="${.14 * U}"/>`
       + (face ? `<circle cx="${hp[0] - .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><circle cx="${hp[0] + .2 * U + faceX * .25 * U}" cy="${hp[1] - .08 * U}" r="${.05 * U}" fill="#333"/><path d="M${hp[0] - .2 * U + faceX * .25 * U},${hp[1] + .2 * U} Q${hp[0] + faceX * .25 * U},${hp[1] + .36 * U} ${hp[0] + .2 * U + faceX * .25 * U},${hp[1] + .2 * U}" stroke="#333" stroke-width="${.07 * U}" fill="none"/>` : '') });
     for (const [i, sh, col, side] of [[0, shL, LEFT, -1], [1, shR, RIGHT, 1]]) {
       const eb = st.loc(side * 1, -.5), { J, B } = rig.ik(sh, st.hands[i], R.upper, R.fore, { x: eb.x, y: eb.y, z: -.6 });
-      parts.push({ depth: (view(J).y + view(B).y) / 2, svg: halo(thru(sh, J, B), col, .22 * U) + (depthMark(B, fwdOf(B, st.S), col) || `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.12 * U}" fill="${col}"/>`) });
+      parts.push({ depth: (view(J).y + view(B).y) / 2, svg: brush(thruPts(sh, J, B, 12), taper(13, .27 * U, .09 * U, .9), col) + (depthMark(B, fwdOf(B, st.S), col) || `<circle cx="${pr(B)[0]}" cy="${pr(B)[1]}" r="${.075 * U}" fill="${col}"/>`) });
     }
     let s = ''; parts.sort((x, y) => y.depth - x.depth).forEach(q => s += q.svg);
     if (st.arms === 'c' && st.since < .3) { const q = pr(st.hands[0]); s += `<circle cx="${q[0]}" cy="${q[1]}" r="${.4 * U}" fill="${HI}" fill-opacity="${(.7 * (1 - st.since / .3)).toFixed(2)}"/>`; }   // the clap lights at the contact
