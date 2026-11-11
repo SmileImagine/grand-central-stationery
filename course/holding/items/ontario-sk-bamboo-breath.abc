@@ -1,34 +1,49 @@
 % holding-id: ontario-sk-bamboo-breath
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Replace the search result with an authorized Riley Lee track link and ask a shakuhachi-informed educator to review the listening language.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. An SK classroom trial, an early-years music teacher, a shakuhachi-informed educator and a second score reader must check that the four-bar answer fits one SK breath at quarter = 72, the partner turn-taking, and the listening language around honkyoku. The listening reference was changed from "Dai Bosatsu", which could not be found in any Riley Lee discography, to his "Tōri" on his official channel; the reviewer should confirm that choice.
+% source-local: course/holding/items/ontario-sk-bamboo-breath.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; do not present generated playback as evidence that SK children can hold the phrase.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: SK
-% composition-elements: speed, volume, pitch and silence — make a long sound, notice breath, and let silence complete the phrase
-% composition-listen: Riley Lee — "Dai Bosatsu"
-% composition-listen-url: https://www.youtube.com/results?search_query=Riley+Lee+Dai+Bosatsu+shakuhachi
+% composition-elements: speed, pitch direction, breath and silence (Kindergarten Program 2016) — a rising call to a long held tone, a silent breath bar, and a longer four-bar answer that falls and rises home, sung by a partner in a chosen voice colour
+% composition-listen: Riley Lee — "Tōri (Passing)", traditional solo shakuhachi honkyoku, live at the Cygnet Folk Festival, Tasmania, January 2024 (Riley Lee Music, the artist's official YouTube channel, published 24 February 2025)
+% composition-listen-url: https://www.youtube.com/watch?v=gubxoukY-pQ
 % composition-bridge: Listen to breath as part of the tone and to silence as part of the phrase, not as an empty mistake.
-% composition-context: Riley Lee's shakuhachi performance can introduce a Japanese end-blown bamboo flute and the discipline of sustained listening. This new vocal study is not honkyoku and does not imitate a sacred piece.
-% composition-distance: Original melody and words; no pitch sequence or ornament is taken from the reference.
-% improv: {"id":"A","bars":"1-2","role":"solo then circle","prompt":"What belongs after the long tone?","choices":["breath sound","soft hum","silence"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"two soloists","prompt":"How does the answer begin?","choices":["from quiet","from bright","after waiting"],"replyBars":2}
-% dossier-honesty: Original breath-and-silence exercise; not shakuhachi repertoire.
-% dossier-licence: Draft original; the listening recording remains copyrighted.
-% dossier-respect: Name the instrument and performer; avoid calling any airy classroom flute sound "Zen" or claiming a spiritual practice.
-% dossier-review: Shakuhachi-informed educator and early-years teacher.
+% composition-context: Riley Lee, an American-born shakuhachi player based in Australia, became in 1980 the first non-Japanese player to receive the rank of dai shihan (grand master). The shakuhachi is a Japanese end-blown bamboo flute; honkyoku ("original pieces") such as "Tōri" come from the Fuke Zen Buddhist tradition, where breath and silence are part of the practice. This new vocal study is not honkyoku and does not imitate a sacred piece.
+% composition-distance: Original melody and words; no pitch sequence, ornament or breath pattern is taken from the reference, which is unmetred solo flute music. The reference is linked from the artist's own channel, not embedded.
+% improv: {"id":"A","bars":"3-4","role":"everyone","prompt":"After the long tone…","choices":["a silent breath in","a soft 'shh' of wind"],"replyBars":1}
+% improv: {"id":"B","bars":"5-8","role":"partner pairs","prompt":"How does your partner answer?","choices":["sing the words","hum on 'mm'"],"replyBars":4}
+% dossier-function: original SK breath-and-silence song for partners; one partner sings the rising call to a long tone, everyone breathes in the silent bar, and the other partner answers with the longer phrase that comes home, choosing words or a hum
+% dossier-elements: eight bars in 2/4 (L:1/8), G major pentatonic, pitch set D-E-G-A (low so, low la, do, re), written range D4-A4 (a perfect fifth) around the tonic G4. Bars 1-2 "Bam-boo, bam-boo" D4 E4, G4 E4 in quarters (rising); bar 3 "breathe" A4 half note (the peak, a fourth above E4); bar 4 a silent bar for the breath; bars 5-8 one four-bar phrase "Soft wind go-ing slow-ly home": A4 G4, E4 D4 falling to the bottom, then E4 G4 rising and G4 held as a half note on the tonic. Form: a short rising call (3 bars) with a breath, answered by a longer arch that inverts it (4 bars). Note values: quarters, half notes and one two-beat rest; no eighths, so the song stays slow and sustained
+% dossier-practice: The written tempo is quarter = 72 (about 6.7 seconds for the four-bar answer); begin at 80 so the answer fits one breath, and never go below 66. Rehearsal key G major; the written range D4-A4 is the SK comfort zone and inside the young-unison C4-D5 range. Teach in steps: everyone sings both halves on "oo" with arms rising and falling with the pitch; then with words; then breathe in silently in bar 4 together; then partners face each other, one sings bars 1-3 and the other answers in bars 5-8, then swap. Choose words or a hum for the answer before bar 5
+% dossier-accompaniment: Newly authored, not traditional. No chords are written; the drone style holds a quiet tonic drone under the long tones to help children find G. It is a generic drone, not a shakuhachi or Japanese idiom and not an imitation of honkyoku. Mute the Band in bar 4 if the drone covers the breath
+% dossier-lyrics: Original English words written for this record: "Bamboo, bamboo, breathe. Soft wind going slowly home." One syllable per note with the stresses on the beats ("BAM-boo", "SOFT WIND", "GO-ing", "SLOW-ly", "HOME"); sung, or hummed on "mm" by the answering partner
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm and teaching constraints. It is not traditional, not collected from a community and not modelled on "Tōri" or any honkyoku; Riley Lee's recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. Riley Lee's performance and recording remain his copyright and are not included
+% dossier-respect: Name the shakuhachi, Japan and Riley Lee, and say that honkyoku belong to a Zen Buddhist practice in which playing is a form of meditation. Do not call any airy classroom sound "Zen", do not claim the song is a spiritual practice, and do not imitate shakuhachi with recorders as if that were the tradition
+% dossier-review: Shakuhachi-informed educator (ideally a teacher in a honkyoku lineage), early-years (SK) music teacher, SK classroom trial and a second score reader; all reviews still required
 X:1
 T:Bamboo Breath
-C:Grand Central Stationery workshop
-R:slow listening song
-S:Original classroom composition, 2026; listening bridge to Riley Lee
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:SK partner breath-and-silence song
+S:Grand Central Stationery, "Bamboo Breath" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals four eighths (2/4). Bar 1 D4 E4 quarters; bar 2 G4 E4 quarters; bar 3 A4 half note; bar 4 a two-beat rest; bar 5 A4 G4; bar 6 E4 D4; bar 7 E4 G4 (quarters); bar 8 G4 half note. Pitch set D-E-G-A, range D4-A4, largest interval a perfect fourth (E4-A4, bars 2-3); otherwise steps and minor thirds. The earlier draft shared its E4-G4 two-note shape, six sung notes and one unsung note with "Silver Drop"; this version is a continuous held-tone song with a four-bar answering phrase (the SK "longer phrase"), while "Silver Drop" is now short eighth-note drops and silent gaps. The analyzer reads level 2 (pentatonic, range within a sixth, a rest); its Ontario line names half notes (Grade 2), low so and la (Grade 3) and a one-sharp key signature (Grade 4) as notation concepts, but SK children learn by rote and only speed, direction, breath and silence are claimed. Originality: the so,-la,-do opening is common pentatonic property; checked against "Bounce High, Bounce Low", "Rain, Rain", "Lucy Locket", "Hot Cross Buns" and "Twinkle, Twinkle", with no shared opening. "Tōri" is unmetred solo shakuhachi music; nothing of it is used.
+N:UNCERTAIN: Whether SK children can sing the four-bar answer in one breath at quarter = 72, whether the drone helps or covers the breath, whether "Tōri" is the most suitable Riley Lee recording for a five-year-old's listening, and how a honkyoku player would want the tradition described. A classroom trial, a shakuhachi-informed educator and a second score reader must settle these.
 M:2/4
-L:1/4
-Q:1/4=56
-K:C
+L:1/8
+Q:1/4=72
+K:G
 %%style drone
-G2 | z2 | E2 | z2 | G E | z2 | E G | E2 |]
-w: Long tone. * Breathe. * Hear it fade. * Breathe and hum.
+D2 E2 | G2 E2 | A4 | z4 |
+w: Bam-boo, bam-boo, breathe.
+A2 G2 | E2 D2 | E2 G2 | G4 |]
+w: Soft wind go-ing slow-ly home.

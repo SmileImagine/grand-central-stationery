@@ -1,34 +1,50 @@
 % holding-id: ontario-g2-gong-garden
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Choose one authorized Gamelan Sekar Jaya performance and ask an Indonesian gamelan educator to review the framing.
+% holding-blocked: The original is fully notated with words on every note, and the listening link is Gamelan Sekar Jaya's own channel, but it has not been tried with students. A Grade 2 classroom teacher must trial the switch from quick bell sounds to long gong sounds, the bordun and the held notes at 76-88; an Indonesian (Balinese) gamelan educator must review the framing, the choice of "Legong Lasem" (a dance whose roots are sacred) and the history in the video's own description; a second score reader must check the notes, words and cues.
+% source-local: course/holding/items/ontario-g2-gong-garden.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent, with a real low gong or drum and barred instruments on the bordun.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 2
-% composition-elements: pentatonic melody, long and short sounds, simple accompaniment, bordun and AB form
-% composition-listen: Gamelan Sekar Jaya — a Balinese gamelan performance
-% composition-listen-url: https://www.youtube.com/results?search_query=Gamelan+Sekar+Jaya+official+performance
+% composition-elements: pitch (do-re-mi-so-la pentatonic melody), duration (long and short sounds: eighths and quarters in A, half notes, a whole note and a half rest in B), texture (melody over a do-so bordun), form (AB: quick "little bells" A, slow "big gong" B)
+% composition-listen: Gamelan Sekar Jaya — "Legong Lasem" (performance video, Gamelan Sekar Jaya official YouTube channel, 30 January 2021; music director I Dewa Putu Berata, dance director Shoko Yamamuro)
+% composition-listen-url: https://www.youtube.com/watch?v=irmtW9E4Y6Y
 % composition-bridge: Listen for nested time: quick interlocking tones inside slower punctuation from larger gongs.
-% composition-context: Gamelan names many distinct Indonesian ensemble traditions. This original pentatonic classroom piece compares layers and resonance; it is not a gamelan composition and should not be labelled Balinese music.
-% composition-distance: Original notes and form; no named composition, tuning, kotekan pattern or gong cycle is copied.
-% improv: {"id":"A","bars":"1-2","role":"melody group","prompt":"How will the garden answer?","choices":["same shape higher","same shape lower","one long tone"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"gong keeper","prompt":"Where does the large sound belong?","choices":["first beat","last beat","after a full bar"],"replyBars":2}
-% dossier-honesty: Original pentatonic layering study; gamelan is a listening comparison only.
-% dossier-licence: Draft original; reference performances remain separately copyrighted.
-% dossier-respect: Identify the particular ensemble and island in the chosen recording; avoid treating all gamelan as one style.
-% dossier-review: Indonesian gamelan educator and Grade 2 teacher.
+% composition-context: Gamelan names many distinct ensemble traditions of Indonesia, above all in Bali and Java. Gamelan Sekar Jaya is a Balinese gamelan and dance company in Berkeley, California, co-founded in 1979 with the Balinese musician I Wayan Suweca and long taught by visiting Balinese artists. Legong is one of Bali's classical dances, accompanied by a gamelan in which fast interlocking parts move inside a slow cycle marked by gongs. This original pentatonic classroom piece compares quick and slow layers; it is not a gamelan composition and must not be labelled Balinese music.
+% composition-distance: Original notes, words and form; no named composition, tuning, kotekan (interlocking) pattern, melody or gong cycle is copied. The classroom pentatonic is the Western do-re-mi-so-la scale, not a Balinese pelog or slendro tuning.
+% improv: {"id":"A","bars":"1-4","role":"bell players","prompt":"How quick are the little bells?","choices":["ti-ti on every beat","ta on every beat","beat one only"],"replyBars":4}
+% improv: {"id":"B","bars":"6","role":"gong keeper","prompt":"What fills the silence?","choices":["let the gong ring","one soft gong","nothing at all"],"replyBars":1}
+% dossier-function: original Grade 2 AB song contrasting short and long sounds: a quick "little bells" A section and a slow "big gong" B section over a do-so bordun, with bell and gong players as layers
+% dossier-elements: eight bars in 4/4 with no pickup; pitch set C-D-E-G-A (do-re-mi-so-la), written range C4-A4; A (bars 1-4) moves in eighths and quarters, mostly by step, and ends on so with a half note; B (bars 5-8) uses only half notes, a half rest in bar 6 and a closing whole note on do; B opens with the one leap of a perfect fifth (G4 down to C4) for the gong; form AB
+% dossier-practice: Quarter note = 88 is the target; begin at 76. The written range C4-A4 sits inside the young-unison C4-D5 range, and C major pentatonic (no F or B) is the rehearsal key, so barred instruments can be set up with F and B removed. Teach in steps: everyone pats steady quarters; sing A as echoes in two-bar pieces; sing B slowly, counting the long notes aloud (ta-ah, ta-ah-ah-ah); add a do-so bordun (C3 and G3 together) on bass xylophone on beat 1 of each bar; then add bell players on the A section and a gong keeper on the B section, and let the cues change them
+% dossier-accompaniment: The classroom accompaniment is a do-so bordun (C and G struck together on beat 1 of each bar) on bass barred instruments, with glockenspiels on the little-bell layer and a low gong, cymbal or drum on the big-gong layer. %%style drone is used only because the Band's drone holds an open do-so fifth, the same sound as the bordun; the page labels that style "tanpura and tabla", which is a South Asian sound, so present the Band as "drone" and never as gamelan or Balinese. No chord symbols are written, so the drone holds C and G throughout
+% dossier-lyrics: Original English words written for this record, one syllable per note: "Lit-tle bells, lit-tle bells, ting-a ting-a ting, lit-tle bells, lit-tle bells, hear the gar-den sing. Big gong, ring! Qui-et now." The B words are few on purpose: each long note carries one word, and the half rest in bar 6 is silence for listening. Sung throughout
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed grade, range and teaching constraints. It is not traditional, not collected from a community and not modelled on "Legong Lasem" or any gamelan piece; the performance is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. The "Legong Lasem" video belongs to Gamelan Sekar Jaya, whose description forbids redistribution or commercial use without permission, so the class watches it on the linked channel and nothing from it is included
+% dossier-respect: Name Gamelan Sekar Jaya, Berkeley, and the Balinese teachers behind it, and name Bali and legong when playing the video. Explain that gamelan is many traditions, not one style, and that legong grew from sacred dance; treat the gongs and the dance with respect and do not imitate the dancers' costume or movements as a game. Do not call the classroom bells and gong "gamelan", and do not present a US ensemble's video as if it were filmed in Bali
+% dossier-review: Grade 2 classroom music teacher, Indonesian (Balinese) gamelan educator, second score reader; all reviews still required
 X:1
 T:Gong Garden
-C:Grand Central Stationery workshop
-R:pentatonic layer study
-S:Original classroom composition, 2026; listening bridge to Gamelan Sekar Jaya
+T:Original Grade 2 AB song for little bells and a big gong
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 2 AB song with bordun
+S:Grand Central Stationery, "Gong Garden" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: A section: bar 1 E-G-A, G-E-D (eighth, eighth, quarter twice); bar 2 C-D-E-D (four eighths), C quarter and a quarter rest; bar 3 E-G-A, A-G-E, the bar 1 motif turned back on itself; bar 4 D-E-G-A (four eighths) and G held as a half note, an open ending on so. B section: bar 5 G half note, C half note (the gong's drop of a fifth); bar 6 E half note and a half rest; bar 7 D and E half notes; bar 8 C whole note, the cadence on do. Every bar totals four quarter beats; the only pitches are C, D, E, G and A (do-re-mi-so-la); range C4-A4; A moves by step and third, and the only leap larger than a third is the perfect fifth G4-C4 at bar 5. Originality: stepwise pentatonic figures are common property; the tune was checked against the GSJ "Legong Lasem" performance, "Hot Cross Buns" (its mi-re-do cadence is avoided; B closes re-mi-do), "Mary Had a Little Lamb", "Frère Jacques" and "Ding Dong Bell" and shares no phrase with them.
+N:UNCERTAIN: Whether Grade 2 children hold the B half notes and the whole note for full value, whether the half-rest silence in bar 6 is heard as part of the music, and whether the bell layer at "ti-ti on every beat" crowds the singing are untested. The linked video's description includes history (about the origin of "Legong Lasem") that this record does not repeat until a gamelan educator confirms it; the teacher may prefer a different GSJ video. A classroom trial, a Balinese gamelan educator and a second score reader remain required.
 M:4/4
-L:1/4
-Q:1/4=92
+L:1/8
+Q:1/4=88
 K:C
 %%style drone
-C D E2 | G A G2 | E D C2 | G4 | A G E2 | D E G2 | E D C2 | C4 |]
-w: Small sounds grow-ing, big gong knows the way. Ring, then lis-ten; slow sound ends the day.
+EG A2 GE D2 | CD ED C2 z2 | EG A2 AG E2 | DE GA G4 |
+w: Lit-tle bells, lit-tle bells, ting-a ting-a ting, lit-tle bells, lit-tle bells, hear the gar-den sing.
+G4 C4 | E4 z4 | D4 E4 | C8 |]
+w: Big gong, ring! Qui-et now.

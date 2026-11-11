@@ -1,34 +1,50 @@
 % holding-id: ontario-g1-sodade-shape
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Confirm the authorized Cesária Évora recording and have a Cabo Verdean educator review the context and morna language.
+% holding-blocked: The original is fully notated with words on every note, and the listening link is Lusafrica's official upload of the 1992 recording, but it has not been tried with students. A Grade 1 classroom teacher must trial the slow tempo, the breath after every second bar and the detached and accented notes; a Cabo Verdean music educator must review the morna, Kriolu and migration context and confirm the retitling away from "Sodade"; a second score reader must check the notes, words and cues.
+% source-local: course/holding/items/ontario-g1-sodade-shape.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback cannot show whether young voices keep the phrase gentle and connected.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 1
-% composition-elements: pitch (high/low and melodic contour on mi-so-la), dynamics (gentle accent, smooth/detached), form (question and answer)
-% composition-listen: Cesária Évora — "Sodade"
-% composition-listen-url: https://www.youtube.com/results?search_query=Cesaria+Evora+Sodade+official
+% composition-elements: pitch (high and low; melodic contour on mi-so-la, rising in the questions and falling in the answers), dynamics and articulation (detached notes in bar 3 against smooth singing, one gentle accent in bar 6), duration (quarter notes, paired eighths and quarter rests in 4/4), form (question and answer phrases)
+% composition-listen: Cesária Évora — "Sodade", from the album Miss Perfumado (Lusafrica, 1992); linked upload is Lusafrica's 2012 remaster for the 20th Anniversary Edition
+% composition-listen-url: https://www.youtube.com/watch?v=Mo4dmYifj0U
 % composition-bridge: Follow the rise and fall of a sung phrase and notice how a restrained voice can carry strong feeling.
-% composition-context: Cesária Évora's recording introduces morna from Cabo Verde, Kriolu language, migration and longing. This wordless contour study is not a morna and does not borrow the song.
-% composition-distance: Entirely original three-note melody; no lyric, chord sequence or rhythmic signature from "Sodade" is reproduced.
-% improv: {"id":"A","bars":"1-2","role":"solo singer then class","prompt":"How does the answer move?","choices":["same contour","turn downward","stay on one note"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"conductor","prompt":"Choose the articulation","choices":["smooth","detached","one gentle accent"],"replyBars":2}
-% dossier-honesty: Original solfège contour study beside a listening lesson on Évora.
-% dossier-licence: Draft original; reference song and performance remain copyrighted.
-% dossier-respect: Teach Cabo Verde and Kriolu context; do not translate morna simply as "sad music."
-% dossier-review: Cabo Verdean music educator and Grade 1 teacher.
+% composition-context: Cesária Évora (1941-2011), from Mindelo on the island of São Vicente, Cabo Verde, sang morna and coladeira in Cabo Verdean Kriolu and became known worldwide after Miss Perfumado (1992). Morna is Cabo Verde's slow song form, bound up with the islands' long history of emigration and the feeling called sodade; the song "Sodade" speaks of the road to São Tomé. This contour song is not a morna and does not borrow the song.
+% composition-distance: Entirely original melody, rhythm and English words on three notes; no lyric, chord sequence, rhythmic figure or title phrase from "Sodade" is reproduced, and the piece no longer takes the song's title.
+% improv: {"id":"A","bars":"3-4","role":"class","prompt":"How does the answer move?","choices":["fall as written","stay on one note","rise instead"],"replyBars":2}
+% improv: {"id":"B","bars":"7-8","role":"conductor","prompt":"Choose the articulation","choices":["smooth","detached","one gentle accent"],"replyBars":2}
+% dossier-function: original Grade 1 contour song: the words say where the melody goes (up, down, float, fall, home) so children connect high and low sounds with the shape of a phrase, and hear smooth against detached singing
+% dossier-elements: eight bars in 4/4 with no pickup; pitch set mi-so-la only (E4, G4, A4), written range E4-A4; quarter notes, paired eighths and quarter rests only; four two-bar phrases, question-answer-question-answer: bars 1-2 rise E-G-A and end high on la, bars 3-4 fall A-G-E (detached) and end low on mi, bars 5-6 rise again with a gentle accent on the high A at bar 6, bars 7-8 fall smoothly home to mi; each phrase ends with a quarter-rest breath; largest leap a perfect fourth between E4 and A4, where the three-note motif restarts inside bars 1, 3 and 5 and where a phrase begins after a rest
+% dossier-practice: Quarter note = 76 is the target; begin at 66, singing lightly. The written range E4-A4 sits inside the young-unison C4-D5 range, and C major (mi-so-la on E-G-A) is the rehearsal key. Teach in steps: trace each phrase in the air with a hand (up, up; down, down); sing the questions (bars 1-2 and 5-6) as an echo after the teacher; then the answers; then contrast bar 3 sung detached (little steps down) with bar 7 sung smoothly; add the gentle accent on "light" in bar 6 last. Listen to the Évora recording before or after, and talk about how a quiet voice can still feel strong
+% dossier-accompaniment: %%style ballad is the Band's generic slow piano ballad, chosen for a soft, unhurried pulse; it is not morna and must not be described as Cabo Verdean. No chord symbols are written; the Band harmonises the three notes itself. In class the song works unaccompanied or with a hand-drum heartbeat on beat 1
+% dossier-lyrics: Original English words written for this record, one syllable per note: "Sing it up, sing it up, high in the sky; sing it down, sing it down, low on the ground. Float it up, float it up, light as a kite; let it fall, let it fall, home a-gain." The words were rewritten from the earlier wordless "mm" draft because Grade 1 pieces must be sung with words; each word that names a direction sits on the matching pitch. Sung throughout
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed grade, range and teaching constraints. It is not traditional, not collected from a community and not modelled on "Sodade" or any morna; the recording is a listening bridge only. Retitled from the draft title "Sodade Shape" because that title took the reference song's name and a Kriolu word with deep meaning for a three-note contour exercise
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. "Sodade" (credited on different releases to Armando Zeferino Soares, or to Luís Morais and Amândio Cabral) and Évora's recording remain the copyright of their owners and are not included; the class listens through the linked official upload
+% dossier-respect: Name Cesária Évora, Mindelo and Cabo Verde, Kriolu as the language she sang in, and morna as a living song form tied to emigration and longing. Do not translate morna simply as "sad music" or sodade as "sadness", do not present this classroom song as Cabo Verdean, and do not use the word "Sodade" as a label for it
+% dossier-review: Grade 1 classroom music teacher, Cabo Verdean music educator, second score reader; all reviews still required
 X:1
-T:Sodade Shape
-C:Grand Central Stationery workshop
-R:wordless question and answer
-S:Original classroom composition, 2026; listening bridge to Cesária Évora
+T:Sing It Up, Sing It Down
+T:Original Grade 1 contour song (draft title "Sodade Shape")
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 1 contour song in question and answer
+S:Grand Central Stationery, "Sing It Up, Sing It Down" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bar 1 E-G-A, E-G-A (eighth, eighth, quarter twice), the rising motif; bar 2 A-G-G-A and a quarter rest, the question ending high on la; bar 3 A-G-E, A-G-E marked staccato, the motif turned upside down; bar 4 G-E-E-E and a rest, the answer ending on mi; bar 5 E-G-A, G-A-A, the rising motif pushed higher; bar 6 A (accented)-G-A-A and a rest, the second question; bar 7 A-G-E, G-E-E, smooth; bar 8 G-G-E and a rest, the final answer on mi. Every bar totals four quarter beats; the only pitches are E4, G4 and A4; range E4-A4; the largest leap is the perfect fourth between E and A where the three-note motif restarts (inside bars 1, 3 and 5) or a phrase begins after a rest; durations are eighths, quarters and quarter rests only. Originality: rising and falling mi-so-la shapes are common property; the tune was checked against "Sodade" (melody and lyric), "Bounce High, Bounce Low" (which also sets high and low words but on a so-la-so-mi shape this tune does not use), "Rain, Rain, Go Away" and "Lucy Locket" and shares no phrase with them.
+N:UNCERTAIN: Whether 76 is slow enough to feel gentle without young singers losing the line, whether children hear the staccato of bar 3 and the accent of bar 6 as different from the rest, and whether the "rise instead" choice is fun or confusing have not been tested. The new title needs the reviewer's agreement. A Cabo Verdean music educator, a classroom trial and a second score reader remain required.
 M:4/4
-L:1/4
-Q:1/4=72
+L:1/8
+Q:1/4=76
 K:C
 %%style ballad
-E G A G | E2 z2 | G A G E | G2 z2 | A G E G | A2 z2 | G E G A | E4 |]
-w: Mm mm mm mm, mm. * Mm mm mm mm, mm. * Mm mm mm mm, mm. * Mm mm mm mm, mm.
+EG A2 EG A2 | A2 GG A2 z2 | .A.G .E2 .A.G .E2 | G2 EE E2 z2 |
+w: Sing it up, sing it up, high in the sky; sing it down, sing it down, low on the ground.
+EG A2 GA A2 | !>!A2 GA A2 z2 | AG E2 GE E2 | G2 G2 E2 z2 |]
+w: Float it up, float it up, light as a kite; let it fall, let it fall, home a-gain.

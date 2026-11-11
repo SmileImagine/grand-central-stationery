@@ -1,33 +1,52 @@
 % holding-id: ontario-g7-log-drum-constellation
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Choose an authorized Kabza De Small recording and ask a South African amapiano producer/educator to review the production-language comparison.
+% holding-blocked: The original is fully notated in two parts and its listening reference is verified, but it has not been played by a class. A South African amapiano producer or educator must review the production-language comparison and confirm that the retitling away from "Log-Drum Constellation" is right; a Grade 7 music teacher must trial the bass part and the drop; a second score reader must check the audit.
+% source-local: course/holding/items/ontario-g7-log-drum-constellation.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that the drop and the bass part work with students.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 7
-% composition-elements: minor triads, bass-register timbre, syncopated repertoire rhythm, layered texture and arrangement through density
-% composition-listen: Kabza De Small — "Sponono"
-% composition-listen-url: https://www.youtube.com/results?search_query=Kabza+De+Small+Sponono+official
+% composition-elements: major and minor triads in F minor (Fm, Bbm and Cm minor, Db major); a written bass-register part (G2-F3) with an off-beat syncopation on the "and" of beat 2 against the melody's dotted quarters that start on beat 2; layered texture of melody, bass and band; arrangement through density, written into the notes: the bass drops out in bars 5-6 and returns in bar 7
+% composition-listen: Kabza De Small — "Sponono" (featuring Wizkid, Burna Boy, Cassper Nyovest and Madumane), from the album I Am the King of Amapiano: Sweet & Dust, Piano Hub, 2020
+% composition-listen-url: https://music.apple.com/us/song/sponono-feat-wizkid-burna-boy-cassper-nyovest-madumane/1680728759
 % composition-bridge: Listen for spacious tempo, keyboard harmony, vocal layers and the pitch-shaped log-drum bass as an arranging voice.
 % composition-context: Amapiano developed in South African townships and is shaped by producers, dancers, DJs and changing local scenes. This new classroom minor loop is not an amapiano track.
-% composition-distance: Original melody and loop; no log-drum line, sample, vocal, chord sequence or production from the reference is copied.
-% improv: {"id":"A","bars":"1-2","role":"bass improviser","prompt":"Choose the bass gesture","choices":["root then leap","slide downward","one note and space"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"arranger","prompt":"Create the drop with texture","choices":["remove drums","remove chords","all layers enter"],"replyBars":2}
-% dossier-honesty: Original minor-loop arrangement lab; not an amapiano pastiche.
-% dossier-licence: Draft original; reference work and recording remain copyrighted.
-% dossier-respect: Name South African producers and dance communities; do not detach the log drum from amapiano and market it as a generic preset.
-% dossier-review: South African amapiano producer/educator and Grade 7 teacher.
+% composition-distance: Original melody, bass line and chord loop; no log-drum line, sample, vocal, chord sequence or production from the reference is copied, and no log-drum sound is imitated.
+% improv: {"id":"A","bars":"4","role":"bass player","prompt":"Change bar 4's bass","choices":["root, then up an octave","slide down to the next root","one note and space"],"replyBars":1}
+% improv: {"id":"B","bars":"5-6","role":"arranger","prompt":"Shape the drop","choices":["drums out too","chords out too","keep the band; only the bass drops"],"replyBars":2}
+% dossier-function: original two-part loop and arranging lab for Grade 7: a melody group and a bass group play an eight-bar minor loop, then the class decides how much drops out in bars 5-6 and how the bass returns, while listening for how Kabza De Small's production uses the bass as an arranging voice
+% dossier-elements: eight bars in 4/4, F minor (four flats); chords Fm | Bbm | Db | Cm | Fm | Bbm | Db-Cm | Fm; melody (Keys) written range Db4-Db5, pitch set F G Ab Bb C Db Eb; bass written range G2-F3 in bass clef; melody rhythm z2 X3 Y Z2 (two beats' rest, a dotted quarter from beat 2, an eighth on the "and" of 3, a quarter) in bars 1, 2, 3 and 5, varied in bars 4, 6 and 7, half-note cadence on F4 in bar 8; bass pattern root quarter, eighth rest, root eighth on the "and" of 2, quarter rest, fifth below on beat 4 (bars 1-4), silent in bars 5-6, a split-bar pattern in bar 7 and a closing root in bar 8; largest melodic leap a perfect fourth
+% dossier-practice: Quarter note = 112 is the target; start at 88. F minor is the rehearsal key for concert band instruments (G minor for Bb instruments); the page's Transpose can move it to E minor or D minor for recorders and ukuleles. The melody's written range Db4-Db5 sits inside the young-unison C4-D5; the bass part is for bass bars, bass ukulele, cello, keyboard left hand or a low synth. Teach the bass rhythm first by clapping (one, and-of-two, four), then the melody's late entry on beat 2, then put them together; only then try the drop and the cues. Turn the page's Band bass down in the mixer while students play the written bass
+% dossier-accompaniment: The written chords drive the page's lo-fi hip-hop style (electric piano, soft kit, held seventh chords), chosen for its spacious keyboard harmony; it is a stand-in and is not amapiano. No log-drum patch, shaker groove, piano riff or vocal chop from amapiano production is imitated; the students' bass part plays the arranging role the bridge asks them to listen for
+% dossier-lyrics: Instrumental: keyboard, bells, recorder or voices on a neutral syllable for the melody; bass instruments for the bass. No words are supplied, and no words or vocal lines from "Sponono" are used
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, texture and teaching constraints. It is not traditional, not collected from a community, not modelled on the reference's melody and not an amapiano pastiche; the listening reference is a bridge only. Drafted as "Log-Drum Constellation"; retitled because its own respect note says the log drum must not be detached from amapiano, and the piece contains no log drum
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, bass line, chord loop, improvisation cues and this ABC encoding to the public domain to the extent legally possible. "Sponono" and its recording remain their owners' copyright and are not included
+% dossier-respect: Name Kabza De Small (Kabelo Motha) and the featured artists, say that amapiano grew in Gauteng's townships (Pretoria and Johannesburg) in the 2010s from kwaito, deep house and jazz, carried by producers, DJs and dancers, and that the log drum is a signature sound that belongs to that scene. Do not detach the log drum from amapiano and market it as a generic preset, and never present this classroom loop as amapiano
+% dossier-review: South African amapiano producer or educator, Grade 7 music teacher, second score reader and student listening panel; all reviews still required
 X:1
-T:Log-Drum Constellation
-C:Grand Central Stationery workshop
-R:minor-loop arrangement lab
-S:Original classroom composition, 2026; listening bridge to Kabza De Small
+T:Bassline Constellation
+T:Original two-part minor loop and arranging lab
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:minor-loop arranging lab with a written bass layer
+S:Grand Central Stationery, "Bassline Constellation" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit of the Keys melody: bar 1 (Fm) two beats' rest, C5 dotted quarter, Ab4 eighth, F4 quarter; bar 2 (Bbm) rest, Bb4, F4, Db4 in the same rhythm; bar 3 (Db) rest, F4, Ab4, Db5, the arpeggio turned upward; bar 4 (Cm) C5 quarter, Bb4-G4 eighths, Eb4 and G4 quarters; bar 5 (Fm) as bar 1; bar 6 (Bbm) rest, Bb4 quarter, C5-Db5 eighths, Bb4 quarter; bar 7 (Db then Cm) eighth rest, F4-Ab4-Db5 eighths, C5 quarter, Bb4-G4 eighths; bar 8 (Fm) Ab4 and G4 quarters, F4 half. Bass: bars 1-4 root quarter, eighth rest, root eighth, quarter rest, the chord's fifth below as a quarter on beat 4 (F3/C3, Bb2/F3, Db3/Ab2, C3/G2); bars 5-6 whole-bar rests (the drop); bar 7 Db3 quarter, rest, Db3 eighth, C3 quarter, rest, G2 eighth; bar 8 F3 quarter, rest, F3 eighth, F3 quarter, quarter rest. Every bar of both parts totals eight eighths; melody range Db4-Db5, largest leap a perfect fourth; bass range G2-F3. The batch draft was a single line of rising arpeggios with an Eb5-Eb4 octave drop into bar 8 and no bass-register part despite claiming one. Originality check: the melody and bass are not the "Sponono" hook, its log-drum line or its piano chords; arpeggiated minor-triad melodies and root-fifth bass patterns are common property.
+N:UNCERTAIN: Whether the late entries on beat 2 are steady for Grade 7 players at quarter note = 112, whether the lo-fi style's swing feel suits the straight bass part, and whether students hear the drop as an arranging choice have not been tested. An amapiano producer or educator must judge whether the framing and the new title keep the piece clear of imitation; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4
 L:1/8
 Q:1/4=112
 K:Fm
-%%style pop
-"Fm"F2 A2 c3 A | "Db"D2 F2 A3 F | "Ab"A2 c2 e3 c | "Eb"E2 G2 B4 |
-"Fm"z F3 A2 c2 | "Db"z D3 F2 A2 | "Ab"z A3 c2 e2 | "Eb"E8 |]
+%%style lofi
+V:1 name="Keys melody" sname="Keys"
+V:2 name="Bass" sname="Bass" clef=bass
+[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B3 F D2 | "Db"z2 F3 A d2 | "Cm"c2 B G E2 G2 |
+[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B2 c d B2 | "Db"z F A d "Cm"c2 B G | "Fm"A2 G2 F4 |]
+[V:2] F,2 z F, z2 C,2 | B,,2 z B,, z2 F,2 | D,2 z D, z2 A,,2 | C,2 z C, z2 G,,2 |
+[V:2] z8 | z8 | D,2 z D, C,2 z G,, | F,2 z F, F,2 z2 |]

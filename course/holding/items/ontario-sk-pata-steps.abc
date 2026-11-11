@@ -1,34 +1,49 @@
 % holding-id: ontario-sk-pata-steps
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Confirm the authorized Miriam Makeba recording and trial the movement prompts with an SK class.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. An SK classroom trial, an early-years music teacher, a South African music educator, a movement/accessibility reviewer and a second score reader must check the freeze and the one-bar partner answer at quarter = 96, the safety of the stepping and turning, and how Miriam Makeba and "Pata Pata" are introduced. The title was changed from "Pata Steps" to "Mirror Steps" so the piece does not borrow the reference song's own word; a reviewer should confirm the new title.
+% source-local: course/holding/items/ontario-sk-pata-steps.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; do not present generated playback as evidence that SK partners can mirror in time.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: SK
-% composition-elements: steady beat, speed, volume and sound quality — move on the beat and leave room for a partner's choice
-% composition-listen: Miriam Makeba — "Pata Pata"
-% composition-listen-url: https://www.youtube.com/results?search_query=Miriam+Makeba+Pata+Pata+official
-% composition-bridge: Hear how repeated vocal and instrumental ideas make social movement feel communal; notice leader and group energy.
-% composition-context: Miriam Makeba's internationally known recording can open a lesson on South African popular music, language, dance and apartheid-era history. This is a new movement chant, not a "Pata Pata" arrangement.
-% composition-distance: Original melody and English words; no hook, bass line or lyric from the recording is used.
-% improv: {"id":"A","bars":"1-2","role":"movement leader","prompt":"Choose the travelling step","choices":["side-side","forward-back","stay and groove"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"partner pairs","prompt":"How will your partner answer?","choices":["mirror","make it smaller","change direction"],"replyBars":2}
-% dossier-honesty: Original social-movement chant beside a listening study of Makeba.
-% dossier-licence: Draft original; the reference recording remains copyrighted.
-% dossier-respect: Teach Makeba's name, language and political context; do not reduce the recording to an anonymous dance beat.
-% dossier-review: Early-years teacher and South African music educator.
+% composition-elements: steady beat, movement direction and partner response (Kindergarten Program 2016) — step on the beat, side to side and turning, freeze in a chosen shape, then show a partner a new step that the partner answers in the silent bar by mirroring, shrinking or turning it
+% composition-listen: Miriam Makeba — "Pata Pata" (stereo version), the 1967 Reprise single and title track of the album Pata Pata (1967), heard via the auto-generated Miriam Makeba channel from Strut Records' 2019 release
+% composition-listen-url: https://www.youtube.com/watch?v=SBH_u-vEK30
+% composition-bridge: Hear how repeated vocal and instrumental ideas make social movement feel communal; notice the leader's voice and the group's answer.
+% composition-context: Miriam Makeba (1932-2008), a South African singer from Johannesburg, first recorded "Pata Pata" in South Africa in 1957; the song, sung partly in isiXhosa, names a township social dance ("pata pata", touch touch), and her 1967 US recording became an international hit. Banned from returning home in 1960 for speaking against apartheid, she lived in exile until 1990. Writing credits differ between sources (Makeba and Jerry Ragovoy on the 1967 release; some histories link the earlier song to Dorothy Masuka). This is a new movement song, not a "Pata Pata" arrangement.
+% composition-distance: Original melody, rhythm and English words; no hook, bass line, word or lyric from the recording is used, and the title no longer uses the word "pata". The recording is linked, not embedded.
+% improv: {"id":"A","bars":"3-4","role":"whole class","prompt":"How do we stop?","choices":["freeze tall","freeze small"],"replyBars":1}
+% improv: {"id":"B","bars":"5-7","role":"partner pairs","prompt":"How does your partner answer?","choices":["mirror it","make it smaller","change direction"],"replyBars":1}
+% dossier-function: original SK partner movement song; partners step on the beat side to side, turn and freeze in a chosen shape, then one shows a new step and the other answers it in the silent bar before the roles swap on "now you lead!"
+% dossier-elements: eight bars in 2/4 (L:1/8), G major pentatonic, pitch set D-E-G-A (low so, low la, do, re), written range D4-A4 (a perfect fifth). Bars 1-2 "Step, step, side to side" G4 G4 quarters, A4 A4 eighths and G4 quarter; bar 3 "turn a-round and" E4 E4 G4 G4 eighths; bar 4 "stop!" A4 quarter and a quarter rest for the freeze; bar 5 "Show your part-ner" A4 A4 G4 G4; bar 6 "one new step" E4 E4 eighths, D4 quarter; bar 7 a silent bar for the partner's answer; bar 8 "now you lead!" E4 E4 eighths, G4 quarter on the tonic. Form: two four-bar phrases, the first ending open on A4 (re) for the freeze, the second answering down to D4 and home to G4. Note values: eighths, quarters, a quarter rest and one two-beat rest; largest interval a minor third (E4-G4). Chords G, D and C (I, V, IV) for the teacher or Band only
+% dossier-practice: Start at quarter = 84 and reach the written 96 once partners answer inside bar 7. Rehearsal key G major; the written range D4-A4 is the SK comfort zone and inside the young-unison C4-D5 range. Teach in steps: sing while stepping side to side on the beat; add the turn and the freeze, choosing tall or small; then pair children facing each other, one shows a step in bars 5-6 and the partner answers in bar 7 (mirror, smaller, or the other way); swap on "now you lead!" and repeat. Seated children step with hands or shoulders; keep turns slow and space wide
+% dossier-accompaniment: Newly authored, not traditional: G, D and C chords (I, V, IV). The pop style gives a generic classroom groove; it is not mbaqanga, kwela, marabi or any South African style, does not copy the "Pata Pata" bass or guitar parts, and must not be labelled as South African music
+% dossier-lyrics: Original English words written for this record: "Step, step, side to side, turn around and stop! Show your partner one new step, now you lead!" One syllable per note, stresses on the beats ("STEP, STEP", "SIDE to SIDE", "TURN a-ROUND", "STOP", "SHOW your PART-ner", "ONE new STEP", "NOW you LEAD"); sung. Movement words may be swapped for accessible alternatives; record those as classroom adaptations
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm, safety and teaching constraints. It is not traditional, not collected from a community and not modelled on "Pata Pata"; Makeba's recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, chords and this ABC encoding to the public domain to the extent legally possible. "Pata Pata" and its recordings remain the copyright of their writers, publishers and labels and are not included
+% dossier-respect: Teach Miriam Makeba's name, South Africa, the isiXhosa language of the song and her exile for opposing apartheid; do not reduce the recording to an anonymous dance beat or teach the pata pata dance from guesswork. Present "Mirror Steps" as a classroom movement song, never as South African music
+% dossier-review: South African music educator (ideally an isiXhosa speaker), early-years (SK) music teacher, movement/accessibility reviewer, SK classroom trial and a second score reader; all reviews still required
 X:1
-T:Pata Steps
-C:Grand Central Stationery workshop
-R:movement chant
-S:Original classroom composition, 2026; listening bridge to Miriam Makeba
+T:Mirror Steps
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:SK partner movement song
+S:Grand Central Stationery, "Mirror Steps" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals four eighths (2/4). Bar 1 G4 G4 quarters; bar 2 A4 A4 eighths, G4 quarter; bar 3 E4 E4 G4 G4 eighths; bar 4 A4 quarter, quarter rest; bar 5 A4 A4 G4 G4 eighths; bar 6 E4 E4 eighths, D4 quarter; bar 7 rest; bar 8 E4 E4 eighths, G4 quarter. Pitch set D-E-G-A, range D4-A4, largest interval a minor third. Retitled from "Pata Steps" (the reference song's word). The earlier draft's words did not fit stress ("Groove, groove, lis-ten" on two notes) and its cues sat on sung bars; now the freeze and the partner answer each have their own rest. The analyzer reads level 2 (pentatonic, rests); its Ontario line names a I-IV-V chord progression (Grade 6) and low so and la (Grade 3) as notation concepts, but the chords are for the teacher or Band and SK children learn by rote; only beat, direction and partner response are claimed. Originality: do-re and la-do patterns are common property; checked against "Bounce High, Bounce Low", "Hot Cross Buns", "Ring Around the Rosie", "The Hokey Pokey" and "Head, Shoulders, Knees and Toes", with no shared opening. "Pata Pata" is not quoted in melody, rhythm or words.
+N:UNCERTAIN: Whether SK partners can answer within one bar (about 1.25 seconds at quarter = 96) or need the teacher to slow down, whether the turn and freeze are safe in a crowded room, and how a South African educator would want Makeba's song and its authorship introduced. A classroom trial, a South African music educator, a movement/accessibility reviewer and a second score reader must settle these.
 M:2/4
-L:1/4
-Q:1/4=104
-K:C
+L:1/8
+Q:1/4=96
+K:G
 %%style pop
-E E | G z | E G | A z | G G | E z | A G | E2 |]
-w: Step, step, freeze. Step and turn. Groove, groove, listen. You choose, home.
+"G"G2 G2 | "D"A A "G"G2 | "C"E E "G"G G | "D"A2 z2 |
+w: Step, step, side to side, turn a-round and stop!
+"D"A A "G"G G | "C"E E "D"D2 | "D"z4 | "C"E E "G"G2 |]
+w: Show your part-ner one new step, now you lead!

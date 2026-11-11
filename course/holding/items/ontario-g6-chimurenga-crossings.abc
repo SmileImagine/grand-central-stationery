@@ -1,33 +1,54 @@
 % holding-id: ontario-g6-chimurenga-crossings
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Thomas Mapfumo recording and have a Zimbabwean educator review chimurenga history and the mbira-guitar comparison.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been played by students. A Grade 6 music teacher must trial the two crossing layers (3+3 against 2+2+2) at the proposed tempo; a Zimbabwean music educator or culture bearer must review the chimurenga history and the mbira-guitar comparison; a second score reader must check the notes; and someone must replace the discovery search with an authorized link to Thomas Mapfumo's "Shumba" (a label, archive or official artist page) and confirm its first release.
+% source-local: course/holding/items/ontario-g6-chimurenga-crossings.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Thomas Mapfumo recording is a listening reference only and is not a performance of this piece.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 6
-% composition-elements: 6/4 compound metre, pickup, 3:2 layering, I-IV-V progressions and major/perfect intervals
-% composition-listen: Thomas Mapfumo — "Shumba"
-% composition-listen-url: https://www.youtube.com/results?search_query=Thomas+Mapfumo+Shumba+official
+% composition-elements: 6/4 metre heard two ways, as two dotted-half beats (3+3) and as three half-note beats (2+2+2); two layers crossing three against two, the melody in one grouping and the ostinato in the other, swapping in the middle section; I-IV-V harmony (G, C, D); named intervals (G-B major third, D-A perfect fourth, the ostinato's G-D perfect fifths); ABA' form
+% composition-listen: Thomas Mapfumo and the Blacks Unlimited — "Shumba" (1981), on the compilation Shumba: Vital Hits of Zimbabwe (Earthworks, 1990)
+% composition-listen-url: https://www.youtube.com/results?search_query=Thomas+Mapfumo+Shumba+Blacks+Unlimited
 % composition-bridge: Hear electric guitar and bass take interlocking cyclical roles associated with mbira-informed chimurenga sound.
 % composition-context: Thomas Mapfumo's chimurenga music connects Shona musical resources with anticolonial and post-independence political expression. This new 6/4 exercise is not chimurenga.
 % composition-distance: Original pitches, harmony and rhythmic cells; no mbira-derived guitar line, lyric or arrangement from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"two ostinato groups","prompt":"How do the layers cross?","choices":["three over two","alternate bars","meet only at the start"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"melody soloist","prompt":"Choose an interval frame","choices":["major third","perfect fourth","perfect fifth"],"replyBars":2}
-% dossier-honesty: Original compound-metre exercise; not a chimurenga transcription or mbira part.
-% dossier-licence: Draft original; reference work and recording remain copyrighted.
-% dossier-respect: Teach the word chimurenga, political history and Shona sources; do not reduce the genre to a guitar texture.
-% dossier-review: Zimbabwean music educator and Grade 6 teacher.
+% improv: {"id":"A","bars":"5-8","role":"clapping group over the two layers","prompt":"Which layer do you clap?","choices":["the melody's 2+2+2","the ostinato's 3+3","only beat one"],"replyBars":4}
+% improv: {"id":"B","bars":"11-12","role":"bells or recorder soloist","prompt":"Add one note above the last G","choices":["major third (B)","perfect fourth (C)","perfect fifth (D)"],"replyBars":1}
+% dossier-function: original instrumental layering piece for Grade 6: a melody group and an ostinato group play in different groupings of the same six beats, swap groupings in the middle, and a clapping group and a soloist make choices over them
+% dossier-elements: twelve bars in 6/4 (six quarter notes); G major, melody pitch set D-E-F#-G-A-B-C-D-E, range D4-E5; ostinato G3-A4 on chord roots and fifths; A (bars 1-4) melody in 3+3 (three quarters then a half and a quarter, or a half, quarter and dotted half) over an ostinato in three half notes; B (bars 5-8) melody in three half notes over an ostinato in two dotted halves, so the crossing swaps; A' (bars 9-12) returns with a new turn in bar 11 and the cadence on a dotted-half G; harmony G-C-D-G, C-G-C-D, G-C-D-G (I-IV-V); ABA' form
+% dossier-practice: Quarter note = 132 is the target; begin at 100. Rehearsal key G major; the melody's written range D4-E5 suits soprano recorder, xylophone or glockenspiel (and lies inside the young-unison C4-D5 range except two E5s, for voices on "loo"); the ostinato G3-A4 suits bass xylophone, low bells, cello or keyboard. Teach in steps: count six quarters and clap 1 and 4 (3+3), then 1, 3 and 5 (2+2+2); half the class claps each at once; learn the melody of A and B; learn the ostinato; put the layers together; swap groups; add the clapping choice in B and the soloist's interval on the last chord.
+% dossier-accompaniment: The ostinato (second voice) and the G-C-D chords are newly authored. The page's folk band was chosen as a plain, non-specific accompaniment; it is not chimurenga, not mbira and must not be labelled Zimbabwean. The class's two layers carry the crossing; mute the band's drums if they blur the 2+2+2 against 3+3. Do not imitate a guitar or mbira part from the recording.
+% dossier-lyrics: Instrumental piece for recorders, barred percussion, keyboard and body percussion; no words, so that the lesson stays on the two groupings rather than on invented text in place of Mapfumo's Shona lyrics. Any words added later should be recorded as a new adaptation.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed range, metre and teaching constraints. Not traditional, not collected from any community, not a chimurenga song or an mbira part, and not modelled on the reference's melody, guitar lines or arrangement; the Thomas Mapfumo recording is a listening bridge only.
+% dossier-licence: CC0 1.0 for the melody, ostinato, chords and this ABC encoding. "Shumba" and its recording remain their owners' copyright and are not included.
+% dossier-respect: Name Thomas Mapfumo as a Zimbabwean singer and bandleader, born in 1945, whose chimurenga ("struggle") music brought Shona mbira patterns and Shona-language songs to the electric band during the liberation war and after independence in 1980, and who later lived in exile in the United States; name the Blacks Unlimited's guitarists. Teach the word chimurenga, the political history and Shona sources; do not reduce the genre to a guitar texture, and never present this classroom piece as chimurenga.
+% dossier-review: Grade 6 classroom music teacher, Zimbabwean music educator or culture bearer, second score reader and student playing trial; all reviews still required
 X:1
 T:Crossing Lines
-C:Grand Central Stationery workshop
-R:compound-metre interlock study
-S:Original classroom composition, 2026; listening bridge to Thomas Mapfumo
+T:Original 6/4 piece for two crossing layers
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:instrumental layering piece in 6/4
+S:Grand Central Stationery, "Crossing Lines" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; the draft's opening pickup and the one-eighth "pickup" bar in the middle were removed by rewriting. Bar-by-bar audit, every bar six quarters: melody bar 1 B d B quarters, A half, G quarter; bar 2 E G C5 quarters, G half, E quarter; bar 3 F# A D5 quarters, C5 half, A quarter; bar 4 B half, A quarter, G dotted half; bars 5-8 three half notes each (E5 C5 G; D5 B G; C5 E G; A F# D); bar 9 = bar 1, bar 10 = bar 2; bar 11 F# A D5 quarters, A half, F# quarter; bar 12 = bar 4. Ostinato: three half notes (root, fifth, root) in bars 1-4 and 9-12, two dotted halves (root, fifth) in bars 5-8, ending on G3 dotted halves. Melody pitch set D-E-F#-G-A-B-C-D-E, range D4-E5, largest leaps the major sixths at the section joins (G4 up to E5 into bar 5, D4 up to B4 into bar 9) and the minor sixth C5-E4 inside bar 7, with thirds, fourths and fifths elsewhere; ostinato G3-A4. The analyzer reads the half notes that cross the 3+3 grouping as syncopation; that is the intended hemiola, not a syn-co-pa figure. Form ABA'. Originality check: the B-D-B-A-G opening and the half-note arpeggios were compared with what the reference's guitar and vocal lines expose and with common children's songs; no shared figure was found; triad arpeggios and a three-against-two layering are common property.
+N:UNCERTAIN: Whether Grade 6 players hold their own grouping while the other layer crosses it at quarter = 132, and how the page's folk band plays 6/4, can only be settled by a classroom trial. The original release of "Shumba" (1981) is taken from Banning Eyre's track notes and the 1990 Earthworks compilation from discographies; both need checking against an authorized source. A Zimbabwean music educator should judge whether the mbira-guitar comparison is accurate and respectful.
 M:6/4
 L:1/8
-Q:3/8=88
+Q:1/4=132
 K:G
 %%style folk
-D | "G"G2 B2 d2 B2 A2 G2 | "C"E2 G2 c2 G2 E2 D2 | "D"F2 A2 d2 A2 F2 E2 | "G"G12 |
-D | "G"G2 A2 B2 d2 B2 G2 | "C"E2 F2 G2 c2 G2 E2 | "D"F2 E2 D2 A2 F2 D2 | "G"G12 |]
+V:1 name="Melody" sname="1"
+V:2 name="Ostinato" sname="2"
+[V:1] "G"B2 d2 B2 A4 G2 | "C"E2 G2 c2 G4 E2 | "D"F2 A2 d2 c4 A2 | "G"B4 A2 G6 |
+[V:1] "C"e4 c4 G4 | "G"d4 B4 G4 | "C"c4 E4 G4 | "D"A4 F4 D4 |
+[V:1] "G"B2 d2 B2 A4 G2 | "C"E2 G2 c2 G4 E2 | "D"F2 A2 d2 A4 F2 | "G"B4 A2 G6 |]
+[V:2] G,4 D4 G,4 | C4 G4 C4 | D4 A4 D4 | G,4 D4 G,4 |
+[V:2] C6 G6 | G,6 D6 | C6 G6 | D6 A6 |
+[V:2] G,4 D4 G,4 | C4 G4 C4 | D4 A4 D4 | G,6 G,6 |]

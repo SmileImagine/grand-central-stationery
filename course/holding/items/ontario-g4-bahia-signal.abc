@@ -1,35 +1,54 @@
 % holding-id: ontario-g4-bahia-signal
-% holding-status: transcription
-% holding-generated: true
+% holding-status: source-check
+% holding-owner:
 % holding-source-check: pending
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Ilê Aiyê recording and ask an Afro-Brazilian educator to review bloco afro, Bahia and cultural context.
+% holding-blocked: Replace the discovery search with an authorized link to Ilê Aiyê's own recording of "Que Bloco É Esse?" and confirm the album pairing (Canto Negro, 1984). A Grade 4 teacher must trial the syn-co-pa against the clapped ostinato, the accents and the lyric fit; a second score reader must check the two-part notation; an Afro-Brazilian or Bahia music educator must review the bloco afro context. The title was changed from "Bahia Signal" so the piece does not claim a place or tradition it does not come from; the lead should confirm the new title.
+% source-local: course/holding/items/ontario-g4-bahia-signal.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a consented classroom demo with singers and a clapping group; do not present the page's generated playback as evidence that the two parts fit for children.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 4
-% composition-elements: syncopation, accents, two-part polyphony, major/minor colour and repeat-based form
-% composition-listen: Ilê Aiyê — "Que Bloco É Esse?"
-% composition-listen-url: https://www.youtube.com/results?search_query=Ile+Aiye+Que+Bloco+E+Esse+official
+% composition-elements: syncopation (syn-co-pa: eighth, quarter, eighth) in the voice and in the clapped ostinato; accent marks on the chorus; mf and f signs; a simple two-part piece (sung melody over a one-bar clapped ostinato); G major with one sharp, using fa (C) and the full upper tetrachord; call and chorus form, the call varied and the chorus repeated with a new ending
+% composition-listen: Ilê Aiyê — "Que Bloco É Esse?" (Paulinho Camafeu), first sung at Ilê Aiyê's 1975 Carnival parade in Salvador; Ilê Aiyê's recording opens the album "Canto Negro" (1984)
+% composition-listen-url: https://www.youtube.com/results?search_query=Il%C3%AA+Aiy%C3%AA+Que+Bloco+%C3%89+Esse+Canto+Negro
 % composition-bridge: Listen for massed percussion, a declarative chorus and identity carried through ensemble sound.
-% composition-context: Ilê Aiyê is a bloco afro founded in Salvador, Bahia, with Black cultural and political significance. This original school signal is not samba-reggae or an Ilê Aiyê arrangement.
-% composition-distance: Original tune, words and percussion-neutral score; no chorus, drum part or arrangement from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"caller then chorus","prompt":"Choose the chorus entrance","choices":["on beat one","one eighth late","after a rest"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"two percussion groups","prompt":"Build the texture","choices":["alternate","overlap","one group silent"],"replyBars":2}
-% dossier-honesty: Original syncopation study; bloco afro music is taught through the actual recording and history.
-% dossier-licence: Draft original; Ilê Aiyê's music and recording remain copyrighted.
-% dossier-respect: Teach the ensemble's Black Brazilian political context; do not use costumes or generic "carnival" framing.
-% dossier-review: Afro-Brazilian/Bahia music educator and Grade 4 teacher.
+% composition-context: Ilê Aiyê, founded on 11 November 1974 in the Curuzu neighbourhood of Liberdade, Salvador, Bahia, was the first bloco afro: a Carnival group open only to Black members, created in answer to racism in Salvador's Carnival and dedicated to Black Brazilian and African identity. "Que Bloco É Esse?" was its first Carnival song. This original school chorus is not samba-reggae, not a bloco afro song and not an Ilê Aiyê arrangement.
+% composition-distance: Original tune, words and clapped ostinato; no chorus, lyric, drum part, rhythm pattern or arrangement from the recording is copied, and the ostinato is a plain classroom syn-co-pa, not a samba-reggae pattern.
+% improv: {"id":"A","bars":"2","role":"clapping group","prompt":"Fill the gap after the call (beats 3-4)","choices":["two stomps","four quick claps (ti-ti ti-ti)","stay silent"],"replyBars":1}
+% improv: {"id":"B","bars":"7-8","role":"singers and clappers","prompt":"How does the last chorus sound?","choices":["voices and claps","voices only, claps stop","claps only in bar 7, everyone in bar 8"],"replyBars":2}
+% dossier-function: original Grade 4 call-and-chorus song with a clapped second part, and a listening bridge; a leader or small group sings each call, the class answers with an accented chorus while a clapping group holds a syncopated ostinato, before listening to how Ilê Aiyê's chorus and drums carry identity
+% dossier-elements: eight bars in 4/4 in two parts. Voice: call (bars 1-2) G4-B4 quarters, then D5 and a syncopated B4 and A4, then B4-A4-G4 as syn-co-pa and a half rest; chorus (bars 3-4) accented D5, C5-B4, accented D5, C5-B4, then C5-B4-A4 syn-co-pa and a G4 half note; varied call (bars 5-6) reaching E5; chorus (bars 7-8) with a new ending, B4-A4-B4 syn-co-pa and a G4 half note. Clapped part: one bar, eighth-quarter-eighth on beats 1-2, rest on beat 3, a quarter on beat 4, eight times, the last clap accented. G-major pitch set G-A-B-C-D-E; written range G4-E5; eighths, quarters, halves and a half rest; mf and f
+% dossier-practice: Quarter note = 104 is the target; begin at 84, saying "syn-co-pa" over a steady beat before clapping or singing it. G major (one sharp, no F sharp is sung) is the rehearsal key; the written range G4-E5 suits Grade 4 voices (B3/C4-E5) and lies a little above the young-unison C4-D5 range only at the single E5 in bar 5. Teach in steps: everyone claps the ostinato, everyone learns the chorus, the teacher sings the calls, then split into singers and clappers and swap
+% dossier-accompaniment: The page's pop style is a neutral school band; it does not imitate a bloco afro's surdos, repiques and timbal, and must not be relabelled samba-reggae, Afro-Brazilian or carnival music. The class's clapped ostinato is the second part; a teacher may mute the band's drums in the Mixer so the claps lead. No costumes, face paint or generic "carnival" framing
+% dossier-lyrics: Original English words written for this record: "Listen: a signal is calling. Here we are, here we are, together now! Answer the signal with singing. Here we are, here we are, we're standing strong!" One syllable per note; the syncopated quarter always carries the stressed syllable (a SIG-nal, is CALL-ing, to-GETH-er, we're STAND-ing)
+% dossier-honesty: AI-assisted original course composition made for Grand Central Stationery on 11 November 2026 under human-directed range, grade and form constraints. It is not traditional, not collected from a community and not modelled on the melody, rhythm or words of "Que Bloco É Esse?"; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, clapped part and this ABC encoding to the public domain to the extent legally possible. "Que Bloco É Esse?" and Ilê Aiyê's recordings remain the copyright of their owners and are not included
+% dossier-respect: Name Ilê Aiyê, its founders Antônio Carlos "Vovô" dos Santos and Apolônio de Jesus, and the song's composer Paulinho Camafeu; teach that the bloco was formed as a Black political and cultural answer to exclusion and racism in Salvador's Carnival, with its own music, dress and Carnival themes. Do not use costumes, generic "carnival" framing or the bloco's identity as dress-up, and never present this classroom chorus as bloco afro music or samba-reggae
+% dossier-review: Afro-Brazilian or Bahia music educator, Grade 4 teacher and second score reader; all reviews still required
 X:1
-T:Bahia Signal
-C:Grand Central Stationery workshop
-R:syncopated chorus study
-S:Original classroom composition, 2026; listening bridge to Ilê Aiyê
+T:Signal Chorus
+T:Original call and chorus with clapped ostinato
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:call-and-chorus song with clapped ostinato, listening bridge
+S:Grand Central Stationery, "Signal Chorus" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals eight eighths in both parts, with no pickup. Voice: bar 1 G4 and B4 quarters, D5 eighth, B4 quarter on the off-beat, A4 eighth; bar 2 B4 eighth, A4 quarter, G4 eighth (syn-co-pa), half rest; bar 3 accented D5 quarter, C5-B4 eighths, accented D5 quarter, C5-B4 eighths; bar 4 C5-B4-A4 syn-co-pa, G4 half; bar 5 G4 and B4 quarters, D5 eighth, E5 quarter, D5 eighth; bar 6 as bar 2; bar 7 as bar 3; bar 8 B4-A4-B4 syn-co-pa, G4 half. Every syncopated note is a quarter starting on an off-beat eighth and ending on the next off-beat; no dotted notes, sixteenths or ties. Clapped part: B eighth, B quarter, B eighth, quarter rest, B quarter in every bar. Pitch set G-A-B-C-D-E, range G4-E5; within each phrase the line moves by steps and thirds, and the widest move is the fifth from G4 up to D5 across the half rest into each chorus (bars 2-3 and 6-7). Form: call, chorus, varied call, chorus with a new cadence on the tonic. Originality check: compared with "Que Bloco É Esse?" (melody and chorus not used) and with common chants and school songs (We Will Rock You's stomp-stomp-clap, Kye Kye Kule, Che Che Koolay, Hey Ho Nobody Home); no match beyond the common syn-co-pa cell.
+N:UNCERTAIN: Whether Grade 4 singers keep the syncopated quarters against the clapped ostinato at 104, and whether the band's drums should be muted by default, can only be settled by a classroom trial. The album pairing (Canto Negro, 1984) comes from a discography listing that was not opened directly; the history and the founders' names need an Afro-Brazilian educator and a second reader.
 M:4/4
 L:1/8
-Q:1/4=112
+Q:1/4=104
 K:G
 %%style pop
-z G3 B2 d2 | B2 G2 z A3 | !accent!G2 G2 B3 A | G8 |
-z B3 d2 e2 | d2 B2 z A3 | !accent!G2 A2 B3 A | G8 |]
-w: Send the sig-nal, hear the room. An-swer clear-ly, leave some room. Build the lay-ers, hold the ground. Name the peo-ple, know the sound.
+V:1 name="Voices" sname="V"
+V:2 name="Claps" sname="C" clef=perc stafflines=1
+[V:1] !mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 c B !accent!d2 c B | c B2 A G4 |
+w: Lis-ten: a sig-nal is call-ing. Here we are, here we are, to-geth-er now!
+[V:2] B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 |
+[V:1] !mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 c B !accent!d2 c B | B A2 B G4 |]
+w: An-swer the sig-nal with sing-ing. Here we are, here we are, we're stand-ing strong!
+[V:2] B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 | B B2 B !accent!B2 z2 |]

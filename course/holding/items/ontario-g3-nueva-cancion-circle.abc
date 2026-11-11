@@ -1,34 +1,58 @@
 % holding-id: ontario-g3-nueva-cancion-circle
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Mercedes Sosa recording and review political/cultural context with a Latin American music educator.
+% holding-blocked: Replace the discovery search with an authorized link to Mercedes Sosa's 1971 recording of "Gracias a la vida". A Grade 3 choir teacher must trial the partner section (bars 9-12), the breath after each dotted half and the lyric fit; a second score reader must check the two-voice notation; a Latin American music educator must review the nueva canción, Violeta Parra and Mercedes Sosa framing.
+% source-local: course/holding/items/ontario-g3-nueva-cancion-circle.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a consented classroom demo with the two groups; do not present the page's generated playback as evidence that the partner section is singable.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 3
-% composition-elements: 3/4 metre, dotted half note, dynamic contrast, partner-song texture and ABA form
-% composition-listen: Mercedes Sosa — "Gracias a la Vida"
-% composition-listen-url: https://www.youtube.com/results?search_query=Mercedes+Sosa+Gracias+a+la+Vida+official
+% composition-elements: 3/4 metre; dotted half notes at every phrase end; mf, p and f signs; ABA form; a partner song in which group 2 sings the B line against the returning A (bars 9-12); low so and low la (C4, D4) in an F pentatonic melody
+% composition-listen: Mercedes Sosa — "Gracias a la vida" (words and music by Violeta Parra, 1966), from Sosa's album "Homenaje a Violeta Parra" (Philips Argentina, 1971)
+% composition-listen-url: https://www.youtube.com/results?search_query=Mercedes+Sosa+Gracias+a+la+vida+Homenaje+a+Violeta+Parra+1971
 % composition-bridge: Notice how vocal timbre, breath and phrase shape make a repeated metre carry a public message.
-% composition-context: Mercedes Sosa's performance connects Violeta Parra's song with nueva canción, social testimony and Latin American political history. This is an original wordless partner-song study.
-% composition-distance: No lyric, melody or harmony from the copyrighted work is used; the reference is for listening and historical inquiry.
-% improv: {"id":"A","bars":"1-2","role":"partner A then B","prompt":"Answer the long note","choices":["one long note","three walking notes","silence then one note"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"whole class","prompt":"Shape the phrase together","choices":["soft to strong","strong to soft","steady"],"replyBars":2}
-% dossier-honesty: Original partner-song material; nueva canción is taught through the named artists and history.
-% dossier-licence: Draft original; reference work and performance remain copyrighted.
-% dossier-respect: Credit both songwriter Violeta Parra and performer Mercedes Sosa; connect the song to its words rather than treating it as background folk colour.
-% dossier-review: Latin American music educator and Grade 3 choir teacher.
+% composition-context: Violeta Parra wrote "Gracias a la vida" in 1966, near the end of her life; Mercedes Sosa's 1971 recording carried it across the Spanish-speaking world and it became a defining song of nueva canción, the movement that joined folk forms to social testimony. This original partner song does not use its words, melody or harmony.
+% composition-distance: No lyric, melody, rhythm or harmony from the copyrighted song is used; the classroom piece is a pentatonic partner song with new English words, and the reference is for listening and historical inquiry.
+% improv: {"id":"A","bars":"3-4","role":"whole class","prompt":"Shape the long last note of the A line","choices":["hold it full","let it fade","stop on beat 3 and breathe"],"replyBars":1}
+% improv: {"id":"B","bars":"9-12","role":"two groups","prompt":"Balance the partner lines","choices":["melody f, partner p","both mf","partner f, melody p"],"replyBars":4}
+% dossier-function: original Grade 3 partner song and listening bridge; the class sings A, B and A in unison, then group 2 sings the B line against group 1's returning A, before comparing how Mercedes Sosa uses breath, timbre and phrase shape
+% dossier-elements: twelve bars in 3/4 in ABA form. A (bars 1-4): C5-A4, D5 dotted half, C5-G4, F4 dotted half. B (bars 5-8): F4-A4-C5, F4-D4-F4, G4 half and C4, F4 dotted half. A (bars 9-12) returns with group 2 singing B underneath. F-major pentatonic pitch set F-G-A-C-D with low so (C4) and low la (D4); written range C4-D5; quarters, halves and dotted halves only; mf, p, f
+% dossier-practice: Quarter note = 88 is the target; begin at 72 and breathe in the last beat before each new line. F major is the rehearsal key and the written range C4-D5 matches the young-unison C4-D5 range. Teach in steps: A by echo, B by echo, ABA in unison with the written dynamics, then half the class sings B while the other half sings the returning A; swap groups
+% dossier-accompaniment: The page's ballad style (soft piano and bass) is a neutral school accompaniment chosen so the voices lead; it does not imitate Sosa's guitar and bombo arrangements or any Andean or Argentine style. A teacher may play F-Dm-C-F, one chord a bar, which fits A and B together
+% dossier-lyrics: Original English words written for this record: "Sing it slow, sing it clear, / gently open the window wide, / let it out, let it fly." Group 2 sings the B words again in bars 9-12. One syllable per note, each strong syllable on beat 1
+% dossier-honesty: AI-assisted original course composition made for Grand Central Stationery on 11 November 2026 under human-directed range, grade and form constraints. It is not traditional, not collected from a community and not modelled on the melody of "Gracias a la vida"; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, implied chords and this ABC encoding to the public domain to the extent legally possible. "Gracias a la vida" and Mercedes Sosa's recording remain the copyright of their owners and are not included
+% dossier-respect: Credit Violeta Parra (Chile, 1917-1967) as the songwriter and Mercedes Sosa (Argentina, 1935-2009) as the performer, and connect the song to its Spanish words and to nueva canción's history of testimony, censorship and exile rather than treating it as background folk colour. Never present this classroom piece as nueva canción or as a Latin American song
+% dossier-review: Grade 3 choir teacher, second score reader and Latin American music educator; all reviews still required
 X:1
 T:Three-Beat Testimony
-C:Grand Central Stationery workshop
-R:partner-song study
-S:Original classroom composition, 2026; listening bridge to Mercedes Sosa and Violeta Parra
+T:Original partner song
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:partner song and listening bridge
+S:Grand Central Stationery, "Three-Beat Testimony" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals three quarters with no pickup, in both voices. Group 1: bars 1-4 C5 half, A4 | D5 dotted half | C5 half, G4 | F4 dotted half; bars 5-8 F4-A4-C5 | F4-D4-F4 | G4 half, C4 | F4 dotted half; bars 9-12 repeat bars 1-4. Group 2 rests in bars 1-8 and sings bars 5-8 in bars 9-12. Pitch set F-G-A-C-D, range C4-D5, largest leap a fifth (C5 to F4 in bars 5-6, G4 to C4 in bar 7, F4 to C5 into bar 9). Against each other the two lines sound thirds, fifths and octaves on most beats, fourths on beats 1-2 of bar 11 and a unison F to end. Form ABA, with the partner texture in the last A. Originality check: compared with "Gracias a la vida" and with common partner songs and 3/4 school songs (Lavender's Blue, Oh My Darling Clementine, Down in the Valley, Amazing Grace); the C-A-D-C-G-F arch is a common pentatonic shape and matches none of them.
+N:UNCERTAIN: The analyzer reads Grade 4 only because of the one-flat key signature (every sung note is F-pentatonic, and the course's grading leaves the key out since the page transposes); a teacher should confirm the Grade 3 placement. Whether Grade 3 groups can hold B against A at 88 and whether the bar-11 fourths sound open or empty can only be settled by a classroom trial. The album details (track order and release month) and the history framing need a second reader and a Latin American music educator.
 M:3/4
 L:1/4
-Q:1/4=78
-K:G
-%%style waltz
-G B d | d2 B | A G E | D3 | G A B | d2 B | A G F | G3 |]
-w: Oh, the line keeps walk-ing. Oh, the long note stays. Hear an-oth-er an-swer; meet me at the end.
+Q:1/4=88
+K:F
+%%style ballad
+V:1 name="Group 1" sname="1"
+V:2 name="Group 2" sname="2"
+[V:1] !mf!c2 A | d3 | c2 G | F3 |
+w: Sing it slow, sing it clear,
+[V:2] z3 | z3 | z3 | z3 |
+[V:1] !p!F A c | F D F | G2 C | F3 |
+w: gen-tle-ly o-pen the win-dow wide,
+[V:2] z3 | z3 | z3 | z3 |
+[V:1] !f!c2 A | d3 | c2 G | F3 |]
+w: let it out, let it fly.
+[V:2] !p!F A c | F D F | G2 C | F3 |]
+w: gen-tle-ly o-pen the win-dow wide.

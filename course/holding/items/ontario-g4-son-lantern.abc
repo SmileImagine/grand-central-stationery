@@ -1,35 +1,50 @@
 % holding-id: ontario-g4-son-lantern
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Buena Vista Social Club/Compay Segundo link and have a Cuban son educator review the comparison and clave language.
+% holding-blocked: A Grade 4 teacher must trial the syn-co-pa at the start tempo, the change from major to minor at bar 5 and the lyric fit; a second score reader must check the accidentals and chord symbols; a Cuban son educator must review the listening comparison. The title was changed from "Son Lantern" because the piece is not son and the old title named the genre; the lead should confirm the new title.
+% source-local: course/holding/items/ontario-g4-son-lantern.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a consented classroom demo; do not present the page's generated playback as evidence that the major-to-minor change is clear to children.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 4
-% composition-elements: syncopation, major/minor contrast, accidentals, simple two-part texture, repeat and coda-like ending
-% composition-listen: Buena Vista Social Club / Compay Segundo — "Chan Chan"
-% composition-listen-url: https://www.youtube.com/results?search_query=Buena+Vista+Social+Club+Chan+Chan+official
+% composition-elements: syncopation (syn-co-pa) opening every odd bar; major and minor tonality (bars 1-4 in C major, bars 5-8 the same melody in C minor); accidentals (E flat and A flat); mf and p signs; a repeated phrase varied by mode, cadencing on C both times
+% composition-listen: Buena Vista Social Club — "Chan Chan" (Compay Segundo), opening track of the album "Buena Vista Social Club" (World Circuit, June 1997), recorded at EGREM, Havana, in March 1996
+% composition-listen-url: https://www.buenavistasocialclub.com/albums/buena-vista-social-club/
 % composition-bridge: Track the repeating harmonic cycle, the conversational vocal delivery and the independent percussion timeline.
-% composition-context: The recording can introduce Cuban son, Compay Segundo and the late-twentieth-century international revival around veteran Cuban musicians. This new syncopation study is not son and uses no "Chan Chan" material.
-% composition-distance: Original melody, lyric, rhythm and harmony; no tres figure, bass line or chord cycle from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"melody player","prompt":"Place the answer around the beat","choices":["start on beat","start off beat","wait one beat"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"two groups","prompt":"What kind of conversation?","choices":["echo rhythm","contrary contour","one group rests"],"replyBars":2}
-% dossier-honesty: Original syncopation piece; son is encountered through listening, not claimed by the classroom groove.
-% dossier-licence: Draft original; reference song and recording remain copyrighted.
-% dossier-respect: Identify Cuban son and its musicians; do not call every clave-adjacent classroom pattern salsa or son.
-% dossier-review: Cuban son educator and Grade 4 teacher.
+% composition-context: The recording can introduce Cuban son, Compay Segundo (Francisco Repilado, 1907-2003), who wrote "Chan Chan", and the late-twentieth-century international attention to veteran Cuban musicians around the Buena Vista Social Club album. This new syncopation study is not son and uses no "Chan Chan" material.
+% composition-distance: Original melody, lyric, rhythm and harmony; no tres figure, bass line, clave pattern or the song's four-chord minor cycle is copied. The classroom harmony is a plain C-Am-F-C cycle answered by Cm-Ab-Fm-G-Cm.
+% improv: {"id":"A","bars":"2","role":"second group","prompt":"Answer under the half note (beats 3-4)","choices":["clap syn-co-pa","hum one long note","stay silent"],"replyBars":1}
+% improv: {"id":"B","bars":"5-6","role":"whole class","prompt":"The lantern dims: how do we sing the minor half?","choices":["p, softer","mf, darker tone","one group only"],"replyBars":2}
+% dossier-function: original Grade 4 song and listening bridge for syncopation and major/minor contrast; the class sings a lantern phrase in C major, then the same notes in C minor, before listening for son's repeating cycle and its singer-and-chorus conversation in "Chan Chan"
+% dossier-elements: eight bars in 4/4. Bars 1-4 (C major): C4 eighth, D4 quarter, E4 eighth (syn-co-pa), G4-G4-A4-G4 eighths | A4-G4 quarters, E4 half | syn-co-pa C4-D4-E4, G4-A4-C5-A4 eighths | G4-E4 quarters, C4 half. Bars 5-8 repeat the rhythm and contour in C minor with E flat and A flat, ending G4-D4 quarters and C4 half over G to Cm. Pitch set C-D-E-G-A in the major half, C-D-E flat-G-A flat in the minor half; written range C4-C5; eighths, quarters, halves; mf and p
+% dossier-practice: Quarter note = 92 is the target; begin at 76, speaking "a LAN-tern" as syn-co-pa over a steady beat before singing. C major (and its parallel C minor, with E flat and A flat written as accidentals) is the rehearsal key; the written range C4-C5 sits inside the young-unison C4-D5 range and the Grade 4 voice range. Teach in steps: chant the rhythm, sing the major half, then sing the minor half and ask what changed; name the two altered notes on the staff
+% dossier-accompaniment: The page's folk style (guitar boom-chick and bass) plays the written chords, C-Am-C/F-C then Cm-Ab-Cm/Fm-G/Cm; it is a neutral school accompaniment, not son, and must not be labelled son, salsa or Cuban. Do not add a clave, tres montuno or bongó pattern to make it sound Cuban
+% dossier-lyrics: Original English words written for this record: "A lantern in the window, warm and bright, a lantern by the doorway lights the night. A lantern in the shadow, dim and low, a lantern on the pathway leads us home." One syllable per note; the syncopated quarter carries the stressed syllable (a LAN-tern)
+% dossier-honesty: AI-assisted original course composition made for Grand Central Stationery on 11 November 2026 under human-directed range, grade and form constraints. It is not traditional, not collected from a community and not modelled on the melody, harmony or words of "Chan Chan"; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, chords and this ABC encoding to the public domain to the extent legally possible. "Chan Chan" and the Buena Vista Social Club recording remain the copyright of their owners and are not included
+% dossier-respect: Identify Cuban son as an Afro-Cuban and Spanish-descended tradition from eastern Cuba, name Compay Segundo and the musicians on the recording (among them Eliades Ochoa, Ibrahim Ferrer and Omara Portuondo), and note that the album's fame outside Cuba came through a foreign-produced project. Do not call every clave-adjacent classroom pattern salsa or son, and never present this piece as Cuban music
+% dossier-review: Cuban son educator, Grade 4 teacher and second score reader; all reviews still required
 X:1
-T:Son Lantern
-C:Grand Central Stationery workshop
-R:syncopation study
-S:Original classroom composition, 2026; listening bridge to Compay Segundo
+T:Lantern in the Window
+T:Original major and minor syncopation song
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:syncopation and major/minor song, listening bridge
+S:Grand Central Stationery, "Lantern in the Window" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals eight eighths with no pickup. Bar 1 C4 eighth, D4 quarter, E4 eighth, G4-G4-A4-G4 eighths; bar 2 A4 and G4 quarters, E4 half; bar 3 C4 eighth, D4 quarter, E4 eighth, G4-A4-C5-A4 eighths; bar 4 G4 and E4 quarters, C4 half. Bars 5-8 repeat bars 1-4 with E flat for E and A flat for A, and bar 8 ends G4-D4 quarters and a C4 half. Four syncopations, each a quarter on the off-beat of beat 1 (bars 1, 3, 5, 7); no dotted notes, sixteenths or ties. Range C4-C5, largest leap a fourth (G4 down to D4 in bar 8); the rest moves by steps and thirds. Chords: C | Am | C F | C || Cm | Ab | Cm Fm | G Cm, each fitting the melody's beat notes. Form: one four-bar phrase in major and its minor variant, both cadencing on C. Originality check: compared with "Chan Chan" (its four-chord minor cycle, tres figure and melody are not used) and with common syncopated school songs and folk tunes (Mango Walk, Day-O, Tingalayo, Hush Little Baby, This Little Light of Mine); the C-D-E syn-co-pa opening is a common cell and the phrase matches none of them.
+N:UNCERTAIN: The analyzer reads the chord symbols as Grade 7 harmony (minor-mode and borrowed chords); the course's own grading leaves chord texture out because the Band, not the students, plays them, and a teacher should confirm that the melody is Grade 4. Whether children hear the switch to minor without a cue, and whether 92 is a comfortable target, need a classroom trial; the comparison with son needs a Cuban son educator.
 M:4/4
 L:1/8
-Q:1/4=96
+Q:1/4=92
 K:C
-%%style bossa
-"C"z E3 G2 A2 | "Am"G2 E2 z D3 | "F"F2 A2 G3 E | "G"D8 |
-"C"z E3 G2 _B2 | "Am"A2 G2 E3 D | "G"D2 G2 F3 D | "C"C8 |]
-w: Light the lan-tern af-ter one. Leave a space for some-one. Shift the start and hear it lean; find the ground a-gain.
+%%style folk
+!mf!"C"C D2 E G G A G | "Am"A2 G2 E4 | "C"C D2 E "F"G A c A | "C"G2 E2 C4 |
+w: A lan-tern in the win-dow, warm and bright, a lan-tern by the door-way lights the night.
+!p!"Cm"C D2 _E G G _A G | "Ab"_A2 G2 _E4 | "Cm"C D2 _E "Fm"G _A c _A | "G"G2 D2 "Cm"C4 |]
+w: A lan-tern in the shad-ow, dim and low, a lan-tern on the path-way leads us home.

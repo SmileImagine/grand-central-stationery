@@ -1,34 +1,50 @@
 % holding-id: ontario-g1-cumbia-switch
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Lucho Bermúdez recording and ask a Colombian educator to review the history/context language before using the word cumbia in the lesson title.
+% holding-blocked: The original is fully notated with words on every sung note, and the listening link is Sony Music Colombia's official upload of the CBS recording, but it has not been tried with students. A Grade 1 classroom teacher must trial the leader/class/percussion turn-taking and the two silent answer bars at 88-104; a Colombian music educator must review the history and context language, decide whether "Cumbia" may stay in the title, and say which Bermúdez recording best serves the lesson (sources disagree on when the song was first recorded); a second score reader must check the notes, words and cues.
+% source-local: course/holding/items/ontario-g1-cumbia-switch.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent, with real scraper, hand-drum or clap answers in bars 4 and 6; the Band's playback leaves those bars to the class.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 1
-% composition-elements: duration (2/4, quarter/eighth/rest), timbre (voice, scraper, drum), form (call and response), pitch (mi-so-la)
-% composition-listen: Lucho Bermúdez — "Colombia Tierra Querida"
-% composition-listen-url: https://www.youtube.com/results?search_query=Lucho+Bermudez+Colombia+Tierra+Querida+official
-% composition-bridge: Listen for a clear dance pulse, contrasting instrumental colours and a melody that invites a group response.
-% composition-context: Lucho Bermúdez helped bring Colombian Caribbean dance-orchestra music to national and international audiences. This is a new classroom 2/4 tune, not an arrangement or an authentic cumbia pattern.
-% composition-distance: Original notes, rhythm and words; no melody, lyric or arrangement from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"teacher then class","prompt":"Choose the answer rhythm","choices":["two beats","four quick sounds","beat then rest"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"percussion group","prompt":"Which colour answers the voice?","choices":["scraper","hand drum","claps"],"replyBars":2}
-% dossier-honesty: Original Grade 1 tune; Colombian recording is a listening bridge only.
-% dossier-licence: Draft original; the listening reference remains copyrighted.
-% dossier-respect: Teach cumbia's Colombian Caribbean roots and multiple lineages; do not claim this simplified classroom rhythm is cumbia.
-% dossier-review: Colombian music educator and Grade 1 classroom teacher.
+% composition-elements: duration (2/4; quarter notes, paired eighths and quarter rests, with two whole bars of rest for an instrumental answer), timbre (voice answered by scraper, hand drum or claps), form (call and response: the leader calls, the class or a percussion group answers), pitch (mi-so-la only)
+% composition-listen: Lucho Bermúdez y Su Orquesta — "Colombia Tierra Querida" (CBS recording, ℗ 1972 CBS, Inc.), reissued on La Cumbia Colombiana (Sony Music Entertainment Colombia, 2025)
+% composition-listen-url: https://www.youtube.com/watch?v=JMBKvLh3gWQ
+% composition-bridge: Listen for a clear two-beat dance pulse, contrasting instrumental colours and a melody that invites a group response.
+% composition-context: Lucho Bermúdez (1912-1994), clarinettist, composer and bandleader from El Carmen de Bolívar, brought the porro and cumbia of Colombia's Caribbean coast into big dance-orchestra arrangements that were danced across Colombia and abroad; "Colombia Tierra Querida" became one of the country's best-loved songs. Cumbia grew from Indigenous, African and Spanish lineages on that coast (drums, gaitas, maracas, the scraper called guacharaca). This is a new 2/4 classroom tune, not an arrangement and not a cumbia rhythm.
+% composition-distance: Original notes, rhythm and words; no melody, lyric, horn line or arrangement from the recording is copied, and the classroom percussion answers are free choices, not cumbia patterns.
+% improv: {"id":"A","bars":"4","role":"percussion group 1","prompt":"Choose the answer rhythm","choices":["two beats","four quick sounds","beat then rest"],"replyBars":1}
+% improv: {"id":"B","bars":"6","role":"percussion group 2","prompt":"Which colour answers now?","choices":["scraper","hand drum","claps"],"replyBars":1}
+% dossier-function: original Grade 1 call-and-response game song in which a leader's sung call is answered first by the class's voices and then by two percussion groups
+% dossier-elements: eight bars in 2/4 with no pickup; pitch set mi-so-la only (E4, G4, A4), written range E4-A4; paired eighth notes, quarter notes and quarter rests only; bar 1 leader's call, bar 2 class's sung answer, bar 3 leader's call, bar 4 silent bar for percussion group 1, bar 5 leader's call, bar 6 silent bar for percussion group 2, bars 7-8 everyone together, ending on mi with a quarter rest; largest leap a minor third
+% dossier-practice: Quarter note = 104 is the target; begin at 88 with a steady pat on both beats of every bar. The written range E4-A4 lies inside the young-unison C4-D5 range, and C major (mi-so-la on E-G-A) is the rehearsal key. Teach in steps: everyone pats the two-beat pulse; teacher sings each call and the class echoes; then the class answers bar 2 with its own words; then hand out scrapers, hand drums or claps and let the two groups answer bars 4 and 6 with the rhythm and colour the cues choose; finish with everyone singing and playing bars 7-8
+% dossier-accompaniment: %%style march is the Band's generic two-beat march-and-polka groove, chosen for an unmistakable strong-weak 2/4 pulse; it is not cumbia, porro or any Colombian style and must not be called one. No chord symbols are written; the Band harmonises the three notes itself. The silent bars 4 and 6 belong to classroom percussion: a scraper (any classroom guiro or washboard), a hand drum and claps
+% dossier-lyrics: Original English words written for this record, one syllable per sung note: "Who will an-swer?" (leader) "We will sing!" (class) "Who will play it?" (leader, then percussion) "Now an-oth-er!" (leader, then percussion) "All to-geth-er, play!" (everyone). Stressed syllables fall on the beats (WHO will AN-swer; NOW an-OTH-er). No Spanish words are used, so the song does not borrow the reference's language
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed grade, range and teaching constraints. It is not traditional, not collected from a community and not modelled on "Colombia Tierra Querida" or any cumbia melody; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. Lucho Bermúdez's composition and the CBS/Sony recording remain the copyright of their owners and are not included; the class listens through the linked official upload
+% dossier-respect: Name Lucho Bermúdez, Colombia and its Caribbean coast, and teach cumbia's Indigenous, African and Spanish roots and its many regional lineages. Do not claim that this classroom tune, its march groove or its percussion answers are cumbia, and do not hand out "Colombian" costumes or caricatures. Whether "Cumbia" may stay in the title is for the Colombian reviewer to decide
+% dossier-review: Grade 1 classroom music teacher, Colombian music educator, second score reader; all reviews still required
 X:1
 T:Cumbia Switch
-C:Grand Central Stationery workshop
-R:two-beat call and response
-S:Original classroom composition, 2026; listening bridge to Lucho Bermúdez
+T:Original Grade 1 call-and-response song for voices and percussion
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 1 call and response for voices and percussion
+S:Grand Central Stationery, "Cumbia Switch" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bar 1 call G-G-A-G (four eighths); bar 2 sung answer E-E-G (two eighths and a quarter); bar 3 call G-G-A-A (four eighths), ending open on la; bar 4 two quarter rests, the first percussion answer; bar 5 call A-G-A-G (four eighths); bar 6 two quarter rests, the second percussion answer; bar 7 everyone E-G-A-G (four eighths); bar 8 E4 quarter and a quarter rest, the close on mi. Every bar totals two quarter beats; the only pitches are E4, G4 and A4; range E4-A4; the largest leap is the minor third between E and G; durations are eighths, quarters and quarter rests only. The calls rise toward la and the answers settle on mi, the resting tone of a mi-so-la song. Originality: the eighth-note so-so-la-so call is a common mi-so-la playground shape; the tune was checked against "Colombia Tierra Querida", "Rain, Rain, Go Away", "Lucy Locket" and "Bounce High, Bounce Low" and shares no phrase with them.
+N:UNCERTAIN: Whether Grade 1 percussion groups can enter and stop cleanly in the one-bar answers at 104, whether the Band's march groove helps or crowds the silent bars, and which Bermúdez recording a teacher should play are untested or unsettled: Wikipedia dates the song's introduction to a 1970 CBS album with Matilde Díaz, an anthology of 1946-1961 coastal recordings also carries it, and the linked Sony upload credits ℗ 1972 CBS. A Colombian music educator, a classroom trial and a second score reader remain required.
 M:2/4
 L:1/8
-Q:1/4=106
+Q:1/4=104
 K:C
-%%style bossa
-E2 G2 | A2 z2 | E E G G | A2 z2 | G2 E2 | A2 z2 | G G E E | E4 |]
-w: Call me, an-swer. Quick-ly, an-swer. Switch the sound now. Lis-ten, home.
+%%style march
+GG AG | EE G2 | GG AA | z2 z2 |
+w: Who will an-swer? We will sing! Who will play it?
+AG AG | z2 z2 | EG AG | E2 z2 |]
+w: Now an-oth-er! All to-geth-er, play!

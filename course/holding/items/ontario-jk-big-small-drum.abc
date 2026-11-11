@@ -1,34 +1,49 @@
 % holding-id: ontario-jk-big-small-drum
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Confirm the Kodo listening link and test whether the cue language supports movement without turning taiko into a generic loud-drum stereotype.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. A JK classroom trial, an early-years music teacher, a taiko-informed educator, a movement/accessibility reviewer and a second score reader must check the big/small answer in the silent bar 6, the gentle stomp, the loud/soft last BOOM and the way Kodo and taiko are introduced. The listening link is Kodo's own 16-second clip; a teacher may also want a longer official Kodo O-daiko performance.
+% source-local: course/holding/items/ontario-jk-big-small-drum.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; do not present generated playback as evidence that JK children can make the big/small choice.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: JK
-% composition-elements: beat, sound quality, speed and volume — contrast large and small movements while staying together
-% composition-listen: Kodo — "O-Daiko"
-% composition-listen-url: https://www.youtube.com/results?search_query=Kodo+O-Daiko+official
-% composition-bridge: Watch the preparation before a strike and the space after it; compare one grounded sound with a light answer.
-% composition-context: Kodo's staged taiko performance can introduce ensemble focus, gesture and resonance. This is an original classroom pulse study for body percussion, not taiko repertoire.
-% composition-distance: Original rhythm, melody and words; no Kodo passage is copied. Use classroom drums only after naming that they are not taiko.
-% improv: {"id":"A","bars":"1-2","role":"conductor","prompt":"Which body size?","choices":["big grounded","tiny precise","freeze and listen"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"two groups","prompt":"Who answers?","choices":["left group","right group","everyone together"],"replyBars":2}
-% dossier-honesty: Original classroom piece using broad contrasts of gesture and resonance.
-% dossier-licence: Draft original; Kodo's recording and choreography are not included.
-% dossier-respect: Name taiko and Kodo specifically; do not claim that a classroom tub drum reproduces Japanese taiko practice.
-% dossier-review: Early-years teacher; educator familiar with taiko pedagogy.
+% composition-elements: beat, sound quality and volume (Kindergarten Program 2016) — a low sung "BOOM" against light higher "tap tap", a binary big-or-small choice answered with one body sound in the silent bar right after the question, and a loud-or-soft final BOOM
+% composition-listen: Kodo — "O-daiko" (performance clip "#kodo O-daiko", Kodo's official YouTube channel, 21 January 2026, from the promotion of the Kodo One Earth Tour 2026: LUMINANCE Europe tour)
+% composition-listen-url: https://www.youtube.com/watch?v=eeect_VZpOQ
+% composition-bridge: Watch the drummer's whole-body preparation before one big strike and the space after it; compare that one grounded sound with small, light taps.
+% composition-context: Kodo is a professional taiko ensemble based on Sado Island, Niigata, Japan, performing staged ensemble drumming (kumi-daiko) worldwide since 1981; in the O-daiko the largest drum is played by a soloist whose stance, breath and stillness are part of the music. This is an original classroom pulse song for voices and body percussion, not taiko repertoire.
+% composition-distance: Original melody, rhythm and words; no Kodo passage, rhythm or choreography is copied or notated. The clip is a watching and listening reference only. Use classroom drums only after naming that they are not taiko.
+% improv: {"id":"A","bars":"5-6","role":"teacher asks, class answers","prompt":"Big or small?","choices":["big: one slow stomp","small: quick finger taps"],"replyBars":1}
+% improv: {"id":"B","bars":"7-8","role":"whole class","prompt":"Last BOOM","choices":["loud","soft"],"replyBars":1}
+% dossier-function: original JK pulse-and-contrast song; the class sings a low "big drum" call and a higher "small drum" call with a body sound in each rest, then answers the sung question "Big or small?" with one big or one small body sound in a silent bar, and chooses how loud the last BOOM is
+% dossier-elements: eight bars in 2/4 (L:1/8), D major, pitch set D-E-F# (do-re-mi), written range D4-F#4 (a major third). Bars 1-2 "Big drum, BOOM!" three quarter notes on D4 and a quarter rest; bars 3-4 "Small drum, tap tap!" a third higher on F#4, the taps as two eighth notes before a quarter rest; bar 5 rises D-E-F# (eighth, eighth, quarter) on the question; bar 6 is a whole silent bar for the answer; bar 7 falls F#-E-D "Drum goes home", bar 8 the final BOOM on D4 and a quarter rest. Form: two contrasted calls (low and slow, higher and quicker), a rising question with a silent answer, a falling cadence to the tonic. Note values: quarters, eighths, quarter rests and one two-beat rest; largest interval a major third
+% dossier-practice: Start at quarter = 72 and reach the written 84 once the class leaves the rests silent. Rehearsal key D major; the written range D4-F#4 sits inside the JK comfort zone (about D4-A4) and well inside the young-unison C4-D5 range. Teach in steps: speak "Big drum, BOOM" with one slow, big arm or stomp in the rest and "Small drum, tap tap" with fingertip taps; sing each call after the teacher; the teacher sings "Big or small?" and holds up a big or small picture card, the class answers in bar 6; then let a child choose. Add the loud/soft last BOOM last. Seated children use hands on knees; keep stomps gentle
+% dossier-accompaniment: Newly authored, not traditional. The march style is used only for a plain steady beat; it is a generic classroom march groove, not taiko, not Japanese and not modelled on Kodo. One D chord holds throughout. For the first lessons mute the Band or keep it soft so the children's body sounds in bars 2, 4 and 6 are heard. Classroom drums may replace body sounds only after the teacher says they are not taiko drums
+% dossier-lyrics: Original English words written for this record: "Big drum, BOOM! Small drum, tap tap! Big or small? Drum goes home: BOOM!" Fourteen one-syllable words, one per note, with the stressed words on the beats; sung, not instrumental. Teachers may swap "BOOM" and "tap" for signed or gestured sounds; record such changes as classroom adaptations
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm, safety and teaching constraints. It is not traditional, not collected from a community and not modelled on the reference's rhythm or on any taiko piece; Kodo's O-daiko is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, chord and this ABC encoding to the public domain to the extent legally possible. Kodo's performances, choreography and recordings remain the copyright of Kodo and its labels and are not included or embedded; the record only links to Kodo's own channel
+% dossier-respect: Name Kodo, Sado Island and Japan, and use the word taiko; explain that ensemble taiko as a stage art grew in Japan from the 1950s and that Kodo's O-daiko solo is trained, disciplined work. Never call this song taiko, never present a classroom tub drum or loud banging as Japanese drumming, and avoid "loud Japanese drum" stereotypes, costume or headband play. The song is culture-neutral and must not fill a Japan coverage cell
+% dossier-review: Early-years (JK) music teacher, taiko-informed educator, movement/accessibility reviewer for the stomp and tap choices, and a second score reader; all reviews still required
 X:1
 T:Big Drum, Small Drum
-C:Grand Central Stationery workshop
-R:movement pulse
-S:Original classroom composition, 2026; listening bridge to Kodo
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:JK pulse and big/small contrast song
+S:Grand Central Stationery, "Big Drum, Small Drum" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals four eighths (2/4). Bar 1 D4 D4 quarters; bar 2 D4 quarter, quarter rest; bar 3 F#4 F#4 quarters; bar 4 F#4 F#4 eighths, quarter rest; bar 5 D4 E4 eighths, F#4 quarter; bar 6 a two-beat rest; bar 7 F#4 E4 eighths, D4 quarter; bar 8 D4 quarter, quarter rest. Pitch set D-E-F#, range D4-F#4, largest interval a major third (D4-F#4, bars 2-3 and 4-5). The earlier draft's C4-G4 fifth (analyzer level 5) is gone: the analyzer now reads level 2, its hardest dimension being the rests. Its Ontario line reads Grade 5 only because it counts the two-sharp key signature and the chord symbol, which JK children never read; they learn the song by rote and only beat, sound quality and volume are claimed. Originality: the do-re-mi calls on repeated notes are common property; the falling mi-re-do cadence (bar 7) is the same three notes as "Hot Cross Buns" but in a different rhythm and context; checked against "Bounce High, Bounce Low", "Rain, Rain", "Hot Cross Buns", "Mary Had a Little Lamb" and "Frère Jacques" with no shared opening. Kodo's O-daiko is unpitched ensemble drumming; nothing of it is taken.
+N:UNCERTAIN: Whether JK children can sing the BOOM low and the taps a third higher, whether one silent bar at quarter = 84 (about 1.4 seconds) is long enough for a chosen body sound, whether the stomp is safe and inclusive for every child, and whether a 16-second clip is enough listening. A classroom trial, a taiko-informed educator, an accessibility reviewer and a second score reader must settle these.
 M:2/4
-L:1/4
-Q:1/4=80
-K:C
+L:1/8
+Q:1/4=84
+K:D
 %%style march
-C z | C C | z G | G z | C2 | G G | C z | C2 |]
-w: Big, * big drum. * Small, small sound. Wait and hear. Small, small, big. *
+"D"D2 D2 | D2 z2 | F2 F2 | F F z2 |
+w: Big drum, BOOM! Small drum, tap tap!
+D E F2 | z4 | F E D2 | D2 z2 |]
+w: Big or small? Drum goes home: BOOM!

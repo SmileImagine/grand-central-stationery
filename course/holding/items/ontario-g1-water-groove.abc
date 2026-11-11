@@ -1,35 +1,50 @@
 % holding-id: ontario-g1-water-groove
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify the authorized Fela Kuti recording and have a Nigerian/Afrobeat-informed educator check that the lesson distinguishes one classroom ostinato from Afrobeat's full history and ensemble practice.
+% holding-blocked: The original is fully notated, the words fit every note and the listening link is Fela Kuti's official channel, but nobody has tried it with students. A Grade 1 classroom teacher must trial the call-and-response timing and the bars 1-2 groove as a layer at 84-100; a Nigerian or Afrobeat-informed music educator must review the context and respect notes; a second score reader must check the notes, words and cues.
+% source-local: course/holding/items/ontario-g1-water-groove.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Band's playback is not evidence that a class can keep the groove going under the calls.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 1
-% composition-elements: duration (beat versus rhythm, quarter and paired eighths, quarter rest), pitch (mi-so-la), texture (unison ostinato), form (call and response)
-% composition-listen: Fela Kuti — "Water No Get Enemy"
-% composition-listen-url: https://www.youtube.com/results?search_query=Fela+Kuti+Water+No+Get+Enemy+official
+% composition-elements: duration (beat versus rhythm; quarter notes, paired eighths and quarter rests in 4/4), pitch (mi-so-la only), texture (unison song whose bars 1-2 repeat as a groove that one group can keep going as an ostinato under the rest), form (call and response in bars 3-4 and 7-8)
+% composition-listen: Fela Kuti and Africa 70 — "Water No Get Enemy" (1975), from the album Expensive Shit
+% composition-listen-url: https://www.youtube.com/watch?v=kisTH3SFegc
 % composition-bridge: Track one repeating part while other layers enter; hear that a groove can stay steady while the surface changes.
-% composition-context: Fela Kuti's recording connects Afrobeat with Nigerian political music, long-form ensemble layering and dance. This three-note original is a first ostinato lesson, not an Afrobeat reproduction.
-% composition-distance: Original melody, rhythm and words; no horn line, lyric, bass pattern or harmony from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"leader then class","prompt":"Keep or change the last beat?","choices":["same note","two quick notes","rest"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"three groups","prompt":"Which layer enters?","choices":["voice ostinato","clap beat","shaker eighths"],"replyBars":2}
-% dossier-honesty: Original mi-so-la study using ensemble layering only as a listening comparison.
-% dossier-licence: Draft original; the Fela Kuti work and recording remain copyrighted.
-% dossier-respect: Include Fela Kuti's name, Nigeria and political context; do not teach Afrobeat as merely a generic classroom drum loop.
-% dossier-review: Grade 1 teacher and Nigerian/Afrobeat-informed music educator.
+% composition-context: Fela Anikulapo Kuti (1938-1997) built Afrobeat in Lagos, Nigeria, from Yoruba music, highlife, jazz and funk, with long pieces in which drums, guitars, bass and horns lock together in layers and his words, in Nigerian Pidgin and Yoruba, criticise power. "Water No Get Enemy" (1975) takes its title from a proverb about water's strength. This three-note classroom song is a first lesson in keeping one part going, not an Afrobeat piece.
+% composition-distance: Original melody, rhythm and words; no horn line, lyric, proverb wording, bass pattern or harmony from the recording is used. The words mention water only as a picture of something that keeps moving.
+% improv: {"id":"A","bars":"4","role":"class","prompt":"What fills the last beat?","choices":["keep the rest","sing 'beat!' again","two quick claps"],"replyBars":1}
+% improv: {"id":"B","bars":"5-8","role":"one group","prompt":"Which layer joins the groove?","choices":["clap the beat","tap the word rhythm","shaker ti-ti"],"replyBars":4}
+% dossier-function: original Grade 1 groove song for call and response and for feeling beat against rhythm; bars 1-2 become an ostinato layer once the song is known
+% dossier-elements: eight bars in 4/4 with no pickup; pitch set mi-so-la only (E4, G4, A4), written range E4-A4; quarter notes, paired eighth notes and quarter rests only (no half notes); in one-bar units the form is groove (bars 1-2), call (bar 3), response (bar 4), groove again (bars 5-6), new call (bar 7), closing response (bar 8); bars 2, 4, 6 and 8 end with a quarter-rest breath; steps and minor thirds inside each phrase, and one perfect fourth (E4 up to A4) after the breath into each call
+% dossier-practice: Quarter note = 100 is the target; begin at 84. The written range E4-A4 sits well inside the young-unison C4-D5 range, and C major (mi-so-la on E-G-A) is the rehearsal key. Teach in steps: pat the beat while the teacher sings bars 1-2; class echoes bars 1-2 until secure; teacher sings the calls (bars 3 and 7), class answers (bars 4 and 8); sing the whole song; then one group repeats bars 1-2 as an ostinato all the way through while the rest sing the song, and the improv cues add a body-percussion layer
+% dossier-accompaniment: %%style funk is the Band's generic funk groove, chosen for a steady layered pulse; it is not Afrobeat and must not be called Afrobeat or Nigerian. No chord symbols are written; the Band harmonises the three notes itself. Classroom layers: claps on the beat, pats on the word rhythm, shakers on steady eighths, and the bars 1-2 groove sung as an ostinato
+% dossier-lyrics: Original English words written for this record, one syllable per note, every stressed syllable on a beat (DRIP, DROP, WA-ter ROLLS; WHO will KEEP the BEAT). Bars 3 and 7 are the leader's calls and bars 4 and 8 the class's answers. Sung throughout
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed grade, range and teaching constraints. It is not traditional, not collected from a community and not modelled on the melody, lyric or groove of "Water No Get Enemy"; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. Fela Kuti's composition and recording remain the copyright of their owners and are not included; the class listens through the linked official upload
+% dossier-respect: Name Fela Anikulapo Kuti, Africa 70, Lagos and Nigeria, and the political history of his music (his Kalakuta compound, his arrests, his criticism of military government) at a level suited to Grade 1. Do not teach Afrobeat as a generic classroom drum loop, do not present this song or the Band's funk groove as Afrobeat, and keep "Afrobeat" (Fela's 1970s music) distinct from present-day "Afrobeats" pop
+% dossier-review: Grade 1 classroom music teacher, Nigerian or Afrobeat-informed music educator, second score reader; all reviews still required
 X:1
 T:Water Groove
-C:Grand Central Stationery workshop
-R:layered classroom groove
-S:Original classroom composition, 2026; listening bridge to Fela Kuti
+T:Original Grade 1 groove and call-and-response song
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 1 groove song with call and response
+S:Grand Central Stationery, "Water Groove" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bar 1 G-E-G-A-G (quarter, quarter, two eighths, quarter), the groove motif; bar 2 A-G-E and a quarter rest; bar 3 the call A-A-G-G-A, ending high on la; bar 4 the answer G-G-E-E and a quarter rest, ending on mi; bars 5-6 repeat bars 1-2 exactly so the groove can be kept as an ostinato; bar 7 a new call A-G-A-A-G, ending on so; bar 8 the closing answer G-G-E-E and a rest, the same shape as bar 4. Every bar totals four quarter beats; the only pitches are E4, G4 and A4 (mi-so-la); range E4-A4; inside a phrase the largest leap is a minor third, and the only larger one is the perfect fourth E4-A4 after the rest into each call (bars 2-3 and 6-7); durations are quarters, eighths and quarter rests only. The song ends on mi, the resting tone of a mi-so-la song (there is no do at Grade 1). Originality: the groove (so-mi-so-la-so) and the endings (so-mi) are small mi-so-la playground patterns that are common property; the tune was checked against "Rain, Rain, Go Away", "Bounce High, Bounce Low", "Lucy Locket" and the Fela recording's horn and vocal hooks and shares no phrase with them.
+N:UNCERTAIN: Whether Grade 1 singers can keep bars 1-2 going as an ostinato against the calls, whether 100 is too fast for the answers, and whether "two quick claps" in bar 4 lands cleanly have not been tested. The Band's funk groove under three sung notes has not been heard by a teacher. A classroom trial, a Nigerian or Afrobeat-informed educator and a second score reader remain required.
 M:4/4
 L:1/8
 Q:1/4=100
 K:C
-%%style pop
-E2 E2 G2 A2 | G4 E2 z2 | E2 E2 G G A2 | G4 z4 |
-A2 A2 G2 E2 | G4 E2 z2 | E E E E G2 A2 | G4 E4 |]
-w: Wa-ter keeps mov-ing, round ev-ery stone. Keep the beat, leave some room. Lis-ten, add a lay-er; change one thing, come home.
+%%style funk
+G2 E2 GA G2 | A2 G2 E2 z2 | A2 A2 GG A2 | G2 GE E2 z2 |
+w: Drip, drop, wa-ter rolls round the stone. Who will keep the beat? We keep the beat.
+G2 E2 GA G2 | A2 G2 E2 z2 | A2 G2 AA G2 | G2 GE E2 z2 |]
+w: Drip, drop, wa-ter rolls round the stone. Where does wa-ter go? Down to the sea.

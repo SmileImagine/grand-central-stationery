@@ -1,34 +1,50 @@
 % holding-id: ontario-g2-mbira-mirror
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify the Stella Chiweshe recording link; ask a Zimbabwean mbira educator to review the context and the boundary between a pentatonic classroom ostinato and mbira repertoire.
+% holding-blocked: The original is fully notated with words on every note, and the listening link is Piranha Records' official upload of the remastered 1987 recording, but it has not been tried with students. A Grade 2 classroom teacher must trial the mirror form, the half notes and the bordun at 76-88; a Zimbabwean mbira educator must review the context and the boundary between a pentatonic classroom bordun and mbira repertoire, and how to speak of chimurenga with seven-year-olds; a second score reader must check the notes, words and cues.
+% source-local: course/holding/items/ontario-g2-mbira-mirror.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent, with the do-so bordun on barred instruments.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 2
-% composition-elements: pitch (do-re-mi-so-la pentatonic and high do), duration (half and whole notes), texture (melody over do-so bordun), form (AB)
-% composition-listen: Stella Chiweshe — "Chachimurenga"
-% composition-listen-url: https://www.youtube.com/results?search_query=Stella+Chiweshe+Chachimurenga
+% composition-elements: pitch (do-re-mi-so-la pentatonic with high do), duration (half notes and quarter notes), texture (melody over a repeating do-so bordun), form (AB, where B is A played exactly backwards, a mirror)
+% composition-listen: Stella Chiweshe — "Chachimurenga", from the album Ambuya? (Piranha, 1987); linked upload is Piranha Records' remastered version from the 2021 reissue Ambuya!
+% composition-listen-url: https://www.youtube.com/watch?v=2k9GM7vloIA
 % composition-bridge: Follow one repeating interlocking figure while the voice moves independently; notice cyclical rather than chord-by-chord listening.
-% composition-context: Stella Chiweshe is a major Zimbabwean mbira performer. The recording can introduce mbira dzavadzimu, interlocking parts and cultural responsibility; this original pentatonic school piece is not mbira repertoire.
-% composition-distance: Original melody and bordun; no kushaura/kutsinhira part, lyric or recording phrase is transcribed.
-% improv: {"id":"A","bars":"1-2","role":"melody player over bordun","prompt":"Mirror or cross the contour?","choices":["mirror it","reverse it","hold high do"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"ostinato group","prompt":"How does the cycle change?","choices":["same","one rest","swap do and so"],"replyBars":2}
-% dossier-honesty: Original pentatonic bordun study; mbira is the listening subject, not the claimed style of the draft.
-% dossier-licence: Draft original; reference recording remains copyrighted.
-% dossier-respect: Do not detach mbira dzavadzimu from Shona history and living practice or market a xylophone ostinato as "African mbira music."
-% dossier-review: Zimbabwean mbira educator and Grade 2 teacher.
+% composition-context: Stella Chiweshe (1946-2023) was one of the first women to become a professional player of the mbira dzavadzimu, the Shona lamellophone of Zimbabwe used in ceremonies that call on the ancestors, and she carried it to audiences worldwide. "Chachimurenga", the opening track of Ambuya? (1987), takes its name from chimurenga, the Shona word for struggle used for Zimbabwe's liberation wars. In mbira music interlocking parts repeat in cycles while voices weave over them. This original pentatonic school piece is not mbira repertoire.
+% composition-distance: Original melody, words and bordun; no kushaura or kutsinhira (mbira lead or interlocking) part, lyric or recording phrase is transcribed. The mirror form is a classroom device, not a feature of mbira music.
+% improv: {"id":"A","bars":"3-4","role":"bordun group","prompt":"How does the cycle change?","choices":["same","one rest","swap do and so"],"replyBars":2}
+% improv: {"id":"B","bars":"5-8","role":"singers","prompt":"How does the second half go?","choices":["mirror, as written","sing the first half again","hold high do"],"replyBars":4}
+% dossier-function: original Grade 2 AB song in which the second half is the first half sung backwards, over a do-so bordun that repeats like a cycle
+% dossier-elements: eight bars in 4/4 with no pickup; pitch set C-D-E-G-A-C (do-re-mi-so-la-high do), written range C4-C5; half notes and quarter notes only; A (bars 1-4) climbs from do to high do in the rhythm half-quarter-quarter, quarter-quarter-half; B (bars 5-8) is the exact retrograde of A, every pitch and duration in reverse order, so it falls from high do back to do in the same rhythm; the mirror line falls between bars 4 and 5, where high do is sung twice; largest leap a perfect fourth (G4-C5, at bars 4 and 5)
+% dossier-practice: Quarter note = 88 is the target; begin at 76. The written range C4-C5 sits inside the young-unison C4-D5 range, and C major pentatonic (no F or B) is the rehearsal key, so barred instruments can be set up with F and B removed. Teach in steps: set up the do-so bordun (C and G together on beats 1 and 3) and keep it going as a cycle; sing A by echo, two bars at a time; write A's note names on the board, read them right to left and discover that this is B; sing the whole song over the bordun; then let the bordun group change its cycle with cue A
+% dossier-accompaniment: The classroom accompaniment is a repeating do-so bordun on bass barred instruments, C and G together on beats 1 and 3. %%style drone is used only because the Band's drone holds an open do-so fifth, the same sound as the bordun, and never changes chord, which suits the cycle-not-chords listening; the page labels that style "tanpura and tabla", a South Asian sound, so present the Band as "drone" and never as mbira or Zimbabwean. No chord symbols are written, so the drone holds C and G throughout
+% dossier-lyrics: Original English words written for this record, one syllable per note: "Up goes the pat-tern high, up to the moun-tain top; look in the mir-ror, see: back comes the pat-tern home." The words rise with A and fall with B; they are not themselves a palindrome. Sung throughout
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed grade, range and teaching constraints. It is not traditional, not collected from a community and not modelled on "Chachimurenga" or any mbira piece; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. Stella Chiweshe's composition and the Piranha recording remain their owners' copyright and are not included; the class listens through the linked official upload
+% dossier-respect: Name Stella Chiweshe, Zimbabwe and the Shona people, and the mbira dzavadzimu as an instrument of ceremony and history; mention that she played it when few women were allowed to. Do not detach mbira from Shona spiritual and living practice, do not market a xylophone bordun as "African mbira music", and do not call the instrument a "thumb piano" without its own name
+% dossier-review: Grade 2 classroom music teacher, Zimbabwean mbira educator, second score reader; all reviews still required
 X:1
 T:Mbira Mirror
-C:Grand Central Stationery workshop
-R:pentatonic AB study
-S:Original classroom composition, 2026; listening bridge to Stella Chiweshe
+T:Original Grade 2 mirror song over a bordun
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 2 AB mirror song with bordun
+S:Grand Central Stationery, "Mbira Mirror" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: A: bar 1 C half, E-D quarters; bar 2 E-G quarters, A half; bar 3 G half, A-high C quarters; bar 4 A-G quarters, high C half. B: bar 5 high C half, G-A quarters; bar 6 high C-A quarters, G half; bar 7 A half, G-E quarters; bar 8 D-E quarters, C half. B is A's twelve notes read backwards, pitch and duration, and because each two-bar rhythm (half-quarter-quarter, quarter-quarter-half) is itself a palindrome, B keeps A's rhythm. Every bar totals four quarter beats; the only pitches are C, D, E, G, A and high C; range C4-C5; steps and thirds except the perfect fourth G4-C5 at bars 4 and 5; durations are halves and quarters only. The song ends on do. Originality: the do-re-mi-so-la-do climb is common property; the tune was checked against "Chachimurenga", "Hot Cross Buns" (B's close is re-mi-do, not mi-re-do), "Mary Had a Little Lamb" and "Kumbaya" and shares no phrase with them.
+N:UNCERTAIN: Whether Grade 2 children hear B as the mirror of A without seeing it written, whether the repeated high do at bars 4-5 is comfortable, and whether the bordun group can change its cycle on cue are untested. How much of chimurenga's history to share with seven-year-olds is for the mbira educator and teacher. A classroom trial, a Zimbabwean mbira educator and a second score reader remain required.
 M:4/4
-L:1/4
-Q:1/4=96
+L:1/8
+Q:1/4=88
 K:C
 %%style drone
-"C"C2 E2 | G2 A2 | c2 A2 | G4 | "G"D2 G2 | A2 G2 | E2 D2 | C4 |]
-w: Turn the small pat-tern, lift it to the sky. Hear an an-swer cir-cle, bring the sound back home.
+C4 E2 D2 | E2 G2 A4 | G4 A2 c2 | A2 G2 c4 |
+w: Up goes the pat-tern high, up to the moun-tain top;
+c4 G2 A2 | c2 A2 G4 | A4 G2 E2 | D2 E2 C4 |]
+w: look in the mir-ror, see: back comes the pat-tern home.

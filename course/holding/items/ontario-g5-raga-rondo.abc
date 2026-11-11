@@ -1,34 +1,51 @@
 % holding-id: ontario-g5-raga-rondo
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Select a specific authorized Ravi Shankar Raga Jog recording and have a Hindustani music educator review every use of raga/tala terminology.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been played by students. A Grade 5 music teacher must trial the rondo with an improvised B episode over the class drone; a Hindustani music educator must review every use of raga, drone and improvisation language in the lesson; a second score reader must check the notes; and someone must replace the discovery search with an authorized link to Ravi Shankar's 1956 "Raga Jog" recording (a label, archive or official artist page).
+% source-local: course/holding/items/ontario-g5-raga-rondo.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Ravi Shankar recording is a listening reference only and is not a performance of this piece.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 5
-% composition-elements: 6/8 metre, dotted rhythms, rondo form, drone texture and melodic improvisation within a limited pitch set
-% composition-listen: Ravi Shankar — Raga Jog
-% composition-listen-url: https://www.youtube.com/results?search_query=Ravi+Shankar+Raga+Jog+official
+% composition-elements: 6/8 metre; dotted quarters, quarter-eighth pairs and dotted halves; rondo form A B A C A (4-bar sections, 20 bars) with an improvised B episode and a written C episode; drone texture (the class holds D and A while a soloist improvises); improvisation within the five-note set D-F-G-A-C; a fermata on the last note
+% composition-listen: Ravi Shankar — "Raga Jog", the opening side of the LP Three Ragas (recorded in London, 1956; with Chatur Lal, tabla; reissued on CD by Angel Records, 2000)
+% composition-listen-url: https://www.youtube.com/results?search_query=Ravi+Shankar+Raga+Jog+Three+Ragas+1956
 % composition-bridge: Listen for a melody unfolding over a drone, gradual pacing and improvisation that reveals rather than abandons constraints.
 % composition-context: A raga is more than a scale, and a Hindustani performance has its own melodic grammar, time cycle and form. This original five-note classroom rondo is not Raga Jog.
 % composition-distance: Original equal-tempered pitches and form; no alap phrase, gat, tala pattern or recording passage is copied.
-% improv: {"id":"A","bars":"1-2","role":"soloist over drone","prompt":"Choose a three-note path","choices":["rise then rest","circle one note","fall to the drone"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"class drone and soloist","prompt":"How will A return?","choices":["exactly","ornament one note","return more softly"],"replyBars":2}
-% dossier-honesty: Original constrained-improvisation study; not a raga or Hindustani composition.
-% dossier-licence: Draft original; Ravi Shankar's composition/performance remains copyrighted where applicable.
-% dossier-respect: State explicitly that a five-note set does not define a raga; use the recording and expert explanation as primary sources.
-% dossier-review: Hindustani music educator and Grade 5 teacher.
+% improv: {"id":"A","bars":"5-8","role":"soloist over the class drone","prompt":"Choose a three-note path","choices":["rise then rest","circle one note","fall to D"],"replyBars":4}
+% improv: {"id":"B","bars":"17-20","role":"whole class","prompt":"How does A return the last time?","choices":["exactly","ornament one note","softly, then hold"],"replyBars":4}
+% dossier-function: original instrumental classroom rondo for Grade 5: everyone plays the A theme, one soloist improvises the B episode over the class's drone, everyone reads the written C episode, and A returns between and after them
+% dossier-elements: twenty bars in 6/8 (two dotted-quarter beats a bar); D minor pentatonic set D-F-G-A-C, range D4-C5; A theme (bars 1-4, 9-12, 17-20) rises D-F-A, G-A-C in quarter-eighth plus dotted-quarter cells and falls C-A-G-F to a dotted-half D; B episode (bars 5-8) is the class drone, dotted quarters D4 and A4 then a dotted-half D, for a soloist to improvise over; C episode (bars 13-16) opens on a held A4 that leans up to C5, rests for a dotted quarter in bar 14, climbs F-G-A-C and holds A4 so that A can answer; rondo A B A C A; the last D carries a fermata
+% dossier-practice: Dotted quarter = 66 is the target; begin at 54. Rehearsal key D minor (no B or E is used, so on Orff barred instruments remove the E and B bars); written range D4-C5, inside the young-unison C4-D5 range for voices on "ah" and inside recorder range. Teach in steps: everyone learns A by ear and then reads it; everyone plays the B drone (D and A, a dotted quarter each); the teacher models a four-bar improvisation over the drone using only D F G A C, then volunteers take turns; read C; put the rondo together, changing soloist each time round.
+% dossier-accompaniment: The chord symbol D5 (an open fifth, D and A, no third) is held under the whole piece and played by the page's ballad band, chosen because it is soft and sustained; it is not a tanpura, and the page's drone style (tanpura and tabla) is deliberately not used so that the piece does not imitate Hindustani accompaniment. In class, low bells, a cello or a keyboard can hold D and A instead.
+% dossier-lyrics: Instrumental piece for recorder, barred percussion, keyboard or voices on a neutral syllable ("ah"); no words, because the bridge is about melody unfolding over a drone. Any words added later should be recorded as a new adaptation.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed range, metre and teaching constraints. Not traditional, not a raga, not a Hindustani composition and not modelled on the reference's melody, alap, gat or tala; the Ravi Shankar recording is a listening bridge only.
+% dossier-licence: CC0 1.0 for the melody, form, drone chord and this ABC encoding. Ravi Shankar's recording of "Raga Jog" remains its owners' copyright and is not included.
+% dossier-respect: Name Ravi Shankar as a Hindustani sitarist trained in the Maihar tradition under Allauddin Khan, and name the accompanists on the recording. State explicitly that a five-note set does not define a raga: Jog has its own ascent, descent, characteristic phrases and time of day, and is learned from a teacher. Use the recording and an expert's explanation as the primary sources, and never call this classroom rondo a raga.
+% dossier-review: Grade 5 classroom music teacher, Hindustani music educator, second score reader and student playing trial; all reviews still required
 X:1
 T:Drone Rondo
-C:Grand Central Stationery workshop
-R:five-note improvisation study
-S:Original classroom composition, 2026; listening bridge to Ravi Shankar
+T:Original rondo with an improvised episode over a drone
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:instrumental classroom rondo with an improvised episode
+S:Grand Central Stationery, "Drone Rondo" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; the 8-bar draft was rewritten as a true rondo. Bar-by-bar audit, every bar six eighths: A (bars 1-4, repeated unchanged as bars 9-12 and 17-20) is D quarter, F eighth, A dotted quarter; G quarter, A eighth, C5 dotted quarter; C5 quarter, A eighth, G quarter, F eighth; D4 dotted half (with a fermata in bar 20). B (bars 5-8) is the drone D4 and A4 in dotted quarters three times, then a dotted-half D4. C (bars 13-16) is A4 dotted quarter, C5 quarter, A eighth; G dotted quarter and a dotted-quarter rest; F quarter, G eighth, A quarter, C5 eighth; A4 dotted half. Pitch set D-F-G-A-C, range D4-C5, largest leap the fifth D4-A4 (in the drone, and from the end of A into C) and its reverse from the end of C back to A; the fourth G4-C5 in A; every other move is a step or a third. Form: A B A C A, 4+4+4+4+4 bars. Originality check: the A theme's rising thirds and the C episode were compared with what the reference recording's opening exposes and with common pentatonic children's songs; no shared phrase was found; D minor pentatonic steps and thirds are common property.
+N:UNCERTAIN: Whether Grade 5 soloists can improvise four bars over the drone without losing the 6/8 pulse, whether the class keeps the drone steady under a soloist, and how the ballad band's held D5 sounds can only be settled by a classroom trial. A Hindustani music educator should judge whether the listening framing and the word "drone" are used accurately. The 1956 recording details come from discographies and need checking against an authorized release before publication.
 M:6/8
 L:1/8
-Q:3/8=68
+Q:3/8=66
 K:Dm
-%%style drone
-D3 F2 A | G3 F3 | A2 c A2 G | F6 |
-D3 A2 c | A3 G3 | F2 G A2 F | D6 |]
+%%style ballad
+"D5"D2 F A3 | G2 A c3 | c2 A G2 F | D6 |
+D3 A3 | D3 A3 | D3 A3 | D6 |
+D2 F A3 | G2 A c3 | c2 A G2 F | D6 |
+A3 c2 A | G3 z3 | F2 G A2 c | A6 |
+D2 F A3 | G2 A c3 | c2 A G2 F | HD6 |]

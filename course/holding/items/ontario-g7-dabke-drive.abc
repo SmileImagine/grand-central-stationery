@@ -1,33 +1,48 @@
 % holding-id: ontario-g7-dabke-drive
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Select an authorized Omar Souleyman performance and ask a Syrian/Levantine dabke educator to review context, dance relationship and electronic framing.
+% holding-blocked: The original is fully notated and its listening reference is verified, but it has not been played or danced by a class. A Syrian or Levantine dabke educator must review the context, the dance relationship and the electronic framing, and confirm that the retitling away from "Dabke Drive" is right; a Grade 7 music/dance teacher must trial the turns and the stamp break; a second score reader must check the audit.
+% source-local: course/holding/items/ontario-g7-dabke-drive.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that the turns or the stamp break work with students.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 7
-% composition-elements: minor triads, marcato, repertoire rhythm, body-part isolation/weight transfer and improvised melodic turns
-% composition-listen: Omar Souleyman — "Warni Warni"
-% composition-listen-url: https://www.youtube.com/results?search_query=Omar+Souleyman+Warni+Warni+official
+% composition-elements: minor triads (Dm, Gm and Am, i-iv-v in D natural minor); marcato on the leader's entries (bars 1, 3) and on every hit of the stamp break (bars 5-6); a written melodic turn (four sixteenths around one note) in bars 1, 3 and 7 that students vary; a stamp break of marcato quarters and quarter rests in bars 5-6 that leaves beats for an original weight-transfer and shoulder-isolation movement; leader-and-line call and answer
+% composition-listen: Omar Souleyman — "Warni Warni" (from the album Wenu Wenu, produced by Kieran Hebden (Four Tet), Ribbon Music, 2013)
+% composition-listen-url: https://music.apple.com/us/song/warni-warni/677848558
 % composition-bridge: Hear relentless electronic pulse, ornamented vocal/keyboard lines and music made for communal line dancing.
 % composition-context: Omar Souleyman's music relates Syrian wedding performance, dabke and electronic production for global stages. This original minor dance study is not dabke music and supplies no traditional steps.
-% composition-distance: Original melody, harmony and words; no synth line, vocal phrase or beat from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"melody leader","prompt":"Turn one three-note cell","choices":["ornament first note","repeat middle note","leap to final note"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"line leader","prompt":"Signal the group musically","choices":["marcato hit","rising pickup","one beat of silence"],"replyBars":2}
-% dossier-honesty: Original electronic-dance comparison study; not dabke repertoire.
-% dossier-licence: Draft original; reference composition/performance remains copyrighted.
-% dossier-respect: Locate Syria and the Levant, distinguish social dance practice from a concert-video image, and use a culture bearer for steps.
-% dossier-review: Syrian/Levantine dabke educator and Grade 7 teacher.
+% composition-distance: Original melody, harmony and movement plan; no synth line, vocal phrase or beat from the recording is copied, and no traditional dabke step is taught.
+% improv: {"id":"A","bars":"3","role":"melody leader","prompt":"Change the turn","choices":["turn from above, as written","turn from below","no turn: one long note"],"replyBars":1}
+% improv: {"id":"B","bars":"5-6","role":"line leader","prompt":"Signal in the gaps","choices":["one marcato clap on beat 2","a rising pickup into beat 3","keep the gaps silent"],"replyBars":2}
+% dossier-function: original minor line-dance study for Grade 7: a leader plays the turn figure, the line answers, and in the stamp break the class transfers weight on the marcato hits and isolates the shoulders in the rests; it pairs with listening to Omar Souleyman, it does not teach dabke
+% dossier-elements: eight bars in 4/4, D natural minor (D E F G A Bb C), written range D4-D5; chords Dm | Dm | Gm | Am | Dm | Gm | Gm-Am | Dm; quarter, eighth and sixteenth notes, a half note and quarter rests; bars 1-2 leader's phrase with the turn Bb-A-G-A, closing on D4; bars 3-4 the line's answer on Gm with the turn C-Bb-A-Bb, closing on A4 (open); bars 5-6 the stamp break, marcato D5, A4, Bb4, G4 on beats 1 and 3 with rests on 2 and 4 and an A4 pickup; bars 7-8 the turn returns and the phrase cadences F-E-D4; largest leap a perfect fifth (D4-A4, bar 1)
+% dossier-practice: Quarter note = 126 is the dance target; start at 96 and keep the sixteenth turns light. D minor is the rehearsal key; the written range D4-D5 sits inside the young-unison C4-D5. Teach in steps: clap the rhythm of bar 1, sing the turn on "da", play bars 1-4 as leader and line, then add the stamp break standing still before adding the movement. Movement is optional and adaptable: seated players can tap the hits and roll the shoulders in the rests
+% dossier-accompaniment: The written Dm, Gm and Am triads drive the page's pop style (piano, drum kit, bass), a generic pop groove chosen so the class hears a steady electronic-age pulse without pretending to be Syrian wedding music or Souleyman's synth and drum-machine sound. Keep the band light in bars 5-6 so the stamps are heard. No beat, keyboard line or sample from the recording is reproduced
+% dossier-lyrics: Instrumental: recorder, keyboard, bells or voices on "da". No words are supplied, in Arabic or English; no words from the recording are used. Any words a class adds are a class adaptation, not a translation
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm and teaching constraints. It is not traditional, not collected from a community and not modelled on the reference's melody or on any dabke tune; the movement suggestions are generic classroom movement, not dabke steps. The listening reference is a bridge only. Drafted as "Dabke Drive"; retitled because the piece is explicitly not dabke
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, chords, movement plan, improvisation cues and this ABC encoding to the public domain to the extent legally possible. "Warni Warni" and the Wenu Wenu recording remain their owners' copyright and are not included
+% dossier-respect: Locate Syria and the Levant, and Souleyman's region of north-east Syria, on a map; explain that dabke is a social line dance with many regional forms in Syria, Lebanon, Palestine, Jordan and Iraq, danced at weddings and community celebrations, and that a concert video shows one artist's international stage career, not the whole practice. Teach dabke steps only with a culture bearer; never present this classroom study, or its stamp break, as dabke
+% dossier-review: Syrian or Levantine dabke educator, Grade 7 music/dance teacher, second score reader and student listening panel; all reviews still required
 X:1
-T:Dabke Drive
-C:Grand Central Stationery workshop
-R:minor dance-line study
-S:Original classroom composition, 2026; listening bridge to Omar Souleyman
+T:Lead the Line
+T:Original minor line-dance study with turns and a stamp break
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:minor line-dance study for leader and line
+S:Grand Central Stationery, "Lead the Line" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bar 1 (Dm) marcato D4 quarter, A4 quarter, sixteenth turn Bb-A-G-A, F4 quarter; bar 2 (Dm) G-F-E-F eighths, D4 quarter, quarter rest; bar 3 (Gm) marcato G4, Bb4, turn C5-Bb-A-Bb, G4; bar 4 (Am) C5-A-G-E eighths, A4 quarter, quarter rest; bar 5 (Dm) marcato D5 and A4 on beats 1 and 3, rests on 2 and 4; bar 6 (Gm) marcato Bb4 and G4 on 1 and 3, rest on 2, an eighth rest and an A4 pickup on 4; bar 7 (Gm then Am) G4 quarter, turn Bb-A-G-A, E4 and A4 quarters; bar 8 (Dm) F-E eighths, D4 half, quarter rest. Every bar totals eight eighths (the turns are four sixteenths); the only pitches are D E F G A Bb C; written range D4-D5; largest leap a perfect fifth. The batch draft (titled "Dabke Drive") repeated one quarter-quarter-dotted rhythm in every bar and claimed triads with no chords; this version adds the chords, the turns and the stamp break. Originality check: the opening is not the opening of "Misirlou", "Hava Nagila", "Lamma Bada" or any Souleyman hook, and turn figures around one note are common property of many minor-mode dance musics.
+N:UNCERTAIN: Whether the sixteenth turns are clean at quarter note = 126 with Grade 7 players, whether the stamp break's rests are long enough for a weight transfer, and whether the pop style reads as a neutral pulse have not been tested. A Levantine dabke educator must judge whether the framing and the new title avoid presenting the study as dabke; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4
 L:1/8
 Q:1/4=126
 K:Dm
 %%style pop
-!marcato!D2 F2 A3 G | F2 E2 D4 | A2 B2 c3 A | G2 F2 E4 |
-!marcato!D2 A2 d3 c | B2 A2 G4 | F2 G2 A3 E | D8 |]
+"Dm"!marcato!D2 A2 B/A/G/A/ F2 | "Dm"G F E F D2 z2 | "Gm"!marcato!G2 B2 c/B/A/B/ G2 | "Am"c A G E A2 z2 |
+"Dm"!marcato!d2 z2 !marcato!A2 z2 | "Gm"!marcato!B2 z2 !marcato!G2 z A | "Gm"G2 B/A/G/A/ "Am"E2 A2 | "Dm"F E D4 z2 |]

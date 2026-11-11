@@ -1,34 +1,49 @@
 % holding-id: ontario-g7-blue-engine
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Muddy Waters recording and have a blues educator review cultural history, form and improvisation framing.
+% holding-blocked: The original is fully notated and its listening reference is verified, but it has not been played by a class. A blues educator must review the history, the form and the framing of call-and-response soloing; a Grade 7 music teacher must trial the answer windows at the starting tempo; a second score reader must check the bar-by-bar audit.
+% source-local: course/holding/items/ontario-g7-blue-engine.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that the answer windows work with students.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 7
-% composition-elements: blues scale, 12-bar blues, major/minor triads, marcato articulation and improvised call-and-response soloing
-% composition-listen: Muddy Waters — "Hoochie Coochie Man"
-% composition-listen-url: https://www.youtube.com/results?search_query=Muddy+Waters+Hoochie+Coochie+Man+official
+% composition-elements: C blues scale (C Eb F F# G Bb) in the calls of bars 1-2 and 5-6; a 12-bar blues in C (I-I-I-I, IV-IV-I-I, V-IV-I-I) with C7, F7 and G7, dominant sevenths built on major triads, so the melody's blue thirds rub against the chords' major thirds (Ab-A in bars 6 and 10, Eb-E in bar 11); marcato on the first note of each line (bars 1, 5, 9); AAB phrase form; written two-bar answer windows in bars 3-4 and 7-8 for improvised call-and-response soloing
+% composition-listen: Muddy Waters — "(I'm Your) Hoochie Coochie Man" (written by Willie Dixon; recorded in Chicago on 7 January 1954 and released as a Chess single in 1954; streamed from the compilation Hoochie Coochie Man: The Complete Chess Masters, Vol. 2 (1952-1958), Geffen/UMG 2004)
+% composition-listen-url: https://music.apple.com/us/song/im-your-hoochie-coochie-man/1444532550
 % composition-bridge: Hear the stop-time riff, vocal authority, tension between speech and pitch, and ensemble answers.
-% composition-context: Muddy Waters' Chicago blues recording connects Delta traditions, electrification, Black migration and the music industry. This original school blues uses a different riff and neutral words.
-% composition-distance: Original melody, lyric and accompaniment; no stop-time riff, Willie Dixon lyric or recording arrangement is copied.
-% improv: {"id":"A","bars":"1-4","role":"soloist over I chord","prompt":"Build a four-bar statement","choices":["three-note motif","space after every idea","repeat then vary"],"replyBars":4}
-% improv: {"id":"B","bars":"9-12","role":"next soloist","prompt":"Answer and close the chorus","choices":["higher answer","rhythmic answer","one-note answer"],"replyBars":4}
-% dossier-honesty: Original 12-bar teaching blues; listening reference remains distinct.
-% dossier-licence: Draft original; the Dixon/Waters work and recording remain copyrighted.
-% dossier-respect: Teach blues as Black American history and living expression, not just a scale or chord worksheet.
-% dossier-review: Blues educator and Grade 7 teacher.
+% composition-context: Muddy Waters' Chicago blues recording connects Delta traditions, electrification, Black migration and the music industry. This original school blues uses a different riff and no words.
+% composition-distance: Original melody and chord plan; no stop-time riff, Willie Dixon lyric or recording arrangement is copied.
+% improv: {"id":"A","bars":"3-4","role":"first soloist (one player or a small group)","prompt":"Answer the call","choices":["echo its last three notes","answer with the blue note F#","one note in a new rhythm"],"replyBars":2}
+% improv: {"id":"B","bars":"7-8","role":"second soloist","prompt":"Answer over the home chord","choices":["start high and fall","space, then two notes","the call's rhythm on new notes"],"replyBars":2}
+% dossier-function: original 12-bar teaching blues for Grade 7; the class plays the written call in each line, a soloist answers in the two bars of rest that follow, and everyone plays the closing line together
+% dossier-elements: 12 bars in 4/4 (three four-bar lines); chords I-I-I-I | IV-IV-I-I | V-IV-I-I in C (C7, F7, G7); written range C4-Eb5; pitch set C D Eb E F F# G Ab A Bb B (the C blues scale C Eb F F# G Bb in bars 1-2, the same shape rebuilt on the F7 chord in bars 5-6, chord tones and blue notes in bars 9-12); eighth, quarter and dotted-half notes, a closing quarter rest and whole-bar rests; bars 1-2 call, bars 3-4 rest (answer), bars 5-6 call over IV, bars 7-8 rest (answer), bars 9-12 the B line that closes on C4; largest leap a perfect fifth (F4-C5, bar 10)
+% dossier-practice: Quarter note = 96 with swung eighths is the target; start at 72 and raise it once the class can land the dotted half in bars 2 and 6 together. The written range C4-Eb5 goes a semitone above the young-unison C4-D5 at one note only (Eb5, bar 5); C is the rehearsal key for recorder, bells and keyboard, and the page's Transpose can move it for band instruments. Teach the call by ear first (bars 1-2), then its version over F7 (bars 5-6), then the closing line; only then open the answer windows, first with the teacher answering, then volunteers choosing one cue at a time
+% dossier-accompaniment: The chords are the written 12-bar changes; the page's swing style supplies a jazz-swing comp and walking bass, which is a stand-in, not a Chicago blues band. Keep the band playing through the answer windows so the soloist has the changes underneath. A teacher may add a shuffle on snare or hand drum; no part of the Muddy Waters band arrangement is reproduced
+% dossier-lyrics: Instrumental: recorder, bells, keyboard, guitar or voices on a neutral syllable such as "doo". No words are supplied, so the Willie Dixon lyric is never in play. An extension task: students write their own three-line AAB verse (a line, the same line again, an answering line) to fit the call bars, recorded as a class adaptation
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, form and teaching constraints. It is not traditional, not collected from a community and not modelled on the reference's melody; the 12-bar form and the blues scale are shared musical vocabulary, and the reference recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, chord plan, improvisation cues and this ABC encoding to the public domain to the extent legally possible. "(I'm Your) Hoochie Coochie Man" (Willie Dixon) and Muddy Waters' 1954 Chess recording remain their owners' copyright and are not included
+% dossier-respect: Teach the blues as Black American history and living expression, not just a scale or a chord worksheet: name Muddy Waters (McKinley Morganfield, from the Mississippi Delta), Willie Dixon as the song's writer, Chicago's South Side and Chess Records, and the Great Migration that carried Delta musicians north. Say plainly that this classroom piece is a school exercise in the 12-bar form, not a blues song from that tradition and not a substitute for listening to the recording
+% dossier-review: Blues educator, Grade 7 music teacher, second score reader and student listening panel; all reviews still required
 X:1
 T:Blue Engine
-C:Grand Central Stationery workshop
-R:12-bar blues
-S:Original classroom composition, 2026; listening bridge to Muddy Waters and Willie Dixon
+T:Original 12-bar teaching blues with answer windows
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:12-bar blues for call-and-response soloing
+S:Grand Central Stationery, "Blue Engine" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bar 1 (C7) marcato G4 quarter, then G-Bb-G-C5-Bb-G-Eb eighths falling through the blues scale; bar 2 (C7) F-F#-G4, the dotted half on G closing the call; bars 3-4 (C7) whole-bar rests, the first answer window; bar 5 (F7) the call rebuilt on F7, marcato C5 then Eb5-C5-A4-C5-A4-F4; bar 6 (F7) Ab-A-C5 dotted half, the same chromatic approach as bar 2; bars 7-8 (C7) rests, the second answer window; bar 9 (G7) marcato D5 then D5-B4-G4-F4-D4; bar 10 (F7) Eb-F-Ab-F-C5-A-F; bar 11 (C7) Eb-E-G-C5-Bb-G-Eb; bar 12 (C7) C4 dotted half and a quarter rest. Every bar totals eight eighths; written range C4-Eb5; largest leap a perfect fifth (F4-C5, bar 10). This replaces the batch draft, which had a B4-C4 major-seventh drop in bar 5, a B natural against F7 and a G7 chord under the final tonic. Form AAB: bars 5-6 restate the call over IV, bars 9-12 answer it. Originality check: no stop-time hits and no beat-one riff from the reference, no Dixon words, and the call is not the opening of any well-known blues head checked ("C Jam Blues", "Bags' Groove", "Tenor Madness", "Sonnymoon for Two", "Night Train"); falling blues-scale figures like bar 1 are common property of the idiom.
+N:UNCERTAIN: Whether two-bar answer windows are long enough for Grade 7 soloists at quarter note = 72-96, whether Eb5 in bar 5 is comfortable for the class's voices or recorders, and whether the swing style's comp sits well under a blues have not been tested. The history framing needs a blues educator's review; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4
 L:1/8
 Q:1/4=96
 K:C
 %%style swing
-"C7"C2 _E2 F2 ^F2 | G4 _B2 G2 | C2 _E2 F2 G2 | C8 |
-"F7"F2 _A2 B2 C2 | F4 _E2 C2 | "C7"C2 _E2 F2 ^F2 | G8 |
-"G7"G2 _B2 c2 _B2 | "F7"F2 _A2 G2 F2 | "C7"C2 _E2 F2 G2 | "G7"C8 |]
+"C7"!marcato!G2 _B G c _B G _E | "C7"F ^F G6 | "C7"z8 | "C7"z8 |
+"F7"!marcato!c2 _e c A c A F | "F7"_A =A c6 | "C7"z8 | "C7"z8 |
+"G7"!marcato!d2 d B G2 F D | "F7"_E F _A F c2 =A F | "C7"_E =E G c _B G _E2 | "C7"C6 z2 |]

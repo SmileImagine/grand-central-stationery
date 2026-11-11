@@ -1,34 +1,54 @@
 % holding-id: ontario-g2-kora-steps
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Toumani Diabaté recording and have a Mande music educator review the kora and jeli context.
+% holding-blocked: The original is fully notated as a 16-bar verse-chorus song with words on every note, and the listening link is the official auto-generated upload from Kaira, but it has not been tried with students. A Grade 2 classroom teacher must trial the two verses, the crescendo and diminuendo in each chorus and the soloist's "room" in bar 11 at 80-92; a Mande music educator must review the kora and jeli context; a second score reader must check the notes, words and cues.
+% source-local: course/holding/items/ontario-g2-kora-steps.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent, with the do-so bordun on barred instruments and a student's own variation in bar 11.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 2
-% composition-elements: pentatonic pattern, crescendo and diminuendo, simple accompaniment and verse/chorus contrast
-% composition-listen: Toumani Diabaté — "Jarabi"
-% composition-listen-url: https://www.youtube.com/results?search_query=Toumani+Diabate+Jarabi+official
+% composition-elements: pitch (do-re-mi-so-la pentatonic with high do), duration (quarter and half notes, one quarter rest), dynamics (crescendo then diminuendo hairpins in each chorus), texture (melody over a do-so bordun), form (verse and chorus: verse 1, chorus, verse 2 with a varied melody, chorus)
+% composition-listen: Toumani Diabaté — "Jarabi", from the solo kora album Kaira (Hannibal Records, 1988; recorded in London, October 1987)
+% composition-listen-url: https://www.youtube.com/watch?v=asvPlOGh5tI
 % composition-bridge: Hear how a repeating foundation supports delicate variation and a long melodic line.
-% composition-context: Toumani Diabaté's kora playing connects with hereditary jeli practice and contemporary concert collaboration in Mali. This new barred-instrument song is not a kora piece.
-% composition-distance: Original tune, lyric and chord-free bordun; no kora pattern or "Jarabi" melody is transcribed.
-% improv: {"id":"A","bars":"1-2","role":"one player over do-so","prompt":"Change one note or one rhythm?","choices":["new final note","double one note","leave a rest"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"whole class","prompt":"Shape the volume","choices":["grow","fade","arch up then down"],"replyBars":2}
-% dossier-honesty: Original pentatonic variation study; the kora recording remains the primary listening text.
-% dossier-licence: Draft original; reference recording is separately copyrighted.
-% dossier-respect: Introduce kora and jeli history through reliable sources; do not call a classroom arpeggio a traditional Mande pattern.
-% dossier-review: Mande music educator and Grade 2 teacher.
+% composition-context: Toumani Diabaté (1965-2024), from Bamako, Mali, was born into a family of jeli (griots), the hereditary musicians and keepers of history of the Mande world, and played the 21-string kora, a harp-lute from that tradition. Kaira (1988) was the first album of solo kora; on it a repeating accompaniment figure and running variations share one instrument. This new pentatonic song for voices and barred instruments is not a kora piece.
+% composition-distance: Original tune, words and bordun; no kora figure, "Jarabi" melody or lyric is transcribed, and the bordun is a classroom do-so drone, not a kumbengo (kora accompaniment pattern).
+% improv: {"id":"A","bars":"11-12","role":"one player over do-so","prompt":"What goes in the room?","choices":["leave the rest","one new note","a new final note"],"replyBars":2}
+% improv: {"id":"B","bars":"13-16","role":"whole class","prompt":"Shape the volume","choices":["grow","fade","grow then fade"],"replyBars":4}
+% dossier-function: original Grade 2 verse-and-chorus song over a do-so bordun, in which the second verse varies the first and a soloist adds a variation of their own
+% dossier-elements: sixteen bars in 4/4 with no pickup; pitch set C-D-E-G-A-C (do-re-mi-so-la-high do), written range C4-C5; quarter notes, half notes and one quarter rest (bar 11); form verse 1 (bars 1-4), chorus (bars 5-8), verse 2 (bars 9-12), chorus (bars 13-16); each verse ends open on re (D4) and each chorus closes on do (C4); crescendo over bars 5-6 and 13-14, diminuendo over bars 7-8 and 15-16; verse 2 keeps bar 1 and varies bars 10-12; largest leap a perfect fourth (D4 up to G4 into each chorus)
+% dossier-practice: Quarter note = 92 is the target; begin at 80. The written range C4-C5 sits inside the young-unison C4-D5 range, and C major pentatonic (no F or B) is the rehearsal key, so barred instruments can be set up with F and B removed. Teach in steps: learn the chorus first by echo, with the hairpins shown by the teacher's hands opening and closing; learn verse 1 (the stepwise climb to high do and back); learn verse 2 as "verse 1 with changes"; add the do-so bordun (C and G together on beats 1 and 3) on bass xylophone; finally let one player fill the quarter rest in bar 11 and change the final note of bar 12
+% dossier-accompaniment: The classroom accompaniment is a do-so bordun on bass barred instruments, C and G together on beats 1 and 3, kept the same through verse and chorus as the repeating foundation. %%style folk is the Band's generic boom-chick folk groove, chosen for a light steady pulse; it is not Mande or kora music and must not be described as such. No chord symbols are written; the Band harmonises the melody itself, and teachers who want only the bordun can mute the Band's chords
+% dossier-lyrics: Original English words written for this record, one syllable per note. Verse 1: "Step by step the song goes up, step by step it comes back down." Chorus: "Deep be-low, hear it grow; stead-y ground will car-ry you." Verse 2: "Change one step and make it new, leave some room, friends join in." The chorus names the bordun ("steady ground"), and verse 2's "leave some room" sits on the bar 11 rest that the soloist may fill. Sung throughout
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed grade, range and teaching constraints. It is not traditional, not collected from a community and not modelled on "Jarabi" or any kora piece; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. Toumani Diabaté's recording (now ℗ Chrysalis Records) remains its owners' copyright and is not included; the class listens through the linked official upload
+% dossier-respect: Name Toumani Diabaté, Mali, the kora and the jeli families whose hereditary role includes carrying history, genealogy and praise. Introduce jeli practice through reliable sources and, ideally, a Mande musician; do not call a classroom bordun or a pentatonic melody a traditional Mande pattern, and do not present the kora as a generic "African harp"
+% dossier-review: Grade 2 classroom music teacher, Mande music educator, second score reader; all reviews still required
 X:1
 T:Kora Steps
-C:Grand Central Stationery workshop
-R:pentatonic variation song
-S:Original classroom composition, 2026; listening bridge to Toumani Diabaté
+T:Original Grade 2 verse-and-chorus song over a bordun
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:Grade 2 verse and chorus song with bordun
+S:Grand Central Stationery, "Kora Steps" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: verse 1: bar 1 C-D-E-G in quarters (the stepwise climb); bar 2 A-A quarters and high C half note; bar 3 C-A-G-E quarters (the climb turned back); bar 4 G-E quarters and D half note, an open ending on re. Chorus: bar 5 G-E quarters and C half note (crescendo begins); bar 6 C-E quarters and G half note (crescendo ends); bar 7 A-A-G-E quarters (diminuendo begins); bar 8 D-E quarters and C half note, the cadence on do. Verse 2: bar 9 repeats bar 1; bar 10 A-high C-A (quarter, quarter, half) varies bar 2; bar 11 high C-A-G and a quarter rest, the "room"; bar 12 G-E-D (quarter, quarter, half), the open ending again. Bars 13-16 repeat the chorus exactly, hairpins included. Every bar totals four quarter beats; the only pitches are C, D, E, G, A and high C; range C4-C5; the largest leap is the perfect fourth D4-G4 into each chorus; durations are quarters, halves and one quarter rest. Originality: a stepwise climb through the pentatonic scale is common property; the tune was checked against "Jarabi" on Kaira, "Hot Cross Buns", "Mary Had a Little Lamb", "Do-Re-Mi" and "Kumbaya" and shares no phrase with them (the chorus cadence is re-mi-do, not mi-re-do).
+N:UNCERTAIN: Whether Grade 2 singers keep sixteen bars and two verses in mind, whether the crescendo and diminuendo are audible over a classroom bordun, and whether a seven-year-old soloist can fill the bar 11 rest in time are untested. A Mande music educator, a classroom trial and a second score reader remain required.
 M:4/4
-L:1/4
-Q:1/4=84
+L:1/8
+Q:1/4=92
 K:C
 %%style folk
-C E G2 | A G E2 | D E G2 | C4 | E G A2 | G E D2 | E D C2 | C4 |]
-w: Step by step the line keeps turn-ing, one small change can make it new. Hear the ground be-low the mu-sic, leave some room for some-one too.
+C2 D2 E2 G2 | A2 A2 c4 | c2 A2 G2 E2 | G2 E2 D4 |
+w: Step by step the song goes up, step by step it comes back down;
+!<(!G2 E2 C4 | C2 E2 !<)!G4 | !>(!A2 A2 G2 E2 | D2 E2 !>)!C4 |
+w: Deep be-low, hear it grow; stead-y ground will car-ry you.
+C2 D2 E2 G2 | A2 c2 A4 | c2 A2 G2 z2 | G2 E2 D4 |
+w: Change one step and make it new, leave some room, friends join in;
+!<(!G2 E2 C4 | C2 E2 !<)!G4 | !>(!A2 A2 G2 E2 | D2 E2 !>)!C4 |]
+w: Deep be-low, hear it grow; stead-y ground will car-ry you.

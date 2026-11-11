@@ -1,34 +1,49 @@
 % holding-id: ontario-jk-silver-drop
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Test with mallets and found sounds; verify that children can choose dynamics without striking hard or unsafely.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. A JK classroom trial, an early-years music teacher, an accessibility-minded music educator and a second score reader must check that children can strike a bell softly and then wait through a silent bar, that one silent bar at quarter = 72 is long enough to hear a bell fade, the re-entry on A4 after bar 4, and how Evelyn Glennie is introduced.
+% source-local: course/holding/items/ontario-jk-silver-drop.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent, with real bells and wood sounds in the gaps; generated playback cannot show how a struck sound fades.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: JK
-% composition-elements: sound quality, speed and volume — hear one sound decay, then decide when another sound belongs
-% composition-listen: Evelyn Glennie — "A Little Prayer"
-% composition-listen-url: https://www.youtube.com/results?search_query=Evelyn+Glennie+A+Little+Prayer
-% composition-bridge: Listen past the attack into the fading sound; compare metal, wood, voice and silence.
-% composition-context: Evelyn Glennie's solo percussion work invites close listening to resonance and touch. This original two-note sound study does not imitate her composition.
-% composition-distance: Original notes and words; the lesson reference is named for listening only, with no audio or score embedded.
-% improv: {"id":"A","bars":"1-2","role":"one player","prompt":"What follows the silver sound?","choices":["soft echo","lower answer","let it fade"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"circle","prompt":"Pass the sound when you hear space","choices":["clockwise","across the circle","unexpected neighbour"],"replyBars":2}
-% dossier-honesty: Original resonance study; no phrase from the reference is used.
-% dossier-licence: Draft original; the listening reference remains copyrighted.
-% dossier-respect: Introduce Glennie as a composer-performer and discuss listening through vibration without using disability as inspiration rhetoric.
-% dossier-review: Early-years and accessibility-minded music educators.
+% composition-elements: sound quality, volume and silence (Kindergarten Program 2016) — short sung "drops" each followed by a silent bar where one sound rings and fades, a binary choice of bell or silence in the first gaps, and of a short wood sound or a long bell sound in the last gap
+% composition-listen: Evelyn Glennie — "A Little Prayer" (composed and played by Evelyn Glennie, solo marimba), from the album Rhythm Song (RCA Red Seal, 1990)
+% composition-listen-url: https://www.youtube.com/watch?v=6itfyUzl7KA
+% composition-bridge: Listen past the strike into the fading sound; compare a wooden bar, a metal bell, a voice and silence.
+% composition-context: Dame Evelyn Glennie is a Scottish solo percussionist and composer who has been profoundly deaf since childhood and describes listening through the whole body; "A Little Prayer", a slow marimba piece she wrote as a simple exercise, has since been arranged for many ensembles. This original sung sound study does not imitate her composition.
+% composition-distance: Original notes and words; the reference is named for listening only, linked from RCA Red Seal's auto-generated upload, with no audio or score embedded. No phrase of "A Little Prayer" is used.
+% improv: {"id":"A","bars":"1-4","role":"one child with a soft bell","prompt":"What fills each gap?","choices":["one soft bell","silence"],"replyBars":1}
+% improv: {"id":"B","bars":"5-7","role":"one child","prompt":"Last gap: which sound?","choices":["wood block (short)","bell (long)"],"replyBars":1}
+% dossier-function: original JK listening song; the class sings a short falling "drop", then one child fills the silent bar with a soft bell or leaves it silent while everyone listens until the sound is gone; at the end the choice is a short wood sound or a long bell sound
+% dossier-elements: eight bars in 2/4 (L:1/8), D major, pitch set D-E-F#-A (do-re-mi-so), written range D4-A4 (a perfect fifth). Bar 1 "Sil-ver drop" A4 A4 eighths, F#4 quarter; bar 2 silent; bar 3 "sil-ver drop" F#4 E4 eighths, D4 quarter (the drop falls further, to the tonic); bar 4 silent; bar 5 "lis-ten, lis-ten" A4 F#4 A4 F#4 eighths; bar 6 "far a-way" E4 E4 eighths, D4 quarter; bar 7 silent; bar 8 "Gone." D4 quarter and a quarter rest. Form: drop + gap, lower drop + gap, a two-bar answer cadencing on the tonic, a last gap and a one-word coda. Note values: eighths, quarters, quarter rests and three whole-bar (two-beat) rests; within phrases the largest interval is a minor third, and the voice re-enters on A4 after the silent bar 4 (a fifth above the last sung D4)
+% dossier-practice: Start at quarter = 60 so the gaps are long, and reach the written 72 once children wait for the fade. Rehearsal key D major; the written range D4-A4 is the JK comfort zone and inside the young-unison C4-D5 range. Teach in steps: strike one bell and ask the class to raise a hand while they still hear it; sing "Silver drop" and hold still for the gap; then let one child strike a bell softly in the gap (wrist only, "touch it like a bubble") or choose silence; finally compare a wood block's short sound with a bell's long one in bar 7. Use soft mallets and hand-held bells, never hard striking
+% dossier-accompaniment: Newly authored, not traditional. No chords are written: the bell and wood sounds in the gaps are the accompaniment. The ballad style is chosen only because it is the quietest sustained setting; for the first lessons mute the Band so bars 2, 4 and 7 are truly silent. It is not a percussion idiom and does not imitate Glennie's marimba writing
+% dossier-lyrics: Original English words written for this record: "Silver drop, silver drop, listen, listen, far away. Gone." One syllable per note, stresses on the beats ("SIL-ver DROP", "LIS-ten", "FAR a-WAY"); sung, not instrumental. Children may whisper "Gone" or leave it to the bell
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm, safety and teaching constraints. It is not traditional, not collected from a community and not modelled on "A Little Prayer" or any other Glennie work; her recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. "A Little Prayer" and the Rhythm Song recording remain the copyright of Evelyn Glennie, her publisher and the label and are not included
+% dossier-respect: Introduce Evelyn Glennie as a composer and solo percussionist first. If her deafness comes up, use her own framing of listening with the whole body and do not turn it into "inspiration" rhetoric or a lesson about overcoming; let children feel vibration as one way everyone listens
+% dossier-review: Early-years (JK) music teacher, accessibility-minded music educator (including Deaf or hard-of-hearing perspectives on the framing), classroom trial and a second score reader; all reviews still required
 X:1
 T:Silver Drop
-C:Grand Central Stationery workshop
-R:resonance study
-S:Original classroom composition, 2026; listening bridge to Evelyn Glennie
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:JK listening song with silent gaps
+S:Grand Central Stationery, "Silver Drop" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals four eighths (2/4). Bar 1 A4 A4 eighths, F#4 quarter; bar 2 rest; bar 3 F#4 E4 eighths, D4 quarter; bar 4 rest; bar 5 A4 F#4 A4 F#4 eighths; bar 6 E4 E4 eighths, D4 quarter; bar 7 rest; bar 8 D4 quarter, quarter rest. Pitch set D-E-F#-A, range D4-A4; sung intervals are steps and minor thirds, and the only larger move is the re-entry on A4 after the silent bar 4 (the pitch the song began on). The earlier draft used the same E4-G4 two-note shape, six sung notes and one unsung note as "Bamboo Breath"; this version is rebuilt around short falling eighth-note drops and silent gaps, while "Bamboo Breath" is now held tones in a continuous phrase. The analyzer reads level 2 (rests, pentatonic); its Ontario line reads Grade 5 only because it counts the two-sharp key signature, which JK children never read. Originality: so-mi and mi-re-do fragments are common property; checked against "Rain, Rain", "Bounce High, Bounce Low", "Hot Cross Buns", "Twinkle, Twinkle" and "Frère Jacques", with no shared opening. Glennie's "A Little Prayer" is a slow chordal marimba piece; nothing of its melody or harmony is used.
+N:UNCERTAIN: Whether four-year-olds can strike softly and wait, whether a two-beat gap at quarter = 72 is long enough for a bell to fade (the teacher may slow down or repeat a gap), whether the A4 re-entry after silence is pitched securely, and whether the framing of Glennie is right. A classroom trial, an accessibility-minded educator and a second score reader must settle these.
 M:2/4
-L:1/4
-Q:1/4=64
-K:C
+L:1/8
+Q:1/4=72
+K:D
 %%style ballad
-E2 | z2 | G2 | z2 | E G | z2 | G E | E2 |]
-w: Shine. * Hear. * Drop and wait. * Soft-ly home.
+A A F2 | z4 | F E D2 | z4 |
+w: Sil-ver drop, sil-ver drop,
+A F A F | E E D2 | z4 | D2 z2 |]
+w: lis-ten, lis-ten, far a-way. Gone.

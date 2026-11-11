@@ -1,33 +1,57 @@
 % holding-id: ontario-g6-five-windows
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Dave Brubeck Quartet recording and trial the 3+2/2+3 cueing with a Grade 6 class.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been sung or played by students. A Grade 6 music teacher must trial the 5/4 song with its 3+2 ostinato, the triplets and the word stresses; a jazz educator should check the listening framing and the credit to Paul Desmond; a second score reader must check the notes and the word setting.
+% source-local: course/holding/items/ontario-g6-five-windows.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Dave Brubeck Quartet recording is a listening reference only and is not a performance of this piece.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 6
-% composition-elements: 5/4 metre, anacrusis, triplet, interval names, I-IV-V harmony and layered ostinati
-% composition-listen: The Dave Brubeck Quartet — "Take Five"
-% composition-listen-url: https://www.youtube.com/results?search_query=Dave+Brubeck+Quartet+Take+Five+official
+% composition-elements: 5/4 metre grouped 3+2 by the words, the melody and the ostinato; eighth-note triplets; an anacrusis ("and") leading into bars 3 and 11; i-iv-V harmony in A minor (Am, Dm, E, the minor-key I-IV-V); named intervals (perfect fourths, major thirds, the ostinato's perfect fifths); two layers, a sung melody over an instrumental root-and-fifth ostinato; ABA' form
+% composition-listen: The Dave Brubeck Quartet — "Take Five" (composed by Paul Desmond), on the album Time Out (Columbia, 1959)
+% composition-listen-url: https://www.davebrubeck.com/dave-brubecks-time-out
 % composition-bridge: Feel 5/4 as a repeating grouping, then hear how a solo can range freely while the ostinato stays dependable.
 % composition-context: Paul Desmond composed "Take Five" for the Dave Brubeck Quartet. This original 5/4 study uses a different melody, harmony and grouping material.
-% composition-distance: No riff, chord progression, solo language or drum pattern from "Take Five" is copied; credit Desmond as composer in the lesson.
-% improv: {"id":"A","bars":"1-2","role":"rhythm section","prompt":"How do five beats group?","choices":["3+2","2+3","five even"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"soloist over I-IV-V","prompt":"Build a reply from one interval","choices":["major third","perfect fourth","perfect fifth"],"replyBars":2}
-% dossier-honesty: Original 5/4 study; the reference's authorship and distinctive riff remain separate.
-% dossier-licence: Draft original; "Take Five" and its recordings remain copyrighted.
-% dossier-respect: Credit Paul Desmond, not only the bandleader; discuss unusual metre without calling it exotic.
-% dossier-review: Grade 6 band/choir teacher and jazz educator.
+% composition-distance: No riff, piano vamp, chord progression, solo language, lyric or drum pattern from "Take Five" is copied; the ostinato is a plain root-and-fifth walk, and the form is ABA', not the reference's; credit Desmond as composer in the lesson.
+% improv: {"id":"A","bars":"1-4","role":"body-percussion group","prompt":"Clap which grouping?","choices":["3+2 with the song","2+3 against it","five even claps"],"replyBars":4}
+% improv: {"id":"B","bars":"7-8","role":"bells or recorder soloist","prompt":"Fill the two silent beats","choices":["a rising perfect fourth","a falling perfect fifth","a major third"],"replyBars":1}
+% dossier-function: original sung listening-bridge song for Grade 6, a counting song that makes 3+2 audible: the class sings the melody, a small group plays the ostinato, a body-percussion group chooses a grouping, and a soloist answers with a named interval in the rests
+% dossier-elements: twelve bars in 5/4, every bar grouped 3+2; A minor with G sharp as leading note, pitch set D-E-F-G#-A-B-C-D-E; melody D4-E5, ostinato A3-B4; A (bars 1-4): quarter, two eighths, quarter, then a half note or a half rest (bars 1, 2, 4), and five counted quarters in bar 3, with an eighth-note anacrusis "and" at the end of bar 2; B (bars 5-8): eighth-note triplets on beats 1 and 4 of bar 5 and beat 1 of bars 6 and 7, half notes on beats 4-5, the harmony moving Dm to E at the 3+2 split of bar 7, a half rest in bar 8; A' (bars 9-12) repeats A with a new cadence; Am-Dm-E (i-iv-V) only; ABA' form; intervals named in the lesson: E-A and B-E perfect fourths, C-E, F-A and E-G# major thirds, and the ostinato's A-E, D-A and E-B perfect fifths
+% dossier-practice: Quarter note = 104 is the target; begin at 80 and count "ONE two three FOUR five" aloud before singing. Rehearsal key A minor; the melody's written range D4-E5 sits inside the Grade 4-8 voice range; against the young-unison C4-D5 range only the E5s (bars 1, 3, 4, 6, 9, 11, 12) lie above, so transpose down a tone to G minor if a class strains. Teach in steps: speak the words in rhythm while patting 3+2; sing A; teach the ostinato to a small group on bells, xylophone, ukulele roots or keyboard; sing A over the ostinato; teach B's triplets by speaking "some-one's a-sleep"; put ABA' together; add the body-percussion choice and the soloist's interval reply in bars 4 and 8.
+% dossier-accompaniment: The ostinato (second voice) and the Am-Dm-E chords are newly authored. The page's pop band was chosen as a straight-eighth, non-jazz accompaniment so that the piece does not imitate the Quartet's swing; how it handles 5/4 must be checked in a trial, and the band can be muted so the class ostinato carries the metre. Do not play the reference's piano vamp or drum pattern under this song.
+% dossier-lyrics: Original English words written for this record about five lit windows on a street at night; every melody note has one syllable, and the 3+2 grouping is in the words ("Three on the top floor, two by the door"). Sung melody; the ostinato is instrumental. No words come from the reference, which is instrumental, or from any later vocal version of it.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed range, metre and teaching constraints. Not traditional, not collected from any community and not modelled on the reference's melody, vamp, harmony or form; the Dave Brubeck Quartet recording is a listening bridge only.
+% dossier-licence: CC0 1.0 for the melody, words, ostinato, chords and this ABC encoding. "Take Five" (Paul Desmond) and the Dave Brubeck Quartet's recording remain their owners' copyright and are not included.
+% dossier-respect: Credit Paul Desmond as composer, not only the bandleader, and name the Quartet (Dave Brubeck, Paul Desmond, Eugene Wright, Joe Morello) and the album Time Out (1959). Discuss unusual metre as a choice jazz musicians made, without calling it exotic; note that metres of five and other groupings are ordinary in many musical traditions.
+% dossier-review: Grade 6 classroom music, band or choir teacher, jazz educator, second score reader and student trial; all reviews still required
 X:1
 T:Five Windows
-C:Grand Central Stationery workshop
-R:five-beat ostinato study
-S:Original classroom composition, 2026; listening bridge to Paul Desmond and the Dave Brubeck Quartet
+T:Original 5/4 counting song over a 3+2 ostinato
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:sung 5/4 listening-bridge song with an instrumental ostinato
+S:Grand Central Stationery, "Five Windows" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; the draft's opening pickup, its mid-tune pickup bar and its overlong bar 9 were removed by rewriting. Bar-by-bar audit, every bar ten eighths (five quarters): bar 1 quarter, two eighths, quarter, half (E A B C5 E5); bar 2 quarter, two eighths, quarter, dotted-quarter rest, eighth "and" (D5 C A F, E); bar 3 five quarters (E G# B E5 B); bar 4 quarter, two eighths, quarter, half rest (E5 C B A); bar 5 triplet D F A, quarter D5, quarter rest, triplet D F A, quarter C5; bar 6 triplet E A C5, quarter E5, two eighths D5 C, half A; bar 7 triplet D F A, quarter D5, two eighths C5 A, half B (Dm for beats 1-3, E for 4-5); bar 8 quarter, two eighths, quarter, half rest (G# A B E); each triplet is three eighths in the time of two, one quarter, so bars 5-7 also total five quarters; bars 9-11 repeat bars 1-3; bar 12 three quarters and a half (E5 D5 B, A). Ostinato: quarter notes root, fifth, fifth, root, fifth on each chord, ending on a half-note A3. Melody pitch set D-E-F-G#-A-B-C-D-E, range D4-E5; leaps are thirds and perfect fourths except where the B section's triplet arpeggio restarts: the octave D5 down to D4 after the rest in bar 5 and the minor sixth C5 down to E4 into bar 6; ostinato range A3-B4. Form ABA'. Originality check: the opening E-A-B-C-E rise, the counting bar and the triplet arpeggios were compared with "Take Five" (melody, vamp and later lyric) and with common counting songs; no shared hook was found; arpeggios and a root-fifth ostinato are common property.
+N:UNCERTAIN: Whether Grade 6 singers keep the 3+2 grouping steady with the ostinato at quarter = 104, whether the triplets are clean, whether the E5s suit the class and how the page's pop band plays 5/4 can only be settled by a classroom trial. The originality check is one reader's; a second score reader should repeat it. The authorized link is the Brubeck estate's official page for Time Out, which names the album and year; it does not itself play the track.
 M:5/4
 L:1/8
-Q:1/4=116
+Q:1/4=104
 K:Am
 %%style pop
-E | "Am"A2 c2 B2 A2 E2 | "Dm"F2 A2 G2 F2 D2 | "E"^G2 B2 A2 G2 E2 | "Am"A10 |
-E | "Am"A2 B2 c2 A2 E2 | "Dm"F2 G2 A2 F2 D2 | "E"(3GAB c2 B2 G2 E2 | "Am"A10 |]
+V:1 name="Melody" sname="1"
+V:2 name="Ostinato" sname="2"
+[V:1] "Am"E2 A B c2 e4 | "Dm"d2 c A F2 z3 E | "E"E2 ^G2 B2 e2 B2 | "Am"e2 c B A2 z4 |
+w: Three on the top floor, two by the door, and one, two, three, four, five, lights in the night.
+[V:1] "Dm"(3DFA d2 z2 (3DFA c2 | "Am"(3EAc e2 d c A4 | "Dm"(3DFA d2 c A "E"B4 | ^G2 A B E2 z4 |
+w: some-one's a-sleep, some-one's a-wake, some-one is play-ing a tune, five of them shin-ing a light out on the street.
+[V:1] "Am"E2 A B c2 e4 | "Dm"d2 c A F2 z3 E | "E"E2 ^G2 B2 e2 B2 | e2 d2 B2 "Am"A4 |]
+w: Three on the top floor, two by the door, and one, two, three, four, five, all say good-night.
+[V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | A,2 E2 E2 A,2 E2 |
+[V:2] D2 A2 A2 D2 A2 | A,2 E2 E2 A,2 E2 | D2 A2 A2 E2 B2 | E2 B2 B2 E2 B2 |
+[V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | E2 B2 B2 A,4 |]

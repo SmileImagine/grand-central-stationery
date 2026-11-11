@@ -1,33 +1,52 @@
 % holding-id: ontario-g8-sahel-guitar-layers
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Ali Farka Touré recording and ask a Malian/Songhai music educator to review style and cultural context.
+% holding-blocked: The original is fully notated in two parts and its listening reference is verified, but it has not been played by a class. A Malian/Songhai music educator must review the style framing, the cultural context and whether the title's "Sahel" implies a style the piece does not have; a Grade 8 music teacher must trial the ground and the texture changes; a second score reader must check the audit.
+% source-local: course/holding/items/ontario-g8-sahel-guitar-layers.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that students hear the texture changes.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 8
-% composition-elements: modal tonality, monophonic/homophonic/polyphonic texture, arranging for purpose and improvised dialogue
-% composition-listen: Ali Farka Touré — "Ai Du"
-% composition-listen-url: https://www.youtube.com/results?search_query=Ali+Farka+Toure+Ai+Du+official
+% composition-elements: modal tonality (D Dorian, with its raised sixth B natural in the guitar ground and the voice); the three textures written into the parts: monophonic (the guitar ground alone, bars 1-2), polyphonic (the voice's long notes against the ground's moving eighths, bars 3-4), call and response (the voice asks over a held D, the guitar answers, bars 5-6), homophonic (guitar dyads moving with the voice in the same rhythm, bars 7-8); a repeated two-bar modal ground; the guitar's dotted quarter on the "and" of beat 2 against the voice's held notes, a gentle rhythmic displacement; arranging for purpose; improvised dialogue in the cues
+% composition-listen: Ali Farka Touré with Ry Cooder — "Ai Du", from the album Talking Timbuktu, World Circuit, 1994
+% composition-listen-url: https://music.apple.com/us/song/ai-du-with-ry-cooder-with-ry-cooder/1528519981
 % composition-bridge: Hear voice and guitar converse, repeated modal ground, subtle rhythmic displacement and the space between phrases.
 % composition-context: Ali Farka Touré's music grows from Malian/Songhai traditions and a personal relationship with blues heard across the Atlantic. This original Dorian study is not "desert blues" repertoire.
-% composition-distance: Original melody and accompaniment plan; no guitar figure, lyric, vocal contour or recording harmony is copied.
-% improv: {"id":"A","bars":"1-2","role":"guitar/keyboard and voice","prompt":"Choose the conversation","choices":["instrument asks","voice asks","overlap briefly"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"arranger","prompt":"Change the texture for purpose","choices":["monophonic focus","homophonic support","polyphonic dialogue"],"replyBars":2}
-% dossier-honesty: Original modal dialogue study; listening reference remains the source for Malian style.
-% dossier-licence: Draft original; reference work and recording remain copyrighted.
-% dossier-respect: Do not imply that Malian music derives from US blues; discuss reciprocal histories carefully and centre Touré's own account.
-% dossier-review: Malian/Songhai music educator and Grade 8 teacher.
+% composition-distance: Original melody, ground and accompaniment plan; no guitar figure, lyric, vocal contour or recording harmony is copied.
+% improv: {"id":"A","bars":"5-6","role":"voice and guitar","prompt":"Who asks, who answers?","choices":["voice asks, guitar answers (as written)","guitar asks, voice answers","overlap for one beat"],"replyBars":2}
+% improv: {"id":"B","bars":"7-8","role":"arranger","prompt":"Choose the closing texture","choices":["homophonic: dyads with the voice (as written)","monophonic: the voice alone","polyphonic: the guitar returns to its ground"],"replyBars":2}
+% dossier-function: original voice-and-guitar texture study for Grade 8: a guitar ground, a voice line and a short dialogue that move through monophony, polyphony, call and response and homophony, so students can name each texture by ear and then choose one for a purpose; it pairs with listening to Ali Farka Touré and Ry Cooder
+% dossier-elements: eight bars in 4/4, D Dorian (D E F G A B C); Voice written range D4-E5, Guitar written range C3-D4 in bass clef (sounding an octave lower on guitar); ground of two bars, D3 quarter, F3 eighth, A3 dotted quarter, G3 and F3 eighths, then D3, G3, B3 dotted quarter, A3, G3, played in bars 1-4; bars 1-2 ground alone; bars 3-4 voice D5 dotted quarter, C5 eighth, A4 half, then B4 quarter, C5-B4 eighths, G4 half over the ground; bar 5 voice A4-C5-D5-E5-D5 over a held D3; bar 6 voice rests while the guitar answers A3-C4-D4-C4-A3; bar 7 voice B4-A4-G4-F4-E4 with guitar dyads G-D, F-C, E-B, D-A, C-G in the same rhythm; bar 8 voice D4 whole note over a D-A open fifth; largest voice leap a major third (B4-G4, bar 4)
+% dossier-practice: Quarter note = 92 is the target; start at 72. D Dorian is the rehearsal key (no key signature; the B natural is the Dorian colour). The Voice's written range D4-E5 sits a tone above the young-unison C4-D5 at one note only (E5, bar 5); the Guitar part suits guitar, bass bars, cello or keyboard left hand. Teach the ground first by ear, then sing the voice line over it on "la", then the dialogue in bars 5-6, then the closing dyads; before each section ask the class to name the texture they are about to hear. Mute the page's Band in the mixer so the written texture is the only texture
+% dossier-accompaniment: The Guitar part is the accompaniment, newly written. The page's folk style (boom-chick guitar on chords found from the melody) is only a fallback; mute it for the texture lesson, because any band part turns the monophonic opening into homophony. The batch draft's drone style was dropped because the page's drone is a tanpura and tabla, another tradition's sound. No guitar figure, tuning, calabash or n'goni part from the recording is imitated
+% dossier-lyrics: Instrumental or sung on "la": the Voice line may be sung on a neutral syllable or played on recorder, violin or flute. No words are supplied, and no Songhai, Bambara, Fula or Tamasheq words from the recording are used or imitated
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, texture and teaching constraints. It is not traditional, not collected from a community, not modelled on the reference's melody and not desert blues; the Dorian mode and a repeated ground are shared musical vocabulary, and the reference recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the voice line, guitar ground, improvisation cues and this ABC encoding to the public domain to the extent legally possible. "Ai Du" and the Talking Timbuktu recording remain their owners' copyright and are not included
+% dossier-respect: Name Ali Farka Touré, his home region of Niafunké on the Niger River in northern Mali, the Songhai and other languages he sang in, and Ry Cooder as his collaborator on this album. Do not imply that Malian music derives from US blues; discuss the reciprocal histories carefully and centre Touré's own account of his music's local roots. Never present this classroom study as Malian music
+% dossier-review: Malian/Songhai music educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required
 X:1
 T:Sahel Guitar Layers
-C:Grand Central Stationery workshop
-R:modal dialogue study
-S:Original classroom composition, 2026; listening bridge to Ali Farka Touré
+T:Original voice-and-guitar texture study in D Dorian
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:modal texture and dialogue study
+S:Grand Central Stationery, "Sahel Guitar Layers" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bars 1-2 the Guitar ground alone (D3 quarter, F3 eighth, A3 dotted quarter, G3-F3 eighths | D3 quarter, G3 eighth, B3 dotted quarter, A3-G3 eighths), Voice rests; bars 3-4 the ground again under the Voice's D5 dotted quarter, C5 eighth, A4 half | B4 quarter, C5-B4 eighths, G4 half; bar 5 Voice A4 quarter, C5-D5 eighths, E5 and D5 quarters over a whole-bar D3; bar 6 Voice rests, Guitar answers A3 quarter, C4 eighth, D4 dotted quarter, C4-A3 eighths; bar 7 Voice B4 quarter, A4-G4 eighths, F4 and E4 quarters, Guitar dyads G3+D4, F3+C4, E3+B3, D3+A3, C3+G3 in the same rhythm; bar 8 Voice D4 whole, Guitar D3+A3 whole. Every bar of both parts totals eight eighths. Voice range D4-E5, largest leap a major third (B4-G4, bar 4); Guitar range C3-D4. Vertical check: on beats 1-3 the Voice sits an octave, sixth, third or their compounds above the Guitar; on beat 4 of bars 3 and 4 the ground's passing G3 and A3 make a brief ninth (A4 over G3) and seventh (G4 over A3) under the held voice note, resolving on the next eighth. The batch draft was one unaccompanied line that claimed mono-, homo- and polyphony and dialogue without a second part. Originality check: neither line is the vocal, guitar riff or ostinato of "Ai Du" or of other Touré recordings checked ("Diaraby", "Bonde", "Savane"); a Dorian ground built on D is common property. The analyzer reads only the Voice line and places it in Grade 5 (dotted quarter and eighth, two parts); the Grade 8 concepts, the textures and the mode, live in how the two parts combine, which it does not read.
+N:UNCERTAIN: Whether students name the textures by ear in so short a piece, whether the ground's late dotted quarter feels steady at quarter note = 72-92, and whether the title's "Sahel" suggests a Malian style the piece does not have have not been settled. A Malian/Songhai music educator must review the framing; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4
 L:1/8
 Q:1/4=92
 K:Ddor
-%%style drone
-D2 F2 G3 A | c2 A2 G4 | F2 G2 A3 F | D8 |
-z D3 F2 G2 | A2 c2 A3 G | F2 E2 D2 A2 | D8 |]
+%%style folk
+V:1 name="Voice" sname="Voice"
+V:2 name="Guitar" sname="Gtr" clef=bass
+[V:1] z8 | z8 | d3 c A4 | B2 c B G4 |
+[V:1] A2 c d e2 d2 | z8 | B2 A G F2 E2 | D8 |]
+[V:2] D,2 F, A,3 G, F, | D,2 G, B,3 A, G, | D,2 F, A,3 G, F, | D,2 G, B,3 A, G, |
+[V:2] D,8 | A,2 C D3 C A, | [G,D]2 [F,C] [E,B,] [D,A,]2 [C,G,]2 | [D,A,]8 |]

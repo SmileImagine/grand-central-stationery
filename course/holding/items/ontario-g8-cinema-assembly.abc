@@ -1,33 +1,54 @@
 % holding-id: ontario-g8-cinema-assembly
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized A. R. Rahman recording, choose a film-context excerpt, and ask an Indian film-music educator to review the lesson framing.
+% holding-blocked: The original is fully notated in two parts and its listening reference is verified, but it has not been played by a class. An Indian film-music educator must review the lesson framing and help choose the film-context excerpt (the film scene, its languages and credits); a Grade 8 music teacher must trial the three scenes and the second line; a second score reader must check the audit.
+% source-local: course/holding/items/ontario-g8-cinema-assembly.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that the scene changes read as drama to students.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 8
-% composition-elements: major/minor tonality, homophonic/polyphonic texture, form for a specific dramatic purpose and arranging for mixed ensemble
-% composition-listen: A. R. Rahman — "Jai Ho"
-% composition-listen-url: https://www.youtube.com/results?search_query=A+R+Rahman+Jai+Ho+official
+% composition-elements: major and minor tonality, heard as a journey: E minor (bars 1-4), G major (bars 5-8), E minor turning to E major at the last chord (bars 9-12); the three textures in order, one per scene: monophonic (the theme alone, bars 1-4), homophonic (a second line moving in the same rhythm in thirds and sixths over chords, bars 5-8), polyphonic (a running eighth-note line against the second line's half notes, bars 9-12); form for a dramatic purpose, an assembly that gathers: alone, together, interwoven, arrived; arranging for mixed ensemble with two written lines plus chords
+% composition-listen: A. R. Rahman — "Jai Ho" (featuring Sukhwinder Singh, Tanvi Shah and Mahalakshmi Iyer; lyrics by Gulzar), from Slumdog Millionaire (Music From the Motion Picture), 2008
+% composition-listen-url: https://music.apple.com/us/song/jai-ho-feat-sukhwinder-singh-tanvi-shah-mahalakshmi-iyer/1443885535
 % composition-bridge: Hear how percussion, voices, strings, electronic production and sectional buildup serve a cinematic arc.
 % composition-context: A. R. Rahman's film work can open study of Indian cinema, multilingual song, studio production and global circulation. This new ensemble theme is not a Bollywood imitation or a "Jai Ho" arrangement.
-% composition-distance: Original melody, lyric-free form and harmony; no hook, rhythm, vocal, sample or orchestration from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"small ensemble","prompt":"Score the opening image","choices":["single line","chordal bed","rhythmic fragments"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"full class arranger","prompt":"Build the final scene","choices":["add one layer per bar","sudden full entrance","solo then ensemble answer"],"replyBars":2}
-% dossier-honesty: Original cinematic arranging exercise; Rahman's recording is for analysis and comparison.
-% dossier-licence: Draft original; reference song, film and recordings remain copyrighted.
-% dossier-respect: Name the film, credited artists and languages in the selected excerpt; avoid using "Bollywood" as a catch-all for all Indian music.
-% dossier-review: Indian film-music educator and Grade 8 teacher.
+% composition-distance: Original melody, second line, form and harmony; no hook, rhythm, vocal, lyric, sample or orchestration from the recording is copied.
+% improv: {"id":"A","bars":"5-8","role":"chord players (ukulele, guitar, keyboard)","prompt":"Choose the chordal bed","choices":["sustained chords","repeated eighth-note chords","one chord on each downbeat"],"replyBars":4}
+% improv: {"id":"B","bars":"12","role":"whole ensemble","prompt":"Choose the final image","choices":["held chord, everyone","sudden cut-off on beat 3","fade one layer at a time"],"replyBars":1}
+% dossier-function: original 12-bar ensemble theme and arranging study for Grade 8: three short scenes that put monophony, homophony and polyphony, and minor and major, in an order that tells a small story, compared with the sectional build of a film song
+% dossier-elements: 12 bars in 4/4 in three four-bar scenes; Theme written range E4-E5, second line C4-C5; pitch set E F# G A B C D with D# and G# in bars 11-12; chords (from bar 5) G | Am | C | D | Em | Am-C | Am-B7 | E; rhythm built from one motif (quarter, dotted quarter, eighth, quarter) plus eighth runs, quarters, halves and a whole note; scene 1 (bars 1-4) the theme alone: E4 up to B4, an answering fall to F#4, then the motif reaching E4 to C5 and closing on B4 (open); scene 2 (bars 5-8) the motif in G major from G4, the second line a third or sixth below in the same rhythm, closing on D (V of G, still open); scene 3 (bars 9-12) the theme's motif from B4 to E5 over the second line's half notes E-G-A-G-E-F#, a running eighth bar (10), the leading tone D#5 over B7, and E5 over G#4 on E major; largest leaps the minor sixth E4-C5 (bar 3) and major sixth G4-E5 (bar 7), the theme's deliberate reach
+% dossier-practice: Quarter note = 100 is the target; start at 80. E minor is the rehearsal key (one sharp; the page's Transpose can move it to D minor for concert band). The Theme's written range E4-E5 sits a tone above the young-unison C4-D5 at its top only (E5 in bars 7, 9, 10 and 12), and the second line's C4-C5 sits inside it. Teach in steps: everyone learns the theme alone (scene 1), then half the class learns the second line for scene 2 by singing a third below, then scene 3's second line in half notes against the theme; finally the chord players add the bed and the class chooses the ending. Mute or hold back the Band in bars 1-4 so the opening stays one line
+% dossier-accompaniment: The chord symbols begin at bar 5 so scene 1 stays monophonic; the page's ballad style (piano, soft kit, seventh chords) is a generic cinematic stand-in and not an Indian film-song arrangement. Chord players may take cue A in scene 2. No percussion pattern, string line, synth sound or vocal arrangement from "Jai Ho" is reproduced
+% dossier-lyrics: Instrumental: recorders, bells, keyboards, ukuleles, strings or voices on "ah" for both lines. No words are supplied, and no words from Gulzar's "Jai Ho" lyric are used
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, texture and teaching constraints. It is not traditional, not collected from a community, not modelled on the reference's melody and not an imitation of Hindi film music; the listening reference is a bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the theme, second line, chords, improvisation cues and this ABC encoding to the public domain to the extent legally possible. "Jai Ho", the film Slumdog Millionaire and their recordings remain their owners' copyright and are not included
+% dossier-respect: Name the film (Slumdog Millionaire, directed by Danny Boyle, 2008, a British production set in Mumbai), A. R. Rahman as composer, Gulzar as lyricist and the singers, and the languages heard in the excerpt chosen. Explain that Rahman works across Tamil, Hindi and international cinema; do not use "Bollywood" as a catch-all for Indian music or present this classroom theme as Indian film music
+% dossier-review: Indian film-music educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required
 X:1
 T:Cinema Assembly
-C:Grand Central Stationery workshop
-R:dramatic ensemble theme
-S:Original classroom composition, 2026; listening bridge to A. R. Rahman
+T:Original ensemble theme in three textures
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:dramatic ensemble theme and texture study
+S:Grand Central Stationery, "Cinema Assembly" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit of the Theme: bar 1 E4 quarter, B4 dotted quarter, A4 eighth, G4 quarter (the motif); bar 2 A-G-F#-E eighths, F#4 half; bar 3 the motif reaching E4 to C5, then B4, A4; bar 4 A-G-F#-A eighths, B4 half; bar 5 (G) the motif from G4: G4, D5, C5, B4; bar 6 (Am) C5-B-A-G eighths, A4 half; bar 7 (C) G4, E5, D5, C5; bar 8 (D) D5-C5-B4-C5 eighths, D5 half; bar 9 (Em) B4, E5, D5, B4; bar 10 (Am then C) running eighths C5-B-C-E5-D5-C-B-A; bar 11 (Am then B7) A-C-B-A eighths, B4 and D#5 quarters; bar 12 (E) E5 whole note. Second line: bars 1-4 rests; bars 5-8 D4-B4-A4-G4, A-G-F#-E-C4, E4-C5-B4-G4, F#-A-G-A-F#4, in the Theme's rhythm a third, fourth or sixth below; bars 9-12 half notes E4-G4, A4-G4, E4-F#4, then G#4 whole. Every bar of both parts totals eight eighths. Theme range E4-E5; second line C4-C5. The batch draft was eight single-line bars that claimed homophony, polyphony and dramatic form without a second part, a chord plan for scene 1 or any change of texture. Originality check: the motif is not the "Jai Ho" hook or chant, nor the opening of other Rahman themes checked ("Chaiyya Chaiyya", "Dil Se Re", "Kun Faya Kun"), and a rising-fifth opening with a stepwise fall is common property. The analyzer reads Grade 7 (triads beyond I, IV and V); the Grade 8 concept here, the three textures, lives in the part-writing, which the analyzer does not read.
+N:UNCERTAIN: Whether students hear three scenes in 12 bars at quarter note = 100, whether the minor sixth and major sixth reaches are comfortable for the class's instruments, and whether the band can be held back for scene 1 on the page have not been tested. An Indian film-music educator must review the framing and the excerpt chosen; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4
 L:1/8
-Q:1/4=118
+Q:1/4=100
 K:Em
-%%style pop
-"Em"E2 G2 B3 A | "C"G2 E2 D4 | "G"B2 d2 e3 d | "D"A8 |
-"Em"z E3 G2 B2 | "C"z G3 c2 B2 | "D"A2 F2 A3 B | "Em"E8 |]
+%%style ballad
+V:1 name="Theme" sname="Theme"
+V:2 name="Second line" sname="2nd"
+[V:1] E2 B3 A G2 | A G F E F4 | E2 c3 B A2 | A G F A B4 |
+[V:1] "G"G2 d3 c B2 | "Am"c B A G A4 | "C"G2 e3 d c2 | "D"d c B c d4 |
+[V:1] "Em"B2 e3 d B2 | "Am"c B c e "C"d c B A | "Am"A c B A "B7"B2 ^d2 | "E"e8 |]
+[V:2] z8 | z8 | z8 | z8 |
+[V:2] D2 B3 A G2 | A G F E C4 | E2 c3 B G2 | F A G A F4 |
+[V:2] E4 G4 | A4 G4 | E4 F4 | ^G8 |]

@@ -1,34 +1,51 @@
 % holding-id: ontario-g3-cape-town-round
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify the recording link, test the canon entry, and ask a South African jazz educator to review context.
+% holding-blocked: Replace the discovery search with an authorized link to the 1974 "Mannenberg" recording. The round has only been checked by the page's interval score (92%, no downbeat clash with two groups four bars apart), not heard with children: a Grade 3 choir teacher must trial the bar-5 entry, the sixteenth groups at the start tempo and the lyric fit, a second score reader must check the notation, and a South African jazz educator must review the listening context. The title was changed from "Cape Town Round" so the piece does not claim a place it does not come from; the lead should confirm the new title.
+% source-local: course/holding/items/ontario-g3-cape-town-round.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a consented classroom demo of the two-group round; do not present the page's generated playback as evidence that the round works with children.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 3
-% composition-elements: 3/4 metre, sixteenth-note pair, piano/mf dynamics, ABA contour and simple two-part canon
-% composition-listen: Abdullah Ibrahim — "Mannenberg"
-% composition-listen-url: https://www.youtube.com/results?search_query=Abdullah+Ibrahim+Mannenberg+official
+% composition-elements: 3/4 metre; dotted half notes (bars 4 and 8); a tika-tika sixteenth group in bars 5 and 7; mf and p signs; a simple two-part round in which the second group enters at bar 5
+% composition-listen: Dollar Brand (Abdullah Ibrahim) — "Mannenberg", recorded in Cape Town in June 1974 with Basil Coetzee on tenor saxophone; title track of the album "Mannenberg – 'Is Where It's Happening'" (1974, produced by Rashid Vally)
+% composition-listen-url: https://www.youtube.com/results?search_query=Abdullah+Ibrahim+Mannenberg+1974
 % composition-bridge: Hear a memorable line become a shared anthem as the ensemble repeats, answers and intensifies it.
-% composition-context: "Mannenberg" is bound to Cape Town, South African jazz and resistance-era public life. This original 3/4 school canon does not reproduce its groove or melody.
-% composition-distance: Original metre, notes and words; no riff, harmony or arrangement from the recording is copied.
-% improv: {"id":"A","bars":"1-2","role":"group 1 then group 2","prompt":"Enter as canon or answer after the phrase?","choices":["canon after one bar","answer after two bars","unison"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"soloist over the round","prompt":"Build a three-note reply","choices":["rising","falling","repeat one pitch"],"replyBars":2}
-% dossier-honesty: Original Grade 3 canon; South African jazz is encountered through the recording.
-% dossier-licence: Draft original; reference work and recording remain copyrighted.
-% dossier-respect: Include apartheid history and Ibrahim's authorship; do not call any repeated school riff "Cape jazz."
-% dossier-review: South African jazz educator and Grade 3 choir teacher.
+% composition-context: "Mannenberg" takes its name from Manenberg, a Cape Flats township built for families forcibly moved under apartheid's Group Areas Act; the 1974 recording became an anthem of the struggle against apartheid. This original 3/4 school round does not reproduce its groove, melody or harmony.
+% composition-distance: Original metre, notes and words. The round's 3/4 pentatonic lines share no riff, rhythm, contour, harmony or arrangement with the recording's 4/4 theme or Basil Coetzee's solo.
+% improv: {"id":"A","bars":"4","role":"group 2, waiting to come in","prompt":"Fill group 1's long note, then get ready","choices":["one clap on beat 1","pat on beats 2 and 3","just breathe in"],"replyBars":1}
+% improv: {"id":"B","bars":"7-8","role":"the group singing the last line","prompt":"How loud is 'every voice can bring it home'?","choices":["p","mf","f"],"replyBars":2}
+% dossier-function: original two-part classroom round and listening bridge; the class learns one eight-bar melody in unison, then group 2 starts it again when group 1 reaches bar 5, so a single line is carried by many voices before the class listens to "Mannenberg"
+% dossier-elements: eight bars in 3/4; C-major pentatonic pitch set C-D-E-G-A; written range C4-D5; bars 1-4 move in half notes and quarters to a dotted-half E4, bars 5-8 in a tika-tika sixteenth group, quarters and two eighths to a dotted-half C4; mf for the first half, p for the second; as a round (%%round 2 every=4) the second group enters at bar 5, so the long-note half always sounds against the moving half over a shared C-F-G-C harmony
+% dossier-practice: Quarter note = 104 is the target; begin at 84, speaking "o-ver hills and" and "ev-ery voice can" in even sixteenths before singing them. C major is the rehearsal key and the written range C4-D5 sits inside the young-unison C4-D5 range. Teach in steps: echo bars 1-4, then bars 5-8, sing all eight in unison until secure, then split the class with group 2 entering at bar 5; keep the moving half p so the long notes carry. Each group may sing it twice through with Repeat on before stopping in turn
+% dossier-accompaniment: The page's waltz style (a light guitar-and-bass three) supports the round; it is a generic school accompaniment, not Cape jazz or marabi, and must not be labelled as either. A teacher at piano or ukulele can play one chord a bar, C-F-G-C, which fits both halves at once; no chord symbols are written, so the melody's grade reading stays on the round itself
+% dossier-lyrics: Original English words written for this record: "Sing a line and pass it on, / over hills and valleys, over the sea, every voice can bring it home." One syllable per note; stressed syllables fall on beat 1 or on the strong sixteenth; no slurs or ties
+% dossier-honesty: AI-assisted original course composition made for Grand Central Stationery on 11 November 2026 under human-directed range, grade and form constraints. It is not traditional, not collected from a community and not modelled on the melody, rhythm or harmony of "Mannenberg"; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, implied chords and this ABC encoding to the public domain to the extent legally possible. "Mannenberg" and its 1974 recording remain the copyright of their owners and are not included
+% dossier-respect: Name Abdullah Ibrahim (1934-2026; his official site records his death on 15 June 2026) as the composer and bandleader, and Basil Coetzee, whose tenor solo made the recording famous. Teach the forced removals behind the township's name and the song's life as an anti-apartheid anthem at a level suited to Grade 3, with South African voices and sources. Never call this round, or any repeated school riff, "Cape jazz" or "Mannenberg"
+% dossier-review: Grade 3 choir teacher, second score reader and South African jazz educator; all reviews still required
 X:1
-T:Cape Town Round
-C:Grand Central Stationery workshop
-R:three-beat canon
-S:Original classroom composition, 2026; listening bridge to Abdullah Ibrahim
+T:Carry the Line
+T:Original two-part round
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:two-part classroom round and listening bridge
+S:Grand Central Stationery, "Carry the Line" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals six eighths with no pickup. Bar 1 E4 half, G4 quarter; bar 2 C5 half, A4 quarter; bar 3 D5 half, G4 quarter; bar 4 E4 dotted half (breath). Bar 5 C4-D4-E4-G4 sixteenths, A4 and G4 quarters; bar 6 A4 quarter, G4-A4 eighths, C5 quarter; bar 7 G4-A4-G4-E4 sixteenths, D4 and G4 quarters; bar 8 C4 dotted half, the tonic. Pitch set C-D-E-G-A, range C4-D5, largest leap a fifth (G4 down to C4, bars 7-8), no syncopation, dots or ties. Form: a rising-and-settling long-note half ending open on mi, answered by a busier half that cadences on do; the halves fit together as a round with entries four bars apart (the page's round-fit score 92%, no downbeat clash). Originality check: the opening E-G-C-A arch and the sixteenth runs were compared with "Mannenberg" (whose theme is a 4/4 riff, not used) and with common school songs and rounds (Row Row Row Your Boat, Frere Jacques, London's Burning, Kookaburra, Lavender's Blue); no match beyond common pentatonic steps.
+N:UNCERTAIN: Whether Grade 3 voices hold the second part against the first at bar 5, whether the sixteenth groups stay clear at 104, and whether the round sounds as good to the ear as its interval score suggests can only be settled by a classroom trial. The title change, the reference's album details (label and release date) and the framing of apartheid history for eight-year-olds need a second reader and a South African jazz educator.
 M:3/4
 L:1/8
-Q:1/4=108
+Q:1/4=104
 K:C
 %%style waltz
-E/2F/2 G2 A2 G | E2 G2 z2 | A2 G2 E2 | D6 | E/2F/2 G2 A2 G | E2 D2 C2 | G2 E2 D2 | C6 |]
-w: One small line can trav-el, hear it turn a-round. Make a space, then an-swer; bring the cir-cle home.
+!mf!E4 G2 | c4 A2 | d4 G2 | E6 |
+w: Sing a line and pass it on,
+!p!C/D/E/G/ A2 G2 | A2 GA c2 | G/A/G/E/ D2 G2 | C6 |]
+w: O-ver hills and val-leys, o-ver the sea, ev-ery voice can bring it home.
+%%round 2 every=4

@@ -1,34 +1,52 @@
 % holding-id: ontario-g3-qawwali-question
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Select an authorized Nusrat Fateh Ali Khan recording and ask a qawwali-informed Muslim/South Asian educator to review whether this secular comparison is appropriate.
+% holding-blocked: A qawwali-informed Muslim or South Asian educator must decide whether a secular call-and-response piece is an appropriate bridge to a devotional recording and how the listening is introduced; a Grade 3 teacher must trial the call and answer, the sixteenth group at the start tempo and the lyric fit; a second score reader must check the notation. Families should be told in advance that the listening is religious music, with a choice to sit it out.
+% source-local: course/holding/items/ontario-g3-qawwali-question.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a consented classroom demo with a teacher or student leader and the class answering; do not present the page's generated playback as evidence that the call and response works with children.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 3
-% composition-elements: presto/largo contrast, sixteenth-note cell, loud/soft symbols, call and response and ABA form
-% composition-listen: Nusrat Fateh Ali Khan — "Allah Hoo"
-% composition-listen-url: https://www.youtube.com/results?search_query=Nusrat+Fateh+Ali+Khan+Allah+Hoo+official
+% composition-elements: call and response (leader and group); a tika-tika sixteenth group in each call; quarter rests closing each answer; p, mf and f signs (mf calls, f answers, a p middle section); ABA form in twelve bars; a la-pentatonic melody (la, do, re, mi, so) ending on la
+% composition-listen: Nusrat Fateh Ali Khan and Party — "Allah Ho Allah Ho", recorded live at WOMAD, Mersea Island, Essex, England, 20 July 1985; released on "Live at WOMAD 1985" (Real World Records, 23 July 2019)
+% composition-listen-url: https://realworldrecords.com/releases/live-at-womad-1985/
 % composition-bridge: Listen to lead voice and party answer, repetition that gathers energy, handclaps and virtuosic variation.
-% composition-context: Qawwali is a Sufi devotional performance tradition, not simply a vocal style. This secular original teaches musical conversation and must not be presented as qawwali.
-% composition-distance: Original tune and neutral English lyric; no devotional text, melodic phrase or harmonium pattern is borrowed.
-% improv: {"id":"A","bars":"1-2","role":"lead singer then group","prompt":"What kind of answer?","choices":["exact words","same rhythm new pitches","clapped answer"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"conductor","prompt":"Change the energy without speeding up","choices":["add voices","add claps","sing softer"],"replyBars":2}
-% dossier-honesty: Original secular call-and-response study; it is not qawwali repertoire.
-% dossier-licence: Draft original; reference composition and recording remain copyrighted.
-% dossier-respect: Name the devotional context and avoid using sacred words as interchangeable vocal material.
-% dossier-review: Qawwali-informed cultural/religious reviewer and Grade 3 teacher.
+% composition-context: Qawwali is a Sufi devotional performance tradition of Pakistan and North India, sung by a lead singer and a party at shrines and gatherings; it is worship, not simply a vocal style. "Allah Ho" repeats the name of God. This secular original teaches musical conversation and must not be presented as qawwali.
+% composition-distance: Original tune and neutral English words; no devotional text, sacred name, melodic phrase, rhythm cycle or harmonium pattern is borrowed, and no student is asked to sing or imitate the recording.
+% improv: {"id":"A","bars":"2-4","role":"leader, then group","prompt":"Next call: who will ___ along?","choices":["clap","stamp","sway"],"replyBars":1}
+% improv: {"id":"B","bars":"10-12","role":"group","prompt":"How does the circle give the last answer?","choices":["f, strong","p, soft","whisper it"],"replyBars":1}
+% dossier-function: original secular call-and-response classroom song and listening bridge; a leader sings each question and the class answers, then everyone sings the quiet middle together before the calls return; the class then listens for how a lead singer and a party answer one another in qawwali
+% dossier-elements: twelve bars in 4/4 in ABA form. A (bars 1-4): two-bar call-and-answer pairs, each call A4-C5 quarters, a D5-D5-C5-A4 sixteenth group and a quarter, each answer three quarters and a quarter rest. B (bars 5-8): everyone, p, quarters and half notes, E4-G4-A4 | G4-E4-D4 | E4-G4-A4-C5 | D5-C5-A4. A (bars 9-12): the calls return and the last answer closes on A4. A-minor pentatonic pitch set A-C-D-E-G (la-pentatonic: la, do, re, mi, so), final la; written range D4-D5; quarter notes, half notes, one sixteenth group per call, quarter rests on beat 4
+% dossier-practice: Quarter note = 96 is the target; begin at 80 and speak each call and answer in rhythm before singing. A minor (la-pentatonic, no key signature) is the rehearsal key and the written range D4-D5 sits inside the young-unison C4-D5 range. Teach in steps: the teacher leads the calls and the class learns the answers by ear, then the middle section, then a student leader takes the calls; hold every rest so the next call is heard
+% dossier-accompaniment: The page's folk style (a plain guitar-and-bass boom-chick) is chosen as a neutral school accompaniment; it is deliberately not the page's drone (tanpura and tabla) style and must not be replaced by harmonium, tabla or dholak patterns that would present the piece as qawwali. Class handclaps belong only where the improv cue invites them
+% dossier-lyrics: Original secular English words written for this record: "Who will sing along with me? We will sing! Who will clap along with me? We will clap! Quiet now, hear it grow: every answer comes around. Who will sing along with me? We will sing! Who will close the circle now? All of us!" No devotional words, sacred names or Urdu or Punjabi text are used. The leader may change "clap" to another action word (the improv cue) without changing the rhythm
+% dossier-honesty: AI-assisted original course composition made for Grand Central Stationery on 11 November 2026 under human-directed range, grade and form constraints. It is secular, not traditional, not collected from a community and not modelled on the melody, rhythm or words of "Allah Ho Allah Ho"; the recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words and this ABC encoding to the public domain to the extent legally possible. The recording and its arrangement remain the copyright of their owners and are not included
+% dossier-respect: Name Nusrat Fateh Ali Khan (1948-1997), born in Faisalabad, Pakistan, and his party, and say plainly that qawwali is Sufi devotional music whose words praise God, the Prophet and the saints. "Allah Ho" is a repetition of God's name: play it for listening only, never as a sound to imitate, chant along with or use as classroom vocal material, and never sing its words in this piece. Some students and families will hold it sacred and others may prefer not to listen; tell families ahead and offer a choice. Keep the classroom piece secular and never describe it as qawwali or as Pakistani or Sufi music
+% dossier-review: Qawwali-informed Muslim or South Asian music educator, Grade 3 teacher and second score reader; all reviews still required
 X:1
 T:Question in the Circle
-C:Grand Central Stationery workshop
-R:secular call and response
-S:Original classroom composition, 2026; listening bridge to Nusrat Fateh Ali Khan
-M:3/4
+T:Original secular call and response
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:secular call-and-response song and listening bridge
+S:Grand Central Stationery, "Question in the Circle" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals eight eighths with no pickup. Calls (bars 1, 3, 9): A4 and C5 quarters, a D5-D5-C5-A4 sixteenth group on beat 3, then C5 (bars 1, 9) or G4 (bar 3) on beat 4; bar 11 varies it as C5-D5 quarters, C5-A4-G4-E4 sixteenths and G4. Answers (bars 2, 4, 10): A4-G4-A4 or E4-G4-A4 quarters and a quarter rest; bar 12 closes A4-G4 quarters and an A4 half. Middle section (bars 5-8): E4-G4 quarters, A4 half | G4-E4, D4 half | E4-G4-A4-C5 | D5-C5 quarters, A4 half. Pitch set A-C-D-E-G, range D4-D5, largest leap a fourth (E4 to A4, G4 to C5), no syncopation, dots or ties; every sixteenth group fills one whole beat. Form ABA (calls, quiet middle, calls). Originality check: compared with "Allah Ho Allah Ho" (not used: no text, melodic phrase or rhythm cycle) and with common call-and-response school songs (Funga Alafia, Tongo, Che Che Koolay, Down by the Bay, If You're Happy and You Know It); the "who will ... along with me" question and la-so-la answer are common property and match none of them.
+N:UNCERTAIN: The key reads as Grade 4 in the analyzer because the curriculum names minor tonality in Grade 4; the melody is la-pentatonic, which Grade 3 meets as low la, and a teacher should confirm that reading. Whether a secular piece should be paired with this devotional recording at all, and how, is for a qawwali-informed educator to decide; tempo, the sixteenth group and the leader's improvised action word need a classroom trial.
+M:4/4
 L:1/8
-Q:1/4=116
-K:Dm
-%%style drone
-D2 F2 A2 | A/2G/2 F2 E2 D | F2 A2 z2 | D6 | D2 F2 A2 | c2 A2 G2 | F/2G/2 A2 E2 D | D6 |]
-w: Ask the cir-cle, leave a space. Hear the an-swer change its shape. Add a lay-er, keep the beat. Ask and an-swer, then re-peat.
+Q:1/4=96
+K:Am
+%%style folk
+!mf!A2 c2 d/d/c/A/ c2 | !f!A2 G2 A2 z2 | !mf!A2 c2 d/d/c/A/ G2 | !f!E2 G2 A2 z2 |
+w: Who will sing a-long with me? We will sing! Who will clap a-long with me? We will clap!
+!p!E2 G2 A4 | G2 E2 D4 | E2 G2 A2 c2 | d2 c2 A4 |
+w: Qui-et now, hear it grow: ev-ery an-swer comes a-round.
+!mf!A2 c2 d/d/c/A/ c2 | !f!A2 G2 A2 z2 | !mf!c2 d2 c/A/G/E/ G2 | !f!A2 G2 A4 |]
+w: Who will sing a-long with me? We will sing! Who will close the cir-cle now? All of us!

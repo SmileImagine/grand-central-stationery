@@ -1,37 +1,52 @@
 % holding-id: ontario-g8-gamelan-city
 % holding-status: transcription
-% holding-generated: true
+% holding-owner:
 % holding-source-check: pending
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Select a specific authorized I Nyoman Windha performance and ask a Balinese gamelan educator to review tuning, form and interlocking-language cautions.
+% holding-blocked: The music and record are complete, but the listening reference is not yet a specific verified recording: Windha's "Puspanjali" (1989) is a confirmed composition, but no authorized release or official upload of it could be verified, so choose a specific authorized performance (performing ensemble, year, release) and replace the discovery search with an authorized link. Then a Balinese gamelan educator must review tuning, form and the interlocking-language cautions and confirm that the retitling away from "Gamelan City" is right; a Grade 8 music teacher must trial the interlock; a second score reader must check the audit.
+% source-local: course/holding/items/ontario-g8-gamelan-city.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; a generated playback is not evidence that two student groups can hold the interlock.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 8
-% composition-elements: world-ensemble timbre, polyphonic texture, layered form, arranging and constrained group improvisation
-% composition-listen: I Nyoman Windha — a performed composition for Balinese gamelan
-% composition-listen-url: https://www.youtube.com/results?search_query=I+Nyoman+Windha+gamelan+official
+% composition-elements: polyphonic texture made by a two-part interlock: Line A on the beats and Line B in the off-beat gaps, so neither part plays the whole tune and together they make one continuous eighth-note line (bars 3-6); layered form in five stages: one line (bars 1-2), the interlock (3-4), the roles swapped so Line B takes the beats (5-6), thinned to one line with an improvised layer (7), both lines closing an octave apart on C (8); shared punctuation where both lines land on one note (bars 4, 6 and 8); C pentatonic on equal-tempered classroom barred instruments, compared with the reference's bronze ensemble timbre; arranging for two groups; constrained group improvisation in bar 7
+% composition-listen: I Nyoman Windha — "Puspanjali" (1989), music for gamelan gong kebyar for the welcome dance of the same name; a specific authorized recording has not yet been selected
+% composition-listen-url: https://www.youtube.com/results?search_query=I+Nyoman+Windha+Puspanjali+gamelan
 % composition-bridge: Hear coordinated interlocking parts, sectional contrast, paired tuning shimmer and large-scale punctuation.
 % composition-context: Balinese gamelan composition is a living, changing art with ensemble-specific tuning and rehearsal practice. This equal-tempered classroom polyphony is not gamelan and does not reproduce kotekan.
-% composition-distance: Original notes and sectional plan; no Windha passage, tuning, interlock or gong structure is copied.
-% improv: {"id":"A","bars":"1-2","role":"two melodic groups","prompt":"Design the interlock without collisions","choices":["alternate eighths","trade beats","one holds while one moves"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"section leader","prompt":"How does the form turn?","choices":["sudden cut","gong then new layer","thin out gradually"],"replyBars":2}
-% dossier-honesty: Original polyphonic coordination study; not gamelan repertoire.
-% dossier-licence: Draft original; reference works and recordings remain copyrighted.
-% dossier-respect: Name the chosen ensemble, composer and island; explain that equal-tempered school instruments cannot reproduce paired gamelan tuning.
-% dossier-review: Balinese gamelan educator and Grade 8 teacher.
+% composition-distance: Original notes and sectional plan; no Windha passage, tuning, interlocking pattern or gong structure is copied.
+% improv: {"id":"A","bars":"4","role":"both lines","prompt":"How does the form turn?","choices":["a sudden cut on beat 3","one stroke, let it ring","thin out: Line B drops first"],"replyBars":1}
+% improv: {"id":"B","bars":"7","role":"Line B group","prompt":"Invent your own interlock","choices":["fill every off-beat","answer every second gap","echo Line A one eighth late"],"replyBars":1}
+% dossier-function: original two-part interlock and layered-form study for Grade 8 on classroom barred instruments (or recorders, keyboards, bells): two groups learn to make one line together without colliding, then shape the form by adding, swapping and thinning layers, alongside listening to a Balinese gamelan composition by I Nyoman Windha
+% dossier-elements: eight bars in 4/4; C pentatonic C D E G A plus C5 in Line B; Line A written range C4-A4, Line B D4-C5; quarter notes in bars 1-2 and 7 (the core line, alone), eighth notes alternating with eighth rests in bars 3-6 so the two lines interlock, half notes on shared unisons in bars 4 and 6, and a closing C4 (Line A) and C5 (Line B) on beat 3 of bar 8; composite line in bar 3 C-E-D-G-E-A-G-C5, bar 4 A-C5-G-A then E4 together, bar 5 G-E-A-D-C5-E-A-G, bar 6 G-A-E-G then D4 together; no leap within either line larger than a perfect fourth (A4-E4 in Line B, bar 4; G4-D4 in both lines, bar 6)
+% dossier-practice: Quarter note = 112 is the target; start at 76 with each group saying its rhythm ("play-rest" for Line A, "rest-play" for Line B) before playing. C is the rehearsal key; both lines' written ranges (C4-A4 and D4-C5) sit inside the young-unison C4-D5 and suit glockenspiels, metallophones, xylophones and recorders. Teach the core line (bars 1-2) to everyone, then Line A's on-beat version, then Line B's off-beat notes against a steady clap, then put them together slowly; swap groups for bars 5-6. The success test is a single even stream of eighths with no gaps and no doubled notes
+% dossier-accompaniment: The two written lines are the whole texture, so mute the page's Band in the mixer for the interlock work; a teacher may add one low C on a bass bar or a suspended cymbal at bars 4 and 8 as punctuation. If the Band plays, the folk style (boom-chick guitar on chords found from the melody) is a neutral stand-in; the batch draft's drone style was dropped because the page's drone is a tanpura and tabla, another tradition's sound. No Balinese tuning, instrument name or colotomic gong cycle is imitated
+% dossier-lyrics: Instrumental for barred percussion, bells, recorders or keyboards; no words are supplied
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, texture and teaching constraints. It is not traditional, not collected from a community, not modelled on any Windha passage and not gamelan repertoire; interlocking two parts is a general technique (hocket in European terms), and the reference is a listening bridge only. Drafted as "Gamelan City"; retitled because the piece is explicitly not gamelan
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the two lines, form plan, improvisation cues and this ABC encoding to the public domain to the extent legally possible. Windha's compositions and their recordings remain their owners' copyright and are not included
+% dossier-respect: Name I Nyoman Windha as a Balinese composer and teacher, the island of Bali, the chosen ensemble and the piece's dance; explain that gamelan gong kebyar is a twentieth-century Balinese ensemble whose paired instruments are tuned slightly apart to make a shimmer, and that its interlocking parts (kotekan) have their own names and rules. Say plainly that equal-tempered school instruments cannot reproduce gamelan tuning and that this study is not gamelan
+% dossier-review: Balinese gamelan educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required
 X:1
-T:Gamelan City
-C:Grand Central Stationery workshop
-R:polyphonic coordination study
-S:Original classroom composition, 2026; listening bridge to I Nyoman Windha
+T:Interlock City
+T:Original two-part interlock and layered-form study
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:two-part interlock and layered-form study
+S:Grand Central Stationery, "Interlock City" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit (A = Line A, B = Line B): bars 1-2 A alone in quarters C-D-E-G, A-G then E4 half, B rests; bar 3 A on the beats C-D-E-G with eighth rests between, B in the gaps E-G-A-C5; bar 4 A on beats 1-2 A-G, B in the gaps C5-A, then both on E4 for two beats; bar 5 the roles swap, B on the beats G-A-C5-A, A in the gaps E-D-E-G; bar 6 B G-E on the beats, A A-G in the gaps, then both on D4 for two beats; bar 7 A alone in quarters C-D-E-G, B rests (its improvisation window); bar 8 A A-G-E-D eighths and C4 half, B two beats' rest and C5 half, an octave apart on beat 3. Every bar of both parts totals eight eighths, and in bars 3-6 the two lines never sound a new note at the same moment except on the shared unisons. Range A C4-A4, B D4-C5. The batch draft's Line B only repeated Line A's notes an eighth later under held quarters, so the parts doubled rather than interlocked, and bars 4 and 8 were unison whole notes. Originality check: the core line C-D-E-G-A-G-E is a common pentatonic shape and common property; no Windha passage or kotekan pattern is used. The analyzer reads only Line A and so places it in Grade 3 (two parts, pentatonic); the Grade 8 concepts, polyphonic texture and layered form, are in how the two lines combine, which it does not read.
+N:UNCERTAIN: Whether Grade 8 groups can hold the off-beat line at quarter note = 112, whether the composite line sounds as one melody on school instruments, and whether the class prefers the Band muted or in the folk style have not been tested. A specific Windha recording still has to be chosen and verified; a Balinese gamelan educator must review the framing and the new title; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4
 L:1/8
-Q:1/4=120
+Q:1/4=112
 K:C
-%%style drone
-V:1 name="Line A"
-V:2 name="Line B"
-[V:1] C2 E2 G2 A2 | G2 E2 D4 | E2 G2 A2 c2 | G8 |
-[V:1] A2 G2 E2 D2 | C2 E2 G4 | A2 G2 E2 D2 | C8 |]
-[V:2] z C z E z G z A | z G z E D4 | z E z G z A z c | G8 |
-[V:2] z A z G z E z D | C2 G2 E4 | z A z G z E z D | C8 |]
+%%style folk
+V:1 name="Line A" sname="A"
+V:2 name="Line B" sname="B"
+[V:1] C2 D2 E2 G2 | A2 G2 E4 | C z D z E z G z | A z G z E4 |
+[V:1] z E z D z E z G | z A z G D4 | C2 D2 E2 G2 | A G E D C4 |]
+[V:2] z8 | z8 | z E z G z A z c | z c z A E4 |
+[V:2] G z A z c z A z | G z E z D4 | z8 | z4 c4 |]

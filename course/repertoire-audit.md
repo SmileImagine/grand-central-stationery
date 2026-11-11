@@ -5,9 +5,9 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 ## Summary
 
 - 90 records: 70 in the workshop and 20 in review.
-- 50/90 have all seven core dossier fields.
-- 51/90 have both an exact citation and an HTTPS source link.
-- 40/90 carry both `N:HOW READ` and `N:UNCERTAIN`; 12/90 state classroom range or rehearsal-key guidance.
+- 80/90 have all seven core dossier fields.
+- 81/90 have both an exact citation and an HTTPS source link.
+- 70/90 carry both `N:HOW READ` and `N:UNCERTAIN`; 42/90 state classroom range or rehearsal-key guidance.
 - Human classroom/culture/language reviews recorded as passed: 0.
 - Human-review packets prepared but not completed: 2.
 
@@ -35,36 +35,6 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Mu-to-to-li'le | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Chindau speaker, for the words and the stresses. |
 | holding | Muvi'li, zu'ma, zu'ma | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Chindau speaker, for the words and stresses. |
 | holding | Na Bahia tem | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Portuguese speaker (Brazilian), for the words and the 1916 spellings; a Brazilian teacher who knows the roda, for the dance. |
-| holding | Cumbia Switch | 4/7 | **no** | **no** | **no** | function, elements, practice | Colombian music educator and Grade 1 classroom teacher. |
-| holding | Sodade Shape | 4/7 | **no** | **no** | **no** | function, elements, practice | Cabo Verdean music educator and Grade 1 teacher. |
-| holding | Water Groove | 4/7 | **no** | **no** | **no** | function, elements, practice | Grade 1 teacher and Nigerian/Afrobeat-informed music educator. |
-| holding | Gong Garden | 4/7 | **no** | **no** | **no** | function, elements, practice | Indonesian gamelan educator and Grade 2 teacher. |
-| holding | Kora Steps | 4/7 | **no** | **no** | **no** | function, elements, practice | Mande music educator and Grade 2 teacher. |
-| holding | Mbira Mirror | 4/7 | **no** | **no** | **no** | function, elements, practice | Zimbabwean mbira educator and Grade 2 teacher. |
-| holding | Cape Town Round | 4/7 | **no** | **no** | **no** | function, elements, practice | South African jazz educator and Grade 3 choir teacher. |
-| holding | Three-Beat Testimony | 4/7 | **no** | **no** | **no** | function, elements, practice | Latin American music educator and Grade 3 choir teacher. |
-| holding | Question in the Circle | 4/7 | **no** | **no** | **no** | function, elements, practice | Qawwali-informed cultural/religious reviewer and Grade 3 teacher. |
-| holding | Bahia Signal | 4/7 | **no** | **no** | **no** | function, elements, practice | Afro-Brazilian/Bahia music educator and Grade 4 teacher. |
-| holding | Son Lantern | 4/7 | **no** | **no** | **no** | function, elements, practice | Cuban son educator and Grade 4 teacher. |
-| holding | Arc of the Night | 4/7 | **no** | **no** | **no** | function, elements, practice | Arab music educator and Grade 4 teacher. |
-| holding | Landó Lines | 4/7 | **no** | **no** | **no** | function, elements, practice | Afro-Peruvian music educator and Grade 5 teacher. |
-| holding | Drone Rondo | 4/7 | **no** | **no** | **no** | function, elements, practice | Hindustani music educator and Grade 5 teacher. |
-| holding | Ska Steps | 4/7 | **no** | **no** | **no** | function, elements, practice | Jamaican ska educator and Grade 5 teacher. |
-| holding | Crossing Lines | 4/7 | **no** | **no** | **no** | function, elements, practice | Zimbabwean music educator and Grade 6 teacher. |
-| holding | Five Windows | 4/7 | **no** | **no** | **no** | function, elements, practice | Grade 6 band/choir teacher and jazz educator. |
-| holding | Nine-Spoke Carousel | 4/7 | **no** | **no** | **no** | function, elements, practice | Tabla/Hindustani rhythm educator and Grade 6 teacher. |
-| holding | Blue Engine | 4/7 | **no** | **no** | **no** | function, elements, practice | Blues educator and Grade 7 teacher. |
-| holding | Dabke Drive | 4/7 | **no** | **no** | **no** | function, elements, practice | Syrian/Levantine dabke educator and Grade 7 teacher. |
-| holding | Log-Drum Constellation | 4/7 | **no** | **no** | **no** | function, elements, practice | South African amapiano producer/educator and Grade 7 teacher. |
-| holding | Cinema Assembly | 4/7 | **no** | **no** | **no** | function, elements, practice | Indian film-music educator and Grade 8 teacher. |
-| holding | Gamelan City | 4/7 | **no** | **no** | **no** | function, elements, practice | Balinese gamelan educator and Grade 8 teacher. |
-| holding | Sahel Guitar Layers | 4/7 | **no** | **no** | **no** | function, elements, practice | Malian/Songhai music educator and Grade 8 teacher. |
-| holding | Big Drum, Small Drum | 4/7 | **no** | **no** | **no** | function, elements, practice | Early-years teacher; educator familiar with taiko pedagogy. |
-| holding | Hello, Echo | 4/7 | **no** | **no** | **no** | function, elements, practice | Early-years music teacher and JK classroom trial. |
-| holding | Silver Drop | 4/7 | **no** | **no** | **no** | function, elements, practice | Early-years and accessibility-minded music educators. |
-| holding | Bamboo Breath | 4/7 | **no** | **no** | **no** | function, elements, practice | Shakuhachi-informed educator and early-years teacher. |
-| holding | Pan Parade | 4/7 | **no** | **no** | **no** | function, elements, practice | Trinidadian steelpan educator and early-years teacher. |
-| holding | Pata Steps | 4/7 | **no** | **no** | **no** | function, elements, practice | Early-years teacher and South African music educator. |
 | holding | Pass the ball | 7/7 | yes | **no** | **no** | plate/range/source record as marked | a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing |
 | holding | Rāna jīnāk | 7/7 | yes | yes | **no** | plate/range/source record as marked | An Arabic speaker familiar with Algerian song, for the words; ideally an Algerian musician, for the tempo and the drum strokes. |
 | holding | Resvelons nous | 7/7 | yes | yes | **no** | plate/range/source record as marked | An early-music singer or choir director, for the editorial accidentals and the tempo. |
@@ -125,36 +95,36 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Mu-to-to-li'le | Mozambique (then Portuguese East Africa), Ndau people | children's song | 7/7 | pending | pending |
 | holding | Muvi'li, zu'ma, zu'ma | Mozambique (then Portuguese East Africa), Ndau people | chant | 7/7 | pending | pending |
 | holding | Na Bahia tem | Brazil | dança cantada (sung dance) | 7/7 | pending | pending |
-| holding | Cumbia Switch | **missing** | two-beat call and response | 4/7 | pending | pending |
-| holding | Sodade Shape | **missing** | wordless question and answer | 4/7 | pending | pending |
-| holding | Water Groove | **missing** | layered classroom groove | 4/7 | pending | pending |
-| holding | Gong Garden | **missing** | pentatonic layer study | 4/7 | pending | pending |
-| holding | Kora Steps | **missing** | pentatonic variation song | 4/7 | pending | pending |
-| holding | Mbira Mirror | **missing** | pentatonic AB study | 4/7 | pending | pending |
-| holding | Cape Town Round | **missing** | three-beat canon | 4/7 | pending | pending |
-| holding | Three-Beat Testimony | **missing** | partner-song study | 4/7 | pending | pending |
-| holding | Question in the Circle | **missing** | secular call and response | 4/7 | pending | pending |
-| holding | Bahia Signal | **missing** | syncopated chorus study | 4/7 | pending | pending |
-| holding | Son Lantern | **missing** | syncopation study | 4/7 | pending | pending |
-| holding | Arc of the Night | **missing** | expressive minor study | 4/7 | pending | pending |
-| holding | Landó Lines | **missing** | compound-metre rondo study | 4/7 | pending | pending |
-| holding | Drone Rondo | **missing** | five-note improvisation study | 4/7 | pending | pending |
-| holding | Ska Steps | **missing** | offbeat articulation song | 4/7 | pending | pending |
-| holding | Crossing Lines | **missing** | compound-metre interlock study | 4/7 | pending | pending |
-| holding | Five Windows | **missing** | five-beat ostinato study | 4/7 | pending | pending |
-| holding | Nine-Spoke Carousel | **missing** | compound-metre layer study | 4/7 | pending | pending |
-| holding | Blue Engine | **missing** | 12-bar blues | 4/7 | pending | pending |
-| holding | Dabke Drive | **missing** | minor dance-line study | 4/7 | pending | pending |
-| holding | Log-Drum Constellation | **missing** | minor-loop arrangement lab | 4/7 | pending | pending |
-| holding | Cinema Assembly | **missing** | dramatic ensemble theme | 4/7 | pending | pending |
-| holding | Gamelan City | **missing** | polyphonic coordination study | 4/7 | pending | pending |
-| holding | Sahel Guitar Layers | **missing** | modal dialogue study | 4/7 | pending | pending |
-| holding | Big Drum, Small Drum | **missing** | movement pulse | 4/7 | pending | pending |
-| holding | Hello, Echo | **missing** | call-and-response greeting | 4/7 | pending | pending |
-| holding | Silver Drop | **missing** | resonance study | 4/7 | pending | pending |
-| holding | Bamboo Breath | **missing** | slow listening song | 4/7 | pending | pending |
-| holding | Pan Parade | **missing** | parade song | 4/7 | pending | pending |
-| holding | Pata Steps | **missing** | movement chant | 4/7 | pending | pending |
+| holding | Cumbia Switch | Course original (no cultural attribution) | Grade 1 call and response for voices and percussion | 7/7 | verified | pending |
+| holding | Sing It Up, Sing It Down | Course original (no cultural attribution) | Grade 1 contour song in question and answer | 7/7 | verified | pending |
+| holding | Water Groove | Course original (no cultural attribution) | Grade 1 groove song with call and response | 7/7 | verified | pending |
+| holding | Gong Garden | Course original (no cultural attribution) | Grade 2 AB song with bordun | 7/7 | verified | pending |
+| holding | Kora Steps | Course original (no cultural attribution) | Grade 2 verse and chorus song with bordun | 7/7 | verified | pending |
+| holding | Mbira Mirror | Course original (no cultural attribution) | Grade 2 AB mirror song with bordun | 7/7 | verified | pending |
+| holding | Carry the Line | Course original (no cultural attribution) | two-part classroom round and listening bridge | 7/7 | verified | pending |
+| holding | Three-Beat Testimony | Course original (no cultural attribution) | partner song and listening bridge | 7/7 | verified | pending |
+| holding | Question in the Circle | Course original (no cultural attribution) | secular call-and-response song and listening bridge | 7/7 | verified | pending |
+| holding | Signal Chorus | Course original (no cultural attribution) | call-and-chorus song with clapped ostinato, listening bridge | 7/7 | pending | pending |
+| holding | Lantern in the Window | Course original (no cultural attribution) | syncopation and major/minor song, listening bridge | 7/7 | verified | pending |
+| holding | Arc of the Night | Course original (no cultural attribution) | instrumental expressive study and listening bridge | 7/7 | verified | pending |
+| holding | Landó Lines | Course original (no cultural attribution) | sung listening-bridge song: unison verse, two-part refrain | 7/7 | verified | pending |
+| holding | Drone Rondo | Course original (no cultural attribution) | instrumental classroom rondo with an improvised episode | 7/7 | verified | pending |
+| holding | Ska Steps | Course original (no cultural attribution) | sung listening-bridge song: offbeat verse, call-and-response chorus | 7/7 | verified | pending |
+| holding | Crossing Lines | Course original (no cultural attribution) | instrumental layering piece in 6/4 | 7/7 | verified | pending |
+| holding | Five Windows | Course original (no cultural attribution) | sung 5/4 listening-bridge song with an instrumental ostinato | 7/7 | verified | pending |
+| holding | Nine-Spoke Carousel | Course original (no cultural attribution) | instrumental grouping and layering piece in 9/8 | 7/7 | verified | pending |
+| holding | Blue Engine | Course original (no cultural attribution) | 12-bar blues for call-and-response soloing | 7/7 | verified | pending |
+| holding | Lead the Line | Course original (no cultural attribution) | minor line-dance study for leader and line | 7/7 | verified | pending |
+| holding | Bassline Constellation | Course original (no cultural attribution) | minor-loop arranging lab with a written bass layer | 7/7 | verified | pending |
+| holding | Cinema Assembly | Course original (no cultural attribution) | dramatic ensemble theme and texture study | 7/7 | verified | pending |
+| holding | Interlock City | Course original (no cultural attribution) | two-part interlock and layered-form study | 7/7 | pending | pending |
+| holding | Sahel Guitar Layers | Course original (no cultural attribution) | modal texture and dialogue study | 7/7 | verified | pending |
+| holding | Big Drum, Small Drum | Course original (no cultural attribution) | JK pulse and big/small contrast song | 7/7 | verified | pending |
+| holding | Hello, Echo | Course original (no cultural attribution) | JK greeting and echo song | 7/7 | verified | pending |
+| holding | Silver Drop | Course original (no cultural attribution) | JK listening song with silent gaps | 7/7 | verified | pending |
+| holding | Bamboo Breath | Course original (no cultural attribution) | SK partner breath-and-silence song | 7/7 | verified | pending |
+| holding | Pan Parade | Course original (no cultural attribution) | SK parade song about pitch direction | 7/7 | verified | pending |
+| holding | Mirror Steps | Course original (no cultural attribution) | SK partner movement song | 7/7 | verified | pending |
 | holding | Pass the ball | Jamaica | ring game | 7/7 | pending | pending |
 | holding | Rāna jīnāk | Algiers, Algeria | festival song (processional) | 7/7 | pending | pending |
 | holding | Resvelons nous | Cambrai; copied in northern Italy | rondeau, with a canon burden | 7/7 | pending | pending |

@@ -1,34 +1,49 @@
 % holding-id: ontario-sk-pan-parade
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Confirm the Lord Kitchener recording access and ask a Trinidadian steelpan educator to review the framing and instrument language.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. An SK classroom trial, an early-years music teacher, a Trinidadian steelpan educator and a second score reader must check the bells-in-the-gap partner answer, the framing of steelpan and Lord Kitchener, and the release details of the linked recording (an auto-generated upload of a 2009 Charlie's Records compilation; the original 1987 issue is not yet identified).
+% source-local: course/holding/items/ontario-sk-pan-parade.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent, with children's own bell answers in the gaps; generated playback leaves those bars empty.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: SK
-% composition-elements: beat, pitch direction, timbre and volume — trace a rising shape and choose who carries the beat
-% composition-listen: Lord Kitchener — "Pan in A Minor"
-% composition-listen-url: https://www.youtube.com/results?search_query=Lord+Kitchener+Pan+in+A+Minor
-% composition-bridge: Listen for the bright family of steelpan tone colours and the way calypso singing can celebrate the instrument and its players.
-% composition-context: Steelpan was created in Trinidad and Tobago and developed through community innovation and competition. This original classroom parade uses voices or barred instruments; it is not calypso and not a steelband score.
-% composition-distance: Original tune and words; no line from Lord Kitchener's copyrighted song is copied.
-% improv: {"id":"A","bars":"1-2","role":"conductor","prompt":"Who carries the bright beat?","choices":["bells","voices","claps"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"one child then group","prompt":"Where does the melody travel?","choices":["up","down","same note"],"replyBars":2}
-% dossier-honesty: New beginner tune, with steelpan used only as a listening focus.
-% dossier-licence: Draft original; reference song and recording remain copyrighted.
-% dossier-respect: Say steelpan, not steel drum; locate Trinidad and Tobago and show a real steel orchestra before classroom instruments imitate brightness.
-% dossier-review: Trinidadian steelpan educator and early-years teacher.
+% composition-elements: beat and pitch direction (Kindergarten Program 2016) — a sung line that climbs and then falls, a bell player who chooses up or down in the gap after each, and a partner who answers by copying or going the other way
+% composition-listen: Lord Kitchener — "Pan in 'A' Minor", calypso for the 1987 Trinidad Carnival, heard on Kitchener, Forever Vol. 1 (Charlie's Records / VPAL Music, 2009) via the auto-generated Lord Kitchener channel
+% composition-listen-url: https://www.youtube.com/watch?v=3SlzhJgJY9w
+% composition-bridge: Listen for the bright family of steelpan tone colours and the way a calypso can celebrate the instrument and its players.
+% composition-context: Steelpan was created in Trinidad and Tobago in the mid-twentieth century, when players in Port of Spain's neighbourhoods turned oil drums into tuned instruments, and grew through community steel orchestras and the Panorama competition. Lord Kitchener (Aldwyn Roberts, 1922-2000) wrote many calypsos about pan that steel orchestras chose for Panorama, "Pan in 'A' Minor" among them in 1987. This original classroom parade song uses voices and barred instruments; it is not calypso and not a steelband score.
+% composition-distance: Original tune and words; no line, melody or rhythm from Lord Kitchener's copyrighted song is used, and the song is in a major key, not minor. The recording is linked, not embedded.
+% improv: {"id":"A","bars":"1-3","role":"one child on bells (D E F# A)","prompt":"In the gap, the bells go…","choices":["up","down"],"replyBars":1}
+% improv: {"id":"B","bars":"4-6","role":"a partner on bells","prompt":"Answer the first bells","choices":["copy them","go the other way"],"replyBars":1}
+% dossier-function: original SK parade song about direction; the class marches and sings a line that climbs, one child plays a short up or down bell pattern in the gap, the class sings the line that falls, and a partner answers the first child's bells by copying or going the other way
+% dossier-elements: eight bars in 2/4 (L:1/8), D major pentatonic, pitch set D-E-F#-A (do-re-mi-so), written range D4-A4 (a perfect fifth). Bar 1 "Pan pa-rade goes" climbs D4 E4 F#4 A4 in eighths; bar 2 "up" A4 quarter, quarter rest; bar 3 a silent bar for the bells; bar 4 "Pan pa-rade comes" falls A4 F#4 E4 E4; bar 5 "down" D4 quarter, quarter rest; bar 6 a silent bar for the answering bells; bar 7 "ev-ry-bo-dy" F#4 F#4 E4 E4; bar 8 "home!" D4 quarter, quarter rest. Form: a rising line and a falling line, each followed by a three-beat gap for a bell answer, and a two-bar cadence on the tonic. Note values: eighths, quarters, quarter rests and two-beat rests; largest interval a major third (F#4-A4, D4-F#4). Chords D and A (I and V) for the teacher or Band only
+% dossier-practice: Start at quarter = 92 and reach the written 104 once the bell players fit their pattern in the gap. Rehearsal key D major; the written range D4-A4 is the SK comfort zone and inside the young-unison C4-D5 range. Teach in steps: march in place and sing, with hands climbing on "up" and falling on "down"; then let one child play D E F# A up or A F# E D down on bells (or a glockenspiel with only those bars) in bar 3; then a partner answers in bar 6 by copying or going the other way, and the class names which it was. Rotate players each round
+% dossier-accompaniment: Newly authored, not traditional: D and A chords (I and V). The march style is chosen for a plain parade beat; it is a generic classroom march, not calypso, soca or a steel orchestra, and the classroom bells are not steelpans. Keep the Band soft enough that the bell answers in bars 3 and 6 are heard
+% dossier-lyrics: Original English words written for this record: "Pan parade goes up, pan parade comes down, everybody home!" One syllable per note ("ev-ry-bo-dy" as four), stresses on the beats ("PAN pa-RADE", "UP", "DOWN", "HOME"); sung. "Pan" here means the steelpan the class has just heard, so name it before singing
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm and teaching constraints. It is not traditional, not collected from a community and not modelled on "Pan in 'A' Minor" or any calypso; Lord Kitchener's recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, chords and this ABC encoding to the public domain to the extent legally possible. "Pan in 'A' Minor" and its recordings remain the copyright of Lord Kitchener's estate, publisher and labels and are not included
+% dossier-respect: Say steelpan (or pan), not "steel drum"; locate Trinidad and Tobago on a map; say the instrument was invented there by working people and is the national instrument; show a real steel orchestra before classroom instruments imitate brightness. Name Lord Kitchener as a calypsonian, never present this song as calypso, and keep carnival costume play out of it
+% dossier-review: Trinidadian steelpan educator, early-years (SK) music teacher, SK classroom trial and a second score reader; all reviews still required
 X:1
 T:Pan Parade
-C:Grand Central Stationery workshop
-R:parade song
-S:Original classroom composition, 2026; listening bridge to Lord Kitchener
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:SK parade song about pitch direction
+S:Grand Central Stationery, "Pan Parade" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals four eighths (2/4). Bar 1 D4 E4 F#4 A4 eighths; bar 2 A4 quarter, quarter rest; bar 3 rest; bar 4 A4 F#4 E4 E4 eighths; bar 5 D4 quarter, quarter rest; bar 6 rest; bar 7 F#4 F#4 E4 E4 eighths; bar 8 D4 quarter, quarter rest. Pitch set D-E-F#-A (no fa, so the climb is pentatonic), range D4-A4, largest interval a major third. The earlier draft's cues at bars 1-2 and 5-6 fell on sung bars; now each cue covers a sung line and the silent bar after it, where a child really plays. The analyzer reads level 2 (pentatonic, rests); its Ontario line reads Grade 5 only because it counts the two-sharp key signature and the I-V chord symbols, which SK children never read; only beat and pitch direction are claimed. Originality: a climbing and falling pentatonic line is common property; the words avoid the up-the-hill and down-again lines of "The Grand Old Duke of York", whose tune differs; checked also against "Hot Cross Buns", "Frère Jacques" and "This Old Man". "Pan in 'A' Minor" is a minor-key calypso; nothing of it is used.
+N:UNCERTAIN: Whether SK children can fit a four-bell pattern into a three-beat gap at quarter = 104, whether "copy or go the other way" is clear as a partner answer, which original 1987 release "Pan in 'A' Minor" first appeared on, and how a steelpan educator would want the history told. A classroom trial, a Trinidadian steelpan educator and a second score reader must settle these.
 M:2/4
-L:1/4
-Q:1/4=108
-K:C
-%%style folk
-C E | G z | E G | A z | A G | E z | G E | C2 |]
-w: Bright sound, up! Bright sound, up! Now come down. Ring and rest. Home.
+L:1/8
+Q:1/4=104
+K:D
+%%style march
+"D"D E F A | "D"A2 z2 | "D"z4 | "D"A F "A"E E |
+w: Pan pa-rade goes up, Pan pa-rade comes
+"D"D2 z2 | "D"z4 | "D"F F "A"E E | "D"D2 z2 |]
+w: down, ev-ry-bo-dy home!

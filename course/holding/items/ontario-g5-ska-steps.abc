@@ -1,35 +1,54 @@
 % holding-id: ontario-g5-ska-steps
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Skatalites recording and ask a Jamaican ska educator to review historical context and the offbeat-comping comparison.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been sung by students. A Grade 5 music teacher must trial the offbeat entries at the proposed tempo, the call-and-response chorus and the lyric stresses; a Jamaican music educator must review the ska history and the offbeat comparison; a second score reader must check the notes and word setting; and someone must replace the discovery search with an authorized link to the Skatalites' "Guns of Navarone" (a label, archive or official artist page).
+% source-local: course/holding/items/ontario-g5-ska-steps.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Skatalites recording is a listening reference only and is not a performance of this piece.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 5
-% composition-elements: dotted rhythm, part singing, I-V chord movement, articulation and rondo/chorus contrast
-% composition-listen: The Skatalites — "Guns of Navarone"
-% composition-listen-url: https://www.youtube.com/results?search_query=The+Skatalites+Guns+of+Navarone+official
+% composition-elements: offbeat entries after eighth rests; dotted quarter followed by an eighth (tam-ti); staccato articulation; I-V harmony (C and G); verse-chorus contrast, with call and response between two groups in the chorus
+% composition-listen: The Skatalites — "Guns of Navarone" (Dimitri Tiomkin's 1961 film theme arranged as ska; produced by Coxsone Dodd, issued in Jamaica in 1965 and in the UK on Island the same year, B-side "Marcus Garvey"; UK chart entry 1967)
+% composition-listen-url: https://www.youtube.com/results?search_query=The+Skatalites+Guns+of+Navarone+1965
 % composition-bridge: Hear the offbeat accompaniment, horn conversation and buoyant ensemble precision.
 % composition-context: The Skatalites are foundational to Jamaican ska and its links with mento, jazz, R&B and later reggae. This original classroom song uses offbeat rests as a comparison, not a ska claim.
-% composition-distance: Original melody, lyric and I-V harmony; no horn riff, bass line or recording arrangement is copied.
-% improv: {"id":"A","bars":"1-2","role":"horn or voice pair","prompt":"Answer the phrase","choices":["same rhythm","shorter reply","one held note"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"accompaniment group","prompt":"Where does the chord land?","choices":["on beats","between beats","alternate both"],"replyBars":2}
-% dossier-honesty: Original offbeat articulation study; not a Skatalites arrangement.
-% dossier-licence: Draft original; reference composition and performance remain copyrighted.
-% dossier-respect: Teach Jamaican authorship and chronology; do not collapse ska, reggae and generic "island music."
-% dossier-review: Jamaican ska educator and Grade 5 teacher.
+% composition-distance: Original melody, lyric and I-V harmony; no horn riff, bass line, film-theme melody or recording arrangement is copied.
+% improv: {"id":"A","bars":"3-4","role":"horn or recorder pair","prompt":"Answer in the rest after 'lead'","choices":["copy 'drummer lead'","two offbeat notes","stay silent"],"replyBars":1}
+% improv: {"id":"B","bars":"9-12","role":"group 2","prompt":"How does group 2 answer?","choices":["sing it","play it on recorder","clap its rhythm"],"replyBars":1}
+% dossier-function: original sung listening-bridge song for Grade 5; a verse that enters off the beat, then a call-and-response chorus between two groups that lands on the beat, with an instrumental reply in the rests of bars 4 and 8
+% dossier-elements: sixteen bars in 4/4; C major, pitch set C-D-E-F-G-A-B (F only in bar 7), range C4-E5; verse (bars 1-8): bars 1, 2, 5 and 6 begin each beat with an eighth rest and enter on the offbeat with staccato notes, bars 3 and 7 answer on the beat with a dotted quarter and eighth (tam-ti), bars 4 and 8 hold a half note then rest two beats; chorus (bars 9-16): bars 9-12 are four one-bar calls and answers in the rhythm dotted quarter, three eighths, quarter, group 1 sings bars 9 and 11 and group 2 answers in bars 10 and 12 (the groups are named here, not in the score); bars 13-16 all together, staccato quarters on the beat in bar 13, a half note in bar 14, tam-ti in bar 15, ending on C5; C-G (I-V) only; verse-chorus form, 8+8 bars
+% dossier-practice: Quarter note = 120 is the target; begin at 92 and speak the verse over a steady clap on the beats, singing only the words that fall between the claps. Rehearsal key C major; written range C4-E5, inside the Grade 4-8 voice range; against the young-unison C4-D5 range only one E5 (bar 11) lies above, so transpose down a tone if needed. Teach in steps: clap beats while saying the offbeat words; sing the verse; learn both halves of the chorus as one group; split into groups 1 and 2; add a horn or recorder pair answering in the rests of bars 4 and 8.
+% dossier-accompaniment: Newly authored C-G (I-V) chords played by the page's pop band, chosen as a neutral, straight-eighth groove; it is not a ska rhythm section and must not be labelled ska, mento or reggae. Classroom option: one group plays short chords on the offbeats (guitar, ukulele or keyboard) so students can compare their own offbeat comping with the recording's, without copying its parts.
+% dossier-lyrics: Original English words written for this record; every note has one syllable, and the offbeat words are short so they can be sung crisply. Sung piece: verse in unison, chorus in two groups then all together. No words come from the reference, which is instrumental, or from the film song.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed range, rhythm and teaching constraints. Not traditional, not collected from any community and not modelled on the reference's melody, horn lines or arrangement; the Skatalites recording is a listening bridge only.
+% dossier-licence: CC0 1.0 for the melody, words, chords and this ABC encoding. "Guns of Navarone" (Dimitri Tiomkin and Paul Webster) and the Skatalites' recording remain their owners' copyright and are not included.
+% dossier-respect: Name the Skatalites as Kingston session musicians (among them Tommy McCook, Roland Alphonso, Don Drummond, Lloyd Knibb and Jackie Mittoo) who shaped ska in the years around Jamaican independence in 1962; explain that "Guns of Navarone" is their arrangement of a Hollywood film theme. Teach Jamaican authorship and chronology, and do not collapse ska, rocksteady, reggae and generic "island music"; never present this classroom song as ska.
+% dossier-review: Grade 5 classroom music teacher, Jamaican music educator, second score reader and student singing trial; all reviews still required
 X:1
 T:Ska Steps
-C:Grand Central Stationery workshop
-R:offbeat articulation song
-S:Original classroom composition, 2026; listening bridge to The Skatalites
+T:Original offbeat song with a call-and-response chorus
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:sung listening-bridge song: offbeat verse, call-and-response chorus
+S:Grand Central Stationery, "Ska Steps" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit, every bar eight eighths: bars 1, 2, 5 and 6 alternate eighth rests with staccato offbeat notes for three beats and then sing beat 4 (E G A G E; D G A G; B C B D C; C A G E); bars 3 and 7 are quarter, quarter, dotted quarter, eighth (E G A G; D G F D); bars 4 and 8 are a half note (D4, then C4) and a half rest. Chorus bars 9-12 are dotted quarter, eighth, eighth, eighth, quarter (C G A C G; B G A B G; C G A C E; D B A B G); bar 13 four staccato quarters C5 G E G; bar 14 B A quarters and G half; bar 15 dotted quarter, eighth, quarter, quarter (D5 C B G); bar 16 C5 half and half rest. Pitch set C-D-E-F-G-A-B, range C4-E5, largest leap inside a phrase a fifth (G4-D5 into bar 15), with fourths C5-G4 in the chorus; the one octave, C4 up to C5, crosses the half rest from the verse into the chorus (bars 8-9). Form: verse-chorus 8+8. Originality check: the offbeat E-G-A-G figure and the "Who can find the space?" call were compared with "Guns of Navarone" (the film theme and the Skatalites' horn line) and with common children's and pop songs; no shared hook was found; offbeat entries and a do-so-la cell are common property.
+N:UNCERTAIN: Whether Grade 5 singers place the offbeat entries cleanly at quarter = 120, whether the chorus groups hand over without a gap, and how the pop band sits under the offbeat verse can only be settled by a classroom trial. The originality check is one reader's; a second score reader should repeat it. The Jamaican release details (label credit, catalogue numbers and the 1967 chart position) come from discographies and must be checked against an authorized source.
 M:4/4
 L:1/8
-Q:1/4=124
+Q:1/4=120
 K:C
 %%style pop
-"C"z E z G z A G E | "G"z D z G z A G2 | "C"E2 G2 A3 G | E8 |
-"G"z G z A z B A G | "C"z E z G z A G2 | "G"D2 G2 F3 D | "C"C8 |]
-w: Step in the space, hear the band. Trade one line from hand to hand. Keep the ground, lift the sound. Meet the beat when it comes round.
+"C"z .E z .G z .A G E | "G"z .D z .G z .A G2 | "C"E2 G2 A3 G | "G"D4 z4 |
+w: Not on the down-beat, jump in be-tween, let the drum-mer lead;
+"G"z .B z .c z .B d c | "C"z .c z .A z .G E2 | "G"D2 G2 F3 D | "C"C4 z4 |
+w: light as a feath-er, lift off the ground, come back down on one!
+"C"c3 G A c G2 | "G"B3 G A B G2 | "C"c3 G A c e2 | "G"d3 B A B G2 |
+w: Who can find the space? We can find the space! Who will keep the beat? Feet will keep the beat!
+"C".c2 .G2 .E2 .G2 | "G"B2 A2 G4 | d3 c B2 G2 | "C"c4 z4 |]
+w: Up and down and in be-tween, that's the place to sing!

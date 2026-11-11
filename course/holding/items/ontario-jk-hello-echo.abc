@@ -1,34 +1,49 @@
 % holding-id: ontario-jk-hello-echo
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Try with a JK class; confirm the two-note range, reply window and listening link, then have an early-years music teacher review it.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. A JK classroom trial and an early-years music teacher must check that the class can echo right on the next downbeat with no rest, that the loud/soft and sung/clapped choices are clear to four-year-olds, and how Ella Jenkins is introduced; a second score reader must confirm the notation.
+% source-local: course/holding/items/ontario-jk-hello-echo.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; do not present generated playback as evidence that JK children echo well.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: JK
-% composition-elements: beat, sound quality, speed and volume — keep a shared pulse, then choose an echo, a changed ending or silence
-% composition-listen: Ella Jenkins — "You'll Sing a Song and I'll Sing a Song"
-% composition-listen-url: https://www.youtube.com/results?search_query=Ella+Jenkins+You%27ll+Sing+a+Song+and+I%27ll+Sing+a+Song
-% composition-bridge: Notice how a leader leaves room for a real answer; compare exact echoing with a reply that changes one thing.
-% composition-context: Ella Jenkins made participatory call-and-response central to children's music. This tiny original greeting is a listening doorway, not a transcription of her melody or words.
-% composition-distance: Original two-note melody, words and form; the named recording is for listening and discussion only. Do not label this as an Ella Jenkins composition.
-% improv: {"id":"A","bars":"1-2","role":"teacher then class","prompt":"How will we answer hello?","choices":["same echo","new ending","one bar of space"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"child leader then class","prompt":"Choose the sound colour","choices":["voice","clap","small drum"],"replyBars":2}
-% dossier-honesty: New classroom composition by Grand Central Stationery; only the participatory idea is compared with the listening reference.
-% dossier-licence: Draft original intended for the project's licence; the referenced recording remains separately copyrighted.
-% dossier-respect: Credit Ella Jenkins in the lesson and listen to her performance rather than presenting this piece as a substitute.
-% dossier-review: Early-years music teacher and JK classroom trial.
+% composition-elements: beat, voice and volume (Kindergarten Program 2016) — an immediate exact echo of a two-bar sung greeting, with one binary choice each half: a loud or soft echo, then a sung or clapped echo
+% composition-listen: Ella Jenkins — "You'll Sing a Song and I'll Sing a Song", title track of the album You'll Sing a Song and I'll Sing a Song, with members of the Urban Gateways Children's Chorus (Folkways FC 7664, 1966; Smithsonian Folkways SFW 45010 reissue)
+% composition-listen-url: https://www.youtube.com/watch?v=u60cDWfAMBo
+% composition-bridge: Notice how a leader leaves room for a real answer; compare an exact echo with an answer that changes one thing, such as how loud it is.
+% composition-context: Ella Jenkins (1924-2024), a Chicago-based singer and educator, made call-and-response with children central to her recordings; this 1966 album was added to the Library of Congress National Recording Registry in 2007. This tiny original greeting is a listening doorway, not a transcription of her melody or words.
+% composition-distance: Original melody, words and form; the named recording is for listening and discussion only and is linked from the Smithsonian Folkways auto-generated channel, not embedded. Do not label this as an Ella Jenkins song.
+% improv: {"id":"A","bars":"1-4","role":"teacher sings, class echoes","prompt":"Our echo will be…","choices":["loud","soft"],"replyBars":2}
+% improv: {"id":"B","bars":"5-8","role":"teacher or child leader, class echoes","prompt":"Our echo will be…","choices":["sung","clapped"],"replyBars":2}
+% dossier-function: original JK greeting and echo song; a leader sings a two-bar greeting and the class echoes it at once, choosing loud or soft for the first echo and singing or clapping the rhythm for the second
+% dossier-elements: eight bars in 2/4 (L:1/8), F major, pitch set F-G-A (do-re-mi), written range F4-A4 (a major third). Bars 1-2 call "Hel-lo, how are you?" (A4 F4 quarters, G4 G4 eighths, F4 quarter); bars 3-4 the class echoes it exactly; bars 5-6 a second call "Glad to see you here to-day" (A A G G eighths, G G eighths, F quarter) that varies the opening and keeps the same ending; bars 7-8 the class echoes it. Form: call-echo, call-echo (a a b b, with b ending like a). Note values: quarters and eighths only, no rests; every phrase ends on the tonic F4. Largest interval a major third (A4-F4). Chords F and C (I and V) for the teacher or Band only
+% dossier-practice: Start at quarter = 76 and reach the written 88 once the echo lands on the downbeat. Rehearsal key F major; the written range F4-A4 is inside the JK comfort zone (about D4-A4) and the young-unison C4-D5 range. Teach in steps: the teacher sings the call and gestures "your turn" with an open hand on the last note; children echo; then show a loud or soft hand sign before bar 1 (big arms, small hands); then clap the rhythm of the words instead of singing. A child may become the leader once the class echoes reliably. Breathe on each final quarter note
+% dossier-accompaniment: Newly authored, not traditional: F and C chords (I and V), one or two per bar. The folk style gives a light strummed accompaniment; it does not imitate Ella Jenkins or her recording, and the Band may be muted so the voices are heard
+% dossier-lyrics: Original English words written for this record: "Hello, how are you? / Glad to see you here today." One syllable per note, stresses on the beats ("HEL-lo", "how are YOU", "GLAD to SEE you", "here to-DAY"), sung by leader and class. Teachers may swap in a child's name for "you" or greet in a home language of the class; record those as classroom adaptations
+% dossier-honesty: Original AI-assisted course composition generated for Grand Central Stationery on 11 November 2026 under human-directed range, rhythm and teaching constraints. It is not traditional, not collected from a community and not modelled on Ella Jenkins's melody or words; her recording is a listening bridge only
+% dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, chords and this ABC encoding to the public domain to the extent legally possible. Ella Jenkins's song and recording remain the copyright of their owners (Smithsonian Folkways Recordings and her publisher) and are not included
+% dossier-respect: Credit Ella Jenkins by name in the lesson, say she was a Black American educator from Chicago who spent decades singing with children, and listen to her own recording rather than presenting this greeting as a substitute or as her work
+% dossier-review: Early-years (JK) music teacher, JK classroom trial and a second score reader; all reviews still required
 X:1
 T:Hello, Echo
-C:Grand Central Stationery workshop
-R:call-and-response greeting
-S:Original classroom composition, 2026; listening bridge to Ella Jenkins
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:JK greeting and echo song
+S:Grand Central Stationery, "Hello, Echo" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition; this is the compositional audit. Every bar totals four eighths (2/4). Bars 1 and 3: A4 F4 quarters; bars 2, 4, 6 and 8: G4 G4 eighths, F4 quarter; bars 5 and 7: A4 A4 G4 G4 eighths. Pitch set F-G-A, range F4-A4, largest interval a major third (A4 down to F4). The earlier draft left bar 4 empty, which cut the echo in half and put "Your turn" on notes the class should be singing; now bars 3-4 and 7-8 are the class's exact echoes, and the words fit one syllable per note. The analyzer reads level 1; its Ontario line reads Grade 5 only because it counts the I-V chord symbols, which are for the teacher or Band, not the children. Originality: mi-do and re-re-do greetings are common property; checked against "Bounce High, Bounce Low", "Hot Cross Buns", "Good Morning to You" ("Happy Birthday") and "Frère Jacques", with no shared opening. Ella Jenkins's "You'll Sing a Song and I'll Sing a Song" has a different melody, words and form; nothing is taken.
+N:UNCERTAIN: Whether JK children can echo on the very next downbeat with no rest at quarter = 88, whether they hear the loud/soft choice as an echo that changes one thing, and whether four-year-olds can clap the "how are you" eighths. A classroom trial, an early-years music teacher and a second score reader must settle these.
 M:2/4
-L:1/4
+L:1/8
 Q:1/4=88
-K:C
+K:F
 %%style folk
-E G | G E | E G | z2 | G E | E G | G E | E2 |]
-w: Hel-lo! Hel-lo! Your turn. * I hear you. You hear me. Hel-lo, friend.
+"F"A2 F2 | "C"G G "F"F2 | "F"A2 F2 | "C"G G "F"F2 |
+w: Hel-lo, how are you? Hel-lo, how are you?
+"F"A A "C"G G | "C"G G "F"F2 | "F"A A "C"G G | "C"G G "F"F2 |]
+w: Glad to see you here to-day. Glad to see you here to-day.

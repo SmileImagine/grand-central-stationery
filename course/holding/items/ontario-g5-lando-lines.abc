@@ -1,35 +1,62 @@
 % holding-id: ontario-g5-lando-lines
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
 % holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Verify an authorized Susana Baca recording and ask an Afro-Peruvian music educator to review landó context and rhythmic language.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been sung by students. A Grade 5 music teacher must trial the two-part refrain, the 6/8 tempo and the lyric stresses; an Afro-Peruvian music educator must review the listening context and the boundary between this 6/8 song and landó; a second score reader must check the notes, the word setting and the originality comparison.
+% source-local: course/holding/items/ontario-g5-lando-lines.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Susana Baca recording is a listening reference only and is not a performance of this piece.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 5
-% composition-elements: 6/8 metre, dotted-quarter/eighth relationships, part singing, I-V harmony and rondo-like returns
-% composition-listen: Susana Baca — "María Landó"
-% composition-listen-url: https://www.youtube.com/results?search_query=Susana+Baca+Maria+Lando+official
+% composition-elements: 6/8 metre felt in two; three even eighths against quarter-eighth (long-short) pairs and dotted quarters; I-V harmony in A minor (Am and E, with G sharp as the leading note); verse-refrain (AB) form; two-part homophonic singing in the refrain
+% composition-listen: Susana Baca — "María Landó" (music by Chabuca Granda, words by César Calvo), track 1 of Afro-Peruvian Classics: The Soul of Black Peru (Luaka Bop, released 9 May 1995, compiled by David Byrne)
+% composition-listen-url: https://luakabop.bandcamp.com/album/afro-peruvian-classics-the-soul-of-black-peru
 % composition-bridge: Hear the tension between compound pulse, vocal phrasing and percussion, and notice how storytelling sits inside groove.
 % composition-context: Susana Baca's recording can introduce Afro-Peruvian music, landó, poetry and Black Peruvian cultural memory. This original 6/8 piece is not a landó.
-% composition-distance: Original melody, English lyric and I-V harmony; no copyrighted poetic text, tune or cajón pattern is used.
-% improv: {"id":"A","bars":"1-2","role":"soloist over class pulse","prompt":"Place three notes across two big beats","choices":["3+3","2+2+2","one long then two short"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"rondo leader","prompt":"Return or depart?","choices":["A phrase","new B phrase","percussion only"],"replyBars":2}
-% dossier-honesty: Original 6/8 study; landó is encountered through the recording, not claimed by the draft.
-% dossier-licence: Draft original; reference song, poem and performance remain copyrighted.
-% dossier-respect: Centre Afro-Peruvian history and Baca's scholarship; do not equate any 6/8 cajón exercise with landó.
-% dossier-review: Afro-Peruvian music educator and Grade 5 teacher.
+% composition-distance: Original melody, English lyric, lower part and I-V harmony; no copyrighted poetic text, tune or cajón pattern is used.
+% improv: {"id":"A","bars":"3-4","role":"percussion pair","prompt":"Fill the rest after 'shore'","choices":["three even taps","two even taps","leave it silent"],"replyBars":1}
+% improv: {"id":"B","bars":"15-16","role":"whole class","prompt":"How does the last line end?","choices":["hold home long","cut it short","whisper it"],"replyBars":2}
+% dossier-function: original sung listening-bridge song for Grade 5; the class sings a unison verse, then splits into two parts for the refrain, and a percussion pair answers in the rests of bars 4 and 8
+% dossier-elements: sixteen bars in 6/8, felt in two dotted-quarter beats; A minor with G sharp as leading note, pitch set E-G#-A-B-C-D-E; melody E4-E5, lower part B3-C5; verse (bars 1-8) moves mostly in three even eighths (bars 1, 3, 5, 6 and 7) with quarter-eighth pairs in bars 2, 5 and 7, dotted-quarter phrase ends in bars 4 and 8 and rests in bars 2, 4, 6 and 8; refrain (bars 9-16) changes to long-short quarter-eighth pairs and dotted quarters only; Am-E (I-V) throughout; verse-refrain AB form, 8+8 bars; the refrain is homophonic in two parts with the same words, mostly in thirds, the lower part holding while the melody rises on "one goes high" (bar 13) and the melody falling to E4 on "one goes low" (bar 14)
+% dossier-practice: Dotted quarter = 60 is the target; begin at 48 and chant the words in rhythm first. Rehearsal key A minor; the melody's written range E4-E5 and the lower part's B3-C5 sit inside the Grade 4-8 voice range B3-E5; against the young-unison C4-D5 range only the E5 peaks (bars 3, 5, 6, 9, 13 and 15) lie above, so transpose down a tone to G minor if a class strains. Teach in steps: pat the two big beats while chanting; sing the verse in unison; teach the refrain melody to everyone; teach the lower part to everyone; then split the class for the refrain; last, add the percussion pair's reply in the rests of bars 4 and 8.
+% dossier-accompaniment: Newly authored Am-E (I-V) chords played by the page's ballad band, chosen as a soft, generic 6/8 accompaniment for a lyrical song; it is not a landó groove and must not be labelled Afro-Peruvian. Classroom option: hand drum or body percussion on the two dotted-quarter beats only. Do not imitate a cajón pattern from the recording.
+% dossier-lyrics: Original English words written for this record; every note has one syllable. Sung piece: verse in unison, refrain in two parts with the same words in both. No words are taken or translated from "María Landó" or César Calvo's poem; the image of passing a sung line along is generic.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed range, metre and teaching constraints. Not traditional, not collected from any community and not modelled on the reference's melody, poem or arrangement; the Susana Baca recording is a listening bridge only.
+% dossier-licence: CC0 1.0 for the melody, lower part, words, chords and this ABC encoding. "María Landó" (Chabuca Granda and César Calvo) and Susana Baca's recording remain their owners' copyright and are not included.
+% dossier-respect: Name Susana Baca as an Afro-Peruvian singer and researcher who later served as Peru's Minister of Culture, and the song's authors Chabuca Granda and César Calvo; centre Black Peruvian history and the twentieth-century revival of Afro-Peruvian music in which Baca worked. Never present this classroom 6/8 song, or any 6/8 cajón exercise, as landó or as Afro-Peruvian music.
+% dossier-review: Grade 5 classroom music teacher, Afro-Peruvian music educator or culture bearer, second score reader and student singing trial; all reviews still required
 X:1
 T:Landó Lines
-C:Grand Central Stationery workshop
-R:compound-metre rondo study
-S:Original classroom composition, 2026; listening bridge to Susana Baca
+T:Original verse-and-refrain song in 6/8 with a two-part refrain
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:sung listening-bridge song: unison verse, two-part refrain
+S:Grand Central Stationery, "Landó Lines" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit, every bar six eighths: verse bar 1 two groups of three even eighths (E A B, c B A); bar 2 quarter-eighth, quarter and eighth rest (c B A); bar 3 even eighths rising to E5 (A B c, e d c); bar 4 B4 dotted quarter and dotted-quarter rest, a half cadence on E; bar 5 quarter-eighth then even eighths (e d, c B A); bar 6 G# A B then E5 quarter and eighth rest; bar 7 quarter-eighth then B G# E; bar 8 A4 dotted quarter and rest. Refrain bars 9-16 use quarter-eighth pairs and dotted quarters only, ending bars 10 and 14 on the V chord and bars 12 and 16 on I. Melody pitch set E-G#-A-B-C-D-E, range E4-E5, largest leap inside a phrase a fourth (B4-E5 in bar 6, E4-A4 into bar 8); the one fifth, A4 up to E5, crosses the rest from the verse into the refrain (bars 8-9). Lower part (refrain only) B3-C5, a third below the melody on most notes, a fourth, fifth or sixth at phrase ends; its largest leap is the sixth C4-A4 across the breath between bars 12 and 13. Form: verse-refrain AB, 8+8 bars. Originality check: the opening E-A-B-C rise, the refrain's falling E-E-D-C and the "one goes high, one goes low" contrary shape were compared with "María Landó" and with common children's and school songs; no shared hook was found; stepwise minor-key lines of this kind are common property.
+N:UNCERTAIN: Whether Grade 5 voices hold the lower part against the melody at dotted quarter = 60, whether the E5 peaks suit the class, how the page's ballad band sounds in 6/8 and whether the percussion reply fits the bar-4 and bar-8 rests can only be settled by a classroom trial. The originality check is one reader's; a second score reader should repeat it. An Afro-Peruvian music educator should judge whether the listening framing is accurate and respectful.
 M:6/8
 L:1/8
-Q:3/8=76
+Q:3/8=60
 K:Am
-%%style folk
-"Am"A3 c2 A | E3 z3 | "E"G2 F E2 D | E6 |
-"Am"A2 B c2 A | E3 z3 | "E"G2 F E2 D | "Am"A6 |]
-w: Two wide steps, three small stones, lis-ten where the line goes. Turn and re-turn; make a road, then leave a space.
+%%style ballad
+V:1 name="Melody" sname="1"
+V:2 name="Lower part" sname="2"
+[V:1] "Am"E A B c B A | c2 B A2 z | A B c e d c | "E"B3 z3 |
+w: Sing me a line and I'll sing it back, pass it a-long to the shore;
+[V:1] "Am"e2 d c B A | "E"^G A B e2 z | "Am"c2 A "E"B ^G E | "Am"A3 z3 |
+w: ev-'ry voice adds a step to the track, now there's room for one more.
+[V:1] "Am"e2 e d2 c | "E"B2 c B3 | "Am"c2 c B2 A | "E"^G2 B "Am"A3 |
+w: Draw the line and draw it long, let the wa-ter take the song;
+[V:1] "Am"c2 d e2 d | "E"B2 ^G E3 | "Am"A2 c e2 d | "E"B2 ^G "Am"A3 |]
+w: one goes high and one goes low, sing it home and let it go.
+[V:2] z6 | z6 | z6 | z6 |
+[V:2] z6 | z6 | z6 | z6 |
+[V:2] c2 c B2 A | ^G2 A ^G3 | A2 A E2 E | E2 E C3 |
+w: Draw the line and draw it long, let the wa-ter take the song;
+[V:2] A2 A A2 B | ^G2 E B,3 | E2 A c2 B | ^G2 E C3 |]
+w: one goes high and one goes low, sing it home and let it go.

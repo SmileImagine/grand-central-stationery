@@ -1,33 +1,54 @@
 % holding-id: ontario-g6-tabla-carousel
-% holding-status: transcription
-% holding-generated: true
-% holding-source-check: pending
+% holding-status: classroom-check
+% holding-owner:
+% holding-source-check: verified
 % holding-classroom-check: pending
+% holding-review-status: not-started
+% holding-kind: tune
+% holding-generated: true
 % holding-updated: 2026-11-11
-% holding-blocked: Choose an authorized Zakir Hussain performance, have a tabla educator review tala/bol terminology, and verify the 9/8 notation with students.
+% holding-blocked: This original is licence-safe and fully notated, but it has not been played by students. A Grade 6 music teacher must trial the change from 3+3+3 to 2+2+2+3 and the ostinato layer at the proposed tempo; a tabla or Hindustani rhythm educator must review the listening framing and any rhythm vocabulary used in the lesson; a second score reader must check the notes.
+% source-local: course/holding/items/ontario-g6-tabla-carousel.abc canonical private-workshop source; no public source exists because this is a new composition
+% source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
+% performance-note: No source performance exists. The first recording should be a classroom demo made with participant consent; the Zakir Hussain recording is a listening reference only and is not a performance of this piece.
 % composition-series: Ontario Listening Bridges — set 1
 % composition-grade: 6
-% composition-elements: 9/8 compound metre, triplets, acceleration/deceleration, layering and four-part body percussion
-% composition-listen: Zakir Hussain — "Making Music"
-% composition-listen-url: https://www.youtube.com/results?search_query=Zakir+Hussain+Making+Music+official
+% composition-elements: 9/8 metre grouped two ways, 3+3+3 in the A sections and 2+2+2+3 in the B section; layering, a melody over an instrumental ostinato that marks each grouping; I-IV-V harmony (D, G, A); ABA' form ending on a held tonic
+% composition-listen: Zakir Hussain — "Making Music" (composed by Zakir Hussain), title track of the album Making Music with Hariprasad Chaurasia, John McLaughlin and Jan Garbarek (ECM 1349; recorded December 1986, Rainbow Studio, Oslo; released 1987)
+% composition-listen-url: https://ecmrecords.com/product/making-music-zakir-hussain/
 % composition-bridge: Hear rhythmic ideas stated, varied and answered across instruments while a larger cycle remains intelligible.
-% composition-context: Zakir Hussain's collaborations can open discussion of tabla, Hindustani rhythmic training and intercultural ensemble work. This original 9/8 body-percussion carousel is not a tala composition.
+% composition-context: Zakir Hussain's collaborations can open discussion of tabla, Hindustani rhythmic training and intercultural ensemble work. This original 9/8 carousel is not a tala composition.
 % composition-distance: Original melody and neutral classroom rhythm; no tabla composition, bol sequence or recorded passage is copied.
-% improv: {"id":"A","bars":"1-2","role":"rhythm leader","prompt":"Group nine eighths","choices":["2+2+2+3","3+3+3","4+2+3"],"replyBars":2}
-% improv: {"id":"B","bars":"5-6","role":"four body-percussion parts","prompt":"Change the density","choices":["one layer","add one each bar","all then sudden solo"],"replyBars":2}
-% dossier-honesty: Original 9/8 layering study; it does not teach a named tala.
-% dossier-licence: Draft original; reference recording remains copyrighted.
-% dossier-respect: Use a tabla educator's demonstration for bols and technique; do not call arbitrary syllables konnakol or tabla language.
-% dossier-review: Tabla/Hindustani rhythm educator and Grade 6 teacher.
+% improv: {"id":"A","bars":"5-8","role":"clapping group","prompt":"Group nine eighths","choices":["2+2+2+3 with the tune","3+3+3 against it","4+2+3"],"replyBars":4}
+% improv: {"id":"B","bars":"9-12","role":"conductor","prompt":"Change the density","choices":["melody alone","melody and ostinato","everyone, then melody alone at the end"],"replyBars":4}
+% dossier-function: original instrumental grouping piece for Grade 6: a melody group and an ostinato group show the same nine eighths grouped 3+3+3 and then 2+2+2+3, while a clapping group chooses a grouping and a conductor changes the density on the return
+% dossier-elements: twelve bars in 9/8 (nine eighths); D major, melody pitch set D-E-F#-G-A-B-C#-D-E, range D4-E5; ostinato G3-E4 on chord roots and fifths; A (bars 1-4) in three dotted-quarter groups, the melody moving quarter-eighth, quarter-eighth, dotted quarter; B (bars 5-8) in 2+2+2+3, three quarters and a dotted quarter in every bar, with the ostinato in the same grouping; A' (bars 9-12) returns and closes on D4 held for the full bar of nine eighths; harmony D, G-A, D, A-D | G, D, G-A, A | D, G-A, A, D (I-IV-V); ABA' form
+% dossier-practice: Dotted quarter = 80 (eighth = 240) is the target; begin at eighth = 180 and count eighths aloud, "1 2 3 1 2 3 1 2 3" for A and "1 2 1 2 1 2 1 2 3" for B. Rehearsal key D major; the melody's written range D4-E5 suits recorder, xylophone or glockenspiel and lies inside the young-unison C4-D5 range except the one E5 in bar 3; the ostinato G3-E4 suits bass xylophone, low bells, cello or keyboard. Teach in steps: clap and count both groupings; learn the A melody; learn the B melody; learn the ostinato; layer them; add the clapping choice in B and the conductor's density choice on the return. Body percussion (pat on the low notes, clap on the others) may replace the ostinato's pitches.
+% dossier-accompaniment: The ostinato (second voice) and the D-G-A chords are newly authored. The page's folk band was chosen as a plain, non-specific accompaniment; it is not tabla and not a tala, and the page's drone style (tanpura and tabla) is deliberately not used. The band's groove may not follow the 2+2+2+3 grouping of bars 5-8; mute its drums there if it blurs the grouping and let the class ostinato carry it.
+% dossier-lyrics: Instrumental piece; no words. Counting syllables are plain numbers, so that no invented syllables are presented as tabla bols or konnakol.
+% dossier-honesty: AI-assisted original composition for Grand Central Stationery, 11 November 2026, under human-directed range, metre and teaching constraints. Not traditional, not collected from any community, not a tala, a tabla composition or a bol sequence, and not modelled on the reference's melody or rhythm; the Zakir Hussain recording is a listening bridge only.
+% dossier-licence: CC0 1.0 for the melody, ostinato, chords and this ABC encoding. "Making Music" (Zakir Hussain) and its ECM recording remain their owners' copyright and are not included.
+% dossier-respect: Name Zakir Hussain (1951-2024) as a tabla master, son and student of Ustad Alla Rakha, and name his collaborators on the record. Use a tabla educator's demonstration for bols, tala and technique; do not call arbitrary syllables konnakol or tabla language, and never present this classroom 9/8 piece as a tala or as Hindustani music.
+% dossier-review: Grade 6 classroom music teacher, tabla or Hindustani rhythm educator, second score reader and student playing trial; all reviews still required
 X:1
 T:Nine-Spoke Carousel
-C:Grand Central Stationery workshop
-R:compound-metre layer study
-S:Original classroom composition, 2026; listening bridge to Zakir Hussain
+T:Original 9/8 piece grouped two ways
+C:Grand Central Stationery (AI-assisted original, CC0)
+O:Course original (no cultural attribution)
+R:instrumental grouping and layering piece in 9/8
+S:Grand Central Stationery, "Nine-Spoke Carousel" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit, every bar nine eighths: A, bar 1 quarter-eighth, quarter-eighth, dotted quarter (D F# A B D5); bar 2 the same rhythm (D5 B G B A, G then A chord); bar 3 the same rhythm (F# A D5 E5 D5); bar 4 the same rhythm (C#5 B A E D, A then D chord). B, bars 5-8 three quarters and a dotted quarter each (G B D5 B; A F# D F#; B D5 B C#5; C#5 A E A). A', bars 9-10 repeat bars 1-2, bar 11 C#5 B A F# E in the A-section rhythm, bar 12 D4 held for the whole bar. Ostinato: three dotted quarters (root, fifth, fifth, or the next chord's root) in the A sections, and quarter, quarter, quarter, dotted quarter in B, ending on a full-bar D4. Melody pitch set D-E-F#-G-A-B-C#-D-E, range D4-E5, largest leap the fifth A4 down to D4 into bar 9, with thirds and fourths elsewhere (A4-E4 in bar 8); the analyzer reads the quarter notes that cross the dotted-quarter beat in bars 5-8 as syncopation, which here is the 2+2+2+3 grouping; ostinato G3-E4. Form ABA'. Originality check: the D-F#-A-B-D rise and the 2+2+2+3 arpeggios were compared with what the reference's opening exposes and with common jig, slip-jig and children's tunes; no shared phrase was found; triad arpeggios in 9/8 and the 2+2+2+3 grouping itself are common property.
+N:UNCERTAIN: Whether Grade 6 players switch cleanly from 3+3+3 to 2+2+2+3 at eighth = 240, whether the ostinato group holds its grouping under the melody, and how the page's folk band plays 9/8 (and whether it fights the 2+2+2+3 bars) can only be settled by a classroom trial. A tabla educator should judge whether the listening framing is accurate and respectful. The ECM page is the label's official page for the album; it names the tracks but does not itself play the title track.
 M:9/8
 L:1/8
-Q:3/8=92
+Q:3/8=80
 K:D
-%%style jig
-D2 E F2 A B2 A | F3 E3 D3 | A2 B d2 B A2 F | E9 |
-D2 F A2 B d2 A | B3 A3 F3 | E2 F A2 F E2 D | D9 |]
+%%style folk
+V:1 name="Melody" sname="1"
+V:2 name="Ostinato" sname="2"
+[V:1] "D"D2 F A2 B d3 | "G"d2 B G2 B "A"A3 | "D"F2 A d2 e d3 | "A"c2 B A2 E "D"D3 |
+[V:1] "G"G2 B2 d2 B3 | "D"A2 F2 D2 F3 | "G"B2 d2 B2 "A"c3 | c2 A2 E2 A3 |
+[V:1] "D"D2 F A2 B d3 | "G"d2 B G2 B "A"A3 | c2 B A2 F E3 | "D"D9 |]
+[V:2] D3 A,3 A,3 | G,3 D3 A,3 | D3 A,3 A,3 | A,3 E3 D3 |
+[V:2] G,2 D2 D2 G,3 | D2 A,2 A,2 D3 | G,2 D2 D2 A,3 | A,2 E2 E2 A,3 |
+[V:2] D3 A,3 A,3 | G,3 D3 A,3 | A,3 E3 E3 | D9 |]
