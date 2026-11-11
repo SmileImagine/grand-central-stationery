@@ -5694,7 +5694,13 @@
           const sp = this.spelled[i];
           if (sp && sp.length && !color) color = sp[0].color;
           const dx = this.shift.get(this.dispElems[i]) || 0;
-          for (const g of this.dispElems[i].abselem.elemset || []) { groups.push(g); const bb = g.getBBox(); const gx = bb.x + dx; x = x === null ? gx : Math.min(x, gx); }
+          // The cursor stands at the notehead, not at the left of the note's whole drawing: a wide lyric syllable or a
+          // ledger line widens the drawing to the left, which put the cursor up to 13 px early and, from note to note,
+          // made its speed change though proportional spacing places the heads evenly by duration. A rest has no head,
+          // so its own drawing places it.
+          const heads = (this.dispElems[i].abselem.heads || []).map(h => h && h.graphelem).filter(Boolean);
+          for (const g of this.dispElems[i].abselem.elemset || []) groups.push(g);
+          for (const g of heads.length ? heads : this.dispElems[i].abselem.elemset || []) { const gx = g.getBBox().x + dx; x = x === null ? gx : Math.min(x, gx); }
         }
         return { x, color: color || 'var(--cursor)', groups };
       }
