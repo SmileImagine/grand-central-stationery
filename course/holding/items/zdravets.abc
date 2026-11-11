@@ -1,0 +1,52 @@
+% holding-id: zdravets
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Stoin No. 102, p. 98 (bar 3 of each line, the slurs, and the repeat marks at the line ends). A Bulgarian speaker to check the modern spelling, the stresses and the translation. Classroom check: count 9 as 2+2+2+3 with Stoin's syllables, then dance a simple horo step to it.
+% source-url: https://archive.org/details/1930-./page/n97/mode/1up archive.org scan of Stoin, Narodna pesnopoyka (1930), at p. 98, No. 102
+% performance-note: No recording of this Bulgarian song was found. A Serbian variant, "Zdravche, venche, beru li te mome?" (Orljane, Serbia, recorded by Radmila Petrović, Radio Belgrade 1981), is in the CREM-CNRS archive (CNRSMH_E_1988_011_001_014), listening restricted. The Bulgarian National Radio folklore archive is the place to ask for a Bulgarian one.
+% performance-url: https://archives.crem-cnrs.fr/archives/items/CNRSMH_E_1988_011_001_014 CREM-CNRS catalogue entry for the Serbian variant (metadata only)
+% dossier-function: A horo song: sung while dancing the horo, the line dance of Bulgarian village festivities. A question and its answer: "Little geranium, little wreath, do the girls pick you?" and the geranium tells how the girls pick it on St George's Day, weave it into wreaths and crown the lambs. Zdravets (Geranium macrorrhizum) carries the word for health, zdrave, and is given for health at feasts.
+% dossier-elements: 9/16 in the grouping 2+2+2+3 (quick-quick-quick-slow), the daychovo horo's metre; two three-bar lines, each a ten-syllable verse line; final A with B flat above it, a range of a sixth (F to d).
+% dossier-practice: Fast (Stoin: Бързо). Horo songs were sung by two groups of women, one at each end of the dance line, answering each other line by line; instruments came in after the singing. In class, two halves of the room take alternate lines while the rest step the horo: count "1 2 3 4-a" (Stoin's pp. 243-245 count uneven metres with syllables).
+% dossier-accompaniment: Tradition: the horo is first sung unaccompanied by the two groups (see practice); played horos use gaida (bagpipe with a drone), kaval (rim-blown flute), gadulka (bowed fiddle), tambura (long-necked lute) and tapan (two-headed drum, a heavy beater on one head and a thin switch on the other). Sources: Stoin's heading "Пѣе се на хоро" (sung at the horo); for the instruments and the singing groups, en.wikipedia.org/wiki/Music_of_Bulgaria (to be replaced by an ethnography). Band here: the tapan only, the heavy beater (bd) on the first beat and the switch (rim) on the other three, one bar of 2+2+2+3; and a held A on the bass as a stand-in for the gaida's drone. Needs: tapan, gaida (GM bagpipe), kaval, gadulka.
+% dossier-lyrics: All of Stoin's words are fit for class: the question, then eight lines of answer, sung two lines to each pass of the tune (five passes). Written here in modern Bulgarian spelling (Stoin uses the pre-1945 spelling: вѣнче, бератъ), with a transliteration and our English translation; to be checked by a Bulgarian speaker. "Вакли агънца" are lambs with dark rings round the eyes.
+% dossier-honesty: Traditional, no composer named (Stoin's book also has composed school songs; No. 102 is not one of them). Notes and words as Stoin printed them. The tapan pattern and the drone are ours, after the practice described above; turn the band off to hear the song as the singers sang it.
+% dossier-licence: Vasil Stoin (1880-1938), Narodna pesnopoyka (Sofia: Ministry of Education, 1930): public domain in the US (published 1930; PD from 1 January 2026) and in Canada and Bulgaria (Stoin d. 1938).
+% dossier-respect: St George's Day (Gergyovden, 6 May) is a Christian and folk feast; the garlanded lamb is the feast's sacrificed lamb (kurban). That is a fact a teacher may give or leave; the song itself is about flowers, girls and lambs.
+% dossier-review: A Bulgarian speaker, for the spelling, stresses and translation; a Bulgarian dance teacher, for the horo step.
+X:1
+T:Zdravets
+T:Geranium: Bulgarian horo song in 9/16
+C:traditional (Bulgaria)
+O:Bulgaria
+R:horo
+S:Vasil Stoin, Narodna pesnopoyka (Sofia, 1930), No. 102 "Zdravets", p. 98
+N:THE WORDS (Stoin, modern spelling): "Здравче, венче, берат ли те моми?" / "Та мене ли моми да не берат? / Като цъфтя, все гора мирише. / Като дойде на ден на Гергьовден, / те си дойдат хубави девойки, / та ме берат във нови цедила, / та ме носят на бързи потоци, / та ме вият на зелени венци / и ме турят на вакли агънца."
+N:IN ENGLISH (ours): "Little geranium, little wreath, do the girls pick you?" / "How could the girls not pick me? When I bloom the whole forest smells sweet. When St George's Day comes, the pretty girls come, they pick me into new cloths, carry me to swift streams, weave me into green wreaths and put me on the dark-eyed lambs."
+N:TRANSLITERATED: Zdravche, venche, berat li te momi? / Ta mene li momi da ne berat? / Kato tsaftya, vse gora mirishe. / Kato doyde na den na Gergyovden, / te si doydat hubavi devoyki, / ta me berat vav novi tsedila, / ta me nosyat na barzi pototsi, / ta me viyat na zeleni ventsi / i me turyat na vakli agantsa.
+N:THE PLATE: Stoin, "Бързо" (fast), 9/16 with one flat, two lines of three bars with repeat marks at each line's end, the question under both lines, the answer printed as verse below. Each bar is three eighths and a dotted eighth (2+2+2+3), except the last bar, whose last group is an eighth and a sixteenth rest.
+N:HOW READ (2026-11-10): p. 98 from the archive.org scan, enlarged three times; staff lines found by row darkness; each head measured by its ink against the staff-only columns beside it and read again on enlargements labelled line by line; every bar checked to make nine sixteenths. The repeat marks are left out here: the words, sung two lines to a pass, give the repeats.
+N:UNCERTAIN: the second note of bar 3 in each line (c, measured nearer c than B); the tempo is ours (Stoin gives only "fast").
+M:9/16
+L:1/16
+Q:3/16=130
+K:APhr
+%%style drone
+%%band drums: bd ~ rim ~ rim ~ rim ~ ~
+%%band bass: r _ _ _ _ _ _ _ _
+%%band chords: ~
+c2 c2 d2 c3 | A2 B2 c2 c3 | (B2 c2) (A2 c3) |
+w: Здрав-че, вен-че, бе-рат ли те мо _ ми _
+w: Та ме-не ли мо-ми да не бе _ рат? _
+w: Ка-то дой-де на ден на Гер-гьов _ ден, _
+w: та ме бе-рат във но-ви це-ди _ ла, _
+w: та ме ви-ят на зе-ле-ни вен _ ци _
+B2 G2 A2 F3 | A2 B2 c2 c3 | (B2 c2) (A2 A2) z |]
+w: здрав-че, вен-че, бе-рат ли те мо _ ми? _
+w: Ка-то цъф-тя, все го-ра ми-ри _ ше. _
+w: те си дой-дат ху-ба-ви де-вой _ ки, _
+w: та ме но-сят на бър-зи по-то _ ци, _
+w: и ме ту-рят на вак-ли а-гън _ ца. _

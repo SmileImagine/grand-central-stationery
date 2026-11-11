@@ -46,6 +46,15 @@ citation (records in the review queue take the same line):
 % source-url: https://archive.org/details/musicofhindostan00foxs/page/57/mode/1up archive.org scan, at p. 57
 ```
 
+Performances to listen to go in lines of the same kind; where no recording is
+known, a note says where one might be found. The editor lists them under
+Listen and the boards link them as Listen ↗:
+
+```text
+% performance-url: https://www.loc.gov/item/2017700903/ Aurora Calderón, Oakland, 1939 (Library of Congress)
+% performance-note: Curtis made phonograph records of the singers (p. xxv); not yet located
+```
+
 A tune can also carry a dossier, what its tradition says it needs, in the same
 comment form (all optional; the board shows them under the card):
 
@@ -53,6 +62,8 @@ comment form (all optional; the board shows them under the card):
 % dossier-function: game, dance, lullaby, work song, story...
 % dossier-elements: rhythm cell, accompaniment idiom, scale or mode, form
 % dossier-practice: tempo, who sings or plays what, where the accents fall
+% dossier-accompaniment: what the tradition plays and who plays it, the source for that, and what the band substitutes
+% dossier-lyrics: which verses are sung in class, which are left out and why, who checked the language
 % dossier-honesty: traditional | arranged | fusion, and what is ours
 % dossier-licence: the source's status and how the notes were taken
 % dossier-respect: anything sacred or sensitive, and how to present it
@@ -70,6 +81,11 @@ suggestions (the `holding-blocked` next step, the notes and the dossier):
 % holding-kind: tune | fragment   (absent means tune)
 % holding-kind-note: for a fragment, what is missing that made it music (needed)
 ```
+
+A full record (see `PLAN-WORLD-TUNES-2026-11-10.md`, part A) has all of
+these: the melody with its `N:HOW READ` and `N:UNCERTAIN` lines, the band
+lines for its accompaniment, the words with a lyrics verdict, the cultural
+notes, and a performance or a note on where one might be found.
 
 A fragment is a bar or two taken down without the words, dance, drum part or
 variants that made it musical; it is kept apart from the tunes until a record

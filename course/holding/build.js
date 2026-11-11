@@ -21,7 +21,9 @@ const metaOf = text => {
   return meta;
 };
 // A tune's dossier (docs/TUNE-QUALITY-PLANS-2026-11-10.md, A1): "% dossier-function: ..." lines, in a fixed order.
-const DOSSIER = ['function', 'elements', 'practice', 'honesty', 'licence', 'respect', 'review'];
+// accompaniment: what the tradition plays, who plays it, the source for that, and what the band substitutes;
+// lyrics: which verses are sung in class, which are left out and why, and who checked the language.
+const DOSSIER = ['function', 'elements', 'practice', 'accompaniment', 'lyrics', 'honesty', 'licence', 'respect', 'review'];
 const dossierOf = text => {
   const d = {};
   for (const line of text.split('\n')) { const m = line.match(/^%\s*dossier-([a-z]+):\s*(.*)$/i); if (m && DOSSIER.includes(m[1].toLowerCase())) d[m[1].toLowerCase()] = m[2].trim(); }
@@ -29,6 +31,10 @@ const dossierOf = text => {
 };
 // "% source-url: <url> <what it is>" lines: where to read the original (a scan, a book page, a transcription).
 const sourceUrlsOf = text => [...text.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
+// "% performance-url: <url> <who, when, what it shows>" lines: a performance to listen to; "% performance-note: ..."
+// says where one might be found when there is no link (an archive and its shelf mark).
+const performanceUrlsOf = text => [...text.matchAll(/^%\s*performance-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
+const performanceNotesOf = text => [...text.matchAll(/^%\s*performance-note:\s*(.+)$/gmi)].map(m => m[1].trim());
 const field = (text, name) => {
   const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi'));
   return m ? m[1].trim() : '';
@@ -41,6 +47,7 @@ const seen = new Set(), errors = [], items = files.map(file => {
   if (!stages.includes(meta.status)) errors.push(`${file}: holding-status wants ${stages.join(', ')}`);
   if (!field(text, 'T')) errors.push(`${file}: wants a T: title`);
   for (const s of sourceUrlsOf(text)) if (!/^https?:\/\//.test(s.url)) errors.push(`${file}: source-url wants a web address, not ${s.url}`);
+  for (const s of performanceUrlsOf(text)) if (!/^https?:\/\//.test(s.url)) errors.push(`${file}: performance-url wants a web address, not ${s.url}`);
   if (!field(text, 'S')) errors.push(`${file}: wants an S: source`);
   if (meta.status === 'ready' && (meta['source-check'] !== 'verified' || meta['classroom-check'] !== 'passed'))
     errors.push(`${file}: ready requires source-check: verified and classroom-check: passed`);
@@ -51,7 +58,7 @@ const seen = new Set(), errors = [], items = files.map(file => {
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id,
     subtitle: [...text.matchAll(/^T:\s*(.+)$/gmi)].slice(1).map(m => m[1].trim()).join(' · '),
-    source: field(text, 'S'), sourceUrls: sourceUrlsOf(text), status: meta.status || 'inbox', owner: meta.owner || '',
+    source: field(text, 'S'), sourceUrls: sourceUrlsOf(text), performances: performanceUrlsOf(text), performanceNotes: performanceNotesOf(text), status: meta.status || 'inbox', owner: meta.owner || '',
     sourceCheck: meta['source-check'] || 'pending', classroomCheck: meta['classroom-check'] || 'pending',
     updated: meta.updated || '', blocked: meta.blocked || '', notes: field(text, 'N'),
     kind: meta.kind || 'tune', kindNote: meta['kind-note'] || '',

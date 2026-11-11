@@ -1,0 +1,44 @@
+% holding-id: xianhua-diao
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: van Aalst p. 19 (staff and gongche agree; check bar 11's last note B and the old-style quarter rests) and Barrow p. 316 (bars 9-11 and 13, and the last bar, printed as a dotted half). A Chinese speaker to confirm the characters behind Barrow's romanization and to fit stanza I to one of the two melodies (neither source prints the words under the notes). Engine: the band wants a heterophony part (the tune itself on a second instrument, ornamented) before this sounds like the tradition.
+% source-url: https://archive.org/details/cu31924067290001/page/n28/mode/1up van Aalst, Chinese Music (1884), p. 19: "Song called 鮮花 (The Fresh Beautiful Flower)", staff and gongche
+% source-url: https://archive.org/details/cu31924067290001/page/n25/mode/1up van Aalst p. 16: his table of the gongche note names
+% source-url: https://archive.org/details/travelsinchinaco00barr/page/n339/mode/1up Barrow, Travels in China (1804), p. 316: "Moo-lee-wha", with stanza I (stanza II and the literal translation on p. 317)
+% performance-url: https://soundingchina.fas.harvard.edu/mooleechwa.html Harvard, Sounding China: the Barrow and Hüttner tune and its early European history (with performances)
+% performance-url: https://www.youtube.com/watch?v=YkfAzMlL3xM Zhang Ye, Jiangsu folk song broadcast: the modern (1957) "Mo li hua", for comparison, not this text or tune exactly (title checked, not yet listened to)
+% performance-note: Wanted: a Jiangsu or Yangzhou xiaodiao singer, or a sizhu ensemble, singing Xianhua diao in the older form; Berthold Laufer's 1901 cylinders from Shanghai (Indiana University Archives of Traditional Music) are the earliest recordings of the region's songs.
+% dossier-function: A popular song (xiaodiao) of the lower Yangzi, sung for entertainment by a solo singer who often accompanied herself or himself; Barrow heard it in Canton and calls it "one of the most popular songs in the whole country"; van Aalst prints it as a popular song a century later. Its words praise a fresh flower, the jasmine (moli), too lovely to pick.
+% dossier-elements: Pentatonic (F G A c d in van Aalst, the gong mode on F with B natural, 凡, as a passing tone; G A B d e in Barrow, the gong mode on G), both ending on the fifth degree (zhi); 4/4 in eighths and quarters with a dotted quarter at each half-line; van Aalst C to d (a ninth), Barrow D to g (an eleventh).
+% dossier-practice: Sung solo, unhurried, the singer ornamenting the line; the instruments play the same tune together, each a little differently (heterophony), never in chords (Barrow p. 315; van Aalst p. 36). In class: sing or play van Aalst's version (smaller range) on the recorder; then hear Barrow's and find what changed.
+% dossier-accompaniment: Tradition: Barrow (p. 315) heard the singer accompany himself "with a kind of guitar" (a pipa or sanxian); Chinese bands play "in unison, and sometimes an instrument takes the octave", never in parts. Van Aalst (p. 36): the popular band is two pipa (played by girls who also sing), sanxian, one or two fiddles (erhu, huqin), a small drum beating time, flute (dizi) and yangqin, all on the melody. Band here: only a clapper (wood block) on the first beat of each bar, standing in for the ban or small drum; no bass, no chords, because the music has none. Needs: a heterophony part (the tune on a second sound with ornaments), and dizi, erhu, pipa, yangqin sounds; until then, a teacher can play the tune on the recorder with the class singing.
+% dossier-lyrics: Barrow prints two stanzas in 1790s romanization with a word-by-word translation (p. 317). Our reading of the characters (tentative, for a Chinese speaker to confirm): I. 好一朵鮮花，有朝一日落在我家，我本待不出門，對着鮮花兒樂。 "How delightful this branch of fresh flowers! One morning it fell into my house. I, the owner, will not go out; I will sit with the fresh flower and be happy." II. 好一朵茉莉花，滿園花開賽不過它，我本待採一朵戴，又恐看花人兒罵。 "How delightful this jasmine flower! In the full garden no flower excels it. I would pick one to wear, but fear the flower's keeper would scold." Both fit for class. Not underlaid: neither source sets the words to the notes. Not the 1957 He Fang text and tune ("好一朵美丽的茉莉花"), which is in copyright.
+% dossier-honesty: Traditional. Van Aalst's version as he printed it in staff notation and gongche (they agree); Barrow's as Johann Christian Hüttner took it down "in its unadorned state". The clapper on the downbeat is ours.
+% dossier-licence: J. A. van Aalst (1858-after 1914), Chinese Music (Shanghai: Inspectorate General of Customs, 1884); John Barrow (1764-1848), Travels in China (London: Cadell and Davies, 1804), tune taken down by Hüttner (d. 1847): both public domain in the US and Canada.
+% dossier-respect: Barrow and van Aalst write as outsiders who often dismiss Chinese music (Barrow's "aggregation of harsh sounds"); the record keeps their facts and transcriptions only. The tune became a political symbol in 2011 (the "Jasmine Revolution" calls); not something to raise in class unless asked.
+% dossier-review: A Chinese speaker for the characters and the singing; ideally a musician who plays Jiangnan sizhu, for the ornaments.
+X:1
+T:Xianhua diao (鮮花調)
+T:The fresh flower: Chinese popular song, two early versions
+C:traditional (China, lower Yangzi)
+O:China
+R:popular song (xiaodiao)
+S:J. A. van Aalst, Chinese Music (Shanghai, 1884), p. 19; John Barrow, Travels in China (London, 1804), p. 316, as taken down by J. C. Hüttner
+N:VAN AALST'S GONGCHE (p. 19), read top to bottom, right to left, with his gamut (p. 16: 合 C, 四 D (printed 士), 上 F, 尺 G, 工 A, 凡 B, 六 c, 五 d; dots after a note lengthen it, a circle marks the fourth beat): 工· 工 六 五 凡 凡 五。 六·· 五 六。 (twice) | 工· 六· 六· 五 凡。 六·· 五 六。 工·· 尺 六 工 尺。 上·· 尺 上。 工·· 上· 尺·。 六·· 五 六。 尺·· 工 尺 上 合。 士·· 上·· 尺· 工 士。 六·· 凡 五 六 工 尺。 六···. It agrees with his staff note for note, which settles the staff's two lowest notes (合 C and 士 D).
+N:THE TWO VERSIONS: Barrow's rises to high do in its first phrase (B B d e g g e: mi mi sol la do' do' la, the phrase everyone knows); van Aalst's turns there on the note below (A A c d B B d: his 凡, B natural against F). Barrow's ends low on D, van Aalst's on c. Two singers, a century apart.
+N:HOW READ (2026-11-10): both pages from the archive.org scans; staff lines drawn over enlargements of each staff and every head read against them; van Aalst cross-checked against his gongche; every bar checked to make eight eighths. Van Aalst's rests are the old quarter-rest sign (a mirrored eighth rest). Barrow's two sharps are kept, though his tune uses no F or C.
+N:UNCERTAIN: Barrow's last bar (a dotted half, two beats short; written with a rest); the beaming of his bars 11 and 13, read as eighths so the bars fill. Tempo is ours; neither source gives one.
+M:C|
+L:1/8
+Q:1/4=84
+K:C
+%%band drums: wb ~
+%%band bass: ~
+%%band chords: ~
+"^van Aalst, 1884"|: A2 Ac dBBd | c3 d c2 z2 :| A2 c2 c2 dB | c3 d c2 z2 | A4 GcAG | F3 G F2 z2 |
+A4 F2 G2 | c3 d c2 z2 | G4 AGFC | D4 F4 | G2 AD c3 B | dcAG c4 ||
+[M:C][K:D]"^Barrow, 1804" B2 Bd egge | d2 de d2 z2 | B2 Bd egge | d2 de d2 z2 | d2 d2 d2 Bd | e2 e2 d4 | B2 AB d2 BA |
+G2 GA G4 | BAGB A3 B | d2 eg d4 | A2 Bd ABGE | D4 E2 G2 | A3 B GAGE | D6 z2 |]

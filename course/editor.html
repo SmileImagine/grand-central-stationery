@@ -280,13 +280,19 @@ details.dossier p{margin:4px 0}
   // (a set entry's source, an N: line or a comment may carry one too).
   function showSource(t) {
     const cite = [...t.matchAll(/^S:\s*(.+)$/gmi)].map(m => m[1].trim()), seen = new Set(), links = [];
+    // Performances to listen to, and notes on where one might be found; their addresses are not sources.
+    const listen = [...t.matchAll(/^%\s*performance-url:\s*(\S+)\s*(.*)$/gmi)].map(m => [m[1], m[2].trim()]).filter(([u]) => /^https?:\/\//.test(u));
+    const listenNotes = [...t.matchAll(/^%\s*performance-note:\s*(.+)$/gmi)].map(m => m[1].trim());
+    for (const [u] of listen) seen.add(u);
     for (const m of t.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$/gmi)) if (!seen.has(m[1])) { seen.add(m[1]); links.push([m[1], m[2].trim()]); }
     // Other addresses in the file; balanced parentheses belong to the address (IMSLP's "..._(Various)"), and one already listed is not repeated.
     for (const m of t.matchAll(/https?:\/\/(?:[^\s"'<>()\]]|\([^\s"'<>()]*\))+/g)) { const u = m[0].replace(/[.,;]$/, ''); if (![...seen].some(s => s === u || s.startsWith(u))) { seen.add(u); links.push([u, '']); } }
     const safe = links.filter(([u]) => /^https?:\/\//.test(u));
     $('source').innerHTML = `<b>Source:</b> ${cite.length ? cite.map(esc).join('; ') : '<span class="hint">none recorded in this file</span>'}`
       + (safe.length ? `<ul>${safe.map(([u, l]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(l || u.replace(/^https?:\/\//, ''))}</a> ↗</li>`).join('')}</ul>`
-        : '<p class="hint">No link to the original. Add one as a line <code>% source-url: https://… what it is</code>.</p>');
+        : '<p class="hint">No link to the original. Add one as a line <code>% source-url: https://… what it is</code>.</p>')
+      + `<b>Listen:</b> ${listen.length || listenNotes.length ? '' : '<span class="hint">no performance yet; add <code>% performance-url: https://… who, when</code> or <code>% performance-note: where one might be found</code></span>'}`
+      + (listen.length || listenNotes.length ? `<ul>${listen.map(([u, l]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(l || u.replace(/^https?:\/\//, ''))}</a> ↗</li>`).join('')}${listenNotes.map(n => `<li class="hint">${esc(n)}</li>`).join('')}</ul>` : '');
   }
   function checkNote() {
     const need = val() === cur.K.rejectWith, missing = need && !$('note').value.trim();

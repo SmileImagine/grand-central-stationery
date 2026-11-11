@@ -10,7 +10,7 @@
  "counts": {
   "inbox": 0,
   "transcription": 2,
-  "source-check": 13,
+  "source-check": 17,
   "classroom-check": 0,
   "ready": 0
  },
@@ -31,6 +31,8 @@
      "label": "the same, p. 61 (the refrain and verses II-III)"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -66,6 +68,8 @@
      "label": "archive.org scan of The Korean Repository vol. 3 (1896); the article is pp. 45-53 (may not be the Illinois copy the notes name)"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -90,6 +94,47 @@
    }
   },
   {
+   "id": "bqaw-ala-kheir",
+   "file": "items/bqaw-ala-kheir.abc",
+   "title": "B'qāw ʿala khēr",
+   "subtitle": "Stay well: the Maghreb's closing song",
+   "source": "Jules Rouanet, \"La musique arabe dans le Maghreb\", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/encyclopdiedel05lavi/page/n353/mode/1up",
+     "label": "archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824 (Rouanet, \"La musique arabe dans le Maghreb\")"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No recording found yet; the same places as Rāna jīnāk (AMAR; the Yafil 78s on Gallica). Listen before linking."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Rouanet p. 2824, especially the naturals (E natural only where he marks one; the other E's are E flat by the key signature), the three half-bars of 3/8 he prints inside the 6/8, and the return to the sign. An Arabic speaker for the words. Classroom check: as the goodbye song, with a couplet for each child, as the tradition names each guest.",
+   "notes": "THE PLATE: \"M.M. dotted quarter = 108\", 6/8, two flats, a sign (segno) after the pickup and a return to it at the end; three staves with words \"B'kaou aâ la kheir! neb-ghi ne-rou-oua h' H'ass el moued-den fes-sa-ma-i ci Ah! Eb-kaou aâ la kheir!\". Below, \"Rythme d'accompagnement\" in two lines of alternating eighths.",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "The closing song of every Maghreb feast: the musicians' leave-taking of the hosts who listened to them (Rouanet's footnote 2), \"the obligatory conclusion of every feast, whatever its character, where there is any music at all\". Every couplet begins \"Stay in peace!\"; when the traditional couplets run out, the singers improvise lines naming the guests and the people they wish to honour, rhyming the names with formulas of thanks.",
+    "elements": "6/8, dotted quarter = 108; a two-eighth pickup and three short phrases, ending on B flat and going back to the sign; key of two flats with E natural as a leading tone to F; range B flat to g.",
+    "practice": "Sung by the musicians as they leave, the drums keeping the alternating rhythm. In class: the goodbye song at the end of a lesson, the first line sung by all, then couplets with each child's name, the way the singers name each guest.",
+    "accompaniment": "Tradition (Rouanet pp. 2823-2824, 2838): the feast's musicians, indoors the women's ensemble with kamanja (violin), tar (jingled frame drum) and derbouka (goblet drum); outdoors ghaita with drums. Rouanet's printed \"rythme d'accompagnement\" alternates a high stroke and a low stroke by eighths: high on 1, 3 and 5, low on 2, 4 and 6 of the 6/8 bar. Band here: high on rim, low on bd, his rhythm exactly; barred in 3/8, the pattern alternates bar by bar. No bass or chords. Needs: derbouka, tar, kamanja.",
+    "lyrics": "Rouanet prints the first couplet: \"B'kaou aâ la kheir! nebghi nerououah', h'ass el moueddén fes-samai ... Ah! Ebkaou aâ la kheir!\": tentatively بقاو على خير، نبغي نروّح، حسّ المؤذّن في السما, \"Stay well! I want to go home: the muezzin's voice is in the sky (it is dawn) ... Ah! Stay well!\" Fit for class; the muezzin line marks the hour the feast ends. The class couplets with names are the tradition's own practice (footnote 2). The Arabic script and translation wait for an Arabic speaker.",
+    "honesty": "Traditional, anonymous; notes, words and rhythm as Rouanet printed them (1920), barred here in 3/8 (his 6/8 bars are pairs of these) so that the three half-bars he prints need no change of metre; the small notes before his sign are the pickup, written here once at the start.",
+    "licence": "Jules Rouanet (1858-1944), in Lavignac, Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922; section copyright 1920): public domain in the US and in Canada (Rouanet d. 1944).",
+    "respect": "The words mention the muezzin's call, as the sign that night is over; nothing in the song is a religious text. Rouanet's framing is a colonial scholar's; the record keeps his facts about the music.",
+    "review": "An Arabic speaker familiar with Algerian song, for the words and the class couplets."
+   }
+  },
+  {
    "id": "cha-komba-komba",
    "file": "items/cha-komba-komba.abc",
    "title": "Cha-ko'mba, ko'mba",
@@ -101,6 +146,8 @@
      "label": "archive.org scan of Songs and Tales from the Dark Continent, at p. 106"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -136,6 +183,8 @@
      "label": "Project Gutenberg #35410: Jamaican Song and Story, with page images and the music"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -171,6 +220,8 @@
      "label": "archive.org scan of The Music of Hindostan, at p. 57"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "transcription",
    "owner": "",
    "sourceCheck": "pending",
@@ -198,6 +249,8 @@
      "label": "archive.org scan of The Music of Hindostan, at p. 57"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -225,6 +278,8 @@
      "label": "archive.org scan of The Music of Hindostan, at p. 57"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "transcription",
    "owner": "",
    "sourceCheck": "pending",
@@ -252,6 +307,8 @@
      "label": "Daisyfield transcription (PDF)"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -287,6 +344,8 @@
      "label": "archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -322,6 +381,8 @@
      "label": "archive.org scan of Songs and Tales from the Dark Continent, at p. 106"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -357,6 +418,8 @@
      "label": "archive.org scan of Songs and Tales from the Dark Continent, at p. 106"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -392,6 +455,8 @@
      "label": "Project Gutenberg #35410: Jamaican Song and Story, with page images and the music"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -416,6 +481,51 @@
    }
   },
   {
+   "id": "rana-jinak",
+   "file": "items/rana-jinak.abc",
+   "title": "Rāna jīnāk",
+   "subtitle": "We have come to you: the Maghreb's opening song",
+   "source": "Jules Rouanet, \"La musique arabe dans le Maghreb\", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/encyclopdiedel05lavi/page/n353/mode/1up",
+     "label": "archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824 (Rouanet, \"La musique arabe dans le Maghreb\")"
+    },
+    {
+     "url": "https://archive.org/details/encyclopdiedel05lavi/page/n352/mode/1up",
+     "label": "the page before (p. 2823): the festival procession and its instruments"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "No recording found yet. Places to look: the Arab Music Archiving and Research foundation (AMAR); the 78s of Edmond Yafil's Algiers label on Gallica (gallica.bnf.fr); Algerian ʿaroubi and ḥawzi singers, who still open feasts with it. Listen before linking."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Rouanet p. 2824 (the sixteenth run in bar 8, the second ending of the phrase in bar 15, and the accompaniment rhythm). An Arabic speaker who knows Algerian song (darja) to write the opening couplet in Arabic script and check the transliteration and meaning; Rouanet prints only the first words. Classroom check: as a hello song paired with B'qāw ʿala khēr (the goodbye song, its own record).",
+   "notes": "THE PLATE: \"Allegro\", 2/4, no key signature, three staves with a repeat; words \"Ra-na dji-nak, Ya dou-aï-ni, Ra-na dji-nak, Na-ri! Ya na-ri!\" Below, \"Rythme d'accompagnement\": two lines of strokes, the upper (high) and lower (low), \"etc.\"",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "The opening song of the Maghreb feast. Rouanet: \"perhaps the best-known tune of the Maghreb\"; it is played at religious and secular feasts alike, births, circumcisions, weddings, and the procession to a saint's tomb, and when the procession arrives the ghaitas play it again. The words greet the hosts: \"We have come to you!\", then wishes of joy and prosperity, the lines broken by the cry \"My fire! O my fire!\" (Rouanet's footnote 1).",
+    "elements": "2/4, Allegro; eighteen bars sung twice; final A, range G to e (a ninth); a dotted quarter and a sixteenth-note triplet that open each half, a run of eight sixteenths on \"ni\", and the answering cry \"Na-ri! Ya na-ri!\".",
+    "practice": "Processional and festive: everyone knows it; the shawms (ghaita) and drums play it outdoors at the head of the procession; at home the women's ensemble plays it. In class: a hello song at the start of a lesson, sung as everyone arrives, with B'qāw at the end.",
+    "accompaniment": "Tradition (Rouanet pp. 2823-2824, 2838): outdoors ghaita (shawm) with tbal (large two-headed drum) and naqqarat (small paired kettledrums); indoors the women's ensemble (messemaʿ) with kamanja (violin), tar (frame drum with jingles) and derbouka (goblet drum). Rouanet prints the \"rythme d'accompagnement\" under the tune: two strokes, high and low, in 2/4: high on sixteenths 1, 3, 5 and 8 (the 8th is the pickup he begins with), low on 1 and 5. Band here: high stroke on rim, low on bd, exactly his rhythm; no bass or chords (the music is unison, not harmonised). Needs: ghaita (GM shanai), tbal, naqqarat, derbouka.",
+    "lyrics": "Rouanet prints only the opening words, \"Rana djinak, ya dou aïni ... Nari! Ya nari!\": tentatively رانا جيناك يا ضو عيني ... ناري يا ناري, \"We have come to you, light of my eyes ... My fire! O my fire!\" The rest of each couplet is improvised good wishes (footnote 1). Fit for class. The full couplet, and the Arabic script above, wait for an Arabic speaker (see review).",
+    "honesty": "Traditional, anonymous; the notes, the words as far as printed, and the drum rhythm are Rouanet's transcription (1920). The band plays his rhythm on stand-in sounds.",
+    "licence": "Jules Rouanet (1858-1944), \"La musique arabe dans le Maghreb\", in Lavignac and La Laurencie (eds.), Encyclopédie de la musique et dictionnaire du Conservatoire, Part I vol. 5 (Paris: Delagrave, 1922; the section dated \"Copyright by Librairie Delagrave, 1920\"): public domain in the US (published before 1931) and in Canada (Rouanet d. 1944).",
+    "respect": "The tune also leads processions to saints' tombs, where the first verse of the Qur'an is recited aloud (Rouanet p. 2824); the song itself is not a religious text. Rouanet writes as a French colonial musicologist in Algiers; the record quotes his facts about the music, not his framing.",
+    "review": "An Arabic speaker familiar with Algerian song, for the words; ideally an Algerian musician, for the tempo and the drum strokes."
+   }
+  },
+  {
    "id": "resvelons-nous",
    "file": "items/resvelons-nous.abc",
    "title": "Resvelons nous",
@@ -431,6 +541,8 @@
      "label": "HathiTrust: another full-view scan of the same book"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -466,6 +578,8 @@
      "label": "Daisyfield transcription (PDF)"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -501,6 +615,8 @@
      "label": "archive.org scan of Hague, Spanish-American Folk-Songs (1917), at p. 98"
     }
    ],
+   "performances": [],
+   "performanceNotes": [],
    "status": "source-check",
    "owner": "",
    "sourceCheck": "pending",
@@ -522,6 +638,110 @@
     "licence": "Eleanor Hague (1875-1954), Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917): public domain in the US and in Canada (Hague d. 1954).",
     "respect": "A play song; nothing sacred or sensitive.",
     "review": "A Spanish-speaking teacher, for the words."
+   }
+  },
+  {
+   "id": "xianhua-diao",
+   "file": "items/xianhua-diao.abc",
+   "title": "Xianhua diao (鮮花調)",
+   "subtitle": "The fresh flower: Chinese popular song, two early versions",
+   "source": "J. A. van Aalst, Chinese Music (Shanghai, 1884), p. 19; John Barrow, Travels in China (London, 1804), p. 316, as taken down by J. C. Hüttner",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/cu31924067290001/page/n28/mode/1up",
+     "label": "van Aalst, Chinese Music (1884), p. 19: \"Song called 鮮花 (The Fresh Beautiful Flower)\", staff and gongche"
+    },
+    {
+     "url": "https://archive.org/details/cu31924067290001/page/n25/mode/1up",
+     "label": "van Aalst p. 16: his table of the gongche note names"
+    },
+    {
+     "url": "https://archive.org/details/travelsinchinaco00barr/page/n339/mode/1up",
+     "label": "Barrow, Travels in China (1804), p. 316: \"Moo-lee-wha\", with stanza I (stanza II and the literal translation on p. 317)"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://soundingchina.fas.harvard.edu/mooleechwa.html",
+     "label": "Harvard, Sounding China: the Barrow and Hüttner tune and its early European history (with performances)"
+    },
+    {
+     "url": "https://www.youtube.com/watch?v=YkfAzMlL3xM",
+     "label": "Zhang Ye, Jiangsu folk song broadcast: the modern (1957) \"Mo li hua\", for comparison, not this text or tune exactly (title checked, not yet listened to)"
+    }
+   ],
+   "performanceNotes": [
+    "Wanted: a Jiangsu or Yangzhou xiaodiao singer, or a sizhu ensemble, singing Xianhua diao in the older form; Berthold Laufer's 1901 cylinders from Shanghai (Indiana University Archives of Traditional Music) are the earliest recordings of the region's songs."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: van Aalst p. 19 (staff and gongche agree; check bar 11's last note B and the old-style quarter rests) and Barrow p. 316 (bars 9-11 and 13, and the last bar, printed as a dotted half). A Chinese speaker to confirm the characters behind Barrow's romanization and to fit stanza I to one of the two melodies (neither source prints the words under the notes). Engine: the band wants a heterophony part (the tune itself on a second instrument, ornamented) before this sounds like the tradition.",
+   "notes": "VAN AALST'S GONGCHE (p. 19), read top to bottom, right to left, with his gamut (p. 16: 合 C, 四 D (printed 士), 上 F, 尺 G, 工 A, 凡 B, 六 c, 五 d; dots after a note lengthen it, a circle marks the fourth beat): 工· 工 六 五 凡 凡 五。 六·· 五 六。 (twice) | 工· 六· 六· 五 凡。 六·· 五 六。 工·· 尺 六 工 尺。 上·· 尺 上。 工·· 上· 尺·。 六·· 五 六。 尺·· 工 尺 上 合。 士·· 上·· 尺· 工 士。 六·· 凡 五 六 工 尺。 六···. It agrees with his staff note for note, which settles the staff's two lowest notes (合 C and 士 D).",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A popular song (xiaodiao) of the lower Yangzi, sung for entertainment by a solo singer who often accompanied herself or himself; Barrow heard it in Canton and calls it \"one of the most popular songs in the whole country\"; van Aalst prints it as a popular song a century later. Its words praise a fresh flower, the jasmine (moli), too lovely to pick.",
+    "elements": "Pentatonic (F G A c d in van Aalst, the gong mode on F with B natural, 凡, as a passing tone; G A B d e in Barrow, the gong mode on G), both ending on the fifth degree (zhi); 4/4 in eighths and quarters with a dotted quarter at each half-line; van Aalst C to d (a ninth), Barrow D to g (an eleventh).",
+    "practice": "Sung solo, unhurried, the singer ornamenting the line; the instruments play the same tune together, each a little differently (heterophony), never in chords (Barrow p. 315; van Aalst p. 36). In class: sing or play van Aalst's version (smaller range) on the recorder; then hear Barrow's and find what changed.",
+    "accompaniment": "Tradition: Barrow (p. 315) heard the singer accompany himself \"with a kind of guitar\" (a pipa or sanxian); Chinese bands play \"in unison, and sometimes an instrument takes the octave\", never in parts. Van Aalst (p. 36): the popular band is two pipa (played by girls who also sing), sanxian, one or two fiddles (erhu, huqin), a small drum beating time, flute (dizi) and yangqin, all on the melody. Band here: only a clapper (wood block) on the first beat of each bar, standing in for the ban or small drum; no bass, no chords, because the music has none. Needs: a heterophony part (the tune on a second sound with ornaments), and dizi, erhu, pipa, yangqin sounds; until then, a teacher can play the tune on the recorder with the class singing.",
+    "lyrics": "Barrow prints two stanzas in 1790s romanization with a word-by-word translation (p. 317). Our reading of the characters (tentative, for a Chinese speaker to confirm): I. 好一朵鮮花，有朝一日落在我家，我本待不出門，對着鮮花兒樂。 \"How delightful this branch of fresh flowers! One morning it fell into my house. I, the owner, will not go out; I will sit with the fresh flower and be happy.\" II. 好一朵茉莉花，滿園花開賽不過它，我本待採一朵戴，又恐看花人兒罵。 \"How delightful this jasmine flower! In the full garden no flower excels it. I would pick one to wear, but fear the flower's keeper would scold.\" Both fit for class. Not underlaid: neither source sets the words to the notes. Not the 1957 He Fang text and tune (\"好一朵美丽的茉莉花\"), which is in copyright.",
+    "honesty": "Traditional. Van Aalst's version as he printed it in staff notation and gongche (they agree); Barrow's as Johann Christian Hüttner took it down \"in its unadorned state\". The clapper on the downbeat is ours.",
+    "licence": "J. A. van Aalst (1858-after 1914), Chinese Music (Shanghai: Inspectorate General of Customs, 1884); John Barrow (1764-1848), Travels in China (London: Cadell and Davies, 1804), tune taken down by Hüttner (d. 1847): both public domain in the US and Canada.",
+    "respect": "Barrow and van Aalst write as outsiders who often dismiss Chinese music (Barrow's \"aggregation of harsh sounds\"); the record keeps their facts and transcriptions only. The tune became a political symbol in 2011 (the \"Jasmine Revolution\" calls); not something to raise in class unless asked.",
+    "review": "A Chinese speaker for the characters and the singing; ideally a musician who plays Jiangnan sizhu, for the ornaments."
+   }
+  },
+  {
+   "id": "zdravets",
+   "file": "items/zdravets.abc",
+   "title": "Zdravets",
+   "subtitle": "Geranium: Bulgarian horo song in 9/16",
+   "source": "Vasil Stoin, Narodna pesnopoyka (Sofia, 1930), No. 102 \"Zdravets\", p. 98",
+   "sourceUrls": [
+    {
+     "url": "https://archive.org/details/1930-./page/n97/mode/1up",
+     "label": "archive.org scan of Stoin, Narodna pesnopoyka (1930), at p. 98, No. 102"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://archives.crem-cnrs.fr/archives/items/CNRSMH_E_1988_011_001_014",
+     "label": "CREM-CNRS catalogue entry for the Serbian variant (metadata only)"
+    }
+   ],
+   "performanceNotes": [
+    "No recording of this Bulgarian song was found. A Serbian variant, \"Zdravche, venche, beru li te mome?\" (Orljane, Serbia, recorded by Radmila Petrović, Radio Belgrade 1981), is in the CREM-CNRS archive (CNRSMH_E_1988_011_001_014), listening restricted. The Bulgarian National Radio folklore archive is the place to ask for a Bulgarian one."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-10",
+   "blocked": "Source check: compare with Stoin No. 102, p. 98 (bar 3 of each line, the slurs, and the repeat marks at the line ends). A Bulgarian speaker to check the modern spelling, the stresses and the translation. Classroom check: count 9 as 2+2+2+3 with Stoin's syllables, then dance a simple horo step to it.",
+   "notes": "THE WORDS (Stoin, modern spelling): \"Здравче, венче, берат ли те моми?\" / \"Та мене ли моми да не берат? / Като цъфтя, все гора мирише. / Като дойде на ден на Гергьовден, / те си дойдат хубави девойки, / та ме берат във нови цедила, / та ме носят на бързи потоци, / та ме вият на зелени венци / и ме турят на вакли агънца.\"",
+   "kind": "tune",
+   "kindNote": "",
+   "decision": "considering",
+   "decisionNote": "",
+   "response": "",
+   "responseUpdated": "",
+   "dossier": {
+    "function": "A horo song: sung while dancing the horo, the line dance of Bulgarian village festivities. A question and its answer: \"Little geranium, little wreath, do the girls pick you?\" and the geranium tells how the girls pick it on St George's Day, weave it into wreaths and crown the lambs. Zdravets (Geranium macrorrhizum) carries the word for health, zdrave, and is given for health at feasts.",
+    "elements": "9/16 in the grouping 2+2+2+3 (quick-quick-quick-slow), the daychovo horo's metre; two three-bar lines, each a ten-syllable verse line; final A with B flat above it, a range of a sixth (F to d).",
+    "practice": "Fast (Stoin: Бързо). Horo songs were sung by two groups of women, one at each end of the dance line, answering each other line by line; instruments came in after the singing. In class, two halves of the room take alternate lines while the rest step the horo: count \"1 2 3 4-a\" (Stoin's pp. 243-245 count uneven metres with syllables).",
+    "accompaniment": "Tradition: the horo is first sung unaccompanied by the two groups (see practice); played horos use gaida (bagpipe with a drone), kaval (rim-blown flute), gadulka (bowed fiddle), tambura (long-necked lute) and tapan (two-headed drum, a heavy beater on one head and a thin switch on the other). Sources: Stoin's heading \"Пѣе се на хоро\" (sung at the horo); for the instruments and the singing groups, en.wikipedia.org/wiki/Music_of_Bulgaria (to be replaced by an ethnography). Band here: the tapan only, the heavy beater (bd) on the first beat and the switch (rim) on the other three, one bar of 2+2+2+3; and a held A on the bass as a stand-in for the gaida's drone. Needs: tapan, gaida (GM bagpipe), kaval, gadulka.",
+    "lyrics": "All of Stoin's words are fit for class: the question, then eight lines of answer, sung two lines to each pass of the tune (five passes). Written here in modern Bulgarian spelling (Stoin uses the pre-1945 spelling: вѣнче, бератъ), with a transliteration and our English translation; to be checked by a Bulgarian speaker. \"Вакли агънца\" are lambs with dark rings round the eyes.",
+    "honesty": "Traditional, no composer named (Stoin's book also has composed school songs; No. 102 is not one of them). Notes and words as Stoin printed them. The tapan pattern and the drone are ours, after the practice described above; turn the band off to hear the song as the singers sang it.",
+    "licence": "Vasil Stoin (1880-1938), Narodna pesnopoyka (Sofia: Ministry of Education, 1930): public domain in the US (published 1930; PD from 1 January 2026) and in Canada and Bulgaria (Stoin d. 1938).",
+    "respect": "St George's Day (Gergyovden, 6 May) is a Christian and folk feast; the garlanded lamb is the feast's sacrificed lamb (kurban). That is a fact a teacher may give or leave; the song itself is about flowers, girls and lambs.",
+    "review": "A Bulgarian speaker, for the spelling, stresses and translation; a Bulgarian dance teacher, for the horo step."
    }
   }
  ]

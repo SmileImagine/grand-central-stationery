@@ -1,0 +1,39 @@
+% holding-id: bqaw-ala-kheir
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Rouanet p. 2824, especially the naturals (E natural only where he marks one; the other E's are E flat by the key signature), the three half-bars of 3/8 he prints inside the 6/8, and the return to the sign. An Arabic speaker for the words. Classroom check: as the goodbye song, with a couplet for each child, as the tradition names each guest.
+% source-url: https://archive.org/details/encyclopdiedel05lavi/page/n353/mode/1up archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824 (Rouanet, "La musique arabe dans le Maghreb")
+% performance-note: No recording found yet; the same places as Rāna jīnāk (AMAR; the Yafil 78s on Gallica). Listen before linking.
+% dossier-function: The closing song of every Maghreb feast: the musicians' leave-taking of the hosts who listened to them (Rouanet's footnote 2), "the obligatory conclusion of every feast, whatever its character, where there is any music at all". Every couplet begins "Stay in peace!"; when the traditional couplets run out, the singers improvise lines naming the guests and the people they wish to honour, rhyming the names with formulas of thanks.
+% dossier-elements: 6/8, dotted quarter = 108; a two-eighth pickup and three short phrases, ending on B flat and going back to the sign; key of two flats with E natural as a leading tone to F; range B flat to g.
+% dossier-practice: Sung by the musicians as they leave, the drums keeping the alternating rhythm. In class: the goodbye song at the end of a lesson, the first line sung by all, then couplets with each child's name, the way the singers name each guest.
+% dossier-accompaniment: Tradition (Rouanet pp. 2823-2824, 2838): the feast's musicians, indoors the women's ensemble with kamanja (violin), tar (jingled frame drum) and derbouka (goblet drum); outdoors ghaita with drums. Rouanet's printed "rythme d'accompagnement" alternates a high stroke and a low stroke by eighths: high on 1, 3 and 5, low on 2, 4 and 6 of the 6/8 bar. Band here: high on rim, low on bd, his rhythm exactly; barred in 3/8, the pattern alternates bar by bar. No bass or chords. Needs: derbouka, tar, kamanja.
+% dossier-lyrics: Rouanet prints the first couplet: "B'kaou aâ la kheir! nebghi nerououah', h'ass el moueddén fes-samai ... Ah! Ebkaou aâ la kheir!": tentatively بقاو على خير، نبغي نروّح، حسّ المؤذّن في السما, "Stay well! I want to go home: the muezzin's voice is in the sky (it is dawn) ... Ah! Stay well!" Fit for class; the muezzin line marks the hour the feast ends. The class couplets with names are the tradition's own practice (footnote 2). The Arabic script and translation wait for an Arabic speaker.
+% dossier-honesty: Traditional, anonymous; notes, words and rhythm as Rouanet printed them (1920), barred here in 3/8 (his 6/8 bars are pairs of these) so that the three half-bars he prints need no change of metre; the small notes before his sign are the pickup, written here once at the start.
+% dossier-licence: Jules Rouanet (1858-1944), in Lavignac, Encyclopédie de la musique, Part I vol. 5 (Paris: Delagrave, 1922; section copyright 1920): public domain in the US and in Canada (Rouanet d. 1944).
+% dossier-respect: The words mention the muezzin's call, as the sign that night is over; nothing in the song is a religious text. Rouanet's framing is a colonial scholar's; the record keeps his facts about the music.
+% dossier-review: An Arabic speaker familiar with Algerian song, for the words and the class couplets.
+X:1
+T:B'qāw ʿala khēr
+T:Stay well: the Maghreb's closing song
+C:traditional (Algeria and the Maghreb)
+O:Algiers, Algeria
+R:festival song (leave-taking)
+S:Jules Rouanet, "La musique arabe dans le Maghreb", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824
+N:THE PLATE: "M.M. dotted quarter = 108", 6/8, two flats, a sign (segno) after the pickup and a return to it at the end; three staves with words "B'kaou aâ la kheir! neb-ghi ne-rou-oua h' H'ass el moued-den fes-sa-ma-i ci Ah! Eb-kaou aâ la kheir!". Below, "Rythme d'accompagnement" in two lines of alternating eighths.
+N:HOW READ (2026-11-10): p. 2824 from the archive.org scan; staff lines found again beside each note (the page is slightly skewed) and every head measured against them; barlines found as full-height dark columns, which showed the three 3/8 half-bars; durations, slurs and naturals read on enlargements. The underlay of "fes-sa-ma-i ci Ah!" is approximate: Rouanet spreads it across the end of the second staff and the start of the third.
+N:UNCERTAIN: the E flats in bars 8 and 10-11 (no natural printed, so flat by the signature); the half-bars (printed so; whether he meant a lengthened bar is for a speaker or a recording to settle).
+M:3/8
+L:1/8
+Q:3/8=108
+K:Bb
+%%band drums: <[rim bd rim] [bd rim bd]>
+%%band bass: ~
+%%band chords: ~
+d =e | !segno! (f g =e) | f3 | f2 f | f (=e f) | (f/=e/) d2- | d2 z | f2 f | e e2 | (c/d/ B2) |
+w: B'kaou aâ la _ _ kheir! neb- ghi ne- rou- _ oua _ h' _ H'ass el moued- den _ _ _
+(c d) (e | f) e f | B z z | e3 | d2 B | (c B c | d =e f) | B z z |]
+w: fes- _ sa- _ ma- i ci~Ah! Eb- kaou aâ la _ _ _ _ _ kheir!

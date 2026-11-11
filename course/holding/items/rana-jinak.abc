@@ -1,0 +1,41 @@
+% holding-id: rana-jinak
+% holding-status: source-check
+% holding-owner:
+% holding-source-check: pending
+% holding-classroom-check: pending
+% holding-updated: 2026-11-10
+% holding-blocked: Source check: compare with Rouanet p. 2824 (the sixteenth run in bar 8, the second ending of the phrase in bar 15, and the accompaniment rhythm). An Arabic speaker who knows Algerian song (darja) to write the opening couplet in Arabic script and check the transliteration and meaning; Rouanet prints only the first words. Classroom check: as a hello song paired with B'qāw ʿala khēr (the goodbye song, its own record).
+% source-url: https://archive.org/details/encyclopdiedel05lavi/page/n353/mode/1up archive.org scan of Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824 (Rouanet, "La musique arabe dans le Maghreb")
+% source-url: https://archive.org/details/encyclopdiedel05lavi/page/n352/mode/1up the page before (p. 2823): the festival procession and its instruments
+% performance-note: No recording found yet. Places to look: the Arab Music Archiving and Research foundation (AMAR); the 78s of Edmond Yafil's Algiers label on Gallica (gallica.bnf.fr); Algerian ʿaroubi and ḥawzi singers, who still open feasts with it. Listen before linking.
+% dossier-function: The opening song of the Maghreb feast. Rouanet: "perhaps the best-known tune of the Maghreb"; it is played at religious and secular feasts alike, births, circumcisions, weddings, and the procession to a saint's tomb, and when the procession arrives the ghaitas play it again. The words greet the hosts: "We have come to you!", then wishes of joy and prosperity, the lines broken by the cry "My fire! O my fire!" (Rouanet's footnote 1).
+% dossier-elements: 2/4, Allegro; eighteen bars sung twice; final A, range G to e (a ninth); a dotted quarter and a sixteenth-note triplet that open each half, a run of eight sixteenths on "ni", and the answering cry "Na-ri! Ya na-ri!".
+% dossier-practice: Processional and festive: everyone knows it; the shawms (ghaita) and drums play it outdoors at the head of the procession; at home the women's ensemble plays it. In class: a hello song at the start of a lesson, sung as everyone arrives, with B'qāw at the end.
+% dossier-accompaniment: Tradition (Rouanet pp. 2823-2824, 2838): outdoors ghaita (shawm) with tbal (large two-headed drum) and naqqarat (small paired kettledrums); indoors the women's ensemble (messemaʿ) with kamanja (violin), tar (frame drum with jingles) and derbouka (goblet drum). Rouanet prints the "rythme d'accompagnement" under the tune: two strokes, high and low, in 2/4: high on sixteenths 1, 3, 5 and 8 (the 8th is the pickup he begins with), low on 1 and 5. Band here: high stroke on rim, low on bd, exactly his rhythm; no bass or chords (the music is unison, not harmonised). Needs: ghaita (GM shanai), tbal, naqqarat, derbouka.
+% dossier-lyrics: Rouanet prints only the opening words, "Rana djinak, ya dou aïni ... Nari! Ya nari!": tentatively رانا جيناك يا ضو عيني ... ناري يا ناري, "We have come to you, light of my eyes ... My fire! O my fire!" The rest of each couplet is improvised good wishes (footnote 1). Fit for class. The full couplet, and the Arabic script above, wait for an Arabic speaker (see review).
+% dossier-honesty: Traditional, anonymous; the notes, the words as far as printed, and the drum rhythm are Rouanet's transcription (1920). The band plays his rhythm on stand-in sounds.
+% dossier-licence: Jules Rouanet (1858-1944), "La musique arabe dans le Maghreb", in Lavignac and La Laurencie (eds.), Encyclopédie de la musique et dictionnaire du Conservatoire, Part I vol. 5 (Paris: Delagrave, 1922; the section dated "Copyright by Librairie Delagrave, 1920"): public domain in the US (published before 1931) and in Canada (Rouanet d. 1944).
+% dossier-respect: The tune also leads processions to saints' tombs, where the first verse of the Qur'an is recited aloud (Rouanet p. 2824); the song itself is not a religious text. Rouanet writes as a French colonial musicologist in Algiers; the record quotes his facts about the music, not his framing.
+% dossier-review: An Arabic speaker familiar with Algerian song, for the words; ideally an Algerian musician, for the tempo and the drum strokes.
+X:1
+T:Rāna jīnāk
+T:We have come to you: the Maghreb's opening song
+C:traditional (Algeria and the Maghreb)
+O:Algiers, Algeria
+R:festival song (processional)
+S:Jules Rouanet, "La musique arabe dans le Maghreb", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824
+N:THE PLATE: "Allegro", 2/4, no key signature, three staves with a repeat; words "Ra-na dji-nak, Ya dou-aï-ni, Ra-na dji-nak, Na-ri! Ya na-ri!" Below, "Rythme d'accompagnement": two lines of strokes, the upper (high) and lower (low), "etc."
+N:HOW READ (2026-11-10): p. 2824 from the archive.org scan (about 190 dpi, staff lines 16.5 pixels apart); the staff lines found by row darkness and found again beside each note, since the page is slightly skewed; each filled head measured against those local lines (all within 0.4 of a step but one, read by eye); the hollow half notes and the rhythm read on enlargements; every bar checked to make two quarters. Words placed as Rouanet prints them, a long melisma on "ni".
+N:UNCERTAIN: the last sixteenth of bar 8 (B, measured between A and B); "Ya" in bar 15 (Rouanet's word sits between the c and the B). The tempo is ours ("Allegro").
+M:2/4
+L:1/16
+Q:1/4=112
+K:Am
+%%band drums: rim ~ rim ~ rim ~ ~ rim
+%%band drums: bd ~ ~ ~ bd ~ ~ ~
+%%band bass: ~
+%%band chords: ~
+|: c6 (3cdc | B4 A4 | A4 B2 d2 | c4 z4 | z4 B4 | d8 | c8 | d e c d B c A B | G4 z4 |
+w: Ra _ _ _ _ _ na dji _ nak Ya dou aï ni _ _ _ _ _ _ _ _
+c6 (3cdc | B4 G4 | A4 B2 d2 | B4 z4 | z4 z2 e2 | d4 c2 B2 | B2 A4 B2 | c2 d e c d B c | A4 z4 :|
+w: Ra _ _ _ _ _ na dji _ nak Na ri! Ya _ na _ _ ri! _ _ _ _ _ _ _
