@@ -9,6 +9,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // The front door: the site's address opens the practice board for anyone with no lesson on this page yet (nothing
+    // saved, no link). A lesson saved here, a #gcs= or #tune= link, #lesson, or one visit to the lesson page in this tab
+    // keeps the lesson page; the board's Lesson page link goes to #lesson.
+    (function () {
+      try {
+        if (location.hash === '#lesson') { sessionStorage.setItem('gcs-lesson', '1'); history.replaceState(null, '', location.pathname + location.search); return; }
+        if (location.hash || localStorage.getItem('gcs-cells-v1') || sessionStorage.getItem('gcs-lesson')) return;
+        location.replace('course/board.html');
+      } catch (e) {}
+    })();
+  </script>
   <title>Grand Central Stationery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
