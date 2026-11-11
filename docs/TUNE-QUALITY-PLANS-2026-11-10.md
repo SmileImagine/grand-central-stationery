@@ -639,3 +639,29 @@ a `make` target, and the smoke test runs all five.
   `course/practice.js` holds the shared rules, `test/practice.test.js` checks
   them in `make smoke`. Design notes, limits and the next step:
   `docs/PRACTICE-BOARD-2026-11-11.md`.
+
+## Completion assessment (10 November 2026)
+
+The engine work is well advanced, but the content and classroom-validation
+work are not. Phase 0 is complete as an automated baseline (reports, coverage
+map, offline audio and guardrails), though the harness samples five tunes
+through every style rather than rendering every tune/style pair, and there is
+no teacher/kids listening panel yet. Phases 1 and 2 have the idiom registry,
+style-aware harmony, textures, endings, mix bus, modern grooves and synthesised
+rhythm/bass/pad voices; still missing are a full named song roadmap
+(intro/verse/build/drop/breakdown/outro), readable key changes, synth leads,
+one-LU loudness matching and set/playlist mode.
+
+The largest unfinished block is the repertoire. None of the 37 published tunes
+has a complete seven-field dossier, eight target regions remain empty, West
+Africa remains absent, and the workshop tunes still need source, classroom and
+culture-bearer review before publication. Phase 4 is untouched: 0 of 10
+original bangers have been drafted. Phase 5 has range, accompaniment, round and
+class-part reports plus a more responsive measured band, but its generated
+parts are rehearsal recipes rather than finished chart voices; 22 tunes still
+need harmony review, and automatic music-minus-one, a live conductor energy
+fader, named-section loops/roadmap strip, cueable vamps and conducted endings
+remain to build. Phase 6 has a good gap queue, but filling it and recording
+specialist sign-off remain open. In short: automated musical infrastructure is
+strong; repertoire expansion, finished classroom UX and human listening/review
+are the critical path.
