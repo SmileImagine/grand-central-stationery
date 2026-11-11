@@ -34,7 +34,7 @@
   'use strict';
 
   const DEFAULT_BPM = 80;              // the main page's tempo for a tune with no Q: line
-  const INSTRUMENTS = { recorder: 'Recorder', uke: 'Ukulele', piano: 'Piano', wh: 'Wicki-Hayden keyboard', off: 'No instrument' };
+  const INSTRUMENTS = { recorder: 'Recorder', uke: 'Ukulele', piano: 'Piano', wh: '2-5 Keys', off: 'No instrument' };
   const MODES = { teach: 'Teach', practice: 'Practice', assess: 'Assess' };
   /* Each way in is a few steps, in order. Two people use the piece view:
        a student practises alone (Practice), with the app listening if they like, ending in a play-through;

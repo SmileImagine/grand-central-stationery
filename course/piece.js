@@ -72,7 +72,8 @@
       <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><small class="pb-facts"></small></div>
       <div class="pb-modes" role="tablist" aria-label="Teacher"></div>
       <label class="pb-inst" title="The instrument shown with the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <label class="pb-show" title="What a piano, Wicki-Hayden keyboard or ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
+      <button type="button" class="pb-gear quiet" aria-label="Ukulele setup" title="Ukulele setup: C or D tuning, high or low G (kept on this computer)" hidden>⚙</button>
+      <label class="pb-show" title="What a piano, the 2-5 Keys or a ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
       <button type="button" class="pb-share"></button>
       <button type="button" class="pb-more" aria-expanded="false" title="The full player: the ABC, the band, the mixer, note names and transposition">More</button>
     </div>
@@ -133,6 +134,7 @@
     $('.pb-inst select').value = inst;
     $('.pb-show select').value = setup.show || 'melody';
     en = hook.show({ text: textNow(), inst, tr: setup.tr || 0, show: $('.pb-show select').value });
+    makeClock();
     wireEngine();
     setMode(mode, step);
     requestAnimationFrame(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
@@ -261,6 +263,35 @@
     paintProgress();
   }
 
+  /* ---------------- the clock: play, pause and tempo, in the music ----------------
+     The grand clock (course/clock.js) stands where the score's tempo mark was, so it stays in view when the bar
+     is folded: tap it to play or pause, drag it (or its number) up or down for the tempo. Its label is the step's
+     own words (Listen to the whole piece, Loop it...). Note by note and deciding have nothing to play: it steps aside. */
+  let clock = null, clockHost = null, clockRaf = 0;
+  function makeClock() {
+    if (!window.GCSClock || !en) return;
+    clockHost = document.createElement('div'); clockHost.className = 'pb-clock';
+    en.body.appendChild(clockHost);
+    clock = window.GCSClock.create(clockHost, { bpm, min: 30, max: 200, written, label: '', labelAt: 'none',
+      onToggle: () => playPause(), onBpm: v => setBpm(v) });
+  }
+  const clockLabel = () => { const k = kind(); return example ? `Hear ${example.words}` : ({ listen: 'Listen to the whole piece', whole: 'Play the whole piece', through: 'Play it through', hear: 'Hear the whole piece', attempt: 'Start the attempt' })[k] || (sub() === 'study' ? 'Hear this section' : 'Loop it'); };
+  function paintClock() {
+    if (!clock) return;
+    const off = sub() === 'note' || kind() === 'decide';
+    clockHost.hidden = off;
+    const beats = en && en.tl ? en.tl.countBeats : 4;
+    clock.set({ bpm, written, label: clockLabel(), beats, playing: !!(en && en.player && en.player.running) });
+  }
+  // While the music plays the hand sweeps once a bar: how far the playhead is through the bar it is in (the count-in's hand waits at twelve).
+  function clockTick() {
+    clockRaf = 0;
+    if (!clock || !en || !en.player.running || !en.tl) return;
+    const t = en.now(), bars = en.tl.bars || [], b = bars.find(x => t >= x.start && t < x.end);
+    clock.set({ turn: b ? Math.max(0, Math.min(1, (t - b.start) / Math.max(1, b.end - b.start))) : 0 });
+    clockRaf = requestAnimationFrame(clockTick);
+  }
+
   /* ---------------- modes and steps ---------------- */
   function setMode(m, s = 1) {
     if (m !== mode) { stopAll(); mode = m; resetTempi(); how = P.HOW[m] ? P.HOW[m][0] : how; }
@@ -320,27 +351,27 @@
   function renderTools() {
     const k = kind();
     let h = '';
-    if (k === 'listen') h = `${playBtn(example ? `Hear ${example.words}` : 'Listen to the whole piece')}${conceptCtl()}`;
+    if (k === 'listen') h = `${conceptCtl()}`;
     else if (k === 'sections' && mode === 'teach') h = how === 'study'
-      ? `${playBtn('Hear this section')}${sectionNav()}${tempoCtl()}`
-      : `${playBtn('Loop it')}${sectionNav(false)}${tempoCtl()}${fasterCtl()}`;
+      ? `${sectionNav()}`
+      : `${sectionNav(false)}${fasterCtl()}`;
     else if (k === 'sections') h = how === 'time'
-      ? `${playBtn('Loop it')}${sectionNav()}${tempoCtl()}${fasterCtl()}`
+      ? `${sectionNav()}${fasterCtl()}`
       : `<button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
         <button type="button" class="big" data-act="back" title="The note before (Backspace)">Back</button>
         <button type="button" class="big" data-act="hear" title="Hear this note (H)"><span aria-hidden="true">🔊</span> Hear it</button>
         <span class="pb-step" aria-live="polite"></span>${sectionNav()}
         <label class="chk" title="Play each note as it comes up"><input type="checkbox" class="pb-sound" checked> Sound each note</label>
         ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone (a test): a steady, matching note moves on by itself. Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
-    else if (k === 'whole') h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}`;
-    else if (k === 'through') h = `${playBtn('Play it through')}${tempoCtl()}${guideCtl()}
+    else if (k === 'whole') h = `${fasterCtl()}`;
+    else if (k === 'through') h = `${guideCtl()}
         ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard (a test; a guess at best)."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
     else if (k === 'hear') {
       const st = courseState();
       h = `<label class="pb-who">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Name" value="${esc(who)}">`}</label>
-        ${playBtn('Hear the whole piece')}`;
+`;
     }
-    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}${guideCtl()}`;
+    else if (k === 'attempt') h = `${guideCtl()}`;
     else h = `<span class="pb-hint">Decide in the panel, then save.</span>`;
     h += mode === 'practice' && ['sections', 'whole', 'through'].includes(k) ? `<div class="pb-progress" aria-live="polite"></div>` : '';
     tools.innerHTML = h; wasPlaying = null;
@@ -648,7 +679,8 @@
     for (const b of bar.querySelectorAll('.pb-steps button')) b.classList.toggle('done', +b.dataset.step < step);
     for (const b of bar.querySelectorAll('.pb-step2')) b.classList.toggle('done', step > 2);
     $('.pb-show').hidden = !['piano', 'wh', 'uke'].includes($('.pb-inst select').value);
-    paintPlaying(); paintProgress();
+    $('.pb-gear').hidden = $('.pb-inst select').value !== 'uke' || !(G.ukeSetup && G.ukeSetup.open);
+    wasPlaying = null; paintPlaying(); paintProgress(); paintClock();
   }
   // The main button says what it will do: Play, or Pause while the music plays.
   let wasPlaying = null;
@@ -656,6 +688,7 @@
     const on = !!(en && en.player && en.player.running);
     if (on === wasPlaying) return;
     wasPlaying = on;
+    if (clock) { clock.set({ playing: on }); if (on && !clockRaf) clockRaf = requestAnimationFrame(clockTick); if (!on) clock.set({ turn: 0 }); }
     for (const b of tools.querySelectorAll('[data-act="play"]')) {
       b.classList.toggle('playing', on);
       b.setAttribute('aria-pressed', String(on));
@@ -684,6 +717,9 @@
 
   /* ---------------- controls ---------------- */
   $('.pb-fold').addEventListener('click', () => setFold(!document.body.classList.contains('pb-folded')));
+  // The ukulele's setup (tuning, high or low G) is the page's, shared with the lesson page; a change redraws the music and its diagrams.
+  $('.pb-gear').addEventListener('click', () => { if (G.ukeSetup) G.ukeSetup.open(); });
+  if (G.ukeSetup && G.ukeSetup.onChange) G.ukeSetup.onChange(() => { if (en) afterRender(); });
   const choose = (cls, v) => { const sel = en && en.body.querySelector(`.${cls} select`); if (sel) { sel.value = v; sel.dispatchEvent(new Event('change')); } };
   $('.pb-inst select').addEventListener('change', e => { const v = e.target.value; ls.set('gcs-last-inst', v); choose('instpick', v); choose('showpick', $('.pb-show select').value); afterRender(); });
   $('.pb-show select').addEventListener('change', e => { choose('showpick', e.target.value); afterRender(); });
@@ -712,8 +748,8 @@
     else if (k === 'Backspace' && stepper) act('back');
     else if ((k === 'h' || k === 'H') && stepper) act('hear');
     else if (k === 'f' || k === 'F') $('.pb-fold').click();
-    else if ((k === '+' || k === '=') && tools.querySelector('.pb-faster')) setBpm(P.nudgeTempo(bpm, 1, written));
-    else if ((k === '-' || k === '_') && tools.querySelector('.pb-slower')) setBpm(P.nudgeTempo(bpm, -1, written));
+    else if ((k === '+' || k === '=') && clock && !clockHost.hidden) setBpm(P.nudgeTempo(bpm, 1, written));
+    else if ((k === '-' || k === '_') && clock && !clockHost.hidden) setBpm(P.nudgeTempo(bpm, -1, written));
     else done = false;
     if (done) { e.preventDefault(); e.stopImmediatePropagation(); }
   }, true);

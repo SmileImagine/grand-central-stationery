@@ -1,0 +1,151 @@
+/* The grand clock (course/clock.js): the information-booth clock as the piece's play and tempo control, floating over
+   the top-left of the score where abcjs draws its tempo mark. A brass bezel, an opal face lit warm while it plays, a
+   tick for each beat lit as the hand passes, the tempo on a plate beside it.
+
+   Size: --clock-size on the host or any ancestor is the face's diameter (64px when unset); all else scales from it.
+   Colours: the face and its brass are the clock's own (the concourse palette, light and dark); the words take the
+   page's --ink and --muted, the plate behind it the page's --bg, the focus ring --accent, the play mark --mode when
+   the piece view sets it (Teach, Practice, Assess). Override any --gcs-clock-* token on .gcs-clock to restyle. */
+.gcs-clock {
+  --gcs-clock-size: var(--clock-size, 64px);
+  --gcs-clock-brass: #9c7a45; --gcs-clock-brass-hi: #ead39f; --gcs-clock-brass-lo: #6a4e26;
+  --gcs-clock-brass-text: #7a5c2e;              /* brass dark enough for small words on the plate */
+  --gcs-clock-opal: #fffaf0; --gcs-clock-opal-edge: #e9dcc2;
+  --gcs-clock-face-ink: #2a2622;                /* ticks and the pause mark: the face is lit glass in both themes */
+  --gcs-clock-hand: #4a3518;
+  --gcs-clock-lamp: #f39322;                    /* the lit face, the beat, the speed ring */
+  --gcs-clock-lamp-ink: #c4650a;                /* the lit beat tick on opal */
+  --gcs-clock-go: var(--mode, #2a2622);         /* the play mark */
+  --gcs-clock-plate: color-mix(in srgb, var(--bg, #fff) 80%, transparent);
+  --gcs-clock-shadow: 0 1px 2px #0002, 0 4px 14px #0001;
+  --s: var(--gcs-clock-size);
+
+  position: relative; display: inline-grid; grid-template-columns: auto auto; grid-template-areas: "face tempo" "label label";
+  align-items: center; justify-items: start; column-gap: calc(var(--s) * 0.1); row-gap: calc(var(--s) * 0.04);
+  padding: calc(var(--s) * 0.07) calc(var(--s) * 0.14) calc(var(--s) * 0.07) calc(var(--s) * 0.07);
+  border-radius: calc(var(--s) * 0.6);
+  background: var(--gcs-clock-plate); box-shadow: var(--gcs-clock-shadow);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: var(--ink, #222); font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; line-height: 1.1;
+  user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; vertical-align: middle;
+}
+.gcs-clock--label-beside { grid-template-columns: auto auto auto; grid-template-areas: "face tempo label"; }
+.gcs-clock--label-none .gcs-clock-label, .gcs-clock.no-label .gcs-clock-label { display: none; }
+/* The page's dark theme (index.html sets data-theme on <html>, or follows the system). The classes .gcs-clock-dark and
+   .gcs-clock-light on an ancestor force one, for a demo or a panel of the other colour. */
+:where(:root[data-theme="dark"]) .gcs-clock, .gcs-clock-dark .gcs-clock {
+  --gcs-clock-brass: #c9a35f; --gcs-clock-brass-hi: #f3dca6; --gcs-clock-brass-lo: #7d5f2c; --gcs-clock-brass-text: #dcbd80;
+  --gcs-clock-opal: #f4ecdc; --gcs-clock-opal-edge: #cdbb97;
+  --gcs-clock-shadow: 0 1px 2px #0006, 0 4px 16px #0004;
+}
+@media (prefers-color-scheme: dark) {
+  :where(:root:not([data-theme="light"])) .gcs-clock {
+    --gcs-clock-brass: #c9a35f; --gcs-clock-brass-hi: #f3dca6; --gcs-clock-brass-lo: #7d5f2c; --gcs-clock-brass-text: #dcbd80;
+    --gcs-clock-opal: #f4ecdc; --gcs-clock-opal-edge: #cdbb97;
+    --gcs-clock-shadow: 0 1px 2px #0006, 0 4px 16px #0004;
+  }
+}
+.gcs-clock-light .gcs-clock {
+  --gcs-clock-brass: #9c7a45; --gcs-clock-brass-hi: #ead39f; --gcs-clock-brass-lo: #6a4e26; --gcs-clock-brass-text: #7a5c2e;
+  --gcs-clock-opal: #fffaf0; --gcs-clock-opal-edge: #e9dcc2;
+  --gcs-clock-shadow: 0 1px 2px #0002, 0 4px 14px #0001;
+}
+
+/* ---- the face: the play button ---- */
+.gcs-clock button.gcs-clock-play {
+  all: unset; grid-area: face; position: relative; display: block; box-sizing: border-box;
+  width: var(--s); height: var(--s); min-width: 0; min-height: 0; border-radius: 50%;
+  cursor: pointer; touch-action: none;
+}
+.gcs-clock button.gcs-clock-play:focus-visible { outline: 3px solid var(--accent, #087fca); outline-offset: 3px; }
+.gcs-clock-face { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 1px 1.5px #0003); transition: transform 0.12s ease; }
+.gcs-clock button.gcs-clock-play:hover .gcs-clock-bezel { filter: brightness(1.1); }
+.gcs-clock button.gcs-clock-play:active .gcs-clock-face { transform: scale(0.96); }
+.gcs-clock.is-dragging button.gcs-clock-play .gcs-clock-face { transform: none; }
+.gcs-clock-s-hi { stop-color: var(--gcs-clock-brass-hi); }
+.gcs-clock-s-mid { stop-color: var(--gcs-clock-brass); }
+.gcs-clock-s-lo { stop-color: var(--gcs-clock-brass-lo); }
+.gcs-clock-s-glow { stop-color: var(--gcs-clock-opal); transition: stop-color 0.3s ease; }
+.gcs-clock-s-edge { stop-color: var(--gcs-clock-opal-edge); }
+.gcs-clock.is-playing .gcs-clock-s-glow { stop-color: color-mix(in srgb, var(--gcs-clock-lamp) 28%, var(--gcs-clock-opal)); }
+.gcs-clock-glass { stroke: var(--gcs-clock-brass-lo); stroke-width: 1.2; }
+.gcs-clock-ring { fill: none; stroke: var(--gcs-clock-lamp); stroke-width: 5.2; opacity: 0; transition: opacity 0.25s ease, stroke-dasharray 0.12s ease; }
+.gcs-clock.is-adjusting .gcs-clock-ring { opacity: 1; }
+.gcs-clock.is-over .gcs-clock-ring { stroke: #e0542a; }
+.gcs-clock-tick { stroke: var(--gcs-clock-face-ink); stroke-width: 3; stroke-linecap: round; opacity: 0.45; transition: stroke 0.08s, opacity 0.08s; }
+.gcs-clock-tick.down { stroke-width: 4.4; opacity: 0.7; }
+.gcs-clock-tick.on { stroke: var(--gcs-clock-lamp-ink); opacity: 1; stroke-width: 5; }
+.gcs-clock-shaft { stroke: var(--gcs-clock-hand); stroke-width: 3.4; stroke-linecap: round; }
+.gcs-clock-tip { fill: var(--gcs-clock-hand); stroke: var(--gcs-clock-hand); stroke-width: 1.5; stroke-linejoin: round; }
+.gcs-clock-hub { fill: var(--gcs-clock-hand); }
+.gcs-clock-playmark, .gcs-clock-pausemark { stroke: var(--gcs-clock-opal); stroke-width: 5; stroke-linejoin: round; paint-order: stroke; }
+.gcs-clock-playmark { fill: var(--gcs-clock-go); }
+.gcs-clock-pausemark { fill: var(--gcs-clock-face-ink); display: none; }
+.gcs-clock.is-playing .gcs-clock-playmark { display: none; }
+.gcs-clock.is-playing .gcs-clock-pausemark { display: inline; }
+.gcs-clock.is-playing .gcs-clock-pausemark { stroke: color-mix(in srgb, var(--gcs-clock-lamp) 28%, var(--gcs-clock-opal)); }
+
+/* ---- the tempo beside it: a slider, dragged up and down like the face ---- */
+.gcs-clock-tempo {
+  grid-area: tempo; position: relative; display: grid; align-content: center; justify-items: start;
+  min-height: calc(var(--s) * 0.8); padding: 0 calc(var(--s) * 0.2) 0 calc(var(--s) * 0.06);
+  border-radius: calc(var(--s) * 0.14); cursor: ns-resize; touch-action: none; outline: none;
+}
+.gcs-clock-tempo:focus-visible { outline: 3px solid var(--accent, #087fca); outline-offset: 2px; }
+.gcs-clock-bpm { display: inline-flex; align-items: baseline; gap: 0.25em; white-space: nowrap; }
+.gcs-clock-bpm b { font-size: calc(var(--s) * 0.4); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; line-height: 1; }
+.gcs-clock-bpm small { font-size: max(10px, calc(var(--s) * 0.16)); font-weight: 700; letter-spacing: 0.12em; color: var(--muted, #777); }
+.gcs-clock-share { font-size: max(11px, calc(var(--s) * 0.19)); color: var(--muted, #777); white-space: nowrap; margin-top: calc(var(--s) * 0.03); }
+.gcs-clock.is-full .gcs-clock-share { color: var(--gcs-clock-brass-text); font-weight: 700; }
+.gcs-clock.no-written .gcs-clock-share { display: none; }
+/* Two small arrows at its right: it can be pushed up and down. */
+.gcs-clock-nudge { position: absolute; right: calc(var(--s) * 0.03); top: 50%; width: 0; height: 0; opacity: 0.4; transition: opacity 0.15s; }
+.gcs-clock-nudge::before, .gcs-clock-nudge::after { content: ''; position: absolute; left: calc(var(--s) * -0.06); border: calc(var(--s) * 0.06) solid transparent; }
+.gcs-clock-nudge::before { bottom: calc(var(--s) * 0.04); border-bottom-color: var(--muted, #777); border-top-width: 0; }
+.gcs-clock-nudge::after { top: calc(var(--s) * 0.04); border-top-color: var(--muted, #777); border-bottom-width: 0; }
+.gcs-clock-tempo:hover .gcs-clock-nudge, .gcs-clock-tempo:focus-visible .gcs-clock-nudge, .gcs-clock.is-adjusting .gcs-clock-nudge { opacity: 1; }
+
+/* ---- the step's words ---- */
+.gcs-clock-label {
+  grid-area: label; max-width: calc(var(--s) * 3.6); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: max(12px, calc(var(--s) * 0.19)); font-weight: 700; color: color-mix(in srgb, var(--ink, #222) 78%, transparent);
+  cursor: pointer; padding: 0 calc(var(--s) * 0.04) calc(var(--s) * 0.02);
+}
+.gcs-clock--label-beside .gcs-clock-label { font-size: max(14px, calc(var(--s) * 0.26)); max-width: calc(var(--s) * 5); padding: 0 calc(var(--s) * 0.08) 0 0; color: var(--ink, #222); }
+
+/* On a phone the words go (the play button's aria-label keeps them): the clock covers less of the music. */
+@media (max-width: 700px) {
+  .gcs-clock .gcs-clock-label { display: none; }
+  .gcs-clock, .gcs-clock--label-beside { grid-template-columns: auto auto; grid-template-areas: "face tempo"; }
+}
+
+/* ---- the sign shown while the tempo changes ---- */
+.gcs-clock-bubble {
+  position: absolute; z-index: 50; left: 0; top: calc(100% + 10px); display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.35em;
+  max-width: 16em; padding: 6px 14px 8px; border-radius: 12px; border: 2px solid var(--gcs-clock-brass);
+  background: var(--panel, #fafafa); color: var(--ink, #222); box-shadow: 0 8px 24px #0003;
+  font-size: max(14px, calc(var(--s) * 0.22)); white-space: nowrap; pointer-events: none;
+  opacity: 0; transform: translateY(-4px); transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.gcs-clock-bubble::before { content: ''; position: absolute; top: -8px; left: calc(var(--s) * 0.5 + var(--s) * 0.07 - 7px); width: 12px; height: 12px;
+  background: inherit; border: inherit; border-width: 2px 0 0 2px; transform: rotate(45deg); }
+.gcs-clock-bubble b { font-size: max(30px, calc(var(--s) * 0.56)); line-height: 1; font-variant-numeric: tabular-nums; }
+.gcs-clock-bubble span { font-weight: 700; letter-spacing: 0.1em; color: var(--muted, #777); font-size: 0.8em; }
+.gcs-clock-bubble small { flex-basis: 100%; font-size: 1em; color: var(--muted, #777); }
+.gcs-clock.is-full .gcs-clock-bubble small { color: var(--gcs-clock-brass-text); font-weight: 700; }
+.gcs-clock.is-adjusting .gcs-clock-bubble { opacity: 1; transform: none; }
+
+.gcs-clock-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gcs-clock-face, .gcs-clock-ring, .gcs-clock-bubble, .gcs-clock-s-glow, .gcs-clock-tick, .gcs-clock-nudge { transition: none; }
+  .gcs-clock button.gcs-clock-play:active .gcs-clock-face { transform: none; }
+}
+@media (forced-colors: active) {
+  .gcs-clock { background: Canvas; }
+  .gcs-clock-bezel { fill: CanvasText; }
+  .gcs-clock-glass { fill: Canvas; }
+  .gcs-clock-playmark, .gcs-clock-pausemark, .gcs-clock-hub, .gcs-clock-tip { fill: ButtonText; }
+  .gcs-clock-shaft, .gcs-clock-tick { stroke: CanvasText; }
+  .gcs-clock-tick.on, .gcs-clock-ring { stroke: Highlight; }
+}

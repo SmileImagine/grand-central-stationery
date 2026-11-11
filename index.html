@@ -4225,7 +4225,7 @@
       first(N, ms) { let lo = 0, hi = N.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (N[mid].ms < ms) lo = mid + 1; else hi = mid; } return lo; }
     }
     const INSTRUMENTS = { piano: PianoLayout, wh: WickiHaydenLayout, uke: UkuleleLayout, recorder: RecorderLayout };
-    const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: 'Wicki-Hayden keyboard', uke: 'Ukulele', recorder: 'Recorder' };
+    const INSTRUMENT_NAMES = { off: 'None', piano: 'Piano', wh: '2-5 Keys', uke: 'Ukulele', recorder: 'Recorder' };
     // The sound each view plays with (General MIDI programs; the sample
     // folders are in vendor/soundfont/). Ukulele has no GM sound: nylon
     // guitar is the nearest. The Wicki-Hayden keyboard is a controller, so
@@ -4430,7 +4430,7 @@
           <div class="ctl">
           <label class="xpose instpick" title="An instrument under the staff that plays along: the sounding note lit, the next one on deck. The choice is remembered for new notation cells.">Instrument <select>${Object.entries(INSTRUMENT_NAMES).map(([k, v]) => `<option value="${k}"${k === this.inst ? ' selected' : ''}>${v}</option>`).join('')}</select></label>
           <label class="xpose spanpick" title="How much of the recorder to use: the whole fingering chart, two octaves (low C to the C two above), or the first octave (low C to the D above, no thumb pinch). A note beyond it is fingered in the nearest octave inside; the tune still sounds as written."${this.inst === 'recorder' ? '' : ' hidden'}>Range <select><option value="0"${!this.span ? ' selected' : ''}>Full</option><option value="2"${this.span === 2 ? ' selected' : ''}>2 octaves</option><option value="1"${this.span === 1 ? ' selected' : ''}>1 octave</option></select></label>
-          <label class="xpose showpick" title="What the instrument shows: the melody, the chords (a ring per voice that glides to its note in the next chord), or both. Auto shows the chords on the ukulele, which a class strums while it sings, and the melody on the piano and the Wicki-Hayden keyboard. The piano is as wide as what it shows."${['piano', 'wh', 'uke'].includes(this.inst) ? '' : ' hidden'}>Shows <select><option value="auto"${this.show === 'auto' ? ' selected' : ''}>Auto</option><option value="melody"${this.show === 'melody' ? ' selected' : ''}>Melody</option><option value="chords"${this.show === 'chords' ? ' selected' : ''}>Chords</option><option value="both"${this.show === 'both' ? ' selected' : ''}>Melody + chords</option></select></label>
+          <label class="xpose showpick" title="What the instrument shows: the melody, the chords (a ring per voice that glides to its note in the next chord), or both. Auto shows the chords on the ukulele, which a class strums while it sings, and the melody on the piano and the 2-5 Keys (a Wicki-Hayden keyboard: fifths up a row, whole tones along it, so ii-V-I and every key are one shape). The piano is as wide as what it shows."${['piano', 'wh', 'uke'].includes(this.inst) ? '' : ' hidden'}>Shows <select><option value="auto"${this.show === 'auto' ? ' selected' : ''}>Auto</option><option value="melody"${this.show === 'melody' ? ' selected' : ''}>Melody</option><option value="chords"${this.show === 'chords' ? ' selected' : ''}>Chords</option><option value="both"${this.show === 'both' ? ' selected' : ''}>Melody + chords</option></select></label>
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, or movable-do solf\u00E8ge from the key (la-based minor).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option></select></label>
           <label class="xpose linespick" title="The game's score: the tune wrapped to the width, two lines at a time with the next line in view, or one long line that scrolls.">Game <select><option value="two"${this.lines === 'two' ? ' selected' : ''}>Two lines</option><option value="one"${this.lines === 'one' ? ' selected' : ''}>One line</option></select></label>
           <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key where none are written (a whole tune without symbols, or the bars before the first symbol and after the last); Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
@@ -7788,8 +7788,8 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
           },
         },
       });
-      const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'course/piece.css'; document.head.appendChild(css);
-      for (const src of ['course/analyze.js', 'course/practice.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
+      for (const href of ['course/clock.css', 'course/piece.css']) { const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = href; document.head.appendChild(css); }
+      for (const src of ['course/analyze.js', 'course/practice.js', 'course/clock.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
     }
   })();
   </script>
