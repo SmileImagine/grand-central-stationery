@@ -6348,14 +6348,14 @@
       }
       // Displayed x (left edge) and colour of the notes in a timing event.
       eventGeometry(ev, voice = null) {
-        let x = null, color = null, staff = 0;
+        let x = null, color = null, staff = 0, other = null;
         const groups = [];
         for (const arr of ev.elements || []) for (const el of (Array.isArray(arr) ? arr : [arr])) {
           const i = this.hiddenIndex.get(el);
           if (i === undefined || !this.dispElems[i] || !this.dispElems[i].abselem) continue;
           if (voice !== null && this.origElems[i]._voice !== voice) {   // another voice's note at the same moment: it only shares the column (its head), so the voices' cursors stand together
             const dx = this.shift.get(this.dispElems[i]) || 0, heads = (this.dispElems[i].abselem.heads || []).map(h => h && h.graphelem).filter(Boolean);
-            for (const g of heads.length ? heads : this.dispElems[i].abselem.elemset || []) { const gx = g.getBBox().x + dx; x = x === null ? gx : Math.min(x, gx); }
+            for (const g of heads.length ? heads : this.dispElems[i].abselem.elemset || []) { const gx = g.getBBox().x + dx; other = other === null ? gx : Math.min(other, gx); }
             continue;
           }
           staff = this.origElems[i]._staff || 0;
@@ -6370,6 +6370,10 @@
           for (const g of this.dispElems[i].abselem.elemset || []) groups.push(g);
           for (const g of heads.length ? heads : this.dispElems[i].abselem.elemset || []) { const gx = g.getBBox().x + dx; x = x === null ? gx : Math.min(x, gx); }
         }
+        // The other voices' heads join this voice's only where they stand in its column (within a few px). abcjs does
+        // not always put notes that sound together on two staves in one column: against a triplet the other voice's
+        // quarter sits to the left, and taking it put this voice's cursor back to it, then on again at the next note.
+        if (other !== null && (x === null || other >= x - 4)) x = x === null ? other : Math.min(x, other);
         return { x, color: color || 'var(--cursor)', groups, staff };
       }
       /* ---- dragging the cursor seeks ----
