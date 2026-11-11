@@ -17,87 +17,105 @@ music.
 
 ## The journeys
 
-**Teacher, class piece.** Board → Teach → a level → a card (title, metre,
-length, range, the instruments it fits as written or moved, and what it brings
-in) → **Teach** opens the piece view on phrase 1 → **Listen** plays the whole
-piece from the top → the arrows (or ← →) step through the phrases, **Play
-phrase** and **Repeat** loop one → **Copy link** → **Play along** plays the
-whole piece with the band from a count-in.
+Every way in is three steps, numbered across the bar, each with one main
+button (Play, which reads Pause while the music plays). The step decides what
+is on screen, whether it repeats and its tempo; there are no separate Repeat,
+Play phrase or Play along buttons, which did the same thing in the first version.
 
-**Student.** A shared link, or Board → Practice → (their name, if the class
-list is on this computer) → their level → **Practise**. A piece not yet
-practised opens step by step; after that, slow practice. ← Board returns to the
-same card.
+| | Teach | Practice | Assess |
+| --- | --- | --- | --- |
+| 1 | **Listen**: the whole piece once, full speed, with the band | the same | **Hear it**: the student's name; the piece played for them |
+| 2 | **Learn the loops**: one loop on repeat, from about 60 % and five BPM faster each time round to full speed (or **Note by note**: Next, Back, Hear it, Listen to me) | the same, with a history | **The attempt**: optional listening; its flags appear in the panel |
+| 3 | **Put it together**: the whole piece on repeat, slow to full speed, the band playing | the same, with a history | **Decide**: pass, needs more practice or not assessed, a level 1–4 if wanted, tempo, help, note, Save |
 
-**Teacher assessing.** Board → Assess → the student → their level's pieces (or
-**Draw a piece**) → **Assess**: the panel opens beside the music. Hear it,
-optionally **Listen to the attempt**, look over the flags (each can be kept or
-dismissed, and **Show** moves the cursor to it), choose **Pass / Needs more
-practice / Not assessed**, an optional achievement level (1–4, as the first
-board kept), the tempo, the help given and a note, then **Save**.
+Each step keeps its own tempo while the page is open. **Faster each time
+round** (on unless turned off; remembered on this computer) adds five BPM at
+each repeat up to the written tempo, then holds. Teach records nothing; Practice
+keeps the history below.
+
+**Teacher, class piece.** Board → Teach → a level → a card → **Teach** opens
+step 1 → Listen → Next: learn the loops (◀ ▶ or ← → between loops) → Next:
+put it together → **Copy link** for students.
+
+**Student.** A shared link, or Board → Practice → their level → **Practise**:
+the same three steps.
+
+**Teacher assessing.** Board → Assess → the student → a piece (or **Draw a
+piece**) → **Assess**: Hear it → The attempt → Decide → Save, which returns to
+step 1 for the next student.
+
+The ▾ arrow at the bar's left folds it to one slim row (▸ opens it again;
+remembered). **More** opens the full player (the transport and the Melody, Band
+and Mixer drawers, each tab with its own fold arrow); while it is open the
+instrument steps aside so the music and the drawers both fit.
 
 ## Links
 
-The piece view: `index.html#tune=<id>&level=<n>&mode=<teach|step|slow|assess>&phrase=<n>&view=whole&bpm=<n>&inst=<recorder|uke|piano|wh|off>&tr=<±n>&cuts=<1.5.9>`.
-Only these keys are written or read (`SETUP_KEYS`); a link carrying a name,
-note, result or progress is read without them, and **Copy link** turns Assess
-into Teach. The board: `course/board.html#do=<teach|practice|assess>&level=<n>&tune=<id>`.
+The piece view: `index.html#tune=<id>&level=<n>&mode=<teach|practice|assess>&step=<1-3>&loop=<n>&by=note&bpm=<n>&inst=<recorder|uke|piano|wh|off>&tr=<±n>&cuts=<1.5.9>`.
+Only these keys are written (`SETUP_KEYS`); links from the first piece view
+(`mode=step|slow`, `phrase=`, `view=whole`) still open where they meant. A link
+carrying a name, note, result or progress is read without them, and **Copy
+link** turns Assess into Teach. The board: `course/board.html#do=<teach|practice|assess>&level=<n>&tune=<id>`.
 The page keeps its own address current with `replaceState`, so the address bar
 is always a link to what is on screen; pasting another address reloads the view.
 The board's link carries the class instrument and the transposition that brings
 the piece into its range (Frère Jacques: `inst=recorder&tr=5`).
 
-## Phrases
+## Loops
 
-In order of authority: the teacher's cuts (**Change phrases**: tap the bars
-where phrases begin; saved per piece on this computer and carried in the link);
+A loop is the few bars learned on repeat before going on: usually a musical
+phrase, but the teacher decides (**Set up loops…** in step 2).
+
+Where loops fall, in order of authority: the teacher's cuts (**Set up loops…**: tap the bars
+where loops begin; saved per piece on this computer and carried in the link);
 a `%%phrases 1 5 9` line in the tune; the tune's structure (part labels, double
 bars and repeats make sections; a breath mark or fermata ends a phrase; source
-lines of two to six bars are phrases); otherwise sections cut into equal lengths
+lines of two to six bars are loops); otherwise sections cut into equal lengths
 of about four bars at the nearest barline. Lengths, not bar counts, so pickups
 and short bars (Highland Mary, Daisy Daisy) fall right. Endings are never cut
 from the bars they end. Four bars or fewer stay whole. The bar says when a
 phrasing is a guess.
 
-A phrase is written out as a tune of its own: the header with the key, metre,
+A loop is written out as a tune of its own: the header with the key, metre,
 unit and tempo in force where it starts; its bars with fresh barlines; the chord
 in force at its first note; its verses' words, with held syllables (`_`) kept on
-their notes. A phrase holding first and second endings keeps its repeat, so it
-plays as written. The test re-parses every phrase of all 37 tunes: the same
+their notes. A loop holding first and second endings keeps its repeat, so it
+plays as written. The test re-parses every loop of all 37 tunes: the same
 notes, lengths and words as those bars of the whole, and no new abcjs warnings.
 
-Display: a phrase (or a short piece) is drawn as large as it fits whole, on one
+Display: a loop (or a short piece) is drawn as large as it fits whole, on one
 to three systems with a staff space up to 6 % of the height (`fitWhole`); where
 nothing fits legibly (a phone), Game mode's two sliding systems return. The
 instrument stays under the music, at most a third of the height.
 
 ## Practice
 
-**Step by step.** The cursor and the instrument stand on one note; Next (space,
-Enter) moves on, Back (Backspace) back, Hear it (H) plays the note. With
+**Note by note.** The cursor and the instrument stand on one note; Next note
+(space, Enter) moves on, Back (Backspace) back, Hear it (H) plays the note. With
 **Listen to me** on, a steady note that matches moves on too; an octave away
 counts and says why (the recorder sounds an octave above what it reads). The
-microphone is ignored while the page's own note sounds. Next always works.
+microphone is ignored while the page's own note sounds. Next note always works.
+A redraw (folding the bar, More, turning a tablet) keeps the note.
 
-**Slow practice.** The phrase on repeat from a little over half speed (60 %,
-in fives, never under 40 BPM), five beats a minute faster per tap. Tempo is
-timing only: the melody's pitches at 50 and 55 BPM were checked identical in
-the browser (the Player schedules the same samples sooner or later).
+**Slow to faster.** Steps 2 and 3 start a little over half speed (60 %, in
+fives, never under 40 BPM). Tempo is timing only: the melody's pitches at 50
+and 55 BPM were checked identical in the browser, and a loop played 75 → 80 BPM
+across a repeat without stopping.
 
 ## What is stored, and where
 
 | Store | Holds | Never |
 | --- | --- | --- |
 | The address | the setup above | names, progress, results, notes |
-| `gcs-practice-v1` (this browser) | per piece: run-throughs, phrase runs and each phrase's best tempo, whole-piece best tempo, step runs, notes stepped, notes the microphone matched, a short log | scores or accuracy |
-| `gcs-phrase-cuts` (this browser) | the teacher's phrase cuts per piece | |
-| `gcs-course-v1` (this browser, the board's store) | the class list, practising/ready/passed per student, assessments: date, piece, phrase, result, optional 1–4, tempo, help, note, kept flags | |
+| `gcs-practice-v1` (this browser) | per piece: run-throughs, loop runs and each loop's best tempo, whole-piece best tempo, step runs, notes stepped, notes the microphone matched, a short log | scores or accuracy |
+| `gcs-phrase-cuts` (this browser) | the teacher's loop cuts per piece | |
+| `gcs-course-v1` (this browser, the board's store) | the class list, practising/ready/passed per student, assessments: date, piece, loop, result, optional 1–4, tempo, help, note, kept flags | |
 | `sessionStorage` (this tab) | the student being assessed or practising | |
 
 A run is the music playing from its start to its end (each time round when
 repeating). The progress line says what was done ("played 4 times · 2 of 3
-phrases tried · whole piece up to 72 BPM (90% of full speed)") and the tempo
-ladder fills to the best tempo of the phrase or piece on screen. It never
+loops tried · whole piece up to 72 BPM (90% of full speed)") and the tempo
+ladder fills to the best tempo of the loop or piece on screen. It never
 claims the playing was right.
 
 ## Listening
@@ -115,8 +133,8 @@ result.
 ## Checked
 
 - `make smoke` (with `test/practice.test.js`, 449 checks): links and their
-  privacy, level and grade filters, phrase sources and fallbacks, teacher
-  cuts, every phrase of every tune re-parsed, endings, key and metre changes,
+  privacy, level and grade filters, loop sources and fallbacks, teacher
+  cuts, every loop of every tune re-parsed, endings, key and metre changes,
   the chord in force, a round's line, tempo steps, step/wait, practice history
   (including broken storage), assessment states and notes, and the listener on
   synthetic tones and attempts.

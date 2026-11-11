@@ -23,19 +23,26 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
 
 /* ---------------- links ---------------- */
 {
-  const s = { tune: 'first-tunes-3-twinkle-twinkle-little-star', level: 3, mode: 'slow', phrase: 2, bpm: 60, inst: 'recorder', tr: -2, cuts: [1, 5, 9] };
+  const s = { tune: 'first-tunes-3-twinkle-twinkle-little-star', level: 3, mode: 'practice', step: 2, loop: 2, by: 'note', bpm: 60, inst: 'recorder', tr: -2, cuts: [1, 5, 9] };
   const enc = P.encodeSetup(s);
-  eq(enc, 'tune=first-tunes-3-twinkle-twinkle-little-star&level=3&mode=slow&phrase=2&bpm=60&inst=recorder&tr=-2&cuts=1.5.9', 'a setup encodes in a fixed, readable order');
+  eq(enc, 'tune=first-tunes-3-twinkle-twinkle-little-star&level=3&mode=practice&step=2&loop=2&by=note&bpm=60&inst=recorder&tr=-2&cuts=1.5.9', 'a setup encodes in a fixed, readable order');
   eq(P.decodeSetup('#' + enc), s, 'a setup reads back from its own link');
   eq(P.encodeSetup(P.decodeSetup(enc)), enc, 'encoding is stable');
-  eq(P.decodeSetup('?bpm=1000&phrase=0&mode=dance&inst=kazoo&tr=40&tune=Bad Id'), { bpm: 300, tr: 12 }, 'out-of-range and unknown values are clamped or dropped');
+  eq(P.decodeSetup('?bpm=1000&loop=0&step=7&by=ear&mode=dance&inst=kazoo&tr=40&tune=Bad Id'), { bpm: 300, tr: 12 }, 'out-of-range and unknown values are clamped or dropped');
+  // Links from the first piece view still open where they meant: note by note and slow practice were Practice's two ways in, a phrase is a loop, the whole piece step 3.
+  eq(P.decodeSetup('tune=x-1&mode=step&phrase=3'), { tune: 'x-1', mode: 'practice', step: 2, loop: 3, by: 'note' }, 'an old step-by-step link');
+  eq(P.decodeSetup('tune=x-1&mode=slow&bpm=50'), { tune: 'x-1', mode: 'practice', step: 2, bpm: 50 }, 'an old slow-practice link');
+  eq(P.decodeSetup('tune=x-1&mode=teach&view=whole'), { tune: 'x-1', mode: 'teach', step: 3 }, 'an old whole-piece link');
+  eq(P.STEPS.teach, ['Listen', 'Learn the loops', 'Put it together'], 'Teach: listen, learn the loops, put it together');
+  eq(P.STEPS.practice, P.STEPS.teach, 'Practice follows the same steps');
+  eq(P.STEPS.assess, ['Hear it', 'The attempt', 'Decide'], 'Assess: hear it, the attempt, decide');
   // Private data never rides in a link, whichever way it is offered.
   const leaky = { tune: 'x-1', student: 'Ada', name: 'Ada', note: 'shaky', result: 'pass', mark: 4, progress: { runs: 3 }, roster: ['Ada'] };
   const out = P.encodeSetup(leaky);
   eq(out, 'tune=x-1', 'names, notes, results, marks and progress are not setup');
   assert(!/Ada|shaky|pass|runs/.test(out), 'nothing private in an encoded link');
   eq(P.decodeSetup('tune=x-1&student=Ada&note=shaky&result=pass'), { tune: 'x-1' }, 'a link carrying private keys is read without them');
-  eq(P.SETUP_KEYS, ['tune', 'level', 'mode', 'phrase', 'view', 'bpm', 'inst', 'tr', 'cuts'], 'the setup keys are the instructional ones');
+  eq(P.SETUP_KEYS, ['tune', 'level', 'mode', 'step', 'loop', 'by', 'bpm', 'inst', 'tr', 'cuts'], 'the setup keys are the instructional ones');
   eq(P.pieceHref({ tune: 'x-1', mode: 'teach' }, true), '../index.html#tune=x-1&mode=teach', 'the board links into the main page');
   eq(P.decodeBoard(P.encodeBoard({ do: 'assess', level: 4, tune: 'morris-7-highland-mary', student: 'Ada' })), { do: 'assess', level: 4, tune: 'morris-7-highland-mary' }, 'the board address keeps the way in, level and piece, never a name');
 }
@@ -154,6 +161,10 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq([P.slowStart(80), P.slowStart(120), P.slowStart(50)], [50, 70, 40], 'slow practice starts a little over half speed, never under 40');
   eq([P.nudgeTempo(50, 1, 80), P.nudgeTempo(52, 1, 80), P.nudgeTempo(50, -1, 80), P.nudgeTempo(100, 1, 80)], [55, 55, 45, 100], 'five beats a minute at a time, capped a quarter over the written tempo');
   eq([P.tempoShare(60, 80), P.tempoShare(80, 80)], [75, 100], 'tempo as a share of full speed');
+  // Faster each time round: from slow to full speed in fives, then it stays.
+  const laps = [50]; while (laps[laps.length - 1] < 80 && laps.length < 20) laps.push(P.nextLap(laps[laps.length - 1], 80));
+  eq(laps, [50, 55, 60, 65, 70, 75, 80], 'each time round five faster, up to the written tempo');
+  eq([P.nextLap(80, 80), P.nextLap(78, 80), P.nextLap(90, 80)], [80, 80, 90], 'never past full speed, and never slower than it was');
   eq([P.writtenBpm('X:1\nQ:1/4=120\nK:C\nC|', ABCJS), P.writtenBpm('X:1\nK:C\nC|', ABCJS)], [120, 80], 'the written tempo, or the page\'s 80');
   // A phrase written out keeps the tune's Q: line (so the page's tempo ratio holds) and nothing in it changes pitch with tempo.
   const t = tune('hindostan-folk-5-chhaila'), f = P.phrasesOf(t.abc, ABCJS);
@@ -191,8 +202,8 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   eq(e.phraseBpm, { 1: 50, 2: 60 }, 'each phrase keeps its best tempo');
   eq(e.log, [{ d: '2026-11-10', k: 'steps', ph: 1, bpm: 0, n: 1 }, { d: '2026-11-10', k: 'run', ph: 1, bpm: 50, n: 3 }, { d: '2026-11-11', k: 'run', ph: 2, bpm: 60, n: 1 }], 'the log folds repeats of the same thing on the same day');
   let pr = P.progressOf(back, 'tw', 3, 2);
-  eq([pr.stage, pr.label, pr.ladderShare, pr.ladderOf], ['slow', 'Slow practice', 75, 'phrase 2'], 'slow practice, with phrase 2 at 75% of full speed');
-  assert(/stepped through 1 time · played 4 times · 2 of 3 phrases tried/.test(pr.detail), `what was done, in words: ${pr.detail}`);
+  eq([pr.stage, pr.label, pr.ladderShare, pr.ladderOf], ['slow', 'Slow practice', 75, 'loop 2'], 'slow practice, with loop 2 at 75% of full speed');
+  assert(/stepped through 1 time · played 4 times · 2 of 3 loops tried/.test(pr.detail), `what was done, in words: ${pr.detail}`);
   assert(/a guess/.test(pr.detail), 'what the microphone heard is called a guess');
   p = P.recordPractice(back, { id: 'tw', kind: 'run', bpm: 76, written: 80, whole: true });
   pr = P.progressOf(p, 'tw', 3);

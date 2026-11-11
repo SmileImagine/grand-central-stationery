@@ -35,20 +35,34 @@
 
   const DEFAULT_BPM = 80;              // the main page's tempo for a tune with no Q: line
   const INSTRUMENTS = { recorder: 'Recorder', uke: 'Ukulele', piano: 'Piano', wh: 'Wicki-Hayden keyboard', off: 'No instrument' };
-  const MODES = { teach: 'Teach', step: 'Step by step', slow: 'Slow practice', assess: 'Assess' };
+  const MODES = { teach: 'Teach', practice: 'Practice', assess: 'Assess' };
+  /* Each way in is three steps, in order. Teach and Practice share theirs (the lesson's flow: hear it whole, learn it
+     a loop at a time from slow to faster, then put it together from slow to faster); Practice also keeps history. */
+  const STEPS = {
+    teach: ['Listen', 'Learn the loops', 'Put it together'],
+    practice: ['Listen', 'Learn the loops', 'Put it together'],
+    assess: ['Hear it', 'The attempt', 'Decide'],
+  };
   const clampInt = (v, lo, hi) => { const n = parseInt(v, 10); return Number.isFinite(n) ? Math.max(lo, Math.min(hi, n)) : null; };
 
   /* ---------------- setup: what a link carries ----------------
      Only these keys are written or read. A student's name, progress, marks
      and notes are not setup, so no link can carry them. */
-  const SETUP_KEYS = ['tune', 'level', 'mode', 'phrase', 'view', 'bpm', 'inst', 'tr', 'cuts'];
+  const SETUP_KEYS = ['tune', 'level', 'mode', 'step', 'loop', 'by', 'bpm', 'inst', 'tr', 'cuts'];
+  const OLD_KEYS = ['phrase', 'view'];   // the first piece view's (11 November 2026), still read
   function cleanSetup(s = {}) {
     const out = {};
     if (typeof s.tune === 'string' && /^[a-z0-9][a-z0-9-]{0,120}$/.test(s.tune)) out.tune = s.tune;
     const level = parseInt(s.level, 10); if (level >= 1 && level <= 6) out.level = level;
-    if (MODES[s.mode]) out.mode = s.mode;
-    const phrase = parseInt(s.phrase, 10); if (phrase >= 1) out.phrase = Math.min(99, phrase);
-    if (s.view === 'whole' || s.view === 'phrase') out.view = s.view;
+    // The first piece view's modes and keys: step (note by note) and slow were Practice's two ways; phrase is now loop, view=whole step 3.
+    let mode = s.mode, step = parseInt(s.step, 10), by = s.by, loop = parseInt(s.loop !== undefined ? s.loop : s.phrase, 10);
+    if (mode === 'step') { mode = 'practice'; by = 'note'; if (!step) step = 2; }
+    if (mode === 'slow') { mode = 'practice'; if (!step) step = 2; }
+    if (s.view === 'whole' && !step && mode !== 'assess') step = 3;
+    if (MODES[mode]) out.mode = mode;
+    if (step >= 1 && step <= 3) out.step = step;
+    if (loop >= 1) out.loop = Math.min(99, loop);
+    if (by === 'note') out.by = 'note';
     const bpm = clampInt(s.bpm, 20, 300); if (bpm !== null && s.bpm !== undefined && s.bpm !== '') out.bpm = bpm;
     if (INSTRUMENTS[s.inst]) out.inst = s.inst;
     const tr = clampInt(s.tr, -12, 12); if (tr) out.tr = tr;
@@ -69,7 +83,7 @@
     const q = String(str || '').replace(/^[#?]/, ''), raw = {};
     for (const part of q.split('&')) {
       const i = part.indexOf('='); if (i < 1) continue;
-      const k = part.slice(0, i); if (!SETUP_KEYS.includes(k)) continue;
+      const k = part.slice(0, i); if (!SETUP_KEYS.includes(k) && !OLD_KEYS.includes(k)) continue;
       try { raw[k] = decodeURIComponent(part.slice(i + 1)); } catch (e) {}
     }
     return cleanSetup(raw);
@@ -321,12 +335,12 @@
     return mk(starts, source);
   }
   const SOURCE_NOTE = {
-    teacher: 'Phrases as you set them.',
-    marked: 'Phrases from the marks in the music.',
-    sections: 'Phrases follow the tune’s sections, then groups of four bars inside them: a guess you can change.',
-    lines: 'Phrases follow the lines the tune was written in.',
-    groups: 'Phrases are groups of four bars: a guess you can change.',
-    whole: 'A short piece: one phrase.',
+    teacher: 'Loops as you set them.',
+    marked: 'Loops from the phrase marks in the music.',
+    sections: 'Loops follow the tune’s sections, then groups of about four bars inside them: a guess you can change.',
+    lines: 'Loops follow the lines the tune was written in.',
+    groups: 'Loops are groups of about four bars: a guess you can change.',
+    whole: 'A short piece: one loop.',
     empty: '',
   };
   function labelFor(bars, p) {
@@ -402,6 +416,8 @@
   const slowStart = written => Math.max(40, Math.min(written, roundTo5(written * 0.6)));
   const nudgeTempo = (bpm, dir, written) => Math.max(30, Math.min(Math.max(written * 1.25, 60), roundTo5(bpm) + 5 * Math.sign(dir || 1)));
   const tempoShare = (bpm, written) => written > 0 ? Math.round(100 * bpm / written) : null;
+  // Faster each time round: five more a time, up to the written tempo and no further.
+  const nextLap = (bpm, written) => Math.min(Math.max(bpm, written), nudgeTempo(bpm, 1, written));
 
   /* ---------------- progress: what a learner did on this computer ----------------
      { v: 1, tunes: { id: { title, runs, slowRuns, stepRuns, steps, heard, bestBpm, written, phrases: { n: runs }, last, log: [...] } } }
@@ -449,11 +465,11 @@
     const bits = [];
     if (e.stepRuns) bits.push(`stepped through ${e.stepRuns} time${e.stepRuns === 1 ? '' : 's'}`);
     if (e.runs) bits.push(`played ${e.runs} time${e.runs === 1 ? '' : 's'}`);
-    if (phraseCount > 1 && phrasesDone) bits.push(`${Math.min(phrasesDone, phraseCount)} of ${phraseCount} phrases tried`);
+    if (phraseCount > 1 && phrasesDone) bits.push(`${Math.min(phrasesDone, phraseCount)} of ${phraseCount} loops tried`);
     if (e.bestBpm) bits.push(`whole piece up to ${e.bestBpm} BPM${share !== null ? ` (${share}% of full speed)` : ''}`);
     if (e.steps && e.heard) bits.push(`microphone heard ${e.heard} of ${e.steps} stepped notes (a guess)`);
     const best = phrase ? ((e.phraseBpm || {})[phrase] || 0) : e.bestBpm;
-    return { started: true, stage, label, detail: bits.join(' · '), share, last: e.last, entry: e, ladderBpm: best, ladderShare: best && e.written ? tempoShare(best, e.written) : 0, ladderOf: phrase ? `phrase ${phrase}` : 'the whole piece' };
+    return { started: true, stage, label, detail: bits.join(' · '), share, last: e.last, entry: e, ladderBpm: best, ladderShare: best && e.written ? tempoShare(best, e.written) : 0, ladderOf: phrase ? `loop ${phrase}` : 'the whole piece' };
   }
 
   /* ---------------- assessment: the teacher decides ----------------
@@ -603,11 +619,11 @@
   }
 
   return {
-    DEFAULT_BPM, INSTRUMENTS, MODES, SETUP_KEYS, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
+    DEFAULT_BPM, INSTRUMENTS, MODES, STEPS, SETUP_KEYS, RESULTS, ASSISTS, PROGRESS_KEY, FITS,
     cleanSetup, encodeSetup, decodeSetup, normalCuts, pieceHref, encodeBoard, decodeBoard,
     tunesAt, levelsOf, skillWords, learningGoal, summarize, writtenBpm, midiName, fitFor,
     barsOf, phrasesOf, phraseAbc, inEnding, transposeFor,
-    slowStart, nudgeTempo, tempoShare,
+    slowStart, nudgeTempo, tempoShare, nextLap,
     emptyProgress, readProgress, writeProgress, recordPractice, progressOf,
     makeAssessment, applyAssessment, resultWords,
     Stepper, mpm, freqToMidi, NoteGate, judgeNote, alignAttempt,

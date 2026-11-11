@@ -17,10 +17,11 @@
       The practice board: the current set of tunes, graded into six levels, with
       three ways in.
 
-        Teach     choose a level and a piece, then open it: listen, present it
-                  phrase by phrase, play along. Copy link shares the piece.
+        Teach     choose a level and a piece, then open it in three steps: listen,
+                  learn the loops slow to faster, put it together slow to full
+                  speed with the band. Copy link shares the piece.
         Practice  a learner's level, its pieces, and what they have practised
-                  on this computer; opening a piece starts step by step.
+                  on this computer; the same three steps, with a history.
         Assess    choose the student, then a piece at their level (or draw one);
                   the assessment opens beside the music.
 
@@ -185,8 +186,8 @@
     <button id="theme" title="Light or dark" aria-label="Light or dark">☾</button>
   </header>
   <nav class="ways" aria-label="What to do">
-    <button type="button" data-do="teach" aria-pressed="false"><b>Teach</b><span>Choose a piece, listen, present it phrase by phrase, play along</span></button>
-    <button type="button" data-do="practice" aria-pressed="false"><b>Practice</b><span>Step by step or slowly, at your level, at your pace</span></button>
+    <button type="button" data-do="teach" aria-pressed="false"><b>Teach</b><span>Listen, learn it a loop at a time, put it together</span></button>
+    <button type="button" data-do="practice" aria-pressed="false"><b>Practice</b><span>The same steps at your own pace, slow to faster</span></button>
     <button type="button" data-do="assess" aria-pressed="false"><b>Assess</b><span>Beside one student: listen, then pass or practise more</span></button>
   </nav>
   <div class="setup" id="setup"></div>
@@ -319,8 +320,8 @@
       const d = el.querySelector('#draw'); if (d) d.addEventListener('click', () => { const t = drawPiece(student); if (!t) toast('No pieces left at that level'); else openPiece(t, 'assess'); });
     }
     const WAY_NOTE = {
-      teach: 'Open a piece to teach it: <b>Listen</b> to the whole piece, show it one phrase at a time (the arrows move on), play a phrase on repeat, then <b>Play along</b> with the band. <b>Copy link</b> gives students the same piece and setup.',
-      practice: 'Open a piece to practise: start <b>step by step</b> (each note waits for you), then <b>slow practice</b> on repeat, a little faster each time. What you practise is kept on this computer.',
+      teach: 'Open a piece to teach it in three steps: <b>1 Listen</b> to the whole piece; <b>2 Learn the loops</b>, a few bars at a time on repeat, slow and a little faster each time round; <b>3 Put it together</b>, slow to full speed with the band. <b>Copy link</b> gives students the same piece and setup.',
+      practice: 'Open a piece to practise it in the same three steps: listen, learn the loops (play them, or note by note), put it together. What you practise is kept on this computer.',
       assess: 'Choose the student, then a piece. It opens with the assessment beside the music: hear it, listen to the attempt if you like (the microphone only suggests), then decide.',
     };
     function renderLevel() {
@@ -347,7 +348,7 @@
       if (way === 'practice') { const pr = P.progressOf(P.readProgress(localStorage), t.id); mine = pr.started ? `<b>${esc(pr.label)}</b>${pr.detail ? ': ' + esc(pr.detail) : ''}` : 'Not practised on this computer yet.'; }
       if (way !== 'teach' && student) { const last = testsOf(student).filter(x => x.id === t.id).pop(); const s2 = st ? `${student} is ${st === 'passed' ? `passed (${esc(dateOf(t.id, student))})` : st === 'ready' ? 'ready to show it' : 'practising it'}` : ''; mine += (mine ? '<br>' : '') + [s2, last ? `last assessed ${esc(last.date)}: ${esc(P.resultWords(last))}` : ''].filter(Boolean).join(' · '); }
       const go = way === 'teach' ? ['teach', 'Teach'] : way === 'practice' ? ['practice', 'Practise'] : ['assess', 'Assess'];
-      const mode = way === 'teach' ? 'teach' : way === 'practice' ? (P.progressOf(P.readProgress(localStorage), t.id).stage === 'new' ? 'step' : 'slow') : 'assess';
+      const mode = way;   // a piece opens at step 1, Listen (Assess: Hear it)
       el.innerHTML = `<h3>${esc(t.title)}</h3>
         <div class="facts">${esc([t.metre, sum.length, sum.range, who].filter(Boolean).join(' · '))}</div>
         <div class="goal">${esc(sum.goal)}</div>
@@ -362,7 +363,7 @@
         if (student) setStudent(student);
         chosen = t.id; syncUrl();   // Back from the piece returns here, to this card
       });
-      el.querySelector('.copy').addEventListener('click', async () => { const url = pieceUrl(t, way === 'practice' ? 'step' : 'teach'); try { await navigator.clipboard.writeText(url); toast('Link copied: it opens this piece for anyone'); } catch (e) { prompt('Copy this link:', url); } });
+      el.querySelector('.copy').addEventListener('click', async () => { const url = pieceUrl(t, way === 'assess' ? 'teach' : way); try { await navigator.clipboard.writeText(url); toast('Link copied: it opens this piece for anyone'); } catch (e) { prompt('Copy this link:', url); } });
       for (const b of el.querySelectorAll('.set')) b.addEventListener('click', () => { setState(t.id, student, b.dataset.to); render(); if (b.dataset.to === 'ready') toast(`Tell your teacher ${t.title} is ready`); });
       queueRender(el.querySelector('.incipit'), incipit(t.abc, 4));
       return el;
@@ -428,7 +429,7 @@
       v.appendChild(wall);
     }
     const resPill = t => t.result ? `<span class="res ${t.result}">${esc(P.RESULTS[t.result])}</span>${t.mark ? ` <span class="res m${t.mark}">${t.mark}</span>` : ''}` : t.mark ? `<span class="res m${t.mark}">Level ${t.mark}</span>` : '';
-    const testTable = tests => `<table><tr><th>Student</th><th>Date</th><th>Piece</th><th>Result</th><th>Tempo</th><th>Help</th><th>Note</th></tr>${tests.map(t => `<tr><td>${esc(t.name)}</td><td>${esc(t.date)}</td><td>${esc(t.title)}${t.phrase ? ` <small>(phrase ${t.phrase})</small>` : ''}</td><td>${resPill(t)}</td><td>${t.bpm ? `${t.bpm}${t.written ? ` of ${t.written}` : ''}` : ''}</td><td>${esc(t.assist ? P.ASSISTS[t.assist] || '' : '')}</td><td>${esc(t.note || '')}</td></tr>`).join('')}</table>`;
+    const testTable = tests => `<table><tr><th>Student</th><th>Date</th><th>Piece</th><th>Result</th><th>Tempo</th><th>Help</th><th>Note</th></tr>${tests.map(t => `<tr><td>${esc(t.name)}</td><td>${esc(t.date)}</td><td>${esc(t.title)}${t.phrase ? ` <small>(loop ${t.phrase})</small>` : ''}</td><td>${resPill(t)}</td><td>${t.bpm ? `${t.bpm}${t.written ? ` of ${t.written}` : ''}` : ''}</td><td>${esc(t.assist ? P.ASSISTS[t.assist] || '' : '')}</td><td>${esc(t.note || '')}</td></tr>`).join('')}</table>`;
     function drawPiece(name) {
       const lvl = currentLevel(name) || 6;
       const at = tunesAt(lvl), notPassed = at.filter(t => stateOf(t.id, name) !== 'passed');
@@ -445,7 +446,7 @@
         const ts = testsOf(n), last = ts[ts.length - 1];
         rows.push([n, currentLevel(n) || 'all done', state.levels[n] || '', ...[1, 2, 3, 4, 5, 6].map(l => passedAt(l, n)), tunes().filter(t => stateOf(t.id, n) === 'practising').length, tunes().filter(t => stateOf(t.id, n) === 'ready').length, ts.length, last ? last.date : '', last ? last.title : '', last ? P.resultWords(last) : '', last ? last.note || '' : '']);
       }
-      rows.push([], ['Assessments'], ['Student', 'Date', 'Piece', 'Level', 'Phrase', 'Result', 'Achievement (1-4)', 'Tempo', 'Written tempo', 'Help', 'Note', 'Flags kept']);
+      rows.push([], ['Assessments'], ['Student', 'Date', 'Piece', 'Level', 'Loop', 'Result', 'Achievement (1-4)', 'Tempo', 'Written tempo', 'Help', 'Note', 'Flags kept']);
       for (const n of state.roster) for (const t of testsOf(n)) rows.push([n, t.date, t.title, t.level, t.phrase || '', t.result ? P.RESULTS[t.result] : '', t.mark || '', t.bpm || '', t.written || '', t.assist ? P.ASSISTS[t.assist] : '', t.note || '', (t.flags || []).filter(f => f.kept).length || '']);
       rows.push([], ['Tunes in the set'], ['Level', 'Tune', 'Key', 'Metre', 'Ontario grade', 'Passed by']);
       for (const t of set.tunes) rows.push([t.level, t.title, t.key, t.metre, t.ontario ? t.ontario.grade : '', state.roster.filter(n => stateOf(t.id, n) === 'passed').join('; ')]);
