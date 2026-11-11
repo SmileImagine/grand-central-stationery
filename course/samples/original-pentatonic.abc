@@ -18,7 +18,7 @@ C:Grand Central Stationery (original, CC0)
 M:4/4
 L:1/4
 K:C
-"Am"A G E G | A A G2 | "C"E G A G | E D C2 | "Am"E G A G | A A G2 | "G"E G D E | "C"C4 |]
+"Am"A G E G | A A G2 | "C"E G A G | E D !breath!C2 | "Am"E G A G | A A G2 | "G"E G D E | "C"C4 |]
 
 X:3
 T:Rest Stop
@@ -50,7 +50,7 @@ C:Grand Central Stationery (original, CC0)
 M:2/4
 L:1/8
 K:C
-"C"CC DD | E2 G2 | "G"EE DD | "C"C4 | "C"CC EE | G2 A2 | "G"GG EE | "C"D2 C2 |]
+"C".C.C .D.D | E2 G2 | "G".E.E .D.D | "C"!breath!C4 | "C".C.C .E.E | G2 A2 | "G".G.G .E.E | "C"D2 C2 |]
 
 X:7
 T:Echo
@@ -66,4 +66,4 @@ C:Grand Central Stationery (original, CC0)
 M:4/4
 L:1/4
 K:C
-"Am"A2 G2 | "C"E2 G2 | "G"D2 E2 | "C"C4 | "Am"E A G G | "C"E E G G | "G"D D E D | "C"C4 |]
+"Am"A2 G2 | "C"E2 G2 | "G"D2 E2 | "C"!breath!C4 | "Am"E A G G | "C"E E G G | !>(!"G"D D E D | "C"!>)!C4 |]

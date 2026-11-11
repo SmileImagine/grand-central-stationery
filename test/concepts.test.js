@@ -46,7 +46,8 @@ const has = (f, tag) => (f.skills || []).includes(tag);
   for (const t of set.tunes) for (const el of ['duration', 'pitch', 'form']) assert(!entry(t.id, el).absent, `${t.id}: every piece shows ${el}`);
   for (const t of set.tunes) {
     const f = Analyze.analyzeAbc(t.abc, ABCJS)[0].features;
-    const marked = f.decorations.length > 0 || f.slurs > 0 || f.graceNotes > 0;
+    // A breath mark ends a phrase (form), so it alone does not make the dynamics; a phrase arc comes with them here.
+    const marked = f.decorations.some(d => d !== 'breath') || f.slurs > 0 || f.graceNotes > 0;
     assert(!!entry(t.id, 'dynamics').absent === !marked, `${t.id}: dynamics are tagged exactly when the music marks them`);
     assert(!!entry(t.id, 'timbre').absent === !/^%%style\s+drone/m.test(t.abc), `${t.id}: timbre only when the music names its sound`);
     assert(!!entry(t.id, 'texture').absent === !(f.chordSymbols > 0 || /^%%style\s+drone|^%%round/m.test(t.abc) || f.voices > 1), `${t.id}: texture only when chords, a drone or parts are written`);
@@ -129,9 +130,9 @@ const has = (f, tag) => (f.skills || []).includes(tag);
 /* ---------------- the Listen step's choices ---------------- */
 {
   const tw = P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 12);
-  eq(tw.map(c => c.el), ['duration', 'pitch', 'form'], 'Twinkle: one choice per element it shows, in the curriculum’s order');
+  eq(tw.map(c => c.el), ['duration', 'pitch', 'dynamics', 'form'], 'Twinkle: one choice per element it shows, in the curriculum’s order');
   eq([tw[1].from, tw[1].to, tw[1].first, tw[1].last, tw[1].words], [0, 1, 1, 1, 'a leap of a perfect 5th'], 'a choice carries its bars as the piece view plays them');
-  eq(P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 5).map(c => c.el), ['duration', 'pitch'], 'a choice past the end of the piece is left out');
+  eq(P.conceptChoices(data.tunes['first-tunes-3-twinkle-twinkle-little-star'], 5).map(c => c.el), ['duration', 'pitch', 'dynamics'], 'a choice past the end of the piece is left out (the form, at bars 8-9)');
   eq(P.conceptChoices(null), [], 'no data, no choices');
   eq(P.conceptChoices(data.tunes['hindostan-folk-5-chhaila']).length, 6, 'Chhaila shows all six elements');
   // A form with parts: the button reads its letters, and the parts come with the openings to play.

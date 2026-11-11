@@ -83,16 +83,18 @@
     "leap:3rd",
     "metre:2/4"
    ],
-   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG EE | G2 E2 |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n",
+   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 !breath!E2 | .G.G .E.E | G2 E2 |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
     "concepts": [
      "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "accent; smooth and detached articulation",
      "melodic patterns on mi, so and la"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: accent; smooth and detached articulation",
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
@@ -127,16 +129,19 @@
    "introduces": [
     "dur:2"
    ],
-   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 E2 | GG EA | G2 E2 | G2 E2 | G2 E2 | G2 G2 | E4 |]\nw: Ring a-round the ro-sie, a pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
+   "abc": "X:6\nT:Ring Around the Rosie\nO:England\nM:2/4\nL:1/8\nK:C\nGG EA | G2 !breath!E2 | GG EA | G2 !breath!E2 | !<(!G2 E2 | G2 E2 | GG !<)!G2 | !>!E4 |]\nw: Ring a-round the ro-sie, pock-et full of po-sies, ash-es, ash-es, we all fall down.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
-     "half and whole notes"
+     "half and whole notes",
+     "crescendo and decrescendo"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "1: accent; smooth and detached articulation",
+     "2: crescendo and decrescendo",
      "1: melodic patterns on mi, so and la"
     ],
     "ignored": [
@@ -170,7 +175,7 @@
    "introduces": [
     "degree:la"
    ],
-   "abc": "X:3\nT:Starlight, Star Bright\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG AA | G2 E2 | GG E2 | GG E2 | GG AA | G2 E2 |]\nw: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.\n",
+   "abc": "X:3\nT:Starlight, Star Bright\nO:USA\nM:2/4\nL:1/8\nK:C\nG2 E2 | G2 E2 | GG AA | G2 !breath!E2 | GG E2 | GG E2 | GG AA | GG E2 |]\nw: Star-light, star bright, first star I see to-night, wish I may, wish I might, have the wish I wish to-night.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -213,7 +218,7 @@
    "introduces": [
     "leap:4th"
    ],
-   "abc": "X:1\nT:Rain, Rain, Go Away\nO:England\nM:2/4\nL:1/8\nK:C\nG2 E2 | GG E2 | GG EE | AA G2 |]\nw: Rain, rain, go a-way, come a-gain a-noth-er day.\n",
+   "abc": "X:1\nT:Rain, Rain, Go Away\nO:England\nM:2/4\nL:1/8\nK:C\nG2 E2 | GG !breath!E2 | GG EE | AA G2 |]\nw: Rain, rain, go a-way, come a-gain a-noth-er day.\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -253,7 +258,7 @@
     "metre:2/4"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Engine, Engine, Number Nine\nO:USA\nM:2/4\nL:1/8\nK:C\nGG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 | GG EE | GG E2 |]\nw: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?\n",
+   "abc": "X:2\nT:Engine, Engine, Number Nine\nO:USA\nM:2/4\nL:1/8\nK:C\nGG EE | GG E2 | GG EE | GG !breath!E2 | GG EE | GG E2 | GG EE | GG E2 |]\nw: En-gine, en-gine, num-ber nine, go-ing down Chi-ca-go line, if the train should jump the track, do you want your mon-ey back?\n",
    "ontario": {
     "grade": 1,
     "band": "Grade 1",
@@ -300,17 +305,19 @@
    "introduces": [
     "dur:4"
    ],
-   "abc": "X:8\nT:Evening Bells\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A2 G2 | \"C\"E2 G2 | \"G\"D2 E2 | \"C\"C4 | \"Am\"E A G G | \"C\"E E G G | \"G\"D D E D | \"C\"C4 |]\n",
+   "abc": "X:8\nT:Evening Bells\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A2 G2 | \"C\"E2 G2 | \"G\"D2 E2 | \"C\"!breath!C4 | \"Am\"E A G G | \"C\"E E G G | !>(!\"G\"D D E D | \"C\"!>)!C4 |]\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
      "half and whole notes",
+     "crescendo and decrescendo",
      "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "2: crescendo and decrescendo",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
@@ -346,7 +353,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Crows on the Fence\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A G E G | A A G2 | \"C\"E G A G | E D C2 | \"Am\"E G A G | A A G2 | \"G\"E G D E | \"C\"C4 |]\n",
+   "abc": "X:2\nT:Crows on the Fence\nC:Grand Central Stationery (original, CC0)\nM:4/4\nL:1/4\nK:C\n\"Am\"A G E G | A A G2 | \"C\"E G A G | E D !breath!C2 | \"Am\"E G A G | A A G2 | \"G\"E G D E | \"C\"C4 |]\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -391,7 +398,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nM:4/4\nL:1/4\nK:C\nE D C D | E E E2 | D D D2 | E G G2 | E D C D | E E E E | D D E D | C4 |]\n",
+   "abc": "X:20\nT:Merrily We Roll Along\nO:USA\nM:4/4\nL:1/4\nK:C\nE D C D | E E E2 | D D D2 | E G !breath!G2 | E D C D | E E E E | D D E D | C4 |]\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -436,7 +443,7 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nM:4/4\nL:1/4\nK:G\nB A G A | B B B2 | A A A2 | B d d2 | B A G A | B B B B | A A B A | G4 |]\n",
+   "abc": "X:2\nT:Mary Had a Little Lamb\nO:USA\nM:4/4\nL:1/4\nK:G\nB A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -484,7 +491,7 @@
    "introduces": [
     "range:6th"
    ],
-   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\"CC DD | E2 G2 | \"G\"EE DD | \"C\"C4 | \"C\"CC EE | G2 A2 | \"G\"GG EE | \"C\"D2 C2 |]\n",
+   "abc": "X:6\nT:Clickety Clack\nC:Grand Central Stationery (original, CC0)\nM:2/4\nL:1/8\nK:C\n\"C\".C.C .D.D | E2 G2 | \"G\".E.E .D.D | \"C\"!breath!C4 | \"C\".C.C .E.E | G2 A2 | \"G\".G.G .E.E | \"C\"D2 C2 |]\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
@@ -495,6 +502,7 @@
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "1: accent; smooth and detached articulation",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
@@ -528,15 +536,17 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG E2 | CC EE | GG E2 | GG EE | DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n",
+   "abc": "X:8\nT:Rocky Mountain\nO:USA\nM:2/4\nL:1/8\nK:C\nCC EE | GG E2 | CC EE | GG !breath!E2 | CC EE | GG E2 | !>(!GG EE | !>)!DD C2 |]\nw: Rock-y moun-tain, rock-y moun-tain, rock-y moun-tain high; when you're on that rock-y moun-tain hang your head and cry.\n",
    "ontario": {
     "grade": 2,
     "band": "Grade 2",
     "concepts": [
+     "crescendo and decrescendo",
      "pentatonic patterns (do re mi so la), high do"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: crescendo and decrescendo",
      "2: pentatonic patterns (do re mi so la), high do"
     ],
     "ignored": [
@@ -574,15 +584,18 @@
    "introduces": [
     "degree:fa"
    ],
-   "abc": "X:11\nT:Skip to My Lou\nO:USA\nM:2/4\nL:1/8\nK:C\nEE CC | EE G2 | DD B,B, | DD F2 | EE CC | EE G2 | DD FF | ED C2 |]\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
+   "abc": "X:11\nT:Skip to My Lou\nO:USA\nM:2/4\nL:1/8\nK:C\n!mf!(EE CC | EE G2) | (DD B,B, | DD F2) | (EE CC | EE G2) | (DD FF | ED C2) |]\nw: Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, Lou, Lou, skip to my Lou, skip to my Lou, my dar-ling.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -618,16 +631,19 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\nC C G G | A A G2 | F F E E | D D C2 | G G F F | E E D2 | G G F F | E E D2 | C C G G | A A G2 | F F E E | D D C2 |]\n",
+   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nM:4/4\nL:1/4\nK:C\n!mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -664,16 +680,19 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\nC C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 | G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2 | C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2 |]\n",
+   "abc": "X:12\nT:Baa, Baa, Black Sheep\nO:England\nM:4/4\nL:1/4\nK:C\n!mf!(C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) | (G G/2G/2 F F | E E/2E/2 D2 | G G/2G/2 F F | E E/2E/2 D2) | (C C G G | A/2A/2A/2A/2 G2 | F F E E | D D C2) |]\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -710,16 +729,20 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\nG2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4 | E F G2 C C C C | C D E F G4 | G2 D2 D D E F | G2 C2 C4 |]\n",
+   "abc": "X:16\nT:This Old Man\nO:England\nM:4/4\nL:1/8\nK:C\n!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F4) | (E F G2 .C.C.C.C | C D E F G4 | G2 D2 D D E F | G2 C2 C4) |]\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "1: accent; smooth and detached articulation",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -755,16 +778,20 @@
     "range:6th"
    ],
    "introduces": [],
-   "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\nG E E2 | F D D2 | C D E F | G G G2 | G E E2 | F D D2 | C E G G | C4 |\nD D D D | D E F2 | E E E E | E F G2 | G E E2 | F D D2 | C E G G | C4 |]\n",
+   "abc": "X:10\nT:Lightly Row\nO:Germany\nM:4/4\nL:1/4\nK:C\n!p!(G E E2 | F D D2 | C D E F | G G G2) | (G E E2 | F D D2 | C E G G | C4) |\n!mf!(D D D D | D E F2 | !<(!E E E E | E F !<)!G2) | (!p!G E E2 | F D D2 | C E G G | C4) |]\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "2: crescendo and decrescendo",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -805,11 +832,15 @@
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "1: accent; smooth and detached articulation",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -817,7 +848,7 @@
      "texture"
     ]
    },
-   "abc": "X:15\nT:Jingle Bells (chorus)\nC:James Lord Pierpont (1857)\nO:USA\nM:4/4\nL:1/4\nK:G\nN:A winter sleigh song. Research in 2017 traced its first known performance to a minstrel show in Boston in 1857; others dispute that reading. The chorus words are sung here.\nB B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | B A A B | A2 d2 |\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!\nB B B2 | B B B2 | B d G A | B4 | c c c c | c B B B/2B/2 | d d c A | G4 |]\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!\n"
+   "abc": "X:15\nT:Jingle Bells (chorus)\nC:James Lord Pierpont (1857)\nO:USA\nM:4/4\nL:1/4\nK:G\n!f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!\n(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!\n"
   },
   {
    "id": "first-tunes-6-amazing-grace",
@@ -853,13 +884,18 @@
     "grade": 6,
     "band": "Grade 6",
     "concepts": [
-     "pick-up notes (anacrusis)"
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
      "3: 3/4 metre",
      "6: pick-up notes (anacrusis)",
+     "2: crescendo and decrescendo",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
+     "6: very soft and very loud (pp, ff); slurs",
      "2: pentatonic patterns (do re mi so la), high do",
      "3: low so and low la (notes under do)"
     ],
@@ -868,7 +904,7 @@
      "texture"
     ]
    },
-   "abc": "X:6\nT:Amazing Grace\nC:Words: John Newton (1779); tune: New Britain (USA, 1829)\nO:USA\nR:hymn\nM:3/4\nL:1/4\nK:G\nN:A Christian hymn: follow your school's guidance on religious songs. Newton had been a slave-ship captain before he became a clergyman and, later, an abolitionist; that history is often taught with it.\nD | G2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | d3- | d2 B/2d/2 |\nw: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_\nd2 B/2G/2 | B2 A | G2 E | D2 D | G2 B/2G/2 | B2 A | G3- | G2 |]\nw: once was_ lost but now am found, was blind but_ now I see. _\n"
+   "abc": "X:6\nT:Amazing Grace\nC:Words: John Newton (1779); tune: New Britain (USA, 1829)\nO:USA\nR:hymn\nM:3/4\nL:1/4\nK:G\n!mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |\nw: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_\nd2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]\nw: once was_ lost but now am found, was blind but_ now I see. _\n"
   },
   {
    "id": "beginner-songs-13-fr-re-jacques",
@@ -898,16 +934,19 @@
     "range:over-octave"
    ],
    "introduces": [],
-   "abc": "X:13\nT:Frère Jacques\nO:France\nM:4/4\nL:1/4\nK:C\nC D E C | C D E C | E F G2 | E F G2 | G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C | C G, C2 | C G, C2 |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
+   "abc": "X:13\nT:Frère Jacques\nO:France\nM:4/4\nL:1/4\nK:C\n!mp!(C D E C | C D E C) | (E F G2 | E F G2) | !mf!(G/2A/2 G/2F/2 E C | G/2A/2 G/2F/2 E C) | (C G, C2 | C G, C2) |]\nw: Are you sleep-ing, are you sleep-ing, Broth-er John, Broth-er John? Morn-ing bells are ring-ing, morn-ing bells are ring-ing, ding dang dong, ding dang dong.\n",
    "ontario": {
     "grade": 4,
     "band": "Grade 4",
     "concepts": [
+     "sforzando; phrase markings",
      "the major scale (fa and ti), intervals, accidentals"
     ],
     "all": [
      "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
      "2: half and whole notes",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -1116,6 +1155,8 @@
      "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
      "5: syncopated sixteenths (tika-ti, ti-tika)",
      "6: pick-up notes (anacrusis)",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
     "ignored": [
@@ -1123,7 +1164,7 @@
      "texture"
     ]
    },
-   "abc": "X:7\nT:Oh! Susanna\nC:Stephen Foster (1848)\nO:USA\nM:2/4\nL:1/8\nK:G\nN:The first verse and the chorus only, in standard spelling. Foster wrote the song for blackface minstrel shows; his original second verse uses a racial slur in a violent joke, and it is never sung here. Teach that history with the song.\nG/2A/2 | B2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G G/2A/2 |\nw: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained\nB2 dd | d>e dB | G>A BB | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |\nw: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _\nc2 c2 | e e2 e | d d B G | A3 G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2 |]\nw: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.\n"
+   "abc": "X:7\nT:Oh! Susanna\nC:Stephen Foster (1848)\nO:USA\nM:2/4\nL:1/8\nK:G\n!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |\nw: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained\nB2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |\nw: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _\n!f!(c2 c2 | e e2 e | d d B G | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]\nw: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.\n"
   },
   {
    "id": "waltzes-11-daisy-daisy",
@@ -1160,7 +1201,7 @@
     "tie-over-bar"
    ],
    "introduces": [],
-   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\nf/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3|\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"Ad|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3|\n\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"eef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"dde|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"Ac|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg|\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2:|\n",
+   "abc": "X: 11\nT:Daisy Daisy\nR:waltz\n% Nottingham Music Database\nS:\nM:3/4\nL:1/4\nK:D\n!mf!(f/2g/2|\"D\"a3|\"D\"f3|\"D\"d3|\"D\"A3)|(\"G\"Bcd|\"G\"B2d|\"D\"A3-|\"D\"A) (d|\"A7\"e3|\"A7\"a3|\"D\"f3|\\\n\"Bm\"d3)|\n(\"E7\"Bcd|\"E7\"e2f|\"A7\"e3-|\"A7\"e) (ef|\"A7\"gfe|\"A7\"a2f|\"D\"ed2-|\"D\"d) (de|\"D\"f2d|\"G\"B2d|\n\"A7\"BA2-|\"A7\"A) (c|\"D\"d2f|\"A7\"e2A|\"D\"d2f|\"A7\"efg)|(\"D\"afd|\"A7\"e2f|\"D\"d3-|\"D\"d2):|\n",
    "ontario": {
     "grade": 6,
     "band": "Grade 6",
@@ -1173,6 +1214,8 @@
      "3: 3/4 metre",
      "3: dotted half note",
      "6: pick-up notes (anacrusis)",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
      "4: simple repeats",
      "4: the major scale (fa and ti), intervals, accidentals"
     ],
