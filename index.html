@@ -2864,8 +2864,25 @@
       if (ctx && ctx.state !== 'running' && ctx.state !== 'closed') ctx.resume().catch(() => {});
       return ctx;
     }
+    // Play's fresh context (Sampler.fresh), only while nothing on the page is playing: another cell's notes would stop.
+    function freshAudio() {
+      for (const en of engines.values()) if ((en.player && en.player.running) || (en.lab && en.lab.clock && en.lab.clock.running)) return;
+      sampler.fresh();
+    }
     class Sampler {
-      constructor() { this.buffers = new Map(); this.loading = new Map(); this._ctx = null; }
+      constructor() {
+        this.buffers = new Map(); this.loading = new Map(); this._ctx = null; this.stale = false;
+        if (typeof document !== 'undefined') document.addEventListener('visibilitychange', () => { if (document.hidden) this.stale = true; });
+      }
+      // A new context in place of one the page has been away from. Safari can leave a tab's context running but silent
+      // once another tab has played: the clock and the playhead move and nothing is heard until the page is reloaded.
+      // Called by Play, inside its click, when the page has been hidden since; the decoded notes are kept (a buffer plays
+      // in any context), and the Player's bus is rebuilt for the new one.
+      fresh() {
+        if (!this.stale || !this._ctx) return;
+        const old = this._ctx; this.stale = false; this._ctx = null;
+        try { old.close().catch(() => {}); } catch (e) {}
+      }
       // One AudioContext for the page, made on first use. Browsers keep it
       // suspended until a user gesture; the Player resumes it on Play.
       ctx() {
@@ -4202,6 +4219,7 @@
       // counting, the clicks count in, and the first note falls at zero.
       async togglePlay() {
         const p = this.player; if (!p || this.busy) return;
+        if (!p.running) freshAudio();
         wakeAudio(sampler.ctx());   // inside the gesture, before any await
         if (p.running) { p.pause(); this.leadIn = false; this.transportState(); this.wake(); if (this.pending) this.render(); return; }
         if (!this.tl) { this.render(); if (!this.tl) return; }      // the cell was laid out at no size
@@ -5465,7 +5483,7 @@ const BODY = { kick: ['stomp', 'feet', 'Stomp'], low: ['stomp', 'feet', 'Stomp']
 const clock = {
   ctx: null, out: null, bpm: 80, running: false, pausedAt: 0, t0: 0, schedTo: 0, timer: null,
   events: [], cycle: 4, loop: true, bodyMode: false, click: false, lead: 0, onFire: null, onDone: null,
-  ensure() { if (!this.ctx) { this.ctx = audioContextProvider ? audioContextProvider() : new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } wakeAudio(this.ctx); return this.ctx; },
+  ensure() { const shared = audioContextProvider ? audioContextProvider() : null; if (!this.ctx || (shared && shared !== this.ctx)) { this.ctx = shared || new (window.AudioContext || window.webkitAudioContext)(); this.out = this.ctx.createGain(); this.out.gain.value = .8; this.out.connect(this.ctx.destination); } wakeAudio(this.ctx); return this.ctx; },
   bps() { return this.bpm / 60; },
   pos() { return this.running ? (this.ctx.currentTime - this.t0) * this.bps() : this.pausedAt; },
   start(lead = 0) {
@@ -6165,6 +6183,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, countOf,
       stop() { this.lab.clock.stop(); this.paint(); }
       destroy() { cancelAnimationFrame(this.raf); this.lab.clock.stop(); }
       togglePlay() {
+        if (!this.lab.clock.running) freshAudio();
         const clock = this.lab.clock, ctx = wakeAudio(sampler.ctx());
         if (clock.running) { clock.pause(); this.paint(); return; }
         for (const en of engines.values()) if (en !== this) { if (en.player && en.player.running) en.togglePlay && en.togglePlay(); else if (en.stop && en.lab && en.lab.clock.running) en.stop(); }
