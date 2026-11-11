@@ -73,7 +73,7 @@ The other elements are read from the marks in the ABC:
 | fermata | duration: "sustaining a note or rest for longer than its value (pause or fermata)", grade 4 |
 | pp, ff, or slurs | dynamics: "very soft [pianissimo – pp], very loud [fortissimo – ff], slurs", grade 6 |
 | marcato | dynamics: "marcato, maestoso", grade 7 |
-| two voices | texture: "simple two-part rounds, partner songs, canons", grade 3 |
+| two voices, or a `%%round` line (the page's round: one melody, 2 to 4 groups) | texture: "simple two-part rounds, partner songs, canons", grade 3 |
 | chord symbols on I and V only | texture: "chord progressions using I and V", grade 5 |
 | chord symbols with IV | texture: "chord progressions using I, IV, and V", grade 6 |
 | any other chord | texture: "major and minor triads", grade 7 |

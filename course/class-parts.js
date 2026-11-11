@@ -8,13 +8,15 @@
   bass line is an arrangement. It answers the safer first questions: which
   charts already supply harmony, what one-bar pulse and tonic/fifth cells fit
   the metre, which band part a class performance would replace, and which
-  tunes are plausible round/descant candidates for a musician to inspect.
+  tunes work as rounds: each tune sung against itself by 2, 3 and 4 groups,
+  scored as the page scores a %%round line (course/round-fit.js).
 */
 const fs = require('fs');
 const path = require('path');
 const ABCJS = require(path.join(__dirname, '..', 'vendor', 'abcjs-basic-min.js'));
 const Analyze = require('./analyze.js');
 const Fit = require('./classroom-fit.js');
+const Rounds = require('./round-fit.js');
 
 const PC = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
 const ABC_PC = ['C,', '^C,', 'D,', '_E,', 'E,', 'F,', '^F,', 'G,', '_A,', 'A,', '_B,', 'B,'];
@@ -60,6 +62,26 @@ function bassRecipe(key, metre) {
   return `${notes.join(' ')} |`;
 }
 
+// A tune as a round, from the page's plans for 2, 3 and 4 groups: 'round' when some plan fits well (85% or more of the
+// notes sounding together on the beats) with no clash on a downbeat, 'try' when one comes close (80%, one downbeat
+// clash), 'unison' when the groups would mostly sing the same notes (a so-mi chant: an echo, not a round), else 'no'.
+// Each verdict keeps the most groups that reach it, and the %%round line to try.
+const pct = x => Math.round(x * 100) + '%';
+function roundVerdict(abc) {
+  const r = Rounds.rounds(abc);
+  if (!r) return { kind: 'no', status: 'not read', plan: null, line: null };
+  const plans = r.plans.filter(p => p.parts === p.groups && p.fit !== null), parted = plans.filter(p => p.same <= 0.5);
+  const most = list => list.reduce((a, b) => (!a || b.groups > a.groups || (b.groups === a.groups && b.fit > a.fit) ? b : a), null);
+  const line = p => `%%round ${p.groups} every=${p.every}`;
+  const good = most(parted.filter(p => p.fit >= 0.85 && !p.clash.length));
+  if (good) return { kind: 'round', plan: good, line: line(good), status: `round: \`${line(good)}\`, ${pct(good.fit)}, no downbeat clash` };
+  const near = most(parted.filter(p => p.fit >= 0.8 && p.clash.length <= 1));
+  if (near) return { kind: 'try', plan: near, line: line(near), status: `try by ear: \`${line(near)}\`, ${pct(near.fit)}${near.clash.length ? `, downbeat clash in bar ${near.clash[0]}` : ''}` };
+  if (plans.length && !parted.length) return { kind: 'unison', plan: plans[0], line: null, status: `mostly unison (${pct(plans[0].same)} the same notes): an echo, not a round` };
+  const best = parted.reduce((a, b) => (!a || b.fit > a.fit ? b : a), null);
+  return { kind: 'no', plan: best, line: null, status: best ? `not a round (best ${best.groups} every ${best.every}: ${pct(best.fit)}, ${best.clash.length} downbeat clash${best.clash.length === 1 ? '' : 'es'})` : 'too short for a round' };
+}
+
 function buildReport(set, source = 'course/set.json') {
   const fits = new Map(Fit.buildReport(set, source).tunes.map(tune => [tune.id, tune]));
   const tunes = set.tunes.map(tune => {
@@ -71,8 +93,7 @@ function buildReport(set, source = 'course/set.json') {
     const writtenChords = chordSymbols(tune.abc), chords = writtenChords.map(chord => transposeChord(chord, transpose));
     const metre = metreRecipe(f.metreNum, f.metreDen, f.metreCompound);
     const hardChords = chords.filter(chord => !EASY_UKE.has(chord.replace(/\/.*$/, '')));
-    const roundCandidate = !f.pickup && !f.keyChanges && !f.metreChanges && f.barCount >= 4 && f.barCount <= 16
-      && f.rangeSemitones <= 12 && f.repetition >= 0.25;
+    const round = roundVerdict(tune.abc), roundCandidate = round.kind === 'round' || round.kind === 'try';
     let bassStatus = 'meter/key review';
     if (metre && keyPc(rehearsalKey) !== null) {
       if (!writtenChords.length) bassStatus = 'provisional tonic/fifth; harmony review';
@@ -97,7 +118,8 @@ function buildReport(set, source = 'course/set.json') {
       harmonyStatus: writtenChords.length ? `${writtenChords.length} distinct written chord${writtenChords.length === 1 ? '' : 's'}` : 'no written chord symbols',
       ukuleleStatus: !writtenChords.length ? 'needs harmony review' : hardChords.length ? `review ${hardChords.join(', ')}` : 'ready from written chords',
       roundCandidate,
-      roundStatus: roundCandidate ? 'candidate; counterpoint check required' : 'not auto-suggested',
+      round: { kind: round.kind, line: round.line, groups: round.plan && round.plan.groups, every: round.plan && round.plan.every, fit: round.plan && Math.round(round.plan.fit * 100) / 100, same: round.plan && Math.round(round.plan.same * 100) / 100, clash: round.plan ? round.plan.clash : [] },
+      roundStatus: round.status,
       musicMinusOne: {
         bodyPercussion: 'mute band drums',
         bassOstinato: 'mute band bass',
@@ -115,6 +137,9 @@ function buildReport(set, source = 'course/set.json') {
       withoutWrittenHarmony: tunes.filter(t => !t.writtenChords.length).length,
       easyUkulele: tunes.filter(t => t.writtenChords.length && !t.hardChords.length).length,
       roundCandidates: tunes.filter(t => t.roundCandidate).length,
+      rounds: tunes.filter(t => t.round.kind === 'round').length,
+      roundsToTry: tunes.filter(t => t.round.kind === 'try').length,
+      unisonChants: tunes.filter(t => t.round.kind === 'unison').length,
       generatedBodyCells: tunes.filter(t => t.bodyCell).length,
       generatedBassCells: tunes.filter(t => t.bassCell).length,
     },
@@ -123,11 +148,11 @@ function buildReport(set, source = 'course/set.json') {
 
 function renderMarkdown(report) {
   const missing = report.tunes.filter(t => !t.writtenChords.length);
-  const rounds = report.tunes.filter(t => t.roundCandidate);
+  const rounds = report.tunes.filter(t => t.round.kind === 'round'), tries = report.tunes.filter(t => t.round.kind === 'try'), unison = report.tunes.filter(t => t.round.kind === 'unison');
   return [
     '# Classroom-part inventory and rehearsal recipes',
     '',
-    `Generated deterministically from \`${report.source}\` (${report.tunes.length} published tunes). These are **one-bar rehearsal recipes, not finished arrangements**. The generator never fabricates chord changes or a descant: it repeats a metre-appropriate body-percussion pulse, offers a tonic/fifth bass cell in the suggested rehearsal key, reports the chart's existing chord symbols, and identifies candidates that a musician may test as a round or with a descant.`,
+    `Generated deterministically from \`${report.source}\` (${report.tunes.length} published tunes). These are **one-bar rehearsal recipes, not finished arrangements**. The generator never fabricates chord changes or a descant: it repeats a metre-appropriate body-percussion pulse, offers a tonic/fifth bass cell in the suggested rehearsal key, reports the chart's existing chord symbols, and sings each tune against itself to find the ones that work as rounds.`,
     '',
     'When the class takes a generated part, music-minus-one should mute the matching band part: body percussion → drums, bass ostinato → bass, ukulele → chords.',
     '',
@@ -136,11 +161,11 @@ function renderMarkdown(report) {
     `- ${report.summary.generatedBodyCells}/${report.tunes.length} tunes have a generated body-percussion pulse cell; ${report.summary.generatedBassCells}/${report.tunes.length} have a tonic/fifth rehearsal cell.`,
     `- ${report.summary.withWrittenHarmony} tunes contain written chord symbols; ${report.summary.withoutWrittenHarmony} need harmony review before a ukulele part is claimed.`,
     `- ${report.summary.easyUkulele} tunes use only the small inspected ukulele-chord set after the suggested transposition.`,
-    `- ${report.summary.roundCandidates} tunes meet the mechanical round/descant-candidate screen; every one still requires a counterpoint and classroom check.`,
+    `- ${report.summary.rounds} tunes work as rounds and ${report.summary.roundsToTry} more are worth trying by ear; ${report.summary.unisonChants} would have the groups mostly singing the same notes.`,
     '',
     '## Per-tune recipes',
     '',
-    '| Tune | L | Rehearsal key | Metre | Body percussion (L:1/8) | Bass cell (L:1/8) | Harmony / ukulele | Round or descant |',
+    '| Tune | L | Rehearsal key | Metre | Body percussion (L:1/8) | Bass cell (L:1/8) | Harmony / ukulele | As a round |',
     '|---|---:|---|---:|---|---|---|---|',
     ...report.tunes.map(t => `| ${esc(t.title)} | ${t.level} | ${esc(t.rehearsalKey || '—')}${t.transpose ? ` (${t.transpose > 0 ? '+' : ''}${t.transpose})` : ''} | ${t.metre} | ${t.bodyCell ? `\`${t.bodyCell}\`` : 'review'} | ${t.bassCell ? `\`${t.bassCell}\`` : 'review'}<br>${esc(t.bassStatus)} | ${esc(t.harmonyStatus)}<br>${esc(t.ukuleleStatus)} | ${esc(t.roundStatus)} |`),
     '',
@@ -150,11 +175,21 @@ function renderMarkdown(report) {
     '',
     ...missing.map(t => `- **${t.title}:** ${t.writtenKey || 'unknown key'}, ${t.metre}, level ${t.level}.`),
     '',
-    '## Round and descant review queue',
+    '## Rounds',
     '',
-    'The screen only checks regular metre, no pickup/key change, 4–16 bars, no more than an octave, and at least 25% repeated bar material. It does not prove that simultaneous entries make acceptable harmony.',
+    'Each tune is sung against itself by 2, 3 and 4 groups, the groups coming in at the distance the page picks for a `%%round` line with no `every=` (course/round-fit.js keeps a copy of the page\'s scoring). On every beat, each pair of notes the groups sound together is scored: unisons, thirds, fifths, sixths and octaves fit, fourths count half, seconds, sevenths and the tritone clash. A clash on a downbeat is what the ear catches; a passing one between beats is normal in a round. Bars are counted as played, repeats written out. The verdict keeps the most groups that reach it; the line goes after the tune\'s melody to try it on the page, where the same fit shows as a tip. Listen before publishing a round.',
     '',
-    ...(rounds.length ? rounds.map(t => `- **${t.title}:** ${t.bars} bars, ${t.rehearsalKey}, ${t.metre}; test phrase-entry points and cadences by ear.`) : ['- No current tune meets the mechanical screen.']),
+    '**Work as rounds** (85% or more, no clash on a downbeat):',
+    '',
+    ...(rounds.length ? rounds.map(t => `- **${t.title}:** \`${t.round.line}\` (${pct(t.round.fit)}).`) : ['- None in this set.']),
+    '',
+    '**Worth trying by ear** (80% or more, at most one downbeat clash):',
+    '',
+    ...(tries.length ? tries.map(t => `- **${t.title}:** \`${t.round.line}\` (${pct(t.round.fit)}${t.round.clash.length ? `; clash on the downbeat of bar ${t.round.clash[0]}` : ''}).`) : ['- None in this set.']),
+    '',
+    '**Mostly unison** (the groups would sing the same notes more than half the time, as so–mi chants do; better as an echo or with an ostinato than as a round):',
+    '',
+    ...(unison.length ? unison.map(t => `- **${t.title}:** ${pct(t.round.same)} the same notes.`) : ['- None in this set.']),
     '',
   ].join('\n');
 }
@@ -192,4 +227,4 @@ if (require.main === module) {
   catch (err) { console.error(err.message || err); process.exit(1); }
 }
 
-module.exports = { chordSymbols, transposeChord, metreRecipe, bassRecipe, buildReport, renderMarkdown };
+module.exports = { chordSymbols, transposeChord, metreRecipe, bassRecipe, roundVerdict, buildReport, renderMarkdown };
