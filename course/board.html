@@ -117,6 +117,21 @@
     .piece.passed { border-left-color: var(--pass); }
     .piece.ready { border-left-color: var(--ready); }
 
+    /* ---- next up: the student path (Practice) ---- */
+    .nextup { margin-top: 14px; border: 2px solid var(--practice); border-radius: 18px; background: color-mix(in srgb, var(--practice) 7%, var(--panel)); padding: 14px 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 18px; align-items: center; }
+    .nextup .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--practice); }
+    .nextup h2 { margin: 2px 0 4px; font-size: 26px; }
+    .nextup .incipit { grid-column: 1 / -1; min-height: 60px; }
+    .nextup .incipit svg { color: var(--ink); max-width: 100%; height: auto; }
+    .nextup .ladder { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0; }
+    .nextup .rung { font-size: 13px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+    .nextup .rung.on { background: var(--practice); border-color: var(--practice); color: #fff; }
+    .nextup .what { font-size: 14px; color: var(--muted); }
+    .nextup .cont { font-size: 20px; font-weight: 700; color: #fff; background: var(--practice); border: 0; border-radius: 14px; padding: 14px 24px; text-decoration: none; display: inline-flex; flex-direction: column; align-items: center; min-height: 64px; justify-content: center; text-align: center; }
+    .nextup .cont small { font-size: 13px; font-weight: 400; opacity: 0.9; }
+    .others { font-size: 16px; margin: 18px 0 0; color: var(--muted); font-weight: 400; }
+    @media (max-width: 700px) { .nextup { grid-template-columns: 1fr; } .nextup .cont { width: 100%; } .nextup h2 { font-size: 22px; } }
+
     /* ---- class records (the teacher's wall, the queue, the class list, tests) ---- */
     details.records { margin-top: 28px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); padding: 8px 12px; }
     details.records > summary { cursor: pointer; font-weight: 700; font-size: 17px; padding: 6px 0; min-height: 40px; display: flex; align-items: center; gap: 10px; }
@@ -333,10 +348,42 @@
       const head = way !== 'teach' && student ? `${esc(student)}: ${levelDone(level, student) ? 'done ✓' : `${passedAt(level, student)} of ${here.length} passed, ${Math.max(0, needed(level) - passedAt(level, student))} more to move up`}` : `${here.length} piece${here.length === 1 ? '' : 's'}`;
       s.innerHTML = `<h2>${tape(level)}Level ${level}<small>${head}</small></h2><p class="note">This level: ${esc(levelWords(level))}.<br>${WAY_NOTE[way]}</p><div class="cards"></div>`;
       const cards = s.querySelector('.cards');
+      const next = way === 'practice' ? nextUp(here) : null;
+      if (next) { s.insertBefore(nextCard(next), cards); const o = document.createElement('h3'); o.className = 'others'; o.textContent = 'Or choose another piece at this level'; s.insertBefore(o, cards); }
       for (const t of here) cards.appendChild(pieceCard(t));
       view.appendChild(s);
       const c = chosen && view.querySelector(`[data-id="${CSS.escape(chosen)}"]`);
       if (c) requestAnimationFrame(() => c.scrollIntoView({ block: 'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+    }
+    /* The student path: one piece to go on with. The piece practised most recently at this level and not passed;
+       else the first not yet started (the board's order is the course's); else the first not passed. Continue picks
+       up where the history says: step by step for a new piece, else slow practice one step above the best tempo. */
+    function nextUp(here) {
+      const store = P.readProgress(localStorage), passed = t => student && stateOf(t.id, student) === 'passed';
+      const open = here.filter(t => !passed(t));
+      const tried = open.filter(t => store.tunes[t.id]).sort((a, b) => (store.tunes[b.id].last || '').localeCompare(store.tunes[a.id].last || ''));
+      return tried[0] || open.find(t => !store.tunes[t.id]) || open[0] || null;
+    }
+    function nextCard(t) {
+      const el = document.createElement('section'); el.className = 'nextup'; el.setAttribute('aria-label', 'Next up');
+      const store = P.readProgress(localStorage), pr = P.progressOf(store, t.id), e = pr.entry;
+      const written = P.writtenBpm(t.abc, window.ABCJS);
+      const best = e ? Math.max(e.bestBpm || 0, ...Object.values(e.phraseBpm || {})) : 0;
+      // At full speed on a phrase: the whole piece at full speed next. The tempo always rides in the link (slow practice would start low without it).
+      const atSpeed = best >= written && !(e && e.bestBpm >= written);
+      const bpm = atSpeed ? P.slowStart(written) : best ? Math.min(written, P.nudgeTempo(best, 1, written)) : P.slowStart(written);
+      // A new piece starts at 1 Listen; one in progress goes on at 2 Learn the loops, a step above its best tempo; once a loop is at full speed, 3 Put it together.
+      const stepTo = pr.stage === 'new' ? 1 : atSpeed ? 3 : 2;
+      const href = new URL(P.pieceHref({ tune: t.id, level: t.level, mode: 'practice', step: stepTo > 1 ? stepTo : undefined, inst, bpm: stepTo > 1 ? bpm : undefined, tr: P.transposeFor(summaryOf(t).fits, inst) || undefined }, true), location.href).href;
+      const share = best && written ? Math.round(100 * best / written) : 0;
+      el.innerHTML = `<div><div class="kicker">${pr.started ? 'Keep going' : 'Next up'}</div><h2>${esc(t.title)}</h2>
+          <div class="ladder" role="img" aria-label="Best tempo so far: ${share}% of full speed">${[60, 70, 80, 90, 100].map(s => `<span class="rung${share >= s ? ' on' : ''}">${s}%</span>`).join('')}</div>
+          <div class="what">${pr.started ? esc(pr.detail || pr.label) : esc(summaryOf(t).goal)}</div></div>
+        <a class="cont" href="${esc(href)}">${pr.started ? 'Continue' : 'Start'}<small>${stepTo === 1 ? 'step 1: listen to it' : stepTo === 3 ? `step 3: put it together, from ${P.slowStart(written)} BPM` : `step 2: the loops at ${bpm} BPM`}</small></a>
+        <div class="incipit" aria-hidden="true"></div>`;
+      el.querySelector('.cont').addEventListener('click', () => { if (student && !stateOf(t.id, student)) setState(t.id, student, 'practising'); chosen = t.id; syncUrl(); });
+      queueRender(el.querySelector('.incipit'), incipit(t.abc, 4));
+      return el;
     }
     function pieceCard(t) {
       const el = document.createElement('article');
