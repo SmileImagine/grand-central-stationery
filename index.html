@@ -17,6 +17,8 @@
   <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1b1b1b" media="(prefers-color-scheme: dark)">
   <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
+  <link href="course/clock.css" rel="stylesheet">   <!-- the grand clock: every notation cell's play, pause, tempo, repeat and back-to-start -->
+  <script src="course/clock.js"></script>
   <script src="vendor/abcjs-basic-min.js" id="abcjs" defer></script>   <!-- abcjs 6.7.0, vendored. defer: text cells paint before its 500 KB is parsed; notation cells finish setting up on its load event -->
   <script src="vendor/impress.js" defer></script>     <!-- impress.js 2.0.0, vendored: 3D present mode. defer: it touches document.body while loading -->
   <style>
@@ -439,7 +441,8 @@
     .cell[data-type="abc"] .dock { border-top: 1px solid var(--concourse-brass); background: color-mix(in srgb, var(--concourse-floor) 88%, var(--concourse-ink)); }
     .dock .dockbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; padding: 6px 10px; }
     .dock .dockbar .tabs { margin-left: auto; }
-    .dock .transport { gap: 4px; }
+    .dock .transport { gap: 4px; --clock-size: 40px; }   /* the grand clock (course/clock.css) */
+    body.present .dock .transport { --clock-size: 48px; }
     .dock .tbtn { width: 34px; height: 34px; padding: 5px; border: 0; border-radius: 0; background: transparent; }
     .dock .tbtn.clock { position: relative; width: 44px; height: 44px; padding: 0; color: var(--concourse-ink); }
     .dock .clockface { width: 100%; height: 100%; overflow: visible; }
@@ -4497,12 +4500,8 @@
         this.dismissedNotes = new Set();
         const parts = splitBand(text);
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
-          <div class="strip dock"><div class="dockbar"><div class="transport">
-            <button type="button" class="tbtn play clock" title="Play or pause; the hand sweeps once per bar" aria-label="Play"><svg class="clockface" viewBox="0 0 48 48" aria-hidden="true"><circle class="rim" cx="24" cy="24" r="21"/><path class="tick" d="M24 5v4M43 24h-4M24 43v-4M5 24h4"/><path class="clockhand" d="M24 24V9"/><circle class="hub" cx="24" cy="24" r="2.2"/><path class="playmark" d="M20 18l10 6-10 6z"/><path class="pausemark" d="M19.5 18h3.5v12h-3.5zM25 18h3.5v12H25z"/></svg><span class="clocktempo"></span></button>
-            <button type="button" class="tbtn restart" title="Back to the start" aria-label="Restart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h2.5v15H5zM19 4.5v15L8.5 12z"/></svg></button>
-            <button type="button" class="tbtn loop" title="Repeat the tune" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg></button>
-          </div>
-          <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span><label class="dep-tempo" title="Playback tempo; the ABC's Q: line sets the written tempo"><input type="number" class="bpm dep-bpm" min="20" max="400" step="1" aria-label="Tempo"><span>BPM</span></label></div>
+          <div class="strip dock"><div class="dockbar"><div class="transport" role="group" aria-label="Play"></div>
+          <div class="departure"><strong class="dep-title">Untitled</strong><span class="dep-key">C</span></div>
           <div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div></div>
           <div class="drawer melody" data-drawer="melody" hidden>
           <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
@@ -4676,20 +4675,18 @@
         this.boot(body, id);
       }
       boot(body) {
+        // The transport is the grand clock (course/clock.js): the face plays and pauses, its hand sweeps once a bar;
+        // dragging it (or its number) sets the tempo in beats per minute, kept as a ratio to the written tempo across
+        // edits; the repeat signs either side repeat the tune, and the score shows them; paused partway, a button at
+        // the plate's end goes back to the start.
         const tp = body.querySelector('.transport');
-        tp.querySelector('.play').addEventListener('click', () => this.togglePlay());
-        tp.querySelector('.restart').addEventListener('click', () => this.toTop());
-        const lp = tp.querySelector('.loop');
-        lp.addEventListener('click', () => { this.player.setLoop(!this.player.loop); lp.setAttribute('aria-pressed', String(this.player.loop)); });
-        // Musicians think in beats per minute: the box shows the playing
-        // tempo, and keeps its ratio to the written one across edits.
-        this.bpmBox = body.querySelector('.bpm');
-        const setTempo = () => {
-          const written = this.writtenBpm(), v = Math.max(20, Math.min(400, parseInt(this.bpmBox.value, 10) || written));
-          this.bpmBox.value = v; this.warp = v / written; this.retime();
-        };
-        this.bpmBox.addEventListener('change', setTempo);
-        this.bpmBox.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); setTempo(); this.bpmBox.blur(); } });
+        if (window.GCSClock) this.clock = window.GCSClock.create(tp, {
+          bpm: DEFAULT_BPM, written: DEFAULT_BPM, min: 20, max: 300, labelAt: 'none', repeat: false,
+          onToggle: () => this.togglePlay(),
+          onBpm: v => { this.warp = v / this.writtenBpm(); this.retime(); },
+          onReset: () => this.toTop(),
+          onRepeat: on => { this.player.setLoop(on); this.repeatSigns = on; if (this.player.running) this.pending = true; else this.render(); },
+        });
         this.render();
       }
       writtenBpm() { return (this.original && this.original.getBpm && this.original.getBpm()) || DEFAULT_BPM; }
@@ -4706,8 +4703,7 @@
         const bpm = Math.round(this.bpm());
         this.flipText(this.body.querySelector('.dep-title'), title);
         this.flipText(this.body.querySelector('.dep-key'), key);
-        if (this.bpmBox && document.activeElement !== this.bpmBox) this.bpmBox.value = String(bpm);
-        const ct = this.body.querySelector('.clocktempo'); if (ct) ct.textContent = String(bpm);
+        if (this.clock) this.clock.set({ bpm, written: Math.round(this.writtenBpm()), beats: this.tl ? this.tl.countBeats : 4 });
       }
       // A new tempo: abcjs retimes its events, the timeline and the parts are rebuilt, the Player keeps its place.
       retime() {
@@ -4777,7 +4773,7 @@
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc + ends :
           'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.';
       }
-      transportState() { const tp = this.body.querySelector('.transport'); if (tp) { const playing = !!(this.player && this.player.running); tp.classList.toggle('playing', playing); const play = tp.querySelector('.play'); if (play) play.setAttribute('aria-label', playing ? 'Pause' : 'Play'); } }
+      transportState() { const playing = !!(this.player && this.player.running); if (this.clock) this.clock.set({ playing, canReset: !playing && this.player.pos > 0, repeat: !!this.player.loop }); }
       getText() { return joinBand(this.entry.value, this.bandReal()); }
       // The Band box without its grey lines (the sliders' pattern, shown but not kept), and the box set to a typed text.
       bandGhostIntact() { const v = this.bandEntry.value, g = this.bandGhost || ''; if (!g || !v.endsWith(g)) return false; const r = v.slice(0, v.length - g.length); return r === '' || r.endsWith('\n'); }
@@ -5589,11 +5585,10 @@
       }
       lineEnd(line) { const e = this.tl.ends; if (!e.has(line)) e.set(line, this.endX(line)); return e.get(line); }
       updateClock(t) {
-        const clock = this.body.querySelector('.clock'), bars = this.tl && this.tl.bars;
-        if (!clock || !bars || !bars.length) return;
+        const bars = this.tl && this.tl.bars;
+        if (!this.clock || !bars || !bars.length) return;
         const bar = bars.find(b => t >= b.start && t < b.end) || (t >= bars[bars.length - 1].end ? bars[bars.length - 1] : bars[0]);
-        const turn = t < 0 ? 0 : Math.max(0, Math.min(1, (t - bar.start) / Math.max(1, bar.end - bar.start)));
-        clock.style.setProperty('--turn', turn.toFixed(4));
+        this.clock.set({ turn: t < 0 ? 0 : Math.max(0, Math.min(1, (t - bar.start) / Math.max(1, bar.end - bar.start))) });
       }
       updateNextUp(t, k, cycle) {
         const sign = this.body.querySelector('.nextup'); if (!sign) return;
@@ -7883,8 +7878,8 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
           },
         },
       });
-      for (const href of ['course/clock.css', 'course/piece.css']) { const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = href; document.head.appendChild(css); }
-      for (const src of ['course/analyze.js', 'course/practice.js', 'course/clock.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
+      for (const href of ['course/piece.css']) { const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = href; document.head.appendChild(css); }
+      for (const src of ['course/analyze.js', 'course/practice.js', 'course/piece.js']) { const sc = document.createElement('script'); sc.src = src; sc.async = false; document.body.appendChild(sc); }
     }
   })();
   </script>
