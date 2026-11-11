@@ -7,8 +7,9 @@
       2 Learn the sections  one section on repeat, slow and a little faster each time round
                             (In time), or Note by note, with the app listening if they like.
       3 Put it together     the whole piece on repeat, slow to full speed, with the band.
-      4 Play it through     the beat and the moving cursor; the student plays the tune, the app can
-                            listen and say what it heard, as a guess; then Ready to show my teacher.
+      4 Play it through     the band plays the accompaniment (with faint guide tones if wanted) and
+                            the student the tune; the app can listen and say what it heard, as a guess;
+                            then Ready to show my teacher.
 
     A teacher, on the projector, so the class sees the same listen, learn, put together:
       Teach   1 Listen              as above, for the class.
@@ -22,7 +23,7 @@
 
   Each step has one main button, Play or Pause, and sets what is on screen, whether it repeats, its
   tempo and how much the band plays (rich to listen and put together, plain and the same each time
-  round for sections, the beat alone for a play-through). The page's own cell does the work: its
+  round for sections, the accompaniment without the tune for a play-through or an attempt). The page's own cell does the work: its
   renderer, the Player on its one AudioContext clock, Game mode and the instrument view; a section is
   written out as a tune of its own (course/practice.js). The address carries the setup and nothing
   private; practice history stays in this browser (gcs-practice-v1), assessments in the board's store.
@@ -39,7 +40,11 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // What each step is: what is on screen, whether it repeats, its first tempo, how much the band plays.
   const KINDS = { teach: ['listen', 'sections', 'whole'], practice: ['listen', 'sections', 'whole', 'through'], assess: ['hear', 'attempt', 'decide'] };
-  const BAND = { rich: { i: 65, c: 65, plain: false, mute: null }, plain: { i: 25, c: 10, plain: true, mute: null }, beat: { i: 30, c: 0, plain: true, mute: ['melody', 'chords', 'bass'] } };
+  /* The band each step plays with. rich: to listen and put together. plain: the same chorus every time round, for learning
+     sections. perform: a play-through or an attempt, the accompaniment without the tune: the drums, the bass a little
+     forward, the chords quieter, and the melody silent, or faint (guide tones) to support a student who needs it. */
+  const BAND = { rich: { i: 65, c: 65, plain: false }, plain: { i: 25, c: 10, plain: true }, perform: { i: 45, c: 25, plain: true, mix: { chords: 45, bass: 85 } } };
+  const GUIDE_LEVEL = 18;   // faint: under the accompaniment, enough to check a note by
 
   let setup = P.decodeSetup(location.hash);
   let set = null, tune = null, found = null, en = null, written = P.DEFAULT_BPM;
@@ -53,7 +58,9 @@
   // What step 2 is doing just now: studying, looping together (Teach), in time or note by note (Practice).
   const sub = () => kind() !== 'sections' ? null : how;
   const repeats = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
-  const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'beat' : 'rich';
+  const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'perform' : 'rich';
+  // Guide tones: on for a student's play-through (they can turn them off), off for an assessment (the teacher can turn them on).
+  const guide = { practice: true, assess: false };
 
   /* ---------------- the bar across the top ---------------- */
   const bar = document.createElement('header');
@@ -160,7 +167,7 @@
     stopAll();
     const b = BAND[bandFor()];
     en.band.i = b.i; en.band.c = b.c; en.plainBand = b.plain;
-    if (b.mute) en.band.mute = b.mute.slice(); else delete en.band.mute;
+    applyMix();
     document.body.dataset.pieceKind = sub() === 'study' && !example ? 'study' : kind();
     en.fitWhole = !!shownBars() || sections() < 2;
     // Studying, a section of more than eight notes takes two lines, so each note's diagram has room to be read.
@@ -180,6 +187,14 @@
     clearFlags();
     paint(); syncUrl();
     requestAnimationFrame(drawStudy);
+  }
+  // The mixer for the step: a play-through's accompaniment, with the melody silent or faint; else the band as balanced.
+  function applyMix() {
+    if (!en) return;
+    const b = BAND[bandFor()];
+    if (b.mix) { en.band.mix = { ...b.mix, ...(guide[mode] ? { melody: GUIDE_LEVEL } : {}) }; if (guide[mode]) delete en.band.mute; else en.band.mute = ['melody']; }
+    else { delete en.band.mix; delete en.band.mute; }
+    if (en.player) en.player.gains();
   }
   function setBpm(v) {
     bpm = Math.max(30, Math.min(300, Math.round(v)));
@@ -284,19 +299,18 @@
       <button type="button" class="pb-prev" aria-label="Previous" title="Previous (←)">←</button>
       <span class="pb-where" aria-live="polite"></span>
       <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button></div>` : '';
+  const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence. The microphone can hear it too, so its listening is less sure."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
   const sectionsBtn = () => `<button type="button" class="pb-cuts quiet" title="Choose which bars make each section">Set up sections…</button>`;
   const seg = (opts) => `<div class="seg" role="radiogroup" aria-label="How">${opts.map(([v, l]) => `<button type="button" role="radio" data-how="${v}" aria-checked="${how === v}">${esc(l)}</button>`).join('')}</div>`;
-  // The new idea, heard: a chip for each concept; choosing one shows and plays its bars, and Back returns to the piece.
-  const conceptCtl = () => !concepts.length ? '' : `<div class="pb-concepts" role="group" aria-label="New here">
-      <span class="pb-hint">New here:</span>${concepts.map((c, i) => `<button type="button" class="pb-concept" data-c="${i}" aria-pressed="${example === c}" title="Bars ${c.first}–${c.last}: show and play them">${esc(c.words)}</button>`).join('')}
-      ${example ? `<button type="button" class="pb-concept-back quiet">← The whole piece</button>` : ''}</div>`;
+  // What to hear: the whole piece, or the new idea in it (its bars shown and played). A toggle, like the others.
+  const barsWord = c => c.first === c.last ? `bar ${c.first}` : `bars ${c.first}–${c.last}`;
+  const conceptCtl = () => !concepts.length ? '' : `<span class="pb-hint">Hear</span><div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
+      <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="New in this piece: ${esc(c.words)}, in ${barsWord(c)}">${esc(c.words)}</button>`).join('')}</div>`;
   function renderTools() {
     const k = kind(), names = P.STEPS[mode];
     const next = step < names.length ? nextBtn(names[step].toLowerCase(), step + 1) : '';
     let h = '';
-    if (k === 'listen') h = example
-      ? `${playBtn(`Hear ${example.words}`)}${conceptCtl()}<span class="pb-hint">Bars ${example.first}–${example.last}.</span>`
-      : `${playBtn('Listen to the whole piece')}${conceptCtl()}${next}`;
+    if (k === 'listen') h = `${playBtn(example ? `Hear ${example.words}` : 'Listen to the whole piece')}${conceptCtl()}${example ? `<span class="pb-hint">New in this piece, in ${barsWord(example)}.</span>` : ''}${next}`;
     else if (k === 'sections' && mode === 'teach') {
       h = `${seg([['study', 'Study'], ['together', 'Loop together']])}${sectionNav()}`;
       h += how === 'study' ? `${playBtn('Hear this section')}${tempoCtl()}<span class="pb-hint">A fingering under every note: the class works through it at its own pace, alone or in pairs.</span>${sectionsBtn()}`
@@ -315,28 +329,28 @@
       h += `${sectionsBtn()}${next}`;
     }
     else if (k === 'whole') h = `${playBtn('Play the whole piece')}${tempoCtl()}${fasterCtl()}<span class="pb-hint">From slow to full speed, the band playing along.</span>${next}`;
-    else if (k === 'through') h = `${playBtn('Play it through')}${tempoCtl()}
-        <button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard. It is a guess: noise and echoes fool it."><span aria-hidden="true">🎤</span> Listen to me</button>
-        <span class="pb-hint">The beat and the cursor play; you play the tune.</span>`;
+    else if (k === 'through') h = `${playBtn('Play it through')}${tempoCtl()}${guideCtl()}
+        <button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard. It is a guess: noise, echoes and the guide tones can fool it."><span aria-hidden="true">🎤</span> Listen to me</button>
+        <span class="pb-hint">The band plays the accompaniment; you play the tune.</span>`;
     else if (k === 'hear') {
       const st = courseState();
       h = `<label class="pb-who">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Name" value="${esc(who)}">`}</label>
         ${playBtn('Hear the whole piece')}${next}`;
     }
-    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}<span class="pb-hint">The beat and the cursor play; the student plays the tune and the microphone listens (a suggestion only).</span>${next}`;
+    else if (k === 'attempt') h = `${playBtn('Start the attempt')}${tempoCtl()}${guideCtl()}<span class="pb-hint">The band plays the accompaniment; the student plays the tune and the microphone listens (a suggestion only).</span>${next}`;
     else h = `<span class="pb-hint">Decide in the panel, then save. The microphone only suggested; the result is yours.</span>`;
     h += mode === 'practice' && ['sections', 'whole', 'through'].includes(k) ? `<div class="pb-progress" aria-live="polite"></div>` : '';
     tools.innerHTML = h; wasPlaying = null;
     tools.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act)));
     tools.querySelectorAll('[data-how]').forEach(b => b.addEventListener('click', () => { if (how === b.dataset.how) return; how = b.dataset.how; stopAll(); renderTools(); redraw(); }));
     tools.querySelectorAll('.pb-nextstep').forEach(b => b.addEventListener('click', () => goStep(+b.dataset.to)));
-    tools.querySelectorAll('.pb-concept').forEach(b => b.addEventListener('click', () => showExample(concepts[+b.dataset.c])));
-    const back = tools.querySelector('.pb-concept-back'); if (back) back.addEventListener('click', () => showExample(null));
+    tools.querySelectorAll('.pb-concepts [data-c]').forEach(b => b.addEventListener('click', () => { const c = +b.dataset.c < 0 ? null : concepts[+b.dataset.c]; if (c !== example) showExample(c); }));
     const q = s => tools.querySelector(s);
     if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
     if (q('.pb-slower')) { q('.pb-slower').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, -1, written))); q('.pb-faster').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, 1, written))); }
     if (q('.pb-fasterlap')) q('.pb-fasterlap').addEventListener('change', e => { faster = e.target.checked; ls.set(FASTER_KEY, faster ? '1' : '0'); });
     if (q('.pb-cuts')) q('.pb-cuts').addEventListener('click', editCuts);
+    if (q('.pb-guide')) q('.pb-guide').addEventListener('change', e => { guide[mode] = e.target.checked; applyMix(); });
     const w = q('.pa-who'); if (w) w.addEventListener('change', () => { who = w.value.trim(); ss.set('gcs-assess-student', who); });
     paint();
   }
@@ -442,7 +456,11 @@
     let stream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: false, autoGainControl: false } }); }
     catch (e) { say(location.protocol === 'file:' ? 'A page opened from disk cannot use the microphone: serve the folder or use the published page.' : 'The microphone was not allowed.'); return false; }
-    const src = ctx.createMediaStreamSource(stream), an = ctx.createAnalyser(); an.fftSize = 2048; src.connect(an);
+    // Below the tune's range is the band's bass, not the player: a high-pass a little over an octave under the lowest
+    // written note (room for a voice an octave down), and the pitch reader looks no lower.
+    const lows = en && en.tl ? en.tl.events.flatMap(e => e.midis || []) : [], floorHz = lows.length ? 440 * Math.pow(2, (Math.min(...lows) - 14 - 69) / 12) : 60;
+    const src = ctx.createMediaStreamSource(stream), hp = ctx.createBiquadFilter(), an = ctx.createAnalyser();
+    hp.type = 'highpass'; hp.frequency.value = Math.max(50, floorHz * 0.9); hp.Q.value = 0.7; an.fftSize = 2048; src.connect(hp); hp.connect(an);
     const buf = new Float32Array(an.fftSize), gate = new P.NoteGate(3, 4);
     listening = { stream, src, an, kind: lkind, raf: 0, t0: performance.now(), notes: [], quiet: 0, loud: 0, frames: 0 };
     const btn = tools.querySelector('[data-act="mic"]'); if (btn) btn.setAttribute('aria-pressed', 'true');
@@ -454,7 +472,7 @@
       listening.frames++;
       const now = performance.now();
       if (rms < 0.01 || now < quietUntil) { gate.push(null); listening.quiet++; return; }
-      const p = P.mpm(buf, ctx.sampleRate);
+      const p = P.mpm(buf, ctx.sampleRate, Math.max(50, floorHz));
       const midi = p && p.clarity > 0.85 ? P.freqToMidi(p.freq) : null;
       if (midi === null) listening.loud++;
       gate.push(midi);
@@ -482,7 +500,8 @@
   function judge(l) {
     if (!l || !en || !en.tl) return;
     const expected = en.tl.events.filter(e => e.midis && e.midis.length).map(e => ({ ms: e.ms, midis: e.midis }));
-    const r = P.alignAttempt(expected, l.notes, { noise: l.frames ? l.loud / l.frames : 0 });
+    // Guide tones from the speakers reach the microphone too: the listening is called less sure.
+    const r = P.alignAttempt(expected, l.notes, { noise: Math.max(l.frames ? l.loud / l.frames : 0, guide[mode] ? 0.35 : 0) });
     attempt = { notes: r.heard, matched: r.matched, reliability: r.reliability, summary: r.summary };
     flagsShown = r.flags.map(f => ({ ...f, kept: true }));
     openPanel();
@@ -509,7 +528,7 @@
     const st = courseState();
     panel.innerHTML = `
       <h2>${esc(who || 'The student')}</h2>
-      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? '<p class="muted">Start the attempt: the beat and the cursor play, the student plays, and anything that sounded wrong is listed here to check by ear.</p>' : '<p class="muted">No attempt listened to: your ears decide.</p>'}</div>
+      <div class="pa-flags">${attempt ? '' : k === 'attempt' ? '<p class="muted">Start the attempt: the band plays the accompaniment, the student plays the tune, and anything that sounded wrong is listed here to check by ear.</p>' : '<p class="muted">No attempt listened to: your ears decide.</p>'}</div>
       ${k === 'decide' ? `
       ${!who ? `<label class="pa-row">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option>${esc(n)}</option>`).join('')}</select>` : '<input class="pa-who" placeholder="Name">'}</label>` : ''}
       <fieldset class="pa-result"><legend>Result</legend>

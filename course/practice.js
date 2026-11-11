@@ -427,19 +427,15 @@
     }
     return [...head, out, ...verses].join('\n') + '\n';
   }
-  /* The idea a piece brings in, heard in it: for each concept, the first window of one bar, else two, whose own
-     analysis has it, widened to two bars so it is heard in context. The concepts: what the piece introduces at its
+  /* The idea a piece brings in, heard in it: for each concept, the first window of one bar, else two (a leap across
+     the barline, a change of metre), whose own analysis has it. The concepts: what the piece introduces at its
      place in the course, else what it has that is worth pointing out (a tie, a pickup, a rest off the beat...). */
   const NOTABLE = /^(tie|tie-over-bar|pickup|rest-off-beat|repeat|endings|triplet|triplet-in-compound|tuplet|accidentals|grace-notes|syncopation|metre-change|key-change|leap:(5th|6th|7th|octave|over-octave))\b/;
   function conceptsOf(t) { const intro = (t.introduces || []).filter(x => skillWords(x)); return intro.length ? intro : (t.skills || []).filter(x => NOTABLE.test(x) && skillWords(x)).slice(0, 3); }
   function exampleOf(t, ABCJS, analyze, tag, found = null) {
     const f = found || phrasesOf(t.abc, ABCJS), N = f.bars.length;
     const has = (from, to) => { try { const r = analyze.analyzeAbc(phraseAbc(t.abc, ABCJS, { from, to }, f), ABCJS)[0]; return !!(r && r.features && (r.features.skills || []).includes(tag)); } catch (e) { return false; } };
-    for (const w of [1, 2]) for (let a = 0; a + w <= N; a++) if (has(a, a + w)) {
-      let from = a, to = a + w;
-      if (to - from < 2) { if (to < N) to++; else if (from > 0) from--; }
-      return { tag, words: skillWords(tag), from, to, first: from + 1, last: to };
-    }
+    for (const w of [1, 2]) for (let a = 0; a + w <= N; a++) if (has(a, a + w)) return { tag, words: skillWords(tag), from: a, to: a + w, first: a + 1, last: a + w };
     return null;
   }
   function chordBefore(bars, from) { for (let i = from - 1; i >= 0; i--) if (bars[i].chord) return bars[i].chord; return null; }

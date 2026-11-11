@@ -169,14 +169,17 @@ const warningsOf = abc => (ABCJS.parseOnly(abc)[0].warnings || []).map(w => w.re
   const ex = (id, tag) => P.exampleOf(tune(id), ABCJS, Analyze, tag);
   eq(P.conceptsOf(tune('beginner-songs-1-rain-rain-go-away')), ['leap:4th'], 'what a piece introduces');
   eq(P.conceptsOf(tune('first-tunes-3-twinkle-twinkle-little-star')), ['leap:5th'], 'else what it has worth pointing out');
+  const tw = ex('first-tunes-3-twinkle-twinkle-little-star', 'leap:5th');
+  eq([tw.first, tw.last], [1, 1], 'one bar when one bar shows it: Twinkle leaps a 5th in bar 1');
   const r = ex('beginner-songs-1-rain-rain-go-away', 'leap:4th');
   eq([r.first, r.last, r.words], [3, 4, 'leaps of a 4th'], 'Rain, Rain: its leap of a 4th is in bars 3-4');
   const ab = P.phraseAbc(tune('beginner-songs-1-rain-rain-go-away').abc, ABCJS, r);
   assert(Analyze.analyzeAbc(ab, ABCJS)[0].features.skills.includes('leap:4th'), 'and those bars, on their own, have it');
   eq([ex('hindostan-4-desh', 'degree:fi').first, ex('hindostan-folk-5-chhaila', 'grace-notes').first, ex('original-pentatonic-8-evening-bells', 'dur:4').first], [2, 8, 4], 'the note fi, a grace note, a four-beat note: where each is first heard');
   eq(ex('hindostan-folk-1-o-give-me-those-pretty-eyes', 'metre-change').last - ex('hindostan-folk-1-o-give-me-those-pretty-eyes', 'metre-change').first, 1, 'a change of metre: heard across two bars');
+  eq([ex('beginner-songs-10-lightly-row', 'leap:5th').first, ex('beginner-songs-10-lightly-row', 'leap:5th').last], [7, 8], 'a leap across the barline: the two bars it spans');
   eq(ex('reelsa-c-15-astley-s-ride', 'repeat'), null, 'a repeat cannot be shown by an excerpt: no example');
-  let shown = 0; for (const t of set.tunes) for (const c of P.conceptsOf(t)) { const e = P.exampleOf(t, ABCJS, Analyze, c); if (e) { shown++; assert(e.last - e.first >= 1 && e.first >= 1 && e.last <= P.barsOf(t.abc, ABCJS).bars.length, `${t.id} ${c}: two bars inside the piece`); } }
+  let shown = 0; for (const t of set.tunes) for (const c of P.conceptsOf(t)) { const e = P.exampleOf(t, ABCJS, Analyze, c); if (e) { shown++; assert(e.last - e.first <= 1 && e.last >= e.first && e.first >= 1 && e.last <= P.barsOf(t.abc, ABCJS).bars.length, `${t.id} ${c}: one or two bars inside the piece`); } }
   assert(shown >= 30, `examples found across the set (${shown})`);
 }
 

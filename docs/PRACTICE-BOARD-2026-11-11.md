@@ -33,17 +33,23 @@ Two people use the piece view, and they need different things.
 
 | | Teach (class, projector) | Practice (one student) | Assess (one student, teacher) |
 | --- | --- | --- | --- |
-| 1 | **Listen**: the whole piece once, full speed, rich band; **New here** chips play the bars where the piece's new idea is first heard | the same | **Hear it**: the student's name; the piece played for them |
-| 2 | **Learn the sections**: **Study** shows one section, uncluttered, with a small fingering diagram under every note, for the class to work through at its own pace or in pairs (Hear this section plays it once, slowly); **Loop together** loops sections that grow, 1, 2, 1–2, 3, 1–3 … all of it, each from about 60 % and faster each time round | **Learn the sections**: **In time** (a section on repeat, slow to full speed) or **Note by note** (Next, Back, Hear it, and the app listening if wanted) | **The attempt**: the beat and the moving cursor, the student plays, the microphone listens; its flags appear in the panel |
+| 1 | **Listen**: the whole piece once, full speed, rich band; a toggle, **Hear** [The whole piece \| leaps of a 5th …], shows and plays the bars where the piece's new idea is first heard | the same | **Hear it**: the student's name; the piece played for them |
+| 2 | **Learn the sections**: **Study** shows one section, uncluttered, with a small fingering diagram under every note, for the class to work through at its own pace or in pairs (Hear this section plays it once, slowly); **Loop together** loops sections that grow, 1, 2, 1–2, 3, 1–3 … all of it, each from about 60 % and faster each time round | **Learn the sections**: **In time** (a section on repeat, slow to full speed) or **Note by note** (Next, Back, Hear it, and the app listening if wanted) | **The attempt**: the same as a student's play-through: the band plays the accompaniment, the student the tune, the microphone listens; no guide tones unless the teacher ticks **Faint guide tones**; the flags appear in the panel |
 | 3 | **Put it together**: the whole piece on repeat, slow to full speed, rich band | the same | **Decide**: pass, needs more practice or not assessed, a level 1–4 if wanted, tempo, help, note, Save |
-| 4 | | **Play it through**: the beat and the cursor, the student plays; with **Listen to me** on, the app says what it heard (a guess); **Ready to show my teacher** | |
+| 4 | | **Play it through**: the band plays the accompaniment with **Faint guide tones** (on to start; untick to go without), the student plays the tune; with **Listen to me** on, the app says what it heard (a guess); **Ready to show my teacher** | |
 
 Each step has one main button, Play, which reads Pause while the music plays.
 The step decides what is on screen, whether it repeats, its tempo and the band:
 rich (energy and detail 65, the five-time-round arrangement) to listen and put
 together; plain (25 and 10, the same chorus every time round, so no new chords
-appear while a section is learned) for sections; the beat alone (melody, chords
-and bass muted) for a play-through or an attempt. **Faster each time round** (on
+appear while a section is learned) for sections; and perform for a play-through
+or an attempt: drums, the bass at 85 %, the chords at 45 %, the melody silent, or at
+18 % with guide tones. The microphone hears through a high-pass filter a little
+over an octave under the tune's lowest written note (room for a voice an octave
+down), and the pitch reader looks no lower, so the band's bass is not taken for
+the player; echo cancellation is on. With guide tones on, the listening is
+reported as less sure, since the speakers play the very notes it listens for.
+**Faster each time round** (on
 unless turned off, remembered) adds five BPM at each repeat up to the written
 tempo.
 
@@ -56,8 +62,9 @@ do with them; **Set up sections…** chooses where they fall.
 **The new idea.** Each concept the piece introduces at its place in the course
 (else what it has worth pointing out: a tie, a pickup, a rest off the beat, a
 wide leap) is looked for bar by bar: the first window of one bar, else two, whose
-own analysis shows it, widened to two bars. Rain, Rain's leap of a 4th is bars
-3–4; Desh's fi is bars 2–3. A concept no excerpt can show (repeats) gets no chip.
+own analysis shows it: one bar when one bar shows it (Twinkle's leap of a 5th is
+bar 1), two when the idea spans the barline (Rain, Rain's leap of a 4th, bars
+3–4; a change of metre). A concept no excerpt can show (repeats) gets no chip.
 
 **The diagrams.** In Study the large instrument steps aside. The section is
 engraved with wide spaces between its lines (`%%staffsep`, which Game mode's
