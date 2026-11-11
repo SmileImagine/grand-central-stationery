@@ -37,14 +37,15 @@
   // The melody at the pitch it sounds (the soprano recorder an octave above written), so clashes are counted as heard.
   function capture(e) {
     const p = e.player, bl = e.beatLen(), ch = p.choruses[0] || {};
-    const { setOf, sampleOf } = GCS.lab, used = new Set();   // the files actually loaded: the set in use, the note it plays from
-    for (const c of p.cycles) for (const n of c) { const f = setOf ? setOf(n.folder, n.midi) : n.folder; used.add(f + '|' + NOTE(sampleOf ? sampleOf(f, n.midi) : n.midi)); }
+    const { setOf, sampleOf, takesOf } = GCS.lab, used = new Set();   // the files actually loaded: the set in use, the note it plays from (every take of a kit drum)
+    for (const c of p.cycles) for (const n of c) { const f = setOf ? setOf(n.folder, n.midi) : n.folder, takes = takesOf && takesOf(f, n.midi); if (takes) takes.forEach(t => used.add(f + '|' + t)); else used.add(f + '|' + NOTE(sampleOf ? sampleOf(f, n.midi) : n.midi)); }
     return {
       notes: p.cycles[0].map(n => ({ part: n.part, ms: n.ms, midi: n.midi + (n.part === 'melody' && GCS.lab.melodyOctave ? GCS.lab.melodyOctave(e.inst) : 0), vel: n.vel, dur: n.dur, pad: !!(n.from && n.from.tip && / held: /.test(n.from.tip)), answer: !!(n.from && n.from.tip && /^answering/.test(n.from.tip)) })),
-      rounds: p.cycles.map(c => c.map(n => ({ part: n.part, vel: n.vel }))),
+      rounds: p.cycles.map(c => c.map(n => ({ part: n.part, vel: n.vel, ms: n.ms, midi: n.midi }))),
       bars: (ch.bars || []).map(b => ({ s: b.s, e: b.e, beats: b.beats, pickup: !!b.pickup })),
       segs: (ch.segs || []).filter(s => s.chord).map(s => ({ ms: s.ms, pcs: s.chord.pcs, root: s.chord.root })),
       compound: Math.abs(bl * 8 / 3 - Math.round(bl * 8 / 3)) < 1e-6,
+      fills: p.choruses.map(c => { const fs = []; for (const n of c.notes) if (n.part === 'drums' && n.from && / fill, after /.test(n.from.tip || '') && !fs.some(x => x.f === n.from)) fs.push({ f: n.from, t: n.t }); return fs.map(x => `${Math.round(x.t)}: ${x.f.tip.replace(/^.*\u2192 /, '')}`); }),   // the drummer's fills, each time round
       total: p.total, style: e.styleKey, comp: e.bandPlayer ? e.bandPlayer.comp() : null, used: [...used],
     };
   }
@@ -71,7 +72,7 @@
   async function job(j, cfg) {
     const e = await cell();
     await load(e, j.abc, j.style, cfg.inst || 'recorder');
-    const cap = capture(e), out = { id: j.id, asked: j.style || 'auto', style: cap.style, comp: cap.comp, used: cap.used, notes: BandMetrics.noteMetrics(cap) };
+    const cap = capture(e), out = { id: j.id, asked: j.style || 'auto', style: cap.style, comp: cap.comp, used: cap.used, fills: cap.fills, notes: BandMetrics.noteMetrics(cap) };
     if (cfg.keepNotes) out.capture = cap;
     if (cfg.audio) {
       const maxMs = cfg.maxMs || 24000;
@@ -88,11 +89,11 @@
   // and the highest third-octave band within 60 dB of its loudest), and how long a note sustains.
   async function voices() {
     const { sampler, SYNTH_VOICES, SYNTH_KITS, DRUM, SAMPLE_SETS } = GCS.lab, sr = 44100, out = [];
-    const sets = [['acoustic_grand_piano', 0], ['vcsl_grand_piano', 0], ['acoustic_guitar_nylon', 0], ['electric_piano_1', 0], ['recorder', 12], ['vcsl_soprano_recorder', 12], ['acoustic_bass', -24], ['vsco_double_bass_pizz', -24], ['vsco_violin', 12], ['vsco_trumpet', 0], ['vsco_tuba', -24], ['vsco_glockenspiel', 12], ['vsco_marimba', 0], ['vsco_xylophone', 12], ...Object.keys(SYNTH_VOICES).map(f => [f, /sub|bass/.test(f) ? -24 : 0]), ['percussion', null], ['vcsl_kit', null], ...Object.keys(SYNTH_KITS).map(f => [f, null])];
+    const sets = [['acoustic_grand_piano', 0], ['vcsl_grand_piano', 0], ['acoustic_guitar_nylon', 0], ['electric_piano_1', 0], ['recorder', 12], ['vcsl_soprano_recorder', 12], ['acoustic_bass', -24], ['vsco_double_bass_pizz', -24], ['vsco_violin', 12], ['vsco_trumpet', 0], ['vsco_tuba', -24], ['vsco_glockenspiel', 12], ['vsco_marimba', 0], ['vsco_xylophone', 12], ...Object.keys(SYNTH_VOICES).map(f => [f, /sub|bass/.test(f) ? -24 : 0]), ['percussion', null], ['kit', null], ...Object.keys(SYNTH_KITS).map(f => [f, null])];
     const was = SAMPLE_SETS.use; SAMPLE_SETS.use = false;   // each set by its own name
     try {
     for (const [folder, shift] of sets) {
-      const notes = shift === null ? (folder === 'vcsl_kit' ? [DRUM.snare, DRUM.hatC] : [DRUM.kick, DRUM.snare, DRUM.hatC]) : [60, 64, 67, 71].map(m => m + shift);
+      const notes = shift === null ? (folder === 'kit' ? [DRUM.snare, DRUM.hatC] : [DRUM.kick, DRUM.snare, DRUM.hatC]) : [60, 64, 67, 71].map(m => m + shift);
       await Promise.all([...notes, 60 + (shift || 0)].map(m => sampler.load(folder, m)));
       const run = async (midis, seconds, dur) => {
         const off = new OfflineAudioContext(2, sr * seconds, sr), real = sampler._ctx; sampler._ctx = off;
