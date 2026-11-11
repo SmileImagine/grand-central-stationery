@@ -40,14 +40,10 @@ K:C
 V:1 name="Voice" sname="V"
 V:2 name="Pulse claps" sname="P" clef=perc stafflines=1
 V:3 name="Offbeat claps" sname="O" clef=perc stafflines=1
-[V:1] z3 F F F | F2 B B A A | G G2 F F F | E6 |
-w: * * * mli to li to li to li, go le mi mli.
-[V:1] z3 F F F | F2 B B A A | G G2 F F F | E2 G E G2 |
-w: * * * Go le mi mli to li to li to li, go le mi mli. Fi ne ke
-[V:1] D E2 E E E | E2 G G F F | E E2 D D D | D2 F E F2 |
-w: go tso go le mi mli to li to li to li, go le mi mli. Fi ne ke
-[V:1] D E2 E E E | E2 G G F F | E E2 D D D | C6 |]
-w: go tso, go le mi mli to li to li to li go le mi mli.
+[V:1] z3 F F F | F2 B B A A | G G2 F F F | E6 | z3 F F F | F2 B B A A | G G2 F F F | E2 G E G2 |
+w: * * * mli to li to li to li, go le mi mli. * * * Go le mi mli to li to li to li, go le mi mli. Fi ne ke
+[V:1] D E2 E E E | E2 G G F F | E E2 D D D | D2 F E F2 | D E2 E E E | E2 G G F F | E E2 D D D | C6 |]
+w: go tso go le mi mli to li to li to li, go le mi mli. Fi ne ke go tso, go le mi mli to li to li to li go le mi mli.
 [V:2] B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 |
 [V:2] B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 | B3 B3 | B3 z3 |]
 [V:3] z B B z B B | z3 z B B | z B B z B B | z3 B B z | z B B z B B | z3 z B B | z B B z B B | z3 B B z |
