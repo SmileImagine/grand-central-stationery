@@ -62,7 +62,7 @@ async function main() {
     ws.onmessage = ev => { const m = JSON.parse(ev.data); if (m.id && waiting.has(m.id)) { waiting.get(m.id)(m); waiting.delete(m.id); } };
     const cdp = (method, params = {}) => new Promise(res => { const id = ++seq; waiting.set(id, res); ws.send(JSON.stringify({ id, method, params })); });
     const evaluate = async (expression, awaitPromise = false) => { const r = await cdp('Runtime.evaluate', { expression, awaitPromise, returnByValue: true }); if (r.result && r.result.exceptionDetails) throw new Error(JSON.stringify(r.result.exceptionDetails).slice(0, 600)); return r.result && r.result.result && r.result.result.value; };
-    await cdp('Page.navigate', { url: `http://127.0.0.1:${port}/index.html` });
+    await cdp('Page.navigate', { url: `http://127.0.0.1:${port}/index.html#lesson` });   // #lesson: the lesson page, not the front door's board
     for (let i = 0; i < 300; i++) { if (await evaluate('document.readyState === "complete" && !!window.GCS && !!window.ABCJS').catch(() => false)) break; await sleep(100); }
     for (const f of ['band-metrics.js', 'band-lab.js']) await evaluate(fs.readFileSync(path.join(__dirname, f), 'utf8'));
     if (sound) await evaluate(`Object.assign(GCS.lab.SOUND, ${JSON.stringify(sound)})`);
