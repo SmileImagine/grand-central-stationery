@@ -1,5 +1,5 @@
 % CBC Modern Canadian Bridges (pilot): ten original classroom pieces, one for each of JK, SK and Grades 1-8, each paired
-% with a contemporary Canadian recording heard through CBC Music. AI-assisted originals written for this course and
+% with a Canadian recording (one pairing is held back for review). AI-assisted originals written for this course and
 % released CC0 1.0; the recordings are only named and linked, and remain their owners'.
 % Published early from the workshop on 12 November 2026: none has yet been tried with a class or read by the reviewers
 % its record names, and each workshop record is kept for further correction. A "% improv:" line is a cue for the Improv
@@ -222,10 +222,9 @@ O:Course original (no cultural attribution)
 R:Grade 7 electronic arranging listening bridge
 S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
 N:Original Grade 7 electronic arranging lab; melody, bass and chord groups perform an eight-bar loop while a student conductor decides how layers accumulate, disappear and return.
-N:Listen: The Halluci Nation — Live Concert, CBC Music Live (2023), from 2:30 ("Electric Pow Wow Drum"); preview the later songs before playing past 5:00, https://www.youtube.com/watch?v=51hg7fUZLSs. Listen for production-scale contrast: layers accumulate, a drop changes density, bass and pulse organize the room, and collaborators remain audible as distinct musical agents.
-N:The Halluci Nation is an Indigenous-led electronic duo rooted in Ottawa club nights and collaboration. CBC describes their work as combining electronic genres with drumming and vocal chanting; those cultural materials belong to the artists and collaborators, not to this exercise.
-N:This is a generic original electronic arranging loop using keyboard triads and synthesized or acoustic classroom sounds only. It contains no powwow drum rhythm, vocable, chant, sample, melody, title phrase or imitation of the reference.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 7 teacher, Indigenous electronic-music educator or approved Indigenous reviewer, second score reader, copyright/sampling check and student arranging trial); its workshop record is kept for correction.
+N:Listen: the recording this piece is paired with is held back until a human reviewer has approved the pairing. Meanwhile, play any electronic track the class knows and listen for production-scale contrast: layers build up, a drop changes the density, and the bass and pulse organize the room.
+N:Original electronic arranging loop on keyboard triads and a repeated-root bass, for synthesized or classroom sounds; it quotes no recording.
+N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 7 teacher, the reviewer for its listening pairing, second score reader and student arranging trial); its workshop record is kept for correction.
 % improv: {"id":"A","bars":"3-4","role":"producer/conductor","prompt":"Build toward the drop","choices":["add one layer each bar","crescendo one layer","hold density steady"],"replyBars":2}
 % improv: {"id":"B","bars":"5-8","role":"producer/conductor","prompt":"What survives the drop?","choices":["bass only","hook only","silence for one bar then all return"],"replyBars":4}
 M:4/4
