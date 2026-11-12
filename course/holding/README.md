@@ -125,6 +125,15 @@ comment form (all optional; the board shows them under the card):
 % dossier-review: who should hear it before it is published
 ```
 
+A record can also carry a lesson plan, one step per line in teaching order
+(the board shows it under the card as Lesson). For a link record the steps
+send the class to the owner's own score, video and words; they describe the
+lesson and never copy the notes or the words:
+
+```text
+% lesson: Tell the story first: who made the song, for whom, and why
+```
+
 The teacher's verdict, apart from the stage, and the teacher's answer to the
 suggestions (the `holding-blocked` next step, the notes and the dossier):
 

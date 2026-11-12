@@ -40,6 +40,9 @@ const sourceUrlsOf = text => [...text.matchAll(/^%\s*source-url:\s*(\S+)\s*(.*)$
 // says where one might be found when there is no link (an archive and its shelf mark).
 const performanceUrlsOf = text => [...text.matchAll(/^%\s*performance-url:\s*(\S+)\s*(.*)$/gmi)].map(m => ({ url: m[1], label: m[2].trim() }));
 const performanceNotesOf = text => [...text.matchAll(/^%\s*performance-note:\s*(.+)$/gmi)].map(m => m[1].trim());
+// "% lesson: ..." lines, one step each, in teaching order: how a class meets the piece (the story, listening,
+// pronunciation, singing from the owner's own score). Steps describe the lesson; they never copy notes or words.
+const lessonOf = text => [...text.matchAll(/^%\s*lesson:\s*(.+)$/gmi)].map(m => m[1].trim());
 // Original classroom pieces can carry an intentional curriculum/listening bridge without pretending that the
 // analyzer inferred it. These fields belong to the draft and travel with the ABC through the editor and downloads.
 const COMPOSITION = ['series', 'grade', 'elements', 'listen', 'listen-url', 'bridge', 'distance', 'context'];
@@ -115,7 +118,7 @@ const seen = new Set(), errors = [], items = files.map(file => {
     decision: meta.decision || 'considering', decisionNote: meta['decision-note'] || '',
     response: meta.response || '', responseUpdated: meta['response-updated'] || '',
     reviewStatus: meta['review-status'] || 'not-started', reviewPacket: meta['review-packet'] || '',
-    dossier: dossierOf(text), composition, improv
+    dossier: dossierOf(text), lesson: lessonOf(text), composition, improv
   };
 });
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

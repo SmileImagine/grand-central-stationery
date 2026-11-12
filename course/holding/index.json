@@ -59,6 +59,7 @@
     "accompaniment": "Aubry prints the voice alone; the tabor-like drum is ours, bass and chords rest. Style folk only as a nominal setting, since the band lines decide what plays (conservative guess, 11 November 2026)",
     "lyrics": "Occitan, three verses with the refrain; verse I under the notes, II and III as text with an English meaning. All fit for class; the jealous old king is a stock figure of the genre (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -104,6 +105,7 @@
     "respect": "A secular folk melody; nothing sensitive. Yekta wrote as a Turkish theorist answering European dismissals of Eastern scales; his own argument is the lesson.",
     "review": "A Turkish musician (a bağlama or ney player), for the makam and the tuning."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -161,6 +163,7 @@
     "respect": "Name Queen Liliʻuokalani and the Hawaiian Kingdom context. University of Hawaiʻi notes that the song can be heard both as a love song and as a statement of Hawaiian sovereignty. Do not reduce it to tourist \"island music,\" label it traditional or anonymous, stage a generic hula, or detach it from the overthrow and annexation history when that history is discussed",
     "review": "Native Hawaiian music educator or historian, competent Hawaiian-language speaker, second score reader and classroom music teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -204,6 +207,7 @@
     "accompaniment": "Tradition: the janggu (hourglass drum) keeps the jangdan under the singer; Hulbert prints the melody only (conservative guess, 11 November 2026). Band here: the korean style, a janggu-like pattern on kick and rim in three with an open fifth on G.",
     "lyrics": "Hulbert's romanised chorus and one verse (the birch trees of Mungyeong Saejae made into washing clubs), kept under the notes, with a modern spelling in the N: line; fit for class; not yet checked by a Korean speaker (conservative guess, 11 November 2026)."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -258,6 +262,7 @@
     "respect": "Avoid the first part of the same appendix (Nos. 1-17), Confucian ritual hymns. Richard was a missionary; some of her appendix tunes were adapted for hymns. Ba ban itself is a secular popular tune.",
     "review": "A player of Chinese instruments (Jiangnan sizhu), for the form and the ornaments."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -308,6 +313,7 @@
     "respect": "Ask before teaching. Powwow singing belongs to Native communities and to the drum groups who make the songs; some songs are ceremonial. Present it only with the community's permission, name the drum and the powwow, and do not imitate the singing style as a novelty. If the song is one the singers say may be shared, a Lakota or Northern Plains singer should teach it.",
     "review": "A powwow singer or the drum group itself; the Black Hills Powwow committee (Rapid City), for the song's name and whether it may be taught."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -353,6 +359,7 @@
     "respect": "The words mention the muezzin's call, as the sign that night is over; nothing in the song is a religious text. Rouanet's framing is a colonial scholar's; the record keeps his facts about the music.",
     "review": "An Arabic speaker familiar with Algerian song, for the words and the class couplets."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -398,6 +405,7 @@
     "respect": "A children's game; nothing sensitive.",
     "review": "A Hungarian speaker or Kodály-trained teacher, for the words and the game."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -450,6 +458,15 @@
     "respect": "A contemporary song shared for classes. The guide notes the duo's lap-slide Weissenborn guitar; that sound is theirs, and the class does not imitate it with the Band. Credit both artists.",
     "review": "Burnstick for the credit and any posting; a Plains Cree speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: open the CBC page for Nikamo, with its teaching video, sheet music, lyrics and translations.",
+    "Tell the story first: Burnstick are Jason Burnstick (Plains Cree) and Nadia Gaudet (Métis), a duo from Manitoba. Nikamo means \"to sing out\"; it is a Cree lullaby about giving thanks to your family.",
+    "Talk about the translation on the CBC page: who in your family would you thank?",
+    "Pronunciation: learn the Plains Cree from the teaching video, phrase by phrase.",
+    "Sing from CBC's sheet music, gently, as a lullaby.",
+    "Accompaniment: none from Indigenous instruments (the guide, p. 6, asks that hand drums, rattles and the big drum be left to an Indigenous student or Knowledge Keeper). If the class wants accompaniment, use only what the printed score gives; the Band stays silent. The duo's lap-slide Weissenborn guitar is their own sound; the class does not imitate it.",
+    "Close: name the songwriters and the year again, and ask what the class noticed about the language. Do not post or share a recording of the class beyond the school; the terms are \"educational purposes only\"."
+   ],
    "composition": null,
    "improv": []
   },
@@ -495,6 +512,7 @@
     "respect": "Present Twain as a working Canadian songwriter and producer-crossing artist, not as a costume or a generic symbol of rural life. Country music contains many communities and approaches.",
     "review": "Grade 1 music teacher, accessibility reviewer, second score reader and student singing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "1",
@@ -574,6 +592,7 @@
     "respect": "Use a map only to locate the referenced title and artist's Canadian geography; do not turn a real highway or the communities around it into scenery for an invented cultural claim.",
     "review": "Grade 2 music teacher, second score reader, student singing trial and Canadian listening-context check; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "2",
@@ -653,6 +672,7 @@
     "respect": "Credit Biali's multiple roles and listen to her actual phrasing before discussing jazz-pop. Do not teach \"swing\" as a single universal jazz rhythm; compare straight and long-short readings and ask what changes.",
     "review": "Grade 3 teacher, jazz educator, second score reader and student singing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "3",
@@ -732,6 +752,7 @@
     "respect": "Centre a current Francophone Canadian artist and use French as living creative language, not decoration. Pronunciation, idiom and cultural context require Francophone review before publication.",
     "review": "Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "4",
@@ -811,6 +832,7 @@
     "respect": "Teach alternative R&B and soul as evolving Black musical practices shaped by named artists, technologies and local scenes. Avoid reducing the lesson to \"smooth singing\" or copying Wilson's vocal identity.",
     "review": "Grade 5 teacher, Black Canadian/R&B music educator, second score reader and student singing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "5",
@@ -890,6 +912,7 @@
     "respect": "Teach hip-hop as a Black cultural practice with histories of DJing, MCing, dance, visual art, community testimony and technological invention. Do not frame rap as merely speaking over a beat or require stereotyped delivery.",
     "review": "Grade 6 teacher, hip-hop educator, second score reader, privacy/accessibility reviewer and student cypher trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "6",
@@ -969,6 +992,7 @@
     "respect": "Name The Halluci Nation and the credited collaborators in the selected performance. Explain collaboration versus appropriation, follow local board protocols for Indigenous education and obtain Indigenous review; never label this exercise \"powwow,\" \"tribal\" or Indigenous electronic music.",
     "review": "Grade 7 teacher, Indigenous electronic-music educator or approved Indigenous reviewer, second score reader, copyright/sampling check and student arranging trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "7",
@@ -1048,6 +1072,7 @@
     "respect": "Credit the named collective and the song's listed writers rather than presenting its layered sound as anonymous \"indie.\" Discuss whose ideas are foregrounded, credited and consented to when a large group creates together.",
     "review": "Grade 8 teacher, indie-rock/recording educator, second score reader, student arranging group and copyright reviewer; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "8",
@@ -1127,6 +1152,7 @@
     "respect": "Introduce Glenn-Copeland by name and pronouns used in the artist's current materials; discuss the career and music without reducing the artist to identity labels. Do not call this classroom miniature ambient, new age or Glenn-Copeland's style; call it a listening bridge.",
     "review": "Kindergarten music teacher, early-years/accessibility reviewer, second score reader and student listening trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "JK",
@@ -1206,6 +1232,7 @@
     "respect": "Name Jepsen and the source track; use the comparison to hear craft in contemporary Canadian pop rather than treating pop as musically simple or disposable.",
     "review": "SK classroom teacher, movement/accessibility reviewer, second score reader and student listening trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "CBC Modern Canadian Bridges — pilot",
     "grade": "SK",
@@ -1283,6 +1310,7 @@
     "accompaniment": "none in the source: the plate has the voice alone and the children hop to it; the band plays only a soft low thump on each beat for the hops (ours), no bass, no chords (conservative guess, 11 November 2026)",
     "lyrics": "Chindau with Curtis's singing English, all sung in class, nothing left out; meaning from Curtis's appendix (p. 159): cha-komba-komba, to hop on one leg; cha Mnthalila, \"this is Mnthalila's hop\" (a name, from the verb \"to jump\"); spelling for a Chindau speaker (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1333,6 +1361,7 @@
     "respect": "A festive and courting genre, nothing sacred; credit the community and the singers. Present it as women's singing of the Ayacucho highlands, in Quechua.",
     "review": "A chimaycha singer or a Quechua speaker from Ayacucho; an ethnomusicologist of Andean song for the song's name."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1383,6 +1412,7 @@
     "respect": "Customary songs and dances in New Ireland can be tied to clans, to the malagan funerary cycle or to ceremonies; ask the group what this one is and whether it may be sung elsewhere before teaching any of it. Name the group and Kavieng; present the costumes as their own, not as a show.",
     "review": "The Dampet Culture Group, through Helen Taivii Sapien; a New Ireland speaker of the song's language."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1437,6 +1467,14 @@
     "respect": "Close to ceremony: it is an offering of thanks to the water, sung within the Water Walk movement, in which (the Sudbury resource explains) Anishinaabe women carry the responsibility to protect the water. Always tell the story first and name Doreen Day and Mashkoonce. No shakers, drums or other instruments; no performance staging, no recording of the class for posting, and no new verses or arrangements. Ask an Anishinaabe teacher who leads it and whether it is sung at water.",
     "review": "Doreen Day or her family (through the Mother Earth Water Walk) for any written version and the credit; the TDSB Urban Indigenous Education Centre, with an Anishinaabe Knowledge Keeper or water walker, for classroom use. None has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: ask the TDSB Urban Indigenous Education Centre whether an Anishinaabe Knowledge Keeper or water walker could lead or join it, and whether tobacco should be offered; if no one can come, use the Mother Earth Water Walk page and recording.",
+    "Tell the story first, always: Doreen Day, an Anishinaabe grandmother, drove her grandson Mashkoonce (Little Elk) to school past the water each morning, and they said words of love, thanks and respect to it. Mashkoonce asked to say them in their own language, then to sing them, because the water would like that; Doreen made the song, and they sang it to the water every day. Credit Beatrice Menase Kwe Jackson (Migizi Clan), who tells the story on the page.",
+    "Talk about water: Anishinaabe teaching, as the Rainbow District resource explains it, gives women the responsibility to protect the water, and asks everyone to thank it. Connect this to where your school's water comes from.",
+    "Learn the words by ear from the Mother Earth Water Walk recording, with the page's Ojibwe words projected, a line at a time; if an Anishinaabemowin speaker can visit, they teach it instead.",
+    "Sing it softly, like a lullaby, with no shakers, drums or any instrument, as the page asks. If a Knowledge Keeper agrees, sing it outside by water, or at the start of each water lesson.",
+    "Close: name Doreen Day and Mashkoonce again. Do not add verses, harmonies or actions, and do not record the class singing it for sharing."
+   ],
    "composition": null,
    "improv": []
   },
@@ -1487,6 +1525,7 @@
     "respect": "Rung in a church; the piece may be sacred. Name the team; if it is a hymn, present it as one.",
     "review": "De Bellringers themselves, for the piece and the ringing; a handbell director for the chords."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1537,6 +1576,7 @@
     "respect": "A song of longing, and one often heard at Armenian commemorations; present it as a serious song, not a novelty instrument demo. Name the player and the duduk.",
     "review": "A duduk player or Armenian musician, for the mode, the flat G and the ornaments; ideally someone who can supply the words."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1582,6 +1622,7 @@
     "respect": "Culture-neutral course original. Do not use it to fill a geographic coverage cell or relabel its generic pop/funk rehearsal groove as a cultural tradition. Movement must be optional and adaptable for seated, standing, signing or instrument-only participation",
     "review": "Classroom music teacher, movement/accessibility reviewer, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1625,6 +1666,7 @@
     "accompaniment": "Jekyll prints the voice alone and names no instruments; the ring sings it; the band plays a mento backing (band, strum, rumba-box bass) in the idiom of Jamaican country bands, ours (conservative guess, 11 November 2026)",
     "lyrics": "Jamaican Patois as Jekyll printed it, one verse, all sung in class, nothing left out (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1677,6 +1719,14 @@
     "respect": "A contemporary teaching song shared for classes. The guide notes Gilday \"incorporates traditional Dene drumming in her music\"; that drumming is hers and her community's, so the class does not add a Dene drum. Credit the songwriters every time.",
     "review": "Leela Gilday for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: open the sheet music and teaching video from the CBC page for the song; check the range against your class.",
+    "Tell the story first: Leela Gilday, a Dene singer-songwriter born and raised in the Northwest Territories near Great Bear Lake, wrote this counting song for the 2023 CBC Canadian Music Class Challenge to make Dene Kede easier for learners of every age (CBC reports it was written with her cousin Gloria Gaudet, a fluent speaker; confirm before saying so).",
+    "Pronunciation: learn the Dene numbers one to five from Leela Gilday's teaching video, counting on fingers as you say them.",
+    "Sing from CBC's sheet music: one number at a time, then the whole song. For the youngest grades, the counting is the lesson: point to one to five objects as the class sings.",
+    "Accompaniment: none from Indigenous instruments (the guide, p. 6, asks that hand drums, rattles and the big drum be left to an Indigenous student or Knowledge Keeper). If the class wants accompaniment, use only what the printed score gives; the Band stays silent. Gilday uses Dene drumming in her own music; that is hers and her community's, so the class does not add it.",
+    "Close: name the songwriters and the year again, and ask what the class noticed about the language. Do not post or share a recording of the class beyond the school; the terms are \"educational purposes only\"."
+   ],
    "composition": null,
    "improv": []
   },
@@ -1730,6 +1780,7 @@
     "respect": "The article identifies this as Èwè-Dòmè storytelling practice around Ho, not a generic Ghanaian or West African pattern. Although the article discusses storytelling at festivals, wakes, initiations and other gatherings, it describes this particular glimedeha as an audience interlude and gives no sacred or ceremonial claim for it. A community reviewer must still approve classroom use and the story context",
     "review": "An Èwè-Dòmè storyteller or music educator, a competent Èwè-Dòmè speaker, a second score reader and a classroom music teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1773,6 +1824,7 @@
     "respect": "the source records men of the 2nd Goorkhas in colonial India; do not use that military setting to claim a language, a pan-Nepali identity or present-day dance practice",
     "review": "Nepali/Gurkha culture bearer and dance teacher, plus a classroom teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1816,6 +1868,7 @@
     "respect": "the source records men of the 2nd Goorkhas in colonial India and supplies no words; do not infer language, community identity or present-day performance practice from the regiment or location",
     "review": "Nepali/Gurkha culture bearer, singer and drummer, plus a classroom teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1859,6 +1912,7 @@
     "respect": "the source records men of the 2nd Goorkhas in colonial India; do not infer a language, a pan-Nepali identity or present-day practice from the regiment or location",
     "review": "Nepali/Gurkha culture bearer and singer, plus a second plate reader and classroom teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1912,6 +1966,7 @@
     "respect": "Keep the specific Ilocos Sur and Ilocano attribution; do not turn the piece into a generic Filipino or Southeast Asian song. The volume belongs to a colonial-era English-language school curriculum, and the Philippine NCCA has warned that teaching translated folk songs only in English can obscure their origin. Present rice work as skilled labour, avoid costume or accent caricature, use no real cutting tools, and wait for Ilocano review before claiming the actions or English text as living practice",
     "review": "Ilocano music educator or culture bearer familiar with children's or rice-work songs, competent Ilocano speaker, Filipino music historian, second score reader and classroom music teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -1955,6 +2010,7 @@
     "accompaniment": "Tradition: children's voices alone, the beat kept by the bouncing ball (temari) or clapping hands (conservative guess, 11 November 2026). Band here: the minyo style, an E-B drone and light percussion, ours.",
     "lyrics": "Missing: the source file has no words, and the counting words are the point of a kazoe-uta; to find in Nagai and Obata (1895) and check with a Japanese speaker before the song is sung (conservative guess, 11 November 2026)."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2015,6 +2071,16 @@
     "respect": "A contemporary song written with Indigenous youth to be shared with classes; its message is the youth's own. Tell where it came from before singing it, credit the songwriters and the youth, and leave Indigenous instruments to Indigenous people.",
     "review": "Shawnee Kish and Kristi Talbot for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: open the lead sheet linked from the guide (good-road-sheet-music.tiiny.site) and the two videos; check the range against your class.",
+    "Tell the story first: in spring 2024 Shawnee Kish, a Mohawk singer-songwriter, and her sister Kristi Talbot, a Mohawk language advocate and early childhood educator, held a songwriting workshop with the Indigenous youth of their community in Fort Erie, Ontario. The youth made this song together; it is about being proud of the strength in yourself as you walk the good road.",
+    "Watch \"CBC Music Class Challenge with Kristi Talbot and Shawnee Kish\" (MusiCounts) for what it means to sing an Indigenous language at school.",
+    "Pronunciation: learn the Mohawk from Shawnee Kish's teaching video, phrase by phrase, repeating after her. The guide's supplements Language Pronunciation and Language Composition (K-12) are built on Mohawk and suit this step.",
+    "Sing from the lead sheet: the Mohawk lines with the video until they are secure, then the whole song.",
+    "Accompaniment: none from Indigenous instruments (the guide, p. 6, asks that hand drums, rattles and the big drum be left to an Indigenous student or Knowledge Keeper). If the class wants accompaniment, use only what the printed score gives; the Band stays silent.",
+    "Older grades: the guide's Truth and Reconciliation supplement (Grades 7-12) and Language, Music and Social Justice (K-12) can follow this song.",
+    "Close: name the songwriters and the year again, and ask what the class noticed about the language. Do not post or share a recording of the class beyond the school; the terms are \"educational purposes only\"."
+   ],
    "composition": null,
    "improv": []
   },
@@ -2065,6 +2131,7 @@
     "respect": "Children filmed at their school: name the school and keep to the music, no images. Bougainville's bamboo bands are a point of local pride; present them as a living tradition, not as a curiosity.",
     "review": "A Bougainville musician or teacher at Koneka Primary School, for the piece's name and how the pipes are shared out."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2108,6 +2175,7 @@
     "accompaniment": "The record transcribes the voice alone; no traditional accompaniment is documented here. Band: the waltz style, a plain 3/4 accompaniment for a children's song (conservative guess, 11 November 2026)",
     "lyrics": "Spanish with Hague's English singing translation under the notes; verse 2 and the whole chain (p. 99) as text. All fit for class; the chain ends with Death and God (la Muerte, Dios), and a class may stop at the blacksmith (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2157,6 +2225,7 @@
     "respect": "A social dance song, nothing sacred. Credit C. Kamba Simango. The book's general framing (\"Dark Continent\", remarks on race) stays out of the record; Curtis's description of the dance and the clapping is kept.",
     "review": "A Chindau speaker, for the words; a teacher of southern African dance, for the stamps and the circle."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2200,6 +2269,7 @@
     "accompaniment": "none: children sing it while playing in the rain and the plate has the voice alone; the band rests (conservative guess, 11 November 2026)",
     "lyrics": "Chindau with Curtis's singing English, all sung, nothing left out; meaning from Curtis's appendix: to-to, the sound of rain falling in drops; lile, pour down; rain, let it rain (the appendix spells it \"mfula ngaine\", the plate \"mv'langa ine\"); makandwa azale, the pools full; tizo bumwila, we shall swim; macheche, the red-breasted bullfrog; spelling and stresses for a Chindau speaker (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2243,6 +2313,7 @@
     "accompaniment": "none but the children's jumping; the band plays only a soft low thump on each beat for the jumps (ours) (conservative guess, 11 November 2026)",
     "lyrics": "Chindau, spoken, with Curtis's English, all chanted, nothing left out; meaning from Curtis's appendix: muvili (mufili), body; zuma, dry off; kasila, quick; o-mai, dry (\"you are dry\" understood); spelling and stresses for a Chindau speaker (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2293,6 +2364,7 @@
     "respect": "The same words are sung in Umbanda as a ponto for the Baianos and the Erês (child spirits); this record is the children's dance from 1916, and a teacher may say so if asked. The book has a section of \"cantigas dos pretos\" whose dialect may caricature; nothing from it is used here.",
     "review": "A Portuguese speaker (Brazilian), for the words and the 1916 spellings; a Brazilian teacher who knows the roda, for the dance."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -2338,6 +2410,7 @@
     "respect": "Name Lucho Bermúdez, Colombia and its Caribbean coast, and teach cumbia's Indigenous, African and Spanish roots and its many regional lineages. Do not claim that this classroom tune, its march groove or its percussion answers are cumbia, and do not hand out \"Colombian\" costumes or caricatures. Whether \"Cumbia\" may stay in the title is for the Colombian reviewer to decide",
     "review": "Grade 1 classroom music teacher, Colombian music educator, second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "1",
@@ -2417,6 +2490,7 @@
     "respect": "Name Cesária Évora, Mindelo and Cabo Verde, Kriolu as the language she sang in, and morna as a living song form tied to emigration and longing. Do not translate morna simply as \"sad music\" or sodade as \"sadness\", do not present this classroom song as Cabo Verdean, and do not use the word \"Sodade\" as a label for it",
     "review": "Grade 1 classroom music teacher, Cabo Verdean music educator, second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "1",
@@ -2496,6 +2570,7 @@
     "respect": "Name Fela Anikulapo Kuti, Africa 70, Lagos and Nigeria, and the political history of his music (his Kalakuta compound, his arrests, his criticism of military government) at a level suited to Grade 1. Do not teach Afrobeat as a generic classroom drum loop, do not present this song or the Band's funk groove as Afrobeat, and keep \"Afrobeat\" (Fela's 1970s music) distinct from present-day \"Afrobeats\" pop",
     "review": "Grade 1 classroom music teacher, Nigerian or Afrobeat-informed music educator, second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "1",
@@ -2575,6 +2650,7 @@
     "respect": "Name Gamelan Sekar Jaya, Berkeley, and the Balinese teachers behind it, and name Bali and legong when playing the video. Explain that gamelan is many traditions, not one style, and that legong grew from sacred dance; treat the gongs and the dance with respect and do not imitate the dancers' costume or movements as a game. Do not call the classroom bells and gong \"gamelan\", and do not present a US ensemble's video as if it were filmed in Bali",
     "review": "Grade 2 classroom music teacher, Indonesian (Balinese) gamelan educator, second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "2",
@@ -2654,6 +2730,7 @@
     "respect": "Name Toumani Diabaté, Mali, the kora and the jeli families whose hereditary role includes carrying history, genealogy and praise. Introduce jeli practice through reliable sources and, ideally, a Mande musician; do not call a classroom bordun or a pentatonic melody a traditional Mande pattern, and do not present the kora as a generic \"African harp\"",
     "review": "Grade 2 classroom music teacher, Mande music educator, second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "2",
@@ -2733,6 +2810,7 @@
     "respect": "Name Stella Chiweshe, Zimbabwe and the Shona people, and the mbira dzavadzimu as an instrument of ceremony and history; mention that she played it when few women were allowed to. Do not detach mbira from Shona spiritual and living practice, do not market a xylophone bordun as \"African mbira music\", and do not call the instrument a \"thumb piano\" without its own name",
     "review": "Grade 2 classroom music teacher, Zimbabwean mbira educator, second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "2",
@@ -2812,6 +2890,7 @@
     "respect": "Name Abdullah Ibrahim (1934-2026; his official site records his death on 15 June 2026) as the composer and bandleader, and Basil Coetzee, whose tenor solo made the recording famous. Teach the forced removals behind the township's name and the song's life as an anti-apartheid anthem at a level suited to Grade 3, with South African voices and sources. Never call this round, or any repeated school riff, \"Cape jazz\" or \"Mannenberg\"",
     "review": "Grade 3 choir teacher, second score reader and South African jazz educator; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "3",
@@ -2891,6 +2970,7 @@
     "respect": "Credit Violeta Parra (Chile, 1917-1967) as the songwriter and Mercedes Sosa (Argentina, 1935-2009) as the performer, and connect the song to its Spanish words and to nueva canción's history of testimony, censorship and exile rather than treating it as background folk colour. Never present this classroom piece as nueva canción or as a Latin American song",
     "review": "Grade 3 choir teacher, second score reader and Latin American music educator; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "3",
@@ -2970,6 +3050,7 @@
     "respect": "Name Nusrat Fateh Ali Khan (1948-1997), born in Faisalabad, Pakistan, and his party, and say plainly that qawwali is Sufi devotional music whose words praise God, the Prophet and the saints. \"Allah Ho\" is a repetition of God's name: play it for listening only, never as a sound to imitate, chant along with or use as classroom vocal material, and never sing its words in this piece. Some students and families will hold it sacred and others may prefer not to listen; tell families ahead and offer a choice. Keep the classroom piece secular and never describe it as qawwali or as Pakistani or Sufi music",
     "review": "Qawwali-informed Muslim or South Asian music educator, Grade 3 teacher and second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "3",
@@ -3049,6 +3130,7 @@
     "respect": "Name Ilê Aiyê, its founders Antônio Carlos \"Vovô\" dos Santos and Apolônio de Jesus, and the song's composer Paulinho Camafeu; teach that the bloco was formed as a Black political and cultural answer to exclusion and racism in Salvador's Carnival, with its own music, dress and Carnival themes. Do not use costumes, generic \"carnival\" framing or the bloco's identity as dress-up, and never present this classroom chorus as bloco afro music or samba-reggae",
     "review": "Afro-Brazilian or Bahia music educator, Grade 4 teacher and second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "4",
@@ -3128,6 +3210,7 @@
     "respect": "Identify Cuban son as an Afro-Cuban and Spanish-descended tradition from eastern Cuba, name Compay Segundo and the musicians on the recording (among them Eliades Ochoa, Ibrahim Ferrer and Omara Portuondo), and note that the album's fame outside Cuba came through a foreign-produced project. Do not call every clave-adjacent classroom pattern salsa or son, and never present this piece as Cuban music",
     "review": "Cuban son educator, Grade 4 teacher and second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "4",
@@ -3207,6 +3290,7 @@
     "respect": "Centre Umm Kulthum, the poet Morsi Gamil Aziz and the composer Baligh Hamdi, and Arabic listening practices: long improvised extensions, the audience's responses and tarab. Explain that staff notation and twelve-tone classroom instruments omit maqam intervals and ornaments, and never present this piece or its minor key as an Arabic sound",
     "review": "Arab music educator, Grade 4 teacher and second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "4",
@@ -3286,6 +3370,7 @@
     "respect": "Name Susana Baca as an Afro-Peruvian singer and researcher who later served as Peru's Minister of Culture, and the song's authors Chabuca Granda and César Calvo; centre Black Peruvian history and the twentieth-century revival of Afro-Peruvian music in which Baca worked. Never present this classroom 6/8 song, or any 6/8 cajón exercise, as landó or as Afro-Peruvian music.",
     "review": "Grade 5 classroom music teacher, Afro-Peruvian music educator or culture bearer, second score reader and student singing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "5",
@@ -3365,6 +3450,7 @@
     "respect": "Name Ravi Shankar as a Hindustani sitarist trained in the Maihar tradition under Allauddin Khan, and name the accompanists on the recording. State explicitly that a five-note set does not define a raga: Jog has its own ascent, descent, characteristic phrases and time of day, and is learned from a teacher. Use the recording and an expert's explanation as the primary sources, and never call this classroom rondo a raga.",
     "review": "Grade 5 classroom music teacher, Hindustani music educator, second score reader and student playing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "5",
@@ -3444,6 +3530,7 @@
     "respect": "Name the Skatalites as Kingston session musicians (among them Tommy McCook, Roland Alphonso, Don Drummond, Lloyd Knibb and Jackie Mittoo) who shaped ska in the years around Jamaican independence in 1962; explain that \"Guns of Navarone\" is their arrangement of a Hollywood film theme. Teach Jamaican authorship and chronology, and do not collapse ska, rocksteady, reggae and generic \"island music\"; never present this classroom song as ska.",
     "review": "Grade 5 classroom music teacher, Jamaican music educator, second score reader and student singing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "5",
@@ -3523,6 +3610,7 @@
     "respect": "Name Thomas Mapfumo as a Zimbabwean singer and bandleader, born in 1945, whose chimurenga (\"struggle\") music brought Shona mbira patterns and Shona-language songs to the electric band during the liberation war and after independence in 1980, and who later lived in exile in the United States; name the Blacks Unlimited's guitarists. Teach the word chimurenga, the political history and Shona sources; do not reduce the genre to a guitar texture, and never present this classroom piece as chimurenga.",
     "review": "Grade 6 classroom music teacher, Zimbabwean music educator or culture bearer, second score reader and student playing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "6",
@@ -3602,6 +3690,7 @@
     "respect": "Credit Paul Desmond as composer, not only the bandleader, and name the Quartet (Dave Brubeck, Paul Desmond, Eugene Wright, Joe Morello) and the album Time Out (1959). Discuss unusual metre as a choice jazz musicians made, without calling it exotic; note that metres of five and other groupings are ordinary in many musical traditions.",
     "review": "Grade 6 classroom music, band or choir teacher, jazz educator, second score reader and student trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "6",
@@ -3681,6 +3770,7 @@
     "respect": "Name Zakir Hussain (1951-2024) as a tabla master, son and student of Ustad Alla Rakha, and name his collaborators on the record. Use a tabla educator's demonstration for bols, tala and technique; do not call arbitrary syllables konnakol or tabla language, and never present this classroom 9/8 piece as a tala or as Hindustani music.",
     "review": "Grade 6 classroom music teacher, tabla or Hindustani rhythm educator, second score reader and student playing trial; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "6",
@@ -3760,6 +3850,7 @@
     "respect": "Teach the blues as Black American history and living expression, not just a scale or a chord worksheet: name Muddy Waters (McKinley Morganfield, from the Mississippi Delta), Willie Dixon as the song's writer, Chicago's South Side and Chess Records, and the Great Migration that carried Delta musicians north. Say plainly that this classroom piece is a school exercise in the 12-bar form, not a blues song from that tradition and not a substitute for listening to the recording",
     "review": "Blues educator, Grade 7 music teacher, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "7",
@@ -3839,6 +3930,7 @@
     "respect": "Locate Syria and the Levant, and Souleyman's region of north-east Syria, on a map; explain that dabke is a social line dance with many regional forms in Syria, Lebanon, Palestine, Jordan and Iraq, danced at weddings and community celebrations, and that a concert video shows one artist's international stage career, not the whole practice. Teach dabke steps only with a culture bearer; never present this classroom study, or its stamp break, as dabke",
     "review": "Syrian or Levantine dabke educator, Grade 7 music/dance teacher, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "7",
@@ -3918,6 +4010,7 @@
     "respect": "Name Kabza De Small (Kabelo Motha) and the featured artists, say that amapiano grew in Gauteng's townships (Pretoria and Johannesburg) in the 2010s from kwaito, deep house and jazz, carried by producers, DJs and dancers, and that the log drum is a signature sound that belongs to that scene. Do not detach the log drum from amapiano and market it as a generic preset, and never present this classroom loop as amapiano",
     "review": "South African amapiano producer or educator, Grade 7 music teacher, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "7",
@@ -3997,6 +4090,7 @@
     "respect": "Name the film (Slumdog Millionaire, directed by Danny Boyle, 2008, a British production set in Mumbai), A. R. Rahman as composer, Gulzar as lyricist and the singers, and the languages heard in the excerpt chosen. Explain that Rahman works across Tamil, Hindi and international cinema; do not use \"Bollywood\" as a catch-all for Indian music or present this classroom theme as Indian film music",
     "review": "Indian film-music educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "8",
@@ -4076,6 +4170,7 @@
     "respect": "Name I Nyoman Windha as a Balinese composer and teacher, the island of Bali, the chosen ensemble and the piece's dance; explain that gamelan gong kebyar is a twentieth-century Balinese ensemble whose paired instruments are tuned slightly apart to make a shimmer, and that its interlocking parts (kotekan) have their own names and rules. Say plainly that equal-tempered school instruments cannot reproduce gamelan tuning and that this study is not gamelan",
     "review": "Balinese gamelan educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "8",
@@ -4155,6 +4250,7 @@
     "respect": "Name Ali Farka Touré, his home region of Niafunké on the Niger River in northern Mali, the Songhai and other languages he sang in, and Ry Cooder as his collaborator on this album. Do not imply that Malian music derives from US blues; discuss the reciprocal histories carefully and centre Touré's own account of his music's local roots. Never present this classroom study as Malian music",
     "review": "Malian/Songhai music educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "8",
@@ -4234,6 +4330,7 @@
     "respect": "Name Kodo, Sado Island and Japan, and use the word taiko; explain that ensemble taiko as a stage art grew in Japan from the 1950s and that Kodo's O-daiko solo is trained, disciplined work. Never call this song taiko, never present a classroom tub drum or loud banging as Japanese drumming, and avoid \"loud Japanese drum\" stereotypes, costume or headband play. The song is culture-neutral and must not fill a Japan coverage cell",
     "review": "Early-years (JK) music teacher, taiko-informed educator, movement/accessibility reviewer for the stomp and tap choices, and a second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "JK",
@@ -4311,6 +4408,7 @@
     "respect": "Credit Ella Jenkins by name in the lesson, say she was a Black American educator from Chicago who spent decades singing with children, and listen to her own recording rather than presenting this greeting as a substitute or as her work",
     "review": "Early-years (JK) music teacher, JK classroom trial and a second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "JK",
@@ -4388,6 +4486,7 @@
     "respect": "Introduce Evelyn Glennie as a composer and solo percussionist first. If her deafness comes up, use her own framing of listening with the whole body and do not turn it into \"inspiration\" rhetoric or a lesson about overcoming; let children feel vibration as one way everyone listens",
     "review": "Early-years (JK) music teacher, accessibility-minded music educator (including Deaf or hard-of-hearing perspectives on the framing), classroom trial and a second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "JK",
@@ -4465,6 +4564,7 @@
     "respect": "Name the shakuhachi, Japan and Riley Lee, and say that honkyoku belong to a Zen Buddhist practice in which playing is a form of meditation. Do not call any airy classroom sound \"Zen\", do not claim the song is a spiritual practice, and do not imitate shakuhachi with recorders as if that were the tradition",
     "review": "Shakuhachi-informed educator (ideally a teacher in a honkyoku lineage), early-years (SK) music teacher, SK classroom trial and a second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "SK",
@@ -4542,6 +4642,7 @@
     "respect": "Say steelpan (or pan), not \"steel drum\"; locate Trinidad and Tobago on a map; say the instrument was invented there by working people and is the national instrument; show a real steel orchestra before classroom instruments imitate brightness. Name Lord Kitchener as a calypsonian, never present this song as calypso, and keep carnival costume play out of it",
     "review": "Trinidadian steelpan educator, early-years (SK) music teacher, SK classroom trial and a second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "SK",
@@ -4619,6 +4720,7 @@
     "respect": "Teach Miriam Makeba's name, South Africa, the isiXhosa language of the song and her exile for opposing apartheid; do not reduce the recording to an anonymous dance beat or teach the pata pata dance from guesswork. Present \"Mirror Steps\" as a classroom movement song, never as South African music",
     "review": "South African music educator (ideally an isiXhosa speaker), early-years (SK) music teacher, movement/accessibility reviewer, SK classroom trial and a second score reader; all reviews still required"
    },
+   "lesson": [],
    "composition": {
     "series": "Ontario Listening Bridges — set 1",
     "grade": "SK",
@@ -4695,6 +4797,7 @@
     "accompaniment": "Jekyll prints the voice alone and names no instruments; everyone in the ring sings; the band plays a mento backing (band, strum, rumba-box bass) in the idiom of Jamaican country bands, ours (conservative guess, 11 November 2026)",
     "lyrics": "Jamaican Patois as Jekyll printed it, one verse, all sung in class, nothing left out (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -4744,6 +4847,7 @@
     "respect": "The tune also leads processions to saints' tombs, where the first verse of the Qur'an is recited aloud (Rouanet p. 2824); the song itself is not a religious text. Rouanet writes as a French colonial musicologist in Algiers; the record quotes his facts about the music, not his framing.",
     "review": "An Arabic speaker familiar with Algerian song, for the words; ideally an Algerian musician, for the tempo and the drum strokes."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -4791,6 +4895,7 @@
     "accompaniment": "None: the three voices are the whole piece, and the band rests. Style ballad only as a nominal setting, since the band lines silence it (conservative guess, 11 November 2026)",
     "lyrics": "Middle French; the top voice's four lines and the burden, as Stainer underlays them, with an English meaning. Fit for class (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -4834,6 +4939,7 @@
     "accompaniment": "Tradition: the koto alone, or voice with koto; no percussion (conservative guess, 11 November 2026). Band here: the minyo style at low energy, an A-E drone like the koto's open strings.",
     "lyrics": "The old text (Sakura sakura, yayoi no sora wa...) in romaji under the notes, English meaning in an N: line; fit for class; not yet checked by a Japanese speaker (conservative guess, 11 November 2026)."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -4883,6 +4989,7 @@
     "respect": "the source identifies a Ghanaian singing game but does not name its language or a specific community; do not relabel it Akan, Twi or generally \"West African,\" and do not import a bell pattern or harmony from geography alone",
     "review": "Ghanaian early-years teacher familiar with the game and a competent speaker of the source words, plus a classroom music teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -4933,6 +5040,7 @@
     "respect": "If this is a funeral procession, the music belongs to that occasion; find out before teaching any of it as a dance or party piece. Some Senufo balafon music is tied to the Poro society; ask a Senufo musician which pieces may be played outside.",
     "review": "A Senufo balafon player, for the parts and their occasion."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -4998,6 +5106,16 @@
     "respect": "A contemporary song shared by its Cree composer for teaching, not a ceremonial one. Tell its story (why it was written, what the words say) before singing it, credit the composer and the translators every time, and do not add drums or rattles. The composer is also the author of the Orff Canada article on Indigenous music this workshop follows.",
     "review": "Sherryl Sewepagaham (the composer) for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: download the score for your grade from musicounts.ca/en/miteh (Simplified Unison with optional Orff for the younger grades; Unison with chords, SA or SATB for older ones) and the pronunciation guide. Check the range on the score against your class.",
+    "Tell the story first: Sherryl Sewepagaham is a Cree-Dene singer, composer and music teacher from the Little Red River Cree Nation in northern Alberta, and she wrote mitêh for the 2026 CBC Canadian Music Class Challenge. The song is about the heart as a place of connection: to yourself, to others and to your community. Name Bill and Emily Sewepagaham, who wrote the Cree translation and pronunciation.",
+    "Listen and watch: play the instructional video on the MusiCounts page once through without singing.",
+    "Pronunciation: from the guide, practise the sounds that trip English speakers: K, T and P with no puff of air, H as a strong breath, and I as in \"fit\", never \"eat\". Say the title as the guide gives it, then speak each verse line in rhythm, with the guide's phonetic line projected beside the score.",
+    "Sing from the composer's score: the chorus first (the single word mitêh), then the verses one at a time, then the whole song. Older classes add the second part (SA) once the unison is secure.",
+    "Accompaniment: MusiCounts invites schools to make their own instrumental accompaniment; the Unison + Orff score already has parts for barred instruments. Use pitched classroom instruments only, no hand drum or rattle (the guide Singing in Indigenous Languages, p. 6).",
+    "The spoken passage: read the guide's English meaning together and talk about what it asks of the singers before speaking it in Cree.",
+    "Close: name the composer and the translators again. If the class enters the Class Challenge, follow CBC's entry rules; otherwise keep any recording inside the school."
+   ],
    "composition": null,
    "improv": []
   },
@@ -5056,6 +5174,7 @@
     "respect": "A seasonal Christian custom with secular words; fine for a winter-holiday unit that includes other traditions. Nothing sensitive.",
     "review": "A Puerto Rican teacher or musician, for the words, the parranda and the cuatro's part."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -5106,6 +5225,7 @@
     "respect": "A young player filmed at home and posted on her own page: credit her by name once it is known, and ask before any use beyond study. Lithophones of the Central Highlands and the southeast are a source of local and national pride; present the instrument with its people, the S'tiêng.",
     "review": "The player or her family, for the piece's name; a Vietnamese musicologist who knows the đàn đá of Bình Phước."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -5155,6 +5275,7 @@
     "respect": "Nothing sacred. Credit Madikane Cele. Curtis's surrounding remarks on race (\"naturally emotional\", \"primitive races\", the missionary anecdotes) stay out of the record; her account of the song and its use is kept.",
     "review": "A Zulu speaker, for the spelling, the words and whether the tune is known today."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -5207,6 +5328,15 @@
     "respect": "A contemporary anthem shared for classes. Credit both artists and tell the song's purpose before singing it.",
     "review": "Twin Flames for the credit and any posting; an Inuktitut speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: open the CBC page for \"Human\" and its teaching videos (there is one for the Indigenous-language version and one for the English version).",
+    "Tell the story first: Twin Flames are Chelsey June, a Métis woman from Ottawa, and Jaaji, Inuk and Mohawk from the Arctic. They wrote \"Human\" as the official anthem of UNESCO's International Year of Indigenous Languages (2019), from an Indigenous perspective, to invite everyone into inclusion and belonging.",
+    "Listen to the Twin Flames recording, then talk about why a year for Indigenous languages was needed.",
+    "Pronunciation: learn the Inuktitut from the artists' teaching video, phrase by phrase.",
+    "Sing from the material on the CBC page: the English version first if it helps, then the Inuktitut.",
+    "Accompaniment: none from Indigenous instruments (the guide, p. 6, asks that hand drums, rattles and the big drum be left to an Indigenous student or Knowledge Keeper). If the class wants accompaniment, use only what the printed score gives; the Band stays silent.",
+    "Close: name the songwriters and the year again, and ask what the class noticed about the language. Do not post or share a recording of the class beyond the school; the terms are \"educational purposes only\"."
+   ],
    "composition": null,
    "improv": []
   },
@@ -5264,6 +5394,7 @@
     "respect": "Present this as a Meiji-period composed school song and fable, not a timeless or generic Japanese folk tune. Do not add costumes, accents or instruments merely from geography. A Japanese reviewer should decide how to explain the school-song movement and whether the historical English adaptation is suitable beside checked Japanese words",
     "review": "Japanese children's-music educator or shōka historian, competent Japanese speaker, rights reviewer for the English version, second score reader and classroom music teacher; all reviews still required"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -5307,6 +5438,7 @@
     "accompaniment": "The record transcribes the voice alone; no traditional accompaniment is documented here. Band: the folk (boom-chick) style, a light 2/4 accompaniment for a play song (conservative guess, 11 November 2026)",
     "lyrics": "Spanish, two lines sung to the repeated four bars, then Hague's English singing translation. Fit for class (conservative guess, 11 November 2026)"
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -5359,6 +5491,14 @@
     "respect": "A contemporary song shared for classes. Teach only what the song, its teaching video and the guide say about it; deeper teachings about the moons belong to Anishinaabe teachers. Credit the songwriter.",
     "review": "Tara Williamson for the credit and any posting; an Anishinaabemowin speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it."
    },
+   "lesson": [
+    "Before the lesson: open the CBC page for Ode'min Giizis and its teaching video.",
+    "Tell the story first: Tara Williamson, a singer-songwriter from the Opaskwayak Cree Nation in Manitoba, wrote this song in Anishinaabemowin. Ode'min Giizis means Strawberry Moon; the guide says the song honours the way Anishinaabe people track the seasons by the moon, and that the strawberry moon marks the beginning of June and is a reminder of friendship, sweetness and love.",
+    "Pronunciation: learn the Anishinaabemowin from the teaching video, phrase by phrase.",
+    "Sing from the material on the CBC page, then the whole song. It fits a June lesson or a unit on seasons, using only what the song and its video say about the moons.",
+    "Accompaniment: none from Indigenous instruments (the guide, p. 6, asks that hand drums, rattles and the big drum be left to an Indigenous student or Knowledge Keeper). If the class wants accompaniment, use only what the printed score gives; the Band stays silent.",
+    "Close: name the songwriters and the year again, and ask what the class noticed about the language. Do not post or share a recording of the class beyond the school; the terms are \"educational purposes only\"."
+   ],
    "composition": null,
    "improv": []
   },
@@ -5421,6 +5561,7 @@
     "respect": "Barrow and van Aalst write as outsiders who often dismiss Chinese music (Barrow's \"aggregation of harsh sounds\"); the record keeps their facts and transcriptions only. The tune became a political symbol in 2011 (the \"Jasmine Revolution\" calls); not something to raise in class unless asked.",
     "review": "A Chinese speaker for the characters and the singing; ideally a musician who plays Jiangnan sizhu, for the ornaments."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   },
@@ -5471,6 +5612,7 @@
     "respect": "St George's Day (Gergyovden, 6 May) is a Christian and folk feast; the garlanded lamb is the feast's sacrificed lamb (kurban). That is a fact a teacher may give or leave; the song itself is about flowers, girls and lambs.",
     "review": "A Bulgarian speaker, for the spelling, stresses and translation; a Bulgarian dance teacher, for the horo step."
    },
+   "lesson": [],
    "composition": null,
    "improv": []
   }
