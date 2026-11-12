@@ -77,9 +77,12 @@
       <a class="pb-back" href="course/board.html">← Board</a>
       <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><button type="button" class="pb-share"></button><small class="pb-facts"></small></div>
       <div class="pb-modes" role="tablist" aria-label="Teacher"></div>
+      <div class="pb-instwrap"><button type="button" class="pb-instchip" aria-expanded="false" aria-controls="pb-instset" title="The instrument shown with the music, and what it shows"><span class="nm"></span></button>
+      <div class="pb-instset" id="pb-instset" role="group" aria-label="Instrument">
       <label class="pb-inst" title="The instrument shown with the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
       <button type="button" class="pb-gear quiet" aria-label="Ukulele setup" title="Ukulele setup: C or D tuning, high or low G (kept on this computer)" hidden>⚙</button>
       <label class="pb-show" title="What a piano, the 2-5 Keys or a ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
+      </div></div>
     </div>
     <ol class="pb-row pb-steps" id="pb-steps" aria-label="Steps"></ol>
     <div class="pb-row pb-tools" id="pb-tools"></div>`;
@@ -831,6 +834,7 @@
     for (const b of bar.querySelectorAll('.pb-step2')) b.classList.toggle('done', step > 2);
     $('.pb-show').hidden = !['piano', 'wh', 'uke'].includes($('.pb-inst select').value);
     $('.pb-gear').hidden = $('.pb-inst select').value !== 'uke' || !(G.ukeSetup && G.ukeSetup.open);
+    paintInstChip();
     wasPlaying = null; paintPlaying(); paintProgress(); paintClock();
   }
   // The main button says what it will do: Play, or Pause while the music plays.
@@ -869,11 +873,21 @@
   /* ---------------- controls ---------------- */
   $('.pb-fold').addEventListener('click', () => setFold(!document.body.classList.contains('pb-folded')));
   // The ukulele's setup (tuning, high or low G) is the page's, shared with the lesson page; a change redraws the music and its diagrams.
-  $('.pb-gear').addEventListener('click', () => { if (G.ukeSetup) G.ukeSetup.open(); });
+  $('.pb-gear').addEventListener('click', () => { setInstOpen(false); if (G.ukeSetup) G.ukeSetup.open(); });
+  /* On a narrow screen the instrument, what it shows and the ukulele's setup fold into one chip that says them
+     ("Ukulele · Melody ▾"); a tap opens them under it. On a wide screen the chip is not shown and they stand in the bar. */
+  function paintInstChip() {
+    const sel = $('.pb-inst select'), show = $('.pb-show');
+    $('.pb-instchip .nm').textContent = (P.INSTRUMENTS[sel.value] || '') + (show.hidden ? '' : ' · ' + (P.SHOWS[show.querySelector('select').value] || ''));
+  }
+  const setInstOpen = on => { $('.pb-instset').classList.toggle('open', on); $('.pb-instchip').setAttribute('aria-expanded', String(on)); };
+  $('.pb-instchip').addEventListener('click', () => setInstOpen(!$('.pb-instset').classList.contains('open')));
+  document.addEventListener('pointerdown', e => { if (!e.target.closest('.pb-instwrap')) setInstOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && $('.pb-instset').classList.contains('open')) { setInstOpen(false); $('.pb-instchip').focus(); } });
   if (G.ukeSetup && G.ukeSetup.onChange) G.ukeSetup.onChange(() => { if (en) afterRender(); });
   const choose = (cls, v) => { const sel = en && en.body.querySelector(`.${cls} select`); if (sel) { sel.value = v; sel.dispatchEvent(new Event('change')); } };
   $('.pb-inst select').addEventListener('change', e => { const v = e.target.value; ls.set('gcs-last-inst', v); choose('instpick', v); choose('showpick', $('.pb-show select').value); afterRender(); });
-  $('.pb-show select').addEventListener('change', e => { choose('showpick', e.target.value); afterRender(); });
+  $('.pb-show select').addEventListener('change', e => { choose('showpick', e.target.value); afterRender(); paintInstChip(); });
   /* The full player (the Melody, Band and Mixer drawers) waits behind a small pull tab at the foot of the music, in the
      clock's brass and opal: tap it and the drawers slide up; the tab rides on their top edge and turns its chevron down. */
   let pullTab = null;
