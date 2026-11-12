@@ -6391,8 +6391,12 @@
         const timings = (t.noteTimings || []).filter(e => e.type === 'event' && e.elements && e.elements.length);
         const total = t.getTotalTime ? t.getTotalTime() * 1000 : (timings.length ? timings[timings.length - 1].milliseconds : 0);
         const lines = new Map();
+        // A song in parts: the cursor dragged is the first voice's, so its axis is that voice's notes, placed as its
+        // cursor places them (the leftmost head of every voice stepped back where the staves' columns part).
+        const parts = this.origElems.some(e => e.el_type === 'note' && e._voice), own = ev => (ev.elements || []).flat().some(el => { const i = this.hiddenIndex.get(el); return i !== undefined && !this.origElems[i]._voice; });
         for (const ev of timings) {
-          const geo = this.eventGeometry(ev); if (geo.x === null) continue;
+          if (parts && !own(ev)) continue;
+          const geo = this.eventGeometry(ev, parts ? 0 : null); if (geo.x === null) continue;
           const ln = ev.line || 0;
           if (!lines.has(ln)) { const span = this.cursorSpan(ln); lines.set(ln, { line: ln, events: [], endX: this.endX(ln), cy: span.top + span.height / 2 }); }
           lines.get(ln).events.push({ x: geo.x - 3, ms: ev.milliseconds, color: geo.color, ev });

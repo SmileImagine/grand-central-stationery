@@ -3,7 +3,8 @@
 /*
   The cursors of a song in parts, checked in headless Chrome: each voice's cursor (tl.parts) moves forward along each
   line of the score, never back, except where a repeat or an ending takes it back to notes it has already played; and
-  where the voices start a note together in one column, their cursors stand together.
+  where the voices start a note together in one column, their cursors stand together. Dragging the first voice's
+  cursor seeks along the same places (Engine.timeline), so the drag axis is checked the same way.
 
     node test/cursor-columns.js                       the fixtures below
     node test/cursor-columns.js --set                 also every tune in course/set.json and course/rhythm-set.json
@@ -112,25 +113,32 @@ const PAGE = `window.CursorLab = (() => {
     e.entry.value = abc; e.render();
     for (let i = 0; i < 400; i++) { if (e.tl && e.tl !== old && !e.pending && !e.busy) break; await sleep(25); if (e.pending && !e.busy) e.render(); }
     if (!e.tl || e.tl === old) throw new Error('the tune did not render');
-    const parts = e.tl.parts || [e.tl.events], seen = new Map();
-    return parts.map((E, v) => E.map(p => {
+    // The cursors' events, then the axis dragging the first voice's cursor seeks along (Engine.timeline).
+    const parts = [...(e.tl.parts || [e.tl.events]), e.timeline().lines.flatMap(L => L.events.map(p => ({ ...p, line: L.line })))];
+    return parts.map(E => { const seen = new Map(); return E.map(p => {
       // A repeat or an ending plays the same notes again: their elements are the ones already seen.
       const els = (p.ev.elements || []).flat(), again = els.some(el => seen.has(el));
       els.forEach(el => seen.set(el, true));
       return { ms: Math.round(p.ms), line: p.line, staff: p.staff, x: p.x === null ? null : Math.round(p.x * 100) / 100, again, ev: e.tl.events.findIndex(q => q.ev === p.ev) };
-    }));
+    }); });
   } };
 })();`;
 
-function check(t, parts) {
-  const fails = [];
-  parts.forEach((E, v) => {
+// all: every voice's cursor events, then the drag axis.
+function check(t, all) {
+  const fails = [], parts = all.slice(0, -1), drag = all[all.length - 1];
+  all.forEach((E, v) => {
+    const who = E === drag ? 'the drag axis' : `voice ${v + 1}`;
     for (let i = 1; i < E.length; i++) {
       const a = E[i - 1], b = E[i];
       if (a.line !== b.line || a.x === null || b.x === null || b.again) continue;
-      if (b.x < a.x - 0.5) fails.push(`${t.id}: voice ${v + 1} steps back ${Math.round(a.x - b.x)} px on line ${b.line} at ${b.ms} ms (${a.x} → ${b.x})`);
+      if (b.x < a.x - 0.5) fails.push(`${t.id}: ${who} steps back ${Math.round(a.x - b.x)} px on line ${b.line} at ${b.ms} ms (${a.x} → ${b.x})`);
     }
   });
+  // Dragging moves the first voice's cursor: the axis is its events, where it stands.
+  // (The axis is grouped by line, so a repeat's second time round comes in among its line's events: matched by time.)
+  const first = new Map(parts[0].filter(p => p.x !== null).map(p => [p.ms, p]));
+  if (first.size !== drag.length || drag.some(q => !first.has(q.ms) || Math.abs(first.get(q.ms).x - q.x) > 0.5)) fails.push(`${t.id}: the drag axis (${drag.length} events) is not where voice 1's cursor stands (${first.length} events)`);
   if (t.together && parts.length > 1) for (let v = 1; v < parts.length; v++) for (const p of parts[v]) {
     const q = p.ev >= 0 && parts[0].find(r => r.ev === p.ev);
     if (q && Math.abs(q.x - p.x) > 0.5) fails.push(`${t.id}: voice ${v + 1}'s cursor stands ${Math.round(Math.abs(q.x - p.x))} px from voice 1's at ${p.ms} ms though they start together`);
@@ -170,7 +178,7 @@ async function main() {
       const parts = await evaluate(`CursorLab.read(${JSON.stringify(t.abc)})`, true);
       dump[t.id] = parts;
       const f = check(t, parts); fails.push(...f);
-      process.stdout.write(`${f.length ? 'FAIL' : 'ok  '} ${t.id} (${parts.length} voice${parts.length > 1 ? 's' : ''}, ${parts.reduce((a, E) => a + E.length, 0)} events)\n`);
+      const nv = parts.length - 1; process.stdout.write(`${f.length ? "FAIL" : "ok  "} ${t.id} (${nv} voice${nv > 1 ? "s" : ""}, ${parts.slice(0, -1).reduce((a, E) => a + E.length, 0)} events)\n`);
     }
     ws.close();
     if (opt('--dump')) fs.writeFileSync(opt('--dump'), JSON.stringify(dump, null, 1));
