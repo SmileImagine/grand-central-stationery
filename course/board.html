@@ -344,6 +344,8 @@
     };
     function renderLevel() {
       const view = $('#view'); view.innerHTML = '';
+      // An emptied set says why (set.json's withdrawn line) in place of an empty level.
+      if (!set.tunes.length && set.withdrawn) { view.innerHTML = `<p class="note"><b>Nothing is published just now.</b> ${esc(set.withdrawn)}</p>`; return; }
       const s = document.createElement('section'); s.className = 'level';
       const here = tunesAt(level);
       const head = way !== 'teach' && student ? `${esc(student)}: ${levelDone(level, student) ? 'done ✓' : `${passedAt(level, student)} of ${here.length} passed, ${Math.max(0, needed(level) - passedAt(level, student))} more to move up`}` : `${here.length} piece${here.length === 1 ? '' : 's'}`;
