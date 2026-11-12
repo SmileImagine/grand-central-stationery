@@ -24,6 +24,55 @@ the queued sample tunes in `course/samples/` are placeholders titled *Withheld*.
   for a withheld sample, back into its placeholder's place in
   `course/samples/`), never the workshop files.
 
+## Cultures that protect their music
+
+Being inspired by other cultures' music is welcome. The teacher's rule (12
+November 2026) is to judge by social precedent, not by theoretical
+appropriation. Where a culture's members, after colonial oppression, have
+clearly and publicly protected their music, its songs need particular care.
+These groups are:
+
+- **North American Indigenous peoples** (First Nations, Métis, Inuit, and the
+  Native nations of the US). Many songs belong to a family, a Nation or a
+  ceremony; vocables cannot be made up; a traditional song is never taught
+  apart from its story.
+- **Māori.** The haka *Ka Mate* is protected by law: the Haka Ka Mate
+  Attribution Act 2014 requires crediting its composer, Te Rauparaha of Ngāti
+  Toa Rangatira. There have been repeated public objections to commercial and
+  careless uses of haka.
+- **Aboriginal and Torres Strait Islander peoples.** The Australia Council
+  publishes formal protocols for using First Nations cultural and intellectual
+  property in the arts. They separate sacred or restricted songs from songs
+  that may be shared, and expect consent and benefit-sharing.
+- **Sámi.** A person's own joik belongs to them, so some joiks are closer to a
+  name than a song. For *Frozen II*, Disney signed a formal agreement with the
+  Sámi Parliaments and the Saami Council, now the standard example of
+  consultation done right.
+- **Native Hawaiians.** Sacred chant (oli) and hula are treated as protected,
+  which is partly why *Aloha ʻOe* is held back for a Native Hawaiian review.
+
+For these groups:
+
+- No originals inspired by them or paired with their recordings unless a
+  member writes or approves it; AI-assisted pieces are the clearest case.
+  `cbc-modern-g7-signal-drop` was withdrawn from main for this reason.
+- Only songs the composer or community shared for teaching, with the terms
+  recorded in the record: who shared it, what they allow, the credit wording,
+  and the story. Never sacred or ceremonial songs.
+- Link rather than copy: notation or recordings go on the site only with the
+  composer's written permission. Until then the record is `holding-kind: link`
+  (see Workflow): the dossier and the links, with no notes.
+- Ask first: offer protocol and an honorarium, and accept a no. Read Sherryl
+  Sewepagaham, "Indigenous Peoples, Music, and Issues: Considerations for Orff
+  Teachers" (<https://orffcanada.ca/wp-content/uploads/orffcanada/pdf/Indigenous-Peoples-Sewepagaham.pdf>),
+  and *Wîtaskîwin: Thirteen Guiding Principles*
+  (<https://musicounts.ca/en/programs/resources/w%C3%AEtask%C3%AEwin/>), which
+  calls sharing a gifted song further without permission "extraction of
+  knowledge". Locally, the TDSB Urban Indigenous Education Centre
+  (416-393-9600, tdsb.on.ca/IndigenousEducation).
+- Nothing from these groups goes to main without the teacher's decision and
+  the named review; the workshop's "publish early" rule does not apply to them.
+
 ## Workflow
 
 Each `.abc` file begins with these comment fields:
@@ -78,8 +127,8 @@ suggestions (the `holding-blocked` next step, the notes and the dossier):
 % holding-decision-note: why; a reject needs one
 % holding-response: the teacher's answer; one line each, as many as it takes
 % holding-response-updated: YYYY-MM-DD
-% holding-kind: tune | fragment   (absent means tune)
-% holding-kind-note: for a fragment, what is missing that made it music (needed)
+% holding-kind: tune | fragment | link   (absent means tune)
+% holding-kind-note: for a fragment, what is missing that made it music; for a link, why there are no notes (needed for both)
 ```
 
 A full record (see `PLAN-WORLD-TUNES-2026-11-10.md`, part A) has all of
@@ -90,6 +139,13 @@ notes, and a performance or a note on where one might be found.
 A fragment is a bar or two taken down without the words, dance, drum part or
 variants that made it musical; it is kept apart from the tunes until a record
 carries that context.
+
+A link is a song held by reference only: its owners shared it on their own
+pages, on terms that do not clearly allow reposting, so the record carries the
+links, the quoted terms, the credit and the story, and its ABC has headers but
+no notes and no words. Like a fragment, it is kept out of the launch count
+(`course/coverage-map.js`); it becomes a tune only if the composer gives
+written permission to post notation.
 
 A session picking up a tune reads `holding-response` first: it is the teacher
 answering what the last session suggested.

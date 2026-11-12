@@ -5,8 +5,9 @@ const stages = ['inbox', 'transcription', 'source-check', 'classroom-check', 're
 // The teacher's verdict, apart from the stage: include it in the course, keep considering it, or reject it (with a note).
 const decisions = ['include', 'considering', 'reject'];
 // What the piece is: a whole tune, or a fragment (a bar or two taken down without the words, dance, drum or
-// variants that made it music), with holding-kind-note saying what is missing.
-const kinds = ['tune', 'fragment'];
+// variants that made it music), with holding-kind-note saying what is missing; or a link (a song held by reference
+// only, its owners' terms not allowing notation here), with holding-kind-note saying why there are no notes.
+const kinds = ['tune', 'fragment', 'link'];
 // Human review is a separate evidence trail. Preparing or sending a packet
 // never counts as a passed classroom/culture/language review.
 const reviewStatuses = ['not-started', 'packet-ready', 'sent', 'response-received', 'complete'];
@@ -75,6 +76,8 @@ const field = (text, name) => {
   const m = text.match(new RegExp('^' + name + ':\\s*(.+)$', 'mi'));
   return m ? m[1].trim() : '';
 };
+// What is left of the ABC after its comments, directives and header fields: notes and words (w:, W:).
+const abcBody = text => text.split('\n').filter(l => l.trim() && !/^%/.test(l) && !/^[A-VX-Za-vx-z]:/.test(l)).join('\n');
 const files = fs.readdirSync(itemsDir).filter(f => f.endsWith('.abc')).sort();
 const seen = new Set(), errors = [], items = files.map(file => {
   const text = fs.readFileSync(path.join(itemsDir, file), 'utf8'), meta = metaOf(text);
@@ -99,6 +102,8 @@ const seen = new Set(), errors = [], items = files.map(file => {
     if (path.relative(root, packet).startsWith('..') || !fs.existsSync(packet)) errors.push(`${file}: holding-review-packet must name an existing file inside course/holding`);
   }
   if (meta.kind === 'fragment' && !meta['kind-note']) errors.push(`${file}: a fragment wants a holding-kind-note saying what is missing`);
+  if (meta.kind === 'link' && !meta['kind-note']) errors.push(`${file}: a link wants a holding-kind-note saying why it holds no notation`);
+  if (meta.kind === 'link' && abcBody(text).trim()) errors.push(`${file}: a link holds no notation or words; keep only the headers`);
   if (meta.decision === 'reject' && !meta['decision-note']) errors.push(`${file}: a rejected tune wants a holding-decision-note saying why`);
   return {
     id, file: `items/${file}`, title: field(text, 'T') || id,

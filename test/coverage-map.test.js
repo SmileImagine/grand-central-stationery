@@ -46,7 +46,7 @@ assert(freeze && freeze.generated === true, 'Freeze on One must be explicitly co
 assert(report.tunes.filter(tune => tune.generated).length === 3, 'the published set must retain its three explicit course originals');
 assert(pipeline.records.find(record => record.id === 'black-hills-powwow-song').kind === 'fragment', 'incomplete recordings must retain their fragment identity');
 const publishedIds = new Set(report.tunes.map(tune => tune.id));
-const completeWorkshop = pipeline.records.filter(record => record.queue === 'holding' && record.kind !== 'fragment' && (!record.compositionDraft || record.status === 'ready') && !publishedIds.has(record.id) && !record.published);
+const completeWorkshop = pipeline.records.filter(record => record.queue === 'holding' && record.kind !== 'fragment' && record.kind !== 'link' && (!record.compositionDraft || record.status === 'ready') && !publishedIds.has(record.id) && !record.published);
 assert(pipeline.records.filter(record => record.published).every(record => publishedIds.has(record.published)), 'every record marked published must name a tune in the published set');
 assert(runway.total === report.tunes.length + completeWorkshop.length, 'launch runway must count each published or launch-eligible workshop tune exactly once');
 assert(runway.generated === report.tunes.filter(tune => tune.generated).length + completeWorkshop.filter(record => record.generated).length, 'launch runway must count every launch-eligible generated tune exactly once');

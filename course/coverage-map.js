@@ -137,7 +137,7 @@ function launchRunway(report, pipeline, target = 100, maxGeneratedShare = 0.25) 
   // curriculum draft waits until its explicit `ready` gate; otherwise a planning batch of originals would be
   // mistaken for 30 launch-ready works and would obscure the source/classroom/cultural checks still required.
   // A record already published counts once, as its published tune.
-  for (const record of (pipeline ? pipeline.records : []).filter(record => record.queue === 'holding' && record.kind !== 'fragment' && !record.published && (!record.compositionDraft || record.status === 'ready'))) {
+  for (const record of (pipeline ? pipeline.records : []).filter(record => record.queue === 'holding' && record.kind !== 'fragment' && record.kind !== 'link' && !record.published && (!record.compositionDraft || record.status === 'ready'))) {
     if (!inventory.has(record.id)) inventory.set(record.id, { id: record.id, generated: record.generated, queue: 'holding' });
   }
   const items = [...inventory.values()];
