@@ -131,7 +131,7 @@ function buildPipeline(root) {
   return { records, matrix };
 }
 
-function launchRunway(report, pipeline, target = 100, maxGeneratedShare = 0.25) {
+function launchRunway(report, pipeline, target = 100) {
   const inventory = new Map(report.tunes.map(tune => [tune.id, { id: tune.id, generated: tune.generated, queue: 'published' }]));
   // A complete sourced transcription enters the existing runway while it moves through review. A newly composed
   // curriculum draft waits until its explicit `ready` gate; otherwise a planning batch of originals would be
@@ -143,15 +143,12 @@ function launchRunway(report, pipeline, target = 100, maxGeneratedShare = 0.25) 
   const items = [...inventory.values()];
   const total = items.length;
   const generated = items.filter(item => item.generated).length;
-  const maxGenerated = Math.floor(target * maxGeneratedShare);
   return {
     target,
     total,
     generated,
     sourced: total - generated,
     remaining: Math.max(0, target - total),
-    maxGenerated,
-    generatedSlots: Math.max(0, maxGenerated - generated),
     generatedShare: total ? generated / total : 0,
   };
 }
@@ -181,8 +178,8 @@ function renderMarkdown(report, pipeline = null) {
     '## Launch runway',
     '',
     `- **${launch.total}/${launch.target}** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.`,
-    `- **${launch.generated}/${launch.total}** are explicitly labelled course originals or generated works (${(launch.generatedShare * 100).toFixed(1)}%); the launch allowance is at most ${launch.maxGenerated}/${launch.target} (25%).`,
-    `- **${launch.remaining}** tunes remain to reach ${launch.target}. At most ${launch.generatedSlots} additional originals could fit under the numerical allowance, but source-backed repertoire remains the priority for geographic and cultural coverage.`,
+    `- **${launch.generated}/${launch.total}** are explicitly labelled course originals or generated works (${(launch.generatedShare * 100).toFixed(1)}%). The teacher lifted the earlier 25% allowance on 12 November 2026, when the listening bridges were published; the share is reported, not capped.`,
+    `- **${launch.remaining}** tunes remain to reach ${launch.target}. Source-backed repertoire remains the priority for geographic and cultural coverage.`,
     '',
     '## Coverage by region, level and function',
     '',
