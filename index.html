@@ -2155,9 +2155,12 @@
     // before the first one and a run of two bars or more after the last are
     // filled, so one written chord does not hold to the end of the tune.
     const isChordSymbol = c => /^[A-G][#b\u266F\u266D]?/.test(c.name || '') && (!c.position || c.position === 'default');
+    // Whether the tune writes chord symbols: a quoted name in the music, not in a header, lyric or comment line (a
+    // composer line quoting "Ah! vous dirai-je, maman" is not an A chord, and taking it for one left Twinkle unaccompanied).
+    const hasWrittenChords = abc => /"[A-G][#b\u266F\u266D]?[^"]*"/.test(abc.split('\n').filter(l => !/^\s*(?:[A-Za-z]:|%)/.test(l)).join('\n'));
     function withDetectedChords(abc, tonicOnly = false) {
       if (!window.ABCJS) return abc;
-      const written = /"[A-G][#b\u266F\u266D]?[^"]*"/.test(abc);
+      const written = hasWrittenChords(abc);
       if (tonicOnly && written) return abc;   // a drone holds the chord the tune writes (an open fifth on its final), not the key's triad
       let tune; try { tune = ABCJS.parseOnly(abc)[0]; } catch (err) { return abc; }
       if (!tune || !tune.lines) return abc;
@@ -3427,10 +3430,10 @@
     // The CC0 sets (vendor/soundfont/build-cc0.js, from Versilian Studios' VCSL and VSCO 2; the kit's kick, crash and ride are
     // Lars Muldjord's, CC BY 4.0): each keeps only the notes it was
     // recorded at, and a note between them plays its nearest, retuned. SAMPLE_SETS.use puts each in for the FluidR3 set
-    // it replaces; the kit (kit-mp3) has eleven drums of its own and leaves the rest to the percussion set. The recorder is filed at
+    // it replaces; the kit (kit-mp3) has nineteen drums of its own, the hand percussion among them, and leaves the rest to the percussion set. The recorder is filed at
     // its written pitch and sounds an octave above it, as a soprano recorder does. The violin, trumpet, tuba and the bars
     // have no FluidR3 set: PROGRAM_FOLDER names them, and the glockenspiel and xylophone are filed at written pitch too.
-    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"kit":[36,37,38,42,43,44,46,47,49,50,51],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
+    const SAMPLE_NOTES ={"vcsl_grand_piano":[22,24,27,30,33,36,39,42,45,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,83,84,87,90,93,96,99,102,105,108],"vcsl_soprano_recorder":[60,62,64,66,68,70,72,74,76,78,79,82,84],"vsco_double_bass_pizz":[28,30,31,34,36,38,40,42,44,45,49,52,56,59],"kit":[36,37,38,39,42,43,44,46,47,49,50,51,54,56,69,70,75,76,77],"vsco_violin":[55,57,60,64,67,69,72,76,79,81,84,88,91,93,96],"vsco_trumpet":[53,57,60,63,67,70,74,77,81,84],"vsco_tuba":[34,39,41,46,50,53,58,62],"vsco_glockenspiel":[55,60,67,72,79,84],"vsco_marimba":[41,48,55,59,65,72,79,83,89,96],"vsco_xylophone":[55,60,67,72,79,84,91,96]};
     const SAMPLE_SETS = { use: true, acoustic_grand_piano: 'vcsl_grand_piano', recorder: 'vcsl_soprano_recorder', acoustic_bass: 'vsco_double_bass_pizz', percussion: 'kit', electric_piano_1: 'synth-epiano' };   // the electric piano is synthesised (no CC0 set found)
     // How far the melody sounds above what is written: the CC0 soprano recorder an octave, as a real one does.
     const melodyOctave = inst => inst === 'recorder' && SAMPLE_SETS.use && location.protocol !== 'file:' ? 12 : 0;
@@ -3440,10 +3443,10 @@
     // some of the hard ones). A hit plays the strength its level asks for (under KIT_SOFT, over KIT_HARD; the levels the
     // Sampler is given, a backbeat at middle Energy near 0.4) and the takes in turn, as two hands do, a few cents and a
     // little level apart, so no two strikes are the same sound. The hats and cymbals are stereo.
-    const KIT_TAKES = { 36: 'pf', 37: '', 38: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: 'pf', 50: 'pf', 51: 'pf' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
+    const KIT_TAKES = { 36: 'pf', 37: '', 38: 'pf', 39: 'pf', 42: 'pfl', 43: 'pf', 44: '', 46: '', 47: 'pf', 49: 'pf', 50: 'pf', 51: 'pf', 54: '', 56: '', 69: '', 70: 'p', 75: '', 76: 'p', 77: 'p' }, KIT_SOFT = 0.2, KIT_HARD = 0.5;
     // Where each drum sits, as the audience hears a right-handed drummer (the hats on the right, on their own bus): the
     // high tom right, the floor tom and the ride left. The crash is where its overhead pair heard it (right of centre).
-    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.35 };
+    const KIT_PAN = { 50: 0.3, 47: 0.05, 43: -0.3, 51: -0.35, 56: 0.2, 75: -0.25, 76: -0.15, 77: -0.15 };   // and the hand percussion a little apart
     // A closed hat closes: each strike fades after a moment, sooner when it is struck softly, a little differently every
     // time (the foot's pressure), and any hat strike chokes the one before it (an open hat closes when the next is played).
     const HATS = new Set([42, 44, 46]);
@@ -5117,7 +5120,7 @@
         const problems = [...chart.problems, ...(this.bandNotes || []).map(n => n.text.replace(/^Band:\s*/, ''))];
         el.classList.toggle('err', !!problems.length);
         if (problems.length) { el.textContent = `Check the Band text: ${[...new Set(problems)].join(' ')}`; return; }
-        const written = /"[A-G][#b♯♭]?[^"]*"/.test(this.entry.value);
+        const written = hasWrittenChords(this.entry.value);
         if (location.protocol === 'file:') { el.textContent = 'Opened from disk, so the band cannot load its sounds: the chords play on a basic pattern and Style has no effect. Serve the folder (serve.command, or python3 -m http.server) or open the published page to hear the band.'; el.classList.add('err'); return; }
         el.classList.remove('err');
         const arc = !chart.choruses.length && this.autoArcVal && harmonyOf(this.styleKey).moves === false ? ' With Repeat on, the drone holds its tonic while the band builds and settles from one time round to the next. Arrange writes that arrangement here to keep or edit.' : !chart.choruses.length && this.autoArcVal ? ' With Repeat on, each time round builds on the last: richer chords, then approach chords, then full energy, then a quiet last time, each in the style\u2019s own harmony. Arrange writes that arrangement here to keep or edit.' : ' Arrange writes a five-chorus arrangement here to keep or edit.';

@@ -145,7 +145,7 @@ function harmonySource(abc, decision) {
   const bandLines = [...abc.matchAll(/^%%?band\s+(.+)$/gmi)].map(m => m[1]);
   if (bandLines.some(line => /(?:^|\s)(?:chords|bass)\s*:|\|/.test(line))) return 'written chart';
   if (decision.style === 'drone') return 'tonic drone';
-  if ((abc.match(CHORD) || []).length) return 'written chords';
+  if ((abc.split('\n').filter(l => !/^\s*(?:[A-Za-z]:|%)/.test(l)).join('\n').match(CHORD) || []).length) return 'written chords';   // in the music, not a header's quotation
   return 'detected chords';
 }
 

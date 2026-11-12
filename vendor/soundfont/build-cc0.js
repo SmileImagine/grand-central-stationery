@@ -2,7 +2,7 @@
 'use strict';
 /*
   Build the CC0 sample sets from Versilian Studios' libraries (public domain, CC0 1.0):
-    VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare, toms, suspended cymbals)
+    VCSL        https://github.com/sgossner/VCSL         (Kawai grand, soprano recorder, hi-hat, snare, toms, hand percussion)
     VSCO 2 CE   https://github.com/sgossner/VSCO-2-CE    (solo double bass pizzicato, solo violin, trumpet, tuba staccato,
                                                           glockenspiel, marimba, xylophone)
 
@@ -10,7 +10,8 @@
 
   <downloads> holds the WAVs as fetched, one folder a set: grand/ (Sustains, the v3 layer), recorder/ (Baroque Soprano
   Recorder, Sustain), bass/ (Solo Contrabass, Pizz, v1 rr1), hihat/, snare/ (Snare Drum, Modern 1), tom/ (Tom 1 and
-  Tom 2, Stick: TomH_HitS_*, TomL_HitS_*) and cymbal/ (Suspended Cymbal 1 and 2: susCymb*_hit_stick_*); violin/ (Solo Violin,
+  Tom 2, Stick: TomH_HitS_*, TomL_HitS_*) and perc/ (Idiophones/Struck Idiophones: Claps, Tambourine 1, Cowbells,
+  Cabasa, Shaker Small, Claves, Woodblock, the files the kit names); violin/ (Solo Violin,
   Arco Vib, f), trumpet/ (Trumpet, sus), tuba/ (Tuba, stac, v2 rr1), glock/, marimba/ and xylo/ (Percussion). Needs ffmpeg.
 
   Each note: mono, 44.1 kHz, from its onset (5 ms before it), cut to its instrument's length with a fade, every note of a
@@ -83,6 +84,20 @@ const KIT = [
   [42, 1.0, { '': 'hihat/HiHat_HitC_v3_rr%_Mid.wav', p: 'hihat/HiHat_HitC_v1_rr%_Mid.wav', f: 'hihat/HiHat_HitC_v4_rr%_Mid.wav', l: 'hihat/HiHat_HitLoose_rr%_Mid.wav' }, 0, 200],
   [44, 0.8, { '': 'hihat/HiHat_Close_rr%_Mid.wav' }, 0, 200],
   [46, 2.5, { '': 'hihat/HiHat_HitO_rr%_Mid.wav' }, 0, 200],
+  // The hand percussion, VCSL's (perc/, Idiophones/Struck Idiophones as fetched) in place of FluidR3's 33 kbps files, whose
+  // noise broke into blinking tiles: the clap (six group claps over three strengths), tambourine 1, cowbell 1, the cabasa,
+  // the small shaker (its two takes a down-stroke and an up-stroke, as a hand plays them), claves 1, and the wood block
+  // (the low block is it a major third down). The noisy ones stay in stereo at 192 kbps (at 128 the tambourine's noise
+  // already began to break up), the pitched ones mono. The trims bring a whole hit's energy to the FluidR3 one's (a single
+  // hit rendered offline; the clap's onset is hotter, the short shaker's and the rest's tails shorter).
+  [39, 0.8, { p: ['perc/Clap_rr5.wav', 'perc/Clap_rr6.wav'], '': ['perc/Clap_rr1.wav', 'perc/Clap_rr2.wav'], f: ['perc/Clap_rr3.wav', 'perc/Clap_rr4.wav'] }, 0, 150, -1.9, 0, 0, '192k'],
+  [54, 1.2, { '': ['perc/Tamb1_Hit_v2_rr1_Mid.wav', 'perc/Tamb1_Hit_v1_rr1_Mid.wav'] }, 0, 150, 2.6, 0, 0, '192k'],
+  [56, 0.9, { '': ['perc/Cowbell1_Hit_v3_rr1_Mid.wav', 'perc/Cowbell1_Hit_v4_rr1_Mid.wav'] }],
+  [69, 0.6, { '': ['perc/Cabasa1_Hit_rr1_Mid.wav', 'perc/Cabasa1_Hit_rr2_Mid.wav'] }, 0, 150, 1.9, 0, 0, '192k'],
+  [70, 0.4, { p: ['perc/Mid_ShakerHighFaster_Down_rr1.wav', 'perc/Mid_ShakerHighFaster_Up_rr1.wav'], '': ['perc/Mid_ShakerDouble_Down_rr1.wav', 'perc/Mid_ShakerDouble_Up_rr1.wav'] }, 0, 150, 3.0, 0, 0, '192k'],
+  [75, 0.6, { '': ['perc/Claves1_Hit_v2_rr1_Mid.wav', 'perc/Claves1_Hit_v3_rr1_Mid.wav'] }],
+  [76, 0.8, { p: ['perc/wood_click_pp_rr1.wav', 'perc/wood_click_pp_rr2.wav'], '': ['perc/wood_click_f_rr1.wav', 'perc/wood_click_f_rr2.wav'] }],
+  [77, 0.9, { p: ['perc/wood_click_pp_rr1.wav', 'perc/wood_click_pp_rr2.wav'], '': ['perc/wood_click_f_rr1.wav', 'perc/wood_click_f_rr2.wav'] }, 4],
   // The kick, crash and ride from the DrumGizmo MuldjordKit (Lars Muldjord, CC BY 4.0; muld/, its Samples/KdrumL and
   // Samples/CrashL as fetched, hits numbered from the softest): the kick its own microphone with a little of the room
   // (both ambience microphones at a fifth), the crash its overhead pair, the drummer's left heard on the audience's right.
@@ -120,7 +135,7 @@ for (const [name, dir, keep, midi, seconds, fade, old] of SETS) {
 if (!only || only.includes('kit')) {
 fs.mkdirSync(path.join(out, 'kit-mp3'), { recursive: true });
 let snareLevel = null;
-for (const [m, seconds, layers, semis, stereo, trimDb, win, fadeSec] of KIT) {   // stereo: the high-pass in Hz for a stereo drum
+for (const [m, seconds, layers, semis, stereo, trimDb, win, fadeSec, rate] of KIT) {   // stereo: the high-pass in Hz for a stereo drum
   // Each take as its channels (one, or two for the stereo ones), cut from the onset of their sum.
   const takes = [];
   for (const [layer, file] of Object.entries(layers)) for (const rr of [1, 2]) {
@@ -143,7 +158,7 @@ for (const [m, seconds, layers, semis, stereo, trimDb, win, fadeSec] of KIT) {  
   for (const t of takes) {
     const L = t.chans[0].length, x = new Float32Array(L * t.chans.length);
     for (let i = 0; i < L; i++) for (let c = 0; c < t.chans.length; c++) x[i * t.chans.length + c] = t.chans[c][i] * g;
-    write(x, path.join(out, 'kit-mp3', `${t.name}.mp3`), t.chans.length, stereo ? '128k' : '96k');
+    write(x, path.join(out, 'kit-mp3', `${t.name}.mp3`), t.chans.length, rate || (stereo ? '128k' : '96k'));
   }
   if (m === 38) snareLevel = mid * g;
   console.log(`kit ${flat(m)}: ${takes.map(t => t.name).join(' ')}${stereo ? ' (stereo)' : ''}`);
