@@ -10,15 +10,13 @@ O:China
 R:popular song (xiaodiao)
 S:J. A. van Aalst, Chinese Music (Shanghai, 1884), p. 19; John Barrow, Travels in China (London, 1804), p. 316, as taken down by J. C. Hüttner
 N:The song that grew into today's "Mo li hua" (Jasmine Flower), in two early versions a century apart: J. A. van Aalst's (1884; his staff notation and his Chinese gongche notation agree note for note) and the one J. C. Hüttner took down for John Barrow, who calls it one of the most popular songs in the whole country (1804). Play or sing van Aalst's first (smaller range), then hear Barrow's and find what changed: his first phrase climbs to high do (mi mi sol la do do la), where van Aalst's turns on the note below.
-N:Neither source sets words to the notes: sing on "la" or play. Barrow's two stanzas mean, roughly: "How delightful this branch of fresh flowers! One morning it fell into my house; I will stay at home with the flower and be happy" and "How delightful this jasmine flower! No flower in the garden excels it; I would pick one to wear, but fear the gardener would scold." Barrow's last bar is printed two beats short (a rest here). The clapper on each downbeat is ours; the music has no chords. Not the 1957 arrangement, which is in copyright.
+N:Neither source sets words to the notes: sing on "la" or play. Barrow's two stanzas mean, roughly: "How delightful this branch of fresh flowers! One morning it fell into my house; I will stay at home with the flower and be happy" and "How delightful this jasmine flower! No flower in the garden excels it; I would pick one to wear, but fear the gardener would scold." Barrow's last bar is printed two beats short (a rest here). The clapper on each downbeat is ours, and so is the band's second line, the tune again on the pipa (on guitar samples), adding a few notes of its own; the music has no chords. Not the 1957 arrangement, which is in copyright.
 M:C|
 L:1/8
 Q:1/4=84
 K:C
-%%style ballad
+%%style sizhu
 %%band drums: wb ~
-%%band bass: ~
-%%band chords: ~
 "^van Aalst, 1884"|: A2 Ac dBBd | c3 d c2 z2 :| A2 c2 c2 dB | c3 d c2 z2 | A4 GcAG | F3 G F2 z2 |
 A4 F2 G2 | c3 d c2 z2 | G4 AGFC | D4 F4 | G2 AD c3 B | dcAG c4 ||
 [M:C][K:D]"^Barrow, 1804" B2 Bd egge | d2 de d2 z2 | B2 Bd egge | d2 de d2 z2 | d2 d2 d2 Bd | e2 e2 d4 | B2 AB d2 BA |
