@@ -1,0 +1,26 @@
+% Homer B. Hulbert, Korean Vocal Music, The Korean Repository (1896).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:Arirang
+T:Korean folk song, as Hulbert wrote it down in 1896
+C:traditional (Korea)
+O:Korea (Mungyeong Saejae Arirang)
+R:Korean minyo
+S:Homer B. Hulbert, "Korean Vocal Music", The Korean Repository 3 (Seoul: Trilingual Press, February 1896), p. 51; archive.org, University of Illinois copy
+N:The oldest written Arirang, which Homer Hulbert heard everywhere in Seoul in 1896: a fixed chorus that everyone sings ("Arirang, arirang, arariyo") and verses a singer makes up, here one about the birch trees of the Mungyeong Saejae pass, all cut down to make washing clubs. Arirang is a national song of Korea, North and South, with many regional versions; this is the earliest on paper.
+N:Hulbert's romanisation is kept (A-ra-rung for Arirang); in today's spelling: "Arirang arirang arariyo, arirang eolsa bae ddiwora. Mungyeong saejae bakdal namu, hongdukkae bangmang-i da naganda." Guessed: bar 2's rhythm (the print shows no flags; read as bar 1, two quavers and a minim). The janggu pattern and open-fifth drone are ours, after the semachi jangdan as commonly taught.
+M:3/4
+L:1/8
+Q:1/4=88
+K:G
+%%style korean
+"G5"GG G4 | GG G4 | c2 d2 e2 | c4 G2 |
+w: A-ra-rung a-ra-rung a-ra-ri-o_ 
+dd d4 | e3 d G2 | c3 d G2 | G6 |
+w: a-ra-rung öl_ sa pai ddi-ö-ra.
+d2 d4 | d2 d4 | d2 d2 e2 | c3 A G2 |
+w: Mun-gyung sai-chai pak-ta-lan mu__
+dd d4 | e3 d G2 | c3 d G2 | G6 |]
+w: hong-do-kai pang-maing-i ta na-kan-da.

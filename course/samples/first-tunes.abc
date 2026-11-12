@@ -13,18 +13,26 @@ w: Hot cross buns, hot cross buns, one a pen-ny, two a pen-ny, hot cross buns.
 X:2
 T:Mary Had a Little Lamb
 O:USA
+C:words: Sarah Josepha Hale (1830); tune traditional (USA)
+R:children's song
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:G
+%%style folk
 B A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]
 w: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.
 
 X:3
 T:Twinkle, Twinkle, Little Star
 O:France
+C:tune traditional (France, "Ah! vous dirai-je, maman"); words: Jane Taylor (1806)
+R:lullaby
+S:traditional, as commonly sung in classrooms (course transcription)
 M:4/4
 L:1/4
 K:C
+%%style ballad
 !mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]
 w: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.
 
@@ -53,6 +61,7 @@ R:hymn
 M:3/4
 L:1/4
 K:G
+%%style ballad
 !mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |
 w: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_
 d2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]
@@ -62,20 +71,31 @@ X:7
 T:Oh! Susanna
 C:Stephen Foster (1848)
 O:USA
+R:parlour song
 M:2/4
 L:1/8
 K:G
-!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |
+%%style folk
+!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G)(G/2A/2 |
 w: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained
 B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |
 w: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _
-!f!(c2 c2 | e e2 e | d d B G | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]
+!f!(c2 c2 | e e2 e | dd BG | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]
 w: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.
 
 X:8
-T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
-K:C
+T:Greensleeves
+C:traditional (England, 16th century)
+O:England
+R:ballad tune
+S:Grand Central Stationery course samples, first-tunes.abc, X:8 (the first half of the tune, typed from memory)
+N:An Elizabethan ballad tune, first entered for printing in London in 1580, and the tune of the Christmas carol What Child Is This. Given here as a melody to play, without words; bar 7 is the usual cadence (G F♯ E D♯ C♯ D♯), corrected from a slip in the course's first typing.
+Q:3/8=56
+M:6/8
+L:1/8
+K:Em
+%%style ballad
+E | G2 A B>cB | A2 F D>EF | G2 E E>^DE | F2 ^D B,2 E | G2 A B>cB | A2 F D>EF | G>FE ^D>^C^D | E3 E2 |]
 
 X:9
 T:Scarborough Fair
@@ -106,4 +126,4 @@ C:Scott Joplin
 M:2/4
 L:1/16
 K:C
-d e c2 e2 c2 | e2 c6 | c d ^d e2 c d2 | e4 B2 d2 | c6 z2 |]
+dec2 e2c2 | e2 c6 | cd^d e2 cd2 | e4 B2d2 | c6 z2 |]

@@ -1,0 +1,68 @@
+% Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922): Raouf Yekta Bey on Turkish music, Jules Rouanet on Arab music in the Maghreb.
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:Adana melody
+T:Peasant melody from Adana: hearing a neutral second
+C:traditional (Turkey), author unknown
+O:Turkey, Adana province (Çukurova)
+R:folk melody
+S:Raouf Yekta Bey, "La musique turque", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2951
+N:A folk melody Raouf Yekta collected among the peasants of Adana province and printed to answer Europeans who heard such tunes as A minor: it is built on the tetrachord A B C D with a B lower than the European one, and he gives its exact place (A to B 65536/59049, B to C 2187/2048, C to D 9/8, so B sits about 20 cents below the piano's B). The tuning line plays his B, C and D and a pure E; the other notes stay in equal temperament. Play it tuned, then untuned, and ask the class which B is "the right one".
+N:No words were printed: play it on the recorder or hum it. The last two notes of the next-to-last bar (G natural, F sharp) are a close reading of small print. The drum is ours: the Sofyan usul (düm, tek-ka), a two-beat Turkish cycle, not Yekta's choice for this tune. Whether the mode is Uşşak or Hüseyni waits for a Turkish musician.
+M:2/4
+L:1/32
+Q:1/4=56
+K:Am
+%%style persian
+%%tuning Ussak (Yekta): 100. 180.45 294.13 400. 498.04 600. 701.96 800. 900. 1000. 1100. 2/1 root=A map=semitones
+%%band drums: bd [rim rim]
+%%band bass: ~
+%%band chords: ~
+|: d4e2e2 e4e3d | d4e3d d4c4 :| d4e3d d4c3B | c4d3c c3BB3A | A4B3A A4=G3^F | G4A2A2 A6 z2 |]
+
+X:2
+T:B'qāw ʿala khēr
+T:Stay well: the Maghreb's closing song
+C:traditional (Algeria and the Maghreb)
+O:Algiers, Algeria
+R:festival song (leave-taking)
+S:Jules Rouanet, "La musique arabe dans le Maghreb", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824
+N:The closing song of every Maghreb feast with music: the musicians' goodbye to the hosts who listened. Every couplet begins "Stay well!", and when the old couplets run out the singers make up lines naming the guests. In class: the goodbye song at the end of a lesson, the first line sung by all, then a couplet for each child's name; Rāna jīnāk is its hello song.
+N:Words as Rouanet spelled them (a French-style transliteration of Algerian Arabic): "Stay well! I want to go home: the muezzin's voice is in the sky (it is dawn) ... Ah! Stay well!" The muezzin only marks the hour the feast ends; the song is not a religious text. The fit of "fes-sa-ma-i ci Ah!" to the notes is approximate, as he prints it; the E flats in bars 8 and 10-11 follow the key signature. Rouanet writes 6/8 (pairs of these 3/8 bars) and returns to the sign for each new couplet; the drum is his: high, low, high, low by eighths. An Arabic speaker should still check the words.
+M:3/8
+L:1/8
+Q:3/8=108
+K:Bb
+%%style persian
+%%band drums: <[rim bd rim] [bd rim bd]>
+%%band bass: ~
+%%band chords: ~
+d =e | !segno! (f g =e) | f3 | f2 f | f (=e f) | (f/=e/) d2- | d2 z | f2 f | e e2 | (c/d/ B2) |
+w: B'kaou aâ la _ _ kheir! neb- ghi ne- rou- _ oua _ h' _ H'ass el moued- den _ _ _
+(c d) (e | f) e f | B z z | e3 | d2 B | (c B c | d =e f) | B z z |]
+w: fes- _ sa- _ ma- i ci~Ah! Eb- kaou aâ la _ _ _ _ _ kheir!
+
+X:3
+T:Rāna jīnāk
+T:We have come to you: the Maghreb's opening song
+C:traditional (Algeria and the Maghreb)
+O:Algiers, Algeria
+R:festival song (processional)
+S:Jules Rouanet, "La musique arabe dans le Maghreb", Lavignac, Encyclopédie de la musique, Part I vol. 5 (1922), p. 2824
+N:"Perhaps the best-known tune of the Maghreb" (Rouanet): the song that opens a feast (weddings, births, processions), played outdoors by shawms (ghaita) and drums at the head of the procession and at home by the women's ensemble of violin, frame drum and goblet drum. In class: a hello song as everyone arrives, with B'qāw ʿala khēr as its goodbye.
+N:Words as Rouanet spelled them (French-style transliteration of Algerian Arabic), "Rana djinak, ya dou aïni ... Nari! Ya nari!": "We have come to you, light of my eyes ... My fire! O my fire!", a cry of joy. The rest of each couplet was improvised good wishes, and only these words are printed. Guessed: the last sixteenth of bar 8 (B) and where "Ya" falls in bar 15. The tempo is ours for his "Allegro"; the drum is his rhythm, high strokes on the rim and low on the bass drum. An Arabic speaker should still check the words.
+M:2/4
+L:1/16
+Q:1/4=112
+K:Am
+%%style persian
+%%band drums: rim ~ rim ~ rim ~ ~ rim
+%%band drums: bd ~ ~ ~ bd ~ ~ ~
+%%band bass: ~
+%%band chords: ~
+|: c6 (3cdc | B4 A4 | A4 B2d2 | c4 z4 | z4 B4 | d8 | c8 | decd BcAB | G4 z4 |
+w: Ra _ _ _ _ _ na dji _ nak Ya dou aï ni _ _ _ _ _ _ _ _
+c6 (3cdc | B4 G4 | A4 B2d2 | B4 z4 | z4 z2 e2 | d4 c2B2 | B2 A4 B2 | c2de cdBc | A4 z4 :|
+w: Ra _ _ _ _ _ na dji _ nak Na ri! Ya _ na _ _ ri! _ _ _ _ _ _ _

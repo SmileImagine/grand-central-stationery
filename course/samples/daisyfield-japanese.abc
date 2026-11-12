@@ -1,0 +1,45 @@
+% Japanese songs from Tom Potter's Daisyfield.com transcriptions (2008, donated to the public domain).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:Sakura
+T:Cherry blossoms: Japanese koto song
+C:traditional (Japan)
+O:Japan
+R:koto song
+S:Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain) (koto version; the source book is not named on the page)
+N:The cherry-blossom song, played on the koto since the Edo period and taught in Japanese schools since the Meiji era. Words in romaji; they mean: "Cherry blossoms, cherry blossoms! Across the spring sky, as far as you can see: is it mist, or cloud? Their scent rises. Come, come, let us go and see!" Slow and even, like a koto's plucked strings.
+N:This koto version sits a fifth below the usual school key, in the in scale on A (A, B flat, D, E, F). Its last two bars (G A B flat, then e d B flat A) differ from the school version, and the book it was taken from is not named, so check them against the version your class knows. The drone on A and E is ours.
+M:4/4
+L:1/8
+Q:1/4=72
+K:Dm
+%%style minyo
+%%band energy=20 detail=20
+"A5"d2 d2 e4 | d2 d2 e4 | d2 e2 f2 e2 | d2 ed B4 |
+w: Sa-ku-ra! Sa-ku-ra! Ya-yo-i no so-ra_ wa
+A2 F2 A2 B2 | A2 AF E4 | d2 e2 f2 e2 | d2 ed B4 |
+w: Mi-wa-ta-su ka-gi_ ri, ka-su-mi ka ku-mo_ ka,
+A2 F2 A2 B2 | A2 AF E4 | d2 d2 e4 | d2 d2 e4 |
+w: Ni-o-i zo i-zu_ ru. I-za-ya! I-za-ya!
+G2 A2 B4 | ed B2 A4 |]
+w: Mi ni yu-kan!___
+
+X:2
+T:Konpira fune fune
+T:Japanese game song
+C:traditional (Japan)
+O:Japan, Kagawa (Kotohira)
+R:hand-game song
+S:Nagai Iwai and Obata Kenhachiro (eds.), 1895, via Daisyfield.com transcription (Tom Potter, 2008, donated to the public domain)
+N:A party hand game from Kotohira, home of the Konpira shrine: two players face each other across a small stand and touch it in turn, in time to the song, which goes faster each time round; a player who hesitates or touches out of turn is out. The melody is given without words, as in the transcription; the words are to be added once checked against Nagai and Obata. The tune is built on the yo scale on G (G A C D E, with one passing F in bar 12) and ends on G, so the band holds an open fifth on G (G5) rather than changing chords.
+Q:1/4=112
+M:2/4
+L:1/8
+K:C
+%%style minyo
+|: "G5"C2 DD | CD CD | E2 GG | EG EG |
+AG AA | A2 z2 | cc AG | cc d2 |
+ee de | cd/c/ dc | Ac AG | FG AA |
+GA GE | DG EE | DC A,G, :|

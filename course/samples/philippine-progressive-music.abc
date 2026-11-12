@@ -1,0 +1,33 @@
+% The Philippine Progressive Music Series for the Primary Grades (Silver Burdett).
+% Published early from the workshop on 11 November 2026: each tune names what is guessed or left out in its N: lines,
+% and its workshop record (or review item) is kept for further correction.
+
+X:1
+T:I Plant Some Rice
+T:Ilocos Sur action song (historical English schoolbook version)
+C:traditional (Ilocos Sur); notation by Florencio Buado
+O:Philippines (Ilocos Sur, Ilocano)
+R:children's action song
+S:Norberto Romualdez et al., The Philippine Progressive Music Series for the Primary Grades, Silver Burdett, digitized volume revised through 1948, p. 25, "I Plant Some Rice," notation by Florencio Buado; HathiTrust Public Domain
+N:An action song the book calls popular among the Ilocano people, about the year's rice work: planting, harvesting, pounding, cooking and eating. Mime the work, without tools, on the first beat of bars 2, 3, 7 and 8 (counting the pickup as bar 1), a new action in each verse. Present rice work as skilled labour.
+N:The book prints only these English school verses, with no Ilocano title or words, so this is the schoolbook's version, not necessarily the song as Ilocano families sing it; ask an Ilocano speaker about the words if you can. The tempo is ours. Voice and actions only: the book prints no accompaniment.
+M:2/4
+L:1/8
+Q:1/4=104
+K:G
+%%style folk
+%%band drums: ~
+%%band bass: ~
+%%band chords: ~
+D | GB dD | GB dB | d2 c2 | ^A2 B2 | G3 D |
+w: 1.~I plant some rice, I plant some rice, Tra la la la la la. I
+w: 2.~I har-vest rice, I har-vest rice, Tra la la la la la. I
+w: 3.~I pound some rice, I pound some rice, Tra la la la la la. I
+w: 4.~I cook some rice, I cook some rice, Tra la la la la la. I
+w: 5.~I eat some rice, I eat some rice, Tra la la la la la. I
+GB dD | GB dB | d2 B2 | A2 G2 | F3 |]
+w: plant some rice, I plant some rice, And that's a job well done.
+w: har-vest rice, I har-vest rice, And that's a job well done.
+w: pound some rice, I pound some rice, And that's a job well done.
+w: cook some rice, I cook some rice, And that's a job well done.
+w: eat some rice, I eat some rice, And that's a job well done.
