@@ -18,7 +18,7 @@ html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-sh
 html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
 
 .piecebar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line);
-  font: 16px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 6px 12px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; }
+  font: 16px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 6px 12px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 32px; }   /* the tools a little apart from the last step */
 /* The top row across; the steps, and beside them the step's own tools when they fit (Faster each time, a student's
    name), else under them. */
 .piecebar > .pb-top { flex: 1 1 100%; }
@@ -298,9 +298,9 @@ html.piece-route body.game .cell-body { --clock-size: clamp(46px, 7vh, 76px); }
 html.piece-route .pb-clock { position: absolute; left: 10px; top: 12px; z-index: 6; display: flex; align-items: flex-end; gap: 8px; }   /* the toggle level with the clock's foot, clear of the sign over the music */
 html.piece-route .pb-clock[hidden] { display: none; }
 /* Faster each time, by the tempo: small, on a plate like the clock's so it reads over the music. */
-.pb-clockfaster { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px 0 9px; border-radius: 999px; font: 13px/1.2 'Atkinson Hyperlegible', system-ui, sans-serif; color: var(--ink); background: color-mix(in srgb, var(--bg, #fff) 80%, transparent); box-shadow: 0 1px 2px #0002, 0 4px 14px #0001; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer; white-space: nowrap; user-select: none; }
+.pb-clockfaster { --fs: max(11px, calc(var(--clock-size, 64px) * 0.19)); display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 0 9px 0 7px; border-radius: 999px; font: var(--fs)/1.2 'Atkinson Hyperlegible', system-ui, sans-serif; color: var(--muted, #777); background: color-mix(in srgb, var(--bg, #fff) 80%, transparent); box-shadow: 0 1px 2px #0002, 0 4px 14px #0001; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); cursor: pointer; white-space: nowrap; user-select: none; }
 .pb-clockfaster[hidden] { display: none; }
-.pb-clockfaster input { width: 16px; height: 16px; margin: 0; accent-color: var(--mode, #087fca); }
+.pb-clockfaster input { width: calc(var(--fs) + 1px); height: calc(var(--fs) + 1px); margin: 0; accent-color: var(--mode, #087fca); }   /* the words in the clock's own "% speed" style */
 html.piece-route body.game .cell .cell-body > .score { padding-top: calc(var(--clock-size) * 1.25); }
 html.piece-route .paper .abcjs-tempo { display: none; }
 @media (max-width: 700px) { html.piece-route body.game .cell-body { --clock-size: 44px; } }
