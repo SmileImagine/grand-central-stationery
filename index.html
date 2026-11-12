@@ -655,6 +655,10 @@
       .dock .melodytext, .dock .bandwrap { flex: 1 1 100%; }
       .dock .dockbar { gap: 4px 10px; padding: 6px 8px; }
       .dock .dockbar .tabs { margin-left: 0; }
+      /* Four tabs (Melody, Band, Improv, Mixer) on a phone: closer together and allowed to shrink, full labels kept; on the
+         narrowest screens the row wraps rather than scrolls. */
+      .dock .tabs { gap: 2px; min-width: 0; flex: 1 1 auto; flex-wrap: wrap; row-gap: 2px; }
+      .dock .tabs .tab { margin: 0 2px; padding: 7px 2px 5px; letter-spacing: 0.06em; flex: 0 1 auto; }   /* shrinks only to its label, never clipping it */
       .setup3d { left: 6px; right: 6px; width: auto; bottom: 6px; max-height: 52vh; overflow-y: auto; }
       .present-nav { right: 6px; bottom: 6px; }
       .present-nav input { width: 2.6em; }
@@ -5199,6 +5203,9 @@
         this.cornerRo.observe(this.corner);
         this.dockRo = new ResizeObserver(() => this.sizeDrawer());   // a drawer's content changes height (a note, a wrap)
         this.dockRo.observe(body.querySelector('.dock'));
+        // and each drawer's own content, which may fill after the drawer opens (the improv card once the timeline is ready),
+        // so the size never depends on the order things are filled in
+        for (const d of body.querySelectorAll('.dock .drawer')) { this.dockRo.observe(d); for (const c of d.children) this.dockRo.observe(c); }
         // abcjs is deferred: on a cold load it may arrive after the cells are built.
         if (!window.ABCJS) { document.getElementById('abcjs').addEventListener('load', () => this.boot(body, id), { once: true }); return; }
         this.boot(body, id);
@@ -5241,7 +5248,7 @@
         this.wake();
       }
       // One drawer open at a time under the bar (null: none).
-      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); if (name === 'improv') { this.improvKey = ''; this.liveImprov(this.player && this.player.running ? this.now() : -1); } this.sizeDrawer(); }
+      showDrawer(name) { this.drawer = name || null; for (const d of this.body.querySelectorAll('.drawer')) d.hidden = d.dataset.drawer !== name; for (const t of this.body.querySelectorAll('.tab')) t.setAttribute('aria-pressed', String(t.dataset.drawer === name)); this.body.classList.toggle('drawer-open', !!name); const dock = this.body.querySelector('.dock'); if (dock) dock.classList.toggle('open', !!name); if (name === 'band') this.refreshBandNote(); if (name === 'improv') { this.improvKey = ''; this.liveImprov(this.player && this.player.running ? this.now() : -1); } this.sizeDrawer(); requestAnimationFrame(() => this.sizeDrawer()); }
       // Editing, the cell grows by the open drawer's height (--drawer-h), so the drawer is as tall as what is in it and the
       // staff keeps its room. Set as the drawer opens or its text boxes change, before the frame is drawn, so the staff never
       // shrinks for a frame (the resize observer covers the rest).
@@ -5268,7 +5275,7 @@
         if (this.drawer !== 'improv') return;
         const html = value => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         const box = this.body.querySelector('.improvd'), card = box.querySelector('.improvcard'), empty = box.querySelector('.improvempty'), nextEl = box.querySelector('.improvnext'), cues = this.improvCues();
-        if (!cues.length) { card.hidden = true; nextEl.hidden = true; empty.hidden = false; return; }
+        if (!cues.length) { card.hidden = true; nextEl.hidden = true; empty.hidden = false; this.sizeDrawer(); return; }
         empty.hidden = true;
         const bars = this.tl && this.tl.bars || [], bi = t < 0 ? 1 : Math.max(1, bars.findIndex(b => t >= b.start && t < b.end) + 1 || bars.length);
         const active = t < 0 ? cues[0] : cues.find(c => bi >= c.from && bi <= c.to);
@@ -5283,6 +5290,7 @@
           box.querySelector('.improvchoices').innerHTML = active.choices.map((choice, i) => `<button type="button" data-cue="${html(active.id)}" data-choice="${html(choice)}" aria-pressed="${String(choice === chosen)}" title="Choice ${i + 1}">${html(choice)}</button>`).join('');
         }
         nextEl.hidden = !next; nextEl.innerHTML = next ? `<b>Next, bar ${next.from}:</b> ${html(next.prompt)}` : '';
+        this.sizeDrawer();   // the card's height changed with its content: measure now, not on the next frame
       }
       // The tuning under the text: what it is, or what is wrong with it.
       tuningNotes() {
