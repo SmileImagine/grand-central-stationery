@@ -74,8 +74,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 The Kawai grand piano (Sustains, the v3 layer), the Baroque soprano recorder (Sustain), the hi-hat, the modern snare 1
 and toms 1 and 2 (stick hits; the floor tom is tom 2 played a fourth lower), each drum in two takes, the snare, closed
-hat and toms at three strengths and the hat's loose hit, the hats in stereo (in vendor/soundfont/kit-mp3 with the
-kick, crash and ride below), from the Versilian Community Sample Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
+hat and toms at three strengths and the hat's loose hit, the hats in stereo, and the hand percussion (the clap,
+tambourine 1, cowbell 1, cabasa, small shaker, claves 1 and the wood block, low block a major third down; the noisy
+ones stereo at 192 kbps) in place of the FluidR3 percussion (in vendor/soundfont/kit-mp3 with the kick, crash and ride
+below), from the Versilian Community Sample Library (VCSL); and from VSCO 2 Community Edition the solo double bass pizzicato
 (v1 rr1), the solo violin (Arco Vib, f), the trumpet (sus, v3), the tuba (stac, v2 rr1), the glockenspiel, the marimba
 and the xylophone; by Versilian Studios LLC (Sam Gossner). Converted by `vendor/soundfont/build-cc0.js`: mono, trimmed, levelled,
 96 kbps MP3. No attribution is required; this is a thank-you.

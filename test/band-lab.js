@@ -76,7 +76,7 @@
     if (cfg.keepNotes) out.capture = cap;
     if (cfg.audio) {
       const maxMs = cfg.maxMs || 24000;
-      const mix = await render(e, ['melody', 'chords', 'bass', 'drums'], maxMs), melody = await render(e, ['melody'], maxMs), band = await render(e, ['chords', 'bass', 'drums'], maxMs);
+      const mix = await render(e, ['melody', 'hetero', 'chords', 'bass', 'drums'], maxMs), melody = await render(e, ['melody'], maxMs), band = await render(e, ['hetero', 'chords', 'bass', 'drums'], maxMs);   // hetero: the heterophony part (melody2), the band's
       out.audio = BandMetrics.audioMetrics({ mix, melody, band, sr: mix.sr });
       out.audio.cpu = Math.round(1000 * band.wall / 1000 / band.seconds) / 1000;   // seconds of rendering a second of the band, offline
     }

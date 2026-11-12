@@ -4,9 +4,9 @@ Generated deterministically from `course/set.json` (80 published tunes). This re
 
 ## Summary
 
-- Auto styles: ballad: 10; drone: 13; folk: 39; korean: 1; march: 3; mento: 4; minyo: 2; persian: 4; swing: 2; waltz: 2.
+- Auto styles: ballad: 9; drone: 13; folk: 38; korean: 1; march: 3; mento: 4; minyo: 2; persian: 4; sizhu: 2; swing: 2; waltz: 2.
 - Style selected by: R field: 13; explicit style: 63; metre only: 4.
-- Harmony source: detected chords: 22; tonic drone: 13; written chart: 17; written chords: 28.
+- Harmony source: detected chords: 28; no chords (heterophony): 2; tonic drone: 13; written chart: 15; written chords: 22.
 - 0 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
 - 6 tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.
 - 15 Nottingham imports link to their canonical repository files; 0 published source paths point into temporary or private directories.
@@ -34,7 +34,7 @@ Generated deterministically from `course/set.json` (80 published tunes). This re
 | Cha-ko'mba, ko'mba | folk | explicit style | written chart | — |
 | Au Clair de la Lune | folk | explicit style | detected chords | — |
 | Skip to My Lou | ballad | R field | detected chords | — |
-| Twinkle, Twinkle, Little Star | ballad | explicit style | written chords | — |
+| Twinkle, Twinkle, Little Star | ballad | explicit style | detected chords | — |
 | This Old Man | march | explicit style | detected chords | — |
 | Lightly Row | folk | explicit style | detected chords | — |
 | Jingle Bells (chorus) | swing | explicit style | detected chords | — |
@@ -58,19 +58,19 @@ Generated deterministically from `course/set.json` (80 published tunes). This re
 | Sakura | minyo | explicit style | written chords | — |
 | Oh! Susanna | folk | explicit style | detected chords | — |
 | Mu-to-to-li'le | folk | explicit style | written chart | — |
-| Ba ban (八板) | folk | explicit style | written chart | — |
+| Ba ban (八板) | sizhu | explicit style | no chords (heterophony) | — |
 | The ayah's song | drone | explicit style | tonic drone | — |
 | Pass the ball | mento | explicit style | detected chords | — |
-| Carry banana | mento | explicit style | written chords | — |
+| Carry banana | mento | explicit style | detected chords | — |
 | Nirguna's lullaby | drone | explicit style | tonic drone | — |
-| Si me dan pasteles | folk | explicit style | written chords | — |
+| Si me dan pasteles | folk | explicit style | detected chords | — |
 | Daisy Daisy | waltz | explicit style | written chords | — |
 | Usagi to Kame (兎と亀) | folk | explicit style | written chart | — |
-| La Rana | waltz | explicit style | written chords | — |
+| La Rana | waltz | explicit style | detected chords | — |
 | A l'entrada del tens clar | folk | explicit style | written chart | — |
-| Galloway road | mento | explicit style | written chords | — |
+| Galloway road | mento | explicit style | detected chords | — |
 | I Plant Some Rice | folk | explicit style | written chart | — |
-| Vámonos por Santa Anita | folk | explicit style | written chords | — |
+| Vámonos por Santa Anita | folk | explicit style | detected chords | — |
 | O tu'la, mntwa'na (Thula, mntwana) | ballad | explicit style | written chart | — |
 | Little Sally Water | mento | explicit style | detected chords | — |
 | O where will you go | drone | explicit style | tonic drone | — |
@@ -88,7 +88,7 @@ Generated deterministically from `course/set.json` (80 published tunes). This re
 | Bhairavi | drone | explicit style | tonic drone | — |
 | Malkos | drone | explicit style | tonic drone | — |
 | Greensleeves | ballad | explicit style | detected chords | — |
-| Xianhua diao (鮮花調) | ballad | explicit style | written chart | — |
+| Xianhua diao (鮮花調) | sizhu | explicit style | no chords (heterophony) | — |
 | Resvelons nous | ballad | explicit style | written chart | — |
 | O give me those pretty eyes | drone | explicit style | tonic drone | — |
 | Adana melody | persian | explicit style | written chart | — |
