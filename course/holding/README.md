@@ -28,7 +28,13 @@ the queued sample tunes in `course/samples/` are placeholders titled *Withheld*.
 
 Being inspired by other cultures' music is welcome. The teacher's rule (12
 November 2026) is to judge by social precedent, not by theoretical
-appropriation. Where a culture's members, after colonial oppression, have
+appropriation.
+
+Cultural groups have a right to a say in where a use crosses the line from
+inspiration into appropriation. That line is not ours alone to draw: for the
+groups below, their own stated protocols and their reviewers decide it.
+
+Where a culture's members, after colonial oppression, have
 clearly and publicly protected their music, its songs need particular care.
 These groups are:
 
