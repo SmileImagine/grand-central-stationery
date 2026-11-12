@@ -1,15 +1,15 @@
 # Classroom range report
 
-Generated deterministically from `course/set.json` (120 published tunes). A suggestion stays within the page's ±12-semitone control and puts every melody note in the named range. A key that already fits is left alone; otherwise the report prefers an easier key signature, then the smaller shift. It is a starting key for rehearsal, not a judgement about an individual singer.
+Generated deterministically from `course/set.json` (119 published tunes). A suggestion stays within the page's ±12-semitone control and puts every melody note in the named range. A key that already fits is left alone; otherwise the report prefers an easier key signature, then the smaller shift. It is a starting key for rehearsal, not a judgement about an individual singer.
 
 ## Range profiles
 
 | Profile | Range | As written | With transposition | No fit |
 |---|---:|---:|---:|---:|
-| Young unison voices | C4-D5 | 70 | 97 | 23 |
-| Soprano recorder | C5-D7 | 0 | 98 | 22 |
-| Soprano ukulele (12 frets) | C4-A5 | 96 | 111 | 9 |
-| One-octave classroom set | C4-C5 | 51 | 81 | 39 |
+| Young unison voices | C4-D5 | 69 | 96 | 23 |
+| Soprano recorder | C5-D7 | 0 | 97 | 22 |
+| Soprano ukulele (12 frets) | C4-A5 | 95 | 110 | 9 |
+| One-octave classroom set | C4-C5 | 50 | 80 | 39 |
 
 - **Young unison voices:** C4-D5; the plan's deliberately conservative starting range.
 - **Soprano recorder:** C5-D7, ordinary written/sounding range.
@@ -18,7 +18,7 @@ Generated deterministically from `course/set.json` (120 published tunes). A sugg
 
 ## Singing keys to try
 
-70 tunes already sit wholly in C4-D5. The table lists the rest; “too wide” means transposition cannot solve the span.
+69 tunes already sit wholly in C4-D5. The table lists the rest; “too wide” means transposition cannot solve the span.
 
 | Tune | Level | Written key and range | Young voices |
 |---|---:|---|---|
@@ -114,7 +114,6 @@ Generated deterministically from `course/set.json` (120 published tunes). A sugg
 | Kora Steps | as written | +12 → C (C5-C6) | as written | as written |
 | Baa, Baa, Black Sheep | as written | +12 → C (C5-A5) | as written | as written |
 | Mīkhāhī labu? | as written | +12 → Am (E5-C6) | as written | as written |
-| Signal Drop | as written | +12 → Dm (D5-C6) | as written | as written |
 | When the Saints Go Marching In | as written | +12 → C (C5-G5) | as written | as written |
 | Rocky Mountain | as written | +12 → C (C5-A5) | as written | as written |
 | Bassline Constellation | as written | +11 → Em (C5-C6) | as written | -1 → Em (C4-C5) |

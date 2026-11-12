@@ -1,6 +1,6 @@
 # Tune coverage map
 
-Generated deterministically from `course/set.json` (120 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
+Generated deterministically from `course/set.json` (119 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
 
 ## Coverage by region, level and function
 
@@ -17,14 +17,14 @@ Generated deterministically from `course/set.json` (120 published tunes). Region
 | East Asia | 0 | 0 | 0 | 3 | 2 | 0 | 1 | 0 | 0 | 4 | 5 | folk 1, minyo 2, sizhu 2 |
 | Southeast Asia | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | folk 1 |
 | Pacific | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
-| Unspecified | 2 | 15 | 9 | 15 | 11 | 7 | 2 | 10 | 1 | 25 | 59 | ballad 11, drone 3, folk 23, funk 2, lofi 1, march 4, persian 2, pop 10, swing 2, waltz 1 |
+| Unspecified | 2 | 15 | 8 | 15 | 11 | 7 | 2 | 10 | 1 | 25 | 58 | ballad 11, drone 3, folk 23, funk 2, lofi 1, march 4, persian 2, pop 9, swing 2, waltz 1 |
 
 ## Priority gaps
 
 - Empty target regions: North American Indigenous, Pacific.
 - No tune at levels 1-4: North American Indigenous, Pacific.
 - 6 tunes have no explicit origin; 0 have no explicit classroom function or tune type.
-- Only 114/120 tunes state an origin and 120/120 state a function/type.
+- Only 113/119 tunes state an origin and 119/119 state a function/type.
 
 ## Metadata queue
 

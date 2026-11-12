@@ -1,12 +1,12 @@
 # Accompaniment audit
 
-Generated deterministically from `course/set.json` (120 published tunes). This records what the page will actually do on **Auto**; it does not invent cultural metadata or treat detected chords as reviewed harmony.
+Generated deterministically from `course/set.json` (119 published tunes). This records what the page will actually do on **Auto**; it does not invent cultural metadata or treat detected chords as reviewed harmony.
 
 ## Summary
 
-- Auto styles: ballad: 17; drone: 16; folk: 48; funk: 2; korean: 1; lofi: 1; march: 6; mento: 4; minyo: 2; persian: 4; pop: 10; sizhu: 2; swing: 4; waltz: 3.
-- Style selected by: R field: 13; explicit style: 102; generic fallback: 1; metre only: 4.
-- Harmony source: detected chords: 40; no chords (heterophony): 2; tonic drone: 14; written chart: 18; written chords: 46.
+- Auto styles: ballad: 17; drone: 16; folk: 48; funk: 2; korean: 1; lofi: 1; march: 6; mento: 4; minyo: 2; persian: 4; pop: 9; sizhu: 2; swing: 4; waltz: 3.
+- Style selected by: R field: 13; explicit style: 101; generic fallback: 1; metre only: 4.
+- Harmony source: detected chords: 40; no chords (heterophony): 2; tonic drone: 14; written chart: 18; written chords: 45.
 - 1 tunes still fall through to generic pop because neither the tune nor its rhythm names an idiom.
 - 6 tunes have at least one provenance field to repair; a temporary import path is never presented as a usable source.
 - 15 Nottingham imports link to their canonical repository files; 0 published source paths point into temporary or private directories.
@@ -58,7 +58,6 @@ Generated deterministically from `course/set.json` (120 published tunes). This r
 | Kora Steps | folk | explicit style | detected chords | — |
 | Baa, Baa, Black Sheep | folk | explicit style | detected chords | — |
 | Mīkhāhī labu? | persian | explicit style | written chords | — |
-| Signal Drop | pop | explicit style | written chords | — |
 | When the Saints Go Marching In | swing | explicit style | detected chords | — |
 | Rocky Mountain | ballad | R field | detected chords | — |
 | Bassline Constellation | lofi | explicit style | written chords | — |

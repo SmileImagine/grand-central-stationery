@@ -1765,58 +1765,6 @@
    "abc": "X:1\nT:Mīkhāhī labu?\nT:Do you want hot beetroot? (Persian folk song)\nC:traditional (Iran), collected by Blair Fairchild\nO:Iran (Persia)\nR:Persian folk song (comic song)\nS:Blair Fairchild (coll. and arr.), Twelve Persian Folk-Songs (London: Novello, 1904), no. 4, pp. 15-17; English words by Alma Strettell; University of Rochester, Sibley Music Library scan\nN:A teasing song: a suitor asks \"Do you want me to bring you hot beetroot?\" (labu, the cooked beetroot sold by street-sellers in the Persian winter), and everyone answers with the loud refrain \"nā-nā-ī\". Fairchild: \"The melodies themselves were written down as faithfully as possible just as they were sung to me in Persia.\" The notes E F G A B C, ending on E, are close to the dastgah Shur, where a Persian singer may make the F a little flat (koron); Fairchild wrote F natural, and it is kept so. Here the class sings only the first line, twice, with the refrain: the second line of verse 1 (a joke about bringing home a second wife) and Fairchild's verses 2 to 4 (a bedroom joke and two verses about cigarettes) are left out. For that, bar 3 is sung to the words of bar 1, without Fairchild's slur on its first two notes. The refrain's last E is held over a further bar, as printed after verse 2.\nM:4/4\nL:1/8\nQ:1/4=88\nK:Am\n%%style persian\n\"E5\"BA A2 B(AG)A | B2 B6 | BA A2 B(AG)A | B2 B6 |\nw: mī-khā-hī la-bu_ bi-ār-am? mī-khā-hī la-bu_ bi-ār-am?\n!f!cB B2 AG GF | E2 E6- | E8 |]\nw: nā-nā-ī nā-nā-ī_ nā-nāī!_\nW:\nW:English: Do you want me to bring you hot beetroot? Na-na-i!\n"
   },
   {
-   "id": "cbc-modern-bridges-9-signal-drop",
-   "title": "Signal Drop",
-   "level": 3,
-   "score": 6.9,
-   "key": "Dm",
-   "metre": "4/4",
-   "bars": 8,
-   "origin": "Course original (no cultural attribution)",
-   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
-   "rhythm": "Grade 7 electronic arranging listening bridge",
-   "source": "course/samples/cbc-modern-bridges.abc",
-   "skills": [
-    "degree:do",
-    "degree:la",
-    "degree:mi",
-    "degree:re",
-    "degree:so",
-    "degree:ti",
-    "dur:1",
-    "dur:2",
-    "dur:3",
-    "key:1",
-    "leap:5th",
-    "metre:4/4",
-    "range:octave",
-    "rest"
-   ],
-   "introduces": [],
-   "ontario": {
-    "grade": 7,
-    "band": "Grade 7",
-    "concepts": [
-     "marcato"
-    ],
-    "all": [
-     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
-     "2: half and whole notes",
-     "3: dotted half note",
-     "2: crescendo and decrescendo",
-     "7: marcato",
-     "4: the major scale (fa and ti), intervals, accidentals",
-     "4: minor tonality"
-    ],
-    "ignored": [
-     "key",
-     "texture"
-    ]
-   },
-   "abc": "X:9\nT:Signal Drop\nT:Original electronic density-and-drop lab\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 7 electronic arranging listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 7 electronic arranging lab; melody, bass and chord groups perform an eight-bar loop while a student conductor decides how layers accumulate, disappear and return.\nN:Listen: the recording this piece is paired with is held back until a human reviewer has approved the pairing. Meanwhile, play any electronic track the class knows and listen for production-scale contrast: layers build up, a drop changes the density, and the bass and pulse organize the room.\nN:Original electronic arranging loop on keyboard triads and a repeated-root bass, for synthesized or classroom sounds; it quotes no recording.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 7 teacher, the reviewer for its listening pairing, second score reader and student arranging trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"producer/conductor\",\"prompt\":\"Build toward the drop\",\"choices\":[\"add one layer each bar\",\"crescendo one layer\",\"hold density steady\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"5-8\",\"role\":\"producer/conductor\",\"prompt\":\"What survives the drop?\",\"choices\":[\"bass only\",\"hook only\",\"silence for one bar then all return\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=112\nK:Dm\n%%style pop\nV:1 name=\"Hook\" sname=\"H\"\nV:2 name=\"Bass\" sname=\"B\" clef=bass\n[V:1] \"Dm\"!marcato!D2 F2 A2 F2 | \"F\"!marcato!F2 A2 c2 A2 | !<(!\"C\"G2 A2 c2 A2 | \"Am\"E2 A2 c2 A2!<)! |\n[V:1] \"Dm\"D6 z2 | \"F\"z8 | \"C\"G2 A2 c2 A2 | \"Am\"A4 \"Dm\"D4 |]\n[V:2] D,D,D,D,D,D,D,D, | F,F,F,F,F,F,F,F, | C,C,C,C,C,C,C,C, | A,A,A,A,A,A,A,A, |\n[V:2] D,8 | z8 | C,C,C,C,C,C,C,C, | A,A,A,A,D,4 |]\n",
-   "licence": "CC0 1.0"
-  },
-  {
    "id": "beginner-songs-17-when-the-saints-go-marching-in",
    "title": "When the Saints Go Marching In",
    "level": 3,

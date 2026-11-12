@@ -1,13 +1,13 @@
 # Classroom-part inventory and rehearsal recipes
 
-Generated deterministically from `course/set.json` (120 published tunes). These are **one-bar rehearsal recipes, not finished arrangements**. The generator never fabricates chord changes or a descant: it repeats a metre-appropriate body-percussion pulse, offers a tonic/fifth bass cell in the suggested rehearsal key, reports the chart's existing chord symbols, and sings each tune against itself to find the ones that work as rounds.
+Generated deterministically from `course/set.json` (119 published tunes). These are **one-bar rehearsal recipes, not finished arrangements**. The generator never fabricates chord changes or a descant: it repeats a metre-appropriate body-percussion pulse, offers a tonic/fifth bass cell in the suggested rehearsal key, reports the chart's existing chord symbols, and sings each tune against itself to find the ones that work as rounds.
 
 When the class takes a generated part, music-minus-one should mute the matching band part: body percussion → drums, bass ostinato → bass, ukulele → chords.
 
 ## Summary
 
-- 120/120 tunes have a generated body-percussion pulse cell; 120/120 have a tonic/fifth rehearsal cell.
-- 70 tunes contain written chord symbols; 50 need harmony review before a ukulele part is claimed.
+- 119/119 tunes have a generated body-percussion pulse cell; 119/119 have a tonic/fifth rehearsal cell.
+- 69 tunes contain written chord symbols; 50 need harmony review before a ukulele part is claimed.
 - 12 tunes use only the small inspected ukulele-chord set after the suggested transposition.
 - 18 tunes work as rounds and 13 more are worth trying by ear; 4 would have the groups mostly singing the same notes.
 
@@ -52,7 +52,6 @@ When the class takes a generated part, music-minus-one should mute the matching 
 | Kora Steps | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>simple-harmony rehearsal cell | 2 distinct written chords<br>review B | not a round (best 3 every 4: 77%, 0 downbeat clashes) |
 | Baa, Baa, Black Sheep | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | try by ear: `%%round 2 every=1`, 90%, downbeat clash in bar 1 |
 | Mīkhāhī labu? | 3 | Am | 4/4 | `B2 B2 B2 B2 |` | `A,2 E,2 A,2 E,2 |`<br>simple-harmony rehearsal cell | 1 distinct written chord<br>review E5 | try by ear: `%%round 2 every=2`, 86%, downbeat clash in bar 5 |
-| Signal Drop | 3 | Dm | 4/4 | `B2 B2 B2 B2 |` | `D,2 A,2 D,2 A,2 |`<br>pulse recipe only; follow written chord roots | 7 distinct written chords<br>review B, Bass | not a round (best 3 every 2: 77%, 2 downbeat clashes) |
 | When the Saints Go Marching In | 3 | C | 4/4 | `B2 B2 B2 B2 |` | `C,2 G,2 C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | try by ear: `%%round 2 every=4`, 80%, downbeat clash in bar 1 |
 | Rocky Mountain | 3 | C | 2/4 | `B2 B2 |` | `C,2 G,2 |`<br>provisional tonic/fifth; harmony review | no written chord symbols<br>needs harmony review | not a round (best 2 every 3: 87%, 2 downbeat clashes) |
 | Bassline Constellation | 3 | Fm | 4/4 | `B2 B2 B2 B2 |` | `F,2 C,2 F,2 C,2 |`<br>pulse recipe only; follow written chord roots | 7 distinct written chords<br>review B, Bass, Fm, Bbm, Db, Cm | round: `%%round 2 every=2`, 88%, no downbeat clash |

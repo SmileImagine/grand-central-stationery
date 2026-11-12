@@ -1,22 +1,22 @@
 # Published-tune dossier gap report
 
-Generated deterministically from `course/set.json` (120 published tunes). Only explicit `% dossier-*:` statements count as completed. Existing `O:`, `R:`, `Q:`, `C:`, lyrics, chord analysis and source paths appear as **editorial seeds**, not as inferred cultural claims.
+Generated deterministically from `course/set.json` (119 published tunes). Only explicit `% dossier-*:` statements count as completed. Existing `O:`, `R:`, `Q:`, `C:`, lyrics, chord analysis and source paths appear as **editorial seeds**, not as inferred cultural claims.
 
 A complete dossier requires function, characteristic elements, performance practice, provenance/honesty, licence, respect flags, and a reviewer/sign-off field, plus usable provenance: an external citation, bibliographic source, or identified local original.
 
 ## Summary
 
-- Complete dossiers: **0/120**.
-- Explicit origins: 114/120; usable provenance sources: 117/120; internal collection paths only: 3; private paths: 0.
-- Lyrics are present in 79/120 charts.
+- Complete dossiers: **0/119**.
+- Explicit origins: 113/119; usable provenance sources: 116/119; internal collection paths only: 3; private paths: 0.
+- Lyrics are present in 79/119 charts.
 
 | Required dossier field | Explicitly complete | Existing seed only |
 |---|---:|---:|
-| Function | 0 | 120 |
-| Characteristic elements | 0 | 120 |
-| Performance practice | 0 | 87 |
-| Provenance/honesty | 0 | 109 |
-| Licence | 0 | 62 |
+| Function | 0 | 119 |
+| Characteristic elements | 0 | 119 |
+| Performance practice | 0 | 86 |
+| Provenance/honesty | 0 | 108 |
+| Licence | 0 | 61 |
 | Respect flags | 0 | 0 |
 | Reviewer/sign-off | 0 | 0 |
 
@@ -96,7 +96,6 @@ Higher scores mean more missing dossier fields plus weaker provenance metadata. 
 | Bassline Constellation | 3 | 0/7 | bibliographic text | origin: Course original (no cultural attribution); R: minor-loop arranging lab with a written bass layer; Q: 1/4=112; C: Grand Central Stationery (AI-assisted original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
 | Drone Rondo | 3 | 0/7 | bibliographic text | origin: Course original (no cultural attribution); R: instrumental classroom rondo with an improvised episode; Q: 3/8=66; C: Grand Central Stationery (AI-assisted original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
 | Interlock City | 3 | 0/7 | bibliographic text | origin: Course original (no cultural attribution); R: two-part interlock and layered-form study; Q: 1/4=112; C: Grand Central Stationery (AI-assisted original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
-| Signal Drop | 3 | 0/7 | bibliographic text | origin: Course original (no cultural attribution); R: Grade 7 electronic arranging listening bridge; Q: 1/4=112; C: Grand Central Stationery (AI-assisted original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
 | Arc of the Night | 4 | 0/7 | bibliographic text | origin: Course original (no cultural attribution); R: instrumental expressive study and listening bridge; Q: 1/4=66; C: Grand Central Stationery (AI-assisted original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
 | Astley's Ride | 4 | 0/7 | bibliographic text | origin: England; R: reel; licence: GPL-3.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |
 | Cinema Assembly | 4 | 0/7 | bibliographic text | origin: Course original (no cultural attribution); R: dramatic ensemble theme and texture study; Q: 1/4=100; C: Grand Central Stationery (AI-assisted original, CC0); licence: CC0 1.0 | Function, Characteristic elements, Performance practice, Provenance/honesty, Licence, Respect flags, Reviewer/sign-off | 71 |

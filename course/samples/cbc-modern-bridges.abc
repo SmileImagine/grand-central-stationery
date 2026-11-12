@@ -1,5 +1,5 @@
-% CBC Modern Canadian Bridges (pilot): ten original classroom pieces, one for each of JK, SK and Grades 1-8, each paired
-% with a Canadian recording (one pairing is held back for review). AI-assisted originals written for this course and
+% CBC Modern Canadian Bridges (pilot): original classroom pieces, one for each of JK, SK and Grades 1-8 (Grade 7's is still in the
+% workshop), each paired with a Canadian recording. AI-assisted originals written for this course and
 % released CC0 1.0; the recordings are only named and linked, and remain their owners'.
 % Published early from the workshop on 12 November 2026: none has yet been tried with a class or read by the reviewers
 % its record names, and each workshop record is kept for further correction. A "% improv:" line is a cue for the Improv
@@ -215,29 +215,9 @@ w: Room, make room for a verse and the beat; lis-ten first, then speak.
 w: Choose what stays, what drops; one bar to breathe, then we all come back.
 
 X:9
-T:Signal Drop
-T:Original electronic density-and-drop lab
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 7 electronic arranging listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 7 electronic arranging lab; melody, bass and chord groups perform an eight-bar loop while a student conductor decides how layers accumulate, disappear and return.
-N:Listen: the recording this piece is paired with is held back until a human reviewer has approved the pairing. Meanwhile, play any electronic track the class knows and listen for production-scale contrast: layers build up, a drop changes the density, and the bass and pulse organize the room.
-N:Original electronic arranging loop on keyboard triads and a repeated-root bass, for synthesized or classroom sounds; it quotes no recording.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 7 teacher, the reviewer for its listening pairing, second score reader and student arranging trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"producer/conductor","prompt":"Build toward the drop","choices":["add one layer each bar","crescendo one layer","hold density steady"],"replyBars":2}
-% improv: {"id":"B","bars":"5-8","role":"producer/conductor","prompt":"What survives the drop?","choices":["bass only","hook only","silence for one bar then all return"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=112
-K:Dm
-%%style pop
-V:1 name="Hook" sname="H"
-V:2 name="Bass" sname="B" clef=bass
-[V:1] "Dm"!marcato!D2 F2 A2 F2 | "F"!marcato!F2 A2 c2 A2 | !<(!"C"G2 A2 c2 A2 | "Am"E2 A2 c2 A2!<)! |
-[V:1] "Dm"D6 z2 | "F"z8 | "C"G2 A2 c2 A2 | "Am"A4 "Dm"D4 |]
-[V:2] D,D,D,D,D,D,D,D, | F,F,F,F,F,F,F,F, | C,C,C,C,C,C,C,C, | A,A,A,A,A,A,A,A, |
-[V:2] D,8 | z8 | C,C,C,C,C,C,C,C, | A,A,A,A,D,4 |]
+T:Withheld
+% Kept off the public site until a teacher has finished and reviewed it; the piece is in the workshop branch (course/README.md).
+K:C
 
 X:10
 T:Many Hands, One Sky
