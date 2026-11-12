@@ -20,7 +20,7 @@ K:Am
 %%band drums: bd [rim rim]
 %%band bass: ~
 %%band chords: ~
-|: d4 e2 e2 e4 e3 d | d4 e3 d d4 c4 :| d4 e3 d d4 c3 B | c4 d3 c c3 B B3 A | A4 B3 A A4 =G3 ^F | G4 A2 A2 A6 z2 |]
+|: d4e2e2 e4e3d | d4e3d d4c4 :| d4e3d d4c3B | c4d3c c3BB3A | A4B3A A4=G3^F | G4A2A2 A6 z2 |]
 
 X:2
 T:B'qāw ʿala khēr
@@ -62,7 +62,7 @@ K:Am
 %%band drums: bd ~ ~ ~ bd ~ ~ ~
 %%band bass: ~
 %%band chords: ~
-|: c6 (3cdc | B4 A4 | A4 B2 d2 | c4 z4 | z4 B4 | d8 | c8 | d e c d B c A B | G4 z4 |
+|: c6 (3cdc | B4 A4 | A4 B2d2 | c4 z4 | z4 B4 | d8 | c8 | decd BcAB | G4 z4 |
 w: Ra _ _ _ _ _ na dji _ nak Ya dou aï ni _ _ _ _ _ _ _ _
-c6 (3cdc | B4 G4 | A4 B2 d2 | B4 z4 | z4 z2 e2 | d4 c2 B2 | B2 A4 B2 | c2 d e c d B c | A4 z4 :|
+c6 (3cdc | B4 G4 | A4 B2d2 | B4 z4 | z4 z2 e2 | d4 c2B2 | B2 A4 B2 | c2de cdBc | A4 z4 :|
 w: Ra _ _ _ _ _ na dji _ nak Na ri! Ya _ na _ _ ri! _ _ _ _ _ _ _

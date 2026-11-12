@@ -83,7 +83,7 @@ L:1/8
 Q:1/4=66
 K:Cmix
 %%style drone
-D2 D F2 A | =Bc c c2 _B | AG A FG A | G2 D ED z :|
-D2 D F2 A | =Bc c c2 c | c2 c2 c =B | cd c d3 |
-c =B2 c2 d | dc c2 A F | AG A FG A | G2 D ED D |]
+D2 D F2 A | =Bc c c2 _B | AG AFGA | G2 DED z :|
+D2 D F2 A | =Bc c c2 c | c2 c2 c=B | cd c d3 |
+c =B2 c2 d | dc c2 AF | AG AFGA | G2 DEDD |]
 %%tuning Desh (Sa Re Ga ma Pa Dha ni Ni): 203.9 386.3 498.0 702.0 884.4 996.1 1088.3 2/1 map=nearest

@@ -8,7 +8,7 @@ C:Ludwig van Beethoven
 M:2/4
 L:1/8
 K:Cm
-z G G G | _E4 | z F F F | D4- | D4 |]
+z G GG | _E4 | z F FF | D4- | D4 |]
 
 X:2
 T:Eine kleine Nachtmusik (opening)
@@ -16,7 +16,7 @@ C:Wolfgang Amadeus Mozart
 M:4/4
 L:1/8
 K:G
-G2 z D G2 z D | G D G B d2 z2 | c2 z A c2 z A | c A ^F A D2 z2 |]
+G2 z D G2 z D | GD GB d2 z2 | c2 z A c2 z A | cA ^FA D2 z2 |]
 
 X:3
 T:Surprise Symphony (theme)
@@ -32,4 +32,4 @@ C:Edvard Grieg
 M:4/4
 L:1/8
 K:Am
-A B c d e c e2 | ^d B ^d2 =d ^A =d2 | A B c d e c e a | g e c e g4 |]
+AB cd ec e2 | ^dB ^d2 =d^A =d2 | AB cd ec ea | ge ce g4 |]
