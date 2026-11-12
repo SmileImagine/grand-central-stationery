@@ -212,7 +212,25 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
 .pb-mini.uke .mopen { fill: var(--panel-2); stroke: color-mix(in srgb, var(--c) 80%, var(--ink)); stroke-width: 7; }
 
 /* The ideas in a piece, one per element of music, heard in it: the choices wrap within the row on a narrow screen. */
-.pb-concepts { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; max-width: 100%; }
+/* Step 1's pill holds what to hear (the whole piece, or one idea at a time) as a menu: no row of its own. */
+.pb-steps .pb-step1 { border: 1px solid var(--mode); border-radius: 999px; padding: 2px 6px 2px 6px; gap: 4px; }
+.pb-steps .pb-step1 > b { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--mode); background: var(--mode); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; flex: 0 0 auto; }
+.pb-whatbox { display: inline-flex; align-items: center; gap: 4px; min-width: 0; font-weight: 700; }
+.pb-what { min-width: 0; max-width: 16em; font: inherit; font-weight: 700; color: inherit; padding: 4px 4px; border: 0; border-radius: 8px; background: color-mix(in srgb, var(--mode) 16%, var(--panel)); text-overflow: ellipsis; cursor: pointer; }
+.pb-what optgroup, .pb-what option { font-weight: 400; color: var(--ink); background: var(--panel); }
+.pb-tools:empty { display: none; }   /* Listen, the whole piece: nothing more to show */
+@media (max-width: 700px) {
+  .pb-whatbox .st { display: none; }   /* the number says Listen; the menu says what */
+  .pb-what { max-width: 11.5em; }
+  .pb-tools:has(> .pb-hint:only-child) { display: none; }   /* the hints are hidden on a phone */
+  /* As every step but the current one is its number alone on a phone, so is step 2: its first half covers the bubble
+     (a tap starts it, at 2a) and the second waits until it is the step. */
+  .pb-steps .pb-step2:not(.on) { padding: 2px 4px; }
+  .pb-steps .pb-step2:not(.on) > b { margin-right: 0; }
+  .pb-steps .pb-step2:not(.on) button { position: absolute; inset: 0; padding: 0 !important; opacity: 0; }
+  .pb-steps .pb-step2:not(.on) button + button { display: none; }
+  .pb-steps li > button:not([aria-current]) { padding: 4px !important; }   /* a number alone: no room kept for words */
+}
 .pb-concept { border-style: dashed !important; }
 .pb-concept[aria-pressed="true"] { border-style: solid !important; }
 .pb-show { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }

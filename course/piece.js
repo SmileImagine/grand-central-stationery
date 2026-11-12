@@ -254,7 +254,14 @@
       const k = kind();
       if (listening && listening.kind === 'attempt') judge(stopListening());
       else if (k === 'through' && !example) openPanel();
-      if (k === 'listen' && !example) say(concepts.length ? `That was the whole piece. Hear ${concepts[0].element ? 'one idea at a time' : 'the new idea'} in it, or go on.` : 'That was the whole piece. Next: learn it a section at a time.', 'Next step', () => goStep(2));
+      if (k === 'listen' && !example) {
+        if (concepts.length) say(`That was the whole piece. Now ${concepts[0].element ? 'one idea at a time' : 'the new idea'} in it (the Listen menu), or go on to step 2.`, `Hear ${concepts[0].words}`, () => showExample(concepts[0]));
+        else say('That was the whole piece. Next: learn it a section at a time.', 'Next step', () => goStep(2));
+      } else if (k === 'listen' && example) {   // one idea heard: on to the next, then to step 2
+        const next = concepts[concepts.indexOf(example) + 1];
+        if (next) say(`Next idea: ${next.words}.`, 'Hear it', () => showExample(next));
+        else say('That was every idea. Next: learn it a section at a time.', 'Next step', () => goStep(2));
+      }
     };
     setInterval(() => {
       const p = en && en.player; if (!p) return;
@@ -352,10 +359,13 @@
   const STEP2 = { teach: [['study', 'Study the sections', 'Study'], ['together', 'Loop them', 'Loop']], practice: [['note', 'Note by note', 'Notes'], ['time', 'Loop in time', 'Loop']] };
   function renderSteps() {
     $('.pb-steps').innerHTML = P.STEPS[mode].map((n, i) => {
+      if (i === 0 && step === 1 && KINDS[mode][0] === 'listen' && concepts.length) return listenPill(n);
       const halves = i === 1 && STEP2[mode];
       if (!halves) return `<li><button type="button" data-step="${i + 1}" ${step === i + 1 ? 'aria-current="step"' : ''}><b>${i + 1}</b> <span class="st">${esc(n)}</span></button></li>`;
       return `<li class="pb-step2${step === 2 ? ' on' : ''}" role="group" aria-label="${esc(n)}"><b aria-hidden="true">2</b>${halves.map(([v, l, sh], j) => `<button type="button" data-step="2" data-how="${v}" ${step === 2 && how === v ? 'aria-current="step"' : ''} aria-label="${esc(l)}"><span class="half">${'ab'[j]}</span> <span class="st">${esc(l)}</span><span class="sh">${esc(sh)}</span></button>`).join('')}</li>`;
     }).join('');
+    const what = $('.pb-what');
+    if (what) what.addEventListener('change', () => { const c = +what.value < 0 ? null : concepts[+what.value]; if (c !== example) showExample(c); });
     $('.pb-steps').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => {
       const h = b.dataset.how;
       if (h && (h !== how || step !== 2)) { how = h; if (step === 2) { stopAll(); renderSteps(); renderTools(); redraw(); return; } }
@@ -376,19 +386,23 @@
       <button type="button" class="pb-next" aria-label="Next" title="Next (→)">→</button>` : ''}
       ${cuts ? `<button type="button" class="pb-cuts quiet" aria-label="Set up sections" title="Set up sections: choose which bars make each one">✎</button>` : ''}</div>` : '';
   const guideCtl = () => `<label class="chk" title="The tune, faint under the accompaniment, to support a student who needs it and build confidence."><input type="checkbox" class="pb-guide"${guide[mode] ? ' checked' : ''}> Faint guide tones</label>`;
-  // What to hear: the whole piece, or one idea in it (its bars shown and played): one for each element of music the
-  // piece shows, or failing that the new idea. A toggle, like the others.
+  /* What to hear: the whole piece, or one idea in it (its bars shown and played): one for each element of music the
+     piece shows, or failing that the new idea. A menu in step 1's own pill, as step 2 holds its two ways, so it takes no
+     row of its own (on a phone the music needs the room); the toasts at the end of each hearing lead on to the next. */
   const barsWord = c => c.first === c.last ? `bar ${c.first}` : `bars ${c.first}–${c.last}`;
   const conceptTitle = c => c.parts ? `${c.element}: ${c.about}. ${P.formWords(c.parts)}` : c.element ? `${c.element}${c.isNew ? ', new in this piece' : ''}: ${c.about}, in ${barsWord(c)}${c.throughout ? ' (heard all through)' : ''}` : `New in this piece: ${c.words}, in ${barsWord(c)}`;
-  const conceptCtl = () => !concepts.length ? '' : `<div class="seg pb-concepts" role="radiogroup" aria-label="What to hear">
-      <button type="button" role="radio" data-c="-1" aria-checked="${!example}">The whole piece</button>${concepts.map((c, i) => `<button type="button" role="radio" data-c="${i}" aria-checked="${example === c}" title="${esc(conceptTitle(c))}">${esc(c.words)}</button>`).join('')}</div>`;
+  const listenPill = n => `<li class="pb-step1 on" role="group" aria-label="${esc(n)}"><b aria-hidden="true">1</b><label class="pb-whatbox"><span class="st">${esc(n)}:</span>
+      <select class="pb-what" aria-label="${esc(n)}: what to hear" title="What to hear: the whole piece, or one idea in it at a time">
+        <option value="-1"${!example ? ' selected' : ''}>the whole piece</option>
+        <optgroup label="One idea at a time">${concepts.map((c, i) => `<option value="${i}"${example === c ? ' selected' : ''} title="${esc(conceptTitle(c))}">${esc(c.words)}</option>`).join('')}</optgroup>
+      </select></label></li>`;
   const exampleHint = c => c.parts ? `Form, ${c.words}: the start of each part in turn, with a pause between. ${P.formWords(c.parts)}.` : c.element ? `${c.element}, ${barsWord(c)}: ${c.reason}` : `New in this piece, in ${barsWord(c)}.`;
   // Listening is not ready (Safari will not, and a voice is read poorly): only with the lab switch on this computer.
   const LISTEN_LAB = ls.get('gcs-listening-lab') === '1';
   function renderTools() {
     const k = kind();
     let h = '';
-    if (k === 'listen') h = `${conceptCtl()}${example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : ''}`;
+    if (k === 'listen') h = example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : '';
     else if (k === 'sections' && mode === 'teach') h = how === 'study'
       ? `${sectionNav()}`
       : `${sectionNav(false)}${fasterCtl()}`;
@@ -414,7 +428,6 @@
     tools.innerHTML = h; wasPlaying = null;
     tools.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => act(b.dataset.act)));
     loopOn = null;
-    tools.querySelectorAll('.pb-concepts [data-c]').forEach(b => b.addEventListener('click', () => { const c = +b.dataset.c < 0 ? null : concepts[+b.dataset.c]; if (c !== example) showExample(c); }));
     const q = s => tools.querySelector(s);
     if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
     if (q('.pb-slower')) { q('.pb-slower').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, -1, written))); q('.pb-faster').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, 1, written))); }
@@ -428,6 +441,7 @@
   function showExample(c) {
     stopAll();
     example = c; bpm = c ? written : tempo[step];
+    const what = $('.pb-what'); if (what) what.value = c ? String(concepts.indexOf(c)) : '-1';   // when a toast chose it
     renderTools(); redraw();
     if (c) playPause();
   }
@@ -540,7 +554,9 @@
     if (cellFinished) cellFinished();
     paintForm(); paintPlaying(); paintClock();
     const primed = [...new Set(c.parts.filter(x => x.letter.length > 1).map(x => x.letter[0]))].map(l => `; ${l}′ begins like ${l}`).join('');
-    say(`${c.words}: the same letter, the same music${primed}. Now the whole piece?`, 'The whole piece', () => { showExample(null); playPause(); });
+    const next = concepts[concepts.indexOf(c) + 1];   // the ideas in turn, as the Listen menu lists them
+    if (next) say(`${c.words}: the same letter, the same music${primed}. Next idea: ${next.words}.`, 'Hear it', () => showExample(next));
+    else say(`${c.words}: the same letter, the same music${primed}. Now the whole piece?`, 'The whole piece', () => { showExample(null); playPause(); });
   }
   // Leaving the demonstration (another choice, another step, a redraw): no part is waiting to play.
   function formQuit() { if (demo) { clearTimeout(demo.timer); demo = null; } }
