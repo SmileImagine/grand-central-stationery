@@ -414,7 +414,7 @@
     if (k === 'listen') h = example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : '';
     else if (k === 'sections' && mode === 'teach') h = how === 'study'
       ? `${sectionNav()}`
-      : `${sectionNav(false)}`;
+      : `${sectionNav()}`;
     else if (k === 'sections') h = how === 'time'
       ? `${sectionNav()}`
       : `<button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
@@ -831,7 +831,7 @@
         where.innerHTML = `<span class="lg">Section </span>${idx + 1} of ${n}<span class="lg"> · bars ${a.first}–${a.last}${a.label ? ` · ${esc(a.label)}` : ''}</span>`;
         tools.querySelector('.pb-prev').disabled = idx === 0; tools.querySelector('.pb-next').disabled = idx === n - 1;
       }
-      where.setAttribute('aria-label', where.textContent);
+      where.setAttribute('aria-label', where.textContent); where.title = where.textContent;   // the whole of it, when the box shortens it
     }
     const v = tools.querySelector('.pb-bpmv'); if (v) v.textContent = String(bpm);
     const tg = tools.querySelector('.pb-tempo'); if (tg) { const share = P.tempoShare(bpm, written); tg.title = share >= 100 ? 'Full speed' : `${share}% of full speed`; }

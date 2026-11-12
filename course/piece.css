@@ -71,6 +71,18 @@ body[data-piece-mode="teach"] .piecebar { --mode: #087fca; }
 body[data-piece-mode="practice"] .piecebar { --mode: #3f8f1f; }
 body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
 .pb-loopnav { display: inline-flex; align-items: center; gap: 6px; }
+/* The section block: ← where → ✎, the same size in Study and Loop (its words a fixed width, shortened with … if need
+   be), and the pencil always there. Beside the steps it takes the room they leave, and its words are long ("Section 1
+   of 3 · bars 1–2") when that room holds them, short ("1 of 3") when not: it goes under the steps only when even the
+   short form will not fit beside them. */
+.piecebar > .pb-tools:has(> .pb-loopnav:only-child) { flex: 1 1 0; min-width: auto; }   /* as small as the short form, no smaller */
+.pb-tools > .pb-loopnav { container-type: inline-size; flex: 1 1 auto; min-width: calc(7em + 160px); justify-content: flex-end; }
+.pb-loopnav .pb-where { width: 7em; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pb-loopnav .lg { display: none; }
+@container (min-width: 410px) {
+  .pb-loopnav .pb-where { width: 15em; }
+  .pb-loopnav .lg { display: inline; }
+}
 .pb-hint { color: var(--muted); font-size: 14px; }
 .pb-tools .pb-nextstep { margin-left: auto; font-weight: 700; border-color: var(--mode); color: var(--mode); background: transparent; }
 .pb-who { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); }
@@ -172,16 +184,15 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
   .piecebar > .pb-modes::before { display: none; }
   .piecebar > .pb-steps { order: 3; }
   .piecebar > .pb-tools { order: 4; justify-content: flex-start; }
+  .pb-tools > .pb-loopnav { justify-content: flex-start; }
   .pb-name { font-size: 18px; }
   .pb-facts { display: none; }
   .pb-title { flex-basis: 40%; }
-  .pb-cuts { display: none; }
   .pb-tools > *, .pb-tempo > *, .pb-loopnav > * { flex: 0 0 auto; }
   .pb-tools { gap: 6px; }
   .pb-tempo .pb-bpm { min-width: 3ch; font-size: 18px; }
   .piecebar .lg, .pb-tempo small, .pb-tempo .pb-share-of, .pb-hint { display: none; }
   .pb-tools .pb-nextstep { display: none; }   /* the numbered steps above do the same, in less room */
-  .pb-loopnav .pb-where { min-width: 6ch; }
   .pb-tools .play { min-width: 0; }
   .piecebar button { padding: 6px 10px; }
   .pb-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60vw; display: inline-block; }
@@ -247,7 +258,6 @@ html.piece-route .pb-study .pb-mini.inst { display: block !important; flex: none
    circle with the number in its middle; so is step 2: its first half covers the bubble (a tap starts it, at 2a) and
    the second waits until it is the step. Step 1's menu says what without the word Listen. */
 @media (max-width: 900px) {
-  .pb-loopnav .lg { display: none; }   /* "1 of 3": the section's long words would push the arrows under the steps */
   .pb-steps button:not([aria-current]) .st { display: none; }
   .pb-steps li + li { margin-left: 10px; } .pb-steps li + li::before { left: -9px; width: 8px; }
   .pb-whatbox { padding-left: 0; }
