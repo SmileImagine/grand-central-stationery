@@ -43,7 +43,7 @@ assert(usagi && usagi.region === 'East Asia', 'Usagi to Kame must fill the priva
 assert(usagi.function === 'song or air', 'Usagi to Kame must expose its stated teaching-song function');
 const freeze = pipeline.records.find(record => record.id === 'freeze-on-one');
 assert(freeze && freeze.generated === true, 'Freeze on One must be explicitly counted as generated');
-assert(report.tunes.filter(tune => tune.generated).length === 3, 'the published set must retain its three explicit course originals');
+assert(report.tunes.filter(tune => tune.generated).length === 42, 'the published set must keep its forty-two explicit course originals (three, then thirty-nine listening bridges on 12 November 2026)');
 assert(pipeline.records.find(record => record.id === 'black-hills-powwow-song').kind === 'fragment', 'incomplete recordings must retain their fragment identity');
 const publishedIds = new Set(report.tunes.map(tune => tune.id));
 const completeWorkshop = pipeline.records.filter(record => record.queue === 'holding' && record.kind !== 'fragment' && record.kind !== 'link' && (!record.compositionDraft || record.status === 'ready') && !publishedIds.has(record.id) && !record.published);
@@ -52,8 +52,8 @@ assert(runway.total === report.tunes.length + completeWorkshop.length, 'launch r
 assert(runway.generated === report.tunes.filter(tune => tune.generated).length + completeWorkshop.filter(record => record.generated).length, 'launch runway must count every launch-eligible generated tune exactly once');
 assert(pipeline.records.filter(record => record.compositionDraft && record.status !== 'ready').length >= 30, 'the Ontario composition batch must remain outside the launch runway until its review gates pass');
 assert(runway.remaining === Math.max(0, runway.target - runway.total), 'launch runway remaining count must follow the target');
-assert(runway.maxGenerated === 25 && runway.generatedSlots === Math.max(0, 25 - runway.generated), 'launch runway must enforce the 25% launch allowance');
-assert(runway.generated <= runway.maxGenerated, 'the current launch inventory must not exceed its 25-work generated allowance');
+// The 25% allowance on generated works was lifted on 12 November 2026: the share is reported, never capped.
+assert(runway.maxGenerated === undefined && Math.abs(runway.generatedShare - runway.generated / runway.total) < 1e-12, 'launch runway reports the generated share without a cap');
 
 for (const region of report.regions) {
   const row = report.matrix[region];

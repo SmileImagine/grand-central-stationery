@@ -342,7 +342,7 @@
     .tabs .tab { font: var(--ui); padding: 2px 9px; }
     .tabs .tab[aria-pressed="true"] { background: var(--line-2); border-color: var(--accent); }
     .drawer { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; padding-top: 5px; border-top: 1px dashed var(--line); }
-    .drawer[hidden] { display: none; }
+    .drawer[hidden], .tabs .tab[hidden] { display: none; }
     .mixer { gap: 16px; justify-content: center; align-items: flex-end; padding: 6px 0 2px; }
     body.present .cell[data-type="abc"] .strip { padding-right: 150px; }   /* clear of the slide selector in the corner */
     .member[hidden] { display: none; }
@@ -5017,7 +5017,7 @@
         this.dismissedNotes = new Set();
         const parts = splitBand(text);
         body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div></div><div class="corner"><div class="transport" role="group" aria-label="Play"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
-          <div class="strip dock"><div class="dockbar"><div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="improv" aria-pressed="false" title="Visible choices and reply windows that follow the bars while the music plays"><span class="fold" aria-hidden="true"></span>Improv</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div><button type="button" class="themetog" title="Light or dark" aria-label="Light or dark"></button></div>
+          <div class="strip dock"><div class="dockbar"><div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="improv" aria-pressed="false" hidden title="Visible choices and reply windows that follow the bars while the music plays"><span class="fold" aria-hidden="true"></span>Improv</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div><button type="button" class="themetog" title="Light or dark" aria-label="Light or dark"></button></div>
           <div class="drawer melody" data-drawer="melody" hidden>
           <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
           <button type="button" class="lintall" hidden title="Every hint for this tune" aria-haspopup="dialog"></button>
@@ -5050,7 +5050,7 @@
           <div class="bandnote"></div>
           </div>
           </div>
-          <div class="drawer improvd" data-drawer="improv" hidden><div class="improvcard"><div class="improvmeta"></div><strong class="improvprompt"></strong><div class="improvchoices"></div></div><div class="improvnext"></div><div class="improvempty" hidden>No improv cues yet. In the workshop editor, add <code>% improv: {…}</code> cue lines; each cue stays inside the ABC.</div></div>
+          <div class="drawer improvd" data-drawer="improv" hidden><div class="improvcard"><div class="improvmeta"></div><strong class="improvprompt"></strong><div class="improvchoices"></div></div><div class="improvnext"></div><div class="improvempty" hidden>No improv cues in this tune. A cue is a line in the ABC: <code>% improv: {"id":"A","bars":"3-4","prompt":"…","choices":["…","…"]}</code></div></div>
           <div class="drawer mixer" data-drawer="mix" hidden>${MIXER_MEMBERS.map(m => `<div class="member" data-part="${m.part}"${m.round || m.hetero ? ' hidden' : ''}><input type="range" class="lvl" min="0" max="150" step="5" value="100" list="gcs-mix-unity" aria-label="${m.name} level"><button type="button" class="figure" title="${m.name}: click to mute or unmute">${m.svg}</button><span>${m.name}</span></div>`).join('')}</div></div>`;
         this.bandEntry = body.querySelector('.bandentry'); this.bandEntry.value = parts.band; this.bandGhost = '';
         const xp = body.querySelector('input.tr');
@@ -5479,6 +5479,8 @@
         const keepAt = this.player && !this.player.running && this.player.pos > 0 ? this.player.pos : 0;
         this.warnEl.textContent = '';
         const text = this.getText();
+        // The Improv tab is there when the tune carries cues (or its drawer is already open), so the other tunes keep three tabs.
+        const itab = this.body.querySelector('.tab[data-drawer="improv"]'); if (itab) itab.hidden = !/^%\s*improv:/m.test(text) && this.drawer !== 'improv';
         let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
         this.chart = parseChart(text);
         this.tuning = parseTuning(text);

@@ -1,12 +1,12 @@
 # Tune coverage map
 
-Generated deterministically from `course/set.json` (80 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
+Generated deterministically from `course/set.json` (119 published tunes). Regions come only from explicit `O:` fields and functions only from `R:`; **Unspecified** is evidence to repair, not an inferred identity. A country such as USA or Canada is never treated as Indigenous without the tune saying so.
 
 ## Launch runway
 
-- **87/100** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.
-- **4/87** are explicitly labelled course originals or generated works (4.6%); the launch allowance is at most 25/100 (25%).
-- **13** tunes remain to reach 100. At most 21 additional originals could fit under the numerical allowance, but source-backed repertoire remains the priority for geographic and cultural coverage.
+- **126/100** unique published-or-workshop tunes. Review-queue copies and incomplete workshop fragments are not additive.
+- **43/126** are explicitly labelled course originals or generated works (34.1%). The teacher lifted the earlier 25% allowance on 12 November 2026, when the listening bridges were published; the share is reported, not capped.
+- **0** tunes remain to reach 100. Source-backed repertoire remains the priority for geographic and cultural coverage.
 
 ## Coverage by region, level and function
 
@@ -23,14 +23,14 @@ Generated deterministically from `course/set.json` (80 published tunes). Regions
 | East Asia | 0 | 0 | 0 | 3 | 2 | 0 | 1 | 0 | 0 | 4 | 5 | folk 1, minyo 2, sizhu 2 |
 | Southeast Asia | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | folk 1 |
 | Pacific | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
-| Unspecified | 0 | 3 | 2 | 5 | 4 | 5 | 2 | 8 | 1 | 6 | 19 | ballad 3, folk 13, march 1, persian 2 |
+| Unspecified | 2 | 15 | 8 | 15 | 11 | 7 | 2 | 10 | 1 | 25 | 58 | ballad 11, drone 3, folk 23, funk 2, lofi 1, march 4, persian 2, pop 9, swing 2, waltz 1 |
 
 ## Priority gaps
 
 - Empty target regions: North American Indigenous, Pacific.
 - No tune at levels 1-4: North American Indigenous, Pacific.
 - 6 tunes have no explicit origin; 0 have no explicit classroom function or tune type.
-- Only 74/80 tunes state an origin and 80/80 state a function/type.
+- Only 113/119 tunes state an origin and 119/119 state a function/type.
 
 ## Private workshop and review pipeline
 

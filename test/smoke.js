@@ -92,7 +92,7 @@ const inReview = from => queue.filter(it => it.from === from).length;
 // item stays here for correction; the rest are out of circulation.
 const out = it => !['keep', 'change'].includes(it.status);
 const outFromSet = queue.filter(it => it.from === 'published' && out(it)).length;
-if (workshopHere) assert(set.tunes.length + outFromSet === 82, `expected 82 tunes published or withheld from the set (80 published on 11 November, two still withheld), found ${set.tunes.length} + ${outFromSet}`);
+if (workshopHere) assert(set.tunes.length + outFromSet === 121, `expected 121 tunes published or withheld from the set (80 published on 11 November, 39 listening bridges on 12 November, two still withheld), found ${set.tunes.length} + ${outFromSet}`);
 else {
   assert(!fs.existsSync(path.join(root, 'course/review')) && !fs.existsSync(path.join(root, 'course/holding')), 'main must not carry the workshop or the review queue');
   const embedded = fs.readFileSync(path.join(root, 'course/sets.js'), 'utf8');
