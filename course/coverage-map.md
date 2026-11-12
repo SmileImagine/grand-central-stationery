@@ -38,8 +38,8 @@ These candidates are **not published coverage**. They show which empty cells hav
 
 | Region | Workshop | Review | Game | Dance | Lullaby | Song/air | Total |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| North America (general) | 1 | 2 | 0 | 1 | 0 | 1 | 3 |
-| North American Indigenous | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| North America (general) | 4 | 2 | 0 | 1 | 0 | 4 | 6 |
+| North American Indigenous | 4 | 0 | 0 | 0 | 1 | 3 | 4 |
 | Caribbean | 3 | 2 | 3 | 0 | 0 | 0 | 5 |
 | Latin America | 4 | 3 | 1 | 1 | 0 | 1 | 7 |
 | West Africa | 4 | 0 | 1 | 0 | 0 | 1 | 4 |
@@ -51,8 +51,8 @@ These candidates are **not published coverage**. They show which empty cells hav
 | Pacific | 1 | 0 | 0 | 0 | 0 | 1 | 1 |
 | Unspecified | 53 | 2 | 3 | 4 | 1 | 25 | 55 |
 
-- Published-empty regions with private candidates: Pacific.
-- Published-empty regions with no private candidate: North American Indigenous.
+- Published-empty regions with private candidates: North American Indigenous, Pacific.
+- Published-empty regions with no private candidate: none.
 
 ## Metadata queue
 

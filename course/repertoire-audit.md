@@ -4,10 +4,10 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 
 ## Summary
 
-- 100 records: 80 in the workshop and 20 in review.
-- 90/100 have all seven core dossier fields.
-- 91/100 have both an exact citation and an HTTPS source link.
-- 80/100 carry both `N:HOW READ` and `N:UNCERTAIN`; 52/100 state classroom range or rehearsal-key guidance.
+- 107 records: 87 in the workshop and 20 in review.
+- 97/107 have all seven core dossier fields.
+- 98/107 have both an exact citation and an HTTPS source link.
+- 80/107 carry both `N:HOW READ` and `N:UNCERTAIN`; 52/107 state classroom range or rehearsal-key guidance.
 - Human classroom/culture/language reviews recorded as passed: 0.
 - Human-review packets prepared but not completed: 2.
 
@@ -22,13 +22,17 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Black Hills Powwow song (fragment) | 7/7 | yes | yes | **no** | plate/range/source record as marked | A powwow singer or the drum group itself; the Black Hills Powwow committee (Rapid City), for the song's name and whether it may be taught. |
 | holding | B'qāw ʿala khēr | 7/7 | yes | yes | **no** | plate/range/source record as marked | An Arabic speaker familiar with Algerian song, for the words and the class couplets. |
 | holding | Bújj, bújj, zöld ág | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Hungarian speaker or Kodály-trained teacher, for the words and the game. |
+| holding | Nikamo | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Burnstick for the credit and any posting; a Plains Cree speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it. |
 | holding | Cha-ko'mba, ko'mba | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Chindau speaker, for the words. |
 | holding | Chimaycha (Ayacucho), record | 7/7 | yes | yes | **no** | plate/range/source record as marked | A chimaycha singer or a Quechua speaker from Ayacucho; an ethnomusicologist of Andean song for the song's name. |
 | holding | Dampet Culture Group (record) | 7/7 | yes | yes | **no** | plate/range/source record as marked | The Dampet Culture Group, through Helen Taivii Sapien; a New Ireland speaker of the song's language. |
+| holding | Nibi Song (Water Song) | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Doreen Day or her family (through the Mother Earth Water Walk) for any written version and the credit; the TDSB Urban Indigenous Education Centre, with an Anishinaabe Knowledge Keeper or water walker, for classroom use. None has reviewed it. |
 | holding | De Bellringers, handbells (chord reading) | 7/7 | yes | yes | **no** | plate/range/source record as marked | De Bellringers themselves, for the piece and the ringing; a handbell director for the chords. |
 | holding | Dle Yaman | 7/7 | yes | yes | **no** | plate/range/source record as marked | A duduk player or Armenian musician, for the mode, the flat G and the ornaments; ideally someone who can supply the words. |
 | holding | Galloway road | 7/7 | yes | **no** | **no** | plate/range/source record as marked | a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing |
+| holding | Máhsi ts'enįwę | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Leela Gilday for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it. |
 | holding | Kazoe-uta | 7/7 | yes | **no** | **no** | plate/range/source record as marked | a Japanese culture bearer or a teacher of min'yo or koto before publishing |
+| holding | Yohahí:yo (The Good Road) | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Shawnee Kish and Kristi Talbot for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it. |
 | holding | Koneka bamboo band | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Bougainville musician or teacher at Koneka Primary School, for the piece's name and how the pipes are shared out. |
 | holding | La Rana | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Spanish-speaking teacher, for the words and the chain. |
 | holding | Mafuve | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Chindau speaker, for the words; a teacher of southern African dance, for the stamps and the circle. |
@@ -40,10 +44,13 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Resvelons nous | 7/7 | yes | yes | **no** | plate/range/source record as marked | An early-music singer or choir director, for the editorial accidentals and the tempo. |
 | holding | Sakura | 7/7 | yes | **no** | **no** | plate/range/source record as marked | a Japanese culture bearer or a teacher of min'yo or koto before publishing |
 | holding | Senufo balafon and djembe (record) | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Senufo balafon player, for the parts and their occasion. |
+| holding | mitêh (Heart) | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Sherryl Sewepagaham (the composer) for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it. |
 | holding | Si me dan pasteles | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Puerto Rican teacher or musician, for the words, the parranda and the cuatro's part. |
 | holding | Đàn đá (S'tiêng lithophone) | 7/7 | yes | yes | **no** | plate/range/source record as marked | The player or her family, for the piece's name; a Vietnamese musicologist who knows the đàn đá of Bình Phước. |
 | holding | O tu'la, mntwa'na (Thula, mntwana) | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Zulu speaker, for the spelling, the words and whether the tune is known today. |
+| holding | Human | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Twin Flames for the credit and any posting; an Inuktitut speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it. |
 | holding | Vámonos por Santa Anita | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Spanish-speaking teacher, for the words. |
+| holding | Ode'min Giizis (Strawberry Moon) | 7/7 | yes | **no** | **no** | plate/range/source record as marked | Tara Williamson for the credit and any posting; an Anishinaabemowin speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it. |
 | holding | Xianhua diao (鮮花調) | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Chinese speaker for the characters and the singing; ideally a musician who plays Jiangnan sizhu, for the ornaments. |
 | holding | Zdravets | 7/7 | yes | yes | **no** | plate/range/source record as marked | A Bulgarian speaker, for the spelling, stresses and translation; a Bulgarian dance teacher, for the horo step. |
 | review | When the Saints Go Marching In | 0/7 | **no** | **no** | **no** | function, elements, practice, honesty, licence, respect, review | **not named** |
@@ -76,6 +83,7 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Black Hills Powwow song (fragment) | USA, South Dakota, Black Hills Powwow, Rapid City | powwow song | 7/7 | pending | pending |
 | holding | B'qāw ʿala khēr | Algiers, Algeria | festival song (leave-taking) | 7/7 | pending | pending |
 | holding | Bújj, bújj, zöld ág | Hungary, Baranya county | children's game | 7/7 | pending | pending |
+| holding | Nikamo | Canada (Plains Cree; Manitoba) | composed lullaby | 7/7 | pending | pending |
 | holding | Bright-Line Boots | Course original (no cultural attribution) | Grade 1 country-pop listening bridge | 7/7 | verified | pending |
 | holding | Mountain Window | Course original (no cultural attribution) | Grade 2 indie-folk listening bridge | 7/7 | verified | pending |
 | holding | Three-Way Streetlight | Course original (no cultural attribution) | Grade 3 jazz-pop listening bridge | 7/7 | verified | pending |
@@ -89,23 +97,26 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Cha-ko'mba, ko'mba | Mozambique (then Portuguese East Africa), Ndau people | singing game | 7/7 | pending | pending |
 | holding | Chimaycha (Ayacucho), record | Peru, Ayacucho | chimaycha | 7/7 | pending | pending |
 | holding | Dampet Culture Group (record) | Papua New Guinea, New Ireland Province, Kavieng | song and dance | 7/7 | pending | pending |
+| holding | Nibi Song (Water Song) | Anishinaabe (Ojibwemowin); shared by the Mother Earth Water Walk | song of thanks to the water | 7/7 | pending | pending |
 | holding | De Bellringers, handbells (chord reading) | Netherlands | handbell piece | 7/7 | pending | pending |
 | holding | Dle Yaman | Armenia | song (instrumental setting) | 7/7 | pending | pending |
 | holding | Freeze on One | Course original (no cultural attribution) | classroom movement game and teaching song | 7/7 | verified | pending |
 | holding | Galloway road | Jamaica | ring game | 7/7 | pending | pending |
+| holding | Máhsi ts'enįwę | Canada (Dene Kede; Northwest Territories) | composed counting song | 7/7 | pending | pending |
 | holding | Go le mimli | Ghana (Volta Region, Èwè-Dòmè) | storytelling teaching song | 7/7 | verified | pending |
 | holding | Gurkha dance tune | India, Dharmsala (2nd Goorkhas) | dance | 7/7 | verified | pending |
 | holding | Gurkha sing-song | India, Dharmsala (2nd Goorkhas) | song | 7/7 | verified | pending |
 | holding | Gurkha song, first version | India, Dharmsala (2nd Goorkhas) | song | 7/7 | pending | pending |
 | holding | I Plant Some Rice | Philippines (Ilocos Sur, Ilocano) | children's action song | 7/7 | verified | pending |
 | holding | Kazoe-uta | Japan | warabe-uta | 7/7 | pending | pending |
+| holding | Yohahí:yo (The Good Road) | Canada (Kanien'kéha, Mohawk; Fort Erie, Ontario) | composed song | 7/7 | pending | pending |
 | holding | Koneka bamboo band | Papua New Guinea, Autonomous Region of Bougainville, Arawa, Koneka Primary School | bamboo band | 7/7 | pending | pending |
 | holding | La Rana | Mexico | cumulative song | 7/7 | pending | pending |
 | holding | Mafuve | Mozambique (then Portuguese East Africa), Ndau people | dance song | 7/7 | pending | pending |
 | holding | Mu-to-to-li'le | Mozambique (then Portuguese East Africa), Ndau people | children's song | 7/7 | pending | pending |
 | holding | Muvi'li, zu'ma, zu'ma | Mozambique (then Portuguese East Africa), Ndau people | chant | 7/7 | pending | pending |
 | holding | Na Bahia tem | Brazil | dança cantada (sung dance) | 7/7 | pending | pending |
-| holding | Cumbia Switch | Course original (no cultural attribution) | Grade 1 call and response for voices and percussion | 7/7 | verified | pending |
+| holding | Who Will Answer? | Course original (no cultural attribution) | Grade 1 call and response for voices and percussion | 7/7 | verified | pending |
 | holding | Sing It Up, Sing It Down | Course original (no cultural attribution) | Grade 1 contour song in question and answer | 7/7 | verified | pending |
 | holding | Water Groove | Course original (no cultural attribution) | Grade 1 groove song with call and response | 7/7 | verified | pending |
 | holding | Gong Garden | Course original (no cultural attribution) | Grade 2 AB song with bordun | 7/7 | verified | pending |
@@ -117,7 +128,7 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Signal Chorus | Course original (no cultural attribution) | call-and-chorus song with clapped ostinato, listening bridge | 7/7 | pending | pending |
 | holding | Lantern in the Window | Course original (no cultural attribution) | syncopation and major/minor song, listening bridge | 7/7 | verified | pending |
 | holding | Arc of the Night | Course original (no cultural attribution) | instrumental expressive study and listening bridge | 7/7 | verified | pending |
-| holding | Landó Lines | Course original (no cultural attribution) | sung listening-bridge song: unison verse, two-part refrain | 7/7 | verified | pending |
+| holding | Draw the Line | Course original (no cultural attribution) | sung listening-bridge song: unison verse, two-part refrain | 7/7 | verified | pending |
 | holding | Drone Rondo | Course original (no cultural attribution) | instrumental classroom rondo with an improvised episode | 7/7 | verified | pending |
 | holding | Ska Steps | Course original (no cultural attribution) | sung listening-bridge song: offbeat verse, call-and-response chorus | 7/7 | verified | pending |
 | holding | Crossing Lines | Course original (no cultural attribution) | instrumental layering piece in 6/4 | 7/7 | verified | pending |
@@ -128,7 +139,7 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Bassline Constellation | Course original (no cultural attribution) | minor-loop arranging lab with a written bass layer | 7/7 | verified | pending |
 | holding | Cinema Assembly | Course original (no cultural attribution) | dramatic ensemble theme and texture study | 7/7 | verified | pending |
 | holding | Interlock City | Course original (no cultural attribution) | two-part interlock and layered-form study | 7/7 | pending | pending |
-| holding | Sahel Guitar Layers | Course original (no cultural attribution) | modal texture and dialogue study | 7/7 | verified | pending |
+| holding | Voice and Guitar Layers | Course original (no cultural attribution) | modal texture and dialogue study | 7/7 | verified | pending |
 | holding | Big Drum, Small Drum | Course original (no cultural attribution) | JK pulse and big/small contrast song | 7/7 | verified | pending |
 | holding | Hello, Echo | Course original (no cultural attribution) | JK greeting and echo song | 7/7 | verified | pending |
 | holding | Silver Drop | Course original (no cultural attribution) | JK listening song with silent gaps | 7/7 | verified | pending |
@@ -141,11 +152,14 @@ Generated from the private `course/holding/items` and `course/review/items` reco
 | holding | Sakura | Japan | koto song | 7/7 | pending | pending |
 | holding | Sansa Akroma | Ghana | singing game | 7/7 | verified | pending |
 | holding | Senufo balafon and djembe (record) | West Africa (Côte d'Ivoire, Mali or Burkina Faso; not stated), Senufo people | processional | 7/7 | pending | pending |
+| holding | mitêh (Heart) | Canada (Woodland Cree, Y-dialect) | composed choral song | 7/7 | pending | pending |
 | holding | Si me dan pasteles | Puerto Rico | aguinaldo | 7/7 | pending | pending |
 | holding | Đàn đá (S'tiêng lithophone) | Vietnam, Bình Phước province, S'tiêng people | instrumental | 7/7 | pending | pending |
 | holding | O tu'la, mntwa'na (Thula, mntwana) | South Africa (Zululand / KwaZulu-Natal) | lullaby | 7/7 | pending | pending |
+| holding | Human | Canada (Inuktitut and English; Ottawa) | composed song | 7/7 | pending | pending |
 | holding | Usagi to Kame (兎と亀) | Japan | children's teaching song | 7/7 | verified | pending |
 | holding | Vámonos por Santa Anita | northern Mexico | play song | 7/7 | pending | pending |
+| holding | Ode'min Giizis (Strawberry Moon) | Canada (Anishinaabemowin) | composed song | 7/7 | pending | pending |
 | holding | Xianhua diao (鮮花調) | China | popular song (xiaodiao) | 7/7 | pending | pending |
 | holding | Zdravets | Bulgaria | horo | 7/7 | pending | pending |
 | review (samples) | When the Saints Go Marching In | USA | spiritual | 0/7 | not recorded | not passed |

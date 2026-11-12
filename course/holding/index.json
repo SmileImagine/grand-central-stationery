@@ -10,7 +10,7 @@
  "counts": {
   "inbox": 3,
   "transcription": 6,
-  "source-check": 25,
+  "source-check": 32,
   "classroom-check": 46,
   "ready": 0
  },
@@ -397,6 +397,58 @@
     "licence": "Kiss Áron (1845-1908), Magyar gyermekjáték-gyűjtemény (Budapest: Hornyánszky, 1891): public domain everywhere. The MEK file is the 2000 reprint of the 1891 pages; its new preface and notes are not used.",
     "respect": "A children's game; nothing sensitive.",
     "review": "A Hungarian speaker or Kodály-trained teacher, for the words and the game."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "burnstick-nikamo",
+   "file": "items/burnstick-nikamo.abc",
+   "title": "Nikamo",
+   "subtitle": "Burnstick, a Plains Cree lullaby (link only)",
+   "source": "\"Nikamo\" by Burnstick (Jason Burnstick and Nadia Gaudet); the 2022 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts); listed in MusiCounts and CBC Music, Singing in Indigenous Languages (2024); not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://www.cbc.ca/music/events/canadian-music-class-challenge/learn-how-to-sing-nikamo-in-cree-by-burnstick-1.6559460",
+     "label": "CBC Music: learn how to sing Nikamo in Cree, with sheet music, lyrics and translations (not read here; CBC refuses automated readers)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/MusiCounts_Singing_In_Indigenous_Languages_final.pdf",
+     "label": "MusiCounts and CBC Music, Singing in Indigenous Languages (2024), pp. 5-6: the song and the terms"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=8SK97i6hAfk",
+     "label": "\"Nikamo\" by Burnstick: learn how to sing and perform it (CBC Music Class, 2022)"
+    }
+   ],
+   "performanceNotes": [],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: the composer's written permission before any notation, words or audio are posted on the site (the guide allows learning, performing and sharing for education, not reposting); and a review by the TDSB Urban Indigenous Education Centre or by the composer of the credit, the story and how the class sings it. Neither has happened. Until then the class learns it from the CBC and MusiCounts pages.",
+   "notes": "TERMS (read 2026-11-12): \"chosen with special permissions\"; \"Educational purposes only ... Please only share and perform with this in mind.\" Held as a link until the songwriters give written permission to post notation.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the composer, CBC Music and MusiCounts share the song for teaching on their own pages, under terms that allow learning, performing and sharing for education but not reposting. Link to their pages.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"): the guide's terms cover learning and performing, not copying the score here.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "The 2022 CBC Canadian Music Class Challenge Indigenous-language song. The guide calls it \"a Cree lullaby that means 'to sing out'\", \"especially about giving thanks to your family\", and says it \"emphasizes the poetic nature of the Cree language.\" Burnstick are Jason Burnstick (Plains Cree) and Nadia Gaudet (Métis), a duo based in Manitoba.",
+    "elements": "Not transcribed here; read it from the sheet music on the CBC page. A lullaby.",
+    "practice": "Learn the Cree from the teaching video; sing it gently, as a lullaby.",
+    "accompaniment": "The guide (p. 6) asks that traditional Indigenous instruments be left to Indigenous people: \"Our instruments are considered sacred\" and, if an educator wishes to include them, \"it is highly recommended to reserve that role for an Indigenous person, whether that be a student that is knowledgeable on the matter or bringing in a Knowledge Keeper from your community.\" The Band plays nothing for this record; no hand drum, rattle or powwow drum from us.",
+    "lyrics": "The words are the songwriters', in Plains Cree with translations on the CBC page; not copied here.",
+    "honesty": "Composed and owned: a song by living songwriters, not a traditional lullaby. Nothing here is ours.",
+    "licence": "Te Credit wording to use: \"Nikamo\" by Burnstick (Jason Burnstick and Nadia Gaudet); the 2022 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts) (to confirm with the songwriters).",
+    "respect": "A contemporary song shared for classes. The guide notes the duo's lap-slide Weissenborn guitar; that sound is theirs, and the class does not imitate it with the Band. Credit both artists.",
+    "review": "Burnstick for the credit and any posting; a Plains Cree speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it."
    },
    "composition": null,
    "improv": []
@@ -1335,6 +1387,60 @@
    "improv": []
   },
   {
+   "id": "day-nibi-song",
+   "file": "items/day-nibi-song.abc",
+   "title": "Nibi Song (Water Song)",
+   "subtitle": "An Anishinaabe song of thanks to the water (link only)",
+   "source": "Nibi Song, by Doreen Day with her grandson Mashkoonce; story told by Beatrice Menase Kwe Jackson (Migizi Clan); Mother Earth Water Walk, https://www.motherearthwaterwalk.com/?p=2244; not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://www.motherearthwaterwalk.com/?p=2244",
+     "label": "Mother Earth Water Walk, \"Nibi Song\": the story, the permission, the Ojibwe words and the recording"
+    },
+    {
+     "url": "https://www.greatersudbury.ca/live/environment-and-sustainability1/earthcare-sudbury/childrens-water-festival/water-education-videos/ka-miigwechweaanaa-nibi-let-us-give-our-thanks-to-the-water-pdf/",
+     "label": "Rainbow District School Board and Greater Sudbury, \"Ka Miigwechwe'aanaa Nibi: Let us give our thanks to the water\" (2021 Water Assembly/Festival), which uses the song with credit"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.motherearthwaterwalk.com/wp-content/uploads/2014/05/02-Nibi-Song.mp3",
+     "label": "The Nibi Song, recording hosted by the Mother Earth Water Walk (singer not named on the page)"
+    }
+   ],
+   "performanceNotes": [
+    "The Sudbury resource says the song \"is also sung by Liz Osawamick, President, Anishinaabemowin Teg\"; a recording of hers, or an Anishinaabe singer visiting the class, would be the next best teacher."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: written word from Doreen Day (or her family, or the Mother Earth Water Walk on her behalf) that a written score on the site is welcome and how she wants it credited; and a review by the TDSB Urban Indigenous Education Centre, ideally with an Anishinaabe Knowledge Keeper or water walker who sings it, of the story, the teaching and who leads the singing. Neither has happened. Until then the class learns it from the Mother Earth Water Walk page and recording.",
+   "notes": "TERMS (read 2026-11-12): \"Doreen and her grandson, Mashkoonce, give permission for everyone to share this song… sing it to the water every day.\" \"It is sung like a lullaby and we don't use shakers or drums.\" Held as a link until the family says a written version is welcome.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the song is shared orally, through its makers' own page and recording; transcribing it ourselves would put an outsider's version of a near-ceremonial song in place of theirs. Link to motherearthwaterwalk.com.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"). Doreen Day and Mashkoonce \"give permission for everyone to share this song\", which is generous, but the song is close to ceremony (a daily offering of thanks to the water), and it is sung, not written: any score here would be our transcription of their recording. So no notation, words or audio until the family or an Anishinaabe teacher says a written version is welcome.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "A song of thanks to the water, sung to it every day. The story on the Mother Earth Water Walk page, told by Beatrice Menase Kwe Jackson (Migizi Clan): Doreen Day heard Dr. Masaru Emoto say at a conference that the least we should do each day is speak to the water. Driving her grandson Mashkoonce (Little Elk) to school past a body of water, they said words of love, thanks and respect to it, and played with them in different voices. Mashkoonce asked why they could not say them in their own language, so Doreen had the words written in Ojibwemowin by her daughter's language teacher and taped them to the car visor. Then Mashkoonce suggested singing them, thinking the water would like that, and Doreen made the tune; they sang it to the water every morning on the way to school.",
+    "elements": "Not transcribed. A short song in Ojibwemowin; the page says \"It is sung like a lullaby\".",
+    "practice": "Sung gently, like a lullaby, to the water, every day. The Rainbow District resource invites families to give thanks to the water at sunrise and sunset; a class could sing it at the start of a water lesson or beside real water, if an Anishinaabe teacher agrees.",
+    "accompaniment": "None. The page says \"we don't use shakers or drums.\" The Band plays nothing; no instrument of any kind is added.",
+    "lyrics": "The words are in Ojibwemowin, written for Doreen and Mashkoonce by a language teacher, and printed on the Mother Earth Water Walk page; they are not copied here. An Anishinaabemowin speaker should teach the pronunciation.",
+    "honesty": "Composed and owned: a song made by Doreen Day (Anishinaabe) at her grandson's request, not an old traditional song, though it carries Anishinaabe teaching about water. Nothing here is ours.",
+    "licence": "Terms as stated on the Mother Earth Water Walk page: \"Doreen and her grandson, Mashkoonce, give permission for everyone to share this song… sing it to the water every day.\" This invites everyone to sing and share the song itself; it says nothing about written scores or recordings by others, and the workshop's rule is to link when unsure. The Rainbow District School Board's 2021 resource credits it as \"created through the thoughtfulness of Nookomis Doreen Day at the kind request of her grandson Mashkoonce\" and links to a Minnesota lesson PDF rather than printing a score. Credit wording to use: \"Nibi Song, by Doreen Day (Anishinaabe), made at the request of her grandson Mashkoonce (Little Elk); story told by Beatrice Menase Kwe Jackson (Migizi Clan); shared by the Mother Earth Water Walk, motherearthwaterwalk.com\" (to confirm with the family).",
+    "respect": "Close to ceremony: it is an offering of thanks to the water, sung within the Water Walk movement, in which (the Sudbury resource explains) Anishinaabe women carry the responsibility to protect the water. Always tell the story first and name Doreen Day and Mashkoonce. No shakers, drums or other instruments; no performance staging, no recording of the class for posting, and no new verses or arrangements. Ask an Anishinaabe teacher who leads it and whether it is sung at water.",
+    "review": "Doreen Day or her family (through the Mother Earth Water Walk) for any written version and the credit; the TDSB Urban Indigenous Education Centre, with an Anishinaabe Knowledge Keeper or water walker, for classroom use. None has reviewed it."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
    "id": "debellringers-handbells",
    "file": "items/debellringers-handbells.abc",
    "title": "De Bellringers, handbells (chord reading)",
@@ -1518,6 +1624,58 @@
     "review": "a Jamaican culture bearer (a teacher of Jamaican folk song, or the Jamaica Memory Bank / Louise Bennett's recordings) before publishing",
     "accompaniment": "Jekyll prints the voice alone and names no instruments; the ring sings it; the band plays a mento backing (band, strum, rumba-box bass) in the idiom of Jamaican country bands, ours (conservative guess, 11 November 2026)",
     "lyrics": "Jamaican Patois as Jekyll printed it, one verse, all sung in class, nothing left out (conservative guess, 11 November 2026)"
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "gilday-mahsi-tsenjwe",
+   "file": "items/gilday-mahsi-tsenjwe.abc",
+   "title": "Máhsi ts'enįwę",
+   "subtitle": "Dene counting song for the 2023 CBC Canadian Music Class Challenge (link only)",
+   "source": "\"Máhsi ts'enįwę\" by Leela Gilday, with Gloria Gaudet; the 2023 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts); listed in MusiCounts and CBC Music, Singing in Indigenous Languages (2024); not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://www.cbc.ca/music/events/canadian-music-class-challenge/leela-gilday-canadian-music-class-challenge-2023-1.6939014",
+     "label": "CBC Music: how Leela Gilday wrote the song, with sheet music and the teaching video (not read here; CBC refuses automated readers)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/MusiCounts_Singing_In_Indigenous_Languages_final.pdf",
+     "label": "MusiCounts and CBC Music, Singing in Indigenous Languages (2024), pp. 5-6: the song and the terms"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=Nw6dSKZSg2A",
+     "label": "Leela Gilday teaches how to sing \"Máhsi ts'enįwę\" (CBC Music Class, 2023)"
+    }
+   ],
+   "performanceNotes": [],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: the composer's written permission before any notation, words or audio are posted on the site (the guide allows learning, performing and sharing for education, not reposting); and a review by the TDSB Urban Indigenous Education Centre or by the composer of the credit, the story and how the class sings it. Neither has happened. Until then the class learns it from the CBC and MusiCounts pages.",
+   "notes": "TERMS (read 2026-11-12): \"chosen with special permissions\"; \"Educational purposes only ... Please only share and perform with this in mind.\" Held as a link until the songwriters give written permission to post notation.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the composer, CBC Music and MusiCounts share the song for teaching on their own pages, under terms that allow learning, performing and sharing for education but not reposting. Link to their pages.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"): the guide's terms cover learning and performing, not copying the score here.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "The 2023 CBC Canadian Music Class Challenge Indigenous-language song: a counting song that teaches students to count to five in Dene Kede. The guide says Gilday \"talks about using music as a tool for language learning, and hopes that this song will make Dene Kede more approachable for learners of all ages.\" Search summaries of the CBC article say it was her first song for children, written with her cousin Gloria Gaudet, a kindergarten teacher fluent in the language (to confirm on the CBC page).",
+    "elements": "Not transcribed here; read the key, range and form from CBC's sheet music. A counting song, one to five.",
+    "practice": "Learn the Dene words from Leela Gilday's teaching video. The counting makes it a fit for the youngest grades.",
+    "accompaniment": "The guide (p. 6) asks that traditional Indigenous instruments be left to Indigenous people: \"Our instruments are considered sacred\" and, if an educator wishes to include them, \"it is highly recommended to reserve that role for an Indigenous person, whether that be a student that is knowledgeable on the matter or bringing in a Knowledge Keeper from your community.\" The Band plays nothing for this record; no hand drum, rattle or powwow drum from us.",
+    "lyrics": "The words are the songwriters', in Dene Kede; not copied here. Pronunciation from the composer's video.",
+    "honesty": "Composed and owned: a 2023 song by a living Dene songwriter, not traditional. Nothing here is ours.",
+    "licence": "Te Credit wording to use: \"Máhsi ts'enįwę\" by Leela Gilday, with Gloria Gaudet; the 2023 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts) (to confirm with the songwriters).",
+    "respect": "A contemporary teaching song shared for classes. The guide notes Gilday \"incorporates traditional Dene drumming in her music\"; that drumming is hers and her community's, so the class does not add a Dene drum. Credit the songwriters every time.",
+    "review": "Leela Gilday for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it."
    },
    "composition": null,
    "improv": []
@@ -1796,6 +1954,66 @@
     "review": "a Japanese culture bearer or a teacher of min'yo or koto before publishing",
     "accompaniment": "Tradition: children's voices alone, the beat kept by the bouncing ball (temari) or clapping hands (conservative guess, 11 November 2026). Band here: the minyo style, an E-B drone and light percussion, ours.",
     "lyrics": "Missing: the source file has no words, and the counting words are the point of a kazoe-uta; to find in Nagai and Obata (1895) and check with a Japanese speaker before the song is sung (conservative guess, 11 November 2026)."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "kish-yohahiyo",
+   "file": "items/kish-yohahiyo.abc",
+   "title": "Yohahí:yo (The Good Road)",
+   "subtitle": "Mohawk song for the 2024 CBC Canadian Music Class Challenge (link only)",
+   "source": "\"Yohahí:yo (The Good Road)\" by Shawnee Kish, with Kristi Talbot and the Indigenous youth of Fort Erie, Ontario; the 2024 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts); listed in MusiCounts and CBC Music, Singing in Indigenous Languages (2024); not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://amp.cbc.ca/lite/story/1.7323021",
+     "label": "CBC Music: how Shawnee Kish and Kristi Talbot wrote Yohahí:yo (not read here; CBC refuses automated readers)"
+    },
+    {
+     "url": "https://good-road-sheet-music.tiiny.site/",
+     "label": "Yohahí:yo lead sheet, linked from the MusiCounts guide (prints no composer credit or licence)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/MusiCounts_Singing_In_Indigenous_Languages_final.pdf",
+     "label": "MusiCounts and CBC Music, Singing in Indigenous Languages (2024), pp. 3 and 6: the song, its story and the terms"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=7WP8awCnjQE",
+     "label": "Shawnee Kish teaches how to sing \"Yohahí:yo\" (CBC Music Class, 2024)"
+    },
+    {
+     "url": "https://www.youtube.com/watch?v=rPlAOBaWlzg",
+     "label": "Kristi Talbot and Shawnee Kish on the song and singing Indigenous languages in school (MusiCounts)"
+    }
+   ],
+   "performanceNotes": [],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: the composer's written permission before any notation, words or audio are posted on the site (the guide allows learning, performing and sharing for education, not reposting); and a review by the TDSB Urban Indigenous Education Centre or by the composer of the credit, the story and how the class sings it. Neither has happened. Until then the class learns it from the CBC and MusiCounts pages.",
+   "notes": "TERMS (read 2026-11-12): \"chosen with special permissions\"; \"Educational purposes only ... Please only share and perform with this in mind.\" Held as a link until the songwriters give written permission to post notation.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the composer, CBC Music and MusiCounts share the song for teaching on their own pages, under terms that allow learning, performing and sharing for education but not reposting. Link to their pages.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"): the guide's terms cover learning and performing, not copying the score here.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "The 2024 CBC Canadian Music Class Challenge Indigenous-language song. In spring 2024 Shawnee Kish and her sister, Mohawk language advocate Kristi Talbot, held a songwriting workshop for the Indigenous youth of their community in Fort Erie, Ontario; the guide says the participants created the song together, and that it \"focuses on empowering our next generation to feel proud of the strength and power within themselves as they walk the good road towards a better future.\" Search summaries of the CBC article say the title came from teachings Talbot shared in the workshop (to confirm).",
+    "elements": "Not transcribed here; read the key, range and form from the lead sheet. The song is in Mohawk and English (lyrics in both are linked from the guide).",
+    "practice": "Learn the Mohawk from Shawnee Kish and Kristi Talbot's teaching video, not by ear from a recording. The guide's supplements (Language Pronunciation, Language Composition) are built on this song and suit the lesson.",
+    "accompaniment": "The guide (p. 6) asks that traditional Indigenous instruments be left to Indigenous people: \"Our instruments are considered sacred\" and, if an educator wishes to include them, \"it is highly recommended to reserve that role for an Indigenous person, whether that be a student that is knowledgeable on the matter or bringing in a Knowledge Keeper from your community.\" The Band plays nothing for this record; no hand drum, rattle or powwow drum from us.",
+    "lyrics": "The words are the songwriters' and the youth workshop's, in Mohawk and English; not copied here. A Mohawk speaker's teaching (the video) is the source for pronunciation.",
+    "honesty": "Composed and owned: a 2024 song by living songwriters, not traditional. Nothing here is ours.",
+    "licence": "Te Credit wording to use: \"Yohahí:yo (The Good Road)\" by Shawnee Kish, with Kristi Talbot and the Indigenous youth of Fort Erie, Ontario; the 2024 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts) (to confirm with the songwriters).",
+    "respect": "A contemporary song written with Indigenous youth to be shared with classes; its message is the youth's own. Tell where it came from before singing it, credit the songwriters and the youth, and leave Indigenous instruments to Indigenous people.",
+    "review": "Shawnee Kish and Kristi Talbot for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it."
    },
    "composition": null,
    "improv": []
@@ -4719,6 +4937,71 @@
    "improv": []
   },
   {
+   "id": "sewepagaham-miteh",
+   "file": "items/sewepagaham-miteh.abc",
+   "title": "mitêh (Heart)",
+   "subtitle": "Woodland Cree song for the 2026 CBC Canadian Music Class Challenge (link only)",
+   "source": "Sherryl Sewepagaham, mitêh (Heart), commissioned for the 2026 CBC Canadian Music Class Challenge, powered by MusiCounts; free scores at https://musicounts.ca/en/miteh/ (site © Music Education Charity of Canada); not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://musicounts.ca/en/miteh/",
+     "label": "MusiCounts page: \"A new, open-access choral work by Sherryl Sewepagaham\"; four free scores, pronunciation guide and instructional video"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/miteh_UNISONORFF-VER_FINAL.pdf",
+     "label": "Simplified unison with optional Orff accompaniment (MusiCounts)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/miteh_UNISON-VER_FINAL.pdf",
+     "label": "Unison with lead-sheet chord markings (MusiCounts)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/miteh_SA-VER_FINAL.pdf",
+     "label": "Two-part (SA) version (MusiCounts)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/miteh_FourPart-VER_FINAL.pdf",
+     "label": "Four-part (SATB) version (MusiCounts)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/miteh_Pronuniciation-Guide_FINAL.pdf",
+     "label": "Pronunciation guide: Woodland Cree translation and SRO Y-dialect by Bill and Emily Sewepagaham"
+    }
+   ],
+   "performances": [],
+   "performanceNotes": [
+    "The MusiCounts page embeds an instructional video; use it there. Classes entering the 2026 CBC Canadian Music Class Challenge post their own performances through CBC Music; do not copy one here."
+   ],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: Sherryl Sewepagaham's written permission (and MusiCounts', who host the scores) before any notation is posted on the site; and a review by the TDSB Urban Indigenous Education Centre or by the composer of the credit, the story and how the class sings it. Neither has happened. Until then students use the MusiCounts page itself.",
+   "notes": "TERMS (read 2026-11-12): \"open-access\" and \"Free, downloadable scores\"; no licence to repost is printed on the scores or the site. Held as a link until the composer gives written permission.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the composer and MusiCounts share the four scores and the pronunciation guide on their own page, and their terms do not say others may repost them. Link to musicounts.ca/en/miteh.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"): MusiCounts gives the scores free as \"open-access\", but nothing printed on the scores or the site licenses reposting them, so no notation or audio is kept here.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "A new choral song in Woodland Cree, commissioned for the 2026 CBC Canadian Music Class Challenge (powered by MusiCounts) as that year's Indigenous-language song. MusiCounts describes it as treating the heart as a place of connection to oneself, to others and to community, moving between thought and feeling and back to empathy, care and shared understanding.",
+    "elements": "Not transcribed here. MusiCounts offers four arrangements: simplified unison with optional Orff accompaniment, unison with lead-sheet chord markings, two-part SA and four-part SATB; the text has verses, a one-word chorus (\"mitêh\", heart) and a spoken passage. Read the key, range and form from the score the class will use.",
+    "practice": "Learn the words from the composer's pronunciation guide (Woodland Cree, Y-dialect, Standard Roman Orthography) and the instructional video, not from a reading by ear. The guide's notes on unaspirated K, T and P, the breathed H and the short I are the points to drill. The unison-with-Orff score is the one for the younger grades.",
+    "accompaniment": "The page says \"schools are invited to create their own instrumental accompaniment if they choose\", and one score includes optional Orff parts. The Band plays nothing for this record. Do not add a hand drum, rattle or other Indigenous instrument: the MusiCounts guide Singing in Indigenous Languages asks that such instruments be left to an Indigenous student or Knowledge Keeper.",
+    "lyrics": "The words are the composer's, in Woodland Cree with English translations in the guide; they are not copied here. The translation and orthography are credited to Bill and Emily Sewepagaham of the Little Red River Cree Nation. Sing all of it as printed; no verse is left out.",
+    "honesty": "Composed and owned: a 2026 song by a living Cree-Dene composer, not traditional. Nothing here is ours; the record only links to it.",
+    "licence": "Terms as stated: the page heading reads \"A new, open-access choral work by Sherryl Sewepagaham\", and \"Free, downloadable scores are available in SATB, SA, Unison, and Unison + Orff arrangements\". The site footer reads \"© 2024 Music Education Charity of Canada (MECC)\", and its Terms & Conditions cover only applications and submissions. The scores print the title, the composer, \"Edited by Kimberly Denis\" and \"Commissioned for the 2026 CBC Canadian Music Class Challenge, Powered by MusiCounts\", with no licence. So \"open access\" here means free to download, learn and perform (and to enter the Challenge), not a licence to repost or rework the score. Link only. Credit wording to use: \"mitêh (Heart) by Sherryl Sewepagaham (Woodland Cree-Dene, Little Red River Cree Nation), edited by Kimberly Denis; Cree translation and pronunciation by Bill and Emily Sewepagaham. Commissioned for the 2026 CBC Canadian Music Class Challenge, powered by MusiCounts. musicounts.ca/en/miteh\" (to confirm with the composer).",
+    "respect": "A contemporary song shared by its Cree composer for teaching, not a ceremonial one. Tell its story (why it was written, what the words say) before singing it, credit the composer and the translators every time, and do not add drums or rattles. The composer is also the author of the Orff Canada article on Indigenous music this workshop follows.",
+    "review": "Sherryl Sewepagaham (the composer) for the credit and any posting; the TDSB Urban Indigenous Education Centre for classroom use. Neither has reviewed it."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
    "id": "si-me-dan-pasteles",
    "file": "items/si-me-dan-pasteles.abc",
    "title": "Si me dan pasteles",
@@ -4876,6 +5159,58 @@
    "improv": []
   },
   {
+   "id": "twin-flames-human",
+   "file": "items/twin-flames-human.abc",
+   "title": "Human",
+   "subtitle": "Twin Flames, in Inuktitut and English (link only)",
+   "source": "\"Human\" by Twin Flames (Chelsey June and Jaaji); official anthem of UNESCO's International Year of Indigenous Languages (2019); CBC Canadian Music Class Challenge (CBC Music and MusiCounts); listed in MusiCounts and CBC Music, Singing in Indigenous Languages (2024); not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://www.cbc.ca/music/events/canadian-music-class-challenge/the-story-behind-human-the-official-anthem-for-the-year-of-indigenous-languages-1.5299057",
+     "label": "CBC Music: the story behind \"Human\", with teaching videos (not read here; CBC refuses automated readers)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/MusiCounts_Singing_In_Indigenous_Languages_final.pdf",
+     "label": "MusiCounts and CBC Music, Singing in Indigenous Languages (2024), pp. 4 and 6: the song and the terms"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=gMLLz8MIKGI",
+     "label": "Human by Twin Flames (Twin Flames Music, YouTube)"
+    }
+   ],
+   "performanceNotes": [],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: the composer's written permission before any notation, words or audio are posted on the site (the guide allows learning, performing and sharing for education, not reposting); and a review by the TDSB Urban Indigenous Education Centre or by the composer of the credit, the story and how the class sings it. Neither has happened. Until then the class learns it from the CBC and MusiCounts pages.",
+   "notes": "TERMS (read 2026-11-12): \"chosen with special permissions\"; \"Educational purposes only ... Please only share and perform with this in mind.\" Held as a link until the songwriters give written permission to post notation.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the composer, CBC Music and MusiCounts share the song for teaching on their own pages, under terms that allow learning, performing and sharing for education but not reposting. Link to their pages.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"): the guide's terms cover learning and performing, not copying the score here.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "The 2019 CBC Canadian Music Class Challenge Indigenous-language song. The guide says it \"was written as the official anthem for UNESCO's International Year of Indigenous Languages\", \"from an Indigenous perspective, but its ultimate goal is to encourage people everywhere to embrace the spirit of inclusion and belonging.\" Twin Flames are Chelsey June, a Métis woman from Ottawa, and Jaaji, Inuk and Mohawk from the Arctic.",
+    "elements": "Not transcribed here; read it from the material on the CBC page. CBC offers teaching videos for both the Indigenous-language and the English versions.",
+    "practice": "Learn the Inuktitut from the artists' teaching video. The guide says past Challenge songs like this one cannot be entered in the competition but remain teaching repertoire.",
+    "accompaniment": "The guide (p. 6) asks that traditional Indigenous instruments be left to Indigenous people: \"Our instruments are considered sacred\" and, if an educator wishes to include them, \"it is highly recommended to reserve that role for an Indigenous person, whether that be a student that is knowledgeable on the matter or bringing in a Knowledge Keeper from your community.\" The Band plays nothing for this record; no hand drum, rattle or powwow drum from us.",
+    "lyrics": "The words are the songwriters', in Inuktitut and English; not copied here.",
+    "honesty": "Composed and owned: a 2019 song by living songwriters, not traditional. Nothing here is ours.",
+    "licence": "Te Credit wording to use: \"Human\" by Twin Flames (Chelsey June and Jaaji); official anthem of UNESCO's International Year of Indigenous Languages (2019); CBC Canadian Music Class Challenge (CBC Music and MusiCounts) (to confirm with the songwriters).",
+    "respect": "A contemporary anthem shared for classes. Credit both artists and tell the song's purpose before singing it.",
+    "review": "Twin Flames for the credit and any posting; an Inuktitut speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it."
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
    "id": "usagi-to-kame",
    "file": "items/usagi-to-kame.abc",
    "title": "Usagi to Kame (兎と亀)",
@@ -4971,6 +5306,58 @@
     "review": "A Spanish-speaking teacher, for the words.",
     "accompaniment": "The record transcribes the voice alone; no traditional accompaniment is documented here. Band: the folk (boom-chick) style, a light 2/4 accompaniment for a play song (conservative guess, 11 November 2026)",
     "lyrics": "Spanish, two lines sung to the repeated four bars, then Hague's English singing translation. Fit for class (conservative guess, 11 November 2026)"
+   },
+   "composition": null,
+   "improv": []
+  },
+  {
+   "id": "williamson-odemin-giizis",
+   "file": "items/williamson-odemin-giizis.abc",
+   "title": "Ode'min Giizis (Strawberry Moon)",
+   "subtitle": "Tara Williamson, in Anishinaabemowin (link only)",
+   "source": "\"Ode'min Giizis (Strawberry Moon)\" by Tara Williamson; the 2021 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts); listed in MusiCounts and CBC Music, Singing in Indigenous Languages (2024); not copied here",
+   "sourceUrls": [
+    {
+     "url": "https://www.cbc.ca/music/events/canadian-music-class-challenge/learn-how-to-sing-ode-min-giizis-strawberry-moon-1.6158619",
+     "label": "CBC Music: learn how to sing Ode'min Giizis (not read here; CBC refuses automated readers)"
+    },
+    {
+     "url": "https://musicounts.s3.amazonaws.com/documents/MusiCounts_Singing_In_Indigenous_Languages_final.pdf",
+     "label": "MusiCounts and CBC Music, Singing in Indigenous Languages (2024), pp. 4-6: the song and the terms"
+    }
+   ],
+   "performances": [
+    {
+     "url": "https://www.youtube.com/watch?v=USol6VcHmb0",
+     "label": "Tara Williamson, Ode'min Giizis (Strawberry Moon) (CBC Music Class)"
+    }
+   ],
+   "performanceNotes": [],
+   "status": "source-check",
+   "owner": "",
+   "sourceCheck": "pending",
+   "classroomCheck": "pending",
+   "updated": "2026-11-12",
+   "blocked": "Still needed: the composer's written permission before any notation, words or audio are posted on the site (the guide allows learning, performing and sharing for education, not reposting); and a review by the TDSB Urban Indigenous Education Centre or by the composer of the credit, the story and how the class sings it. Neither has happened. Until then the class learns it from the CBC and MusiCounts pages.",
+   "notes": "TERMS (read 2026-11-12): \"chosen with special permissions\"; \"Educational purposes only ... Please only share and perform with this in mind.\" Held as a link until the songwriters give written permission to post notation.",
+   "kind": "link",
+   "kindNote": "No notes or words by design: the composer, CBC Music and MusiCounts share the song for teaching on their own pages, under terms that allow learning, performing and sharing for education but not reposting. Link to their pages.",
+   "decision": "considering",
+   "decisionNote": "Held as a link only (README, \"Cultures that protect their music\"): the guide's terms cover learning and performing, not copying the score here.",
+   "response": "",
+   "responseUpdated": "",
+   "reviewStatus": "not-started",
+   "reviewPacket": "",
+   "dossier": {
+    "function": "The 2021 CBC Canadian Music Class Challenge Indigenous-language song. The guide says the title means \"Strawberry Moon\" and the song \"pays homage to the ways in which Annishinaabe people track the seasons through the moon. The strawberry moon marks the beginning of June, and is a reminder of friendship, sweetness, and love.\" Williamson is a singer-songwriter from the Opaskwayak Cree Nation in Manitoba.",
+    "elements": "Not transcribed here; read it from the material on the CBC page.",
+    "practice": "Learn the Anishinaabemowin from the teaching video. A season song: it fits a lesson on how the moons mark the year.",
+    "accompaniment": "The guide (p. 6) asks that traditional Indigenous instruments be left to Indigenous people: \"Our instruments are considered sacred\" and, if an educator wishes to include them, \"it is highly recommended to reserve that role for an Indigenous person, whether that be a student that is knowledgeable on the matter or bringing in a Knowledge Keeper from your community.\" The Band plays nothing for this record; no hand drum, rattle or powwow drum from us.",
+    "lyrics": "The words are the songwriter's, in Anishinaabemowin; not copied here.",
+    "honesty": "Composed and owned: a song by a living songwriter, not traditional. Nothing here is ours.",
+    "licence": "Te Credit wording to use: \"Ode'min Giizis (Strawberry Moon)\" by Tara Williamson; the 2021 CBC Canadian Music Class Challenge Indigenous-language song (CBC Music and MusiCounts) (to confirm with the songwriters).",
+    "respect": "A contemporary song shared for classes. Teach only what the song, its teaching video and the guide say about it; deeper teachings about the moons belong to Anishinaabe teachers. Credit the songwriter.",
+    "review": "Tara Williamson for the credit and any posting; an Anishinaabemowin speaker for pronunciation; the TDSB Urban Indigenous Education Centre for classroom use. None has reviewed it."
    },
    "composition": null,
    "improv": []
