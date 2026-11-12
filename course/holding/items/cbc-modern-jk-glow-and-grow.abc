@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; the hum written one "mm" to a note (the draft's "mm __" held the first hum across three notes); the main copy links https://beverlyglenn-copeland.bandcamp.com/track/ever-new (checked 12 November 2026) in place of this record's composition-listen-url; Beverly Glenn-Copeland — "Ever New", from Keyboard Fantasies (1986), on the artist's Bandcamp; keep correcting here
+% holding-published: cbc-modern-bridges-1-glow-and-grow
 % holding-blocked: A Kindergarten music teacher, early-years accessibility reviewer, second score reader and student listening group must test the humming range, pacing, sensory choices and whether the two live choices are understandable without interrupting the flow.
 % source-local: course/holding/items/cbc-modern-jk-glow-and-grow.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -47,4 +50,4 @@ K:C
 %%band bass: ~
 %%band chords: ~
 C2 D2 | C4 | D2 C2 | C4 |]
-w: Mm __ mm __ mm __ mm __
+w: Mm mm mm mm mm mm

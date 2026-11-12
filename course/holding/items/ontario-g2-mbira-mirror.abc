@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; the drone style's tabla-like drums turned off (%%band drums: ~) and its bass struck on beats 1 and 3 as the do-so bordun (%%band bass: r ~ r ~), so a Shona-inspired piece is not backed by a South Asian groove; keep correcting here
+% holding-published: ontario-listening-bridges-10-mbira-mirror
 % holding-blocked: The original is fully notated with words on every note, and the listening link is Piranha Records' official upload of the remastered 1987 recording, but it has not been tried with students. A Grade 2 classroom teacher must trial the mirror form, the half notes and the bordun at 76-88; a Zimbabwean mbira educator must review the context and the boundary between a pentatonic classroom bordun and mbira repertoire, and how to speak of chimurenga with seven-year-olds; a second score reader must check the notes, words and cues.
 % source-local: course/holding/items/ontario-g2-mbira-mirror.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -44,6 +47,8 @@ L:1/8
 Q:1/4=88
 K:C
 %%style drone
+%%band drums: ~
+%%band bass: r ~ r ~
 C4 E2 D2 | E2 G2 A4 | G4 A2 c2 | A2 G2 c4 |
 w: Up goes the pat-tern high, up to the moun-tain top;
 c4 G2 A2 | c2 A2 G4 | A4 G2 E2 | D2 E2 C4 |]

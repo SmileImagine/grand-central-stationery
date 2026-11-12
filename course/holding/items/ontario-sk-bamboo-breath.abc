@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; the drone style's tabla-like drums turned off (%%band drums: ~): only the held tonic remains under the breath; keep correcting here
+% holding-published: ontario-listening-bridges-6-bamboo-breath
 % holding-blocked: This original is licence-safe and fully notated, but it has not been tried with children. An SK classroom trial, an early-years music teacher, a shakuhachi-informed educator and a second score reader must check that the four-bar answer fits one SK breath at quarter = 72, the partner turn-taking, and the listening language around honkyoku. The listening reference was changed from "Dai Bosatsu", which could not be found in any Riley Lee discography, to his "Tōri" on his official channel; the reviewer should confirm that choice.
 % source-local: course/holding/items/ontario-sk-bamboo-breath.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -43,6 +46,7 @@ L:1/8
 Q:1/4=72
 K:G
 %%style drone
+%%band drums: ~
 D2 E2 | G2 E2 | A4 | z4 |
 w: Bam-boo, bam-boo, breathe.
 A2 G2 | E2 D2 | E2 G2 | G4 |]

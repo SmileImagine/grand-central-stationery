@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; words rewritten here on 12 November 2026 so every syllable has its own note (the draft's lines carried up to ten syllables more than their notes, so abcjs left the rest unsung); the N:HOW READ above predates that; the main copy links https://www.youtube.com/watch?v=eGfUKN0hEzQ (checked 12 November 2026) in place of this record's composition-listen-url; Braden Lam — "Coquihalla" (2026), official video; its words are not yet checked, so preview it; keep correcting here
+% holding-published: cbc-modern-bridges-4-mountain-window
 % holding-blocked: A Grade 2 teacher, second score reader and student trial must check breath, the crescendo and decrescendo, the pentatonic variation task and the listening-context wording.
 % source-local: course/holding/items/cbc-modern-g2-mountain-window.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -45,6 +48,6 @@ Q:1/4=84
 K:C
 %%style folk
 "C"C D E2 | G2 E2 | !<(!"Am"E D C2 | "C"G4!<)! |
-w: Through the moun-tain win-dow, lines be-gin to grow;
+w: Through the glass, green hills, then the trees, sky!
 "Am"G A G E | "G"D2 E2 | !>(!"C"E G D2 | C4!>)! |]
-w: ev-'ry turn can change the view, still we find our road.
+w: Watch the win-dow: ev-ery bend, a new view.

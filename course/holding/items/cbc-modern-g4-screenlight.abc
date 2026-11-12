@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; French words rewritten here on 12 November 2026 to fit the notes, counting sung mute e's (the draft had two syllables too many on each line); a Francophone reader must still check idiom and stress; the main copy links https://www.youtube.com/watch?v=N6lD52RQbJI (checked 12 November 2026) in place of this record's composition-listen-url; Claudia Bouvette — "Amour écran" (Bonsound, 2026), official visualizer; a love song, so preview it; keep correcting here
+% holding-published: cbc-modern-bridges-6-screenlight
 % holding-blocked: A Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial must check the text, syncopation, C-major/C-minor contrast and listening context.
 % source-local: course/holding/items/cbc-modern-g4-screenlight.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -45,10 +48,10 @@ Q:1/4=100
 K:C
 %%style pop
 "C"E2 EE G2 A2 | "Am"G2 E3 D C2 | "F"E/2F/2 G2 A2 G E2 | "G"D4 z4 |
-w: Lu-mière d'é-cran, je vois la nuit; je choi-sis l'om-bre ou bien la cou-leur.
+w: Dans la nuit, l'é-cran s'al-lu-me~en bleu; ré-ponds-moi, quel-le cou-leur?
 [K:Cm]"Cm"_E2 _E_E G2 _A2 | "Ab"G2 _E3 D C2 | "Fm"_E/2F/2 G2 _A2 G _E2 | "G"D4 z4 |
-w: U-ne voix ré-pond, puis je ré-ponds; nos deux che-mins re-viennent au coeur.
+w: Dans l'om-bre, ma voix ré-pond tout bas; nous re-trou-vons la cou-leur.
 "Cm"_E2 G2 _A2 G2 | "Ab"G2 _E3 D C2 | "Fm"F/2G/2 _A2 G2 _E D2 | "G"G4 z4 |
-w: Om-bre, cou-leur, choi-sis, puis ré-ponds; é-coute l'au-tre, change le son.
+w: Lu-mière ou nuit, à toi, choi-sis; puis on é-cou-te ta voix.
 [K:C]"C"E2 EE G2 A2 | "Am"G2 E3 D C2 | "G"DE G2 E2 D2 | "C"!fermata!C8 |]
-w: Lu-mière d'é-cran, je vois la nuit; nos deux che-mins re-viennent au coeur.
+w: Dans la nuit, l'é-cran s'al-lu-me~en bleu; voi-là no-tre cou-leur.

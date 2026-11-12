@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; the clapped ostinato moved from a pitched V:2 (which the page would play as a repeated B) to the Band's drum line (%%band drums: cp cp _ cp ~ ~ cp _); its last-bar accent is lost; the main copy links https://www.youtube.com/watch?v=aV5ezQ0gQSE (checked 12 November 2026) in place of this record's composition-listen-url; Ilê Aiyê — "Que Bloco É Esse?" (Paulinho Camafeu), from Canto Negro (1984); keep correcting here
+% holding-published: ontario-listening-bridges-18-signal-chorus
 % holding-blocked: Replace the discovery search with an authorized link to Ilê Aiyê's own recording of "Que Bloco É Esse?" and confirm the album pairing (Canto Negro, 1984). A Grade 4 teacher must trial the syn-co-pa against the clapped ostinato, the accents and the lyric fit; a second score reader must check the two-part notation; an Afro-Brazilian or Bahia music educator must review the bloco afro context. The title was changed from "Bahia Signal" so the piece does not claim a place or tradition it does not come from; the lead should confirm the new title.
 % source-local: course/holding/items/ontario-g4-bahia-signal.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -44,11 +47,8 @@ L:1/8
 Q:1/4=104
 K:G
 %%style pop
-V:1 name="Voices" sname="V"
-V:2 name="Claps" sname="C" clef=perc stafflines=1
-[V:1] !mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | c B2 A G4 |
+%%band drums: cp cp _ cp ~ ~ cp _
+!mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | c B2 A G4 |
 w: Lis-ten: a sig-nal is call-ing. Here we are, here we are, to-geth-er now!
-[V:2] B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 |
-[V:1] !mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | B A2 B G4 |]
+!mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | B A2 B G4 |]
 w: An-swer the sig-nal with sing-ing. Here we are, here we are, we're stand-ing strong!
-[V:2] B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 | B B2 B !accent!B2 z2 |]

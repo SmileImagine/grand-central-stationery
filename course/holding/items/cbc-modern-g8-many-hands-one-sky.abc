@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; words rewritten here on 12 November 2026 so every syllable has its own note (the draft's lines carried up to ten syllables more than their notes, so abcjs left the rest unsung); the N:HOW READ above predates that; the main copy links https://www.youtube.com/watch?v=wLaDksDOcE4 (checked 12 November 2026) in place of this record's composition-listen-url; Broken Social Scene — "Anthems for a Seventeen Year-Old Girl", from You Forgot It in People (2002), official video; keep correcting here
+% holding-published: cbc-modern-bridges-10-many-hands-one-sky
 % holding-blocked: A Grade 8 teacher, indie-rock/recording educator, second score reader, student arranging group and copyright reviewer must test the three textures, mixed ensemble options, range and originality.
 % source-local: course/holding/items/cbc-modern-g8-many-hands-one-sky.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -47,13 +50,13 @@ K:DMix
 V:1 name="Melody" sname="M"
 V:2 name="Counterline" sname="C"
 [V:1] "D"D2 E2 F2 A2 | "C"G2 E2 D4 | "G"G2 A2 B2 A2 | [M:3/4]"D"F2 E2 D2 |
-w: One small line, one o-pen sky; pass it on and ask it why.
+w: One small line, one o-pen sky; pass it on and hear it fly.
 [V:1] [M:4/4]"D"A2 A F2 E D2 | "C"G2 G E2 D C2 | "G"B2 A2 G2 E2 | [M:3/4]"D"F2 E2 D2 |
-w: Many hands can shape the sound; choose who leads and who comes round.
+w: Ma-ny hands can shape ev-ery bit of sound; choose who leads and who comes round.
 [V:1] [M:4/4]"D"DE F2 A2 F2 | "C"EF G2 E2 D2 | "G"GA B2 A2 G2 | [M:3/4]"D"F2 E2 D2 |
-w: Line meets line and none must hide; foreground, back-ground, side by side.
+w: Lis-ten, a new line starts to move a-way; high voice and low voice, side by side.
 [V:1] [M:4/4]"D"A2 F2 E2 D2 | "C"G2 E2 D2 C2 | "G"B2 A2 G2 E2 | [M:3/4]"D"D6 |]
-w: Build it, trade it, let it go; many hands, one o-pen sky.
+w: Build it, trade it, let it go, then ma-ny hands, one sky.
 [V:2] [M:4/4]z8 | z8 | z8 | [M:3/4]z6 |
 [V:2] [M:4/4]z8 | z8 | z8 | [M:3/4]z6 |
 [V:2] [M:4/4]A,2 D2 E2 F2 | G2 E2 C4 | D2 E2 G2 E2 | [M:3/4]A,2 C2 D2 |

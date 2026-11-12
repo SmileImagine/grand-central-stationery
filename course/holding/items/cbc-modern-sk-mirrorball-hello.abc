@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; words rewritten here on 12 November 2026 so every syllable has its own note (the draft's lines carried up to ten syllables more than their notes, so abcjs left the rest unsung); the N:HOW READ above predates that; bar 5 is E-E-G under C instead of E-F-G under F, so the song stays pentatonic for SK (with fa it graded Grade 4); the listening reference left out of the main copy: Carly Rae Jepsen's "Don't Leave Me on the Dance Floor" (2026), the first choice, was dropped on 12 November 2026: its words (desire, "take me home") do not suit SK. Choose a dance-pop recording whose words suit five-year-olds.; keep correcting here
+% holding-published: cbc-modern-bridges-2-mirrorball-hello
 % holding-blocked: An SK teacher, movement/accessibility reviewer, second score reader and student listening group must test the tempo, cue cards, range and safe freeze choices.
 % source-local: course/holding/items/cbc-modern-sk-mirrorball-hello.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -45,6 +48,6 @@ Q:1/4=104
 K:C
 %%style pop
 "C"E2 E2 G2 E2 | "F"GE DC C4 | "C"E2 E2 G2 E2 | "G"GE DC C4 |
-w: Hel-lo, hel-lo, light the room; wave it high and make it bloom. Hel-lo, hel-lo, light the room; choose a move and make some room.
-"F"EF G2 EF G2 | "G"GA G2 ED C2 | "C"E2 G2 E2 D2 | C4 z4 |]
-w: Step or reach, you choose the way; big or small, we end to-day; three, two, one, our lights say go!
+w: Hel-lo, hel-lo, spin the lights a-round; hel-lo, hel-lo, shine on ev-ery-one!
+"C"EE G2 EE G2 | "G"GA G2 ED C2 | "C"E2 G2 E2 D2 | C4 z4 |]
+w: Clap, clap, hands! Tap, tap, toes! Wave up high, wave down low; three, two, one, and freeze!

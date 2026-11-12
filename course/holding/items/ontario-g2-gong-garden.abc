@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; the drone style's tabla-like drums turned off (%%band drums: ~) and its bass struck on beat 1 as the do-so bordun (%%band bass: r ~ ~ ~), so a Balinese-inspired piece is not backed by a South Asian groove; keep correcting here
+% holding-published: ontario-listening-bridges-11-gong-garden
 % holding-blocked: The original is fully notated with words on every note, and the listening link is Gamelan Sekar Jaya's own channel, but it has not been tried with students. A Grade 2 classroom teacher must trial the switch from quick bell sounds to long gong sounds, the bordun and the held notes at 76-88; an Indonesian (Balinese) gamelan educator must review the framing, the choice of "Legong Lasem" (a dance whose roots are sacred) and the history in the video's own description; a second score reader must check the notes, words and cues.
 % source-local: course/holding/items/ontario-g2-gong-garden.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -44,6 +47,8 @@ L:1/8
 Q:1/4=88
 K:C
 %%style drone
+%%band drums: ~
+%%band bass: r ~ ~ ~
 EG A2 GE D2 | CD ED C2 z2 | EG A2 AG E2 | DE GA G4 |
 w: Lit-tle bells, lit-tle bells, ting-a ting-a ting, lit-tle bells, lit-tle bells, hear the gar-den sing.
 G4 C4 | E4 z4 | D4 E4 | C8 |]

@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; retitled "Voice and Guitar Layers" (was "Sahel Guitar Layers"), the doubt its own N:UNCERTAIN raised: the title implied a Malian style the piece does not have; keep correcting here
+% holding-published: ontario-listening-bridges-28-voice-and-guitar-layers
 % holding-blocked: The original is fully notated in two parts and its listening reference is verified, but it has not been played by a class. A Malian/Songhai music educator must review the style framing, the cultural context and whether the title's "Sahel" implies a style the piece does not have; a Grade 8 music teacher must trial the ground and the texture changes; a second score reader must check the audit.
 % source-local: course/holding/items/ontario-g8-sahel-guitar-layers.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -31,12 +34,12 @@
 % dossier-respect: Name Ali Farka Touré, his home region of Niafunké on the Niger River in northern Mali, the Songhai and other languages he sang in, and Ry Cooder as his collaborator on this album. Do not imply that Malian music derives from US blues; discuss the reciprocal histories carefully and centre Touré's own account of his music's local roots. Never present this classroom study as Malian music
 % dossier-review: Malian/Songhai music educator, Grade 8 music teacher, second score reader and student listening panel; all reviews still required
 X:1
-T:Sahel Guitar Layers
+T:Voice and Guitar Layers
 T:Original voice-and-guitar texture study in D Dorian
 C:Grand Central Stationery (AI-assisted original, CC0)
 O:Course original (no cultural attribution)
 R:modal texture and dialogue study
-S:Grand Central Stationery, "Sahel Guitar Layers" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+S:Grand Central Stationery, "Voice and Guitar Layers" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
 N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bars 1-2 the Guitar ground alone (D3 quarter, F3 eighth, A3 dotted quarter, G3-F3 eighths | D3 quarter, G3 eighth, B3 dotted quarter, A3-G3 eighths), Voice rests; bars 3-4 the ground again under the Voice's D5 dotted quarter, C5 eighth, A4 half | B4 quarter, C5-B4 eighths, G4 half; bar 5 Voice A4 quarter, C5-D5 eighths, E5 and D5 quarters over a whole-bar D3; bar 6 Voice rests, Guitar answers A3 quarter, C4 eighth, D4 dotted quarter, C4-A3 eighths; bar 7 Voice B4 quarter, A4-G4 eighths, F4 and E4 quarters, Guitar dyads G3+D4, F3+C4, E3+B3, D3+A3, C3+G3 in the same rhythm; bar 8 Voice D4 whole, Guitar D3+A3 whole. Every bar of both parts totals eight eighths. Voice range D4-E5, largest leap a major third (B4-G4, bar 4); Guitar range C3-D4. Vertical check: on beats 1-3 the Voice sits an octave, sixth, third or their compounds above the Guitar; on beat 4 of bars 3 and 4 the ground's passing G3 and A3 make a brief ninth (A4 over G3) and seventh (G4 over A3) under the held voice note, resolving on the next eighth. The batch draft was one unaccompanied line that claimed mono-, homo- and polyphony and dialogue without a second part. Originality check: neither line is the vocal, guitar riff or ostinato of "Ai Du" or of other Touré recordings checked ("Diaraby", "Bonde", "Savane"); a Dorian ground built on D is common property. The analyzer reads only the Voice line and places it in Grade 5 (dotted quarter and eighth, two parts); the Grade 8 concepts, the textures and the mode, live in how the two parts combine, which it does not read.
 N:UNCERTAIN: Whether students name the textures by ear in so short a piece, whether the ground's late dotted quarter feels steady at quarter note = 72-92, and whether the title's "Sahel" suggests a Malian style the piece does not have have not been settled. A Malian/Songhai music educator must review the framing; a classroom trial, a second score reader and a student listening panel remain required before publication.
 M:4/4

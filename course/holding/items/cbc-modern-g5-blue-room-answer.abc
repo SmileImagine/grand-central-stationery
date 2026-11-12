@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; words rewritten here on 12 November 2026 so every syllable has its own note (the draft's lines carried up to ten syllables more than their notes, so abcjs left the rest unsung); the N:HOW READ above predates that; "Now, _ what" skips the tied F in bar 5; the main copy links https://www.youtube.com/watch?v=0z-HsbovI4E (checked 12 November 2026) in place of this record's composition-listen-url; Charlotte Day Wilson — "Work" (2016), official video; keep correcting here
+% holding-published: cbc-modern-bridges-7-blue-room-answer
 % holding-blocked: A Grade 5 teacher, Black Canadian/R&B music educator, second score reader and student trial must check the 6/8 pocket, two-part refrain, vocal range and contextual language.
 % source-local: course/holding/items/cbc-modern-g5-blue-room-answer.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -47,11 +50,11 @@ K:Dm
 V:1 name="Melody" sname="1"
 V:2 name="Choice part" sname="2"
 [V:1] "Dm"DFA AFD | "A"E2 C ^C3 | "Dm"DFA cAF | "A"E2 C ^C3 |
-w: Hold the room o-pen, lis-ten be-fore you re-ply; leave me a win-dow, let one new an-swer fly.
+w: Hold the room o-pen and lis-ten close; leave me a win-dow where an-swers grow.
 [V:1] "Dm"F2-F FED | "A"A3 z3 | "Dm"DEF AFE | "A"^C3 z3 |
-w: What do you hear now? Send it or leave it still. Space is an an-swer; si-lence can shape the will.
+w: Now, _ what do you hear? Send it back, or leave it still.
 [V:1] "Dm"A2 A F2 E | "A"^C2 E A3 | "Dm"F2 F E2 D | "Dm"D6 |]
-w: Wait, then an-swer; near, then wide; two lines meet on the qui-et side.
+w: Wait, then an-swer, soft and low; two lines meet in blue.
 [V:2] z6 | z6 | z6 | z6 | z6 | z6 | z6 | z6 |
 [V:2] F2 F D2 C | E2 C ^C3 | D2 D C2 A, | A,6 |]
-w: Wait, then an-swer; near, then wide; two lines meet on the qui-et side.
+w: Wait, then an-swer, soft and low; two lines meet in blue.

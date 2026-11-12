@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; "gen-tle-ly" (not a word) replaced: "o-pen the win-dow, o-pen it wide", nine syllables on the nine notes; the main copy links https://www.youtube.com/watch?v=C-WgW_4ilv0 (checked 12 November 2026) in place of this record's composition-listen-url; Mercedes Sosa — "Gracias a la vida" (words and music by Violeta Parra), from Homenaje a Violeta Parra; keep correcting here
+% holding-published: ontario-listening-bridges-15-three-beat-testimony
 % holding-blocked: Replace the discovery search with an authorized link to Mercedes Sosa's 1971 recording of "Gracias a la vida". A Grade 3 choir teacher must trial the partner section (bars 9-12), the breath after each dotted half and the lyric fit; a second score reader must check the two-voice notation; a Latin American music educator must review the nueva canción, Violeta Parra and Mercedes Sosa framing.
 % source-local: course/holding/items/ontario-g3-nueva-cancion-circle.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -25,7 +28,7 @@
 % dossier-elements: twelve bars in 3/4 in ABA form. A (bars 1-4): C5-A4, D5 dotted half, C5-G4, F4 dotted half. B (bars 5-8): F4-A4-C5, F4-D4-F4, G4 half and C4, F4 dotted half. A (bars 9-12) returns with group 2 singing B underneath. F-major pentatonic pitch set F-G-A-C-D with low so (C4) and low la (D4); written range C4-D5; quarters, halves and dotted halves only; mf, p, f
 % dossier-practice: Quarter note = 88 is the target; begin at 72 and breathe in the last beat before each new line. F major is the rehearsal key and the written range C4-D5 matches the young-unison C4-D5 range. Teach in steps: A by echo, B by echo, ABA in unison with the written dynamics, then half the class sings B while the other half sings the returning A; swap groups
 % dossier-accompaniment: The page's ballad style (soft piano and bass) is a neutral school accompaniment chosen so the voices lead; it does not imitate Sosa's guitar and bombo arrangements or any Andean or Argentine style. A teacher may play F-Dm-C-F, one chord a bar, which fits A and B together
-% dossier-lyrics: Original English words written for this record: "Sing it slow, sing it clear, / gently open the window wide, / let it out, let it fly." Group 2 sings the B words again in bars 9-12. One syllable per note, each strong syllable on beat 1
+% dossier-lyrics: Original English words written for this record: "Sing it slow, sing it clear, / open the window, open it wide, / let it out, let it fly." Group 2 sings the B words again in bars 9-12. One syllable per note, each strong syllable on beat 1
 % dossier-honesty: AI-assisted original course composition made for Grand Central Stationery on 11 November 2026 under human-directed range, grade and form constraints. It is not traditional, not collected from a community and not modelled on the melody of "Gracias a la vida"; the recording is a listening bridge only
 % dossier-licence: CC0 1.0. Grand Central Stationery dedicates the melody, words, implied chords and this ABC encoding to the public domain to the extent legally possible. "Gracias a la vida" and Mercedes Sosa's recording remain the copyright of their owners and are not included
 % dossier-respect: Credit Violeta Parra (Chile, 1917-1967) as the songwriter and Mercedes Sosa (Argentina, 1935-2009) as the performer, and connect the song to its Spanish words and to nueva canción's history of testimony, censorship and exile rather than treating it as background folk colour. Never present this classroom piece as nueva canción or as a Latin American song
@@ -50,9 +53,9 @@ V:2 name="Group 2" sname="2"
 w: Sing it slow, sing it clear,
 [V:2] z3 | z3 | z3 | z3 |
 [V:1] !p!F A c | F D F | G2 C | F3 |
-w: gen-tle-ly o-pen the win-dow wide,
+w: o-pen the win-dow, o-pen it wide,
 [V:2] z3 | z3 | z3 | z3 |
 [V:1] !f!c2 A | d3 | c2 G | F3 |]
 w: let it out, let it fly.
 [V:2] !p!F A c | F D F | G2 C | F3 |]
-w: gen-tle-ly o-pen the win-dow wide.
+w: o-pen the win-dow, o-pen it wide.

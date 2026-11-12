@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; retitled "Draw the Line" (was "Landó Lines"): the piece is a 6/8 verse and refrain, not a landó; keep correcting here
+% holding-published: ontario-listening-bridges-19-draw-the-line
 % holding-blocked: This original is licence-safe and fully notated, but it has not been sung by students. A Grade 5 music teacher must trial the two-part refrain, the 6/8 tempo and the lyric stresses; an Afro-Peruvian music educator must review the listening context and the boundary between this 6/8 song and landó; a second score reader must check the notes, the word setting and the originality comparison.
 % source-local: course/holding/items/ontario-g5-lando-lines.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -31,12 +34,12 @@
 % dossier-respect: Name Susana Baca as an Afro-Peruvian singer and researcher who later served as Peru's Minister of Culture, and the song's authors Chabuca Granda and César Calvo; centre Black Peruvian history and the twentieth-century revival of Afro-Peruvian music in which Baca worked. Never present this classroom 6/8 song, or any 6/8 cajón exercise, as landó or as Afro-Peruvian music.
 % dossier-review: Grade 5 classroom music teacher, Afro-Peruvian music educator or culture bearer, second score reader and student singing trial; all reviews still required
 X:1
-T:Landó Lines
+T:Draw the Line
 T:Original verse-and-refrain song in 6/8 with a two-part refrain
 C:Grand Central Stationery (AI-assisted original, CC0)
 O:Course original (no cultural attribution)
 R:sung listening-bridge song: unison verse, two-part refrain
-S:Grand Central Stationery, "Landó Lines" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+S:Grand Central Stationery, "Draw the Line" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
 N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit, every bar six eighths: verse bar 1 two groups of three even eighths (E A B, c B A); bar 2 quarter-eighth, quarter and eighth rest (c B A); bar 3 even eighths rising to E5 (A B c, e d c); bar 4 B4 dotted quarter and dotted-quarter rest, a half cadence on E; bar 5 quarter-eighth then even eighths (e d, c B A); bar 6 G# A B then E5 quarter and eighth rest; bar 7 quarter-eighth then B G# E; bar 8 A4 dotted quarter and rest. Refrain bars 9-16 use quarter-eighth pairs and dotted quarters only, ending bars 10 and 14 on the V chord and bars 12 and 16 on I. Melody pitch set E-G#-A-B-C-D-E, range E4-E5, largest leap inside a phrase a fourth (B4-E5 in bar 6, E4-A4 into bar 8); the one fifth, A4 up to E5, crosses the rest from the verse into the refrain (bars 8-9). Lower part (refrain only) B3-C5, a third below the melody on most notes, a fourth, fifth or sixth at phrase ends; its largest leap is the sixth C4-A4 across the breath between bars 12 and 13. Form: verse-refrain AB, 8+8 bars. Originality check: the opening E-A-B-C rise, the refrain's falling E-E-D-C and the "one goes high, one goes low" contrary shape were compared with "María Landó" and with common children's and school songs; no shared hook was found; stepwise minor-key lines of this kind are common property.
 N:UNCERTAIN: Whether Grade 5 voices hold the lower part against the melody at dotted quarter = 60, whether the E5 peaks suit the class, how the page's ballad band sounds in 6/8 and whether the percussion reply fits the bar-4 and bar-8 rests can only be settled by a classroom trial. The originality check is one reader's; a second score reader should repeat it. An Afro-Peruvian music educator should judge whether the listening framing is accurate and respectful.
 M:6/8

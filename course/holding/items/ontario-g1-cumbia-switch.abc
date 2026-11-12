@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/ontario-listening-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; retitled "Who Will Answer?" (was "Cumbia Switch"): the piece is a march-style call and response, not a cumbia, and the title claimed one; keep correcting here
+% holding-published: ontario-listening-bridges-9-who-will-answer
 % holding-blocked: The original is fully notated with words on every sung note, and the listening link is Sony Music Colombia's official upload of the CBS recording, but it has not been tried with students. A Grade 1 classroom teacher must trial the leader/class/percussion turn-taking and the two silent answer bars at 88-104; a Colombian music educator must review the history and context language, decide whether "Cumbia" may stay in the title, and say which Bermúdez recording best serves the lesson (sources disagree on when the song was first recorded); a second score reader must check the notes, words and cues.
 % source-local: course/holding/items/ontario-g1-cumbia-switch.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -31,12 +34,12 @@
 % dossier-respect: Name Lucho Bermúdez, Colombia and its Caribbean coast, and teach cumbia's Indigenous, African and Spanish roots and its many regional lineages. Do not claim that this classroom tune, its march groove or its percussion answers are cumbia, and do not hand out "Colombian" costumes or caricatures. Whether "Cumbia" may stay in the title is for the Colombian reviewer to decide
 % dossier-review: Grade 1 classroom music teacher, Colombian music educator, second score reader; all reviews still required
 X:1
-T:Cumbia Switch
+T:Who Will Answer?
 T:Original Grade 1 call-and-response song for voices and percussion
 C:Grand Central Stationery (AI-assisted original, CC0)
 O:Course original (no cultural attribution)
 R:Grade 1 call and response for voices and percussion
-S:Grand Central Stationery, "Cumbia Switch" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
+S:Grand Central Stationery, "Who Will Answer?" (original course composition, 11 November 2026), canonical source in this private workshop record, CC0 1.0
 N:HOW READ (2026-11-11): No source plate exists because this is a new composition. Bar-by-bar audit: bar 1 call G-G-A-G (four eighths); bar 2 sung answer E-E-G (two eighths and a quarter); bar 3 call G-G-A-A (four eighths), ending open on la; bar 4 two quarter rests, the first percussion answer; bar 5 call A-G-A-G (four eighths); bar 6 two quarter rests, the second percussion answer; bar 7 everyone E-G-A-G (four eighths); bar 8 E4 quarter and a quarter rest, the close on mi. Every bar totals two quarter beats; the only pitches are E4, G4 and A4; range E4-A4; the largest leap is the minor third between E and G; durations are eighths, quarters and quarter rests only. The calls rise toward la and the answers settle on mi, the resting tone of a mi-so-la song. Originality: the eighth-note so-so-la-so call is a common mi-so-la playground shape; the tune was checked against "Colombia Tierra Querida", "Rain, Rain, Go Away", "Lucy Locket" and "Bounce High, Bounce Low" and shares no phrase with them.
 N:UNCERTAIN: Whether Grade 1 percussion groups can enter and stop cleanly in the one-bar answers at 104, whether the Band's march groove helps or crowds the silent bars, and which Bermúdez recording a teacher should play are untested or unsettled: Wikipedia dates the song's introduction to a 1970 CBS album with Matilde Díaz, an anthology of 1946-1961 coastal recordings also carries it, and the linked Sony upload credits ℗ 1972 CBS. A Colombian music educator, a classroom trial and a second score reader remain required.
 M:2/4

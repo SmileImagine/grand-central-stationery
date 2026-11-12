@@ -6,7 +6,10 @@
 % holding-review-status: not-started
 % holding-kind: tune
 % holding-generated: true
-% holding-updated: 2026-11-11
+% holding-updated: 2026-11-12
+% holding-decision: include
+% holding-decision-note: published to main on 12 November 2026 in course/samples/cbc-modern-bridges.abc, without this record's HOW READ and UNCERTAIN notes and with a "published early" N: line naming the reviews still owed; words rewritten here on 12 November 2026 so every syllable has its own note (the draft's lines carried up to ten syllables more than their notes, so abcjs left the rest unsung); the N:HOW READ above predates that; the distance note no longer claims a delayed entry (that is improv cue B's choice, not written); the main copy links https://www.youtube.com/watch?v=9R-vLt7gHGs (checked 12 November 2026) in place of this record's composition-listen-url; Laila Biali — "Satellite", official video; keep correcting here
+% holding-published: cbc-modern-bridges-5-three-way-streetlight
 % holding-blocked: A Grade 3 teacher, jazz educator, second score reader and student singing trial must check the 3/4 swing option, two-part entry, range and whether the improvisation prompt produces musical rather than random answers.
 % source-local: course/holding/items/cbc-modern-g3-three-way-streetlight.abc canonical private-workshop source; no public source exists because this is a new composition
 % source-url: https://creativecommons.org/publicdomain/zero/1.0/ CC0 1.0 public-domain dedication applied to this original course composition
@@ -45,8 +48,8 @@ Q:3/4=58
 K:C
 %%style swing
 "C"C2 DE G2 | "Am"E3 D C2 | "Dm"DE F2 E2 | "G"C4 z2 |
-w: Three-way street-light, red turns gold; each small an-swer changes what we hold.
+w: Red light, gold light, green light: go! Three-way street-light, shine.
 "Am"E2 FG A2 | "Dm"G3 A G2 | !<(!"G"A2 B2 c2 | !>)!G4 z2 |
-w: Send me a ques-tion, leave me some room; I will send it back with a dif-fer-ent bloom.
+w: Sing me a song, sing it back, chang-ing one note.
 "C"C2 DE G2 | "Am"E3 D C2 | "Dm"DE F2 E2 | "C"C6 |]
-w: Three-way street-light, red turns gold; hear our two lines meet and hold.
+w: Red light, gold light, green light: go! Three-way street-light, glow.
