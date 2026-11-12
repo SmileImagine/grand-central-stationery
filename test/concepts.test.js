@@ -128,7 +128,7 @@ const has = (f, tag) => (f.skills || []).includes(tag);
       else assert(a[0] !== b[0] || a[1] !== b[1], `${t.id}: ${p.letter} and ${q.letter} begin differently`);
     }));
   }
-  eq(withParts, 29, 'twenty-nine pieces with parts to compare: every form beyond a single phrase');
+  eq(withParts, 35, 'thirty-five pieces with parts to compare: every form beyond a single phrase');
 }
 
 /* ---------------- the Listen step's choices ---------------- */

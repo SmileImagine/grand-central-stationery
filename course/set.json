@@ -55,6 +55,47 @@
  },
  "tunes": [
   {
+   "id": "cbc-modern-bridges-1-glow-and-grow",
+   "title": "Glow and Grow",
+   "level": 1,
+   "score": 0.25,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 4,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "early-years wordless listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:re",
+    "dur:2",
+    "dur:4",
+    "key:0",
+    "metre:4/4"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Glow and Grow\nT:Original two-note sound-choice game\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:early-years wordless listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original JK listening-bridge and sound-choice game; an adult sings or plays the four bars while one child chooses the sound colour for the question and another chooses the dynamic shape of the answer.\nN:Listen: Beverly Glenn-Copeland — \"Ever New\", from Keyboard Fantasies (1986), on the artist's Bandcamp, https://beverlyglenn-copeland.bandcamp.com/track/ever-new. Hear how a patient pulse, repeated shapes, warm voice and spacious keyboard colour can make very little material feel continually alive.\nN:Beverly Glenn-Copeland is a Canadian composer and singer whose electronic and acoustic work found a new international audience decades after he recorded Keyboard Fantasies.\nN:This four-bar C-D humming game uses neither the reference melody, words, harmony nor keyboard pattern; it borrows only the general questions \"what changes slowly?\" and \"how can timbre create space?\".\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Kindergarten music teacher, early-years/accessibility reviewer, second score reader and student listening trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"1-2\",\"role\":\"child conductor\",\"prompt\":\"Choose the colour of the hum\",\"choices\":[\"closed-mouth hum\",\"open oo\",\"one soft chime\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"3-4\",\"role\":\"child conductor\",\"prompt\":\"Choose how the answer arrives\",\"choices\":[\"grow louder\",\"grow softer\",\"stay still\"],\"replyBars\":2}\nM:4/4\nL:1/4\nQ:1/4=64\nK:C\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\nC2 D2 | C4 | D2 C2 | C4 |]\nw: Mm mm mm mm mm mm\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "beginner-songs-4-bounce-high-bounce-low",
    "title": "Bounce High, Bounce Low",
    "level": 1,
@@ -236,6 +277,47 @@
    }
   },
   {
+   "id": "ontario-listening-bridges-1-hello-echo",
+   "title": "Hello, Echo",
+   "level": 1,
+   "score": 0.84,
+   "key": "F",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "JK greeting and echo song",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:mi",
+    "degree:re",
+    "dur:1",
+    "dur:1/2",
+    "key:1",
+    "leap:3rd",
+    "metre:2/4"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:1\nT:Hello, Echo\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:JK greeting and echo song\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original JK greeting and echo song; a leader sings a two-bar greeting and the class echoes it at once, choosing loud or soft for the first echo and singing or clapping the rhythm for the second.\nN:Listen: Ella Jenkins — \"You'll Sing a Song and I'll Sing a Song\", title track of the album You'll Sing a Song and I'll Sing a Song, with members of the Urban Gateways Children's Chorus (Folkways FC 7664, 1966; Smithsonian Folkways SFW 45010 reissue), https://www.youtube.com/watch?v=u60cDWfAMBo. Notice how a leader leaves room for a real answer; compare an exact echo with an answer that changes one thing, such as how loud it is.\nN:Ella Jenkins (1924-2024), a Chicago-based singer and educator, made call-and-response with children central to her recordings; this 1966 album was added to the Library of Congress National Recording Registry in 2007. This tiny original greeting is a listening doorway, not a transcription of her melody or words.\nN:Original melody, words and form; the named recording is for listening and discussion only and is linked from the Smithsonian Folkways auto-generated channel, not embedded. Do not label this as an Ella Jenkins song.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Early-years (JK) music teacher, JK classroom trial and a second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"1-4\",\"role\":\"teacher sings, class echoes\",\"prompt\":\"Our echo will be…\",\"choices\":[\"loud\",\"soft\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"5-8\",\"role\":\"teacher or child leader, class echoes\",\"prompt\":\"Our echo will be…\",\"choices\":[\"sung\",\"clapped\"],\"replyBars\":2}\nM:2/4\nL:1/8\nQ:1/4=88\nK:F\n%%style folk\n\"F\"A2 F2 | \"C\"GG \"F\"F2 | \"F\"A2 F2 | \"C\"GG \"F\"F2 |\nw: Hel-lo, how are you? Hel-lo, how are you?\n\"F\"AA \"C\"GG | \"C\"GG \"F\"F2 | \"F\"AA \"C\"GG | \"C\"GG \"F\"F2 |]\nw: Glad to see you here to-day. Glad to see you here to-day.\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "beginner-songs-2-engine-engine-number-nine",
    "title": "Engine, Engine, Number Nine",
    "level": 1,
@@ -315,6 +397,222 @@
     ]
    },
    "abc": "X:5\nT:Lucy Locket\nC:traditional (England)\nO:England\nR:children's singing game\nS:Grand Central Stationery course samples, beginner-songs.abc, X:5 (a classroom setting typed from memory); words traditional\nN:A so-mi-la singing game: the children sit in a ring and one creeps round to hide the \"pocket\" (a purse or handkerchief) behind someone, who must find it. Kitty Fisher was a famous London figure of the 1750s, and the rhyme is often said to have begun as a joke about her; the words children sing are innocent.\nQ:1/4=100\nM:2/4\nL:1/8\nK:C\n%%style folk\nGG EE | AA GE | GG EE | A2 G2 | GG EE | AA GE | GG EE | A2 G2 |]\nw: Lu-cy Lock-et lost her pock-et, Kit-ty Fish-er found it; not a pen-ny was there in it, on-ly rib-bon round it.\n"
+  },
+  {
+   "id": "ontario-listening-bridges-2-big-drum-small-drum",
+   "title": "Big Drum, Small Drum",
+   "level": 2,
+   "score": 1.98,
+   "key": "D",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "JK pulse and big/small contrast song",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:mi",
+    "degree:re",
+    "dur:1",
+    "dur:1/2",
+    "key:2",
+    "leap:3rd",
+    "metre:2/4",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Big Drum, Small Drum\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:JK pulse and big/small contrast song\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original JK pulse-and-contrast song; the class sings a low \"big drum\" call and a higher \"small drum\" call with a body sound in each rest, then answers the sung question \"Big or small?\" with one big or one small body sound in a silent bar, and chooses how loud the last BOOM is.\nN:Listen: Kodo — \"O-daiko\", from Tsuzumi, https://www.youtube.com/watch?v=uTJQV2-WRts. Watch the drummer's whole-body preparation before one big strike and the space after it; compare that one grounded sound with small, light taps.\nN:Kodo is a professional taiko ensemble based on Sado Island, Niigata, Japan, performing staged ensemble drumming (kumi-daiko) worldwide since 1981; in the O-daiko the largest drum is played by a soloist whose stance, breath and stillness are part of the music. This is an original classroom pulse song for voices and body percussion, not taiko repertoire.\nN:Original melody, rhythm and words; no Kodo passage, rhythm or choreography is copied or notated. The clip is a watching and listening reference only. Use classroom drums only after naming that they are not taiko.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Early-years (JK) music teacher, taiko-informed educator, movement/accessibility reviewer for the stomp and tap choices, and a second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-6\",\"role\":\"teacher asks, class answers\",\"prompt\":\"Big or small?\",\"choices\":[\"big: one slow stomp\",\"small: quick finger taps\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"whole class\",\"prompt\":\"Last BOOM\",\"choices\":[\"loud\",\"soft\"],\"replyBars\":1}\nM:2/4\nL:1/8\nQ:1/4=84\nK:D\n%%style march\n\"D\"D2 D2 | D2 z2 | F2 F2 | FF z2 |\nw: Big drum, BOOM! Small drum, tap tap!\nDE F2 | z4 | FE D2 | D2 z2 |]\nw: Big or small? Drum goes home: BOOM!\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-7-water-groove",
+   "title": "Water Groove",
+   "level": 2,
+   "score": 2.05,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 1 groove song with call and response",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:7\nT:Water Groove\nT:Original Grade 1 groove and call-and-response song\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 1 groove song with call and response\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 1 groove song for call and response and for feeling beat against rhythm; bars 1-2 become an ostinato layer once the song is known.\nN:Listen: Fela Kuti and Africa 70 — \"Water No Get Enemy\" (1975), https://www.youtube.com/watch?v=kisTH3SFegc. Track one repeating part while other layers enter; hear that a groove can stay steady while the surface changes.\nN:Fela Anikulapo Kuti (1938-1997) built Afrobeat in Lagos, Nigeria, from Yoruba music, highlife, jazz and funk, with long pieces in which drums, guitars, bass and horns lock together in layers and his words, in Nigerian Pidgin and Yoruba, criticise power. \"Water No Get Enemy\" (1975) takes its title from a proverb about water's strength. This three-note classroom song is a first lesson in keeping one part going, not an Afrobeat piece.\nN:Original melody, rhythm and words; no horn line, lyric, proverb wording, bass pattern or harmony from the recording is used. The words mention water only as a picture of something that keeps moving.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 classroom music teacher, Nigerian or Afrobeat-informed music educator, second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"4\",\"role\":\"class\",\"prompt\":\"What fills the last beat?\",\"choices\":[\"keep the rest\",\"sing 'beat!' again\",\"two quick claps\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-8\",\"role\":\"one group\",\"prompt\":\"Which layer joins the groove?\",\"choices\":[\"clap the beat\",\"tap the word rhythm\",\"shaker ti-ti\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=100\nK:C\n%%style funk\nG2 E2 GA G2 | A2 G2 E2 z2 | A2 A2 GG A2 | G2 GE E2 z2 |\nw: Drip, drop, wa-ter rolls round the stone. Who will keep the beat? We keep the beat.\nG2 E2 GA G2 | A2 G2 E2 z2 | A2 G2 AA G2 | G2 GE E2 z2 |]\nw: Drip, drop, wa-ter rolls round the stone. Where does wa-ter go? Down to the sea.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-9-who-will-answer",
+   "title": "Who Will Answer?",
+   "level": 2,
+   "score": 2.17,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 1 call and response for voices and percussion",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:3rd",
+    "metre:2/4",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:9\nT:Who Will Answer?\nT:Original Grade 1 call-and-response song for voices and percussion\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 1 call and response for voices and percussion\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 1 call-and-response game song in which a leader's sung call is answered first by the class's voices and then by two percussion groups.\nN:Listen: Lucho Bermúdez y Su Orquesta — \"Colombia Tierra Querida\" (CBS recording, ℗ 1972 CBS, Inc.), reissued on La Cumbia Colombiana (Sony Music Entertainment Colombia, 2025), https://www.youtube.com/watch?v=JMBKvLh3gWQ. Listen for a clear two-beat dance pulse, contrasting instrumental colours and a melody that invites a group response.\nN:Lucho Bermúdez (1912-1994), clarinettist, composer and bandleader from El Carmen de Bolívar, brought the porro and cumbia of Colombia's Caribbean coast into big dance-orchestra arrangements that were danced across Colombia and abroad; \"Colombia Tierra Querida\" became one of the country's best-loved songs. Cumbia grew from Indigenous, African and Spanish lineages on that coast (drums, gaitas, maracas, the scraper called guacharaca). This is a new 2/4 classroom tune, not an arrangement and not a cumbia rhythm.\nN:Original notes, rhythm and words; no melody, lyric, horn line or arrangement from the recording is copied, and the classroom percussion answers are free choices, not cumbia patterns.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 classroom music teacher, Colombian music educator, second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"4\",\"role\":\"percussion group 1\",\"prompt\":\"Choose the answer rhythm\",\"choices\":[\"two beats\",\"four quick sounds\",\"beat then rest\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"6\",\"role\":\"percussion group 2\",\"prompt\":\"Which colour answers now?\",\"choices\":[\"scraper\",\"hand drum\",\"claps\"],\"replyBars\":1}\nM:2/4\nL:1/8\nQ:1/4=104\nK:C\n%%style march\nGG AG | EE G2 | GG AA | z2 z2 |\nw: Who will an-swer? We will sing! Who will play it?\nAG AG | z2 z2 | EG AG | E2 z2 |]\nw: Now an-oth-er! All to-geth-er, play!\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-8-sing-it-up-sing-it-down",
+   "title": "Sing It Up, Sing It Down",
+   "level": 2,
+   "score": 2.17,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 1 contour song in question and answer",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "accent; smooth and detached articulation",
+     "melodic patterns on mi, so and la"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: accent; smooth and detached articulation",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:8\nT:Sing It Up, Sing It Down\nT:Original Grade 1 contour song\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 1 contour song in question and answer\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 1 contour song: the words say where the melody goes (up, down, float, fall, home) so children connect high and low sounds with the shape of a phrase, and hear smooth against detached singing.\nN:Listen: Cesária Évora — \"Sodade\", from the album Miss Perfumado (Lusafrica, 1992); linked upload is Lusafrica's 2012 remaster for the 20th Anniversary Edition, https://www.youtube.com/watch?v=Mo4dmYifj0U. Follow the rise and fall of a sung phrase and notice how a restrained voice can carry strong feeling.\nN:Cesária Évora (1941-2011), from Mindelo on the island of São Vicente, Cabo Verde, sang morna and coladeira in Cabo Verdean Kriolu and became known worldwide after Miss Perfumado (1992). Morna is Cabo Verde's slow song form, bound up with the islands' long history of emigration and the feeling called sodade; the song \"Sodade\" speaks of the road to São Tomé. This contour song is not a morna and does not borrow the song.\nN:Entirely original melody, rhythm and English words on three notes; no lyric, chord sequence, rhythmic figure or title phrase from \"Sodade\" is reproduced, and the piece no longer takes the song's title.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 classroom music teacher, Cabo Verdean music educator, second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"class\",\"prompt\":\"How does the answer move?\",\"choices\":[\"fall as written\",\"stay on one note\",\"rise instead\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"conductor\",\"prompt\":\"Choose the articulation\",\"choices\":[\"smooth\",\"detached\",\"one gentle accent\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=76\nK:C\n%%style ballad\nEG A2 EG A2 | A2 GG A2 z2 | .A.G .E2 .A.G .E2 | G2 EE E2 z2 |\nw: Sing it up, sing it up, high in the sky; sing it down, sing it down, low on the ground.\nEG A2 GA A2 | !>!A2 GA A2 z2 | AG E2 GE E2 | G2 G2 E2 z2 |]\nw: Float it up, float it up, light as a kite; let it fall, let it fall, home a-gain.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "cbc-modern-bridges-3-bright-line-boots",
+   "title": "Bright-Line Boots",
+   "level": 2,
+   "score": 2.17,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 1 country-pop listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:4th",
+    "metre:2/4",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 1,
+    "band": "Grade 1",
+    "concepts": [
+     "quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "melodic patterns on mi, so and la"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:3\nT:Bright-Line Boots\nT:Original mi-so-la call and response\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 1 country-pop listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 1 country-pop listening bridge; a caller sings the first two bars, the class answers, and a student selects an accented, detached or smooth body-percussion reply.\nN:Listen: a recording is still to be chosen. Shania Twain's \"Faded Blue Jeans\" (2026), the first choice, was dropped on 12 November 2026: its words (a teenage romance) do not suit Grade 1. Choose a country-pop recording whose words suit six-year-olds. Listen for how a contemporary country-pop track combines a direct story, a firm backbeat, short hooks and contrasting vocal articulation.\nN:Original three-note E-G-A classroom tune and words.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 music teacher, accessibility reviewer, second score reader and student singing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"solo caller\",\"prompt\":\"Choose how the boots answer\",\"choices\":[\"two accented stomps\",\"four light taps\",\"one silent pose\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"class\",\"prompt\":\"Choose the last articulation\",\"choices\":[\"smooth\",\"detached\",\"accent then smooth\"],\"replyBars\":2}\nM:2/4\nL:1/8\nQ:1/4=92\nK:C\n%%style folk\n\"C\"EE GA | G2 E2 | \"F\"AA GE | G2 z2 |\nw: Walk-ing on the bright line, where do our boots go?\n\"C\"EG GA | \"G\"G2 E2 | \"C\"A2 G2 | E2 z2 |]\nw: Fol-low the bright line, then step, step, stop!\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "original-pentatonic-8-evening-bells",
@@ -552,6 +850,377 @@
      "texture"
     ]
    },
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "cbc-modern-bridges-4-mountain-window",
+   "title": "Mountain Window",
+   "level": 2,
+   "score": 3.46,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 2 indie-folk listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "dur:4",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "crescendo and decrescendo",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: crescendo and decrescendo",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:4\nT:Mountain Window\nT:Original pentatonic travel song\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 2 indie-folk listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 2 indie-folk listening bridge; students sing an AB travel song over a do-so bordun, vary one two-bar window, then choose the dynamic shape of the arrival.\nN:Listen: Braden Lam — \"Coquihalla\" (2026), official video; its words are not yet checked, so preview it, https://www.youtube.com/watch?v=eGfUKN0hEzQ. Hear how indie folk-pop can turn travel and place into an intimate story through acoustic colour, a repeated pulse and a widening chorus.\nN:Braden Lam is a Canadian indie-folk songwriter based in Halifax; the referenced release takes its title from British Columbia's Coquihalla route.\nN:Original pentatonic tune, fictional window lyric and C-G bordun; no lyric, melodic phrase, guitar figure or chord progression from \"Coquihalla\" is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 music teacher, second score reader, student singing trial and Canadian listening-context check); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"small group\",\"prompt\":\"Change one part of the view\",\"choices\":[\"raise one note\",\"lower one note\",\"stretch one note\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"whole class\",\"prompt\":\"Shape the arrival\",\"choices\":[\"crescendo home\",\"decrescendo home\",\"sudden soft home\"],\"replyBars\":2}\nM:4/4\nL:1/4\nQ:1/4=84\nK:C\n%%style folk\n\"C\"C D E2 | G2 E2 | !<(!\"Am\"E D C2 | \"C\"G4!<)! |\nw: Through the glass, green hills, then the trees, sky!\n\"Am\"G A G E | \"G\"D2 E2 | !>(!\"C\"E G D2 | C4!>)! |]\nw: Watch the win-dow: ev-ery bend, a new view.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-6-bamboo-breath",
+   "title": "Bamboo Breath",
+   "level": 2,
+   "score": 3.94,
+   "key": "G",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "SK partner breath-and-silence song",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "key:1",
+    "leap:4th",
+    "metre:2/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "low so and low la (notes under do)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:6\nT:Bamboo Breath\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:SK partner breath-and-silence song\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original SK breath-and-silence song for partners; one partner sings the rising call to a long tone, everyone breathes in the silent bar, and the other partner answers with the longer phrase that comes home, choosing words or a hum.\nN:Listen: Riley Lee — \"Tōri (Passing)\", traditional solo shakuhachi honkyoku, live at the Cygnet Folk Festival, Tasmania, January 2024 (Riley Lee Music, the artist's official YouTube channel, published 24 February 2025), https://www.youtube.com/watch?v=gubxoukY-pQ. Listen to breath as part of the tone and to silence as part of the phrase, not as an empty mistake.\nN:Riley Lee, an American-born shakuhachi player based in Australia, became in 1980 the first non-Japanese player to receive the rank of dai shihan (grand master). The shakuhachi is a Japanese end-blown bamboo flute; honkyoku (\"original pieces\") such as \"Tōri\" come from the Fuke Zen Buddhist tradition, where breath and silence are part of the practice. This new vocal study is not honkyoku and does not imitate a sacred piece.\nN:Original melody and words; no pitch sequence, ornament or breath pattern is taken from the reference, which is unmetred solo flute music. The reference is linked from the artist's own channel, not embedded.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Shakuhachi-informed educator (ideally a teacher in a honkyoku lineage), early-years (SK) music teacher, SK classroom trial and a second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"everyone\",\"prompt\":\"After the long tone…\",\"choices\":[\"a silent breath in\",\"a soft 'shh' of wind\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-8\",\"role\":\"partner pairs\",\"prompt\":\"How does your partner answer?\",\"choices\":[\"sing the words\",\"hum on 'mm'\"],\"replyBars\":4}\nM:2/4\nL:1/8\nQ:1/4=72\nK:G\n%%style drone\n%%band drums: ~\nD2 E2 | G2 E2 | A4 | z4 |\nw: Bam-boo, bam-boo, breathe.\nA2 G2 | E2 D2 | E2 G2 | G4 |]\nw: Soft wind go-ing slow-ly home.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-5-pan-parade",
+   "title": "Pan Parade",
+   "level": 2,
+   "score": 4,
+   "key": "D",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "SK parade song about pitch direction",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:2",
+    "leap:3rd",
+    "metre:2/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:5\nT:Pan Parade\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:SK parade song about pitch direction\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original SK parade song about direction; the class marches and sings a line that climbs, one child plays a short up or down bell pattern in the gap, the class sings the line that falls, and a partner answers the first child's bells by copying or going the other way.\nN:Listen: Lord Kitchener — \"Pan in 'A' Minor\", calypso for the 1987 Trinidad Carnival, heard on Kitchener, Forever Vol. 1 (Charlie's Records / VPAL Music, 2009) via the auto-generated Lord Kitchener channel, https://www.youtube.com/watch?v=3SlzhJgJY9w. Listen for the bright family of steelpan tone colours and the way a calypso can celebrate the instrument and its players.\nN:Steelpan was created in Trinidad and Tobago in the mid-twentieth century, when players in Port of Spain's neighbourhoods turned oil drums into tuned instruments, and grew through community steel orchestras and the Panorama competition. Lord Kitchener (Aldwyn Roberts, 1922-2000) wrote many calypsos about pan that steel orchestras chose for Panorama, \"Pan in 'A' Minor\" among them in 1987. This original classroom parade song uses voices and barred instruments; it is not calypso and not a steelband score.\nN:Original tune and words; no line, melody or rhythm from Lord Kitchener's copyrighted song is used, and the song is in a major key, not minor. The recording is linked, not embedded.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Trinidadian steelpan educator, early-years (SK) music teacher, SK classroom trial and a second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"1-3\",\"role\":\"one child on bells (D E F# A)\",\"prompt\":\"In the gap, the bells go…\",\"choices\":[\"up\",\"down\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"4-6\",\"role\":\"a partner on bells\",\"prompt\":\"Answer the first bells\",\"choices\":[\"copy them\",\"go the other way\"],\"replyBars\":1}\nM:2/4\nL:1/8\nQ:1/4=104\nK:D\n%%style march\n\"D\"DE FA | \"D\"A2 z2 | \"D\"z4 | \"D\"AF \"A\"EE |\nw: Pan pa-rade goes up, Pan pa-rade comes\n\"D\"D2 z2 | \"D\"z4 | \"D\"FF \"A\"EE | \"D\"D2 z2 |]\nw: down, ev-ry-bo-dy home!\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "cbc-modern-bridges-2-mirrorball-hello",
+   "title": "Mirrorball Hello",
+   "level": 2,
+   "score": 4.08,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "early-years dance-pop listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:3rd",
+    "metre:4/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:2\nT:Mirrorball Hello\nT:Original greeting-and-freeze dance game\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:early-years dance-pop listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original SK dance-pop listening bridge and accessible movement game; the class sings two repeated greetings, follows one selected movement, then chooses the size and energy of the ending.\nN:Listen: a recording is still to be chosen. Carly Rae Jepsen's \"Don't Leave Me on the Dance Floor\" (2026), the first choice, was dropped on 12 November 2026: its words (desire, \"take me home\") do not suit SK. Choose a dance-pop recording whose words suit five-year-olds. Notice the reliable dance pulse, a short memorable vocal hook and the way production drops or adds layers to frame a choice to move.\nN:Original C-major pentatonic tune and words.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (SK classroom teacher, movement/accessibility reviewer, second score reader and student listening trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"movement leader\",\"prompt\":\"How does the hello move?\",\"choices\":[\"two side steps\",\"two shoulder taps\",\"two seated reaches\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"whole class\",\"prompt\":\"Choose the ending energy\",\"choices\":[\"tiny and soft\",\"bright and strong\",\"freeze in silence\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=104\nK:C\n%%style pop\n\"C\"E2 E2 G2 E2 | \"F\"GE DC C4 | \"C\"E2 E2 G2 E2 | \"G\"GE DC C4 |\nw: Hel-lo, hel-lo, spin the lights a-round; hel-lo, hel-lo, shine on ev-ery-one!\n\"C\"EE G2 EE G2 | \"G\"GA G2 ED C2 | \"C\"E2 G2 E2 D2 | C4 z4 |]\nw: Clap, clap, hands! Tap, tap, toes! Wave up high, wave down low; three, two, one, and freeze!\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-4-mirror-steps",
+   "title": "Mirror Steps",
+   "level": 2,
+   "score": 4.18,
+   "key": "G",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "SK partner movement song",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:1",
+    "leap:3rd",
+    "metre:2/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "low so and low la (notes under do)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:4\nT:Mirror Steps\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:SK partner movement song\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original SK partner movement song; partners step on the beat side to side, turn and freeze in a chosen shape, then one shows a new step and the other answers it in the silent bar before the roles swap on \"now you lead!\".\nN:Listen: Miriam Makeba — \"Pata Pata\" (stereo version), the 1967 Reprise single and title track of the album Pata Pata (1967), heard via the auto-generated Miriam Makeba channel from Strut Records' 2019 release, https://www.youtube.com/watch?v=SBH_u-vEK30. Hear how repeated vocal and instrumental ideas make social movement feel communal; notice the leader's voice and the group's answer.\nN:Miriam Makeba (1932-2008), a South African singer from Johannesburg, first recorded \"Pata Pata\" in South Africa in 1957; the song, sung partly in isiXhosa, names a township social dance (\"pata pata\", touch touch), and her 1967 US recording became an international hit. Banned from returning home in 1960 for speaking against apartheid, she lived in exile until 1990. Writing credits differ between sources (Makeba and Jerry Ragovoy on the 1967 release; some histories link the earlier song to Dorothy Masuka). This is a new movement song, not a \"Pata Pata\" arrangement.\nN:Original melody, rhythm and English words; no hook, bass line, word or lyric from the recording is used, and the title no longer uses the word \"pata\". The recording is linked, not embedded.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (South African music educator (ideally an isiXhosa speaker), early-years (SK) music teacher, movement/accessibility reviewer, SK classroom trial and a second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"whole class\",\"prompt\":\"How do we stop?\",\"choices\":[\"freeze tall\",\"freeze small\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-7\",\"role\":\"partner pairs\",\"prompt\":\"How does your partner answer?\",\"choices\":[\"mirror it\",\"make it smaller\",\"change direction\"],\"replyBars\":1}\nM:2/4\nL:1/8\nQ:1/4=96\nK:G\n%%style pop\n\"G\"G2 G2 | \"D\"AA \"G\"G2 | \"C\"EE \"G\"GG | \"D\"A2 z2 |\nw: Step, step, side to side, turn a-round and stop!\n\"D\"AA \"G\"GG | \"C\"EE \"D\"D2 | \"D\"z4 | \"C\"EE \"G\"G2 |]\nw: Show your part-ner one new step, now you lead!\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-3-silver-drop",
+   "title": "Silver Drop",
+   "level": 2,
+   "score": 4.97,
+   "key": "D",
+   "metre": "2/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "JK listening song with silent gaps",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:2",
+    "leap:5th",
+    "metre:2/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:3\nT:Silver Drop\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:JK listening song with silent gaps\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original JK listening song; the class sings a short falling \"drop\", then one child fills the silent bar with a soft bell or leaves it silent while everyone listens until the sound is gone; at the end the choice is a short wood sound or a long bell sound.\nN:Listen: Evelyn Glennie — \"A Little Prayer\" (composed and played by Evelyn Glennie, solo marimba), from the album Rhythm Song (RCA Red Seal, 1990), https://www.youtube.com/watch?v=6itfyUzl7KA. Listen past the strike into the fading sound; compare a wooden bar, a metal bell, a voice and silence.\nN:Dame Evelyn Glennie is a Scottish solo percussionist and composer who has been profoundly deaf since childhood and describes listening through the whole body; \"A Little Prayer\", a slow marimba piece she wrote as a simple exercise, has since been arranged for many ensembles. This original sung sound study does not imitate her composition.\nN:Original notes and words; the reference is named for listening only, linked from RCA Red Seal's auto-generated upload, with no audio or score embedded. No phrase of \"A Little Prayer\" is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Early-years (JK) music teacher, accessibility-minded music educator (including Deaf or hard-of-hearing perspectives on the framing), classroom trial and a second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"1-4\",\"role\":\"one child with a soft bell\",\"prompt\":\"What fills each gap?\",\"choices\":[\"one soft bell\",\"silence\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-7\",\"role\":\"one child\",\"prompt\":\"Last gap: which sound?\",\"choices\":[\"wood block (short)\",\"bell (long)\"],\"replyBars\":1}\nM:2/4\nL:1/8\nQ:1/4=72\nK:D\n%%style ballad\nAA F2 | z4 | FE D2 | z4 |\nw: Sil-ver drop, sil-ver drop,\nAF AF | EE D2 | z4 | D2 z2 |]\nw: lis-ten, lis-ten, far a-way. Gone.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-11-gong-garden",
+   "title": "Gong Garden",
+   "level": 2,
+   "score": 5,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 2 AB song with bordun",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:4",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:11\nT:Gong Garden\nT:Original Grade 2 AB song for little bells and a big gong\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 2 AB song with bordun\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 2 AB song contrasting short and long sounds: a quick \"little bells\" A section and a slow \"big gong\" B section over a do-so bordun, with bell and gong players as layers.\nN:Listen: Gamelan Sekar Jaya — \"Legong Lasem\" (performance video, Gamelan Sekar Jaya official YouTube channel, 30 January 2021; music director I Dewa Putu Berata, dance director Shoko Yamamuro), https://www.youtube.com/watch?v=irmtW9E4Y6Y. Listen for nested time: quick interlocking tones inside slower punctuation from larger gongs.\nN:Gamelan names many distinct ensemble traditions of Indonesia, above all in Bali and Java. Gamelan Sekar Jaya is a Balinese gamelan and dance company in Berkeley, California, co-founded in 1979 with the Balinese musician I Wayan Suweca and long taught by visiting Balinese artists. Legong is one of Bali's classical dances, accompanied by a gamelan in which fast interlocking parts move inside a slow cycle marked by gongs. This original pentatonic classroom piece compares quick and slow layers; it is not a gamelan composition and must not be labelled Balinese music.\nN:Original notes, words and form; no named composition, tuning, kotekan (interlocking) pattern, melody or gong cycle is copied. The classroom pentatonic is the Western do-re-mi-so-la scale, not a Balinese pelog or slendro tuning.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 classroom music teacher, Indonesian (Balinese) gamelan educator, second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"1-4\",\"role\":\"bell players\",\"prompt\":\"How quick are the little bells?\",\"choices\":[\"ti-ti on every beat\",\"ta on every beat\",\"beat one only\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"6\",\"role\":\"gong keeper\",\"prompt\":\"What fills the silence?\",\"choices\":[\"let the gong ring\",\"one soft gong\",\"nothing at all\"],\"replyBars\":1}\nM:4/4\nL:1/8\nQ:1/4=88\nK:C\n%%style drone\n%%band drums: ~\n%%band bass: r ~ ~ ~\nEG A2 GE D2 | CD ED C2 z2 | EG A2 AG E2 | DE GA G4 |\nw: Lit-tle bells, lit-tle bells, ting-a ting-a ting, lit-tle bells, lit-tle bells, hear the gar-den sing.\nG4 C4 | E4 z4 | D4 E4 | C8 |]\nw: Big gong, ring! Qui-et now.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-10-mbira-mirror",
+   "title": "Mbira Mirror",
+   "level": 3,
+   "score": 3.34,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 2 AB mirror song with bordun",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:10\nT:Mbira Mirror\nT:Original Grade 2 mirror song over a bordun\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 2 AB mirror song with bordun\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 2 AB song in which the second half is the first half sung backwards, over a do-so bordun that repeats like a cycle.\nN:Listen: Stella Chiweshe — \"Chachimurenga\", from the album Ambuya? (Piranha, 1987); linked upload is Piranha Records' remastered version from the 2021 reissue Ambuya!, https://www.youtube.com/watch?v=2k9GM7vloIA. Follow one repeating interlocking figure while the voice moves independently; notice cyclical rather than chord-by-chord listening.\nN:Stella Chiweshe (1946-2023) was one of the first women to become a professional player of the mbira dzavadzimu, the Shona lamellophone of Zimbabwe used in ceremonies that call on the ancestors, and she carried it to audiences worldwide. \"Chachimurenga\", the opening track of Ambuya? (1987), takes its name from chimurenga, the Shona word for struggle used for Zimbabwe's liberation wars. In mbira music interlocking parts repeat in cycles while voices weave over them. This original pentatonic school piece is not mbira repertoire.\nN:Original melody, words and bordun; no kushaura or kutsinhira (mbira lead or interlocking) part, lyric or recording phrase is transcribed. The mirror form is a classroom device, not a feature of mbira music.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 classroom music teacher, Zimbabwean mbira educator, second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"bordun group\",\"prompt\":\"How does the cycle change?\",\"choices\":[\"same\",\"one rest\",\"swap do and so\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"5-8\",\"role\":\"singers\",\"prompt\":\"How does the second half go?\",\"choices\":[\"mirror, as written\",\"sing the first half again\",\"hold high do\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=88\nK:C\n%%style drone\n%%band drums: ~\n%%band bass: r ~ r ~\nC4 E2 D2 | E2 G2 A4 | G4 A2 c2 | A2 G2 c4 |\nw: Up goes the pat-tern high, up to the moun-tain top;\nc4 G2 A2 | c2 A2 G4 | A4 G2 E2 | D2 E2 C4 |]\nw: look in the mir-ror, see: back comes the pat-tern home.\n",
    "licence": "CC0 1.0"
   },
   {
@@ -798,6 +1467,55 @@
    }
   },
   {
+   "id": "ontario-listening-bridges-29-interlock-city",
+   "title": "Interlock City",
+   "level": 3,
+   "score": 5.41,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "two-part interlock and layered-form study",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:6th",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:29\nT:Interlock City\nT:Original two-part interlock and layered-form study\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:two-part interlock and layered-form study\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original two-part interlock and layered-form study for Grade 8 on classroom barred instruments (or recorders, keyboards, bells): two groups learn to make one line together without colliding, then shape the form by adding, swapping and thinning layers, alongside listening to a Balinese gamelan composition by I Nyoman Windha.\nN:Listen: I Nyoman Windha — \"Puspanjali\" (1989), music for the welcome dance of the same name, played by STSI Denpasar (Aneka Record), https://www.youtube.com/watch?v=R8_NjuIhGn8. Hear coordinated interlocking parts, sectional contrast, paired tuning shimmer and large-scale punctuation.\nN:Balinese gamelan composition is a living, changing art with ensemble-specific tuning and rehearsal practice. This equal-tempered classroom polyphony is not gamelan and does not reproduce kotekan.\nN:Original notes and sectional plan; no Windha passage, tuning, interlocking pattern or gong structure is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Balinese gamelan educator, Grade 8 music teacher, second score reader and student listening panel); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"4\",\"role\":\"both lines\",\"prompt\":\"How does the form turn?\",\"choices\":[\"a sudden cut on beat 3\",\"one stroke, let it ring\",\"thin out: Line B drops first\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"7\",\"role\":\"Line B group\",\"prompt\":\"Invent your own interlock\",\"choices\":[\"fill every off-beat\",\"answer every second gap\",\"echo Line A one eighth late\"],\"replyBars\":1}\nM:4/4\nL:1/8\nQ:1/4=112\nK:C\n%%style folk\nV:1 name=\"Line A\" sname=\"A\"\nV:2 name=\"Line B\" sname=\"B\"\n[V:1] C2 D2 E2 G2 | A2 G2 E4 | C z D z E z G z | A z G z E4 |\n[V:1] z E z D z E z G | z A z G D4 | C2 D2 E2 G2 | AG ED C4 |]\n[V:2] z8 | z8 | z E z G z A z c | z c z A E4 |\n[V:2] G z A z c z A z | G z E z D4 | z8 | z4 c4 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "beginner-songs-10-lightly-row",
    "title": "Lightly Row",
    "level": 3,
@@ -895,6 +1613,55 @@
     ]
    },
    "abc": "X:15\nT:Jingle Bells (chorus)\nC:James Lord Pierpont (1857)\nO:USA\nR:winter song\nM:4/4\nL:1/4\nK:G\n%%style swing\n!f!(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | B A A B | A2 !>!d2) |\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh, hey!\n(B B B2 | B B B2 | B d G A | B4) | (c c c c | c B B B/2B/2 | d d c A | G4) |]\nw: Jin-gle bells, jin-gle bells, jin-gle all the way! Oh, what fun it is to ride in a one-horse o-pen sleigh!\n"
+  },
+  {
+   "id": "ontario-listening-bridges-12-kora-steps",
+   "title": "Kora Steps",
+   "level": 3,
+   "score": 5.74,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 2 verse and chorus song with bordun",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 2,
+    "band": "Grade 2",
+    "concepts": [
+     "half and whole notes",
+     "crescendo and decrescendo",
+     "pentatonic patterns (do re mi so la), high do"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "2: crescendo and decrescendo",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:12\nT:Kora Steps\nT:Original Grade 2 verse-and-chorus song over a bordun\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 2 verse and chorus song with bordun\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 2 verse-and-chorus song over a do-so bordun, in which the second verse varies the first and a soloist adds a variation of their own.\nN:Listen: Toumani Diabaté — \"Jarabi\", from the solo kora album Kaira (Hannibal Records, 1988; recorded in London, October 1987), https://www.youtube.com/watch?v=asvPlOGh5tI. Hear how a repeating foundation supports delicate variation and a long melodic line.\nN:Toumani Diabaté (1965-2024), from Bamako, Mali, was born into a family of jeli (griots), the hereditary musicians and keepers of history of the Mande world, and played the 21-string kora, a harp-lute from that tradition. Kaira (1988) was the first album of solo kora; on it a repeating accompaniment figure and running variations share one instrument. This new pentatonic song for voices and barred instruments is not a kora piece.\nN:Original tune, words and bordun; no kora figure, \"Jarabi\" melody or lyric is transcribed, and the bordun is a classroom do-so drone, not a kumbengo (kora accompaniment pattern).\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 classroom music teacher, Mande music educator, second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"11-12\",\"role\":\"one player over do-so\",\"prompt\":\"What goes in the room?\",\"choices\":[\"leave the rest\",\"one new note\",\"a new final note\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"13-16\",\"role\":\"whole class\",\"prompt\":\"Shape the volume\",\"choices\":[\"grow\",\"fade\",\"grow then fade\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=92\nK:C\n%%style folk\nC2 D2 E2 G2 | A2 A2 c4 | c2 A2 G2 E2 | G2 E2 D4 |\nw: Step by step the song goes up, step by step it comes back down;\n!<(!G2 E2 C4 | C2 E2 !<)!G4 | !>(!A2 A2 G2 E2 | D2 E2 !>)!C4 |\nw: Deep be-low, hear it grow; stead-y ground will car-ry you.\nC2 D2 E2 G2 | A2 c2 A4 | c2 A2 G2 z2 | G2 E2 D4 |\nw: Change one step and make it new, leave some room, friends join in;\n!<(!G2 E2 C4 | C2 E2 !<)!G4 | !>(!A2 A2 G2 E2 | D2 E2 !>)!C4 |]\nw: Deep be-low, hear it grow; stead-y ground will car-ry you.\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "beginner-songs-12-baa-baa-black-sheep",
@@ -998,6 +1765,58 @@
    "abc": "X:1\nT:Mīkhāhī labu?\nT:Do you want hot beetroot? (Persian folk song)\nC:traditional (Iran), collected by Blair Fairchild\nO:Iran (Persia)\nR:Persian folk song (comic song)\nS:Blair Fairchild (coll. and arr.), Twelve Persian Folk-Songs (London: Novello, 1904), no. 4, pp. 15-17; English words by Alma Strettell; University of Rochester, Sibley Music Library scan\nN:A teasing song: a suitor asks \"Do you want me to bring you hot beetroot?\" (labu, the cooked beetroot sold by street-sellers in the Persian winter), and everyone answers with the loud refrain \"nā-nā-ī\". Fairchild: \"The melodies themselves were written down as faithfully as possible just as they were sung to me in Persia.\" The notes E F G A B C, ending on E, are close to the dastgah Shur, where a Persian singer may make the F a little flat (koron); Fairchild wrote F natural, and it is kept so. Here the class sings only the first line, twice, with the refrain: the second line of verse 1 (a joke about bringing home a second wife) and Fairchild's verses 2 to 4 (a bedroom joke and two verses about cigarettes) are left out. For that, bar 3 is sung to the words of bar 1, without Fairchild's slur on its first two notes. The refrain's last E is held over a further bar, as printed after verse 2.\nM:4/4\nL:1/8\nQ:1/4=88\nK:Am\n%%style persian\n\"E5\"BA A2 B(AG)A | B2 B6 | BA A2 B(AG)A | B2 B6 |\nw: mī-khā-hī la-bu_ bi-ār-am? mī-khā-hī la-bu_ bi-ār-am?\n!f!cB B2 AG GF | E2 E6- | E8 |]\nw: nā-nā-ī nā-nā-ī_ nā-nāī!_\nW:\nW:English: Do you want me to bring you hot beetroot? Na-na-i!\n"
   },
   {
+   "id": "cbc-modern-bridges-9-signal-drop",
+   "title": "Signal Drop",
+   "level": 3,
+   "score": 6.9,
+   "key": "Dm",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 7 electronic arranging listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:2",
+    "dur:3",
+    "key:1",
+    "leap:5th",
+    "metre:4/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "marcato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "2: crescendo and decrescendo",
+     "7: marcato",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:9\nT:Signal Drop\nT:Original electronic density-and-drop lab\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 7 electronic arranging listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 7 electronic arranging lab; melody, bass and chord groups perform an eight-bar loop while a student conductor decides how layers accumulate, disappear and return.\nN:Listen: The Halluci Nation — Live Concert, CBC Music Live (2023), from 2:30 (\"Electric Pow Wow Drum\"); preview the later songs before playing past 5:00, https://www.youtube.com/watch?v=51hg7fUZLSs. Listen for production-scale contrast: layers accumulate, a drop changes density, bass and pulse organize the room, and collaborators remain audible as distinct musical agents.\nN:The Halluci Nation is an Indigenous-led electronic duo rooted in Ottawa club nights and collaboration. CBC describes their work as combining electronic genres with drumming and vocal chanting; those cultural materials belong to the artists and collaborators, not to this exercise.\nN:This is a generic original electronic arranging loop using keyboard triads and synthesized or acoustic classroom sounds only. It contains no powwow drum rhythm, vocable, chant, sample, melody, title phrase or imitation of the reference.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 7 teacher, Indigenous electronic-music educator or approved Indigenous reviewer, second score reader, copyright/sampling check and student arranging trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"producer/conductor\",\"prompt\":\"Build toward the drop\",\"choices\":[\"add one layer each bar\",\"crescendo one layer\",\"hold density steady\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"5-8\",\"role\":\"producer/conductor\",\"prompt\":\"What survives the drop?\",\"choices\":[\"bass only\",\"hook only\",\"silence for one bar then all return\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=112\nK:Dm\n%%style pop\nV:1 name=\"Hook\" sname=\"H\"\nV:2 name=\"Bass\" sname=\"B\" clef=bass\n[V:1] \"Dm\"!marcato!D2 F2 A2 F2 | \"F\"!marcato!F2 A2 c2 A2 | !<(!\"C\"G2 A2 c2 A2 | \"Am\"E2 A2 c2 A2!<)! |\n[V:1] \"Dm\"D6 z2 | \"F\"z8 | \"C\"G2 A2 c2 A2 | \"Am\"A4 \"Dm\"D4 |]\n[V:2] D,D,D,D,D,D,D,D, | F,F,F,F,F,F,F,F, | C,C,C,C,C,C,C,C, | A,A,A,A,A,A,A,A, |\n[V:2] D,8 | z8 | C,C,C,C,C,C,C,C, | A,A,A,A,D,4 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "beginner-songs-17-when-the-saints-go-marching-in",
    "title": "When the Saints Go Marching In",
    "level": 3,
@@ -1095,6 +1914,58 @@
      "texture"
     ]
    }
+  },
+  {
+   "id": "ontario-listening-bridges-26-bassline-constellation",
+   "title": "Bassline Constellation",
+   "level": 3,
+   "score": 7.41,
+   "key": "Fm",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "minor-loop arranging lab with a written bass layer",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3/2",
+    "key:4",
+    "leap:4th",
+    "metre:4/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:26\nT:Bassline Constellation\nT:Original two-part minor loop and arranging lab\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:minor-loop arranging lab with a written bass layer\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original two-part loop and arranging lab for Grade 7: a melody group and a bass group play an eight-bar minor loop, then the class decides how much drops out in bars 5-6 and how the bass returns, while listening for how Kabza De Small's production uses the bass as an arranging voice.\nN:Listen: a recording is still to be chosen. Kabza De Small's \"Sponono\" (2020), the first choice, was dropped on 12 November 2026: some of its verses carry innuendo. Choose an amapiano track, ideally instrumental, whose words suit Grade 7. Listen for spacious tempo, keyboard harmony, vocal layers and the pitch-shaped log-drum bass as an arranging voice.\nN:Original minor loop, melody and bass; no amapiano track, sample or log-drum pattern is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (South African amapiano producer or educator, Grade 7 music teacher, second score reader and student listening panel); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"4\",\"role\":\"bass player\",\"prompt\":\"Change bar 4's bass\",\"choices\":[\"root, then up an octave\",\"slide down to the next root\",\"one note and space\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-6\",\"role\":\"arranger\",\"prompt\":\"Shape the drop\",\"choices\":[\"drums out too\",\"chords out too\",\"keep the band; only the bass drops\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=112\nK:Fm\n%%style lofi\nV:1 name=\"Keys melody\" sname=\"Keys\"\nV:2 name=\"Bass\" sname=\"Bass\" clef=bass\n[V:1] \"Fm\"z2 c3 A F2 | \"Bbm\"z2 B3 F D2 | \"Db\"z2 F3 A d2 | \"Cm\"c2 BG E2 G2 |\n[V:1] \"Fm\"z2 c3 A F2 | \"Bbm\"z2 B2 cd B2 | \"Db\"z F Ad \"Cm\"c2 BG | \"Fm\"A2 G2 F4 |]\n[V:2] F,2 z F, z2 C,2 | B,,2 z B,, z2 F,2 | D,2 z D, z2 A,,2 | C,2 z C, z2 G,,2 |\n[V:2] z8 | z8 | D,2 z D, C,2 z G,, | F,2 z F, F,2 z2 |]\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "first-tunes-6-amazing-grace",
@@ -1201,6 +2072,57 @@
    "abc": "X:1\nT:Bújj, bújj, zöld ág\nT:Crawl Through, Green Branch\nC:traditional (Hungary)\nO:Hungary, Baranya county\nR:children's game (arch game)\nS:Kiss Áron, Magyar gyermekjáték-gyűjtemény (Budapest, 1891), Újhold-játék No. 4, p. 207\nN:A Hungarian arch game, still one of the best known. Two children join hands and hold them high to make a gate; the others, holding hands in a line, pass under it while everyone sings. In this version from Baranya the line sings the first verse (\"Let us through, bridge-master!\") and the gatekeepers answer with the second (\"I won't let you through!\"); then all sing \"Bújj, bújj\", and \"raj-ta\" (through!) is sung once for each child passing under, as many as there are. The gate closes on the last child, who joins the gatekeepers, until all are caught (Kiss, pp. 206-207). Kiss's 1891 regional spellings are kept; today's school words run \"Bújj, bújj, zöld ág, zöld levelecske\". The translation and the tempo are ours.\nQ:1/4=96\nM:2/4\nL:1/8\nK:F\n%%style folk\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\n|: cc AA | cc AA | cc cd | c2 A2 :|\nw: E-reszsz ál-tal, e-reszsz ál-tal te hi-da-si mes-ter!\nw: Nem e-reszt-lek, nem e-reszt-lek te hi-da-si mes-ter!\nc2 B2 | A2 A2 | G2 GE | c2 c2 | cB AB |\nw: Bújj, bújj zöl-des, zöld le-ve-les-tűl, Nyit-va van az\ncB Ac | BA GA | F2 F2 | F2 F2 | F2 F2 | F2 F2 |]\nw: a-rany-ka-pu, Csak búj-ja-tok raj-ta, raj-ta, raj-ta, raj-ta...\nW:In English:\nW:(The line) Let us through, let us through, you bridge-master!\nW:(The gate) I won't let you through, I won't, you bridge-master!\nW:(All) Crawl, crawl, little green one, with your green leaves; the golden gate is open, just crawl through it, through, through, through...\n"
   },
   {
+   "id": "ontario-listening-bridges-20-drone-rondo",
+   "title": "Drone Rondo",
+   "level": 3,
+   "score": 8.15,
+   "key": "Dm",
+   "metre": "6/8",
+   "bars": 20,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "instrumental classroom rondo with an improvised episode",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/3",
+    "dur:2",
+    "dur:2/3",
+    "key:1",
+    "leap:5th",
+    "metre:6/8",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "4: the fermata",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:20\nT:Drone Rondo\nT:Original rondo with an improvised episode over a drone\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:instrumental classroom rondo with an improvised episode\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original instrumental classroom rondo for Grade 5: everyone plays the A theme, one soloist improvises the B episode over the class's drone, everyone reads the written C episode, and A returns between and after them.\nN:Listen: Ravi Shankar — \"Raga Jog\", from Three Ragas (recorded in London, 1956, with Chatur Lal, tabla), https://www.youtube.com/watch?v=aNKTWhcw5nI. Listen for a melody unfolding over a drone, gradual pacing and improvisation that reveals rather than abandons constraints.\nN:A raga is more than a scale, and a Hindustani performance has its own melodic grammar, time cycle and form. This original five-note classroom rondo is not Raga Jog.\nN:Original equal-tempered pitches and form; no alap phrase, gat, tala pattern or recording passage is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 classroom music teacher, Hindustani music educator, second score reader and student playing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"soloist over the class drone\",\"prompt\":\"Choose a three-note path\",\"choices\":[\"rise then rest\",\"circle one note\",\"fall to D\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"17-20\",\"role\":\"whole class\",\"prompt\":\"How does A return the last time?\",\"choices\":[\"exactly\",\"ornament one note\",\"softly, then hold\"],\"replyBars\":4}\nM:6/8\nL:1/8\nQ:3/8=66\nK:Dm\n%%style ballad\n\"D5\"D2 F A3 | G2 A c3 | c2 A G2 F | D6 |\nD3 A3 | D3 A3 | D3 A3 | D6 |\nD2 F A3 | G2 A c3 | c2 A G2 F | D6 |\nA3 c2 A | G3 z3 | F2 G A2 c | A6 |\nD2 F A3 | G2 A c3 | c2 A G2 F | HD6 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "gbagbo-elder-ewe-dome-1-go-le-mimli",
    "title": "Go le mimli",
    "level": 3,
@@ -1248,6 +2170,61 @@
    },
    "abc": "X:1\nT:Go le mimli\nT:The gourd is rolling: Èwè-Dòmè storytelling song\nC:traditional (Èwè-Dòmè), transcribed by Divine K. Gbagbo\nO:Ghana (Volta Region, Èwè-Dòmè, around Ho)\nR:storytelling song (glimedeha, audience interlude)\nS:Divine Kwasi Gbagbo and D. Rose Elder, \"Storytelling Songs of the Èwè-Dòmè of Ghana,\" African Music 11(1), 2019, pp. 91-112, Figure 5 p. 107, doi:10.21504/amj.v11i1.2294; licence CC BY-NC-SA 4.0\nN:Bar 1 is printed without words; \"Go le mi\" is sung there as in bar 5 (our guess).\nN:The two clap parts (a pulse clap and an off-beat pair) are played by the Band as claps; clap them in two groups.\nN:Among the Èwè-Dòmè around Ho, in Ghana's Volta Region, an audience member may stop a told story with a song like this one (a glimedeha), and everyone joins in, clapping. \"Go le mimli tolitolitoli\" means \"a gourd is rolling on and on\"; Figure 5's caption gives the whole as \"The gourd is rolling on, regardless of its origin\": like a story, nobody knows where it came from or where it will stop (Gbagbo and Elder, pp. 98-99). The words are as the source prints them, without tone marks; the source gives no word-by-word translation, so an Èwè speaker's help with pronunciation is welcome. Start with the voice alone, then add the two clap parts (one on the dotted quarters, one on the offbeats) by ear; no drums, bell, bass or chords. The tempo is our estimate (the source prints none). Bar 1's three lead-in notes are untexted in the source; the three notes of bar 5 are given \"Go le mi\" here so the printed words fit the notes.\nN:Licence: this transcription comes from an article published under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0); it keeps that licence and its attribution to Divine K. Gbagbo and D. Rose Elder, and may be used only noncommercially.\nM:6/8\nL:1/8\nQ:3/8=72\nK:C\n%%style folk\n%%band drums: <[cp ~ ~ cp ~ ~] [cp ~ ~ ~ ~ ~]>\n%%band drums: <[~ cp cp ~ cp cp] [~ ~ ~ ~ cp cp] [~ cp cp ~ cp cp] [~ ~ ~ cp cp ~]>\n%%band bass: ~\n%%band chords: ~\nz3 FFF | F2 B BAA | G G2 FFF | E6 |\nw: Go le mi mli to li to li to li, go le mi mli.\nz3 FFF | F2 B BAA | G G2 FFF | E2 G E G2 |\nw: Go le mi mli to li to li to li, go le mi mli. Fi ne ke\nD E2 EEE | E2 G GFF | E E2 DDD | D2 F E F2 |\nw: go tso go le mi mli to li to li to li, go le mi mli. Fi ne ke\nD E2 EEE | E2 G GFF | E E2 DDD | C6 |]\nw: go tso, go le mi mli to li to li to li go le mi mli.\n",
    "licence": "CC BY-NC-SA 4.0 (Gbagbo and Elder, 2019)"
+  },
+  {
+   "id": "cbc-modern-bridges-5-three-way-streetlight",
+   "title": "Three-Way Streetlight",
+   "level": 3,
+   "score": 9.98,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 3 jazz-pop listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "dur:3/2",
+    "key:0",
+    "leap:5th",
+    "metre:3/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "2: crescendo and decrescendo",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:5\nT:Three-Way Streetlight\nT:Original 3/4 song with a delayed return\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 3 jazz-pop listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 3 jazz-pop listening bridge; students sing an ABA streetlight song, improvise a constrained two-bar answer and choose unison, imitation or held-tone texture for the final A.\nN:Listen: Laila Biali — \"Satellite\", official video, https://www.youtube.com/watch?v=9R-vLt7gHGs. Listen for how jazz-pop balances a clear song with elastic phrasing, piano conversation, dynamic arcs and room for musicians to answer one another.\nN:Laila Biali is a Canadian singer, pianist, composer and broadcaster whose work moves between contemporary jazz and song-based pop writing.\nN:Original 3/4 C-major melody and words; no melody, lyric, piano voicing, solo or arrangement from \"Satellite\" is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 3 teacher, jazz educator, second score reader and student singing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-6\",\"role\":\"solo voice or instrument\",\"prompt\":\"Answer the three-note question\",\"choices\":[\"same contour\",\"reverse contour\",\"one repeated pitch\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"9-12\",\"role\":\"second group\",\"prompt\":\"Choose the texture of the return\",\"choices\":[\"unison\",\"enter two bars late\",\"hum long notes underneath\"],\"replyBars\":4}\nM:3/4\nL:1/8\nQ:3/4=58\nK:C\n%%style swing\n\"C\"C2 DE G2 | \"Am\"E3 D C2 | \"Dm\"DE F2 E2 | \"G\"C4 z2 |\nw: Red light, gold light, green light: go! Three-way street-light, shine.\n\"Am\"E2 FG A2 | \"Dm\"G3 A G2 | !<(!\"G\"A2 B2 c2 | !>)!G4 z2 |\nw: Sing me a song, sing it back, chang-ing one note.\n\"C\"C2 DE G2 | \"Am\"E3 D C2 | \"Dm\"DE F2 E2 | \"C\"C6 |]\nw: Red light, gold light, green light: go! Three-way street-light, glow.\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "hulbert-korean-repository-1-arirang",
@@ -1499,6 +2476,59 @@
    "licence": "GPL-3.0"
   },
   {
+   "id": "ontario-listening-bridges-15-three-beat-testimony",
+   "title": "Three-Beat Testimony",
+   "level": 4,
+   "score": 6.66,
+   "key": "F",
+   "metre": "3/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "partner song and listening bridge",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "dur:3",
+    "key:1",
+    "leap:5th",
+    "metre:3/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre",
+     "dotted half note",
+     "the signs for soft and loud (p, f)",
+     "low so and low la (notes under do)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "3: the signs for soft and loud (p, f)",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:15\nT:Three-Beat Testimony\nT:Original partner song\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:partner song and listening bridge\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 3 partner song and listening bridge; the class sings A, B and A in unison, then group 2 sings the B line against group 1's returning A, before comparing how Mercedes Sosa uses breath, timbre and phrase shape.\nN:Listen: Mercedes Sosa — \"Gracias a la vida\" (words and music by Violeta Parra), from Homenaje a Violeta Parra, https://www.youtube.com/watch?v=C-WgW_4ilv0. Notice how vocal timbre, breath and phrase shape make a repeated metre carry a public message.\nN:Violeta Parra wrote \"Gracias a la vida\" in 1966, near the end of her life; Mercedes Sosa's 1971 recording carried it across the Spanish-speaking world and it became a defining song of nueva canción, the movement that joined folk forms to social testimony. This original partner song does not use its words, melody or harmony.\nN:No lyric, melody, rhythm or harmony from the copyrighted song is used; the classroom piece is a pentatonic partner song with new English words, and the reference is for listening and historical inquiry.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 3 choir teacher, second score reader and Latin American music educator); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"whole class\",\"prompt\":\"Shape the long last note of the A line\",\"choices\":[\"hold it full\",\"let it fade\",\"stop on beat 3 and breathe\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"9-12\",\"role\":\"two groups\",\"prompt\":\"Balance the partner lines\",\"choices\":[\"melody f, partner p\",\"both mf\",\"partner f, melody p\"],\"replyBars\":4}\nM:3/4\nL:1/4\nQ:1/4=88\nK:F\n%%style ballad\nV:1 name=\"Group 1\" sname=\"1\"\nV:2 name=\"Group 2\" sname=\"2\"\n[V:1] !mf!c2 A | d3 | c2 G | F3 |\nw: Sing it slow, sing it clear,\n[V:2] z3 | z3 | z3 | z3 |\n[V:1] !p!F A c | F D F | G2 C | F3 |\nw: o-pen the win-dow, o-pen it wide,\n[V:2] z3 | z3 | z3 | z3 |\n[V:1] !f!c2 A | d3 | c2 G | F3 |]\nw: let it out, let it fly.\n[V:2] !p!F A c | F D F | G2 C | F3 |]\nw: o-pen the win-dow, o-pen it wide.\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "reelsd-g-44-the-first-frost-second-part",
    "title": "The First Frost - Second part",
    "level": 4,
@@ -1548,6 +2578,167 @@
     ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "ontario-listening-bridges-28-voice-and-guitar-layers",
+   "title": "Voice and Guitar Layers",
+   "level": 4,
+   "score": 8.01,
+   "key": "DDor",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "modal texture and dialogue study",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3/2",
+    "dur:4",
+    "key:0",
+    "leap:3rd",
+    "metre:4/4",
+    "range:over-octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:28\nT:Voice and Guitar Layers\nT:Original voice-and-guitar texture study in D Dorian\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:modal texture and dialogue study\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original voice-and-guitar texture study for Grade 8: a guitar ground, a voice line and a short dialogue that move through monophony, polyphony, call and response and homophony, so students can name each texture by ear and then choose one for a purpose; it pairs with listening to Ali Farka Touré and Ry Cooder.\nN:Listen: Ali Farka Touré with Ry Cooder — \"Ai Du\", from the album Talking Timbuktu, World Circuit, 1994, https://music.apple.com/us/song/ai-du-with-ry-cooder-with-ry-cooder/1528519981. Hear voice and guitar converse, repeated modal ground, subtle rhythmic displacement and the space between phrases.\nN:Ali Farka Touré's music grows from Malian/Songhai traditions and a personal relationship with blues heard across the Atlantic. This original Dorian study is not \"desert blues\" repertoire.\nN:Original melody, ground and accompaniment plan; no guitar figure, lyric, vocal contour or recording harmony is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Malian/Songhai music educator, Grade 8 music teacher, second score reader and student listening panel); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-6\",\"role\":\"voice and guitar\",\"prompt\":\"Who asks, who answers?\",\"choices\":[\"voice asks, guitar answers (as written)\",\"guitar asks, voice answers\",\"overlap for one beat\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"arranger\",\"prompt\":\"Choose the closing texture\",\"choices\":[\"homophonic: dyads with the voice (as written)\",\"monophonic: the voice alone\",\"polyphonic: the guitar returns to its ground\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=92\nK:Ddor\n%%style folk\nV:1 name=\"Voice\" sname=\"Voice\"\nV:2 name=\"Guitar\" sname=\"Gtr\" clef=bass\n[V:1] z8 | z8 | d3 c A4 | B2 cB G4 |\n[V:1] A2 cd e2 d2 | z8 | B2 AG F2 E2 | D8 |]\n[V:2] D,2 F, A,3 G,F, | D,2 G, B,3 A,G, | D,2 F, A,3 G,F, | D,2 G, B,3 A,G, |\n[V:2] D,8 | A,2 C D3 CA, | [G,D]2 [F,C][E,B,] [D,A,]2 [C,G,]2 | [D,A,]8 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-17-arc-of-the-night",
+   "title": "Arc of the Night",
+   "level": 4,
+   "score": 8.61,
+   "key": "Dm",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "instrumental expressive study and listening bridge",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:si",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "key:1",
+    "leap:5th",
+    "metre:4/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "the fermata",
+     "the major scale (fa and ti), intervals, accidentals",
+     "minor tonality"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "4: the fermata",
+     "2: crescendo and decrescendo",
+     "3: the signs for soft and loud (p, f)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:17\nT:Arc of the Night\nT:Original expressive study for soloist and ensemble\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:instrumental expressive study and listening bridge\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 4 instrumental expressive study and listening bridge; a soloist states a phrase and reshapes it, the ensemble answers and rises to a climax, and the line settles to a held cadence, before the class listens to how Umm Kulthum and her orchestra stretch and answer a line.\nN:Listen: Umm Kulthum — \"Alf Leila wa Leila\" (words by Morsi Gamil Aziz, music by Baligh Hamdi, 1969); play a short excerpt, https://www.youtube.com/watch?v=8bCC3EMUifo. Hear how a singer reshapes a line, how the ensemble answers, and how expectation can build across a long performance.\nN:Umm Kulthum (c. 1904-1975) was Egypt's most celebrated singer; her monthly concerts, broadcast across the Arab world, stretched one song over an hour as she reshaped each line in answer to her listeners. That practice can introduce Arabic art music, maqam (here maqam Farahfaza, related to Nahawand) and tarab, the shared state of musical rapture. This short equal-tempered original is not a maqam composition.\nN:Original pitches and no Arabic text; no phrase, rhythm or orchestration of the song is copied. The first draft's E flat over D, a stock \"Middle Eastern\" signifier, was removed; the only accidental is a C sharp leading note, and the piece claims no maqam.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Arab music educator, Grade 4 teacher and second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"4\",\"role\":\"soloist\",\"prompt\":\"Reshape bar 4\",\"choices\":[\"play it as written\",\"add a turn around G on beat 3\",\"stop on beat 3, rest on beat 4\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"11-12\",\"role\":\"conductor and ensemble\",\"prompt\":\"How long is the final fermata?\",\"choices\":[\"two extra beats\",\"until the conductor's hand closes\",\"short, then silence\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=66\nK:Dm\n%%style ballad\n!p!D2 F2 A4 | GF EF D4 | !mf!D2 F2 A2 d2 | cB AG A4 |\nF2 G2 A2 F2 | E2 D2 ^C2 D2 | !crescendo(!A2 c2 d2 e2 | !crescendo)!!f!d2 c2 A4 |\n!diminuendo(!B2 A2 G2 F2 | E2 F2 G4 | A2 G2 F2 E2 | !diminuendo)!!p!^C2 !fermata!D6 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-14-question-in-the-circle",
+   "title": "Question in the Circle",
+   "level": 4,
+   "score": 8.66,
+   "key": "Am",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "secular call-and-response song and listening bridge",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/4",
+    "dur:2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "minor tonality"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "3: the signs for soft and loud (p, f)",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:14\nT:Question in the Circle\nT:Original secular call and response\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:secular call-and-response song and listening bridge\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original secular call-and-response classroom song and listening bridge; a leader sings each question and the class answers, then everyone sings the quiet middle together before the calls return; the class then listens for how a lead singer and a party answer one another in qawwali.\nN:Listen: Nusrat Fateh Ali Khan and Party — \"Allah Ho Allah Ho\", recorded live at WOMAD, Mersea Island, Essex, England, 20 July 1985; released on \"Live at WOMAD 1985\" (Real World Records, 23 July 2019), https://realworldrecords.com/releases/live-at-womad-1985/. Listen to lead voice and party answer, repetition that gathers energy, handclaps and virtuosic variation.\nN:Qawwali is a Sufi devotional performance tradition of Pakistan and North India, sung by a lead singer and a party at shrines and gatherings; it is worship, not simply a vocal style. \"Allah Ho\" repeats the name of God. This secular original teaches musical conversation and must not be presented as qawwali.\nN:Original tune and neutral English words; no devotional text, sacred name, melodic phrase, rhythm cycle or harmonium pattern is borrowed, and no student is asked to sing or imitate the recording.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Qawwali-informed Muslim or South Asian music educator, Grade 3 teacher and second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"2-4\",\"role\":\"leader, then group\",\"prompt\":\"Next call: who will ___ along?\",\"choices\":[\"clap\",\"stamp\",\"sway\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"10-12\",\"role\":\"group\",\"prompt\":\"How does the circle give the last answer?\",\"choices\":[\"f, strong\",\"p, soft\",\"whisper it\"],\"replyBars\":1}\nM:4/4\nL:1/8\nQ:1/4=96\nK:Am\n%%style folk\n!mf!A2 c2 d/d/c/A/ c2 | !f!A2 G2 A2 z2 | !mf!A2 c2 d/d/c/A/ G2 | !f!E2 G2 A2 z2 |\nw: Who will sing a-long with me? We will sing! Who will clap a-long with me? We will clap!\n!p!E2 G2 A4 | G2 E2 D4 | E2 G2 A2 c2 | d2 c2 A4 |\nw: Qui-et now, hear it grow: ev-ery an-swer comes a-round.\n!mf!A2 c2 d/d/c/A/ c2 | !f!A2 G2 A2 z2 | !mf!c2 d2 c/A/G/E/ G2 | !f!A2 G2 A4 |]\nw: Who will sing a-long with me? We will sing! Who will close the cir-cle now? All of us!\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "hindostan-folk-6-gurkha-sing-song",
@@ -1651,6 +2842,66 @@
     ]
    },
    "abc": "X:4\nT:Rama's lullaby\nT:Maratha lullaby\nC:traditional (Maharashtra)\nO:India, Maharashtra\nR:devotional lullaby\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 161, p. 66\nN:A Marathi lullaby to the infant Rama as the god Vishnu, sung to Fox Strangways (Adagio, crotchet 80) by a Hindu lady in Calcutta, with his English singing words; each of the four verses ends in the refrain \"Little babe, sleep upon my knee\". It is a devotional song: schools follow their own guidance on religious songs. Bars 4 and 5 as first read did not add up to two bars of 3/4, so here \"born\" is shortened to an eighth note and the barline moved, which puts the rest and \"Little\" at the end of bar 5 as at the end of bar 2; the rest after the last note is dropped. Bars 4 to 6 and the refrain's second bar are still to be checked against the plate.\nQ:1/4=80\nM:3/4\nL:1/16\nK:C\n%%style drone\nCC | D4 G3 F D3 C | C4 z2 CC D2F2 | G8 z2 FG |\nw: In A-yo-dhya, the land of kings, It was Vish-nu's self That was\nA2F2 G3 F G3 F | D3 C C4 z2 CC |\nw: born on the lap of Kau-shal-ya._ Lit-tle\nD4 G3 F D2C2 | D3 C C8 |]\nw: babe sleep up-on my knee!__\nW:2. For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.\nW:   Little babe, sleep upon my knee!\nW:3. In the hand-hold of Kaushalya Is the cradle-cord, And the cord is the thread of Bodhana (knowledge).\nW:   Little babe, sleep upon my knee!\nW:4. And the Devis (goddesses) are strewing flowers From the highest heaven, And with each flower a blessing.\nW:   Little babe, sleep upon my knee!\n"
+  },
+  {
+   "id": "cbc-modern-bridges-6-screenlight",
+   "title": "Screenlight",
+   "level": 4,
+   "score": 9.06,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 4 Francophone electro-pop listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3/2",
+    "dur:4",
+    "key-change",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:6th",
+    "rest",
+    "syncopation"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "syncopated sixteenths (tika-ti, ti-tika)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "5: syncopated sixteenths (tika-ti, ti-tika)",
+     "4: the fermata",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:6\nT:Screenlight\nT:Lumière d'écran — original major/minor electro-pop bridge\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 4 Francophone electro-pop listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 4 Francophone electro/dream-pop listening bridge; students sing a syncopated ABBA song, compare parallel major and minor colour, and select the final texture in real time.\nN:Listen: Claudia Bouvette — \"Amour écran\" (Bonsound, 2026), official visualizer; a love song, so preview it, https://www.youtube.com/watch?v=N6lD52RQbJI. Hear how airy synthesizer timbres, an insistent electronic pulse and an 1980s-coloured major/minor haze can support intimate French-language pop writing.\nN:Claudia Bouvette is a Montréal singer-songwriter; she wrote \"Amour écran\" with her creative partner Soran, and Bonsound released it in August 2026.\nN:Original French words, melody and C major/C minor contrast; no words, melodic cell, synth sound, bass line or chord progression from \"Amour écran\" is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial); its workshop record is kept for correction. The French words were rewritten on 12 November 2026 to fit the notes (one syllable to a note, sung mute e's counted) and want a Francophone reader.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"synth or barred-instrument player\",\"prompt\":\"Choose the B-section colour\",\"choices\":[\"bright major third\",\"shadowed minor third\",\"alternate each bar\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"13-16\",\"role\":\"whole class\",\"prompt\":\"Choose the final texture\",\"choices\":[\"melody alone\",\"add two-note ostinato\",\"fade to whispered rhythm\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=100\nK:C\n%%style pop\n\"C\"E2 EE G2 A2 | \"Am\"G2 E3 D C2 | \"F\"E/2F/2 G2 A2 G E2 | \"G\"D4 z4 |\nw: Dans la nuit, l'é-cran s'al-lu-me~en bleu; ré-ponds-moi, quel-le cou-leur?\n[K:Cm]\"Cm\"_E2 _E_E G2 _A2 | \"Ab\"G2 _E3 D C2 | \"Fm\"_E/2F/2 G2 _A2 G _E2 | \"G\"D4 z4 |\nw: Dans l'om-bre, ma voix ré-pond tout bas; nous re-trou-vons la cou-leur.\n\"Cm\"_E2 G2 _A2 G2 | \"Ab\"G2 _E3 D C2 | \"Fm\"F/2G/2 _A2 G2 _E D2 | \"G\"G4 z4 |\nw: Lu-mière ou nuit, à toi, choi-sis; puis on é-cou-te ta voix.\n[K:C]\"C\"E2 EE G2 A2 | \"Am\"G2 E3 D C2 | \"G\"DE G2 E2 D2 | \"C\"!fermata!C8 |]\nw: Dans la nuit, l'é-cran s'al-lu-me~en bleu; voi-là no-tre cou-leur.\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "pinto-cantigas-1-na-bahia-tem",
@@ -1919,6 +3170,114 @@
     ]
    },
    "abc": "X:3\nT:Mu-to-to-li'le\nT:Drip-drop the rain: Ndau children's song\nC:traditional (Ndau), as sung by C. Kamba Simango\nO:Mozambique (then Portuguese East Africa), Ndau people\nR:children's song\nS:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs I, p. 106 (game notes p. 30)\nN:Ndau children in central Mozambique sing this while playing in the rain, calling the drops to pour down until the pools are full, so they can swim and hunt the big red-breasted bullfrogs (Curtis, p. 30). \"To-to\" is the sound of rain falling in drops. C. Kamba Simango sang it for Curtis; her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the game. The accents are Curtis's stress marks over every \"To\" and \"to\": the stress falls on the pickup and on the downbeat, against the bar. The plate opens with a bar of rests before the first \"To\", written here as a pickup. Sung unaccompanied; the second line is Curtis's singing English. The Chindau spelling and stresses want a Chindau speaker's check.\nM:3/4\nL:1/16\nQ:1/4=60\nK:C\n%%style folk\n%%band drums: ~\n%%band bass: ~\n%%band chords: ~\n!>!A2 | !>!BAG2 A2EA G z !>!A2 | !>!BAGG AAEA G z !>!A2 |\nw: To-to li-le, mv'la-nga i-ne, To-to li-le, ma-ka-ndwa a-za-le, To-\nw: \"To-to,\" pour down, rain, let it rain, \"To-to,\" pour down, let all the pools be full, \"To-\n!>!BAGG AAEA G z !>!A2 | !>!BAGG AAEA G2 z2 |]\nw: to li-le, ti-zo bu-mwi-la mwo; To-to li-le, ti-ba-ye ma-che-che.\nw: to,\" pour down, and we will swim there-in; \"To-to,\" pour down, we spear the red bull-frog.\n"
+  },
+  {
+   "id": "ontario-listening-bridges-27-lead-the-line",
+   "title": "Lead the Line",
+   "level": 4,
+   "score": 9.97,
+   "key": "Dm",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "minor line-dance study for leader and line",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "key:1",
+    "leap:5th",
+    "metre:4/4",
+    "range:octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "marcato"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: sixteenth-note patterns",
+     "7: marcato",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:27\nT:Lead the Line\nT:Original minor line-dance study with turns and a stamp break\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:minor line-dance study for leader and line\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original minor line-dance study for Grade 7: a leader plays the turn figure, the line answers, and in the stamp break the class transfers weight on the marcato hits and isolates the shoulders in the rests; it pairs with listening to Omar Souleyman, it does not teach dabke.\nN:Listen: Omar Souleyman — \"Warni Warni\" (from the album Wenu Wenu, produced by Kieran Hebden (Four Tet), Ribbon Music, 2013), https://music.apple.com/us/song/warni-warni/677848558. Hear relentless electronic pulse, ornamented vocal/keyboard lines and music made for communal line dancing.\nN:Omar Souleyman's music relates Syrian wedding performance, dabke and electronic production for global stages. This original minor dance study is not dabke music and supplies no traditional steps.\nN:Original melody, harmony and movement plan; no synth line, vocal phrase or beat from the recording is copied, and no traditional dabke step is taught.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Syrian or Levantine dabke educator, Grade 7 music/dance teacher, second score reader and student listening panel); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3\",\"role\":\"melody leader\",\"prompt\":\"Change the turn\",\"choices\":[\"turn from above, as written\",\"turn from below\",\"no turn: one long note\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-6\",\"role\":\"line leader\",\"prompt\":\"Signal in the gaps\",\"choices\":[\"one marcato clap on beat 2\",\"a rising pickup into beat 3\",\"keep the gaps silent\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=126\nK:Dm\n%%style pop\n\"Dm\"!marcato!D2 A2 B/A/G/A/ F2 | \"Dm\"GF EF D2 z2 | \"Gm\"!marcato!G2 B2 c/B/A/B/ G2 | \"Am\"cA GE A2 z2 |\n\"Dm\"!marcato!d2 z2 !marcato!A2 z2 | \"Gm\"!marcato!B2 z2 !marcato!G2 z A | \"Gm\"G2 B/A/G/A/ \"Am\"E2 A2 | \"Dm\"FE D4 z2 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-13-carry-the-line",
+   "title": "Carry the Line",
+   "level": 4,
+   "score": 10.06,
+   "key": "C",
+   "metre": "3/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "two-part classroom round and listening bridge",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:1/4",
+    "dur:2",
+    "dur:3",
+    "key:0",
+    "leap:5th",
+    "metre:3/4",
+    "range:over-octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 3,
+    "band": "Grade 3",
+    "concepts": [
+     "3/4 metre",
+     "dotted half note",
+     "sixteenth-note patterns",
+     "the signs for soft and loud (p, f)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "3: dotted half note",
+     "3: sixteenth-note patterns",
+     "3: the signs for soft and loud (p, f)",
+     "2: pentatonic patterns (do re mi so la), high do"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:13\nT:Carry the Line\nT:Original two-part round\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:two-part classroom round and listening bridge\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original two-part classroom round and listening bridge; the class learns one eight-bar melody in unison, then group 2 starts it again when group 1 reaches bar 5, so a single line is carried by many voices before the class listens to \"Mannenberg\".\nN:Listen: Dollar Brand (Abdullah Ibrahim) — \"Mannenberg\", recorded in Cape Town in 1974 with Basil Coetzee on tenor saxophone, produced by Rashid Vally, https://www.youtube.com/watch?v=YsCWDGCQGRk. Hear a memorable line become a shared anthem as the ensemble repeats, answers and intensifies it.\nN:\"Mannenberg\" takes its name from Manenberg, a Cape Flats township built for families forcibly moved under apartheid's Group Areas Act; the 1974 recording became an anthem of the struggle against apartheid. This original 3/4 school round does not reproduce its groove, melody or harmony.\nN:Original metre, notes and words. The round's 3/4 pentatonic lines share no riff, rhythm, contour, harmony or arrangement with the recording's 4/4 theme or Basil Coetzee's solo.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 3 choir teacher, second score reader and South African jazz educator); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"4\",\"role\":\"group 2, waiting to come in\",\"prompt\":\"Fill group 1's long note, then get ready\",\"choices\":[\"one clap on beat 1\",\"pat on beats 2 and 3\",\"just breathe in\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"the group singing the last line\",\"prompt\":\"How loud is 'every voice can bring it home'?\",\"choices\":[\"p\",\"mf\",\"f\"],\"replyBars\":2}\nM:3/4\nL:1/8\nQ:1/4=104\nK:C\n%%style waltz\n!mf!E4 G2 | c4 A2 | d4 G2 | E6 |\nw: Sing a line and pass it on,\n!p!C/D/E/G/ A2 G2 | A2 GA c2 | G/A/G/E/ D2 G2 | C6 |]\nw: O-ver hills and val-leys, o-ver the sea, ev-ery voice can bring it home.\n%%round 2 every=4\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "richard-chinese-music-1-ba-ban",
@@ -2255,6 +3614,60 @@
    "abc": "X:1\nT:Si me dan pasteles\nT:If You Give Me Pasteles\nC:traditional (Puerto Rico)\nO:Puerto Rico\nR:aguinaldo (Christmas song)\nS:Allena Luce, Canciones populares (New York: Silver, Burdett, 1921), \"Aguinaldo (Si me dan pasteles)\", p. 3\nN:A Puerto Rican aguinaldo. At Christmas, groups of singers and players go from house to house (the parranda) and the hosts give them a gift or something to eat; the song's frank hint is that the visitors want pasteles (Christmas parcels of mashed plantain and root vegetables with a filling, wrapped in banana leaves), and hot ones, because cold pasteles give people a stomach-ache. A Christmas custom with secular words. The instruments play the ritornello before the verse and between verses; the voices sing in thirds, half the class on each line; then make up a verse for the class's own party food, as the parrandas do. Guessed: the first note of the ritornello's bar 8 (read d; it could be c), the lower voice in bar 7 of the verse (G under the c), and the last bar, where Luce puts both syllables of \"gen-te\" under one chord. The güiro, maracas and chords of the band are ours, after the instruments documented for aguinaldos (cuatro, tres, güiro, maracas, claves, bongó); the tempo is ours.\nQ:1/4=104\nM:2/4\nL:1/8\nK:Gm\n%%style folk\n%%band drums: [ca _ ca ca] [ca _ ca ca]\n%%band drums: [sh sh sh sh] [sh sh sh sh]\nV:1 name=\"Voice 1\"\nV:2 name=\"Voice 2\"\n[V:1] \"^Instruments\"d | gd/B/ GB | Ac- ce | dc BA | B/c/d/B/ Gd | gd/B/ GB | cc- ce | .d.c .B.A |1 G2 z d :|2 G z [^Fcd]2 ||\n[V:2] z | z4 | z4 | z4 | z4 | z4 | z4 | z4 |1 z4 :|2 z4 ||\n[V:1] \"^Voices\"|: .B.B cc | d3/2 (d/ d2) | cc BB | A3/2 (A/ A2) |\nw: Si me dan pas-te-les_ dén-me-los ca-lien-tes_\n[V:1] BB cc | d3/2 (d/ d2) | cc Bc | d4 :|\nw: que pas-te-les frí-os_ em-pa-chan la gen~te.\n[V:2] |: GG AA | B3/2 (B/ B2) | AA GG | ^F3/2 (F/ F2) |\nw: Si me dan pas-te-les_ dén-me-los ca-lien-tes_\n[V:2] GG AA | B3/2 (B/ B2) | GG GG | ^F4 :|\nw: que pas-te-les frí-os_ em-pa-chan la gen~te.\nW:Si me dan pasteles, dénmelos calientes,\nW:que pasteles fríos empachan la gente.\nW:(If you give me pasteles, give them to me hot, for cold pasteles give people a stomach-ache.)\nW:\nW:A variant Luce quotes:\nW:Denme mi aguinaldo, si me lo han de dar,\nW:que la noche es corta y tenemos que andar.\nW:(Give me my aguinaldo, if you are going to give it, for the night is short and we have far to go.)\n"
   },
   {
+   "id": "ontario-listening-bridges-30-cinema-assembly",
+   "title": "Cinema Assembly",
+   "level": 4,
+   "score": 11.71,
+   "key": "Em",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "dramatic ensemble theme and texture study",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:si",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3/2",
+    "dur:4",
+    "key:1",
+    "leap:6th",
+    "metre:4/4",
+    "range:octave"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:30\nT:Cinema Assembly\nT:Original ensemble theme in three textures\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:dramatic ensemble theme and texture study\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original 12-bar ensemble theme and arranging study for Grade 8: three short scenes that put monophony, homophony and polyphony, and minor and major, in an order that tells a small story, compared with the sectional build of a film song.\nN:Listen: A. R. Rahman — \"Jai Ho\" (featuring Sukhwinder Singh, Tanvi Shah and Mahalakshmi Iyer; lyrics by Gulzar), from Slumdog Millionaire (Music From the Motion Picture), 2008, https://music.apple.com/us/song/jai-ho-feat-sukhwinder-singh-tanvi-shah-mahalakshmi-iyer/1443885535. Hear how percussion, voices, strings, electronic production and sectional buildup serve a cinematic arc.\nN:A. R. Rahman's film work can open study of Indian cinema, multilingual song, studio production and global circulation. This new ensemble theme is not a Bollywood imitation or a \"Jai Ho\" arrangement.\nN:Original melody, second line, form and harmony; no hook, rhythm, vocal, lyric, sample or orchestration from the recording is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Indian film-music educator, Grade 8 music teacher, second score reader and student listening panel); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"chord players (ukulele, guitar, keyboard)\",\"prompt\":\"Choose the chordal bed\",\"choices\":[\"sustained chords\",\"repeated eighth-note chords\",\"one chord on each downbeat\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"12\",\"role\":\"whole ensemble\",\"prompt\":\"Choose the final image\",\"choices\":[\"held chord, everyone\",\"sudden cut-off on beat 3\",\"fade one layer at a time\"],\"replyBars\":1}\nM:4/4\nL:1/8\nQ:1/4=100\nK:Em\n%%style ballad\nV:1 name=\"Theme\" sname=\"Theme\"\nV:2 name=\"Second line\" sname=\"2nd\"\n[V:1] E2 B3 A G2 | AG FE F4 | E2 c3 B A2 | AG FA B4 |\n[V:1] \"G\"G2 d3 c B2 | \"Am\"cB AG A4 | \"C\"G2 e3 d c2 | \"D\"dc Bc d4 |\n[V:1] \"Em\"B2 e3 d B2 | \"Am\"cB ce \"C\"dc BA | \"Am\"Ac BA \"B7\"B2 ^d2 | \"E\"e8 |]\n[V:2] z8 | z8 | z8 | z8 |\n[V:2] D2 B3 A G2 | AG FE C4 | E2 c3 B G2 | FA GA F4 |\n[V:2] E4 G4 | A4 G4 | E4 F4 | ^G8 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "waltzes-11-daisy-daisy",
    "title": "Daisy Daisy",
    "level": 4,
@@ -2418,6 +3831,58 @@
     ]
    },
    "abc": "X:1\nT:La Rana\nT:The Frog\nC:traditional (Mexico)\nO:Mexico\nR:cumulative song (children's song)\nS:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 76, pp. 98-99, as sung by Mrs. Dane Coolidge\nN:A Mexican cumulative song and memory game: each verse brings a new creature or thing out to sing with the frog under the water, and the whole chain is sung back each time (Hague: \"Each verse adds an animal, and the whole list is repeated\"). The chain: la Araña (the spider), la Rana (the frog), el Ratón (the rat), el Gato (the cat), el Perro (the dog), el Palo (the stick), la Lumbre (the fire), el Agua (the water), el Buey (the ox), el Cochino (the pig), el Herrero (the blacksmith), la Muerte (Death), Dios (God); a class may stop at the blacksmith. End with the \"Ga-ra\" croaks, as many as you like, the last held as long as breath lasts. Hague's last bar of the verse has two quarters, the second under a fermata; it is written here as a quarter and a held half so the bar is full. The tempo is ours.\nQ:1/4=112\nM:3/4\nL:1/8\nK:D\n%%style waltz\nC/C/ | D2 D2 D2 | F2 F2 DF | A6 | B6 | A4 B2 | F2 F2 D2 | F2 F2 E2 | D2 z2 F2 |\nw: De que A-ra-ña se sa-le~a pa-sear, Vie-ne la Ra-na y lo se tri-na. La\nw: When the spi-der goes out for a_ walk, Then comes the frog, and he sings with a croak. The\nE2 E2 C2 | D2 D2 F2 | E2 E2 C2 | D2 D2 B,2 | B,2 B,2 B,2 | B,2 C2 B,2 | B,2 !fermata!A,4 ||\nw: Ra-na, La~A-ra-ña, La Ra-na, La~A-ra-ña, Can-tan-do de-ba-jo~en la a-gua.\nw: frog and the spi-der, the frog and the spi-der, Are sing-ing be-neath the green wa-ter.\nM:2/4\nD2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 D2 | D2 !fermata!D2 |]\nw: Ga-ra, ga-ra, ga-ra, ga-ra, ga-ra, ga-ra!\nW:Verse 2 (Hague, p. 99):\nW:La Rana se sale a pasear,\nW:Viene el Ratón y se trina,\nW:El Ratón, la Rana, la Araña, la Rana,\nW:Cantando debajo del agua.\nW:\nW:(The frog goes out for a walk, then comes the rat and sings: the rat and the frog, the spider and the frog, are singing under the water.)\n"
+  },
+  {
+   "id": "ontario-listening-bridges-21-ska-steps",
+   "title": "Ska Steps",
+   "level": 4,
+   "score": 12.29,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "sung listening-bridge song: offbeat verse, call-and-response chorus",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3/2",
+    "key:0",
+    "leap:octave",
+    "metre:4/4",
+    "range:over-octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "1: accent; smooth and detached articulation",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:21\nT:Ska Steps\nT:Original offbeat song with a call-and-response chorus\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:sung listening-bridge song: offbeat verse, call-and-response chorus\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original sung listening-bridge song for Grade 5; a verse that enters off the beat, then a call-and-response chorus between two groups that lands on the beat, with an instrumental reply in the rests of bars 4 and 8.\nN:Listen: The Skatalites — \"Guns of Navarone\" (Studio One, 1965), Dimitri Tiomkin's film theme played as ska, https://www.youtube.com/watch?v=WcRDG6ZfH2k. Hear the offbeat accompaniment, horn conversation and buoyant ensemble precision.\nN:The Skatalites are foundational to Jamaican ska and its links with mento, jazz, R&B and later reggae. This original classroom song uses offbeat rests as a comparison, not a ska claim.\nN:Original melody, lyric and I-V harmony; no horn riff, bass line, film-theme melody or recording arrangement is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 classroom music teacher, Jamaican music educator, second score reader and student singing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"horn or recorder pair\",\"prompt\":\"Answer in the rest after 'lead'\",\"choices\":[\"copy 'drummer lead'\",\"two offbeat notes\",\"stay silent\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"9-12\",\"role\":\"group 2\",\"prompt\":\"How does group 2 answer?\",\"choices\":[\"sing it\",\"play it on recorder\",\"clap its rhythm\"],\"replyBars\":1}\nM:4/4\nL:1/8\nQ:1/4=120\nK:C\n%%style pop\n\"C\"z .E z .G z .A GE | \"G\"z .D z .G z .A G2 | \"C\"E2 G2 A3 G | \"G\"D4 z4 |\nw: Not on the down-beat, jump in be-tween, let the drum-mer lead;\n\"G\"z .B z .c z .B dc | \"C\"z .c z .A z .G E2 | \"G\"D2 G2 F3 D | \"C\"C4 z4 |\nw: light as a feath-er, lift off the ground, come back down on one!\n\"C\"c3 G Ac G2 | \"G\"B3 G AB G2 | \"C\"c3 G Ac e2 | \"G\"d3 B AB G2 |\nw: Who can find the space? We can find the space! Who will keep the beat? Feet will keep the beat!\n\"C\".c2 .G2 .E2 .G2 | \"G\"B2 A2 G4 | d3 c B2 G2 | \"C\"c4 z4 |]\nw: Up and down and in be-tween, that's the place to sing!\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "aubry-trouveres-1-a-l-entrada-del-tens-clar",
@@ -2629,6 +4094,59 @@
     ]
    },
    "abc": "X:2\nT:Vámonos por Santa Anita\nT:Come, Let's Go to Santa Anita\nC:traditional (northern Mexico)\nO:northern Mexico\nR:play song\nS:Eleanor Hague, Spanish-American Folk-Songs, Memoirs of the American Folk-Lore Society 10 (1917), No. 75, p. 98, as sung by Mrs. Karbe\nN:A light play song from northern Mexico: come, let's go to Santa Anita (a village outing), with the oxcarts in front and the oxen behind. Keep the dotted figure long-short, a skip, not even eighths; it suits skipping or a walking game in pairs. Sing the Spanish twice through (the repeat), then Hague's English singing translation. Hague marks it \"Gayly\"; the tempo is ours.\nQ:1/4=100\nM:2/4\nL:1/16\nK:G\n%%style folk\n|: d3 d e3 d | c3 B A3 E | D3 D d3 A | c3 B G4 :|\nw: Vá-mo-nos por San-ta~A-ni-ta, Vá-mo-nos y lo ve-rás;\nw: Las ca-rre-tas por de-lan-te, Y los bue-yes por de-trás.\nw: Come, let's go to San-ta~A-ni-ta! Come, let's go! for there you'll find\nw: In the lead the wag-ons har-nessed, And the ox-en on be-hind.\n"
+  },
+  {
+   "id": "ontario-listening-bridges-23-nine-spoke-carousel",
+   "title": "Nine-Spoke Carousel",
+   "level": 4,
+   "score": 13.63,
+   "key": "D",
+   "metre": "9/8",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "instrumental grouping and layering piece in 9/8",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/3",
+    "dur:2/3",
+    "dur:3",
+    "key:2",
+    "leap:5th",
+    "metre:9/8",
+    "range:over-octave",
+    "syncopation"
+   ],
+   "introduces": [
+    "metre:9/8"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 6/4, 5/4 and other compound or irregular metres"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: syncopation (syn-co-pa)",
+     "6: 9/8, 6/4, 5/4 and other compound or irregular metres",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:23\nT:Nine-Spoke Carousel\nT:Original 9/8 piece grouped two ways\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:instrumental grouping and layering piece in 9/8\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original instrumental grouping piece for Grade 6: a melody group and an ostinato group show the same nine eighths grouped 3+3+3 and then 2+2+2+3, while a clapping group chooses a grouping and a conductor changes the density on the return.\nN:Listen: Zakir Hussain — \"Making Music\" (composed by Zakir Hussain), title track of the album Making Music with Hariprasad Chaurasia, John McLaughlin and Jan Garbarek (ECM 1349; recorded December 1986, Rainbow Studio, Oslo; released 1987), https://ecmrecords.com/product/making-music-zakir-hussain/. Hear rhythmic ideas stated, varied and answered across instruments while a larger cycle remains intelligible.\nN:Zakir Hussain's collaborations can open discussion of tabla, Hindustani rhythmic training and intercultural ensemble work. This original 9/8 carousel is not a tala composition.\nN:Original melody and neutral classroom rhythm; no tabla composition, bol sequence or recorded passage is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 classroom music teacher, tabla or Hindustani rhythm educator, second score reader and student playing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"clapping group\",\"prompt\":\"Group nine eighths\",\"choices\":[\"2+2+2+3 with the tune\",\"3+3+3 against it\",\"4+2+3\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"9-12\",\"role\":\"conductor\",\"prompt\":\"Change the density\",\"choices\":[\"melody alone\",\"melody and ostinato\",\"everyone, then melody alone at the end\"],\"replyBars\":4}\nM:9/8\nL:1/8\nQ:3/8=80\nK:D\n%%style folk\nV:1 name=\"Melody\" sname=\"1\"\nV:2 name=\"Ostinato\" sname=\"2\"\n[V:1] \"D\"D2 F A2 B d3 | \"G\"d2 B G2 B \"A\"A3 | \"D\"F2 A d2 e d3 | \"A\"c2 B A2 E \"D\"D3 |\n[V:1] \"G\"G2 B2 d2 B3 | \"D\"A2 F2 D2 F3 | \"G\"B2 d2 B2 \"A\"c3 | c2 A2 E2 A3 |\n[V:1] \"D\"D2 F A2 B d3 | \"G\"d2 B G2 B \"A\"A3 | c2 B A2 F E3 | \"D\"D9 |]\n[V:2] D3 A,3 A,3 | G,3 D3 A,3 | D3 A,3 A,3 | A,3 E3 D3 |\n[V:2] G,2 D2 D2 G,3 | D2 A,2 A,2 D3 | G,2 D2 D2 A,3 | A,2 E2 E2 A,3 |\n[V:2] D3 A,3 A,3 | G,3 D3 A,3 | A,3 E3 E3 | D9 |]\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "curtis-dark-continent-4-o-tu-la-mntwa-na-thula-mntwana",
@@ -3026,6 +4544,112 @@
    "abc": "X:2\nT:Mother, send to the dhobi\nT:Garhwali song\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 98, p. 51\nN:Tonic B, no signature. Three verses; the dhobi is the washerman. The first three semiquavers are a pickup and the last bar is short by the same amount. Check: the pitches of bar 2.\nM:5/8\nL:1/16\nQ:1/8=180\nK:Bphr\n%%style drone\nB d2 | c2 Bc A2 AB c2 | c2 Bc A2 A |]\nw: Mo-ther, send to the dho-bi to bring back my li-nen.\nN:2: Never mind where I'm going if you'll send to the dhobi.\nN:3: Oh I'm going to get me a new wife, pretty Hira.\n"
   },
   {
+   "id": "ontario-listening-bridges-18-signal-chorus",
+   "title": "Signal Chorus",
+   "level": 5,
+   "score": 10.49,
+   "key": "G",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "call-and-chorus song with clapped ostinato, listening bridge",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:1",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th",
+    "rest",
+    "syncopation:sustained"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: syncopation (syn-co-pa)",
+     "1: accent; smooth and detached articulation",
+     "3: the signs for soft and loud (p, f)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:18\nT:Signal Chorus\nT:Original call and chorus with clapped ostinato\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:call-and-chorus song with clapped ostinato, listening bridge\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 4 call-and-chorus song with a clapped second part, and a listening bridge; a leader or small group sings each call, the class answers with an accented chorus while a clapping group holds a syncopated ostinato, before listening to how Ilê Aiyê's chorus and drums carry identity.\nN:Listen: Ilê Aiyê — \"Que Bloco É Esse?\" (Paulinho Camafeu), from Canto Negro (1984), https://www.youtube.com/watch?v=aV5ezQ0gQSE. Listen for massed percussion, a declarative chorus and identity carried through ensemble sound.\nN:Ilê Aiyê, founded on 11 November 1974 in the Curuzu neighbourhood of Liberdade, Salvador, Bahia, was the first bloco afro: a Carnival group open only to Black members, created in answer to racism in Salvador's Carnival and dedicated to Black Brazilian and African identity. \"Que Bloco É Esse?\" was its first Carnival song. This original school chorus is not samba-reggae, not a bloco afro song and not an Ilê Aiyê arrangement.\nN:Original tune, words and clapped ostinato; no chorus, lyric, drum part, rhythm pattern or arrangement from the recording is copied, and the ostinato is a plain classroom syn-co-pa, not a samba-reggae pattern.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Afro-Brazilian or Bahia music educator, Grade 4 teacher and second score reader); its workshop record is kept for correction. The Band claps the ostinato (eighth, quarter, eighth, quarter rest, quarter: cp cp _ cp ~ ~ cp _); a clapping group learns it from the Band line.\n% improv: {\"id\":\"A\",\"bars\":\"2\",\"role\":\"clapping group\",\"prompt\":\"Fill the gap after the call (beats 3-4)\",\"choices\":[\"two stomps\",\"four quick claps (ti-ti ti-ti)\",\"stay silent\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"singers and clappers\",\"prompt\":\"How does the last chorus sound?\",\"choices\":[\"voices and claps\",\"voices only, claps stop\",\"claps only in bar 7, everyone in bar 8\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=104\nK:G\n%%style pop\n%%band drums: cp cp _ cp ~ ~ cp _\n!mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | c B2 A G4 |\nw: Lis-ten: a sig-nal is call-ing. Here we are, here we are, to-geth-er now!\n!mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | B A2 B G4 |]\nw: An-swer the sig-nal with sing-ing. Here we are, here we are, we're stand-ing strong!\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-16-lantern-in-the-window",
+   "title": "Lantern in the Window",
+   "level": 5,
+   "score": 11.39,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "syncopation and major/minor song, listening bridge",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:ri",
+    "degree:si",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:4th",
+    "metre:4/4",
+    "range:octave",
+    "syncopation"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: syncopation (syn-co-pa)",
+     "3: the signs for soft and loud (p, f)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:16\nT:Lantern in the Window\nT:Original major and minor syncopation song\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:syncopation and major/minor song, listening bridge\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 4 song and listening bridge for syncopation and major/minor contrast; the class sings a lantern phrase in C major, then the same notes in C minor, before listening for son's repeating cycle and its singer-and-chorus conversation in \"Chan Chan\".\nN:Listen: Buena Vista Social Club — \"Chan Chan\" (Compay Segundo), opening track of the album \"Buena Vista Social Club\" (World Circuit, June 1997), recorded at EGREM, Havana, in March 1996, https://www.buenavistasocialclub.com/albums/buena-vista-social-club/. Track the repeating harmonic cycle, the conversational vocal delivery and the independent percussion timeline.\nN:The recording can introduce Cuban son, Compay Segundo (Francisco Repilado, 1907-2003), who wrote \"Chan Chan\", and the late-twentieth-century international attention to veteran Cuban musicians around the Buena Vista Social Club album. This new syncopation study is not son and uses no \"Chan Chan\" material.\nN:Original melody, lyric, rhythm and harmony; no tres figure, bass line, clave pattern or the song's four-chord minor cycle is copied. The classroom harmony is a plain C-Am-F-C cycle answered by Cm-Ab-Fm-G-Cm.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Cuban son educator, Grade 4 teacher and second score reader); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"2\",\"role\":\"second group\",\"prompt\":\"Answer under the half note (beats 3-4)\",\"choices\":[\"clap syn-co-pa\",\"hum one long note\",\"stay silent\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"5-6\",\"role\":\"whole class\",\"prompt\":\"The lantern dims: how do we sing the minor half?\",\"choices\":[\"p, softer\",\"mf, darker tone\",\"one group only\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=92\nK:C\n%%style folk\n!mf!\"C\"C D2 E GG AG | \"Am\"A2 G2 E4 | \"C\"C D2 E \"F\"GA cA | \"C\"G2 E2 C4 |\nw: A lan-tern in the win-dow, warm and bright, a lan-tern by the door-way lights the night.\n!p!\"Cm\"C D2 _E GG _AG | \"Ab\"_A2 G2 _E4 | \"Cm\"C D2 _E \"Fm\"G_A c_A | \"G\"G2 D2 \"Cm\"C4 |]\nw: A lan-tern in the shad-ow, dim and low, a lan-tern on the path-way leads us home.\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "daisyfield-japanese-2-konpira-fune-fune",
    "title": "Konpira fune fune",
    "level": 5,
@@ -3360,6 +4984,117 @@
    "abc": "X:4\nT:Desh\nT:Desh, Eka Trisra, slow\nC:traditional (Poona Gayan Samaj)\nO:India, Hindustani\nR:Eka Trisra\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 395, p. 305\nN:Both nishads: shuddha Ni (B natural) rising, komal ni (B flat) falling. The asthayi repeats. Check: bars 6 and 7.\nM:3/4\nL:1/8\nQ:1/4=66\nK:Cmix\n%%style drone\nD2 D F2 A | =Bc c c2 _B | AG AFGA | G2 DED z :|\nD2 D F2 A | =Bc c c2 c | c2 c2 c=B | cd c d3 |\nc =B2 c2 d | dc c2 AF | AG AFGA | G2 DEDD |]\n%%tuning Desh (Sa Re Ga ma Pa Dha ni Ni): 203.9 386.3 498.0 702.0 884.4 996.1 1088.3 2/1 map=nearest\n"
   },
   {
+   "id": "cbc-modern-bridges-8-room-for-the-verse",
+   "title": "Room for the Verse",
+   "level": 5,
+   "score": 13.43,
+   "key": "Dm",
+   "metre": "4/4",
+   "bars": 17,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 6 alternative-hip-hop listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:si",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "dur:4",
+    "key:1",
+    "leap:6th",
+    "metre:4/4",
+    "pickup",
+    "range:6th",
+    "rest",
+    "syncopation",
+    "triplet"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "triplets",
+     "pick-up notes (anacrusis)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "4: syncopation (syn-co-pa)",
+     "6: triplets",
+     "6: pick-up notes (anacrusis)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:8\nT:Room for the Verse\nT:Original pickup-and-triplet cypher bridge\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 6 alternative-hip-hop listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 6 alternative-hip-hop cypher bridge; the class maintains a four-bar ostinato, pairs write and perform a two-bar answer under clear content rules, and a conductor chooses the final drop and return.\nN:Listen: a recording is still to be chosen. TOBi's \"Just Us In The Room\" (2026), the first choice, was dropped on 12 November 2026: its words are sensual. Choose a Canadian hip-hop recording whose words suit Grade 6 (preview it whole). Listen for how a contemporary hip-hop track controls conversational timing, rhyme placement, space and changes of vocal register inside a repeating production frame.\nN:Original classroom-safe words, D-minor hook and chord loop.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 teacher, hip-hop educator, second score reader, privacy/accessibility reviewer and student cypher trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"solo or pair\",\"prompt\":\"Complete the two-bar thought\",\"choices\":[\"straight eighth flow\",\"triplet flow\",\"speak only on beats 2 and 4\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"13-16\",\"role\":\"producer/conductor\",\"prompt\":\"Choose the hook arrangement\",\"choices\":[\"all layers in\",\"voice and bass only\",\"drop one bar then return\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=88\nK:Dm\n%%style funk\nz D | \"Dm\"F2 F A2 G F2 | \"Gm\"G2 GA z2 G2 | \"A\"A2 ^C2 E2 ^C2 | \"Dm\"D6 z D |\nw: Make room, make room for a verse and the beat; lis-ten first, then speak. So\n\"Dm\"DD FF A2 z2 | \"Gm\"(3GAG (3FGA G2 z2 | \"A\"z2 ^CE A2 G2 | \"Dm\"F2 E2 D4 |\nw: start with a straight line, now it rolls in a tri-plet, leave a gap, and bring it home.\n\"Dm\"F2 F A2 G F2 | \"Gm\"G2 GA z2 G2 | \"A\"A2 ^C2 E2 ^C2 | \"Dm\"D6 z2 |\nw: Room, make room for a verse and the beat; lis-ten first, then speak.\n\"Dm\"F2 F A2 G F2 | \"Gm\"G2 GA z2 G2 | \"A\"A2 ^C2 E2 ^C2 | \"Dm\"D8 |]\nw: Choose what stays, what drops; one bar to breathe, then we all come back.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-19-draw-the-line",
+   "title": "Draw the Line",
+   "level": 5,
+   "score": 13.54,
+   "key": "Am",
+   "metre": "6/8",
+   "bars": 16,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "sung listening-bridge song: unison verse, two-part refrain",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:si",
+    "degree:ti",
+    "dur:1",
+    "dur:1/3",
+    "dur:2/3",
+    "key:0",
+    "leap:5th",
+    "metre:6/8",
+    "range:octave",
+    "rest",
+    "rest-off-beat"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:19\nT:Draw the Line\nT:Original verse-and-refrain song in 6/8 with a two-part refrain\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:sung listening-bridge song: unison verse, two-part refrain\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original sung listening-bridge song for Grade 5; the class sings a unison verse, then splits into two parts for the refrain, and a percussion pair answers in the rests of bars 4 and 8.\nN:Listen: Susana Baca — \"María Landó\" (music by Chabuca Granda, words by César Calvo), track 1 of Afro-Peruvian Classics: The Soul of Black Peru (Luaka Bop, released 9 May 1995, compiled by David Byrne), https://luakabop.bandcamp.com/album/afro-peruvian-classics-the-soul-of-black-peru. Hear the tension between compound pulse, vocal phrasing and percussion, and notice how storytelling sits inside groove.\nN:Susana Baca's recording can introduce Afro-Peruvian music, landó, poetry and Black Peruvian cultural memory. This original 6/8 piece is not a landó.\nN:Original melody, English lyric, lower part and I-V harmony; no copyrighted poetic text, tune or cajón pattern is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 classroom music teacher, Afro-Peruvian music educator or culture bearer, second score reader and student singing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"percussion pair\",\"prompt\":\"Fill the rest after 'shore'\",\"choices\":[\"three even taps\",\"two even taps\",\"leave it silent\"],\"replyBars\":1}\n% improv: {\"id\":\"B\",\"bars\":\"15-16\",\"role\":\"whole class\",\"prompt\":\"How does the last line end?\",\"choices\":[\"hold home long\",\"cut it short\",\"whisper it\"],\"replyBars\":2}\nM:6/8\nL:1/8\nQ:3/8=60\nK:Am\n%%style ballad\nV:1 name=\"Melody\" sname=\"1\"\nV:2 name=\"Lower part\" sname=\"2\"\n[V:1] \"Am\"EAB cBA | c2 B A2 z | ABc edc | \"E\"B3 z3 |\nw: Sing me a line and I'll sing it back, pass it a-long to the shore;\n[V:1] \"Am\"e2 d cBA | \"E\"^GAB e2 z | \"Am\"c2 A \"E\"B^GE | \"Am\"A3 z3 |\nw: ev-'ry voice adds a step to the track, now there's room for one more.\n[V:1] \"Am\"e2 e d2 c | \"E\"B2 c B3 | \"Am\"c2 c B2 A | \"E\"^G2 B \"Am\"A3 |\nw: Draw the line and draw it long, let the wa-ter take the song;\n[V:1] \"Am\"c2 d e2 d | \"E\"B2 ^G E3 | \"Am\"A2 c e2 d | \"E\"B2 ^G \"Am\"A3 |]\nw: one goes high and one goes low, sing it home and let it go.\n[V:2] z6 | z6 | z6 | z6 |\n[V:2] z6 | z6 | z6 | z6 |\n[V:2] c2 c B2 A | ^G2 A ^G3 | A2 A E2 E | E2 E C3 |\nw: Draw the line and draw it long, let the wa-ter take the song;\n[V:2] A2 A A2 B | ^G2 E B,3 | E2 A c2 B | ^G2 E C3 |]\nw: one goes high and one goes low, sing it home and let it go.\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "hindostan-3-bhairavi",
    "title": "Bhairavi",
    "level": 5,
@@ -3532,6 +5267,170 @@
    "abc": "X:8\nT:Greensleeves\nC:traditional (England, 16th century)\nO:England\nR:ballad tune\nS:Grand Central Stationery course samples, first-tunes.abc, X:8 (the first half of the tune, typed from memory)\nN:An Elizabethan ballad tune, first entered for printing in London in 1580, and the tune of the Christmas carol What Child Is This. Given here as a melody to play, without words; bar 7 is the usual cadence (G F♯ E D♯ C♯ D♯), corrected from a slip in the course's first typing.\nQ:3/8=56\nM:6/8\nL:1/8\nK:Em\n%%style ballad\nE | G2 A B>cB | A2 F D>EF | G2 E E>^DE | F2 ^D B,2 E | G2 A B>cB | A2 F D>EF | G>FE ^D>^C^D | E3 E2 |]\n"
   },
   {
+   "id": "cbc-modern-bridges-7-blue-room-answer",
+   "title": "Blue Room Answer",
+   "level": 5,
+   "score": 14.4,
+   "key": "Dm",
+   "metre": "6/8",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 5 alternative-R&B listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:si",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/3",
+    "dur:2",
+    "dur:2/3",
+    "key:1",
+    "leap:6th",
+    "metre:6/8",
+    "range:octave",
+    "rest",
+    "tie"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:7\nT:Blue Room Answer\nT:Original 6/8 song about leaving space\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 5 alternative-R&B listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 5 alternative-R&B listening bridge; students sing a 6/8 verse, answer a two-bar question with sound or silence, then choose one of three lower-part roles for the refrain.\nN:Listen: Charlotte Day Wilson — \"Work\" (2016), official video, https://www.youtube.com/watch?v=0z-HsbovI4E. Listen for a restrained pocket, close vocal timbre, repeated words and the expressive weight created when accompaniment leaves space.\nN:Charlotte Day Wilson is a Toronto singer, songwriter, producer and multi-instrumentalist working across alternative R&B and soul.\nN:Original D-minor melody, English words, lower part and i-V accompaniment; no lyric, melody, harmony, bass figure, vocal inflection or arrangement from \"Work\" is reproduced.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 teacher, Black Canadian/R&B music educator, second score reader and student singing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-6\",\"role\":\"solo singer or instrument\",\"prompt\":\"Answer the held question\",\"choices\":[\"three even notes\",\"one bent or slid note\",\"leave the space empty\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"9-12\",\"role\":\"lower-part group\",\"prompt\":\"Choose how close the refrain feels\",\"choices\":[\"sing thirds below\",\"hold one home note\",\"enter only on the last line\"],\"replyBars\":4}\nM:6/8\nL:1/8\nQ:3/8=56\nK:Dm\n%%style ballad\nV:1 name=\"Melody\" sname=\"1\"\nV:2 name=\"Choice part\" sname=\"2\"\n[V:1] \"Dm\"DFA AFD | \"A\"E2 C ^C3 | \"Dm\"DFA cAF | \"A\"E2 C ^C3 |\nw: Hold the room o-pen and lis-ten close; leave me a win-dow where an-swers grow.\n[V:1] \"Dm\"F2-F FED | \"A\"A3 z3 | \"Dm\"DEF AFE | \"A\"^C3 z3 |\nw: Now, _ what do you hear? Send it back, or leave it still.\n[V:1] \"Dm\"A2 A F2 E | \"A\"^C2 E A3 | \"Dm\"F2 F E2 D | \"Dm\"D6 |]\nw: Wait, then an-swer, soft and low; two lines meet in blue.\n[V:2] z6 | z6 | z6 | z6 | z6 | z6 | z6 | z6 |\n[V:2] F2 F D2 C | E2 C ^C3 | D2 D C2 A, | A,6 |]\nw: Wait, then an-swer, soft and low; two lines meet in blue.\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-24-crossing-lines",
+   "title": "Crossing Lines",
+   "level": 5,
+   "score": 15.5,
+   "key": "G",
+   "metre": "6/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "instrumental layering piece in 6/4",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/3",
+    "dur:2/3",
+    "key:1",
+    "leap:6th",
+    "metre:6/4",
+    "range:over-octave",
+    "syncopation"
+   ],
+   "introduces": [
+    "metre:6/4"
+   ],
+   "ontario": {
+    "grade": 5,
+    "band": "Grade 5",
+    "concepts": [
+     "6/8 metre (one-and-a two-and-a)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "4: syncopation (syn-co-pa)",
+     "5: 6/8 metre (one-and-a two-and-a)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:24\nT:Crossing Lines\nT:Original 6/4 piece for two crossing layers\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:instrumental layering piece in 6/4\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original instrumental layering piece for Grade 6: a melody group and an ostinato group play in different groupings of the same six beats, swap groupings in the middle, and a clapping group and a soloist make choices over them.\nN:Listen: Thomas Mapfumo and the Blacks Unlimited — \"Shumba\", from Gwindingwi Rine Shumba (1981), https://www.youtube.com/watch?v=feOyfEeK3LE. Hear electric guitar and bass take interlocking cyclical roles associated with mbira-informed chimurenga sound.\nN:Thomas Mapfumo's chimurenga music connects Shona musical resources with anticolonial and post-independence political expression. This new 6/4 exercise is not chimurenga.\nN:Original pitches, harmony and rhythmic cells; no mbira-derived guitar line, lyric or arrangement from the recording is copied.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 classroom music teacher, Zimbabwean music educator or culture bearer, second score reader and student playing trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"clapping group over the two layers\",\"prompt\":\"Which layer do you clap?\",\"choices\":[\"the melody's 2+2+2\",\"the ostinato's 3+3\",\"only beat one\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"11-12\",\"role\":\"bells or recorder soloist\",\"prompt\":\"Add one note above the last G\",\"choices\":[\"major third (B)\",\"perfect fourth (C)\",\"perfect fifth (D)\"],\"replyBars\":1}\nM:6/4\nL:1/8\nQ:1/4=132\nK:G\n%%style folk\nV:1 name=\"Melody\" sname=\"1\"\nV:2 name=\"Ostinato\" sname=\"2\"\n[V:1] \"G\"B2 d2 B2 A4 G2 | \"C\"E2 G2 c2 G4 E2 | \"D\"F2 A2 d2 c4 A2 | \"G\"B4 A2 G6 |\n[V:1] \"C\"e4 c4 G4 | \"G\"d4 B4 G4 | \"C\"c4 E4 G4 | \"D\"A4 F4 D4 |\n[V:1] \"G\"B2 d2 B2 A4 G2 | \"C\"E2 G2 c2 G4 E2 | \"D\"F2 A2 d2 A4 F2 | \"G\"B4 A2 G6 |]\n[V:2] G,4 D4 G,4 | C4 G4 C4 | D4 A4 D4 | G,4 D4 G,4 |\n[V:2] C6 G6 | G,6 D6 | C6 G6 | D6 A6 |\n[V:2] G,4 D4 G,4 | C4 G4 C4 | D4 A4 D4 | G,6 G,6 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
+   "id": "ontario-listening-bridges-22-five-windows",
+   "title": "Five Windows",
+   "level": 5,
+   "score": 17.21,
+   "key": "Am",
+   "metre": "5/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "sung 5/4 listening-bridge song with an instrumental ostinato",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:si",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:octave",
+    "metre:5/4",
+    "range:over-octave",
+    "rest",
+    "rest-off-beat",
+    "syncopation",
+    "triplet"
+   ],
+   "introduces": [
+    "metre:5/4"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "9/8, 6/4, 5/4 and other compound or irregular metres",
+     "triplets"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "4: syncopation (syn-co-pa)",
+     "6: 9/8, 6/4, 5/4 and other compound or irregular metres",
+     "6: triplets",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "4: minor tonality"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:22\nT:Five Windows\nT:Original 5/4 counting song over a 3+2 ostinato\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:sung 5/4 listening-bridge song with an instrumental ostinato\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original sung listening-bridge song for Grade 6, a counting song that makes 3+2 audible: the class sings the melody, a small group plays the ostinato, a body-percussion group chooses a grouping, and a soloist answers with a named interval in the rests.\nN:Listen: The Dave Brubeck Quartet — \"Take Five\" (composed by Paul Desmond), on the album Time Out (Columbia, 1959), https://www.davebrubeck.com/dave-brubecks-time-out. Feel 5/4 as a repeating grouping, then hear how a solo can range freely while the ostinato stays dependable.\nN:Paul Desmond composed \"Take Five\" for the Dave Brubeck Quartet. This original 5/4 study uses a different melody, harmony and grouping material.\nN:No riff, piano vamp, chord progression, solo language, lyric or drum pattern from \"Take Five\" is copied; the ostinato is a plain root-and-fifth walk, and the form is ABA', not the reference's; credit Desmond as composer in the lesson.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 classroom music, band or choir teacher, jazz educator, second score reader and student trial); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"1-4\",\"role\":\"body-percussion group\",\"prompt\":\"Clap which grouping?\",\"choices\":[\"3+2 with the song\",\"2+3 against it\",\"five even claps\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"bells or recorder soloist\",\"prompt\":\"Fill the two silent beats\",\"choices\":[\"a rising perfect fourth\",\"a falling perfect fifth\",\"a major third\"],\"replyBars\":1}\nM:5/4\nL:1/8\nQ:1/4=104\nK:Am\n%%style pop\nV:1 name=\"Melody\" sname=\"1\"\nV:2 name=\"Ostinato\" sname=\"2\"\n[V:1] \"Am\"E2 AB c2 e4 | \"Dm\"d2 cA F2 z3 E | \"E\"E2 ^G2 B2 e2 B2 | \"Am\"e2 cB A2 z4 |\nw: Three on the top floor, two by the door, and one, two, three, four, five, lights in the night.\n[V:1] \"Dm\"(3DFA d2 z2 (3DFA c2 | \"Am\"(3EAc e2 d c A4 | \"Dm\"(3DFA d2 c A \"E\"B4 | ^G2 AB E2 z4 |\nw: some-one's a-sleep, some-one's a-wake, some-one is play-ing a tune, five of them shin-ing a light out on the street.\n[V:1] \"Am\"E2 AB c2 e4 | \"Dm\"d2 cA F2 z3 E | \"E\"E2 ^G2 B2 e2 B2 | e2 d2 B2 \"Am\"A4 |]\nw: Three on the top floor, two by the door, and one, two, three, four, five, all say good-night.\n[V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | A,2 E2 E2 A,2 E2 |\n[V:2] D2 A2 A2 D2 A2 | A,2 E2 E2 A,2 E2 | D2 A2 A2 E2 B2 | E2 B2 B2 E2 B2 |\n[V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | E2 B2 B2 A,4 |]\n",
+   "licence": "CC0 1.0"
+  },
+  {
    "id": "van-aalst-chinese-music-1-xianhua-diao",
    "title": "Xianhua diao (鮮花調)",
    "level": 5,
@@ -3697,6 +5596,63 @@
     ]
    },
    "abc": "X:1\nT:O give me those pretty eyes\nT:Garhwali song, a dialogue\nC:traditional (Garhwal)\nO:India, Garhwal (Himalaya)\nR:song\nS:Fox Strangways, The Music of Hindostan (1914), Ex. 97, p. 51\nN:Tonic G (G Dorian with the one-flat signature). He and she sing alternate verses. The metre changes from 3/4 to 2/4 at \"make\". Check: bars 3 and 4.\nM:3/4\nL:1/8\nQ:1/4=100\nK:Gdor\n%%style drone\nG2 Bc Bc | cc c2 BB |[M:2/4] A2 Bc | c2 cB | A2 BB | G2 G z |]\nw: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.\nN:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.\nN:3 (He): Then O let me borrow them, And keep them safe till you need them again, dear.\nN:4 (She): For six months you shall borrow them; Promise truly you'll give me them back then again, dear.\nN:5 (He): What word is this of a bargaining! I will keep your eyes and your heart and your soul, dear.\n"
+  },
+  {
+   "id": "ontario-listening-bridges-25-blue-engine",
+   "title": "Blue Engine",
+   "level": 6,
+   "score": 12.32,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "12-bar blues for call-and-response soloing",
+   "source": "course/samples/ontario-listening-bridges.abc",
+   "skills": [
+    "accidentals",
+    "degree:do",
+    "degree:fa",
+    "degree:fi",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:ri",
+    "degree:si",
+    "degree:so",
+    "degree:te",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:3",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:over-octave",
+    "rest"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 7,
+    "band": "Grade 7",
+    "concepts": [
+     "marcato",
+     "the blues scale (flat three and flat five in a major key)"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "3: dotted half note",
+     "7: marcato",
+     "4: the major scale (fa and ti), intervals, accidentals",
+     "7: the blues scale (flat three and flat five in a major key)"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:25\nT:Blue Engine\nT:Original 12-bar teaching blues with answer windows\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:12-bar blues for call-and-response soloing\nS:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original 12-bar teaching blues for Grade 7; the class plays the written call in each line, a soloist answers in the two bars of rest that follow, and everyone plays the closing line together.\nN:Listen: Little Walter — \"Juke\" (Checker, 1952), a 12-bar Chicago blues for harmonica, recorded with Muddy Waters's band, https://www.youtube.com/watch?v=HxkqDe7DN8g. Hear the 12-bar form go round, the harmonica's riffs and the band's answers.\nN:Little Walter (Marion Walter Jacobs) recorded \"Juke\" in Chicago in 1952 with musicians from Muddy Waters's band; Chicago blues joined the Mississippi Delta's blues, the electric guitar and amplified harmonica, and the Great Migration of Black Southerners to northern cities.\nN:Original riff, melody and answer windows, with no words; nothing from \"Juke\" is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Blues educator, Grade 7 music teacher, second score reader and student listening panel); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"3-4\",\"role\":\"first soloist (one player or a small group)\",\"prompt\":\"Answer the call\",\"choices\":[\"echo its last three notes\",\"answer with the blue note F#\",\"one note in a new rhythm\"],\"replyBars\":2}\n% improv: {\"id\":\"B\",\"bars\":\"7-8\",\"role\":\"second soloist\",\"prompt\":\"Answer over the home chord\",\"choices\":[\"start high and fall\",\"space, then two notes\",\"the call's rhythm on new notes\"],\"replyBars\":2}\nM:4/4\nL:1/8\nQ:1/4=96\nK:C\n%%style swing\n\"C7\"!marcato!G2 _BG c_B G_E | \"C7\"F^F G6 | \"C7\"z8 | \"C7\"z8 |\n\"F7\"!marcato!c2 _ec Ac AF | \"F7\"_A=A c6 | \"C7\"z8 | \"C7\"z8 |\n\"G7\"!marcato!d2 dB G2 FD | \"F7\"_EF _AF c2 =AF | \"C7\"_E=E Gc _BG _E2 | \"C7\"C6 z2 |]\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "lavignac-encyclopedie-1-adana-melody",
@@ -3870,6 +5826,60 @@
     ]
    },
    "licence": "GPL-3.0"
+  },
+  {
+   "id": "cbc-modern-bridges-10-many-hands-one-sky",
+   "title": "Many Hands, One Sky",
+   "level": 6,
+   "score": 15.89,
+   "key": "DMix",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "Course original (no cultural attribution)",
+   "composer": "Grand Central Stationery (AI-assisted original, CC0)",
+   "rhythm": "Grade 8 orchestral indie-rock listening bridge",
+   "source": "course/samples/cbc-modern-bridges.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "key:1",
+    "leap:7th",
+    "metre-change",
+    "metre:4/4",
+    "range:octave",
+    "syncopation"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "syncopation (syn-co-pa)",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "4: syncopation (syn-co-pa)",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key",
+     "texture"
+    ]
+   },
+   "abc": "X:10\nT:Many Hands, One Sky\nT:Original changing-metre collective arranging song\nC:Grand Central Stationery (AI-assisted original, CC0)\nO:Course original (no cultural attribution)\nR:Grade 8 orchestral indie-rock listening bridge\nS:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0\nN:Original Grade 8 orchestral/collective indie-rock arranging bridge; students distribute melody, chords, pedal and counterline across available voices and instruments, then justify a live texture plan for the final four bars.\nN:Listen: Broken Social Scene — \"Anthems for a Seventeen Year-Old Girl\", from You Forgot It in People (2002), official video, https://www.youtube.com/watch?v=wLaDksDOcE4. Hear how a Canadian indie-rock collective builds emotional scale through repetition, accumulating instruments, changing timbres and multiple musicians sharing an arrangement.\nN:Broken Social Scene is a Toronto musical collective. The reference credits multiple writers and its arrangement is known for a repeated vocal idea surrounded by gradually expanding banjo, strings and band texture.\nN:Original D-mixolydian melody, lyric, counterline, metre changes and D-C-G harmony; no words, melody, banjo figure, string line, form or production detail from the reference is used.\nN:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 8 teacher, indie-rock/recording educator, second score reader, student arranging group and copyright reviewer); its workshop record is kept for correction.\n% improv: {\"id\":\"A\",\"bars\":\"5-8\",\"role\":\"ensemble\",\"prompt\":\"Choose the homophonic colour\",\"choices\":[\"voices plus chords\",\"instruments only\",\"one voice with pedal tone\"],\"replyBars\":4}\n% improv: {\"id\":\"B\",\"bars\":\"13-16\",\"role\":\"arranger/conductor\",\"prompt\":\"Choose how the collective arrives\",\"choices\":[\"add one layer each bar\",\"swap foreground and background\",\"remove layers to one final voice\"],\"replyBars\":4}\nM:4/4\nL:1/8\nQ:1/4=96\nK:DMix\n%%style pop\nV:1 name=\"Melody\" sname=\"M\"\nV:2 name=\"Counterline\" sname=\"C\"\n[V:1] \"D\"D2 E2 F2 A2 | \"C\"G2 E2 D4 | \"G\"G2 A2 B2 A2 | [M:3/4]\"D\"F2 E2 D2 |\nw: One small line, one o-pen sky; pass it on and hear it fly.\n[V:1] [M:4/4]\"D\"A2 A F2 E D2 | \"C\"G2 G E2 D C2 | \"G\"B2 A2 G2 E2 | [M:3/4]\"D\"F2 E2 D2 |\nw: Ma-ny hands can shape ev-ery bit of sound; choose who leads and who comes round.\n[V:1] [M:4/4]\"D\"DE F2 A2 F2 | \"C\"EF G2 E2 D2 | \"G\"GA B2 A2 G2 | [M:3/4]\"D\"F2 E2 D2 |\nw: Lis-ten, a new line starts to move a-way; high voice and low voice, side by side.\n[V:1] [M:4/4]\"D\"A2 F2 E2 D2 | \"C\"G2 E2 D2 C2 | \"G\"B2 A2 G2 E2 | [M:3/4]\"D\"D6 |]\nw: Build it, trade it, let it go, then ma-ny hands, one sky.\n[V:2] [M:4/4]z8 | z8 | z8 | [M:3/4]z6 |\n[V:2] [M:4/4]z8 | z8 | z8 | [M:3/4]z6 |\n[V:2] [M:4/4]A,2 D2 E2 F2 | G2 E2 C4 | D2 E2 G2 E2 | [M:3/4]A,2 C2 D2 |\n[V:2] [M:4/4]F2 E2 D4 | E2 G2 E2 D2 | D2 E2 G2 A2 | [M:3/4]D6 |]\n",
+   "licence": "CC0 1.0"
   },
   {
    "id": "hindostan-folk-7-lalishrita",
