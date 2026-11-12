@@ -23,7 +23,7 @@ const path = require('path');
 const STYLES = new Set([
   'pop', 'folk', 'march', 'waltz', 'jig', 'swing', 'bossa', 'ballad',
   'funk', 'reggaeton', 'afrobeats', 'lofi', 'trap', 'house', 'samba',
-  'mento', 'minyo', 'persian', 'korean', 'drone',
+  'mento', 'minyo', 'persian', 'korean', 'drone', 'sizhu', 'andean',
 ]);
 const CHORD = /"[A-G][#b♯♭]?[^\"]*"/g;
 const NOTTINGHAM_ROOT = 'https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/';
@@ -58,6 +58,8 @@ function styleDecision(abc) {
   if (/korea|arirang|gugak|janggu/.test(r)) return { style: 'korean', reason: 'R field' };
   if (/persian|iran|tasnif|tombak|daf/.test(r)) return { style: 'persian', reason: 'R field' };
   if (/min.?y[oō]|warabe|zashiki|koto/.test(r)) return { style: 'minyo', reason: 'R field' };
+  if (/sizhu|silk.and.bamboo|jiangnan/.test(r)) return { style: 'sizhu', reason: 'R field' };
+  if (/huayno|andean|sikuri|carnavalito/.test(r)) return { style: 'andean', reason: 'R field' };
   if (/reel|hornpipe|strathspey|country|bluegrass|old-?time|breakdown|fiddle|folk|barn/.test(r)) return { style: 'folk', reason: 'R field' };
   if (num === 2 && den === 4) return { style: 'folk', reason: 'metre only' };
   return { style: 'pop', reason: 'generic fallback' };
@@ -145,6 +147,7 @@ function harmonySource(abc, decision) {
   const bandLines = [...abc.matchAll(/^%%?band\s+(.+)$/gmi)].map(m => m[1]);
   if (bandLines.some(line => /(?:^|\s)(?:chords|bass)\s*:|\|/.test(line))) return 'written chart';
   if (decision.style === 'drone') return 'tonic drone';
+  if (decision.style === 'sizhu' || decision.style === 'andean') return 'no chords (heterophony)';   // the tune on a second instrument, no chords (index.html's noChords styles)
   if ((abc.split('\n').filter(l => !/^\s*(?:[A-Za-z]:|%)/.test(l)).join('\n').match(CHORD) || []).length) return 'written chords';   // in the music, not a header's quotation
   return 'detected chords';
 }

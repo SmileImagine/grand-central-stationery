@@ -259,7 +259,7 @@
   // double bass's is under 200 Hz, a tuba's harmonics are 200-500 Hz at any octave or level (march sweep: an octave down
   // 0.53-0.62 to 0.48-0.59, 3.8 dB quieter 0.47-0.56 with the tune 11 LU over the band; melody masked 0.04). By ear not
   // muddy, its notes being short; a 2.5 dB dip at 300 Hz in its samples brings it to 0.47-0.56.
-  const EXEMPT = { brass: ['march'], drone: ['drone', 'minyo', 'persian', 'korean'], loop: ['drone', 'minyo', 'persian', 'korean', 'house', 'reggaeton', 'trap', 'samba', 'mento', 'afrobeats'] };
+  const EXEMPT = { brass: ['march'], drone: ['drone', 'minyo', 'persian', 'korean', 'sizhu', 'andean'], loop: ['drone', 'minyo', 'persian', 'korean', 'house', 'reggaeton', 'trap', 'samba', 'mento', 'afrobeats', 'sizhu', 'andean'] };   // sizhu and andean: no chords (the tune twice, heterophony), a clapper or a bombo that keeps one figure
   function check(values, guards, style) {
     const fails = [];
     for (const [k, lo, hi, why, ex] of guards) { if (ex && style && EXEMPT[ex].includes(style)) continue; const v = values[k]; if (v === null || v === undefined || !Number.isFinite(v)) continue; if ((lo !== null && v < lo) || (hi !== null && v > hi)) fails.push({ metric: k, value: v, lo, hi, why }); }

@@ -14,7 +14,7 @@ Generated deterministically from `course/set.json` (80 published tunes). Regions
 | Europe | 3 | 0 | 5 | 5 | 2 | 0 | 2 | 5 | 1 | 5 | 15 | ballad 3, folk 10, march 1, waltz 1 |
 | Middle East | 0 | 0 | 2 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 3 | korean 1, persian 2 |
 | South Asia | 0 | 0 | 0 | 4 | 7 | 2 | 0 | 1 | 3 | 5 | 13 | drone 13 |
-| East Asia | 0 | 0 | 0 | 3 | 2 | 0 | 1 | 0 | 0 | 4 | 5 | ballad 1, folk 2, minyo 2 |
+| East Asia | 0 | 0 | 0 | 3 | 2 | 0 | 1 | 0 | 0 | 4 | 5 | folk 1, minyo 2, sizhu 2 |
 | Southeast Asia | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | folk 1 |
 | Pacific | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | — |
 | Unspecified | 0 | 3 | 2 | 5 | 4 | 5 | 2 | 8 | 1 | 6 | 19 | ballad 3, folk 13, march 1, persian 2 |

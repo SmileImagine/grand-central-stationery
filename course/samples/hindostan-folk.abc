@@ -25,7 +25,7 @@ L:1/8
 Q:1/4=100
 K:Gdor
 %%style drone
-G2 B c B c | c c c2 B B |[M:2/4] A2 B c | c2 c B | A2 B B | G2 G z |]
+G2 Bc Bc | cc c2 BB |[M:2/4] A2 Bc | c2 cB | A2 BB | G2 G z |]
 w: O give me those pret-ty eyes, And I'll make you the gift in re-turn of my own, dear.
 N:2 (She): And if I give you my pretty eyes, Other lovers 'll laugh and 'll leave me alone, dear.
 N:3 (He): Then O let me borrow them, And keep them safe till you need them again, dear.
@@ -45,7 +45,7 @@ L:1/16
 Q:1/8=180
 K:Bphr
 %%style drone
-B d2 | c2 B c A2 A B c2 | c2 B c A2 A |]
+B d2 | c2 Bc A2 AB c2 | c2 Bc A2 A |]
 w: Mo-ther, send to the dho-bi to bring back my li-nen.
 N:2: Never mind where I'm going if you'll send to the dhobi.
 N:3: Oh I'm going to get me a new wife, pretty Hira.
@@ -63,7 +63,7 @@ L:1/16
 Q:1/8=180
 K:Gdor
 %%style drone
-A c | B2 A B G2 A B c2 | B2 A c B2 A B |]
+Ac | B2 AB G2 AB c2 | B2 Ac B2 AB |]
 w: O where will you go if I get back your li-nen?
 N:2: You must say where you go before I send to the dhobi.
 N:3: Little Chhaila is yours, and will you marry another?
@@ -81,11 +81,11 @@ M:3/4
 L:1/16
 K:C
 %%style drone
-C C | D4 G3 F D3 C | C4 z2 C C D2 F2 | G8 z2 F G |
+CC | D4 G3 F D3 C | C4 z2 CC D2F2 | G8 z2 FG |
 w: In A-yo-dhya, the land of kings, It was Vish-nu's self That was
-A2 F2 G3 F G3 F | D3 C C4 z2 C C |
+A2F2 G3 F G3 F | D3 C C4 z2 CC |
 w: born on the lap of Kau-shal-ya._ Lit-tle
-D4 G3 F D2 C2 | D3 C C8 |]
+D4 G3 F D2C2 | D3 C C8 |]
 w: babe sleep up-on my knee!__
 W:2. For the cradle is wrought of gold, And a Child therein, Of the whole world the Lord and Master, sleeps.
 W:   Little babe, sleep upon my knee!
@@ -127,8 +127,8 @@ K:C
 %%style drone
 %%band drums: rim _ rim rim bd bd
 G2 A/c3/2 c/A3/2 A/G3/2 | G3/2G/ A/c3/2 c4 ||
-"^Solo"e2 e/g3/2 !uppermordent!e d c/d3/2 | e3/2c/ c/c3/2 c4 ||
-"^Chorus"g4 e d c/d3/2 | e3/2c/ c/c3/2 c4 |]
+"^Solo"e2 e/g3/2 !uppermordent!ed c/d3/2 | e3/2c/ c/c3/2 c4 ||
+"^Chorus"g4 ed c/d3/2 | e3/2c/ c/c3/2 c4 |]
 
 X:7
 T:Lalishrita
@@ -143,13 +143,13 @@ L:1/8
 Q:1/4=70
 K:C
 %%style drone
-C | C G G G2 G/A/ | G/E/ G/E/ (5:2:5E/G/E/G/E/ G z G |
+C | CGG G2 G/A/ | G/E/G/E/ (5:2:5E/G/E/G/E/ G z G |
 w: Ba_ _ by mine, light_ _ _ of_ my_ _ _ _ eyes, Here
 G c2 c2 {B/A/}c3/4B/4 | c3/2B/4A/4 (3G/E/G/ !fermata!F2 E/F/ |
 w: in thy cra- dle_ bright_ _ with_ _ flowers Through_
-G G G (3G/E/G/ (3G/B/G/ (3G/E/G/ | !fermata!F2 E G G E |
+GGG (3G/E/G/ (3G/B/G/ (3G/E/G/ | !fermata!F2 E GGE |
 w: sun- ny hours_ _ _ I_ bring thee_ _ sleep, I rock thee and
-E D G !fermata!F2 E/D/ | E/F/ G/F/ E2 D/E/ D/E/ | C3- C3 |]
+EDG !fermata!F2 E/D/ | E/F/G/F/ E2 D/E/D/E/ | C3- C3 |]
 w: sing thee to sleep On the wings_ of_ my me_ lo_ dies_
 W:
 W:2. Srirangam island rises fair Where Kaveris meet;
@@ -171,10 +171,10 @@ L:1/8
 Q:1/4=80
 K:F
 %%style drone
-B, |: C3/2 B,/2 C2 C D | E/F/E/D/ E3 D/E/ | D B, C2 D E | (3DED C B, A, B, :|
-|: C3/2 B,/2 C C C E | (3D/E/D/ C3 C B, | C2 E D !tenuto!E2 | D B, C C D E | (3DED C B, A, B, |
-C3/2 C/2 B, C D E | (3D/E/D/ C3 B, C | C2 B, C D !tenuto!E | D B, C C D E | C D C B, A, B, |
-C3/2 B,/2 C C D E | (3D/E/D/ C3 D E | D E C2 B, C | D B, C C D E | C D C B, A, B, :|
+B, |: C3/2 B,/2 C2 CD | E/F/E/D/ E3 D/E/ | DB, C2 DE | (3DED C B, A, B, :|
+|: C3/2 B,/2 CC CE | (3D/E/D/ C3 C B, | C2 ED !tenuto!E2 | DB, CC DE | (3DED C B, A, B, |
+C3/2 C/2 B,C DE | (3D/E/D/ C3 B, C | C2 B,C D!tenuto!E | DB, CC DE | CD CB, A,B, |
+C3/2 B,/2 CC DE | (3D/E/D/ C3 D E | DE C2 B,C | DB, CC DE | CD CB, A,B, :|
 
 X:9
 T:The ayah's song
@@ -189,4 +189,4 @@ L:1/16
 Q:1/4=80
 K:C
 %%style drone
-C |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 D | C3 D C2 C2 {B,CB,C}B,2 A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]
+C |: C3 C C4 A,3 C | D8 z3 G | G3 G G4 E3 D | C3 D C2C2 {B,CB,C}B,2A,2 |1 B,12 | A,8 z3 C :|2 D12 | C8 z4 |]

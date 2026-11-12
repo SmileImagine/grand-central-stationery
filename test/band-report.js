@@ -30,7 +30,7 @@ const M = require('./band-metrics.js');
 const root = path.resolve(__dirname, '..');
 const args = process.argv.slice(2), flag = f => args.includes(f), opt = f => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : null; };
 const audio = !flag('--no-audio'), quick = flag('--quick');
-const STYLES = ['pop', 'folk', 'march', 'waltz', 'jig', 'swing', 'bossa', 'ballad', 'funk', 'reggaeton', 'afrobeats', 'lofi', 'trap', 'house', 'samba', 'mento', 'minyo', 'persian', 'korean', 'drone'];
+const STYLES = ['pop', 'folk', 'march', 'waltz', 'jig', 'swing', 'bossa', 'ballad', 'funk', 'reggaeton', 'afrobeats', 'lofi', 'trap', 'house', 'samba', 'mento', 'minyo', 'persian', 'korean', 'drone', 'sizhu', 'andean'];
 const SWEEP = ['waltzes-11-daisy-daisy', 'reelsa-c-28-billy-in-the-lowground', 'first-tunes-3-twinkle-twinkle-little-star', 'beginner-songs-11-skip-to-my-lou', 'original-pentatonic-2-crows-on-the-fence'];
 const tunes = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8')).tunes;
 const styles = opt('--styles') ? opt('--styles').split(',') : STYLES;
