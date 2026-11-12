@@ -76,7 +76,6 @@
       <button type="button" class="pb-fold" aria-expanded="true" aria-controls="pb-steps pb-tools" title="Fold the bar away, or open it again (F)" aria-label="Fold the bar"><span aria-hidden="true"></span></button>
       <a class="pb-back" href="course/board.html">← Board</a>
       <div class="pb-title"><span class="tape" aria-hidden="true"></span><b class="pb-name">Loading the piece…</b><button type="button" class="pb-share"></button><small class="pb-facts"></small></div>
-      <div class="pb-modes" role="tablist" aria-label="Teacher"></div>
       <div class="pb-instwrap"><button type="button" class="pb-instchip" aria-expanded="false" aria-controls="pb-instset" title="The instrument shown with the music, and what it shows"><span class="nm"></span></button>
       <div class="pb-instset" id="pb-instset" role="group" aria-label="Instrument">
       <label class="pb-inst" title="The instrument shown with the music">Instrument <select>${Object.entries(P.INSTRUMENTS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
@@ -84,6 +83,7 @@
       <label class="pb-show" title="What a piano, the 2-5 Keys or a ukulele shows: the tune's notes, its chords, or both">Shows <select>${Object.entries(P.SHOWS).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
       </div></div>
     </div>
+    <div class="pb-modes"></div>
     <ol class="pb-row pb-steps" id="pb-steps" aria-label="Steps"></ol>
     <div class="pb-row pb-tools" id="pb-tools"></div>`;
   document.body.prepend(bar);
@@ -342,8 +342,9 @@
   function setMode(m, s = 1) {
     if (m !== mode) { stopAll(); mode = m; resetTempi(); how = P.HOW[m] ? P.HOW[m][0] : how; }
     bar.classList.toggle('teacher', teacher());
-    $('.pb-modes').innerHTML = teacher() ? ['teach', 'assess'].map(x => `<button type="button" role="tab" data-mode="${x}" aria-selected="${x === m}" class="${x === m ? 'on' : ''}">${P.MODES[x]}</button>`).join('') : '';
-    $('.pb-modes').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== mode) setMode(b.dataset.mode, 1); }));
+    // Teach or Assess heads the steps it names: "Teach ▾ 1 → 2 → 3" (on a phone it waits by the instrument instead).
+    $('.pb-modes').innerHTML = teacher() ? `<select aria-label="Teach the piece, or assess a student" title="Teach the piece to the class, or assess a student playing it">${['teach', 'assess'].map(x => `<option value="${x}"${x === m ? ' selected' : ''}>${P.MODES[x]}</option>`).join('')}</select>` : '';
+    const ms = $('.pb-modes select'); if (ms) ms.addEventListener('change', () => { if (ms.value !== mode) setMode(ms.value, 1); });
     // A small link button: Practice and a link sign for a teacher (the students' link), the sign alone for a student.
     // Share: an icon; its dialog offers the link (a teacher's is the students' practice link), the ABC and Strudel.
     $('.pb-share').innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7.5 7.5 12 3l4.5 4.5"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg>`;
