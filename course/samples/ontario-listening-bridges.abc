@@ -6,774 +6,151 @@
 % drawer: a choice the players make live in the bars it names.
 
 X:1
-T:Hello, Echo
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:JK greeting and echo song
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original JK greeting and echo song; a leader sings a two-bar greeting and the class echoes it at once, choosing loud or soft for the first echo and singing or clapping the rhythm for the second.
-N:Listen: Ella Jenkins — "You'll Sing a Song and I'll Sing a Song", title track of the album You'll Sing a Song and I'll Sing a Song, with members of the Urban Gateways Children's Chorus (Folkways FC 7664, 1966; Smithsonian Folkways SFW 45010 reissue), https://www.youtube.com/watch?v=u60cDWfAMBo. Notice how a leader leaves room for a real answer; compare an exact echo with an answer that changes one thing, such as how loud it is.
-N:Ella Jenkins (1924-2024), a Chicago-based singer and educator, made call-and-response with children central to her recordings; this 1966 album was added to the Library of Congress National Recording Registry in 2007. This tiny original greeting is a listening doorway, not a transcription of her melody or words.
-N:Original melody, words and form; the named recording is for listening and discussion only and is linked from the Smithsonian Folkways auto-generated channel, not embedded. Do not label this as an Ella Jenkins song.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Early-years (JK) music teacher, JK classroom trial and a second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"1-4","role":"teacher sings, class echoes","prompt":"Our echo will be…","choices":["loud","soft"],"replyBars":2}
-% improv: {"id":"B","bars":"5-8","role":"teacher or child leader, class echoes","prompt":"Our echo will be…","choices":["sung","clapped"],"replyBars":2}
-M:2/4
-L:1/8
-Q:1/4=88
-K:F
-%%style folk
-"F"A2 F2 | "C"GG "F"F2 | "F"A2 F2 | "C"GG "F"F2 |
-w: Hel-lo, how are you? Hel-lo, how are you?
-"F"AA "C"GG | "C"GG "F"F2 | "F"AA "C"GG | "C"GG "F"F2 |]
-w: Glad to see you here to-day. Glad to see you here to-day.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:2
-T:Big Drum, Small Drum
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:JK pulse and big/small contrast song
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original JK pulse-and-contrast song; the class sings a low "big drum" call and a higher "small drum" call with a body sound in each rest, then answers the sung question "Big or small?" with one big or one small body sound in a silent bar, and chooses how loud the last BOOM is.
-N:Listen: Kodo — "O-daiko", from Tsuzumi, https://www.youtube.com/watch?v=uTJQV2-WRts. Watch the drummer's whole-body preparation before one big strike and the space after it; compare that one grounded sound with small, light taps.
-N:Kodo is a professional taiko ensemble based on Sado Island, Niigata, Japan, performing staged ensemble drumming (kumi-daiko) worldwide since 1981; in the O-daiko the largest drum is played by a soloist whose stance, breath and stillness are part of the music. This is an original classroom pulse song for voices and body percussion, not taiko repertoire.
-N:Original melody, rhythm and words; no Kodo passage, rhythm or choreography is copied or notated. The clip is a watching and listening reference only. Use classroom drums only after naming that they are not taiko.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Early-years (JK) music teacher, taiko-informed educator, movement/accessibility reviewer for the stomp and tap choices, and a second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-6","role":"teacher asks, class answers","prompt":"Big or small?","choices":["big: one slow stomp","small: quick finger taps"],"replyBars":1}
-% improv: {"id":"B","bars":"7-8","role":"whole class","prompt":"Last BOOM","choices":["loud","soft"],"replyBars":1}
-M:2/4
-L:1/8
-Q:1/4=84
-K:D
-%%style march
-"D"D2 D2 | D2 z2 | F2 F2 | FF z2 |
-w: Big drum, BOOM! Small drum, tap tap!
-DE F2 | z4 | FE D2 | D2 z2 |]
-w: Big or small? Drum goes home: BOOM!
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:3
-T:Silver Drop
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:JK listening song with silent gaps
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original JK listening song; the class sings a short falling "drop", then one child fills the silent bar with a soft bell or leaves it silent while everyone listens until the sound is gone; at the end the choice is a short wood sound or a long bell sound.
-N:Listen: Evelyn Glennie — "A Little Prayer" (composed and played by Evelyn Glennie, solo marimba), from the album Rhythm Song (RCA Red Seal, 1990), https://www.youtube.com/watch?v=6itfyUzl7KA. Listen past the strike into the fading sound; compare a wooden bar, a metal bell, a voice and silence.
-N:Dame Evelyn Glennie is a Scottish solo percussionist and composer who has been profoundly deaf since childhood and describes listening through the whole body; "A Little Prayer", a slow marimba piece she wrote as a simple exercise, has since been arranged for many ensembles. This original sung sound study does not imitate her composition.
-N:Original notes and words; the reference is named for listening only, linked from RCA Red Seal's auto-generated upload, with no audio or score embedded. No phrase of "A Little Prayer" is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Early-years (JK) music teacher, accessibility-minded music educator (including Deaf or hard-of-hearing perspectives on the framing), classroom trial and a second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"1-4","role":"one child with a soft bell","prompt":"What fills each gap?","choices":["one soft bell","silence"],"replyBars":1}
-% improv: {"id":"B","bars":"5-7","role":"one child","prompt":"Last gap: which sound?","choices":["wood block (short)","bell (long)"],"replyBars":1}
-M:2/4
-L:1/8
-Q:1/4=72
-K:D
-%%style ballad
-AA F2 | z4 | FE D2 | z4 |
-w: Sil-ver drop, sil-ver drop,
-AF AF | EE D2 | z4 | D2 z2 |]
-w: lis-ten, lis-ten, far a-way. Gone.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:4
-T:Mirror Steps
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:SK partner movement song
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original SK partner movement song; partners step on the beat side to side, turn and freeze in a chosen shape, then one shows a new step and the other answers it in the silent bar before the roles swap on "now you lead!".
-N:Listen: Miriam Makeba — "Pata Pata" (stereo version), the 1967 Reprise single and title track of the album Pata Pata (1967), heard via the auto-generated Miriam Makeba channel from Strut Records' 2019 release, https://www.youtube.com/watch?v=SBH_u-vEK30. Hear how repeated vocal and instrumental ideas make social movement feel communal; notice the leader's voice and the group's answer.
-N:Miriam Makeba (1932-2008), a South African singer from Johannesburg, first recorded "Pata Pata" in South Africa in 1957; the song, sung partly in isiXhosa, names a township social dance ("pata pata", touch touch), and her 1967 US recording became an international hit. Banned from returning home in 1960 for speaking against apartheid, she lived in exile until 1990. Writing credits differ between sources (Makeba and Jerry Ragovoy on the 1967 release; some histories link the earlier song to Dorothy Masuka). This is a new movement song, not a "Pata Pata" arrangement.
-N:Original melody, rhythm and English words; no hook, bass line, word or lyric from the recording is used, and the title no longer uses the word "pata". The recording is linked, not embedded.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (South African music educator (ideally an isiXhosa speaker), early-years (SK) music teacher, movement/accessibility reviewer, SK classroom trial and a second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"whole class","prompt":"How do we stop?","choices":["freeze tall","freeze small"],"replyBars":1}
-% improv: {"id":"B","bars":"5-7","role":"partner pairs","prompt":"How does your partner answer?","choices":["mirror it","make it smaller","change direction"],"replyBars":1}
-M:2/4
-L:1/8
-Q:1/4=96
-K:G
-%%style pop
-"G"G2 G2 | "D"AA "G"G2 | "C"EE "G"GG | "D"A2 z2 |
-w: Step, step, side to side, turn a-round and stop!
-"D"AA "G"GG | "C"EE "D"D2 | "D"z4 | "C"EE "G"G2 |]
-w: Show your part-ner one new step, now you lead!
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:5
-T:Pan Parade
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:SK parade song about pitch direction
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original SK parade song about direction; the class marches and sings a line that climbs, one child plays a short up or down bell pattern in the gap, the class sings the line that falls, and a partner answers the first child's bells by copying or going the other way.
-N:Listen: Lord Kitchener — "Pan in 'A' Minor", calypso for the 1987 Trinidad Carnival, heard on Kitchener, Forever Vol. 1 (Charlie's Records / VPAL Music, 2009) via the auto-generated Lord Kitchener channel, https://www.youtube.com/watch?v=3SlzhJgJY9w. Listen for the bright family of steelpan tone colours and the way a calypso can celebrate the instrument and its players.
-N:Steelpan was created in Trinidad and Tobago in the mid-twentieth century, when players in Port of Spain's neighbourhoods turned oil drums into tuned instruments, and grew through community steel orchestras and the Panorama competition. Lord Kitchener (Aldwyn Roberts, 1922-2000) wrote many calypsos about pan that steel orchestras chose for Panorama, "Pan in 'A' Minor" among them in 1987. This original classroom parade song uses voices and barred instruments; it is not calypso and not a steelband score.
-N:Original tune and words; no line, melody or rhythm from Lord Kitchener's copyrighted song is used, and the song is in a major key, not minor. The recording is linked, not embedded.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Trinidadian steelpan educator, early-years (SK) music teacher, SK classroom trial and a second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"1-3","role":"one child on bells (D E F# A)","prompt":"In the gap, the bells go…","choices":["up","down"],"replyBars":1}
-% improv: {"id":"B","bars":"4-6","role":"a partner on bells","prompt":"Answer the first bells","choices":["copy them","go the other way"],"replyBars":1}
-M:2/4
-L:1/8
-Q:1/4=104
-K:D
-%%style march
-"D"DE FA | "D"A2 z2 | "D"z4 | "D"AF "A"EE |
-w: Pan pa-rade goes up, Pan pa-rade comes
-"D"D2 z2 | "D"z4 | "D"FF "A"EE | "D"D2 z2 |]
-w: down, ev-ry-bo-dy home!
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:6
-T:Bamboo Breath
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:SK partner breath-and-silence song
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original SK breath-and-silence song for partners; one partner sings the rising call to a long tone, everyone breathes in the silent bar, and the other partner answers with the longer phrase that comes home, choosing words or a hum.
-N:Listen: Riley Lee — "Tōri (Passing)", traditional solo shakuhachi honkyoku, live at the Cygnet Folk Festival, Tasmania, January 2024 (Riley Lee Music, the artist's official YouTube channel, published 24 February 2025), https://www.youtube.com/watch?v=gubxoukY-pQ. Listen to breath as part of the tone and to silence as part of the phrase, not as an empty mistake.
-N:Riley Lee, an American-born shakuhachi player based in Australia, became in 1980 the first non-Japanese player to receive the rank of dai shihan (grand master). The shakuhachi is a Japanese end-blown bamboo flute; honkyoku ("original pieces") such as "Tōri" come from the Fuke Zen Buddhist tradition, where breath and silence are part of the practice. This new vocal study is not honkyoku and does not imitate a sacred piece.
-N:Original melody and words; no pitch sequence, ornament or breath pattern is taken from the reference, which is unmetred solo flute music. The reference is linked from the artist's own channel, not embedded.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Shakuhachi-informed educator (ideally a teacher in a honkyoku lineage), early-years (SK) music teacher, SK classroom trial and a second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"everyone","prompt":"After the long tone…","choices":["a silent breath in","a soft 'shh' of wind"],"replyBars":1}
-% improv: {"id":"B","bars":"5-8","role":"partner pairs","prompt":"How does your partner answer?","choices":["sing the words","hum on 'mm'"],"replyBars":4}
-M:2/4
-L:1/8
-Q:1/4=72
-K:G
-%%style drone
-%%band drums: ~
-D2 E2 | G2 E2 | A4 | z4 |
-w: Bam-boo, bam-boo, breathe.
-A2 G2 | E2 D2 | E2 G2 | G4 |]
-w: Soft wind go-ing slow-ly home.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:7
-T:Water Groove
-T:Original Grade 1 groove and call-and-response song
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 1 groove song with call and response
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 1 groove song for call and response and for feeling beat against rhythm; bars 1-2 become an ostinato layer once the song is known.
-N:Listen: Fela Kuti and Africa 70 — "Water No Get Enemy" (1975), https://www.youtube.com/watch?v=kisTH3SFegc. Track one repeating part while other layers enter; hear that a groove can stay steady while the surface changes.
-N:Fela Anikulapo Kuti (1938-1997) built Afrobeat in Lagos, Nigeria, from Yoruba music, highlife, jazz and funk, with long pieces in which drums, guitars, bass and horns lock together in layers and his words, in Nigerian Pidgin and Yoruba, criticise power. "Water No Get Enemy" (1975) takes its title from a proverb about water's strength. This three-note classroom song is a first lesson in keeping one part going, not an Afrobeat piece.
-N:Original melody, rhythm and words; no horn line, lyric, proverb wording, bass pattern or harmony from the recording is used. The words mention water only as a picture of something that keeps moving.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 classroom music teacher, Nigerian or Afrobeat-informed music educator, second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"4","role":"class","prompt":"What fills the last beat?","choices":["keep the rest","sing 'beat!' again","two quick claps"],"replyBars":1}
-% improv: {"id":"B","bars":"5-8","role":"one group","prompt":"Which layer joins the groove?","choices":["clap the beat","tap the word rhythm","shaker ti-ti"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=100
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style funk
-G2 E2 GA G2 | A2 G2 E2 z2 | A2 A2 GG A2 | G2 GE E2 z2 |
-w: Drip, drop, wa-ter rolls round the stone. Who will keep the beat? We keep the beat.
-G2 E2 GA G2 | A2 G2 E2 z2 | A2 G2 AA G2 | G2 GE E2 z2 |]
-w: Drip, drop, wa-ter rolls round the stone. Where does wa-ter go? Down to the sea.
 
 X:8
-T:Sing It Up, Sing It Down
-T:Original Grade 1 contour song
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 1 contour song in question and answer
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 1 contour song: the words say where the melody goes (up, down, float, fall, home) so children connect high and low sounds with the shape of a phrase, and hear smooth against detached singing.
-N:Listen: Cesária Évora — "Sodade", from the album Miss Perfumado (Lusafrica, 1992); linked upload is Lusafrica's 2012 remaster for the 20th Anniversary Edition, https://www.youtube.com/watch?v=Mo4dmYifj0U. Follow the rise and fall of a sung phrase and notice how a restrained voice can carry strong feeling.
-N:Cesária Évora (1941-2011), from Mindelo on the island of São Vicente, Cabo Verde, sang morna and coladeira in Cabo Verdean Kriolu and became known worldwide after Miss Perfumado (1992). Morna is Cabo Verde's slow song form, bound up with the islands' long history of emigration and the feeling called sodade; the song "Sodade" speaks of the road to São Tomé. This contour song is not a morna and does not borrow the song.
-N:Entirely original melody, rhythm and English words on three notes; no lyric, chord sequence, rhythmic figure or title phrase from "Sodade" is reproduced, and the piece no longer takes the song's title.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 classroom music teacher, Cabo Verdean music educator, second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"class","prompt":"How does the answer move?","choices":["fall as written","stay on one note","rise instead"],"replyBars":2}
-% improv: {"id":"B","bars":"7-8","role":"conductor","prompt":"Choose the articulation","choices":["smooth","detached","one gentle accent"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=76
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style ballad
-EG A2 EG A2 | A2 GG A2 z2 | .A.G .E2 .A.G .E2 | G2 EE E2 z2 |
-w: Sing it up, sing it up, high in the sky; sing it down, sing it down, low on the ground.
-EG A2 GA A2 | !>!A2 GA A2 z2 | AG E2 GE E2 | G2 G2 E2 z2 |]
-w: Float it up, float it up, light as a kite; let it fall, let it fall, home a-gain.
 
 X:9
-T:Who Will Answer?
-T:Original Grade 1 call-and-response song for voices and percussion
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 1 call and response for voices and percussion
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 1 call-and-response game song in which a leader's sung call is answered first by the class's voices and then by two percussion groups.
-N:Listen: Lucho Bermúdez y Su Orquesta — "Colombia Tierra Querida" (CBS recording, ℗ 1972 CBS, Inc.), reissued on La Cumbia Colombiana (Sony Music Entertainment Colombia, 2025), https://www.youtube.com/watch?v=JMBKvLh3gWQ. Listen for a clear two-beat dance pulse, contrasting instrumental colours and a melody that invites a group response.
-N:Lucho Bermúdez (1912-1994), clarinettist, composer and bandleader from El Carmen de Bolívar, brought the porro and cumbia of Colombia's Caribbean coast into big dance-orchestra arrangements that were danced across Colombia and abroad; "Colombia Tierra Querida" became one of the country's best-loved songs. Cumbia grew from Indigenous, African and Spanish lineages on that coast (drums, gaitas, maracas, the scraper called guacharaca). This is a new 2/4 classroom tune, not an arrangement and not a cumbia rhythm.
-N:Original notes, rhythm and words; no melody, lyric, horn line or arrangement from the recording is copied, and the classroom percussion answers are free choices, not cumbia patterns.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 classroom music teacher, Colombian music educator, second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"4","role":"percussion group 1","prompt":"Choose the answer rhythm","choices":["two beats","four quick sounds","beat then rest"],"replyBars":1}
-% improv: {"id":"B","bars":"6","role":"percussion group 2","prompt":"Which colour answers now?","choices":["scraper","hand drum","claps"],"replyBars":1}
-M:2/4
-L:1/8
-Q:1/4=104
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style march
-GG AG | EE G2 | GG AA | z2 z2 |
-w: Who will an-swer? We will sing! Who will play it?
-AG AG | z2 z2 | EG AG | E2 z2 |]
-w: Now an-oth-er! All to-geth-er, play!
 
 X:10
-T:Mbira Mirror
-T:Original Grade 2 mirror song over a bordun
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 2 AB mirror song with bordun
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 2 AB song in which the second half is the first half sung backwards, over a do-so bordun that repeats like a cycle.
-N:Listen: Stella Chiweshe — "Chachimurenga", from the album Ambuya? (Piranha, 1987); linked upload is Piranha Records' remastered version from the 2021 reissue Ambuya!, https://www.youtube.com/watch?v=2k9GM7vloIA. Follow one repeating interlocking figure while the voice moves independently; notice cyclical rather than chord-by-chord listening.
-N:Stella Chiweshe (1946-2023) was one of the first women to become a professional player of the mbira dzavadzimu, the Shona lamellophone of Zimbabwe used in ceremonies that call on the ancestors, and she carried it to audiences worldwide. "Chachimurenga", the opening track of Ambuya? (1987), takes its name from chimurenga, the Shona word for struggle used for Zimbabwe's liberation wars. In mbira music interlocking parts repeat in cycles while voices weave over them. This original pentatonic school piece is not mbira repertoire.
-N:Original melody, words and bordun; no kushaura or kutsinhira (mbira lead or interlocking) part, lyric or recording phrase is transcribed. The mirror form is a classroom device, not a feature of mbira music.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 classroom music teacher, Zimbabwean mbira educator, second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"bordun group","prompt":"How does the cycle change?","choices":["same","one rest","swap do and so"],"replyBars":2}
-% improv: {"id":"B","bars":"5-8","role":"singers","prompt":"How does the second half go?","choices":["mirror, as written","sing the first half again","hold high do"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=88
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style drone
-%%band drums: ~
-%%band bass: r ~ r ~
-C4 E2 D2 | E2 G2 A4 | G4 A2 c2 | A2 G2 c4 |
-w: Up goes the pat-tern high, up to the moun-tain top;
-c4 G2 A2 | c2 A2 G4 | A4 G2 E2 | D2 E2 C4 |]
-w: look in the mir-ror, see: back comes the pat-tern home.
 
 X:11
-T:Gong Garden
-T:Original Grade 2 AB song for little bells and a big gong
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 2 AB song with bordun
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 2 AB song contrasting short and long sounds: a quick "little bells" A section and a slow "big gong" B section over a do-so bordun, with bell and gong players as layers.
-N:Listen: Gamelan Sekar Jaya — "Legong Lasem" (performance video, Gamelan Sekar Jaya official YouTube channel, 30 January 2021; music director I Dewa Putu Berata, dance director Shoko Yamamuro), https://www.youtube.com/watch?v=irmtW9E4Y6Y. Listen for nested time: quick interlocking tones inside slower punctuation from larger gongs.
-N:Gamelan names many distinct ensemble traditions of Indonesia, above all in Bali and Java. Gamelan Sekar Jaya is a Balinese gamelan and dance company in Berkeley, California, co-founded in 1979 with the Balinese musician I Wayan Suweca and long taught by visiting Balinese artists. Legong is one of Bali's classical dances, accompanied by a gamelan in which fast interlocking parts move inside a slow cycle marked by gongs. This original pentatonic classroom piece compares quick and slow layers; it is not a gamelan composition and must not be labelled Balinese music.
-N:Original notes, words and form; no named composition, tuning, kotekan (interlocking) pattern, melody or gong cycle is copied. The classroom pentatonic is the Western do-re-mi-so-la scale, not a Balinese pelog or slendro tuning.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 classroom music teacher, Indonesian (Balinese) gamelan educator, second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"1-4","role":"bell players","prompt":"How quick are the little bells?","choices":["ti-ti on every beat","ta on every beat","beat one only"],"replyBars":4}
-% improv: {"id":"B","bars":"6","role":"gong keeper","prompt":"What fills the silence?","choices":["let the gong ring","one soft gong","nothing at all"],"replyBars":1}
-M:4/4
-L:1/8
-Q:1/4=88
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style drone
-%%band drums: ~
-%%band bass: r ~ ~ ~
-EG A2 GE D2 | CD ED C2 z2 | EG A2 AG E2 | DE GA G4 |
-w: Lit-tle bells, lit-tle bells, ting-a ting-a ting, lit-tle bells, lit-tle bells, hear the gar-den sing.
-G4 C4 | E4 z4 | D4 E4 | C8 |]
-w: Big gong, ring! Qui-et now.
 
 X:12
-T:Kora Steps
-T:Original Grade 2 verse-and-chorus song over a bordun
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 2 verse and chorus song with bordun
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 2 verse-and-chorus song over a do-so bordun, in which the second verse varies the first and a soloist adds a variation of their own.
-N:Listen: Toumani Diabaté — "Jarabi", from the solo kora album Kaira (Hannibal Records, 1988; recorded in London, October 1987), https://www.youtube.com/watch?v=asvPlOGh5tI. Hear how a repeating foundation supports delicate variation and a long melodic line.
-N:Toumani Diabaté (1965-2024), from Bamako, Mali, was born into a family of jeli (griots), the hereditary musicians and keepers of history of the Mande world, and played the 21-string kora, a harp-lute from that tradition. Kaira (1988) was the first album of solo kora; on it a repeating accompaniment figure and running variations share one instrument. This new pentatonic song for voices and barred instruments is not a kora piece.
-N:Original tune, words and bordun; no kora figure, "Jarabi" melody or lyric is transcribed, and the bordun is a classroom do-so drone, not a kumbengo (kora accompaniment pattern).
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 classroom music teacher, Mande music educator, second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"11-12","role":"one player over do-so","prompt":"What goes in the room?","choices":["leave the rest","one new note","a new final note"],"replyBars":2}
-% improv: {"id":"B","bars":"13-16","role":"whole class","prompt":"Shape the volume","choices":["grow","fade","grow then fade"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=92
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-C2 D2 E2 G2 | A2 A2 c4 | c2 A2 G2 E2 | G2 E2 D4 |
-w: Step by step the song goes up, step by step it comes back down;
-!<(!G2 E2 C4 | C2 E2 !<)!G4 | !>(!A2 A2 G2 E2 | D2 E2 !>)!C4 |
-w: Deep be-low, hear it grow; stead-y ground will car-ry you.
-C2 D2 E2 G2 | A2 c2 A4 | c2 A2 G2 z2 | G2 E2 D4 |
-w: Change one step and make it new, leave some room, friends join in;
-!<(!G2 E2 C4 | C2 E2 !<)!G4 | !>(!A2 A2 G2 E2 | D2 E2 !>)!C4 |]
-w: Deep be-low, hear it grow; stead-y ground will car-ry you.
 
 X:13
-T:Carry the Line
-T:Original two-part round
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:two-part classroom round and listening bridge
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original two-part classroom round and listening bridge; the class learns one eight-bar melody in unison, then group 2 starts it again when group 1 reaches bar 5, so a single line is carried by many voices before the class listens to "Mannenberg".
-N:Listen: Dollar Brand (Abdullah Ibrahim) — "Mannenberg", recorded in Cape Town in 1974 with Basil Coetzee on tenor saxophone, produced by Rashid Vally, https://www.youtube.com/watch?v=YsCWDGCQGRk. Hear a memorable line become a shared anthem as the ensemble repeats, answers and intensifies it.
-N:"Mannenberg" takes its name from Manenberg, a Cape Flats township built for families forcibly moved under apartheid's Group Areas Act; the 1974 recording became an anthem of the struggle against apartheid. This original 3/4 school round does not reproduce its groove, melody or harmony.
-N:Original metre, notes and words. The round's 3/4 pentatonic lines share no riff, rhythm, contour, harmony or arrangement with the recording's 4/4 theme or Basil Coetzee's solo.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 3 choir teacher, second score reader and South African jazz educator); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"4","role":"group 2, waiting to come in","prompt":"Fill group 1's long note, then get ready","choices":["one clap on beat 1","pat on beats 2 and 3","just breathe in"],"replyBars":1}
-% improv: {"id":"B","bars":"7-8","role":"the group singing the last line","prompt":"How loud is 'every voice can bring it home'?","choices":["p","mf","f"],"replyBars":2}
-M:3/4
-L:1/8
-Q:1/4=104
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style waltz
-!mf!E4 G2 | c4 A2 | d4 G2 | E6 |
-w: Sing a line and pass it on,
-!p!C/D/E/G/ A2 G2 | A2 GA c2 | G/A/G/E/ D2 G2 | C6 |]
-w: O-ver hills and val-leys, o-ver the sea, ev-ery voice can bring it home.
-%%round 2 every=4
 
 X:14
-T:Question in the Circle
-T:Original secular call and response
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:secular call-and-response song and listening bridge
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original secular call-and-response classroom song and listening bridge; a leader sings each question and the class answers, then everyone sings the quiet middle together before the calls return; the class then listens for how a lead singer and a party answer one another in qawwali.
-N:Listen: Nusrat Fateh Ali Khan and Party — "Allah Ho Allah Ho", recorded live at WOMAD, Mersea Island, Essex, England, 20 July 1985; released on "Live at WOMAD 1985" (Real World Records, 23 July 2019), https://realworldrecords.com/releases/live-at-womad-1985/. Listen to lead voice and party answer, repetition that gathers energy, handclaps and virtuosic variation.
-N:Qawwali is a Sufi devotional performance tradition of Pakistan and North India, sung by a lead singer and a party at shrines and gatherings; it is worship, not simply a vocal style. "Allah Ho" repeats the name of God. This secular original teaches musical conversation and must not be presented as qawwali.
-N:Original tune and neutral English words; no devotional text, sacred name, melodic phrase, rhythm cycle or harmonium pattern is borrowed, and no student is asked to sing or imitate the recording.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Qawwali-informed Muslim or South Asian music educator, Grade 3 teacher and second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"2-4","role":"leader, then group","prompt":"Next call: who will ___ along?","choices":["clap","stamp","sway"],"replyBars":1}
-% improv: {"id":"B","bars":"10-12","role":"group","prompt":"How does the circle give the last answer?","choices":["f, strong","p, soft","whisper it"],"replyBars":1}
-M:4/4
-L:1/8
-Q:1/4=96
-K:Am
-%%style folk
-!mf!A2 c2 d/d/c/A/ c2 | !f!A2 G2 A2 z2 | !mf!A2 c2 d/d/c/A/ G2 | !f!E2 G2 A2 z2 |
-w: Who will sing a-long with me? We will sing! Who will clap a-long with me? We will clap!
-!p!E2 G2 A4 | G2 E2 D4 | E2 G2 A2 c2 | d2 c2 A4 |
-w: Qui-et now, hear it grow: ev-ery an-swer comes a-round.
-!mf!A2 c2 d/d/c/A/ c2 | !f!A2 G2 A2 z2 | !mf!c2 d2 c/A/G/E/ G2 | !f!A2 G2 A4 |]
-w: Who will sing a-long with me? We will sing! Who will close the cir-cle now? All of us!
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:15
-T:Three-Beat Testimony
-T:Original partner song
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:partner song and listening bridge
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 3 partner song and listening bridge; the class sings A, B and A in unison, then group 2 sings the B line against group 1's returning A, before comparing how Mercedes Sosa uses breath, timbre and phrase shape.
-N:Listen: Mercedes Sosa — "Gracias a la vida" (words and music by Violeta Parra), from Homenaje a Violeta Parra, https://www.youtube.com/watch?v=C-WgW_4ilv0. Notice how vocal timbre, breath and phrase shape make a repeated metre carry a public message.
-N:Violeta Parra wrote "Gracias a la vida" in 1966, near the end of her life; Mercedes Sosa's 1971 recording carried it across the Spanish-speaking world and it became a defining song of nueva canción, the movement that joined folk forms to social testimony. This original partner song does not use its words, melody or harmony.
-N:No lyric, melody, rhythm or harmony from the copyrighted song is used; the classroom piece is a pentatonic partner song with new English words, and the reference is for listening and historical inquiry.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 3 choir teacher, second score reader and Latin American music educator); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"whole class","prompt":"Shape the long last note of the A line","choices":["hold it full","let it fade","stop on beat 3 and breathe"],"replyBars":1}
-% improv: {"id":"B","bars":"9-12","role":"two groups","prompt":"Balance the partner lines","choices":["melody f, partner p","both mf","partner f, melody p"],"replyBars":4}
-M:3/4
-L:1/4
-Q:1/4=88
-K:F
-%%style ballad
-V:1 name="Group 1" sname="1"
-V:2 name="Group 2" sname="2"
-[V:1] !mf!c2 A | d3 | c2 G | F3 |
-w: Sing it slow, sing it clear,
-[V:2] z3 | z3 | z3 | z3 |
-[V:1] !p!F A c | F D F | G2 C | F3 |
-w: o-pen the win-dow, o-pen it wide,
-[V:2] z3 | z3 | z3 | z3 |
-[V:1] !f!c2 A | d3 | c2 G | F3 |]
-w: let it out, let it fly.
-[V:2] !p!F A c | F D F | G2 C | F3 |]
-w: o-pen the win-dow, o-pen it wide.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:16
-T:Lantern in the Window
-T:Original major and minor syncopation song
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:syncopation and major/minor song, listening bridge
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 4 song and listening bridge for syncopation and major/minor contrast; the class sings a lantern phrase in C major, then the same notes in C minor, before listening for son's repeating cycle and its singer-and-chorus conversation in "Chan Chan".
-N:Listen: Buena Vista Social Club — "Chan Chan" (Compay Segundo), opening track of the album "Buena Vista Social Club" (World Circuit, June 1997), recorded at EGREM, Havana, in March 1996, https://www.buenavistasocialclub.com/albums/buena-vista-social-club/. Track the repeating harmonic cycle, the conversational vocal delivery and the independent percussion timeline.
-N:The recording can introduce Cuban son, Compay Segundo (Francisco Repilado, 1907-2003), who wrote "Chan Chan", and the late-twentieth-century international attention to veteran Cuban musicians around the Buena Vista Social Club album. This new syncopation study is not son and uses no "Chan Chan" material.
-N:Original melody, lyric, rhythm and harmony; no tres figure, bass line, clave pattern or the song's four-chord minor cycle is copied. The classroom harmony is a plain C-Am-F-C cycle answered by Cm-Ab-Fm-G-Cm.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Cuban son educator, Grade 4 teacher and second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"2","role":"second group","prompt":"Answer under the half note (beats 3-4)","choices":["clap syn-co-pa","hum one long note","stay silent"],"replyBars":1}
-% improv: {"id":"B","bars":"5-6","role":"whole class","prompt":"The lantern dims: how do we sing the minor half?","choices":["p, softer","mf, darker tone","one group only"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=92
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-!mf!"C"C D2 E GG AG | "Am"A2 G2 E4 | "C"C D2 E "F"GA cA | "C"G2 E2 C4 |
-w: A lan-tern in the win-dow, warm and bright, a lan-tern by the door-way lights the night.
-!p!"Cm"C D2 _E GG _AG | "Ab"_A2 G2 _E4 | "Cm"C D2 _E "Fm"G_A c_A | "G"G2 D2 "Cm"C4 |]
-w: A lan-tern in the shad-ow, dim and low, a lan-tern on the path-way leads us home.
 
 X:17
-T:Arc of the Night
-T:Original expressive study for soloist and ensemble
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:instrumental expressive study and listening bridge
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 4 instrumental expressive study and listening bridge; a soloist states a phrase and reshapes it, the ensemble answers and rises to a climax, and the line settles to a held cadence, before the class listens to how Umm Kulthum and her orchestra stretch and answer a line.
-N:Listen: Umm Kulthum — "Alf Leila wa Leila" (words by Morsi Gamil Aziz, music by Baligh Hamdi, 1969); play a short excerpt, https://www.youtube.com/watch?v=8bCC3EMUifo. Hear how a singer reshapes a line, how the ensemble answers, and how expectation can build across a long performance.
-N:Umm Kulthum (c. 1904-1975) was Egypt's most celebrated singer; her monthly concerts, broadcast across the Arab world, stretched one song over an hour as she reshaped each line in answer to her listeners. That practice can introduce Arabic art music, maqam (here maqam Farahfaza, related to Nahawand) and tarab, the shared state of musical rapture. This short equal-tempered original is not a maqam composition.
-N:Original pitches and no Arabic text; no phrase, rhythm or orchestration of the song is copied. The first draft's E flat over D, a stock "Middle Eastern" signifier, was removed; the only accidental is a C sharp leading note, and the piece claims no maqam.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Arab music educator, Grade 4 teacher and second score reader); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"4","role":"soloist","prompt":"Reshape bar 4","choices":["play it as written","add a turn around G on beat 3","stop on beat 3, rest on beat 4"],"replyBars":1}
-% improv: {"id":"B","bars":"11-12","role":"conductor and ensemble","prompt":"How long is the final fermata?","choices":["two extra beats","until the conductor's hand closes","short, then silence"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=66
-K:Dm
-%%style ballad
-!p!D2 F2 A4 | GF EF D4 | !mf!D2 F2 A2 d2 | cB AG A4 |
-F2 G2 A2 F2 | E2 D2 ^C2 D2 | !crescendo(!A2 c2 d2 e2 | !crescendo)!!f!d2 c2 A4 |
-!diminuendo(!B2 A2 G2 F2 | E2 F2 G4 | A2 G2 F2 E2 | !diminuendo)!!p!^C2 !fermata!D6 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:18
-T:Signal Chorus
-T:Original call and chorus with clapped ostinato
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:call-and-chorus song with clapped ostinato, listening bridge
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 4 call-and-chorus song with a clapped second part, and a listening bridge; a leader or small group sings each call, the class answers with an accented chorus while a clapping group holds a syncopated ostinato, before listening to how Ilê Aiyê's chorus and drums carry identity.
-N:Listen: Ilê Aiyê — "Que Bloco É Esse?" (Paulinho Camafeu), from Canto Negro (1984), https://www.youtube.com/watch?v=aV5ezQ0gQSE. Listen for massed percussion, a declarative chorus and identity carried through ensemble sound.
-N:Ilê Aiyê, founded on 11 November 1974 in the Curuzu neighbourhood of Liberdade, Salvador, Bahia, was the first bloco afro: a Carnival group open only to Black members, created in answer to racism in Salvador's Carnival and dedicated to Black Brazilian and African identity. "Que Bloco É Esse?" was its first Carnival song. This original school chorus is not samba-reggae, not a bloco afro song and not an Ilê Aiyê arrangement.
-N:Original tune, words and clapped ostinato; no chorus, lyric, drum part, rhythm pattern or arrangement from the recording is copied, and the ostinato is a plain classroom syn-co-pa, not a samba-reggae pattern.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Afro-Brazilian or Bahia music educator, Grade 4 teacher and second score reader); its workshop record is kept for correction. The Band claps the ostinato (eighth, quarter, eighth, quarter rest, quarter: cp cp _ cp ~ ~ cp _); a clapping group learns it from the Band line.
-% improv: {"id":"A","bars":"2","role":"clapping group","prompt":"Fill the gap after the call (beats 3-4)","choices":["two stomps","four quick claps (ti-ti ti-ti)","stay silent"],"replyBars":1}
-% improv: {"id":"B","bars":"7-8","role":"singers and clappers","prompt":"How does the last chorus sound?","choices":["voices and claps","voices only, claps stop","claps only in bar 7, everyone in bar 8"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=104
-K:G
-%%style pop
-%%band drums: cp cp _ cp ~ ~ cp _
-!mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | c B2 A G4 |
-w: Lis-ten: a sig-nal is call-ing. Here we are, here we are, to-geth-er now!
-!mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | B A2 B G4 |]
-w: An-swer the sig-nal with sing-ing. Here we are, here we are, we're stand-ing strong!
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:19
-T:Draw the Line
-T:Original verse-and-refrain song in 6/8 with a two-part refrain
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:sung listening-bridge song: unison verse, two-part refrain
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original sung listening-bridge song for Grade 5; the class sings a unison verse, then splits into two parts for the refrain, and a percussion pair answers in the rests of bars 4 and 8.
-N:Listen: Susana Baca — "María Landó" (music by Chabuca Granda, words by César Calvo), track 1 of Afro-Peruvian Classics: The Soul of Black Peru (Luaka Bop, released 9 May 1995, compiled by David Byrne), https://luakabop.bandcamp.com/album/afro-peruvian-classics-the-soul-of-black-peru. Hear the tension between compound pulse, vocal phrasing and percussion, and notice how storytelling sits inside groove.
-N:Susana Baca's recording can introduce Afro-Peruvian music, landó, poetry and Black Peruvian cultural memory. This original 6/8 piece is not a landó.
-N:Original melody, English lyric, lower part and I-V harmony; no copyrighted poetic text, tune or cajón pattern is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 classroom music teacher, Afro-Peruvian music educator or culture bearer, second score reader and student singing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"percussion pair","prompt":"Fill the rest after 'shore'","choices":["three even taps","two even taps","leave it silent"],"replyBars":1}
-% improv: {"id":"B","bars":"15-16","role":"whole class","prompt":"How does the last line end?","choices":["hold home long","cut it short","whisper it"],"replyBars":2}
-M:6/8
-L:1/8
-Q:3/8=60
-K:Am
-%%style ballad
-V:1 name="Melody" sname="1"
-V:2 name="Lower part" sname="2"
-[V:1] "Am"EAB cBA | c2 B A2 z | ABc edc | "E"B3 z3 |
-w: Sing me a line and I'll sing it back, pass it a-long to the shore;
-[V:1] "Am"e2 d cBA | "E"^GAB e2 z | "Am"c2 A "E"B^GE | "Am"A3 z3 |
-w: ev-'ry voice adds a step to the track, now there's room for one more.
-[V:1] "Am"e2 e d2 c | "E"B2 c B3 | "Am"c2 c B2 A | "E"^G2 B "Am"A3 |
-w: Draw the line and draw it long, let the wa-ter take the song;
-[V:1] "Am"c2 d e2 d | "E"B2 ^G E3 | "Am"A2 c e2 d | "E"B2 ^G "Am"A3 |]
-w: one goes high and one goes low, sing it home and let it go.
-[V:2] z6 | z6 | z6 | z6 |
-[V:2] z6 | z6 | z6 | z6 |
-[V:2] c2 c B2 A | ^G2 A ^G3 | A2 A E2 E | E2 E C3 |
-w: Draw the line and draw it long, let the wa-ter take the song;
-[V:2] A2 A A2 B | ^G2 E B,3 | E2 A c2 B | ^G2 E C3 |]
-w: one goes high and one goes low, sing it home and let it go.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:20
-T:Drone Rondo
-T:Original rondo with an improvised episode over a drone
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:instrumental classroom rondo with an improvised episode
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original instrumental classroom rondo for Grade 5: everyone plays the A theme, one soloist improvises the B episode over the class's drone, everyone reads the written C episode, and A returns between and after them.
-N:Listen: Ravi Shankar — "Raga Jog", from Three Ragas (recorded in London, 1956, with Chatur Lal, tabla), https://www.youtube.com/watch?v=aNKTWhcw5nI. Listen for a melody unfolding over a drone, gradual pacing and improvisation that reveals rather than abandons constraints.
-N:A raga is more than a scale, and a Hindustani performance has its own melodic grammar, time cycle and form. This original five-note classroom rondo is not Raga Jog.
-N:Original equal-tempered pitches and form; no alap phrase, gat, tala pattern or recording passage is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 classroom music teacher, Hindustani music educator, second score reader and student playing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-8","role":"soloist over the class drone","prompt":"Choose a three-note path","choices":["rise then rest","circle one note","fall to D"],"replyBars":4}
-% improv: {"id":"B","bars":"17-20","role":"whole class","prompt":"How does A return the last time?","choices":["exactly","ornament one note","softly, then hold"],"replyBars":4}
-M:6/8
-L:1/8
-Q:3/8=66
-K:Dm
-%%style ballad
-"D5"D2 F A3 | G2 A c3 | c2 A G2 F | D6 |
-D3 A3 | D3 A3 | D3 A3 | D6 |
-D2 F A3 | G2 A c3 | c2 A G2 F | D6 |
-A3 c2 A | G3 z3 | F2 G A2 c | A6 |
-D2 F A3 | G2 A c3 | c2 A G2 F | HD6 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:21
-T:Ska Steps
-T:Original offbeat song with a call-and-response chorus
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:sung listening-bridge song: offbeat verse, call-and-response chorus
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original sung listening-bridge song for Grade 5; a verse that enters off the beat, then a call-and-response chorus between two groups that lands on the beat, with an instrumental reply in the rests of bars 4 and 8.
-N:Listen: The Skatalites — "Guns of Navarone" (Studio One, 1965), Dimitri Tiomkin's film theme played as ska, https://www.youtube.com/watch?v=WcRDG6ZfH2k. Hear the offbeat accompaniment, horn conversation and buoyant ensemble precision.
-N:The Skatalites are foundational to Jamaican ska and its links with mento, jazz, R&B and later reggae. This original classroom song uses offbeat rests as a comparison, not a ska claim.
-N:Original melody, lyric and I-V harmony; no horn riff, bass line, film-theme melody or recording arrangement is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 classroom music teacher, Jamaican music educator, second score reader and student singing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"horn or recorder pair","prompt":"Answer in the rest after 'lead'","choices":["copy 'drummer lead'","two offbeat notes","stay silent"],"replyBars":1}
-% improv: {"id":"B","bars":"9-12","role":"group 2","prompt":"How does group 2 answer?","choices":["sing it","play it on recorder","clap its rhythm"],"replyBars":1}
-M:4/4
-L:1/8
-Q:1/4=120
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style pop
-"C"z .E z .G z .A GE | "G"z .D z .G z .A G2 | "C"E2 G2 A3 G | "G"D4 z4 |
-w: Not on the down-beat, jump in be-tween, let the drum-mer lead;
-"G"z .B z .c z .B dc | "C"z .c z .A z .G E2 | "G"D2 G2 F3 D | "C"C4 z4 |
-w: light as a feath-er, lift off the ground, come back down on one!
-"C"c3 G Ac G2 | "G"B3 G AB G2 | "C"c3 G Ac e2 | "G"d3 B AB G2 |
-w: Who can find the space? We can find the space! Who will keep the beat? Feet will keep the beat!
-"C".c2 .G2 .E2 .G2 | "G"B2 A2 G4 | d3 c B2 G2 | "C"c4 z4 |]
-w: Up and down and in be-tween, that's the place to sing!
 
 X:22
-T:Five Windows
-T:Original 5/4 counting song over a 3+2 ostinato
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:sung 5/4 listening-bridge song with an instrumental ostinato
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original sung listening-bridge song for Grade 6, a counting song that makes 3+2 audible: the class sings the melody, a small group plays the ostinato, a body-percussion group chooses a grouping, and a soloist answers with a named interval in the rests.
-N:Listen: The Dave Brubeck Quartet — "Take Five" (composed by Paul Desmond), on the album Time Out (Columbia, 1959), https://www.davebrubeck.com/dave-brubecks-time-out. Feel 5/4 as a repeating grouping, then hear how a solo can range freely while the ostinato stays dependable.
-N:Paul Desmond composed "Take Five" for the Dave Brubeck Quartet. This original 5/4 study uses a different melody, harmony and grouping material.
-N:No riff, piano vamp, chord progression, solo language, lyric or drum pattern from "Take Five" is copied; the ostinato is a plain root-and-fifth walk, and the form is ABA', not the reference's; credit Desmond as composer in the lesson.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 classroom music, band or choir teacher, jazz educator, second score reader and student trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"1-4","role":"body-percussion group","prompt":"Clap which grouping?","choices":["3+2 with the song","2+3 against it","five even claps"],"replyBars":4}
-% improv: {"id":"B","bars":"7-8","role":"bells or recorder soloist","prompt":"Fill the two silent beats","choices":["a rising perfect fourth","a falling perfect fifth","a major third"],"replyBars":1}
-M:5/4
-L:1/8
-Q:1/4=104
-K:Am
-%%style pop
-V:1 name="Melody" sname="1"
-V:2 name="Ostinato" sname="2"
-[V:1] "Am"E2 AB c2 e4 | "Dm"d2 cA F2 z3 E | "E"E2 ^G2 B2 e2 B2 | "Am"e2 cB A2 z4 |
-w: Three on the top floor, two by the door, and one, two, three, four, five, lights in the night.
-[V:1] "Dm"(3DFA d2 z2 (3DFA c2 | "Am"(3EAc e2 d c A4 | "Dm"(3DFA d2 c A "E"B4 | ^G2 AB E2 z4 |
-w: some-one's a-sleep, some-one's a-wake, some-one is play-ing a tune, five of them shin-ing a light out on the street.
-[V:1] "Am"E2 AB c2 e4 | "Dm"d2 cA F2 z3 E | "E"E2 ^G2 B2 e2 B2 | e2 d2 B2 "Am"A4 |]
-w: Three on the top floor, two by the door, and one, two, three, four, five, all say good-night.
-[V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | A,2 E2 E2 A,2 E2 |
-[V:2] D2 A2 A2 D2 A2 | A,2 E2 E2 A,2 E2 | D2 A2 A2 E2 B2 | E2 B2 B2 E2 B2 |
-[V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | E2 B2 B2 A,4 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:23
-T:Nine-Spoke Carousel
-T:Original 9/8 piece grouped two ways
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:instrumental grouping and layering piece in 9/8
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original instrumental grouping piece for Grade 6: a melody group and an ostinato group show the same nine eighths grouped 3+3+3 and then 2+2+2+3, while a clapping group chooses a grouping and a conductor changes the density on the return.
-N:Listen: Zakir Hussain — "Making Music" (composed by Zakir Hussain), title track of the album Making Music with Hariprasad Chaurasia, John McLaughlin and Jan Garbarek (ECM 1349; recorded December 1986, Rainbow Studio, Oslo; released 1987), https://ecmrecords.com/product/making-music-zakir-hussain/. Hear rhythmic ideas stated, varied and answered across instruments while a larger cycle remains intelligible.
-N:Zakir Hussain's collaborations can open discussion of tabla, Hindustani rhythmic training and intercultural ensemble work. This original 9/8 carousel is not a tala composition.
-N:Original melody and neutral classroom rhythm; no tabla composition, bol sequence or recorded passage is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 classroom music teacher, tabla or Hindustani rhythm educator, second score reader and student playing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-8","role":"clapping group","prompt":"Group nine eighths","choices":["2+2+2+3 with the tune","3+3+3 against it","4+2+3"],"replyBars":4}
-% improv: {"id":"B","bars":"9-12","role":"conductor","prompt":"Change the density","choices":["melody alone","melody and ostinato","everyone, then melody alone at the end"],"replyBars":4}
-M:9/8
-L:1/8
-Q:3/8=80
-K:D
-%%style folk
-V:1 name="Melody" sname="1"
-V:2 name="Ostinato" sname="2"
-[V:1] "D"D2 F A2 B d3 | "G"d2 B G2 B "A"A3 | "D"F2 A d2 e d3 | "A"c2 B A2 E "D"D3 |
-[V:1] "G"G2 B2 d2 B3 | "D"A2 F2 D2 F3 | "G"B2 d2 B2 "A"c3 | c2 A2 E2 A3 |
-[V:1] "D"D2 F A2 B d3 | "G"d2 B G2 B "A"A3 | c2 B A2 F E3 | "D"D9 |]
-[V:2] D3 A,3 A,3 | G,3 D3 A,3 | D3 A,3 A,3 | A,3 E3 D3 |
-[V:2] G,2 D2 D2 G,3 | D2 A,2 A,2 D3 | G,2 D2 D2 A,3 | A,2 E2 E2 A,3 |
-[V:2] D3 A,3 A,3 | G,3 D3 A,3 | A,3 E3 E3 | D9 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:24
-T:Crossing Lines
-T:Original 6/4 piece for two crossing layers
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:instrumental layering piece in 6/4
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original instrumental layering piece for Grade 6: a melody group and an ostinato group play in different groupings of the same six beats, swap groupings in the middle, and a clapping group and a soloist make choices over them.
-N:Listen: Thomas Mapfumo and the Blacks Unlimited — "Shumba", from Gwindingwi Rine Shumba (1981), https://www.youtube.com/watch?v=feOyfEeK3LE. Hear electric guitar and bass take interlocking cyclical roles associated with mbira-informed chimurenga sound.
-N:Thomas Mapfumo's chimurenga music connects Shona musical resources with anticolonial and post-independence political expression. This new 6/4 exercise is not chimurenga.
-N:Original pitches, harmony and rhythmic cells; no mbira-derived guitar line, lyric or arrangement from the recording is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 classroom music teacher, Zimbabwean music educator or culture bearer, second score reader and student playing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-8","role":"clapping group over the two layers","prompt":"Which layer do you clap?","choices":["the melody's 2+2+2","the ostinato's 3+3","only beat one"],"replyBars":4}
-% improv: {"id":"B","bars":"11-12","role":"bells or recorder soloist","prompt":"Add one note above the last G","choices":["major third (B)","perfect fourth (C)","perfect fifth (D)"],"replyBars":1}
-M:6/4
-L:1/8
-Q:1/4=132
-K:G
-%%style folk
-V:1 name="Melody" sname="1"
-V:2 name="Ostinato" sname="2"
-[V:1] "G"B2 d2 B2 A4 G2 | "C"E2 G2 c2 G4 E2 | "D"F2 A2 d2 c4 A2 | "G"B4 A2 G6 |
-[V:1] "C"e4 c4 G4 | "G"d4 B4 G4 | "C"c4 E4 G4 | "D"A4 F4 D4 |
-[V:1] "G"B2 d2 B2 A4 G2 | "C"E2 G2 c2 G4 E2 | "D"F2 A2 d2 A4 F2 | "G"B4 A2 G6 |]
-[V:2] G,4 D4 G,4 | C4 G4 C4 | D4 A4 D4 | G,4 D4 G,4 |
-[V:2] C6 G6 | G,6 D6 | C6 G6 | D6 A6 |
-[V:2] G,4 D4 G,4 | C4 G4 C4 | D4 A4 D4 | G,6 G,6 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:25
-T:Blue Engine
-T:Original 12-bar teaching blues with answer windows
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:12-bar blues for call-and-response soloing
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original 12-bar teaching blues for Grade 7; the class plays the written call in each line, a soloist answers in the two bars of rest that follow, and everyone plays the closing line together.
-N:Listen: Little Walter — "Juke" (Checker, 1952), a 12-bar Chicago blues for harmonica, recorded with Muddy Waters's band, https://www.youtube.com/watch?v=HxkqDe7DN8g. Hear the 12-bar form go round, the harmonica's riffs and the band's answers.
-N:Little Walter (Marion Walter Jacobs) recorded "Juke" in Chicago in 1952 with musicians from Muddy Waters's band; Chicago blues joined the Mississippi Delta's blues, the electric guitar and amplified harmonica, and the Great Migration of Black Southerners to northern cities.
-N:Original riff, melody and answer windows, with no words; nothing from "Juke" is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Blues educator, Grade 7 music teacher, second score reader and student listening panel); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"first soloist (one player or a small group)","prompt":"Answer the call","choices":["echo its last three notes","answer with the blue note F#","one note in a new rhythm"],"replyBars":2}
-% improv: {"id":"B","bars":"7-8","role":"second soloist","prompt":"Answer over the home chord","choices":["start high and fall","space, then two notes","the call's rhythm on new notes"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=96
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style swing
-"C7"!marcato!G2 _BG c_B G_E | "C7"F^F G6 | "C7"z8 | "C7"z8 |
-"F7"!marcato!c2 _ec Ac AF | "F7"_A=A c6 | "C7"z8 | "C7"z8 |
-"G7"!marcato!d2 dB G2 FD | "F7"_EF _AF c2 =AF | "C7"_E=E Gc _BG _E2 | "C7"C6 z2 |]
 
 X:26
-T:Bassline Constellation
-T:Original two-part minor loop and arranging lab
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:minor-loop arranging lab with a written bass layer
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original two-part loop and arranging lab for Grade 7: a melody group and a bass group play an eight-bar minor loop, then the class decides how much drops out in bars 5-6 and how the bass returns, while listening for how Kabza De Small's production uses the bass as an arranging voice.
-N:Listen: Kabza De Small and DJ Maphorisa featuring Mas Musiq — "Trip to UK (Instrumental)" (Piano Hub, 2019); preview it once, https://www.youtube.com/watch?v=t3l-jYLdkEs. Listen for the spacious tempo, the keyboard chords and the pitch-shaped log-drum bass as an arranging voice.
-N:Kabza De Small (Kabelo Motha, from eMalahleni, Mpumalanga) and DJ Maphorisa, together the Scorpion Kings, are leading amapiano producers. Amapiano grew in South African townships, shaped by producers, dancers and DJs. The instrumental replaces the first choice, Kabza De Small's "Sponono", some of whose verses carry innuendo.
-N:Original minor loop, melody and bass; no amapiano track, sample or log-drum pattern is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (South African amapiano producer or educator, Grade 7 music teacher, second score reader and student listening panel); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"4","role":"bass player","prompt":"Change bar 4's bass","choices":["root, then up an octave","slide down to the next root","one note and space"],"replyBars":1}
-% improv: {"id":"B","bars":"5-6","role":"arranger","prompt":"Shape the drop","choices":["drums out too","chords out too","keep the band; only the bass drops"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=112
-K:Fm
-%%style lofi
-V:1 name="Keys melody" sname="Keys"
-V:2 name="Bass" sname="Bass" clef=bass
-[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B3 F D2 | "Db"z2 F3 A d2 | "Cm"c2 BG E2 G2 |
-[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B2 cd B2 | "Db"z F Ad "Cm"c2 BG | "Fm"A2 G2 F4 |]
-[V:2] F,2 z F, z2 C,2 | B,,2 z B,, z2 F,2 | D,2 z D, z2 A,,2 | C,2 z C, z2 G,,2 |
-[V:2] z8 | z8 | D,2 z D, C,2 z G,, | F,2 z F, F,2 z2 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:27
-T:Lead the Line
-T:Original minor line-dance study with turns and a stamp break
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:minor line-dance study for leader and line
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original minor line-dance study for Grade 7: a leader plays the turn figure, the line answers, and in the stamp break the class transfers weight on the marcato hits and isolates the shoulders in the rests; it pairs with listening to Omar Souleyman, it does not teach dabke.
-N:Listen: Omar Souleyman — "Warni Warni" (from the album Wenu Wenu, produced by Kieran Hebden (Four Tet), Ribbon Music, 2013), https://music.apple.com/us/song/warni-warni/677848558. Hear relentless electronic pulse, ornamented vocal/keyboard lines and music made for communal line dancing.
-N:Omar Souleyman's music relates Syrian wedding performance, dabke and electronic production for global stages. This original minor dance study is not dabke music and supplies no traditional steps.
-N:Original melody, harmony and movement plan; no synth line, vocal phrase or beat from the recording is copied, and no traditional dabke step is taught.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Syrian or Levantine dabke educator, Grade 7 music/dance teacher, second score reader and student listening panel); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3","role":"melody leader","prompt":"Change the turn","choices":["turn from above, as written","turn from below","no turn: one long note"],"replyBars":1}
-% improv: {"id":"B","bars":"5-6","role":"line leader","prompt":"Signal in the gaps","choices":["one marcato clap on beat 2","a rising pickup into beat 3","keep the gaps silent"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=126
-K:Dm
-%%style pop
-"Dm"!marcato!D2 A2 B/A/G/A/ F2 | "Dm"GF EF D2 z2 | "Gm"!marcato!G2 B2 c/B/A/B/ G2 | "Am"cA GE A2 z2 |
-"Dm"!marcato!d2 z2 !marcato!A2 z2 | "Gm"!marcato!B2 z2 !marcato!G2 z A | "Gm"G2 B/A/G/A/ "Am"E2 A2 | "Dm"FE D4 z2 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:28
-T:Voice and Guitar Layers
-T:Original voice-and-guitar texture study in D Dorian
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:modal texture and dialogue study
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original voice-and-guitar texture study for Grade 8: a guitar ground, a voice line and a short dialogue that move through monophony, polyphony, call and response and homophony, so students can name each texture by ear and then choose one for a purpose; it pairs with listening to Ali Farka Touré and Ry Cooder.
-N:Listen: Ali Farka Touré with Ry Cooder — "Ai Du", from the album Talking Timbuktu, World Circuit, 1994, https://music.apple.com/us/song/ai-du-with-ry-cooder-with-ry-cooder/1528519981. Hear voice and guitar converse, repeated modal ground, subtle rhythmic displacement and the space between phrases.
-N:Ali Farka Touré's music grows from Malian/Songhai traditions and a personal relationship with blues heard across the Atlantic. This original Dorian study is not "desert blues" repertoire.
-N:Original melody, ground and accompaniment plan; no guitar figure, lyric, vocal contour or recording harmony is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Malian/Songhai music educator, Grade 8 music teacher, second score reader and student listening panel); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-6","role":"voice and guitar","prompt":"Who asks, who answers?","choices":["voice asks, guitar answers (as written)","guitar asks, voice answers","overlap for one beat"],"replyBars":2}
-% improv: {"id":"B","bars":"7-8","role":"arranger","prompt":"Choose the closing texture","choices":["homophonic: dyads with the voice (as written)","monophonic: the voice alone","polyphonic: the guitar returns to its ground"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=92
-K:Ddor
-%%style folk
-V:1 name="Voice" sname="Voice"
-V:2 name="Guitar" sname="Gtr" clef=bass
-[V:1] z8 | z8 | d3 c A4 | B2 cB G4 |
-[V:1] A2 cd e2 d2 | z8 | B2 AG F2 E2 | D8 |]
-[V:2] D,2 F, A,3 G,F, | D,2 G, B,3 A,G, | D,2 F, A,3 G,F, | D,2 G, B,3 A,G, |
-[V:2] D,8 | A,2 C D3 CA, | [G,D]2 [F,C][E,B,] [D,A,]2 [C,G,]2 | [D,A,]8 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:29
-T:Interlock City
-T:Original two-part interlock and layered-form study
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:two-part interlock and layered-form study
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original two-part interlock and layered-form study for Grade 8 on classroom barred instruments (or recorders, keyboards, bells): two groups learn to make one line together without colliding, then shape the form by adding, swapping and thinning layers, alongside listening to a Balinese gamelan composition by I Nyoman Windha.
-N:Listen: I Nyoman Windha — "Puspanjali" (1989), music for the welcome dance of the same name, played by STSI Denpasar (Aneka Record), https://www.youtube.com/watch?v=R8_NjuIhGn8. Hear coordinated interlocking parts, sectional contrast, paired tuning shimmer and large-scale punctuation.
-N:Balinese gamelan composition is a living, changing art with ensemble-specific tuning and rehearsal practice. This equal-tempered classroom polyphony is not gamelan and does not reproduce kotekan.
-N:Original notes and sectional plan; no Windha passage, tuning, interlocking pattern or gong structure is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Balinese gamelan educator, Grade 8 music teacher, second score reader and student listening panel); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"4","role":"both lines","prompt":"How does the form turn?","choices":["a sudden cut on beat 3","one stroke, let it ring","thin out: Line B drops first"],"replyBars":1}
-% improv: {"id":"B","bars":"7","role":"Line B group","prompt":"Invent your own interlock","choices":["fill every off-beat","answer every second gap","echo Line A one eighth late"],"replyBars":1}
-M:4/4
-L:1/8
-Q:1/4=112
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-V:1 name="Line A" sname="A"
-V:2 name="Line B" sname="B"
-[V:1] C2 D2 E2 G2 | A2 G2 E4 | C z D z E z G z | A z G z E4 |
-[V:1] z E z D z E z G | z A z G D4 | C2 D2 E2 G2 | AG ED C4 |]
-[V:2] z8 | z8 | z E z G z A z c | z c z A E4 |
-[V:2] G z A z c z A z | G z E z D4 | z8 | z4 c4 |]
 
 X:30
-T:Cinema Assembly
-T:Original ensemble theme in three textures
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:dramatic ensemble theme and texture study
-S:Grand Central Stationery, Ontario Listening Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original 12-bar ensemble theme and arranging study for Grade 8: three short scenes that put monophony, homophony and polyphony, and minor and major, in an order that tells a small story, compared with the sectional build of a film song.
-N:Listen: A. R. Rahman — "Jai Ho" (featuring Sukhwinder Singh, Tanvi Shah and Mahalakshmi Iyer; lyrics by Gulzar), from Slumdog Millionaire (Music From the Motion Picture), 2008, https://music.apple.com/us/song/jai-ho-feat-sukhwinder-singh-tanvi-shah-mahalakshmi-iyer/1443885535. Hear how percussion, voices, strings, electronic production and sectional buildup serve a cinematic arc.
-N:A. R. Rahman's film work can open study of Indian cinema, multilingual song, studio production and global circulation. This new ensemble theme is not a Bollywood imitation or a "Jai Ho" arrangement.
-N:Original melody, second line, form and harmony; no hook, rhythm, vocal, lyric, sample or orchestration from the recording is copied.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Indian film-music educator, Grade 8 music teacher, second score reader and student listening panel); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-8","role":"chord players (ukulele, guitar, keyboard)","prompt":"Choose the chordal bed","choices":["sustained chords","repeated eighth-note chords","one chord on each downbeat"],"replyBars":4}
-% improv: {"id":"B","bars":"12","role":"whole ensemble","prompt":"Choose the final image","choices":["held chord, everyone","sudden cut-off on beat 3","fade one layer at a time"],"replyBars":1}
-M:4/4
-L:1/8
-Q:1/4=100
-K:Em
-%%style ballad
-V:1 name="Theme" sname="Theme"
-V:2 name="Second line" sname="2nd"
-[V:1] E2 B3 A G2 | AG FE F4 | E2 c3 B A2 | AG FA B4 |
-[V:1] "G"G2 d3 c B2 | "Am"cB AG A4 | "C"G2 e3 d c2 | "D"dc Bc d4 |
-[V:1] "Em"B2 e3 d B2 | "Am"cB ce "C"dc BA | "Am"Ac BA "B7"B2 ^d2 | "E"e8 |]
-[V:2] z8 | z8 | z8 | z8 |
-[V:2] D2 B3 A G2 | AG FE C4 | E2 c3 B G2 | FA GA F4 |
-[V:2] E4 G4 | A4 G4 | E4 F4 | ^G8 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C

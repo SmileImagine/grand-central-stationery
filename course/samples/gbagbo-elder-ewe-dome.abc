@@ -3,30 +3,6 @@
 % and its workshop record (or review item) is kept for further correction.
 
 X:1
-T:Go le mimli
-T:The gourd is rolling: Èwè-Dòmè storytelling song
-C:traditional (Èwè-Dòmè), transcribed by Divine K. Gbagbo
-O:Ghana (Volta Region, Èwè-Dòmè, around Ho)
-R:storytelling song (glimedeha, audience interlude)
-S:Divine Kwasi Gbagbo and D. Rose Elder, "Storytelling Songs of the Èwè-Dòmè of Ghana," African Music 11(1), 2019, pp. 91-112, Figure 5 p. 107, doi:10.21504/amj.v11i1.2294; licence CC BY-NC-SA 4.0
-N:Bar 1 is printed without words; "Go le mi" is sung there as in bar 5 (our guess).
-N:The two clap parts (a pulse clap and an off-beat pair) are played by the Band as claps; clap them in two groups.
-N:Among the Èwè-Dòmè around Ho, in Ghana's Volta Region, an audience member may stop a told story with a song like this one (a glimedeha), and everyone joins in, clapping. "Go le mimli tolitolitoli" means "a gourd is rolling on and on"; Figure 5's caption gives the whole as "The gourd is rolling on, regardless of its origin": like a story, nobody knows where it came from or where it will stop (Gbagbo and Elder, pp. 98-99). The words are as the source prints them, without tone marks; the source gives no word-by-word translation, so an Èwè speaker's help with pronunciation is welcome. Start with the voice alone, then add the two clap parts (one on the dotted quarters, one on the offbeats) by ear; no drums, bell, bass or chords. The tempo is our estimate (the source prints none). Bar 1's three lead-in notes are untexted in the source; the three notes of bar 5 are given "Go le mi" here so the printed words fit the notes.
-N:Licence: this transcription comes from an article published under CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0); it keeps that licence and its attribution to Divine K. Gbagbo and D. Rose Elder, and may be used only noncommercially.
-M:6/8
-L:1/8
-Q:3/8=72
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-%%band drums: <[cp ~ ~ cp ~ ~] [cp ~ ~ ~ ~ ~]>
-%%band drums: <[~ cp cp ~ cp cp] [~ ~ ~ ~ cp cp] [~ cp cp ~ cp cp] [~ ~ ~ cp cp ~]>
-%%band bass: ~
-%%band chords: ~
-z3 FFF | F2 B BAA | G G2 FFF | E6 |
-w: Go le mi mli to li to li to li, go le mi mli.
-z3 FFF | F2 B BAA | G G2 FFF | E2 G E G2 |
-w: Go le mi mli to li to li to li, go le mi mli. Fi ne ke
-D E2 EEE | E2 G GFF | E E2 DDD | D2 F E F2 |
-w: go tso go le mi mli to li to li to li, go le mi mli. Fi ne ke
-D E2 EEE | E2 G GFF | E E2 DDD | C6 |]
-w: go tso, go le mi mli to li to li to li go le mi mli.

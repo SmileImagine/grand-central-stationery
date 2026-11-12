@@ -2,128 +2,61 @@
 % Nursery, folk and hymn tunes; composers dead for well over a century.
 
 X:1
-T:Hot Cross Buns
-O:England
-M:4/4
-L:1/4
-K:G
-B A G2 | B A G2 | G/2G/2G/2G/2 A/2A/2A/2A/2 | B A G2 |]
-w: Hot cross buns, hot cross buns, one a pen-ny, two a pen-ny, hot cross buns.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:2
-T:Mary Had a Little Lamb
-O:USA
-C:words: Sarah Josepha Hale (1830); tune traditional (USA)
-R:children's song
-S:traditional, as commonly sung in classrooms (course transcription)
-M:4/4
-L:1/4
-K:G
-%%style folk
-B A G A | B B B2 | A A A2 | B d !breath!d2 | B A G A | B B B B | A A B A | G4 |]
-w: Ma-ry had a lit-tle lamb, lit-tle lamb, lit-tle lamb, Ma-ry had a lit-tle lamb, its fleece was white as snow.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:3
-T:Twinkle, Twinkle, Little Star
-O:France
-C:tune traditional (France, "Ah! vous dirai-je, maman"); words: Jane Taylor (1806)
-R:lullaby
-S:traditional, as commonly sung in classrooms (course transcription)
-M:4/4
-L:1/4
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style ballad
-!mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]
-w: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.
 
 X:4
-T:Ode to Joy
-C:Ludwig van Beethoven
-M:4/4
-L:1/4
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-E E F G | G F E D | C C D E | E3/2 D/2 D2 | E E F G | G F E D | C C D E | D3/2 C/2 C2 |
-D D E C | D E/2F/2 E C | D E/2F/2 E D | C D G,2 | E E F G | G F E D | C C D E | D3/2 C/2 C2 |]
 
 X:5
-T:Yankee Doodle
-O:USA
-M:2/4
-L:1/8
-K:G
-GG AB | GB AD | GG AB | G2 F2 | GG AB | cB AG | FD EF | G2 G2 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:6
-T:Amazing Grace
-C:Words: John Newton (1779); tune: New Britain (USA, 1829)
-O:USA
-R:hymn
-M:3/4
-L:1/4
-K:G
-%%style ballad
-!mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |
-w: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_
-d2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]
-w: once was_ lost but now am found, was blind but_ now I see. _
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:7
-T:Oh! Susanna
-C:Stephen Foster (1848)
-O:USA
-R:parlour song
-M:2/4
-L:1/8
-K:G
-%%style folk
-!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G)(G/2A/2 |
-w: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained
-B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |
-w: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _
-!f!(c2 c2 | e e2 e | dd BG | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]
-w: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:8
-T:Greensleeves
-C:traditional (England, 16th century)
-O:England
-R:ballad tune
-S:Grand Central Stationery course samples, first-tunes.abc, X:8 (the first half of the tune, typed from memory)
-N:An Elizabethan ballad tune, first entered for printing in London in 1580, and the tune of the Christmas carol What Child Is This. Given here as a melody to play, without words; bar 7 is the usual cadence (G F♯ E D♯ C♯ D♯), corrected from a slip in the course's first typing.
-Q:3/8=56
-M:6/8
-L:1/8
-K:Em
-%%style ballad
-E | G2 A B>cB | A2 F D>EF | G2 E E>^DE | F2 ^D B,2 E | G2 A B>cB | A2 F D>EF | G>FE ^D>^C^D | E3 E2 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:9
-T:Scarborough Fair
-O:England
-M:3/4
-L:1/4
-K:Ador
-A2 A | e2 e | B c B | A3 | A2 c | e2 ^f | g e d | c3 |
-c2 d | e2 c | B A G | A3 | A2 c | e2 ^f | g e d | c3 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:10
-T:The Irish Washerwoman
-R:jig
-O:Ireland
-M:6/8
-L:1/8
-K:G
-dc | BGG DGG | BGB dcB | cAA EAA | cBc edc | BGG DGG | BGB dcB | cBc Adc | BGG G :|
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:11
 T:Withheld
-% Kept off the public site until a teacher has reviewed it; the tune is in the workshop branch (course/README.md).
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
 
 X:12
-T:The Entertainer (opening)
-C:Scott Joplin
-M:2/4
-L:1/16
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-dec2 e2c2 | e2 c6 | cd^d e2 cd2 | e4 B2d2 | c6 z2 |]

@@ -1,27 +1,2 @@
-// Dances read from Sutton DanceWriting Sheet Dances (dancewriting.org), written in the lab's step and pose
-// language. The notation is CC BY-SA 3.0 (the site's statement: "All sections of Sutton Movement Writing are free
-// to use"), so this file is CC BY-SA 3.0 too, crediting the notator, the teacher and the dancer. The booklets'
-// photographs are not used. A pilot: the name keeps it out of the course build (*.dances.txt) until the Center for
-// Sutton Movement Writing confirms the older booklets fall under the site's licence; rename it then.
-licence: CC BY-SA 3.0
-
-title: Orientale, first phrase
-origin: Isadora Duncan, Orientale (a Chopin dance, to the Mazurka in A minor, Op. 68 No. 2), reconstructed by Hortense Kooluris
-source: Orientale as taught by Sylvia Gold, written in Sutton DanceWriting by Alison Kincaid (The Center for Sutton Movement Writing, 2000), page 4, lines 1 and 2: https://www.dancewriting.org/library/duncan/index.html
-note: read for the rig with the key in DanceWriting for Modern & Jazz Dance (Sutton, 1979), not transcribed symbol for symbol. A bar's wait, then three bars of a lilting Duncan run, one step on every count, the hands lifted near the shoulders with the wrists bent back (lower and wider in the second bar): on 1 a step with the free knee lifting forward, on 2 a step into a bent knee with the other leg trailing behind, on 3 the feet gathering; the second bar mirrors which leg leads. The light and dark circles at the floor are the weight signs (light the left foot, dark the right), which is where the feet: line comes from; the darkened feet mark the limb nearest the corner faced, not a rise. Then a bar of three striking steps in place, the arms down. The position symbols under the staff (an overhead view, the audience at the bottom, the centre line the body's front-to-back line) turn the body to the dancer's right front corner in the first and third bars and the left front corner in the second, with the limbs projecting along that diagonal; the striking steps face the front. Their numbers are rotation numbers: the arms partly turned in (3), the legs parallel (2), which a parallel knee lifting toward a corner shows from the front as a knee opening to the side. The arms' rotation (which way the palms face) is not drawn.
-meter: 3/4
-bpm: 132
-feet:   .  .  .   | Lf^ Rf  Lc^ | Rf^ Lf  Rc^ | Lf^ Rf  Lc^ | Rp!_ Lp!_ Rp!_
-level:  .  .  .   | m   l   m   | m   l   m   | m   l   m   | m    .    .
-turn:   r45 . .   | .   .   .   | l90 .   .   | r90 .   .   | l45  .    .
-poses:  start . . | a1  a2  a3  | b1  b2  b3  | a1  a2  a3  | down .    .
-pose start: arms=20,20 hand=flat lean=-5 nod=-10
-pose a1: arms=55,165 hand=flat lean=8 tilt=8 look=15 nod=-10 legR=10f60,-5f10 footR=point
-pose a2: arms=55,165 hand=flat lean=10 tilt=8 look=15 nod=-10 legL=20b30,30b70 footL=point
-pose a3: arms=55,165 hand=flat lean=4 tilt=8 look=15 nod=-10
-pose b1: arms=70,40 hand=flat lean=8 tilt=-8 look=-15 legL=20b30,30b70 footL=point
-pose b2: arms=70,40 hand=flat lean=10 tilt=-8 look=-15 legR=10f60,-5f10 footR=point
-pose b3: arms=70,40 hand=flat lean=4 tilt=-8 look=-15
-pose down: arms=12,25 hand=flat nod=15 stretch=.95
-low:   x . . | x . . | x . . | x . . | x x x
-hat:   . x x | . X x | . X x | . X x | . . .
+// Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again;
+// the patterns, steps and dances are in the workshop branch (course/README.md).

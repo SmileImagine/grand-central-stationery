@@ -3,97 +3,21 @@
 % and its workshop record (or review item) is kept for further correction.
 
 X:1
-T:Galloway road
-T:Jamaican ring game
-C:traditional (Jamaica)
-O:Jamaica
-R:ring game
-S:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCVIII, p. 199
-N:A Jamaican ring game in Jamaican Patois, as Jekyll printed it in 1907 (Allegretto): "I go to Galloway road (where there is a quarry). Girls and boys are breaking stones. They break them one by one, two by two... Choosing stones suggests choosing partners." Breaking stone by hand for the roads was hard, poorly paid labour in Jamaica then, worth a sentence of history in class. Jekyll describes choosing partners; schools often play its relative "Go Dung a Manuel Road" as a stone- or bean-bag-passing game on the beat, which suits this song too (a later practice, not Jekyll's). Jekyll was an English collector in colonial Jamaica; credit the song to the Jamaican singers he heard. The mento band is ours, in the style of Jamaican country bands.
-M:2/4
-L:1/8
-Q:1/4=100
-K:D
-%%style mento
-F | AA (3A A A | A2 z B/c/ | (3d c B A ^G |
-w: Me go da Gal-lo-way road, Gal an' boy them a broke rock
-A2 z2 | FF GE | FD/D/ D z | FF GE |
-w: stone, Broke them one by one gal an' boy, Broke them two by
-FD/D/ D z | (3F F F (3G F E | FD/D/ DF | AA BG |
-w: two gal an' boy, Take up the one that you like gal an' boy, Ah! this here one me
-AD/D/ D z | FA BG | AD/D/ D |]
-w: like gal an' boy, broke them t'row them down gal an' boy.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:2
-T:Pass the ball
-T:Jamaican ring game
-C:traditional (Jamaica)
-O:Jamaica
-R:ring game
-S:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIV, p. 197
-N:A Jamaican ring game in Jamaican Patois, as Jekyll printed it in 1907 (Allegro). The ring closes up tight, shoulder to shoulder; hands behind backs pass the ball round and round while the player in the middle tries to find it, and whoever is found holding it becomes the seeker. Everyone sings; "goin'" is one short syllable. Jekyll was an English collector in colonial Jamaica; credit the song to the Jamaican singers he heard. The mento band is ours, in the style of Jamaican country bands.
-M:4/4
-L:1/8
-Q:1/4=116
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style mento
-c3 B A2 GG | A2 B2 c2 z C | C2 E2 G2 GG | A2 G2 E2 z2 |
-w: Pass the ball an' the ball goin' round, the ball goin' round an' the key can't find,
-GG GA G3 F | E2 D2 C2 z2 | CC D2 EE F2 | GG A2 GG z2 |
-w: Mo-ther, ho-ney, oh! the ball goin' round. Jour-ney, ball, jour-ney, ball, jour-ney, ball, jour-ney,
-GG GA G3 F | E2 D2 C2 z2 |]
-w: Mo-ther, ho-ney, oh! the ball can't find.
 
 X:3
-T:Carry banana
-T:Jamaican ring tune
-C:traditional (Jamaica)
-O:Jamaica
-R:ring tune
-S:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. XCIII, p. 196
-N:A ring game: the girl in the middle is supposed to carry a bunch of bananas on her head, and the singers comment and ask her questions ("Look! It is a nine-hand banana. No, a China banana. Did you find it? Did you steal it?"); the ring answers "carry banana", and "You find the banana?" is the signal to take a partner. "Tief" is Jamaican Patois for steal. Jekyll marks it Tempo di Valse. In the fourth line the word Jekyll printed for the variety, which can be heard as a mocking word for Chinese people, is sung "China", the name Jekyll gives the China banana (a stout low kind that withstands wind) in his own note.
-Q:1/4=150
-M:3/4
-L:1/8
-K:E
-%%style mento
-z2 z2 G2 | B2 B2 B2 | c4 B2 | E2 E2 E2 |
-w: The gal ov-er yon-der car-ry ba-
-F2 F2 z2 | A4 G2 | B4 A2 | D2 D2 D2 |
-w: na-na, gal oh! gal oh! car-ry ba-
-E2 E2 G2 | B2 B2 ^A2 | c2 B2 z2 | E2 E2 E2 |
-w: na-na. A nine-hand ba-na-na, car-ry ba-
-F2 F2 F2 | G2 F2 G2 | B2 A2 z2 | D2 D2 D2 |
-w: na-na, a Chi-na ba-na-na, car-ry ba-
-E2 E2 E2 | B2 B2 B2 | c4 B2 | E2 E2 E2 |
-w: na-na. You find the ba-na-na? car-ry ba-
-F2 F2 F2 | A2 A2 G2 | B2 A2 z2 | D2 D2 D2 |
-w: na-na. You tief the ba-na-na? car-ry ba-
-E2 E2 z2 |]
-w: na-na.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:4
-T:Little Sally Water
-T:Jamaican ring game
-C:traditional (Jamaica, from an English singing game)
-O:Jamaica
-R:ring game
-S:Walter Jekyll (ed.), Jamaican Song and Story (London: David Nutt, 1907), Project Gutenberg #35410 (music as MusicXML), no. LXXXIX, p. 191
-N:The ring game that gave its name to "playing in the ring", an English singing game sung in Jamaican style, with words and tune as Jekyll printed them: Andante, then Allegro where the pair wheel. The class joins hands in a ring; one child crouches in the middle as Sally Water, rises slowly at "Rise, Sally, rise", brushing away pretend tears, turns one way and another, and chooses a partner; the two wheel, and the partner becomes the next Sally. Jekyll's last verse, a mock wedding that ends with a kiss, is left out here, as many classes leave it out; the game is complete without it. Nothing in the tune is guessed.
-M:2/4
-L:1/8
-Q:1/4=84
-K:Eb
-%%style mento
-EE EF | E2 B,2 | GG GG | G2 E2 |
-w: Lit-tle Sal-ly Wa-ter sprin-kle in the sau-cer;
-F2 FG | F3 E | DE FD | B,2 GG |
-w: Rise, Sal-ly, rise an' wipe your weep-ing eyes. Sal-ly
-G2 B3/2 G/ | E2 B,B, | E2 FF | G2 GG |
-w: turn to the East, Sal-ly turn to the West, Sal-ly
-G2 BG | EF GA | G2 F2 | E2 z2 |
-w: turn to the ver-y one you like the best.
-[Q:1/4=144] BB Be | dc d2 | c/c/c/B/ Ac | BA B2 |
-w: On the car-pet you must be hap-py as the grass-bird on the tree,
-Bc de | dc BG | FG AG/F/ | EE E z |]
-w: Rise an' stand up on your leg an' choose the one that you like the best.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C

@@ -3,114 +3,21 @@
 % and its workshop record (or review item) is kept for further correction.
 
 X:1
-T:Cha-ko'mba, ko'mba
-T:Hopping song: Ndau children's game
-C:traditional (Ndau), as sung by C. Kamba Simango
-O:Mozambique (then Portuguese East Africa), Ndau people
-R:singing game
-S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs II, p. 106 (game notes p. 31)
-N:An evening game of Ndau children in central Mozambique: everyone hops on one leg in time to the song, racing to a goal, and whoever puts the other foot down loses (Curtis, p. 31). C. Kamba Simango sang it for Curtis; her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the game. "Cha-komba-komba" means to hop on one leg; "Cha m'nthalila" means "This is Mnthalila's hop" (a name from the verb "to jump"); the "th" is a t followed by a breathed h, not the English sound. The second line is Curtis's singing English. The soft thump on each beat, for the hops, is ours; the plate has the voice alone. The Chindau spelling wants a Chindau speaker's check.
-M:3/4
-L:1/8
-Q:1/4=116
-K:Ab
-%%style folk
-%%band drums: bd:.5 bd:.5 bd:.5
-%%band bass: ~
-%%band chords: ~
-|: AB AB (A2 | !>!B) z FB A2 | AB AB (A2 | !>!B) z FB A2 :|
-w: Cha-ko-mba, ko-mba, Cha m'ntha-li-la, Cha-ko-mba, ko-mba, Cha m'ntha-li-la!
-w: Cha-ko-mba, ko-mba, Hop-ping we go, Cha-ko-mba, ko-mba, Hop-ping we go!
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:2
-T:Mafuve
-T:Dance of girls: Ndau dance song with four clap parts
-C:traditional (Ndau), as sung by C. Kamba Simango
-O:Mozambique (then Portuguese East Africa), Ndau people
-R:dance song
-S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), "Mafuve: Dance of Girls", pp. 103-105 (words and dance pp. 29-30)
-N:A dance song of Ndau girls and young women in central Mozambique, about a young bride who loves her new home but longs for her mother's: "Kwa-mai-we", my mother's home; "Kwa-mai nda le-ga", I left my mother's home; "Ndo da kwu-mi-sha", I love my husband's home; the rest are vocables. Two girls at a time dance facing each other in the middle, starting with two stamps; the others stand round in a circle, clapping and singing (Curtis, pp. 29-30, from C. Kamba Simango). Her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the dance. No drums: the band plays Curtis's four printed hand-clap rhythms, each on its own sound so the layers can be told apart, and the dancers' two stamps; in class, four groups take one clap rhythm each and change every two or three bars, as Curtis says the clappers do. Bars marked * are sung low with a guttural, grunting sound. Curtis: any phrase may be repeated, in any order, for an hour or more; this is her written order and proper ending.
-N:Guessed (counting bars from the first full bar): the six-in-a-beat groups of bars 12, 13, 26 and 30, written as plain sixteenths and eighths that fill the beat; the five-in-a-beat group of bar 22; the thirty-second-note endings of bars 31-32, approximate; and the underlay of "e" at the end of bar 4 and the start of bar 5. The Chindau spelling wants a Chindau speaker's check.
-M:3/4
-L:1/16
-Q:1/4=63
-K:E
-%%style folk
-%%band drums: [bd bd] ~ ~
-%%band drums: [cp cp] [cp cp cp] [~ cp _ cp _ ~]
-%%band drums: [~ cl ~ cl] ~ ~
-%%band drums: [wb wb wb wb] [wb _ wb _ wb wb] [wb wb]
-%%band drums: [rim _ rim rim] [rim rim _ [rim rim]] [rim rim rim ~]
-%%band bass: ~
-%%band chords: ~
-G | !>!B2!>!G2 !>!FED!>!C/C/ z3 G | !>!B2!>!G2 !>!FED!>!C/C/ z3 G | !>!B2!>!G2 !>!FED!>!C/C/ z4 |
-w: E- yo- we, we yo we i- ye e- yo- we, we yo we i- ye e- yo- we, we yo we i- ye
-w: A- las, O we yo we i- ye A- las, O we yo we i- ye A- las, O we yo we i- ye
-!>!BBG2 !>!FED!>!C/C/ z2 G2 | !>!B,GG2 !>!FED!>!C/C/ z4 | !>!B,GGG !>!FED!>!C/C/ z4 |
-w: Kwa- mai- we! we yo we i- ye e- e yo- we, we yo we i- ye Kwa- mai nda le- ga, yo we i- ye
-w: Moth- er's home! we yo we i- ye A- O a- las, we yo we i- ye Left my moth- er's home, yo we i- ye
-!>!B,GG2 !>!FED!>!C/C/ z4 | !>!B,GGG !>!FED!>!C/C/ z2 G2 | !>!B2G2 !>!FEDC z4 | !>!B,GG2 !>!FEDC z4 |
-w: e- we- ye we yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e- yo- we we yo we ye kwa- mai- we, we yo we ye
-w: O a- las, we yo we i- ye Love my hus- band's home, yo we i- ye A- las, O! we yo we ye Moth- er's home, we yo we ye
-!>!B,GGG !>!FED!>!C/C/ z4 | !>!B,DDD B,(B,B,2) G,B,2G, | !>!B,DDD B,(B,B,2) G,B,2G, | "^*"!>!B,E,G,2 (3:2:2E,2E,4 G,B, B, G, |
-w: Ndo da kwu- mi- sha, yo we i- ye kwa- mai nda le- ga, ya _ e we ye Ndo da kwu- mi- sha, yo _ e we yo O ha o o wa e we yo we
-"^*"!>!B,E,G,E E4 (3C2B,2G,2 | "^*"!>!B,E,G,2 (3:2:2E,2E,4 G,B, B, G, | "^*"!>!B,E,G,E E4 (3C2B,2G,2 | "^*"!>!B,E,G,2 (3:2:2E,2E,4 G,B, B, G, |
-w: O ha o we ye ye yo we O ha o o wa e we yo we O ha o we ye ye yo we O ha o o wa e we yo we
-!>!B,GG2 !>!FED!>!C/C/ z4 | !>!B,GGG !>!FED!>!C/C/ z4 | !>!B,GGG !>!FED!>!C/C/ z4 | !>!B,DDD EE z2 (5:4:5C E E C G |
-w: e- we- ye we yo we i- ye Kwa- mai nda le- ga, yo we i- ye Ndo da kwu- mi- sha, yo we i- ye e we i- ye i ye i we yo we e
-!>!BGG2 !>!FED!>!C/C/ z4 | !>!B,B,DD EE z2 CEEC | !>!BGG2 !>!FED!>!C/C/ z4 | !>!B,DDD (EE-E2) CEEC |
-w: i we yo we yo we i ye e we i- ye i ye i we yo we i ye ye we yo wi i ye i we i ye i ye _ e we yo we
-!>!BGG2 !>!FED!>!C/C/ z4 | !>!BGG2 !>!FEDC z4 | !>!B,D(DB,) !>!FEDC z4 | "^*"!>!B,E,G,G, (E,E,-E,2) G,B,B,G, |
-w: i ye ye we yo wi i ye i ye ye we yo we ye i we ye _ we yo we ye e ya e ya e ya _ e we yo we
-"^*"!>!B,B,G,G, E,2E,E, z2 G,/B,/B,/G,/ | "^*"!>!B,E,G,G, E,2E,E, z2 G,/B,/B,/G,/ |]
-w: Kwa- mai nda le- ga, e ya, e we yo we Ndo da kwu- mi- sha, e ya e we yo we!
-w: Left my moth- er's home, yes, yes, O a- las, _ Love my hus- band's home, yes, yes, O a- las! _
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:3
-T:Mu-to-to-li'le
-T:Drip-drop the rain: Ndau children's song
-C:traditional (Ndau), as sung by C. Kamba Simango
-O:Mozambique (then Portuguese East Africa), Ndau people
-R:children's song
-S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), Children's Songs I, p. 106 (game notes p. 30)
-N:Ndau children in central Mozambique sing this while playing in the rain, calling the drops to pour down until the pools are full, so they can swim and hunt the big red-breasted bullfrogs (Curtis, p. 30). "To-to" is the sound of rain falling in drops. C. Kamba Simango sang it for Curtis; her 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Simango's song, with the game. The accents are Curtis's stress marks over every "To" and "to": the stress falls on the pickup and on the downbeat, against the bar. The plate opens with a bar of rests before the first "To", written here as a pickup. Sung unaccompanied; the second line is Curtis's singing English. The Chindau spelling and stresses want a Chindau speaker's check.
-M:3/4
-L:1/16
-Q:1/4=60
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-%%band drums: ~
-%%band bass: ~
-%%band chords: ~
-!>!A2 | !>!BAG2 A2EA G z !>!A2 | !>!BAGG AAEA G z !>!A2 |
-w: To-to li-le, mv'la-nga i-ne, To-to li-le, ma-ka-ndwa a-za-le, To-
-w: "To-to," pour down, rain, let it rain, "To-to," pour down, let all the pools be full, "To-
-!>!BAGG AAEA G z !>!A2 | !>!BAGG AAEA G2 z2 |]
-w: to li-le, ti-zo bu-mwi-la mwo; To-to li-le, ti-ba-ye ma-che-che.
-w: to," pour down, and we will swim there-in; "To-to," pour down, we spear the red bull-frog.
 
 X:4
-T:O tu'la, mntwa'na (Thula, mntwana)
-T:O hush thee, baby: Zulu lullaby
-C:traditional (Zulu), as sung by Madikane Cele
-O:South Africa (Zululand / KwaZulu-Natal)
-R:lullaby
-S:Natalie Curtis Burlin, Songs and Tales from the Dark Continent (New York: G. Schirmer, 1920), "Igama la Bantwana: Song of Children (Lullaby)", p. 135; words and notes pp. 66-68
-N:A Zulu lullaby "very commonly used to put Zulu babies to sleep", sung for Curtis by Madikane Cele: the mother has crossed the mountains and another woman (a grandmother, an aunt) quiets the crying child: your mother is not with you, the zig-zag trail has held her; she is coming soon and will bring you pretty berries. Curtis's 1920 book carries the colonial and racial language of its time in its title and commentary, so teach it as Cele's song. Sing it softly, swaying on the dotted quarters, with no accompaniment. Each "I-wa!" is a long cooing glide down from B to E, slid rather than stepped, with the last two slowing (rit.). The first note of bar 13 ("yo") is between D sharp and E in Curtis's plate, written as D sharp. The Zulu is in Curtis's 1920 spelling (today "Thula, mntwana"); the second line is her singing English, which she says follows the Zulu accents. The spelling and words want a Zulu speaker's check, and this tune may differ from the lullaby "Thula Mntwana" sung today.
-M:6/8
-L:1/8
-Q:3/8=50
-K:E
-%%style ballad
-%%band drums: ~
-%%band bass: ~
-%%band chords: ~
-e | e2 B GGe | (B2 G E2) B | B2 B e2 B | G3 E2 B | B2 B G2 B | (G E2 E2) G | A2 A B2 B |
-w: O tu-la, mntwa-na, O tu _ la! Un-yo-ko a-ka-mu-ko, U-se-le 'zin-ta-ben: _ _ U-hlu-shwa i-zi-
-w: O hush thee, ba-by, O hush _ thee! Thy moth-er is not with thee, She tar-ried in the hills: _ _ The zig-zag trail hath
-G3 E2 G | "^rit."(B2 G E3 | E3) z2 e | e2 B GGe | (B2 G E2) e | d2 d e2 B | B3 G2 B |
-w: gwe-gwe, I-wa! _ _ _ O tu-la, mntwa-na, O tu _ la, Un-yo-kou-ze-zo-bu-ya, A-
-w: held her, I-wa! _ _ _ O hush thee, ba-by, O hush _ thee! Thy moth-er soon is com-ing, She'll
-G2 G B2 B | (G E2) G2 G | "^rit."(B2 G E3 | E2) z z3 |]
-w: k'pa-te-lein-to en _ hle, I-wa! _ _ _
-w: bring thee pret-ty ber _ ries, I-wa! _ _ _
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C

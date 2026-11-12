@@ -18,72 +18,21 @@
 % six quavers.
 
 X:1
-T:Bhup
-T:Bhupali, Rupak
-C:traditional (Poona Gayan Samaj)
-O:India, Hindustani
-R:Rupak
-S:Fox Strangways, The Music of Hindostan (1914), Ex. 383, p. 301
-N:Pentatonic (Sa Re Ga Pa Dha). Check: the last bar has four quavers in the plate.
-M:3/4
-L:1/8
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style drone
-E | GE D3 E | C2 C2 E2 | A,A, C3 E | D2 E D2 E | GE D3 E |
-C2 C2 E2 | A,A, C3 E | GE DE z E || ED E3 E | cG c2 cc |
-cG c3 c | d2 c2 GA | E2 D2 C2 | E2 D2 A,G, | A,2 C3 E | EG DE |]
-%%tuning Bhup (Sa Re Ga Pa Dha): 203.9 386.3 702.0 884.4 2/1 map=nearest
 
 X:2
-T:Malkos
-T:Malkauns, Eka Trisra, slow
-C:traditional (Poona Gayan Samaj)
-O:India, Hindustani
-R:Eka Trisra
-S:Fox Strangways, The Music of Hindostan (1914), Ex. 407, p. 308
-N:Pentatonic with komal Ga, Dha and Ni (Sa ga ma dha ni). Check: bar 5 and bar 9.
-M:3/4
-L:1/8
-Q:1/4=66
-K:Cm
-%%style drone
-C | E2 C C2 C | C3 CA,C | C3 E2 E | E2 E C2 C | E2 A, A,2 A, |
-C3 CA,C | C3 E2 E | E2 E C2 C | E3 E2 F || B2 c c2 c | c2 c c2 c |
-c/c/B/c/ AF F2 | FE C C2 C | C3 CA,C | C3 E2 E | E2 E C2 |]
-%%tuning Malkos (Sa ga ma dha ni): 315.6 498.0 813.7 996.1 2/1 map=nearest
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:3
-T:Bhairavi
-T:Bhairavi, Eka Trisra, slow
-C:traditional (Poona Gayan Samaj)
-O:India, Hindustani
-R:Eka Trisra
-S:Fox Strangways, The Music of Hindostan (1914), Ex. 419, p. 311
-N:All four komal notes (re ga dha ni); Fox Strangways heads it Phrygian-Doric. Check: bars 4, 7 and 9 are short in this reading.
-M:3/4
-L:1/8
-Q:1/4=66
-K:Cphr
-%%style drone
-C | F3 F2 F | E3 E2 E | D3 D2 D | C2 D | D2 D z z C | D3 D2 E |
-ED DC C | C3 E2 F | ED CC F || F3 A2 c | c2 c c2 c | c2 c c2 d |
-cB A F2 F | F3 F2 A | AF F D2 D | C3 D2 E | EDC C2 |]
-%%tuning Bhairavi (Sa re ga ma Pa dha ni): 111.7 315.6 498.0 702.0 813.7 996.1 2/1 map=nearest
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:4
-T:Desh
-T:Desh, Eka Trisra, slow
-C:traditional (Poona Gayan Samaj)
-O:India, Hindustani
-R:Eka Trisra
-S:Fox Strangways, The Music of Hindostan (1914), Ex. 395, p. 305
-N:Both nishads: shuddha Ni (B natural) rising, komal ni (B flat) falling. The asthayi repeats. Check: bars 6 and 7.
-M:3/4
-L:1/8
-Q:1/4=66
-K:Cmix
-%%style drone
-D2 D F2 A | =Bc c c2 _B | AG AFGA | G2 DED z :|
-D2 D F2 A | =Bc c c2 c | c2 c2 c=B | cd c d3 |
-c =B2 c2 d | dc c2 AF | AG AFGA | G2 DEDD |]
-%%tuning Desh (Sa Re Ga ma Pa Dha ni Ni): 203.9 386.3 498.0 702.0 884.4 996.1 1088.3 2/1 map=nearest
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C

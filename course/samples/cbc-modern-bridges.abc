@@ -6,249 +6,51 @@
 % drawer: a choice the players make live in the bars it names.
 
 X:1
-T:Glow and Grow
-T:Original two-note sound-choice game
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:early-years wordless listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original JK listening-bridge and sound-choice game; an adult sings or plays the four bars while one child chooses the sound colour for the question and another chooses the dynamic shape of the answer.
-N:Listen: Beverly Glenn-Copeland — "Ever New", from Keyboard Fantasies (1986), on the artist's Bandcamp, https://beverlyglenn-copeland.bandcamp.com/track/ever-new. Hear how a patient pulse, repeated shapes, warm voice and spacious keyboard colour can make very little material feel continually alive.
-N:Beverly Glenn-Copeland is a Canadian composer and singer whose electronic and acoustic work found a new international audience decades after he recorded Keyboard Fantasies.
-N:This four-bar C-D humming game uses neither the reference melody, words, harmony nor keyboard pattern; it borrows only the general questions "what changes slowly?" and "how can timbre create space?".
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Kindergarten music teacher, early-years/accessibility reviewer, second score reader and student listening trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"1-2","role":"child conductor","prompt":"Choose the colour of the hum","choices":["closed-mouth hum","open oo","one soft chime"],"replyBars":2}
-% improv: {"id":"B","bars":"3-4","role":"child conductor","prompt":"Choose how the answer arrives","choices":["grow louder","grow softer","stay still"],"replyBars":2}
-M:4/4
-L:1/4
-Q:1/4=64
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%band drums: ~
-%%band bass: ~
-%%band chords: ~
-C2 D2 | C4 | D2 C2 | C4 |]
-w: Mm mm mm mm mm mm
 
 X:2
-T:Mirrorball Hello
-T:Original greeting-and-freeze dance game
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:early-years dance-pop listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original SK dance-pop listening bridge and accessible movement game; the class sings two repeated greetings, follows one selected movement, then chooses the size and energy of the ending.
-N:Listen: Jeremy and Jazzy — "Funky Freeze Dance" (2022), from Say Hello, on CBC Kids, https://www.youtube.com/watch?v=vmx4lS7xUsM. Notice the reliable dance pulse, a short memorable vocal hook and the way production drops or adds layers to frame a choice to move.
-N:Jeremy and Jazzy is a CBC Kids series whose songs are by Juno-nominated Canadian songwriter Jeremy Fisher, with Aiza Ntibarikure as Jazzy; Say Hello was nominated for the 2023 Juno for Children's Album. It replaces the first choice, Carly Rae Jepsen's "Don't Leave Me on the Dance Floor", whose words do not suit SK.
-N:Original C-major pentatonic tune and words; nothing from "Funky Freeze Dance" is used, and the freeze is a classroom game, not its choreography.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (SK classroom teacher, movement/accessibility reviewer, second score reader and student listening trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"movement leader","prompt":"How does the hello move?","choices":["two side steps","two shoulder taps","two seated reaches"],"replyBars":2}
-% improv: {"id":"B","bars":"7-8","role":"whole class","prompt":"Choose the ending energy","choices":["tiny and soft","bright and strong","freeze in silence"],"replyBars":2}
-M:4/4
-L:1/8
-Q:1/4=104
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style pop
-"C"E2 E2 G2 E2 | "F"GE DC C4 | "C"E2 E2 G2 E2 | "G"GE DC C4 |
-w: Hel-lo, hel-lo, spin the lights a-round; hel-lo, hel-lo, shine on ev-ery-one!
-"C"EE G2 EE G2 | "G"GA G2 ED C2 | "C"E2 G2 E2 D2 | C4 z4 |]
-w: Clap, clap, hands! Tap, tap, toes! Wave up high, wave down low; three, two, one, and freeze!
 
 X:3
-T:Bright-Line Boots
-T:Original mi-so-la call and response
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 1 country-pop listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 1 country-pop listening bridge; a caller sings the first two bars, the class answers, and a student selects an accented, detached or smooth body-percussion reply.
-N:Listen: Shania Twain — "Up!" (2002), the green country version, official video; on CBC Music's 2021 Music Class Challenge list, https://www.youtube.com/watch?v=-FMhUNSIxks. Listen for how a country-pop song combines a direct story, a firm backbeat, short hooks and contrasting vocal articulation.
-N:Shania Twain grew up in Timmins, Ontario, and is the best-selling woman in country music history. "Up!" turns a bad day around ("can only go up from here"); its country mix is the one to play, not the red pop mix. It replaces the first choice, "Faded Blue Jeans" (2026), whose words do not suit Grade 1.
-N:Original three-note E-G-A classroom tune and words; no hook, words, chords, fiddle or drum part from "Up!" is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 1 music teacher, accessibility reviewer, second score reader and student singing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"solo caller","prompt":"Choose how the boots answer","choices":["two accented stomps","four light taps","one silent pose"],"replyBars":2}
-% improv: {"id":"B","bars":"7-8","role":"class","prompt":"Choose the last articulation","choices":["smooth","detached","accent then smooth"],"replyBars":2}
-M:2/4
-L:1/8
-Q:1/4=92
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-"C"EE GA | G2 E2 | "F"AA GE | G2 z2 |
-w: Walk-ing on the bright line, where do our boots go?
-"C"EG GA | "G"G2 E2 | "C"A2 G2 | E2 z2 |]
-w: Fol-low the bright line, then step, step, stop!
 
 X:4
-T:Mountain Window
-T:Original pentatonic travel song
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 2 indie-folk listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 2 indie-folk listening bridge; students sing an AB travel song over a do-so bordun, vary one two-bar window, then choose the dynamic shape of the arrival.
-N:Listen: Braden Lam — "Coquihalla" (2026), official video; its words are not yet checked, so preview it, https://www.youtube.com/watch?v=eGfUKN0hEzQ. Hear how indie folk-pop can turn travel and place into an intimate story through acoustic colour, a repeated pulse and a widening chorus.
-N:Braden Lam is a Canadian indie-folk songwriter based in Halifax; the referenced release takes its title from British Columbia's Coquihalla route.
-N:Original pentatonic tune, fictional window lyric and C-G bordun; no lyric, melodic phrase, guitar figure or chord progression from "Coquihalla" is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 2 music teacher, second score reader, student singing trial and Canadian listening-context check); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"3-4","role":"small group","prompt":"Change one part of the view","choices":["raise one note","lower one note","stretch one note"],"replyBars":2}
-% improv: {"id":"B","bars":"7-8","role":"whole class","prompt":"Shape the arrival","choices":["crescendo home","decrescendo home","sudden soft home"],"replyBars":2}
-M:4/4
-L:1/4
-Q:1/4=84
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-"C"C D E2 | G2 E2 | !<(!"Am"E D C2 | "C"G4!<)! |
-w: Through the glass, green hills, then the trees, sky!
-"Am"G A G E | "G"D2 E2 | !>(!"C"E G D2 | C4!>)! |]
-w: Watch the win-dow: ev-ery bend, a new view.
 
 X:5
-T:Three-Way Streetlight
-T:Original 3/4 song with a delayed return
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 3 jazz-pop listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 3 jazz-pop listening bridge; students sing an ABA streetlight song, improvise a constrained two-bar answer and choose unison, imitation or held-tone texture for the final A.
-N:Listen: Laila Biali — "Satellite", official video, https://www.youtube.com/watch?v=9R-vLt7gHGs. Listen for how jazz-pop balances a clear song with elastic phrasing, piano conversation, dynamic arcs and room for musicians to answer one another.
-N:Laila Biali is a Canadian singer, pianist, composer and broadcaster whose work moves between contemporary jazz and song-based pop writing.
-N:Original 3/4 C-major melody and words; no melody, lyric, piano voicing, solo or arrangement from "Satellite" is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 3 teacher, jazz educator, second score reader and student singing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-6","role":"solo voice or instrument","prompt":"Answer the three-note question","choices":["same contour","reverse contour","one repeated pitch"],"replyBars":2}
-% improv: {"id":"B","bars":"9-12","role":"second group","prompt":"Choose the texture of the return","choices":["unison","enter two bars late","hum long notes underneath"],"replyBars":4}
-M:3/4
-L:1/8
-Q:3/4=58
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style swing
-"C"C2 DE G2 | "Am"E3 D C2 | "Dm"DE F2 E2 | "G"C4 z2 |
-w: Red light, gold light, green light: go! Three-way street-light, shine.
-"Am"E2 FG A2 | "Dm"G3 A G2 | !<(!"G"A2 B2 c2 | !>)!G4 z2 |
-w: Sing me a song, sing it back, chang-ing one note.
-"C"C2 DE G2 | "Am"E3 D C2 | "Dm"DE F2 E2 | "C"C6 |]
-w: Red light, gold light, green light: go! Three-way street-light, glow.
 
 X:6
-T:Screenlight
-T:Lumière d'écran — original major/minor electro-pop bridge
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 4 Francophone electro-pop listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 4 Francophone electro/dream-pop listening bridge; students sing a syncopated ABBA song, compare parallel major and minor colour, and select the final texture in real time.
-N:Listen: Claudia Bouvette — "Amour écran" (Bonsound, 2026), official visualizer; a love song, so preview it, https://www.youtube.com/watch?v=N6lD52RQbJI. Hear how airy synthesizer timbres, an insistent electronic pulse and an 1980s-coloured major/minor haze can support intimate French-language pop writing.
-N:Claudia Bouvette is a Montréal singer-songwriter; she wrote "Amour écran" with her creative partner Soran, and Bonsound released it in August 2026.
-N:Original French words, melody and C major/C minor contrast; no words, melodic cell, synth sound, bass line or chord progression from "Amour écran" is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 4 teacher, Francophone language reviewer, Francophone Canadian music educator, second score reader and student trial); its workshop record is kept for correction. The French words were rewritten on 12 November 2026 to fit the notes (one syllable to a note, sung mute e's counted) and want a Francophone reader.
-% improv: {"id":"A","bars":"5-8","role":"synth or barred-instrument player","prompt":"Choose the B-section colour","choices":["bright major third","shadowed minor third","alternate each bar"],"replyBars":4}
-% improv: {"id":"B","bars":"13-16","role":"whole class","prompt":"Choose the final texture","choices":["melody alone","add two-note ostinato","fade to whispered rhythm"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=100
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style pop
-"C"E2 EE G2 A2 | "Am"G2 E3 D C2 | "F"E/2F/2 G2 A2 G E2 | "G"D4 z4 |
-w: Dans la nuit, l'é-cran s'al-lu-me~en bleu; ré-ponds-moi, quel-le cou-leur?
-[K:Cm]"Cm"_E2 _E_E G2 _A2 | "Ab"G2 _E3 D C2 | "Fm"_E/2F/2 G2 _A2 G _E2 | "G"D4 z4 |
-w: Dans l'om-bre, ma voix ré-pond tout bas; nous re-trou-vons la cou-leur.
-"Cm"_E2 G2 _A2 G2 | "Ab"G2 _E3 D C2 | "Fm"F/2G/2 _A2 G2 _E D2 | "G"G4 z4 |
-w: Lu-mière ou nuit, à toi, choi-sis; puis on é-cou-te ta voix.
-[K:C]"C"E2 EE G2 A2 | "Am"G2 E3 D C2 | "G"DE G2 E2 D2 | "C"!fermata!C8 |]
-w: Dans la nuit, l'é-cran s'al-lu-me~en bleu; voi-là no-tre cou-leur.
 
 X:7
-T:Blue Room Answer
-T:Original 6/8 song about leaving space
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 5 alternative-R&B listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 5 alternative-R&B listening bridge; students sing a 6/8 verse, answer a two-bar question with sound or silence, then choose one of three lower-part roles for the refrain.
-N:Listen: Charlotte Day Wilson — "Work" (2016), official video, https://www.youtube.com/watch?v=0z-HsbovI4E. Listen for a restrained pocket, close vocal timbre, repeated words and the expressive weight created when accompaniment leaves space.
-N:Charlotte Day Wilson is a Toronto singer, songwriter, producer and multi-instrumentalist working across alternative R&B and soul.
-N:Original D-minor melody, English words, lower part and i-V accompaniment; no lyric, melody, harmony, bass figure, vocal inflection or arrangement from "Work" is reproduced.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 5 teacher, Black Canadian/R&B music educator, second score reader and student singing trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-6","role":"solo singer or instrument","prompt":"Answer the held question","choices":["three even notes","one bent or slid note","leave the space empty"],"replyBars":2}
-% improv: {"id":"B","bars":"9-12","role":"lower-part group","prompt":"Choose how close the refrain feels","choices":["sing thirds below","hold one home note","enter only on the last line"],"replyBars":4}
-M:6/8
-L:1/8
-Q:3/8=56
-K:Dm
-%%style ballad
-V:1 name="Melody" sname="1"
-V:2 name="Choice part" sname="2"
-[V:1] "Dm"DFA AFD | "A"E2 C ^C3 | "Dm"DFA cAF | "A"E2 C ^C3 |
-w: Hold the room o-pen and lis-ten close; leave me a win-dow where an-swers grow.
-[V:1] "Dm"F2-F FED | "A"A3 z3 | "Dm"DEF AFE | "A"^C3 z3 |
-w: Now, _ what do you hear? Send it back, or leave it still.
-[V:1] "Dm"A2 A F2 E | "A"^C2 E A3 | "Dm"F2 F E2 D | "Dm"D6 |]
-w: Wait, then an-swer, soft and low; two lines meet in blue.
-[V:2] z6 | z6 | z6 | z6 | z6 | z6 | z6 | z6 |
-[V:2] F2 F D2 C | E2 C ^C3 | D2 D C2 A, | A,6 |]
-w: Wait, then an-swer, soft and low; two lines meet in blue.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:8
-T:Room for the Verse
-T:Original pickup-and-triplet cypher bridge
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 6 alternative-hip-hop listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 6 alternative-hip-hop cypher bridge; the class maintains a four-bar ostinato, pairs write and perform a two-bar answer under clear content rules, and a conductor chooses the final drop and return.
-N:Listen: Dream Warriors — "Wash Your Face in My Sink" (1990), from And Now the Legacy Begins, official video; its album words are clean, but the video runs 30 seconds longer than the album version, so watch it once first, https://www.youtube.com/watch?v=l2JVqAk-zVU. Listen for how a rapper controls conversational timing, rhyme placement, space and changes of vocal register over a repeating beat.
-N:Dream Warriors (King Lou and Capital Q) are a Toronto duo who pioneered jazz rap in Canada and the UK, and CBC Music counts them among the songs that tell the story of Canadian hip-hop. The song keeps "false friends" and copycat rappers out of your space through a bathroom-sink metaphor, in dense internal rhymes. It replaces the first choice, TOBi's "Just Us In The Room" (2026), whose words are sensual; every recent Canadian rap track checked had words unfit for Grade 6.
-N:Original classroom-safe words, D-minor hook and chord loop; no flow, lyric, beat, sample or melody from the Dream Warriors' recording is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 6 teacher, hip-hop educator, second score reader, privacy/accessibility reviewer and student cypher trial); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-8","role":"solo or pair","prompt":"Complete the two-bar thought","choices":["straight eighth flow","triplet flow","speak only on beats 2 and 4"],"replyBars":4}
-% improv: {"id":"B","bars":"13-16","role":"producer/conductor","prompt":"Choose the hook arrangement","choices":["all layers in","voice and bass only","drop one bar then return"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=88
-K:Dm
-%%style funk
-z D | "Dm"F2 F A2 G F2 | "Gm"G2 GA z2 G2 | "A"A2 ^C2 E2 ^C2 | "Dm"D6 z D |
-w: Make room, make room for a verse and the beat; lis-ten first, then speak. So
-"Dm"DD FF A2 z2 | "Gm"(3GAG (3FGA G2 z2 | "A"z2 ^CE A2 G2 | "Dm"F2 E2 D4 |
-w: start with a straight line, now it rolls in a tri-plet, leave a gap, and bring it home.
-"Dm"F2 F A2 G F2 | "Gm"G2 GA z2 G2 | "A"A2 ^C2 E2 ^C2 | "Dm"D6 z2 |
-w: Room, make room for a verse and the beat; lis-ten first, then speak.
-"Dm"F2 F A2 G F2 | "Gm"G2 GA z2 G2 | "A"A2 ^C2 E2 ^C2 | "Dm"D8 |]
-w: Choose what stays, what drops; one bar to breathe, then we all come back.
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
 
 X:9
 T:Withheld
-% Kept off the public site until a teacher has finished and reviewed it; the piece is in the workshop branch (course/README.md).
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
 
 X:10
-T:Many Hands, One Sky
-T:Original changing-metre collective arranging song
-C:Grand Central Stationery (AI-assisted original, CC0)
-O:Course original (no cultural attribution)
-R:Grade 8 orchestral indie-rock listening bridge
-S:Grand Central Stationery, CBC Modern Canadian Bridges (original course composition, 11 November 2026), CC0 1.0
-N:Original Grade 8 orchestral/collective indie-rock arranging bridge; students distribute melody, chords, pedal and counterline across available voices and instruments, then justify a live texture plan for the final four bars.
-N:Listen: Broken Social Scene — "Anthems for a Seventeen Year-Old Girl", from You Forgot It in People (2002), official video, https://www.youtube.com/watch?v=wLaDksDOcE4. Hear how a Canadian indie-rock collective builds emotional scale through repetition, accumulating instruments, changing timbres and multiple musicians sharing an arrangement.
-N:Broken Social Scene is a Toronto musical collective. The reference credits multiple writers and its arrangement is known for a repeated vocal idea surrounded by gradually expanding banjo, strings and band texture.
-N:Original D-mixolydian melody, lyric, counterline, metre changes and D-C-G harmony; no words, melody, banjo figure, string line, form or production detail from the reference is used.
-N:Published early: an AI-assisted original written for this course and released CC0, not traditional and not by any artist named above. Not yet tried with a class or read by its reviewers (Grade 8 teacher, indie-rock/recording educator, second score reader, student arranging group and copyright reviewer); its workshop record is kept for correction.
-% improv: {"id":"A","bars":"5-8","role":"ensemble","prompt":"Choose the homophonic colour","choices":["voices plus chords","instruments only","one voice with pedal tone"],"replyBars":4}
-% improv: {"id":"B","bars":"13-16","role":"arranger/conductor","prompt":"Choose how the collective arrives","choices":["add one layer each bar","swap foreground and background","remove layers to one final voice"],"replyBars":4}
-M:4/4
-L:1/8
-Q:1/4=96
-K:DMix
-%%style pop
-V:1 name="Melody" sname="M"
-V:2 name="Counterline" sname="C"
-[V:1] "D"D2 E2 F2 A2 | "C"G2 E2 D4 | "G"G2 A2 B2 A2 | [M:3/4]"D"F2 E2 D2 |
-w: One small line, one o-pen sky; pass it on and hear it fly.
-[V:1] [M:4/4]"D"A2 A F2 E D2 | "C"G2 G E2 D C2 | "G"B2 A2 G2 E2 | [M:3/4]"D"F2 E2 D2 |
-w: Ma-ny hands can shape ev-ery bit of sound; choose who leads and who comes round.
-[V:1] [M:4/4]"D"DE F2 A2 F2 | "C"EF G2 E2 D2 | "G"GA B2 A2 G2 | [M:3/4]"D"F2 E2 D2 |
-w: Lis-ten, a new line starts to move a-way; high voice and low voice, side by side.
-[V:1] [M:4/4]"D"A2 F2 E2 D2 | "C"G2 E2 D2 C2 | "G"B2 A2 G2 E2 | [M:3/4]"D"D6 |]
-w: Build it, trade it, let it go, then ma-ny hands, one sky.
-[V:2] [M:4/4]z8 | z8 | z8 | [M:3/4]z6 |
-[V:2] [M:4/4]z8 | z8 | z8 | [M:3/4]z6 |
-[V:2] [M:4/4]A,2 D2 E2 F2 | G2 E2 C4 | D2 E2 G2 E2 | [M:3/4]A,2 C2 D2 |
-[V:2] [M:4/4]F2 E2 D4 | E2 G2 E2 D2 | D2 E2 G2 A2 | [M:3/4]D6 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C

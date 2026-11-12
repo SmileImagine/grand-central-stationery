@@ -3,38 +3,6 @@
 % and its workshop record (or review item) is kept for further correction.
 
 X:1
-T:Zdravets
-T:Geranium (Здравец)
-C:traditional (Bulgaria)
-O:Bulgaria
-R:horo song
-S:Vasil Stoin, Narodna pesnopoyka (Sofia, 1930), No. 102 "Zdravets", p. 98
-N:A Bulgarian horo song, sung while dancing the horo, the line dance of village festivities: two groups of singers, one at each end of the line, answer each other line by line. A question and its answer: "Little geranium, little wreath, do the girls pick you?" and the geranium tells how the girls pick it on St George's Day (6 May), weave it into wreaths and crown the lambs. Zdravets carries the word for health (zdrave) and is given for health at feasts. Count 9/16 as 2+2+2+3, quick-quick-quick-slow ("1 2 3 4-a"), and step a simple horo to it. Guessed: the second note of bar 3 in each line (read c; it could be B). Words in modern Bulgarian spelling (Stoin prints the pre-1945 spelling); transliteration and translation below are ours. Stoin marks it "fast"; the tempo, the tapan pattern and the held drone are ours.
-Q:3/16=130
-M:9/16
-L:1/16
-K:APhr
-%%style folk
-%%band drums: bd ~ rim ~ rim ~ rim ~ ~
-%%band bass: r _ _ _ _ _ _ _ _
-%%band chords: ~
-c2 c2 d2 c3 | A2 B2 c2 c3 | (B2 c2) (A2 c3) |
-w: Здрав-че, вен-че, бе-рат ли те мо _ ми _
-w: Та ме-не ли мо-ми да не бе _ рат? _
-w: Ка-то дой-де на ден на Гер-гьов _ ден, _
-w: та ме бе-рат във но-ви це-ди _ ла, _
-w: та ме ви-ят на зе-ле-ни вен _ ци _
-B2 G2 A2 F3 | A2 B2 c2 c3 | (B2 c2) (A2 A2) z |]
-w: здрав-че, вен-че, бе-рат ли те мо _ ми? _
-w: Ка-то цъф-тя, все го-ра ми-ри _ ше. _
-w: те си дой-дат ху-ба-ви де-вой _ ки, _
-w: та ме но-сят на бър-зи по-то _ ци, _
-w: и ме ту-рят на вак-ли а-гън _ ца. _
-W:Transliterated (two lines to each time through the tune):
-W:Zdravche, venche, berat li te momi? / Zdravche, venche, berat li te momi?
-W:Ta mene li momi da ne berat? / Kato tsaftya, vse gora mirishe.
-W:Kato doyde na den na Gergyovden, / te si doydat hubavi devoyki,
-W:ta me berat vav novi tsedila, / ta me nosyat na barzi pototsi,
-W:ta me viyat na zeleni ventsi / i me turyat na vakli agantsa.
-W:
-W:In English: "Little geranium, little wreath, do the girls pick you?" "How could the girls not pick me? When I bloom the whole forest smells sweet. When St George's Day comes, the pretty girls come; they pick me into new cloths, carry me to swift streams, weave me into green wreaths and put me on the dark-eyed lambs."
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C

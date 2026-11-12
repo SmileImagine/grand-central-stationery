@@ -3,27 +3,6 @@
 % and its workshop record (or review item) is kept for further correction.
 
 X:1
-T:Usagi to Kame (兎と亀)
-T:The Rabbit and the Turtle
-C:Benjirō Nōsho (music); Wasaburō Ishihara (Japanese words); Grace Hazard Conkling (1922 English version)
-O:Japan
-R:children's song (school song)
-S:Florence Hudson Botsford (ed.), Folk Songs of Many Peoples, vol. 2 (New York: The Woman's Press, 1922), "The Rabbit and the Turtle," pp. 442-443, English version by Grace Hazard Conkling; University of Rochester Sibley Music Library, public domain
-N:A Japanese school song of 1901, not a folk song: music by Benjirō Nōsho and words by Wasaburō Ishihara, written for young children in the Meiji school-song movement. The fable of the hare and the tortoise as a dialogue: here the rabbit teases the slow turtle and challenges it to a race. Sing it in Grace Hazard Conkling's English version (1922); let one group be the rabbit and the class answer as the turtle, boastful against patient.
-N:The Japanese words are printed in the source but are not yet set to the notes here; a Japanese speaker should set them. The book marks Allegro; the tempo is ours. Voice and a steady walking pulse; no koto, shamisen or taiko.
-M:2/4
-L:1/16
-Q:1/4=104
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
 K:C
-%%style folk
-%%band drums: ~
-%%band bass: ~
-%%band chords: ~
-G3 E G3 E | E3 D D4 | D3 C D3 E | G8 |
-w: Tur- tle, tur- tle, on your way, Why are you so slow?
-G3 G E3 G | A3 G E4 | D3 D G3 E | C8 |
-w: No one else in all the world Takes so long to go!
-G3 G G3 G | A3 G G4 | c3 d c3 B | G8 |
-w: To the foot of yon- der hill Run a race with me;
-A4 c3 B | G3 G E4 | G3 E C3 E | C8 |]
-w: Then who's the bet- ter man May- be we shall see!

@@ -3,21 +3,6 @@
 % and its workshop record (or review item) is kept for further correction.
 
 X:1
-T:Ba ban (八板)
-T:Eight Beats: China's best-known instrumental tune
-C:traditional (China)
-O:China
-R:instrumental air
-S:Mary Martin Richard, Paper on Chinese Music (Shanghai, 1899), Appendix D, "Popular Airs", No. 20 "Ba Ban", p. 33
-N:Mary Richard (1899) calls Ba ban the tune known to more people in China than any other; it is the "mother tune" of a whole family, Lao ba ban in the north and Lao liu ban and its slow variations in Jiangnan silk-and-bamboo (sizhu) music. An ensemble plays it in heterophony: everyone plays the same tune, each instrument filling it out in its own way ("adding flowers"), never in chords. Learn the plain line on recorders in its three sections, then let some players add notes between the beats while others keep it plain.
-N:Richard's version is longer than the usual 68-beat Ba ban (82 beats here) and is printed as she heard it. Guessed: a short broken line in the last section read as the barline between bars 39 and 40. The wood block on each downbeat stands in for the ban clapper; the tempo is ours, and so is the band's second line, the tune again on the pipa (on guitar samples), adding a few notes of its own.
-M:2/4
-L:1/4
-Q:1/4=88
-K:F
-%%style sizhu
-%%band drums: wb ~
-"^1" A A | D G | F2 | C D | F2 | D F | F A | G2 |
-A A | D G | F2 | C D | F2 | A G | F D | C2 ||
-"^2" c c | A A | c d | c A | G2 | A G | F2 | D F | G2 | A G | G A | c2 ||
-"^3" c d | f2 | d f | f d | c2 | c d | c A | G2 | G c | c G | A c | A G | F2 |]
+T:Withheld
+% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+K:C
