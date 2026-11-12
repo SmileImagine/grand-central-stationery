@@ -46,9 +46,9 @@ K:G
 %%style pop
 V:1 name="Voices" sname="V"
 V:2 name="Claps" sname="C" clef=perc stafflines=1
-[V:1] !mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 c B !accent!d2 c B | c B2 A G4 |
+[V:1] !mf!G2 B2 d B2 A | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | c B2 A G4 |
 w: Lis-ten: a sig-nal is call-ing. Here we are, here we are, to-geth-er now!
 [V:2] B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 |
-[V:1] !mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 c B !accent!d2 c B | B A2 B G4 |]
+[V:1] !mf!G2 B2 d e2 d | B A2 G z4 | !f!!accent!d2 cB !accent!d2 cB | B A2 B G4 |]
 w: An-swer the sig-nal with sing-ing. Here we are, here we are, we're stand-ing strong!
 [V:2] B B2 B z2 B2 | B B2 B z2 B2 | B B2 B z2 B2 | B B2 B !accent!B2 z2 |]

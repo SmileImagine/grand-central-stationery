@@ -46,7 +46,7 @@ K:Fm
 %%style lofi
 V:1 name="Keys melody" sname="Keys"
 V:2 name="Bass" sname="Bass" clef=bass
-[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B3 F D2 | "Db"z2 F3 A d2 | "Cm"c2 B G E2 G2 |
-[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B2 c d B2 | "Db"z F A d "Cm"c2 B G | "Fm"A2 G2 F4 |]
+[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B3 F D2 | "Db"z2 F3 A d2 | "Cm"c2 BG E2 G2 |
+[V:1] "Fm"z2 c3 A F2 | "Bbm"z2 B2 cd B2 | "Db"z F Ad "Cm"c2 BG | "Fm"A2 G2 F4 |]
 [V:2] F,2 z F, z2 C,2 | B,,2 z B,, z2 F,2 | D,2 z D, z2 A,,2 | C,2 z C, z2 G,,2 |
 [V:2] z8 | z8 | D,2 z D, C,2 z G,, | F,2 z F, F,2 z2 |]

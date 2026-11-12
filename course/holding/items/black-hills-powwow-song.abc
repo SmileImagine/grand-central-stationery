@@ -35,7 +35,7 @@ K:F
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~
-"^lead" =b c' =b2 a2 g a2 _b a c a3 z6 |
-"^seconds" ^f2 =b _e =e3 f4- f |
-"^lead" {g^f=b}^f/ =e/ =B3/ g d2 g/ a/ f a _B _A2 z8 |
+"^lead"=bc' =b2 a2 g a2 _b ac a3 z6 |
+"^seconds" ^f2 =b_e =e3 f4- f |
+"^lead"{g^f=b}^f/=e/ =B3/ g d2 g/ a/f a _B _A2 z8 |
 ^f4 |]

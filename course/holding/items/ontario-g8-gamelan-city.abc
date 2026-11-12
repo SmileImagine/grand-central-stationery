@@ -47,6 +47,6 @@ K:C
 V:1 name="Line A" sname="A"
 V:2 name="Line B" sname="B"
 [V:1] C2 D2 E2 G2 | A2 G2 E4 | C z D z E z G z | A z G z E4 |
-[V:1] z E z D z E z G | z A z G D4 | C2 D2 E2 G2 | A G E D C4 |]
+[V:1] z E z D z E z G | z A z G D4 | C2 D2 E2 G2 | AG ED C4 |]
 [V:2] z8 | z8 | z E z G z A z c | z c z A E4 |
 [V:2] G z A z c z A z | G z E z D4 | z8 | z4 c4 |]

@@ -76,11 +76,11 @@ M:2/4
 L:1/8
 K:G
 %%style folk
-!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G) (G/2A/2 |
+!mf!(G/2A/2 | B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G)(G/2A/2 |
 w: I come from A-la-ba-ma with a ban-jo on my knee, I'm go-ing to Lou-i-si-a-na, my true love for to see. It rained
 B2 dd | d>e dB | G>A BB | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |
 w: all night the day I left, the wea-ther it was dry; the sun so hot I froze to death, Su-san-na, don't you cry. _
-!f!(c2 c2 | e e2 e | d d B G | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]
+!f!(c2 c2 | e e2 e | dd BG | A3) (G/2A/2 | B2 dd | d>e dB | G>A BB | A2 G2) |]
 w: Oh! Su-san-na, oh, don't you cry for me, for I come from A-la-ba-ma with a ban-jo on my knee.
 
 X:8
@@ -95,7 +95,7 @@ M:6/8
 L:1/8
 K:Em
 %%style ballad
-E | G2 A B>c B | A2 F D>E F | G2 E E>^D E | F2 ^D B,2 E | G2 A B>c B | A2 F D>E F | G>F E ^D>^C ^D | E3 E2 |]
+E | G2 A B>cB | A2 F D>EF | G2 E E>^DE | F2 ^D B,2 E | G2 A B>cB | A2 F D>EF | G>FE ^D>^C^D | E3 E2 |]
 
 X:9
 T:Scarborough Fair
@@ -130,4 +130,4 @@ C:Scott Joplin
 M:2/4
 L:1/16
 K:C
-d e c2 e2 c2 | e2 c6 | c d ^d e2 c d2 | e4 B2 d2 | c6 z2 |]
+dec2 e2c2 | e2 c6 | cd^d e2 cd2 | e4 B2d2 | c6 z2 |]

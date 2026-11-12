@@ -17,13 +17,13 @@ Q:1/4=72
 K:Dm
 %%style minyo
 %%band energy=20 detail=20
-"A5"d2 d2 e4 | d2 d2 e4 | d2 e2 f2 e2 | d2 e d B4 |
+"A5"d2 d2 e4 | d2 d2 e4 | d2 e2 f2 e2 | d2 ed B4 |
 w: Sa-ku-ra! Sa-ku-ra! Ya-yo-i no so-ra_ wa
-A2 F2 A2 B2 | A2 A F E4 | d2 e2 f2 e2 | d2 e d B4 |
+A2 F2 A2 B2 | A2 AF E4 | d2 e2 f2 e2 | d2 ed B4 |
 w: Mi-wa-ta-su ka-gi_ ri, ka-su-mi ka ku-mo_ ka,
-A2 F2 A2 B2 | A2 A F E4 | d2 d2 e4 | d2 d2 e4 |
+A2 F2 A2 B2 | A2 AF E4 | d2 d2 e4 | d2 d2 e4 |
 w: Ni-o-i zo i-zu_ ru. I-za-ya! I-za-ya!
-G2 A2 B4 | e d B2 A4 |]
+G2 A2 B4 | ed B2 A4 |]
 w: Mi ni yu-kan!___
 
 X:2
@@ -39,7 +39,7 @@ M:2/4
 L:1/8
 K:C
 %%style minyo
-|: "G5"C2 D D | C D C D | E2 G G | E G E G |
-A G A A | A2 z2 | c c A G | c c d2 |
-e e d e | c d/ c/ d c | A c A G | F G A A |
-G A G E | D G E E | D C A, G, :|
+|: "G5"C2 DD | CD CD | E2 GG | EG EG |
+AG AA | A2 z2 | cc AG | cc d2 |
+ee de | cd/c/ dc | Ac AG | FG AA |
+GA GE | DG EE | DC A,G, :|

@@ -36,12 +36,12 @@ K:A
 %%band drums: ~
 %%band bass: ~
 %%band chords: ~
-"^Intro" z f2 a2 [fa]2 [ac'] | z [cf]2 [fa]3 c'2 | g [fb'] [eg]2 [fab'] b' a2 | [fa]2 [cb']2 [ab'] b' a2 |
-[ab']2 [cb']2 [fa]2 c'2 | [gb] [fa] [eg]2 [fab'] f2 [fa] | [M:7/8] a2 c2 f b' c |
-[M:4/4] "^A" [fb']2 a2 b c' c'2 | c'2 e'2 c'2 c'2 | b c' e' e' g2 c' c' | c'2 a2 b2 b2 |
-a b c' b a2 b2 | b c' f2 a2 a2 | [fb'] b' a2 e2 a2 | "^link" [ab'] [ab'] b' b' b' [ab'] [fa] b' | [M:9/8] [fa] b' [ab']2 c2 f2 c |
-[M:4/4] "^A" z [fb']2 a b c' c'2 | c'2 e'2 c'2 c'2 | b c' e' e' g2 c' c' | c'2 a2 b2 b2 |
-a b c' b a b3 | z c' f2 a a2 [fb'] | z [fb'] a2 e2 f2 |
-"^B" f2 f2 b' f e'2 | z2 f2 d'2 [e'f']2 | f'2 f'2 f' f' f'2 | c'4 c'2 e'2 |
-e' e'2 e' e'4 | c'2 e'2 e'2 e'2 | e' f'2 c' e'2 e'2 | f'2 e'2 f' e' c' c' |
-c' c' c'2 c' c' c' c' | z d'2 g [ad'] [d'e']2 e' | z e' e' e' e' e'3 |]
+"^Intro" z f2 a2 [fa]2 [ac'] | z [cf]2 [fa]3 c'2 | g[fb'] [eg]2 [fab']b' a2 | [fa]2 [cb']2 [ab']b' a2 |
+[ab']2 [cb']2 [fa]2 c'2 | [gb][fa] [eg]2 [fab'] f2 [fa] | [M:7/8] a2 c2 fb' c |
+[M:4/4] "^A" [fb']2 a2 bc' c'2 | c'2 e'2 c'2 c'2 | bc' e'e' g2 c'c' | c'2 a2 b2 b2 |
+ab c'b a2 b2 | bc' f2 a2 a2 | [fb']b' a2 e2 a2 | "^link"[ab'][ab'] b'b' b'[ab'] [fa]b' | [M:9/8] [fa]b' [ab']2 c2 f2 c |
+[M:4/4] "^A" z [fb']2 a bc' c'2 | c'2 e'2 c'2 c'2 | bc' e'e' g2 c'c' | c'2 a2 b2 b2 |
+ab c'b a b3 | z c' f2 a a2 [fb'] | z [fb'] a2 e2 f2 |
+"^B" f2 f2 b'f e'2 | z2 f2 d'2 [e'f']2 | f'2 f'2 f'f' f'2 | c'4 c'2 e'2 |
+e' e'2 e' e'4 | c'2 e'2 e'2 e'2 | e' f'2 c' e'2 e'2 | f'2 e'2 f'e' c'c' |
+c'c' c'2 c'c' c'c' | z d'2 g [ad'] [d'e']2 e' | z e' e'e' e' e'3 |]

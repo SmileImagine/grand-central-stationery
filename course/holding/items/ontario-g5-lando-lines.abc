@@ -46,9 +46,9 @@ K:Am
 %%style ballad
 V:1 name="Melody" sname="1"
 V:2 name="Lower part" sname="2"
-[V:1] "Am"E A B c B A | c2 B A2 z | A B c e d c | "E"B3 z3 |
+[V:1] "Am"EAB cBA | c2 B A2 z | ABc edc | "E"B3 z3 |
 w: Sing me a line and I'll sing it back, pass it a-long to the shore;
-[V:1] "Am"e2 d c B A | "E"^G A B e2 z | "Am"c2 A "E"B ^G E | "Am"A3 z3 |
+[V:1] "Am"e2 d cBA | "E"^GAB e2 z | "Am"c2 A "E"B^GE | "Am"A3 z3 |
 w: ev-'ry voice adds a step to the track, now there's room for one more.
 [V:1] "Am"e2 e d2 c | "E"B2 c B3 | "Am"c2 c B2 A | "E"^G2 B "Am"A3 |
 w: Draw the line and draw it long, let the wa-ter take the song;

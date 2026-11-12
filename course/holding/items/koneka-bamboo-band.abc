@@ -38,7 +38,7 @@ K:D
 %%band chords: ~
 V:1 name="Pipes" sname="Pipes"
 V:2 name="Low pipes" sname="Bass" clef=bass
-[V:1] "^call" A d d | B B c c A A | d d B B c c |
+[V:1] "^call"Add | BBc cAA | ddB Bcc |
 [V:1] "^band" "D" [DFA] [DFA]2 [DFA] [DFA]2 | [DFA] [DFA]2 "G" [GBd] [GBd]2 | "Bm" [DFB] [DFB]2 "A" [EAc] [EAc]2 | "D" [DFA] [DFA]2 "G" [GBd] [GBd]2 | "Bm" [DFB] [DFB]2 "A" [EAc] [EAc]2 |
 [V:1] "D" [DFA] [DFA]2 [DFA] [DFA]2 | [DFA] [DFA]2 "G" [GBd] [GBd]2 | "Bm" [DFB] [DFB]2 "A" [EAc] [EAc]2 | "D" [DFA] [DFA]2 "G" [GBd] [GBd]2 | "Bm" [DFB] [DFB]2 "A" [EAc] [EAc]2 | "D" [DFA] [DFA]2 [DFA] [DFA]2 | [DFA]6 |]
 [V:2] z3 | z6 | z6 |

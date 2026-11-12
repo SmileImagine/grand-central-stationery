@@ -38,7 +38,7 @@ L:1/8
 Q:1/4=80
 K:F
 %%style drone
-B, |: C3/2 B,/2 C2 C D | E/F/E/D/ E3 D/E/ | D B, C2 D E | (3D/E/D/ C B, A, B, :|
-|: C3/2 B,/2 C C C E | (3D/E/D/ C3 C B, | C2 E D !tenuto!E2 | D B, C C D E | (3D/E/D/ C B, A, B, |
-C3/2 C/2 B, C D E | (3D/E/D/ C3 B, C | C2 B, C D !tenuto!E | D B, C C D E | C D C B, A, B, |
-C3/2 B,/2 C C D E | (3D/E/D/ C3 D E | D E C2 B, C | D B, C C D E | C D C B, A, B, :|
+B, |: C3/2 B,/2 C2 CD | E/F/E/D/ E3 D/E/ | DB, C2 DE | (3D/E/D/ C B, A, B, :|
+|: C3/2 B,/2 CC CE | (3D/E/D/ C3 C B, | C2 ED !tenuto!E2 | DB, CC DE | (3D/E/D/ C B, A, B, |
+C3/2 C/2 B,C DE | (3D/E/D/ C3 B, C | C2 B,C D!tenuto!E | DB, CC DE | CD CB, A,B, |
+C3/2 B,/2 CC DE | (3D/E/D/ C3 D E | DE C2 B,C | DB, CC DE | CD CB, A,B, :|

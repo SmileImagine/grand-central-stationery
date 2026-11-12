@@ -46,9 +46,9 @@ K:Em
 %%style ballad
 V:1 name="Theme" sname="Theme"
 V:2 name="Second line" sname="2nd"
-[V:1] E2 B3 A G2 | A G F E F4 | E2 c3 B A2 | A G F A B4 |
-[V:1] "G"G2 d3 c B2 | "Am"c B A G A4 | "C"G2 e3 d c2 | "D"d c B c d4 |
-[V:1] "Em"B2 e3 d B2 | "Am"c B c e "C"d c B A | "Am"A c B A "B7"B2 ^d2 | "E"e8 |]
+[V:1] E2 B3 A G2 | AG FE F4 | E2 c3 B A2 | AG FA B4 |
+[V:1] "G"G2 d3 c B2 | "Am"cB AG A4 | "C"G2 e3 d c2 | "D"dc Bc d4 |
+[V:1] "Em"B2 e3 d B2 | "Am"cB ce "C"dc BA | "Am"Ac BA "B7"B2 ^d2 | "E"e8 |]
 [V:2] z8 | z8 | z8 | z8 |
-[V:2] D2 B3 A G2 | A G F E C4 | E2 c3 B G2 | F A G A F4 |
+[V:2] D2 B3 A G2 | AG FE C4 | E2 c3 B G2 | FA GA F4 |
 [V:2] E4 G4 | A4 G4 | E4 F4 | ^G8 |]

@@ -46,7 +46,7 @@ K:Ddor
 %%style folk
 V:1 name="Voice" sname="Voice"
 V:2 name="Guitar" sname="Gtr" clef=bass
-[V:1] z8 | z8 | d3 c A4 | B2 c B G4 |
-[V:1] A2 c d e2 d2 | z8 | B2 A G F2 E2 | D8 |]
-[V:2] D,2 F, A,3 G, F, | D,2 G, B,3 A, G, | D,2 F, A,3 G, F, | D,2 G, B,3 A, G, |
-[V:2] D,8 | A,2 C D3 C A, | [G,D]2 [F,C] [E,B,] [D,A,]2 [C,G,]2 | [D,A,]8 |]
+[V:1] z8 | z8 | d3 c A4 | B2 cB G4 |
+[V:1] A2 cd e2 d2 | z8 | B2 AG F2 E2 | D8 |]
+[V:2] D,2 F, A,3 G,F, | D,2 G, B,3 A,G, | D,2 F, A,3 G,F, | D,2 G, B,3 A,G, |
+[V:2] D,8 | A,2 C D3 CA, | [G,D]2 [F,C][E,B,] [D,A,]2 [C,G,]2 | [D,A,]8 |]

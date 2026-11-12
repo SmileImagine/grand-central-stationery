@@ -46,11 +46,11 @@ K:Am
 %%style pop
 V:1 name="Melody" sname="1"
 V:2 name="Ostinato" sname="2"
-[V:1] "Am"E2 A B c2 e4 | "Dm"d2 c A F2 z3 E | "E"E2 ^G2 B2 e2 B2 | "Am"e2 c B A2 z4 |
+[V:1] "Am"E2 AB c2 e4 | "Dm"d2 cA F2 z3 E | "E"E2 ^G2 B2 e2 B2 | "Am"e2 cB A2 z4 |
 w: Three on the top floor, two by the door, and one, two, three, four, five, lights in the night.
-[V:1] "Dm"(3DFA d2 z2 (3DFA c2 | "Am"(3EAc e2 d c A4 | "Dm"(3DFA d2 c A "E"B4 | ^G2 A B E2 z4 |
+[V:1] "Dm"(3DFA d2 z2 (3DFA c2 | "Am"(3EAc e2 d c A4 | "Dm"(3DFA d2 c A "E"B4 | ^G2 AB E2 z4 |
 w: some-one's a-sleep, some-one's a-wake, some-one is play-ing a tune, five of them shin-ing a light out on the street.
-[V:1] "Am"E2 A B c2 e4 | "Dm"d2 c A F2 z3 E | "E"E2 ^G2 B2 e2 B2 | e2 d2 B2 "Am"A4 |]
+[V:1] "Am"E2 AB c2 e4 | "Dm"d2 cA F2 z3 E | "E"E2 ^G2 B2 e2 B2 | e2 d2 B2 "Am"A4 |]
 w: Three on the top floor, two by the door, and one, two, three, four, five, all say good-night.
 [V:2] A,2 E2 E2 A,2 E2 | D2 A2 A2 D2 A2 | E2 B2 B2 E2 B2 | A,2 E2 E2 A,2 E2 |
 [V:2] D2 A2 A2 D2 A2 | A,2 E2 E2 A,2 E2 | D2 A2 A2 E2 B2 | E2 B2 B2 E2 B2 |

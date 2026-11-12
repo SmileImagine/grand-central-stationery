@@ -44,6 +44,6 @@ L:1/8
 Q:1/4=96
 K:C
 %%style swing
-"C7"!marcato!G2 _B G c _B G _E | "C7"F ^F G6 | "C7"z8 | "C7"z8 |
-"F7"!marcato!c2 _e c A c A F | "F7"_A =A c6 | "C7"z8 | "C7"z8 |
-"G7"!marcato!d2 d B G2 F D | "F7"_E F _A F c2 =A F | "C7"_E =E G c _B G _E2 | "C7"C6 z2 |]
+"C7"!marcato!G2 _BG c_B G_E | "C7"F^F G6 | "C7"z8 | "C7"z8 |
+"F7"!marcato!c2 _ec Ac AF | "F7"_A=A c6 | "C7"z8 | "C7"z8 |
+"G7"!marcato!d2 dB G2 FD | "F7"_EF _AF c2 =AF | "C7"_E=E Gc _BG _E2 | "C7"C6 z2 |]

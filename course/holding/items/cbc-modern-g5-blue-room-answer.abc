@@ -46,9 +46,9 @@ K:Dm
 %%style ballad
 V:1 name="Melody" sname="1"
 V:2 name="Choice part" sname="2"
-[V:1] "Dm"D F A A F D | "A"E2 C ^C3 | "Dm"D F A c A F | "A"E2 C ^C3 |
+[V:1] "Dm"DFA AFD | "A"E2 C ^C3 | "Dm"DFA cAF | "A"E2 C ^C3 |
 w: Hold the room o-pen, lis-ten be-fore you re-ply; leave me a win-dow, let one new an-swer fly.
-[V:1] "Dm"F2-F F E D | "A"A3 z3 | "Dm"D E F A F E | "A"^C3 z3 |
+[V:1] "Dm"F2-F FED | "A"A3 z3 | "Dm"DEF AFE | "A"^C3 z3 |
 w: What do you hear now? Send it or leave it still. Space is an an-swer; si-lence can shape the will.
 [V:1] "Dm"A2 A F2 E | "A"^C2 E A3 | "Dm"F2 F E2 D | "Dm"D6 |]
 w: Wait, then an-swer; near, then wide; two lines meet on the qui-et side.
