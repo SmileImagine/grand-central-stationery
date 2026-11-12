@@ -352,7 +352,7 @@
         <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${hl(who)}</span>` : ''}${it.ontario ? `<span class="tag grade" title="Ontario curriculum: ${esc(it.ontario.concepts.join('; '))}">grade ${it.ontario.grade}</span>` : ''}${it.kind === 'sketch' ? `<span class="tag status">${esc(it.subtitle || '')}</span>` : ''}</div>
         <div class="actions">${canOpen(it) ? '<button class="open" title="Open this in the main page, ready to play">Open</button>' : ''}<span class="src" title="${esc(it.sourceFull || it.source)}">${hl(it.source)}</span></div>`;
       el.querySelector('.title').addEventListener('click', () => detail(it));
-      const o = el.querySelector('.open'); if (o) o.addEventListener('click', () => open(it));
+      const o = el.querySelector('.open'); if (o) o.addEventListener('click', () => openInPage(it));
       const inc = el.querySelector('.incipit');
       if (inc) { if (it.abc) queueRender(inc, incipit(it.abc, 2)); else fetchSketch(it).then(() => queueRender(inc, incipit(it.abc, 2))); }
       return el;
@@ -389,7 +389,7 @@
         ${text ? `<pre>${esc(text)}</pre>` : ''}
         <div class="row"><div class="left">${canOpen(it) ? '<button class="open primary">Open in the main page</button>' : ''}${text ? '<button class="copy">Copy the text</button>' : ''}${/^https?:/.test(it.sourceFull || '') ? `<a href="${esc(it.sourceFull)}" target="_blank" rel="noopener"><button>Source</button></a>` : ''}</div><button class="close">Close</button></div>`;
       d.querySelector('.close').addEventListener('click', () => d.close());
-      const o = d.querySelector('.open'); if (o) o.addEventListener('click', () => open(it));
+      const o = d.querySelector('.open'); if (o) o.addEventListener('click', () => openInPage(it));
       const c = d.querySelector('.copy'); if (c) c.addEventListener('click', async () => { try { await navigator.clipboard.writeText(text); toast('Copied'); } catch (e) { toast('Could not copy'); } });
       d.showModal();
       if (it.abc && window.ABCJS) { try { ABCJS.renderAbc(d.querySelector('.score'), it.abc, { scale: 0.8, staffwidth: Math.max(300, d.clientWidth - 48), responsive: 'resize', paddingtop: 0, paddingbottom: 0 }); } catch (e) {} }
@@ -405,7 +405,16 @@
       if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
       return new URL('../index.html', location.href).href + '#gcs=' + tag + b64u(payload);
     }
-    async function open(it) { if (it.kind === 'sketch' && !it.abc) await fetchSketch(it); if (!(it.abc || it.body)) return toast('Nothing to open'); window.open(await openLink(it), 'gcs-page'); }
+    // Not named open: a top-level function in a classic script becomes window.open, and the page's own call to
+    // window.open then called this function again with a web address in place of a tune (the Open button did
+    // nothing). The window is claimed during the click, before any await, so no popup blocker stops it.
+    async function openInPage(it) {
+      const w = window.open('about:blank', 'gcs-page');
+      if (it.kind === 'sketch' && !it.abc) await fetchSketch(it);
+      if (!(it.abc || it.body)) { if (w) w.close(); return toast('Nothing to open'); }
+      const url = await openLink(it);
+      if (w && !w.closed) { w.location.href = url; w.focus(); } else location.href = url;
+    }
     async function fetchSketch(it) {
       if (it.abc || it._fetching) return it._fetching;
       return it._fetching = fetch('holding/' + it.file).then(r => r.ok ? r.text() : '').catch(() => '').then(t => t || (embedded().sketches || {})[it.id] || '').then(t => {

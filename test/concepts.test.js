@@ -12,7 +12,8 @@ const P = require('../course/practice.js');
 const C = require('../course/concepts.js');
 
 const root = path.resolve(__dirname, '..');
-const set = JSON.parse(fs.readFileSync(path.join(root, 'course', 'set.json'), 'utf8'));
+const PS = require('./published-set.js')(); if (!PS) require('./published-set.js').skip(__filename.split('/').pop());
+const set = PS.set;
 const data = JSON.parse(fs.readFileSync(path.join(root, 'course', 'concepts.json'), 'utf8'));
 let checks = 0;
 const assert = (ok, message) => { checks++; if (!ok) throw new Error(message); };

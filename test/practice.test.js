@@ -9,7 +9,8 @@ const path = require('path');
 const ABCJS = require('../vendor/abcjs-basic-min.js');
 const Analyze = require('../course/analyze.js');
 const P = require('../course/practice.js');
-const set = require('../course/set.json');
+const PS = require('./published-set.js')(); if (!PS) require('./published-set.js').skip('practice.test.js');
+const set = PS.set;
 
 let checks = 0;
 const assert = (ok, message) => { checks++; if (!ok) throw new Error(message); };

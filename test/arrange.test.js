@@ -38,7 +38,7 @@ const arrangeIn = (abc, style) => {
 
 // node test/arrange.test.js --show folk,jig <tune id>...: print the arrangements instead of checking them.
 if (process.argv[2] === '--show') {
-  const tunes = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8')).tunes;
+  const PS0 = require('./published-set.js')(); const tunes = PS0 ? PS0.set.tunes : [];
   for (const id of process.argv.slice(4)) for (const style of process.argv[3].split(',')) { console.log(`${id} in ${style}`); for (const l of arrangeIn(tunes.find(t => t.id === id).abc, style).lines) console.log('  ' + l); }
   process.exit(0);
 }
@@ -56,7 +56,8 @@ assert(pcs('C6') === '0 4 7 9' && pcs('Am7') === '0 4 7 9', 'C6 and Am7 unchange
 const dor = keyInfoOf(ABCJS.parseOnly('X:1\nK:Ador\nA|]\n')[0].getKeySignature());
 assert(dor.tonic === 9 && dor.scale.slice().sort((a, b) => a - b).join(' ') === '0 2 4 6 7 9 11', 'A Dorian: tonic A, the notes of G major');
 
-const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8')).tunes;
+const PS = require('./published-set.js')(); if (!PS) require('./published-set.js').skip('arrange.test.js');
+const set = PS.set.tunes;
 const tuneAbc = id => { const t = set.find(x => x.id === id); if (!t) throw new Error(`${id} is not in the published set`); return t.abc; };
 const chorded = set.filter(t => /"[A-G]/.test(t.abc));
 

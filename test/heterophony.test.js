@@ -43,7 +43,8 @@ const pcOf = m => ((m % 12) + 12) % 12;
 }
 
 // ---- the part, on published tunes ----
-const set = JSON.parse(fs.readFileSync(path.join(root, 'course/set.json'), 'utf8')).tunes;
+const PS = require('./published-set.js')(); if (!PS) require('./published-set.js').skip('heterophony.test.js');
+const set = PS.set.tunes;
 const lineOf = abc => {
   const tune = ABCJS.parseOnly(abc)[0], f = tune.setUpAudio({});
   const tr = f.tracks.find(t => t.some(e => e.cmd === 'note' && e.startChar !== undefined));
