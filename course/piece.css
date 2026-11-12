@@ -18,7 +18,12 @@ html.piece-route body.pb-folded .pb-inst, html.piece-route body.pb-folded .pb-sh
 html.piece-route body.pb-folded .pb-top { flex-wrap: nowrap; }
 
 .piecebar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; background: var(--bg); color: var(--ink); border-bottom: 1px solid var(--line);
-  font: 16px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 6px 12px 4px; display: flex; flex-direction: column; gap: 4px; }
+  font: 16px/1.3 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 6px 12px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; }
+/* The top row across; the steps, and beside them the step's own tools when they fit (Faster each time, a student's
+   name), else under them. */
+.piecebar > .pb-top { flex: 1 1 100%; }
+.piecebar > .pb-steps { flex: 0 1 auto; max-width: 100%; }
+.piecebar > .pb-tools { flex: 1 1 auto; min-width: 0; }
 .piecebar button, .piecebar select, .piecebar input { font: inherit; color: inherit; }
 .piecebar button { min-height: 44px; min-width: 44px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
 .piecebar button:hover { border-color: var(--accent); }
@@ -80,6 +85,8 @@ body[data-piece-mode="assess"] .piecebar { --mode: #79569f; }
 .pb-tools .seg button[aria-checked="true"] { background: color-mix(in srgb, #69b944 22%, var(--panel)); font-weight: 700; }
 .pb-tools .chk { color: var(--muted); font-size: 14px; display: inline-flex; gap: 6px; align-items: center; min-height: 44px; }
 .pb-tools .chk input { width: 20px; height: 20px; }
+.pb-tools .chk.small { font-size: 13px; gap: 5px; }
+.pb-tools .chk.small input { width: 16px; height: 16px; }
 .pb-step { font-weight: 700; min-width: 11ch; }
 .pb-progress { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 14px; }
 .pb-progress small { color: var(--muted); }

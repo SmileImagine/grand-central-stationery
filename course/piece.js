@@ -380,7 +380,7 @@
       <button type="button" class="pb-slower" aria-label="Slower" title="Five beats a minute slower (−)">−</button>
       <span class="pb-bpm"><output class="pb-bpmv">${bpm}</output> <small>BPM</small></span>
       <button type="button" class="pb-faster" aria-label="Faster" title="Five beats a minute faster (+). The notes keep their pitch.">+</button></div>`;
-  const fasterCtl = () => `<label class="chk" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time</label>`;
+  const fasterCtl = () => `<label class="chk small" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time</label>`;
   const playBtn = label => `<button type="button" class="big play" data-act="play" title="Play or pause (space)"><span class="ic" aria-hidden="true">▶</span> <span class="lbl">${esc(label)}</span></button>`;
   // Moving between sections: arrows that point the way, not play buttons; the pencil sets where the sections fall.
   const sectionNav = (cuts = true) => sections() > 1 || cuts ? `<div class="pb-loopnav" role="group" aria-label="Section">
