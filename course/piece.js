@@ -304,12 +304,17 @@
     en.body.appendChild(clockHost);
     clock = window.GCSClock.create(clockHost, { bpm, min: 30, max: 200, written, label: '', labelAt: 'none', repeat: repeats(),
       onToggle: () => playPause(), onBpm: v => setBpm(v), onReset: () => resetPlay(), onRepeat: on => setRepeat(on) });
+    // Faster each time round: a tempo choice, so it stands by the tempo, on the steps that go round (Loop, Put it together).
+    clockHost.insertAdjacentHTML('beforeend', fasterCtl());
+    clockHost.querySelector('.pb-fasterlap').addEventListener('change', e => { faster = e.target.checked; ls.set(FASTER_KEY, faster ? '1' : '0'); });
   }
+  const fasterHere = () => { const k = kind(); return k === 'whole' || (k === 'sections' && (mode === 'teach' ? how !== 'study' : how === 'time')); };
   const clockLabel = () => { const k = kind(); return example ? `Hear ${example.words}` : ({ listen: 'Listen to the whole piece', whole: 'Play the whole piece', through: 'Play it through', hear: 'Hear the whole piece', attempt: 'Start the attempt' })[k] || (sub() === 'study' ? 'Hear this section' : 'Loop it'); };
   function paintClock() {
     if (!clock) return;
     const off = sub() === 'note' || kind() === 'decide';
     clockHost.hidden = off;
+    clockHost.querySelector('.pb-clockfaster').hidden = !fasterHere();
     const beats = en && en.tl ? en.tl.countBeats : 4, p = en && en.player, playing = playingNow();
     clock.set({ bpm, written, label: clockLabel(), beats, playing, repeat: repeats(), canReset: !!(p && !playing && p.pos > 0) });
   }
@@ -380,7 +385,7 @@
       <button type="button" class="pb-slower" aria-label="Slower" title="Five beats a minute slower (−)">−</button>
       <span class="pb-bpm"><output class="pb-bpmv">${bpm}</output> <small>BPM</small></span>
       <button type="button" class="pb-faster" aria-label="Faster" title="Five beats a minute faster (+). The notes keep their pitch.">+</button></div>`;
-  const fasterCtl = () => `<label class="chk small" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time</label>`;
+  const fasterCtl = () => `<label class="pb-clockfaster" title="Each time round, five beats a minute faster, up to full speed"><input type="checkbox" class="pb-fasterlap"${faster ? ' checked' : ''}> Faster each time</label>`;
   const playBtn = label => `<button type="button" class="big play" data-act="play" title="Play or pause (space)"><span class="ic" aria-hidden="true">▶</span> <span class="lbl">${esc(label)}</span></button>`;
   // Moving between sections: arrows that point the way, not play buttons; the pencil sets where the sections fall.
   const sectionNav = (cuts = true) => sections() > 1 || cuts ? `<div class="pb-loopnav" role="group" aria-label="Section">
@@ -408,21 +413,21 @@
     if (k === 'listen') h = example ? `<span class="pb-hint">${esc(exampleHint(example))}</span>` : '';
     else if (k === 'sections' && mode === 'teach') h = how === 'study'
       ? `${sectionNav()}`
-      : `${sectionNav(false)}${fasterCtl()}`;
+      : `${sectionNav(false)}`;
     else if (k === 'sections') h = how === 'time'
-      ? `${sectionNav()}${fasterCtl()}`
+      ? `${sectionNav()}`
       : `<button type="button" class="big go" data-act="next" title="Next note (space)">Next note</button>
         <button type="button" class="big" data-act="back" title="The note before (Backspace)">Back</button>
         <button type="button" class="big" data-act="hear" title="Hear this note (H)"><span aria-hidden="true">🔊</span> Hear it</button>
         <span class="pb-step" aria-live="polite"></span>${sectionNav()}
         <label class="chk" title="Play each note as it comes up"><input type="checkbox" class="pb-sound" checked> Sound each note</label>
         ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="mic" aria-pressed="false" title="Listen through the microphone (a test): a steady, matching note moves on by itself. Next note always works."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
-    else if (k === 'whole') h = `${fasterCtl()}`;
+    else if (k === 'whole') h = '';
     else if (k === 'through') h = `${guideCtl()}
         ${LISTEN_LAB ? `<button type="button" class="big toggle mic" data-act="listenon" aria-pressed="${listenOn}" title="The app listens while you play and says what it heard (a test; a guess at best)."><span aria-hidden="true">🎤</span> Listen to me</button>` : ''}`;
     else if (k === 'hear') {
       const st = courseState();
-      h = `<label class="pb-who">Student ${st.roster.length ? `<select class="pa-who"><option value="">Choose…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Name" value="${esc(who)}">`}</label>
+      h = `<label class="pb-who">${st.roster.length ? `<select class="pa-who" aria-label="Student name"><option value="">Student name…</option>${st.roster.map(n => `<option${n === who ? ' selected' : ''}>${esc(n)}</option>`).join('')}</select>` : `<input class="pa-who" placeholder="Student name" aria-label="Student name" value="${esc(who)}">`}</label>
 `;
     }
     else if (k === 'attempt') h = `${guideCtl()}`;
@@ -434,7 +439,6 @@
     const q = s => tools.querySelector(s);
     if (q('.pb-prev')) { q('.pb-prev').addEventListener('click', () => sub() === 'together' ? goRung(rung - 1) : goSection(idx - 1)); q('.pb-next').addEventListener('click', () => sub() === 'together' ? goRung(rung + 1) : goSection(idx + 1)); }
     if (q('.pb-slower')) { q('.pb-slower').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, -1, written))); q('.pb-faster').addEventListener('click', () => setBpm(P.nudgeTempo(bpm, 1, written))); }
-    if (q('.pb-fasterlap')) q('.pb-fasterlap').addEventListener('change', e => { faster = e.target.checked; ls.set(FASTER_KEY, faster ? '1' : '0'); });
     if (q('.pb-cuts')) q('.pb-cuts').addEventListener('click', editCuts);
     if (q('.pb-guide')) q('.pb-guide').addEventListener('change', e => { guide[mode] = e.target.checked; applyMix(); });
     const w = q('.pa-who'); if (w) w.addEventListener('change', () => { who = w.value.trim(); ss.set('gcs-assess-student', who); });
