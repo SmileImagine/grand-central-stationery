@@ -20,7 +20,7 @@ function lift(name) {
   let end = start + 1; while (end < html.length && !/^    [}\]];?\s*$/.test(html[end])) end++;
   return html.slice(start, end + 1).join('\n');
 }
-const names = ['PC_COLORS', 'LETTER_PC', 'ACC_SEMI', 'SHARP_NAMES', 'collect', 'spell', 'chordPcs', 'tuneBars', 'keyInfoOf', 'melodyChordFinder', 'arrange', 'STYLES', 'harmonyOf', 'CHART_LINE', 'CHART_NUM', 'parseChart', 'playedBars', 'DRUM', 'textured', 'mulberry', 'pick', 'miniOf', 'hitString', 'FIT_DUPLE', 'fitOf', 'GROOVES', 'scoreFor', 'KIT', 'formOf', 'melodyLine', 'bandFeel', 'COMP_FOLDER', 'LOW_LIMIT', 'clearOf'];
+const names = ['PC_COLORS', 'LETTER_PC', 'ACC_SEMI', 'SHARP_NAMES', 'collect', 'spell', 'chordPcs', 'tuneBars', 'keyInfoOf', 'melodyChordFinder', 'arrange', 'STYLES', 'harmonyOf', 'CHART_LINE', 'CHART_NUM', 'parseChart', 'playedBars', 'DRUM', 'textured', 'mulberry', 'pick', 'miniOf', 'hitString', 'FIT_DUPLE', 'fitOf', 'beatsOf', 'downbeat', 'GROOVES', 'GROOVE_COUNT', 'groovePick', 'scoreFor', 'KIT', 'formOf', 'melodyLine', 'bandFeel', 'COMP_FOLDER', 'LOW_LIMIT', 'clearOf'];
 const page = new Function(`${names.map(lift).join('\n')}\nreturn { ${names.filter(n => n !== 'SHARP_NAMES').join(', ')}, FLAT_NAMES, SHARP_NAMES };`)();
 const { chordPcs, arrange, harmonyOf, formOf, keyInfoOf, parseChart, playedBars, textured, DRUM, GROOVES, scoreFor, fitOf, KIT, melodyLine, bandFeel, COMP_FOLDER, clearOf } = page;
 
@@ -159,6 +159,40 @@ for (const k of Object.keys(page.STYLES).filter(k => k !== 'auto')) {
     for (const w of drumWords) assert(KIT[w], `${k}: "${w}" is a drum word`);
   }
 }
+
+// Each style's grooves: as many different scores as GROOVE_COUNT says, each naming itself, in the metre it lives in.
+const { GROOVE_COUNT, groovePick } = page;
+const home = { waltz: { nb: 3, compound: false }, jig: { nb: 2, compound: true } };
+for (const [k, n] of Object.entries(GROOVE_COUNT)) {
+  assert(page.STYLES[k] && GROOVES[k], `${k}: a style with grooves`);
+  const m = home[k] || { nb: 4, compound: false }, seen = new Map();
+  for (let v = 0; v < n; v++) for (const e of [0.5, 0.9]) {
+    const out = {}, score = scoreFor(e, 0.6, m, 3, k, v, out);
+    assert(out.name && out.i === v && out.n === n, `${k} groove ${v + 1}: names itself (${JSON.stringify(out)})`);
+    if (e === 0.5) seen.set(score, out.name);
+  }
+  assert(seen.size === n && new Set(seen.values()).size === n, `${k}: ${n} grooves, each its own score and name (${[...seen.values()].join(', ')})`);
+  assert(scoreFor(0.5, 0.6, m, 3, k, n) === scoreFor(0.5, 0.6, m, 3, k, 0), `${k}: the grooves come round again`);
+}
+// The groove a tune plays: from its title, the same every time, different titles different grooves; a %%style line can name one.
+const titles = ['Twinkle', 'Skip to My Lou', 'Bounce High', 'Daisy Bell', 'Crows on the Fence', 'Arirang', 'Sakura', 'Mary Had a Little Lamb'];
+const picks = titles.map(t => groovePick(`X:1\nT:${t}\nM:4/4\nK:C\nCDEF|`));
+assert(picks.every((p, i) => p.named === null && p.hash === groovePick(`X:9\nT:${titles[i]}\nM:2/4\nK:G\nGABc|`).hash), 'the title chooses, whatever else changes');
+assert(new Set(picks.map(p => p.hash % 4)).size >= 3, `titles spread over the grooves: ${picks.map(p => p.hash % 4)}`);
+assert(groovePick('X:1\nT:A\n%%style folk 3\nK:C\nC|').named === 2 && groovePick('X:1\nT:A\n%%style folk\nK:C\nC|').named === null, '%%style folk 3 names the third groove');
+
+// Japanese, Korean, Persian and Indian (the drone): each its own instruments (no two share a sound) and its own drum
+// strokes, written beat by beat in every metre.
+const worlds = ['minyo', 'korean', 'persian', 'drone'];
+for (const part of ['drums', 'bass', 'chords']) { const s = worlds.map(k => page.STYLES[k].sound[part]); assert(s.every(Boolean) && new Set(s).size === 4, `the four styles' ${part}: ${s}`); }
+for (const m of metres) {
+  const words = worlds.map(k => new Set((scoreFor(0.6, 0.6, m, 3, k).split('bass:')[0].match(/[a-z]+/g) || []).filter(w => w !== 'drums')));
+  for (let a = 0; a < 4; a++) for (let b = a + 1; b < 4; b++) assert(![...words[a]].some(w => words[b].has(w)), `${worlds[a]} and ${worlds[b]} share no drum stroke in ${m.nb}${m.compound ? ' compound' : ''}: ${[...words[a]]} / ${[...words[b]]}`);
+  assert(words.every(ws => ws.size >= 2 && ![...ws].some(w => ['bd', 'sd', 'rim', 'hh'].includes(w))), `the four play their own drums, not the kit's: ${words.map(w => [...w])}`);
+}
+assert(/^\[dha\] \[dhin\]|<\[\[dha\] \[dhin\] \[dhin\] \[dha\]\]/.test(scoreFor(0.6, 0.6, { nb: 4 }, 3, 'drone', 0).split('\n')[1]), `teentaal: ${scoreFor(0.6, 0.6, { nb: 4 }, 3, 'drone', 0)}`);
+assert(/deong ~ ~\] \[deong ~ deok\] \[kung deok ~/.test(scoreFor(0.6, 0.6, { nb: 3 }, 3, 'korean', 0)), 'semachi in three');
+assert(/dum ~ tak\] \[dum:\.75 tak ~/.test(scoreFor(0.6, 0.6, { nb: 2, compound: true }, 3, 'persian', 0)), 'Persian 6/8: dum - tak dum tak -');
 
 // A style that builds writes its third time round as a build; one that does not, never.
 for (const k of ['pop', 'house', 'folk', 'jig', 'ballad']) {

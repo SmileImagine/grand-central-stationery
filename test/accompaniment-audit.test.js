@@ -48,6 +48,11 @@ for (const tune of nottingham) {
 assert(!set.tunes.some(t => /private\/tmp|scratchpad/i.test(t.source || '')), 'published set contains a private scratch source path');
 assert(report.summary.temporaryPaths === 0 && report.summary.canonicalNottinghamSources === nottingham.length, 'source repair summary is wrong');
 
+// A children's singing game gets a light dance groove, not pop (its metre still comes first); a Jamaican ring game is mento.
+for (const [abc, want] of [['R:singing game\nM:2/4', 'folk'], ['R:play-party song\nM:2/4', 'folk'], ['R:singing game\nM:6/8', 'jig'], ['R:ring game\nM:4/4', 'mento']]) {
+  assert(pageStyleFor('auto', abc) === want && Audit.styleDecision(abc).style === want, `${abc.replace('\n', ', ')}: ${want}, page ${pageStyleFor('auto', abc)}, audit ${Audit.styleDecision(abc).style}`);
+}
+
 const markdown = Audit.renderMarkdown(report);
 assert(markdown === fs.readFileSync(path.join(root, 'course', 'accompaniment-audit.md'), 'utf8'), 'course/accompaniment-audit.md is stale');
 assert(report.summary.harmony['written chords'] > 0 && report.summary.harmony['detected chords'] > 0 && report.summary.harmony['tonic drone'] > 0, 'audit must distinguish written, detected and drone harmony');

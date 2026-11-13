@@ -58,10 +58,14 @@
   const teacher = () => mode !== 'practice';
   // What step 2 is doing just now: studying, looping together (Teach), in time or note by note (Practice).
   const sub = () => kind() !== 'sections' ? null : how;
-  // Whether the music repeats: each step's own choice (looping and putting together repeat), until the clock's repeat toggle changes it.
-  const repeatsByDefault = () => ['together', 'time'].includes(sub()) || kind() === 'whole';
+  // Whether the music repeats: each step's own choice (looping and putting together repeat; an example is heard once,
+  // then the next idea is offered), until the clock's repeat toggle changes it: an example on repeat loops its bars.
+  const repeatsByDefault = () => !example && (['together', 'time'].includes(sub()) || kind() === 'whole');
   let loopOn = null;
-  const repeats = () => !example && (loopOn === null ? repeatsByDefault() : loopOn);
+  const repeats = () => loopOn === null ? repeatsByDefault() : loopOn;
+  // What the Player and the score repeat: the form's demonstration goes round its parts itself (formPartDone), with a
+  // pause between; its Player plays one part at a time and must stop at the part's end, so it never loops.
+  const playerLoops = () => repeats() && !(example && example.parts);
   // The example is a form with its parts lettered (concepts.json): the demonstration of form plays it.
   const isForm = () => !!(example && example.parts);
   const bandFor = () => example ? 'rich' : kind() === 'sections' ? 'plain' : ['through', 'attempt'].includes(kind()) ? 'perform' : 'rich';
@@ -186,7 +190,7 @@
     applyMix();
     document.body.dataset.pieceKind = sub() === 'study' && !example ? 'study' : kind();
     en.fitWhole = !!shownBars() || sections() < 2;
-    en.repeatSigns = repeats();   // the score shows the repeat it plays
+    en.repeatSigns = playerLoops();   // the score shows the repeat it plays
     // Studying, a section of more than eight notes takes two lines, so each note's diagram has room to be read.
     const shownNotes = (() => { const p = shownBars(); return (p ? found.bars.slice(p.from, p.to) : found.bars).reduce((n, b) => n + b.notes.length, 0); })();
     const shownBarCount = (() => { const p = shownBars(); return p ? p.to - p.from : found.bars.length; })();
@@ -207,7 +211,7 @@
     if (sub() === 'note') buildStepper(); else stepper = null;
     clearFlags();
     paint(); syncUrl();
-    requestAnimationFrame(() => { drawStudy(); drawForm(); });
+    requestAnimationFrame(() => { drawStudy(); drawForm(); liftPhraseSlurs(); });
   }
   // The mixer for the step: a play-through's accompaniment, with the melody silent or faint; else the band as balanced.
   function applyMix() {
@@ -231,7 +235,7 @@
     if (isForm()) { formToggle(); return; }
     const p = en.player, k = kind();
     if (!p.running) {
-      p.setLoop(repeats());
+      p.setLoop(playerLoops());
       const lp = en.body.querySelector('.transport .loop'); if (lp) lp.setAttribute('aria-pressed', String(p.loop));
       if (!example && LISTEN_LAB && ((k === 'through' && listenOn) || k === 'attempt')) {
         if (!(p.pos > 0)) { attempt = null; flagsShown = []; clearMarks(); if (panel) openPanel(); }
@@ -248,7 +252,7 @@
     // The page redraws the score when its box changes size; the diagrams and the note by note place follow.
     const render = en.render.bind(en);
     // Hearing the form, openings stacked one above another that no longer all fit on the screen go back to one after another.
-    en.render = (...a) => { render(...a); if (isForm() && en.barsPerLine && !en.player.running && !en.pending && !en.body.classList.contains('fitwhole')) { en.barsPerLine = 0; render(...a); } requestAnimationFrame(() => { drawStudy(); drawForm(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
+    en.render = (...a) => { render(...a); if (isForm() && en.barsPerLine && !en.player.running && !en.pending && !en.body.classList.contains('fitwhole')) { en.barsPerLine = 0; render(...a); } requestAnimationFrame(() => { drawStudy(); drawForm(); liftPhraseSlurs(); if (stepper && en.tl && !en.player.running) showStep(false); }); };
     const finished = en.onFinished.bind(en);
     cellFinished = finished;
     en.onFinished = () => {
@@ -282,7 +286,7 @@
       for (let i = 0; i < n; i++) store = P.recordPractice(store, { id: tune.id, title: tune.title, kind: 'run', bpm, written, whole: !s, phrase: idx + 1, phrases: sections() });
       P.writeProgress(localStorage, store);
     }
-    if (faster && repeats() && en.player.running && bpm < written) {
+    if (faster && !example && repeats() && en.player.running && bpm < written) {
       const was = bpm; setBpm(P.nextLap(bpm, written));
       if (bpm >= written && was < written) {
         if (k === 'whole') say('Full speed: the whole piece with the band.');
@@ -324,9 +328,10 @@
   function setRepeat(on) {
     loopOn = !!on;
     if (!en) return;
-    en.player.setLoop(repeats());
-    en.repeatSigns = repeats();
-    if (en.player.running) en.pending = true; else en.render();
+    const signs = playerLoops(), changed = signs !== en.repeatSigns;
+    if (!isForm()) en.player.setLoop(signs);   // the form's Player stops at its part's end, which setLoop would move to the end of the music
+    en.repeatSigns = signs;
+    if (changed) { if (en.player.running) en.pending = true; else en.render(); }
     paintClock(); syncUrl();
   }
   // While the music plays the hand sweeps once a bar: how far the playhead is through the bar it is in (the count-in's hand waits at twelve).
@@ -532,7 +537,7 @@
     const p = en.player;
     p.setLoop(false);
     if (p.running) en.togglePlay();
-    p.pos = s.start > 1 ? s.start : 0;   // from the top, the count-in
+    p.pos = s.start > 1 || demo.again ? Math.max(1, s.start) : 0;   // from the top, the count-in (once: not again on repeat)
     paintForm(); paintPlaying();
     await en.togglePlay();
     if (!demo || !demo.on) { if (p.running) en.togglePlay(); return; }   // left while the samples loaded: the start is ours (Play waits while they load)
@@ -546,11 +551,12 @@
     const p = en.player, parts = example.parts, s = formSpan(parts[demo.i]);
     p.pos = s ? Math.max(0, s.end - 1) : p.pos;
     en.leadIn = false; en.idle = false; en.k = null; en.transportState(); en.paint();
-    if (demo.i + 1 >= parts.length) { formDone(); return; }
+    if (demo.i + 1 >= parts.length && !repeats()) { formDone(); return; }   // on repeat, back to the first part after the pause
     const bar = en.tl.bars[0] ? Math.max(...en.tl.bars.map(b => b.len)) : 2000, gap = Math.max(1400, Math.min(2600, bar));
     demo.timer = setTimeout(() => {
       if (!demo || !demo.on) return;
-      demo.i++; const n = formSpan(parts[demo.i]);
+      if (demo.i + 1 >= parts.length) demo.again = true;
+      demo.i = (demo.i + 1) % parts.length; const n = formSpan(parts[demo.i]);
       if (n) { p.pos = n.start + 1; en.k = null; en.paint(); }
       paintForm();
       demo.timer = setTimeout(() => { if (demo && demo.on) formPlay(demo.i); }, gap / 2);
@@ -569,6 +575,13 @@
   // Leaving the demonstration (another choice, another step, a redraw): no part is waiting to play.
   function formQuit() { if (demo) { clearTimeout(demo.timer); demo = null; } }
   // The letters over the music, drawn after each render.
+  /* ---------------- phrase slurs above the notes ----------------
+     A phrase is marked in the ABC by a slur over it. abcjs puts a slur on the far side from the stems, so under a tune
+     whose stems point up it falls below the notes, through the words. Engravers put a phrase mark above: a slur that
+     spans a barline (a phrase, not a slurred pair) and lies below the notes is mirrored to sit just over them. The
+     ABC is unchanged; only its drawing moves. */
+  // Phrase marks above the notes: course/phrase-lift.js (loaded by the main page).
+  function liftPhraseSlurs() { if (window.GCSLiftPhraseSlurs) for (const el of [en && en.scoreEl, en && en.paper]) if (el) GCSLiftPhraseSlurs(el); }
   function drawForm() {
     const svg = en && en.paper && en.paper.querySelector('svg');
     if (!svg) return;

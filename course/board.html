@@ -12,6 +12,7 @@
   <script src="analyze.js" defer></script>
   <script src="practice.js" defer></script>
   <script src="sets.js" defer></script>
+  <script src="phrase-lift.js" defer></script>
   <style>
     /*
       The practice board: the current set of tunes, graded into six levels, with
@@ -114,6 +115,8 @@
     .piece .acts .go.teach { background: var(--teach); border-color: var(--teach); }
     .piece .acts .go.practice { background: var(--practice); border-color: var(--practice); }
     .piece .acts .go.assess { background: var(--assess); border-color: var(--assess); }
+    .piece .acts .hear { min-height: 44px; min-width: 44px; padding: 0; font-size: 15px; }
+    .piece .acts .hear.on { background: var(--ink); color: var(--bg); }
     .piece .acts .state { margin-left: auto; font-size: 13px; color: var(--muted); }
     .piece.passed { border-left-color: var(--pass); }
     .piece.ready { border-left-color: var(--ready); }
@@ -343,6 +346,7 @@
       assess: 'Choose the student, then a piece. It opens with the assessment beside the music: hear it, listen to the attempt if you like (the microphone only suggests), then decide.',
     };
     function renderLevel() {
+      stopPreview();   // the cards are drawn again: a piece playing from the old one stops
       const view = $('#view'); view.innerHTML = '';
       // An emptied set says why (set.json's withdrawn line) in place of an empty level.
       if (!set.tunes.length && set.withdrawn) { view.innerHTML = `<p class="note"><b>Nothing is published just now.</b> ${esc(set.withdrawn)}</p>`; return; }
@@ -388,6 +392,25 @@
       queueRender(el.querySelector('.incipit'), incipit(t.abc, 4));
       return el;
     }
+    /* ---- hearing a piece from its card: abcjs's synth on the page's piano samples; one plays at a time ---- */
+    let playing = null;
+    function stopPreview() { if (playing) { try { playing.synth.stop(); } catch (e) {} playing.btn.textContent = '▶'; playing.btn.classList.remove('on'); playing = null; } }
+    async function preview(t, btn) {
+      if (playing && playing.btn === btn) return stopPreview();
+      stopPreview();
+      if (!window.ABCJS || !ABCJS.synth || !ABCJS.synth.supportsAudio()) return toast('This browser cannot play here');
+      btn.textContent = '…';
+      try {
+        const host = document.createElement('div'); host.style.cssText = 'position:absolute;left:-9999px;width:600px'; document.body.appendChild(host);
+        const visualObj = ABCJS.renderAbc(host, t.abc, {})[0]; host.remove();
+        const synth = new ABCJS.synth.CreateSynth();
+        playing = { synth, btn };
+        await synth.init({ visualObj, options: { soundFontUrl: '../vendor/soundfont/', program: 0, onEnded: () => { if (playing && playing.synth === synth) stopPreview(); } } });
+        await synth.prime();
+        if (!playing || playing.synth !== synth) return;
+        synth.start(); btn.textContent = '■'; btn.classList.add('on');
+      } catch (e) { stopPreview(); btn.textContent = '▶'; toast('Could not play it: ' + (e.message || e)); }
+    }
     function pieceCard(t) {
       const el = document.createElement('article');
       const sum = summaryOf(t);
@@ -407,7 +430,7 @@
         <div class="incipit" aria-hidden="true"></div>
         <div class="fits" aria-label="Instruments">${fits}</div>
         ${mine ? `<div class="mine">${mine}</div>` : ''}
-        <div class="acts"><a class="go ${go[0]}" role="button" href="${esc(pieceUrl(t, mode))}">${go[1]}</a><button type="button" class="copy" title="Copy a link to this piece (piece, instrument; no names or progress)">Copy link</button>
+        <div class="acts"><button type="button" class="hear" title="Hear it (piano)" aria-label="Hear ${esc(t.title)}">▶</button><a class="go ${go[0]}" role="button" href="${esc(pieceUrl(t, mode))}">${go[1]}</a><button type="button" class="copy" title="Copy a link to this piece (piece, instrument; no names or progress)">Copy link</button>
           ${way === 'practice' && student ? (st === 'ready' ? `<button type="button" class="set ready" data-to="practising" title="Back to practising">Ready to show ✓</button>` : st === 'passed' ? '' : `<button type="button" class="set" data-to="ready" title="Tell your teacher you can play it through">Ready to show</button>`) : ''}</div>`;
       el.querySelector('.go').addEventListener('click', e => {
         if (way === 'assess' && !student) { e.preventDefault(); toast(state.roster.length ? 'Choose the student first' : 'Add the class list first'); const w = $('#who'); if (w) w.focus(); return; }
@@ -415,6 +438,7 @@
         if (student) setStudent(student);
         chosen = t.id; syncUrl();   // Back from the piece returns here, to this card
       });
+      const hear = el.querySelector('.hear'); hear.addEventListener('click', () => preview(t, hear));
       el.querySelector('.copy').addEventListener('click', async () => { const url = pieceUrl(t, way === 'assess' ? 'teach' : way); try { await navigator.clipboard.writeText(url); toast('Link copied: it opens this piece for anyone'); } catch (e) { prompt('Copy this link:', url); } });
       for (const b of el.querySelectorAll('.set')) b.addEventListener('click', () => { setState(t.id, student, b.dataset.to); render(); if (b.dataset.to === 'ready') toast(`Tell your teacher ${t.title} is ready`); });
       queueRender(el.querySelector('.incipit'), incipit(t.abc, 4));
@@ -518,7 +542,7 @@
         for (let i = 0; i < 4 && queue.length; i++) {
           const [el, abc] = queue.shift();
           if (!el.isConnected) continue;
-          try { ABCJS.renderAbc(el, abc, { scale: 0.62, staffwidth: Math.max(180, el.clientWidth - 8), paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, responsive: 'resize' }); } catch (e) { el.textContent = ''; }
+          try { ABCJS.renderAbc(el, abc, { add_classes: true, scale: 0.62, staffwidth: Math.max(180, el.clientWidth - 8), paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, responsive: 'resize' }); if (window.GCSLiftPhraseSlurs) GCSLiftPhraseSlurs(el); } catch (e) { el.textContent = ''; }
         }
         if (queue.length) requestAnimationFrame(step); else draining = false;
       };

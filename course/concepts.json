@@ -33,5 +33,376 @@
    "words": "how the music is built: phrases, sections, and what repeats or returns"
   }
  ],
- "tunes": {}
+ "tunes": {
+  "beginner-songs-4-bounce-high-bounce-low": {
+   "title": "Bounce High, Bounce Low",
+   "duration": {
+    "concept": "ti-ti",
+    "name": "ti-ti and ta",
+    "grade": 1,
+    "term": "rhythm versus beat; quarter note (“ta”), eighth notes (“ti-ti”)",
+    "words": "two sounds on one beat (ti-ti) against one sound on a beat (ta)",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "Ti-ti on every beat: the rhythm moves twice as fast as the beat (on “bounce the ball to”).",
+    "new": true
+   },
+   "pitch": {
+    "concept": "mi-so-la",
+    "name": "so–la–mi",
+    "grade": 1,
+    "term": "simple melodic patterns using the notes “mi”, “so”, and “la”",
+    "words": "a pattern on so, mi and la",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "so–la–mi: the children's-song pattern (on “Bounce high, bounce low”).",
+    "new": true
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "Marked accents or staccato (on “bounce the ball to”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     4
+    ],
+    "reason": "The whole song is one phrase (on “Bounce high, bounce low, bounce the ball to Shi-loh”)."
+   }
+  },
+  "first-tunes-3-twinkle-twinkle-little-star": {
+   "title": "Twinkle, Twinkle, Little Star",
+   "duration": {
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
+    "bars": [
+     2,
+     2
+    ],
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “lit-tle star”).",
+    "new": true
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "The widest leap in the tune, do up to so: a perfect 5th (on “Twin-kle, twin-kle”).",
+    "new": true
+   },
+   "dynamics": {
+    "concept": "piano-forte",
+    "name": "soft and loud",
+    "grade": 3,
+    "term": "standard symbols for soft (piano – p) and loud (forte – f)",
+    "words": "soft and loud",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A written soft or loud sign (on “Twin-kle, twin-kle”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "ternary",
+    "name": "A B A",
+    "grade": 3,
+    "term": "ternary (ABA) form",
+    "words": "A, something new (B), then A comes back",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "Three parts, A B A: bars 8–9 are where B ends and A comes back (on “in the sky. Twin-kle, twin-kle”).",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       4
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       5,
+       8
+      ],
+      "play": [
+       5,
+       6
+      ]
+     },
+     {
+      "letter": "A",
+      "bars": [
+       9,
+       12
+      ],
+      "play": [
+       9,
+       10
+      ]
+     }
+    ]
+   }
+  },
+  "beginner-songs-16-this-old-man": {
+   "title": "This Old Man",
+   "duration": {
+    "concept": "half",
+    "name": "a two-beat note",
+    "grade": 2,
+    "term": "half note (“ta-ah”)",
+    "words": "one sound held for two beats",
+    "bars": [
+     1,
+     1
+    ],
+    "reason": "A half note: one sound held for two beats, beside notes of one beat (on “This old man”)."
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of a perfect 5th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "The widest leap in the tune, so down to do: a perfect 5th (on “knick-knack pad-dy-whack”)."
+   },
+   "dynamics": {
+    "concept": "accent",
+    "name": "accents",
+    "grade": 1,
+    "term": "a strong sound for a note or beat (accent); smooth and detached articulation",
+    "words": "some notes played stronger, or short and detached",
+    "bars": [
+     5,
+     5
+    ],
+    "reason": "Marked accents or staccato (on “knick-knack pad-dy-whack”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “This old man, he played one”)."
+   }
+  },
+  "first-tunes-6-amazing-grace": {
+   "title": "Amazing Grace",
+   "duration": {
+    "concept": "pickup",
+    "name": "the pickup",
+    "grade": 6,
+    "term": "pick-up note(s) (anacrusis)",
+    "words": "the tune starts just before the first strong beat",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The first bar is only one beat long: the tune starts on an upbeat and lands on the strong first beat of bar 2 (on “A-ma-zing”).",
+    "new": true
+   },
+   "pitch": {
+    "concept": "leap-small",
+    "name": "a leap of a perfect 4th",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     1,
+     2
+    ],
+    "reason": "The widest leap in the tune, low so up to do: a perfect 4th (on “A-ma-zing”).",
+    "new": true
+   },
+   "dynamics": {
+    "concept": "hairpin",
+    "name": "louder and softer",
+    "grade": 2,
+    "term": "getting louder [crescendo], getting softer [decrescendo/diminuendo]",
+    "words": "getting louder or softer",
+    "bars": [
+     6,
+     6
+    ],
+    "reason": "A hairpin asks for the music to grow or fade (on “saved a”)."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "absent": true,
+    "reason": "The piece is written as a melody alone, with no chords or other parts (the page’s Band adds its own accompaniment, which is not the piece’s)."
+   },
+   "form": {
+    "concept": "phrase",
+    "name": "a phrase",
+    "grade": 1,
+    "term": "phrase",
+    "words": "a phrase: a musical sentence that ends with a breath",
+    "bars": [
+     1,
+     8
+    ],
+    "reason": "The first phrase, ending where the words take a breath (on “A-ma-zing grace, how sweet the sound that saved a wretch like me”)."
+   }
+  },
+  "reelsu-z-3-walking-in-my-sleep": {
+   "title": "Walking In My Sleep",
+   "duration": {
+    "concept": "syncopation",
+    "name": "syn-co-pa",
+    "grade": 4,
+    "term": "syncopation (“ti-ta-ti” or “syn-co-pa”)",
+    "words": "a longer note that starts between the beats (syn-co-pa)",
+    "bars": [
+     13,
+     13
+    ],
+    "reason": "Short-long-short, syn-co-pa: the long note starts off the beat and holds across it.",
+    "new": true
+   },
+   "pitch": {
+    "concept": "leap",
+    "name": "a leap of an octave",
+    "grade": 4,
+    "term": "intervals (unison, step, skip, leap)",
+    "words": "a leap: the tune jumps over the notes between",
+    "bars": [
+     3,
+     3
+    ],
+    "reason": "The widest leap in the tune, do up to the do an octave higher.",
+    "new": true
+   },
+   "dynamics": {
+    "concept": "slur",
+    "name": "a slur",
+    "grade": 6,
+    "term": "slurs",
+    "words": "notes joined smoothly under a curved line",
+    "bars": [
+     4,
+     4
+    ],
+    "reason": "A slur joins two notes smoothly, with no gap between them."
+   },
+   "timbre": {
+    "absent": true,
+    "reason": "The music names no instrument or tone colour: the timbre is whatever the class plays or sings it on."
+   },
+   "texture": {
+    "concept": "I-IV-V",
+    "name": "chords I, IV and V",
+    "grade": 6,
+    "term": "chord progressions using I, IV, and V",
+    "words": "three chords: I (home), IV and V (away), and back home",
+    "bars": [
+     6,
+     7
+    ],
+    "reason": "The chords C (IV), G (I), D7 (V)."
+   },
+   "form": {
+    "concept": "binary",
+    "name": "A and B",
+    "grade": 2,
+    "term": "binary (AB) form",
+    "words": "two different parts, A then B",
+    "bars": [
+     8,
+     9
+    ],
+    "reason": "Two parts, A and B, each played twice: bars 8–9 are where A ends and B begins, higher.",
+    "parts": [
+     {
+      "letter": "A",
+      "bars": [
+       1,
+       8
+      ],
+      "play": [
+       1,
+       2
+      ]
+     },
+     {
+      "letter": "B",
+      "bars": [
+       9,
+       16
+      ],
+      "play": [
+       9,
+       10
+      ]
+     }
+    ]
+   }
+  }
+ }
 }
