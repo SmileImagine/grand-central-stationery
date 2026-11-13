@@ -53,6 +53,299 @@
    "more than 48 bars"
   ]
  },
- "tunes": [],
+ "tunes": [
+  {
+   "id": "beginner-songs-4-bounce-high-bounce-low",
+   "title": "Bounce High, Bounce Low",
+   "level": 1,
+   "score": 0.69,
+   "key": "C",
+   "metre": "2/4",
+   "bars": 4,
+   "origin": "USA",
+   "composer": "traditional",
+   "rhythm": "children's ball-bouncing chant",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "key:0",
+    "leap:3rd",
+    "metre:2/4"
+   ],
+   "introduces": [
+    "degree:la",
+    "degree:mi",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "leap:3rd",
+    "metre:2/4"
+   ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "sforzando; phrase markings"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "1: accent; smooth and detached articulation",
+     "4: sforzando; phrase markings",
+     "1: melodic patterns on mi, so and la"
+    ],
+    "ignored": [
+     "key"
+    ]
+   },
+   "abc": "X:4\nT:Bounce High, Bounce Low\nO:USA\nC:traditional\nR:children's ball-bouncing chant\nS:traditional, as commonly sung in classrooms\nM:2/4\nL:1/8\nK:C\n.(G2 A2 | G2 !breath!E2) | .(.G.G .A.A | G2 E2) |]\nw: Bounce high, bounce low, bounce the ball to Shi-loh.\n"
+  },
+  {
+   "id": "first-tunes-3-twinkle-twinkle-little-star",
+   "title": "Twinkle, Twinkle, Little Star",
+   "level": 3,
+   "score": 4.79,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 12,
+   "origin": "France",
+   "composer": "tune traditional (France, \"Ah! vous dirai-je, maman\"); words: Jane Taylor (1806)",
+   "rhythm": "lullaby",
+   "source": "course/samples/first-tunes.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:2",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [
+    "degree:do",
+    "degree:fa",
+    "degree:re",
+    "dur:2",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "sforzando; phrase markings",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
+    ]
+   },
+   "abc": "X:3\nT:Twinkle, Twinkle, Little Star\nO:France\nC:tune traditional (France, \"Ah! vous dirai-je, maman\"); words: Jane Taylor (1806)\nR:lullaby\nS:traditional, as commonly sung in classrooms\nM:4/4\nL:1/4\nK:C\n%%style ballad\n!mf!(C C G G | A A G2 | F F E E | D D C2) | (G G F F | E E D2 | G G F F | E E D2) | (C C G G | A A G2 | F F E E | D D C2) |]\nw: Twin-kle, twin-kle, lit-tle star, how I won-der what you are. Up a-bove the world so high, like a dia-mond in the sky. Twin-kle, twin-kle, lit-tle star, how I won-der what you are.\n"
+  },
+  {
+   "id": "beginner-songs-16-this-old-man",
+   "title": "This Old Man",
+   "level": 3,
+   "score": 4.85,
+   "key": "C",
+   "metre": "4/4",
+   "bars": 8,
+   "origin": "England",
+   "composer": "traditional",
+   "rhythm": "counting song",
+   "source": "course/samples/beginner-songs.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "key:0",
+    "leap:5th",
+    "metre:4/4",
+    "range:6th"
+   ],
+   "introduces": [],
+   "ontario": {
+    "grade": 4,
+    "band": "Grade 4",
+    "concepts": [
+     "sforzando; phrase markings",
+     "the major scale (fa and ti), intervals, accidentals"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "1: accent; smooth and detached articulation",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
+    ]
+   },
+   "abc": "X:16\nT:This Old Man\nO:England\nC:traditional\nR:counting song\nS:traditional, as commonly sung in classrooms\nM:4/4\nL:1/8\nK:C\n%%style march\n!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]\nw: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.\n"
+  },
+  {
+   "id": "first-tunes-6-amazing-grace",
+   "title": "Amazing Grace",
+   "level": 3,
+   "score": 7.68,
+   "key": "G",
+   "metre": "3/4",
+   "bars": 17,
+   "origin": "USA",
+   "composer": "Words: John Newton (1779); tune: New Britain (USA, 1829)",
+   "rhythm": "hymn",
+   "source": "course/samples/first-tunes.abc",
+   "skills": [
+    "degree:do",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:5",
+    "key:1",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:octave",
+    "tie-over-bar"
+   ],
+   "introduces": [
+    "dur:5",
+    "leap:4th",
+    "metre:3/4",
+    "pickup",
+    "range:octave",
+    "tie-over-bar"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "pick-up notes (anacrusis)",
+     "very soft and very loud (pp, ff); slurs"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: 3/4 metre",
+     "6: pick-up notes (anacrusis)",
+     "2: crescendo and decrescendo",
+     "3: the signs for soft and loud (p, f)",
+     "4: sforzando; phrase markings",
+     "6: very soft and very loud (pp, ff); slurs",
+     "2: pentatonic patterns (do re mi so la), high do",
+     "3: low so and low la (notes under do)"
+    ],
+    "ignored": [
+     "key"
+    ]
+   },
+   "abc": "X:6\nT:Amazing Grace\nS:traditional, as commonly sung in classrooms\nC:Words: John Newton (1779); tune: New Britain (USA, 1829)\nO:USA\nR:hymn\nM:3/4\nL:1/4\nK:G\n%%style ballad\n!mp!(D | G2 (B/2G/2) | B2 A | G2 E | D2) (D | !<(!G2 (B/2G/2) | B2 A | !<)!d3- | d2) !mf!((B/2d/2) |\nw: A-ma-zing_ grace, how sweet the sound that saved a_ wretch like me, _ I_\nd2 (B/2G/2) | B2 A | G2 E | D2) (D | !>(!G2 (B/2G/2) | B2 A | !>)!G3- | G2) |]\nw: once was_ lost but now am found, was blind but_ now I see. _\n"
+  },
+  {
+   "id": "reelsu-z-3-walking-in-my-sleep",
+   "title": "Walking In My Sleep",
+   "level": 6,
+   "score": 15.49,
+   "key": "G",
+   "metre": "4/4",
+   "bars": 16,
+   "origin": "USA",
+   "composer": "traditional (old-time)",
+   "rhythm": "reel",
+   "source": "https://github.com/jukedeck/nottingham-dataset/blob/master/ABC_original/reelsu-z.abc",
+   "skills": [
+    "degree:do",
+    "degree:fa",
+    "degree:la",
+    "degree:mi",
+    "degree:re",
+    "degree:so",
+    "degree:ti",
+    "double-stops",
+    "dur:1",
+    "dur:1/2",
+    "dur:2",
+    "dur:3",
+    "dur:3/2",
+    "dur:4",
+    "dur:5/2",
+    "key:1",
+    "leap:octave",
+    "metre:4/4",
+    "range:over-octave",
+    "repeat",
+    "rest",
+    "syncopation",
+    "tie"
+   ],
+   "introduces": [
+    "degree:ti",
+    "double-stops",
+    "dur:3",
+    "dur:3/2",
+    "dur:4",
+    "dur:5/2",
+    "leap:octave",
+    "range:over-octave",
+    "repeat",
+    "rest",
+    "syncopation",
+    "tie"
+   ],
+   "ontario": {
+    "grade": 6,
+    "band": "Grade 6",
+    "concepts": [
+     "very soft and very loud (pp, ff); slurs",
+     "chord progressions using I, IV and V"
+    ],
+    "all": [
+     "1: quarter and eighth notes, quarter rests, 2/4 and 4/4",
+     "2: half and whole notes",
+     "3: dotted half note",
+     "4: syncopation (syn-co-pa)",
+     "5: dotted quarter and eighth (tam-ti), dotted eighth and sixteenth (tim-ka)",
+     "4: sforzando; phrase markings",
+     "6: very soft and very loud (pp, ff); slurs",
+     "6: chord progressions using I, IV and V",
+     "4: simple repeats",
+     "4: the major scale (fa and ti), intervals, accidentals"
+    ],
+    "ignored": [
+     "key"
+    ]
+   },
+   "abc": "X:3\nT:Walking In My Sleep\nC:traditional (old-time)\nO:USA\nR:reel\nS:Nottingham Music Database (abc.sourceforge.net/NMD), Reels U-Z no. 3; old-time, via PR\nM:4/4\nL:1/4\nK:G\n.(\"G\"G,/2A,/2B,/2C/2 D/2G/2B/2d/2|\"G\"B2 -B/2d/2B/2A/2|\"G\"G2 [e2g2]|\\\n\"D7\"[d3f3]d/2B/2)|\n.(\"D7\"A/2G/2F/2A/2 D/2E/2D/2E/2|\"C\"c3/2d/2 cA|\"G\"B/2A/2G/2B/2 \"D7\"A/2G/2F/2A/2|\\\n\"G\"G3)z::\n.(\"G\"g/2b/2g/2e/2 d/2g/2e/2f/2|g/2f/2g/2b/2 g/2e/2g/2b/2|\\\n\"G\"g/2e/2d/2c/2 B/2A/2G/2D/2|\"D7\"FA3)|\n.(f/2ab/2 a3/2e/2|\"D7\"f/2e/2d/2f/2 e/2f/2e/2f/2|g/2e/2d/2c/2 B/2d/2A/2F/2|\\\n\"G\"[G4B4]):|\n",
+   "licence": "GPL-3.0"
+  }
+ ],
  "withdrawn": "12 November 2026: every piece was withdrawn from the public site for the teacher to approve again; approved pieces return here one at a time."
 }

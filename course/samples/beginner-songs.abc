@@ -24,9 +24,16 @@ T:Withheld
 K:C
 
 X:4
-T:Withheld
-% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+T:Bounce High, Bounce Low
+O:USA
+C:traditional
+R:children's ball-bouncing chant
+S:traditional, as commonly sung in classrooms
+M:2/4
+L:1/8
 K:C
+.(G2 A2 | G2 !breath!E2) | .(.G.G .A.A | G2 E2) |]
+w: Bounce high, bounce low, bounce the ball to Shi-loh.
 
 X:5
 T:Withheld
@@ -84,9 +91,17 @@ T:Withheld
 K:C
 
 X:16
-T:Withheld
-% Withdrawn from the public site on 12 November 2026 with every piece, for the teacher to approve again; the tune is in the workshop branch (course/README.md).
+T:This Old Man
+O:England
+C:traditional
+R:counting song
+S:traditional, as commonly sung in classrooms
+M:4/4
+L:1/8
 K:C
+%%style march
+!mf!(G2 E2 G4 | G2 E2 G4 | A2 G2 F2 E2 | D2 E2 F2) (EF | G2 C2 .C.C C2 | CD EF G4 | G2 D2 D2 F2 | E2 D2 C4) |]
+w: This old man, he played one, he played knick-knack on my thumb, with a knick-knack pad-dy-whack, give the dog a bone, this old man came roll-ing home.
 
 X:17
 T:Withheld

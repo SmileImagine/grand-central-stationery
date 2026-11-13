@@ -106,8 +106,8 @@ for (const [id, key, abcKey] of [
   ['hindostan-folk-2-mother-send-to-the-dhobi', 'BPhr', 'Bphr'],
   ['hindostan-folk-3-o-where-will-you-go', 'GDor', 'Gdor'],
 ]) {
-  if (!set.tunes.length) continue;   // nothing published: nothing to check (12 November 2026)
   const tune = set.tunes.find(t => t.id === id);
+  if (!tune) continue;   // not published (every piece was withdrawn on 12 November 2026 and returns one at a time)
   assert(tune && tune.key === key && tune.abc.includes(`\nK:${abcKey}\n`), `${id} must encode its declared tonic and modal signature`);
 }
 
