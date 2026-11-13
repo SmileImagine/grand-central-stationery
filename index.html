@@ -31,6 +31,8 @@
   <link href="fonts/fonts.css" rel="stylesheet">   <!-- local copies of the Google Fonts files -->
   <link href="course/clock.css" rel="stylesheet">   <!-- the grand clock: every notation cell's play, pause, tempo, repeat and back-to-start -->
   <script src="course/clock.js"></script>
+  <script src="course/phrase-lift.js"></script>
+  <script src="course/abc-clean.js"></script>   <!-- a source title in dated words is not printed (hideDatedSource) -->   <!-- phrase marks drawn above the notes -->
   <script src="vendor/abcjs-basic-min.js" id="abcjs" defer></script>   <!-- abcjs 6.7.0, vendored. defer: text cells paint before its 500 KB is parsed; notation cells finish setting up on its load event -->
   <script src="vendor/impress.js" defer></script>     <!-- impress.js 2.0.0, vendored: 3D present mode. defer: it touches document.body while loading -->
   <style>
@@ -258,6 +260,37 @@
     @keyframes instglow { 0% { filter: drop-shadow(0 0 0 transparent); } 30% { filter: drop-shadow(0 0 18px var(--cursor)); } 100% { filter: drop-shadow(0 0 0 transparent); } }
     /* ---------- notation engine ---------- */
     .score { flex: 1 1 auto; min-height: 30%; display: flex; align-items: center; justify-content: center; padding: 1vh 1vw; box-sizing: border-box; overflow: hidden; }
+    /* A piece too long for its box at a legible size scrolls, top first; so does a box whose verses sit below the music. */
+    .score.scrolling, .score.versesbelow { overflow-y: auto; align-items: flex-start; overscroll-behavior: contain; }
+    .score.versesbelow { flex-direction: column; justify-content: flex-start; }
+    .score.versesbelow > .paper { align-self: center; }
+    /* The verses printed after the music (W: lines): text, as bold and plain as a text cell, beside the music on a wide
+       box (they scroll on their own when long) and after it on a narrow one. */
+    .score .verses { display: none; font: 700 clamp(14px, 2vh, 24px)/1.4 'Atkinson Hyperlegible', sans-serif; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .score.hasverses .verses { display: block; }
+    .score.versesside .verses { flex: 0 0 auto; width: clamp(14em, 30%, 26em); max-height: 100%; overflow-y: auto; align-self: stretch; padding: 0.4em 0.6em 0.4em 1.2em; border-left: 1px solid var(--line, rgba(128,128,128,.3)); box-sizing: border-box; }
+    .score.versesbelow .verses { width: 100%; max-width: 70em; align-self: center; padding: 1em 0.6em 2em; columns: 20em; column-gap: 2.5em; box-sizing: border-box; }
+    .score .verses p { margin: 0 0 0.15em; break-inside: avoid; }
+    /* The minimap of a scrolling score: a row for each line of music, a block for each bar as long as the bar,
+       phrases (the phrase marks) tinted in turn, a frame on the rows in view, the bar being played lit; a click goes
+       to that line (the frame only while the score scrolls). On every song, as its form; on a box at least 560 px wide (on
+       a phone the music keeps the room); it stands in the room the music leaves it on the right. */
+    .score.withmap > .paper { margin-right: 84px; }
+    .minimap { position: absolute; z-index: 3; width: 76px; display: flex; flex-direction: column; gap: 3px; padding: 6px 2px; box-sizing: border-box; overflow: hidden; cursor: pointer; user-select: none; }
+    .minimap[hidden] { display: none; }
+    .minimap .mmrow { display: flex; align-items: center; gap: 4px; flex: 0 0 var(--mmrow, 10px); padding: 0 3px; border-radius: 3px; }
+    .minimap .mmrow:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+    .minimap .mmrow.seen { background: color-mix(in srgb, var(--ink) 14%, transparent); box-shadow: inset 2px 0 0 color-mix(in srgb, var(--ink) 45%, transparent); }
+    .minimap .mmn { flex: 0 0 15px; font: 700 9px/1 'Atkinson Hyperlegible', sans-serif; color: color-mix(in srgb, var(--ink) 55%, transparent); text-align: right; }
+    .minimap .mmbars { flex: 1 1 auto; display: flex; gap: 1px; height: 64%; min-height: 3px; }
+    .minimap .mmbars i { display: block; min-width: 2px; border-radius: 1px; background: color-mix(in srgb, var(--ink) 32%, transparent); }
+    .minimap .mmbars i.p1 { background: color-mix(in srgb, var(--accent) 70%, transparent); }
+    .minimap .mmbars i.p2 { background: color-mix(in srgb, var(--accent) 38%, transparent); }
+    .minimap .mmbars i.now { background: var(--cursor); box-shadow: 0 0 0 1px var(--cursor); }
+    body.game .minimap { display: none; }
+    .score .verses .who { color: var(--accent, #087fca); }
+    .score .verses .sl { opacity: 0.4; font-weight: 400; }
+    body.game .score .verses { display: none; }
     .paper { line-height: 0; }
     .paper svg { display: block; }
     /* Our own additions hang off the SVG root, which abcjs gives stroke="currentColor";
@@ -277,6 +310,9 @@
        note, runs past the last note to the end of the line, fades, and resets
        while invisible. */
     .paper .cursorg { opacity: 0.9; stroke: none; transition: opacity 0.45s ease; }
+    /* The cursor stands under the notes of its line (underMusic), so its stems stay in sight; the music lets the
+       pointer through to it, so it is dragged where a note covers it. */
+    .paper .abcjs-staff-wrapper > :not(.cursorg) { pointer-events: none; }
     .paper .cursorg.ready { opacity: 0.3; }
     .paper .cursorg.done { opacity: 0; }
     .paper .cursorbar { fill: var(--cursor); transition: fill 0.3s ease; }
@@ -2711,7 +2747,12 @@
        instead of the samples (drums: 'kit808' or 'kit909', a synthesised
        kick with the sampled kit, or 'kitSynth', a whole acoustic kit made
        on the spot; bass: 'synth-sub' or 'synth-bass'; chords:
-       'synth-pluck' or 'synth-pad'), pump, how far the chords and bass
+       'synth-pluck' or 'synth-pad'; and the instruments of the styles
+       from Japan, Korea, Iran and India: the hand drums kitTaiko, kitJanggu,
+       kitTombak and kitTabla, and the strings synth-shamisen,
+       synth-gayageum, synth-tar and synth-tanpura and the reed drone
+       synth-shruti, all made on the spot), fifths, a style whose chords are
+       open fifths (no third, no chord change of the band's own), pump, how far the chords and bass
        duck under each kick (0..1), the breathing of dance music, and build:
        the arrangement's third time round ends in a snare-roll build into
        the fullest fourth. */
@@ -2733,10 +2774,10 @@
       house:     { name: 'House (four on the floor)', build: true, feel: 'dance', sound: { drums: 'kit909', bass: 'synth-bass', chords: 'synth-pluck' }, pump: 0.5, harmony: { rich: 'add9', approach: 'none', cadence: 'V', colour: 'add9', hit: 'kick' } },
       samba:     { name: 'Samba de roda (Brazil)', fill: 'rim', feel: 'latin', comp: 'guitar', build: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'kick' } },
       mento:     { name: 'Mento (Jamaica)', fill: 'rim', feel: 'reggae', comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'soft' } },
-      minyo:     { name: 'Min\u2019y\u014D (Japanese folk)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
-      persian:   { name: 'Persian folk (frame drum)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
-      korean:    { name: 'Korean folk (janggu)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
-      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      minyo:     { name: 'Min\u2019y\u014D (Japanese folk)', tonicOnly: true, fifths: true, fit: {}, sound: { drums: 'kitTaiko', bass: 'synth-shamisen-bass', chords: 'synth-shamisen' }, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      persian:   { name: 'Persian folk (tombak and tar)', tonicOnly: true, fifths: true, fit: {}, sound: { drums: 'kitTombak', bass: 'synth-tar-bass', chords: 'synth-tar' }, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      korean:    { name: 'Korean folk (janggu and gayageum)', tonicOnly: true, fifths: true, fit: {}, sound: { drums: 'kitJanggu', bass: 'synth-gayageum-bass', chords: 'synth-gayageum' }, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
+      drone:  { name: 'Drone (tanpura and tabla)', tonicOnly: true, fifths: true, fit: {}, sound: { drums: 'kitTabla', bass: 'synth-tanpura', chords: 'synth-shruti' }, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
       sizhu:  { name: 'Sizhu (Chinese silk and bamboo)', noChords: true, hetero: 'pipa 2', fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
       andean: { name: 'Andean (flute and panpipe)', noChords: true, hetero: 'panpipe 1', fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
     };
@@ -2768,6 +2809,9 @@
       if (/swing|jazz|blues|rag|foxtrot|shuffle/.test(r)) return 'swing';
       if (/bossa|samba|latin|rumba|tango|beguine/.test(r)) return 'bossa';
       if (/march|polka|schottische|two-?step|quickstep/.test(r)) return 'march';
+      // Children's singing games and play-party songs: a light dance groove (folk has several), not pop, not a ballad. A
+      // Jamaican ring game is mento's (below).
+      if (/singing game|play[- ]?party|play song|movement (game|song)|\bgame\b/.test(r) && !/ring (game|tune)/.test(r)) return 'folk';
       if (/ballad|\bair\b|lullaby|hymn|carol|slow|lament|song/.test(r)) return 'ballad';
       if (/funk/.test(r)) return 'funk';
       if (/reggaeton|dembow/.test(r)) return 'reggaeton';
@@ -2812,6 +2856,14 @@
        playhead, so it keeps time with the melody under every control. */
     const FLAT_NOTE = m => ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'][((m % 12) + 12) % 12] + (Math.floor(m / 12) - 1);
     const DRUM = { kick: 36, snare: 38, rim: 37, clap: 39, hatC: 42, hatP: 44, hatO: 46, tomLo: 43, tomMid: 47, tomHi: 50, crash: 49, ride: 51, tamb: 54, cowbell: 56, cabasa: 69, shaker: 70, clave: 75, block: 76, blockLo: 77 };
+    // The hand drums of four styles, made on the spot (Sampler.world), numbered above the General MIDI drum map so no
+    // sample set has them: the taiko's centre (don) and rim (ka), the chanchiki bell and the hyoshigi clappers (Min'yo);
+    // the janggu's low hand side (kung), its stick side (deok, and gi, the soft grace stroke before one) and both
+    // together (deong) (Korean); the tombak's centre (dum), edge (tak) and finger snap, and the daf with its rings
+    // (Persian); the tabla's bayan (ge, ke) and dayan (na, tin, te), and both (dha, dhin) (the drone).
+    const WORLD_DRUM = { don: 90, ka: 91, kane: 92, hyo: 93, deong: 94, kung: 95, deok: 96, gi: 97, dum: 98, tak: 99, snap: 100, daf: 101, dha: 102, dhin: 103, na: 104, tin: 105, ge: 106, ke: 107, te: 108 };
+    Object.assign(DRUM, WORLD_DRUM);
+    const WORLD_MIDI = new Set(Object.values(WORLD_DRUM)), DAYAN = new Set([WORLD_DRUM.dha, WORLD_DRUM.dhin, WORLD_DRUM.na, WORLD_DRUM.tin, WORLD_DRUM.te]);
     const mulberry = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
     const pick = (rng, arr) => arr[Math.floor(rng() * arr.length)];
     /* ---- mini-notation: the band's parts as text ----
@@ -2947,9 +2999,11 @@
       return { parse, splitScore, valueAt, PARTS };
     })();
     // The words of each part, with a level for each when none is written.
-    const KIT = { bd: ['kick', .95], kick: ['kick', .95], sd: ['snare', .8], sn: ['snare', .8], snare: ['snare', .8], hh: ['hatC', .55], hat: ['hatC', .55], oh: ['hatO', .45], rim: ['rim', .5], cp: ['clap', .7], clap: ['clap', .7], ht: ['tomHi', .8], mt: ['tomMid', .8], lt: ['tomLo', .85], cr: ['crash', .8], crash: ['crash', .8], rd: ['ride', .5], ride: ['ride', .5], sh: ['shaker', .3], shaker: ['shaker', .3], tb: ['tamb', .4], tamb: ['tamb', .4], cb: ['cowbell', .45], cowbell: ['cowbell', .45], cl: ['clave', .5], clave: ['clave', .5], wb: ['block', .5], block: ['block', .5], lwb: ['blockLo', .5], ca: ['cabasa', .35], cabasa: ['cabasa', .35], fill: ['fill', 1] };
+    const KIT = { bd: ['kick', .95], kick: ['kick', .95], sd: ['snare', .8], sn: ['snare', .8], snare: ['snare', .8], hh: ['hatC', .55], hat: ['hatC', .55], oh: ['hatO', .45], rim: ['rim', .5], cp: ['clap', .7], clap: ['clap', .7], ht: ['tomHi', .8], mt: ['tomMid', .8], lt: ['tomLo', .85], cr: ['crash', .8], crash: ['crash', .8], rd: ['ride', .5], ride: ['ride', .5], sh: ['shaker', .3], shaker: ['shaker', .3], tb: ['tamb', .4], tamb: ['tamb', .4], cb: ['cowbell', .45], cowbell: ['cowbell', .45], cl: ['clave', .5], clave: ['clave', .5], wb: ['block', .5], block: ['block', .5], lwb: ['blockLo', .5], ca: ['cabasa', .35], cabasa: ['cabasa', .35], fill: ['fill', 1], don: ['don', .9], ka: ['ka', .5], kane: ['kane', .4], hyo: ['hyo', .5], deong: ['deong', .9], kung: ['kung', .85], deok: ['deok', .6], gi: ['gi', .3], dum: ['dum', .9], tak: ['tak', .65], snap: ['snap', .4], daf: ['daf', .8], dha: ['dha', .85], dhin: ['dhin', .8], dhi: ['dhin', .8], na: ['na', .6], ta: ['na', .6], tin: ['tin', .6], ti: ['tin', .6], ge: ['ge', .7], ke: ['ke', .5], te: ['te', .45] };
     const BASS = { r: ['root', 1], root: ['root', 1], 3: ['third', .85], third: ['third', .85], 5: ['fifth', .85], fifth: ['fifth', .85], 7: ['seventh', .8], seventh: ['seventh', .8], 8: ['oct', .6], oct: ['oct', .6], a: ['appr', .7], appr: ['appr', .7], approach: ['appr', .7], n: ['next', .85], next: ['next', .85] };
-    const CHORD = { ch: ['ch', .85], chord: ['ch', .85], pad: ['pad', .22], c1: [0, .8], c2: [1, .8], c3: [2, .8], c4: [3, .8] };
+    // open: the chord's root and fifth struck together, as a plucked zither or lute plays a drone (no third); drone: the
+    // same held, like pad (a reed drone that breathes).
+    const CHORD = { ch: ['ch', .85], chord: ['ch', .85], pad: ['pad', .22], drone: ['drone', .22], open: ['open', .8], c1: [0, .8], c2: [1, .8], c3: [2, .8], c4: [3, .8] };
     /* ---- Strudel-like code in and out ----
        A band shared as text: the page's score lines go out as Strudel-like
        statements ($: s("bd ~ sd ~, hh*8"), $: note("r _ 5 _").s("bass")) after
@@ -3195,28 +3249,90 @@
        (0..1), g.lo and g.hi (energy below .35, from .7), g.fill (enough
        detail and energy for fills), the metre (g.nb beats in a bar, quarters
        or dotted quarters; g.triple, g.compound), g.rng and g.two (one of
-       these patterns, or two of them alternating bar by bar). STYLES says
+       these patterns, or two of them alternating bar by bar), and g.v, which
+       of its grooves to play (taken modulo their number, GROOVE_COUNT; each
+       groove sets g.name, which the band note shows). STYLES says
        the rest of a style's idiom: its harmony for the arranger and the
        band's colour, its swing, and its fit: the metres it plays in, and the
        style it gives way to in the others (a reel's groove has no 3/4). */
     // Most styles play their own groove in 2 and 4, and give way to the waltz in 3 and the jig in compound time.
     const FIT_DUPLE = { triple: 'waltz', compound: 'jig' };
     const fitOf = key => (STYLES[key] && STYLES[key].fit) || FIT_DUPLE;
+    // One bar of a cycle written beat by beat, each cell one beat: the cells in turn, a cycle longer than the bar
+    // spread over bars that take turns (teentaal's sixteen beats over four bars of four), a shorter one repeated.
+    const beatsOf = (cells, nb) => {
+      nb = Math.max(1, nb); const L = cells.length, bar = cs => cs.map(c => `[${c}]`).join(' ');
+      if (L > nb && L % nb === 0) return `<${Array.from({ length: L / nb }, (_, k) => `[${bar(cells.slice(k * nb, k * nb + nb))}]`).join(' ')}>`;
+      return bar(Array.from({ length: nb }, (_, k) => cells[k % L]));
+    };
+    // One stroke a bar, on the downbeat.
+    const downbeat = (word, nb) => [word, ...Array(Math.max(0, nb - 1)).fill('~')].join(' ');
     const GROOVES = {
       waltz: (g, style = 'waltz') => {
         const { energy, detail, rng, two, drums, bass, chords, lo, hi } = g;
+        const v = style === 'waltz' ? g.v % 4 : 0;
+        if (style === 'waltz') g.name = ['oom-pah-pah', 'country waltz', 'musette (moving bass)', 'fingerpicked'][v];
+        const tail = detail > 0.4 ? 'a?0.7' : '~';
+        if (v === 1) {   // brushes: the kick on one, the side-stick on two and three, a shaker; the bass on one and three
+          drums.push(two(['x...........', 'x.......x...'].map(x => miniOf(x, 'bd'))));
+          if (energy > 0.3) drums.push(two(['~ rim:.5 rim:.4', '~ rim:.5 [rim:.4 rim:.25?0.5]']));
+          drums.push(lo ? 'sh:.25*3' : 'sh:.3*6');
+          if (g.fill) drums.push('<~ ~ ~ fill>');
+          bass.push(lo ? 'r _ ~' : tail === '~' ? 'r ~ 5' : `r ~ [5 ${tail}]`);
+          chords.push(lo ? '~ ch:.6 ~' : '~ ch ch:.75');
+          if (lo) chords.push('pad');
+          return;
+        }
+        if (v === 2) {   // the bass moves on every beat (root, octave) under the comping's two and three
+          drums.push('bd ~ ~');
+          if (energy > 0.3) drums.push(two(['~ hh:.4 hh:.35', '~ [hh:.4 hh:.2] hh:.35']));
+          if (g.fill) drums.push('<~ ~ ~ fill>');
+          bass.push(lo ? 'r _ 5' : detail > 0.4 ? two(['r 8:.7 r:.6', 'r 8:.7 8:.6', 'r 8:.7 a?0.7']) : 'r 8:.7 r:.6');   // root and octave: a third or fifth this low under the chord muddies it
+          chords.push(lo ? '~ ch:.6 ch:.5' : two(['~ ch ch:.7', '~ [ch ch:.5] ch:.7']));
+          if (lo) chords.push('pad');
+          return;
+        }
+        if (v === 3) {   // a guitar picked: the root, then the chord's notes up and down in eighths
+          drums.push(lo ? 'bd ~ ~' : two(['bd ~ ~', 'bd ~ bd:.5']));
+          if (energy > 0.3) drums.push('~ rim:.45 ~');
+          drums.push(lo ? 'hh:.25*3' : 'hh:.3*6');
+          if (g.fill) drums.push('<~ ~ ~ fill>');
+          bass.push(lo ? 'r _ _' : `r _ [~ ${tail === '~' ? '5:.6' : tail}]`);
+          chords.push(lo ? 'c1 c2 c3' : two(['[c1 c2] [c3 c2] [c3 c2]', '[c1 c3] [c2 c3] [c4 c3]']));
+          chords.push('pad');
+          return;
+        }
         drums.push(two(['x...........', 'x.....x.....', 'x........x..'].map(x => miniOf(x, 'bd'))));
         if (energy > 0.3) drums.push(two(['........x...', '....x...x...'].map(x => miniOf(x, 'sd'))));
         drums.push(miniOf(lo ? 'x...x...x...' : !hi ? 'x.x.x.x.x.x.' : 'xoxoxoxoxoxo', 'hh', .3));
         if (g.fill && style !== 'ballad') drums.push('<~ ~ ~ fill>');
-        const tail = detail > 0.4 ? 'a?0.7' : '~';
         bass.push(energy > 0.3 ? pick(rng, [tail === '~' ? 'r 5 ~' : `r 5 [~ ${tail}]`, tail === '~' ? 'r _ 5' : `r _ [5 ${tail}]`]) : tail === '~' ? 'r _ ~' : `r _ [~ ${tail}]`);
         const hits = lo ? [[[0, 3]], [[0, 2], [2, 1]]] : !hi ? [[[0, 1], [1, 1], [2, 1]], [[0, 1.5], [1.5, 1.5]], [[0, 1], [1.5, 1.5]]] : [[[0, .5], [.5, .5], [1, .5], [1.5, .5], [2, .5], [2.5, .5]], [[0, 1], [1, .5], [1.5, .5], [2, 1]]];
         chords.push(style === 'ballad' ? (lo ? 'c1 c2 c3' : '[c1 c3] [c2 c4] [c3 c1]') : two(hits.map(h => miniOf(hitString(h, 3), 'ch'))));
         if (lo || style === 'ballad') chords.push('pad');
       },
       jig: g => {
-        const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
+        const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g, v = g.v % 3;
+        g.name = ['jig (bounce)', 'bodhrán', 'lilting slide'][v];
+        if (v === 1) {   // a bodhrán's two strokes in each half, the down-stroke on the beat, a light tip between
+          drums.push(lo ? 'bd ~ ~ bd:.5 ~ ~' : two(['bd ~ rim:.35 bd:.7 ~ rim:.35', 'bd rim:.25 rim:.35 bd:.7 ~ rim:.35', 'bd ~ rim:.35 bd:.7 rim:.25 rim:.35']));
+          if (hi) drums.push('hh:.25*6');
+          if (fill) drums.push('<~ ~ ~ fill>');
+          bass.push(lo ? 'r _ _ _ _ _' : detail > 0.4 ? 'r _ _ 5 _ a?0.7' : 'r _ _ 5 _ _');
+          chords.push(lo ? 'ch ~ ~ ch:.6 ~ ~' : 'ch ~ ch:.6 ch ~ ch:.6');
+          if (lo) chords.push('pad');
+          return;
+        }
+        if (v === 2) {   // long-short in each half, the chord held through it, the bass rocking root and fifth
+          drums.push(lo ? 'bd ~ ~ ~ ~ ~' : 'bd ~ ~ bd:.5 ~ ~');
+          if (energy > 0.3) drums.push(two(['~ ~ sd:.35 ~ ~ sd:.4', '~ ~ ~ ~ ~ sd:.4']));
+          drums.push(lo ? 'hh:.3 ~ ~ hh:.3 ~ ~' : 'hh:.35 ~ hh:.2 hh:.3 ~ hh:.2');
+          if (fill) drums.push('<~ ~ ~ fill>');
+          bass.push(lo ? 'r _ _ 5 _ _' : 'r _ 5:.6 r:.8 _ 5:.6');
+          chords.push(lo ? 'ch _ _ ~ ~ ~' : two(['ch _ ch:.5 ~ ch:.6 _', 'ch _ ch:.5 ch:.7 _ ch:.5']));
+          if (lo) chords.push('pad');
+          return;
+        }
         drums.push(lo ? 'bd ~ ~ ~ ~ ~' : 'bd ~ ~ bd:.6 ~ ~');
         if (energy > 0.3) drums.push(two(['~ ~ ~ sd ~ ~', '~ ~ sd:.4 sd ~ ~', '~ ~ ~ sd ~ sd:.3']));
         drums.push(lo ? 'hh:.3 ~ ~ hh:.3 ~ ~' : !hi ? 'hh:.35 ~ hh:.25 hh:.35 ~ hh:.25' : '[hh:.35 hh:.2]*6');
@@ -3228,57 +3344,95 @@
       },
       folk: (g, style = 'folk') => {
         const { energy, detail, rng, two, drums, bass, chords, lo, hi, fill, nb } = g;
-        const march = style === 'march', half = nb === 2;
+        const march = style === 'march', half = nb === 2, v = march ? g.v % 3 : g.v % 4, n = nb;
+        g.name = march ? ['march', 'polka', 'street beat'][v] : ['boom-chick', 'train beat', 'old-time two-step', 'Celtic strum'][v];
+        const tail = detail > 0.4 ? 'a?0.7' : '5';
+        if (!lo && v > 0) {   // the other grooves at middle and full energy (at low energy every one is the plain boom-chick)
+          if (march) {
+            if (v === 1) {   // polka: the bass on every beat, root and fifth, the chord on every off-beat
+              drums.push(`bd:.8*${n}`, `[~ sd:.5]*${n}`, `hh:.3*${2 * n}`);
+              if (hi && detail > 0.5) drums.push(`<~ [~ sd:.2]*${n}>`);
+              if (fill) drums.push('<~ ~ ~ fill>');
+              bass.push(half ? `r ${tail}` : `r 5 r ${tail}`);
+              chords.push(`[~ ch]*${n}`);
+              return;
+            }
+            // a street beat: the snare's eighths, accented on the beats, a flam to close the bar
+            drums.push(half ? 'bd ~' : 'bd ~ bd ~', [...Array(Math.max(0, n - 1)).fill('[sd:.5 sd:.22]'), '[sd:.5 [sd:.3 sd:.6]]'].join(' '));
+            if (hi) drums.push(half ? '~ cr:.3?0.3' : '~ ~ ~ cr:.3?0.3');
+            if (fill) drums.push('<~ ~ ~ fill>');
+            bass.push(half ? (detail > 0.4 ? 'r a?0.7' : 'r 5') : `r ~ 5 [~ ${tail}]`);
+            chords.push(half ? 'ch:.6 ch' : 'ch:.6 ch ch:.6 ch');
+            return;
+          }
+          if (v === 1) {   // train beat: the snare carries the eighths, accented on the backbeat, under a strummed eighth-note guitar
+            drums.push(half ? 'bd ~' : 'bd ~ bd ~', half ? '[sd:.25 sd:.2] [sd:.6 sd:.2]' : '[sd:.25 sd:.2] [sd:.6 sd:.2] [sd:.25 sd:.2] [sd:.6 [sd:.2 sd:.15?0.5]]', `hh:.3*${n}`);
+            if (fill) drums.push('<~ ~ ~ fill>');
+            bass.push(half ? `r ${tail}` : `r [~ 5:.5] 5 [~ ${tail}]`);
+            chords.push(two([`[ch:.7 ch:.45]*${n}`, half ? '[ch:.7 ch:.45] [~ ch:.5]' : '[ch:.7 ch:.45] [~ ch:.5] [ch:.7 ch:.45] [ch:.6 ch:.45]']));
+            return;
+          }
+          if (v === 2) {   // old-time two-step: kick and bass on one and three, a side-stick and the guitar's chop on two and four, a shaker
+            drums.push(half ? 'bd ~' : 'bd ~ bd ~', half ? '~ rim:.6' : '~ rim:.6 ~ rim:.6', `sh:.3*${2 * n}`);
+            if (hi) drums.push(half ? '~ [~ rim:.25?0.5]' : '~ ~ ~ [~ rim:.25?0.5]');
+            if (fill) drums.push('<~ ~ ~ fill>');
+            bass.push(half ? (detail > 0.4 ? 'r a?0.7' : 'r 5') : detail > 0.4 ? two(['r ~ 5 [~ a?0.7]', 'r ~ 3:.8 [~ a?0.7]']) : 'r ~ 5 ~');
+            chords.push(half ? '~ [ch ch:.45]' : '~ [ch ch:.45] ~ [ch ch:.45]');
+            return;
+          }
+          // Celtic strum: a bodhrán's down-strokes, the guitar's down, down-up, up, down-up across the bar, the bass long
+          drums.push(half ? 'bd [~ bd:.5]' : 'bd ~ [~ bd:.5] ~', half ? '[~ rim:.3?0.7] [~ rim:.35]' : '[~ rim:.3?0.7] ~ [~ rim:.3?0.7] [~ rim:.35]', `hh:.25*${n}`);
+          if (fill) drums.push('<~ ~ ~ fill>');
+          bass.push(half ? 'r _' : detail > 0.4 ? 'r _ 5 [~ a?0.6]' : 'r _ 5 _');
+          chords.push(half ? '[ch ~ ch:.5 ch:.6] [~ ch:.55 ch:.7 ch:.45]' : two(['[ch ~] [ch:.5 ch:.6] [~ ch:.55] [ch:.7 ch:.45]', '[ch ~] [ch:.5 ~] [ch:.6 ch:.45] [~ ch:.55]']));
+          return;
+        }
         drums.push(half ? 'bd ~' : (lo ? 'bd ~ ~ ~' : 'bd ~ bd ~'));
         if (energy > 0.2) drums.push(half ? '~ sd' : '~ sd ~ sd');
         if (march && detail > 0.5 && energy > 0.45) drums.push(half ? '[~ sd:.2 ~ sd:.2] [~ ~ sd:.2 ~]' : '~ [~ ~ sd:.2 ~] ~ [~ sd:.2 ~ sd:.2]');
         drums.push(lo ? `hh:.3*${nb}` : !hi ? `[hh:.35 hh:.2]*${nb}` : `[hh:.35 hh:.25]*${nb}`);
         if (hi && !march) drums.push(half ? '~ [~ oh?0.3]' : '~ ~ ~ [~ oh?0.3]');
         if (fill) drums.push('<~ ~ ~ fill>');
-        const tail = detail > 0.4 ? 'a?0.7' : '5';
         bass.push(half ? (lo ? 'r _' : `r ${tail}`) : march ? (lo ? 'r _ 5 _' : `r 5 r ${tail}`) : (lo ? 'r _ 5 _' : hi ? `r [~ r:.4] 5 [~ ${tail}]` : `r ~ 5 [~ ${tail}]`));
         chords.push(half ? (lo ? '~ ch:.6' : hi ? '[~ ch:.4] ch' : '~ ch') : lo ? '~ ch:.6 ~ ch:.6' : hi ? (march ? 'ch:.5 ch ch:.5 ch' : two(['~ ch ~ [ch ch:.5]', '~ [ch ch:.5] ~ ch', '[~ ch:.4] ch ~ ch'])) : '~ ch ~ ch');
         if (lo) chords.push('pad');
       },
       march: g => GROOVES.folk(g, 'march'),
       swing: g => {
-        const { energy, detail, rng, two, drums, bass, chords, lo, fill } = g;
-        drums.push(lo ? 'rd:.6 rd:.6 rd:.6 rd:.6' : 'rd [rd:.5 rd:.7] rd [rd:.5 rd:.7]');
+        const { energy, detail, rng, two, drums, bass, chords, lo, fill } = g, v = g.v % 3;
+        g.name = ['walking four', 'two-feel', 'shuffle'][v];
+        drums.push(lo ? 'rd:.6 rd:.6 rd:.6 rd:.6' : v === 2 ? two(['[rd ~ rd:.5]*4', '[rd ~ rd:.5] [rd ~ rd:.6] [rd ~ rd:.5] [rd rd:.3 rd:.6]']) : 'rd [rd:.5 rd:.7] rd [rd:.5 rd:.7]');
         if (energy > 0.3) drums.push('~ hh ~ hh');
         if (energy > 0.4) drums.push('bd:.3*4');
         if (detail > 0.5 && energy > 0.4) drums.push(pick(rng, ['[~ sd:.3]? ~ [~ sd:.3]? ~', '~ [~ sd:.3]? ~ [~ sd:.35]?', '[~ sd:.3]? [~ ~]? ~ [~ sd:.3]?']));
         if (fill) drums.push('<~ ~ ~ fill>');
-        bass.push(lo ? 'r _ 5 _' : detail > 0.4 ? two(['r 3 5 a', 'r 5 3 a', 'r 3 5 n']) : 'r 3 5 5');
-        chords.push(lo ? 'ch:.6 _ _ ~' : two(['ch ~ [~ ch] ~', '~ [~ ch] ~ ch', '[~ ch] ~ ch ~', 'ch _ [~ ch] _', '~ [~ ch] ~ [~ ch]']));
+        bass.push(lo ? 'r _ 5 _' : v === 1 ? (detail > 0.4 ? 'r _ 5 [~ a?0.7]' : 'r _ 5 _') : v === 2 ? two(['r 3 5 8:.7', 'r 3 5 3', 'r 3 5 a']) : detail > 0.4 ? two(['r 3 5 a', 'r 5 3 a', 'r 3 5 n']) : 'r 3 5 5');
+        chords.push(lo ? 'ch:.6 _ _ ~' : v === 1 ? two(['ch ~ [~ ch] ~', 'ch ~ [~ ch] [~ ch:.6]']) : v === 2 ? two(['[ch ~ ch:.55] ~ [ch ~ ch:.55] ~', '~ [ch ~ ch:.55] ~ [ch ~ ch:.55]']) : two(['ch ~ [~ ch] ~', '~ [~ ch] ~ ch', '[~ ch] ~ ch ~', 'ch _ [~ ch] _', '~ [~ ch] ~ [~ ch]']));
         if (lo) chords.push('pad');
       },
       bossa: g => {
-        const { energy, detail, two, drums, bass, chords, lo } = g;
-        drums.push(two(['<[rim ~ ~ rim ~ ~ rim ~] [~ ~ rim ~ rim ~ ~ ~]>', '<[rim ~ ~ rim ~ ~ rim ~] [~ ~ rim ~ ~ rim ~ ~]>']));
+        const { energy, detail, two, drums, bass, chords, lo } = g, v = g.v % 2;
+        g.name = ['3-2 clave', '2-3 clave'][v];
+        const turn = p => v ? p.replace(/<(\[[^\]]*\]) (\[[^\]]*\])>/g, '<$2 $1>') : p;   // the clave's two bars the other way round
+        drums.push(turn(two(['<[rim ~ ~ rim ~ ~ rim ~] [~ ~ rim ~ rim ~ ~ ~]>', '<[rim ~ ~ rim ~ ~ rim ~] [~ ~ rim ~ ~ rim ~ ~]>'])));
         drums.push(lo ? 'hh:.3*4' : 'hh:.3*8');
         if (energy > 0.3) drums.push('bd:.6 ~ ~ bd:.6 bd:.6 ~ ~ bd:.6');
         if (detail > 0.5) drums.push('sh:.5*8');
         if (g.fill && energy > 0.3) drums.push('<~ ~ ~ fill>');
         bass.push(lo ? 'r _ _ _ 5 _ _ _' : detail > 0.5 ? 'r _ _ 5 5 _ _ [~ n?0.5]' : 'r _ _ 5 5 _ _ r:.6');
-        chords.push(lo ? 'ch:.6 _ _ _ ~ ~ ch:.5 ~' : two(['<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ch ~ ~ ~]>', '<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ~ ch ~ ~]>']));
+        chords.push(lo ? 'ch:.6 _ _ _ ~ ~ ch:.5 ~' : turn(two(['<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ch ~ ~ ~]>', '<[ch ~ ~ ch ~ ~ ch ~] [~ ~ ch ~ ~ ch ~ ~]>'])));
         if (lo) chords.push('pad');
       },
-      drone: g => {   // a tanpura's held root and fifth, a tabla-like pattern on the low drum and the rim
-        const { detail, drums, bass, chords, lo, hi, nb, compound } = g;
-        if (!lo) drums.push(nb === 3 ? 'bd rim:.5 rim:.4' : nb === 2 ? 'bd rim:.5' : compound ? 'bd ~ ~ rim:.5 ~ rim:.4' : (hi ? 'bd [~ rim:.35] rim:.5 [bd:.6 rim:.35]' : 'bd ~ rim:.5 ~'));
-        if (hi && detail > 0.5) drums.push(nb === 3 ? '~ [~ rim:.25] [~ rim:.25]' : '[~ rim:.25]*' + nb);
-        bass.push('r _ _ _'.split(' ').slice(0, Math.max(2, nb)).join(' '));
-        chords.push('pad');
-      },
       ballad: g => {
-        if (g.triple) return GROOVES.waltz(g, 'ballad');
-        const { detail, drums, bass, chords, lo, hi, energy } = g;
+        if (g.triple) { g.name = 'arpeggio in three'; return GROOVES.waltz(g, 'ballad'); }
+        const { detail, drums, bass, chords, lo, hi, energy } = g, v = g.v % 3;
+        g.name = ['arpeggio', 'block chords', 'flowing eighths'][v];
         if (!lo) drums.push(hi ? 'bd ~ ~ ~' : 'hh:.3*4');
         if (energy > 0.4) drums.push(hi ? '~ sd:.5 ~ sd:.5' : '~ rim:.5 ~ rim:.5');
         if (hi) drums.push('[hh:.3 hh:.2]*4');
         if (g.fill && energy > 0.4) drums.push('<~ ~ ~ fill>');
-        bass.push(lo ? 'r _ _ _' : !hi ? 'r _ 5 _' : (detail > 0.4 ? 'r _ 5 [~ a?0.7]' : 'r _ 5 ~'));
-        chords.push(lo ? 'c1 c2 c3 c4' : '[c1 c3] [c2 c4] [c3 c1] [c4 c2]');
+        bass.push(lo ? 'r _ _ _' : v === 2 ? (detail > 0.4 ? 'r _ _ [5 a?0.6]' : 'r _ _ 5') : !hi ? 'r _ 5 _' : (detail > 0.4 ? 'r _ 5 [~ a?0.7]' : 'r _ 5 ~'));
+        chords.push(lo ? 'c1 c2 c3 c4' : v === 1 ? 'ch:.6 ch:.45 ch:.55 ch:.45' : v === 2 ? '[c1 c2 c3 c2]*2' : '[c1 c3] [c2 c4] [c3 c1] [c4 c2]');
         chords.push('pad');
       },
       funk: g => {   // sixteenths: a syncopated kick, the backbeat with ghost notes around it, octave bass, offbeat stabs
@@ -3289,8 +3443,9 @@
         drums.push(lo ? '[hh hh:.35]*4' : miniOf('xoxoxoxoxoxoxoxo', 'hh', .3));
         if (!lo) drums.push(hi ? '~ [~ oh?0.5] ~ [~ oh?0.6]' : '~ ~ ~ [~ oh?0.4]');
         if (fill) drums.push('<~ ~ ~ fill>');
-        bass.push(lo ? 'r _ ~ ~ [~ r:.6] ~ 5 ~' : !hi ? two(['[r ~ ~ 8:.6] [~ ~ r ~] [~ r:.7 ~ 5] [~ ~ a?0.6 ~]', '[r ~ ~ r:.6] [~ 8:.7 ~ ~] [r ~ ~ 5] [~ 7 ~ a?0.6]']) : two(['[r ~ 8:.6 r:.6] [~ r ~ 8:.7] [~ r:.7 5 ~] [7 ~ 8:.6 a]', '[r ~ ~ 8:.7] [~ r ~ 5] [r ~ 8:.6 ~] [5 ~ 7 a]']));
-        chords.push(lo ? '~ ch:.6 ~ ~' : two(['..x...x...x.x...', '..x..x....x...x.', '.x..x...x...x...', '..x.x.....x..x..'].map(x => miniOf(x, 'ch'))));
+        const v = g.v % 2; g.name = ['sixteenth funk', 'octave-bass funk'][v];
+        bass.push(lo ? 'r _ ~ ~ [~ r:.6] ~ 5 ~' : v === 1 ? two(['[r ~ 8:.7 ~] [r:.6 ~ 8:.7 ~] [r ~ 8:.7 r:.6] [~ 8:.7 ~ a?0.6]', '[r ~ ~ 8:.7] [~ r:.6 8:.7 ~] [r ~ 8:.7 ~] [5 ~ 8:.6 a?0.6]']) : !hi ? two(['[r ~ ~ 8:.6] [~ ~ r ~] [~ r:.7 ~ 5] [~ ~ a?0.6 ~]', '[r ~ ~ r:.6] [~ 8:.7 ~ ~] [r ~ ~ 5] [~ 7 ~ a?0.6]']) : two(['[r ~ 8:.6 r:.6] [~ r ~ 8:.7] [~ r:.7 5 ~] [7 ~ 8:.6 a]', '[r ~ ~ 8:.7] [~ r ~ 5] [r ~ 8:.6 ~] [5 ~ 7 a]']));
+        chords.push(lo ? '~ ch:.6 ~ ~' : two((v === 1 ? ['x...x...x.x.x...', 'x.x...x...x...x.', '....x..x....x.x.'] : ['..x...x...x.x...', '..x..x....x...x.', '.x..x...x...x...', '..x.x.....x..x..']).map(x => miniOf(x, 'ch'))));
         if (lo) chords.push('pad');
       },
       reggaeton: g => {   // the dembow: four on the floor, the snare's 3+3+2 against it, a tresillo bass
@@ -3300,8 +3455,9 @@
         if (hi) drums.push(miniOf('...x..x....x..x.', 'cp', .5));
         if (energy > 0.3) drums.push(hi ? miniOf('xoxoxoxoxoxoxoxo', 'hh', .3) : 'hh:.35*8');
         if (fill) drums.push('<~ ~ ~ [~ ~ ~ [sd:.5 sd:.7]]>');
-        bass.push(lo ? 'r _ _ _ 5 _ _ _' : miniOf('x..x..x.x..x..x.', 'r', .6));
-        chords.push(lo ? 'pad' : hi ? miniOf('x..x..x.x..x..x.', 'ch', .6) : miniOf('...x..x....x..x.', 'ch', .6));
+        const v = g.v % 2; g.name = ['dembow', 'dembow, the bass on the off-beats'][v];
+        bass.push(lo ? 'r _ _ _ 5 _ _ _' : miniOf(v ? 'x...x.x.x...x.x.' : 'x..x..x.x..x..x.', 'r', .6));
+        chords.push(lo ? 'pad' : hi ? miniOf('x..x..x.x..x..x.', 'ch', .6) : miniOf(v ? '..x...x...x...x.' : '...x..x....x..x.', 'ch', .6));
         if (!lo) chords.push('pad');
       },
       afrobeats: g => {   // a kick that skips, the rim's 3+3+2, a shaker in sixteenths and a bell; in 12/8 the standard bell
@@ -3317,34 +3473,37 @@
           if (!lo) chords.push('pad');
           return;
         }
-        drums.push(two((lo ? ['x.......x.......'] : ['x......x..x.....', 'x.....x...x.....', 'x......x..x...x.']).map(x => miniOf(x, 'bd'))));
+        const v = g.v % 2; g.name = ['afrobeats', 'afro-pop bounce'][v];
+        drums.push(two((lo ? ['x.......x.......'] : v ? ['x.....x...x...x.', 'x.......x.x.....', 'x.....x.x.......'] : ['x......x..x.....', 'x.....x...x.....', 'x......x..x...x.']).map(x => miniOf(x, 'bd'))));
         drums.push(miniOf('...x..x....x..x.', 'rim', .5));
         if (energy > 0.3) drums.push('~ cp:.7 ~ cp:.7');
         drums.push(lo ? 'sh:.3*8' : miniOf('xooxxooxxooxxoox', 'sh', .2));
         if (!lo && detail > 0.4) drums.push(miniOf('x..x..x...x.x...', 'cb', .4).replace(/cb(?!:)/g, 'cb:.45'));
         if (hi) drums.push('hh:.25*8');
         if (fill) drums.push('<~ ~ ~ [~ ~ ~ [rim:.6 rim:.7]]>');
-        bass.push(lo ? 'r _ ~ ~ 5 _ ~ ~' : two(['[r ~ ~ r:.6] [~ ~ 5 ~] [r ~ ~ r:.6] [~ 8:.6 ~ 5]', '[r ~ ~ ~] [~ r:.6 ~ 5] [~ ~ r ~] [5 ~ a?0.6 ~]']));
+        bass.push(lo ? 'r _ ~ ~ 5 _ ~ ~' : v ? two(['[r ~ ~ ~] [r:.6 ~ 5 ~] [~ ~ r ~] [8:.6 ~ 5 ~]', '[r ~ r:.6 ~] [~ ~ 5 ~] [r ~ ~ 8:.6] [~ 5 ~ a?0.6]']) : two(['[r ~ ~ r:.6] [~ ~ 5 ~] [r ~ ~ r:.6] [~ 8:.6 ~ 5]', '[r ~ ~ ~] [~ r:.6 ~ 5] [~ ~ r ~] [5 ~ a?0.6 ~]']));
         chords.push(lo ? 'pad' : two(['..x..x....x..x..', '..x...x...x..x..', '...x..x...x...x.'].map(x => miniOf(x, 'ch', .6))));
         if (!lo) chords.push('pad');
       },
       lofi: g => {   // a lazy boom-bap: the kick on one and late in three, a soft snare, swung hats, held seventh chords
         const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
-        drums.push(two(['x.......x.x.....', 'x......x..x.....', 'x.........x.....'].map(x => miniOf(x, 'bd:.8'))));
-        drums.push(lo ? '~ rim:.5 ~ rim:.5' : '~ sd:.65 ~ sd:.65');
+        const v = g.v % 2; g.name = ['boom-bap', 'lazy half-time'][v];
+        drums.push(two((v ? ['x.........x.....', 'x......x........', 'x.........x..x..'] : ['x.......x.x.....', 'x......x..x.....', 'x.........x.....']).map(x => miniOf(x, 'bd:.8'))));
+        drums.push(lo ? '~ rim:.5 ~ rim:.5' : v ? '~ ~ sd:.65 ~' : '~ sd:.65 ~ sd:.65');
         drums.push(lo ? '[hh:.3 hh:.18]*4' : '[hh:.38 hh:.22]*4');
         if (!lo && detail > 0.5) drums.push('~ ~ ~ [~ ~ ~ sd:.15]?0.5');
         if (hi) drums.push('sh:.2*8');
         if (fill) drums.push('<~ ~ ~ fill>');
-        bass.push(lo ? 'r _ _ _ ~ ~ ~ ~' : two(['r _ _ 5 ~ r _ [~ a?0.6]', 'r _ ~ ~ ~ 5 _ [~ a?0.6]']));
-        chords.push(lo ? 'ch:.6 _ _ _ _ _ _ _' : two(['ch:.7 _ _ ~ ~ [~ ch:.5] _ ~', 'ch:.7 _ _ _ ~ ~ [~ ch:.5] ~', '~ ch:.6 _ _ ~ ~ ch:.5 _']));
+        bass.push(lo ? 'r _ _ _ ~ ~ ~ ~' : v ? two(['r _ _ _ _ _ 5 _', 'r _ _ _ ~ ~ [~ a?0.6] ~']) : two(['r _ _ 5 ~ r _ [~ a?0.6]', 'r _ ~ ~ ~ 5 _ [~ a?0.6]']));
+        chords.push(lo ? 'ch:.6 _ _ _ _ _ _ _' : v ? two(['ch:.7 _ _ _ _ _ _ ~', 'ch:.7 _ _ _ ~ ch:.5 _ _']) : two(['ch:.7 _ _ ~ ~ [~ ch:.5] _ ~', 'ch:.7 _ _ _ ~ ~ [~ ch:.5] ~', '~ ch:.6 _ _ ~ ~ ch:.5 _']));
         chords.push('pad');
       },
       trap: g => {   // half time: the clap on three, an 808 that booms under the kick, hi-hats in eighths that roll
         const { energy, detail, two, drums, bass, chords, lo, hi, fill } = g;
         drums.push(two((lo ? ['x...............', 'x.........x.....'] : ['x.........x.....', 'x......x..x.....', 'x.........x..x..', 'x.x.......x.....']).map(x => miniOf(x, 'bd'))));
         if (energy > 0.2) drums.push(hi ? '~ ~ [cp sd:.5] ~' : '~ ~ cp ~');
-        drums.push(lo ? 'hh:.35*8' : hi && detail > 0.4 ? two(['[hh hh:.3] [hh hh:.3] [hh hh:.3] [hh:.5*3 hh:.4*2]', '[hh hh:.3] [hh:.4*4] [hh hh:.3] [hh:.45*3]', '[hh hh:.3] [hh hh:.3] [hh:.4*6] [hh hh:.3]']) : two(['[hh hh:.3]*4', '[hh hh:.3] [hh hh:.3] [hh hh:.3] [hh:.4*3]']));
+        const v = g.v % 2; g.name = ['trap (rolling hats)', 'trap (triplet hats)'][v];
+        drums.push(lo ? 'hh:.35*8' : v ? two(['[hh hh:.3 hh:.35]*4', '[hh hh:.3 hh:.35] [hh hh:.3 hh:.35] [hh hh:.3 hh:.35] [hh:.4*6]']) : hi && detail > 0.4 ? two(['[hh hh:.3] [hh hh:.3] [hh hh:.3] [hh:.5*3 hh:.4*2]', '[hh hh:.3] [hh:.4*4] [hh hh:.3] [hh:.45*3]', '[hh hh:.3] [hh hh:.3] [hh:.4*6] [hh hh:.3]']) : two(['[hh hh:.3]*4', '[hh hh:.3] [hh hh:.3] [hh hh:.3] [hh:.4*3]']));
         if (hi) drums.push('~ ~ ~ [~ oh?0.4]');
         if (fill) drums.push('<~ ~ ~ [~ ~ ~ [sd:.5 sd:.6 sd:.7]]>');
         bass.push(lo ? 'r _ _ _ _ _ _ _' : two(['r _ _ _ _ r _ _', 'r _ _ r:.8 _ r _ _', 'r _ _ _ _ r _ 5:.8']));
@@ -3359,8 +3518,9 @@
         if (energy > 0.45) drums.push(each(miniOf('x.xx.x.x', 'rim', .5)));
         if (hi || (detail > 0.6 && energy > 0.4)) drums.push(each(miniOf('x.x.xx.x', 'cb', .4).replace(/cb(?!:)/g, 'cb:.4')));
         if (fill) drums.push(`<~ ~ ~ [${[...Array(Math.max(1, nb - 1)).fill('~'), '[rim:.5 rim:.6 rim:.7 rim:.8]'].join(' ')}]>`);
-        bass.push(lo ? each('r 5') : each(detail > 0.5 ? '[r ~ ~ 5:.7] [r ~ a?0.5 ~]' : '[r ~ ~ 5:.7] r'));
-        chords.push(lo ? each('[~ ch:.5] [~ ch:.5]') : each(two([miniOf('x.xx.x.x', 'ch', .5), miniOf('.x.x.xx.', 'ch', .5), miniOf('x..x.x.x', 'ch', .5)])));
+        const v = g.v % 2; g.name = ['samba de roda', 'partido alto'][v];
+        bass.push(lo ? each('r 5') : v ? each('[r ~ ~ r:.6] [~ ~ 5:.7 ~]') : each(detail > 0.5 ? '[r ~ ~ 5:.7] [r ~ a?0.5 ~]' : '[r ~ ~ 5:.7] r'));
+        chords.push(lo ? each('[~ ch:.5] [~ ch:.5]') : each(two(v ? [miniOf('x..x..x.', 'ch', .5), miniOf('.x.x..x.', 'ch', .5)] : [miniOf('x.xx.x.x', 'ch', .5), miniOf('.x.x.xx.', 'ch', .5), miniOf('x..x.x.x', 'ch', .5)])));
         if (lo) chords.push('pad');
       },
       mento: g => {   // Jamaican country band: the banjo and guitar strum off the beat, the rumba box's bass in 3+3+2, a shaker, the hand drum
@@ -3372,38 +3532,93 @@
         if (hi) drums.push(`[~ tb:.35]*${nb}`);
         if (fill) drums.push(`<~ ~ ~ [${[...Array(nb - 1).fill('~'), '[rim:.4 rim:.5]'].join(' ')}]>`);
         bass.push(lo ? ['r', ...Array(nb - 1).fill('_')].join(' ') : detail > 0.5 ? tres('r').replace(/r(?=[^r]*$)/, '5') : tres('r'));
-        chords.push(lo ? `[~ ch:.5]*${nb}` : [...Array(nb - 1).fill('[~ ch:.55]'), hi ? '[ch:.5 ch]' : '[~ ch]'].join(' '));
+        const v = g.v % 2; g.name = ['mento', 'mento, banjo eighths'][v];
+        chords.push(lo ? `[~ ch:.5]*${nb}` : v ? `[ch:.4 ch:.6]*${nb}` : [...Array(nb - 1).fill('[~ ch:.55]'), hi ? '[ch:.5 ch]' : '[~ ch]'].join(' '));
         if (lo) chords.push('pad');
       },
-      minyo: g => {   // Japanese folk song: the taiko, the hyoshigi's wooden clap, the chanchiki bell; the drone holds the song's final and its fifth
-        const { energy, drums, bass, chords, lo, hi, nb } = g;
-        if (!lo) {
-          drums.push(nb === 2 ? 'bd [~ bd:.5]' : nb === 3 ? 'bd ~ bd:.5' : 'bd ~ [bd:.5 bd:.6] ~');
-          drums.push(`wb:.45*${nb}`);
-          if (energy > 0.5) drums.push(`[cb:.3 ~ cb:.18 cb:.18]*${nb}`);
-        }
-        if (hi) drums.push('<~ ~ ~ [bd:.5 bd:.6 bd:.7 bd:.8]>');
-        bass.push(lo ? ['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' ') : ['r', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
-        chords.push('pad');
+      // The four styles with instruments of their own (STYLES[k].sound: synthesised drums and plucked strings): each
+      // writes its cycle beat by beat (beatsOf), the drum's own strokes as words, the plucked string's line in the bass
+      // part (root, fifth and octave) and its open-fifth strokes in the chords part. g.v picks the groove.
+      minyo: g => {   // Japanese folk song (min'yo): the taiko's don (centre) and ka (rim), the chanchiki bell, the hyoshigi clappers to open a phrase, the shamisen
+        const { energy, detail, drums, bass, chords, lo, hi, nb, compound } = g;
+        const G = (compound ? [
+          { name: 'ondo (bon-odori dance)', taiko: ['don ~ don:.55', 'ka:.5 ~ ka:.4'], sham: ['r ~ 8:.6', '5:.7 ~ 8:.5'], kane: 'kane:.6 ~ kane:.35' },
+          { name: 'sōran (work song)', taiko: ['don ~ ka:.45', 'don:.8 ka:.4 ka:.45'], sham: ['r 8:.5 5:.6', 'r:.8 8:.5 5:.6'], kane: 'kane:.5 kane:.3 kane:.3' },
+          { name: 'zashiki (parlour song)', taiko: ['don:.6 ~ ~', '~ ~ ka:.4'], sham: ['r ~ ~', '[5:.6 8:.5] ~ ~'], kane: 'kane:.4 ~ ~' },
+        ] : [
+          // the ondo's dotted lilt (don, dokon), as a bon-odori drummer plays it
+          { name: 'ondo (bon-odori dance)', taiko: ['don ~ ~ don:.55', 'don:.8 ~ ka:.5 ~', 'don ~ ~ don:.55', 'ka:.55 ~ ka:.45 ~'], sham: ['r ~ ~ 8:.6', '5:.75 ~ ~ 8:.55', 'r:.9 ~ ~ 8:.6', '5:.75 ~ 8:.5 ~'], kane: 'kane:.6 ~ kane:.35 kane:.35' },
+          // a work song's pull on every beat, the rim between
+          { name: 'sōran (work song)', taiko: ['don', '~ ka:.45', 'don:.85', 'ka:.5 ka:.4'], sham: ['r 8:.55', '5:.7 8:.55', 'r:.9 8:.55', '5:.7 r:.6'], kane: 'kane:.5 kane:.3' },
+          // a parlour song: the taiko kept back, the shamisen's plucks spaced
+          { name: 'zashiki (parlour song)', taiko: ['don:.6', '~', '~ ka:.4', '~'], sham: ['r', '~', '5:.6 8:.5', '~'], kane: 'kane:.4 ~' },
+        ])[g.v % 3];
+        g.name = G.name;
+        if (lo) { if (energy > 0.15) drums.push(downbeat('don:.55', nb)); bass.push(downbeat('r', nb)); chords.push('~'); return; }
+        drums.push(beatsOf(G.taiko, nb));
+        if (energy > 0.5) drums.push(beatsOf([G.kane], nb));
+        if (hi) drums.push('<hyo ~ ~ ~>', `<~ ~ ~ [${[...Array(Math.max(1, nb - 1)).fill('~'), '[don:.5 don:.6 don:.75 ~]'].join(' ')}]>`);
+        bass.push(beatsOf(G.sham, nb));
+        chords.push(hi || detail > 0.6 ? beatsOf(['open:.55', '~'], nb) : '<open:.5 ~>');
       },
-      persian: g => {   // Persian folk song: a frame drum's low dum and high tak (the kick and rim), with its rolled shimmer at the top; a drone on the song's final, no chord changes
-        const { energy, drums, bass, chords, lo, hi, nb, compound } = g;
-        if (!lo) {
-          drums.push(compound ? Array(nb).fill('bd ~ rim:.5').join(' ') : nb === 3 ? 'bd rim:.5 rim:.45' : Array.from({ length: nb }, (_, k) => ['bd', 'rim:.5', '[bd:.6 rim:.45]', 'rim:.55'][k % 4]).join(' '));
-          if (hi) drums.push(`tb:.2*${nb * 2}`);
-        } else if (energy > 0.15) drums.push(['bd:.5', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
-        bass.push(['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' '));
-        chords.push('pad');
+      korean: g => {   // Korean folk song: the janggu's jangdan, every beat in three (deong both sides, kung the low hand side, deok the stick, gi its grace note), the gayageum's line and open fifths
+        const { energy, detail, drums, bass, chords, lo, hi, nb } = g, roll = '[deok:.3 deok:.22 deok:.28]';
+        const G = (nb === 3 ? [
+          // 3/4 and 9/8: semachi, deong - - deong - deok kung deok -
+          { name: 'semachi', jang: ['deong ~ ~', 'deong ~ deok', 'kung deok ~'], gaya: ['r ~ ~', '5:.7 ~ 8:.55', 'r:.8 ~ ~'], open: ['open:.55 ~ ~', '~', '~ open:.45 ~'] },
+          { name: 'semachi with gideok', jang: ['deong ~ ~', 'deong ~ [gi deok]', 'kung deok ~'], gaya: ['r ~ 5:.5', '8:.6 ~ ~', '5:.7 ~ ~'], open: ['open:.55 ~ ~', '~ ~ open:.4', '~'] },
+          { name: 'semachi on the hand side', jang: ['deong ~ ~', 'kung:.6 ~ deok:.45', 'kung:.75 deok:.5 ~'], gaya: ['r ~ ~', '~ ~ 5:.55', '8:.6 ~ ~'], open: ['open:.5 ~ ~', '~', '~'] },
+        ] : [
+          // 2/4, 4/4, 6/8, 12/8: gutgeori, its four beats each in three, deong - gideok kung - deoreoreo
+          { name: 'gutgeori', jang: ['deong ~ [gi deok]', `kung ~ ${roll}`, 'kung ~ [gi deok]', `kung ~ ${roll}`], gaya: ['r ~ ~', '~ ~ 5:.6', '8:.7 ~ ~', '5:.65 ~ ~'], open: ['open:.55 ~ ~', '~', '~ ~ open:.45', '~'] },
+          { name: 'jajinmori', jang: ['deong ~ deok', '~ deok ~', 'kung ~ deok', '~ deok ~'], gaya: ['r ~ 5:.6', '~ 8:.55 ~', 'r:.85 ~ 5:.6', '~ 8:.55 ~'], open: ['open:.5 ~ ~', '~', '~ open:.4 ~', '~'] },
+          { name: 'hwimori', jang: ['deong ~ ~', 'deok ~ deok:.4', 'kung ~ ~', 'deok ~ [gi deok]'], gaya: ['r ~ ~', '5:.7 ~ ~', '8:.6 ~ ~', '5:.7 ~ ~'], open: ['open:.55 ~ ~', '~', 'open:.45 ~ ~', '~'] },
+        ])[g.v % 3];
+        g.name = G.name;
+        if (lo) { if (energy > 0.15) drums.push(downbeat('deong:.55', nb)); bass.push(downbeat('r', nb)); chords.push('~'); return; }
+        drums.push(beatsOf(G.jang, nb));
+        bass.push(beatsOf(G.gaya, nb));
+        chords.push(hi || detail > 0.6 ? beatsOf(G.open, nb) : '<open:.5 ~>');
       },
-      korean: g => {   // Korean folk song: the janggu (the kick its low side, the rim its high side) in a lilting three, after the semachi jangdan; an open-fifth drone, no chord changes
-        const { energy, drums, bass, chords, lo, hi, nb } = g;
-        if (!lo) {
-          if (nb === 3) drums.push('[bd rim:.45 ~] [bd:.55 ~ rim:.55] [bd:.5 ~ ~]');
-          else drums.push(Array(Math.max(1, Math.round(nb / 2))).fill('[bd rim:.45] [bd:.55 rim:.5]').join(' '));
-          if (hi) drums.push(`[~ ~ rim:.25]*${nb}`);
-        } else if (energy > 0.15) drums.push(['bd:.5', ...Array(Math.max(1, nb - 1)).fill('~')].join(' '));
-        bass.push(['r', ...Array(Math.max(1, nb - 1)).fill('_')].join(' '));
-        chords.push('pad');
+      persian: g => {   // Persian folk song: the tombak's dum (centre) and tak (edge), its finger snaps, the daf at full energy, the tar's line and its riz (tremolo)
+        const { energy, detail, drums, bass, chords, lo, hi, nb, compound } = g;
+        const G = (compound ? [
+          // 6/8 and 12/8: dum - tak dum tak -
+          { name: 'reng (6/8 dance)', tomb: ['dum ~ tak', 'dum:.75 tak ~'], tar: ['r ~ 8:.55', '5:.7 r:.6 ~'] },
+          { name: 'reng with snaps', tomb: ['dum snap:.35 tak', 'dum:.7 tak snap:.3'], tar: ['r 5:.5 8:.55', '5:.7 ~ 8:.5'] },
+          { name: 'slow 6/8', tomb: ['dum ~ ~', 'tak ~ tak:.5'], tar: ['r ~ ~', '5:.65 ~ ~'] },
+        ] : [
+          { name: 'dum-tak (2/4 dance)', tomb: ['dum ~ tak:.6 tak:.5', 'dum:.7 ~ tak ~'], tar: ['r ~ 8:.55 ~', '5:.7 ~ ~ ~'] },
+          { name: 'zarbi (dum and tak by the beat)', tomb: ['dum ~', 'tak:.7 ~', 'dum:.7 dum:.55', 'tak ~'], tar: ['r ~', '8:.55 ~', '5:.7 ~', '8:.55 ~'] },
+          { name: 'dum-tak with snaps', tomb: ['dum snap:.3', 'tak snap:.3', 'dum:.75 tak:.5', 'tak snap:.3'], tar: ['r 8:.5', '5:.65 ~', 'r:.8 8:.5', '5:.65 ~'] },
+        ])[g.v % 3];
+        g.name = G.name;
+        const riz = compound ? 'open:.45 open:.3 open:.35 open:.3 open:.35 open:.3' : 'open:.45 open:.3 open:.35 open:.3';
+        if (lo) { if (energy > 0.15) drums.push(downbeat('dum:.55', nb)); bass.push(downbeat('r', nb)); chords.push('~'); return; }
+        drums.push(beatsOf(G.tomb, nb));
+        if (hi) drums.push(beatsOf(['daf:.45', '~'], nb));
+        bass.push(beatsOf(G.tar, nb));
+        chords.push(hi ? beatsOf([riz, '~'], nb) : detail > 0.6 ? beatsOf(['open:.5', '~'], nb) : '<open:.5 ~>');
+      },
+      drone: g => {   // a tanpura's cycle (low Sa, Pa, Sa, Sa: plucked, ringing on, never held), the tabla's theka, a shruti box breathing under them
+        const { energy, detail, drums, bass, chords, lo, hi, nb, compound } = g, three = nb === 3 && !compound;
+        const G = (compound || three ? [
+          // 3/4, 6/8, 12/8: dadra, six beats, dha dhin na | dha tin na
+          { name: 'dadra', theka: three ? ['dha dhin', 'na dha', 'tin na'] : ['dha dhin na', 'dha tin na'] },
+          { name: 'dadra with bayan', theka: three ? ['dha ge', 'na dha', 'ke na'] : ['dha ge na', 'dha ke na'] },
+          { name: 'dadra, open', theka: three ? ['dha ~', 'na ge', 'tin na'] : ['dha ~ na', 'ge tin na'] },
+        ] : [
+          // 2/4 and 4/4: teentaal's sixteen beats over four bars of four, or keherwa's eight in a bar
+          { name: 'teentaal', theka: ['dha', 'dhin', 'dhin', 'dha', 'dha', 'dhin', 'dhin', 'dha', 'dha', 'tin', 'tin', 'na', 'na', 'dhin', 'dhin', 'dha'] },
+          { name: 'keherwa', theka: ['dha ge', 'na tin', 'na ke', 'dhin na'] },
+          { name: 'keherwa with tete', theka: ['dha [te te]', 'na tin', 'na ke', '[dhin dhin] na'] },
+        ])[g.v % 3];
+        g.name = G.name;
+        if (!lo) drums.push(beatsOf(G.theka, nb));
+        else if (energy > 0.15) drums.push(downbeat('ge:.5', nb));
+        if (hi && detail > 0.5) drums.push(beatsOf(['~', compound ? '~ ~ te:.25' : '~ te:.25'], nb));
+        bass.push(nb >= 3 ? 'r 5 8 8' : '<[r 5] [8 8]>');
+        chords.push(lo ? '~' : 'drone/4');   // at low energy the tanpura alone
       },
       sizhu: g => {   // Chinese silk and bamboo: the ban (the clapper; here the wood block) on each bar's downbeat, the low block on the other beats at full energy; no bass and no chords, the second instrument plays the tune (melody2)
         const { drums, bass, chords, hi, nb } = g;
@@ -3424,12 +3639,39 @@
         if (hi) drums.push(miniOf('xoxoxoxoxoxoxoxo', 'hh', .25));
         if (detail > 0.5 && !lo) drums.push('sh:.25*16');
         if (fill) drums.push('<~ ~ ~ [sd:.4 sd:.5 sd:.6 sd:.7]*2>');
-        bass.push(lo ? 'r _ _ _' : hi ? '[~ r] [~ 8:.7] [~ r] [~ 8:.7]' : '[~ r]*4');
-        chords.push(lo ? 'pad' : hi ? two(['x..x..x...x..x..', 'x..x..x.x..x..x.'].map(x => miniOf(x, 'ch', .6))) : '[~ ch:.7]*4');
+        const v = g.v % 2; g.name = ['four on the floor', 'deep house'][v];
+        bass.push(lo ? 'r _ _ _' : v ? '[~ r] [~ 5:.7] [~ r] [~ 8:.7]' : hi ? '[~ r] [~ 8:.7] [~ r] [~ 8:.7]' : '[~ r]*4');
+        chords.push(lo ? 'pad' : hi ? two(['x..x..x...x..x..', 'x..x..x.x..x..x.'].map(x => miniOf(x, 'ch', .6))) : v ? '[~ ch:.6] ~ [~ ch:.6] [~ ch:.5]' : '[~ ch:.7]*4');
         if (!hi) chords.push('pad');
       },
       pop: g => {   // pop and rock
-        const { energy, detail, rng, two, drums, bass, chords, lo, hi, fill } = g;
+        const { energy, detail, rng, two, drums, bass, chords, lo, hi, fill } = g, v = g.v % 4;
+        g.name = ['straight eighths', 'half-time', 'driving eighths', 'Motown'][v];
+        if (!lo && v > 0) {
+          const tail = detail > 0.4 ? 'a?0.7' : '5:.7';
+          if (v === 1) {   // half-time: the snare on three, the bass and the chords held long
+            drums.push(two(['x...............', 'x.........x.....', 'x.......x.x.....'].map(x => miniOf(x, 'bd'))), '~ ~ sd ~', hi ? '[hh hh:.3]*4' : 'hh:.4*4');
+            if (hi) drums.push('~ ~ ~ [~ oh?0.3]');
+            if (fill) drums.push('<~ ~ ~ fill>');
+            bass.push(two([`r _ _ _ 5 _ [~ ${tail}] ~`, 'r _ _ _ ~ ~ 5 _']));
+            chords.push(two(['ch _ _ _', 'ch _ ~ [~ ch:.6]']), 'pad');
+            return;
+          }
+          if (v === 2) {   // driving eighths: the bass on every eighth, the guitar strumming eighths
+            drums.push(two(['x.......x.......', 'x.......x.x.....', 'x..x....x.......'].map(x => miniOf(x, 'bd'))), '~ sd ~ sd', `[hh hh:.3]*4`);
+            if (hi) drums.push('[~ cr:.25?0.2] ~ ~ ~');
+            if (fill) drums.push('<~ ~ ~ fill>');
+            bass.push(`[r r:.7] [r r:.7] [r r:.7] [5:.8 ${tail}]`);
+            chords.push(two(['[ch ch:.5]*4', '[ch ch:.5] [ch ch:.5] [ch ch:.5] [ch:.6 ch]']));
+            return;
+          }
+          // Motown: the snare on every beat, the backbeat stronger, a tambourine with it, a bass that moves
+          drums.push(two(['x.......x.......', 'x.....x.x.......'].map(x => miniOf(x, 'bd'))), 'sd:.4 sd sd:.4 sd', '~ tb ~ tb', '[hh hh:.3]*4');
+          if (fill) drums.push('<~ ~ ~ fill>');
+          bass.push(two([`r [~ 8:.6] 5 [3:.7 ${tail}]`, `r [~ r:.6] 3 [5:.7 ${tail}]`]));
+          chords.push('ch:.55 ch:.7 ch:.55 ch:.7');
+          return;
+        }
         drums.push(two((lo ? ['x...............', 'x.......x.......'] : !hi ? ['x.......x.......', 'x..x....x.......', 'x.....x...x.....', 'x.......x..x....'] : ['x..x....x..x....', 'x..x..x...x.....', 'x.......x.x..x..', 'x..x....x.x.....']).map(x => miniOf(x, 'bd'))));
         if (energy >= 0.2) drums.push('~ sd ~ sd');
         if (energy >= 0.2 && detail > 0.5 && energy > 0.45) drums.push(pick(rng, ['~ [~ ~ ~ sd:.2]?', '~ ~ [~ ~ sd:.2 ~]?', '~ [~ ~ ~ sd:.2]? [~ ~ ~ sd:.2]?']));
@@ -3444,18 +3686,35 @@
         if (lo) chords.push('pad');
       },
     };
+    /* ---- which groove: one of a style's several, chosen by the tune ----
+       Each style has several grooves (a feel, a bass line and a comping
+       pattern of its own: GROOVE_COUNT). A tune plays the one its title
+       chooses (a hash of its T: line, or of the whole text without one), so
+       it always sounds the same and two tunes in one style do not; the
+       regenerate button (a new seed) deals another, and "%%style folk 3"
+       names one (the third). */
+    const GROOVE_COUNT = { pop: 4, folk: 4, march: 3, waltz: 4, jig: 3, swing: 3, bossa: 2, ballad: 3, funk: 2, reggaeton: 2, afrobeats: 2, lofi: 2, trap: 2, house: 2, samba: 2, mento: 2, minyo: 3, korean: 3, persian: 3, drone: 3 };
+    function groovePick(text) {
+      const named = text.match(/^%%?style\s+[a-z]+\s+(\d+)\s*$/mi); if (named && +named[1] >= 1) return { named: +named[1] - 1, hash: 0 };
+      const t = ((text.match(/^T:\s*(.+)$/m) || [, text])[1]).trim().toLowerCase();
+      let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); }   // FNV-1a
+      return { named: null, hash: (h >>> 0) % 997 };
+    }
     // The score the sliders write: a groove in the chosen style, with the
     // bar-to-bar variation as alternations and chances. `metre` is the beats
     // in a bar (quarters, or dotted quarters in compound time) and whether
     // the time is compound; a style that does not fit the metre gives way
     // (its fit in STYLES).
-    const scoreFor = (energy, detail, metre, seed, styleKey) => {
+    // `variant` chooses among the style's grooves (GROOVE_COUNT; each groove takes it modulo its own number of them), and
+    // the groove it chose names itself (score.groove).
+    const scoreFor = (energy, detail, metre, seed, styleKey, variant = 0, out = null) => {
       const rng = mulberry(seed * 7919 + 101), two = arr => { const a = pick(rng, arr); let b = pick(rng, arr); if (b === a) b = pick(rng, arr); return a === b ? a : `<[${a}] [${b}]>`; };
       const nb = metre.nb, triple = nb % 3 === 0 && !metre.compound && nb !== 6, compound = metre.compound;
       let style = GROOVES[styleKey] ? styleKey : 'pop';
       style = fitOf(style)[triple ? 'triple' : compound ? 'compound' : 'duple'] || style;
-      const g = { energy, detail, nb, triple, compound, rng, two, lo: energy < 0.35, hi: energy >= 0.7, fill: detail > 0.3 && energy > 0.25, drums: [], bass: [], chords: [] };
+      const g = { energy, detail, nb, triple, compound, rng, two, v: Math.max(0, Math.floor(variant) || 0), name: null, lo: energy < 0.35, hi: energy >= 0.7, fill: detail > 0.3 && energy > 0.25, drums: [], bass: [], chords: [] };
       GROOVES[style](g);
+      if (out) Object.assign(out, { style, name: g.name, i: g.v % (GROOVE_COUNT[style] || 1), n: GROOVE_COUNT[style] || 1 });
       return ['drums:', ...g.drums, 'bass:', ...g.bass, 'chords:', ...g.chords].join('\n');
     };
     /* ---- heterophony: the tune again, on a second instrument ----
@@ -3634,7 +3893,9 @@
       }
       load(folder, midi) {
         folder = setOf(folder, midi);
-        if (SYNTH_VOICES[folder]) return Promise.resolve(true);                       // made on the spot
+        if (WORLD_MIDI.has(midi) && drumFolder(folder)) return Promise.resolve(kitWarm(this.ctx(), 0));   // a hand drum: made on the spot, from the kit's noise
+        if (SYNTH_VOICES[folder]) { const k = SYNTH_VOICES[folder], c = this.ctx(); if (PLUCK[k] && c) pluckBuffer(c, k, midi + (SYNTH_UP[folder] || 0)); return Promise.resolve(true); }   // made on the spot (a plucked note now, so the scheduler never waits on it)
+        if (SYNTH_KITS[folder] === 'world') return this.load('percussion', midi);
         if (SYNTH_KITS[folder]) return SYNTH_KITS[folder] === 'drumkit' ? (KIT_SYNTH.drums.has(midi) ? Promise.resolve(kitWarm(this.ctx(), midi)) : this.load('percussion', midi))
                                      : midi === DRUM.kick ? Promise.resolve(true) : this.load('percussion', midi);
         const takes = takesOf(folder, midi); if (takes) return Promise.all(takes.map(n => this.file(folder, n))).then(b => b[0]);
@@ -3659,7 +3920,9 @@
       // first part of the note); both through the source's detune.
       play(folder, midi, when, dur, vel, out, rel = 0.08, fx = null) {
         folder = setOf(folder, midi);
-        if (SYNTH_VOICES[folder]) return this.synth(SYNTH_VOICES[folder], midi, when, dur, vel, out, rel, fx);
+        if (WORLD_MIDI.has(midi) && drumFolder(folder)) return this.world(midi, when, vel, out, fx);
+        if (SYNTH_VOICES[folder]) return this.synth(SYNTH_VOICES[folder], midi + (SYNTH_UP[folder] || 0), when, dur, vel, out, rel, fx);
+        if (SYNTH_KITS[folder] === 'world') return this.play('percussion', midi, when, dur, vel, out, rel, fx);
         if (SYNTH_KITS[folder]) return (SYNTH_KITS[folder] === 'drumkit' ? KIT_SYNTH.drums.has(midi) : midi === DRUM.kick) ? this.synth(SYNTH_KITS[folder], midi, when, dur, vel, out, rel, fx) : this.play('percussion', midi, when, dur, vel, out, rel, fx);
         const takes = takesOf(folder, midi), from = sampleOf(folder, midi);
         let name = FLAT_NOTE(from), kit = null, closeAt = 0;
@@ -3707,13 +3970,17 @@
     // Voices made here rather than sampled, by name (a Band part's folder): no download, and the sounds modern styles
     // are built on. The 808 and 909 kits play their kick here and the rest of the drums from the percussion samples; the
     // synthesised acoustic kit (kitSynth) plays the whole kit here, and only the hand percussion from the samples.
-    const SYNTH_VOICES = { 'synth-sub': 'sub', 'synth-bass': 'bass', 'synth-pluck': 'pluck', 'synth-pad': 'pad', 'synth-epiano': 'epiano' };
-    const SYNTH_KITS = { kit808: 'kick808', kit909: 'kick909', kitSynth: 'drumkit' };
+    const SYNTH_VOICES = { 'synth-sub': 'sub', 'synth-bass': 'bass', 'synth-pluck': 'pluck', 'synth-pad': 'pad', 'synth-epiano': 'epiano', 'synth-shamisen': 'shamisen', 'synth-shamisen-bass': 'shamisen', 'synth-gayageum': 'gayageum', 'synth-gayageum-bass': 'gayageum', 'synth-tar': 'tar', 'synth-tar-bass': 'tar', 'synth-tanpura': 'tanpura', 'synth-shruti': 'shruti' };
+    const SYNTH_UP = { 'synth-shamisen-bass': 12, 'synth-gayageum-bass': 12, 'synth-tar-bass': 12 };   // a bass line on a plucked string, an octave above the written bass, where the instrument is
+    // The hand-drum kits (the Min'yo, Korean, Persian and drone styles'): their own strokes made on the spot (Sampler.world), any other drum from the samples.
+    const SYNTH_KITS = { kit808: 'kick808', kit909: 'kick909', kitSynth: 'drumkit', kitTaiko: 'world', kitJanggu: 'world', kitTombak: 'world', kitTabla: 'world' };
+    const drumFolder = f => f === 'percussion' || f === 'kit' || !!SYNTH_KITS[f];
     // One synthesised note, with play()'s arguments: an 808's long falling boom or a 909's short punch (each with a
     // click), a sub bass (a sine with a touch of its octave), a saw bass and a pluck (saws through a filter that
     // closes), and a pad (detuned saws through a soft filter, slow to rise). It returns what the Player can stop.
     Sampler.prototype.synth = function (kind, midi, when, dur, vel, out, rel, fx) {
       if (kind === 'drumkit') return this.kit(midi, when, vel, out);
+      if (PLUCK[kind]) return this.pluck(kind, midi, when, dur, vel, out, rel, fx);
       const ctx = this.ctx(), f = 440 * Math.pow(2, (midi - 69) / 12), cents = (fx && fx.cents) || 0, L = SYNTH_LEVEL[kind] || 1;
       const amp = ctx.createGain(), oscs = [];
       amp.gain.setValueAtTime(0, when); amp.connect(out);
@@ -3750,6 +4017,14 @@
         const tine = osc('sine', f, 3, tg); osc('sine', f * 14, 0, tbend); tbend.connect(tine.frequency);
         amp.gain.linearRampToValueAtTime(v, when + 0.003); amp.gain.setTargetAtTime(v * 0.0001, when + 0.003, ring);
         amp.gain.setTargetAtTime(0, when + hold, Math.max(0.04, rel / 2)); end = when + hold + Math.max(0.3, rel * 2) + 0.05;
+      } else if (kind === 'shruti') {
+        // A shruti box's reeds: two saws a few cents apart and a square an octave down, darkened, slow to speak, and the
+        // bellows' breath: the level swells and eases (a slow wave on it, never twice in step), so the drone breathes.
+        const lp = ctx.createBiquadFilter(), bel = ctx.createGain(), sq = ctx.createGain(), lfo = ctx.createGain(), r = Math.max(rel, 0.8), rate = 0.14 + 0.06 * mulberry(Math.round(when * 100) + midi)();
+        lp.type = 'lowpass'; lp.frequency.value = 1300; lp.Q.value = 0.6; lp.connect(bel); bel.connect(amp); bel.gain.value = 1; sq.gain.value = 0.35; sq.connect(lp); lfo.gain.value = 0.32; lfo.connect(bel.gain);
+        const side = x => { if (!ctx.createStereoPanner) return lp; const p = ctx.createStereoPanner(), gg = ctx.createGain(); p.pan.value = x; gg.connect(p); p.connect(lp); return gg; };   // the two reed banks, left and right
+        osc('sawtooth', f, -5, side(-0.4)); osc('sawtooth', f, 6, side(0.4)); osc('square', f / 2, 0, sq); osc('sine', rate, 0, lfo).detune.value = 0;
+        amp.gain.linearRampToValueAtTime(v, when + Math.min(0.9, hold * 0.4)); amp.gain.setTargetAtTime(0, when + hold, r / 3); end = when + hold + r + 0.1;
       } else {   // pad
         const lp = filter('lowpass', 1500, 0.7), r = Math.max(rel, 0.5);
         osc('sawtooth', f, -10, lp); osc('sawtooth', f, 10, lp); osc('triangle', f / 2, 0, lp);
@@ -3762,7 +4037,7 @@
     // Each voice's level beside the samples, from solo measurements before the master on 10 November 2026: the sampled
     // parts of pop played at about -46 dB (drums), -34 (bass) and -37 (chords); the voices at these levels land near
     // them, the kick and bass of a dance style a little forward.
-    const SYNTH_LEVEL = { kick808: 0.1, kick909: 0.1, sub: 0.055, bass: 0.055, pluck: 0.12, pad: 0.055, epiano: 0.075 };   // epiano: matched to the FluidR3 electric piano by LUFS
+    const SYNTH_LEVEL = { kick808: 0.1, kick909: 0.1, sub: 0.055, bass: 0.055, pluck: 0.12, pad: 0.055, epiano: 0.075, shamisen: 0.35, gayageum: 0.3, tar: 0.25, tanpura: 0.2, shruti: 0.03 };   // epiano: matched to the FluidR3 electric piano by LUFS
     // The synthesised acoustic kit (kitSynth), beside the sampled one: every drum a GM drum map's kit has, made on the spot.
     // A hit varies with its strength (vel: a backbeat at middle Energy near 0.4), harder brighter, noisier and higher at
     // the onset, and a little from hit to hit (its level, pitch, length and the noise's place, seeded by its time and
@@ -3859,6 +4134,153 @@
       for (const s of srcs) { if (s.at !== undefined) s.start(when, s.at); else s.start(when); s.stop(end); }
       const main = srcs[0];
       return { stop: () => { for (const s of srcs) { try { s.stop(); } catch (err) {} } }, set onended(fn) { main.onended = fn; } };
+    };
+    /* ---- the instruments of four styles, made on the spot ----
+       The Min'yo, Korean, Persian and drone styles play instruments the
+       sample sets do not have, and rarely enough that a sample set each
+       would be a large download for a little use, so they are made here.
+       The plucked strings are Karplus-Strong strings: a burst of noise
+       round a delay line one period long, each pass a little darker and
+       quieter, rendered once a context for each note (PLUCK; a note is then
+       one buffer source, as a sample is):
+         shamisen  a plectrum near the bridge, a quick fade, the sawari's buzz
+                   (the string touching the neck) and the skin body's slap
+         gayageum  silk plucked by the finger, darker and slower to fade, the
+                   left hand's vibrato (nonghyeon) on a long note
+         tar       metal courses struck with a plectrum, bright, two strings
+                   of a course a few cents apart
+         tanpura   a long ring with the jawari's buzz, the brightness moving
+                   up through the harmonics as the note rings on
+       The bass part plays the shamisen, gayageum and tar an octave above
+       the written bass line (SYNTH_UP), where the instruments are. */
+    const PLUCK = {
+      shamisen: { secs: 1.5, t60: 1.1, damp: 0.42, soft: 0.85, at: 0.12, buzz: 0.3, skin: 0.45, spread: 0.7 },
+      gayageum: { secs: 2.6, t60: 2.6, damp: 0.5, soft: 0.3, at: 0.22, vib: 28 },
+      tar:      { secs: 2.2, t60: 1.8, damp: 0.3, soft: 0.8, at: 0.15, courses: [-4, 4], spread: 0.8 },
+      tanpura:  { secs: 4.5, t60: 7, damp: 0.22, soft: 0.45, at: 0.2, buzz: 0.14, jawari: 0.5, ring: true, spread: 0.7 },
+    };
+    const pluckBufs = new WeakMap();
+    function pluckBuffer(ctx, kind, midi) {
+      let m = pluckBufs.get(ctx); if (!m) pluckBufs.set(ctx, m = new Map());
+      const key = kind + midi; if (m.has(key)) return m.get(key);
+      const P = PLUCK[kind], sr = ctx.sampleRate, f = 440 * Math.pow(2, (midi - 69) / 12), n = Math.ceil(sr * P.secs);
+      const buf = ctx.createBuffer(1, n, sr), y = buf.getChannelData(0), w = new Float32Array(n), rng = mulberry(midi * 131 + kind.length * 7);
+      const per = sr / f, D = per - P.damp, g = Math.pow(10, -3 / (P.t60 * f)), L = Math.max(2, Math.round(per));
+      // The pluck: a period of noise, smoothed (a softer pluck is darker), less the same a little later (where along the string it is plucked).
+      const ex = new Float32Array(L); let lp = 0, pk = 0;
+      for (let i = 0; i < L; i++) { lp += P.soft * ((rng() * 2 - 1) - lp); ex[i] = lp; }
+      const off = Math.max(1, Math.round(P.at * L)); for (let i = L - 1; i >= off; i--) ex[i] -= ex[i - off];
+      for (let i = 0; i < L; i++) pk = Math.max(pk, Math.abs(ex[i])); for (let i = 0; i < L; i++) ex[i] /= pk || 1;
+      const at = x => { if (x < 0) return 0; const i0 = Math.floor(x), fr = x - i0; return w[i0] + fr * ((i0 + 1 < n ? w[i0 + 1] : 0) - w[i0]); };
+      let lo = 0, band = 0, f1 = 0, thump = 0;
+      for (let i = 0; i < n; i++) {
+        let s = (i < L ? ex[i] : 0) + g * ((1 - P.damp) * at(i - D) + P.damp * at(i - D - 1));
+        if (P.buzz && s < -P.buzz) s = -P.buzz + (s + P.buzz) * 0.3;   // the string against the neck (sawari, jawari): a one-sided stop
+        w[i] = s;
+        let o = s;
+        if (P.jawari) {   // the jawari's brightness, a resonance sweeping from 700 Hz to 4 kHz as the note rings
+          if (i % 64 === 0) f1 = 2 * Math.sin(Math.PI * Math.min(0.2 * sr, 700 * Math.pow(4000 / 700, i / n)) / sr);
+          lo += f1 * band; const hi = s - lo - 0.25 * band; band += f1 * hi; o = s + P.jawari * band;
+        }
+        if (P.skin && i < sr * 0.05) { thump += 0.2 * ((rng() * 2 - 1) - thump); o += P.skin * Math.exp(-i / (sr * 0.008)) * (0.6 * thump + 0.4 * Math.sin(2 * Math.PI * 190 * i / sr)); }
+        y[i] = o;
+      }
+      pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(y[i]));
+      const fade = Math.round(sr * 0.05);   // the buffer's last 50 ms fade, so a note that rings to its end stops without a click
+      for (let i = 0; i < n; i++) y[i] = y[i] / (pk || 1) * 0.9 * (i > n - fade ? (n - i) / fade : 1);
+      m.set(key, buf); return buf;
+    }
+    Sampler.prototype.pluck = function (kind, midi, when, dur, vel, out, rel, fx) {
+      const ctx = this.ctx(), P = PLUCK[kind], buf = pluckBuffer(ctx, kind, midi), lv = vel * (SYNTH_LEVEL[kind] || 0.3), cents = (fx && fx.cents) || 0, srcs = [];
+      // Each string a little apart from the next across the instrument (a zither's or a tanpura's strings side by side).
+      const g = ctx.createGain(), pn = ctx.createStereoPanner ? ctx.createStereoPanner() : null; g.gain.setValueAtTime(lv, when);
+      if (pn) { pn.pan.value = ((((midi * 7) % 12) + 12) % 12 / 11 - 0.5) * (P.spread || 0.4); g.connect(pn); pn.connect(out); } else g.connect(out);
+      // A plucked note rings on after its written length, damped by the hand a moment later (the tanpura rings on).
+      const end = P.ring || !dur ? when + buf.duration : Math.min(when + buf.duration, when + dur + Math.max(rel, 0.12) + 0.3);
+      if (!P.ring && dur) g.gain.setTargetAtTime(0, when + dur + Math.max(0, rel - 0.05), 0.1);
+      (P.courses || [0]).forEach((dc, k) => {
+        const s = ctx.createBufferSource(); s.buffer = buf; s.detune.value = cents + dc; s.connect(g);
+        if (P.vib && dur > 0.45) {   // nonghyeon: the left hand presses the string behind the bridge, a slow, wide vibrato arriving after the pluck
+          const o = ctx.createOscillator(), og = ctx.createGain(); o.frequency.value = 4.2; og.gain.setValueAtTime(0, when); og.gain.setValueAtTime(0, when + 0.22); og.gain.linearRampToValueAtTime(P.vib, when + 0.6);
+          o.connect(og); og.connect(s.detune); o.start(when); o.stop(end + 0.05); srcs.push(o);
+        }
+        s.start(when + k * 0.007); s.stop(end + 0.02); srcs.push(s);
+      });
+      const main = srcs[srcs.length - 1];
+      return { stop: () => { for (const s of srcs) { try { s.stop(); } catch (err) {} } }, set onended(fn) { main.onended = fn; } };
+    };
+    /* The hand drums (WORLD_DRUM), made as the synthesised kit is: a drum
+       is a sine falling a little onto its note with its higher modes
+       dying sooner, and the hand's or the stick's noise; a bell and the
+       clappers are their inharmonic partials; and each stroke varies a
+       little from the last. The tabla's dayan is tuned to the tune's
+       tonic (Sa), as a tabla player tunes it. */
+    const WORLD_LEVEL = { all: 0.1 };
+    // Where each stroke sits, as the audience hears the player: the taiko's rim and the stick side of the janggu a little
+    // right, its hand side left, the bell and clappers apart; the tabla's dayan right of its bayan; the tombak's edge right.
+    const WORLD_PAN = { [WORLD_DRUM.ka]: 0.2, [WORLD_DRUM.kane]: -0.35, [WORLD_DRUM.hyo]: 0.35, [WORLD_DRUM.kung]: -0.2, [WORLD_DRUM.deok]: 0.25, [WORLD_DRUM.gi]: 0.25, [WORLD_DRUM.tak]: 0.2, [WORLD_DRUM.snap]: 0.3, [WORLD_DRUM.daf]: -0.25, [WORLD_DRUM.na]: 0.25, [WORLD_DRUM.tin]: 0.25, [WORLD_DRUM.te]: 0.25, [WORLD_DRUM.ge]: -0.2, [WORLD_DRUM.ke]: -0.2, [WORLD_DRUM.dha]: 0.05, [WORLD_DRUM.dhin]: 0.05 };
+    Sampler.prototype.world = function (midi, when, vel, out, fx) {
+      const ctx = this.ctx(), r = mulberry(Math.round(when * 1e4) + midi * 7919), j = a => 1 + (r() - 0.5) * 2 * a, srcs = [], W = WORLD_DRUM;
+      const hard = Math.max(0, Math.min(1, vel / 0.6));
+      const amp = ctx.createGain(); amp.gain.value = vel * WORLD_LEVEL.all * (WORLD_LEVEL[midi] || 1) * j(0.05);
+      if (WORLD_PAN[midi] && ctx.createStereoPanner) { const pn = ctx.createStereoPanner(); pn.pan.value = WORLD_PAN[midi]; amp.connect(pn); pn.connect(out); } else amp.connect(out);
+      const gain = (peak, decay, at = 0, attack = 0.001) => { const g = ctx.createGain(); g.gain.setValueAtTime(0, when + at); g.gain.linearRampToValueAtTime(peak, when + at + attack); g.gain.setTargetAtTime(0, when + at + attack, decay / 4.6); g.connect(amp); return g; };   // decay: to -40 dB
+      const filt = (to, type, f, q = 0.7) => { const b = ctx.createBiquadFilter(); b.type = type; b.frequency.value = f; b.Q.value = q; b.connect(to); return b; };
+      const osc = (to, f, at = 0, type = 'sine') => { const o = ctx.createOscillator(); o.type = type; o.frequency.value = f; o.connect(to); o.t0 = when + at; srcs.push(o); return o; };
+      const noise = (to, at = 0) => { const s = ctx.createBufferSource(); s.buffer = kitNoise(ctx); s.loop = true; s.connect(to); s.t0 = when + at; s.at = r() * 1.5; srcs.push(s); return s; };
+      let end = when;
+      const last = (t) => { end = Math.max(end, when + t); };
+      // A membrane: its note f, how long it rings, how far above f the stroke starts, and its modes [ratio, level, share of the ring].
+      const drum = (f, dec, drop, modes, lv = 1, at = 0) => {
+        const b = osc(gain(lv, dec, at, 0.002), f, at); b.frequency.setValueAtTime(f * drop, when + at); b.frequency.exponentialRampToValueAtTime(f, when + at + 0.04);
+        for (const [k, l, d] of modes) osc(gain(lv * l, dec * d, at), f * k * j(0.01), at);
+        last(at + dec + 0.05);
+      };
+      const hit = (type, f, q, peak, decay, at = 0) => { noise(filt(gain(peak, decay, at, 0.0005), type, f, q), at); last(at + decay + 0.02); };
+      const partials = (f, ks, ls, ds, lv, at = 0) => { ks.forEach((k, i) => osc(gain(lv * ls[i], ds[i], at), f * k * j(0.004), at)); last(at + Math.max(...ds) + 0.05); };
+      const kung = (lv = 1) => { drum(98 * j(0.02), 0.5 + 0.15 * hard, 1.35, [[1.59, 0.3, 0.35], [2.14, 0.15, 0.25]], lv); hit('lowpass', 600, 0.7, 0.35 * lv, 0.03); };
+      const deok = (lv = 1, at = 0) => { drum(310 * j(0.02), 0.14, 1.2, [[1.6, 0.4, 0.6], [2.2, 0.25, 0.5]], 0.6 * lv, at); hit('highpass', 1800, 0.7, (0.7 + 0.3 * hard) * lv, 0.035, at); hit('bandpass', 3800, 1.5, 0.5 * lv, 0.015, at); };
+      // The tabla: the dayan's harmonic modes (the syahi's doing) at Sa, from 230 to 460 Hz; the bayan's low note, which the wrist bends up.
+      let sa = 440 * Math.pow(2, ((fx && fx.tonic !== undefined ? fx.tonic : 2) - 9) / 12); while (sa < 230) sa *= 2; while (sa >= 460) sa /= 2;
+      const H = [1, 2, 3, 4, 5];
+      const na = () => { partials(sa, H, [0.45, 0.9, 0.55, 0.35, 0.25], [0.55, 0.4, 0.28, 0.2, 0.15], 0.8); hit('bandpass', 3000, 1, 0.35, 0.008); };
+      const tin = () => { partials(sa, H, [1, 0.35, 0.2, 0.1, 0.05], [0.8, 0.45, 0.3, 0.18, 0.12], 0.75); hit('bandpass', 2200, 1, 0.2, 0.008); };
+      const ge = () => { const f = 72 * j(0.02), b = osc(gain(1, 0.75 + 0.2 * hard, 0, 0.003), f); b.frequency.setValueAtTime(f, when); b.frequency.linearRampToValueAtTime(f * 1.28, when + 0.25); osc(gain(0.25, 0.3), f * 2.1); hit('lowpass', 500, 0.7, 0.3, 0.02); last(1); };
+      if (midi === W.don) {   // the taiko's centre with the bachi: a big low drum, its thud
+        drum(62 * j(0.02), 0.95 + 0.3 * hard, 1.5 + 0.4 * hard, [[1.5, 0.35, 0.45], [2.25, 0.2, 0.25], [2.9, 0.1, 0.15]]);
+        hit('lowpass', 900 + 800 * hard, 0.7, 0.5 + 0.3 * hard, 0.04);
+      } else if (midi === W.ka) {   // the bachi on the taiko's wooden rim
+        osc(gain(0.5, 0.05), 1150 * j(0.02)); osc(gain(0.3, 0.04), 1850 * j(0.02)); hit('bandpass', 2600, 2.5, 0.8, 0.03); last(0.1);
+      } else if (midi === W.kane) {   // the chanchiki, a small brass gong struck with a horn beater
+        partials(820 * j(0.01), [1, 2.32, 3.55, 4.17, 5.4], [0.6, 0.5, 0.35, 0.3, 0.2], [0.5, 0.35, 0.25, 0.2, 0.15].map(d => d * (0.6 + 0.4 * hard)), 0.7);
+        hit('highpass', 5000, 0.7, 0.3, 0.01);
+      } else if (midi === W.hyo) {   // the hyoshigi, two hardwood blocks clapped
+        osc(gain(0.5, 0.05), 2350 * j(0.02)); osc(gain(0.3, 0.035), 3600 * j(0.02)); hit('bandpass', 3200, 4, 1, 0.018); hit('bandpass', 3000, 4, 0.3, 0.012, 0.012); last(0.1);
+      } else if (midi === W.kung) kung();
+      else if (midi === W.deok) deok();
+      else if (midi === W.gi) deok(0.5);
+      else if (midi === W.deong) { kung(); deok(0.9); }
+      else if (midi === W.dum) {   // the tombak's centre: a deep note with the palm's thump
+        drum(86 * j(0.02), 0.55 + 0.15 * hard, 1.3 + 0.2 * hard, [[1.59, 0.35, 0.4], [2.14, 0.2, 0.3], [2.65, 0.12, 0.2]]);
+        hit('lowpass', 700, 0.7, 0.4, 0.025);
+      } else if (midi === W.tak) {   // the tombak's edge: a ringing, higher note with the finger's crack
+        drum(560 * j(0.015), 0.2, 1.1, [[1.48, 0.5, 0.7], [2.0, 0.35, 0.5], [2.6, 0.2, 0.4]], 0.55);
+        hit('bandpass', 2500, 1.2, 0.8, 0.03);
+      } else if (midi === W.snap) { hit('highpass', 2500, 0.7, 1, 0.012); hit('bandpass', 4200, 2, 0.6, 0.02); }
+      else if (midi === W.daf) {   // the daf: a low frame drum, its rings shaking after the stroke
+        drum(68 * j(0.02), 0.6, 1.4, [[1.6, 0.25, 0.3]], 0.9);
+        for (let k = 0; k < 4; k++) hit('bandpass', 6500 * j(0.1), 1.5, 0.5 * (1 - k * 0.2), 0.12, k * 0.011 * j(0.2));
+        hit('highpass', 7000, 0.7, 0.25, 0.45);
+      } else if (midi === W.na) na();
+      else if (midi === W.tin) tin();
+      else if (midi === W.te) { partials(sa, [1, 2], [0.3, 0.1], [0.05, 0.03], 1); hit('bandpass', 1600, 0.8, 0.6, 0.03); }
+      else if (midi === W.ge) ge();
+      else if (midi === W.ke) { osc(gain(0.4, 0.05), 150 * j(0.03)); hit('lowpass', 800, 0.7, 0.7, 0.03); last(0.1); }
+      else if (midi === W.dha) { ge(); na(); }
+      else if (midi === W.dhin) { ge(); tin(); }
+      for (const s of srcs) { if (s.at !== undefined) s.start(s.t0, s.at); else s.start(s.t0); s.stop(end + 0.05); }
+      const main = srcs[0];
+      return { stop: () => { for (const s of srcs) { try { s.stop(); } catch (err) {} } }, set onended(fn) { if (main) main.onended = fn; } };
     };
     const sampler = new Sampler();
     // The bars as played, from the bars as written ({ s, e, beats } in ms, in the order of the text): a repeat plays its
@@ -4048,8 +4470,8 @@
         // `rel` is the note's release in seconds (the Player's 0.08 unless given); `hit` numbers the notes of one chord struck together.
         const add = (part, t, dur, midi, vel, from, rel, hit) => {
           if (!(t >= 0 && t < tl.total + 1) || !(vel > 0.001)) return;
-          if (part === 'drums') { const k = midi + '@' + Math.round(t / 10); const prev = seen.get(k); if (prev) { prev.vel = Math.max(prev.vel, vel); return; } const n = { part, t, dur, midi, vel, from }; seen.set(k, n); out.push(n); return; }
-          const n = { part, t, dur, midi, vel, from }; if (rel) n.rel = rel; if (hit) n.hit = hit; out.push(n);
+          if (part === 'drums') { const k = midi + '@' + Math.round(t / 10); const prev = seen.get(k); if (prev) { prev.vel = Math.max(prev.vel, vel); return prev; } const n = { part, t, dur, midi, vel, from }; seen.set(k, n); out.push(n); return n; }
+          const n = { part, t, dur, midi, vel, from }; if (rel) n.rel = rel; if (hit) n.hit = hit; out.push(n); return n;
         };
         const feelK = cell.feel(); let hits = 0;
         const NAMES = key.flats ? FLAT_NAMES : SHARP_NAMES, noteName = m => NAMES[((m % 12) + 12) % 12].replace('#', '\u266F').replace('b', '\u266D');
@@ -4058,7 +4480,10 @@
         // strings) and controls, else what the sliders write. A part with a
         // mistake names itself and plays the sliders' version.
         const nb1 = Math.max(1, Math.round(bars[first] ? bars[first].beats : bars[0].beats)), compound = Math.abs(beatLen * 8 / 3 - Math.round(beatLen * 8 / 3)) < 1e-6;
-        const written = Mini.splitScore(scoreFor(energy, detail, { nb: nb1, compound }, seed, cell.styleKey)).parts;
+        // The groove: the tune's (groovePick), or the one its %%style line names; a new seed (regenerate) deals another.
+        const gp = cell.groovePick || { named: null, hash: 0 }, variant = gp.named !== null ? gp.named : gp.hash + ((cell.band && cell.band.seed) || 1) - 1;
+        res.groove = {};
+        const written = Mini.splitScore(scoreFor(energy, detail, { nb: nb1, compound }, seed, cell.styleKey, variant, res.groove)).parts;
         const swing = (STYLES[cell.styleKey] || {}).swing ? STYLES[cell.styleKey].swing / 100 : 0;
         const own = { drums: spec.drums || null, bass: spec.bass || null, chords: spec.chords || null }, ctl = spec.ctl || {};
         const LABEL = { drums: 'Drums', bass: 'Bass', chords: 'Chords' };
@@ -4109,10 +4534,16 @@
           cands.sort((a, b) => cost(a) - cost(b));
           prevVoicing = cands[0]; lastChordName = c.name; return prevVoicing;
         };
+        // A chord's root and its own fifth (or a fifth above the root when it has none), from `lo` up, an octave lower when the top would sound above the tune.
+        const openFifth = (c, lo, ceil = Infinity) => {
+          let r = c.root; while (r < lo) r += 12;
+          const f5 = c.pcs.find(pc => [6, 7, 8].includes((pc - c.root + 12) % 12)), top = r + (f5 === undefined ? 7 : (f5 - c.root + 12) % 12);
+          return top > ceil && r - 12 >= 43 ? [r - 12, top - 12] : [r, top];
+        };
         const bassNote = (pc, near = 43) => { let m = pc + 36; while (m < near - 6) m += 12; while (m > near + 5) m -= 12; return Math.max(28, Math.min(55, m)); };
         const pcOf = (c, steps) => c.pcs.find(pc => steps.includes((pc - c.root + 12) % 12));
         const chordAfter = ms => chordAt(ms >= tl.total - 1 ? ms - tl.total : ms);   // past the end, the loop's first chord
-        let prevBass = null, nBar = 0;
+        let prevBass = null, nBar = 0; const fifthsStyle = !!(STYLES[cell.styleKey] || {}).fifths;
         const zones = [];   // where the score says fill: the drummer's, below
         played.forEach(bar => {
           if (bar.pickup) return;                             // the pickup bar: the band waits for the downbeat
@@ -4123,22 +4554,30 @@
           // ---- chords ----
           const chordEvs = events('chords');
           // A chord change inside the bar gets a hit of its own when the pattern has none there (not in a style without chords: the tune's written symbols stay silent).
-          if (!(STYLES[cell.styleKey] || {}).noChords) for (const sg of segs) {
+          // (Nor in a style of open fifths, whose strings keep their own strokes.)
+          const held = ev => /^(pad|drone)$/i.test(ev.name);
+          if (!(STYLES[cell.styleKey] || {}).noChords && !(STYLES[cell.styleKey] || {}).fifths) for (const sg of segs) {
             const frac = (sg.ms - bar.s) / barMs; if (!sg.chord || frac <= 0.01 || frac >= 0.99) continue;
-            if (chordEvs.some(ev => Math.abs(ev.begin - cyc - frac) < 0.02 && CHORD[ev.name.toLowerCase()] && ev.name.toLowerCase() !== 'pad')) continue;
-            const nextEv = chordEvs.find(ev => ev.begin > cyc + frac + 0.02 && ev.name.toLowerCase() !== 'pad');
+            if (chordEvs.some(ev => Math.abs(ev.begin - cyc - frac) < 0.02 && CHORD[ev.name.toLowerCase()] && !held(ev))) continue;
+            const nextEv = chordEvs.find(ev => ev.begin > cyc + frac + 0.02 && !held(ev));
             chordEvs.push({ begin: cyc + frac, end: nextEv ? nextEv.begin : cyc + 1, name: 'ch' }); chordEvs.sort((a, b) => a.begin - b.begin);
           }
           for (const ev of chordEvs) {
-            const k = CHORD[ev.name.toLowerCase()]; if (!k) { unknown('chords', ev.name, 'ch pad c1 c2 c3 c4'); continue; }
+            const k = CHORD[ev.name.toLowerCase()]; if (!k) { unknown('chords', ev.name, 'ch pad drone open c1 c2 c3 c4'); continue; }
             const t = tAt(ev.begin - cyc), cy = ev.begin, dur = (ev.end - ev.begin) * barMs / 1000;
-            if (k[0] === 'pad') {   // the voicing an octave down, spaced clear of the bass (clearOf), held softly, re-struck at a chord change
+            if (k[0] === 'pad' || k[0] === 'drone') {   // the voicing an octave down, spaced clear of the bass (clearOf), held softly, re-struck at a chord change; a drone, the open fifth
               const cuts = [t, ...segs.map(sg => sg.ms).filter(ms => ms > t + 1 && ms < tAt(ev.end - cyc) - 1), tAt(ev.end - cyc)];
-              for (let q = 0; q + 1 < cuts.length; q++) { const c = chordAt(cuts[q]); if (!c) continue; const v = clearOf(voice(c, D(cyAt(cuts[q]))).map(m => m - 12 >= 40 ? m - 12 : m), bassNote(c.root), ceilingAt(cuts[q], cuts[q + 1] - cuts[q])); const f = became(ev, `${c.name} held: ${v.map(noteName).join(' ')}`); res.voicings.push({ t: cuts[q], name: c.name, root: c.root, notes: [...v], pad: true }); v.forEach(m => add('chords', cuts[q] + 15, (cuts[q + 1] - cuts[q]) / 1000 * 0.98, m, (ev.vel === undefined ? k[1] : ev.vel) * L('chords', cy), f)); }
+              for (let q = 0; q + 1 < cuts.length; q++) { const c = chordAt(cuts[q]); if (!c) continue; const v = k[0] === 'drone' ? openFifth(c, 48, ceilingAt(cuts[q], cuts[q + 1] - cuts[q])) : clearOf(voice(c, D(cyAt(cuts[q]))).map(m => m - 12 >= 40 ? m - 12 : m), bassNote(c.root), ceilingAt(cuts[q], cuts[q + 1] - cuts[q])); const f = became(ev, `${c.name} held: ${v.map(noteName).join(' ')}`); res.voicings.push({ t: cuts[q], name: c.name, root: c.root, notes: [...v], pad: true }); v.forEach(m => add('chords', cuts[q] + 15, (cuts[q + 1] - cuts[q]) / 1000 * 0.98, m, (ev.vel === undefined ? k[1] : ev.vel) * L('chords', cy), f)); }
               continue;
             }
             const c = chordAt(t); if (!c) continue;
             const beatMs = barMs / Math.max(1, bar.beats), v = voice(c, D(cy), t, Math.min(dur * 1000, beatMs)), vel = (ev.vel === undefined ? k[1] : ev.vel) * (0.53 + 0.35 * E(cy)) * L('chords', cy);
+            if (k[0] === 'open') {   // the root and fifth struck together, a plucked string's open fifth, under the tune
+              const dy = openFifth(c, 50, ceilingAt(t, Math.min(dur * 1000, beatMs)) + 2), f = became(ev, `${c.name}: ${dy.map(noteName).join(' ')} (open fifth)`), hit = ++hits;
+              res.voicings.push({ t, name: c.name, root: c.root, notes: [...dy] });
+              dy.forEach((m, vi) => add('chords', t + vi * 6, dur * 0.95, m, vel, f, 0.3, hit));
+              continue;
+            }
             res.voicings.push({ t, name: c.name, root: c.root, notes: clearOf(v, bassNote(c.root)) });
             if (k[0] === 'ch') {
               // A chord tone a semitone under the melody note struck with it (a flat ninth against the tune) is left out, as a player would.
@@ -4164,7 +4603,7 @@
             else if (k[0] === 'fifth') m = bassNote((c.root + 7) % 12, root + 2);
             else if (k[0] === 'third') { const pc = pcOf(c, [3, 4]); m = bassNote(pc === undefined ? (c.root + 4) % 12 : pc, root + 2); }
             else if (k[0] === 'seventh') { const pc = pcOf(c, [10, 11]); m = bassNote(pc === undefined ? (c.root + 10) % 12 : pc, root + 2); }
-            else if (k[0] === 'oct') m = root + 12 <= 55 ? root + 12 : root;
+            else if (k[0] === 'oct') m = root + 12 <= (fifthsStyle ? 62 : 55) ? root + 12 : root;   // a plucked string's or the tanpura's octave has room above a bass's
             else {   // the next chord: the one in force just after this note ends (past the bar, the next bar's; past the tune, the loop's first)
               const nc = chordAfter(tAt(ev.end - cyc) + 1) || c, target = bassNote(nc.root, root);
               if (k[0] === 'next') m = target;
@@ -4176,10 +4615,11 @@
           }
           // ---- drums ----
           for (const ev of events('drums')) {
-            const k = KIT[ev.name.toLowerCase()]; if (!k) { unknown('drums', ev.name, 'bd sd hh oh rim cp ht mt lt cr rd sh tb cb cl wb lwb ca fill'); continue; }
+            const k = KIT[ev.name.toLowerCase()]; if (!k) { unknown('drums', ev.name, 'bd sd hh oh rim cp ht mt lt cr rd sh tb cb cl wb lwb ca fill, and the hand drums don ka kane hyo, deong kung deok gi, dum tak snap daf, dha dhin na tin ge ke te'); continue; }
             if (k[0] === 'fill') { zones.push({ ev, cyc, bar, s: bar.s + (ev.begin - cyc) * barMs, e: bar.s + Math.min(1, ev.end - cyc) * barMs, vel: ev.vel === undefined ? 1 : ev.vel }); continue; }
             const cy = ev.begin, en = E(cy);
-            add('drums', tAt(ev.begin - cyc), 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * en) * (0.53 + 0.47 * en) * L('drums', cy), became(ev, { kick: 'kick', snare: 'snare', hatC: 'closed hat', hatO: 'open hat', rim: 'rim', clap: 'clap', tomHi: 'high tom', tomMid: 'mid tom', tomLo: 'floor tom', crash: 'crash', ride: 'ride', shaker: 'shaker', tamb: 'tambourine', cowbell: 'cowbell', clave: 'claves', block: 'wood block', blockLo: 'low wood block', cabasa: 'cabasa' }[k[0]] || k[0]));
+            const hitN = add('drums', tAt(ev.begin - cyc), 0, DRUM[k[0]], (ev.vel === undefined ? k[1] : ev.vel) * (0.55 + 0.45 * en) * (0.53 + 0.47 * en) * L('drums', cy), became(ev, { kick: 'kick', snare: 'snare', hatC: 'closed hat', hatO: 'open hat', rim: 'rim', clap: 'clap', tomHi: 'high tom', tomMid: 'mid tom', tomLo: 'floor tom', crash: 'crash', ride: 'ride', shaker: 'shaker', tamb: 'tambourine', cowbell: 'cowbell', clave: 'claves', block: 'wood block', blockLo: 'low wood block', cabasa: 'cabasa', don: 'taiko (don)', ka: 'taiko rim (ka)', kane: 'chanchiki bell', hyo: 'hyoshigi', deong: 'janggu, both sides (deong)', kung: 'janggu, low side (kung)', deok: 'janggu, stick side (deok)', gi: 'janggu grace (gi)', dum: 'tombak (dum)', tak: 'tombak edge (tak)', snap: 'finger snap', daf: 'daf', dha: 'tabla (dha)', dhin: 'tabla (dhin)', na: 'tabla (na)', tin: 'tabla (tin)', ge: 'bayan (ge)', ke: 'bayan (ke)', te: 'tabla (te)' }[k[0]] || k[0]));
+            if (hitN && DAYAN.has(hitN.midi)) hitN.fx = { tonic: key.tonic !== undefined ? key.tonic : key.doPc };   // the tabla's dayan is tuned to the tune's Sa
           }
         });
         // ---- the drummer's feel ----
@@ -4600,7 +5040,7 @@
         cell.bandNotes = [...new Set(this.choruses.flatMap(c => c.problems))].map(t => ({ text: 'Band: ' + t }));
         cell.showNotes(); if (cell.refreshBandNote) cell.refreshBandNote(); if (cell.refreshPattern) cell.refreshPattern();
         const lean = { chords: 0, bass: 9 * feel, drums: 0 };   // ms: the bass lies back a little
-        this.cycles = this.choruses.map((ch, c) => [...out, ...(heteros[c] ? heteros[c].notes : []), ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: n.rel || 0.08, from: n.from }))].sort((a, b) => a.ms - b.ms));
+        this.cycles = this.choruses.map((ch, c) => [...out, ...(heteros[c] ? heteros[c].notes : []), ...ch.notes.map(n => ({ part: n.part, folder: band.folder(n.part), midi: n.midi, ms: n.t + (n.part === 'drums' ? (n.midi === DRUM.hatC || n.midi === DRUM.hatO ? -4 * feel : 0) : lean[n.part]), dur: n.dur, vel: n.vel * ch.levels[n.part], rel: n.rel || 0.08, from: n.from, ...(n.fx ? { fx: n.fx } : {}) }))].sort((a, b) => a.ms - b.ms));
         // A round: the other groups sing the melody as the first group does (with its feel), from the same list, later.
         this.round = tl && tl.round && this.leadTrack ? tl.round : null;
         this.fades = cell.fades && cell.fades.parts.size ? cell.fades : null;
@@ -5026,7 +5466,7 @@
         this.band = opts.band && typeof opts.band === 'object' ? { ...opts.band } : {};
         this.dismissedNotes = new Set();
         const parts = splitBand(text);
-        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div></div><div class="corner"><div class="transport" role="group" aria-label="Play"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
+        body.innerHTML = `<div class="gamebar"><div class="prog"></div><div class="count"></div><div class="cheer">Bravo!</div></div><div class="score"><div class="nextup" aria-live="polite"></div><div class="paper"></div><div class="verses" aria-label="Verses"></div></div><div class="corner"><div class="transport" role="group" aria-label="Play"></div><div class="sign" hidden role="group" aria-label="Notation"><button type="button" data-nota="staff" title="Standard notation">Staff</button><button type="button" data-nota="tab" title="Tablature in the staff's place: the fret for each note on its string, as the fretboard plays it">Tab</button></div></div><div class="inst"></div>
           <div class="strip dock"><div class="dockbar"><div class="tabs"><button type="button" class="tab" data-drawer="melody" aria-pressed="false" title="The tune's ABC, the instrument under the staff, note names, chords, transposition and feel"><span class="fold" aria-hidden="true"></span>Melody<span class="badge"></span></button><button type="button" class="tab" data-drawer="band" aria-pressed="false" title="The band's arrangement as text, what sounds, the accompaniment style and the Band's controls"><span class="fold" aria-hidden="true"></span>Band</button><button type="button" class="tab" data-drawer="improv" aria-pressed="false" hidden title="Visible choices and reply windows that follow the bars while the music plays"><span class="fold" aria-hidden="true"></span>Improv</button><button type="button" class="tab" data-drawer="mix" aria-pressed="false" title="A level for the melody, the chords, the bass and the drums; click a player to mute them"><span class="fold" aria-hidden="true"></span>Mixer</button></div><button type="button" class="themetog" title="Light or dark" aria-label="Light or dark"></button></div>
           <div class="drawer melody" data-drawer="melody" hidden>
           <div class="melodytext"><div class="editwrap"><pre class="lintmirror" aria-hidden="true"></pre><textarea class="entry" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" aria-label="ABC notation" placeholder="ABC: C D E F | G A B c |&#10;w: do re mi fa sol la ti do"></textarea>
@@ -5181,7 +5621,7 @@
         const gear = body.querySelector('.ukegear');
         gear.addEventListener('click', e => { e.preventDefault(); ukeSetupDialog(); });
         ip.addEventListener('change', () => { this.inst = ip.value; gear.hidden = this.inst !== 'uke'; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
-        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body; this.corner = body.querySelector('.corner');
+        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body; this.corner = body.querySelector('.corner'); this.versesEl = body.querySelector('.verses');
         for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
         const lp = body.querySelector('.linespick select');
         lp.addEventListener('change', () => { this.lines = lp.value; try { localStorage.setItem('gcs-game-lines', this.lines); } catch (e) {} for (const en of engines.values()) if (en.oneLine) { en.lines = this.lines; if (en.linesBox) en.linesBox.value = this.lines; } if (gameMode) this.render(); });
@@ -5344,6 +5784,13 @@
         const name = this.hetero.snd.name; mem.querySelector('span').textContent = name;
         mem.querySelector('.lvl').setAttribute('aria-label', `${name} (melody 2) level`); mem.querySelector('.figure').title = `${name}, the tune again (melody 2): click to mute or unmute`;
       }
+      // Which of the style's grooves the tune plays, for the band note.
+      grooveNote() {
+        const ch = this.player && this.player.choruses && this.player.choruses[0], gr = ch && ch.groove;
+        if (!gr || !gr.name || gr.n < 2) return '';
+        const named = this.groovePick && this.groovePick.named !== null;
+        return ` Groove: ${gr.name} (${gr.i + 1} of ${gr.n}${named ? ', named by the %%style line' : `, chosen by the title; \u201C%%style ${gr.style} ${(gr.i + 1) % gr.n + 1}\u201D picks another`}).`;
+      }
       // What the heterophony part plays, for the band note.
       heteroNote() {
         const x = this.hetero; if (!x) return '';
@@ -5370,7 +5817,7 @@
         el.textContent = (charted ? `The arrangement: ${charted} time${charted > 1 ? 's' : ''} round, taking turns with Repeat on. Edit it here; the melody's own chords fill any bar not written.` + ends :
           written ? 'The band plays the melody’s chord symbols.' + arc + ends :
           this.harmony !== 'off' ? 'No chords written: the band plays chords found from the melody (Chords: Auto, in the Melody tab).' + arc + ends :
-          'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.') + this.heteroNote();
+          'No chords written and Chords is set to Written only (Melody tab): the band is silent. Write chord symbols, or set Chords to Auto.') + this.grooveNote() + this.heteroNote();
       }
       transportState() { const playing = !!(this.player && this.player.running); if (this.clock) this.clock.set({ playing, canReset: !playing && this.player.pos > 0, repeat: !!this.player.loop }); }
       getText() { return joinBand(this.entry.value, this.bandReal()); }
@@ -5471,11 +5918,14 @@
         });
         const svg = target.querySelector('svg');
         if (svg && !svg.getAttribute('viewBox')) svg.setAttribute('viewBox', `0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
+        if (window.GCSLiftPhraseSlurs) GCSLiftPhraseSlurs(target);   // a phrase mark under stems-up notes goes above them, off the words
         return tunes && tunes[0];
       }
       boxSize() {
         const cs = getComputedStyle(this.scoreEl);
-        return { W: this.scoreEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+        const side = this.scoreEl.classList.contains('versesside') && this.versesEl ? this.versesEl.offsetWidth : 0;   // the verses' column, beside the music
+        const map = this.scoreEl.classList.contains('withmap') && !gameMode ? 84 : 0;   // the minimap's room (.score.withmap > .paper)
+        return { W: this.scoreEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - side - map,
                  H: this.scoreEl.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) };
       }
       render() {
@@ -5491,13 +5941,20 @@
         const text = this.getText();
         // The Improv tab is there when the tune carries cues (or its drawer is already open), so the other tunes keep three tabs.
         const itab = this.body.querySelector('.tab[data-drawer="improv"]'); if (itab) itab.hidden = !/^%\s*improv:/m.test(text) && this.drawer !== 'improv';
-        let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
+        // The verses printed after the music (W:) are shown as text beside or below it (showVerses), not engraved:
+        // engraved, a long song's verses made the score many times taller and fitting it to the box made the music tiny.
+        // Each W: line becomes a comment of the same length, so the map from the score back to the typed text holds.
+        if (!gameMode) this.showVerses(text);
+        this.scoreEl.classList.toggle('withmap', !gameMode && this.scoreEl.clientWidth >= 560);   // the minimap's room: every song's form, on a box wide enough
+        const shown = window.GCSClean ? GCSClean.hideDatedSource(text) : text;   // a source title in dated words stays in the text, not on the page
+        let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : shown.replace(/^W:/gm, '%W')));
         this.chart = parseChart(text);
         this.tuning = parseTuning(text);
         this.round = parseRound(text);
         this.fades = parseFades(text);
         // No arrangement: Chords on Auto finds chords from the melody wherever none are written (all of a tune without symbols, or the bars its symbols leave out), so the band has something to play.
         this.styleKey = styleFor(this.style, text);   // the text, not abc: chartComment has hidden the %%style line by now
+        this.groovePick = groovePick(text);
         this.tuneVoice = voiceFor(text);   // the melody's sound with no instrument view (TUNE_VOICE)
         if (this.harmony !== 'off' && !this.chart.choruses.some(c => c.bars) && !(STYLES[this.styleKey] || {}).noChords) abc = withDetectedChords(abc, !!(STYLES[this.styleKey] || {}).tonicOnly);
         if (this.chart.choruses.some(c => c.bars)) { try { abc = withChartChords(abc, this.chart, ABCJS.parseOnly(abc)[0]); } catch (err) { console.warn('chart', err); } }
@@ -5523,6 +5980,23 @@
                   : gameMode ? Math.max(1200, 90 * this.origElems.filter(e => e.el_type === 'note').length)   // one long line; it scrolls
                   : Math.max(200, Math.round(vb.height * (W / H) - 2 * PAD));
         if (Math.abs(ideal - base) > 2) tune = this.renderAt(this.paper, abcForDisplay, ideal, undefined, extra);
+        // A legible floor: when fitting the whole piece to the box would make a staff space smaller than about 1.1 % of
+        // the screen's height, the music is drawn at that size, wrapped to the box's width, and the box scrolls
+        // (following the line being played). Short pieces still fit whole.
+        this.scrolling = false;
+        if (!gameMode && tune) {
+          const svg = this.paper.querySelector('svg'), staff = svg && svg.querySelector('.abcjs-staff');
+          if (staff) {
+            const vbs = svg.viewBox.baseVal, space = staff.getBBox().height / 4, fitK = Math.min(W / vbs.width, H / vbs.height);
+            const minSpace = Math.max(6, (window.innerHeight || 800) * 0.011);
+            if (space > 0 && fitK * space < minSpace) {
+              this.scrolling = true; this.scoreEl.classList.add('scrolling');
+              ideal = Math.max(220, Math.round(this.boxSize().W / (minSpace / space) - 2 * PAD));
+              tune = this.renderAt(this.paper, abcForDisplay, ideal, undefined, extra);
+            }
+          }
+        }
+        this.scoreEl.classList.toggle('scrolling', this.scrolling);
         // A line that cannot be squeezed into the width asked for (a tall, narrow box: a phone) is drawn longer, but abcjs
         // still centres the title and sets the composer for the width asked, left of the staff's middle: engrave again at
         // the width it drew.
@@ -5553,7 +6027,7 @@
           console.warn('notation post-processing failed', err);
         }
         this.fit();
-        this.tl = null; this.winLine = null;
+        this.tl = null; this.winLine = null; this.followLine = null;
         this.placeReady();
         // The tune to the Player: abcjs's audio tracks at the page's
         // transposition and the view's sound, without the chord tracks when
@@ -5567,6 +6041,7 @@
         if (keepAt > 0 && this.tl && keepAt < this.tl.total) { this.player.pos = keepAt; this.idle = false; this.k = null; this.paint(); }
         this.updateSignage();
         this.refreshBandNote();
+        try { this.buildMinimap(); } catch (err) { console.warn('minimap', err); }
         // The text boxes are as tall as their lines, up to a dozen (the drawer grows with them; past that they scroll).
         this.body.style.setProperty('--abc-lines', this.entry.value.split('\n').length);
         this.body.style.setProperty('--band-lines', this.bandEntry.value.split('\n').length);
@@ -5967,7 +6442,9 @@
         if (!(W > 0 && H > 0)) return false;
         const two = gameMode && this.lines !== 'one';
         const k = two ? W / vb.width                                                 // two lines: fill the width, the paper slides up a system at a time
-                : gameMode ? H / vb.height : Math.min(W / vb.width, H / vb.height);   // one line: fill the height, the width scrolls
+                : gameMode ? H / vb.height
+                : this.scrolling ? W / vb.width                                    // too long to fit legibly: fill the width, the box scrolls
+                : Math.min(W / vb.width, H / vb.height);   // one line: fill the height, the width scrolls
         this.scoreEl.classList.toggle('twoline', two);
         svg.setAttribute('width', (vb.width * k).toFixed(2)); svg.setAttribute('height', (vb.height * k).toFixed(2));
         this.paper.style.height = ''; this.paper.style.overflow = '';
@@ -6099,20 +6576,36 @@
           if (clef) { const cb = clef.getBBox(), cx = cb.x + cb.width / 2, h = st.gap * (n - 1), size = h / 3 * 0.95; ['T', 'A', 'B'].forEach((ch, r) => svgText(G, 'tabclef', cx, st.y + h / 6 + r * h / 3, size, 'currentColor', ch, 'middle')); }
         }
       }
-      cursorSpan(line, staffNo = 0) {
+      // The staff lines of a line of music (its first staff, or the staffNo-th in a system of several).
+      staffEl(line, staffNo = 0) {
         const svg = this.paper.querySelector('svg');
-        const staff = svg && (svg.querySelectorAll(`.abcjs-staff.abcjs-l${line}`)[staffNo || 0] || svg.querySelector(`.abcjs-staff.abcjs-l${line}`) || svg.querySelectorAll('.abcjs-staff')[line || 0]);
+        return svg && (svg.querySelectorAll(`.abcjs-staff.abcjs-l${line}`)[staffNo || 0] || svg.querySelector(`.abcjs-staff.abcjs-l${line}`) || svg.querySelectorAll('.abcjs-staff')[line || 0]);
+      }
+      cursorSpan(line, staffNo = 0) {
+        const staff = this.staffEl(line, staffNo);
         if (!staff) return { top: 0, height: 60 };
         const sb = staff.getBBox();
         return { top: sb.y - sb.height * 0.6, height: sb.height * 2.2 };
       }
       shapeCursor(g, line, staffNo = 0) {
+        this.underMusic(g, line, staffNo);
         const { top, height } = this.cursorSpan(line, staffNo);
         g._beam.setAttribute('y', top.toFixed(2)); g._beam.setAttribute('height', height.toFixed(2));
         g._bar.setAttribute('y', top.toFixed(2)); g._bar.setAttribute('height', height.toFixed(2));
         g._lamp.setAttribute('cy', (top - 4).toFixed(2));
         g._hit.setAttribute('y', (top - 9).toFixed(2)); g._hit.setAttribute('height', (height + 12).toFixed(2));
         if (g._badge) g._badge.setAttribute('transform', `translate(1.2 ${(top - 4).toFixed(2)})`);   // over the lamp, where the eye follows the cursor
+      }
+      /* The cursor stands in its line of music under the notes, over the staff lines and clef: drawn over the notes, as
+         it was, its bar hid each stem it crossed, and the stem it stopped on when paused (a quarter note seemed to have
+         none). It goes in the line's own group (abcjs draws a group per line), before the first note, rest or barline.
+         The notes over it let the pointer through to it (CSS), so it is dragged as before. */
+      underMusic(g, line, staffNo = 0) {
+        const svg = this.paper.querySelector('svg'), staff = this.staffEl(line, staffNo), w = staff && staff.closest('.abcjs-staff-wrapper');
+        if (!w) { if (svg && g.parentNode !== svg) svg.appendChild(g); return; }
+        let first = null;
+        for (const c of w.children) { if (c === g || c.classList.contains('cursorg')) continue; if (!/\babcjs-(staff|staff-extra|tempo)\b/.test(c.getAttribute('class') || '')) { first = c; break; } }
+        if (g.parentNode !== w || (first && g.compareDocumentPosition(first) & Node.DOCUMENT_POSITION_PRECEDING)) w.insertBefore(g, first);
       }
       // A warm wash over the measure in which the playhead is travelling.
       // It shares the cursor group's translation, so its x is relative to
@@ -6170,7 +6663,8 @@
           const v = raw.match(/^V:\s*(\S+)/) || raw.match(/^\[V:\s*([^\]\s]+)[^\]]*\]/);
           if (v) { cur = voice(v[1]); if (!cur.def) cur.def = raw.startsWith('[') ? 'V:' + raw.slice(3, raw.indexOf(']')).trim() : raw; if (raw.startsWith('V:')) continue; }
           const line = v ? raw.slice(raw.indexOf(']') + 1) : raw, li = cur.music.length - 1;
-          if (/^w:/i.test(line)) { if (li < 0) continue; const k = (cur.verses._n = cur.verses._n || new Map()).get(li) || 0; cur.verses._n.set(li, k + 1); (cur.verses[k] = cur.verses[k] || [])[li] = line.slice(2).trim(); }
+          if (/^W:/.test(line)) continue;   // the verses printed after the music (W:) are not under any note: the one line has no room for them
+          if (/^w:/.test(line)) { if (li < 0) continue; const k = (cur.verses._n = cur.verses._n || new Map()).get(li) || 0; cur.verses._n.set(li, k + 1); (cur.verses[k] = cur.verses[k] || [])[li] = line.slice(2).trim(); }
           else if (/^[A-Za-z]:/.test(line)) { if (/^[KMLQPXUIm]:/.test(line)) head.push(line); }   // the fields that shape the music; the title and the rest would take the room the lines need
           else if (line.trim()) cur.music.push(line.replace(/\\\s*$/, '').trim());
         }
@@ -6426,6 +6920,7 @@
           g.style.transform = `translateX(${at.x.toFixed(2)}px)`;
           this.beamAt(g, at);
           if (gameMode && this.lines !== 'one') this.window(at.line);
+          else if (!gameMode) { if (this.scrolling && running) this.follow(at.line); this.markMinimap(at); }
           else if (gameMode) {
             const svg = this.paper.querySelector('svg');
             if (svg) { const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, { W } = this.boxSize(); this.paper.style.transform = `translateX(${(W * 0.28 - at.x * ks).toFixed(1)}px)`; }
@@ -6710,6 +7205,7 @@
         g.style.filter = ''; g._bar.style.fill = ''; g._lamp.style.fill = '';
         g.style.transform = `translateX(${x.toFixed(2)}px)`;
         g.classList.remove('done'); g.classList.add('ready');
+        this.followLine = null;   // a scrolling score follows from the first line it plays (not scrolled here: this runs on every redraw, while typing)
         if (gameMode) {
           const svg = this.paper.querySelector('svg');
           if (this.lines !== 'one') this.window(0);
@@ -6726,6 +7222,118 @@
         const svg = this.paper.querySelector('svg'); if (!svg) return;
         const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width;
         this.paper.style.transform = `translateY(${(-this.lineTop(line) * ks).toFixed(1)}px)`;
+      }
+      // A scrolling score keeps the line being played in view: when it reaches the lower part of the box, or is above it,
+      // the box scrolls so the line stands near the top, the next one in view below it.
+      follow(line) {
+        if (this.followLine === line) return;
+        this.followLine = line;
+        const svg = this.paper.querySelector('svg'), box = this.scoreEl; if (!svg) return;
+        const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width;
+        const p0 = this.paper.offsetTop - box.offsetTop, top = p0 + this.lineTop(line) * ks, bottom = p0 + this.lineTop(line + 1) * ks;
+        const view0 = box.scrollTop, view1 = view0 + box.clientHeight;
+        if (top < view0 + 4 || (bottom > view1 - box.clientHeight * 0.2 && this.lineTop(line + 1) > this.lineTop(line))) box.scrollTo({ top: Math.max(0, top - box.clientHeight * 0.08), behavior: 'smooth' });
+      }
+      // The minimap (every song, on a box at least 560 px wide): the piece's form, the first voice's bars, line by line, each as long as it lasts;
+      // the phrases the phrase marks span (a dotted slur, or one over a bar line) tinted in turn; each row's first bar
+      // number; a frame on the rows in view (scrollMinimap) and the bar being played lit (markMinimap).
+      buildMinimap() {
+        let mm = this.minimap;
+        if (!mm) {
+          mm = this.minimap = document.createElement('div'); mm.className = 'minimap'; mm.hidden = true;
+          mm.title = 'The whole piece: a row for each line of music, a block for each bar. Click a row to go to that line.';
+          this.body.appendChild(mm);
+          mm.addEventListener('click', e => { const r = e.target.closest('.mmrow'); if (r) this.toLine(+r.dataset.line); });
+          this.scoreEl.addEventListener('scroll', () => this.scrollMinimap(), { passive: true });
+        }
+        this.mmNow = null;
+        if (gameMode || !this.scoreEl.classList.contains('withmap') || !this.dispElems || !this.dispElems.length) { mm.hidden = true; this.mmBars = null; return; }
+        const bars = [], open = new Map(), spans = [];
+        let cur = null;
+        const startBar = d => { cur = { line: d._line, dur: 0, x: d.abselem ? d.abselem.x : 0, p: 0 }; bars.push(cur); };
+        for (const d of this.dispElems) {
+          if (d._voice !== 0) continue;
+          if (d.el_type === 'bar') { cur = null; continue; }
+          if (!cur || cur.line !== d._line) startBar(d);
+          cur.dur += (d.duration || 0) * (d.tripletMultiplier || 1);
+          const here = bars.length - 1;
+          for (const s of [...(d.startSlur || []), ...(d.pitches || []).flatMap(p => p.startSlur || [])]) open.set(s.label, { from: here, dotted: s.style === 'dotted' });
+          for (const label of [...(d.endSlur || []), ...(d.pitches || []).flatMap(p => p.endSlur || [])]) {
+            const o = open.get(label); open.delete(label);
+            if (o && (o.dotted || here > o.from)) spans.push([o.from, here]);   // a phrase mark, not a slur within a bar
+          }
+        }
+        const kept = bars.filter(b => b.dur > 0);
+        if (!kept.length) { mm.hidden = true; this.mmBars = null; return; }
+        spans.sort((a, b) => a[0] - b[0]).forEach(([a, b], i) => { for (let k = a; k <= b; k++) bars[k].p = 1 + (i % 2); });
+        const lines = [...new Set(kept.map(b => b.line))];
+        let n = 0;
+        mm.innerHTML = lines.map(L => {
+          const row = kept.filter(b => b.line === L), first = n + 1; n += row.length;
+          return `<div class="mmrow" data-line="${L}"><span class="mmn">${first}</span><div class="mmbars">${row.map(b => `<i class="p${b.p}" style="flex:${b.dur.toFixed(4)} 1 0"></i>`).join('')}</div></div>`;
+        }).join('');
+        kept.forEach(b => { b.el = null; });
+        const rowsEl = [...mm.querySelectorAll('.mmrow')];
+        rowsEl.forEach(r => { const L = +r.dataset.line; [...r.querySelectorAll('i')].forEach((el, i) => { kept.filter(b => b.line === L)[i].el = el; }); });
+        this.mmBars = kept; this.mmRows = rowsEl;
+        // Where each line of music begins and ends in the paper, for the frame and for a click.
+        const svg = this.paper.querySelector('svg'), vbH = svg ? svg.viewBox.baseVal.height : 0;
+        this.mmSpans = lines.map((L, i) => [this.lineTop(L), i + 1 < lines.length ? this.lineTop(lines[i + 1]) : vbH]);
+        // In the music's right-hand room, as tall as the box; the rows shrink to fit a long piece.
+        const sc = this.scoreEl;
+        mm.style.top = sc.offsetTop + 'px'; mm.style.height = sc.clientHeight + 'px';
+        mm.style.left = (this.paper.offsetLeft + this.paper.offsetWidth + 4) + 'px';
+        mm.style.setProperty('--mmrow', Math.max(4, Math.min(18, (sc.clientHeight - 12) / lines.length - 3)).toFixed(1) + 'px');
+        mm.hidden = false;
+        this.scrollMinimap();
+      }
+      scrollMinimap() {
+        if (!this.mmRows || !this.mmSpans) return;
+        const svg = this.paper.querySelector('svg'), box = this.scoreEl; if (!svg) return;
+        const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, p0 = this.paper.offsetTop - box.offsetTop;
+        const v0 = box.scrollTop, v1 = v0 + box.clientHeight;
+        if (!this.scrolling) { this.mmRows.forEach(r => r.classList.remove('seen')); return; }   // all of it in view: no frame
+        this.mmSpans.forEach(([a, b], i) => {
+          const y0 = p0 + a * ks, y1 = p0 + b * ks, shown = Math.min(v1, y1) - Math.max(v0, y0);
+          this.mmRows[i].classList.toggle('seen', shown > 0.5 * (y1 - y0) || shown > 0.5 * box.clientHeight);
+        });
+      }
+      // The bar being played (or the cursor's place when stopped), lit in the minimap.
+      markMinimap(at) {
+        if (!this.mmBars || !at) return;
+        let now = null;
+        for (const b of this.mmBars) if (b.line === at.line && b.x <= at.x + 1) now = b;
+        if (!now) now = this.mmBars.find(b => b.line === at.line) || null;
+        if (now === this.mmNow) return;
+        if (this.mmNow && this.mmNow.el) this.mmNow.el.classList.remove('now');
+        this.mmNow = now; if (now && now.el) now.el.classList.add('now');
+      }
+      // A click in the minimap: that line near the top of the box.
+      toLine(line) {
+        const svg = this.paper.querySelector('svg'), box = this.scoreEl; if (!svg) return;
+        const ks = parseFloat(svg.getAttribute('width')) / svg.viewBox.baseVal.width, p0 = this.paper.offsetTop - box.offsetTop;
+        box.scrollTo({ top: Math.max(0, p0 + this.lineTop(line) * ks - box.clientHeight * 0.05), behavior: 'smooth' });
+      }
+      // The verses printed after the music (W: lines), as text: a stanza's number or a singer's part ("2.", "Solo:")
+      // in the accent colour, the slash between two verse lines faint. Beside the music on a wide box, after it on a
+      // narrow one.
+      showVerses(text) {
+        const el = this.versesEl; if (!el) return;
+        const lines = text.split('\n').filter(l => /^W:/.test(l)).map(l => l.slice(2).trim());
+        while (lines.length && !lines[lines.length - 1]) lines.pop();
+        const has = lines.some(Boolean);
+        const esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+        el.innerHTML = has ? lines.map(l => {
+          if (!l) return '<p>&nbsp;</p>';
+          // A stanza's number, or a part's name the way the course writes one (not "lui dit:" inside a verse).
+          const m = l.match(/^(\d+\.(?:\s+[^:/']{1,32}:)?|(?:Solo|Tutti|All|Tous|Chorus|Refrain|Verse \d+|Le chœur|Le chevalier|Le duc|La Tour|Le capitaine et le colonel|(?:Première|Deuxième) ronde|Call|Response):)\s+(.*)$/);
+          const body = s => esc(s).replace(/ \/ /g, '<span class="sl"> / </span>');
+          return `<p>${m ? `<span class="who">${esc(m[1])}</span> ${body(m[2])}` : body(l)}</p>`;
+        }).join('') : '';
+        const sc = this.scoreEl, wide = sc.clientWidth > 1.25 * sc.clientHeight && sc.clientWidth > 640;
+        sc.classList.toggle('hasverses', has);
+        sc.classList.toggle('versesside', has && wide);
+        sc.classList.toggle('versesbelow', has && !wide);
       }
       // How far the game's two lines slide the paper up to put a system on top, in SVG units: just past the line before
       // (the lowest edge of its notes, bars and lyrics).

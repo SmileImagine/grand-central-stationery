@@ -10,6 +10,8 @@
   <link href="../fonts/fonts.css" rel="stylesheet">
   <script src="../vendor/abcjs-basic-min.js" defer></script>
   <script src="sets.js" defer></script>
+  <script src="abc-clean.js" defer></script>
+  <script src="phrase-lift.js" defer></script>
   <style>
     /*
       The library: everything the course holds, in one searchable place.
@@ -59,6 +61,11 @@
     aside details { border-top: 1px solid var(--line-2); padding: 6px 0; }
     aside details:first-child { border-top: 0; }
     aside summary { cursor: pointer; font-weight: 700; font-size: 14px; padding: 4px 0; display: flex; align-items: center; }
+    /* A triangle that turns a quarter turn as the category opens. */
+    aside summary { list-style: none; }
+    aside summary::-webkit-details-marker { display: none; }
+    aside summary::before { content: ''; flex: none; width: 0; height: 0; margin: 0 8px 0 2px; border-left: 6px solid var(--muted); border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; transition: transform 0.15s; }
+    aside details[open] > summary::before { transform: rotate(90deg); }
     aside summary .on { margin-left: auto; font-weight: 400; color: var(--accent); font-size: 12px; }
     .chips { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px 0 6px; }
     .chip { font-size: 12.5px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; background: var(--panel-2); cursor: pointer; display: inline-flex; gap: 5px; align-items: center; line-height: 1.4; }
@@ -70,6 +77,10 @@
     .more { font-size: 12px; color: var(--muted); background: none; border: 0; padding: 2px 4px; }
     .clear { margin: 10px 0 0; width: 100%; }
 
+    .review { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 12px; padding: 10px 14px; border: 1px solid var(--accent); border-radius: 10px; background: var(--panel-2); font-size: 14.5px; line-height: 1.4; }
+    .review b { font-size: 15.5px; }
+    .review .spacer { flex: 1; }
+    .review button.go { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
     .lead { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; color: var(--muted); font-size: 14px; margin-bottom: 10px; }
     .lead .spacer { flex: 1; }
     .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; align-items: start; }
@@ -91,6 +102,16 @@
     .item .tag.new { color: var(--ink); border-color: var(--lvl); }
     .item .tag.grade { color: var(--ink); background: var(--panel); }
     .item .tag.status { color: var(--ink); border-color: var(--l3); }
+    .item .approve { display: flex; gap: 6px; align-items: center; margin: 2px 0 6px; flex-wrap: wrap; }
+    .item .approve .badge { font-size: 11.5px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--l3); }
+    .item .approve .badge.include { border-color: var(--l1); }
+    .item .approve .badge.reject { border-color: #c44; }
+    .item .approve button { font-size: 12.5px; }
+    .item .approve .badge.fix { border-color: #c80; color: #a60; cursor: help; }
+    dialog .fixes { margin: 8px 0; padding-left: 18px; color: #a60; font-size: 13.5px; }
+    dialog details.record summary { cursor: pointer; color: var(--muted); font-size: 13.5px; margin-top: 8px; }
+    .item .actions .play { min-width: 2.2em; }
+    .item .actions .play.on { background: var(--panel); }
     .item .actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
     .item .actions .src { margin-left: auto; font-size: 12px; color: var(--muted); max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     mark { background: color-mix(in srgb, var(--l2) 45%, transparent); color: inherit; border-radius: 3px; padding: 0 1px; }
@@ -136,6 +157,7 @@
   <div class="wrap">
     <aside id="facets" class="folded"><button class="fold" id="fold">Filters</button></aside>
     <main>
+      <div id="review" class="review" hidden></div>
       <div class="lead"><span id="shown"></span><span class="spacer"></span><span id="note"></span></div>
       <div class="cards" id="cards"></div>
     </main>
@@ -149,6 +171,7 @@
     const $ = s => document.querySelector(s);
     const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
     const LEVEL_COLOR = { 1: 'var(--l1)', 2: 'var(--l2)', 3: 'var(--l3)', 4: 'var(--l4)', 5: 'var(--l5)', 6: 'var(--l6)' };
+    const DECISIONS = { auto: 'automated approval', include: 'approved', considering: 'in the workshop', reject: 'rejected' };
     const KINDS = { tune: 'Tunes', rhythm: 'Drum patterns', step: 'Steps', dance: 'Folk dances', figure: 'Square-dance figures', sketch: 'Workshop sketches' };
 
     /* ---- theme, shared with the main page ---- */
@@ -227,6 +250,7 @@
         kind: 'sketch', id: s.id, title: s.title, level: 0, score: 0, grade: 0, key: '', metre: '', length: 0, lengthWord: '',
         origin: '', type: '', composer: '', source: sourceName(s.source), sourceFull: s.source, licence: 'public domain',
         skills: [], introduces: [], ontario: null, status: s.status, subtitle: s.subtitle, blocked: s.blocked, notes: s.notes, file: s.file,
+        decision: s.decision || 'considering', decisionNote: s.decisionNote || '', kindOf: s.kind || 'tune',
         text: [s.title, s.subtitle, s.source, s.notes, s.blocked, s.status].join(' ')
       });
     }
@@ -234,6 +258,7 @@
     /* ---- facets: a key, a label, how to read an item's values, how to show one value ---- */
     const FACETS = [
       { key: 'kind', label: 'Kind', of: it => [it.kind], show: v => KINDS[v] || v, order: Object.keys(KINDS) },
+      { key: 'decision', label: 'Approval', of: it => it.kind === 'sketch' ? [it.decision] : [], show: v => DECISIONS[v] || v, order: Object.keys(DECISIONS) },
       { key: 'level', label: 'Level', of: it => it.level ? [String(it.level)] : [], show: v => `level ${v}`, dot: v => LEVEL_COLOR[v], order: ['1', '2', '3', '4', '5', '6'] },
       { key: 'grade', label: 'Ontario grade', of: grades, show: v => `grade ${v}`, order: ['1', '2', '3', '4', '5', '6', '7', '8'], upto: true },
       { key: 'metre', label: 'Metre', of: it => it.metre ? [it.metre] : [], show: v => v },
@@ -243,12 +268,13 @@
       { key: 'skill', label: 'Skills', of: it => (it.skills || []).map(wordsFor).filter(Boolean), show: v => v },
       { key: 'new', label: 'Introduces', of: it => (it.introduces || []).map(wordsFor).filter(Boolean), show: v => v },
       { key: 'status', label: 'Workshop stage', of: it => it.status ? [it.status] : [], show: v => v.replace(/-/g, ' ') },
-      { key: 'source', label: 'Source', of: it => it.source ? [it.source] : [], show: v => v },
+      { key: 'source', label: 'Source', of: it => it.source && !dated(it) ? [it.source] : [], show: v => v },   // not a title in dated words (dated, below)
       { key: 'licence', label: 'Licence', of: it => it.licence ? [it.licence] : [], show: v => v },
     ];
     const chosen = {};                      // facet key -> Set of values
     let gradeUpTo = false, query = '', sort = 'level';
     const expanded = {};                    // facet key -> show every value
+    const opened = {};                      // facet key -> open or shut, as the reader left it
 
     /* ---- the address carries the search ---- */
     function readHash() {
@@ -289,7 +315,9 @@
         if (!counts.size) continue;
         let values = [...counts.keys()];
         values.sort(f.order ? (a, b) => f.order.indexOf(a) - f.order.indexOf(b) : (a, b) => counts.get(b) - counts.get(a) || a.localeCompare(b));
-        const d = document.createElement('details'); d.open = chosen[f.key].size > 0 || ['kind', 'level', 'grade'].includes(f.key);
+        // A category stays as the reader left it, open or shut, when the column is drawn again (after a choice, or "more").
+        const d = document.createElement('details'); d.open = f.key in opened ? opened[f.key] : chosen[f.key].size > 0 || ['kind', 'level', 'grade'].includes(f.key);
+        d.addEventListener('toggle', () => { opened[f.key] = d.open; });
         d.innerHTML = `<summary>${esc(f.label)}${chosen[f.key].size ? `<span class="on">${chosen[f.key].size} chosen</span>` : ''}</summary><div class="chips"></div>`;
         const chips = d.querySelector('.chips');
         const limit = expanded[f.key] || f.order ? values.length : 12;
@@ -303,7 +331,7 @@
         if (values.length > limit) { const m = document.createElement('button'); m.className = 'more'; m.type = 'button'; m.textContent = `${values.length - limit} more…`; m.addEventListener('click', () => { expanded[f.key] = true; renderFacets(); }); chips.appendChild(m); }
         if (f.upto) {
           const l = document.createElement('label'); l.style.cssText = 'font-size:12.5px;color:var(--muted);display:flex;gap:6px;align-items:center;padding:2px 0 4px';
-          l.innerHTML = `<input type="checkbox"${gradeUpTo ? ' checked' : ''}> and the grades under it`; l.title = 'Keep everything the curriculum has named by the chosen grade, as the practice board does';
+          l.innerHTML = `<input type="checkbox"${gradeUpTo ? ' checked' : ''}> and under`; l.title = 'Keep everything the curriculum has named by the chosen grade, as the practice board does';
           l.querySelector('input').addEventListener('change', e => { gradeUpTo = e.target.checked; update(); });
           chips.appendChild(l);
         }
@@ -324,7 +352,21 @@
       length: (a, b) => a.length - b.length || a.title.localeCompare(b.title),
     };
     const PAGE = 60; let shownCount = PAGE;
+    /* ---- the review banner (workshop only): how many automated approvals wait, and one click to go through them ---- */
+    function renderReview() {
+      const box = $('#review'), waiting = items.filter(it => it.kind === 'sketch' && it.decision === 'auto').length;
+      const reviewing = chosen.decision.size === 1 && chosen.decision.has('auto');
+      const done = items.filter(it => it.kind === 'sketch' && /by the teacher on .* from the automated approval/.test(it.decisionNote || '')).length;
+      if (!waiting && !done) { box.hidden = true; return; }
+      box.hidden = false;
+      box.innerHTML = reviewing
+        ? `<span><b>Reviewing the automated approvals: ${waiting} left${done ? `, ${done} done` : ''}.</b><br>▶ hears a piece, its title shows it as it would be published, <b>✓ Confirm</b> approves it, <b>↩ Send back</b> returns it to the workshop. Each click saves to its record.</span><span class="spacer"></span><button type="button" class="all">Show everything</button>`
+        : `<span><b>${waiting} piece${waiting === 1 ? '' : 's'} await${waiting === 1 ? 's' : ''} your approval</b>${done ? ` (${done} done)` : ''}: confirm each, or send it back to the workshop.</span><span class="spacer"></span><button type="button" class="go">Review them</button>`;
+      const go = box.querySelector('.go'); if (go) go.addEventListener('click', () => { for (const f of FACETS) chosen[f.key].clear(); query = ''; $('#q').value = ''; chosen.decision.add('auto'); update(); window.scrollTo(0, 0); });
+      const all = box.querySelector('.all'); if (all) all.addEventListener('click', () => { chosen.decision.clear(); update(); });
+    }
     function renderCards() {
+      renderReview();
       const hits = items.filter(it => matchesAllBut(it, null)).sort(sorters[sort] || sorters.level);
       const wrap = $('#cards'); wrap.innerHTML = '';
       $('#shown').textContent = hits.length === items.length ? `${items.length} items` : `${hits.length} of ${items.length} items`;
@@ -350,11 +392,16 @@
         <div class="top"><h3><button type="button" class="title">${hl(it.title)}</button></h3><span class="meta">${esc(metaOf(it))}</span></div>
         ${body}
         <div class="tags">${shown.map(([s, w]) => `<span class="tag${intro.has(s) ? ' new' : ''}">${esc(w)}</span>`).join('')}${who ? `<span class="tag">${hl(who)}</span>` : ''}${it.ontario ? `<span class="tag grade" title="Ontario curriculum: ${esc(it.ontario.concepts.join('; '))}">grade ${it.ontario.grade}</span>` : ''}${it.kind === 'sketch' ? `<span class="tag status">${esc(it.subtitle || '')}</span>` : ''}</div>
-        <div class="actions">${canOpen(it) ? '<button class="open" title="Open this in the main page, ready to play">Open</button>' : ''}<span class="src" title="${esc(it.sourceFull || it.source)}">${hl(it.source)}</span></div>`;
+        ${it.kind === 'sketch' && it.decision === 'auto' ? `<div class="approve"><span class="badge" title="${esc(it.decisionNote)}">automated approval</span><button class="confirm" title="Approve it (holding-decision: include)">✓ Confirm</button><button class="sendback" title="Send it back to the workshop (holding-decision: considering)">↩ Send back</button><span class="fixes"></span></div>` : it.kind === 'sketch' && it.decision !== 'considering' ? `<div class="approve"><span class="badge ${esc(it.decision)}">${esc(DECISIONS[it.decision] || it.decision)}</span></div>` : ''}
+        <div class="actions">${canPlay(it) ? '<button class="play" title="Hear it (piano)">▶</button>' : ''}${canOpen(it) ? '<button class="open" title="Open this in the main page, ready to play">Open</button>' : ''}${dated(it) ? '' : `<span class="src" title="${esc(it.sourceFull || it.source)}">${hl(it.source)}</span>`}</div>`;
       el.querySelector('.title').addEventListener('click', () => detail(it));
       const o = el.querySelector('.open'); if (o) o.addEventListener('click', () => openInPage(it));
-      const inc = el.querySelector('.incipit');
-      if (inc) { if (it.abc) queueRender(inc, incipit(it.abc, 2)); else fetchSketch(it).then(() => queueRender(inc, incipit(it.abc, 2))); }
+      const pl = el.querySelector('.play'); if (pl) pl.addEventListener('click', () => preview(it, pl));
+      const cf = el.querySelector('.confirm'); if (cf) cf.addEventListener('click', () => decide(it, 'include', el));
+      const sb = el.querySelector('.sendback'); if (sb) sb.addEventListener('click', () => decide(it, 'considering', el));
+      const inc = el.querySelector('.incipit'), fx = el.querySelector('.approve .fixes');
+      const drawn = () => { queueRender(inc, incipit(it.abc, 2)); if (fx) fx.innerHTML = fixBadge(it); };
+      if (inc) { if (it.abc) drawn(); else fetchSketch(it).then(drawn); }
       return el;
     }
     // The first readable sentence of an OCR'd dance description: the music line with its garbled tempo marks, and the "(From ...)" tag, are skipped.
@@ -364,7 +411,64 @@
       else { const lines = s.split('\n'); while (lines.length > 1 && (lines[0].match(/\b[a-z]{2,}\b/g) || []).length < 3) lines.shift(); s = lines.join(' '); }
       return s.replace(/\s+/g, ' ').trim().slice(0, 220);
     }
+    // A workshop record's published face (course/abc-clean.js: its % lines stay behind), and what in it still needs fixing.
+    const publicAbc = it => it.kind === 'sketch' && it.abc && window.GCSClean ? GCSClean.clean(it.abc) : it.abc;
+    // A source title in words that hurt today ("the Dark Continent") is not printed; it stays in the ABC text.
+    const dated = it => !!(window.GCSClean && GCSClean.datedSource(it.sourceFull || it.source || ''));
+    const drawn = it => { const a = publicAbc(it); return a && window.GCSClean ? GCSClean.hideDatedSource(a) : a; };
+    const fixesOf = it => it.kind === 'sketch' && it.abc && window.GCSClean ? GCSClean.publicIssues(it.abc).filter(i => i.level !== 'note') : [];
+    const fixBadge = it => { const f = fixesOf(it); return f.length ? `<span class="badge fix" title="${esc(f.map(i => i.msg).join('\n'))}">⚠ ${f.length} to fix before publishing</span>` : ''; };
     const canOpen = it => ['tune', 'rhythm', 'step', 'sketch'].includes(it.kind);
+    const canPlay = it => it.kind === 'tune' || (it.kind === 'sketch' && it.kindOf !== 'link');
+
+    /* ---- hearing a tune: abcjs's own synth on the page's piano samples; one plays at a time ---- */
+    let playing = null;
+    function stopPreview() { if (playing) { try { playing.synth.stop(); } catch (e) {} playing.btn.textContent = '▶'; playing.btn.classList.remove('on'); playing = null; } }
+    async function preview(it, btn) {
+      if (playing && playing.btn === btn) return stopPreview();
+      stopPreview();
+      if (!window.ABCJS || !ABCJS.synth || !ABCJS.synth.supportsAudio()) return toast('This browser cannot play here');
+      btn.textContent = '…';
+      try {
+        if (it.kind === 'sketch' && !it.abc) await fetchSketch(it);
+        const host = document.createElement('div'); host.style.cssText = 'position:absolute;left:-9999px;width:600px'; document.body.appendChild(host);
+        const visualObj = ABCJS.renderAbc(host, publicAbc(it), {})[0]; host.remove();
+        const synth = new ABCJS.synth.CreateSynth();
+        playing = { synth, btn };
+        await synth.init({ visualObj, options: { soundFontUrl: '../vendor/soundfont/', program: 0, onEnded: () => { if (playing && playing.synth === synth) stopPreview(); } } });
+        await synth.prime();
+        if (!playing || playing.synth !== synth) return;
+        synth.start(); btn.textContent = '■'; btn.classList.add('on');
+      } catch (e) { stopPreview(); btn.textContent = '▶'; toast('Could not play it: ' + (e.message || e)); }
+    }
+
+    /* ---- confirming an automated approval, or sending it back: the record's own lines, saved by the local server ---- */
+    const TODAY = () => new Date().toISOString().slice(0, 10);
+    function setLine(text, key, value) {
+      const re = new RegExp(`^%\\s*holding-${key}:.*$`, 'm');
+      const line = `% holding-${key}: ${value}`;
+      if (re.test(text)) return text.replace(re, line);
+      const lines = text.split('\n'), at = lines.findIndex(l => /^%\s*holding-updated:/.test(l));
+      lines.splice(at >= 0 ? at + 1 : 0, 0, line); return lines.join('\n');
+    }
+    async function decide(it, decision, el) {
+      const url = '/api/tune/holding/' + encodeURIComponent(it.id);
+      let got;
+      try { got = await fetch(url).then(r => r.ok ? r.json() : Promise.reject(new Error(r.status))); }
+      catch (e) { return toast('Saving needs the local server: double-click serve.command and open the library from there'); }
+      let text = got.text;
+      const note = decision === 'include' ? `confirmed by the teacher on ${TODAY()} from the automated approval` : `sent back to the workshop by the teacher on ${TODAY()} from the automated approval`;
+      text = setLine(text, 'decision', decision);
+      text = setLine(text, 'decision-note', note);
+      text = setLine(text, 'updated', TODAY());
+      const r = await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, etag: got.etag }) });
+      if (!r.ok) { const j = await r.json().catch(() => ({})); return toast('Not saved: ' + (j.error || r.status)); }
+      it.decision = decision; it.decisionNote = note; it._norm = null;
+      toast(decision === 'include' ? `Approved: ${it.title}` : `Sent back: ${it.title}`);
+      const box = el.querySelector('.approve'); if (box) box.innerHTML = `<span class="badge ${decision}">${esc(DECISIONS[decision])}</span>`;
+      renderReview();
+      renderFacets();
+    }
 
     /* ---- the full card ---- */
     async function detail(it) {
@@ -381,25 +485,31 @@
       if (it.skills && it.skills.length) add('Skills', it.skills.map(wordsFor).filter(Boolean).join(', '));
       if (it.introduces && it.introduces.length) add('Introduces', it.introduces.map(wordsFor).filter(Boolean).join(', '));
       add('Stage', it.status && it.status.replace(/-/g, ' ')); add('Next', it.blocked); add('Notes', it.notes);
-      add('Source', it.sourceFull || it.source); add('Licence', it.licence);
-      const text = it.abc || it.body || '';
+      for (const [k, v] of Object.entries(it.reading || {})) add(k, v);
+      if (!dated(it)) add('Source', it.sourceFull || it.source); add('Licence', it.licence);
+      // A workshop record shows what would be published, what to fix first, and the whole record folded under it.
+      const sketch = it.kind === 'sketch' && it.abc, text = sketch ? publicAbc(it) : it.abc || it.body || '', fixes = fixesOf(it);
       d.innerHTML = `<h2>${esc(it.title)}</h2><p class="sub">${esc(KINDS[it.kind])}${it.subtitle ? ` · ${esc(it.subtitle)}` : ''}</p>
         ${it.abc ? '<div class="score"></div>' : ''}
         <dl>${rows.join('')}</dl>
+        ${sketch ? `<p class="sub">Published as (the workshop's % lines stay behind):</p>${fixes.length ? `<ul class="fixes">${fixes.map(i => `<li>${esc(i.msg)}</li>`).join('')}</ul>` : ''}` : ''}
         ${text ? `<pre>${esc(text)}</pre>` : ''}
-        <div class="row"><div class="left">${canOpen(it) ? '<button class="open primary">Open in the main page</button>' : ''}${text ? '<button class="copy">Copy the text</button>' : ''}${/^https?:/.test(it.sourceFull || '') ? `<a href="${esc(it.sourceFull)}" target="_blank" rel="noopener"><button>Source</button></a>` : ''}</div><button class="close">Close</button></div>`;
+        ${sketch ? `<details class="record"><summary>The whole workshop record</summary><pre>${esc(it.record || it.abc)}</pre></details>` : ''}
+        <div class="row"><div class="left">${canPlay(it) ? '<button class="play" title="Hear it (piano)">▶</button>' : ''}${canOpen(it) ? '<button class="open primary">Open in the main page</button>' : ''}${text ? '<button class="copy">Copy the text</button>' : ''}${/^https?:/.test(it.sourceFull || '') ? `<a href="${esc(it.sourceFull)}" target="_blank" rel="noopener"><button>Source</button></a>` : ''}</div><button class="close">Close</button></div>`;
       d.querySelector('.close').addEventListener('click', () => d.close());
       const o = d.querySelector('.open'); if (o) o.addEventListener('click', () => openInPage(it));
+      const pl = d.querySelector('.play'); if (pl) pl.addEventListener('click', () => preview(it, pl));
+      d.addEventListener('close', stopPreview, { once: true });
       const c = d.querySelector('.copy'); if (c) c.addEventListener('click', async () => { try { await navigator.clipboard.writeText(text); toast('Copied'); } catch (e) { toast('Could not copy'); } });
       d.showModal();
-      if (it.abc && window.ABCJS) { try { ABCJS.renderAbc(d.querySelector('.score'), it.abc, { scale: 0.8, staffwidth: Math.max(300, d.clientWidth - 48), responsive: 'resize', paddingtop: 0, paddingbottom: 0 }); } catch (e) {} }
+      if (it.abc && window.ABCJS) { try { ABCJS.renderAbc(d.querySelector('.score'), drawn(it), { add_classes: true, scale: 0.8, staffwidth: Math.max(300, d.clientWidth - 48), responsive: 'resize', paddingtop: 0, paddingbottom: 0 }); if (window.GCSLiftPhraseSlurs) GCSLiftPhraseSlurs(d.querySelector('.score')); } catch (e) {} }
     }
 
     /* ---- opening in the main page: a "=== type" document, deflated into the address ---- */
     const b64u = bytes => { let b = ''; for (let i = 0; i < bytes.length; i += 0x8000) b += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(b).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
     async function openLink(it) {
       const type = it.kind === 'rhythm' ? 'rhythm' : it.kind === 'step' ? 'dance' : 'abc';
-      const doc = `=== text {"align":"center"}\n${it.title}\n=== ${type}\n${it.abc || it.body}`;
+      const doc = `=== text {"align":"center"}\n${it.title}\n=== ${type}\n${publicAbc(it) || it.body}`;
       const bytes = new TextEncoder().encode(doc);
       let tag = 't', payload = bytes;
       if (typeof CompressionStream === 'function') { try { payload = new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); tag = 'z'; } catch (e) {} }
@@ -418,7 +528,11 @@
     async function fetchSketch(it) {
       if (it.abc || it._fetching) return it._fetching;
       return it._fetching = fetch('holding/' + it.file).then(r => r.ok ? r.text() : '').catch(() => '').then(t => t || (embedded().sketches || {})[it.id] || '').then(t => {
+        it.record = t;
         it.abc = t.split('\n').filter(l => !/^%\s*holding-/.test(l)).join('\n');
+        // The workshop's notes on the reading (once N: lines, now % holding- lines that are never published).
+        const note = k => t.split('\n').map(l => l.match(new RegExp(`^%\\s*holding-${k}:\\s*(.*)$`))).filter(Boolean).map(m => m[1]).join(' ');
+        it.reading = { 'The page': note('page'), 'How read': note('how-read'), 'Uncertain': note('uncertain'), 'Other versions': note('other-versions'), 'Phrases': note('phrases') };
         it.key = fieldOf(it.abc, 'K'); it.metre = fieldOf(it.abc, 'M'); it.origin = fieldOf(it.abc, 'O'); it.type = fieldOf(it.abc, 'R');
         it.text += ' ' + lyricsOf(it.abc) + ' ' + it.origin + ' ' + it.type; it._norm = null;
       }).catch(() => {});
@@ -440,7 +554,7 @@
         for (let i = 0; i < 4 && queue.length; i++) {
           const [el, abc] = queue.shift();
           if (!el.isConnected) continue;
-          try { ABCJS.renderAbc(el, abc, { scale: 0.62, staffwidth: Math.max(180, el.clientWidth - 8), paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, responsive: 'resize' }); } catch (e) { el.textContent = ''; }
+          try { ABCJS.renderAbc(el, abc, { add_classes: true, scale: 0.62, staffwidth: Math.max(180, el.clientWidth - 8), paddingtop: 0, paddingbottom: 0, paddingleft: 0, paddingright: 0, responsive: 'resize' }); if (window.GCSLiftPhraseSlurs) GCSLiftPhraseSlurs(el); } catch (e) { el.textContent = ''; }
         }
         if (queue.length) requestAnimationFrame(step); else draining = false;
       };

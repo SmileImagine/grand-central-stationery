@@ -46,6 +46,7 @@ function styleDecision(abc) {
   if (/swing|jazz|blues|rag|foxtrot|shuffle/.test(r)) return { style: 'swing', reason: 'R field' };
   if (/bossa|samba|latin|rumba|tango|beguine/.test(r)) return { style: 'bossa', reason: 'R field' };
   if (/march|polka|schottische|two-?step|quickstep/.test(r)) return { style: 'march', reason: 'R field' };
+  if (/singing game|play[- ]?party|play song|movement (game|song)|\bgame\b/.test(r) && !/ring (game|tune)/.test(r)) return { style: 'folk', reason: 'R field (a singing game)' };
   if (/ballad|\bair\b|lullaby|hymn|carol|slow|lament|song/.test(r)) return { style: 'ballad', reason: 'R field' };
   if (/funk/.test(r)) return { style: 'funk', reason: 'R field' };
   if (/reggaeton|dembow/.test(r)) return { style: 'reggaeton', reason: 'R field' };

@@ -18,7 +18,7 @@ function lift(name) {
   let end = start + 1; while (end < html.length && !/^    [}\]];?\s*$/.test(html[end])) end++;
   return html.slice(start, end + 1).join('\n');
 }
-const names = ['PC_COLORS', 'LETTER_PC', 'ACC_SEMI', 'SHARP_NAMES', 'chordPcs', 'keyInfoOf', 'STYLES', 'CHART_LINE', 'CHART_NUM', 'parseChart', 'mulberry', 'pick', 'miniOf', 'hitString', 'FIT_DUPLE', 'fitOf', 'GROOVES', 'scoreFor', 'HETERO_SOUNDS', 'parseHetero', 'topLine', 'tuneScale', 'heterophony'];
+const names = ['PC_COLORS', 'LETTER_PC', 'ACC_SEMI', 'SHARP_NAMES', 'chordPcs', 'keyInfoOf', 'STYLES', 'CHART_LINE', 'CHART_NUM', 'parseChart', 'mulberry', 'pick', 'miniOf', 'hitString', 'FIT_DUPLE', 'fitOf', 'beatsOf', 'downbeat', 'GROOVES', 'GROOVE_COUNT', 'groovePick', 'scoreFor', 'HETERO_SOUNDS', 'parseHetero', 'topLine', 'tuneScale', 'heterophony'];
 const page = new Function(`${names.map(lift).join('\n')}\nreturn { ${names.filter(n => n !== 'SHARP_NAMES').join(', ')} };`)();
 const { parseChart, parseHetero, topLine, tuneScale, heterophony, keyInfoOf, scoreFor, STYLES, HETERO_SOUNDS } = page;
 
