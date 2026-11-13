@@ -1109,6 +1109,35 @@
       for (const st of target.querySelectorAll('svg .abcjs-staff')) { const b = st.getBBox(); right = Math.max(right, b.x + b.width); }
       return Math.ceil(right - PAD);
     }
+    // The voices a tune names (V:id lines, in order), with their name="..." where given.
+    function abcVoices(text) {
+      const out = [];
+      for (const l of text.split('\n')) {
+        const m = l.match(/^V:\s*(\S+)(.*)$/);
+        if (m && !out.some(v => v.id === m[1])) { const n = m[2].match(/\b(?:name|nm)\s*=\s*"([^"]*)"/); out.push({ id: m[1], name: n ? n[1].trim() : '' }); }
+      }
+      return out;
+    }
+    // The tune with some voices left out, as comments: each line of a left-out voice (its V: line, music and words) turns
+    // into an ABC comment ('%' first) of the same length, so every character keeps its place in the text. %%score and
+    // %%staves lines, which name the voices, are commented the same way (abcjs then lays the rest out itself).
+    function silenceVoices(text, off) {
+      if (!off || !off.size) return text;
+      const voices = abcVoices(text); if (voices.length < 2) return text;
+      const keep = voices.filter(v => !off.has(v.id)); if (!keep.length) return text;
+      let cur = null, body = false;
+      return text.split('\n').map(l => {
+        if (/^%%(score|staves)\b/.test(l)) return '% ' + l.slice(2);
+        const m = l.match(/^V:\s*(\S+)/);
+        if (m) cur = m[1];
+        else if (/^K:/.test(l) && !body) { body = true; if (cur === null) cur = voices[0].id; }
+        if (cur !== null && off.has(cur) && l.trim() && !l.startsWith('%')) {
+          if (!m && /^[A-Za-z]:/.test(l) && !/^[wW]:/.test(l)) return l;   // another field (M:, L:, K:...) stays
+          return '%' + l.slice(1);
+        }
+        return l;
+      }).join('\n');
+    }
     function collect(tune) {
       const out = [];
       tune.lines.forEach((line, li) => { let base = 0; (line.staff || []).forEach((staff, si) => { (staff.voices || []).forEach((voice, vi) => {
@@ -4757,16 +4786,21 @@
           if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setTargetAtTime(1 - pump * k, t, 0.003); g.setTargetAtTime(1, t + 0.03, 0.07); }   // a 3 ms dip, not a step (a step clicks)
           const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, to || this.route(n, bus), n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
-        if (this.region && this.total > 0) {
-          // A section on repeat: the first time round's notes between a and b, again and again, each pass shifted on by the section's length.
-          const { a, b } = this.region, len = b - a, N = this.cycles[0];
+        // A section on repeat: the first time round's notes between a and b, again and again, each pass shifted on by the
+        // section's length. `phase` starts a round's group part-way round the section (its entry, taken modulo the section).
+        const section = (N, phase, to, level) => {
+          const { a, b } = this.region, len = b - a;
           let s = Math.max(this.until, a);
           while (s < horizon) {
-            const k = Math.floor((s - a) / len), shift = k * len, e = Math.min(horizon, a + (k + 1) * len);
+            const k = Math.floor((s - a - phase) / len), shift = phase + k * len, e = Math.min(horizon, a + phase + (k + 1) * len);
             let i = this.first(N, s - shift);
-            while (i < N.length && N[i].ms < e - shift) { play(N[i], N[i].ms + shift, null, 1); i++; }
+            while (i < N.length && N[i].ms < e - shift) { play(N[i], N[i].ms + shift, to, level); i++; }
             s = e;
           }
+        };
+        if (this.region && this.total > 0) {
+          section(this.cycles[0], 0, null, 1);
+          if (this.round && this.lead.length) for (let g = 1; g < this.round.parts; g++) section(this.lead, (g * this.round.off) % (this.region.b - this.region.a), bus.groups[g], 1);
         } else if (this.total > 0) {
           let a = Math.max(0, this.until), cyc = Math.floor(a / this.total);
           while (cyc * this.total < horizon && cyc * this.total < this.leadEnd) {
@@ -5012,7 +5046,7 @@
     }
     class AbcCell {
       constructor(body, text, onChange, opts = {}) {
-        const id = 'abc' + (++abcSeq);
+        const id = 'abc' + (++abcSeq); this.opts = opts;
         this.transpose = opts.transpose || 0;
         this.inst = INSTRUMENTS[opts.inst] ? opts.inst : 'off';
         this.names = ['solfege', 'none'].includes(opts.names) ? opts.names : 'letters';
@@ -5023,6 +5057,7 @@
         this.playMode = ['all', 'backing', 'melody'].includes(opts.play) ? opts.play : 'all';
         // Chords: auto (the written chords; found from the melody when none are written), numerals (the same, with Roman numerals), off (written chords only). 'detect' is the old name of auto.
         this.harmony = ['off', 'numerals', 'auto'].includes(opts.harm) ? opts.harm : 'auto';
+        this.partsOff = new Set(Array.isArray(opts.parts) ? opts.parts.map(String) : []);   // voices (V: ids) left out of the score and the sound
         this.span = RECORDER_SPANS[opts.span] ? +opts.span : 0;   // the recorder's range: 0 the whole chart, 1 or 2 octaves
         this.show = ['melody', 'chords', 'both'].includes(opts.show) ? opts.show : 'auto';   // what the instrument shows (showMode)
         this.style = STYLES[LEGACY_STYLE[opts.style] || opts.style] ? (LEGACY_STYLE[opts.style] || opts.style) : 'auto';
@@ -5043,6 +5078,7 @@
           <label class="xpose namepick" title="Note names on the staff and the instrument: letters, movable-do solf\u00E8ge from the key (la-based minor), or none, to read the notes without them (the ukulele keeps its string names, its tuning).">Names <select><option value="letters"${this.names === 'letters' ? ' selected' : ''}>Letters</option><option value="solfege"${this.names === 'solfege' ? ' selected' : ''}>Solf\u00E8ge</option><option value="none"${this.names === 'none' ? ' selected' : ''}>None</option></select></label>
           <label class="xpose notespick" title="The notes on the staff: in their colours, or in plain ink, as printed music is. Mono is harder: the pitch is read from the line or space alone. The instrument keeps its colours.">Notes <select><option value="colour"${this.notes === 'colour' ? ' selected' : ''}>Colour</option><option value="mono"${this.notes === 'mono' ? ' selected' : ''}>Mono</option></select></label>
           <label class="xpose linespick" title="The game's score: the tune wrapped to the width, two lines at a time with the next line in view, or one long line that scrolls.">Game <select><option value="two"${this.lines === 'two' ? ' selected' : ''}>Two lines</option><option value="one"${this.lines === 'one' ? ' selected' : ''}>One line</option></select></label>
+          <span class="xpose partspick" hidden title="A tune in parts: tick the parts to show and hear; the others are left out (the ABC keeps them). Teach one part by itself, or two together.">Parts <span class="partlist"></span></span>
           <label class="xpose harmpick" title="Auto shows and plays the written chord symbols, and finds a chord for each half bar from the melody and the key where none are written (a whole tune without symbols, or the bars before the first symbol and after the last); Numerals adds a Roman numeral under each, coloured by function (tonic, subdominant, dominant); Written only leaves a tune without chords alone.">Chords <select><option value="auto"${this.harmony === 'auto' ? ' selected' : ''}>Auto</option><option value="numerals"${this.harmony === 'numerals' ? ' selected' : ''}>Numerals</option><option value="off"${this.harmony === 'off' ? ' selected' : ''}>Written only</option></select></label>
           <label class="xpose" title="Semitones up or down; letters, colours and sound follow.">Transpose <input type="number" class="tr" min="-12" max="12" step="1" value="${this.transpose}"></label>
           <label class="xpose feel" title="How much the melody is played rather than read: at 0 exactly as written; higher, the phrases shape their strength, the beat has weight, steps join and repeats separate, a breath comes between phrases, and the instrument adds its own touches. The band plays along the same way: it leans on the beat, lets a chord's top note sing, makes room under a busy tune and speaks up where it holds, walks the bass into the next chord, answers a held note, and fills into a new phrase.">Feel <input type="range" class="feelv" min="0" max="100" value="${this.band.feel === undefined ? 50 : this.band.feel}"></label>
@@ -5377,6 +5413,25 @@
       }
       transportState() { const playing = !!(this.player && this.player.running); if (this.clock) this.clock.set({ playing, canReset: !playing && this.player.pos > 0, repeat: !!this.player.loop }); }
       getText() { return joinBand(this.entry.value, this.bandReal()); }
+      // The Parts choice: one tick per voice when the tune has several; left-out voices are the ones unticked.
+      partPicker(text) {
+        const box = this.body.querySelector('.partspick'), list = box && box.querySelector('.partlist'); if (!box) return;
+        const voices = abcVoices(text), key = voices.map(v => v.id + '\u0001' + v.name).join('\u0002') + '|' + [...this.partsOff].join(',');
+        box.hidden = voices.length < 2;
+        if (box.dataset.key === key) return;
+        box.dataset.key = key; list.innerHTML = '';
+        voices.forEach((v, i) => {
+          const lab = document.createElement('label'), cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !this.partsOff.has(v.id);
+          lab.append(cb, ' ' + (v.name || 'Part ' + (i + 1)) + ' '); lab.style.marginRight = '6px';
+          cb.addEventListener('change', () => {
+            const off = new Set(this.partsOff); if (cb.checked) off.delete(v.id); else off.add(v.id);
+            if (voices.every(x => off.has(x.id))) { cb.checked = true; return; }   // at least one part stays
+            this.partsOff = off; if (this.opts && this.opts.onParts) this.opts.onParts([...off]);
+            this.player && this.player.running && this.togglePlay(); this.render();
+          });
+          list.appendChild(lab);
+        });
+      }
       // The Band box without its grey lines (the sliders' pattern, shown but not kept), and the box set to a typed text.
       bandGhostIntact() { const v = this.bandEntry.value, g = this.bandGhost || ''; if (!g || !v.endsWith(g)) return false; const r = v.slice(0, v.length - g.length); return r === '' || r.endsWith('\n'); }
       bandReal() { const v = this.bandEntry.value; return this.bandGhostIntact() ? v.slice(0, v.length - this.bandGhost.length).replace(/\n$/, '') : v; }
@@ -5491,7 +5546,9 @@
         // Paused mid-tune, the redraw keeps the place (a resize during playback is drawn at the pause): the next Play goes on from there.
         const keepAt = this.player && !this.player.running && this.player.pos > 0 ? this.player.pos : 0;
         this.warnEl.textContent = '';
-        const text = this.getText();
+        const written = this.getText();
+        this.partPicker(written);
+        const text = silenceVoices(written, this.partsOff);
         // The Improv tab is there when the tune carries cues (or its drawer is already open), so the other tunes keep three tabs.
         const itab = this.body.querySelector('.tab[data-drawer="improv"]'); if (itab) itab.hidden = !/^%\s*improv:/m.test(text) && this.drawer !== 'improv';
         let abc = chartComment(withHeader(gameMode ? this.oneLine(text) : text));
@@ -6304,8 +6361,9 @@
         const abs = p.running ? p.position() - this.latencyMs() : p.pausedAt;
         for (let g = 1; g < r.parts; g++) {
           const c = this.cursor(g); if (!c) continue;
-          if (abs === null || !p.groupOn(g, abs)) { c.style.display = 'none'; continue; }
-          const ft = (((abs - g * r.off) % T) + T) % T, at = this.cursorAt(ft), k = this.indexAt(ft), ev = tl.events[Math.max(0, k)];
+          const R = p.region;
+          if (abs === null || (!R && !p.groupOn(g, abs))) { c.style.display = 'none'; continue; }
+          const ft = R ? R.a + ((((abs - R.a - g * r.off) % (R.b - R.a)) + (R.b - R.a)) % (R.b - R.a)) : (((abs - g * r.off) % T) + T) % T, at = this.cursorAt(ft), k = this.indexAt(ft), ev = tl.events[Math.max(0, k)];
           if (!at) continue;
           c.style.display = '';
           if (c._line !== at.line) { c._line = at.line; this.shapeCursor(c, at.line); }
@@ -8381,7 +8439,7 @@ return { clock, Synth, SOUNDS, BODY, META, parseRhythm, RV, parseDance, parsePos
       cellsEl.appendChild(el);                 // engines need a live element (abcjs looks up its audio box by id)
       const body = el.querySelector('.cell-body');
       const onChange = text => { cell.text = text; save(); };
-      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege' || v === 'none') cell.names = v; else delete cell.names; save(); }, notes: cell.notes, onNotes: v => { if (v === 'mono') cell.notes = v; else delete cell.notes; save(); }, span: cell.span, onSpan: v => { if (v) cell.span = v; else delete cell.span; save(); }, show: cell.show, onShow: v => { if (v && v !== 'auto') cell.show = v; else delete cell.show; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
+      const engine = cell.type === 'abc' ? new AbcCell(body, cell.text, onChange, { transpose: cell.tr || 0, onTranspose: n => { if (n) cell.tr = n; else delete cell.tr; save(); }, inst: cell.inst || 'off', onInst: v => { if (v && v !== 'off') cell.inst = v; else delete cell.inst; save(); }, nota: cell.nota, onNota: v => { if (v === 'tab') cell.nota = v; else delete cell.nota; save(); }, names: cell.names, onNames: v => { if (v === 'solfege' || v === 'none') cell.names = v; else delete cell.names; save(); }, notes: cell.notes, onNotes: v => { if (v === 'mono') cell.notes = v; else delete cell.notes; save(); }, span: cell.span, onSpan: v => { if (v) cell.span = v; else delete cell.span; save(); }, show: cell.show, onShow: v => { if (v && v !== 'auto') cell.show = v; else delete cell.show; save(); }, parts: cell.parts, onParts: v => { if (v && v.length) cell.parts = v; else delete cell.parts; save(); }, play: cell.play, onPlay: v => { if (v && v !== 'all') cell.play = v; else delete cell.play; save(); }, harm: cell.harm === 'detect' ? 'auto' : cell.harm, onHarm: v => { if (v && v !== 'auto') cell.harm = v; else delete cell.harm; save(); }, style: cell.style, onStyle: v => { if (v && v !== 'auto') cell.style = v; else delete cell.style; save(); }, band: cell.band, onBand: b => { cell.band = { ...b }; save(); } })
                    : cell.type === 'rhythm' || cell.type === 'dance' ? new MoveCell(body, cell.text, onChange, { mode: cell.type, view: cell.mv, facing: cell.fac, band: cell.band, onBand: b => { if (b) cell.band = { ...b }; else delete cell.band; save(); }, onView: v => { cell.mv = v; save(); }, onFacing: v => { if (v && v !== 'behind') cell.fac = v; else delete cell.fac; save(); } })
                    : new TextCell(body, cell.text, onChange, { centered: cell.align === 'center', font: cell.font });
       engines.set(cell.id, engine);

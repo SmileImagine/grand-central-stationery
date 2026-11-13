@@ -270,7 +270,7 @@
       const p = en && en.player; if (!p) return;
       if (p.running && !run.was) run = { top: p.position() <= 60, cycle: Math.max(0, Math.floor(p.position() / (p.total || 1))), was: true };
       if (!p.running) run.was = false;
-      else if (p.loop && p.total > 0) { const c = Math.floor(p.position() / p.total); if (c > run.cycle) { if (run.top) lapDone(c - run.cycle); run.cycle = c; run.top = true; } }
+      else if (p.loop && !p.region && p.total > 0) { const c = Math.floor(p.position() / p.total); if (c > run.cycle) { if (run.top) lapDone(c - run.cycle); run.cycle = c; run.top = true; } }
       paintPlaying();
     }, 200);
   }
