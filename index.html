@@ -622,6 +622,8 @@
     /* Draggable cursor: a wide invisible handle around the bar. */
     .paper .cursorg { cursor: ew-resize; }
     .paper .cursorhit { fill: transparent; pointer-events: all; }
+    .paper .sectionband { fill: var(--cursor); opacity: 0.16; stroke: var(--cursor); stroke-opacity: 0.5; pointer-events: none; }
+    .paper { touch-action: pan-y; }
     .paper .cursorbar, .paper .cursorlamp { pointer-events: none; }   /* the handle beneath takes the drag */
     .hidden { position: absolute; left: -100000px; top: 0; width: 1000px; visibility: hidden; }
 
@@ -4512,7 +4514,7 @@
     class Player {
       constructor(cell) {
         this.cell = cell; this.tracks = []; this.notes = []; this.pre = []; this.live = new Set(); this.timer = null;
-        this.running = false; this.pos = 0; this.abs0 = 0; this.ctx0 = 0; this.until = 0; this.end = 0; this.loop = false;
+        this.running = false; this.pos = 0; this.abs0 = 0; this.ctx0 = 0; this.until = 0; this.end = 0; this.loop = false; this.region = null;
         this.total = 0; this.msPerWhole = 3000; this.bus = null; this.cycles = [[]];
         // A round: the melody's notes for the other groups, the plan, where the first group stops (end is
         // where the last one does), which groups have come in, and where a pause left the clock.
@@ -4702,7 +4704,9 @@
       // Absolute ms from the first note: the context's time since the start.
       position() { const ctx = sampler.ctx(); return this.running && ctx ? this.abs0 + (ctx.currentTime - this.ctx0) * 1000 : this.pos; }
       // The position in the tune: wrapped into it when looping; at the end once the first group has finished (a round's other groups may sing on).
-      at() { const a = this.position(); if (!(this.total > 0) || a < this.total) return a; if (a >= this.leadEnd) return this.total; return a - Math.floor(a / this.total) * this.total; }
+      // A section to loop ({ a, b } in ms of the tune): the clock runs on past b, and the position wraps from b back to a.
+      setRegion(r) { this.region = r && r.b > r.a ? { a: r.a, b: r.b } : null; if (this.region) { this.leadEnd = Infinity; this.end = Infinity; } else if (!this.running) { this.leadEnd = this.loop ? Infinity : this.total; this.end = this.leadEnd + this.tail(); } }
+      at() { const a = this.position(); if (this.region && a >= this.region.a) return this.region.a + (a - this.region.a) % (this.region.b - this.region.a); if (!(this.total > 0) || a < this.total) return a; if (a >= this.leadEnd) return this.total; return a - Math.floor(a / this.total) * this.total; }
       // A round: how long the other groups sing on after the first stops (end=turns), and whether group g (1 up) sounds at ms.
       tail() { const r = this.round; return r && r.end !== 'together' ? (r.parts - 1) * r.off : 0; }
       groupEnd(g) { return this.round.end === 'together' ? this.leadEnd : this.leadEnd + g * this.round.off; }
@@ -4713,7 +4717,7 @@
         this.stopAll();
         if (this.bus && this.bus.duck) for (const d of Object.values(this.bus.duck)) { d.gain.cancelScheduledValues(0); d.gain.value = 1; }   // no dip left over from before
         this.ctx0 = ctx.currentTime + 0.05; this.abs0 = fromMs; this.until = fromMs; this.running = true; this.pausedAt = null;
-        this.leadEnd = this.loop ? Infinity : this.total; this.end = this.leadEnd + this.tail();
+        this.leadEnd = this.loop || this.region ? Infinity : this.total; this.end = this.leadEnd + this.tail();
         // A round: from the top, the groups come in one by one; from a later place, the groups that came in before it are in.
         if (this.round) { const was = this.entered; this.entered = []; for (let g = 1; g < this.round.parts; g++) this.entered[g] = fromMs > 0 && (!!was[g] || fromMs > g * this.round.off); }
         if (!this.timer) this.timer = setInterval(() => this.tick(), 50);
@@ -4730,7 +4734,7 @@
       stopAll() { for (const s of this.live) { try { s.stop(); } catch (err) {} } this.live.clear(); }
       // Repeat on or off. Turned off mid-tune, the tune finishes its current time round.
       setLoop(on) {
-        this.loop = !!on;
+        this.loop = !!on; if (!on) this.region = null;
         if (!this.running) { this.leadEnd = this.loop ? Infinity : this.total; this.end = this.leadEnd + this.tail(); return; }
         this.leadEnd = this.loop || !(this.total > 0) ? Infinity : (Math.floor(Math.max(0, this.position()) / this.total) + 1) * this.total;
         this.end = this.leadEnd + this.tail();
@@ -4753,7 +4757,17 @@
           if (pump && n.part === 'drums' && n.midi === DRUM.kick) for (const [p, k] of [['bass', 1], ['chords', 0.8], ['chordsHi', 0.8]]) { const g = bus.duck[p].gain, t = when(ms); g.setTargetAtTime(1 - pump * k, t, 0.003); g.setTargetAtTime(1, t + 0.03, 0.07); }   // a 3 ms dip, not a step (a step clicks)
           const src = sampler.play(n.folder, n.midi, when(ms), n.dur, n.vel, to || this.route(n, bus), n.rel, n.fx); if (src) { this.live.add(src); src.onended = () => this.live.delete(src); } };
         if (this.until < 0) for (const n of this.pre) if (n.ms >= this.until && n.ms < horizon) play(n, n.ms);
-        if (this.total > 0) {
+        if (this.region && this.total > 0) {
+          // A section on repeat: the first time round's notes between a and b, again and again, each pass shifted on by the section's length.
+          const { a, b } = this.region, len = b - a, N = this.cycles[0];
+          let s = Math.max(this.until, a);
+          while (s < horizon) {
+            const k = Math.floor((s - a) / len), shift = k * len, e = Math.min(horizon, a + (k + 1) * len);
+            let i = this.first(N, s - shift);
+            while (i < N.length && N[i].ms < e - shift) { play(N[i], N[i].ms + shift, null, 1); i++; }
+            s = e;
+          }
+        } else if (this.total > 0) {
           let a = Math.max(0, this.until), cyc = Math.floor(a / this.total);
           while (cyc * this.total < horizon && cyc * this.total < this.leadEnd) {
             const base = cyc * this.total, last = this.endings && !this.loop && base + this.total >= this.leadEnd - 1;   // the last time round ends on the hit
@@ -4767,7 +4781,7 @@
         }
         // A round's other groups: the melody again, each group later by its entry, from its own time round,
         // to its own bus; a group not yet in starts at the top of the tune when its entry comes.
-        if (this.round && this.total > 0 && this.lead.length) {
+        if (this.round && !this.region && this.total > 0 && this.lead.length) {
           const T = this.total, N = this.lead;
           for (let g = 1; g < this.round.parts; g++) {
             const sh = g * this.round.off, lo = Math.max(this.until, this.entered[g] ? -Infinity : sh) - sh, hi = Math.min(horizon, this.groupEnd(g)) - sh;
@@ -5170,7 +5184,7 @@
         const gear = body.querySelector('.ukegear');
         gear.addEventListener('click', e => { e.preventDefault(); ukeSetupDialog(); });
         ip.addEventListener('change', () => { this.inst = ip.value; gear.hidden = this.inst !== 'uke'; spanBox.hidden = this.inst !== 'recorder'; showBox.hidden = !['piano', 'wh', 'uke'].includes(this.inst); this.render(); if (opts.onInst) opts.onInst(this.inst); try { localStorage.setItem('gcs-last-inst', this.inst); } catch (e) {} });   // a full render: the sound changes with the view; the choice is the default for new cells
-        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.body = body; this.corner = body.querySelector('.corner');
+        this.scoreEl = body.querySelector('.score'); this.paper = body.querySelector('.paper'); this.paper.addEventListener('pointerdown', e => this.paperDown(e)); this.body = body; this.corner = body.querySelector('.corner');
         for (const b of body.querySelectorAll('.sign button')) b.addEventListener('click', () => { this.notation = b.dataset.nota; this.render(); if (opts.onNota) opts.onNota(this.notation); try { localStorage.setItem('gcs-last-nota', this.notation); } catch (e) {} });
         const lp = body.querySelector('.linespick select');
         lp.addEventListener('change', () => { this.lines = lp.value; try { localStorage.setItem('gcs-game-lines', this.lines); } catch (e) {} for (const en of engines.values()) if (en.oneLine) { en.lines = this.lines; if (en.linesBox) en.linesBox.value = this.lines; } if (gameMode) this.render(); });
@@ -5431,7 +5445,7 @@
       }
       toTop() {
         const p = this.player; if (!p) return;
-        p.stop(); this.leadIn = false; this.transportState(); this.placeReady();
+        this.drag = null; p.stop(); p.setRegion(null); this.drawRegion(); this.leadIn = false; this.transportState(); this.placeReady();
         if (this.pending) this.render();
       }
       // The Player reached the end (not looping): the bar runs out, fades, and resets while invisible.
@@ -6191,6 +6205,7 @@
       // The timeline: every abcjs timing event with its time, display
       // geometry, pitches and chord in force, plus the beat and the count-in.
       buildTimeline() {
+        if (this.player) this.player.setRegion(null); this.drag = null; this.drawRegion();   // a section is the old layout's
         const ts = this.timings();
         const bpm = this.bpm(), beatMs = 60000 / bpm;
         // Each voice's events: abcjs's timing events hold every voice that starts a note there, so a voice's own are the
@@ -6380,7 +6395,7 @@
         this.updateClock(t);
         if (this.leadIn && t >= 0) this.leadIn = false;
         // The time round: its chorus's chords on the symbols and under the instrument.
-        const cyc = t >= 0 && tl.total > 0 ? Math.floor(this.player.position() / tl.total) : 0;
+        const cyc = t >= 0 && tl.total > 0 && !this.player.region ? Math.floor(this.player.position() / tl.total) : 0;
         if (cyc !== this.cyc) { this.cyc = cyc; this.relabel(cyc); this.k = null; }
         const g = this.cursor();
         // The sounding event: marks change only when it changes.
@@ -6834,21 +6849,25 @@
         if (!p || !g || !this.original || this.leadIn || e.button !== 0) return;
         e.preventDefault(); e.stopPropagation();
         const tl = this.timeline(); if (!tl.lines || !tl.lines.length) return;
-        const d = this.drag = { id: e.pointerId, tl, wasPlaying: p.running, at: null };
-        if (d.wasPlaying) { p.pause(); this.transportState(); }
+        if (this.drag) this.dragEnd();   // a drag whose release was lost
+        const d = this.drag = { id: e.pointerId, tl, at: null };
+        if (p.running) { p.pause(); this.transportState(); }
         this.idle = false;
         g.classList.remove('done', 'ready');
         this.clearPlaying();
-        const hit = g._hit;
-        try { hit.setPointerCapture(e.pointerId); } catch (err) {}
-        const move = ev => { if (ev.pointerId === d.id) this.dragTo(ev); };
-        const up = ev => {
-          if (ev.pointerId !== d.id) return;
-          hit.removeEventListener('pointermove', move); hit.removeEventListener('pointerup', up); hit.removeEventListener('pointercancel', up);
-          this.dragEnd();
-        };
-        hit.addEventListener('pointermove', move); hit.addEventListener('pointerup', up); hit.addEventListener('pointercancel', up);
+        this.followPointer(d, ev => this.dragTo(ev), () => this.dragEnd(), g._hit);
         this.dragTo(e);
+      }
+      // Follow a pointer from press to release on the window, so a release that lands anywhere (or a lost capture) still ends the gesture.
+      followPointer(d, move, end, capture) {
+        try { if (capture) capture.setPointerCapture(d.id); } catch (err) {}
+        const onMove = ev => { if (ev.pointerId === d.id) move(ev); };
+        const onUp = ev => {
+          if (ev.pointerId !== d.id) return;
+          window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); window.removeEventListener('pointercancel', onUp);
+          end(ev);
+        };
+        window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp); window.addEventListener('pointercancel', onUp);
       }
       dragTo(e) {
         const d = this.drag, g = this.cursor(); if (!d || !g) return;
@@ -6859,19 +6878,85 @@
         this.colourCursor(g, at.color);
         g.style.transform = `translateX(${at.x.toFixed(2)}px)`;
       }
-      async dragEnd() {
+      // The drop leaves the tune paused at the new place (playing again resumes from there).
+      dragEnd() {
         const d = this.drag, p = this.player; this.drag = null;
         if (!d || !d.at || !p) return;
-        p.pos = Math.max(0, Math.min(d.tl.total || d.at.ms, d.at.ms));
+        this.seekTo(d.at.ms);
+      }
+      // Pause at ms (a place in the tune) and show the playhead there.
+      seekTo(ms, keepRegion = false) {
+        const p = this.player, tl = this.tl; if (!p || !tl) return;
+        if (p.running) p.pause();
+        if (!keepRegion) { p.setRegion(null); this.drawRegion(); }
+        p.pos = Math.max(0, Math.min(tl.total, ms));
         p.pausedAt = null; for (const c of this.paper.querySelectorAll('.cursorg.follower')) c.style.display = 'none';   // a round's groups take their places from the new one when it plays
-        this.idle = false; this.k = null;
-        if (d.wasPlaying) {
-          this.busy = true;
-          try { await p.ready(); } catch (err) {} finally { this.busy = false; }
-          if (!p.running) { p.start(p.pos); this.transportState(); }   // resume from the new place
+        this.leadIn = false; this.idle = false; this.k = null; this.beatK = null;
+        this.body.classList.remove('done');
+        this.transportState();
+        const g = this.cursor(); if (g) g.classList.remove('done', 'ready');
+        this.paint();
+        if (this.pending) this.render();
+      }
+      /* ---- clicking the score, and dragging across it ----
+         A click moves the paused playhead there. Dragging across the score selects a section, snapped to the notes at its
+         ends: Repeat goes on, the section is outlined and loops, and the playhead waits at its start. */
+      paperDown(e) {
+        if (e.button !== 0 || e.target.closest('.cursorg') || !this.original || !this.tl || this.drag || this.sel) return;
+        const svg = this.paper.querySelector('svg'); if (!svg || !svg.contains(e.target)) return;
+        const tl = this.timeline(); if (!tl.lines || !tl.lines.length) return;
+        const a = this.locate(tl, ...Object.values(this.pt(e)));
+        if (!a) return;
+        e.preventDefault();   // no text selection while dragging across the score
+        const d = this.sel = { id: e.pointerId, tl, a, b: a, x: e.clientX, y: e.clientY, moved: false };
+        this.followPointer(d, ev => {
+          if (!d.moved && Math.hypot(ev.clientX - d.x, ev.clientY - d.y) < 6) return;
+          d.moved = true; d.b = this.locate(tl, ...Object.values(this.pt(ev))) || d.b;
+          const r = this.sectionOf(d); this.drawRegion(r);
+        }, () => {
+          this.sel = null;
+          if (!d.moved) { this.seekTo(d.a.ms); return; }
+          const r = this.sectionOf(d);
+          if (!r) { this.drawRegion(); return; }
+          this.loopSection(r);
+        });
+      }
+      pt(e) { const q = this.svgPoint(e); return { x: q.x, y: q.y }; }
+      // The section between two places, from the note at the earlier to the note after the later; null when it is too short to loop.
+      sectionOf(d) {
+        const ms = [...new Set(d.tl.lines.flatMap(L => L.events.map(ev => ev.ms)))].sort((x, y) => x - y);
+        let [lo, hi] = d.a.ms <= d.b.ms ? [d.a.ms, d.b.ms] : [d.b.ms, d.a.ms];
+        const start = ms.filter(m => m <= lo + 1e-6).pop();
+        const next = ms.find(m => m > hi + 1e-6);
+        const a = start === undefined ? 0 : start, b = next === undefined ? d.tl.total : next;
+        return b - a > 1 ? { a, b } : null;
+      }
+      loopSection(r) {
+        const p = this.player;
+        if (p.running) p.pause();
+        if (!p.loop) { p.setLoop(true); this.repeatSigns = true; this.render(); }   // Repeat goes on (the way its button does)
+        p.setRegion(r);
+        this.drawRegion(r);
+        this.seekTo(r.a, true);
+      }
+      // The section's outline on the score: a band on each line it crosses.
+      drawRegion(r = this.player && this.player.region) {
+        const svg = this.paper && this.paper.querySelector('svg'); if (!svg) return;
+        for (const el of svg.querySelectorAll('.sectionband')) el.remove();
+        if (!r || !this.original) return;
+        const tl = this.timeline(), xAt = (L, ms) => {
+          const ev = L.events; if (ms <= ev[0].ms) return ev[0].x; if (ms >= L.endMs) return L.endX;
+          let i = 0; while (i + 1 < ev.length && ev[i + 1].ms <= ms) i++;
+          const x0 = ev[i].x, m0 = ev[i].ms, x1 = i + 1 < ev.length ? ev[i + 1].x : L.endX, m1 = i + 1 < ev.length ? ev[i + 1].ms : L.endMs;
+          return m1 > m0 ? x0 + (x1 - x0) * (ms - m0) / (m1 - m0) : x0;
+        };
+        for (const L of tl.lines) {
+          if (r.b <= L.events[0].ms || r.a >= L.endMs) continue;
+          const x0 = xAt(L, r.a), x1 = xAt(L, r.b), { top, height } = this.cursorSpan(L.line);
+          const rect = document.createElementNS(NS, 'rect'); rect.setAttribute('class', 'sectionband');
+          rect.setAttribute('x', x0.toFixed(2)); rect.setAttribute('width', Math.max(2, x1 - x0).toFixed(2)); rect.setAttribute('y', top.toFixed(2)); rect.setAttribute('height', height.toFixed(2)); rect.setAttribute('rx', 4);
+          svg.insertBefore(rect, svg.firstChild);
         }
-        this.wake();
-        if (this.pending && !p.running) this.render();
       }
     }
 
