@@ -2703,8 +2703,10 @@
          moves     false: every time round keeps the tune's chords, and
                    only the energy changes (a drone)
          hit       how the band ends: 'crash' (the final chord with a kick
-                   and a crash; the default) or 'soft' (the chord rings
-                   with the drums' own downbeat, no crash).
+                   and a crash; the default), 'kick' (the kick alone, as
+                   a folk band or a dance track ends), 'ride' (a kick and
+                   a ride, as swing does) or 'soft' (the chord rings
+                   with the drums' own downbeat, no kick or cymbal).
        Beside the harmony: sound, the kit and voices a style plays with
        instead of the samples (drums: 'kit808' or 'kit909', a synthesised
        kick with the sampled kit, or 'kitSynth', a whole acoustic kit made
@@ -2716,20 +2718,20 @@
     const STYLES = {
       auto:   { name: 'Auto' },
       pop:    { name: 'Pop and rock', fills: 'rock pop soul punk', rideLift: true, comp: 'piano', walk: true, build: true, harmony: { rich: 'add9', approach: 'rock', cadence: 'V', colour: 'add9' } },
-      folk:   { name: 'Folk (boom-chick)', fills: 'country rock pop', rideLift: true, comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      folk:   { name: 'Folk (boom-chick)', fills: 'country rock pop', rideLift: true, comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'kick' } },
       march:  { name: 'March and polka', fills: 'neworleans rock country funk pop', snareFills: true, comp: 'piano', walk: true, sound: { bass: 'vsco_tuba' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
-      waltz:  { name: 'Waltz', fills: 'country pop rock jazz', comp: 'guitar', walk: true, fit: { duple: 'folk', compound: 'jig' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
-      jig:    { name: 'Jig (6/8)', fills: 'rock country neworleans jazz afrocuban', comp: 'guitar', walk: true, fit: { duple: 'folk', triple: 'waltz' }, harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0 } },
-      swing:  { name: 'Swing', fills: 'jazz neworleans', comp: 'piano', swing: 66, harmony: { rich: 'sixths', approach: 'ii-V-sub', cadence: 'V7', colour: 9 } },
+      waltz:  { name: 'Waltz', fills: 'country pop rock jazz', comp: 'guitar', walk: true, fit: { duple: 'folk', compound: 'jig' }, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'kick' } },
+      jig:    { name: 'Jig (6/8)', fills: 'rock country neworleans jazz afrocuban', comp: 'guitar', walk: true, fit: { duple: 'folk', triple: 'waltz' }, harmony: { rich: 'none', approach: 'relative', cadence: 'V', colour: 0, hit: 'kick' } },
+      swing:  { name: 'Swing', fills: 'jazz neworleans', comp: 'piano', swing: 66, harmony: { rich: 'sixths', approach: 'ii-V-sub', cadence: 'V7', colour: 9, hit: 'ride' } },
       bossa:  { name: 'Bossa', fills: 'latin', fillsSoft: true, comp: 'guitar', harmony: { rich: 'sevenths', approach: 'ii-V-sub', cadence: 'V7', colour: 9, hit: 'soft' } },
       ballad: { name: 'Ballad', fills: 'soul gospel pop', fillsSoft: true, comp: 'piano', walk: true, fit: {}, harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9, hit: 'soft' } },
       funk:      { name: 'Funk', fills: 'funk soul', rideLift: true, comp: 'epiano', build: true, harmony: { rich: 'dom7', approach: 'none', cadence: 'V7', colour: 9 } },
-      reggaeton: { name: 'Reggaeton (dembow)', build: true, sound: { drums: 'kit909', bass: 'synth-sub', chords: 'synth-pluck' }, pump: 0.3, harmony: { rich: 'none', approach: 'none', cadence: 'V', colour: 'add9' } },
-      afrobeats: { name: 'Afrobeats', fill: 'rim', feel: 'afrobeat', comp: 'guitar', build: true, sound: { drums: 'kit909', bass: 'synth-sub' }, fit: { triple: 'waltz' }, harmony: { rich: 'sevenths', approach: 'none', cadence: 'V', colour: 9 } },
+      reggaeton: { name: 'Reggaeton (dembow)', build: true, sound: { drums: 'kit909', bass: 'synth-sub', chords: 'synth-pluck' }, pump: 0.3, harmony: { rich: 'none', approach: 'none', cadence: 'V', colour: 'add9', hit: 'kick' } },
+      afrobeats: { name: 'Afrobeats', fill: 'rim', feel: 'afrobeat', comp: 'guitar', build: true, sound: { drums: 'kit909', bass: 'synth-sub' }, fit: { triple: 'waltz' }, harmony: { rich: 'sevenths', approach: 'none', cadence: 'V', colour: 9, hit: 'kick' } },
       lofi:      { name: 'Lo-fi hip-hop', fills: 'hiphop', fillsSoft: true, comp: 'epiano', swing: 58, harmony: { rich: 'sevenths', approach: 'ii-V', cadence: 'V7', colour: 9, hit: 'soft' } },
-      trap:      { name: 'Trap (808)', build: true, feel: 'hiphop', sound: { drums: 'kit808', bass: 'synth-sub', chords: 'synth-pad' }, pump: 0.35, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0 } },
-      house:     { name: 'House (four on the floor)', build: true, feel: 'dance', sound: { drums: 'kit909', bass: 'synth-bass', chords: 'synth-pluck' }, pump: 0.5, harmony: { rich: 'add9', approach: 'none', cadence: 'V', colour: 'add9' } },
-      samba:     { name: 'Samba de roda (Brazil)', fill: 'rim', feel: 'latin', comp: 'guitar', build: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7 } },
+      trap:      { name: 'Trap (808)', build: true, feel: 'hiphop', sound: { drums: 'kit808', bass: 'synth-sub', chords: 'synth-pad' }, pump: 0.35, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, hit: 'kick' } },
+      house:     { name: 'House (four on the floor)', build: true, feel: 'dance', sound: { drums: 'kit909', bass: 'synth-bass', chords: 'synth-pluck' }, pump: 0.5, harmony: { rich: 'add9', approach: 'none', cadence: 'V', colour: 'add9', hit: 'kick' } },
+      samba:     { name: 'Samba de roda (Brazil)', fill: 'rim', feel: 'latin', comp: 'guitar', build: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'kick' } },
       mento:     { name: 'Mento (Jamaica)', fill: 'rim', feel: 'reggae', comp: 'guitar', walk: true, harmony: { rich: 'dom7', approach: 'dominant', cadence: 'V7', colour: 7, hit: 'soft' } },
       minyo:     { name: 'Min\u2019y\u014D (Japanese folk)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
       persian:   { name: 'Persian folk (frame drum)', tonicOnly: true, fit: {}, harmony: { rich: 'none', approach: 'none', cadence: 'none', colour: 0, moves: false, hit: 'soft' } },
@@ -4269,6 +4271,9 @@
             const busy = mel.filter(m => m.t >= T - 2 * beatMs - 20 && m.t < T - 20).length, room = !mel.some(m => m.t >= T - 2 * beatMs + 20 && m.t < T - 20);
             let maxLen = Math.min(zoneBeats, [1, 2, 4][rank - 1] + (room ? 1 : 0) + (en >= 0.7 ? 1 : 0)), p = Math.min(1, [0.5, 0.8, 0.95][rank - 1] * (0.5 + det) + (room ? 0.2 : 0));
             if (busy >= 3) { maxLen = Math.min(maxLen, 1); p *= 0.6; }
+            // The last bar: the fill goes into the next time round after the tune's last note has begun, not across the
+            // run that leads to it (a fill that starts on the downbeat of a bar whose melody still plays to the third beat).
+            if (z.cyc === lastBar) { const on = Math.max(-Infinity, ...mel.filter(m => m.t >= bar.s - 1 && m.t < T - 1).map(m => m.t)); if (on > bar.s + 20) maxLen = Math.max(1, Math.min(maxLen, Math.floor((T - on + 20) / beatMs))); }
             if (sty.fillsSoft) maxLen = Math.min(maxLen, 2);
             let fill = null;
             if (lib.length && drng() < p) {
@@ -4611,21 +4616,27 @@
         // The bars are counted back from the end of the tune as played (the written bars' lengths): a tune with repeats ends with its last written bar.
         const sect = cell.sections(), bandOn = !!(band.active() && tl && this.total > 0 && tl.bars.length && this.choruses.length);
         const backFrom = n => this.total - tl.bars.slice(-n).reduce((sum, b) => sum + b.len, 0);
-        // The ending, the last time round: the final bar is one hit that rings, the chord and the bass as they
-        // first sound in it, moved onto its downbeat, with the drums' downbeat and a crash (a soft style leaves the crash out).
+        // The ending, the last time round: the final bar is one hit that rings, the chord and the bass note as they
+        // first sound in it, with the drums' downbeat and the style's own mark (STYLES[k].harmony.hit: a crash for pop,
+        // march and funk; the kick alone for folk, dance and the like; a ride for swing; nothing for a soft style).
+        // The hit comes where the tune's last note does (a new-phrase crash on the last bar's downbeat gives way to it): a final bar that opens with a run into its last note (a long
+        // note on the last beat but one, say) plays its groove up to that note and hits with it, not on its downbeat.
         if (bandOn && sect.ending === 'hit') {
-          const B = backFrom(1), ring = Math.max(1.2, (this.total - B) / 1000), folder = band.folder('drums');
+          const B0 = backFrom(1), beatMs = tl.beatMs || 500, folder = band.folder('drums');
           this.endings = this.cycles.map((N, c) => {
-            const out = N.filter(n => n.part === 'melody' || n.part === 'hetero' || n.ms < B - 10 || (n.part === 'drums' && n.ms < B + 15));
+            const lastOn = Math.max(-Infinity, ...N.filter(n => (n.part === 'melody' || n.part === 'hetero') && n.ms >= B0 - 10 && n.ms < this.total - 10).map(n => n.ms));
+            const B = lastOn - B0 >= beatMs * 0.75 ? lastOn : B0, ring = Math.max(1.2, (this.total - B) / 1000);
+            const out = N.filter(n => !(n.part === 'drums' && n.midi === DRUM.crash && n.ms >= B0 - 20 && n.ms < B - 10) && (n.part === 'melody' || n.part === 'hetero' || n.ms < B - 10 || (n.part === 'drums' && n.ms < B + 15))).map(n => (n.part === 'chords' || n.part === 'bass') && n.ms + n.dur * 1000 > B ? { ...n, dur: Math.max(0.05, (B - n.ms) / 1000), rel: Math.min(n.rel || 0.1, 0.1) } : n);
             for (const part of ['chords', 'bass']) {
-              const ns = N.filter(n => n.part === part && n.ms >= B - 10); if (!ns.length) continue;
+              const ns = N.filter(n => n.part === part && n.ms >= B0 - 10); if (!ns.length) continue;
               const t0 = Math.min(...ns.map(n => n.ms));
               for (const n of ns) if (n.ms - t0 < 60) out.push({ ...n, ms: B + n.ms - t0, dur: ring, rel: 1.0, vel: Math.min(1, n.vel * 1.1) });
             }
             const lv = this.choruses[c].levels.drums, has = m => out.some(n => n.part === 'drums' && n.midi === m && n.ms >= B - 10);
-            if (sect.hit === 'crash' && lv > 0) {
+            if (sect.hit !== 'soft' && lv > 0) {
               if (!has(DRUM.kick)) out.push({ part: 'drums', folder, midi: DRUM.kick, ms: B, dur: 0, vel: 0.85 * lv, rel: 0.08 });
-              if (!has(DRUM.crash)) out.push({ part: 'drums', folder, midi: DRUM.crash, ms: B, dur: 0, vel: 0.75 * lv, rel: 0.08 });
+              if (sect.hit === 'crash' && !has(DRUM.crash)) out.push({ part: 'drums', folder, midi: DRUM.crash, ms: B, dur: 0, vel: 0.75 * lv, rel: 0.08 });
+              if (sect.hit === 'ride' && !has(DRUM.ride)) out.push({ part: 'drums', folder, midi: DRUM.ride, ms: B, dur: 0, vel: 0.7 * lv, rel: 0.08 });
             }
             return out.sort((a, b) => a.ms - b.ms);
           });
